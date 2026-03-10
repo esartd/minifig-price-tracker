@@ -1,0 +1,39 @@
+{
+  "name": "minifig-price-tracker",
+  "version": "1.0.0",
+  "description": "Minifig Price Tracker - A tool for Lego minifigure sellers to track inventory and pricing",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.19.0",
+    "@tailwindcss/postcss": "^4.2.1",
+    "@types/node": "^25.4.0",
+    "@types/react": "^19.2.14",
+    "@types/uuid": "^10.0.0",
+    "@vercel/postgres": "^0.10.0",
+    "autoprefixer": "^10.4.27",
+    "cheerio": "^1.2.0",
+    "dotenv": "^17.3.1",
+    "fuse.js": "^7.1.0",
+    "next": "^16.1.6",
+    "postcss": "^8.5.8",
+    "puppeteer": "^24.38.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwindcss": "^4.2.1",
+    "typescript": "^5.9.3",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.19.0"
+  }
+}

@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model CollectionItem {
+  id              String   @id @default(uuid())
+  minifigure_no   String
+  minifigure_name String
+  quantity        Int
+  condition       String   // 'new' or 'used'
+  image_url       String?
+
+  // Pricing data (stored as separate columns)
+  pricing_six_month_avg    Float?
+  pricing_current_avg      Float?
+  pricing_current_lowest   Float?
+  pricing_suggested_price  Float?
+
+  date_added    DateTime @default(now())
+  last_updated  DateTime @updatedAt
+
+  @@unique([minifigure_no, condition]) // Prevent duplicate entries
+  @@index([minifigure_no])
+}
