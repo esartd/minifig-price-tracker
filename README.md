@@ -110,6 +110,12 @@ npm run update-catalog:full
 ```
 Takes 30-40 minutes, recommended once per year to catch any missed items.
 
+**Discover new LEGO themes** (when BrickLink adds new lines):
+```bash
+npm run discover-themes
+```
+Auto-detects new theme prefixes and suggests adding them to enumeration.
+
 GitHub Actions runs the **incremental update** automatically on the 1st of every month!
 
 ## Deployment

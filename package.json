@@ -14,6 +14,7 @@
     "db:studio": "prisma studio",
     "update-catalog": "tsx scripts/update-catalog-incremental.ts",
     "update-catalog:full": "tsx scripts/enumerate-catalog.ts",
+    "discover-themes": "tsx scripts/discover-new-themes.ts",
     "scrape-catalog": "tsx scripts/scrape-bricklink-catalog.ts",
     "enumerate-catalog": "tsx scripts/enumerate-catalog.ts"
   },
