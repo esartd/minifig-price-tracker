@@ -6,9 +6,10 @@ import { minifigCatalog } from '@/lib/minifig-catalog';
 // Configure Fuse.js for fuzzy searching
 const fuse = new Fuse(minifigCatalog, {
   keys: ['name', 'no', 'keywords'],
-  threshold: 0.3, // Stricter matching for better results
+  threshold: 0.2, // Much stricter - prevents false matches like "Luke" matching "Blue"
   includeScore: true,
-  minMatchCharLength: 2,
+  minMatchCharLength: 3, // Require at least 3 characters to match
+  distance: 50, // Limit how far apart matched characters can be
 });
 
 export async function GET(request: NextRequest) {
