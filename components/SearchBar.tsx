@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface SearchBarProps {
   onSearchResults: (results: any[]) => void;
@@ -13,6 +13,14 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  // Clear messages when search query is cleared externally (back to collection)
+  useEffect(() => {
+    if (!searchQuery) {
+      setError('');
+      setSuccess('');
+    }
+  }, [searchQuery]);
 
   const handleSearch = async (searchTerm?: string) => {
     const term = searchTerm || searchQuery.trim();
