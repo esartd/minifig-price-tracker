@@ -72,6 +72,9 @@ async function updateCatalogIncremental() {
     { prefix: 'sh', name: 'Super Heroes', checkAhead: 150 },
     { prefix: 'col', name: 'Collectible Minifigures', checkAhead: 50 },
     { prefix: 'njo', name: 'Ninjago', checkAhead: 100 },
+    { prefix: 'dis', name: 'Disney', checkAhead: 50 },
+    { prefix: 'dp', name: 'Disney Princess', checkAhead: 50 },
+    { prefix: 'frnd', name: 'Friends', checkAhead: 100 },
     { prefix: 'lor', name: 'Lord of the Rings', checkAhead: 20 },
     { prefix: 'hol', name: 'The Hobbit', checkAhead: 20 },
     { prefix: 'tlm', name: 'The LEGO Movie', checkAhead: 50 },
@@ -90,6 +93,7 @@ async function updateCatalogIncremental() {
     { prefix: 'nex', name: 'Nexo Knights', checkAhead: 50 },
     { prefix: 'coltlm', name: 'Collectible TLM', checkAhead: 20 },
     { prefix: 'colhp', name: 'Collectible Harry Potter', checkAhead: 20 },
+    { prefix: 'coldis', name: 'Collectible Disney', checkAhead: 30 },
     { prefix: 'idea', name: 'Ideas', checkAhead: 50 },
   ];
 

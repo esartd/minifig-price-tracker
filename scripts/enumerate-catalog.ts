@@ -39,6 +39,9 @@ async function enumerateCatalog() {
     { prefix: 'sh', name: 'Super Heroes', max: 1500 },
     { prefix: 'col', name: 'Collectible Minifigures', max: 600 },
     { prefix: 'njo', name: 'Ninjago', max: 1000 },
+    { prefix: 'dis', name: 'Disney', max: 300 },
+    { prefix: 'dp', name: 'Disney Princess', max: 200 },
+    { prefix: 'frnd', name: 'Friends', max: 500 },
     { prefix: 'lor', name: 'Lord of the Rings', max: 100 },
     { prefix: 'hol', name: 'The Hobbit', max: 100 },
     { prefix: 'tlm', name: 'The LEGO Movie', max: 200 },
@@ -57,6 +60,7 @@ async function enumerateCatalog() {
     { prefix: 'nex', name: 'Nexo Knights', max: 200 },
     { prefix: 'coltlm', name: 'Collectible TLM Series', max: 50 },
     { prefix: 'colhp', name: 'Collectible Harry Potter', max: 50 },
+    { prefix: 'coldis', name: 'Collectible Disney', max: 100 },
     { prefix: 'idea', name: 'Ideas', max: 200 },
   ];
 
