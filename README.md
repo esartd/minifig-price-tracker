@@ -9,9 +9,9 @@ A Next.js web application for LEGO minifigure collectors to track their collecti
 
 ## Features
 
-- **Complete Star Wars Catalog** - 1,567+ minifigures with auto-complete search
+- **Complete LEGO Catalog** - All themes: Star Wars, Harry Potter, Marvel/DC, Ninjago, City, and more!
 - **Real-time Pricing** - Live pricing data from BrickLink API
-- **Smart Search** - Search by name or item number (e.g., "Luke Skywalker" or "sw0004")
+- **Smart Search** - Search by name or item number (e.g., "Luke Skywalker" or "sw0004", "Harry Potter" or "hp001")
 - **Price Tracking** - 6-month average, current average, and suggested prices
 - **Collection Management** - Track quantity and condition (new/used)
 - **Beautiful UI** - Apple-inspired design with smooth animations
@@ -86,8 +86,8 @@ A Next.js web application for LEGO minifigure collectors to track their collecti
 ### Search for Minifigures
 
 Search by name or BrickLink item number:
-- Name: `Luke Skywalker`, `Darth Vader`, `Boba Fett`
-- Item number: `sw0004`, `sw1219`, `hp001`
+- Name: `Luke Skywalker`, `Harry Potter`, `Spider-Man`, `Batman`
+- Item number: `sw0004`, `hp001`, `sh001`, `tlm001`
 
 ### Add to Collection
 
@@ -173,7 +173,7 @@ minifig-price-tracker/
 
 ## Roadmap
 
-- [ ] Add support for more themes (Harry Potter, Marvel, etc.)
+- [x] Add support for all LEGO themes (Harry Potter, Marvel, DC, Ninjago, City, etc.)
 - [ ] Price history charts
 - [ ] Export collection to CSV
 - [ ] Multi-user support with authentication

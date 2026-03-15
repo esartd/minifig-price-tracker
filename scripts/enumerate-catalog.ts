@@ -32,20 +32,54 @@ async function enumerateCatalog() {
   const resumeFrom = resumeArg ? resumeArg.split('=')[1] : null;
   const startNum = resumeFrom ? parseInt(resumeFrom.match(/\d+/)?.[0] || '1') : 1;
 
-  console.log(`📋 Checking Star Wars minifigures: sw0001 - sw2500`);
+  // Define all LEGO themes to enumerate
+  const themes = [
+    { prefix: 'sw', name: 'Star Wars', max: 2500 },
+    { prefix: 'hp', name: 'Harry Potter', max: 500 },
+    { prefix: 'sh', name: 'Super Heroes', max: 1500 },
+    { prefix: 'col', name: 'Collectible Minifigures', max: 600 },
+    { prefix: 'njo', name: 'Ninjago', max: 1000 },
+    { prefix: 'lor', name: 'Lord of the Rings', max: 100 },
+    { prefix: 'hol', name: 'The Hobbit', max: 100 },
+    { prefix: 'tlm', name: 'The LEGO Movie', max: 200 },
+    { prefix: 'cty', name: 'City', max: 1500 },
+    { prefix: 'cas', name: 'Castle', max: 300 },
+    { prefix: 'pi', name: 'Pirates', max: 200 },
+    { prefix: 'vik', name: 'Vikings', max: 50 },
+    { prefix: 'poc', name: 'Pirates of the Caribbean', max: 100 },
+    { prefix: 'atl', name: 'Atlantis', max: 50 },
+    { prefix: 'phr', name: 'Pharaoh\'s Quest', max: 50 },
+    { prefix: 'mon', name: 'Monster Fighters', max: 50 },
+    { prefix: 'dim', name: 'Dimensions', max: 100 },
+    { prefix: 'tlb', name: 'The LEGO Batman Movie', max: 100 },
+    { prefix: 'tln', name: 'The LEGO Ninjago Movie', max: 100 },
+    { prefix: 'elf', name: 'Elves', max: 100 },
+    { prefix: 'nex', name: 'Nexo Knights', max: 200 },
+    { prefix: 'coltlm', name: 'Collectible TLM Series', max: 50 },
+    { prefix: 'colhp', name: 'Collectible Harry Potter', max: 50 },
+    { prefix: 'idea', name: 'Ideas', max: 200 },
+  ];
+
+  console.log(`📋 Enumerating ALL LEGO themes:`);
+  themes.forEach(theme => {
+    console.log(`   - ${theme.name} (${theme.prefix}): ${theme.prefix}0001-${theme.prefix}${theme.max.toString().padStart(4, '0')}`);
+  });
   if (resumeFrom) {
-    console.log(`⏭️  Resuming from: ${resumeFrom}`);
+    console.log(`\n⏭️  Resuming from: ${resumeFrom}`);
   }
-  console.log(`⏱️  Estimated time: ~4-5 minutes\n`);
+  console.log(`\n⏱️  Estimated time: ~30-40 minutes (checking ${themes.reduce((sum, t) => sum + t.max, 0)} IDs)\n`);
 
   const validEntries: CatalogEntry[] = [];
   let checked = 0;
   let found = 0;
   let notFound = 0;
 
-  // Try sw prefix (Star Wars)
-  for (let i = startNum; i <= 2500; i++) {
-    const itemNo = `sw${i.toString().padStart(4, '0')}`;
+  // Enumerate all themes
+  for (const theme of themes) {
+    console.log(`\n🔍 Checking ${theme.name} (${theme.prefix})...`);
+
+    for (let i = 1; i <= theme.max; i++) {
+      const itemNo = `${theme.prefix}${i.toString().padStart(4, '0')}`;
 
     process.stdout.write(`\r   Progress: ${itemNo} | Found: ${found} | Not Found: ${notFound} | Total Checked: ${checked}`);
 
@@ -86,15 +120,18 @@ async function enumerateCatalog() {
       notFound++;
     }
 
-    checked++;
+      checked++;
 
-    // Small delay to respect API rate limits
-    await new Promise(resolve => setTimeout(resolve, 100));
+      // Small delay to respect API rate limits
+      await new Promise(resolve => setTimeout(resolve, 100));
 
-    // Save progress every 100 items
-    if (checked % 100 === 0) {
-      saveProgress(validEntries, itemNo);
+      // Save progress every 100 items
+      if (checked % 100 === 0) {
+        saveProgress(validEntries, itemNo);
+      }
     }
+
+    console.log(`\n✅ ${theme.name} complete! Found: ${found} total`);
   }
 
   console.log(`\n\n✅ Enumeration complete!`);
@@ -172,9 +209,10 @@ function generateCatalogFile(entries: CatalogEntry[]): string {
   const timestamp = new Date().toISOString();
 
   let content = `/**
- * Star Wars Minifigure Catalog
+ * LEGO Minifigure Catalog - All Themes
  *
- * Complete catalog enumerated from BrickLink API (sw0001-sw2500).
+ * Complete catalog enumerated from BrickLink API.
+ * Includes: Star Wars, Harry Potter, Super Heroes, Ninjago, City, and more!
  * Last updated: ${timestamp}
  * Total entries: ${entries.length}
  *
