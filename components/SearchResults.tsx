@@ -175,6 +175,59 @@ export default function SearchResults({
     };
   }, [searchResults, condition]);
 
+  // Fetch pricing for single search result
+  useEffect(() => {
+    if (!searchResult) {
+      return;
+    }
+
+    const abortController = new AbortController();
+
+    const fetchSinglePricing = async () => {
+      setPricing(prev => ({
+        ...prev,
+        [searchResult.no]: { suggestedPrice: 0, loading: true }
+      }));
+
+      try {
+        const response = await fetch(
+          `/api/collection/temp-pricing?itemNo=${searchResult.no}&condition=${condition}`,
+          { signal: abortController.signal }
+        );
+
+        const data = await response.json();
+
+        if (data.success && data.pricing) {
+          setPricing(prev => ({
+            ...prev,
+            [searchResult.no]: {
+              suggestedPrice: data.pricing.suggestedPrice,
+              loading: false
+            }
+          }));
+        } else {
+          setPricing(prev => ({
+            ...prev,
+            [searchResult.no]: { suggestedPrice: 0, loading: false }
+          }));
+        }
+      } catch (err: any) {
+        if (err.name !== 'AbortError') {
+          setPricing(prev => ({
+            ...prev,
+            [searchResult.no]: { suggestedPrice: 0, loading: false }
+          }));
+        }
+      }
+    };
+
+    fetchSinglePricing();
+
+    return () => {
+      abortController.abort();
+    };
+  }, [searchResult, condition]);
+
   const handleAddToCollection = async (minifig: any) => {
     setLoading(true);
     setError('');
@@ -627,9 +680,24 @@ export default function SearchResults({
           {/* Form Section */}
           <div className="flex-1" style={{ padding: '24px', background: 'rgba(255, 255, 255, 0.3)' }}>
             <div style={{ marginBottom: '20px' }}>
-              <h3 className="font-semibold text-base text-gray-900 tracking-tight" style={{ marginBottom: '4px' }}>
-                {searchResult.name}
-              </h3>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
+                <h3 className="font-semibold text-base text-gray-900 tracking-tight" style={{ flex: 1 }}>
+                  {searchResult.name}
+                </h3>
+                {/* Suggested Price */}
+                {pricing[searchResult.no]?.loading ? (
+                  <div style={{ fontSize: '12px', color: '#9ca3af', marginLeft: '16px' }}>Loading price...</div>
+                ) : pricing[searchResult.no]?.suggestedPrice ? (
+                  <div style={{ marginLeft: '16px', textAlign: 'right' }}>
+                    <div style={{ fontSize: '10px', color: '#6b7280', fontWeight: 500, marginBottom: '2px' }}>
+                      SUGGESTED PRICE
+                    </div>
+                    <div style={{ fontSize: '20px', fontWeight: 600, color: '#15803d' }}>
+                      ${pricing[searchResult.no].suggestedPrice.toFixed(2)}
+                    </div>
+                  </div>
+                ) : null}
+              </div>
               <p className="text-xs text-gray-500 font-mono">{searchResult.no}</p>
             </div>
 
