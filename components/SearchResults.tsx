@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CollectionItem } from '@/types';
 
 interface SearchResultsProps {
@@ -50,6 +50,7 @@ export default function SearchResults({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [selectedThemes, setSelectedThemes] = useState<Set<string>>(new Set());
+  const [pricing, setPricing] = useState<Record<string, { suggestedPrice: number; loading: boolean }>>({});
 
   // Extract theme prefix from minifig number
   const getTheme = (no: string): string => {
@@ -97,6 +98,53 @@ export default function SearchResults({
   const filteredResults = selectedThemes.size === 0
     ? searchResults
     : searchResults.filter(minifig => selectedThemes.has(getTheme(minifig.no)));
+
+  // Fetch pricing for search results
+  useEffect(() => {
+    if (searchResults.length === 0) {
+      setPricing({});
+      return;
+    }
+
+    // Fetch pricing for first 20 results initially
+    const resultsToFetch = searchResults.slice(0, 20);
+
+    resultsToFetch.forEach(async (minifig) => {
+      // Mark as loading
+      setPricing(prev => ({
+        ...prev,
+        [minifig.no]: { suggestedPrice: 0, loading: true }
+      }));
+
+      try {
+        const response = await fetch(`/api/collection/temp-pricing?itemNo=${minifig.no}&condition=${condition}`);
+        const data = await response.json();
+
+        if (data.success && data.pricing) {
+          setPricing(prev => ({
+            ...prev,
+            [minifig.no]: {
+              suggestedPrice: data.pricing.suggestedPrice,
+              loading: false
+            }
+          }));
+        } else {
+          setPricing(prev => ({
+            ...prev,
+            [minifig.no]: { suggestedPrice: 0, loading: false }
+          }));
+        }
+      } catch (err) {
+        setPricing(prev => ({
+          ...prev,
+          [minifig.no]: { suggestedPrice: 0, loading: false }
+        }));
+      }
+
+      // Small delay between requests
+      await new Promise(resolve => setTimeout(resolve, 200));
+    });
+  }, [searchResults, condition]);
 
   const handleAddToCollection = async (minifig: any) => {
     setLoading(true);
@@ -319,7 +367,24 @@ export default function SearchResults({
                       </h4>
                       <p className="text-xs text-gray-500 font-mono">{minifig.no}</p>
                     </div>
-                    <div style={{ marginLeft: '16px', color: isExpanded ? '#0071e3' : '#9ca3af', transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}>
+
+                    {/* Suggested Price */}
+                    <div style={{ marginLeft: '16px', marginRight: '16px', textAlign: 'right' }}>
+                      {pricing[minifig.no]?.loading ? (
+                        <div style={{ fontSize: '12px', color: '#9ca3af' }}>Loading...</div>
+                      ) : pricing[minifig.no]?.suggestedPrice ? (
+                        <>
+                          <div style={{ fontSize: '10px', color: '#6b7280', fontWeight: 500, marginBottom: '2px' }}>
+                            SUGGESTED PRICE
+                          </div>
+                          <div style={{ fontSize: '18px', fontWeight: 600, color: '#15803d' }}>
+                            ${pricing[minifig.no].suggestedPrice.toFixed(2)}
+                          </div>
+                        </>
+                      ) : null}
+                    </div>
+
+                    <div style={{ marginLeft: '8px', color: isExpanded ? '#0071e3' : '#9ca3af', transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}>
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" style={{ width: '20px', height: '20px' }}>
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 8l4 4 4-4"/>
                       </svg>
