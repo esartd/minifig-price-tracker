@@ -1,228 +1,185 @@
-# 🧱 Minifig Price Tracker
+# Minifig Price Tracker
 
-A web application for LEGO minifigure sellers to track their inventory and get real-time pricing data from Bricklink.
+A Next.js web application for LEGO minifigure collectors to track their collection and monitor pricing data from BrickLink.
+
+![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue)
+![Prisma](https://img.shields.io/badge/Prisma-5.19.0-2D3748)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ## Features
 
-- 🔍 **Search Minifigures** - Search by item number or name
-- 📊 **Live Pricing Data** - Get 6-month average, current average, and lowest prices from Bricklink
-- 💰 **Price Suggestions** - Automatically calculates suggested selling prices
-- 📦 **Inventory Management** - Track quantity and condition (new/used) of your minifigures
-- 💾 **Persistent Storage** - Your collection is saved and accessible across devices
-- 🔄 **Real-time Updates** - Pricing data refreshes on each view
+- **Complete Star Wars Catalog** - 1,567+ minifigures with auto-complete search
+- **Real-time Pricing** - Live pricing data from BrickLink API
+- **Smart Search** - Search by name or item number (e.g., "Luke Skywalker" or "sw0004")
+- **Price Tracking** - 6-month average, current average, and suggested prices
+- **Collection Management** - Track quantity and condition (new/used)
+- **Beautiful UI** - Apple-inspired design with smooth animations
+- **Monthly Updates** - Automatic catalog updates for new minifig releases
+- **Responsive** - Works on desktop, tablet, and mobile
+
+## Live Demo
+
+[View Live Site](https://your-site.vercel.app) _(coming soon)_
 
 ## Tech Stack
 
-- **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS
-- **Backend**: Next.js API Routes
-- **Database**: JSON file storage (easily upgradable to PostgreSQL/Supabase)
-- **API**: Bricklink API v1 with OAuth 1.0a authentication
-
-## Prerequisites
-
-1. **Node.js** (v18 or higher)
-2. **Bricklink Account** with API access
+- **Framework**: [Next.js 16](https://nextjs.org/) with App Router
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Database**: [PostgreSQL](https://www.postgresql.org/) with [Prisma ORM](https://www.prisma.io/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **APIs**: [BrickLink API](https://www.bricklink.com/v3/api.page)
+- **Search**: [Fuse.js](https://fusejs.io/) for fuzzy search
+- **Deployment**: [Vercel](https://vercel.com)
 
 ## Getting Started
 
-### 1. Get Bricklink API Credentials
+### Prerequisites
 
-1. Log in to your Bricklink account at [bricklink.com](https://www.bricklink.com)
-2. Go to your account settings
-3. Look for "API" or "Developer" section
-4. Register for API access (it's free)
-5. You'll receive:
-   - Consumer Key
-   - Consumer Secret
-   - Token Value
-   - Token Secret
+- Node.js 20+ and npm
+- BrickLink API credentials ([get them here](https://www.bricklink.com/v3/api/register_consumer.page))
+- PostgreSQL database (or use Vercel Postgres free tier)
 
-**Note**: If you can't find the API registration page, try:
-- Searching "bricklink api" in the help section
-- Contacting Bricklink support for API access
-- Checking if your account type supports API access
+### Installation
 
-### 2. Install Dependencies
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/minifig-price-tracker.git
+   cd minifig-price-tracker
+   ```
 
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+
+   Copy `.env.example` to `.env.local`:
+   ```bash
+   cp .env.example .env.local
+   ```
+
+   Edit `.env.local` and add your credentials:
+   ```env
+   BRICKLINK_CONSUMER_KEY=your_key
+   BRICKLINK_CONSUMER_SECRET=your_secret
+   BRICKLINK_TOKEN_VALUE=your_token
+   BRICKLINK_TOKEN_SECRET=your_token_secret
+   DATABASE_URL=file:./dev.db  # SQLite for local dev
+   ```
+
+4. **Set up the database**
+   ```bash
+   npx prisma db push
+   ```
+
+5. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+6. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Usage
+
+### Search for Minifigures
+
+Search by name or BrickLink item number:
+- Name: `Luke Skywalker`, `Darth Vader`, `Boba Fett`
+- Item number: `sw0004`, `sw1219`, `hp001`
+
+### Add to Collection
+
+1. Click on a search result to expand
+2. Set quantity and condition (new/used)
+3. Click "Add to Collection"
+4. Pricing updates automatically from BrickLink
+
+### Update Catalog
+
+Run manually to add new minifigures:
 ```bash
-cd minifig-price-tracker
-npm install
+npm run enumerate-catalog
 ```
 
-### 3. Configure Environment Variables
+Or let GitHub Actions do it automatically every month!
 
-Create a `.env.local` file in the root directory:
+## Deployment
 
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions to Vercel.
+
+**Quick deploy:**
+1. Push to GitHub
+2. Import to Vercel
+3. Add environment variables
+4. Connect Vercel Postgres
+5. Done!
+
+## Monthly Catalog Updates
+
+The catalog automatically updates on the 1st of every month via GitHub Actions. New minifigures are automatically added to the search catalog.
+
+**Manual update:**
 ```bash
-cp .env.example .env.local
+npm run enumerate-catalog
 ```
 
-Edit `.env.local` and add your Bricklink API credentials:
+## Scripts
 
-```env
-BRICKLINK_CONSUMER_KEY=your_consumer_key_here
-BRICKLINK_CONSUMER_SECRET=your_consumer_secret_here
-BRICKLINK_TOKEN_VALUE=your_token_value_here
-BRICKLINK_TOKEN_SECRET=your_token_secret_here
-```
-
-### 4. Run the Development Server
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## How to Use
-
-### Searching for Minifigures
-
-1. **By Item Number** (Recommended):
-   - Click "Search by Number"
-   - Enter the Bricklink item number (e.g., `sw0001a` for Darth Vader)
-   - Click "Search"
-
-2. **By Name**:
-   - Click "Search by Name"
-   - Enter the minifigure name
-   - Click "Search"
-   - Note: Name search requires the exact Bricklink catalog name
-
-### Adding to Collection
-
-1. After searching, the minifigure details will appear
-2. Set the quantity you own
-3. Select condition (New or Used)
-4. Click "Add to Collection"
-5. Pricing data will automatically load
-
-### Managing Your Collection
-
-- **View Pricing**: Click on any item in your collection to see detailed pricing
-- **Edit Item**: Click "Edit" to change quantity or condition
-- **Delete Item**: Click "Delete" to remove from collection
-- **Total Value**: The pricing card shows the total value based on quantity
-
-### Understanding the Pricing
-
-The app displays 4 key numbers:
-
-1. **6-Month Average**: Historical market price over the last 6 months
-2. **Current Average**: Current market average price
-3. **Current Lowest**: The lowest current listing price
-4. **Suggested Selling Price**: Average of the above three (your competitive price point)
-
-All prices are in USD and reflect the US market.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run enumerate-catalog` - Update minifig catalog from BrickLink
+- `npm run db:push` - Push Prisma schema to database
+- `npm run db:studio` - Open Prisma Studio
 
 ## Project Structure
 
 ```
 minifig-price-tracker/
-├── app/
-│   ├── api/
-│   │   ├── collection/       # Collection CRUD endpoints
-│   │   └── minifigs/         # Bricklink search endpoints
+├── app/                      # Next.js App Router
+│   ├── api/                  # API routes
+│   │   ├── collection/       # Collection CRUD
+│   │   └── minifigs/search/  # Search endpoint
 │   ├── layout.tsx            # Root layout
-│   ├── page.tsx              # Main page
-│   └── globals.css           # Global styles
-├── components/
-│   ├── SearchBar.tsx         # Search component
-│   ├── CollectionList.tsx    # Collection display
-│   └── PricingCard.tsx       # Pricing details
-├── lib/
-│   ├── bricklink.ts          # Bricklink API client
-│   └── database.ts           # Database service
-├── types/
-│   └── index.ts              # TypeScript types
-└── data/                     # Auto-created for storage
+│   └── page.tsx              # Home page
+├── components/               # React components
+│   ├── SearchBar.tsx
+│   ├── SearchResults.tsx
+│   ├── CollectionList.tsx
+│   └── PricingCard.tsx
+├── lib/                      # Utilities
+│   ├── bricklink.ts          # BrickLink API wrapper
+│   ├── bricklink-scraper.ts  # Web scraping for pricing
+│   ├── database.ts           # Prisma client
+│   └── minifig-catalog.ts    # Complete catalog (1,567 minifigs)
+├── prisma/                   # Database schema
+│   └── schema.prisma
+├── scripts/                  # Automation scripts
+│   └── enumerate-catalog.ts  # Catalog builder
+└── .github/workflows/        # GitHub Actions
+    └── update-catalog.yml    # Monthly update automation
 ```
-
-## Database
-
-The app currently uses a JSON file (`data/collection.json`) for storage. This provides:
-- ✅ No external dependencies
-- ✅ Easy to backup
-- ✅ Works across devices (if files are synced)
-
-### Upgrading to PostgreSQL/Supabase
-
-To scale up, you can easily migrate to a real database:
-
-1. **Install Supabase client**:
-   ```bash
-   npm install @supabase/supabase-js
-   ```
-
-2. **Create table** in Supabase:
-   ```sql
-   CREATE TABLE collection (
-     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-     minifigure_no TEXT NOT NULL,
-     minifigure_name TEXT NOT NULL,
-     quantity INTEGER NOT NULL,
-     condition TEXT NOT NULL,
-     image_url TEXT,
-     pricing JSONB,
-     date_added TIMESTAMP DEFAULT NOW(),
-     last_updated TIMESTAMP DEFAULT NOW()
-   );
-   ```
-
-3. **Update `lib/database.ts`** to use Supabase client instead of file system
 
 ## API Endpoints
 
-### Collection
+- `GET /api/minifigs/search?q={query}` - Search minifigures
+- `GET /api/collection` - Get user's collection
+- `POST /api/collection` - Add item to collection
+- `PATCH /api/collection/:id` - Update collection item
+- `DELETE /api/collection/:id` - Remove from collection
+- `POST /api/collection/:id/refresh-pricing` - Refresh pricing data
 
-- `GET /api/collection` - Get all collection items
-- `POST /api/collection` - Add new item
-- `GET /api/collection/[id]` - Get single item
-- `PATCH /api/collection/[id]` - Update item
-- `DELETE /api/collection/[id]` - Delete item
+## Roadmap
 
-### Minifigures
-
-- `GET /api/minifigs/search?no=[item_number]` - Search by number
-- `GET /api/minifigs/search?q=[name]` - Search by name
-- `GET /api/minifigs/[itemNo]/pricing?condition=[new|used]` - Get pricing data
-
-## Troubleshooting
-
-### "Minifigure not found"
-- Make sure you're using the exact Bricklink item number (e.g., `sw0001a`)
-- Try searching on Bricklink.com first to confirm the item number
-
-### "Failed to fetch pricing"
-- Check that your API credentials are correct in `.env.local`
-- Verify your Bricklink account has API access enabled
-- Check if you've hit API rate limits (Bricklink limits requests)
-
-### Pricing shows $0.00
-- The minifigure might not have recent sales data on Bricklink
-- Try changing the condition (new vs used)
-- Verify the item number is correct
-
-## Deployment
-
-### Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Import project on [Vercel](https://vercel.com)
-3. Add environment variables in Vercel dashboard
-4. Deploy
-
-**Note**: You'll need to upgrade the database to PostgreSQL/Supabase for production use.
-
-## Future Enhancements
-
-- [ ] Bulk import from CSV
-- [ ] Export collection to Excel
-- [ ] Price alerts when items increase in value
+- [ ] Add support for more themes (Harry Potter, Marvel, etc.)
+- [ ] Price history charts
+- [ ] Export collection to CSV
 - [ ] Multi-user support with authentication
-- [ ] Historical price charts
-- [ ] Profit calculator (purchase price vs suggested price)
-- [ ] Integration with eBay pricing
+- [ ] Wishlist feature
+- [ ] Set price alerts
+- [ ] Mobile app
 
 ## Contributing
 
@@ -230,12 +187,20 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- [BrickLink](https://www.bricklink.com/) for their comprehensive API
+- The LEGO community for inspiration
+- [Vercel](https://vercel.com) for hosting
 
 ## Support
 
-For issues or questions, please open an issue on GitHub.
+If you find this project helpful, please give it a ⭐️ on GitHub!
+
+For questions or issues, please [open an issue](https://github.com/YOUR_USERNAME/minifig-price-tracker/issues).
 
 ---
 
-**Happy Selling!** 🧱💰
+Built with ❤️ for the LEGO community
