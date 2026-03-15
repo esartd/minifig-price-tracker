@@ -306,25 +306,22 @@ export default function SearchResults({
                           value={condition}
                           onChange={(e) => setCondition(e.target.value as 'new' | 'used')}
                           onClick={(e) => e.stopPropagation()}
-                          className="w-full appearance-none cursor-pointer transition-all"
+                          className="appearance-none cursor-pointer transition-all border border-gray-200"
                           style={{
+                            width: '130px',
                             padding: '14px 16px',
                             height: '52px',
                             minHeight: '52px',
-                            background: 'rgba(255, 255, 255, 0.6)',
-                            backdropFilter: 'blur(10px)',
-                            WebkitBackdropFilter: 'blur(10px)',
-                            border: '1px solid rgba(0, 0, 0, 0.08)',
-                            borderRadius: '26px',
                             fontSize: '16px',
-                            boxShadow: 'inset 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.8)',
+                            borderRadius: '26px',
+                            boxSizing: 'border-box',
+                            backgroundColor: 'white',
                             outline: 'none',
                             backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`,
                             backgroundPosition: 'right 1rem center',
                             backgroundRepeat: 'no-repeat',
                             backgroundSize: '1.5em 1.5em',
-                            paddingRight: '3rem',
-                            boxSizing: 'border-box'
+                            paddingRight: '3rem'
                           }}
                         >
                           <option value="new">New</option>
@@ -510,25 +507,22 @@ export default function SearchResults({
                 <select
                   value={condition}
                   onChange={(e) => setCondition(e.target.value as 'new' | 'used')}
-                  className="w-full appearance-none cursor-pointer transition-all"
+                  className="appearance-none cursor-pointer transition-all border border-gray-200"
                   style={{
+                    width: '130px',
                     padding: '14px 16px',
                     height: '52px',
                     minHeight: '52px',
-                    background: 'rgba(255, 255, 255, 0.6)',
-                    backdropFilter: 'blur(10px)',
-                    WebkitBackdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(0, 0, 0, 0.08)',
-                    borderRadius: '26px',
                     fontSize: '16px',
-                    boxShadow: 'inset 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.8)',
+                    borderRadius: '26px',
+                    boxSizing: 'border-box',
+                    backgroundColor: 'white',
                     outline: 'none',
                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`,
                     backgroundPosition: 'right 1rem center',
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: '1.5em 1.5em',
-                    paddingRight: '3rem',
-                    boxSizing: 'border-box'
+                    paddingRight: '3rem'
                   }}
                 >
                   <option value="new">New</option>
