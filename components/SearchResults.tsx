@@ -174,8 +174,10 @@ export default function SearchResults({
                       </h4>
                       <p className="text-xs text-gray-500 font-mono">{minifig.no}</p>
                     </div>
-                    <div style={{ marginLeft: '16px', color: isExpanded ? '#0071e3' : '#9ca3af' }}>
-                      {isExpanded ? '▲' : '▼'}
+                    <div style={{ marginLeft: '16px', color: isExpanded ? '#0071e3' : '#9ca3af', transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" style={{ width: '20px', height: '20px' }}>
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 8l4 4 4-4"/>
+                      </svg>
                     </div>
                   </div>
                 </div>

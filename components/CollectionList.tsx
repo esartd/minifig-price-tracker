@@ -171,9 +171,7 @@ export default function CollectionList({
                             border: '1px solid rgba(0, 0, 0, 0.1)',
                             borderRadius: '20px 20px 4px 4px',
                             cursor: 'pointer',
-                            fontSize: '14px',
-                            color: '#374151',
-                            fontWeight: '600'
+                            color: '#374151'
                           }}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(240, 240, 242, 1) 100%)';
@@ -182,7 +180,9 @@ export default function CollectionList({
                             e.currentTarget.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 245, 247, 0.9) 100%)';
                           }}
                         >
-                          ▲
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" style={{ width: '16px', height: '16px', transform: 'rotate(180deg)' }}>
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 8l4 4 4-4"/>
+                          </svg>
                         </button>
                         <button
                           type="button"
@@ -199,9 +199,7 @@ export default function CollectionList({
                             border: '1px solid rgba(0, 0, 0, 0.1)',
                             borderRadius: '4px 4px 20px 20px',
                             cursor: editQuantity > 1 ? 'pointer' : 'not-allowed',
-                            fontSize: '14px',
                             color: editQuantity > 1 ? '#374151' : '#9ca3af',
-                            fontWeight: '600',
                             opacity: editQuantity > 1 ? 1 : 0.5
                           }}
                           onMouseEnter={(e) => {
@@ -215,7 +213,9 @@ export default function CollectionList({
                             }
                           }}
                         >
-                          ▼
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" style={{ width: '16px', height: '16px' }}>
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 8l4 4 4-4"/>
+                          </svg>
                         </button>
                       </div>
                     </div>
