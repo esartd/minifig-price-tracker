@@ -66,12 +66,21 @@ export async function GET(request: NextRequest) {
     const detailedResults = await Promise.all(detailsPromises);
     const validResults = detailedResults.filter(r => r !== null);
 
+    // Sort by item number descending (newer/higher numbers first)
+    validResults.sort((a, b) => {
+      const extractNum = (no: string) => {
+        const match = no.match(/\d+/);
+        return match ? parseInt(match[0]) : 0;
+      };
+      return extractNum(b.no) - extractNum(a.no);
+    });
+
     // Return search results with images from Bricklink
     return NextResponse.json({
       success: true,
       data: validResults,
       total: validResults.length,
-      source: 'catalog_search',
+      source: 'catalog_fallback',
     });
 
   } catch (error) {

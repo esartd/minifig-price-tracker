@@ -13,7 +13,7 @@ export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
   const [refreshProgress, setRefreshProgress] = useState({ current: 0, total: 0, itemName: '' });
   const [sortOrder, setSortOrder] = useState<'default' | 'price-high' | 'price-low' | 'id'>('price-high');
-  const [showDecimals, setShowDecimals] = useState(true);
+  const [showDecimals, setShowDecimals] = useState(false);
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searchResult, setSearchResult] = useState<any>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -57,6 +57,11 @@ export default function Home() {
   };
 
   const handleCancelSelection = () => {
+    setSearchResult(null);
+    // Keep searchResults so we can go back to them
+  };
+
+  const handleClearSearch = () => {
     setSearchResult(null);
     setSearchResults([]);
     setSearchQuery('');
@@ -196,7 +201,16 @@ export default function Home() {
         paddingLeft: '24px',
         paddingRight: '24px'
       }}>
-        <h1 className="text-2xl font-semibold text-gray-900 tracking-tight" style={{ margin: 0, whiteSpace: 'nowrap' }}>
+        <h1
+          onClick={handleClearSearch}
+          className="text-2xl font-semibold text-gray-900 tracking-tight"
+          style={{
+            margin: 0,
+            whiteSpace: 'nowrap',
+            cursor: 'pointer',
+            userSelect: 'none'
+          }}
+        >
           Minifig Price Tracker
         </h1>
         <div style={{ flex: '1', maxWidth: '600px' }}>
@@ -217,6 +231,7 @@ export default function Home() {
           onSelectMinifig={handleSelectMinifig}
           onAddToCollection={handleItemAdded}
           onCancelSelection={handleCancelSelection}
+          onClearSearch={handleClearSearch}
         />
       )}
 

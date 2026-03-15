@@ -101,6 +101,13 @@ export class BricklinkAPI {
     }
 
     const data = await response.json();
+
+    // BrickLink returns 200 OK even for errors, check meta field
+    if (data.meta && data.meta.code && data.meta.code !== 200) {
+      console.error(`BrickLink API error: ${data.meta.message} - ${data.meta.description}`);
+      return null;
+    }
+
     return data.data;
   }
 
@@ -114,6 +121,11 @@ export class BricklinkAPI {
   async getMinifigureByNumber(itemNo: string): Promise<Minifigure | null> {
     try {
       const data = await this.makeRequest(`/items/MINIFIG/${itemNo}`);
+
+      // If data is null/undefined, item doesn't exist
+      if (!data) {
+        return null;
+      }
 
       // Bricklink stores images at: https://img.bricklink.com/ItemImage/MN/0/{item_no}.png
       let imageUrl = data.image_url || data.thumbnail_url || `https://img.bricklink.com/ItemImage/MN/0/${itemNo}.png`;
@@ -130,7 +142,7 @@ export class BricklinkAPI {
         image_url: imageUrl,
       };
     } catch (error) {
-      console.error('Error fetching minifigure:', error);
+      // Item doesn't exist or API error
       return null;
     }
   }

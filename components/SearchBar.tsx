@@ -69,7 +69,7 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
           value={searchQuery}
           onChange={(e) => onSearchQueryChange(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-          placeholder="Search by Bricklink number (e.g., sw0002, sw1219)..."
+          placeholder="Search by name or Bricklink number (e.g., 'Luke Skywalker' or sw0004)..."
           disabled={loading}
           style={{ height: '44px', minHeight: '44px', fontSize: '16px', paddingLeft: '44px', paddingRight: '16px', boxSizing: 'border-box' }}
           className="w-full bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-[#0071e3]/30 focus:border-[#0071e3] transition-all placeholder:text-gray-400 shadow-sm"
@@ -85,15 +85,29 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
 
       {/* Success Message */}
       {success && (
-        <div className="p-4 bg-green-50 border border-green-100 rounded-xl text-green-700 text-sm flex items-center gap-2">
-          <span>✓</span>
+        <div style={{
+          padding: '16px 20px',
+          backgroundColor: '#f0fdf4',
+          borderRadius: '12px',
+          color: '#15803d',
+          fontSize: '14px',
+          marginTop: '12px'
+        }}>
+          <span style={{ marginRight: '8px' }}>✓</span>
           <span>{success}</span>
         </div>
       )}
 
       {/* Error Message */}
       {error && (
-        <div className="p-4 bg-red-50 border border-red-100 rounded-xl text-red-700 text-sm">
+        <div style={{
+          padding: '16px 20px',
+          backgroundColor: '#fef2f2',
+          borderRadius: '12px',
+          color: '#dc2626',
+          fontSize: '14px',
+          marginTop: '12px'
+        }}>
           {error}
         </div>
       )}
