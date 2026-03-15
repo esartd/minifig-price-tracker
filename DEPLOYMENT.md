@@ -79,10 +79,12 @@ Your code already has a GitHub Action that will update the catalog on the 1st of
 
 3. The GitHub Action (`.github/workflows/update-catalog.yml`) will automatically:
    - Run on the 1st of every month at 2am UTC
-   - Check all BrickLink IDs for new minifigures
+   - Check for NEW minifigures (incremental update - fast!)
    - Update `lib/minifig-catalog.ts`
    - Commit and push changes
    - Vercel will auto-deploy the updated catalog
+
+   **Note:** This only checks new IDs (~2-3 minutes). Run a full update manually once per year.
 
 **Manual trigger**: You can also manually run the update:
 - Go to **Actions** tab in GitHub

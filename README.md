@@ -98,12 +98,19 @@ Search by name or BrickLink item number:
 
 ### Update Catalog
 
-Run manually to add new minifigures:
+**Monthly incremental update** (fast - only checks new IDs):
 ```bash
-npm run enumerate-catalog
+npm run update-catalog
 ```
+Takes 2-3 minutes, finds new minifigures released since last update.
 
-Or let GitHub Actions do it automatically every month!
+**Yearly full re-enumeration** (slow - checks all 10,000+ IDs):
+```bash
+npm run update-catalog:full
+```
+Takes 30-40 minutes, recommended once per year to catch any missed items.
+
+GitHub Actions runs the **incremental update** automatically on the 1st of every month!
 
 ## Deployment
 
