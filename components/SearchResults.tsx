@@ -12,6 +12,30 @@ interface SearchResultsProps {
   onClearSearch: () => void;
 }
 
+// Theme mapping for display names
+const THEME_NAMES: Record<string, string> = {
+  'sw': 'Star Wars',
+  'hp': 'Harry Potter',
+  'sh': 'Super Heroes',
+  'col': 'Collectible',
+  'njo': 'Ninjago',
+  'dis': 'Disney',
+  'dp': 'Disney Princess',
+  'frnd': 'Friends',
+  'lor': 'LOTR',
+  'hol': 'Hobbit',
+  'tlm': 'LEGO Movie',
+  'cty': 'City',
+  'cas': 'Castle',
+  'pi': 'Pirates',
+  'poc': 'Pirates Caribbean',
+  'tlb': 'LEGO Batman',
+  'tln': 'LEGO Ninjago Movie',
+  'elf': 'Elves',
+  'nex': 'Nexo Knights',
+  'idea': 'Ideas',
+};
+
 export default function SearchResults({
   searchResults,
   searchResult,
@@ -25,6 +49,54 @@ export default function SearchResults({
   const [condition, setCondition] = useState<'new' | 'used'>('new');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [selectedThemes, setSelectedThemes] = useState<Set<string>>(new Set());
+
+  // Extract theme prefix from minifig number
+  const getTheme = (no: string): string => {
+    const match = no.match(/^[a-z]+/i);
+    return match ? match[0].toLowerCase() : 'other';
+  };
+
+  // Group results by theme with counts
+  const themeGroups = searchResults.reduce((acc, minifig) => {
+    const theme = getTheme(minifig.no);
+    if (!acc[theme]) {
+      acc[theme] = { count: 0, items: [] };
+    }
+    acc[theme].count++;
+    acc[theme].items.push(minifig);
+    return acc;
+  }, {} as Record<string, { count: number; items: any[] }>);
+
+  // Get sorted theme list by count
+  const themes = Object.keys(themeGroups).sort((a, b) =>
+    themeGroups[b].count - themeGroups[a].count
+  );
+
+  // Toggle theme filter
+  const toggleTheme = (theme: string) => {
+    const newSelected = new Set(selectedThemes);
+    if (newSelected.has(theme)) {
+      newSelected.delete(theme);
+    } else {
+      newSelected.add(theme);
+    }
+    setSelectedThemes(newSelected);
+  };
+
+  // Toggle all themes
+  const toggleAllThemes = () => {
+    if (selectedThemes.size === themes.length) {
+      setSelectedThemes(new Set());
+    } else {
+      setSelectedThemes(new Set(themes));
+    }
+  };
+
+  // Filter results by selected themes
+  const filteredResults = selectedThemes.size === 0
+    ? searchResults
+    : searchResults.filter(minifig => selectedThemes.has(getTheme(minifig.no)));
 
   const handleAddToCollection = async (minifig: any) => {
     setLoading(true);
@@ -132,11 +204,76 @@ export default function SearchResults({
 
       {/* Search Results List */}
       {searchResults.length > 0 && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <h3 className="font-medium text-sm text-gray-600" style={{ paddingLeft: '4px', marginBottom: '8px' }}>
-            {searchResults.length} result{searchResults.length !== 1 ? 's' : ''} found - Select one to add
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {/* Theme Filters */}
+          {themes.length > 1 && (
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                <span className="font-medium text-sm text-gray-600">Filter by theme:</span>
+                <button
+                  onClick={toggleAllThemes}
+                  className="text-xs font-medium transition-all"
+                  style={{
+                    padding: '6px 12px',
+                    background: 'rgba(255, 255, 255, 0.5)',
+                    border: '1px solid rgba(0, 0, 0, 0.1)',
+                    borderRadius: '16px',
+                    color: '#374151',
+                    cursor: 'pointer'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.5)';
+                  }}
+                >
+                  {selectedThemes.size === themes.length ? 'Clear All' : 'Select All'}
+                </button>
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {themes.map(theme => {
+                  const isSelected = selectedThemes.has(theme);
+                  const themeName = THEME_NAMES[theme] || theme.toUpperCase();
+                  const count = themeGroups[theme].count;
+
+                  return (
+                    <button
+                      key={theme}
+                      onClick={() => toggleTheme(theme)}
+                      className="text-sm font-medium transition-all"
+                      style={{
+                        padding: '8px 16px',
+                        background: isSelected ? 'linear-gradient(135deg, rgba(0, 122, 255, 0.95) 0%, rgba(0, 113, 227, 0.95) 100%)' : 'rgba(255, 255, 255, 0.6)',
+                        border: isSelected ? '1px solid rgba(255, 255, 255, 0.3)' : '1px solid rgba(0, 0, 0, 0.1)',
+                        borderRadius: '20px',
+                        color: isSelected ? '#ffffff' : '#374151',
+                        cursor: 'pointer',
+                        boxShadow: isSelected ? '0 2px 8px rgba(0, 113, 227, 0.3)' : '0 1px 3px rgba(0, 0, 0, 0.08)'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isSelected) {
+                          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isSelected) {
+                          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.6)';
+                        }
+                      }}
+                    >
+                      {themeName} ({count})
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          <h3 className="font-medium text-sm text-gray-600" style={{ paddingLeft: '4px' }}>
+            {filteredResults.length} result{filteredResults.length !== 1 ? 's' : ''} shown{selectedThemes.size > 0 && ` (${searchResults.length} total)`}
           </h3>
-          {searchResults.map((minifig, index) => {
+          {filteredResults.map((minifig, index) => {
             const isExpanded = expandedId === minifig.no;
             return (
               <div key={index} style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
