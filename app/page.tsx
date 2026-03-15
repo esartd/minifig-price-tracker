@@ -344,7 +344,18 @@ export default function Home() {
           )}
         </div>
         {refreshing && (
-          <div className="p-4 rounded-xl text-sm bg-blue-50 text-blue-700 flex items-center gap-2" style={{ marginBottom: '32px' }}>
+          <div style={{
+            padding: '16px 20px',
+            backgroundColor: '#eff6ff',
+            borderRadius: '16px',
+            border: '1px solid #bfdbfe',
+            color: '#1d4ed8',
+            fontSize: '14px',
+            marginBottom: '32px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px'
+          }}>
             <div className="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-blue-700"></div>
             <span>
               {refreshProgress.itemName ? (

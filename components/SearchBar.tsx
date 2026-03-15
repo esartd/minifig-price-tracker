@@ -71,8 +71,16 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
           onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
           placeholder="Search by name or Bricklink number (e.g., 'Luke Skywalker' or sw0004)..."
           disabled={loading}
-          style={{ height: '44px', minHeight: '44px', fontSize: '16px', paddingLeft: '44px', paddingRight: '16px', boxSizing: 'border-box' }}
-          className="w-full bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-[#0071e3]/30 focus:border-[#0071e3] transition-all placeholder:text-gray-400 shadow-sm"
+          style={{
+            height: '52px',
+            minHeight: '52px',
+            fontSize: '16px',
+            paddingLeft: '44px',
+            paddingRight: '16px',
+            boxSizing: 'border-box',
+            borderRadius: '26px'
+          }}
+          className="w-full bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#0071e3]/30 focus:border-[#0071e3] transition-all placeholder:text-gray-400 shadow-sm"
         />
 
         {/* Loading Spinner */}
@@ -88,7 +96,8 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
         <div style={{
           padding: '16px 20px',
           backgroundColor: '#f0fdf4',
-          borderRadius: '12px',
+          borderRadius: '16px',
+          border: '1px solid #bbf7d0',
           color: '#15803d',
           fontSize: '14px',
           marginTop: '12px'
@@ -103,7 +112,8 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
         <div style={{
           padding: '16px 20px',
           backgroundColor: '#fef2f2',
-          borderRadius: '12px',
+          borderRadius: '16px',
+          border: '1px solid #fecaca',
           color: '#dc2626',
           fontSize: '14px',
           marginTop: '12px'

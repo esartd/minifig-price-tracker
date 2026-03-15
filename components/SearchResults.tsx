@@ -117,7 +117,15 @@ export default function SearchResults({
 
       {/* Error Message */}
       {error && (
-        <div className="p-4 bg-red-50 border border-red-100 rounded-xl text-red-700 text-sm" style={{ marginBottom: '24px' }}>
+        <div style={{
+          padding: '16px 20px',
+          backgroundColor: '#fef2f2',
+          borderRadius: '16px',
+          border: '1px solid #fecaca',
+          color: '#dc2626',
+          fontSize: '14px',
+          marginBottom: '24px'
+        }}>
           {error}
         </div>
       )}
