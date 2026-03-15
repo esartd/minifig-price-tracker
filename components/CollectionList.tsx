@@ -222,7 +222,7 @@ export default function CollectionList({
                     <select
                       value={editCondition}
                       onChange={(e) => setEditCondition(e.target.value as 'new' | 'used')}
-                      className="border border-gray-200 focus:outline-none focus:ring-1 focus:ring-[#0071e3]"
+                      className="border border-gray-200 focus:outline-none focus:ring-1 focus:ring-[#0071e3] appearance-none cursor-pointer"
                       style={{
                         width: '130px',
                         padding: '14px 16px',
@@ -230,7 +230,12 @@ export default function CollectionList({
                         minHeight: '52px',
                         fontSize: '16px',
                         borderRadius: '26px',
-                        boxSizing: 'border-box'
+                        boxSizing: 'border-box',
+                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`,
+                        backgroundPosition: 'right 1rem center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: '1.5em 1.5em',
+                        paddingRight: '3rem'
                       }}
                     >
                       <option value="new">New</option>
