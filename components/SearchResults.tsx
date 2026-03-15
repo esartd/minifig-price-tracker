@@ -106,44 +106,73 @@ export default function SearchResults({
       return;
     }
 
+    // Clear old pricing
+    setPricing({});
+
+    // Create abort controller to cancel requests on new search
+    const abortController = new AbortController();
+    let cancelled = false;
+
     // Fetch pricing for first 20 results initially
     const resultsToFetch = searchResults.slice(0, 20);
 
-    resultsToFetch.forEach(async (minifig) => {
-      // Mark as loading
-      setPricing(prev => ({
-        ...prev,
-        [minifig.no]: { suggestedPrice: 0, loading: true }
-      }));
+    const fetchPricing = async () => {
+      for (const minifig of resultsToFetch) {
+        if (cancelled) break;
 
-      try {
-        const response = await fetch(`/api/collection/temp-pricing?itemNo=${minifig.no}&condition=${condition}`);
-        const data = await response.json();
-
-        if (data.success && data.pricing) {
-          setPricing(prev => ({
-            ...prev,
-            [minifig.no]: {
-              suggestedPrice: data.pricing.suggestedPrice,
-              loading: false
-            }
-          }));
-        } else {
-          setPricing(prev => ({
-            ...prev,
-            [minifig.no]: { suggestedPrice: 0, loading: false }
-          }));
-        }
-      } catch (err) {
+        // Mark as loading
         setPricing(prev => ({
           ...prev,
-          [minifig.no]: { suggestedPrice: 0, loading: false }
+          [minifig.no]: { suggestedPrice: 0, loading: true }
         }));
-      }
 
-      // Small delay between requests
-      await new Promise(resolve => setTimeout(resolve, 200));
-    });
+        try {
+          const response = await fetch(
+            `/api/collection/temp-pricing?itemNo=${minifig.no}&condition=${condition}`,
+            { signal: abortController.signal }
+          );
+
+          if (cancelled) break;
+
+          const data = await response.json();
+
+          if (data.success && data.pricing) {
+            setPricing(prev => ({
+              ...prev,
+              [minifig.no]: {
+                suggestedPrice: data.pricing.suggestedPrice,
+                loading: false
+              }
+            }));
+          } else {
+            setPricing(prev => ({
+              ...prev,
+              [minifig.no]: { suggestedPrice: 0, loading: false }
+            }));
+          }
+        } catch (err: any) {
+          if (err.name === 'AbortError') break;
+
+          if (!cancelled) {
+            setPricing(prev => ({
+              ...prev,
+              [minifig.no]: { suggestedPrice: 0, loading: false }
+            }));
+          }
+        }
+
+        // Small delay between requests
+        await new Promise(resolve => setTimeout(resolve, 200));
+      }
+    };
+
+    fetchPricing();
+
+    // Cleanup: cancel all ongoing requests when component unmounts or new search happens
+    return () => {
+      cancelled = true;
+      abortController.abort();
+    };
   }, [searchResults, condition]);
 
   const handleAddToCollection = async (minifig: any) => {
