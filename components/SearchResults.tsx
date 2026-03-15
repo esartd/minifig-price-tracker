@@ -205,14 +205,14 @@ export default function SearchResults({
                         <label className="block text-xs font-semibold text-gray-700" style={{ marginBottom: '8px' }}>
                           Quantity
                         </label>
-                        <div style={{ position: 'relative', width: '130px' }}>
+                        <div style={{ position: 'relative', width: '100%' }}>
                           <input
                             type="text"
                             value={quantity}
                             readOnly
                             className="border border-gray-200"
                             style={{
-                              width: '130px',
+                              width: '100%',
                               padding: '14px 48px 14px 16px',
                               height: '52px',
                               minHeight: '52px',
@@ -308,7 +308,7 @@ export default function SearchResults({
                           onClick={(e) => e.stopPropagation()}
                           className="appearance-none cursor-pointer transition-all border border-gray-200"
                           style={{
-                            width: '130px',
+                            width: '100%',
                             padding: '14px 16px',
                             height: '52px',
                             minHeight: '52px',
@@ -403,18 +403,18 @@ export default function SearchResults({
             </div>
 
             <div className="grid grid-cols-2" style={{ gap: '16px', marginBottom: '20px' }}>
-              <div style={{ flex: '1 1 0', minWidth: 0 }}>
+              <div>
                 <label className="block text-xs font-semibold text-gray-700" style={{ marginBottom: '8px' }}>
                   Quantity
                 </label>
-                <div style={{ position: 'relative', width: '130px' }}>
+                <div style={{ position: 'relative', width: '100%' }}>
                   <input
                     type="text"
                     value={quantity}
                     readOnly
                     className="border border-gray-200"
                     style={{
-                      width: '130px',
+                      width: '100%',
                       padding: '14px 48px 14px 16px',
                       height: '52px',
                       minHeight: '52px',
@@ -500,7 +500,7 @@ export default function SearchResults({
                   </div>
                 </div>
               </div>
-              <div style={{ flex: '1 1 0', minWidth: 0 }}>
+              <div>
                 <label className="block text-xs font-semibold text-gray-700" style={{ marginBottom: '8px' }}>
                   Condition
                 </label>
@@ -509,7 +509,7 @@ export default function SearchResults({
                   onChange={(e) => setCondition(e.target.value as 'new' | 'used')}
                   className="appearance-none cursor-pointer transition-all border border-gray-200"
                   style={{
-                    width: '130px',
+                    width: '100%',
                     padding: '14px 16px',
                     height: '52px',
                     minHeight: '52px',
