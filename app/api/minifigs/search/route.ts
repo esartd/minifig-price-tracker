@@ -47,18 +47,37 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Use fuzzy search on catalog for name-based searches
-    const fuzzyResults = fuse.search(searchTerm);
+    // Split search into words for better multi-word matching
+    const searchWords = searchTerm.toLowerCase().split(/\s+/).filter(word => word.length >= 2);
 
-    if (fuzzyResults.length === 0) {
+    let matchedItems: typeof minifigCatalog = [];
+
+    if (searchWords.length === 1) {
+      // Single word search - use Fuse.js directly
+      const fuzzyResults = fuse.search(searchTerm);
+      matchedItems = fuzzyResults.map(result => result.item);
+    } else {
+      // Multi-word search - find minifigs matching ALL words
+      // For each word, get matching minifigs
+      const resultsPerWord = searchWords.map(word => {
+        const results = fuse.search(word);
+        return new Set(results.map(r => r.item.no));
+      });
+
+      // Find minifigs that appear in ALL word searches (intersection)
+      const intersection = minifigCatalog.filter(item => {
+        return resultsPerWord.every(wordSet => wordSet.has(item.no));
+      });
+
+      matchedItems = intersection;
+    }
+
+    if (matchedItems.length === 0) {
       return NextResponse.json({
         success: false,
         error: `No minifigures found matching "${searchTerm}". Try searching by exact item number (e.g., sw0002) or browse popular characters.`,
       }, { status: 404 });
     }
-
-    // Get all matching results (not just top 10)
-    const matchedItems = fuzzyResults.map(result => result.item);
 
     // Fetch full details from Bricklink API for each result to get images and verify existence
     const detailsPromises = matchedItems.map(item =>
