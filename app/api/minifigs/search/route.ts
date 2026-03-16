@@ -47,18 +47,15 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Split search into words for better multi-word matching
+    // Try full phrase match first
+    const phraseResults = fuse.search(searchTerm);
+    let matchedItems: typeof minifigCatalog = phraseResults.map(result => result.item);
+
+    // If multi-word search and few results, also include results matching ALL words
     const searchWords = searchTerm.toLowerCase().split(/\s+/).filter(word => word.length >= 2);
 
-    let matchedItems: typeof minifigCatalog = [];
-
-    if (searchWords.length === 1) {
-      // Single word search - use Fuse.js directly
-      const fuzzyResults = fuse.search(searchTerm);
-      matchedItems = fuzzyResults.map(result => result.item);
-    } else {
-      // Multi-word search - find minifigs matching ALL words
-      // For each word, get matching minifigs
+    if (searchWords.length > 1 && matchedItems.length < 20) {
+      // Multi-word search - find minifigs matching ALL words individually
       const resultsPerWord = searchWords.map(word => {
         const results = fuse.search(word);
         return new Set(results.map(r => r.item.no));
@@ -69,7 +66,13 @@ export async function GET(request: NextRequest) {
         return resultsPerWord.every(wordSet => wordSet.has(item.no));
       });
 
-      matchedItems = intersection;
+      // Combine phrase results with word intersection, remove duplicates
+      const combinedSet = new Set([
+        ...matchedItems.map(item => item.no),
+        ...intersection.map(item => item.no)
+      ]);
+
+      matchedItems = minifigCatalog.filter(item => combinedSet.has(item.no));
     }
 
     if (matchedItems.length === 0) {
