@@ -48,6 +48,7 @@ export default function SearchResults({
   const [quantity, setQuantity] = useState(1);
   const [condition, setCondition] = useState<'new' | 'used'>('new');
   const [loading, setLoading] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState<{ url: string; name: string } | null>(null);
   const [error, setError] = useState('');
   const [selectedThemes, setSelectedThemes] = useState<Set<string>>(new Set());
   const [pricing, setPricing] = useState<Record<string, { suggestedPrice: number; loading: boolean }>>({});
@@ -228,6 +229,18 @@ export default function SearchResults({
     };
   }, [searchResult, condition]);
 
+  // Handle ESC key to close lightbox
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && lightboxImage) {
+        closeLightbox();
+      }
+    };
+
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [lightboxImage]);
+
   const handleAddToCollection = async (minifig: any) => {
     setLoading(true);
     setError('');
@@ -278,6 +291,15 @@ export default function SearchResults({
       setCondition('new');
       setError('');
     }
+  };
+
+  const openLightbox = (imageUrl: string, name: string, e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent expand/collapse when clicking image
+    setLightboxImage({ url: imageUrl, name });
+  };
+
+  const closeLightbox = () => {
+    setLightboxImage(null);
   };
 
   if (!searchResults.length && !searchResult) {
@@ -421,12 +443,14 @@ export default function SearchResults({
                     width: '80px',
                     height: '120px',
                     borderTopLeftRadius: '20px',
-                    borderBottomLeftRadius: isExpanded ? '0' : '20px'
+                    borderBottomLeftRadius: isExpanded ? '0' : '20px',
+                    cursor: minifig.image_url ? 'zoom-in' : 'default'
                   }}>
                     {minifig.image_url ? (
                       <img
                         src={minifig.image_url}
                         alt={minifig.name}
+                        onClick={(e) => openLightbox(minifig.image_url, minifig.name, e)}
                         style={{ height: '120px', width: 'auto', maxWidth: 'none' }}
                       />
                     ) : (
@@ -661,13 +685,15 @@ export default function SearchResults({
             style={{
               width: '120px',
               height: '180px',
-              background: 'rgba(245, 245, 247, 0.5)'
+              background: 'rgba(245, 245, 247, 0.5)',
+              cursor: searchResult.image_url ? 'zoom-in' : 'default'
             }}
           >
             {searchResult.image_url ? (
               <img
                 src={searchResult.image_url}
                 alt={searchResult.name}
+                onClick={(e) => openLightbox(searchResult.image_url, searchResult.name, e)}
                 style={{ height: '180px', width: 'auto', maxWidth: 'none' }}
               />
             ) : (
@@ -862,6 +888,85 @@ export default function SearchResults({
               >
                 {loading ? 'Adding...' : 'Add to Collection'}
               </button>
+          </div>
+        </div>
+      )}
+
+      {/* Lightbox Modal */}
+      {lightboxImage && (
+        <div
+          onClick={closeLightbox}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0, 0, 0, 0.9)',
+            backdropFilter: 'blur(10px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+            cursor: 'zoom-out',
+            padding: '40px'
+          }}
+        >
+          <div
+            style={{
+              position: 'relative',
+              maxWidth: '90vw',
+              maxHeight: '90vh',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
+            }}
+          >
+            <img
+              src={lightboxImage.url}
+              alt={lightboxImage.name}
+              style={{
+                maxWidth: '100%',
+                maxHeight: 'calc(90vh - 60px)',
+                objectFit: 'contain',
+                borderRadius: '12px',
+                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)'
+              }}
+            />
+            <div
+              style={{
+                marginTop: '20px',
+                color: 'white',
+                fontSize: '16px',
+                fontWeight: 500,
+                textAlign: 'center',
+                textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)'
+              }}
+            >
+              {lightboxImage.name}
+            </div>
+            <button
+              onClick={closeLightbox}
+              style={{
+                position: 'absolute',
+                top: '-50px',
+                right: '-50px',
+                width: '40px',
+                height: '40px',
+                background: 'rgba(255, 255, 255, 0.2)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                borderRadius: '50%',
+                color: 'white',
+                fontSize: '24px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backdropFilter: 'blur(10px)'
+              }}
+            >
+              ×
+            </button>
           </div>
         </div>
       )}

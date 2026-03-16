@@ -1,7 +1,7 @@
 'use client';
 
 import { CollectionItem } from '@/types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface CollectionListProps {
   items: CollectionItem[];
@@ -23,6 +23,7 @@ export default function CollectionList({
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editQuantity, setEditQuantity] = useState(1);
   const [editCondition, setEditCondition] = useState<'new' | 'used'>('new');
+  const [lightboxImage, setLightboxImage] = useState<{ url: string; name: string } | null>(null);
 
   const handleEdit = (item: CollectionItem) => {
     setEditingId(item.id);
@@ -41,6 +42,27 @@ export default function CollectionList({
   const handleCancelEdit = () => {
     setEditingId(null);
   };
+
+  const openLightbox = (imageUrl: string, name: string, e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent item selection when clicking image
+    setLightboxImage({ url: imageUrl, name });
+  };
+
+  const closeLightbox = () => {
+    setLightboxImage(null);
+  };
+
+  // Handle ESC key to close lightbox
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && lightboxImage) {
+        closeLightbox();
+      }
+    };
+
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [lightboxImage]);
 
   const formatPrice = (price: number) => {
     return showDecimals ? price.toFixed(2) : Math.round(price).toString();
@@ -103,7 +125,8 @@ export default function CollectionList({
               <img
                 src={item.image_url}
                 alt={item.minifigure_name}
-                style={{ height: '120px', width: 'auto', maxWidth: 'none', position: 'relative', zIndex: 1 }}
+                onClick={(e) => openLightbox(item.image_url!, item.minifigure_name, e)}
+                style={{ height: '120px', width: 'auto', maxWidth: 'none', position: 'relative', zIndex: 1, cursor: 'zoom-in' }}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center" style={{ position: 'relative', zIndex: 1 }}>
@@ -479,6 +502,85 @@ export default function CollectionList({
           )}
         </div>
       ))}
+
+      {/* Lightbox Modal */}
+      {lightboxImage && (
+        <div
+          onClick={closeLightbox}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0, 0, 0, 0.9)',
+            backdropFilter: 'blur(10px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+            cursor: 'zoom-out',
+            padding: '40px'
+          }}
+        >
+          <div
+            style={{
+              position: 'relative',
+              maxWidth: '90vw',
+              maxHeight: '90vh',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
+            }}
+          >
+            <img
+              src={lightboxImage.url}
+              alt={lightboxImage.name}
+              style={{
+                maxWidth: '100%',
+                maxHeight: 'calc(90vh - 60px)',
+                objectFit: 'contain',
+                borderRadius: '12px',
+                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)'
+              }}
+            />
+            <div
+              style={{
+                marginTop: '20px',
+                color: 'white',
+                fontSize: '16px',
+                fontWeight: 500,
+                textAlign: 'center',
+                textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)'
+              }}
+            >
+              {lightboxImage.name}
+            </div>
+            <button
+              onClick={closeLightbox}
+              style={{
+                position: 'absolute',
+                top: '-50px',
+                right: '-50px',
+                width: '40px',
+                height: '40px',
+                background: 'rgba(255, 255, 255, 0.2)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                borderRadius: '50%',
+                color: 'white',
+                fontSize: '24px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backdropFilter: 'blur(10px)'
+              }}
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
