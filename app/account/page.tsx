@@ -39,7 +39,7 @@ export default function AccountPage() {
     // Fetch collection stats
     const fetchStats = async () => {
       try {
-        const response = await fetch('/api/collection');
+        const response = await fetch('/api/inventory');
         if (response.ok) {
           const data = await response.json();
           // Ensure data is an array before using reduce
@@ -198,7 +198,7 @@ export default function AccountPage() {
 
   const handleExportData = async () => {
     try {
-      const response = await fetch('/api/collection');
+      const response = await fetch('/api/inventory');
       if (!response.ok) throw new Error('Failed to fetch collection');
 
       const data = await response.json();
@@ -272,7 +272,7 @@ export default function AccountPage() {
       }}>
         {/* Back Link */}
         <Link
-          href="/collection"
+          href="/inventory"
           style={{
             display: 'inline-flex',
             alignItems: 'center',

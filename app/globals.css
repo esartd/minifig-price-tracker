@@ -459,11 +459,49 @@
    MINIFIG DETAIL PAGE
    ====================== */
 
-/* Mobile first - single column */
+/* Mobile first - single column stacked */
 .minifig-detail-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0;
+}
+
+/* Mobile pricing - 2x2 grid */
+.minifig-pricing-row {
+  flex-wrap: wrap !important;
+  gap: 0 !important;
+}
+
+.minifig-pricing-row .pricing-item {
+  flex: 0 0 50% !important;
+  padding: 24px 16px !important;
+  text-align: center !important;
+}
+
+/* Top-left: right + bottom border */
+.minifig-pricing-row .pricing-item-1 {
+  border-right: 1px solid #e5e5e5 !important;
+  border-bottom: 1px solid #e5e5e5 !important;
+}
+
+/* Top-right: bottom border only */
+.minifig-pricing-row .pricing-item-2 {
+  border-bottom: 1px solid #e5e5e5 !important;
+}
+
+/* Bottom-left: right border only */
+.minifig-pricing-row .pricing-item-3 {
+  border-right: 1px solid #e5e5e5 !important;
+}
+
+/* Bottom-right: no borders */
+.minifig-pricing-row .pricing-item-4 {
+  /* No borders */
+}
+
+/* Hide vertical dividers on mobile */
+.minifig-pricing-row .pricing-divider {
+  display: none !important;
 }
 
 .minifig-related-heading {
@@ -501,32 +539,31 @@
   object-fit: contain;
 }
 
-/* Tablet and up - two column layout */
+/* Tablet - keep 2x2 grid if space is tight */
 @media (min-width: 768px) {
   .minifig-detail-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 400px 1fr !important;
   }
 
   .minifig-image-container {
-    padding: 64px 48px !important;
-    min-height: 500px !important;
+    padding: 48px 32px !important;
+    min-height: auto !important;
     background: #ffffff !important;
+    border-right: 1px solid #e5e5e5 !important;
+    align-items: flex-start !important;
+    padding-top: 64px !important;
   }
 
   .minifig-main-image {
-    max-height: 400px !important;
+    max-height: 350px !important;
   }
 
-  .minifig-detail-grid > div:nth-child(2) {
-    padding: 64px 48px !important;
+  .minifig-details-section {
+    padding: 48px 40px !important;
   }
 
   .minifig-detail-grid h1 {
-    font-size: 36px !important;
-  }
-
-  .minifig-detail-grid > div:nth-child(2) > div:nth-child(1) p:nth-child(3) {
-    font-size: 18px !important;
+    font-size: 32px !important;
   }
 
   .minifig-related-heading {
@@ -543,8 +580,70 @@
   }
 }
 
+/* Pricing horizontal only on very large screens */
+@media (min-width: 1200px) {
+  /* Pricing row horizontal on large desktop */
+  .minifig-pricing-row {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+
+  .minifig-pricing-row .pricing-item {
+    padding: 20px 24px !important;
+    text-align: center !important;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+  }
+
+  /* Remove all mobile grid borders */
+  .minifig-pricing-row .pricing-item-1,
+  .minifig-pricing-row .pricing-item-2,
+  .minifig-pricing-row .pricing-item-3,
+  .minifig-pricing-row .pricing-item-4 {
+    border: none !important;
+  }
+
+  .minifig-pricing-row .pricing-item:first-child {
+    padding-left: 0 !important;
+  }
+
+  .minifig-pricing-row .pricing-item:last-child {
+    padding-right: 0 !important;
+  }
+
+  .minifig-pricing-row .pricing-divider {
+    display: block !important;
+    margin: 0 !important;
+    width: 1px !important;
+    flex-shrink: 0 !important;
+  }
+}
+
 /* Desktop */
 @media (min-width: 1024px) {
+  .minifig-detail-grid {
+    grid-template-columns: 450px 1fr !important;
+  }
+
+  .minifig-image-container {
+    padding: 64px 48px !important;
+  }
+
+  .minifig-main-image {
+    max-height: 400px !important;
+  }
+
+  .minifig-details-section {
+    padding: 64px 56px !important;
+  }
+
+  .minifig-detail-grid h1 {
+    font-size: 36px !important;
+  }
+
   .minifig-related-grid {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -1363,59 +1462,130 @@
 /* Collection List Item Responsive Styles */
 /* ============================================ */
 
-/* Tablet (768px+) */
-@media (min-width: 768px) {
-  .collection-item-card {
-    flex-direction: row !important;
-  }
+/* Pricing drawer - default mobile 2 columns */
+.pricing-drawer .pricing-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
 
-  .collection-item-card > div:first-child {
-    padding: 24px !important;
-    flex-direction: row !important;
-    align-items: center !important;
+/* Mobile (up to 480px) */
+@media (max-width: 480px) {
+  .collection-item-main {
+    flex-wrap: wrap !important;
+    gap: 12px !important;
   }
 
   .collection-item-image {
-    width: 100px !important;
-    height: 120px !important;
+    width: 70px !important;
+    height: 90px !important;
+  }
+
+  .collection-item-image img {
+    height: 90px !important;
+  }
+
+  .collection-item-info {
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+
+  .collection-item-card h3 {
+    font-size: 15px !important;
+  }
+
+  .collection-item-actions {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    justify-content: space-between !important;
+  }
+
+  .collection-item-actions > div:first-child {
+    flex: 1 !important;
+    max-width: calc(100% - 42px) !important;
+  }
+
+  .collection-item-actions > button {
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 36px !important;
+  }
+}
+
+/* Tablet (768px+) */
+@media (min-width: 768px) {
+  .collection-item-main {
+    padding: 24px !important;
+  }
+
+  .collection-item-image {
+    width: 110px !important;
+    height: 130px !important;
     margin-right: 24px !important;
   }
 
   .collection-item-image img {
-    height: 120px !important;
+    height: 130px !important;
   }
 
   .collection-item-card h3 {
-    font-size: 18px !important;
+    font-size: 19px !important;
   }
 
-  .collection-item-card > div:first-child > div:last-child {
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: space-between !important;
+  .collection-item-actions {
+    gap: 12px !important;
   }
 
-  /* Hide mobile action buttons, show desktop ones */
-  .collection-item-card > div:nth-child(2) {
-    display: none !important;
+  /* Pricing drawer - 4 columns on desktop */
+  .pricing-drawer .pricing-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
   }
 
-  /* Show desktop actions inline */
-  .collection-item-actions-desktop {
-    display: flex !important;
-    gap: 12px;
-    align-items: center;
+  /* Quantity stepper shouldn't stretch on desktop */
+  .collection-item-actions > div:first-child {
+    flex: 0 0 auto !important;
+    max-width: none !important;
   }
 }
 
 /* Desktop (1024px+) */
 @media (min-width: 1024px) {
-  .collection-item-card > div:first-child {
+  .collection-item-main {
     padding: 28px 32px !important;
   }
 
   .collection-item-card h3 {
     font-size: 20px !important;
+  }
+
+  .collection-item-image {
+    width: 120px !important;
+    height: 140px !important;
+    margin-right: 28px !important;
+  }
+
+  .collection-item-image img {
+    height: 140px !important;
+  }
+
+  /* Quantity stepper buttons */
+  .collection-item-actions > div button {
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 36px !important;
+  }
+
+  .collection-item-actions > div > div {
+    min-width: 50px !important;
+    height: 36px !important;
+    font-size: 15px !important;
+  }
+
+  /* Delete button */
+  .collection-item-actions > button {
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 36px !important;
   }
 }
 

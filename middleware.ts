@@ -8,7 +8,7 @@ export default auth((req) => {
                        req.nextUrl.pathname.startsWith('/search') ||
                        req.nextUrl.pathname.startsWith('/minifig') ||
                        req.nextUrl.pathname.startsWith('/about');
-  const isProtectedPage = req.nextUrl.pathname.startsWith('/collection') ||
+  const isProtectedPage = req.nextUrl.pathname.startsWith('/inventory') ||
                           req.nextUrl.pathname.startsWith('/account');
 
   // Allow public access to home, search, minifig detail, and about pages

@@ -2,6 +2,7 @@
 
 import { CollectionItem } from '@/types';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface CollectionListProps {
   items: CollectionItem[];
@@ -20,68 +21,38 @@ export default function CollectionList({
   selectedItemId,
   showDecimals,
 }: CollectionListProps) {
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [editQuantity, setEditQuantity] = useState(1);
-  const [lightboxImage, setLightboxImage] = useState<{ url: string; name: string } | null>(null);
+  const router = useRouter();
+  const [editingQuantityId, setEditingQuantityId] = useState<string | null>(null);
+  const [tempQuantity, setTempQuantity] = useState<string>('');
 
-  const handleEdit = (item: CollectionItem) => {
-    setEditingId(item.id);
-    setEditQuantity(item.quantity);
-    onItemSelect(null); // Close the drawer when entering edit mode
-  };
-
-  const handleSaveEdit = (id: string) => {
-    onItemUpdate(id, {
-      quantity: editQuantity,
-    });
-    setEditingId(null);
-  };
-
-  const handleCancelEdit = () => {
-    setEditingId(null);
+  const handleQuantityClick = (item: CollectionItem, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setEditingQuantityId(item.id);
+    setTempQuantity(item.quantity.toString());
   };
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    // Allow empty string for editing
-    if (value === '') {
-      setEditQuantity(1);
-      return;
-    }
-    // Parse and validate
-    const num = parseInt(value, 10);
-    if (!isNaN(num) && num >= 1 && num <= 9999) {
-      setEditQuantity(num);
+    if (value === '' || /^\d+$/.test(value)) {
+      setTempQuantity(value);
     }
   };
 
-  const handleQuantityBlur = () => {
-    // Ensure valid number on blur
-    if (editQuantity < 1) {
-      setEditQuantity(1);
+  const handleQuantityBlur = (item: CollectionItem) => {
+    const num = parseInt(tempQuantity, 10);
+    if (!isNaN(num) && num >= 1 && num <= 9999 && num !== item.quantity) {
+      onItemUpdate(item.id, { quantity: num });
+    }
+    setEditingQuantityId(null);
+  };
+
+  const handleQuantityKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, item: CollectionItem) => {
+    if (e.key === 'Enter') {
+      handleQuantityBlur(item);
+    } else if (e.key === 'Escape') {
+      setEditingQuantityId(null);
     }
   };
-
-  const openLightbox = (imageUrl: string, name: string, e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent item selection when clicking image
-    setLightboxImage({ url: imageUrl, name });
-  };
-
-  const closeLightbox = () => {
-    setLightboxImage(null);
-  };
-
-  // Handle ESC key to close lightbox
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && lightboxImage) {
-        closeLightbox();
-      }
-    };
-
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
-  }, [lightboxImage]);
 
   const formatPrice = (price: number) => {
     return showDecimals ? price.toFixed(2) : Math.round(price).toString();
@@ -103,7 +74,7 @@ export default function CollectionList({
           color: '#171717',
           marginBottom: '8px'
         }}>
-          No minifigures in your collection yet
+          No minifigures in your inventory yet
         </p>
         <p style={{
           fontSize: '16px',
@@ -121,8 +92,8 @@ export default function CollectionList({
       {items.map((item) => (
         <div key={item.id}>
           <div
-            className={`collection-item-card ${editingId === item.id ? 'editing' : ''}`}
-            onClick={() => editingId !== item.id && onItemSelect(selectedItemId === item.id ? null : item)}
+            className="collection-item-card"
+            onClick={() => onItemSelect(selectedItemId === item.id ? null : item)}
             style={{
               display: 'flex',
               flexDirection: 'column',
@@ -130,14 +101,14 @@ export default function CollectionList({
               background: '#ffffff',
               borderRadius: '12px',
               border: selectedItemId === item.id ? '2px solid #3b82f6' : '1px solid #e5e5e5',
-              cursor: editingId === item.id ? 'default' : 'pointer',
+              cursor: 'pointer',
               transition: 'all 0.2s',
               boxShadow: selectedItemId === item.id ? '0 4px 12px rgba(59, 130, 246, 0.1)' : '0 1px 3px rgba(0, 0, 0, 0.05)',
               position: 'relative'
             }}
           >
           {/* Main Content Row */}
-          <div style={{ display: 'flex', padding: '16px' }}>
+          <div className="collection-item-main" style={{ display: 'flex', flexWrap: 'wrap', padding: '20px', gap: '16px' }}>
             {/* Image Section */}
             <div
               className="collection-item-image"
@@ -148,7 +119,7 @@ export default function CollectionList({
                 justifyContent: 'center',
                 width: '80px',
                 height: '100px',
-                backgroundColor: '#fafafa',
+                backgroundColor: '#ffffff',
                 borderRadius: '8px',
                 overflow: 'hidden',
                 marginRight: '16px'
@@ -158,8 +129,11 @@ export default function CollectionList({
                 <img
                   src={item.image_url}
                   alt={item.minifigure_name}
-                  onClick={(e) => openLightbox(item.image_url!, item.minifigure_name, e)}
-                  style={{ height: '100px', width: 'auto', maxWidth: 'none', cursor: 'zoom-in' }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(`/minifig/${item.minifigure_no}`);
+                  }}
+                  style={{ height: '100px', width: 'auto', maxWidth: 'none', cursor: 'pointer' }}
                 />
               ) : (
                 <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -169,309 +143,331 @@ export default function CollectionList({
             </div>
 
             {/* Info Section */}
-            <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
-              {editingId === item.id ? (
-                <>
-                  <h3 style={{
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    color: '#171717',
-                    marginBottom: '4px',
-                    letterSpacing: '-0.01em',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap'
-                  }}>
-                    {item.minifigure_name}
-                  </h3>
-                  <p style={{
-                    fontSize: '13px',
-                    color: '#737373',
-                    fontFamily: 'monospace',
-                    marginBottom: '8px'
-                  }}>
-                    {item.minifigure_no}
-                  </p>
-                  <p style={{
-                    fontSize: '13px',
-                    color: '#525252',
-                    marginBottom: '12px'
-                  }}>
-                    Update quantity
-                  </p>
-                </>
-              ) : (
-                <>
-                  <h3 style={{
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    color: '#171717',
-                    marginBottom: '4px',
-                    letterSpacing: '-0.01em',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap'
-                  }}>
-                    {item.minifigure_name}
-                  </h3>
-                  <p style={{
-                    fontSize: '13px',
-                    color: '#737373',
-                    fontFamily: 'monospace',
-                    marginBottom: '8px'
-                  }}>
-                    {item.minifigure_no}
-                  </p>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    fontSize: '13px',
-                    color: '#525252'
-                  }}>
-                    <span>Qty: {item.quantity}</span>
-                    {item.pricing && (
-                      <span style={{ fontWeight: '600', color: '#171717', fontSize: '18px' }}>
-                        ${showDecimals ? item.pricing.suggestedPrice.toFixed(2) : Math.round(item.pricing.suggestedPrice)}
-                      </span>
-                    )}
-                  </div>
-                </>
+            <div className="collection-item-info" style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <h3 style={{
+                fontSize: '17px',
+                fontWeight: '600',
+                color: '#171717',
+                marginBottom: '6px',
+                letterSpacing: '-0.01em',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap'
+              }}>
+                {item.minifigure_name}
+              </h3>
+              <p style={{
+                fontSize: '13px',
+                color: '#737373',
+                fontFamily: 'monospace',
+                marginBottom: '10px'
+              }}>
+                {item.minifigure_no}
+              </p>
+              {item.pricing && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  {item.quantity > 1 ? (
+                    <>
+                      <div style={{
+                        fontSize: '13px',
+                        color: '#737373',
+                        fontWeight: '500'
+                      }}>
+                        ${showDecimals ? item.pricing.suggestedPrice.toFixed(2) : Math.round(item.pricing.suggestedPrice)} ea
+                      </div>
+                      <div style={{
+                        fontSize: '20px',
+                        fontWeight: '700',
+                        color: '#3b82f6',
+                        letterSpacing: '-0.01em'
+                      }}>
+                        ${showDecimals ? (item.pricing.suggestedPrice * item.quantity).toFixed(2) : Math.round(item.pricing.suggestedPrice * item.quantity)} <span style={{ fontSize: '13px', fontWeight: '500', color: '#737373' }}>total</span>
+                      </div>
+                    </>
+                  ) : (
+                    <div style={{
+                      fontSize: '20px',
+                      fontWeight: '700',
+                      color: '#3b82f6',
+                      letterSpacing: '-0.01em'
+                    }}>
+                      ${showDecimals ? item.pricing.suggestedPrice.toFixed(2) : Math.round(item.pricing.suggestedPrice)}
+                    </div>
+                  )}
+                </div>
               )}
             </div>
-          </div>
 
-          {/* Edit Mode Controls */}
-          {editingId === item.id && (
-            <div style={{ padding: '0 16px 16px', display: 'flex', flexDirection: 'column', gap: '12px' }} onClick={(e) => e.stopPropagation()}>
-              {/* Horizontal Quantity Stepper */}
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0',
-                border: '1px solid #e5e5e5',
-                borderRadius: '8px',
-                overflow: 'hidden',
-                width: 'fit-content'
-              }}>
-                {/* Minus Button */}
+            {/* Action Controls - Inline (Mobile & Desktop) */}
+            <div className="collection-item-actions" style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              marginLeft: 'auto',
+              paddingLeft: '12px',
+              flexShrink: 0
+            }}>
+                {/* Quantity Stepper */}
+                <div onClick={(e) => e.stopPropagation()} style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  background: '#ffffff'
+                }}>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (item.quantity > 1) {
+                        onItemUpdate(item.id, { quantity: item.quantity - 1 });
+                      }
+                    }}
+                    disabled={item.quantity <= 1}
+                    style={{
+                      width: '32px',
+                      minWidth: '32px',
+                      height: '32px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: item.quantity > 1 ? '#ffffff' : '#f5f5f5',
+                      border: 'none',
+                      borderRight: '1px solid #e5e5e5',
+                      cursor: item.quantity > 1 ? 'pointer' : 'not-allowed',
+                      color: item.quantity > 1 ? '#171717' : '#a3a3a3',
+                      transition: 'all 0.2s',
+                      fontSize: '18px',
+                      fontWeight: '600',
+                      padding: 0,
+                      flexShrink: 0
+                    }}
+                    onMouseEnter={(e) => {
+                      if (item.quantity > 1) e.currentTarget.style.background = '#f5f5f5';
+                    }}
+                    onMouseLeave={(e) => {
+                      if (item.quantity > 1) e.currentTarget.style.background = '#ffffff';
+                    }}
+                  >
+                    −
+                  </button>
+
+                  {editingQuantityId === item.id ? (
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={tempQuantity}
+                      onChange={handleQuantityChange}
+                      onBlur={() => handleQuantityBlur(item)}
+                      onKeyDown={(e) => handleQuantityKeyDown(e, item)}
+                      onClick={(e) => e.stopPropagation()}
+                      autoFocus
+                      style={{
+                        flex: 1,
+                        minWidth: '44px',
+                        height: '32px',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        color: '#171717',
+                        background: '#ffffff',
+                        border: 'none',
+                        textAlign: 'center',
+                        outline: 'none',
+                        padding: 0
+                      }}
+                    />
+                  ) : (
+                    <div
+                      onClick={(e) => handleQuantityClick(item, e)}
+                      style={{
+                        flex: 1,
+                        minWidth: '44px',
+                        height: '32px',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        color: '#171717',
+                        background: '#ffffff',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'text',
+                        userSelect: 'none'
+                      }}
+                    >
+                      {item.quantity}
+                    </div>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (item.quantity < 9999) {
+                        onItemUpdate(item.id, { quantity: item.quantity + 1 });
+                      }
+                    }}
+                    disabled={item.quantity >= 9999}
+                    style={{
+                      width: '32px',
+                      minWidth: '32px',
+                      height: '32px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: item.quantity < 9999 ? '#ffffff' : '#f5f5f5',
+                      border: 'none',
+                      borderLeft: '1px solid #e5e5e5',
+                      cursor: item.quantity < 9999 ? 'pointer' : 'not-allowed',
+                      color: item.quantity < 9999 ? '#171717' : '#a3a3a3',
+                      transition: 'all 0.2s',
+                      fontSize: '18px',
+                      fontWeight: '600',
+                      padding: 0,
+                      flexShrink: 0
+                    }}
+                    onMouseEnter={(e) => {
+                      if (item.quantity < 9999) e.currentTarget.style.background = '#f5f5f5';
+                    }}
+                    onMouseLeave={(e) => {
+                      if (item.quantity < 9999) e.currentTarget.style.background = '#ffffff';
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
+
+                {/* Delete Icon Button */}
                 <button
-                  type="button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    if (editQuantity > 1) setEditQuantity(editQuantity - 1);
+                    if (confirm('Delete this item from your inventory?')) {
+                      onItemDelete(item.id);
+                    }
                   }}
-                  disabled={editQuantity <= 1}
                   style={{
-                    width: '44px',
-                    height: '44px',
+                    width: '32px',
+                    minWidth: '32px',
+                    height: '32px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    background: editQuantity > 1 ? '#ffffff' : '#f5f5f5',
-                    border: 'none',
-                    borderRight: '1px solid #e5e5e5',
-                    cursor: editQuantity > 1 ? 'pointer' : 'not-allowed',
-                    color: editQuantity > 1 ? '#171717' : '#a3a3a3',
-                    transition: 'all 0.2s',
-                    fontSize: '20px',
-                    fontWeight: '600',
-                    padding: 0
-                  }}
-                  onMouseEnter={(e) => {
-                    if (editQuantity > 1) e.currentTarget.style.background = '#f5f5f5';
-                  }}
-                  onMouseLeave={(e) => {
-                    if (editQuantity > 1) e.currentTarget.style.background = '#ffffff';
-                  }}
-                >
-                  −
-                </button>
-
-                {/* Quantity Input */}
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  value={editQuantity}
-                  onChange={handleQuantityChange}
-                  onBlur={handleQuantityBlur}
-                  onClick={(e) => e.stopPropagation()}
-                  style={{
-                    minWidth: '60px',
-                    height: '44px',
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    color: '#171717',
-                    background: '#ffffff',
-                    border: 'none',
-                    textAlign: 'center',
-                    outline: 'none',
-                    padding: '0'
-                  }}
-                />
-
-                {/* Plus Button */}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setEditQuantity(editQuantity + 1);
-                  }}
-                  style={{
-                    width: '44px',
-                    height: '44px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: '#ffffff',
-                    border: 'none',
-                    borderLeft: '1px solid #e5e5e5',
-                    cursor: 'pointer',
-                    color: '#171717',
-                    transition: 'all 0.2s',
-                    fontSize: '20px',
-                    fontWeight: '600',
-                    padding: 0
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#f5f5f5'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = '#ffffff'}
-                >
-                  +
-                </button>
-              </div>
-
-              <div style={{ display: 'flex', gap: '12px' }}>
-                <button
-                  onClick={() => handleSaveEdit(item.id)}
-                  style={{
-                    flex: 1,
-                    padding: '14px',
-                    fontSize: '15px',
-                    fontWeight: '600',
-                    color: '#ffffff',
-                    background: '#3b82f6',
-                    border: 'none',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    outline: 'none'
-                  }}
-                >
-                  Save
-                </button>
-                <button
-                  onClick={handleCancelEdit}
-                  style={{
-                    flex: 1,
-                    padding: '14px',
-                    fontSize: '15px',
-                    fontWeight: '600',
-                    color: '#525252',
+                    color: '#737373',
                     background: '#ffffff',
                     border: '1px solid #e5e5e5',
                     borderRadius: '8px',
                     cursor: 'pointer',
-                    outline: 'none'
+                    outline: 'none',
+                    transition: 'all 0.2s',
+                    padding: 0,
+                    flexShrink: 0
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#fee2e2';
+                    e.currentTarget.style.color = '#dc2626';
+                    e.currentTarget.style.borderColor = '#fca5a5';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#ffffff';
+                    e.currentTarget.style.color = '#737373';
+                    e.currentTarget.style.borderColor = '#e5e5e5';
                   }}
                 >
-                  Cancel
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                  </svg>
                 </button>
-              </div>
-            </div>
-          )}
 
-          {/* Action Buttons - Always visible when not editing */}
-          {editingId !== item.id && (
-            <div style={{
-              padding: '0 16px 16px',
-              display: 'flex',
-              gap: '12px',
-              borderTop: '1px solid #f5f5f5',
-              paddingTop: '16px',
-              marginTop: '0'
-            }}>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleEdit(item);
-                }}
-                style={{
-                  flex: 1,
-                  padding: '12px',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  color: '#525252',
-                  background: '#ffffff',
-                  border: '1px solid #e5e5e5',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  outline: 'none'
-                }}
-              >
-                Edit
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (confirm('Delete this item?')) {
-                    onItemDelete(item.id);
-                  }
-                }}
-                style={{
-                  flex: 1,
-                  padding: '12px',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  color: '#dc2626',
-                  background: '#ffffff',
-                  border: '1px solid #e5e5e5',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  outline: 'none'
-                }}
-              >
-                Delete
-              </button>
+                {/* Expand/Collapse Caret */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onItemSelect(selectedItemId === item.id ? null : item);
+                  }}
+                  style={{
+                    width: '32px',
+                    minWidth: '32px',
+                    height: '32px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#737373',
+                    background: '#ffffff',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    outline: 'none',
+                    transition: 'all 0.2s',
+                    padding: 0,
+                    flexShrink: 0
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#f5f5f5';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#ffffff';
+                  }}
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{
+                      transform: selectedItemId === item.id ? 'rotate(180deg)' : 'rotate(0deg)',
+                      transition: 'transform 0.2s'
+                    }}
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
             </div>
-          )}
+          </div>
+
           </div>
 
           {/* Pricing Drawer */}
           {selectedItemId === item.id && (
             <div style={{
-              marginTop: '16px',
-              background: '#ffffff',
+              marginTop: '12px',
+              background: '#fafafa',
               borderRadius: '12px',
               border: '1px solid #e5e5e5',
-              overflow: 'hidden',
-              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
+              overflow: 'hidden'
             }}>
-              <div className="pricing-drawer" style={{ padding: '40px' }}>
+              <div className="pricing-drawer" style={{ padding: '20px 16px' }}>
                 {item.pricing ? (
                   <div className="pricing-grid" style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                    gap: '16px',
-                    marginBottom: '32px'
+                    gap: '10px',
+                    marginBottom: '16px'
                   }}>
                   {/* 6 Month Average */}
                   <div className="pricing-card" style={{
-                    padding: '24px',
-                    background: '#fafafa',
-                    borderRadius: '8px'
+                    padding: '14px 12px',
+                    background: '#ffffff',
+                    borderRadius: '8px',
+                    border: '1px solid #e5e5e5'
                   }}>
                     <p className="pricing-card-label" style={{
-                      fontSize: '12px',
+                      fontSize: '11px',
                       fontWeight: '500',
                       color: '#737373',
                       textTransform: 'uppercase',
-                      letterSpacing: '0.05em',
-                      marginBottom: '8px'
+                      letterSpacing: '0.03em',
+                      marginBottom: '6px'
                     }}>
-                      6 Month Average
+                      6 Mo Avg
                     </p>
                     <p className="pricing-card-value" style={{
-                      fontSize: '28px',
-                      fontWeight: '600',
+                      fontSize: '20px',
+                      fontWeight: '700',
                       color: '#171717',
                       letterSpacing: '-0.01em'
                     }}>
@@ -481,23 +477,24 @@ export default function CollectionList({
 
                   {/* Current Average */}
                   <div className="pricing-card" style={{
-                    padding: '24px',
-                    background: '#fafafa',
-                    borderRadius: '8px'
+                    padding: '14px 12px',
+                    background: '#ffffff',
+                    borderRadius: '8px',
+                    border: '1px solid #e5e5e5'
                   }}>
                     <p className="pricing-card-label" style={{
-                      fontSize: '12px',
+                      fontSize: '11px',
                       fontWeight: '500',
                       color: '#737373',
                       textTransform: 'uppercase',
-                      letterSpacing: '0.05em',
-                      marginBottom: '8px'
+                      letterSpacing: '0.03em',
+                      marginBottom: '6px'
                     }}>
-                      Current Average
+                      Current Avg
                     </p>
                     <p className="pricing-card-value" style={{
-                      fontSize: '28px',
-                      fontWeight: '600',
+                      fontSize: '20px',
+                      fontWeight: '700',
                       color: '#171717',
                       letterSpacing: '-0.01em'
                     }}>
@@ -507,23 +504,24 @@ export default function CollectionList({
 
                   {/* Current Lowest */}
                   <div className="pricing-card" style={{
-                    padding: '24px',
-                    background: '#fafafa',
-                    borderRadius: '8px'
+                    padding: '14px 12px',
+                    background: '#ffffff',
+                    borderRadius: '8px',
+                    border: '1px solid #e5e5e5'
                   }}>
                     <p className="pricing-card-label" style={{
-                      fontSize: '12px',
+                      fontSize: '11px',
                       fontWeight: '500',
                       color: '#737373',
                       textTransform: 'uppercase',
-                      letterSpacing: '0.05em',
-                      marginBottom: '8px'
+                      letterSpacing: '0.03em',
+                      marginBottom: '6px'
                     }}>
-                      Current Lowest
+                      Lowest
                     </p>
                     <p className="pricing-card-value" style={{
-                      fontSize: '28px',
-                      fontWeight: '600',
+                      fontSize: '20px',
+                      fontWeight: '700',
                       color: '#171717',
                       letterSpacing: '-0.01em'
                     }}>
@@ -533,24 +531,25 @@ export default function CollectionList({
 
                   {/* Suggested Price */}
                   <div className="pricing-card" style={{
-                    padding: '24px',
-                    background: '#fafafa',
-                    borderRadius: '8px'
+                    padding: '14px 12px',
+                    background: '#ffffff',
+                    borderRadius: '8px',
+                    border: '1px solid #3b82f6'
                   }}>
                     <p className="pricing-card-label" style={{
-                      fontSize: '12px',
+                      fontSize: '11px',
                       fontWeight: '500',
-                      color: '#737373',
+                      color: '#3b82f6',
                       textTransform: 'uppercase',
-                      letterSpacing: '0.05em',
-                      marginBottom: '8px'
+                      letterSpacing: '0.03em',
+                      marginBottom: '6px'
                     }}>
-                      Suggested Price
+                      Suggested
                     </p>
                     <p className="pricing-card-value" style={{
-                      fontSize: '28px',
-                      fontWeight: '600',
-                      color: '#171717',
+                      fontSize: '20px',
+                      fontWeight: '700',
+                      color: '#3b82f6',
                       letterSpacing: '-0.01em'
                     }}>
                       ${formatPrice(item.pricing.suggestedPrice)}
@@ -561,10 +560,11 @@ export default function CollectionList({
                   <div style={{
                     textAlign: 'center',
                     color: '#737373',
-                    marginBottom: '32px'
+                    marginBottom: '16px',
+                    padding: '20px 0'
                   }}>
-                    <p style={{ fontSize: '16px', marginBottom: '8px', fontWeight: '500' }}>No pricing data available</p>
-                    <p style={{ fontSize: '14px' }}>Pricing will be fetched automatically</p>
+                    <p style={{ fontSize: '14px', marginBottom: '4px', fontWeight: '500' }}>No pricing data</p>
+                    <p style={{ fontSize: '13px' }}>Will fetch automatically</p>
                   </div>
                 )}
 
@@ -574,150 +574,28 @@ export default function CollectionList({
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    display: 'inline-block',
-                    padding: '16px 32px',
-                    fontSize: '16px',
+                    display: 'block',
+                    width: '100%',
+                    padding: '12px',
+                    fontSize: '14px',
                     fontWeight: '600',
                     color: '#ffffff',
                     background: '#3b82f6',
                     borderRadius: '8px',
                     textDecoration: 'none',
+                    textAlign: 'center',
                     transition: 'all 0.2s',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    boxSizing: 'border-box'
                   }}
                 >
                   View on Bricklink
                 </a>
-
-                {/* Mobile Action Buttons (Edit/Delete) */}
-                <div className="drawer-actions" style={{ display: 'none' }}>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleEdit(item);
-                    }}
-                    style={{
-                      padding: '16px 32px',
-                      fontSize: '16px',
-                      fontWeight: '600',
-                      color: '#525252',
-                      background: '#ffffff',
-                      border: '1px solid #e5e5e5',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s',
-                      outline: 'none'
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (confirm('Delete this item?')) {
-                        onItemDelete(item.id);
-                      }
-                    }}
-                    style={{
-                      padding: '16px 32px',
-                      fontSize: '16px',
-                      fontWeight: '600',
-                      color: '#dc2626',
-                      background: '#ffffff',
-                      border: '1px solid #e5e5e5',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s',
-                      outline: 'none'
-                    }}
-                  >
-                    Delete
-                  </button>
-                </div>
               </div>
             </div>
           )}
         </div>
       ))}
-
-      {/* Lightbox Modal */}
-      {lightboxImage && (
-        <div
-          onClick={closeLightbox}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(0, 0, 0, 0.9)',
-            backdropFilter: 'blur(10px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 9999,
-            cursor: 'zoom-out',
-            padding: '40px'
-          }}
-        >
-          <div
-            style={{
-              position: 'relative',
-              maxWidth: '90vw',
-              maxHeight: '90vh',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center'
-            }}
-          >
-            <img
-              src={lightboxImage.url}
-              alt={lightboxImage.name}
-              style={{
-                maxWidth: '100%',
-                maxHeight: 'calc(90vh - 60px)',
-                objectFit: 'contain',
-                borderRadius: '12px',
-                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)'
-              }}
-            />
-            <div
-              style={{
-                marginTop: '20px',
-                color: 'white',
-                fontSize: '16px',
-                fontWeight: 500,
-                textAlign: 'center',
-                textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)'
-              }}
-            >
-              {lightboxImage.name}
-            </div>
-            <button
-              onClick={closeLightbox}
-              style={{
-                position: 'absolute',
-                top: '-50px',
-                right: '-50px',
-                width: '40px',
-                height: '40px',
-                background: 'rgba(255, 255, 255, 0.2)',
-                border: '1px solid rgba(255, 255, 255, 0.3)',
-                borderRadius: '50%',
-                color: 'white',
-                fontSize: '24px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backdropFilter: 'blur(10px)'
-              }}
-            >
-              ×
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

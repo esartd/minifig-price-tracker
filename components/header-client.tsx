@@ -19,13 +19,11 @@ export function HeaderClient({ user }: HeaderClientProps) {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setDropdownOpen(false);
       }
-      // Don't close mobile menu if clicking the button itself
       if (
         mobileMenuRef.current &&
         !mobileMenuRef.current.contains(event.target as Node) &&
@@ -58,7 +56,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
     await signOut({ redirectTo: '/auth/signin' });
   };
 
-  // If not logged in, show Sign In / Sign Up
   if (!user) {
     return (
       <header style={{
@@ -81,26 +78,24 @@ export function HeaderClient({ user }: HeaderClientProps) {
             justifyContent: 'space-between',
             height: '72px'
           }}>
-            {/* Logo */}
-            <Link href="/" style={{ textDecoration: 'none' }}>
+            <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', height: '36px' }}>
               <div style={{
                 fontSize: '20px',
                 fontWeight: '600',
                 color: '#171717',
                 letterSpacing: '-0.01em',
-                transition: 'color 0.2s'
+                transition: 'color 0.2s',
+                lineHeight: '1'
               }}>
                 FigTracker
               </div>
             </Link>
 
-            {/* Desktop Navigation + Auth */}
             <div className="desktop-nav" style={{
               display: 'flex',
               alignItems: 'center',
               gap: '32px'
             }}>
-              {/* About Link */}
               <Link
                 href="/about"
                 style={{
@@ -118,7 +113,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 About
               </Link>
 
-              {/* Auth Buttons */}
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -155,7 +149,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
               </div>
             </div>
 
-            {/* Mobile Hamburger Button */}
             <button
               ref={mobileMenuButtonRef}
               className="mobile-menu-btn"
@@ -180,81 +173,52 @@ export function HeaderClient({ user }: HeaderClientProps) {
           </div>
         </div>
 
-        {/* Mobile Menu Drawer */}
         {mobileMenuOpen && (
-          <div
-            ref={mobileMenuRef}
-            className="mobile-menu"
-            style={{
-              position: 'absolute',
-              top: '100%',
-              left: 0,
-              right: 0,
-              background: '#ffffff',
-              borderBottom: '1px solid #e5e5e5',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-              padding: '24px 32px',
-              animation: 'slideDown 0.2s ease-out'
-            }}
-          >
-            <nav style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '20px'
+          <nav ref={mobileMenuRef} style={{
+            background: '#fff',
+            padding: '20px',
+            paddingBottom: '40px'
+          }}>
+            <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
+              display: 'block',
+              padding: '15px 0',
+              borderBottom: '1px solid #f5f5f5',
+              color: '#171717',
+              textDecoration: 'none',
+              fontSize: '16px'
             }}>
-              <Link
-                href="/about"
-                onClick={() => setMobileMenuOpen(false)}
-                style={{
-                  fontSize: '16px',
-                  fontWeight: '500',
-                  color: '#171717',
-                  textDecoration: 'none',
-                  padding: '12px 0',
-                  borderBottom: '1px solid #f5f5f5'
-                }}
-              >
-                About
-              </Link>
-              <Link
-                href="/auth/signin"
-                onClick={() => setMobileMenuOpen(false)}
-                style={{
-                  fontSize: '16px',
-                  fontWeight: '500',
-                  color: '#171717',
-                  textDecoration: 'none',
-                  padding: '12px 0',
-                  borderBottom: '1px solid #f5f5f5'
-                }}
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/auth/signup"
-                onClick={() => setMobileMenuOpen(false)}
-                style={{
-                  display: 'inline-block',
-                  padding: '14px 24px',
-                  fontSize: '16px',
-                  fontWeight: '600',
-                  color: '#ffffff',
-                  background: '#3b82f6',
-                  borderRadius: '8px',
-                  textDecoration: 'none',
-                  textAlign: 'center'
-                }}
-              >
-                Sign Up
-              </Link>
-            </nav>
-          </div>
+              About
+            </Link>
+            <Link href="/auth/signin" onClick={() => setMobileMenuOpen(false)} style={{
+              display: 'block',
+              padding: '15px 0',
+              borderBottom: '1px solid #f5f5f5',
+              color: '#171717',
+              textDecoration: 'none',
+              fontSize: '16px'
+            }}>
+              Sign In
+            </Link>
+            <Link href="/auth/signup" onClick={() => setMobileMenuOpen(false)} style={{
+              display: 'block',
+              marginTop: '20px',
+              padding: '15px',
+              background: '#3b82f6',
+              color: '#fff',
+              textAlign: 'center',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '600'
+            }}>
+              Sign Up
+            </Link>
+          </nav>
         )}
       </header>
     );
   }
 
-  // Logged in view
   return (
     <header style={{
       position: 'sticky',
@@ -276,26 +240,24 @@ export function HeaderClient({ user }: HeaderClientProps) {
           justifyContent: 'space-between',
           height: '72px'
         }}>
-          {/* Logo */}
-          <Link href="/" style={{ textDecoration: 'none' }}>
+          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', height: '36px' }}>
             <div style={{
               fontSize: '20px',
               fontWeight: '600',
               color: '#171717',
               letterSpacing: '-0.01em',
-              transition: 'color 0.2s'
+              transition: 'color 0.2s',
+              lineHeight: '1'
             }}>
               FigTracker
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="desktop-nav" style={{
             display: 'flex',
             alignItems: 'center',
             gap: '32px'
           }}>
-            {/* Search Link */}
             <Link
               href="/search"
               style={{
@@ -313,9 +275,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
               Search
             </Link>
 
-            {/* My Inventory Link */}
             <Link
-              href="/collection"
+              href="/inventory"
               style={{
                 fontSize: '15px',
                 fontWeight: '500',
@@ -331,7 +292,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
               My Inventory
             </Link>
 
-            {/* About Link */}
             <Link
               href="/about"
               style={{
@@ -349,7 +309,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
               About
             </Link>
 
-            {/* User Avatar Dropdown */}
             <div style={{ position: 'relative' }} ref={dropdownRef}>
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -396,7 +355,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 )}
               </button>
 
-              {/* Dropdown Menu */}
               {dropdownOpen && (
                 <div style={{
                   position: 'absolute',
@@ -410,7 +368,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   padding: '8px',
                   animation: 'fadeIn 0.15s ease-out'
                 }}>
-                  {/* User Info */}
                   <div style={{
                     padding: '12px',
                     borderBottom: '1px solid #e5e5e5',
@@ -438,7 +395,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     </p>
                   </div>
 
-                  {/* Menu Items */}
                   <Link
                     href="/account"
                     onClick={() => setDropdownOpen(false)}
@@ -471,7 +427,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     margin: '8px 0'
                   }} />
 
-                  {/* Sign Out */}
                   <button
                     onClick={handleSignOut}
                     style={{
@@ -503,7 +458,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
             </div>
           </div>
 
-          {/* Mobile Hamburger Button */}
           <button
             ref={mobileMenuButtonRef}
             className="mobile-menu-btn"
@@ -528,108 +482,69 @@ export function HeaderClient({ user }: HeaderClientProps) {
         </div>
       </div>
 
-      {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div
-          ref={mobileMenuRef}
-          className="mobile-menu"
-          style={{
-            position: 'absolute',
-            top: '100%',
-            left: 0,
-            right: 0,
-            background: '#ffffff',
-            borderBottom: '1px solid #e5e5e5',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-            padding: '24px 32px',
-            animation: 'slideDown 0.2s ease-out',
-            zIndex: 9999
-          }}
-        >
-          <nav style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '20px'
+        <nav ref={mobileMenuRef} style={{
+          background: '#fff',
+          padding: '20px',
+          paddingBottom: '40px'
+        }}>
+          <Link href="/search" onClick={() => setMobileMenuOpen(false)} style={{
+            display: 'block',
+            padding: '15px 0',
+            borderBottom: '1px solid #f5f5f5',
+            color: '#171717',
+            textDecoration: 'none',
+            fontSize: '16px'
           }}>
-            <Link
-              href="/search"
-              onClick={() => setMobileMenuOpen(false)}
-              style={{
-                fontSize: '16px',
-                fontWeight: '500',
-                color: '#171717',
-                textDecoration: 'none',
-                padding: '12px 0',
-                borderBottom: '1px solid #f5f5f5'
-              }}
-            >
-              Search
-            </Link>
-            <Link
-              href="/collection"
-              onClick={() => setMobileMenuOpen(false)}
-              style={{
-                fontSize: '16px',
-                fontWeight: '500',
-                color: '#171717',
-                textDecoration: 'none',
-                padding: '12px 0',
-                borderBottom: '1px solid #f5f5f5'
-              }}
-            >
-              My Inventory
-            </Link>
-            <Link
-              href="/about"
-              onClick={() => setMobileMenuOpen(false)}
-              style={{
-                fontSize: '16px',
-                fontWeight: '500',
-                color: '#171717',
-                textDecoration: 'none',
-                padding: '12px 0',
-                borderBottom: '1px solid #f5f5f5'
-              }}
-            >
-              About
-            </Link>
-            <Link
-              href="/account"
-              onClick={() => setMobileMenuOpen(false)}
-              style={{
-                fontSize: '16px',
-                fontWeight: '500',
-                color: '#171717',
-                textDecoration: 'none',
-                padding: '12px 0',
-                borderBottom: '1px solid #f5f5f5'
-              }}
-            >
-              Account Settings
-            </Link>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                handleSignOut();
-              }}
-              style={{
-                display: 'inline-block',
-                padding: '14px 24px',
-                fontSize: '16px',
-                fontWeight: '600',
-                color: '#ffffff',
-                background: '#dc2626',
-                borderRadius: '8px',
-                textAlign: 'center',
-                border: 'none',
-                cursor: 'pointer',
-                width: '100%'
-              }}
-            >
-              Sign Out
-            </button>
-          </nav>
-        </div>
+            Search
+          </Link>
+          <Link href="/inventory" onClick={() => setMobileMenuOpen(false)} style={{
+            display: 'block',
+            padding: '15px 0',
+            borderBottom: '1px solid #f5f5f5',
+            color: '#171717',
+            textDecoration: 'none',
+            fontSize: '16px'
+          }}>
+            My Inventory
+          </Link>
+          <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
+            display: 'block',
+            padding: '15px 0',
+            borderBottom: '1px solid #f5f5f5',
+            color: '#171717',
+            textDecoration: 'none',
+            fontSize: '16px'
+          }}>
+            About
+          </Link>
+          <Link href="/account" onClick={() => setMobileMenuOpen(false)} style={{
+            display: 'block',
+            padding: '15px 0',
+            borderBottom: '1px solid #f5f5f5',
+            color: '#171717',
+            textDecoration: 'none',
+            fontSize: '16px'
+          }}>
+            Account Settings
+          </Link>
+          <button onClick={() => { setMobileMenuOpen(false); handleSignOut(); }} style={{
+            display: 'block',
+            width: '100%',
+            marginTop: '20px',
+            padding: '15px',
+            background: '#dc2626',
+            color: '#fff',
+            textAlign: 'center',
+            borderRadius: '8px',
+            border: 'none',
+            fontSize: '16px',
+            fontWeight: '600',
+            cursor: 'pointer'
+          }}>
+            Sign Out
+          </button>
+        </nav>
       )}
     </header>
   );

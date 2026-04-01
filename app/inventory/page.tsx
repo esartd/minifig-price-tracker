@@ -28,7 +28,7 @@ export default function CollectionPage() {
 
   const loadCollection = async () => {
     try {
-      const response = await fetch('/api/collection');
+      const response = await fetch('/api/inventory');
       const data = await response.json();
       if (data.success) {
         setCollection(data.data);
@@ -42,7 +42,7 @@ export default function CollectionPage() {
 
   const handleItemDeleted = async (id: string) => {
     try {
-      const response = await fetch(`/api/collection/${id}`, {
+      const response = await fetch(`/api/inventory/${id}`, {
         method: 'DELETE',
       });
 
@@ -59,7 +59,7 @@ export default function CollectionPage() {
 
   const handleItemUpdated = async (id: string, updates: Partial<CollectionItem>) => {
     try {
-      const response = await fetch(`/api/collection/${id}`, {
+      const response = await fetch(`/api/inventory/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ export default function CollectionPage() {
         }
 
         try {
-          const response = await fetch(`/api/collection/${item.id}/refresh-pricing`, {
+          const response = await fetch(`/api/inventory/${item.id}/refresh-pricing`, {
             method: 'POST',
           });
 
@@ -365,21 +365,23 @@ export default function CollectionPage() {
                     padding: '14px 16px',
                     fontSize: '15px',
                     fontWeight: '600',
-                    color: '#525252',
-                    background: '#ffffff',
+                    color: '#171717',
+                    background: '#f5f5f5',
                     border: '1px solid #e5e5e5',
                     borderRadius: '8px',
                     cursor: 'pointer',
                     outline: 'none',
                     transition: 'all 0.2s',
                     appearance: 'none',
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`,
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23525252' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`,
                     backgroundPosition: 'right 0.75rem center',
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: '1.25em 1.25em',
                     paddingRight: '3rem',
                     boxSizing: 'border-box'
                   }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#e5e5e5'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}
                 >
                   <option value="price-high">Price: High to Low</option>
                   <option value="price-low">Price: Low to High</option>
@@ -390,16 +392,27 @@ export default function CollectionPage() {
                   style={{
                     padding: '14px 20px',
                     fontSize: '15px',
-                    fontWeight: '600',
-                    color: '#525252',
-                    background: '#ffffff',
-                    border: '1px solid #e5e5e5',
+                    fontWeight: '700',
+                    color: showDecimals ? '#ffffff' : '#525252',
+                    background: showDecimals ? '#3b82f6' : '#f5f5f5',
+                    border: showDecimals ? '1px solid #3b82f6' : '1px solid #e5e5e5',
                     borderRadius: '8px',
                     cursor: 'pointer',
                     transition: 'all 0.2s',
                     outline: 'none',
                     boxSizing: 'border-box',
-                    whiteSpace: 'nowrap'
+                    whiteSpace: 'nowrap',
+                    minWidth: '70px'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!showDecimals) {
+                      e.currentTarget.style.background = '#e5e5e5';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!showDecimals) {
+                      e.currentTarget.style.background = '#f5f5f5';
+                    }
                   }}
                 >
                   {showDecimals ? '.00' : '.0'}

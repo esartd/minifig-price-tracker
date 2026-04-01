@@ -84,7 +84,7 @@ export default function SearchResults({
 
       try {
         const response = await fetch(
-          `/api/collection/temp-pricing?itemNo=${searchResult.no}&condition=new`,
+          `/api/inventory/temp-pricing?itemNo=${searchResult.no}&condition=new`,
           { signal: abortController.signal }
         );
 

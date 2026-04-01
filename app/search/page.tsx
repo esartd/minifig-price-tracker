@@ -113,8 +113,8 @@ function SearchPageContent() {
   };
 
   const handleItemAdded = (newItem: CollectionItem) => {
-    // After adding, redirect to collection page
-    router.push('/collection');
+    // After adding, redirect to inventory page
+    router.push('/inventory');
   };
 
   return (
@@ -186,7 +186,7 @@ function SearchPageContent() {
                 margin: '0 auto',
                 color: 'rgba(255, 255, 255, 0.95)'
               }}>
-                Search LEGO minifigures and get real-time Bricklink pricing
+                Know what your minifigs are worth
               </p>
             </div>
           )}
