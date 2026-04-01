@@ -361,7 +361,8 @@ export default function CollectionPage() {
                   value={sortOrder}
                   onChange={(e) => setSortOrder(e.target.value as any)}
                   style={{
-                    flex: '1 1 200px',
+                    flex: '0 0 auto',
+                    minWidth: '200px',
                     padding: '14px 16px',
                     fontSize: '15px',
                     fontWeight: '600',
