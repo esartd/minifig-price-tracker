@@ -274,9 +274,9 @@ export class BricklinkAPI {
     const currentAverage = parseFloat(priceGuide.avg_price || '0'); // Simple average of current listings
     const currentLowest = parseFloat(priceGuide.min_price || '0'); // Lowest current listing
 
-    // Calculate suggested price: weight Current Lowest 2x since listing averages are typically high
-    // Formula: (qty-weighted avg + simple avg + lowest*2) / 4 = 25% + 25% + 50%
-    const suggestedPrice = (sixMonthAverage + currentAverage + (currentLowest * 2)) / 4;
+    // Calculate suggested price: weight Current Lowest 3x since listing averages are typically high
+    // Formula: (qty-weighted avg + simple avg + lowest*3) / 5 = 20% + 20% + 60%
+    const suggestedPrice = (sixMonthAverage + currentAverage + (currentLowest * 3)) / 5;
 
     const pricingData = {
       sixMonthAverage: parseFloat(sixMonthAverage.toFixed(2)),
