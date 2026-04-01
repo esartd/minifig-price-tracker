@@ -285,9 +285,9 @@ export class BricklinkAPI {
       suggestedPrice: parseFloat(suggestedPrice.toFixed(2)),
     };
 
-    // Store in cache with 6 hour expiration (BrickLink ToS compliance)
+    // Store in cache with 24 hour expiration (prices don't change rapidly)
     const expiresAt = new Date();
-    expiresAt.setHours(expiresAt.getHours() + 6);
+    expiresAt.setHours(expiresAt.getHours() + 24);
 
     await prisma.priceCache.upsert({
       where: {

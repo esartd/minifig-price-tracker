@@ -4,7 +4,7 @@ import { bricklinkAPI } from '@/lib/bricklink';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 
-// POST - Smart refresh: only refreshes items with expired cache (6 hour TTL)
+// POST - Smart refresh: only refreshes items with expired cache (24 hour TTL)
 export async function POST() {
   try {
     const session = await auth();
@@ -48,9 +48,9 @@ export async function POST() {
       });
 
       if (cache && cache.expires_at > now) {
-        // Cache is still fresh (less than 6 hours old)
+        // Cache is still fresh (less than 24 hours old)
         itemsAlreadyFresh.push(item);
-        console.log(`✓ ${item.minifigure_no} cache still fresh (expires in ${Math.round((cache.expires_at.getTime() - now.getTime()) / (1000 * 60))}m)`);
+        console.log(`✓ ${item.minifigure_no} cache still fresh (expires in ${Math.round((cache.expires_at.getTime() - now.getTime()) / (1000 * 60 * 60))}h)`);
       } else {
         // Cache expired or doesn't exist
         itemsToRefresh.push(item);
@@ -64,7 +64,7 @@ export async function POST() {
 
       return NextResponse.json({
         success: true,
-        message: `All prices are up to date (refreshed within last 6 hours)`,
+        message: `All prices are up to date (refreshed within last 24 hours)`,
         refreshed: 0,
         skipped: items.length,
         total: items.length,
@@ -100,7 +100,7 @@ export async function POST() {
           await new Promise(resolve => setTimeout(resolve, delay));
         }
 
-        // Fetch fresh pricing from Bricklink API (this updates cache with 6hr expiration)
+        // Fetch fresh pricing from Bricklink API (this updates cache with 24hr expiration)
         const pricing = await bricklinkAPI.calculatePricingData(
           item.minifigure_no,
           item.condition
