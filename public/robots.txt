@@ -1,0 +1,15 @@
+# Allow search engines to index public pages
+User-agent: *
+Allow: /
+
+# Protect API routes from crawling
+Disallow: /api/
+
+# Don't index individual minifig detail pages
+# (This keeps your site from competing with Bricklink in search results)
+Disallow: /minifig/
+
+# Allow search and collection pages
+Allow: /search
+Allow: /collection
+Allow: /auth/

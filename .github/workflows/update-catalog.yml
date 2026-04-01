@@ -1,9 +1,9 @@
-name: Monthly Catalog Update
+name: Daily Catalog Update
 
 on:
   schedule:
-    # Runs at 2am UTC on the 1st of every month
-    - cron: '0 2 1 * *'
+    # Runs at 2am UTC every day (safer than weekly batches)
+    - cron: '0 2 * * *'
   workflow_dispatch: # Allows manual triggering from GitHub UI
 
 jobs:
@@ -38,7 +38,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add lib/minifig-catalog.ts
-          git diff --staged --quiet || git commit -m "Update minifig catalog - $(date +'%B %Y')"
+          git diff --staged --quiet || git commit -m "Daily catalog update - $(date +'%Y-%m-%d')"
 
       - name: Push changes
         uses: ad-m/github-push-action@master

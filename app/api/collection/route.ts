@@ -1,11 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { database } from '@/lib/database';
 import { bricklinkAPI } from '@/lib/bricklink';
+import { auth } from '@/auth';
 
-// GET all collection items
+// GET all collection items for authenticated user
 export async function GET() {
   try {
-    const items = await database.getAllItems();
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    const items = await database.getAllItems(session.user.id);
     return NextResponse.json({ success: true, data: items });
   } catch (error) {
     console.error('Error fetching collection:', error);
@@ -19,34 +29,46 @@ export async function GET() {
 // POST a new item to the collection
 export async function POST(request: NextRequest) {
   try {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json();
-    const { minifigure_no, minifigure_name, quantity, condition, image_url } = body;
+    const { minifigure_no, minifigure_name, quantity, image_url } = body;
+    const condition = 'new'; // Always use 'new' condition
 
     // Validate required fields
-    if (!minifigure_no || !minifigure_name || !quantity || !condition) {
+    if (!minifigure_no || !minifigure_name || !quantity) {
       return NextResponse.json(
         { success: false, error: 'Missing required fields' },
         { status: 400 }
       );
     }
 
-    // Check if item already exists with the same condition
+    // Check if item already exists for this user
     const existingItem = await database.getItemByMinifigNumberAndCondition(
+      session.user.id,
       minifigure_no,
       condition
     );
     if (existingItem) {
       return NextResponse.json(
-        { success: false, error: `Item already exists in collection as ${condition}` },
+        { success: false, error: 'Item already exists in collection' },
         { status: 409 }
       );
     }
 
-    // Get pricing data
+    // Get pricing data (always 'new' condition)
     const pricing = await bricklinkAPI.calculatePricingData(minifigure_no, condition);
 
     // Add item to database
     const newItem = await database.addItem({
+      userId: session.user.id,
       minifigure_no,
       minifigure_name,
       quantity,

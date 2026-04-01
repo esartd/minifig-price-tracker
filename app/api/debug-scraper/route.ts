@@ -4,7 +4,7 @@ import * as cheerio from 'cheerio';
 export async function GET() {
   try {
     const itemNo = 'sw1219';
-    const condition: 'N' | 'U' = 'U';
+    const condition = 'U' as 'N' | 'U';
     const url = `https://www.bricklink.com/catalogPG.asp?M=${itemNo}&ColorID=0&v=D&cID=N`;
 
     const response = await fetch(url, {

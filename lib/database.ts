@@ -3,9 +3,10 @@ import { prisma } from './prisma';
 
 class DatabaseService {
   // Transform DB row to CollectionItem type
-  private transformFromDB(item: any): CollectionItem {
+  private transformFromDB(item: any): CollectionItem & { userId: string } {
     return {
       id: item.id,
+      userId: item.userId,
       minifigure_no: item.minifigure_no,
       minifigure_name: item.minifigure_name,
       quantity: item.quantity,
@@ -22,23 +23,25 @@ class DatabaseService {
     };
   }
 
-  async getAllItems(): Promise<CollectionItem[]> {
+  async getAllItems(userId: string): Promise<(CollectionItem & { userId: string })[]> {
     const items = await prisma.collectionItem.findMany({
+      where: { userId },
       orderBy: { date_added: 'desc' }
     });
     return items.map((item: any) => this.transformFromDB(item));
   }
 
-  async getItemById(id: string): Promise<CollectionItem | null> {
+  async getItemById(id: string): Promise<(CollectionItem & { userId: string }) | null> {
     const item = await prisma.collectionItem.findUnique({
       where: { id }
     });
     return item ? this.transformFromDB(item) : null;
   }
 
-  async addItem(item: Omit<CollectionItem, 'id' | 'date_added' | 'last_updated'>): Promise<CollectionItem> {
+  async addItem(item: Omit<CollectionItem, 'id' | 'date_added' | 'last_updated'> & { userId: string }): Promise<CollectionItem> {
     const created = await prisma.collectionItem.create({
       data: {
+        userId: item.userId,
         minifigure_no: item.minifigure_no,
         minifigure_name: item.minifigure_name,
         quantity: item.quantity,
@@ -97,12 +100,14 @@ class DatabaseService {
   }
 
   async getItemByMinifigNumberAndCondition(
+    userId: string,
     minifigure_no: string,
     condition: 'new' | 'used'
   ): Promise<CollectionItem | null> {
     const item = await prisma.collectionItem.findUnique({
       where: {
-        minifigure_no_condition: {
+        userId_minifigure_no_condition: {
+          userId,
           minifigure_no,
           condition
         }

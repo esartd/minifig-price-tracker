@@ -65,36 +65,38 @@ async function updateCatalogIncremental() {
     console.log(`   ${prefix}: ${prefix}${max.toString().padStart(4, '0')}`);
   });
 
-  // Define check ranges (highest + 200 for each theme)
+  // Define check ranges - optimized for DAILY runs (~300-400 API calls per day)
+  // Smaller daily increments are safer than large weekly batches
+  // Active themes get checked more frequently, retired themes less
   const checkRanges = [
-    { prefix: 'sw', name: 'Star Wars', checkAhead: 200 },
-    { prefix: 'hp', name: 'Harry Potter', checkAhead: 100 },
-    { prefix: 'sh', name: 'Super Heroes', checkAhead: 150 },
-    { prefix: 'col', name: 'Collectible Minifigures', checkAhead: 50 },
-    { prefix: 'njo', name: 'Ninjago', checkAhead: 100 },
-    { prefix: 'dis', name: 'Disney', checkAhead: 50 },
-    { prefix: 'dp', name: 'Disney Princess', checkAhead: 50 },
-    { prefix: 'frnd', name: 'Friends', checkAhead: 100 },
-    { prefix: 'lor', name: 'Lord of the Rings', checkAhead: 20 },
-    { prefix: 'hol', name: 'The Hobbit', checkAhead: 20 },
-    { prefix: 'tlm', name: 'The LEGO Movie', checkAhead: 50 },
-    { prefix: 'cty', name: 'City', checkAhead: 100 },
-    { prefix: 'cas', name: 'Castle', checkAhead: 50 },
-    { prefix: 'pi', name: 'Pirates', checkAhead: 50 },
-    { prefix: 'vik', name: 'Vikings', checkAhead: 20 },
-    { prefix: 'poc', name: 'Pirates of the Caribbean', checkAhead: 20 },
-    { prefix: 'atl', name: 'Atlantis', checkAhead: 20 },
-    { prefix: 'phr', name: 'Pharaoh\'s Quest', checkAhead: 20 },
-    { prefix: 'mon', name: 'Monster Fighters', checkAhead: 20 },
-    { prefix: 'dim', name: 'Dimensions', checkAhead: 30 },
-    { prefix: 'tlb', name: 'The LEGO Batman Movie', checkAhead: 30 },
-    { prefix: 'tln', name: 'The LEGO Ninjago Movie', checkAhead: 30 },
-    { prefix: 'elf', name: 'Elves', checkAhead: 30 },
-    { prefix: 'nex', name: 'Nexo Knights', checkAhead: 50 },
-    { prefix: 'coltlm', name: 'Collectible TLM', checkAhead: 20 },
-    { prefix: 'colhp', name: 'Collectible Harry Potter', checkAhead: 20 },
-    { prefix: 'coldis', name: 'Collectible Disney', checkAhead: 30 },
-    { prefix: 'idea', name: 'Ideas', checkAhead: 50 },
+    { prefix: 'sw', name: 'Star Wars', checkAhead: 50 }, // Very active
+    { prefix: 'hp', name: 'Harry Potter', checkAhead: 30 }, // Active
+    { prefix: 'sh', name: 'Super Heroes', checkAhead: 40 }, // Very active
+    { prefix: 'col', name: 'Collectible Minifigures', checkAhead: 20 }, // Regular releases
+    { prefix: 'njo', name: 'Ninjago', checkAhead: 25 }, // Active
+    { prefix: 'dis', name: 'Disney', checkAhead: 15 },
+    { prefix: 'dp', name: 'Disney Princess', checkAhead: 10 },
+    { prefix: 'frnd', name: 'Friends', checkAhead: 20 },
+    { prefix: 'lor', name: 'Lord of the Rings', checkAhead: 5 }, // Retired
+    { prefix: 'hol', name: 'The Hobbit', checkAhead: 5 }, // Retired
+    { prefix: 'tlm', name: 'The LEGO Movie', checkAhead: 10 },
+    { prefix: 'cty', name: 'City', checkAhead: 20 },
+    { prefix: 'cas', name: 'Castle', checkAhead: 10 },
+    { prefix: 'pi', name: 'Pirates', checkAhead: 10 },
+    { prefix: 'vik', name: 'Vikings', checkAhead: 5 }, // Retired
+    { prefix: 'poc', name: 'Pirates of the Caribbean', checkAhead: 5 }, // Retired
+    { prefix: 'atl', name: 'Atlantis', checkAhead: 5 }, // Retired
+    { prefix: 'phr', name: 'Pharaoh\'s Quest', checkAhead: 5 }, // Retired
+    { prefix: 'mon', name: 'Monster Fighters', checkAhead: 5 }, // Retired
+    { prefix: 'dim', name: 'Dimensions', checkAhead: 8 },
+    { prefix: 'tlb', name: 'The LEGO Batman Movie', checkAhead: 8 },
+    { prefix: 'tln', name: 'The LEGO Ninjago Movie', checkAhead: 8 },
+    { prefix: 'elf', name: 'Elves', checkAhead: 8 },
+    { prefix: 'nex', name: 'Nexo Knights', checkAhead: 10 },
+    { prefix: 'coltlm', name: 'Collectible TLM', checkAhead: 5 },
+    { prefix: 'colhp', name: 'Collectible Harry Potter', checkAhead: 8 },
+    { prefix: 'coldis', name: 'Collectible Disney', checkAhead: 8 },
+    { prefix: 'idea', name: 'Ideas', checkAhead: 15 },
   ];
 
   console.log('\n🔍 Checking for new minifigures...\n');
@@ -144,7 +146,7 @@ async function updateCatalogIncremental() {
               found++;
               console.log(`   ✨ Found: ${variantNo} - ${variant.name}`);
             }
-            await new Promise(resolve => setTimeout(resolve, 100));
+            await new Promise(resolve => setTimeout(resolve, 3000)); // 3 seconds - safe rate limit
           }
         }
       } catch (error) {
@@ -152,7 +154,7 @@ async function updateCatalogIncremental() {
       }
 
       checked++;
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 3000)); // 3 seconds - safe rate limit
     }
 
     console.log(`\n   ✅ ${range.name} complete\n`);
@@ -172,8 +174,8 @@ async function updateCatalogIncremental() {
   allEntries.sort((a, b) => a.no.localeCompare(b.no));
 
   // Generate new catalog file
-  const catalogContent = generateCatalogFile(allEntries);
-  fs.writeFileSync(catalogPath, catalogContent, 'utf-8');
+  const newCatalogContent = generateCatalogFile(allEntries);
+  fs.writeFileSync(catalogPath, newCatalogContent, 'utf-8');
 
   console.log(`💾 Updated catalog file: ${catalogPath}`);
   console.log(`📦 Total entries: ${allEntries.length} (was ${existingEntries.length})`);
@@ -229,7 +231,7 @@ export const minifigCatalog = [\n`;
     content += `    no: '${entry.no}',\n`;
     content += `    name: '${entry.name.replace(/'/g, "\\'")}',\n`;
     content += `    keywords: [${entry.keywords.map(k => `'${k.replace(/'/g, "\\'")}'`).join(', ')}],\n`;
-    content += `  }${isLast ? '' : ',}\n`;
+    content += `  }${isLast ? '' : ','}\n`;
   });
 
   content += `];\n`;

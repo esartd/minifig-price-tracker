@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { database } from '@/lib/database';
 import { bricklinkAPI } from '@/lib/bricklink';
+import { auth } from '@/auth';
 
 // POST - Refresh pricing for a single collection item
 export async function POST(
@@ -8,6 +9,15 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     const { id } = await params;
 
     // Get the item from the database
@@ -17,6 +27,14 @@ export async function POST(
       return NextResponse.json(
         { success: false, error: 'Item not found' },
         { status: 404 }
+      );
+    }
+
+    // Verify the item belongs to the authenticated user
+    if (item.userId !== session.user.id) {
+      return NextResponse.json(
+        { success: false, error: 'Forbidden' },
+        { status: 403 }
       );
     }
 

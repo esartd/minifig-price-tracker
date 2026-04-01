@@ -5,6 +5,10 @@ import * as path from 'path';
 const prisma = new PrismaClient();
 
 async function migrateData() {
+  console.log('⚠️  This script is obsolete after the database schema update to include userId.');
+  console.log('It is kept for reference only and will not run.');
+  return;
+
   const jsonPath = path.join(process.cwd(), 'data', 'collection.json');
 
   if (!fs.existsSync(jsonPath)) {
@@ -50,7 +54,8 @@ async function migrateData() {
           pricing_current_lowest: item.pricing?.currentLowest,
           pricing_suggested_price: item.pricing?.suggestedPrice,
           date_added: new Date(item.date_added),
-          last_updated: new Date(item.last_updated)
+          last_updated: new Date(item.last_updated),
+          userId: 'placeholder' // This code is unreachable
         }
       });
 

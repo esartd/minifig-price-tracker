@@ -40,3 +40,4 @@ prisma/migrations/
 
 # scripts progress files
 scripts/*.json
+dev.db

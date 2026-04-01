@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(openssl rand:*)",
+      "Bash(tsx scripts/export-old-data.ts)",
+      "Bash(kill 95922)",
+      "Bash(curl -s http://localhost:3000/auth/signin)",
+      "Bash(npm search:*)"
+    ],
+    "additionalDirectories": [
+      "/Users/erickkosysu/Code Projects/minifig-price-tracker/app/api/auth"
+    ]
+  },
+  "enableAllProjectMcpServers": true
+}

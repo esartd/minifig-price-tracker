@@ -33,40 +33,44 @@ async function enumerateCatalog() {
   const startNum = resumeFrom ? parseInt(resumeFrom.match(/\d+/)?.[0] || '1') : 1;
 
   // Define all LEGO themes to enumerate
+  // Max values determined by testing actual BrickLink ranges
+  // padding: number of digits for ID (e.g., 4 for sw0001, 3 for hp001)
   const themes = [
-    { prefix: 'sw', name: 'Star Wars', max: 2500 },
-    { prefix: 'hp', name: 'Harry Potter', max: 500 },
-    { prefix: 'sh', name: 'Super Heroes', max: 1500 },
-    { prefix: 'col', name: 'Collectible Minifigures', max: 600 },
-    { prefix: 'njo', name: 'Ninjago', max: 1000 },
-    { prefix: 'dis', name: 'Disney', max: 300 },
-    { prefix: 'dp', name: 'Disney Princess', max: 200 },
-    { prefix: 'frnd', name: 'Friends', max: 500 },
-    { prefix: 'lor', name: 'Lord of the Rings', max: 100 },
-    { prefix: 'hol', name: 'The Hobbit', max: 100 },
-    { prefix: 'tlm', name: 'The LEGO Movie', max: 200 },
-    { prefix: 'cty', name: 'City', max: 1500 },
-    { prefix: 'cas', name: 'Castle', max: 300 },
-    { prefix: 'pi', name: 'Pirates', max: 200 },
-    { prefix: 'vik', name: 'Vikings', max: 50 },
-    { prefix: 'poc', name: 'Pirates of the Caribbean', max: 100 },
-    { prefix: 'atl', name: 'Atlantis', max: 50 },
-    { prefix: 'phr', name: 'Pharaoh\'s Quest', max: 50 },
-    { prefix: 'mon', name: 'Monster Fighters', max: 50 },
-    { prefix: 'dim', name: 'Dimensions', max: 100 },
-    { prefix: 'tlb', name: 'The LEGO Batman Movie', max: 100 },
-    { prefix: 'tln', name: 'The LEGO Ninjago Movie', max: 100 },
-    { prefix: 'elf', name: 'Elves', max: 100 },
-    { prefix: 'nex', name: 'Nexo Knights', max: 200 },
-    { prefix: 'coltlm', name: 'Collectible TLM Series', max: 50 },
-    { prefix: 'colhp', name: 'Collectible Harry Potter', max: 50 },
-    { prefix: 'coldis', name: 'Collectible Disney', max: 100 },
-    { prefix: 'idea', name: 'Ideas', max: 200 },
+    { prefix: 'sw', name: 'Star Wars', max: 2500, padding: 4 },
+    { prefix: 'sh', name: 'Super Heroes', max: 1500, padding: 4 },
+    { prefix: 'njo', name: 'Ninjago', max: 1000, padding: 4 },
+    { prefix: 'cty', name: 'City', max: 1500, padding: 4 },
+    { prefix: 'frnd', name: 'Friends', max: 500, padding: 4 },
+    { prefix: 'hp', name: 'Harry Potter', max: 500, padding: 3 },
+    { prefix: 'cas', name: 'Castle', max: 500, padding: 3 },
+    { prefix: 'col', name: 'Collectible Minifigures', max: 472, padding: 3 },
+    { prefix: 'trn', name: 'Train', max: 254, padding: 3 },
+    { prefix: 'dp', name: 'Disney Princess', max: 240, padding: 3 },
+    { prefix: 'mar', name: 'Marvel Super Heroes', max: 230, padding: 4 },
+    { prefix: 'tlm', name: 'The LEGO Movie', max: 209, padding: 3 },
+    { prefix: 'pi', name: 'Pirates', max: 199, padding: 3 },
+    { prefix: 'dis', name: 'Disney', max: 192, padding: 3 },
+    { prefix: 'lor', name: 'Lord of the Rings', max: 153, padding: 3 },
+    { prefix: 'nex', name: 'Nexo Knights', max: 152, padding: 3 },
+    { prefix: 'sp', name: 'Space', max: 148, padding: 3 },
+    { prefix: 'jw', name: 'Jurassic World', max: 142, padding: 3 },
+    { prefix: 'rac', name: 'Racers', max: 61, padding: 3 },
+    { prefix: 'elf', name: 'Elves', max: 59, padding: 3 },
+    { prefix: 'dim', name: 'Dimensions', max: 54, padding: 3 },
+    { prefix: 'poc', name: 'Pirates of the Caribbean', max: 52, padding: 3 },
+    { prefix: 'sim', name: 'The Simpsons', max: 48, padding: 3 },
+    { prefix: 'ovr', name: 'Overwatch', max: 41, padding: 3 },
+    { prefix: 'spd', name: 'Spider-Man', max: 31, padding: 3 },
+    { prefix: 'atl', name: 'Atlantis', max: 24, padding: 3 },
+    { prefix: 'gb', name: 'Ghostbusters', max: 20, padding: 3 },
+    { prefix: 'hrf', name: 'Hidden Side', max: 12, padding: 3 },
   ];
 
   console.log(`📋 Enumerating ALL LEGO themes:`);
   themes.forEach(theme => {
-    console.log(`   - ${theme.name} (${theme.prefix}): ${theme.prefix}0001-${theme.prefix}${theme.max.toString().padStart(4, '0')}`);
+    const start = '1'.padStart(theme.padding, '0');
+    const end = theme.max.toString().padStart(theme.padding, '0');
+    console.log(`   - ${theme.name} (${theme.prefix}): ${theme.prefix}${start}-${theme.prefix}${end}`);
   });
   if (resumeFrom) {
     console.log(`\n⏭️  Resuming from: ${resumeFrom}`);
@@ -83,7 +87,7 @@ async function enumerateCatalog() {
     console.log(`\n🔍 Checking ${theme.name} (${theme.prefix})...`);
 
     for (let i = 1; i <= theme.max; i++) {
-      const itemNo = `${theme.prefix}${i.toString().padStart(4, '0')}`;
+      const itemNo = `${theme.prefix}${i.toString().padStart(theme.padding, '0')}`;
 
     process.stdout.write(`\r   Progress: ${itemNo} | Found: ${found} | Not Found: ${notFound} | Total Checked: ${checked}`);
 
@@ -114,7 +118,7 @@ async function enumerateCatalog() {
             found++;
           }
 
-          await new Promise(resolve => setTimeout(resolve, 100));
+          await new Promise(resolve => setTimeout(resolve, 3000)); // 3 seconds - safe rate limit
         }
       } else {
         notFound++;
@@ -126,8 +130,8 @@ async function enumerateCatalog() {
 
       checked++;
 
-      // Small delay to respect API rate limits
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Delay to respect API rate limits (BrickLink ToS: 5,000 calls/day max)
+      await new Promise(resolve => setTimeout(resolve, 3000)); // 3 seconds - safe rate limit
 
       // Save progress every 100 items
       if (checked % 100 === 0) {

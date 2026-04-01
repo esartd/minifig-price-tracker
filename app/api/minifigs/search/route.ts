@@ -30,21 +30,44 @@ export async function GET(request: NextRequest) {
     const isItemNumber = /^[a-z]{2,3}\d{3,4}[a-z]?$/i.test(searchTerm);
 
     if (isItemNumber) {
-      // Try exact item number match with Bricklink API first
-      const exactMatch = await bricklinkAPI.getMinifigureByNumber(searchTerm);
-      if (exactMatch) {
+      // First, try to find it in local catalog (instant, no API call)
+      const catalogMatch = minifigCatalog.find(item =>
+        item.no.toLowerCase() === searchTerm.toLowerCase()
+      );
+
+      if (catalogMatch) {
+        // Found in catalog - return immediately
         return NextResponse.json({
           success: true,
-          data: [exactMatch],
-          source: 'exact_match'
+          data: [{
+            no: catalogMatch.no,
+            name: catalogMatch.name,
+            category_id: 0,
+            image_url: `https://img.bricklink.com/ItemImage/MN/0/${catalogMatch.no}.png`
+          }],
+          source: 'catalog_exact_match'
         });
-      } else {
-        // Item number format is correct but not found
-        return NextResponse.json({
-          success: false,
-          error: `Minifigure "${searchTerm}" not found on Bricklink. Please verify the item number is correct.`,
-        }, { status: 404 });
       }
+
+      // Not in catalog - try Bricklink API as fallback
+      try {
+        const exactMatch = await bricklinkAPI.getMinifigureByNumber(searchTerm);
+        if (exactMatch) {
+          return NextResponse.json({
+            success: true,
+            data: [exactMatch],
+            source: 'api_exact_match'
+          });
+        }
+      } catch (error) {
+        console.error('Bricklink API error for exact match:', error);
+      }
+
+      // Not found anywhere
+      return NextResponse.json({
+        success: false,
+        error: `Minifigure "${searchTerm}" not found. Please verify the item number is correct.`,
+      }, { status: 404 });
     }
 
     // Try full phrase match first
@@ -82,15 +105,16 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // Fetch full details from Bricklink API for each result to get images and verify existence
-    const detailsPromises = matchedItems.map(item =>
-      bricklinkAPI.getMinifigureByNumber(item.no)
-    );
-    const detailedResults = await Promise.all(detailsPromises);
-    const validResults = detailedResults.filter(r => r !== null);
+    // Use catalog data directly with predictable image URLs (instant, no API calls)
+    const results = matchedItems.map(item => ({
+      no: item.no,
+      name: item.name,
+      category_id: 0,
+      image_url: `https://img.bricklink.com/ItemImage/MN/0/${item.no}.png`
+    }));
 
     // Sort by item number descending (newer/higher numbers first)
-    validResults.sort((a, b) => {
+    results.sort((a, b) => {
       const extractNum = (no: string) => {
         const match = no.match(/\d+/);
         return match ? parseInt(match[0]) : 0;
@@ -98,12 +122,12 @@ export async function GET(request: NextRequest) {
       return extractNum(b.no) - extractNum(a.no);
     });
 
-    // Return search results with images from Bricklink
+    // Return search results instantly
     return NextResponse.json({
       success: true,
-      data: validResults,
-      total: validResults.length,
-      source: 'catalog_fallback',
+      data: results,
+      total: results.length,
+      source: 'catalog',
     });
 
   } catch (error) {

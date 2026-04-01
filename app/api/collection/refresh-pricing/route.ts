@@ -1,12 +1,22 @@
 import { NextResponse } from 'next/server';
 import { database } from '@/lib/database';
 import { bricklinkAPI } from '@/lib/bricklink';
+import { auth } from '@/auth';
 
 // POST - Refresh pricing for all collection items (one at a time with delays)
 export async function POST() {
   try {
-    // Get all items from the database
-    const items = await database.getAllItems();
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    // Get all items from the database for this user
+    const items = await database.getAllItems(session.user.id);
 
     if (items.length === 0) {
       return NextResponse.json({

@@ -139,6 +139,89 @@ export class BricklinkScraper {
     }
   }
 
+  async scrapeAppearsInSets(itemNo: string): Promise<Array<{no: string, name: string}>> {
+    try {
+      // Launch browser if not already running
+      if (!this.browser) {
+        this.browser = await puppeteer.launch({
+          headless: true,
+          args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-blink-features=AutomationControlled',
+            '--disable-features=IsolateOrigins,site-per-process',
+          ],
+        });
+      }
+
+      const page = await this.browser.newPage();
+
+      // Stealth: Remove webdriver property
+      await page.evaluateOnNewDocument(() => {
+        Object.defineProperty(navigator, 'webdriver', {
+          get: () => false,
+        });
+      });
+
+      // Set realistic viewport and user agent
+      await page.setViewport({ width: 1920, height: 1080 });
+      await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36');
+
+      await page.setExtraHTTPHeaders({
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+      });
+
+      // Navigate to "Appears In Sets" page
+      const url = `https://www.bricklink.com/catalogItemIn.asp?M=${itemNo}&in=S`;
+      console.log(`Scraping sets for ${itemNo}...`);
+
+      await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
+
+      // Extract set information from the page
+      const sets = await page.evaluate(() => {
+        const results: Array<{no: string, name: string}> = [];
+
+        // Find all links that reference sets (both old and new URL formats)
+        const allLinks = document.querySelectorAll('a');
+
+        for (const link of allLinks) {
+          const href = link.getAttribute('href') || '';
+          const text = link.textContent?.trim() || '';
+
+          // Match set URLs in various formats:
+          // https://www.bricklink.com/v2/catalog/catalogitem.page?S=71006-1
+          // https://www.bricklink.com/catalogItem.asp?S=71006-1
+          const setMatch = href.match(/[?&]S=([0-9]+-[0-9]+)/);
+
+          if (setMatch && setMatch[1]) {
+            const setNo = setMatch[1];
+
+            // Use the link text as name if it looks like a set number
+            // Otherwise we'll need to get the name separately
+            const setName = text.match(/^\d+-\d+$/) ? text : setNo;
+
+            // Avoid duplicates
+            if (!results.find(s => s.no === setNo)) {
+              results.push({ no: setNo, name: setName });
+            }
+          }
+        }
+
+        return results;
+      });
+
+      await page.close();
+
+      console.log(`Found ${sets.length} sets for ${itemNo}`);
+
+      return sets;
+    } catch (error) {
+      console.error('Error scraping appears in sets:', error);
+      return [];
+    }
+  }
+
   async close() {
     if (this.browser) {
       await this.browser.close();

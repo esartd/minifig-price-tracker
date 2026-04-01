@@ -75,8 +75,8 @@ async function updateCatalog() {
         failedIds.push(minifig.no);
       }
 
-      // Add small delay to respect API rate limits
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Add delay to respect API rate limits (BrickLink ToS: 5,000 calls/day max)
+      await new Promise(resolve => setTimeout(resolve, 3000)); // 3 seconds - safe rate limit
     }
 
     console.log(`\n\n✅ Validation complete: ${validated} valid, ${failed} failed`);

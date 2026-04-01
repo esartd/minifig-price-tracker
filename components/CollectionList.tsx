@@ -22,19 +22,17 @@ export default function CollectionList({
 }: CollectionListProps) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editQuantity, setEditQuantity] = useState(1);
-  const [editCondition, setEditCondition] = useState<'new' | 'used'>('new');
   const [lightboxImage, setLightboxImage] = useState<{ url: string; name: string } | null>(null);
 
   const handleEdit = (item: CollectionItem) => {
     setEditingId(item.id);
     setEditQuantity(item.quantity);
-    setEditCondition(item.condition);
+    onItemSelect(null); // Close the drawer when entering edit mode
   };
 
   const handleSaveEdit = (id: string) => {
     onItemUpdate(id, {
       quantity: editQuantity,
-      condition: editCondition,
     });
     setEditingId(null);
   };
@@ -70,114 +68,150 @@ export default function CollectionList({
 
   if (items.length === 0) {
     return (
-      <div className="text-center py-16">
-        <div className="text-6xl mb-4">🔍</div>
-        <p className="text-gray-600 text-base font-medium">No minifigures in your collection yet</p>
-        <p className="text-gray-500 text-sm mt-1">
-          Search for minifigures above to get started
+      <div style={{
+        textAlign: 'center',
+        padding: '80px 32px'
+      }}>
+        <div style={{
+          fontSize: '64px',
+          marginBottom: '24px'
+        }}>🔍</div>
+        <p style={{
+          fontSize: '18px',
+          fontWeight: '600',
+          color: '#171717',
+          marginBottom: '8px'
+        }}>
+          No minifigures in your collection yet
+        </p>
+        <p style={{
+          fontSize: '16px',
+          color: '#737373',
+          lineHeight: '1.6'
+        }}>
+          Search for minifigures to get started
         </p>
       </div>
     );
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       {items.map((item) => (
         <div key={item.id}>
           <div
+            className={`collection-item-card ${editingId === item.id ? 'editing' : ''}`}
             onClick={() => onItemSelect(selectedItemId === item.id ? null : item)}
-            className={`bg-white cursor-pointer transition-all overflow-hidden flex ${
-              selectedItemId === item.id
-                ? 'shadow-lg'
-                : 'shadow-sm hover:shadow-md'
-            }`}
-            style={selectedItemId === item.id ? {
-              borderLeft: '4px solid #0071e3',
-              backgroundColor: '#f0f9ff',
-              borderRadius: '20px'
-            } : { borderRadius: '20px' }}
+            style={{
+              display: 'flex',
+              overflow: 'hidden',
+              background: '#ffffff',
+              borderRadius: '12px',
+              border: selectedItemId === item.id ? '2px solid #3b82f6' : '1px solid #e5e5e5',
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+              boxShadow: selectedItemId === item.id ? '0 4px 12px rgba(59, 130, 246, 0.1)' : '0 1px 3px rgba(0, 0, 0, 0.05)',
+              position: 'relative'
+            }}
           >
           {/* Image Section - Small thumbnail on left */}
           <div
-            className="flex-shrink-0 flex items-center justify-center"
+            className="collection-item-image"
             style={{
-              width: selectedItemId === item.id ? '84px' : '80px',
-              minHeight: '120px',
-              alignSelf: 'stretch',
-              borderTopLeftRadius: '20px',
-              borderBottomLeftRadius: '20px',
-              backgroundColor: '#ffffff',
-              overflow: 'hidden',
-              position: 'relative',
-              marginLeft: selectedItemId === item.id ? '-4px' : '0'
+              flexShrink: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100px',
+              minHeight: '140px',
+              backgroundColor: '#fafafa',
+              borderTopLeftRadius: '10px',
+              borderBottomLeftRadius: '10px',
+              overflow: 'hidden'
             }}
           >
-            <div style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: '#ffffff',
-              zIndex: 0
-            }} />
             {item.image_url ? (
               <img
                 src={item.image_url}
                 alt={item.minifigure_name}
                 onClick={(e) => openLightbox(item.image_url!, item.minifigure_name, e)}
-                style={{ height: '120px', width: 'auto', maxWidth: 'none', position: 'relative', zIndex: 1, cursor: 'zoom-in' }}
+                style={{ height: '140px', width: 'auto', maxWidth: 'none', cursor: 'zoom-in' }}
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center" style={{ position: 'relative', zIndex: 1 }}>
-                <span className="text-2xl">🧱</span>
+              <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ fontSize: '32px' }}>🧱</span>
               </div>
             )}
           </div>
 
           {/* Content Section */}
-          <div className="flex-1 flex items-center justify-between" style={{ paddingTop: '24px', paddingBottom: '24px', paddingLeft: '24px', paddingRight: '12px', minWidth: 0, gap: '24px' }}>
+          <div className="collection-item-content" style={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '32px',
+            minWidth: 0,
+            gap: '32px'
+          }}>
             {editingId === item.id ? (
-              /* Edit Mode */
-              <div className="flex-1 flex items-center" onClick={(e) => e.stopPropagation()} style={{ minWidth: 0, gap: '24px' }}>
-                <div className="flex-1" style={{ minWidth: 0 }}>
-                  <h3 className="font-semibold text-sm text-gray-900 tracking-tight" style={{
+              <div className="collection-edit-container" style={{
+                flex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                minWidth: 0,
+                gap: '24px'
+              }} onClick={(e) => e.stopPropagation()}>
+                <div style={{ flex: 1, minWidth: 0, width: '100%' }}>
+                  <h3 className="collection-edit-title" style={{
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: '#171717',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
-                    marginBottom: '12px'
+                    marginBottom: '8px',
+                    letterSpacing: '-0.01em'
                   }}>
                     {item.minifigure_name}
                   </h3>
-                  <div className="flex" style={{ gap: '8px' }}>
-                    <div style={{ position: 'relative', width: '130px' }}>
+                  <p style={{
+                    fontSize: '14px',
+                    color: '#737373',
+                    marginBottom: '20px'
+                  }}>
+                    Update quantity
+                  </p>
+                  <div className="collection-edit-controls" style={{ width: '100%' }}>
+                    <div style={{ position: 'relative', width: '100%' }}>
                       <input
                         type="text"
                         value={editQuantity}
                         readOnly
-                        className="border border-gray-200"
                         style={{
-                          width: '130px',
-                          padding: '14px 48px 14px 16px',
-                          height: '52px',
-                          minHeight: '52px',
+                          width: '100%',
+                          padding: '16px 48px 16px 20px',
                           fontSize: '16px',
-                          borderRadius: '26px',
+                          border: '1px solid #e5e5e5',
+                          borderRadius: '8px',
+                          color: '#171717',
+                          background: '#ffffff',
                           boxSizing: 'border-box',
-                          textAlign: 'left',
+                          textAlign: 'center',
                           cursor: 'default',
-                          backgroundColor: 'white'
+                          outline: 'none',
+                          fontWeight: '600'
                         }}
                       />
                       <div style={{
                         position: 'absolute',
-                        right: '4px',
-                        top: '4px',
-                        bottom: '4px',
+                        right: '8px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '2px',
-                        width: '40px'
+                        width: '32px'
                       }}>
                         <button
                           type="button"
@@ -186,24 +220,18 @@ export default function CollectionList({
                             setEditQuantity(editQuantity + 1);
                           }}
                           style={{
-                            flex: 1,
+                            height: '16px',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 245, 247, 0.9) 100%)',
-                            border: '1px solid rgba(0, 0, 0, 0.1)',
-                            borderRadius: '20px 20px 4px 4px',
+                            background: '#f5f5f5',
+                            border: 'none',
+                            borderRadius: '4px',
                             cursor: 'pointer',
-                            color: '#374151'
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(240, 240, 242, 1) 100%)';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 245, 247, 0.9) 100%)';
+                            color: '#525252'
                           }}
                         >
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" style={{ width: '16px', height: '16px', transform: 'rotate(180deg)' }}>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" style={{ width: '12px', height: '12px', transform: 'rotate(180deg)' }}>
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 8l4 4 4-4"/>
                           </svg>
                         </button>
@@ -214,107 +242,57 @@ export default function CollectionList({
                             if (editQuantity > 1) setEditQuantity(editQuantity - 1);
                           }}
                           style={{
-                            flex: 1,
+                            height: '16px',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 245, 247, 0.9) 100%)',
-                            border: '1px solid rgba(0, 0, 0, 0.1)',
-                            borderRadius: '4px 4px 20px 20px',
+                            background: editQuantity > 1 ? '#f5f5f5' : '#e5e5e5',
+                            border: 'none',
+                            borderRadius: '4px',
                             cursor: editQuantity > 1 ? 'pointer' : 'not-allowed',
-                            color: editQuantity > 1 ? '#374151' : '#9ca3af',
+                            color: editQuantity > 1 ? '#525252' : '#a3a3a3',
                             opacity: editQuantity > 1 ? 1 : 0.5
                           }}
-                          onMouseEnter={(e) => {
-                            if (editQuantity > 1) {
-                              e.currentTarget.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(240, 240, 242, 1) 100%)';
-                            }
-                          }}
-                          onMouseLeave={(e) => {
-                            if (editQuantity > 1) {
-                              e.currentTarget.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 245, 247, 0.9) 100%)';
-                            }
-                          }}
                         >
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" style={{ width: '16px', height: '16px' }}>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" style={{ width: '12px', height: '12px' }}>
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 8l4 4 4-4"/>
                           </svg>
                         </button>
                       </div>
                     </div>
-                    <select
-                      value={editCondition}
-                      onChange={(e) => setEditCondition(e.target.value as 'new' | 'used')}
-                      className="border border-gray-200 focus:outline-none focus:ring-1 focus:ring-[#0071e3] appearance-none cursor-pointer"
-                      style={{
-                        width: '130px',
-                        padding: '14px 16px',
-                        height: '52px',
-                        minHeight: '52px',
-                        fontSize: '16px',
-                        borderRadius: '26px',
-                        boxSizing: 'border-box',
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`,
-                        backgroundPosition: 'right 1rem center',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: '1.5em 1.5em',
-                        paddingRight: '3rem'
-                      }}
-                    >
-                      <option value="new">New</option>
-                      <option value="used">Used</option>
-                    </select>
                   </div>
                 </div>
-                <div className="flex" style={{ gap: '8px' }}>
+                <div className="collection-edit-buttons flex" style={{ gap: '12px' }}>
                   <button
                     onClick={() => handleSaveEdit(item.id)}
-                    className="font-medium transition-all"
                     style={{
-                      padding: '14px 28px',
-                      minHeight: '52px',
-                      background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.95) 0%, rgba(22, 163, 74, 0.95) 100%)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                      border: '1px solid rgba(255, 255, 255, 0.3)',
-                      borderRadius: '26px',
-                      color: '#ffffff',
+                      padding: '16px 32px',
                       fontSize: '16px',
-                      boxShadow: '0 4px 12px rgba(34, 197, 94, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
-                      cursor: 'pointer'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'linear-gradient(135deg, rgba(34, 197, 94, 1) 0%, rgba(22, 163, 74, 1) 100%)';
-                      e.currentTarget.style.boxShadow = '0 6px 16px rgba(34, 197, 94, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'linear-gradient(135deg, rgba(34, 197, 94, 0.95) 0%, rgba(22, 163, 74, 0.95) 100%)';
-                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(34, 197, 94, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3)';
+                      fontWeight: '600',
+                      color: '#ffffff',
+                      background: '#3b82f6',
+                      border: 'none',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      outline: 'none'
                     }}
                   >
                     Save
                   </button>
                   <button
                     onClick={handleCancelEdit}
-                    className="font-medium transition-all"
                     style={{
-                      padding: '14px 28px',
-                      minHeight: '52px',
-                      background: 'rgba(255, 255, 255, 0.5)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                      border: '1px solid rgba(0, 0, 0, 0.1)',
-                      borderRadius: '26px',
-                      color: '#374151',
+                      padding: '16px 32px',
                       fontSize: '16px',
-                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8)',
-                      cursor: 'pointer'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.7)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.5)';
+                      fontWeight: '600',
+                      color: '#525252',
+                      background: '#ffffff',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      outline: 'none'
                     }}
                   >
                     Cancel
@@ -323,58 +301,303 @@ export default function CollectionList({
               </div>
             ) : (
               <>
-                <div className="flex-1" style={{ minWidth: 0 }}>
-                  <h3 className="font-semibold text-sm text-gray-900 tracking-tight" style={{
+                <div className="collection-item-info" style={{ flex: 1, minWidth: 0 }}>
+                  <h3 className="collection-item-title" style={{
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: '#171717',
                     marginBottom: '8px',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap'
+                    whiteSpace: 'nowrap',
+                    letterSpacing: '-0.01em'
                   }}>
                     {item.minifigure_name}
                   </h3>
-                  <p className="text-xs text-gray-500 font-mono" style={{ marginBottom: '8px' }}>{item.minifigure_no}</p>
+                  <p className="collection-item-id" style={{
+                    fontSize: '14px',
+                    color: '#737373',
+                    fontFamily: 'monospace',
+                    marginBottom: '12px'
+                  }}>
+                    {item.minifigure_no}
+                  </p>
 
-                  <div className="flex items-center text-xs text-gray-600">
-                    <span>Qty: {item.quantity}</span>
-                    <span className="capitalize" style={{ marginLeft: '16px' }}>{item.condition}</span>
+                  <div className="collection-item-meta" style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    fontSize: '14px',
+                    color: '#525252',
+                    gap: '16px'
+                  }}>
+                    <span>Quantity: {item.quantity}</span>
                   </div>
                 </div>
 
-                {/* Price */}
-                {item.pricing && (
-                  <div className="text-base font-semibold text-green-600" style={{ marginRight: '24px' }}>
-                    ${showDecimals ? item.pricing.suggestedPrice.toFixed(2) : Math.round(item.pricing.suggestedPrice)}
+                {/* Bottom Row: Price + Expand (mobile) / Action Buttons (desktop) */}
+                <div className="collection-item-bottom-row" style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '16px',
+                  width: 'auto'
+                }}>
+                  {/* Price */}
+                  {item.pricing && (
+                    <div className="collection-item-price" style={{
+                      fontSize: '28px',
+                      fontWeight: '600',
+                      color: '#171717',
+                      marginRight: '16px'
+                    }}>
+                      ${showDecimals ? item.pricing.suggestedPrice.toFixed(2) : Math.round(item.pricing.suggestedPrice)}
+                    </div>
+                  )}
+
+                  {/* Action Buttons (Desktop only) */}
+                  <div className="collection-item-actions flex" style={{ gap: '12px', alignItems: 'center' }}>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleEdit(item);
+                      }}
+                      style={{
+                        padding: '16px 32px',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        color: '#525252',
+                        background: '#ffffff',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                        outline: 'none'
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (confirm('Delete this item?')) {
+                          onItemDelete(item.id);
+                        }
+                      }}
+                      style={{
+                        padding: '16px 32px',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        color: '#dc2626',
+                        background: '#ffffff',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                        outline: 'none'
+                      }}
+                    >
+                      Delete
+                    </button>
+
+                    {/* Expand/Collapse Indicator */}
+                    <div className="collection-expand-indicator" style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginLeft: '12px'
+                    }}>
+                      <svg
+                        style={{
+                          width: '20px',
+                          height: '20px',
+                          color: '#3b82f6',
+                          transform: selectedItemId === item.id ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 0.2s'
+                        }}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+          </div>
+
+          {/* Pricing Drawer */}
+          {selectedItemId === item.id && (
+            <div style={{
+              marginTop: '16px',
+              background: '#ffffff',
+              borderRadius: '12px',
+              border: '1px solid #e5e5e5',
+              overflow: 'hidden',
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
+            }}>
+              <div className="pricing-drawer" style={{ padding: '40px' }}>
+                {item.pricing ? (
+                  <div className="pricing-grid" style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                    gap: '16px',
+                    marginBottom: '32px'
+                  }}>
+                  {/* 6 Month Average */}
+                  <div className="pricing-card" style={{
+                    padding: '24px',
+                    background: '#fafafa',
+                    borderRadius: '8px'
+                  }}>
+                    <p className="pricing-card-label" style={{
+                      fontSize: '12px',
+                      fontWeight: '500',
+                      color: '#737373',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                      marginBottom: '8px'
+                    }}>
+                      6 Month Average
+                    </p>
+                    <p className="pricing-card-value" style={{
+                      fontSize: '28px',
+                      fontWeight: '600',
+                      color: '#171717',
+                      letterSpacing: '-0.01em'
+                    }}>
+                      ${formatPrice(item.pricing.sixMonthAverage)}
+                    </p>
+                  </div>
+
+                  {/* Current Average */}
+                  <div className="pricing-card" style={{
+                    padding: '24px',
+                    background: '#fafafa',
+                    borderRadius: '8px'
+                  }}>
+                    <p className="pricing-card-label" style={{
+                      fontSize: '12px',
+                      fontWeight: '500',
+                      color: '#737373',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                      marginBottom: '8px'
+                    }}>
+                      Current Average
+                    </p>
+                    <p className="pricing-card-value" style={{
+                      fontSize: '28px',
+                      fontWeight: '600',
+                      color: '#171717',
+                      letterSpacing: '-0.01em'
+                    }}>
+                      ${formatPrice(item.pricing.currentAverage)}
+                    </p>
+                  </div>
+
+                  {/* Current Lowest */}
+                  <div className="pricing-card" style={{
+                    padding: '24px',
+                    background: '#fafafa',
+                    borderRadius: '8px'
+                  }}>
+                    <p className="pricing-card-label" style={{
+                      fontSize: '12px',
+                      fontWeight: '500',
+                      color: '#737373',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                      marginBottom: '8px'
+                    }}>
+                      Current Lowest
+                    </p>
+                    <p className="pricing-card-value" style={{
+                      fontSize: '28px',
+                      fontWeight: '600',
+                      color: '#171717',
+                      letterSpacing: '-0.01em'
+                    }}>
+                      ${formatPrice(item.pricing.currentLowest)}
+                    </p>
+                  </div>
+
+                  {/* Suggested Price */}
+                  <div className="pricing-card" style={{
+                    padding: '24px',
+                    background: '#fafafa',
+                    borderRadius: '8px'
+                  }}>
+                    <p className="pricing-card-label" style={{
+                      fontSize: '12px',
+                      fontWeight: '500',
+                      color: '#737373',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                      marginBottom: '8px'
+                    }}>
+                      Suggested Price
+                    </p>
+                    <p className="pricing-card-value" style={{
+                      fontSize: '28px',
+                      fontWeight: '600',
+                      color: '#171717',
+                      letterSpacing: '-0.01em'
+                    }}>
+                      ${formatPrice(item.pricing.suggestedPrice)}
+                    </p>
+                  </div>
+                  </div>
+                ) : (
+                  <div style={{
+                    textAlign: 'center',
+                    color: '#737373',
+                    marginBottom: '32px'
+                  }}>
+                    <p style={{ fontSize: '16px', marginBottom: '8px', fontWeight: '500' }}>No pricing data available</p>
+                    <p style={{ fontSize: '14px' }}>Pricing will be fetched automatically</p>
                   </div>
                 )}
 
-                {/* Action Buttons */}
-                <div className="flex" style={{ gap: '12px' }}>
+                {/* View on Bricklink Button */}
+                <a
+                  href={`https://www.bricklink.com/catalogPG.asp?M=${item.minifigure_no}&ColorID=0&v=D&cID=N`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-block',
+                    padding: '16px 32px',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    color: '#ffffff',
+                    background: '#3b82f6',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s',
+                    cursor: 'pointer'
+                  }}
+                >
+                  View on Bricklink
+                </a>
+
+                {/* Mobile Action Buttons (Edit/Delete) */}
+                <div className="drawer-actions" style={{ display: 'none' }}>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleEdit(item);
                     }}
-                    className="font-medium transition-all"
                     style={{
-                      padding: '14px 28px',
-                      minHeight: '52px',
-                      background: 'rgba(255, 255, 255, 0.5)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                      border: '1px solid rgba(0, 113, 227, 0.3)',
-                      borderRadius: '26px',
-                      color: '#0071e3',
+                      padding: '16px 32px',
                       fontSize: '16px',
-                      boxShadow: '0 2px 8px rgba(0, 113, 227, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8)',
-                      cursor: 'pointer'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'rgba(240, 249, 255, 0.7)';
-                      e.currentTarget.style.border = '1px solid rgba(0, 113, 227, 0.5)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.5)';
-                      e.currentTarget.style.border = '1px solid rgba(0, 113, 227, 0.3)';
+                      fontWeight: '600',
+                      color: '#525252',
+                      background: '#ffffff',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      outline: 'none'
                     }}
                   >
                     Edit
@@ -386,116 +609,21 @@ export default function CollectionList({
                         onItemDelete(item.id);
                       }
                     }}
-                    className="font-medium transition-all"
                     style={{
-                      padding: '14px 28px',
-                      minHeight: '52px',
-                      background: 'rgba(255, 255, 255, 0.5)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                      border: '1px solid rgba(220, 38, 38, 0.3)',
-                      borderRadius: '26px',
-                      color: '#dc2626',
+                      padding: '16px 32px',
                       fontSize: '16px',
-                      boxShadow: '0 2px 8px rgba(220, 38, 38, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8)',
-                      cursor: 'pointer'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'rgba(254, 242, 242, 0.7)';
-                      e.currentTarget.style.border = '1px solid rgba(220, 38, 38, 0.5)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.5)';
-                      e.currentTarget.style.border = '1px solid rgba(220, 38, 38, 0.3)';
+                      fontWeight: '600',
+                      color: '#dc2626',
+                      background: '#ffffff',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      outline: 'none'
                     }}
                   >
                     Delete
                   </button>
-                </div>
-              </>
-            )}
-          </div>
-          </div>
-
-          {/* Pricing Drawer */}
-          {selectedItemId === item.id && item.pricing && (
-            <div className="bg-white shadow-lg overflow-hidden" style={{ marginTop: '8px', borderRadius: '20px' }}>
-              <div style={{ padding: '24px' }}>
-                <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: '8px' }}>
-                  {/* Last 6 Months Sales */}
-                  <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100/50" style={{ borderRadius: '16px' }}>
-                    <p className="text-[10px] font-medium text-blue-600 uppercase tracking-wide mb-2">
-                      Last 6 Months Sales
-                    </p>
-                    <p className="text-2xl font-semibold text-blue-900 tracking-tight">
-                      ${formatPrice(item.pricing.sixMonthAverage)}
-                    </p>
-                  </div>
-
-                  {/* Current Items for Sale - Average */}
-                  <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100/50" style={{ borderRadius: '16px' }}>
-                    <p className="text-[10px] font-medium text-purple-600 uppercase tracking-wide mb-2">
-                      Current Avg Price
-                    </p>
-                    <p className="text-2xl font-semibold text-purple-900 tracking-tight">
-                      ${formatPrice(item.pricing.currentAverage)}
-                    </p>
-                  </div>
-
-                  {/* Current Items for Sale - Min Price */}
-                  <div className="p-4 bg-gradient-to-br from-orange-50 to-orange-100/50" style={{ borderRadius: '16px' }}>
-                    <p className="text-[10px] font-medium text-orange-600 uppercase tracking-wide mb-2">
-                      Current Min Price
-                    </p>
-                    <p className="text-2xl font-semibold text-orange-900 tracking-tight">
-                      ${formatPrice(item.pricing.currentLowest)}
-                    </p>
-                  </div>
-
-                  {/* Suggested Price */}
-                  <div className="p-4 bg-gradient-to-br from-green-50 to-green-100/50" style={{ borderRadius: '16px' }}>
-                    <p className="text-[10px] font-medium text-green-600 uppercase tracking-wide mb-2">
-                      Suggested Selling Price
-                    </p>
-                    <p className="text-2xl font-semibold text-green-900 tracking-tight">
-                      ${formatPrice(item.pricing.suggestedPrice)}
-                    </p>
-                  </div>
-                </div>
-
-                {/* View on Bricklink Button */}
-                <div className="flex justify-start" style={{ marginTop: '8px' }}>
-                  <a
-                    href={`https://www.bricklink.com/catalogPG.asp?M=${item.minifigure_no}&ColorID=0&v=D&cID=N`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(0, 122, 255, 0.95) 0%, rgba(0, 113, 227, 0.95) 100%)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                      border: '1px solid rgba(255, 255, 255, 0.3)',
-                      color: '#ffffff',
-                      padding: '10px 24px',
-                      borderRadius: '24px',
-                      textDecoration: 'none',
-                      display: 'inline-block',
-                      fontSize: '14px',
-                      fontWeight: '500',
-                      boxShadow: '0 4px 12px rgba(0, 113, 227, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
-                      transition: 'all 0.2s ease',
-                      cursor: 'pointer'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'linear-gradient(135deg, rgba(0, 122, 255, 1) 0%, rgba(0, 119, 237, 1) 100%)';
-                      e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 113, 227, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'linear-gradient(135deg, rgba(0, 122, 255, 0.95) 0%, rgba(0, 113, 227, 0.95) 100%)';
-                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 113, 227, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3)';
-                    }}
-                  >
-                    View on Bricklink
-                  </a>
                 </div>
               </div>
             </div>

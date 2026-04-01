@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { database } from '@/lib/database';
 import { bricklinkAPI } from '@/lib/bricklink';
+import { auth } from '@/auth';
 
 // GET a single collection item
 export async function GET(
@@ -8,6 +9,15 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     const { id } = await params;
     const item = await database.getItemById(id);
 
@@ -15,6 +25,14 @@ export async function GET(
       return NextResponse.json(
         { success: false, error: 'Item not found' },
         { status: 404 }
+      );
+    }
+
+    // Verify the item belongs to the authenticated user
+    if (item.userId !== session.user.id) {
+      return NextResponse.json(
+        { success: false, error: 'Forbidden' },
+        { status: 403 }
       );
     }
 
@@ -34,29 +52,44 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     const { id } = await params;
     const body = await request.json();
 
-    // If condition changed, recalculate pricing
-    if (body.condition) {
-      const item = await database.getItemById(id);
-      if (item) {
-        const pricing = await bricklinkAPI.calculatePricingData(
-          item.minifigure_no,
-          body.condition
-        );
-        body.pricing = pricing;
-      }
-    }
-
-    const updatedItem = await database.updateItem(id, body);
-
-    if (!updatedItem) {
+    // Verify the item belongs to the authenticated user
+    const item = await database.getItemById(id);
+    if (!item) {
       return NextResponse.json(
         { success: false, error: 'Item not found' },
         { status: 404 }
       );
     }
+
+    if (item.userId !== session.user.id) {
+      return NextResponse.json(
+        { success: false, error: 'Forbidden' },
+        { status: 403 }
+      );
+    }
+
+    // If condition changed, recalculate pricing
+    if (body.condition) {
+      const pricing = await bricklinkAPI.calculatePricingData(
+        item.minifigure_no,
+        body.condition
+      );
+      body.pricing = pricing;
+    }
+
+    const updatedItem = await database.updateItem(id, body);
 
     return NextResponse.json({ success: true, data: updatedItem });
   } catch (error) {
@@ -74,15 +107,34 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params;
-    const success = await database.deleteItem(id);
+    const session = await auth();
 
-    if (!success) {
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    const { id } = await params;
+
+    // Verify the item belongs to the authenticated user
+    const item = await database.getItemById(id);
+    if (!item) {
       return NextResponse.json(
         { success: false, error: 'Item not found' },
         { status: 404 }
       );
     }
+
+    if (item.userId !== session.user.id) {
+      return NextResponse.json(
+        { success: false, error: 'Forbidden' },
+        { status: 403 }
+      );
+    }
+
+    const success = await database.deleteItem(id);
 
     return NextResponse.json({ success: true, message: 'Item deleted successfully' });
   } catch (error) {

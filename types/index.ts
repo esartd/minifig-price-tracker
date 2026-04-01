@@ -3,6 +3,14 @@ export interface Minifigure {
   name: string; // Minifigure name
   category_id: number;
   image_url?: string;
+  sets?: SetInfo[]; // Optional: Sets this minifigure appears in
+}
+
+export interface SetInfo {
+  no: string; // Set number (e.g., "75192-1")
+  name: string; // Set name
+  quantity: number; // How many of this minifig in the set
+  image_url?: string;
 }
 
 export interface PriceGuide {

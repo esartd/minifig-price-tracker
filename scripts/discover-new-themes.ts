@@ -52,7 +52,7 @@ async function discoverNewThemes() {
       // Not found, continue
     }
 
-    await new Promise(resolve => setTimeout(resolve, 150));
+    await new Promise(resolve => setTimeout(resolve, 3000)); // 3 seconds - safe rate limit
   }
 
   console.log(`\n\n📊 Discovery complete!\n`);

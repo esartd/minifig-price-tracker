@@ -1,6 +1,6 @@
 import crypto from 'crypto';
-import { Minifigure, PriceGuide, PricingData } from '@/types';
-import { bricklinkScraper } from './bricklink-scraper';
+import { Minifigure, PriceGuide, PricingData, SetInfo } from '@/types';
+import { prisma } from './prisma';
 
 export class BricklinkAPI {
   private consumerKey: string;
@@ -8,6 +8,9 @@ export class BricklinkAPI {
   private tokenValue: string;
   private tokenSecret: string;
   private baseURL = 'https://api.bricklink.com/api/store/v1';
+  private static readonly MAX_CALLS_PER_DAY = 5000; // BrickLink ToS: 5,000 calls/day limit
+  private static readonly MIN_DELAY_MS = 3000; // 3 seconds between calls
+  private static lastRequestTime = 0;
 
   constructor() {
     // Load from environment variables
@@ -15,6 +18,65 @@ export class BricklinkAPI {
     this.consumerSecret = process.env.BRICKLINK_CONSUMER_SECRET || '';
     this.tokenValue = process.env.BRICKLINK_TOKEN_VALUE || '';
     this.tokenSecret = process.env.BRICKLINK_TOKEN_SECRET || '';
+  }
+
+  /**
+   * Rate limiter - ENFORCES BrickLink API Terms of Service
+   * - Maximum 5,000 calls per day
+   * - Minimum 3 seconds between requests
+   * - Prevents accidental blocking
+   */
+  private async enforceRateLimit(): Promise<void> {
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+
+    // Get today's call count from database
+    let tracker = await prisma.apiCallTracker.findUnique({
+      where: { date: today }
+    });
+
+    // Create new tracker if doesn't exist
+    if (!tracker) {
+      tracker = await prisma.apiCallTracker.create({
+        data: {
+          date: today,
+          call_count: 0
+        }
+      });
+    }
+
+    // HARD LIMIT: Prevent exceeding 5,000 calls/day
+    if (tracker.call_count >= BricklinkAPI.MAX_CALLS_PER_DAY) {
+      throw new Error(
+        `🚫 BrickLink API daily limit reached (${BricklinkAPI.MAX_CALLS_PER_DAY} calls/day). ` +
+        `Resets at midnight. This protects you from being blocked.`
+      );
+    }
+
+    // Enforce minimum delay between requests
+    const now = Date.now();
+    const timeSinceLastRequest = now - BricklinkAPI.lastRequestTime;
+    if (timeSinceLastRequest < BricklinkAPI.MIN_DELAY_MS) {
+      const delayNeeded = BricklinkAPI.MIN_DELAY_MS - timeSinceLastRequest;
+      await new Promise(resolve => setTimeout(resolve, delayNeeded));
+    }
+
+    // Update tracker
+    await prisma.apiCallTracker.update({
+      where: { date: today },
+      data: {
+        call_count: tracker.call_count + 1,
+        last_call_at: new Date()
+      }
+    });
+
+    BricklinkAPI.lastRequestTime = Date.now();
+
+    // Warn when approaching limit
+    if (tracker.call_count >= BricklinkAPI.MAX_CALLS_PER_DAY * 0.9) {
+      console.warn(
+        `⚠️  WARNING: Approaching daily API limit (${tracker.call_count + 1}/${BricklinkAPI.MAX_CALLS_PER_DAY})`
+      );
+    }
   }
 
   private generateOAuthSignature(
@@ -55,6 +117,9 @@ export class BricklinkAPI {
 
   private async makeRequest(endpoint: string, method = 'GET'): Promise<any> {
     const url = `${this.baseURL}${endpoint}`;
+
+    // ENFORCE BrickLink API rate limits (5,000 calls/day, 3 second delays)
+    await this.enforceRateLimit();
 
     // Parse URL to separate base URL and query parameters
     const urlObj = new URL(url);
@@ -162,14 +227,38 @@ export class BricklinkAPI {
     }
   }
 
+  async getSetsContainingMinifig(itemNo: string): Promise<SetInfo[]> {
+    // NOTE: This method is not currently used in the app
+    // Left here for potential future use, but scraping is not recommended for production
+    // BrickLink API's /subsets endpoint returns PARTS in a minifig, not SETS containing it
+    return [];
+  }
+
   async calculatePricingData(itemNo: string, condition: 'new' | 'used'): Promise<PricingData> {
     const conditionCode = condition === 'new' ? 'N' : 'U';
 
-    // Get data from both API and Puppeteer scraping
-    const [priceGuide, scrapedData] = await Promise.all([
-      this.getPriceGuide(itemNo, conditionCode),
-      bricklinkScraper.scrapePriceGuide(itemNo, conditionCode)
-    ]);
+    // Check cache first
+    const cached = await prisma.priceCache.findUnique({
+      where: {
+        minifigure_no_condition: {
+          minifigure_no: itemNo,
+          condition: condition
+        }
+      }
+    });
+
+    // If cache exists and hasn't expired, return cached data
+    if (cached && cached.expires_at > new Date()) {
+      return {
+        sixMonthAverage: cached.six_month_avg,
+        currentAverage: cached.current_avg,
+        currentLowest: cached.current_lowest,
+        suggestedPrice: cached.suggested_price,
+      };
+    }
+
+    // Cache miss or expired - fetch fresh data from API only
+    const priceGuide = await this.getPriceGuide(itemNo, conditionCode);
 
     if (!priceGuide) {
       return {
@@ -180,35 +269,53 @@ export class BricklinkAPI {
       };
     }
 
-    // Prefer scraped data from website (includes historical "Last 6 Months Sales")
-    // Fall back to API data if scraping fails
-    let sixMonthAverage = parseFloat(priceGuide.qty_avg_price); // API fallback
-    let currentAverage = parseFloat(priceGuide.avg_price); // API fallback
-    let currentLowest = parseFloat(priceGuide.min_price); // API fallback
+    // Use API data only (no scraping)
+    const sixMonthAverage = parseFloat(priceGuide.qty_avg_price || '0');
+    const currentAverage = parseFloat(priceGuide.avg_price || '0');
+    const currentLowest = parseFloat(priceGuide.min_price || '0');
 
-    if (scrapedData) {
-      // Use scraped "Last 6 Months Sales" avg (actual sold prices)
-      if (scrapedData.lastSixMonthsAvg > 0) {
-        sixMonthAverage = scrapedData.lastSixMonthsAvg;
-      }
-      // Use scraped current listings data
-      if (scrapedData.currentItemsAvg > 0) {
-        currentAverage = scrapedData.currentItemsAvg;
-      }
-      if (scrapedData.currentItemsMin > 0) {
-        currentLowest = scrapedData.currentItemsMin;
-      }
-    }
+    // Calculate suggested price: weight Current Lowest 2x since listing averages are typically high
+    // Formula: (6mo avg + current avg + lowest*2) / 4 = 25% + 25% + 50%
+    const suggestedPrice = (sixMonthAverage + currentAverage + (currentLowest * 2)) / 4;
 
-    // Calculate suggested price as the average of all three values
-    const suggestedPrice = (sixMonthAverage + currentAverage + currentLowest) / 3;
-
-    return {
+    const pricingData = {
       sixMonthAverage: parseFloat(sixMonthAverage.toFixed(2)),
       currentAverage: parseFloat(currentAverage.toFixed(2)),
       currentLowest: parseFloat(currentLowest.toFixed(2)),
       suggestedPrice: parseFloat(suggestedPrice.toFixed(2)),
     };
+
+    // Store in cache with 6 hour expiration (BrickLink ToS compliance)
+    const expiresAt = new Date();
+    expiresAt.setHours(expiresAt.getHours() + 6);
+
+    await prisma.priceCache.upsert({
+      where: {
+        minifigure_no_condition: {
+          minifigure_no: itemNo,
+          condition: condition
+        }
+      },
+      update: {
+        six_month_avg: pricingData.sixMonthAverage,
+        current_avg: pricingData.currentAverage,
+        current_lowest: pricingData.currentLowest,
+        suggested_price: pricingData.suggestedPrice,
+        cached_at: new Date(),
+        expires_at: expiresAt,
+      },
+      create: {
+        minifigure_no: itemNo,
+        condition: condition,
+        six_month_avg: pricingData.sixMonthAverage,
+        current_avg: pricingData.currentAverage,
+        current_lowest: pricingData.currentLowest,
+        suggested_price: pricingData.suggestedPrice,
+        expires_at: expiresAt,
+      }
+    });
+
+    return pricingData;
   }
 }
 
