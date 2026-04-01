@@ -356,7 +356,7 @@ export default function CollectionPage() {
               Items <span style={{ color: '#a3a3a3', fontWeight: '400' }}>({collection.length})</span>
             </h2>
             {collection.length > 0 && (
-              <div className="collection-controls" style={{ display: 'flex', gap: '12px', width: '100%', flexWrap: 'wrap' }}>
+              <div className="collection-controls" style={{ display: 'flex', gap: '12px', width: '100%', flexWrap: 'wrap', alignItems: 'center' }}>
                 <select
                   value={sortOrder}
                   onChange={(e) => setSortOrder(e.target.value as any)}
@@ -389,44 +389,6 @@ export default function CollectionPage() {
                   <option value="id">Bricklink ID</option>
                 </select>
                 <button
-                  onClick={handleRefreshPricing}
-                  disabled={refreshing}
-                  style={{
-                    flex: '0 0 auto',
-                    padding: '14px 20px',
-                    fontSize: '15px',
-                    fontWeight: '600',
-                    color: refreshing ? '#a3a3a3' : '#3b82f6',
-                    background: '#ffffff',
-                    border: '1px solid #3b82f6',
-                    borderRadius: '8px',
-                    cursor: refreshing ? 'not-allowed' : 'pointer',
-                    transition: 'all 0.2s',
-                    outline: 'none',
-                    boxSizing: 'border-box',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px',
-                    whiteSpace: 'nowrap'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!refreshing) {
-                      e.currentTarget.style.background = '#eff6ff';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#ffffff';
-                  }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                    <polyline points="23 4 23 10 17 10"></polyline>
-                    <polyline points="1 20 1 14 7 14"></polyline>
-                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-                  </svg>
-                  {refreshing ? 'Refreshing...' : 'Refresh Prices'}
-                </button>
-                <button
                   onClick={() => setShowDecimals(!showDecimals)}
                   style={{
                     padding: '14px 20px',
@@ -456,6 +418,46 @@ export default function CollectionPage() {
                   }}
                 >
                   {showDecimals ? '.00' : '.0'}
+                </button>
+                <button
+                  onClick={handleRefreshPricing}
+                  disabled={refreshing}
+                  style={{
+                    flex: '0 0 auto',
+                    padding: '14px 20px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    color: refreshing ? '#a3a3a3' : '#737373',
+                    background: '#f5f5f5',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    cursor: refreshing ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.2s',
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    whiteSpace: 'nowrap'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!refreshing) {
+                      e.currentTarget.style.background = '#e5e5e5';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!refreshing) {
+                      e.currentTarget.style.background = '#f5f5f5';
+                    }
+                  }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                  </svg>
+                  {refreshing ? 'Refreshing...' : 'Refresh Prices'}
                 </button>
               </div>
             )}
