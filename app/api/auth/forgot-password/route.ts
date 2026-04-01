@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import crypto from 'crypto';
+import { sendPasswordResetEmail } from '@/lib/email';
 
 const prisma = new PrismaClient();
 
@@ -32,6 +33,11 @@ export async function POST(request: NextRequest) {
     const resetToken = crypto.randomBytes(32).toString('hex');
     const expires = new Date(Date.now() + 3600000); // 1 hour from now
 
+    // Delete any existing tokens for this email
+    await prisma.verificationToken.deleteMany({
+      where: { identifier: email }
+    });
+
     // Store token in VerificationToken table
     await prisma.verificationToken.create({
       data: {
@@ -41,15 +47,16 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    // TODO: Send email with reset link
-    // For now, we'll just return success
-    // In production, you would use a service like Resend, SendGrid, or Nodemailer
-    // const resetUrl = `${process.env.NEXTAUTH_URL}/auth/reset-password?token=${resetToken}`;
-    // await sendEmail(email, resetUrl);
+    // Send password reset email
+    const emailResult = await sendPasswordResetEmail(email, resetToken);
+
+    if (!emailResult.success) {
+      console.error('Failed to send password reset email:', emailResult.error);
+      // Still return success to user for security (don't reveal if email exists)
+    }
 
     console.log(`Password reset requested for: ${email}`);
     console.log(`Reset token (dev only): ${resetToken}`);
-    console.log(`Reset URL: http://localhost:3000/auth/reset-password?token=${resetToken}`);
 
     return NextResponse.json(
       { success: true, message: 'If an account exists, you will receive a password reset email.' },

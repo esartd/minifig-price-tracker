@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import { sendWelcomeEmail } from '@/lib/email';
 
 const prisma = new PrismaClient();
 
@@ -37,6 +38,11 @@ export async function POST(request: NextRequest) {
         password: hashedPassword,
         name: name || null,
       }
+    });
+
+    // Send welcome email (non-blocking)
+    sendWelcomeEmail(email, name || 'there').catch(err => {
+      console.error('Failed to send welcome email:', err);
     });
 
     return NextResponse.json(

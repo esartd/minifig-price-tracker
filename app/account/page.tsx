@@ -15,12 +15,16 @@ export default function AccountPage() {
   const [name, setName] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Password states
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // Collection stats
   const [stats, setStats] = useState({ totalItems: 0, totalValue: 0, memberSince: '' });
@@ -38,14 +42,23 @@ export default function AccountPage() {
         const response = await fetch('/api/collection');
         if (response.ok) {
           const data = await response.json();
-          const totalValue = data.reduce((sum: number, item: any) =>
-            sum + (item.suggestedPrice || 0), 0
-          );
-          setStats({
-            totalItems: data.length,
-            totalValue: totalValue,
-            memberSince: session?.user?.email ? 'Recently' : ''
-          });
+          // Ensure data is an array before using reduce
+          if (Array.isArray(data)) {
+            const totalValue = data.reduce((sum: number, item: any) =>
+              sum + (item.suggestedPrice || 0), 0
+            );
+            setStats({
+              totalItems: data.length,
+              totalValue: totalValue,
+              memberSince: session?.user?.email ? 'Recently' : ''
+            });
+          } else {
+            setStats({
+              totalItems: 0,
+              totalValue: 0,
+              memberSince: session?.user?.email ? 'Recently' : ''
+            });
+          }
         }
       } catch (error) {
         console.error('Failed to fetch stats:', error);
@@ -131,9 +144,12 @@ export default function AccountPage() {
         showMessage('error', data.error || 'Failed to upload avatar');
       } else {
         showMessage('success', 'Profile picture updated successfully');
+        // Store the new image URL immediately
+        setUploadedImageUrl(data.imageUrl);
         setSelectedFile(null);
         setPreview(null);
-        router.refresh();
+        // Update session in background
+        update();
       }
     } catch (error) {
       showMessage('error', 'An error occurred. Please try again.');
@@ -248,11 +264,11 @@ export default function AccountPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#fafafa' }}>
+    <div style={{ minHeight: '100vh', background: '#fafafa', overflowX: 'hidden' }}>
       <div className="account-page-wrapper" style={{
         maxWidth: '768px',
         margin: '0 auto',
-        padding: '80px 32px 128px'
+        padding: '32px 16px 80px'
       }}>
         {/* Back Link */}
         <Link
@@ -275,19 +291,19 @@ export default function AccountPage() {
         </Link>
 
         {/* Header */}
-        <div style={{ marginBottom: '80px' }}>
+        <div style={{ marginBottom: '40px' }}>
           <h1 style={{
-            fontSize: '40px',
+            fontSize: '32px',
             fontWeight: '700',
             lineHeight: '1.2',
             letterSpacing: '-0.02em',
             color: '#171717',
-            marginBottom: '16px'
+            marginBottom: '12px'
           }}>
             Account Settings
           </h1>
           <p style={{
-            fontSize: '18px',
+            fontSize: '16px',
             color: '#525252',
             lineHeight: '1.6'
           }}>
@@ -298,15 +314,15 @@ export default function AccountPage() {
         {/* Message Banner */}
         {message && (
           <div style={{
-            marginBottom: '80px',
-            padding: '24px',
+            marginBottom: '32px',
+            padding: '16px 20px',
             borderRadius: '12px',
             background: message.type === 'success' ? '#dcfce7' : '#fee2e2',
             border: '1px solid',
             borderColor: message.type === 'success' ? '#86efac' : '#fca5a5'
           }}>
             <p style={{
-              fontSize: '15px',
+              fontSize: '14px',
               fontWeight: '500',
               color: message.type === 'success' ? '#166534' : '#991b1b'
             }}>
@@ -316,29 +332,41 @@ export default function AccountPage() {
         )}
 
         {/* Stats Cards */}
-        <div style={{
+        <div className="account-stats-wrapper" style={{
+          marginBottom: '40px',
+          overflowX: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          marginLeft: '-16px',
+          marginRight: '-16px',
+          paddingLeft: '16px',
+          paddingRight: '16px'
+        }}>
+        <div className="account-stats" style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '32px',
-          marginBottom: '80px'
+          gridTemplateColumns: 'repeat(3, minmax(140px, 1fr))',
+          gap: '16px',
+          minWidth: 'max-content'
         }}>
           <div style={{
             background: '#ffffff',
-            borderRadius: '16px',
-            padding: '40px',
-            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+            borderRadius: '12px',
+            padding: '24px 20px',
+            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+            minWidth: '140px'
           }}>
             <p style={{
-              fontSize: '14px',
+              fontSize: '13px',
               fontWeight: '500',
               color: '#737373',
-              marginBottom: '12px',
+              marginBottom: '8px',
               letterSpacing: '0.01em'
             }}>
               Total Items
             </p>
             <p style={{
-              fontSize: '36px',
+              fontSize: '28px',
               fontWeight: '700',
               color: '#171717',
               lineHeight: '1'
@@ -348,21 +376,22 @@ export default function AccountPage() {
           </div>
           <div style={{
             background: '#ffffff',
-            borderRadius: '16px',
-            padding: '40px',
-            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+            borderRadius: '12px',
+            padding: '24px 20px',
+            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+            minWidth: '140px'
           }}>
             <p style={{
-              fontSize: '14px',
+              fontSize: '13px',
               fontWeight: '500',
               color: '#737373',
-              marginBottom: '12px',
+              marginBottom: '8px',
               letterSpacing: '0.01em'
             }}>
               Collection Value
             </p>
             <p style={{
-              fontSize: '36px',
+              fontSize: '28px',
               fontWeight: '700',
               color: '#171717',
               lineHeight: '1'
@@ -372,21 +401,22 @@ export default function AccountPage() {
           </div>
           <div style={{
             background: '#ffffff',
-            borderRadius: '16px',
-            padding: '40px',
-            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+            borderRadius: '12px',
+            padding: '24px 20px',
+            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+            minWidth: '140px'
           }}>
             <p style={{
-              fontSize: '14px',
+              fontSize: '13px',
               fontWeight: '500',
               color: '#737373',
-              marginBottom: '12px',
+              marginBottom: '8px',
               letterSpacing: '0.01em'
             }}>
               Member Since
             </p>
             <p style={{
-              fontSize: '36px',
+              fontSize: '28px',
               fontWeight: '700',
               color: '#171717',
               lineHeight: '1'
@@ -395,60 +425,73 @@ export default function AccountPage() {
             </p>
           </div>
         </div>
+        </div>
 
         {/* Profile Section */}
-        <div style={{
+        <div className="account-section" style={{
           background: '#ffffff',
-          borderRadius: '16px',
-          padding: '64px',
-          marginBottom: '80px',
+          borderRadius: '12px',
+          padding: '24px 16px',
+          marginBottom: '32px',
           boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
         }}>
           <h2 style={{
-            fontSize: '24px',
+            fontSize: '20px',
             fontWeight: '600',
             color: '#171717',
-            marginBottom: '48px',
+            marginBottom: '32px',
             letterSpacing: '-0.01em'
           }}>
             Profile Information
           </h2>
 
-          <div style={{ display: 'flex', gap: '64px' }}>
+          <div className="account-profile-content" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
             {/* Avatar Upload */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <div style={{ marginBottom: '24px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+              <div style={{ marginBottom: '20px' }}>
                 {preview ? (
                   <img
                     src={preview}
                     alt="Preview"
                     style={{
-                      width: '120px',
-                      height: '120px',
-                      border: '4px solid #f3f4f6',
+                      width: '100px',
+                      height: '100px',
+                      border: '3px solid #f3f4f6',
+                      borderRadius: '50%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                ) : uploadedImageUrl ? (
+                  <img
+                    src={`${uploadedImageUrl}?t=${Date.now()}`}
+                    alt={session.user.name || 'User'}
+                    style={{
+                      width: '100px',
+                      height: '100px',
+                      border: '3px solid #f3f4f6',
                       borderRadius: '50%',
                       objectFit: 'cover'
                     }}
                   />
                 ) : session.user.image ? (
                   <img
-                    src={session.user.image}
+                    src={`${session.user.image}?t=${Date.now()}`}
                     alt={session.user.name || 'User'}
                     style={{
-                      width: '120px',
-                      height: '120px',
-                      border: '4px solid #f3f4f6',
+                      width: '100px',
+                      height: '100px',
+                      border: '3px solid #f3f4f6',
                       borderRadius: '50%',
                       objectFit: 'cover'
                     }}
                   />
                 ) : (
                   <div style={{
-                    width: '120px',
-                    height: '120px',
+                    width: '100px',
+                    height: '100px',
                     background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
                     color: 'white',
-                    fontSize: '32px',
+                    fontSize: '28px',
                     fontWeight: '600',
                     borderRadius: '50%',
                     display: 'flex',
@@ -467,15 +510,15 @@ export default function AccountPage() {
                 style={{ display: 'none' }}
               />
               {selectedFile ? (
-                <div style={{ display: 'flex', gap: '12px' }}>
+                <div style={{ display: 'flex', gap: '12px', width: '100%', flexWrap: 'wrap', justifyContent: 'center' }}>
                   <button
                     onClick={() => {
                       setSelectedFile(null);
                       setPreview(null);
                     }}
                     style={{
-                      padding: '16px 32px',
-                      fontSize: '16px',
+                      padding: '12px 24px',
+                      fontSize: '15px',
                       fontWeight: '600',
                       color: '#525252',
                       background: '#ffffff',
@@ -492,8 +535,8 @@ export default function AccountPage() {
                     onClick={handleAvatarUpload}
                     disabled={loading}
                     style={{
-                      padding: '16px 32px',
-                      fontSize: '16px',
+                      padding: '12px 24px',
+                      fontSize: '15px',
                       fontWeight: '600',
                       color: '#ffffff',
                       background: loading ? '#a3a3a3' : '#3b82f6',
@@ -512,8 +555,8 @@ export default function AccountPage() {
                 <button
                   onClick={() => fileInputRef.current?.click()}
                   style={{
-                    padding: '16px 32px',
-                    fontSize: '16px',
+                    padding: '12px 24px',
+                    fontSize: '15px',
                     fontWeight: '600',
                     color: '#525252',
                     background: '#ffffff',
@@ -530,8 +573,8 @@ export default function AccountPage() {
             </div>
 
             {/* Name and Email */}
-            <div style={{ flex: 1 }}>
-              <form onSubmit={handleNameUpdate} style={{ marginBottom: '48px' }}>
+            <div style={{ width: '100%' }}>
+              <form onSubmit={handleNameUpdate} style={{ marginBottom: '32px' }}>
                 <label htmlFor="name" style={{
                   display: 'block',
                   fontSize: '14px',
@@ -542,7 +585,7 @@ export default function AccountPage() {
                 }}>
                   Full Name
                 </label>
-                <div style={{ display: 'flex', gap: '16px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <input
                     id="name"
                     type="text"
@@ -550,15 +593,16 @@ export default function AccountPage() {
                     onChange={(e) => setName(e.target.value)}
                     required
                     style={{
-                      flex: 1,
-                      padding: '16px 20px',
-                      fontSize: '16px',
+                      width: '100%',
+                      padding: '14px 16px',
+                      fontSize: '15px',
                       borderRadius: '8px',
                       border: '1px solid #e5e5e5',
                       color: '#171717',
                       background: 'white',
                       outline: 'none',
-                      transition: 'border-color 0.2s, box-shadow 0.2s'
+                      transition: 'border-color 0.2s, box-shadow 0.2s',
+                      boxSizing: 'border-box'
                     }}
                     placeholder="Enter your full name"
                     onFocus={(e) => {
@@ -574,8 +618,8 @@ export default function AccountPage() {
                     type="submit"
                     disabled={loading || name === session.user.name}
                     style={{
-                      padding: '16px 32px',
-                      fontSize: '16px',
+                      padding: '14px 24px',
+                      fontSize: '15px',
                       fontWeight: '600',
                       background: (loading || name === session.user.name) ? '#a3a3a3' : '#3b82f6',
                       border: 'none',
@@ -585,7 +629,8 @@ export default function AccountPage() {
                       opacity: (loading || name === session.user.name) ? 0.5 : 1,
                       transition: 'all 0.2s',
                       outline: 'none',
-                      whiteSpace: 'nowrap'
+                      width: '100%',
+                      boxSizing: 'border-box'
                     }}
                   >
                     {loading ? 'Saving...' : 'Save'}
@@ -605,19 +650,20 @@ export default function AccountPage() {
                   Email Address
                 </label>
                 <div style={{
-                  padding: '16px 20px',
-                  fontSize: '16px',
+                  padding: '14px 16px',
+                  fontSize: '15px',
                   borderRadius: '8px',
                   border: '1px solid #e5e5e5',
                   background: '#f5f5f5',
-                  color: '#737373'
+                  color: '#737373',
+                  wordBreak: 'break-all'
                 }}>
                   {session.user.email}
                 </div>
                 <p style={{
-                  fontSize: '14px',
+                  fontSize: '13px',
                   color: '#a3a3a3',
-                  marginTop: '12px',
+                  marginTop: '8px',
                   lineHeight: '1.5'
                 }}>
                   Email cannot be changed for security reasons
@@ -628,18 +674,18 @@ export default function AccountPage() {
         </div>
 
         {/* Security Section */}
-        <div style={{
+        <div className="account-section" style={{
           background: '#ffffff',
-          borderRadius: '16px',
-          padding: '64px',
-          marginBottom: '80px',
+          borderRadius: '12px',
+          padding: '24px 16px',
+          marginBottom: '32px',
           boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
         }}>
           <h2 style={{
-            fontSize: '24px',
+            fontSize: '20px',
             fontWeight: '600',
             color: '#171717',
-            marginBottom: '48px',
+            marginBottom: '32px',
             letterSpacing: '-0.01em'
           }}>
             Security
@@ -649,8 +695,8 @@ export default function AccountPage() {
             <div style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: '24px',
-              marginBottom: '32px'
+              gap: '20px',
+              marginBottom: '24px'
             }}>
               <div>
                 <label htmlFor="currentPassword" style={{
@@ -663,32 +709,67 @@ export default function AccountPage() {
                 }}>
                   Current Password
                 </label>
-                <input
-                  id="currentPassword"
-                  type="password"
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
-                  style={{
-                    width: '100%',
-                    padding: '16px 20px',
-                    fontSize: '16px',
-                    borderRadius: '8px',
-                    border: '1px solid #e5e5e5',
-                    color: '#171717',
-                    background: 'white',
-                    outline: 'none',
-                    transition: 'border-color 0.2s, box-shadow 0.2s'
-                  }}
-                  placeholder="••••••••"
-                  onFocus={(e) => {
-                    e.currentTarget.style.borderColor = '#3b82f6';
-                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.borderColor = '#e5e5e5';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                />
+                <div style={{ position: 'relative' }}>
+                  <input
+                    id="currentPassword"
+                    type={showCurrentPassword ? 'text' : 'password'}
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    autoComplete="current-password"
+                    style={{
+                      width: '100%',
+                      padding: '14px 48px 14px 16px',
+                      fontSize: '15px',
+                      borderRadius: '8px',
+                      border: '1px solid #e5e5e5',
+                      color: '#171717',
+                      background: 'white',
+                      outline: 'none',
+                      transition: 'border-color 0.2s, box-shadow 0.2s',
+                      boxSizing: 'border-box'
+                    }}
+                    placeholder="Enter current password"
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = '#3b82f6';
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = '#e5e5e5';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                    style={{
+                      position: 'absolute',
+                      right: '12px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: '8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#737373',
+                      outline: 'none'
+                    }}
+                  >
+                    {showCurrentPassword ? (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    ) : (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                        <line x1="1" y1="1" x2="23" y2="23" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
               </div>
               <div>
                 <label htmlFor="newPassword" style={{
@@ -701,32 +782,67 @@ export default function AccountPage() {
                 }}>
                   New Password
                 </label>
-                <input
-                  id="newPassword"
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  style={{
-                    width: '100%',
-                    padding: '16px 20px',
-                    fontSize: '16px',
-                    borderRadius: '8px',
-                    border: '1px solid #e5e5e5',
-                    color: '#171717',
-                    background: 'white',
-                    outline: 'none',
-                    transition: 'border-color 0.2s, box-shadow 0.2s'
-                  }}
-                  placeholder="••••••••"
-                  onFocus={(e) => {
-                    e.currentTarget.style.borderColor = '#3b82f6';
-                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.borderColor = '#e5e5e5';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                />
+                <div style={{ position: 'relative' }}>
+                  <input
+                    id="newPassword"
+                    type={showNewPassword ? 'text' : 'password'}
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    autoComplete="new-password"
+                    style={{
+                      width: '100%',
+                      padding: '14px 48px 14px 16px',
+                      fontSize: '15px',
+                      borderRadius: '8px',
+                      border: '1px solid #e5e5e5',
+                      color: '#171717',
+                      background: 'white',
+                      outline: 'none',
+                      transition: 'border-color 0.2s, box-shadow 0.2s',
+                      boxSizing: 'border-box'
+                    }}
+                    placeholder="Enter new password"
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = '#3b82f6';
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = '#e5e5e5';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowNewPassword(!showNewPassword)}
+                    style={{
+                      position: 'absolute',
+                      right: '12px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: '8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#737373',
+                      outline: 'none'
+                    }}
+                  >
+                    {showNewPassword ? (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    ) : (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                        <line x1="1" y1="1" x2="23" y2="23" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
               </div>
               <div>
                 <label htmlFor="confirmPassword" style={{
@@ -739,40 +855,75 @@ export default function AccountPage() {
                 }}>
                   Confirm New Password
                 </label>
-                <input
-                  id="confirmPassword"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  style={{
-                    width: '100%',
-                    padding: '16px 20px',
-                    fontSize: '16px',
-                    borderRadius: '8px',
-                    border: '1px solid #e5e5e5',
-                    color: '#171717',
-                    background: 'white',
-                    outline: 'none',
-                    transition: 'border-color 0.2s, box-shadow 0.2s'
-                  }}
-                  placeholder="••••••••"
-                  onFocus={(e) => {
-                    e.currentTarget.style.borderColor = '#3b82f6';
-                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.borderColor = '#e5e5e5';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                />
+                <div style={{ position: 'relative' }}>
+                  <input
+                    id="confirmPassword"
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    autoComplete="new-password"
+                    style={{
+                      width: '100%',
+                      padding: '14px 48px 14px 16px',
+                      fontSize: '15px',
+                      borderRadius: '8px',
+                      border: '1px solid #e5e5e5',
+                      color: '#171717',
+                      background: 'white',
+                      outline: 'none',
+                      transition: 'border-color 0.2s, box-shadow 0.2s',
+                      boxSizing: 'border-box'
+                    }}
+                    placeholder="Confirm new password"
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = '#3b82f6';
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = '#e5e5e5';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    style={{
+                      position: 'absolute',
+                      right: '12px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: '8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#737373',
+                      outline: 'none'
+                    }}
+                  >
+                    {showConfirmPassword ? (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    ) : (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                        <line x1="1" y1="1" x2="23" y2="23" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
             <button
               type="submit"
               disabled={loading || !currentPassword || !newPassword || !confirmPassword}
               style={{
-                padding: '16px 32px',
-                fontSize: '16px',
+                padding: '14px 24px',
+                fontSize: '15px',
                 fontWeight: '600',
                 color: '#ffffff',
                 background: (loading || !currentPassword || !newPassword || !confirmPassword) ? '#a3a3a3' : '#3b82f6',
@@ -781,7 +932,9 @@ export default function AccountPage() {
                 cursor: (loading || !currentPassword || !newPassword || !confirmPassword) ? 'not-allowed' : 'pointer',
                 opacity: (loading || !currentPassword || !newPassword || !confirmPassword) ? 0.5 : 1,
                 transition: 'all 0.2s',
-                outline: 'none'
+                outline: 'none',
+                width: '100%',
+                boxSizing: 'border-box'
               }}
             >
               {loading ? 'Changing...' : 'Change Password'}
@@ -790,17 +943,17 @@ export default function AccountPage() {
         </div>
 
         {/* Data Management Section */}
-        <div style={{
+        <div className="account-section" style={{
           background: '#ffffff',
-          borderRadius: '16px',
-          padding: '64px',
+          borderRadius: '12px',
+          padding: '24px 16px',
           boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
         }}>
           <h2 style={{
-            fontSize: '24px',
+            fontSize: '20px',
             fontWeight: '600',
             color: '#171717',
-            marginBottom: '48px',
+            marginBottom: '32px',
             letterSpacing: '-0.01em'
           }}>
             Data Management
@@ -809,23 +962,22 @@ export default function AccountPage() {
           <div>
             <div style={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              paddingBottom: '40px',
+              flexDirection: 'column',
+              paddingBottom: '32px',
               borderBottom: '1px solid #e5e5e5',
-              marginBottom: '40px'
+              marginBottom: '32px'
             }}>
-              <div>
+              <div style={{ marginBottom: '16px' }}>
                 <h3 style={{
-                  fontSize: '16px',
+                  fontSize: '15px',
                   fontWeight: '600',
                   color: '#171717',
-                  marginBottom: '8px'
+                  marginBottom: '6px'
                 }}>
                   Export Collection Data
                 </h3>
                 <p style={{
-                  fontSize: '15px',
+                  fontSize: '14px',
                   color: '#737373',
                   lineHeight: '1.6'
                 }}>
@@ -835,17 +987,18 @@ export default function AccountPage() {
               <button
                 onClick={handleExportData}
                 style={{
-                  padding: '16px 32px',
-                  fontSize: '16px',
+                  padding: '14px 24px',
+                  fontSize: '15px',
                   fontWeight: '600',
                   color: '#525252',
                   background: '#ffffff',
                   border: '1px solid #e5e5e5',
                   borderRadius: '8px',
                   cursor: 'pointer',
-                  whiteSpace: 'nowrap',
                   transition: 'all 0.2s',
-                  outline: 'none'
+                  outline: 'none',
+                  width: '100%',
+                  boxSizing: 'border-box'
                 }}
               >
                 Export Data
@@ -854,20 +1007,19 @@ export default function AccountPage() {
 
             <div style={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between'
+              flexDirection: 'column'
             }}>
-              <div>
+              <div style={{ marginBottom: '16px' }}>
                 <h3 style={{
-                  fontSize: '16px',
+                  fontSize: '15px',
                   fontWeight: '600',
                   color: '#dc2626',
-                  marginBottom: '8px'
+                  marginBottom: '6px'
                 }}>
                   Delete Account
                 </h3>
                 <p style={{
-                  fontSize: '15px',
+                  fontSize: '14px',
                   color: '#737373',
                   lineHeight: '1.6'
                 }}>
@@ -878,18 +1030,19 @@ export default function AccountPage() {
                 onClick={handleDeleteAccount}
                 disabled={loading}
                 style={{
-                  padding: '16px 32px',
-                  fontSize: '16px',
+                  padding: '14px 24px',
+                  fontSize: '15px',
                   fontWeight: '600',
                   color: '#dc2626',
                   background: '#fee2e2',
                   border: '1px solid #fca5a5',
                   borderRadius: '8px',
                   cursor: loading ? 'not-allowed' : 'pointer',
-                  whiteSpace: 'nowrap',
                   opacity: loading ? 0.5 : 1,
                   transition: 'all 0.2s',
-                  outline: 'none'
+                  outline: 'none',
+                  width: '100%',
+                  boxSizing: 'border-box'
                 }}
               >
                 Delete Account
