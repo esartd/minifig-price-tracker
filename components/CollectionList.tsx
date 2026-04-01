@@ -471,7 +471,7 @@ export default function CollectionList({
                     gap: '10px',
                     marginBottom: '16px'
                   }}>
-                  {/* 6 Month Average */}
+                  {/* Quantity Weighted Average */}
                   <div className="pricing-card" style={{
                     padding: '14px 12px',
                     background: '#ffffff',
@@ -486,7 +486,7 @@ export default function CollectionList({
                       letterSpacing: '0.03em',
                       marginBottom: '6px'
                     }}>
-                      6 Mo Avg
+                      Qty Avg
                     </p>
                     <p className="pricing-card-value" style={{
                       fontSize: '20px',
@@ -498,7 +498,7 @@ export default function CollectionList({
                     </p>
                   </div>
 
-                  {/* Current Average */}
+                  {/* Simple Average */}
                   <div className="pricing-card" style={{
                     padding: '14px 12px',
                     background: '#ffffff',
@@ -513,7 +513,7 @@ export default function CollectionList({
                       letterSpacing: '0.03em',
                       marginBottom: '6px'
                     }}>
-                      Current Avg
+                      Simple Avg
                     </p>
                     <p className="pricing-card-value" style={{
                       fontSize: '20px',
