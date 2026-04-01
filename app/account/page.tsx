@@ -116,16 +116,21 @@ export default function AccountPage() {
     // Fetch collection stats
     const fetchStats = async () => {
       try {
-        const response = await fetch('/api/inventory');
+        // Add cache: 'no-store' to always fetch fresh data
+        const response = await fetch('/api/inventory', {
+          cache: 'no-store'
+        });
         if (response.ok) {
           const data = await response.json();
-          // Ensure data is an array before using reduce
-          if (Array.isArray(data)) {
-            const totalValue = data.reduce((sum: number, item: any) =>
-              sum + (item.suggestedPrice || 0), 0
+          // Check if response has success and data structure from API
+          const items = data.success ? data.data : (Array.isArray(data) ? data : []);
+
+          if (Array.isArray(items)) {
+            const totalValue = items.reduce((sum: number, item: any) =>
+              sum + ((item.suggestedPrice || 0) * (item.quantity || 1)), 0
             );
             setStats({
-              totalItems: data.length,
+              totalItems: items.reduce((sum: number, item: any) => sum + (item.quantity || 1), 0),
               totalValue: totalValue,
               memberSince: session?.user?.email ? 'Recently' : ''
             });
@@ -145,6 +150,16 @@ export default function AccountPage() {
     if (session?.user) {
       fetchStats();
     }
+
+    // Refetch stats when page becomes visible (e.g., navigating back from inventory)
+    const handleVisibilityChange = () => {
+      if (!document.hidden && session?.user) {
+        fetchStats();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
   }, [session]);
 
   const showMessage = (type: 'success' | 'error', text: string) => {
