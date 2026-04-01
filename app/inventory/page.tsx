@@ -93,9 +93,9 @@ export default function CollectionPage() {
 
         // Show result message
         if (data.refreshed === 0) {
-          alert(`✓ All prices are up to date!\n\nAll ${data.total} items were refreshed within the last 24 hours. No API calls needed.`);
+          alert(`✓ All prices are up to date!\n\nAll ${data.total} items were refreshed within the last 24 hours.`);
         } else if (data.skipped > 0) {
-          alert(`✓ Refresh complete!\n\n${data.refreshed} items updated\n${data.skipped} items already fresh (< 24 hours old)`);
+          alert(`✓ Refresh complete!\n\n${data.refreshed} items updated\n${data.skipped} already current (< 24 hours old)`);
         } else {
           alert(`✓ Refresh complete!\n\nAll ${data.refreshed} items updated with latest prices.`);
         }
