@@ -356,66 +356,105 @@ export default function CollectionPage() {
               Items <span style={{ color: '#a3a3a3', fontWeight: '400' }}>({collection.length})</span>
             </h2>
             {collection.length > 0 && (
-              <div className="collection-controls" style={{ display: 'flex', gap: '12px', width: '100%' }}>
-                <select
-                  value={sortOrder}
-                  onChange={(e) => setSortOrder(e.target.value as any)}
-                  style={{
-                    flex: 1,
-                    padding: '14px 16px',
-                    fontSize: '15px',
-                    fontWeight: '600',
-                    color: '#171717',
-                    background: '#f5f5f5',
-                    border: '1px solid #e5e5e5',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    outline: 'none',
-                    transition: 'all 0.2s',
-                    appearance: 'none',
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23525252' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`,
-                    backgroundPosition: 'right 0.75rem center',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: '1.25em 1.25em',
-                    paddingRight: '3rem',
-                    boxSizing: 'border-box'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#e5e5e5'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}
-                >
-                  <option value="price-high">Price: High to Low</option>
-                  <option value="price-low">Price: Low to High</option>
-                  <option value="id">Bricklink ID</option>
-                </select>
+              <div className="collection-controls" style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
+                <div style={{ display: 'flex', gap: '12px', width: '100%' }}>
+                  <select
+                    value={sortOrder}
+                    onChange={(e) => setSortOrder(e.target.value as any)}
+                    style={{
+                      flex: 1,
+                      padding: '14px 16px',
+                      fontSize: '15px',
+                      fontWeight: '600',
+                      color: '#171717',
+                      background: '#f5f5f5',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      outline: 'none',
+                      transition: 'all 0.2s',
+                      appearance: 'none',
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23525252' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`,
+                      backgroundPosition: 'right 0.75rem center',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: '1.25em 1.25em',
+                      paddingRight: '3rem',
+                      boxSizing: 'border-box'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#e5e5e5'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}
+                  >
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="id">Bricklink ID</option>
+                  </select>
+                  <button
+                    onClick={() => setShowDecimals(!showDecimals)}
+                    style={{
+                      padding: '14px 20px',
+                      fontSize: '15px',
+                      fontWeight: '700',
+                      color: showDecimals ? '#ffffff' : '#525252',
+                      background: showDecimals ? '#3b82f6' : '#f5f5f5',
+                      border: showDecimals ? '1px solid #3b82f6' : '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      outline: 'none',
+                      boxSizing: 'border-box',
+                      whiteSpace: 'nowrap',
+                      minWidth: '70px'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!showDecimals) {
+                        e.currentTarget.style.background = '#e5e5e5';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!showDecimals) {
+                        e.currentTarget.style.background = '#f5f5f5';
+                      }
+                    }}
+                  >
+                    {showDecimals ? '.00' : '.0'}
+                  </button>
+                </div>
                 <button
-                  onClick={() => setShowDecimals(!showDecimals)}
+                  onClick={handleRefreshPricing}
+                  disabled={refreshing}
                   style={{
+                    width: '100%',
                     padding: '14px 20px',
                     fontSize: '15px',
-                    fontWeight: '700',
-                    color: showDecimals ? '#ffffff' : '#525252',
-                    background: showDecimals ? '#3b82f6' : '#f5f5f5',
-                    border: showDecimals ? '1px solid #3b82f6' : '1px solid #e5e5e5',
+                    fontWeight: '600',
+                    color: refreshing ? '#a3a3a3' : '#3b82f6',
+                    background: '#ffffff',
+                    border: '1px solid #3b82f6',
                     borderRadius: '8px',
-                    cursor: 'pointer',
+                    cursor: refreshing ? 'not-allowed' : 'pointer',
                     transition: 'all 0.2s',
                     outline: 'none',
                     boxSizing: 'border-box',
-                    whiteSpace: 'nowrap',
-                    minWidth: '70px'
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px'
                   }}
                   onMouseEnter={(e) => {
-                    if (!showDecimals) {
-                      e.currentTarget.style.background = '#e5e5e5';
+                    if (!refreshing) {
+                      e.currentTarget.style.background = '#eff6ff';
                     }
                   }}
                   onMouseLeave={(e) => {
-                    if (!showDecimals) {
-                      e.currentTarget.style.background = '#f5f5f5';
-                    }
+                    e.currentTarget.style.background = '#ffffff';
                   }}
                 >
-                  {showDecimals ? '.00' : '.0'}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                  </svg>
+                  {refreshing ? 'Refreshing Prices...' : 'Refresh All Prices'}
                 </button>
               </div>
             )}
