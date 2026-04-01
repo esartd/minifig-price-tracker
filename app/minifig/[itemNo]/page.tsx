@@ -494,7 +494,7 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                     marginBottom: '0px',
                     alignItems: 'stretch'
                   }}>
-                    {/* 6 Month Average */}
+                    {/* Qty Weighted Average */}
                     <div className="pricing-item pricing-item-1" style={{
                       display: 'flex',
                       flexDirection: 'column',
@@ -511,7 +511,7 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                         lineHeight: '14px',
                         whiteSpace: 'nowrap'
                       }}>
-                        6 Mo Avg
+                        Qty Avg
                       </p>
                       <p style={{
                         fontSize: '18px',
@@ -530,7 +530,7 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                       background: '#e5e5e5'
                     }}></div>
 
-                    {/* Current Average */}
+                    {/* Simple Average */}
                     <div className="pricing-item pricing-item-2" style={{
                       display: 'flex',
                       flexDirection: 'column',
@@ -547,7 +547,7 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                         lineHeight: '14px',
                         whiteSpace: 'nowrap'
                       }}>
-                        Current Avg
+                        Simple Avg
                       </p>
                       <p style={{
                         fontSize: '18px',
@@ -566,7 +566,7 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                       background: '#e5e5e5'
                     }}></div>
 
-                    {/* Current Lowest */}
+                    {/* Lowest Listing */}
                     <div className="pricing-item pricing-item-3" style={{
                       display: 'flex',
                       flexDirection: 'column',
