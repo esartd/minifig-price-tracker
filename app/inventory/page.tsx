@@ -76,45 +76,35 @@ export default function CollectionPage() {
 
   const handleRefreshPricing = async () => {
     setRefreshing(true);
-    const items = collection;
-
-    setRefreshProgress({ current: 0, total: items.length, itemName: '' });
+    setRefreshProgress({ current: 0, total: collection.length, itemName: 'Checking cache...' });
 
     try {
-      for (let i = 0; i < items.length; i++) {
-        const item = items[i];
+      const response = await fetch('/api/inventory/refresh-pricing', {
+        method: 'POST',
+      });
 
-        setRefreshProgress({
-          current: i + 1,
-          total: items.length,
-          itemName: item.minifigure_name,
-        });
+      const data = await response.json();
 
-        if (i > 0) {
-          const delay = 8000 + Math.random() * 4000;
-          await new Promise(resolve => setTimeout(resolve, delay));
+      if (data.success) {
+        // If items were refreshed, reload the collection
+        if (data.refreshed > 0) {
+          await loadCollection();
         }
 
-        try {
-          const response = await fetch(`/api/inventory/${item.id}/refresh-pricing`, {
-            method: 'POST',
-          });
-
-          const data = await response.json();
-
-          if (data.success) {
-            setCollection((prevCollection) =>
-              prevCollection.map((collectionItem) =>
-                collectionItem.id === item.id ? data.data : collectionItem
-              )
-            );
-          }
-        } catch (error) {
-          console.error(`Error refreshing ${item.minifigure_name}:`, error);
+        // Show result message
+        if (data.refreshed === 0) {
+          alert(`✓ All prices are up to date!\n\nAll ${data.total} items were refreshed within the last 6 hours. No API calls needed.`);
+        } else if (data.skipped > 0) {
+          alert(`✓ Refresh complete!\n\n${data.refreshed} items updated\n${data.skipped} items already fresh (< 6 hours old)`);
+        } else {
+          alert(`✓ Refresh complete!\n\nAll ${data.refreshed} items updated with latest prices.`);
         }
+      } else {
+        alert(`Error: ${data.error || 'Failed to refresh prices'}`);
       }
     } catch (error) {
       console.error('Error refreshing pricing:', error);
+      alert('Failed to refresh prices. Please try again.');
     } finally {
       setRefreshing(false);
       setRefreshProgress({ current: 0, total: 0, itemName: '' });
@@ -475,11 +465,7 @@ export default function CollectionPage() {
                   animation: 'spin 1s linear infinite'
                 }}></div>
                 <span style={{ fontWeight: '500', fontSize: '15px' }}>
-                  {refreshProgress.itemName ? (
-                    <>Updating {refreshProgress.current}/{refreshProgress.total}: <strong>{refreshProgress.itemName}</strong></>
-                  ) : (
-                    'Updating prices from Bricklink...'
-                  )}
+                  {refreshProgress.itemName || 'Checking for stale prices...'}
                 </span>
               </div>
             </div>
