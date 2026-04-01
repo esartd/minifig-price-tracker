@@ -40,7 +40,7 @@ export async function POST(
 
     console.log(`Refreshing pricing for ${item.minifigure_no} (${item.condition})...`);
 
-    // Fetch fresh pricing from Bricklink (uses Puppeteer scraper)
+    // Fetch fresh pricing from Bricklink API (cached 6 hours)
     const pricing = await bricklinkAPI.calculatePricingData(
       item.minifigure_no,
       item.condition

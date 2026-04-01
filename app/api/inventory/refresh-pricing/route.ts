@@ -26,6 +26,15 @@ export async function POST() {
       });
     }
 
+    // Safety limit: Prevent excessive API usage
+    const MAX_BULK_REFRESH = 200;
+    if (items.length > MAX_BULK_REFRESH) {
+      return NextResponse.json({
+        success: false,
+        error: `Cannot refresh more than ${MAX_BULK_REFRESH} items at once. Please refresh individual items or contact support.`,
+      }, { status: 400 });
+    }
+
     console.log(`Starting refresh for ${items.length} items (one at a time)...`);
 
     const updatedItems = [];
@@ -46,7 +55,7 @@ export async function POST() {
           await new Promise(resolve => setTimeout(resolve, delay));
         }
 
-        // Fetch fresh pricing from Bricklink (uses Puppeteer scraper)
+        // Fetch fresh pricing from Bricklink API (cached 6 hours)
         const pricing = await bricklinkAPI.calculatePricingData(
           item.minifigure_no,
           item.condition
