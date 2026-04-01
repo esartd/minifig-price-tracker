@@ -25,6 +25,29 @@ export default function CollectionList({
   const [editingQuantityId, setEditingQuantityId] = useState<string | null>(null);
   const [tempQuantity, setTempQuantity] = useState<string>('');
 
+  // Clean up minifig name for display
+  const getDisplayName = (fullName: string): string => {
+    // Decode HTML entities
+    const decodeHTML = (html: string) => {
+      const txt = document.createElement('textarea');
+      txt.innerHTML = html;
+      return txt.value;
+    };
+
+    let cleaned = decodeHTML(fullName);
+
+    // Remove theme prefix (e.g., "Star Wars - " or "Dragon Knights - ")
+    cleaned = cleaned.replace(/^[^-]+-\s*/, '');
+
+    // For list view, just show the main part before comma
+    const parts = cleaned.split(',');
+    if (parts.length > 1) {
+      return parts[0].trim();
+    }
+
+    return cleaned.trim();
+  };
+
   const handleQuantityClick = (item: CollectionItem, e: React.MouseEvent) => {
     e.stopPropagation();
     setEditingQuantityId(item.id);
@@ -93,7 +116,7 @@ export default function CollectionList({
         <div key={item.id}>
           <div
             className="collection-item-card"
-            onClick={() => onItemSelect(selectedItemId === item.id ? null : item)}
+            onClick={() => router.push(`/minifig/${item.minifigure_no}`)}
             style={{
               display: 'flex',
               flexDirection: 'column',
@@ -154,7 +177,7 @@ export default function CollectionList({
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap'
               }}>
-                {item.minifigure_name}
+                {getDisplayName(item.minifigure_name)}
               </h3>
               <p style={{
                 fontSize: '13px',

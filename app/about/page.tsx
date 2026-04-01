@@ -1,10 +1,24 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'About FigTracker - Free LEGO Minifigure Price Tracker',
+  description: 'Learn how FigTracker helps LEGO resellers and collectors price minifigures accurately with real-time Bricklink marketplace data. Free to use, no ads.',
+  openGraph: {
+    title: 'About FigTracker - Free LEGO Minifigure Price Tracker',
+    description: 'Built by sellers, for sellers. Price your LEGO minifigures with confidence using real Bricklink data.',
+    url: 'https://figtracker.com/about',
+  },
+  alternates: {
+    canonical: 'https://figtracker.com/about',
+  },
+};
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#fafafa' }}>
+    <article className="min-h-screen" style={{ backgroundColor: '#fafafa' }}>
       {/* Hero Section */}
-      <div className="hero-section">
+      <header className="hero-section">
         <div className="hero-content">
           <div className="hero-badge">About FigTracker</div>
           <h1>Stop Guessing.<br />Start Selling.</h1>
@@ -12,7 +26,7 @@ export default function AboutPage() {
         </div>
         <div className="hero-decoration hero-decoration-1"></div>
         <div className="hero-decoration hero-decoration-2"></div>
-      </div>
+      </header>
 
       {/* The Problem Section */}
       <section className="about-section about-problem-section">
@@ -165,6 +179,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-    </div>
+    </article>
   );
 }

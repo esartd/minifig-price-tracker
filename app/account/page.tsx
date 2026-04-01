@@ -13,10 +13,29 @@ export default function AccountPage() {
 
   // Profile states
   const [name, setName] = useState('');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
-  const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [showAvatarPicker, setShowAvatarPicker] = useState(false);
+  const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
+
+  // Avatar options - initials + AI-generated LEGO minifigures
+  const avatarOptions = [
+    { id: 'initials', label: 'Initials', image: null },
+    { id: 'astronaut-female', label: 'Astronaut', image: '/avatars/astronaut-female.png' },
+    { id: 'ninja-purple', label: 'Ninja', image: '/avatars/ninja-purple.png' },
+    { id: 'wizard-female', label: 'Wizard', image: '/avatars/wizard-female.png' },
+    { id: 'pirate', label: 'Pirate', image: '/avatars/pirate.png' },
+    { id: 'vampire', label: 'Vampire', image: '/avatars/vampire.png' },
+    { id: 'robot', label: 'Robot', image: '/avatars/robot.png' },
+    { id: 'chef', label: 'Chef', image: '/avatars/chef.png' },
+    { id: 'astronaut-male', label: 'Astronaut', image: '/avatars/astronaut-male.png' },
+    { id: 'ninja-black', label: 'Ninja', image: '/avatars/ninja-black.png' },
+    { id: 'nerd-female', label: 'Nerd', image: '/avatars/nerd-female.png' },
+    { id: 'wizard-male', label: 'Wizard', image: '/avatars/wizard-male.png' },
+    { id: 'punk', label: 'Rocker', image: '/avatars/punk.png' },
+    { id: 'cowgirl', label: 'Cowgirl', image: '/avatars/cowgirl.png' },
+    { id: 'cowboy', label: 'Cowboy', image: '/avatars/cowboy.png' },
+    { id: 'cool-guy', label: 'Cool Guy', image: '/avatars/cool-guy.png' },
+    { id: 'nerd-male', label: 'Nerd', image: '/avatars/nerd-male.png' },
+  ];
 
   // Password states
   const [currentPassword, setCurrentPassword] = useState('');
@@ -33,7 +52,65 @@ export default function AccountPage() {
     if (session?.user?.name) {
       setName(session.user.name);
     }
+    if (session?.user?.image) {
+      setSelectedAvatar(session.user.image);
+    }
   }, [session]);
+
+  const renderAvatar = (avatarId: string | null, size: number = 100) => {
+    if (!avatarId || avatarId === 'initials') {
+      return (
+        <div style={{
+          width: `${size}px`,
+          height: `${size}px`,
+          background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+          color: 'white',
+          fontSize: `${size * 0.28}px`,
+          fontWeight: '600',
+          borderRadius: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          {getInitials(session.user.name)}
+        </div>
+      );
+    }
+
+    // Find the avatar image URL
+    const avatarOption = avatarOptions.find(opt => opt.id === avatarId);
+    const imageUrl = avatarOption?.image;
+
+    if (!imageUrl) {
+      return renderAvatar('initials', size);
+    }
+
+    // It's a minifig image
+    return (
+      <div style={{
+        width: `${size}px`,
+        height: `${size}px`,
+        background: '#ffffff',
+        borderRadius: '50%',
+        overflow: 'hidden',
+        position: 'relative'
+      }}>
+        <img
+          src={imageUrl}
+          alt="Avatar"
+          style={{
+            width: 'auto',
+            height: '200%',
+            position: 'absolute',
+            left: '50%',
+            top: '-10%',
+            transform: 'translateX(-50%)',
+            objectFit: 'contain'
+          }}
+        />
+      </div>
+    );
+  };
 
   useEffect(() => {
     // Fetch collection stats
@@ -102,58 +179,38 @@ export default function AccountPage() {
     }
   };
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (!file.type.startsWith('image/')) {
-      showMessage('error', 'Please select an image file');
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      showMessage('error', 'File size must be less than 5MB');
-      return;
-    }
-
-    setSelectedFile(file);
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreview(reader.result as string);
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleAvatarUpload = async () => {
-    if (!selectedFile) return;
-
+  const handleAvatarSelect = async (avatar: string) => {
     setLoading(true);
-    try {
-      const formData = new FormData();
-      formData.append('avatar', selectedFile);
 
-      const response = await fetch('/api/auth/upload-avatar', {
+    try {
+      const response = await fetch('/api/auth/update-avatar', {
         method: 'POST',
-        body: formData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ avatar }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        showMessage('error', data.error || 'Failed to upload avatar');
-      } else {
-        showMessage('success', 'Profile picture updated successfully');
-        // Store the new image URL immediately
-        setUploadedImageUrl(data.imageUrl);
-        setSelectedFile(null);
-        setPreview(null);
-        // Update session in background
-        update();
+        showMessage('error', data.error || 'Failed to update avatar');
+        setLoading(false);
+        return;
       }
+
+      // Update local state immediately for visual feedback
+      setSelectedAvatar(avatar);
+      setShowAvatarPicker(false);
+
+      // Sign out and redirect to sign in to get fresh session with new avatar
+      showMessage('success', 'Avatar updated! Please sign in again...');
+
+      setTimeout(async () => {
+        await signOut({ redirectTo: '/auth/signin' });
+      }, 1000);
+
     } catch (error) {
-      showMessage('error', 'An error occurred. Please try again.');
-    } finally {
+      console.error('Avatar update error:', error);
+      showMessage('error', 'Failed to update avatar');
       setLoading(false);
     }
   };
@@ -446,129 +503,73 @@ export default function AccountPage() {
           </h2>
 
           <div className="account-profile-content" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-            {/* Avatar Upload */}
+            {/* Avatar Picker */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
               <div style={{ marginBottom: '20px' }}>
-                {preview ? (
-                  <img
-                    src={preview}
-                    alt="Preview"
-                    style={{
-                      width: '100px',
-                      height: '100px',
-                      border: '3px solid #f3f4f6',
-                      borderRadius: '50%',
-                      objectFit: 'cover'
-                    }}
-                  />
-                ) : uploadedImageUrl ? (
-                  <img
-                    src={`${uploadedImageUrl}?t=${Date.now()}`}
-                    alt={session.user.name || 'User'}
-                    style={{
-                      width: '100px',
-                      height: '100px',
-                      border: '3px solid #f3f4f6',
-                      borderRadius: '50%',
-                      objectFit: 'cover'
-                    }}
-                  />
-                ) : session.user.image ? (
-                  <img
-                    src={`${session.user.image}?t=${Date.now()}`}
-                    alt={session.user.name || 'User'}
-                    style={{
-                      width: '100px',
-                      height: '100px',
-                      border: '3px solid #f3f4f6',
-                      borderRadius: '50%',
-                      objectFit: 'cover'
-                    }}
-                  />
-                ) : (
-                  <div style={{
-                    width: '100px',
-                    height: '100px',
-                    background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
-                    color: 'white',
-                    fontSize: '28px',
-                    fontWeight: '600',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
-                    {getInitials(session.user.name)}
-                  </div>
-                )}
+                {renderAvatar(selectedAvatar, 100)}
               </div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleFileSelect}
-                style={{ display: 'none' }}
-              />
-              {selectedFile ? (
-                <div style={{ display: 'flex', gap: '12px', width: '100%', flexWrap: 'wrap', justifyContent: 'center' }}>
-                  <button
-                    onClick={() => {
-                      setSelectedFile(null);
-                      setPreview(null);
-                    }}
-                    style={{
-                      padding: '12px 24px',
-                      fontSize: '15px',
-                      fontWeight: '600',
-                      color: '#525252',
-                      background: '#ffffff',
-                      border: '1px solid #e5e5e5',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s',
-                      outline: 'none'
-                    }}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={handleAvatarUpload}
-                    disabled={loading}
-                    style={{
-                      padding: '12px 24px',
-                      fontSize: '15px',
-                      fontWeight: '600',
-                      color: '#ffffff',
-                      background: loading ? '#a3a3a3' : '#3b82f6',
-                      border: 'none',
-                      borderRadius: '8px',
-                      cursor: loading ? 'not-allowed' : 'pointer',
-                      opacity: loading ? 0.5 : 1,
-                      transition: 'all 0.2s',
-                      outline: 'none'
-                    }}
-                  >
-                    {loading ? 'Uploading...' : 'Upload'}
-                  </button>
+
+              <button
+                onClick={() => setShowAvatarPicker(!showAvatarPicker)}
+                disabled={loading}
+                style={{
+                  padding: '12px 24px',
+                  fontSize: '15px',
+                  fontWeight: '600',
+                  color: '#3b82f6',
+                  background: '#ffffff',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  outline: 'none',
+                  marginBottom: '16px'
+                }}
+              >
+                {showAvatarPicker ? 'Cancel' : 'Change Avatar'}
+              </button>
+
+              {/* Avatar options grid */}
+              {showAvatarPicker && (
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(80px, 1fr))',
+                  gap: '12px',
+                  width: '100%',
+                  maxWidth: '400px',
+                  padding: '20px',
+                  background: '#f9fafb',
+                  borderRadius: '12px',
+                  border: '1px solid #e5e5e5'
+                }}>
+                  {avatarOptions.map((avatar) => (
+                    <button
+                      key={avatar.id}
+                      onClick={() => handleAvatarSelect(avatar.id)}
+                      disabled={loading}
+                      style={{
+                        padding: '8px',
+                        background: selectedAvatar === avatar.id ? '#eff6ff' : '#ffffff',
+                        border: selectedAvatar === avatar.id ? '2px solid #3b82f6' : '1px solid #e5e5e5',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                        outline: 'none',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (selectedAvatar !== avatar.id) e.currentTarget.style.borderColor = '#3b82f6';
+                      }}
+                      onMouseLeave={(e) => {
+                        if (selectedAvatar !== avatar.id) e.currentTarget.style.borderColor = '#e5e5e5';
+                      }}
+                    >
+                      {renderAvatar(avatar.id, 60)}
+                    </button>
+                  ))}
                 </div>
-              ) : (
-                <button
-                  onClick={() => fileInputRef.current?.click()}
-                  style={{
-                    padding: '12px 24px',
-                    fontSize: '15px',
-                    fontWeight: '600',
-                    color: '#525252',
-                    background: '#ffffff',
-                    border: '1px solid #e5e5e5',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                    outline: 'none'
-                  }}
-                >
-                  Change Picture
-                </button>
               )}
             </div>
 

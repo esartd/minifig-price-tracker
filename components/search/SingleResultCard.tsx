@@ -21,6 +21,20 @@ export default function SingleResultCard({
   pricingData,
   session
 }: SingleResultCardProps) {
+  // Clean up minifig name for display
+  const getDisplayName = (fullName: string): string => {
+    const decodeHTML = (html: string) => {
+      const txt = document.createElement('textarea');
+      txt.innerHTML = html;
+      return txt.value;
+    };
+
+    let cleaned = decodeHTML(fullName);
+    cleaned = cleaned.replace(/^[^-]+-\s*/, '');
+    const parts = cleaned.split(',');
+    return parts.length > 1 ? parts[0].trim() : cleaned.trim();
+  };
+
   return (
     <div
       style={{
@@ -83,7 +97,7 @@ export default function SingleResultCard({
             letterSpacing: '-0.01em',
             marginBottom: '8px'
           }}>
-            {minifig.name}
+            {getDisplayName(minifig.name)}
           </h3>
           <p style={{
             fontSize: '16px',

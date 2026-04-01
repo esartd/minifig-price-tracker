@@ -40,6 +40,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           id: user.id,
           email: user.email,
           name: user.name,
+          image: user.image,
         }
       }
     })
@@ -51,23 +52,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt"
   },
   callbacks: {
-    async jwt({ token, user, trigger }) {
+    async jwt({ token, user }) {
+      // On initial sign in, set user data from database
       if (user) {
         token.id = user.id
+        token.name = user.name
+        token.email = user.email
+        token.picture = user.image
       }
-      // On session update, fetch latest user data from database
-      if (trigger === "update" && token.email) {
-        const dbUser = await prisma.user.findUnique({
-          where: { email: token.email },
-          select: { id: true, name: true, email: true, image: true }
-        })
-        if (dbUser) {
-          token.id = dbUser.id
-          token.name = dbUser.name
-          token.email = dbUser.email
-          token.picture = dbUser.image
-        }
-      }
+      // Don't query database here - causes Edge Runtime errors
       return token
     },
     async session({ session, token }) {

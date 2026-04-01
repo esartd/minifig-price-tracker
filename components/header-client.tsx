@@ -52,6 +52,82 @@ export function HeaderClient({ user }: HeaderClientProps) {
     return 'U';
   };
 
+  const avatarMap: Record<string, string> = {
+    'astronaut-female': '/avatars/astronaut-female.png',
+    'ninja-purple': '/avatars/ninja-purple.png',
+    'wizard-female': '/avatars/wizard-female.png',
+    'pirate': '/avatars/pirate.png',
+    'vampire': '/avatars/vampire.png',
+    'robot': '/avatars/robot.png',
+    'chef': '/avatars/chef.png',
+    'astronaut-male': '/avatars/astronaut-male.png',
+    'ninja-black': '/avatars/ninja-black.png',
+    'nerd-female': '/avatars/nerd-female.png',
+    'wizard-male': '/avatars/wizard-male.png',
+    'punk': '/avatars/punk.png',
+    'cowgirl': '/avatars/cowgirl.png',
+    'cowboy': '/avatars/cowboy.png',
+    'cool-guy': '/avatars/cool-guy.png',
+    'nerd-male': '/avatars/nerd-male.png',
+  };
+
+  const renderAvatar = (avatarId: string | null | undefined, size: number = 36) => {
+    if (!avatarId || avatarId === 'initials') {
+      return (
+        <div style={{
+          width: `${size}px`,
+          height: `${size}px`,
+          borderRadius: '50%',
+          background: '#3b82f6',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#ffffff',
+          fontSize: `${size * 0.4}px`,
+          fontWeight: '600',
+          border: '2px solid #e5e5e5',
+          transition: 'border-color 0.2s'
+        }}>
+          {getInitials(user.name, user.email)}
+        </div>
+      );
+    }
+
+    const imageUrl = avatarMap[avatarId];
+
+    if (!imageUrl) {
+      return renderAvatar('initials', size);
+    }
+
+    // It's a minifig image
+    return (
+      <div style={{
+        width: `${size}px`,
+        height: `${size}px`,
+        background: '#ffffff',
+        borderRadius: '50%',
+        overflow: 'hidden',
+        border: '2px solid #e5e5e5',
+        transition: 'border-color 0.2s',
+        position: 'relative'
+      }}>
+        <img
+          src={imageUrl}
+          alt="Avatar"
+          style={{
+            width: 'auto',
+            height: '200%',
+            position: 'absolute',
+            left: '50%',
+            top: '-10%',
+            transform: 'translateX(-50%)',
+            objectFit: 'contain'
+          }}
+        />
+      </div>
+    );
+  };
+
   const handleSignOut = async () => {
     await signOut({ redirectTo: '/auth/signin' });
   };
@@ -322,37 +398,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   outline: 'none'
                 }}
               >
-                {user.image ? (
-                  <img
-                    src={user.image}
-                    alt={user.name || 'User'}
-                    style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '50%',
-                      objectFit: 'cover',
-                      border: '2px solid #e5e5e5',
-                      transition: 'border-color 0.2s'
-                    }}
-                  />
-                ) : (
-                  <div style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '50%',
-                    background: '#3b82f6',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#ffffff',
-                    fontSize: '14px',
-                    fontWeight: '600',
-                    border: '2px solid #e5e5e5',
-                    transition: 'border-color 0.2s'
-                  }}>
-                    {getInitials(user.name, user.email)}
-                  </div>
-                )}
+                {renderAvatar(user.image, 36)}
               </button>
 
               {dropdownOpen && (

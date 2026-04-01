@@ -11,6 +11,20 @@ export default function MinifigCard({
 }: MinifigCardProps) {
   const router = useRouter();
 
+  // Clean up minifig name for display
+  const getDisplayName = (fullName: string): string => {
+    const decodeHTML = (html: string) => {
+      const txt = document.createElement('textarea');
+      txt.innerHTML = html;
+      return txt.value;
+    };
+
+    let cleaned = decodeHTML(fullName);
+    cleaned = cleaned.replace(/^[^-]+-\s*/, '');
+    const parts = cleaned.split(',');
+    return parts.length > 1 ? parts[0].trim() : cleaned.trim();
+  };
+
   const handleClick = () => {
     router.push(`/minifig/${minifig.no}`);
   };
@@ -101,7 +115,7 @@ export default function MinifigCard({
             whiteSpace: 'nowrap',
             marginBottom: '8px'
           }}>
-            {minifig.name}
+            {getDisplayName(minifig.name)}
           </h4>
           <p className="minifig-card-id" style={{
             fontSize: '14px',

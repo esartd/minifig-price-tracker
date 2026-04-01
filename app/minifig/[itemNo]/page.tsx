@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import AddToCollectionForm from '@/components/search/AddToCollectionForm';
-import Lightbox from '@/components/search/Lightbox';
 
 interface MinifigPageProps {
   params: Promise<{
@@ -20,7 +19,6 @@ export default function MinifigPage({ params }: MinifigPageProps) {
   const [loading, setLoading] = useState(true);
   const [addLoading, setAddLoading] = useState(false);
   const [error, setError] = useState('');
-  const [lightboxImage, setLightboxImage] = useState<{ url: string; name: string } | null>(null);
   const [pricing, setPricing] = useState<{
     sixMonthAverage: number;
     currentAverage: number;
@@ -242,12 +240,6 @@ export default function MinifigPage({ params }: MinifigPageProps) {
     }
   };
 
-  const openLightbox = () => {
-    if (minifig?.image_url) {
-      setLightboxImage({ url: minifig.image_url, name: minifig.name });
-    }
-  };
-
   // Map category IDs to theme names
   const getThemeName = (categoryId: number): string => {
     const themes: Record<number, string> = {
@@ -260,6 +252,42 @@ export default function MinifigPage({ params }: MinifigPageProps) {
       // Add more as needed
     };
     return themes[categoryId] || 'LEGO';
+  };
+
+  // Clean up minifig name for display
+  const getDisplayName = (fullName: string): { title: string; subtitle?: string } => {
+    // Decode HTML entities
+    const decodeHTML = (html: string) => {
+      const txt = document.createElement('textarea');
+      txt.innerHTML = html;
+      return txt.value;
+    };
+
+    let cleaned = decodeHTML(fullName);
+
+    // Remove theme prefix (e.g., "Star Wars - " or "Dragon Knights - ")
+    cleaned = cleaned.replace(/^[^-]+-\s*/, '');
+
+    // Split at first comma to separate main name from details
+    const parts = cleaned.split(',');
+
+    if (parts.length > 1) {
+      return {
+        title: parts[0].trim(),
+        subtitle: parts.slice(1).join(',').trim()
+      };
+    }
+
+    // If no comma, check for parentheses
+    const parenMatch = cleaned.match(/^([^(]+)\s*\(([^)]+)\)$/);
+    if (parenMatch) {
+      return {
+        title: parenMatch[1].trim(),
+        subtitle: parenMatch[2].trim()
+      };
+    }
+
+    return { title: cleaned.trim() };
   };
 
   if (loading) {
@@ -350,14 +378,14 @@ export default function MinifigPage({ params }: MinifigPageProps) {
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" style={{ width: '20px', height: '20px', flexShrink: 0 }}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
             </svg>
-            Back to Results
+            Back
           </button>
         </div>
       </div>
 
       {/* Main Content */}
       <div className="minifig-main-content-wrapper" style={{ padding: '0 16px' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <div className="minifig-card-wrapper" style={{
             background: '#ffffff',
             borderRadius: '16px',
@@ -373,19 +401,17 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 backgroundColor: '#ffffff',
-                cursor: 'zoom-in',
-                padding: '32px 16px 16px',
-                minHeight: '300px',
+                padding: '16px',
+                minHeight: 'auto',
                 borderRight: 'none'
               }}
-              onClick={openLightbox}
             >
               {minifig.image_url ? (
                 <img
                   src={minifig.image_url}
                   alt={minifig.name}
                   className="minifig-main-image"
-                  style={{ maxHeight: '300px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+                  style={{ maxHeight: '200px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
                 />
               ) : (
                 <div className="text-6xl">🧱</div>
@@ -396,15 +422,15 @@ export default function MinifigPage({ params }: MinifigPageProps) {
             <div className="minifig-details-section" style={{
               display: 'flex',
               flexDirection: 'column',
-              padding: '16px 16px 32px'
+              padding: '16px 16px 24px'
             }}>
               {/* Header */}
-              <div style={{ marginBottom: '40px' }}>
+              <div style={{ marginBottom: '24px' }}>
                 {/* Theme Badge */}
-                <div style={{ marginBottom: '16px' }}>
+                <div style={{ marginBottom: '8px' }}>
                   <span style={{
                     display: 'inline-block',
-                    fontSize: '12px',
+                    fontSize: '11px',
                     fontWeight: '500',
                     color: '#3b82f6',
                     textTransform: 'uppercase',
@@ -415,20 +441,30 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                 </div>
 
                 <h1 style={{
-                  fontSize: '28px',
+                  fontSize: '22px',
                   fontWeight: '600',
                   color: '#171717',
                   letterSpacing: '-0.02em',
-                  lineHeight: '1.2',
-                  marginBottom: '12px'
+                  lineHeight: '1.3',
+                  marginBottom: '4px'
                 }}>
-                  {minifig.name}
+                  {getDisplayName(minifig.name).title}
                 </h1>
+                {getDisplayName(minifig.name).subtitle && (
+                  <p style={{
+                    fontSize: '13px',
+                    color: '#737373',
+                    lineHeight: '1.4',
+                    marginBottom: '8px'
+                  }}>
+                    {getDisplayName(minifig.name).subtitle}
+                  </p>
+                )}
                 <p style={{
-                  fontSize: '16px',
+                  fontSize: '14px',
                   color: '#737373',
                   fontFamily: 'monospace',
-                  marginBottom: '24px'
+                  marginBottom: '16px'
                 }}>
                   {minifig.no}
                 </p>
@@ -455,7 +491,7 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                   <div className="minifig-pricing-row" style={{
                     display: 'flex',
                     width: '100%',
-                    marginBottom: '8px',
+                    marginBottom: '0px',
                     alignItems: 'stretch'
                   }}>
                     {/* 6 Month Average */}
@@ -465,20 +501,20 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                       justifyContent: 'flex-start'
                     }}>
                       <p style={{
-                        fontSize: '11px',
+                        fontSize: '10px',
                         fontWeight: '500',
                         color: '#737373',
                         textTransform: 'uppercase',
                         letterSpacing: '0.03em',
-                        marginBottom: '8px',
-                        height: '15px',
-                        lineHeight: '15px',
+                        marginBottom: '6px',
+                        height: '14px',
+                        lineHeight: '14px',
                         whiteSpace: 'nowrap'
                       }}>
                         6 Mo Avg
                       </p>
                       <p style={{
-                        fontSize: '20px',
+                        fontSize: '18px',
                         fontWeight: '700',
                         color: '#171717',
                         letterSpacing: '-0.01em',
@@ -501,20 +537,20 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                       justifyContent: 'flex-start'
                     }}>
                       <p style={{
-                        fontSize: '11px',
+                        fontSize: '10px',
                         fontWeight: '500',
                         color: '#737373',
                         textTransform: 'uppercase',
                         letterSpacing: '0.03em',
-                        marginBottom: '8px',
-                        height: '15px',
-                        lineHeight: '15px',
+                        marginBottom: '6px',
+                        height: '14px',
+                        lineHeight: '14px',
                         whiteSpace: 'nowrap'
                       }}>
                         Current Avg
                       </p>
                       <p style={{
-                        fontSize: '20px',
+                        fontSize: '18px',
                         fontWeight: '700',
                         color: '#171717',
                         letterSpacing: '-0.01em',
@@ -537,20 +573,20 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                       justifyContent: 'flex-start'
                     }}>
                       <p style={{
-                        fontSize: '11px',
+                        fontSize: '10px',
                         fontWeight: '500',
                         color: '#737373',
                         textTransform: 'uppercase',
                         letterSpacing: '0.03em',
-                        marginBottom: '8px',
-                        height: '15px',
-                        lineHeight: '15px',
+                        marginBottom: '6px',
+                        height: '14px',
+                        lineHeight: '14px',
                         whiteSpace: 'nowrap'
                       }}>
                         Lowest
                       </p>
                       <p style={{
-                        fontSize: '20px',
+                        fontSize: '18px',
                         fontWeight: '700',
                         color: '#171717',
                         letterSpacing: '-0.01em',
@@ -614,7 +650,8 @@ export default function MinifigPage({ params }: MinifigPageProps) {
               <div style={{
                 height: '1px',
                 background: '#e5e5e5',
-                marginBottom: '32px'
+                marginTop: '16px',
+                marginBottom: '16px'
               }}></div>
 
               {/* Inventory Section */}
@@ -626,10 +663,10 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                 ) : collectionItem ? (
                   <>
                     <h2 style={{
-                      fontSize: '18px',
+                      fontSize: '16px',
                       fontWeight: '600',
                       color: '#171717',
-                      marginBottom: '20px'
+                      marginBottom: '16px'
                     }}>
                       In Your Inventory
                     </h2>
@@ -784,10 +821,10 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                 ) : (
                   <>
                     <h2 style={{
-                      fontSize: '18px',
+                      fontSize: '16px',
                       fontWeight: '600',
                       color: '#171717',
-                      marginBottom: '20px'
+                      marginBottom: '16px'
                     }}>
                       Add to Inventory
                     </h2>
@@ -821,7 +858,7 @@ export default function MinifigPage({ params }: MinifigPageProps) {
         {/* Character Variants Section */}
         {characterVariants.length > 0 && (
           <div className="minifig-related-section" style={{ marginTop: '32px', padding: '0 16px' }}>
-            <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+            <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
               <h2 className="minifig-related-heading">
                 Other Variants
               </h2>
@@ -893,7 +930,7 @@ export default function MinifigPage({ params }: MinifigPageProps) {
         {/* Theme/Set Related Minifigures Section */}
         {themeMinifigs.length > 0 && (
           <div className="minifig-related-section" style={{ marginTop: '32px', padding: '0 16px' }}>
-            <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+            <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
               <h2 className="minifig-related-heading">
                 From Similar Sets
               </h2>
@@ -963,15 +1000,6 @@ export default function MinifigPage({ params }: MinifigPageProps) {
         )}
       </div>
       </div>
-
-      {/* Lightbox */}
-      {lightboxImage && (
-        <Lightbox
-          imageUrl={lightboxImage.url}
-          imageName={lightboxImage.name}
-          onClose={() => setLightboxImage(null)}
-        />
-      )}
     </div>
   );
 }
