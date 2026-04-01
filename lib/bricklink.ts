@@ -269,13 +269,13 @@ export class BricklinkAPI {
       };
     }
 
-    // Use API data only (no scraping)
-    const sixMonthAverage = parseFloat(priceGuide.qty_avg_price || '0');
-    const currentAverage = parseFloat(priceGuide.avg_price || '0');
-    const currentLowest = parseFloat(priceGuide.min_price || '0');
+    // Use API data from current marketplace listings (Note: API does not provide historical sales data)
+    const sixMonthAverage = parseFloat(priceGuide.qty_avg_price || '0'); // Quantity-weighted average of current listings
+    const currentAverage = parseFloat(priceGuide.avg_price || '0'); // Simple average of current listings
+    const currentLowest = parseFloat(priceGuide.min_price || '0'); // Lowest current listing
 
     // Calculate suggested price: weight Current Lowest 2x since listing averages are typically high
-    // Formula: (6mo avg + current avg + lowest*2) / 4 = 25% + 25% + 50%
+    // Formula: (qty-weighted avg + simple avg + lowest*2) / 4 = 25% + 25% + 50%
     const suggestedPrice = (sixMonthAverage + currentAverage + (currentLowest * 2)) / 4;
 
     const pricingData = {

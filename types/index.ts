@@ -34,9 +34,9 @@ export interface PriceGuide {
 }
 
 export interface PricingData {
-  sixMonthAverage: number; // Average from last 6 months
-  currentAverage: number; // Current market average
-  currentLowest: number; // Current lowest price
+  sixMonthAverage: number; // Quantity-weighted average of current listings (stored as sixMonthAverage for backward compatibility)
+  currentAverage: number; // Simple average of current listings
+  currentLowest: number; // Lowest current listing price
   suggestedPrice: number; // Calculated suggested selling price
 }
 

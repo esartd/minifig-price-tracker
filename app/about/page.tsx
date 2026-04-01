@@ -33,7 +33,7 @@ export default function AboutPage() {
         <div className="about-page-container">
           <div className="section-content-narrow">
             <h2>Pricing minifigs shouldn't feel like homework</h2>
-            <p>You open Bricklink. You see the 6-month average. The current average. The lowest price. Three different numbers staring back at you.</p>
+            <p>You open Bricklink. You see the quantity-weighted average. The simple average. The lowest price. Three different numbers staring back at you.</p>
             <p>Now you're doing mental math, trying to land on something fair. <strong>Every. Single. Time.</strong></p>
 
             <div className="stats-grid">
@@ -70,7 +70,7 @@ export default function AboutPage() {
                 </svg>
               </div>
               <h3>One Suggested Price</h3>
-              <p>We calculate a weighted price from Bricklink's 6-month average, current average, and current lowest price. One number, ready to use.</p>
+              <p>We calculate a weighted price from current Bricklink marketplace listings—quantity-weighted average, simple average, and lowest price. One number, ready to use.</p>
             </div>
 
             <div className="feature-card">
