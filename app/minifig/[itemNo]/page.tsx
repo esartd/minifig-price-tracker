@@ -134,10 +134,18 @@ export default function MinifigPage({ params }: MinifigPageProps) {
       if (data.success) {
         router.push('/collection');
       } else {
-        setError(data.error || 'Failed to add to collection');
+        // Show specific error message from API
+        if (response.status === 401) {
+          setError('Please sign in to add items to your collection');
+        } else if (response.status === 409) {
+          setError('This minifigure is already in your collection');
+        } else {
+          setError(data.error || 'Failed to add to collection');
+        }
       }
-    } catch (err) {
-      setError('Failed to add to collection. Please try again.');
+    } catch (err: any) {
+      console.error('Add to collection error:', err);
+      setError(err.message || 'Failed to add to collection. Please try again.');
     } finally {
       setAddLoading(false);
     }
@@ -165,13 +173,13 @@ export default function MinifigPage({ params }: MinifigPageProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen" style={{ backgroundColor: '#fafafa', padding: '80px 2rem 2rem' }}>
+      <div className="min-h-screen" style={{ backgroundColor: '#fafafa', padding: '80px 16px 16px' }}>
         <div className="max-w-4xl mx-auto">
           <div style={{
             background: '#ffffff',
             borderRadius: '16px',
             boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-            padding: '48px'
+            padding: '32px 16px'
           }}>
             <div style={{ textAlign: 'center', color: '#737373' }}>Loading...</div>
           </div>
@@ -182,13 +190,13 @@ export default function MinifigPage({ params }: MinifigPageProps) {
 
   if (error || !minifig) {
     return (
-      <div className="min-h-screen" style={{ backgroundColor: '#fafafa', padding: '80px 2rem 2rem' }}>
+      <div className="min-h-screen" style={{ backgroundColor: '#fafafa', padding: '80px 16px 16px' }}>
         <div className="max-w-4xl mx-auto">
           <div style={{
             background: '#ffffff',
             borderRadius: '16px',
             boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-            padding: '48px'
+            padding: '32px 16px'
           }}>
             <div style={{ textAlign: 'center' }}>
               <p style={{
@@ -223,10 +231,10 @@ export default function MinifigPage({ params }: MinifigPageProps) {
   }
 
   return (
-    <div className="min-h-screen minifig-detail-page" style={{ backgroundColor: '#fafafa' }}>
+    <div className="min-h-screen minifig-detail-page" style={{ backgroundColor: '#fafafa', overflowX: 'hidden', paddingBottom: '80px' }}>
       {/* Back Button - positioned just below navigation */}
-      <div className="minifig-back-button-wrapper">
-        <div className="max-w-5xl" style={{ margin: '0 auto' }}>
+      <div className="minifig-back-button-wrapper" style={{ padding: '0 16px' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', paddingTop: '16px' }}>
           <button
             onClick={() => router.back()}
             className="minifig-back-button"
@@ -257,10 +265,15 @@ export default function MinifigPage({ params }: MinifigPageProps) {
       </div>
 
       {/* Main Content */}
-      <div className="minifig-main-content-wrapper">
-        <div className="max-w-5xl mx-auto">
-          <div className="minifig-card-wrapper">
-          <div className="minifig-detail-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
+      <div className="minifig-main-content-wrapper" style={{ padding: '0 16px' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+          <div className="minifig-card-wrapper" style={{
+            background: '#ffffff',
+            borderRadius: '16px',
+            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+            overflow: 'hidden'
+          }}>
+          <div className="minifig-detail-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 0 }}>
             {/* Image Section */}
             <div
               className="minifig-image-container"
@@ -268,10 +281,10 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: '#fafafa',
+                backgroundColor: '#ffffff',
                 cursor: 'zoom-in',
-                padding: '64px',
-                minHeight: '500px'
+                padding: '32px 16px 16px',
+                minHeight: '300px'
               }}
               onClick={openLightbox}
             >
@@ -280,7 +293,7 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                   src={minifig.image_url}
                   alt={minifig.name}
                   className="minifig-main-image"
-                  style={{ maxHeight: '400px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+                  style={{ maxHeight: '300px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
                 />
               ) : (
                 <div className="text-6xl">🧱</div>
@@ -291,7 +304,7 @@ export default function MinifigPage({ params }: MinifigPageProps) {
             <div style={{
               display: 'flex',
               flexDirection: 'column',
-              padding: '64px'
+              padding: '16px 16px 32px'
             }}>
               {/* Header */}
               <div style={{ marginBottom: '40px' }}>
@@ -310,7 +323,7 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                 </div>
 
                 <h1 style={{
-                  fontSize: '36px',
+                  fontSize: '28px',
                   fontWeight: '600',
                   color: '#171717',
                   letterSpacing: '-0.02em',
@@ -320,7 +333,7 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                   {minifig.name}
                 </h1>
                 <p style={{
-                  fontSize: '18px',
+                  fontSize: '16px',
                   color: '#737373',
                   fontFamily: 'monospace',
                   marginBottom: '24px'
@@ -338,16 +351,16 @@ export default function MinifigPage({ params }: MinifigPageProps) {
               <div style={{
                 height: '1px',
                 background: '#e5e5e5',
-                marginBottom: '48px'
+                marginBottom: '32px'
               }}></div>
 
               {/* Add to Inventory Section */}
               <div>
                 <h2 style={{
-                  fontSize: '20px',
+                  fontSize: '18px',
                   fontWeight: '600',
                   color: '#171717',
-                  marginBottom: '24px'
+                  marginBottom: '20px'
                 }}>
                   Add to Inventory
                 </h2>
@@ -378,14 +391,15 @@ export default function MinifigPage({ params }: MinifigPageProps) {
 
         {/* Character Variants Section */}
         {characterVariants.length > 0 && (
-          <div className="minifig-related-section">
-            <h2 className="minifig-related-heading">
-              Other Variants
-            </h2>
-            <p className="minifig-related-description">
-              Different versions of this character
-            </p>
-            <div className="minifig-related-grid">
+          <div className="minifig-related-section" style={{ marginTop: '32px', padding: '0 16px' }}>
+            <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+              <h2 className="minifig-related-heading">
+                Other Variants
+              </h2>
+              <p className="minifig-related-description">
+                Different versions of this character
+              </p>
+              <div className="minifig-related-grid">
               {characterVariants.map((variant) => (
                 <a
                   key={variant.no}
@@ -419,7 +433,7 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                       <div style={{ fontSize: '48px' }}>🧱</div>
                     )}
                   </div>
-                  <div style={{ padding: '16px' }}>
+                  <div style={{ padding: '8px 16px 16px' }}>
                     <p style={{
                       fontSize: '14px',
                       fontWeight: '600',
@@ -442,20 +456,22 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                   </div>
                 </a>
               ))}
+              </div>
             </div>
           </div>
         )}
 
         {/* Theme/Set Related Minifigures Section */}
         {themeMinifigs.length > 0 && (
-          <div className="minifig-related-section">
-            <h2 className="minifig-related-heading">
-              From Similar Sets
-            </h2>
-            <p className="minifig-related-description">
-              Minifigures released around the same time
-            </p>
-            <div className="minifig-related-grid">
+          <div className="minifig-related-section" style={{ marginTop: '32px', padding: '0 16px' }}>
+            <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+              <h2 className="minifig-related-heading">
+                From Similar Sets
+              </h2>
+              <p className="minifig-related-description">
+                Minifigures released around the same time
+              </p>
+              <div className="minifig-related-grid">
               {themeMinifigs.map((related) => (
                 <a
                   key={related.no}
@@ -489,7 +505,7 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                       <div style={{ fontSize: '48px' }}>🧱</div>
                     )}
                   </div>
-                  <div style={{ padding: '16px' }}>
+                  <div style={{ padding: '8px 16px 16px' }}>
                     <p style={{
                       fontSize: '14px',
                       fontWeight: '600',
@@ -512,6 +528,7 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                   </div>
                 </a>
               ))}
+              </div>
             </div>
           </div>
         )}

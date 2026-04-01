@@ -27,7 +27,10 @@ export default function MinifigCard({
         border: '1px solid #e5e5e5',
         cursor: 'pointer',
         transition: 'all 0.2s',
-        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+        width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box'
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';

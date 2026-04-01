@@ -98,7 +98,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             <div className="desktop-nav" style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '40px'
+              gap: '32px'
             }}>
               {/* About Link */}
               <Link
@@ -108,7 +108,11 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   fontWeight: '500',
                   color: '#525252',
                   textDecoration: 'none',
-                  transition: 'color 0.2s'
+                  transition: 'color 0.2s',
+                  lineHeight: '1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  height: '36px'
                 }}
               >
                 About
@@ -289,7 +293,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
           <div className="desktop-nav" style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '40px'
+            gap: '32px'
           }}>
             {/* Search Link */}
             <Link
@@ -299,7 +303,11 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 fontWeight: '500',
                 color: '#525252',
                 textDecoration: 'none',
-                transition: 'color 0.2s'
+                transition: 'color 0.2s',
+                lineHeight: '1',
+                display: 'flex',
+                alignItems: 'center',
+                height: '36px'
               }}
             >
               Search
@@ -313,7 +321,11 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 fontWeight: '500',
                 color: '#525252',
                 textDecoration: 'none',
-                transition: 'color 0.2s'
+                transition: 'color 0.2s',
+                lineHeight: '1',
+                display: 'flex',
+                alignItems: 'center',
+                height: '36px'
               }}
             >
               My Inventory
@@ -327,7 +339,11 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 fontWeight: '500',
                 color: '#525252',
                 textDecoration: 'none',
-                transition: 'color 0.2s'
+                transition: 'color 0.2s',
+                lineHeight: '1',
+                display: 'flex',
+                alignItems: 'center',
+                height: '36px'
               }}
             >
               About

@@ -118,7 +118,13 @@ function SearchPageContent() {
   };
 
   return (
-    <div className="min-h-screen fun-gradient-bg">
+    <div className="min-h-screen" style={{
+      overflowX: 'hidden',
+      backgroundColor: isSearchActive ? '#fafafa' : 'transparent',
+      background: isSearchActive ? '#fafafa' : 'linear-gradient(135deg, #005C97 0%, #363795 100%)',
+      position: 'relative',
+      transition: 'background 0.4s ease-out'
+    }}>
       {/* Floating Background Minifigures - Star Wars Favorites */}
       <>
         {/* Top Left - Darth Vader & Boba Fett */}
@@ -141,54 +147,58 @@ function SearchPageContent() {
       <section className="fun-search-content"
         style={{
           position: 'relative',
-          overflow: 'visible',
+          overflow: 'hidden',
           minHeight: 'calc(100vh - 72px)',
           display: 'flex',
           alignItems: isSearchActive ? 'flex-start' : 'center',
           paddingTop: isSearchActive ? '60px' : '0px',
           paddingBottom: isSearchActive ? '80px' : '0px',
-          transition: 'all 0.4s ease-out'
+          transition: 'all 0.4s ease-out',
+          width: '100%'
         }}>
         <div className="search-page-container" style={{
           width: '100%',
-          maxWidth: '1200px',
+          maxWidth: '100vw',
           margin: '0 auto',
-          padding: '0 32px'
+          padding: '0 16px',
+          boxSizing: 'border-box'
         }}>
-          {/* Header Section */}
-          <div className="search-header-section" style={{
-            textAlign: 'center',
-            marginBottom: isSearchActive ? '40px' : '56px',
-            transition: 'all 0.4s ease-out'
-          }}>
-            <h1 className="fun-header-title" style={{
-              fontSize: isSearchActive ? '40px' : '72px',
-              fontWeight: '600',
-              letterSpacing: '-0.02em',
-              lineHeight: '1.1',
-              marginBottom: '20px',
-              transition: 'font-size 0.4s ease-out'
+          {/* Header Section - Only show when not searching */}
+          {!isSearchActive && (
+            <div className="search-header-section" style={{
+              textAlign: 'center',
+              marginBottom: '56px',
+              transition: 'all 0.4s ease-out'
             }}>
-              Track Prices. Sell Smarter.
-            </h1>
-            <p className="fun-header-subtitle" style={{
-              fontSize: '20px',
-              lineHeight: '1.6',
-              maxWidth: '600px',
-              margin: '0 auto',
-              opacity: isSearchActive ? 0.9 : 1,
-              transition: 'opacity 0.4s ease-out'
-            }}>
-              Search LEGO minifigures and get real-time Bricklink pricing
-            </p>
-          </div>
+              <h1 className="fun-header-title" style={{
+                fontSize: '72px',
+                fontWeight: '600',
+                letterSpacing: '-0.02em',
+                lineHeight: '1.1',
+                marginBottom: '20px'
+              }}>
+                Track Prices. Sell Smarter.
+              </h1>
+              <p className="fun-header-subtitle" style={{
+                fontSize: '20px',
+                lineHeight: '1.6',
+                maxWidth: '600px',
+                margin: '0 auto',
+                color: 'rgba(255, 255, 255, 0.95)'
+              }}>
+                Search LEGO minifigures and get real-time Bricklink pricing
+              </p>
+            </div>
+          )}
 
           {/* Search Bar */}
           <div style={{
-            maxWidth: '640px',
-            margin: '0 auto 64px auto',
+            margin: isSearchActive ? '0 auto 40px auto' : '0 auto 64px auto',
             padding: '0',
-            width: '100%'
+            width: '100%',
+            maxWidth: '640px',
+            boxSizing: 'border-box',
+            transition: 'margin 0.4s ease-out'
           }}>
             <SearchBar
               onSearchResults={setSearchResults}
@@ -202,7 +212,7 @@ function SearchPageContent() {
           {loading && (
             <div className="fun-search-card" style={{
               textAlign: 'center',
-              padding: '80px 32px'
+              padding: '80px 16px'
             }}>
               <div style={{
                 width: '40px',
@@ -226,7 +236,7 @@ function SearchPageContent() {
           {!loading && hasSearched && searchQuery.length >= 3 && !searchResult && searchResults.length === 0 && (
             <div className="fun-search-card" style={{
               textAlign: 'center',
-              padding: '80px 32px'
+              padding: '80px 16px'
             }}>
               <p style={{
                 fontSize: '18px',

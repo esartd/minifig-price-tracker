@@ -182,136 +182,153 @@ export default function CollectionPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#fafafa' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#fafafa', overflowX: 'hidden' }}>
       <div className="collection-page-wrapper" style={{
         maxWidth: '1200px',
         margin: '0 auto',
-        padding: '48px 32px 80px',
+        padding: '32px 16px 80px',
         boxSizing: 'border-box'
       }}>
         {/* Header */}
-        <div className="collection-header-wrapper" style={{ marginBottom: '48px' }}>
-          <div className="collection-header" style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginBottom: '16px'
-          }}>
+        <div className="collection-header-wrapper" style={{ marginBottom: '40px' }}>
+          <div style={{ marginBottom: '24px' }}>
             <h1 style={{
-              fontSize: '48px',
+              fontSize: '32px',
               fontWeight: '700',
               lineHeight: '1.2',
               letterSpacing: '-0.02em',
-              color: '#171717'
+              color: '#171717',
+              marginBottom: '12px'
             }}>
               My Inventory
             </h1>
-            <Link
-              href="/search"
-              className="collection-add-button"
-              style={{
-                display: 'inline-block',
-                padding: '16px 32px',
-                fontSize: '16px',
-                fontWeight: '600',
-                color: 'white',
-                background: '#3b82f6',
-                borderRadius: '12px',
-                textDecoration: 'none',
-                transition: 'all 0.2s',
-                border: 'none'
-              }}
-            >
-              + Add Minifigs
-            </Link>
+            <p className="collection-subtitle" style={{
+              fontSize: '16px',
+              color: '#525252',
+              lineHeight: '1.6'
+            }}>
+              Track your LEGO minifig inventory with real-time pricing
+            </p>
           </div>
-          <p className="collection-subtitle" style={{
-            fontSize: '18px',
-            color: '#525252',
-            lineHeight: '1.6'
-          }}>
-            Track your LEGO minifig inventory with real-time pricing
-          </p>
+          <Link
+            href="/search"
+            className="collection-add-button"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '16px 32px',
+              fontSize: '16px',
+              fontWeight: '600',
+              color: 'white',
+              background: '#3b82f6',
+              borderRadius: '12px',
+              textDecoration: 'none',
+              transition: 'all 0.2s',
+              border: 'none',
+              width: '100%',
+              boxSizing: 'border-box'
+            }}
+          >
+            + Add Minifigs
+          </Link>
         </div>
 
         {/* Collection Stats */}
         {collection.length > 0 && (
-          <div className="collection-stats" style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '24px',
-            marginBottom: '48px'
-          }}>
-            <div className="collection-stat-card" style={{
-              background: '#ffffff',
-              borderRadius: '16px',
-              padding: '32px',
-              boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+          <div style={{
+            overflowX: 'auto',
+            marginBottom: '40px',
+            WebkitOverflowScrolling: 'touch',
+            marginLeft: '-16px',
+            marginRight: '-16px',
+            paddingLeft: '16px',
+            paddingRight: '16px',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none'
+          }}
+          className="hide-scrollbar">
+            <div className="collection-stats" style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, minmax(160px, 1fr))',
+              gap: '16px',
+              minWidth: 'max-content',
+              paddingRight: '16px'
             }}>
-              <div className="collection-stat-label" style={{
-                fontSize: '14px',
-                fontWeight: '500',
-                color: '#737373',
-                marginBottom: '12px',
-                letterSpacing: '0.01em'
+              <div className="collection-stat-card" style={{
+                background: '#ffffff',
+                borderRadius: '12px',
+                padding: '24px 20px',
+                boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                minWidth: '160px'
               }}>
-                Total Value
+                <div className="collection-stat-label" style={{
+                  fontSize: '13px',
+                  fontWeight: '500',
+                  color: '#737373',
+                  marginBottom: '8px',
+                  letterSpacing: '0.01em'
+                }}>
+                  Total Value
+                </div>
+                <div className="collection-stat-value" style={{
+                  fontSize: '28px',
+                  fontWeight: '700',
+                  color: '#171717',
+                  lineHeight: '1'
+                }}>
+                  ${totalValue.toFixed(2)}
+                </div>
               </div>
-              <div className="collection-stat-value" style={{
-                fontSize: '36px',
-                fontWeight: '700',
-                color: '#171717',
-                lineHeight: '1'
+              <div className="collection-stat-card" style={{
+                background: '#ffffff',
+                borderRadius: '12px',
+                padding: '24px 20px',
+                boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                minWidth: '160px'
               }}>
-                ${totalValue.toFixed(2)}
+                <div className="collection-stat-label" style={{
+                  fontSize: '13px',
+                  fontWeight: '500',
+                  color: '#737373',
+                  marginBottom: '8px',
+                  letterSpacing: '0.01em'
+                }}>
+                  Total Items
+                </div>
+                <div className="collection-stat-value" style={{
+                  fontSize: '28px',
+                  fontWeight: '700',
+                  color: '#171717',
+                  lineHeight: '1'
+                }}>
+                  {totalItems}
+                </div>
               </div>
-            </div>
-            <div className="collection-stat-card" style={{
-              background: '#ffffff',
-              borderRadius: '16px',
-              padding: '32px',
-              boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
-            }}>
-              <div className="collection-stat-label" style={{
-                fontSize: '14px',
-                fontWeight: '500',
-                color: '#737373',
-                marginBottom: '12px',
-                letterSpacing: '0.01em'
+              <div className="collection-stat-card" style={{
+                background: '#ffffff',
+                borderRadius: '12px',
+                padding: '24px 20px',
+                boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                minWidth: '160px'
               }}>
-                Total Items
-              </div>
-              <div className="collection-stat-value" style={{
-                fontSize: '36px',
-                fontWeight: '700',
-                color: '#171717',
-                lineHeight: '1'
-              }}>
-                {totalItems}
-              </div>
-            </div>
-            <div className="collection-stat-card" style={{
-              background: '#ffffff',
-              borderRadius: '16px',
-              padding: '32px',
-              boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
-            }}>
-              <div className="collection-stat-label" style={{
-                fontSize: '14px',
-                fontWeight: '500',
-                color: '#737373',
-                marginBottom: '12px',
-                letterSpacing: '0.01em'
-              }}>
-                Average Value
-              </div>
-              <div className="collection-stat-value" style={{
-                fontSize: '36px',
-                fontWeight: '700',
-                color: '#171717',
-                lineHeight: '1'
-              }}>
-                ${avgValue.toFixed(2)}
+                <div className="collection-stat-label" style={{
+                  fontSize: '13px',
+                  fontWeight: '500',
+                  color: '#737373',
+                  marginBottom: '8px',
+                  letterSpacing: '0.01em'
+                }}>
+                  Average Value
+                </div>
+                <div className="collection-stat-value" style={{
+                  fontSize: '28px',
+                  fontWeight: '700',
+                  color: '#171717',
+                  lineHeight: '1'
+                }}>
+                  ${avgValue.toFixed(2)}
+                </div>
               </div>
             </div>
           </div>
@@ -320,18 +337,18 @@ export default function CollectionPage() {
         {/* Collection List */}
         <div className="collection-list-container" style={{
           background: '#ffffff',
-          borderRadius: '16px',
-          padding: '48px',
+          borderRadius: '12px',
+          padding: '24px 16px',
           boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
         }}>
           <div className="collection-list-header" style={{
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
+            flexDirection: 'column',
+            gap: '20px',
             marginBottom: '32px'
           }}>
             <h2 style={{
-              fontSize: '24px',
+              fontSize: '20px',
               fontWeight: '600',
               color: '#171717',
               letterSpacing: '-0.01em'
@@ -339,30 +356,14 @@ export default function CollectionPage() {
               Items <span style={{ color: '#a3a3a3', fontWeight: '400' }}>({collection.length})</span>
             </h2>
             {collection.length > 0 && (
-              <div className="collection-controls" style={{ display: 'flex', gap: '12px' }}>
-                <button
-                  onClick={() => setShowDecimals(!showDecimals)}
-                  style={{
-                    padding: '16px 32px',
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    color: '#525252',
-                    background: '#ffffff',
-                    border: '1px solid #e5e5e5',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                    outline: 'none'
-                  }}
-                >
-                  {showDecimals ? 'Hide Decimals' : 'Show Decimals'}
-                </button>
+              <div className="collection-controls" style={{ display: 'flex', gap: '12px', width: '100%' }}>
                 <select
                   value={sortOrder}
                   onChange={(e) => setSortOrder(e.target.value as any)}
                   style={{
-                    padding: '16px 32px',
-                    fontSize: '16px',
+                    flex: 1,
+                    padding: '14px 16px',
+                    fontSize: '15px',
                     fontWeight: '600',
                     color: '#525252',
                     background: '#ffffff',
@@ -376,13 +377,33 @@ export default function CollectionPage() {
                     backgroundPosition: 'right 0.75rem center',
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: '1.25em 1.25em',
-                    paddingRight: '3rem'
+                    paddingRight: '3rem',
+                    boxSizing: 'border-box'
                   }}
                 >
                   <option value="price-high">Price: High to Low</option>
                   <option value="price-low">Price: Low to High</option>
                   <option value="id">Bricklink ID</option>
                 </select>
+                <button
+                  onClick={() => setShowDecimals(!showDecimals)}
+                  style={{
+                    padding: '14px 20px',
+                    fontSize: '15px',
+                    fontWeight: '600',
+                    color: '#525252',
+                    background: '#ffffff',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  {showDecimals ? '.00' : '.0'}
+                </button>
               </div>
             )}
           </div>

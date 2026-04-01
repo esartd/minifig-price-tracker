@@ -77,7 +77,12 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
   };
 
   return (
-    <div style={{ position: 'relative', width: '100%', maxWidth: '100%' }}>
+    <div style={{
+      position: 'relative',
+      width: '100%',
+      maxWidth: '100%',
+      boxSizing: 'border-box'
+    }}>
       {/* Search Input Container */}
       <div style={{
         display: 'flex',
@@ -132,7 +137,7 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
           }}
         />
 
-        {/* Clear button (X) - Fixed 20px */}
+        {/* Clear button (X) - Perfect circle */}
         {searchQuery && (
           <button
             onClick={handleClear}
@@ -140,6 +145,8 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
             style={{
               width: '24px',
               height: '24px',
+              minWidth: '24px',
+              minHeight: '24px',
               flexShrink: 0,
               borderRadius: '50%',
               backgroundColor: 'rgba(0, 92, 151, 0.1)',
@@ -149,7 +156,8 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
               padding: 0,
               border: 'none',
               cursor: 'pointer',
-              transition: 'all 0.2s'
+              transition: 'all 0.2s',
+              boxSizing: 'border-box'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = 'rgba(0, 92, 151, 0.2)';

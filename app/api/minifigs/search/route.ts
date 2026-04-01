@@ -113,8 +113,44 @@ export async function GET(request: NextRequest) {
       image_url: `https://img.bricklink.com/ItemImage/MN/0/${item.no}.png`
     }));
 
-    // Sort by item number descending (newer/higher numbers first)
+    const searchLower = searchTerm.toLowerCase();
+
+    // Sort with exact matches first, then starts-with, then by item number descending
     results.sort((a, b) => {
+      const aNameLower = a.name.toLowerCase();
+      const bNameLower = b.name.toLowerCase();
+      const aNoLower = a.no.toLowerCase();
+      const bNoLower = b.no.toLowerCase();
+
+      // Check for exact matches
+      const aExactName = aNameLower === searchLower;
+      const bExactName = bNameLower === searchLower;
+      const aExactNo = aNoLower === searchLower;
+      const bExactNo = bNoLower === searchLower;
+
+      // Check for starts-with matches
+      const aStartsWithName = aNameLower.startsWith(searchLower);
+      const bStartsWithName = bNameLower.startsWith(searchLower);
+      const aStartsWithNo = aNoLower.startsWith(searchLower);
+      const bStartsWithNo = bNoLower.startsWith(searchLower);
+
+      // Priority 1: Exact name match
+      if (aExactName && !bExactName) return -1;
+      if (!aExactName && bExactName) return 1;
+
+      // Priority 2: Exact item number match
+      if (aExactNo && !bExactNo) return -1;
+      if (!aExactNo && bExactNo) return 1;
+
+      // Priority 3: Name starts with search term
+      if (aStartsWithName && !bStartsWithName) return -1;
+      if (!aStartsWithName && bStartsWithName) return 1;
+
+      // Priority 4: Item number starts with search term
+      if (aStartsWithNo && !bStartsWithNo) return -1;
+      if (!aStartsWithNo && bStartsWithNo) return 1;
+
+      // Priority 5: Sort by item number descending (newer items first)
       const extractNum = (no: string) => {
         const match = no.match(/\d+/);
         return match ? parseInt(match[0]) : 0;

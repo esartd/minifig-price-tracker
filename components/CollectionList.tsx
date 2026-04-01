@@ -41,6 +41,27 @@ export default function CollectionList({
     setEditingId(null);
   };
 
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    // Allow empty string for editing
+    if (value === '') {
+      setEditQuantity(1);
+      return;
+    }
+    // Parse and validate
+    const num = parseInt(value, 10);
+    if (!isNaN(num) && num >= 1 && num <= 9999) {
+      setEditQuantity(num);
+    }
+  };
+
+  const handleQuantityBlur = () => {
+    // Ensure valid number on blur
+    if (editQuantity < 1) {
+      setEditQuantity(1);
+    }
+  };
+
   const openLightbox = (imageUrl: string, name: string, e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent item selection when clicking image
     setLightboxImage({ url: imageUrl, name });
@@ -101,329 +122,317 @@ export default function CollectionList({
         <div key={item.id}>
           <div
             className={`collection-item-card ${editingId === item.id ? 'editing' : ''}`}
-            onClick={() => onItemSelect(selectedItemId === item.id ? null : item)}
+            onClick={() => editingId !== item.id && onItemSelect(selectedItemId === item.id ? null : item)}
             style={{
               display: 'flex',
+              flexDirection: 'column',
               overflow: 'hidden',
               background: '#ffffff',
               borderRadius: '12px',
               border: selectedItemId === item.id ? '2px solid #3b82f6' : '1px solid #e5e5e5',
-              cursor: 'pointer',
+              cursor: editingId === item.id ? 'default' : 'pointer',
               transition: 'all 0.2s',
               boxShadow: selectedItemId === item.id ? '0 4px 12px rgba(59, 130, 246, 0.1)' : '0 1px 3px rgba(0, 0, 0, 0.05)',
               position: 'relative'
             }}
           >
-          {/* Image Section - Small thumbnail on left */}
-          <div
-            className="collection-item-image"
-            style={{
-              flexShrink: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '100px',
-              minHeight: '140px',
-              backgroundColor: '#fafafa',
-              borderTopLeftRadius: '10px',
-              borderBottomLeftRadius: '10px',
-              overflow: 'hidden'
-            }}
-          >
-            {item.image_url ? (
-              <img
-                src={item.image_url}
-                alt={item.minifigure_name}
-                onClick={(e) => openLightbox(item.image_url!, item.minifigure_name, e)}
-                style={{ height: '140px', width: 'auto', maxWidth: 'none', cursor: 'zoom-in' }}
-              />
-            ) : (
-              <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontSize: '32px' }}>🧱</span>
-              </div>
-            )}
-          </div>
-
-          {/* Content Section */}
-          <div className="collection-item-content" style={{
-            flex: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '32px',
-            minWidth: 0,
-            gap: '32px'
-          }}>
-            {editingId === item.id ? (
-              <div className="collection-edit-container" style={{
-                flex: 1,
+          {/* Main Content Row */}
+          <div style={{ display: 'flex', padding: '16px' }}>
+            {/* Image Section */}
+            <div
+              className="collection-item-image"
+              style={{
+                flexShrink: 0,
                 display: 'flex',
                 alignItems: 'center',
-                minWidth: 0,
-                gap: '24px'
-              }} onClick={(e) => e.stopPropagation()}>
-                <div style={{ flex: 1, minWidth: 0, width: '100%' }}>
-                  <h3 className="collection-edit-title" style={{
-                    fontSize: '18px',
+                justifyContent: 'center',
+                width: '80px',
+                height: '100px',
+                backgroundColor: '#fafafa',
+                borderRadius: '8px',
+                overflow: 'hidden',
+                marginRight: '16px'
+              }}
+            >
+              {item.image_url ? (
+                <img
+                  src={item.image_url}
+                  alt={item.minifigure_name}
+                  onClick={(e) => openLightbox(item.image_url!, item.minifigure_name, e)}
+                  style={{ height: '100px', width: 'auto', maxWidth: 'none', cursor: 'zoom-in' }}
+                />
+              ) : (
+                <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ fontSize: '28px' }}>🧱</span>
+                </div>
+              )}
+            </div>
+
+            {/* Info Section */}
+            <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+              {editingId === item.id ? (
+                <>
+                  <h3 style={{
+                    fontSize: '16px',
                     fontWeight: '600',
                     color: '#171717',
+                    marginBottom: '4px',
+                    letterSpacing: '-0.01em',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    marginBottom: '8px',
-                    letterSpacing: '-0.01em'
+                    whiteSpace: 'nowrap'
                   }}>
                     {item.minifigure_name}
                   </h3>
                   <p style={{
-                    fontSize: '14px',
-                    color: '#737373',
-                    marginBottom: '20px'
-                  }}>
-                    Update quantity
-                  </p>
-                  <div className="collection-edit-controls" style={{ width: '100%' }}>
-                    <div style={{ position: 'relative', width: '100%' }}>
-                      <input
-                        type="text"
-                        value={editQuantity}
-                        readOnly
-                        style={{
-                          width: '100%',
-                          padding: '16px 48px 16px 20px',
-                          fontSize: '16px',
-                          border: '1px solid #e5e5e5',
-                          borderRadius: '8px',
-                          color: '#171717',
-                          background: '#ffffff',
-                          boxSizing: 'border-box',
-                          textAlign: 'center',
-                          cursor: 'default',
-                          outline: 'none',
-                          fontWeight: '600'
-                        }}
-                      />
-                      <div style={{
-                        position: 'absolute',
-                        right: '8px',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '2px',
-                        width: '32px'
-                      }}>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setEditQuantity(editQuantity + 1);
-                          }}
-                          style={{
-                            height: '16px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            background: '#f5f5f5',
-                            border: 'none',
-                            borderRadius: '4px',
-                            cursor: 'pointer',
-                            color: '#525252'
-                          }}
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" style={{ width: '12px', height: '12px', transform: 'rotate(180deg)' }}>
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 8l4 4 4-4"/>
-                          </svg>
-                        </button>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            if (editQuantity > 1) setEditQuantity(editQuantity - 1);
-                          }}
-                          style={{
-                            height: '16px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            background: editQuantity > 1 ? '#f5f5f5' : '#e5e5e5',
-                            border: 'none',
-                            borderRadius: '4px',
-                            cursor: editQuantity > 1 ? 'pointer' : 'not-allowed',
-                            color: editQuantity > 1 ? '#525252' : '#a3a3a3',
-                            opacity: editQuantity > 1 ? 1 : 0.5
-                          }}
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" style={{ width: '12px', height: '12px' }}>
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 8l4 4 4-4"/>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="collection-edit-buttons flex" style={{ gap: '12px' }}>
-                  <button
-                    onClick={() => handleSaveEdit(item.id)}
-                    style={{
-                      padding: '16px 32px',
-                      fontSize: '16px',
-                      fontWeight: '600',
-                      color: '#ffffff',
-                      background: '#3b82f6',
-                      border: 'none',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s',
-                      outline: 'none'
-                    }}
-                  >
-                    Save
-                  </button>
-                  <button
-                    onClick={handleCancelEdit}
-                    style={{
-                      padding: '16px 32px',
-                      fontSize: '16px',
-                      fontWeight: '600',
-                      color: '#525252',
-                      background: '#ffffff',
-                      border: '1px solid #e5e5e5',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s',
-                      outline: 'none'
-                    }}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <>
-                <div className="collection-item-info" style={{ flex: 1, minWidth: 0 }}>
-                  <h3 className="collection-item-title" style={{
-                    fontSize: '18px',
-                    fontWeight: '600',
-                    color: '#171717',
-                    marginBottom: '8px',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    letterSpacing: '-0.01em'
-                  }}>
-                    {item.minifigure_name}
-                  </h3>
-                  <p className="collection-item-id" style={{
-                    fontSize: '14px',
+                    fontSize: '13px',
                     color: '#737373',
                     fontFamily: 'monospace',
-                    marginBottom: '12px'
+                    marginBottom: '8px'
                   }}>
                     {item.minifigure_no}
                   </p>
-
-                  <div className="collection-item-meta" style={{
+                  <p style={{
+                    fontSize: '13px',
+                    color: '#525252',
+                    marginBottom: '12px'
+                  }}>
+                    Update quantity
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h3 style={{
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    color: '#171717',
+                    marginBottom: '4px',
+                    letterSpacing: '-0.01em',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap'
+                  }}>
+                    {item.minifigure_name}
+                  </h3>
+                  <p style={{
+                    fontSize: '13px',
+                    color: '#737373',
+                    fontFamily: 'monospace',
+                    marginBottom: '8px'
+                  }}>
+                    {item.minifigure_no}
+                  </p>
+                  <div style={{
                     display: 'flex',
                     alignItems: 'center',
-                    fontSize: '14px',
-                    color: '#525252',
-                    gap: '16px'
+                    gap: '12px',
+                    fontSize: '13px',
+                    color: '#525252'
                   }}>
-                    <span>Quantity: {item.quantity}</span>
+                    <span>Qty: {item.quantity}</span>
+                    {item.pricing && (
+                      <span style={{ fontWeight: '600', color: '#171717', fontSize: '18px' }}>
+                        ${showDecimals ? item.pricing.suggestedPrice.toFixed(2) : Math.round(item.pricing.suggestedPrice)}
+                      </span>
+                    )}
                   </div>
-                </div>
-
-                {/* Bottom Row: Price + Expand (mobile) / Action Buttons (desktop) */}
-                <div className="collection-item-bottom-row" style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  width: 'auto'
-                }}>
-                  {/* Price */}
-                  {item.pricing && (
-                    <div className="collection-item-price" style={{
-                      fontSize: '28px',
-                      fontWeight: '600',
-                      color: '#171717',
-                      marginRight: '16px'
-                    }}>
-                      ${showDecimals ? item.pricing.suggestedPrice.toFixed(2) : Math.round(item.pricing.suggestedPrice)}
-                    </div>
-                  )}
-
-                  {/* Action Buttons (Desktop only) */}
-                  <div className="collection-item-actions flex" style={{ gap: '12px', alignItems: 'center' }}>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleEdit(item);
-                      }}
-                      style={{
-                        padding: '16px 32px',
-                        fontSize: '16px',
-                        fontWeight: '600',
-                        color: '#525252',
-                        background: '#ffffff',
-                        border: '1px solid #e5e5e5',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s',
-                        outline: 'none'
-                      }}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (confirm('Delete this item?')) {
-                          onItemDelete(item.id);
-                        }
-                      }}
-                      style={{
-                        padding: '16px 32px',
-                        fontSize: '16px',
-                        fontWeight: '600',
-                        color: '#dc2626',
-                        background: '#ffffff',
-                        border: '1px solid #e5e5e5',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s',
-                        outline: 'none'
-                      }}
-                    >
-                      Delete
-                    </button>
-
-                    {/* Expand/Collapse Indicator */}
-                    <div className="collection-expand-indicator" style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      marginLeft: '12px'
-                    }}>
-                      <svg
-                        style={{
-                          width: '20px',
-                          height: '20px',
-                          color: '#3b82f6',
-                          transform: selectedItemId === item.id ? 'rotate(180deg)' : 'rotate(0deg)',
-                          transition: 'transform 0.2s'
-                        }}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
+                </>
+              )}
+            </div>
           </div>
+
+          {/* Edit Mode Controls */}
+          {editingId === item.id && (
+            <div style={{ padding: '0 16px 16px', display: 'flex', flexDirection: 'column', gap: '12px' }} onClick={(e) => e.stopPropagation()}>
+              {/* Horizontal Quantity Stepper */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0',
+                border: '1px solid #e5e5e5',
+                borderRadius: '8px',
+                overflow: 'hidden',
+                width: 'fit-content'
+              }}>
+                {/* Minus Button */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (editQuantity > 1) setEditQuantity(editQuantity - 1);
+                  }}
+                  disabled={editQuantity <= 1}
+                  style={{
+                    width: '44px',
+                    height: '44px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: editQuantity > 1 ? '#ffffff' : '#f5f5f5',
+                    border: 'none',
+                    borderRight: '1px solid #e5e5e5',
+                    cursor: editQuantity > 1 ? 'pointer' : 'not-allowed',
+                    color: editQuantity > 1 ? '#171717' : '#a3a3a3',
+                    transition: 'all 0.2s',
+                    fontSize: '20px',
+                    fontWeight: '600',
+                    padding: 0
+                  }}
+                  onMouseEnter={(e) => {
+                    if (editQuantity > 1) e.currentTarget.style.background = '#f5f5f5';
+                  }}
+                  onMouseLeave={(e) => {
+                    if (editQuantity > 1) e.currentTarget.style.background = '#ffffff';
+                  }}
+                >
+                  −
+                </button>
+
+                {/* Quantity Input */}
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={editQuantity}
+                  onChange={handleQuantityChange}
+                  onBlur={handleQuantityBlur}
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    minWidth: '60px',
+                    height: '44px',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    color: '#171717',
+                    background: '#ffffff',
+                    border: 'none',
+                    textAlign: 'center',
+                    outline: 'none',
+                    padding: '0'
+                  }}
+                />
+
+                {/* Plus Button */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setEditQuantity(editQuantity + 1);
+                  }}
+                  style={{
+                    width: '44px',
+                    height: '44px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: '#ffffff',
+                    border: 'none',
+                    borderLeft: '1px solid #e5e5e5',
+                    cursor: 'pointer',
+                    color: '#171717',
+                    transition: 'all 0.2s',
+                    fontSize: '20px',
+                    fontWeight: '600',
+                    padding: 0
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f5f5f5'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = '#ffffff'}
+                >
+                  +
+                </button>
+              </div>
+
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <button
+                  onClick={() => handleSaveEdit(item.id)}
+                  style={{
+                    flex: 1,
+                    padding: '14px',
+                    fontSize: '15px',
+                    fontWeight: '600',
+                    color: '#ffffff',
+                    background: '#3b82f6',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    outline: 'none'
+                  }}
+                >
+                  Save
+                </button>
+                <button
+                  onClick={handleCancelEdit}
+                  style={{
+                    flex: 1,
+                    padding: '14px',
+                    fontSize: '15px',
+                    fontWeight: '600',
+                    color: '#525252',
+                    background: '#ffffff',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    outline: 'none'
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Action Buttons - Always visible when not editing */}
+          {editingId !== item.id && (
+            <div style={{
+              padding: '0 16px 16px',
+              display: 'flex',
+              gap: '12px',
+              borderTop: '1px solid #f5f5f5',
+              paddingTop: '16px',
+              marginTop: '0'
+            }}>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleEdit(item);
+                }}
+                style={{
+                  flex: 1,
+                  padding: '12px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  color: '#525252',
+                  background: '#ffffff',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  outline: 'none'
+                }}
+              >
+                Edit
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (confirm('Delete this item?')) {
+                    onItemDelete(item.id);
+                  }
+                }}
+                style={{
+                  flex: 1,
+                  padding: '12px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  color: '#dc2626',
+                  background: '#ffffff',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  outline: 'none'
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          )}
           </div>
 
           {/* Pricing Drawer */}

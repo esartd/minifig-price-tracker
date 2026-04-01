@@ -26,10 +26,31 @@ export default function AddToCollectionForm({ onAdd, loading, session }: AddToCo
     onAdd(quantity);
   };
 
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    // Allow empty string for editing
+    if (value === '') {
+      setQuantity(1);
+      return;
+    }
+    // Parse and validate
+    const num = parseInt(value, 10);
+    if (!isNaN(num) && num >= 1 && num <= 9999) {
+      setQuantity(num);
+    }
+  };
+
+  const handleQuantityBlur = () => {
+    // Ensure valid number on blur
+    if (quantity < 1) {
+      setQuantity(1);
+    }
+  };
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', gap: '12px', alignItems: 'flex-end' }}>
-      {/* Quantity Input */}
-      <div style={{ flex: '1', minWidth: '120px', maxWidth: '200px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      {/* Quantity Stepper - Mobile-friendly horizontal layout */}
+      <div>
         <label style={{
           display: 'block',
           fontSize: '14px',
@@ -40,91 +61,112 @@ export default function AddToCollectionForm({ onAdd, loading, session }: AddToCo
         }}>
           Quantity
         </label>
-        <div style={{ position: 'relative', width: '100%' }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0',
+          width: 'fit-content',
+          border: '1px solid #e5e5e5',
+          borderRadius: '8px',
+          overflow: 'hidden'
+        }}>
+          {/* Minus Button */}
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (quantity > 1) setQuantity(quantity - 1);
+            }}
+            disabled={quantity <= 1}
+            style={{
+              width: '44px',
+              height: '44px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: quantity > 1 ? '#ffffff' : '#f5f5f5',
+              border: 'none',
+              borderRight: '1px solid #e5e5e5',
+              cursor: quantity > 1 ? 'pointer' : 'not-allowed',
+              color: quantity > 1 ? '#171717' : '#a3a3a3',
+              transition: 'all 0.2s',
+              fontSize: '20px',
+              fontWeight: '600',
+              padding: 0
+            }}
+            onMouseEnter={(e) => {
+              if (quantity > 1) e.currentTarget.style.background = '#f5f5f5';
+            }}
+            onMouseLeave={(e) => {
+              if (quantity > 1) e.currentTarget.style.background = '#ffffff';
+            }}
+          >
+            −
+          </button>
+
+          {/* Quantity Input */}
           <input
             type="text"
+            inputMode="numeric"
             value={quantity}
-            readOnly
+            onChange={handleQuantityChange}
+            onBlur={handleQuantityBlur}
+            onClick={(e) => e.stopPropagation()}
             style={{
-              width: '100%',
-              padding: '16px 48px 16px 20px',
+              minWidth: '60px',
+              height: '44px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               fontSize: '16px',
-              border: '1px solid #e5e5e5',
-              borderRadius: '8px',
+              fontWeight: '600',
               color: '#171717',
               background: '#ffffff',
-              textAlign: 'left',
-              cursor: 'default',
-              boxSizing: 'border-box',
-              outline: 'none'
+              border: 'none',
+              textAlign: 'center',
+              outline: 'none',
+              padding: '0'
             }}
           />
-          <div style={{
-            position: 'absolute',
-            right: '8px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '2px',
-            width: '32px'
-          }}>
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setQuantity(quantity + 1);
-              }}
-              style={{
-                height: '16px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: '#f5f5f5',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer',
-                color: '#525252'
-              }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" style={{ width: '12px', height: '12px', transform: 'rotate(180deg)' }}>
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 8l4 4 4-4"/>
-              </svg>
-            </button>
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                if (quantity > 1) setQuantity(quantity - 1);
-              }}
-              disabled={quantity <= 1}
-              style={{
-                height: '16px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: quantity > 1 ? '#f5f5f5' : '#e5e5e5',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: quantity > 1 ? 'pointer' : 'not-allowed',
-                color: quantity > 1 ? '#525252' : '#a3a3a3',
-                opacity: quantity > 1 ? 1 : 0.5
-              }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" style={{ width: '12px', height: '12px' }}>
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 8l4 4 4-4"/>
-              </svg>
-            </button>
-          </div>
+
+          {/* Plus Button */}
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setQuantity(quantity + 1);
+            }}
+            style={{
+              width: '44px',
+              height: '44px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: '#ffffff',
+              border: 'none',
+              borderLeft: '1px solid #e5e5e5',
+              cursor: 'pointer',
+              color: '#171717',
+              transition: 'all 0.2s',
+              fontSize: '20px',
+              fontWeight: '600',
+              padding: 0
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = '#f5f5f5'}
+            onMouseLeave={(e) => e.currentTarget.style.background = '#ffffff'}
+          >
+            +
+          </button>
         </div>
       </div>
 
       {/* Add Button */}
-      <div style={{ flex: '0 0 auto' }}>
+      <div>
         <button
           onClick={handleSubmit}
           disabled={loading}
           style={{
+            width: '100%',
             padding: '16px 32px',
             fontSize: '16px',
             fontWeight: '600',
@@ -136,7 +178,14 @@ export default function AddToCollectionForm({ onAdd, loading, session }: AddToCo
             opacity: loading ? 0.5 : 1,
             transition: 'all 0.2s',
             outline: 'none',
-            whiteSpace: 'nowrap'
+            whiteSpace: 'nowrap',
+            boxSizing: 'border-box'
+          }}
+          onMouseEnter={(e) => {
+            if (!loading) e.currentTarget.style.background = '#2563eb';
+          }}
+          onMouseLeave={(e) => {
+            if (!loading) e.currentTarget.style.background = '#3b82f6';
           }}
         >
           {loading ? 'Adding...' : session ? 'Add to Inventory' : 'Sign In to Add'}

@@ -130,11 +130,15 @@ export default function SearchResults({
       background: '#ffffff',
       borderRadius: '16px',
       boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-      padding: '48px'
+      padding: '24px 16px',
+      width: '100%',
+      maxWidth: '100%',
+      boxSizing: 'border-box',
+      overflowX: 'hidden'
     }}>
-      <div className="search-results-header" style={{ marginBottom: '40px' }}>
+      <div className="search-results-header" style={{ marginBottom: '32px' }}>
         <h2 style={{
-          fontSize: '28px',
+          fontSize: '24px',
           fontWeight: '600',
           color: '#171717',
           letterSpacing: '-0.01em'
@@ -164,7 +168,14 @@ export default function SearchResults({
             {selectedThemes.size > 0 && ` (${searchResults.length} total)`}
           </p>
 
-          <div className="search-results-list" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="search-results-list" style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            width: '100%',
+            maxWidth: '100%',
+            boxSizing: 'border-box'
+          }}>
             {filteredResults.map((minifig, index) => (
               <MinifigCard
                 key={index}
