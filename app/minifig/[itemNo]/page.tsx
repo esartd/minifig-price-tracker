@@ -851,6 +851,35 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                   {error}
                 </div>
               )}
+
+              {/* View on Bricklink Button */}
+              <a
+                href={`https://www.bricklink.com/catalogPG.asp?M=${minifig.no}&ColorID=0&v=D&cID=N`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'block',
+                  marginTop: '24px',
+                  padding: '14px 20px',
+                  fontSize: '15px',
+                  fontWeight: '600',
+                  color: '#ffffff',
+                  background: '#3b82f6',
+                  borderRadius: '8px',
+                  textDecoration: 'none',
+                  textAlign: 'center',
+                  transition: 'all 0.2s',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#2563eb';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = '#3b82f6';
+                }}
+              >
+                View on Bricklink →
+              </a>
             </div>
           </div>
         </div>

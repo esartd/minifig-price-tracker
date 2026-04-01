@@ -12,7 +12,6 @@ export default function CollectionPage() {
   const router = useRouter();
   const [collection, setCollection] = useState<CollectionItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedItem, setSelectedItem] = useState<CollectionItem | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [refreshProgress, setRefreshProgress] = useState({ current: 0, total: 0, itemName: '' });
   const [sortOrder, setSortOrder] = useState<'default' | 'price-high' | 'price-low' | 'id'>('price-high');
@@ -48,9 +47,6 @@ export default function CollectionPage() {
 
       if (response.ok) {
         setCollection(collection.filter((item) => item.id !== id));
-        if (selectedItem?.id === id) {
-          setSelectedItem(null);
-        }
       }
     } catch (error) {
       console.error('Error deleting item:', error);
@@ -72,9 +68,6 @@ export default function CollectionPage() {
         setCollection(
           collection.map((item) => (item.id === id ? data.data : item))
         );
-        if (selectedItem?.id === id) {
-          setSelectedItem(data.data);
-        }
       }
     } catch (error) {
       console.error('Error updating item:', error);
@@ -115,10 +108,6 @@ export default function CollectionPage() {
                 collectionItem.id === item.id ? data.data : collectionItem
               )
             );
-
-            if (selectedItem?.id === item.id) {
-              setSelectedItem(data.data);
-            }
           }
         } catch (error) {
           console.error(`Error refreshing ${item.minifigure_name}:`, error);
@@ -537,10 +526,8 @@ export default function CollectionPage() {
           ) : (
             <CollectionList
               items={getSortedCollection()}
-              onItemSelect={setSelectedItem}
               onItemDelete={handleItemDeleted}
               onItemUpdate={handleItemUpdated}
-              selectedItemId={selectedItem?.id}
               showDecimals={showDecimals}
             />
           )}
