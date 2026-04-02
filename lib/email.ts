@@ -1,12 +1,29 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy initialization - only create Resend instance when API key is available
+let resend: Resend | null = null;
+
+function getResendClient() {
+  if (!process.env.RESEND_API_KEY) {
+    return null;
+  }
+  if (!resend) {
+    resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resend;
+}
 
 export async function sendPasswordResetEmail(email: string, resetToken: string) {
   const resetUrl = `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/auth/reset-password?token=${resetToken}`;
 
+  const client = getResendClient();
+  if (!client) {
+    console.warn('Resend API key not configured - email not sent');
+    return { success: false, error: 'Email service not configured' };
+  }
+
   try {
-    await resend.emails.send({
+    await client.emails.send({
       from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
       to: email,
       subject: 'Reset Your Password - Minifig Price Tracker',
@@ -99,8 +116,14 @@ export async function sendPasswordResetEmail(email: string, resetToken: string) 
 }
 
 export async function sendWelcomeEmail(email: string, name: string) {
+  const client = getResendClient();
+  if (!client) {
+    console.warn('Resend API key not configured - email not sent');
+    return { success: false, error: 'Email service not configured' };
+  }
+
   try {
-    await resend.emails.send({
+    await client.emails.send({
       from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
       to: email,
       subject: 'Welcome to Minifig Price Tracker!',
