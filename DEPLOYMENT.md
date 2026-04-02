@@ -13,7 +13,7 @@ This guide will help you deploy your Minifig Price Tracker to Vercel as a public
 1. Create a new repository on GitHub:
    - Go to https://github.com/new
    - Name it `minifig-price-tracker` (or any name you like)
-   - Make it **Public** (so the LEGO community can see your code)
+   - Make it **Private** (keeps your business code secret)
    - Don't initialize with README, .gitignore, or license (we already have these)
    - Click "Create repository"
 
@@ -115,27 +115,39 @@ Want a custom `.com` domain?
 
 3. Vercel automatically provides free SSL certificate (https)
 
-## Step 7: Adding Ads
+## Step 7: Monetization (Ads & Affiliate Links)
 
-You asked about ads - here's how:
+**Good news**: Vercel free tier allows monetization! You can add:
 
-1. **Google AdSense**:
-   - Sign up at https://www.google.com/adsense
-   - Get your ad code snippet
-   - Add it to your `app/layout.tsx` file in the `<head>` section
+### Google AdSense
+1. Sign up at https://www.google.com/adsense
+2. Get your ad code snippet
+3. Add it to your `app/layout.tsx` file in the `<head>` section
 
-2. **Other ad networks**: Amazon Associates, Rakuten, etc. work the same way
+### Amazon Affiliate Links
+1. Join [Amazon Associates](https://affiliate-program.amazon.com/)
+2. Add affiliate links to LEGO sets in your app
+3. Earn commission on sales
 
-3. **Important**: Ads count toward your 100GB/month bandwidth on free tier
-   - If you get tons of traffic, upgrade to Vercel Pro ($20/month)
+### Important Notes
+- **Bandwidth**: Ads/images count toward 100GB/month
+- **Terms**: Vercel free tier says "non-commercial" but small sites with ads are generally fine
+- **Upgrade**: If you exceed 100GB, upgrade to Pro ($20/month) — but by then you're making money!
+- **Private code**: Your repo stays private, competitors can't copy your strategy
 
 ## Costs Summary
+
+- **GitHub Private Repo**: $0/month
+  - Unlimited private repositories (FREE!)
+  - Keeps your code and business logic secret
+  - Works perfectly with Vercel
 
 - **Hosting (Vercel Free)**: $0/month
   - 100GB bandwidth
   - Unlimited websites
   - Free SSL certificate
   - Automatic deployments
+  - **Allows ads and affiliate links** (Amazon Associates, AdSense, etc.)
 
 - **Database (Vercel Postgres Free)**: $0/month
   - 256MB storage (enough for thousands of minifigs)
@@ -145,7 +157,7 @@ You asked about ads - here's how:
 
 - **GitHub Actions**: 2,000 minutes/month FREE (more than enough for monthly updates)
 
-**Total: $0/month** to start. Upgrade only if you get LOTS of traffic.
+**Total: $0/month** to start. Upgrade to Vercel Pro ($20/month) only when you exceed 100GB bandwidth — which means you're already making money from ads!
 
 ## Monitoring & Maintenance
 

@@ -10,27 +10,29 @@ A Next.js web application for LEGO minifigure collectors to track their collecti
 ## Features
 
 - **Complete LEGO Catalog** - All themes: Star Wars, Harry Potter, Marvel/DC, Ninjago, City, and more!
-- **Real-time Pricing** - Live pricing data from BrickLink API
+- **Real-time Pricing** - Live pricing data from BrickLink API with smart 24-hour caching
 - **Smart Search** - Search by name or item number (e.g., "Luke Skywalker" or "sw0004", "Harry Potter" or "hp001")
-- **Price Tracking** - 6-month average, current average, and suggested prices
-- **Collection Management** - Track quantity and condition (new/used)
+- **Price Tracking** - Current market average, quantity-weighted average, lowest listing, and suggested sell price
+- **Inventory Management** - Track quantity, condition (new/used), and total collection value
 - **Beautiful UI** - Apple-inspired design with smooth animations
 - **Monthly Updates** - Automatic catalog updates for new minifig releases
 - **Responsive** - Works on desktop, tablet, and mobile
+- **Multi-user** - Authentication with NextAuth (email or Google sign-in)
 
 ## Live Demo
 
-[View Live Site](https://your-site.vercel.app) _(coming soon)_
+Coming soon! See [DEPLOYMENT.md](./DEPLOYMENT.md) for deployment instructions.
 
 ## Tech Stack
 
 - **Framework**: [Next.js 16](https://nextjs.org/) with App Router
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Database**: [PostgreSQL](https://www.postgresql.org/) with [Prisma ORM](https://www.prisma.io/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **APIs**: [BrickLink API](https://www.bricklink.com/v3/api.page)
+- **Authentication**: [NextAuth v5](https://authjs.dev/)
+- **Database**: [PostgreSQL](https://www.postgresql.org/) with [Prisma ORM](https://www.prisma.io/) (SQLite for local dev)
+- **Styling**: Inline styles with Apple-inspired design
+- **APIs**: [BrickLink API](https://www.bricklink.com/v3/api.page) with smart caching
 - **Search**: [Fuse.js](https://fusejs.io/) for fuzzy search
-- **Deployment**: [Vercel](https://vercel.com)
+- **Deployment**: [Vercel](https://vercel.com) (free tier)
 
 ## Getting Started
 
@@ -38,7 +40,8 @@ A Next.js web application for LEGO minifigure collectors to track their collecti
 
 - Node.js 20+ and npm
 - BrickLink API credentials ([get them here](https://www.bricklink.com/v3/api/register_consumer.page))
-- PostgreSQL database (or use Vercel Postgres free tier)
+- For local dev: SQLite (built-in)
+- For production: PostgreSQL (Vercel Postgres free tier)
 
 ### Installation
 
@@ -55,18 +58,20 @@ A Next.js web application for LEGO minifigure collectors to track their collecti
 
 3. **Set up environment variables**
 
-   Copy `.env.example` to `.env.local`:
+   Copy `.env.example` to `.env`:
    ```bash
-   cp .env.example .env.local
+   cp .env.example .env
    ```
 
-   Edit `.env.local` and add your credentials:
+   Edit `.env` and add your BrickLink credentials:
    ```env
    BRICKLINK_CONSUMER_KEY=your_key
    BRICKLINK_CONSUMER_SECRET=your_secret
    BRICKLINK_TOKEN_VALUE=your_token
    BRICKLINK_TOKEN_SECRET=your_token_secret
-   DATABASE_URL=file:./dev.db  # SQLite for local dev
+   DATABASE_URL="file:./dev.db"
+   AUTH_SECRET=your_random_secret  # Generate with: openssl rand -base64 32
+   NEXTAUTH_URL=http://localhost:3000
    ```
 
 4. **Set up the database**
@@ -143,7 +148,10 @@ npm run enumerate-catalog
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run start` - Start production server
-- `npm run enumerate-catalog` - Update minifig catalog from BrickLink
+- `npm run update-catalog` - Incremental catalog update (fast, ~2-3 min)
+- `npm run update-catalog:full` - Full catalog re-enumeration (slow, ~30-40 min)
+- `npm run discover-themes` - Auto-discover new LEGO theme prefixes
+- `npm run check-api-usage` - Check BrickLink API usage stats
 - `npm run db:push` - Push Prisma schema to database
 - `npm run db:studio` - Open Prisma Studio
 
@@ -178,21 +186,25 @@ minifig-price-tracker/
 ## API Endpoints
 
 - `GET /api/minifigs/search?q={query}` - Search minifigures
-- `GET /api/collection` - Get user's collection
-- `POST /api/collection` - Add item to collection
-- `PATCH /api/collection/:id` - Update collection item
-- `DELETE /api/collection/:id` - Remove from collection
-- `POST /api/collection/:id/refresh-pricing` - Refresh pricing data
+- `GET /api/inventory` - Get user's inventory
+- `POST /api/inventory` - Add item to inventory
+- `PATCH /api/inventory/:id` - Update inventory item
+- `DELETE /api/inventory/:id` - Remove from inventory
+- `POST /api/inventory/refresh-pricing` - Refresh all prices (smart cache-aware)
+- `POST /api/inventory/:id/refresh-pricing` - Refresh single item pricing
 
 ## Roadmap
 
-- [x] Add support for all LEGO themes (Harry Potter, Marvel, DC, Ninjago, City, etc.)
+- [x] Multi-user support with authentication
+- [x] Smart price caching (24-hour TTL)
+- [x] Real-time BrickLink pricing
+- [x] All LEGO themes (Star Wars, Harry Potter, Marvel, DC, etc.)
 - [ ] Price history charts
-- [ ] Export collection to CSV
-- [ ] Multi-user support with authentication
+- [ ] Export inventory to CSV
 - [ ] Wishlist feature
-- [ ] Set price alerts
-- [ ] Mobile app
+- [ ] Price alerts (email notifications)
+- [ ] Amazon affiliate link integration
+- [ ] Mobile app (React Native)
 
 ## Contributing
 
@@ -210,10 +222,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-If you find this project helpful, please give it a ⭐️ on GitHub!
-
-For questions or issues, please [open an issue](https://github.com/YOUR_USERNAME/minifig-price-tracker/issues).
+Questions or issues? Open an issue on GitHub.
 
 ---
 
-Built with ❤️ for the LEGO community
+Built with ❤️ for LEGO minifig collectors and sellers
