@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Find the reset token
-    const resetToken = await prisma.verificationToken.findUnique({
+    const resetToken = await prisma.verificationToken.findFirst({
       where: { token }
     });
 
@@ -38,7 +38,12 @@ export async function POST(request: NextRequest) {
     if (resetToken.expires < new Date()) {
       // Delete expired token
       await prisma.verificationToken.delete({
-        where: { token }
+        where: {
+          identifier_token: {
+            identifier: resetToken.identifier,
+            token: resetToken.token
+          }
+        }
       });
 
       return NextResponse.json(
@@ -58,7 +63,12 @@ export async function POST(request: NextRequest) {
 
     // Delete the used token
     await prisma.verificationToken.delete({
-      where: { token }
+      where: {
+        identifier_token: {
+          identifier: resetToken.identifier,
+          token: resetToken.token
+        }
+      }
     });
 
     return NextResponse.json({
