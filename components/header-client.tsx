@@ -88,7 +88,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
           border: '2px solid #e5e5e5',
           transition: 'border-color 0.2s'
         }}>
-          {getInitials(user.name, user.email)}
+          {getInitials(user?.name, user?.email)}
         </div>
       );
     }
