@@ -72,7 +72,7 @@ export default function AccountPage() {
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-          {getInitials(session.user.name)}
+          {getInitials(session?.user?.name)}
         </div>
       );
     }
