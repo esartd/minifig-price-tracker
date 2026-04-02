@@ -34,7 +34,6 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
     setLoading(true);
     setError('');
     setSuccess('');
-    setShowSuggestions(false);
     onSearchResult(null);
     onSearchResults([]);
 
