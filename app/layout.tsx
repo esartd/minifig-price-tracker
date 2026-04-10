@@ -2,16 +2,17 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Header from '@/components/header'
 import AuthProvider from '@/components/session-provider'
+import { Analytics } from '@vercel/analytics/react'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://figtracker.com'),
+  metadataBase: new URL('https://figtracker.vercel.app'),
   title: {
     default: 'FigTracker - LEGO Minifigure Price Tracker & Inventory Management',
     template: '%s | FigTracker'
   },
   description: 'Free LEGO minifigure price tracker with real-time Bricklink marketplace data. Get instant suggested prices, track your inventory, and manage your collection with 8,000+ minifigs.',
   keywords: ['LEGO minifigure prices', 'Bricklink price tracker', 'LEGO inventory', 'minifig value', 'LEGO reseller tool', 'Bricklink marketplace', 'LEGO price guide', 'minifigure collection tracker'],
-  authors: [{ name: 'FigTracker', url: 'https://figtracker.com' }],
+  authors: [{ name: 'FigTracker', url: 'https://figtracker.vercel.app' }],
   creator: 'FigTracker',
   publisher: 'FigTracker',
   robots: {
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://figtracker.com',
+    url: 'https://figtracker.vercel.app',
     siteName: 'FigTracker',
     title: 'FigTracker - LEGO Minifigure Price Tracker & Inventory Management',
     description: 'Free LEGO minifigure price tracker with real-time Bricklink data. Get instant suggested prices and manage your collection.',
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
     apple: '/favicon.svg',
   },
   alternates: {
-    canonical: 'https://figtracker.com',
+    canonical: 'https://figtracker.vercel.app',
   },
 }
 
@@ -72,7 +73,7 @@ export default function RootLayout({
     '@type': 'WebApplication',
     name: 'FigTracker',
     description: 'Free LEGO minifigure price tracker with real-time Bricklink marketplace data',
-    url: 'https://figtracker.com',
+    url: 'https://figtracker.vercel.app',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Any',
     offers: {
@@ -139,6 +140,7 @@ export default function RootLayout({
             </footer>
           </div>
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   )

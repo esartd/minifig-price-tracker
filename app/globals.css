@@ -1380,7 +1380,7 @@
   .collection-stats {
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 20px !important;
-    margin-bottom: 56px !important;
+    margin-bottom: 24px !important;
   }
 
   .collection-stat-card {
@@ -1428,7 +1428,7 @@
 
   .collection-stats {
     gap: 24px !important;
-    margin-bottom: 64px !important;
+    margin-bottom: 24px !important;
   }
 
   .collection-stat-card {

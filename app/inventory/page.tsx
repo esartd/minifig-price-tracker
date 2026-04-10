@@ -170,7 +170,7 @@ export default function CollectionPage() {
       }}>
         {/* Compact Header with Stats and Action */}
         {collection.length > 0 && (
-          <div style={{ marginBottom: '24px' }}>
+          <div style={{ marginBottom: '16px' }}>
             {/* Title + Add Button Row */}
             <div style={{
               display: 'flex',

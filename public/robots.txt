@@ -18,4 +18,4 @@ Allow: /auth/signin
 Allow: /auth/signup
 
 # Sitemap location
-Sitemap: https://figtracker.com/sitemap.xml
+Sitemap: https://figtracker.vercel.app/sitemap.xml
