@@ -18,13 +18,6 @@ export class BricklinkAPI {
     this.consumerSecret = process.env.BRICKLINK_CONSUMER_SECRET || '';
     this.tokenValue = process.env.BRICKLINK_TOKEN_VALUE || '';
     this.tokenSecret = process.env.BRICKLINK_TOKEN_SECRET || '';
-
-    // DEBUG: Log first 8 characters of token to verify which one is loaded
-    console.log('🔑 BrickLink credentials loaded:', {
-      consumerKey: this.consumerKey.substring(0, 8) + '...',
-      tokenValue: this.tokenValue.substring(0, 8) + '...',
-      tokenSecret: this.tokenSecret.substring(0, 8) + '...'
-    });
   }
 
   /**
