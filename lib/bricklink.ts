@@ -20,6 +20,12 @@ export class BricklinkAPI {
     this.tokenSecret = process.env.BRICKLINK_TOKEN_SECRET || '';
   }
 
+  private isLocalhost(): boolean {
+    return process.env.NEXTAUTH_URL?.includes('localhost') ||
+           process.env.AUTH_URL?.includes('localhost') ||
+           process.env.NODE_ENV === 'development';
+  }
+
   /**
    * Rate limiter - ENFORCES BrickLink API Terms of Service
    * - Maximum 5,000 calls per day
@@ -116,6 +122,12 @@ export class BricklinkAPI {
   }
 
   private async makeRequest(endpoint: string, method = 'GET'): Promise<any> {
+    // BLOCK all API calls on localhost to preserve production limits
+    if (this.isLocalhost()) {
+      console.warn('🚫 Bricklink API blocked on localhost - use production for real data');
+      return null;
+    }
+
     const url = `${this.baseURL}${endpoint}`;
 
     // ENFORCE BrickLink API rate limits (5,000 calls/day, 3 second delays)
