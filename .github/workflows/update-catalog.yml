@@ -26,13 +26,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run incremental catalog update
+      - name: Run Bricklink catalog enumeration
         env:
           BRICKLINK_CONSUMER_KEY: ${{ secrets.BRICKLINK_CONSUMER_KEY }}
           BRICKLINK_CONSUMER_SECRET: ${{ secrets.BRICKLINK_CONSUMER_SECRET }}
           BRICKLINK_TOKEN_VALUE: ${{ secrets.BRICKLINK_TOKEN_VALUE }}
           BRICKLINK_TOKEN_SECRET: ${{ secrets.BRICKLINK_TOKEN_SECRET }}
-        run: npm run update-catalog
+        run: npm run enumerate-catalog
+        timeout-minutes: 60
 
       - name: Commit updated catalog
         run: |
