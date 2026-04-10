@@ -30,6 +30,7 @@ jobs:
 
       - name: Run safe incremental catalog update
         env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           BRICKLINK_CONSUMER_KEY: ${{ secrets.BRICKLINK_CONSUMER_KEY }}
           BRICKLINK_CONSUMER_SECRET: ${{ secrets.BRICKLINK_CONSUMER_SECRET }}
           BRICKLINK_TOKEN_VALUE: ${{ secrets.BRICKLINK_TOKEN_VALUE }}
