@@ -1,9 +1,11 @@
-name: Daily Catalog Update
+name: Daily Catalog Update (Safe Mode)
 
 on:
-  # schedule:
-  #   # Runs at 2am UTC every day (safer than weekly batches)
-  #   - cron: '0 2 * * *'
+  schedule:
+    # Runs at 2am UTC every day
+    # Only adds 100 new minifigs/day (well under 5,000 call limit)
+    # Reserves 4,900 calls for user activity
+    - cron: '0 2 * * *'
   workflow_dispatch: # Allows manual triggering from GitHub UI
 
 jobs:
@@ -26,14 +28,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Bricklink catalog enumeration
+      - name: Run safe incremental catalog update
         env:
           BRICKLINK_CONSUMER_KEY: ${{ secrets.BRICKLINK_CONSUMER_KEY }}
           BRICKLINK_CONSUMER_SECRET: ${{ secrets.BRICKLINK_CONSUMER_SECRET }}
           BRICKLINK_TOKEN_VALUE: ${{ secrets.BRICKLINK_TOKEN_VALUE }}
           BRICKLINK_TOKEN_SECRET: ${{ secrets.BRICKLINK_TOKEN_SECRET }}
-        run: npm run enumerate-catalog
-        timeout-minutes: 60
+        run: npm run update-catalog
+        timeout-minutes: 10
 
       - name: Commit updated catalog
         run: |
