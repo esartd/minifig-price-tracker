@@ -1,9 +1,9 @@
 name: Daily Catalog Update
 
 on:
-  schedule:
-    # Runs at 2am UTC every day (safer than weekly batches)
-    - cron: '0 2 * * *'
+  # schedule:
+  #   # Runs at 2am UTC every day (safer than weekly batches)
+  #   - cron: '0 2 * * *'
   workflow_dispatch: # Allows manual triggering from GitHub UI
 
 jobs:
