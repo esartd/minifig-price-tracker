@@ -2,6 +2,13 @@ import crypto from 'crypto';
 import { Minifigure, PriceGuide, PricingData, SetInfo } from '@/types';
 import { prisma } from './prisma';
 
+// Manual name enhancements for minifigs with poor Bricklink API names
+// These are searchable, accurate names that help users find what they're looking for
+const NAME_ENHANCEMENTS: Record<string, string> = {
+  'sw1173': 'Grogu / The Child / Baby Yoda - Holiday Outfit',
+  // Add more as we discover problematic names
+};
+
 export class BricklinkAPI {
   private consumerKey: string;
   private consumerSecret: string;
@@ -197,6 +204,22 @@ export class BricklinkAPI {
 
   async getMinifigureByNumber(itemNo: string): Promise<Minifigure | null> {
     try {
+      // STEP 1: Check cache first (no API call)
+      const cached = await prisma.minifigCache.findUnique({
+        where: { minifigure_no: itemNo }
+      });
+
+      // If cached and not expired, return immediately (saves API call)
+      if (cached && cached.expires_at > new Date()) {
+        return {
+          no: cached.minifigure_no,
+          name: cached.name,
+          category_id: cached.category_id,
+          image_url: cached.image_url
+        };
+      }
+
+      // STEP 2: Cache miss or expired - fetch from API
       const data = await this.makeRequest(`/items/MINIFIG/${itemNo}`);
 
       // If data is null/undefined, item doesn't exist
@@ -212,12 +235,39 @@ export class BricklinkAPI {
         imageUrl = `https:${imageUrl}`;
       }
 
-      return {
+      // Use enhanced name if available, otherwise use API name
+      const enhancedName = NAME_ENHANCEMENTS[data.no] || data.name;
+
+      const minifig: Minifigure = {
         no: data.no,
-        name: data.name,
+        name: enhancedName,
         category_id: data.category_id,
         image_url: imageUrl,
       };
+
+      // STEP 3: Store in cache (30-day expiration - minifig metadata rarely changes)
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + 30);
+
+      await prisma.minifigCache.upsert({
+        where: { minifigure_no: data.no },
+        update: {
+          name: enhancedName,
+          category_id: data.category_id,
+          image_url: imageUrl,
+          cached_at: new Date(),
+          expires_at: expiresAt
+        },
+        create: {
+          minifigure_no: data.no,
+          name: enhancedName,
+          category_id: data.category_id,
+          image_url: imageUrl,
+          expires_at: expiresAt
+        }
+      });
+
+      return minifig;
     } catch (error) {
       // Item doesn't exist or API error
       return null;

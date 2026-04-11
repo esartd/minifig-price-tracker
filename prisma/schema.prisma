@@ -135,3 +135,16 @@ model PriceHistory {
   @@index([minifigure_no, condition])
   @@index([recorded_at])
 }
+
+model MinifigCache {
+  minifigure_no     String   @id  // Primary key: unique per minifig
+  name              String
+  category_id       Int
+  image_url         String
+
+  // Cache metadata
+  cached_at         DateTime @default(now())
+  expires_at        DateTime // Cache for 30 days (minifig metadata rarely changes)
+
+  @@index([expires_at])
+}

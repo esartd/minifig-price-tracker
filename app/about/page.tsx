@@ -1,12 +1,33 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { minifigCatalog } from '@/lib/minifig-catalog';
+
+// Force dynamic rendering so catalog count updates without redeploying
+export const dynamic = 'force-dynamic';
+
+// Format catalog count for display (e.g., 7,798 → "nearly 8,000", 10,245 → "over 10,000")
+function formatCatalogCount(count: number): string {
+  if (count >= 10000) {
+    const rounded = Math.floor(count / 1000) * 1000;
+    return `over ${rounded.toLocaleString()}`;
+  } else if (count >= 8000) {
+    const rounded = Math.ceil(count / 1000) * 1000;
+    return `nearly ${rounded.toLocaleString()}`;
+  } else {
+    const rounded = Math.ceil(count / 1000) * 1000;
+    return `nearly ${rounded.toLocaleString()}`;
+  }
+}
+
+const catalogCount = minifigCatalog.length;
+const catalogCountText = formatCatalogCount(catalogCount);
 
 export const metadata: Metadata = {
   title: 'About FigTracker - Free LEGO Minifigure Price Tracker',
-  description: 'Learn how FigTracker helps LEGO resellers and collectors price minifigures accurately with real-time Bricklink marketplace data. Free to use, no ads.',
+  description: `Learn how FigTracker helps LEGO resellers and collectors price minifigures accurately with real-time Bricklink marketplace data. Search ${catalogCountText} minifigs. Free to use, no ads.`,
   openGraph: {
     title: 'About FigTracker - Free LEGO Minifigure Price Tracker',
-    description: 'Built by sellers, for sellers. Price your LEGO minifigures with confidence using real Bricklink data.',
+    description: `Built by sellers, for sellers. Price your LEGO minifigures with confidence using real Bricklink data. ${catalogCountText} minifigs in catalog.`,
     url: 'https://figtracker.com/about',
   },
   alternates: {
@@ -15,6 +36,8 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const catalogCount = minifigCatalog.length;
+  const catalogCountText = formatCatalogCount(catalogCount);
   return (
     <article className="min-h-screen" style={{ backgroundColor: '#fafafa' }}>
       {/* Hero Section */}
@@ -90,7 +113,7 @@ export default function AboutPage() {
                 </svg>
               </div>
               <h3>Instant Search</h3>
-              <p>Find any minifig by name, ID, or theme from nearly 8,000 entries. Results appear as you type. Zero lag.</p>
+              <p>Find any minifig by name, ID, or theme from {catalogCountText} entries. Results appear as you type. Zero lag.</p>
             </div>
 
             <div className="feature-card">

@@ -135,19 +135,17 @@
 
 .floating-emoji {
   position: absolute;
-  opacity: 0.15;
   animation: float 20s ease-in-out infinite;
   pointer-events: none;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  opacity: 0.2;
   transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
 .floating-emoji-reverse {
   position: absolute;
-  opacity: 0.15;
   animation: floatReverse 20s ease-in-out infinite;
   pointer-events: none;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  opacity: 0.2;
   transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
@@ -215,9 +213,82 @@
 @media (max-width: 480px) {
   .floating-emoji,
   .floating-emoji-reverse {
-    width: 40px !important;
-    height: 52px !important;
-    opacity: 0.1;
+    width: 38px !important;
+    height: 48px !important;
+    opacity: 0.12 !important;
+  }
+
+  /* Mobile-specific positioning - stick to extreme edges */
+  .floating-emoji:nth-child(1),
+  .floating-emoji-reverse:nth-child(1) {
+    top: 8% !important;
+    left: 2% !important;
+  }
+
+  .floating-emoji:nth-child(2),
+  .floating-emoji-reverse:nth-child(2) {
+    top: 8% !important;
+    left: 23% !important;
+  }
+
+  .floating-emoji:nth-child(3),
+  .floating-emoji-reverse:nth-child(3) {
+    top: 8% !important;
+    left: 68% !important;
+  }
+
+  .floating-emoji:nth-child(4),
+  .floating-emoji-reverse:nth-child(4) {
+    top: 8% !important;
+    left: 90% !important;
+  }
+
+  .floating-emoji:nth-child(5),
+  .floating-emoji-reverse:nth-child(5) {
+    top: 35% !important;
+    left: 92% !important;
+  }
+
+  .floating-emoji:nth-child(6),
+  .floating-emoji-reverse:nth-child(6) {
+    top: 65% !important;
+    left: 92% !important;
+  }
+
+  .floating-emoji:nth-child(7),
+  .floating-emoji-reverse:nth-child(7) {
+    top: 92% !important;
+    left: 90% !important;
+  }
+
+  .floating-emoji:nth-child(8),
+  .floating-emoji-reverse:nth-child(8) {
+    top: 92% !important;
+    left: 68% !important;
+  }
+
+  .floating-emoji:nth-child(9),
+  .floating-emoji-reverse:nth-child(9) {
+    top: 92% !important;
+    left: 23% !important;
+  }
+
+  .floating-emoji:nth-child(10),
+  .floating-emoji-reverse:nth-child(10) {
+    top: 92% !important;
+    left: 2% !important;
+  }
+
+  .floating-emoji:nth-child(11),
+  .floating-emoji-reverse:nth-child(11) {
+    top: 65% !important;
+    left: 1% !important;
+  }
+
+  .floating-emoji:nth-child(12),
+  .floating-emoji-reverse:nth-child(12) {
+    top: 35% !important;
+    left: 1% !important;
   }
 
   .fun-header-title {
@@ -252,9 +323,82 @@
 @media (min-width: 481px) and (max-width: 767px) {
   .floating-emoji,
   .floating-emoji-reverse {
-    width: 50px !important;
-    height: 65px !important;
-    opacity: 0.12;
+    width: 48px !important;
+    height: 60px !important;
+    opacity: 0.15 !important;
+  }
+
+  /* Standard phone positioning - stick to edges */
+  .floating-emoji:nth-child(1),
+  .floating-emoji-reverse:nth-child(1) {
+    top: 6% !important;
+    left: 2% !important;
+  }
+
+  .floating-emoji:nth-child(2),
+  .floating-emoji-reverse:nth-child(2) {
+    top: 5% !important;
+    left: 24% !important;
+  }
+
+  .floating-emoji:nth-child(3),
+  .floating-emoji-reverse:nth-child(3) {
+    top: 5% !important;
+    left: 66% !important;
+  }
+
+  .floating-emoji:nth-child(4),
+  .floating-emoji-reverse:nth-child(4) {
+    top: 6% !important;
+    left: 88% !important;
+  }
+
+  .floating-emoji:nth-child(5),
+  .floating-emoji-reverse:nth-child(5) {
+    top: 32% !important;
+    left: 91% !important;
+  }
+
+  .floating-emoji:nth-child(6),
+  .floating-emoji-reverse:nth-child(6) {
+    top: 65% !important;
+    left: 91% !important;
+  }
+
+  .floating-emoji:nth-child(7),
+  .floating-emoji-reverse:nth-child(7) {
+    top: 90% !important;
+    left: 88% !important;
+  }
+
+  .floating-emoji:nth-child(8),
+  .floating-emoji-reverse:nth-child(8) {
+    top: 91% !important;
+    left: 66% !important;
+  }
+
+  .floating-emoji:nth-child(9),
+  .floating-emoji-reverse:nth-child(9) {
+    top: 91% !important;
+    left: 24% !important;
+  }
+
+  .floating-emoji:nth-child(10),
+  .floating-emoji-reverse:nth-child(10) {
+    top: 90% !important;
+    left: 2% !important;
+  }
+
+  .floating-emoji:nth-child(11),
+  .floating-emoji-reverse:nth-child(11) {
+    top: 65% !important;
+    left: 2% !important;
+  }
+
+  .floating-emoji:nth-child(12),
+  .floating-emoji-reverse:nth-child(12) {
+    top: 32% !important;
+    left: 2% !important;
   }
 
   .fun-header-title {
@@ -284,8 +428,81 @@
   .floating-emoji,
   .floating-emoji-reverse {
     width: 65px !important;
-    height: 85px !important;
-    opacity: 0.14;
+    height: 81px !important;
+    opacity: 0.18 !important;
+  }
+
+  /* Tablet positioning - balanced edge distribution */
+  .floating-emoji:nth-child(1),
+  .floating-emoji-reverse:nth-child(1) {
+    top: 5% !important;
+    left: 3% !important;
+  }
+
+  .floating-emoji:nth-child(2),
+  .floating-emoji-reverse:nth-child(2) {
+    top: 4% !important;
+    left: 25% !important;
+  }
+
+  .floating-emoji:nth-child(3),
+  .floating-emoji-reverse:nth-child(3) {
+    top: 4% !important;
+    left: 65% !important;
+  }
+
+  .floating-emoji:nth-child(4),
+  .floating-emoji-reverse:nth-child(4) {
+    top: 5% !important;
+    left: 88% !important;
+  }
+
+  .floating-emoji:nth-child(5),
+  .floating-emoji-reverse:nth-child(5) {
+    top: 28% !important;
+    left: 90% !important;
+  }
+
+  .floating-emoji:nth-child(6),
+  .floating-emoji-reverse:nth-child(6) {
+    top: 62% !important;
+    left: 90% !important;
+  }
+
+  .floating-emoji:nth-child(7),
+  .floating-emoji-reverse:nth-child(7) {
+    top: 82% !important;
+    left: 88% !important;
+  }
+
+  .floating-emoji:nth-child(8),
+  .floating-emoji-reverse:nth-child(8) {
+    top: 83% !important;
+    left: 65% !important;
+  }
+
+  .floating-emoji:nth-child(9),
+  .floating-emoji-reverse:nth-child(9) {
+    top: 83% !important;
+    left: 25% !important;
+  }
+
+  .floating-emoji:nth-child(10),
+  .floating-emoji-reverse:nth-child(10) {
+    top: 82% !important;
+    left: 3% !important;
+  }
+
+  .floating-emoji:nth-child(11),
+  .floating-emoji-reverse:nth-child(11) {
+    top: 62% !important;
+    left: 3% !important;
+  }
+
+  .floating-emoji:nth-child(12),
+  .floating-emoji-reverse:nth-child(12) {
+    top: 28% !important;
+    left: 3% !important;
   }
 
   /* Show desktop nav on tablets */
@@ -314,6 +531,15 @@
 
 /* Desktop (1024px+) */
 @media (min-width: 1024px) {
+  .floating-emoji,
+  .floating-emoji-reverse {
+    width: 75px !important;
+    height: 94px !important;
+    opacity: 0.2 !important;
+  }
+
+  /* Desktop positioning - natural edge distribution (uses default from JS) */
+
   .desktop-nav {
     display: flex !important;
   }
@@ -336,11 +562,6 @@
   .hero-section {
     min-height: auto !important;
     padding: 60px 24px !important;
-  }
-
-  .floating-emoji,
-  .floating-emoji-reverse {
-    opacity: 0.08 !important;
   }
 }
 

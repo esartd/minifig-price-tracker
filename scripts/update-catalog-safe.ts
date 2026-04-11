@@ -27,6 +27,12 @@ interface Progress {
   lastCheckedTheme: string;
   totalAdded: number;
   lastRun: string;
+  exhaustedThemes: {
+    [themePrefix: string]: {
+      lastFullScan: string;  // ISO date when we finished checking 1 to max with 0 new finds
+      nextCheckDate: string;  // ISO date when to check again (30 days later)
+    }
+  };
 }
 
 const DAILY_LIMIT = 400; // Accelerated mode: 400 calls/day for catalog updates (still safe at <20% of total limit)
@@ -86,14 +92,25 @@ async function updateCatalogSafe() {
     lastCheckedId: '',
     lastCheckedTheme: '',
     totalAdded: 0,
-    lastRun: ''
+    lastRun: '',
+    exhaustedThemes: {}
   };
 
   if (fs.existsSync(progressPath)) {
     progress = JSON.parse(fs.readFileSync(progressPath, 'utf-8'));
+    // Ensure exhaustedThemes exists (for backwards compatibility)
+    if (!progress.exhaustedThemes) {
+      progress.exhaustedThemes = {};
+    }
     console.log(`📍 Resuming from: ${progress.lastCheckedId || 'start'}`);
     console.log(`   Last run: ${progress.lastRun}`);
-    console.log(`   Total added historically: ${progress.totalAdded}\n`);
+    console.log(`   Total added historically: ${progress.totalAdded}`);
+
+    const exhaustedCount = Object.keys(progress.exhaustedThemes).length;
+    if (exhaustedCount > 0) {
+      console.log(`   Exhausted themes: ${exhaustedCount} (skipping for 30 days)`);
+    }
+    console.log('');
   }
 
   const newEntries: CatalogEntry[] = [];
@@ -117,7 +134,21 @@ async function updateCatalogSafe() {
     const theme = THEMES[themeIdx];
     const startNum = themeIdx === startThemeIndex ? startId : 1;
 
+    // Skip themes that are exhausted and within 30-day wait period
+    if (progress.exhaustedThemes[theme.prefix]) {
+      const nextCheck = new Date(progress.exhaustedThemes[theme.prefix].nextCheckDate);
+      if (new Date() < nextCheck) {
+        console.log(`⏭️  Skipping ${theme.name} (exhausted, next check: ${nextCheck.toLocaleDateString()})`);
+        continue;
+      } else {
+        // 30 days passed, remove from exhausted list and check again
+        console.log(`🔄 Re-checking ${theme.name} (30 days since last full scan)`);
+        delete progress.exhaustedThemes[theme.prefix];
+      }
+    }
+
     console.log(`🔍 Checking ${theme.name} (${theme.prefix})...`);
+    let foundInThisTheme = 0;
 
     for (let i = startNum; i <= theme.max; i++) {
       if (checked >= DAILY_LIMIT) {
@@ -148,6 +179,7 @@ async function updateCatalogSafe() {
             keywords: keywords
           });
           found++;
+          foundInThisTheme++;
           existingIds.add(minifig.no);
         }
 
@@ -166,13 +198,25 @@ async function updateCatalogSafe() {
       await new Promise(resolve => setTimeout(resolve, 3000));
     }
 
-    console.log(`\n✅ ${theme.name} section complete`);
+    // Mark theme as exhausted if we completed full scan (1 to max) with 0 new finds
+    if (startNum === 1 && foundInThisTheme === 0 && checked < DAILY_LIMIT) {
+      const now = new Date();
+      const nextCheck = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
+      progress.exhaustedThemes[theme.prefix] = {
+        lastFullScan: now.toISOString(),
+        nextCheckDate: nextCheck.toISOString()
+      };
+      console.log(`\n✅ ${theme.name} section complete (exhausted - no new minifigs, will re-check ${nextCheck.toLocaleDateString()})`);
+    } else {
+      console.log(`\n✅ ${theme.name} section complete (found ${foundInThisTheme} new)`);
+    }
   }
 
   console.log(`\n\n📊 Session complete:`);
   console.log(`   New minifigs found: ${found}`);
   console.log(`   IDs checked: ${checked}/${DAILY_LIMIT}`);
-  console.log(`   Total catalog size: ${existingIds.size}\n`);
+  console.log(`   Total catalog size: ${existingIds.size}`);
+  console.log(`   Exhausted themes: ${Object.keys(progress.exhaustedThemes).length} (skipping for 30 days)\n`);
 
   if (newEntries.length > 0) {
     // Load current catalog and merge
