@@ -35,11 +35,10 @@ export const metadata: Metadata = {
     description: 'Free LEGO minifigure price tracker with real-time Bricklink data. Get instant suggested prices and manage your collection.',
     images: [
       {
-        url: '/og-image.svg',
+        url: '/api/og',
         width: 1200,
         height: 630,
         alt: 'FigTracker - LEGO Minifigure Price Tracker',
-        type: 'image/svg+xml',
       },
     ],
   },
@@ -47,7 +46,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'FigTracker - LEGO Minifigure Price Tracker',
     description: 'Free LEGO minifigure price tracker with real-time Bricklink data.',
-    images: ['/og-image.svg'],
+    images: ['/api/og'],
   },
   icons: {
     icon: '/favicon.svg',
