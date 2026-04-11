@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://figtracker.vercel.app'
+  const baseUrl = 'https://figtracker.ericksu.com'
 
   return [
     {

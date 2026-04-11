@@ -5,14 +5,14 @@ import AuthProvider from '@/components/session-provider'
 import { Analytics } from '@vercel/analytics/react'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://figtracker.vercel.app'),
+  metadataBase: new URL('https://figtracker.ericksu.com'),
   title: {
     default: 'FigTracker - LEGO Minifigure Price Tracker & Inventory Management',
     template: '%s | FigTracker'
   },
   description: 'Free LEGO minifigure price tracker with real-time Bricklink marketplace data. Get instant suggested prices, track your inventory, and manage your collection with 8,000+ minifigs.',
   keywords: ['LEGO minifigure prices', 'Bricklink price tracker', 'LEGO inventory', 'minifig value', 'LEGO reseller tool', 'Bricklink marketplace', 'LEGO price guide', 'minifigure collection tracker'],
-  authors: [{ name: 'FigTracker', url: 'https://figtracker.vercel.app' }],
+  authors: [{ name: 'FigTracker', url: 'https://figtracker.ericksu.com' }],
   creator: 'FigTracker',
   publisher: 'FigTracker',
   robots: {
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://figtracker.vercel.app',
+    url: 'https://figtracker.ericksu.com',
     siteName: 'FigTracker',
     title: 'FigTracker - LEGO Minifigure Price Tracker & Inventory Management',
     description: 'Free LEGO minifigure price tracker with real-time Bricklink data. Get instant suggested prices and manage your collection.',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     apple: '/favicon.svg',
   },
   alternates: {
-    canonical: 'https://figtracker.vercel.app',
+    canonical: 'https://figtracker.ericksu.com',
   },
 }
 
@@ -73,7 +73,7 @@ export default function RootLayout({
     '@type': 'WebApplication',
     name: 'FigTracker',
     description: 'Free LEGO minifigure price tracker with real-time Bricklink marketplace data',
-    url: 'https://figtracker.vercel.app',
+    url: 'https://figtracker.ericksu.com',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Any',
     offers: {
