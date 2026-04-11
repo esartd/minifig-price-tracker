@@ -120,28 +120,28 @@ function SearchPageContent() {
   return (
     <div className="min-h-screen" style={{
       overflowX: 'hidden',
-      backgroundColor: isSearchActive ? '#fafafa' : 'transparent',
-      background: isSearchActive ? '#fafafa' : 'linear-gradient(135deg, #005C97 0%, #363795 100%)',
+      backgroundColor: '#ffffff',
+      background: '#ffffff',
       position: 'relative',
       transition: 'background 0.4s ease-out'
     }}>
-      {/* Floating Background Minifigures - Star Wars Favorites */}
+      {/* Floating Background Minifigures */}
       <>
-        {/* Top Left - Darth Vader & Boba Fett */}
-        <img src="https://img.bricklink.com/ItemImage/MN/0/sw0209.png" alt="" className={`floating-emoji ${isSearchActive ? 'hidden' : ''}`} style={{ top: '12%', left: '8%', animationDelay: '0s', width: '80px', height: '100px', objectFit: 'contain' }} />
-        <img src="https://img.bricklink.com/ItemImage/MN/0/sw0539.png" alt="" className={`floating-emoji-reverse ${isSearchActive ? 'hidden' : ''}`} style={{ top: '35%', left: '15%', animationDelay: '2.5s', width: '70px', height: '90px', objectFit: 'contain' }} />
+        {/* Top Left */}
+        <img src="https://img.bricklink.com/ItemImage/MN/0/sw0107.png" alt="" className={`floating-emoji ${isSearchActive ? 'hidden' : ''}`} style={{ top: '12%', left: '8%', animationDelay: '0s', width: '80px', height: '100px', objectFit: 'contain' }} />
+        <img src="https://img.bricklink.com/ItemImage/MN/0/sw0105.png" alt="" className={`floating-emoji-reverse ${isSearchActive ? 'hidden' : ''}`} style={{ top: '35%', left: '15%', animationDelay: '2.5s', width: '70px', height: '90px', objectFit: 'contain' }} />
 
-        {/* Bottom Left - Luke Skywalker & Yoda */}
-        <img src="https://img.bricklink.com/ItemImage/MN/0/sw0778.png" alt="" className={`floating-emoji ${isSearchActive ? 'hidden' : ''}`} style={{ top: '65%', left: '10%', animationDelay: '1.5s', width: '75px', height: '95px', objectFit: 'contain' }} />
-        <img src="https://img.bricklink.com/ItemImage/MN/0/sw0011a.png" alt="" className={`floating-emoji-reverse ${isSearchActive ? 'hidden' : ''}`} style={{ top: '85%', left: '5%', animationDelay: '4s', width: '70px', height: '90px', objectFit: 'contain' }} />
+        {/* Bottom Left */}
+        <img src="https://img.bricklink.com/ItemImage/MN/0/sw0103.png" alt="" className={`floating-emoji ${isSearchActive ? 'hidden' : ''}`} style={{ top: '65%', left: '10%', animationDelay: '1.5s', width: '75px', height: '95px', objectFit: 'contain' }} />
+        <img src="https://img.bricklink.com/ItemImage/MN/0/sw0413.png" alt="" className={`floating-emoji-reverse ${isSearchActive ? 'hidden' : ''}`} style={{ top: '85%', left: '5%', animationDelay: '4s', width: '70px', height: '90px', objectFit: 'contain' }} />
 
-        {/* Top Right - Princess Leia & Darth Maul */}
-        <img src="https://img.bricklink.com/ItemImage/MN/0/sw0341.png" alt="" className={`floating-emoji-reverse ${isSearchActive ? 'hidden' : ''}`} style={{ top: '15%', right: '10%', animationDelay: '1s', width: '75px', height: '95px', objectFit: 'contain' }} />
-        <img src="https://img.bricklink.com/ItemImage/MN/0/sw0421.png" alt="" className={`floating-emoji ${isSearchActive ? 'hidden' : ''}`} style={{ top: '38%', right: '12%', animationDelay: '3.5s', width: '70px', height: '90px', objectFit: 'contain' }} />
+        {/* Top Right */}
+        <img src="https://img.bricklink.com/ItemImage/MN/0/sw0053.png" alt="" className={`floating-emoji-reverse ${isSearchActive ? 'hidden' : ''}`} style={{ top: '15%', right: '10%', animationDelay: '1s', width: '75px', height: '95px', objectFit: 'contain' }} />
+        <img src="https://img.bricklink.com/ItemImage/MN/0/sw0547.png" alt="" className={`floating-emoji ${isSearchActive ? 'hidden' : ''}`} style={{ top: '38%', right: '12%', animationDelay: '3.5s', width: '70px', height: '90px', objectFit: 'contain' }} />
 
-        {/* Bottom Right - Han Solo & Stormtrooper */}
-        <img src="https://img.bricklink.com/ItemImage/MN/0/sw0626.png" alt="" className={`floating-emoji-reverse ${isSearchActive ? 'hidden' : ''}`} style={{ top: '62%', right: '8%', animationDelay: '2s', width: '80px', height: '100px', objectFit: 'contain' }} />
-        <img src="https://img.bricklink.com/ItemImage/MN/0/sw0585.png" alt="" className={`floating-emoji ${isSearchActive ? 'hidden' : ''}`} style={{ top: '80%', right: '15%', animationDelay: '3s', width: '75px', height: '95px', objectFit: 'contain' }} />
+        {/* Bottom Right */}
+        <img src="https://img.bricklink.com/ItemImage/MN/0/sw0315.png" alt="" className={`floating-emoji-reverse ${isSearchActive ? 'hidden' : ''}`} style={{ top: '62%', right: '8%', animationDelay: '2s', width: '80px', height: '100px', objectFit: 'contain' }} />
+        <img src="https://img.bricklink.com/ItemImage/MN/0/sw0387.png" alt="" className={`floating-emoji ${isSearchActive ? 'hidden' : ''}`} style={{ top: '80%', right: '15%', animationDelay: '3s', width: '75px', height: '95px', objectFit: 'contain' }} />
       </>
 
       <section className="fun-search-content"
@@ -154,7 +154,8 @@ function SearchPageContent() {
           paddingTop: isSearchActive ? '60px' : '0px',
           paddingBottom: isSearchActive ? '80px' : '0px',
           transition: 'all 0.4s ease-out',
-          width: '100%'
+          width: '100%',
+          backgroundColor: isSearchActive ? '#fafafa' : 'transparent'
         }}>
         <div className="search-page-container" style={{
           width: '100%',
@@ -175,7 +176,11 @@ function SearchPageContent() {
                 fontWeight: '600',
                 letterSpacing: '-0.02em',
                 lineHeight: '1.1',
-                marginBottom: '20px'
+                marginBottom: '20px',
+                background: 'linear-gradient(135deg, #005C97 0%, #363795 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
               }}>
                 Track Prices. Sell Smarter.
               </h1>
@@ -184,7 +189,7 @@ function SearchPageContent() {
                 lineHeight: '1.6',
                 maxWidth: '600px',
                 margin: '0 auto',
-                color: 'rgba(255, 255, 255, 0.95)'
+                color: '#171717'
               }}>
                 Know what your minifigs are worth
               </p>

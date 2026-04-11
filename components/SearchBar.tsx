@@ -82,36 +82,39 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
       maxWidth: '100%',
       boxSizing: 'border-box'
     }}>
-      {/* Search Input Container */}
+      {/* Search Input Container - Google Style */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
         gap: '12px',
         width: '100%',
-        height: '64px',
-        padding: '0 24px',
-        backgroundColor: 'rgba(255, 255, 255, 0.98)',
-        backdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255, 255, 255, 0.3)',
-        borderRadius: '16px',
+        height: '48px',
+        padding: '0 16px',
+        backgroundColor: '#ffffff',
+        border: '1px solid #dfe1e5',
+        borderRadius: '24px',
         boxSizing: 'border-box',
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
-        transition: 'all 0.3s cubic-bezier(0.14, 1, 0.34, 1)',
+        boxShadow: 'none',
+        transition: 'box-shadow 200ms',
         opacity: loading ? 0.7 : 1
       }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = '0 1px 6px rgba(32,33,36,.28)';
+      }}
+      onMouseLeave={(e) => {
+        if (document.activeElement !== e.currentTarget.querySelector('input')) {
+          e.currentTarget.style.boxShadow = 'none';
+        }
+      }}
       onFocus={(e) => {
-        e.currentTarget.style.borderColor = 'rgba(0, 92, 151, 0.3)';
-        e.currentTarget.style.boxShadow = '0 12px 48px rgba(0, 92, 151, 0.2), 0 0 0 3px rgba(0, 92, 151, 0.1)';
-        e.currentTarget.style.transform = 'translateY(-2px)';
+        e.currentTarget.style.boxShadow = '0 1px 6px rgba(32,33,36,.28)';
       }}
       onBlur={(e) => {
-        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-        e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.12)';
-        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.boxShadow = 'none';
       }}
       >
-        {/* Search Icon - Fixed 24px */}
-        <svg style={{ width: '24px', height: '24px', flexShrink: 0, color: '#005C97' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+        {/* Search Icon - Fixed 20px */}
+        <svg style={{ width: '20px', height: '20px', flexShrink: 0, color: '#9aa0a6' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
 
@@ -128,47 +131,45 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
             flex: 1,
             border: 'none',
             outline: 'none',
-            fontSize: '17px',
-            fontWeight: '500',
-            color: '#171717',
+            fontSize: '16px',
+            fontWeight: '400',
+            color: '#202124',
             backgroundColor: 'transparent',
             padding: 0
           }}
         />
 
-        {/* Clear button (X) - Perfect circle */}
+        {/* Clear button (X) - Google Style */}
         {searchQuery && (
           <button
             onClick={handleClear}
             className="search-clear-btn"
             style={{
-              width: '24px',
-              height: '24px',
-              minWidth: '24px',
-              minHeight: '24px',
+              width: '20px',
+              height: '20px',
+              minWidth: '20px',
+              minHeight: '20px',
               flexShrink: 0,
               borderRadius: '50%',
-              backgroundColor: 'rgba(0, 92, 151, 0.1)',
+              backgroundColor: 'transparent',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               padding: 0,
               border: 'none',
               cursor: 'pointer',
-              transition: 'all 0.2s',
+              transition: 'background-color 0.15s',
               boxSizing: 'border-box'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(0, 92, 151, 0.2)';
-              e.currentTarget.style.transform = 'scale(1.1)';
+              e.currentTarget.style.backgroundColor = '#f1f3f4';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(0, 92, 151, 0.1)';
-              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.backgroundColor = 'transparent';
             }}
           >
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-              <path d="M8 2L2 8M2 2L8 8" stroke="#005C97" strokeWidth="2" strokeLinecap="round" />
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="#70757a"/>
             </svg>
           </button>
         )}
