@@ -117,3 +117,21 @@ model ApiCallTracker {
 
   @@index([date])
 }
+
+model PriceHistory {
+  id                String   @id @default(uuid())
+  minifigure_no     String
+  condition         String   // 'new' or 'used'
+
+  // Historical pricing data
+  six_month_avg     Float
+  current_avg       Float
+  current_lowest    Float
+  suggested_price   Float
+
+  // Timestamp for this snapshot
+  recorded_at       DateTime @default(now())
+
+  @@index([minifigure_no, condition])
+  @@index([recorded_at])
+}

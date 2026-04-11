@@ -226,6 +226,7 @@ export default function AccountPage() {
 
       // Update session without signing out (like Google/Apple)
       await update({ image: avatar });
+      router.refresh(); // Refresh server components to show new avatar in header
 
       showMessage('success', 'Avatar updated!');
       setLoading(false);

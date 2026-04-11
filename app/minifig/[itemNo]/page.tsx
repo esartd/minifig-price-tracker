@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import AddToCollectionForm from '@/components/search/AddToCollectionForm';
+import PriceHistoryChart from '@/components/PriceHistoryChart';
 
 interface MinifigPageProps {
   params: Promise<{
@@ -645,6 +646,21 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                   </div>
                 )}
               </div>
+
+              {/* Price History Chart - Only show if user has this item in collection */}
+              {collectionItem && (
+                <>
+                  <div style={{
+                    height: '1px',
+                    background: '#e5e5e5',
+                    marginTop: '24px',
+                    marginBottom: '24px'
+                  }}></div>
+                  <div style={{ marginBottom: '24px' }}>
+                    <PriceHistoryChart minifigure_no={minifig.no} condition="new" />
+                  </div>
+                </>
+              )}
 
               {/* Divider */}
               <div style={{
