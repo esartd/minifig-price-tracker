@@ -12,8 +12,6 @@ export default function CollectionPage() {
   const router = useRouter();
   const [collection, setCollection] = useState<CollectionItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
-  const [refreshProgress, setRefreshProgress] = useState({ current: 0, total: 0, itemName: '' });
   const [sortOrder, setSortOrder] = useState<'default' | 'price-high' | 'price-low' | 'id'>('price-high');
   const [showDecimals, setShowDecimals] = useState(false);
 
@@ -71,43 +69,6 @@ export default function CollectionPage() {
       }
     } catch (error) {
       console.error('Error updating item:', error);
-    }
-  };
-
-  const handleRefreshPricing = async () => {
-    setRefreshing(true);
-    setRefreshProgress({ current: 0, total: collection.length, itemName: 'Checking cache...' });
-
-    try {
-      const response = await fetch('/api/inventory/refresh-pricing', {
-        method: 'POST',
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        // If items were refreshed, reload the collection
-        if (data.refreshed > 0) {
-          await loadCollection();
-        }
-
-        // Show result message
-        if (data.refreshed === 0) {
-          alert(`✓ All prices are up to date!\n\nAll ${data.total} items were refreshed within the last 24 hours.`);
-        } else if (data.skipped > 0) {
-          alert(`✓ Refresh complete!\n\n${data.refreshed} items updated\n${data.skipped} already current (< 24 hours old)`);
-        } else {
-          alert(`✓ Refresh complete!\n\nAll ${data.refreshed} items updated with latest prices.`);
-        }
-      } else {
-        alert(`Error: ${data.error || 'Failed to refresh prices'}`);
-      }
-    } catch (error) {
-      console.error('Error refreshing pricing:', error);
-      alert('Failed to refresh prices. Please try again.');
-    } finally {
-      setRefreshing(false);
-      setRefreshProgress({ current: 0, total: 0, itemName: '' });
     }
   };
 
@@ -443,78 +404,9 @@ export default function CollectionPage() {
                 >
                   {showDecimals ? '.00' : '.0'}
                 </button>
-                <button
-                  onClick={handleRefreshPricing}
-                  disabled={refreshing}
-                  style={{
-                    flex: '0 0 auto',
-                    padding: '14px 20px',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    color: refreshing ? '#a3a3a3' : '#737373',
-                    background: '#f5f5f5',
-                    border: '1px solid #e5e5e5',
-                    borderRadius: '8px',
-                    cursor: refreshing ? 'not-allowed' : 'pointer',
-                    transition: 'all 0.2s',
-                    outline: 'none',
-                    boxSizing: 'border-box',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px',
-                    whiteSpace: 'nowrap'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!refreshing) {
-                      e.currentTarget.style.background = '#e5e5e5';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!refreshing) {
-                      e.currentTarget.style.background = '#f5f5f5';
-                    }
-                  }}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                    <polyline points="23 4 23 10 17 10"></polyline>
-                    <polyline points="1 20 1 14 7 14"></polyline>
-                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-                  </svg>
-                  {refreshing ? 'Refreshing...' : 'Refresh Prices'}
-                </button>
               </div>
             )}
           </div>
-
-          {refreshing && (
-            <div style={{
-              marginBottom: '32px',
-              padding: '20px 24px',
-              background: '#eff6ff',
-              border: '1px solid #bfdbfe',
-              borderRadius: '12px'
-            }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                color: '#1e40af'
-              }}>
-                <div style={{
-                  width: '20px',
-                  height: '20px',
-                  border: '2px solid #1e40af',
-                  borderTop: '2px solid transparent',
-                  borderRadius: '50%',
-                  animation: 'spin 1s linear infinite'
-                }}></div>
-                <span style={{ fontWeight: '500', fontSize: '15px' }}>
-                  {refreshProgress.itemName || 'Checking for stale prices...'}
-                </span>
-              </div>
-            </div>
-          )}
 
           {collection.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '60px 0' }}>

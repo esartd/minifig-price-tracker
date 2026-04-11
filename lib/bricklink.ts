@@ -297,9 +297,9 @@ export class BricklinkAPI {
       suggestedPrice: parseFloat(suggestedPrice.toFixed(2)),
     };
 
-    // Store in cache with 24 hour expiration (prices don't change rapidly)
+    // Store in cache with 7 day expiration (LEGO prices are stable)
     const expiresAt = new Date();
-    expiresAt.setHours(expiresAt.getHours() + 24);
+    expiresAt.setDate(expiresAt.getDate() + 7);
 
     await prisma.priceCache.upsert({
       where: {
