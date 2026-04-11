@@ -224,12 +224,11 @@ export default function AccountPage() {
       setSelectedAvatar(avatar);
       setShowAvatarPicker(false);
 
-      // Sign out and redirect to sign in to get fresh session with new avatar
-      showMessage('success', 'Avatar updated! Please sign in again...');
+      // Update session without signing out (like Google/Apple)
+      await update({ image: avatar });
 
-      setTimeout(async () => {
-        await signOut({ redirectTo: '/auth/signin' });
-      }, 1000);
+      showMessage('success', 'Avatar updated!');
+      setLoading(false);
 
     } catch (error) {
       console.error('Avatar update error:', error);
