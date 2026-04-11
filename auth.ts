@@ -50,7 +50,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt"
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       // On initial sign in, set user data from database
       if (user) {
         token.id = user.id
@@ -58,7 +58,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.email = user.email
         token.picture = user.image
       }
-      // Don't query database here - causes Edge Runtime errors
+
+      // When session is updated (e.g., avatar change), update token
+      if (trigger === "update" && session?.image) {
+        token.picture = session.image
+      }
+
       return token
     },
     async session({ session, token }) {
