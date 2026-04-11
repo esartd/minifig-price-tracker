@@ -1,8 +1,8 @@
 /**
  * SAFE Incremental Catalog Update
  *
- * Adds 100 NEW minifigs per day to stay well under Bricklink's 5,000 call/day limit.
- * Reserves 4,900 calls/day for user activity (pricing lookups, search).
+ * Adds 400 NEW minifigs per day to stay well under Bricklink's 5,000 call/day limit.
+ * Reserves 4,600 calls/day for user activity (pricing lookups, search).
  *
  * Progress is saved after each successful addition.
  * Resumes from where it left off on next run.
@@ -29,7 +29,7 @@ interface Progress {
   lastRun: string;
 }
 
-const DAILY_LIMIT = 100; // Conservative: only 100 calls/day for catalog updates
+const DAILY_LIMIT = 400; // Accelerated mode: 400 calls/day for catalog updates (still safe at <20% of total limit)
 
 // All themes to check (ordered by popularity)
 const THEMES = [

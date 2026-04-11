@@ -3,8 +3,8 @@ name: Daily Catalog Update (Safe Mode)
 on:
   schedule:
     # Runs at 2am UTC every day
-    # Only adds 100 new minifigs/day (well under 5,000 call limit)
-    # Reserves 4,900 calls for user activity
+    # Adds 400 new minifigs/day (accelerated mode, still <20% of 5,000 call limit)
+    # Reserves 4,600 calls for user activity and price refreshes
     - cron: '0 2 * * *'
   workflow_dispatch: # Allows manual triggering from GitHub UI
 
