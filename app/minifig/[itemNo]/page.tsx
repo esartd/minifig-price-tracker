@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import Script from 'next/script';
 import AddToCollectionForm from '@/components/search/AddToCollectionForm';
 import PriceHistoryChart from '@/components/PriceHistoryChart';
 
@@ -350,8 +351,40 @@ export default function MinifigPage({ params }: MinifigPageProps) {
     );
   }
 
+  // Generate Product schema JSON-LD
+  const productSchema = minifig && pricing.suggestedPrice > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: minifig.name,
+    description: `LEGO Minifigure ${minifig.name} (${minifig.no})`,
+    image: minifig.image_url || '',
+    sku: minifig.no,
+    brand: {
+      '@type': 'Brand',
+      name: 'LEGO',
+    },
+    offers: {
+      '@type': 'AggregateOffer',
+      priceCurrency: 'USD',
+      lowPrice: pricing.currentLowest.toFixed(2),
+      highPrice: pricing.sixMonthAverage.toFixed(2),
+      offerCount: '1',
+      availability: 'https://schema.org/InStock',
+      url: `https://figtracker.ericksu.com/minifig/${minifig.no}`,
+    },
+  } : null;
+
   return (
     <div className="min-h-screen minifig-detail-page" style={{ backgroundColor: '#fafafa', overflowX: 'hidden', paddingBottom: '80px' }}>
+      {/* Product Schema JSON-LD */}
+      {productSchema && (
+        <Script
+          id="product-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+        />
+      )}
+
       {/* Back Button - positioned just below navigation */}
       <div className="minifig-back-button-wrapper" style={{ padding: '0 16px' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', paddingTop: '16px' }}>

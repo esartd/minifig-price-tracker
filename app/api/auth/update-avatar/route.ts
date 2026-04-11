@@ -23,15 +23,9 @@ export async function POST(request: Request) {
     }
 
     // Update user avatar in database
-    const updatedUser = await prisma.user.update({
+    await prisma.user.update({
       where: { email: session.user.email },
       data: { image: avatar },
-    });
-
-    console.log('✓ Avatar updated in database:', {
-      email: session.user.email,
-      newAvatar: avatar,
-      dbImage: updatedUser.image
     });
 
     return NextResponse.json({

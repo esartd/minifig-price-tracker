@@ -129,13 +129,10 @@ export default function AccountPage() {
             const totalValue = items.reduce((sum: number, item: any) => {
               const price = item.pricing?.suggestedPrice || item.suggestedPrice || 0;
               const qty = item.quantity || 1;
-              console.log(`Item: ${item.minifigure_no}, Price: $${price}, Qty: ${qty}, Subtotal: $${price * qty}`);
               return sum + (price * qty);
             }, 0);
 
             const totalItems = items.reduce((sum: number, item: any) => sum + (item.quantity || 1), 0);
-
-            console.log(`Total Items: ${totalItems}, Total Value: $${totalValue.toFixed(2)}`);
 
             setStats({
               totalItems: totalItems,
