@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   creator: 'FigTracker',
   publisher: 'FigTracker',
   verification: {
-    google: 'google4cb0f4f6d8842b29',
+    google: 'Q_SG-OFVZAL1wgpz58lt_DRWEOa0lSN_ISMhFg6TpuE',
   },
   robots: {
     index: true,
