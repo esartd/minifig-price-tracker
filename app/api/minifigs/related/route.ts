@@ -4,8 +4,8 @@ import { prisma } from '@/lib/prisma';
 /**
  * COMPLIANT RELATED MINIFIGS
  *
- * Shows related minifigs from the user-driven cache only.
- * No systematic enumeration - only items users have searched for.
+ * Shows related minifigs from the full catalog.
+ * Uses downloaded BrickLink catalog data (not API enumeration).
  */
 
 export async function GET(request: NextRequest) {
@@ -20,27 +20,22 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Find current minifig in cache
-    const currentMinifig = await prisma.minifigCache.findUnique({
+    // Find current minifig in catalog
+    const currentMinifig = await prisma.minifigCatalog.findUnique({
       where: { minifigure_no: itemNo.toLowerCase() }
     });
 
     if (!currentMinifig) {
-      // No cached data - return empty results
       return NextResponse.json({
         success: true,
         variants: [],
-        themeMinifigs: [],
-        message: 'Related minifigs will appear as more items are searched'
+        themeMinifigs: []
       });
     }
 
-    // Extract character name (text before first comma or dash)
-    const characterName = currentMinifig.name
-      .split(/[,\-()]/)[0]
-      .trim()
-      .replace(/\s+\b(with|without|printed|legs|torso|arms|dual|sided|face)\b.*$/i, '')
-      .toLowerCase();
+    // Extract character name (remove theme prefix, then take text before comma)
+    const withoutTheme = currentMinifig.name.replace(/^[^-]+-\s*/, '');
+    const characterName = withoutTheme.split(',')[0].trim().toLowerCase();
 
     // Extract theme prefix
     const themePrefix = itemNo.match(/^[a-z]+/i)?.[0]?.toLowerCase() || '';
@@ -49,64 +44,60 @@ export async function GET(request: NextRequest) {
     const currentNum = parseInt(itemNo.match(/\d+/)?.[0] || '0');
     const idRange = 50; // Look for minifigs within ±50 IDs
 
-    // Get all cached minifigs from same theme
-    const cachedMinifigs = await prisma.minifigCache.findMany({
+    // Get character variants (same character name, same category)
+    const variantResults = await prisma.minifigCatalog.findMany({
       where: {
-        expires_at: { gt: new Date() },
-        minifigure_no: {
-          not: itemNo.toLowerCase(),
-          startsWith: themePrefix
-        }
+        AND: [
+          { minifigure_no: { not: itemNo.toLowerCase() } },
+          { search_name: { contains: characterName } },
+          { category_id: currentMinifig.category_id }
+        ]
       },
-      orderBy: { last_searched_at: 'desc' },
-      take: 50
+      orderBy: { year_released: 'desc' },
+      take: 12
     });
 
-    // Find variants (same character) and theme minifigs (same theme, nearby ID)
-    const variants: any[] = [];
-    const themeMinifigs: any[] = [];
+    // Get theme minifigs (same theme prefix, nearby ID number)
+    const minId = Math.max(1, currentNum - idRange);
+    const maxId = currentNum + idRange;
 
-    cachedMinifigs.forEach(minifig => {
-      // Extract character name from this minifig
-      const mCharName = minifig.name
-        .split(/[,\-()]/)[0]
-        .trim()
-        .toLowerCase();
+    const themeResults = await prisma.minifigCatalog.findMany({
+      where: {
+        AND: [
+          { minifigure_no: { not: itemNo.toLowerCase() } },
+          { minifigure_no: { startsWith: themePrefix } },
+          { category_id: currentMinifig.category_id }
+        ]
+      },
+      take: 100
+    });
 
-      // Check if it's the same character
-      if (mCharName === characterName) {
-        variants.push({
-          no: minifig.minifigure_no,
-          name: minifig.name,
-          image_url: minifig.image_url
-        });
-      } else {
-        // For theme minifigs, only include if within ID range
+    // Filter by ID range and calculate distance
+    const themeMinifigs = themeResults
+      .map(minifig => {
         const mNum = parseInt(minifig.minifigure_no.match(/\d+/)?.[0] || '0');
         const distance = Math.abs(mNum - currentNum);
+        return {
+          no: minifig.minifigure_no,
+          name: minifig.name,
+          image_url: `https://img.bricklink.com/ItemImage/MN/0/${minifig.minifigure_no}.png`,
+          distance
+        };
+      })
+      .filter(m => m.distance > 0 && m.distance <= idRange)
+      .sort((a, b) => a.distance - b.distance)
+      .slice(0, 12);
 
-        if (distance <= idRange) {
-          themeMinifigs.push({
-            no: minifig.minifigure_no,
-            name: minifig.name,
-            image_url: minifig.image_url,
-            distance: distance
-          });
-        }
-      }
-    });
-
-    // Sort theme minifigs by proximity to current ID (closest first)
-    themeMinifigs.sort((a, b) => a.distance - b.distance);
-
-    // Limit results
-    const limitedVariants = variants.slice(0, 6);
-    const limitedTheme = themeMinifigs.slice(0, 6);
+    const variants = variantResults.map(m => ({
+      no: m.minifigure_no,
+      name: m.name,
+      image_url: `https://img.bricklink.com/ItemImage/MN/0/${m.minifigure_no}.png`
+    }));
 
     return NextResponse.json({
       success: true,
-      variants: limitedVariants,
-      themeMinifigs: limitedTheme
+      variants: variants,
+      themeMinifigs: themeMinifigs
     });
   } catch (error) {
     console.error('Error fetching related minifigs:', error);
