@@ -13,6 +13,18 @@
   --apple-gray-900: #1d1d1f;
   --apple-blue: #005C97;
   --apple-blue-hover: #004a7a;
+
+  /* 8px grid spacing system */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-7: 56px;
+  --space-8: 64px;
+  --space-9: 72px;
+  --space-10: 80px;
 }
 
 @layer base {
