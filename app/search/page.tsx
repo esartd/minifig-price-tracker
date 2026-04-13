@@ -99,6 +99,7 @@ function SearchPageContent() {
   const [searchResult, setSearchResult] = useState<any>(null);
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
   const [categoryId, setCategoryId] = useState<string | null>(searchParams.get('category'));
+  const [subcategory, setSubcategory] = useState<string | null>(searchParams.get('subcategory'));
   const [categoryName, setCategoryName] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
@@ -113,13 +114,17 @@ function SearchPageContent() {
     setMinifigPositions(generateFireworkPositions(12));
   }, []);
 
-  // Load category browsing on mount if category param exists
+  // Load category/subcategory browsing on mount
   useEffect(() => {
     const category = searchParams.get('category');
-    if (category && !searchParams.get('q')) {
-      setCategoryId(category);
+    const sub = searchParams.get('subcategory');
+    const q = searchParams.get('q');
+
+    if ((category || sub) && !q) {
+      if (sub) setSubcategory(sub);
+      if (category) setCategoryId(category);
       setLoading(true);
-      performSearch('', category);
+      performSearch('', category, sub);
     }
   }, []);
 
@@ -138,7 +143,7 @@ function SearchPageContent() {
       setLoading(true);
       setHasSearched(false);
       debounceTimer.current = setTimeout(() => {
-        performSearch(searchQuery, categoryId);
+        performSearch(searchQuery, categoryId, subcategory);
       }, 50); // Very minimal debounce for instant feel
     } else {
       setSearchResults([]);
@@ -159,12 +164,38 @@ function SearchPageContent() {
     const params = new URLSearchParams();
     if (searchQuery) params.set('q', searchQuery);
     if (categoryId) params.set('category', categoryId);
+    if (subcategory) params.set('subcategory', subcategory);
 
     const queryString = params.toString();
     router.push(`/search${queryString ? '?' + queryString : ''}`, { scroll: false });
-  }, [searchQuery, categoryId]);
+  }, [searchQuery, categoryId, subcategory]);
 
-  const performSearch = async (term: string, category: string | null = null) => {
+  const performSearch = async (term: string, category: string | null = null, sub: string | null = null) => {
+    // Subcategory-only browsing (no search term)
+    if (!term && sub) {
+      try {
+        const response = await fetch(`/api/minifigs/search?subcategory=${encodeURIComponent(sub)}`);
+        const data = await response.json();
+
+        if (data.success && data.data.length > 0) {
+          setSearchResults(data.data);
+          setSearchResult(null);
+          setCategoryName(data.category || '');
+        } else {
+          setSearchResults([]);
+          setSearchResult(null);
+        }
+      } catch (error) {
+        console.error('Subcategory browse failed:', error);
+        setSearchResults([]);
+        setSearchResult(null);
+      } finally {
+        setLoading(false);
+        setHasSearched(true);
+      }
+      return;
+    }
+
     // Category-only browsing (no search term)
     if (!term && category) {
       try {
@@ -352,8 +383,8 @@ function SearchPageContent() {
             />
           </div>
 
-          {/* Category Browsing Header */}
-          {categoryId && categoryName && !searchQuery && (
+          {/* Category/Subcategory Browsing Header */}
+          {(categoryId || subcategory) && categoryName && !searchQuery && (
             <div style={{
               maxWidth: '800px',
               margin: '0 auto 32px',
@@ -382,6 +413,7 @@ function SearchPageContent() {
               <button
                 onClick={() => {
                   setCategoryId(null);
+                  setSubcategory(null);
                   setCategoryName('');
                   setSearchResults([]);
                   router.push('/search');

@@ -51,6 +51,38 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const query = searchParams.get('q');
     const categoryId = searchParams.get('category');
+    const subcategory = searchParams.get('subcategory'); // Full category_name for subcategory filtering
+
+    // Subcategory browsing (by full category_name)
+    if (!query && subcategory) {
+      const catalogItems = await prisma.minifigCatalog.findMany({
+        where: {
+          category_name: subcategory
+        },
+        orderBy: [
+          { year_released: 'desc' },
+          { minifigure_no: 'desc' }
+        ],
+        take: 500
+      });
+
+      const matchedItems = catalogItems.map(item => ({
+        no: item.minifigure_no,
+        name: item.name,
+        category_id: item.category_id,
+        category_name: item.category_name,
+        year_released: item.year_released,
+        image_url: `https://img.bricklink.com/ItemImage/MN/0/${item.minifigure_no}.png`
+      }));
+
+      return NextResponse.json({
+        success: true,
+        data: matchedItems,
+        total: matchedItems.length,
+        category: subcategory,
+        source: 'catalog_subcategory'
+      });
+    }
 
     // Category browsing (no search query, just category)
     if (!query && categoryId) {

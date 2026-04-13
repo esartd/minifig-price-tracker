@@ -2,36 +2,43 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
-interface Category {
+interface Subcategory {
   id: number;
-  name: string;
+  fullName: string;
+  subTheme: string;
   count: number;
 }
 
-export default function CategoriesPage() {
+export default function SubcategoriesPage({ params }: { params: Promise<{ theme: string }> }) {
   const router = useRouter();
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [theme, setTheme] = useState<string>('');
+  const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch('/api/categories');
-        const data = await response.json();
-
-        if (data.success) {
-          setCategories(data.data);
-        }
-      } catch (error) {
-        console.error('Failed to fetch categories:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCategories();
+    params.then(p => {
+      const decodedTheme = decodeURIComponent(p.theme);
+      setTheme(decodedTheme);
+      fetchSubcategories(decodedTheme);
+    });
   }, []);
+
+  const fetchSubcategories = async (themeName: string) => {
+    try {
+      const response = await fetch(`/api/subcategories?theme=${encodeURIComponent(themeName)}`);
+      const data = await response.json();
+
+      if (data.success) {
+        setSubcategories(data.data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch subcategories:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -53,12 +60,34 @@ export default function CategoriesPage() {
     );
   }
 
+  const totalMinifigs = subcategories.reduce((sum, sub) => sum + sub.count, 0);
+
   return (
     <div style={{
       maxWidth: '1200px',
       margin: '0 auto',
       padding: '48px 16px'
     }}>
+      {/* Breadcrumb */}
+      <div style={{ marginBottom: '32px' }}>
+        <Link
+          href="/categories"
+          style={{
+            fontSize: '14px',
+            color: '#3b82f6',
+            textDecoration: 'none',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '4px'
+          }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" style={{ width: '16px', height: '16px' }}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+          All Themes
+        </Link>
+      </div>
+
       <div style={{ marginBottom: '48px' }}>
         <h1 style={{
           fontSize: '40px',
@@ -67,14 +96,14 @@ export default function CategoriesPage() {
           letterSpacing: '-0.02em',
           marginBottom: '16px'
         }}>
-          Browse by Theme
+          {theme}
         </h1>
         <p style={{
           fontSize: '18px',
           color: '#737373',
           lineHeight: '1.6'
         }}>
-          Explore {categories.reduce((sum, cat) => sum + cat.count, 0).toLocaleString()} minifigures across {categories.length} themes
+          {totalMinifigs.toLocaleString()} minifigures across {subcategories.length} {subcategories.length === 1 ? 'series' : 'series'}
         </p>
       </div>
 
@@ -83,10 +112,10 @@ export default function CategoriesPage() {
         gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
         gap: '16px'
       }}>
-        {categories.map((category) => (
+        {subcategories.map((subcategory) => (
           <button
-            key={category.id}
-            onClick={() => router.push(`/categories/${encodeURIComponent(category.name)}`)}
+            key={subcategory.fullName}
+            onClick={() => router.push(`/search?subcategory=${encodeURIComponent(subcategory.fullName)}`)}
             style={{
               padding: '24px',
               background: '#ffffff',
@@ -115,13 +144,13 @@ export default function CategoriesPage() {
               marginBottom: '8px',
               letterSpacing: '-0.01em'
             }}>
-              {category.name}
+              {subcategory.subTheme}
             </h3>
             <p style={{
               fontSize: '14px',
               color: '#737373'
             }}>
-              {category.count.toLocaleString()} minifigure{category.count !== 1 ? 's' : ''}
+              {subcategory.count.toLocaleString()} minifigure{subcategory.count !== 1 ? 's' : ''}
             </p>
           </button>
         ))}
