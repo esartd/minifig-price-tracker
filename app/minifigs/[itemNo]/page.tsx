@@ -127,8 +127,29 @@ export default async function MinifigPage({
     // Sort by year descending (newest first)
     if (aYear !== bYear) return bYear - aYear;
 
-    // Same year: sort by item number descending (higher number = newer)
-    return b.minifigure_no.localeCompare(a.minifigure_no);
+    // Same year: parse and sort by item number properly
+    // Parse ID: sw1500a → prefix="sw", num=1500, suffix="a"
+    const parseId = (id: string) => {
+      const match = id.match(/^([a-z]+)(\d+)([a-z])?$/i);
+      if (!match) return { prefix: id, num: 0, suffix: '' };
+      return {
+        prefix: match[1],
+        num: parseInt(match[2]),
+        suffix: match[3] || ''
+      };
+    };
+
+    const aParsed = parseId(a.minifigure_no);
+    const bParsed = parseId(b.minifigure_no);
+
+    // Compare numeric part (descending - higher = newer)
+    if (aParsed.num !== bParsed.num) {
+      return bParsed.num - aParsed.num;
+    }
+
+    // Same number: sort by suffix alphabetically (ascending)
+    // sw0019 comes before sw0019a, sw0019b, etc.
+    return aParsed.suffix.localeCompare(bParsed.suffix);
   });
 
   // Fetch similar set minifigs (nearby item numbers: 4 before, 4 after)

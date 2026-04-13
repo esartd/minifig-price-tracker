@@ -261,18 +261,28 @@ export async function GET(request: NextRequest) {
       if (aYear !== bYear) return bYear - aYear;
 
       // Same year: sort by item number numerically (higher = newer)
-      // Extract numeric part: sw1500 → 1500, sw106a → 106
-      const aMatch = a.no.match(/\d+/);
-      const bMatch = b.no.match(/\d+/);
+      // Parse full ID: sw1500a → prefix="sw", num=1500, suffix="a"
+      const parseId = (id: string) => {
+        const match = id.match(/^([a-z]+)(\d+)([a-z])?$/i);
+        if (!match) return { prefix: id, num: 0, suffix: '' };
+        return {
+          prefix: match[1],
+          num: parseInt(match[2]),
+          suffix: match[3] || ''
+        };
+      };
 
-      if (aMatch && bMatch) {
-        const aNum = parseInt(aMatch[0]);
-        const bNum = parseInt(bMatch[0]);
-        if (aNum !== bNum) return bNum - aNum; // Descending
+      const aParsed = parseId(a.no);
+      const bParsed = parseId(b.no);
+
+      // Compare numeric part (descending - higher = newer)
+      if (aParsed.num !== bParsed.num) {
+        return bParsed.num - aParsed.num;
       }
 
-      // Fallback to string comparison if no numbers found
-      return b.no.localeCompare(a.no);
+      // Same number: sort by suffix alphabetically (ascending)
+      // sw0019 comes before sw0019a, sw0019b, etc.
+      return aParsed.suffix.localeCompare(bParsed.suffix);
     });
 
     // Group by year for easier browsing
