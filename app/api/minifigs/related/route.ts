@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { minifigCatalog } from '@/lib/minifig-catalog';
+import { prisma } from '@/lib/prisma';
+
+/**
+ * COMPLIANT RELATED MINIFIGS
+ *
+ * Shows related minifigs from the user-driven cache only.
+ * No systematic enumeration - only items users have searched for.
+ */
 
 export async function GET(request: NextRequest) {
   try {
@@ -13,14 +20,19 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Find current minifig
-    const currentMinifig = minifigCatalog.find(m => m.no.toLowerCase() === itemNo.toLowerCase());
+    // Find current minifig in cache
+    const currentMinifig = await prisma.minifigCache.findUnique({
+      where: { minifigure_no: itemNo.toLowerCase() }
+    });
 
     if (!currentMinifig) {
-      return NextResponse.json(
-        { success: false, error: 'Minifig not found' },
-        { status: 404 }
-      );
+      // No cached data - return empty results
+      return NextResponse.json({
+        success: true,
+        variants: [],
+        themeMinifigs: [],
+        message: 'Related minifigs will appear as more items are searched'
+      });
     }
 
     // Extract character name (text before first comma or dash)
@@ -35,22 +47,26 @@ export async function GET(request: NextRequest) {
 
     // Extract numeric part from current item number
     const currentNum = parseInt(itemNo.match(/\d+/)?.[0] || '0');
-    const idRange = 50; // Look for minifigs within ±50 IDs (likely from same era/sets)
+    const idRange = 50; // Look for minifigs within ±50 IDs
 
-    // Find related minifigs
+    // Get all cached minifigs from same theme
+    const cachedMinifigs = await prisma.minifigCache.findMany({
+      where: {
+        expires_at: { gt: new Date() },
+        minifigure_no: {
+          not: itemNo.toLowerCase(),
+          startsWith: themePrefix
+        }
+      },
+      orderBy: { last_searched_at: 'desc' },
+      take: 50
+    });
+
+    // Find variants (same character) and theme minifigs (same theme, nearby ID)
     const variants: any[] = [];
     const themeMinifigs: any[] = [];
 
-    minifigCatalog.forEach(minifig => {
-      // Skip current minifig
-      if (minifig.no.toLowerCase() === itemNo.toLowerCase()) return;
-
-      // Check theme prefix
-      const mPrefix = minifig.no.match(/^[a-z]+/i)?.[0]?.toLowerCase() || '';
-
-      // Only include minifigs from same theme
-      if (mPrefix !== themePrefix) return;
-
+    cachedMinifigs.forEach(minifig => {
       // Extract character name from this minifig
       const mCharName = minifig.name
         .split(/[,\-()]/)[0]
@@ -60,20 +76,20 @@ export async function GET(request: NextRequest) {
       // Check if it's the same character
       if (mCharName === characterName) {
         variants.push({
-          no: minifig.no,
+          no: minifig.minifigure_no,
           name: minifig.name,
-          image_url: `https://img.bricklink.com/ItemImage/MN/0/${minifig.no}.png`
+          image_url: minifig.image_url
         });
       } else {
-        // For theme minifigs, only include if within ID range (same era/likely same sets)
-        const mNum = parseInt(minifig.no.match(/\d+/)?.[0] || '0');
+        // For theme minifigs, only include if within ID range
+        const mNum = parseInt(minifig.minifigure_no.match(/\d+/)?.[0] || '0');
         const distance = Math.abs(mNum - currentNum);
 
         if (distance <= idRange) {
           themeMinifigs.push({
-            no: minifig.no,
+            no: minifig.minifigure_no,
             name: minifig.name,
-            image_url: `https://img.bricklink.com/ItemImage/MN/0/${minifig.no}.png`,
+            image_url: minifig.image_url,
             distance: distance
           });
         }
@@ -90,13 +106,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       success: true,
       variants: limitedVariants,
-      themeMinifigs: limitedTheme,
-      debug: {
-        characterName,
-        themePrefix,
-        totalVariants: variants.length,
-        totalTheme: themeMinifigs.length
-      }
+      themeMinifigs: limitedTheme
     });
   } catch (error) {
     console.error('Error fetching related minifigs:', error);

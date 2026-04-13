@@ -1,16 +1,47 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { bricklinkAPI } from '@/lib/bricklink';
-import Fuse from 'fuse.js';
-import { minifigCatalog } from '@/lib/minifig-catalog';
+import { prisma } from '@/lib/prisma';
 
-// Configure Fuse.js for fuzzy searching
-const fuse = new Fuse(minifigCatalog, {
-  keys: ['name', 'no', 'keywords'],
-  threshold: 0.2, // Much stricter - prevents false matches like "Luke" matching "Blue"
-  includeScore: true,
-  minMatchCharLength: 3, // Require at least 3 characters to match
-  distance: 50, // Limit how far apart matched characters can be
-});
+/**
+ * COMPLIANT SEARCH IMPLEMENTATION
+ *
+ * This search is user-driven and complies with BrickLink API Terms:
+ * - NO systematic enumeration (no robot/spider behavior)
+ * - Caches only what users search for (reasonable caching)
+ * - API calls driven by actual user requests (not automated)
+ * - 30-day cache TTL (reasonable period for minifig metadata)
+ */
+
+// Helper: Generate search keywords from text
+function generateKeywords(text: string): string[] {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, ' ') // Remove special chars
+    .split(/\s+/)
+    .filter(word => word.length >= 2); // Min 2 chars
+}
+
+// Helper: Check if search query matches cached item
+function matchesSearch(item: { name: string; keywords: string[] }, searchTerm: string): boolean {
+  const searchLower = searchTerm.toLowerCase();
+  const searchWords = generateKeywords(searchTerm);
+
+  // Exact match on name
+  if (item.name.toLowerCase() === searchLower) return true;
+
+  // Name starts with search term
+  if (item.name.toLowerCase().startsWith(searchLower)) return true;
+
+  // All search words appear in keywords
+  if (searchWords.length > 1) {
+    return searchWords.every(word =>
+      item.keywords.some(keyword => keyword.includes(word))
+    );
+  }
+
+  // Single word matches any keyword
+  return item.keywords.some(keyword => keyword.includes(searchLower));
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -26,41 +57,71 @@ export async function GET(request: NextRequest) {
 
     const searchTerm = query.trim();
 
-    // Check if it looks like an exact item number (e.g., sw0002, hp001)
-    const isItemNumber = /^[a-z]{2,3}\d{3,4}[a-z]?$/i.test(searchTerm);
+    // Check if it's an exact item number (e.g., sw0002, dis134, hp001)
+    const isItemNumber = /^[a-z]{2,4}\d{3,4}[a-z]?$/i.test(searchTerm);
 
     if (isItemNumber) {
-      // First, try to find it in local catalog (instant, no API call)
-      const catalogMatch = minifigCatalog.find(item =>
-        item.no.toLowerCase() === searchTerm.toLowerCase()
-      );
+      const itemNo = searchTerm.toLowerCase();
 
-      if (catalogMatch) {
-        // Found in catalog - return immediately
+      // Check cache first
+      const cached = await prisma.minifigCache.findUnique({
+        where: { minifigure_no: itemNo }
+      });
+
+      if (cached && cached.expires_at > new Date()) {
+        // Update last_searched_at to track usage
+        await prisma.minifigCache.update({
+          where: { minifigure_no: itemNo },
+          data: { last_searched_at: new Date() }
+        });
+
         return NextResponse.json({
           success: true,
           data: [{
-            no: catalogMatch.no,
-            name: catalogMatch.name,
-            category_id: 0,
-            image_url: `https://img.bricklink.com/ItemImage/MN/0/${catalogMatch.no}.png`
+            no: cached.minifigure_no,
+            name: cached.name,
+            category_id: cached.category_id,
+            image_url: cached.image_url
           }],
-          source: 'catalog_exact_match'
+          source: 'cache_exact_match'
         });
       }
 
-      // Not in catalog - try Bricklink API as fallback
+      // Not in cache - fetch from BrickLink API (user-driven request)
       try {
-        const exactMatch = await bricklinkAPI.getMinifigureByNumber(searchTerm);
-        if (exactMatch) {
+        const minifig = await bricklinkAPI.getMinifigureByNumber(itemNo);
+
+        if (minifig) {
+          // Store in cache for future searches (user-driven caching)
+          const keywords = generateKeywords(minifig.name);
+          const expiresAt = new Date();
+          expiresAt.setHours(expiresAt.getHours() + 24); // 24-hour TTL (per BrickLink "other content" rule)
+
+          await prisma.minifigCache.upsert({
+            where: { minifigure_no: itemNo },
+            create: {
+              minifigure_no: itemNo,
+              name: minifig.name,
+              category_id: minifig.category_id || 0,
+              image_url: minifig.image_url || `https://img.bricklink.com/ItemImage/MN/0/${itemNo}.png`,
+              keywords,
+              expires_at: expiresAt,
+              last_searched_at: new Date()
+            },
+            update: {
+              last_searched_at: new Date(),
+              expires_at: expiresAt // Refresh TTL on re-search
+            }
+          });
+
           return NextResponse.json({
             success: true,
-            data: [exactMatch],
+            data: [minifig],
             source: 'api_exact_match'
           });
         }
       } catch (error) {
-        console.error('Bricklink API error for exact match:', error);
+        console.error('BrickLink API error for exact match:', error);
       }
 
       // Not found anywhere
@@ -70,100 +131,63 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // Try full phrase match first
-    const phraseResults = fuse.search(searchTerm);
-    let matchedItems: typeof minifigCatalog = phraseResults.map(result => result.item);
+    // NAME-BASED SEARCH: Search cached items only (user-driven, no systematic enumeration)
+    // This searches only minifigs that users have previously looked up
+    const cachedItems = await prisma.minifigCache.findMany({
+      where: {
+        expires_at: { gt: new Date() }, // Only non-expired cache
+        OR: [
+          { name: { contains: searchTerm, mode: 'insensitive' } },
+          { keywords: { has: searchTerm.toLowerCase() } }
+        ]
+      },
+      orderBy: { last_searched_at: 'desc' }, // Popular items first
+      take: 50 // Limit results
+    });
 
-    // If multi-word search and few results, also include results matching ALL words
-    const searchWords = searchTerm.toLowerCase().split(/\s+/).filter(word => word.length >= 2);
-
-    if (searchWords.length > 1 && matchedItems.length < 20) {
-      // Multi-word search - find minifigs matching ALL words individually
-      const resultsPerWord = searchWords.map(word => {
-        const results = fuse.search(word);
-        return new Set(results.map(r => r.item.no));
-      });
-
-      // Find minifigs that appear in ALL word searches (intersection)
-      const intersection = minifigCatalog.filter(item => {
-        return resultsPerWord.every(wordSet => wordSet.has(item.no));
-      });
-
-      // Combine phrase results with word intersection, remove duplicates
-      const combinedSet = new Set([
-        ...matchedItems.map(item => item.no),
-        ...intersection.map(item => item.no)
-      ]);
-
-      matchedItems = minifigCatalog.filter(item => combinedSet.has(item.no));
-    }
+    // Filter and rank results
+    const matchedItems = cachedItems
+      .filter(item => matchesSearch(item, searchTerm))
+      .map(item => ({
+        no: item.minifigure_no,
+        name: item.name,
+        category_id: item.category_id,
+        image_url: item.image_url
+      }));
 
     if (matchedItems.length === 0) {
       return NextResponse.json({
         success: false,
-        error: `No minifigures found matching "${searchTerm}". Try searching by exact item number (e.g., sw0002) or browse popular characters.`,
+        error: `No minifigures found matching "${searchTerm}". Try searching by exact BrickLink ID (e.g., dis134, sw1219) to add new items to the searchable catalog.`,
       }, { status: 404 });
     }
 
-    // Use catalog data directly with predictable image URLs (instant, no API calls)
-    const results = matchedItems.map(item => ({
-      no: item.no,
-      name: item.name,
-      category_id: 0,
-      image_url: `https://img.bricklink.com/ItemImage/MN/0/${item.no}.png`
-    }));
-
+    // Sort results: exact matches first, then starts-with, then by popularity
     const searchLower = searchTerm.toLowerCase();
-
-    // Sort with exact matches first, then starts-with, then by item number descending
-    results.sort((a, b) => {
+    matchedItems.sort((a, b) => {
       const aNameLower = a.name.toLowerCase();
       const bNameLower = b.name.toLowerCase();
-      const aNoLower = a.no.toLowerCase();
-      const bNoLower = b.no.toLowerCase();
 
-      // Check for exact matches
-      const aExactName = aNameLower === searchLower;
-      const bExactName = bNameLower === searchLower;
-      const aExactNo = aNoLower === searchLower;
-      const bExactNo = bNoLower === searchLower;
+      // Exact match
+      if (aNameLower === searchLower && bNameLower !== searchLower) return -1;
+      if (bNameLower === searchLower && aNameLower !== searchLower) return 1;
 
-      // Check for starts-with matches
-      const aStartsWithName = aNameLower.startsWith(searchLower);
-      const bStartsWithName = bNameLower.startsWith(searchLower);
-      const aStartsWithNo = aNoLower.startsWith(searchLower);
-      const bStartsWithNo = bNoLower.startsWith(searchLower);
+      // Starts with
+      const aStarts = aNameLower.startsWith(searchLower);
+      const bStarts = bNameLower.startsWith(searchLower);
+      if (aStarts && !bStarts) return -1;
+      if (bStarts && !aStarts) return 1;
 
-      // Priority 1: Exact name match
-      if (aExactName && !bExactName) return -1;
-      if (!aExactName && bExactName) return 1;
-
-      // Priority 2: Exact item number match
-      if (aExactNo && !bExactNo) return -1;
-      if (!aExactNo && bExactNo) return 1;
-
-      // Priority 3: Name starts with search term
-      if (aStartsWithName && !bStartsWithName) return -1;
-      if (!aStartsWithName && bStartsWithName) return 1;
-
-      // Priority 4: Item number starts with search term
-      if (aStartsWithNo && !bStartsWithNo) return -1;
-      if (!aStartsWithNo && bStartsWithNo) return 1;
-
-      // Priority 5: Sort by item number descending (newer items first)
-      const extractNum = (no: string) => {
-        const match = no.match(/\d+/);
-        return match ? parseInt(match[0]) : 0;
-      };
-      return extractNum(b.no) - extractNum(a.no);
+      // Otherwise maintain order (already sorted by last_searched_at)
+      return 0;
     });
 
-    // Return search results instantly
     return NextResponse.json({
       success: true,
-      data: results,
-      total: results.length,
-      source: 'catalog',
+      data: matchedItems,
+      total: matchedItems.length,
+      source: 'cache',
+      hint: matchedItems.length < 5 ? 'Search by exact BrickLink ID (e.g., dis134) to add more items to searchable catalog' : undefined
     });
 
   } catch (error) {

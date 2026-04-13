@@ -1,43 +1,62 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { minifigCatalog } from '@/lib/minifig-catalog';
+import { prisma } from '@/lib/prisma';
 
-// Force dynamic rendering so catalog count updates without redeploying
+// Force dynamic rendering to show current searchable catalog count
 export const dynamic = 'force-dynamic';
 
-// Format catalog count for display (e.g., 7,798 → "nearly 8,000", 10,245 → "over 10,000")
-function formatCatalogCount(count: number): string {
-  if (count >= 10000) {
-    const rounded = Math.floor(count / 1000) * 1000;
-    return `over ${rounded.toLocaleString()}`;
-  } else if (count >= 8000) {
-    const rounded = Math.ceil(count / 1000) * 1000;
-    return `nearly ${rounded.toLocaleString()}`;
-  } else {
-    const rounded = Math.ceil(count / 1000) * 1000;
-    return `nearly ${rounded.toLocaleString()}`;
+// Get count of searchable minifigs (user-driven cache)
+async function getSearchableCatalogCount(): Promise<number> {
+  try {
+    const count = await prisma.minifigCache.count({
+      where: {
+        expires_at: { gt: new Date() }
+      }
+    });
+    return count;
+  } catch (error) {
+    console.error('Error getting catalog count:', error);
+    return 0;
   }
 }
 
-const catalogCount = minifigCatalog.length;
-const catalogCountText = formatCatalogCount(catalogCount);
+// Format catalog count for display
+function formatCatalogCount(count: number): string {
+  if (count === 0) {
+    return 'thousands of';
+  } else if (count >= 10000) {
+    const rounded = Math.floor(count / 1000) * 1000;
+    return `over ${rounded.toLocaleString()}`;
+  } else if (count >= 1000) {
+    const rounded = Math.ceil(count / 1000) * 1000;
+    return `nearly ${rounded.toLocaleString()}`;
+  } else {
+    return `${count.toLocaleString()}`;
+  }
+}
 
-export const metadata: Metadata = {
-  title: 'About FigTracker - Free LEGO Minifigure Price Tracker',
-  description: `Learn how FigTracker helps LEGO resellers and collectors price minifigures accurately with real-time Bricklink marketplace data. Search ${catalogCountText} minifigs. Free to use, no ads.`,
-  openGraph: {
-    title: 'About FigTracker - Free LEGO Minifigure Price Tracker',
-    description: `Built by sellers, for sellers. Price your LEGO minifigures with confidence using real Bricklink data. ${catalogCountText} minifigs in catalog.`,
-    url: 'https://figtracker.com/about',
-  },
-  alternates: {
-    canonical: 'https://figtracker.com/about',
-  },
-};
-
-export default function AboutPage() {
-  const catalogCount = minifigCatalog.length;
+export async function generateMetadata(): Promise<Metadata> {
+  const catalogCount = await getSearchableCatalogCount();
   const catalogCountText = formatCatalogCount(catalogCount);
+
+  return {
+    title: 'About FigTracker - Free LEGO Minifigure Price Tracker',
+    description: `Learn how FigTracker helps LEGO resellers and collectors price minifigures accurately with real-time Bricklink marketplace data. Search ${catalogCountText} minifigs. Free to use, no ads.`,
+    openGraph: {
+      title: 'About FigTracker - Free LEGO Minifigure Price Tracker',
+      description: `Built by sellers, for sellers. Price your LEGO minifigures with confidence using real Bricklink data. ${catalogCountText} minifigs searchable.`,
+      url: 'https://figtracker.com/about',
+    },
+    alternates: {
+      canonical: 'https://figtracker.com/about',
+    },
+  };
+}
+
+export default async function AboutPage() {
+  const catalogCount = await getSearchableCatalogCount();
+  const catalogCountText = formatCatalogCount(catalogCount);
+
   return (
     <article className="min-h-screen" style={{ backgroundColor: '#fafafa' }}>
       {/* Hero Section */}
@@ -112,8 +131,8 @@ export default function AboutPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3>Instant Search</h3>
-              <p>Find any minifig by name, ID, or theme from {catalogCountText} entries. Results appear as you type. Zero lag.</p>
+              <h3>Smart Search</h3>
+              <p>Search any minifig by exact BrickLink ID (e.g., dis134, sw1219). Name search finds items from {catalogCountText} searchable entries that grow as users discover more minifigs.</p>
             </div>
 
             <div className="feature-card">

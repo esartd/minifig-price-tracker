@@ -145,12 +145,15 @@ model MinifigCache {
   name              String
   category_id       Int
   image_url         String
+  keywords          String[] // For fuzzy search (name tokenized into keywords)
 
   // Cache metadata
   cached_at         DateTime @default(now())
-  expires_at        DateTime // Cache for 30 days (minifig metadata rarely changes)
+  expires_at        DateTime // Cache for 24 hours max per BrickLink API Terms (other content rule)
+  last_searched_at  DateTime @default(now()) // Track when users last searched for this
 
   @@index([expires_at])
+  @@index([name]) // For name-based search
 }
 
 model Listing {

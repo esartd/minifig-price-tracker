@@ -15,11 +15,6 @@
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
     "restore-collection": "tsx scripts/migrate-existing-data.ts",
-    "update-catalog": "tsx scripts/update-catalog-safe.ts",
-    "update-catalog:full": "tsx scripts/enumerate-catalog.ts",
-    "update-catalog:old": "tsx scripts/update-catalog-incremental.ts",
-    "discover-themes": "tsx scripts/discover-new-themes.ts",
-    "enumerate-catalog": "tsx scripts/enumerate-catalog.ts",
     "check-api-usage": "tsx scripts/check-api-usage.ts"
   },
   "dependencies": {
