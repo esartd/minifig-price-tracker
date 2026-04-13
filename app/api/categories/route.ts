@@ -8,24 +8,60 @@ export async function GET() {
       by: ['category_id', 'category_name'],
       _count: {
         minifigure_no: true
-      },
-      orderBy: {
-        _count: {
-          minifigure_no: 'desc'
-        }
       }
     });
 
-    const categoriesWithCounts = categories.map(cat => ({
-      id: cat.category_id,
-      name: cat.category_name,
-      count: cat._count.minifigure_no
-    }));
+    // Parse category names and group by parent theme
+    // e.g., "Star Wars / Star Wars Episode 1" → parent: "Star Wars"
+    const themeMap = new Map<string, {
+      parent: string;
+      subcategories: Array<{
+        id: number;
+        name: string;
+        fullName: string;
+        count: number;
+      }>;
+      totalCount: number;
+    }>();
+
+    categories.forEach(cat => {
+      const parts = cat.category_name.split(' / ');
+      const parentTheme = parts[0]; // "Star Wars", "Town", etc.
+      const subCategory = parts.length > 1 ? parts.slice(1).join(' / ') : null;
+
+      if (!themeMap.has(parentTheme)) {
+        themeMap.set(parentTheme, {
+          parent: parentTheme,
+          subcategories: [],
+          totalCount: 0
+        });
+      }
+
+      const theme = themeMap.get(parentTheme)!;
+      theme.totalCount += cat._count.minifigure_no;
+
+      if (subCategory) {
+        theme.subcategories.push({
+          id: cat.category_id,
+          name: subCategory,
+          fullName: cat.category_name,
+          count: cat._count.minifigure_no
+        });
+      }
+    });
+
+    // Convert to array and sort by count
+    const groupedThemes = Array.from(themeMap.values())
+      .sort((a, b) => b.totalCount - a.totalCount)
+      .map(theme => ({
+        ...theme,
+        subcategories: theme.subcategories.sort((a, b) => b.count - a.count)
+      }));
 
     return NextResponse.json({
       success: true,
-      data: categoriesWithCounts,
-      total: categoriesWithCounts.length
+      data: groupedThemes,
+      total: groupedThemes.length
     });
   } catch (error) {
     console.error('Error fetching categories:', error);
