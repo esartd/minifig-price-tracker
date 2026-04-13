@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,19 +8,18 @@ datasource db {
 }
 
 model User {
-  id            String          @id @default(cuid())
+  id            String           @id @default(cuid())
   name          String?
-  email         String          @unique
+  email         String           @unique
   password      String?
   emailVerified DateTime?
   image         String?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
   accounts      Account[]
-  sessions      Session[]
   collections   CollectionItem[]
   listings      Listing[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  sessions      Session[]
 }
 
 model Account {
@@ -38,11 +34,9 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
 }
@@ -51,10 +45,9 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model VerificationToken {
@@ -66,56 +59,45 @@ model VerificationToken {
 }
 
 model CollectionItem {
-  id              String   @id @default(uuid())
-  minifigure_no   String
-  minifigure_name String
-  quantity        Int
-  condition       String   // 'new' or 'used'
-  image_url       String?
+  id                      String    @id @default(uuid())
+  minifigure_no           String
+  minifigure_name         String
+  quantity                Int
+  condition               String
+  image_url               String?
+  pricing_six_month_avg   Float?
+  pricing_current_avg     Float?
+  pricing_current_lowest  Float?
+  pricing_suggested_price Float?
+  userId                  String
+  date_added              DateTime  @default(now())
+  last_updated            DateTime  @updatedAt
+  user                    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listings                Listing[]
 
-  // Pricing data (stored as separate columns)
-  pricing_six_month_avg    Float?
-  pricing_current_avg      Float?
-  pricing_current_lowest   Float?
-  pricing_suggested_price  Float?
-
-  // User ownership
-  userId       String
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  // Listings relationship
-  listings     Listing[]
-
-  date_added    DateTime @default(now())
-  last_updated  DateTime @updatedAt
-
-  @@unique([userId, minifigure_no, condition]) // Prevent duplicate entries per user
+  @@unique([userId, minifigure_no, condition])
   @@index([minifigure_no])
   @@index([userId])
 }
 
 model PriceCache {
-  id                       String   @id @default(uuid())
-  minifigure_no            String
-  condition                String   // 'new' or 'used'
+  id              String   @id @default(uuid())
+  minifigure_no   String
+  condition       String
+  six_month_avg   Float
+  current_avg     Float
+  current_lowest  Float
+  suggested_price Float
+  cached_at       DateTime @default(now())
+  expires_at      DateTime
 
-  // Cached pricing data
-  six_month_avg            Float
-  current_avg              Float
-  current_lowest           Float
-  suggested_price          Float
-
-  // Cache metadata
-  cached_at                DateTime @default(now())
-  expires_at               DateTime
-
-  @@unique([minifigure_no, condition]) // One cache entry per minifig+condition
+  @@unique([minifigure_no, condition])
   @@index([minifigure_no])
   @@index([expires_at])
 }
 
 model ApiCallTracker {
-  date         String   @id  // YYYY-MM-DD format
+  date         String   @id
   call_count   Int      @default(0)
   last_call_at DateTime @default(now())
 
@@ -123,67 +105,51 @@ model ApiCallTracker {
 }
 
 model PriceHistory {
-  id                String   @id @default(uuid())
-  minifigure_no     String
-  condition         String   // 'new' or 'used'
-
-  // Historical pricing data
-  six_month_avg     Float
-  current_avg       Float
-  current_lowest    Float
-  suggested_price   Float
-
-  // Timestamp for this snapshot
-  recorded_at       DateTime @default(now())
+  id              String   @id @default(uuid())
+  minifigure_no   String
+  condition       String
+  six_month_avg   Float
+  current_avg     Float
+  current_lowest  Float
+  suggested_price Float
+  recorded_at     DateTime @default(now())
 
   @@index([minifigure_no, condition])
   @@index([recorded_at])
 }
 
 model MinifigCache {
-  minifigure_no     String   @id  // Primary key: unique per minifig
-  name              String
-  category_id       Int
-  image_url         String
-  keywords          String[] // For fuzzy search (name tokenized into keywords)
-
-  // Cache metadata
-  cached_at         DateTime @default(now())
-  expires_at        DateTime // Cache for 24 hours max per BrickLink API Terms (other content rule)
-  last_searched_at  DateTime @default(now()) // Track when users last searched for this
+  minifigure_no    String   @id
+  name             String
+  category_id      Int
+  image_url        String
+  cached_at        DateTime @default(now())
+  expires_at       DateTime
+  keywords         String[]
+  last_searched_at DateTime @default(now())
 
   @@index([expires_at])
-  @@index([name]) // For name-based search
+  @@index([name])
 }
 
 model Listing {
-  id                   String   @id @default(uuid())
-
-  // Relationships
-  userId               String
-  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  collectionItemId     String
-  collectionItem       CollectionItem @relation(fields: [collectionItemId], references: [id], onDelete: Cascade)
-
-  // Generated content
-  title                String
-  description          String   @db.Text
-
-  // User inputs (used for generation)
-  platform             String    // 'facebook', 'ebay', or 'bricklink'
-  condition_detail     String    // 'new', 'like_new', 'excellent', 'good', 'fair'
-  accessories          String?   // "Helmet, blasters"
-  known_flaws          String?   // "Minor print wear on torso"
-  quantity_to_list     Int       @default(1)
-  list_price           Float?    // User's asking price (defaults to suggested_price)
-
-  // Metadata
-  status               String    @default("draft")  // 'draft', 'active', 'sold', 'archived'
-
-  // Timestamps
-  created_at           DateTime  @default(now())
-  updated_at           DateTime  @updatedAt
-  sold_at              DateTime?
+  id               String         @id @default(uuid())
+  userId           String
+  collectionItemId String
+  title            String
+  description      String
+  platform         String
+  condition_detail String
+  accessories      String?
+  known_flaws      String?
+  quantity_to_list Int            @default(1)
+  list_price       Float?
+  status           String         @default("draft")
+  created_at       DateTime       @default(now())
+  updated_at       DateTime       @updatedAt
+  sold_at          DateTime?
+  collectionItem   CollectionItem @relation(fields: [collectionItemId], references: [id], onDelete: Cascade)
+  user             User           @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([collectionItemId])
@@ -191,19 +157,15 @@ model Listing {
 }
 
 model MinifigCatalog {
-  minifigure_no     String   @id  // Bricklink ID (e.g., "sw1219", "cas004")
-  name              String        // Full minifigure name
-  category_id       Int
-  category_name     String
-  year_released     String?       // Can be "?" for unknown
-  weight_grams      Float?
-
-  // Search optimization
-  search_name       String        // Lowercase name for case-insensitive search
-
-  // Metadata
-  created_at        DateTime @default(now())
-  updated_at        DateTime @updatedAt
+  minifigure_no String   @id
+  name          String
+  category_id   Int
+  category_name String
+  year_released String?
+  weight_grams  Float?
+  search_name   String
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
 
   @@index([search_name])
   @@index([category_name])
