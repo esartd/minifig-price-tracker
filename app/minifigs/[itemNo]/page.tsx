@@ -87,10 +87,11 @@ export default async function MinifigPage({
   };
 
   // Fetch character variants (same character, different variations)
-  // Extract character name: take everything before first dash or comma
+  // Extract character name: take everything before first dash, comma, or opening parenthesis
   // e.g., "Darth Maul - Printed Legs..." → "Darth Maul"
   // e.g., "Luke Skywalker, Jedi Knight" → "Luke Skywalker"
-  const characterName = minifig.name.split(/\s*[-,]\s*/)[0].trim();
+  // e.g., "Luke Skywalker (Tatooine)" → "Luke Skywalker"
+  const characterName = minifig.name.split(/\s*[-,(]\s*/)[0].trim();
 
   const characterVariants = await prisma.minifigCatalog.findMany({
     where: {
@@ -112,7 +113,8 @@ export default async function MinifigPage({
         { year_released: minifig.year_released || undefined }
       ]
     },
-    orderBy: { minifigure_no: 'asc' }
+    orderBy: { minifigure_no: 'asc' },
+    take: 8
   });
 
   const variantsData = characterVariants.map(m => ({
