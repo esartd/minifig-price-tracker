@@ -50,12 +50,12 @@ export async function GET() {
       }
     });
 
-    // Convert to array and sort by count
+    // Convert to array and sort alphabetically (A-Z)
     const groupedThemes = Array.from(themeMap.values())
-      .sort((a, b) => b.totalCount - a.totalCount)
+      .sort((a, b) => a.parent.localeCompare(b.parent))
       .map(theme => ({
         ...theme,
-        subcategories: theme.subcategories.sort((a, b) => b.count - a.count)
+        subcategories: theme.subcategories.sort((a, b) => a.name.localeCompare(b.name))
       }));
 
     return NextResponse.json({
