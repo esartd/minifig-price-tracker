@@ -104,18 +104,63 @@ export default async function MinifigPage({
     orderBy: { year_released: 'desc' }
   });
 
-  // Fetch similar set minifigs (same category and year)
-  const themeMinifigs = await prisma.minifigCatalog.findMany({
-    where: {
-      AND: [
-        { minifigure_no: { not: itemNo } },
-        { category_id: minifig.category_id },
-        { year_released: minifig.year_released || undefined }
-      ]
-    },
-    orderBy: { minifigure_no: 'asc' },
-    take: 8
-  });
+  // Fetch similar set minifigs (nearby item numbers: 4 before, 4 after)
+  // Extract prefix and number from item (e.g., "sw1507" → prefix="sw", num=1507)
+  const match = itemNo.match(/^([a-z]+)(\d+)([a-z])?$/i);
+  let themeMinifigs: any[] = [];
+
+  if (match) {
+    const prefix = match[1];
+    const currentNum = parseInt(match[2]);
+
+    // Try to get 4 before and 4 after
+    const minNum = Math.max(1, currentNum - 4);
+    const maxNum = currentNum + 4;
+
+    // Generate possible item numbers
+    const targetNumbers: string[] = [];
+    for (let i = minNum; i <= maxNum; i++) {
+      if (i !== currentNum) {
+        targetNumbers.push(`${prefix}${i.toString().padStart(match[2].length, '0')}`);
+      }
+    }
+
+    // Query for these specific item numbers
+    const foundMinifigs = await prisma.minifigCatalog.findMany({
+      where: {
+        minifigure_no: { in: targetNumbers },
+        category_id: minifig.category_id
+      },
+      orderBy: { minifigure_no: 'asc' }
+    });
+
+    // If we didn't find 8, expand the range to get more
+    if (foundMinifigs.length < 8) {
+      const needed = 8 - foundMinifigs.length;
+      const expandedMin = Math.max(1, minNum - needed);
+      const expandedMax = maxNum + needed;
+
+      const expandedNumbers: string[] = [];
+      for (let i = expandedMin; i < minNum; i++) {
+        expandedNumbers.push(`${prefix}${i.toString().padStart(match[2].length, '0')}`);
+      }
+      for (let i = maxNum + 1; i <= expandedMax; i++) {
+        expandedNumbers.push(`${prefix}${i.toString().padStart(match[2].length, '0')}`);
+      }
+
+      const additionalMinifigs = await prisma.minifigCatalog.findMany({
+        where: {
+          minifigure_no: { in: expandedNumbers },
+          category_id: minifig.category_id
+        },
+        orderBy: { minifigure_no: 'asc' }
+      });
+
+      themeMinifigs = [...foundMinifigs, ...additionalMinifigs].slice(0, 8);
+    } else {
+      themeMinifigs = foundMinifigs.slice(0, 8);
+    }
+  }
 
   const variantsData = characterVariants.map(m => ({
     no: m.minifigure_no,
