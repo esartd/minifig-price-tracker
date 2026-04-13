@@ -309,7 +309,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
             color: '#1e40af',
             border: '1px solid #dbeafe'
           }}>
-            💡 <strong>First time?</strong> Use the settings icon to customize your preferences. Quick Generate will remember them for next time!
+            💡 <strong>First time?</strong> Use the settings icon to customize your listing preferences (platform, condition, etc). Generate Listing will remember them for next time!
           </div>
         )}
         <div style={{ display: 'flex', gap: '12px' }}>
@@ -342,7 +342,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
             </svg>
-            {loading ? 'Generating...' : 'Quick Generate'}
+            {loading ? 'Generating Listing...' : 'Generate Listing'}
           </button>
         <button
           onClick={() => {
