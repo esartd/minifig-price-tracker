@@ -26,7 +26,7 @@ export default function MinifigCard({
   };
 
   const handleClick = () => {
-    router.push(`/minifig/${minifig.no}`);
+    router.push(`/minifigs/${minifig.no}`);
   };
 
   return (

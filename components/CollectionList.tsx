@@ -99,7 +99,7 @@ export default function CollectionList({
         <div
           key={item.id}
           className="collection-item-card"
-          onClick={() => router.push(`/minifig/${item.minifigure_no}`)}
+          onClick={() => router.push(`/minifigs/${item.minifigure_no}`)}
           style={{
             display: 'flex',
             padding: '20px',
