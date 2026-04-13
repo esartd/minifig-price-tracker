@@ -178,40 +178,44 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // NAME-BASED SEARCH: Try exact substring match first, then fuzzy for typos
+    // NAME-BASED SEARCH: Use unaccented column for accent-insensitive search
+    // Handles: "padme" finds "padmé", "naive" finds "naïve", etc.
     const searchLower = searchTerm.toLowerCase();
 
+    // Remove accents from search term using unaccent
+    const searchUnaccented = await prisma.$queryRawUnsafe<Array<{ result: string }>>(
+      `SELECT unaccent($1) as result`,
+      searchLower
+    );
+    const searchNormalized = searchUnaccented[0].result;
+
     // Build WHERE clause for category filter
-    const whereClause: any = {
-      search_name: {
-        contains: searchLower,
-        mode: 'insensitive'
-      }
-    };
+    const categoryFilter = categoryId ? `AND category_id = ${parseInt(categoryId)}` : '';
 
-    if (categoryId) {
-      whereClause.category_id = parseInt(categoryId);
-    }
-
-    // Try exact substring match first (what users expect)
-    let rawResults = await prisma.minifigCatalog.findMany({
-      where: whereClause,
-      select: {
-        minifigure_no: true,
-        name: true,
-        category_id: true,
-        category_name: true,
-        year_released: true
-      },
-      take: 200
-    });
+    // Try exact substring match first on unaccented column
+    let rawResults = await prisma.$queryRawUnsafe<Array<{
+      minifigure_no: string;
+      name: string;
+      category_id: number;
+      category_name: string;
+      year_released: string | null;
+    }>>(
+      `SELECT
+        minifigure_no,
+        name,
+        category_id,
+        category_name,
+        year_released
+      FROM "MinifigCatalog"
+      WHERE search_name_unaccent LIKE $1 ${categoryFilter}
+      LIMIT 200`,
+      `%${searchNormalized}%`
+    );
 
     // If exact match finds nothing, try fuzzy search for typos
     // e.g., "luke skywaker" → "Luke Skywalker"
     if (rawResults.length === 0) {
       await prisma.$executeRawUnsafe('SELECT set_limit(0.2)');
-
-      const categoryFilter = categoryId ? `AND category_id = ${parseInt(categoryId)}` : '';
 
       rawResults = await prisma.$queryRawUnsafe<Array<{
         minifigure_no: string;
@@ -227,10 +231,10 @@ export async function GET(request: NextRequest) {
           category_name,
           year_released
         FROM "MinifigCatalog"
-        WHERE search_name % $1 ${categoryFilter}
-        ORDER BY similarity(search_name, $1) DESC
+        WHERE search_name_unaccent % $1 ${categoryFilter}
+        ORDER BY similarity(search_name_unaccent, $1) DESC
         LIMIT 200`,
-        searchLower
+        searchNormalized
       );
     }
 
