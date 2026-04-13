@@ -200,23 +200,38 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // NAME-BASED SEARCH: Search full catalog (from downloaded Bricklink data)
-    // Optional: filter by category
-    const whereClause: any = {
-      search_name: {
-        contains: searchTerm.toLowerCase(),
-        mode: 'insensitive'
-      }
-    };
+    // NAME-BASED SEARCH: Use PostgreSQL trigram fuzzy search
+    // This helps users find minifigs even with typos (e.g., "luke skywaker" finds "Luke Skywalker")
+    const searchLower = searchTerm.toLowerCase();
 
-    if (categoryId) {
-      whereClause.category_id = parseInt(categoryId);
-    }
+    // Set similarity threshold (0.3 = 30% match - allows for typos and partial matches)
+    await prisma.$executeRawUnsafe('SELECT set_limit(0.3)');
 
-    const catalogItems = await prisma.minifigCatalog.findMany({
-      where: whereClause,
-      take: 200 // Allow more results for popular characters
-    });
+    // Build WHERE clause for category filter
+    const categoryFilter = categoryId ? `AND category_id = ${parseInt(categoryId)}` : '';
+
+    // Use similarity() function for fuzzy matching and ranking
+    const catalogItems = await prisma.$queryRawUnsafe<Array<{
+      minifigure_no: string;
+      name: string;
+      category_id: number;
+      category_name: string;
+      year_released: string | null;
+      similarity: number;
+    }>>(
+      `SELECT
+        minifigure_no,
+        name,
+        category_id,
+        category_name,
+        year_released,
+        similarity(search_name, $1) as similarity
+      FROM "MinifigCatalog"
+      WHERE search_name % $1 ${categoryFilter}
+      ORDER BY similarity DESC
+      LIMIT 200`,
+      searchLower
+    );
 
     // Map catalog items to response format
     const matchedItems = catalogItems.map(item => ({
@@ -239,7 +254,8 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // Sort results by ID number first (newest IDs first)
+    // Re-sort results by ID number (newest first)
+    // Fuzzy search finds matches despite typos, then we rank by ID for newest minifigs first
     matchedItems.sort((a, b) => {
       // Parse full ID: sw1500a → prefix="sw", num=1500, suffix="a"
       const parseId = (id: string) => {
