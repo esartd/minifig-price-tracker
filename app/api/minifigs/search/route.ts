@@ -7,7 +7,7 @@ import { prisma } from '@/lib/prisma';
  *
  * This endpoint provides two search methods:
  * 1. Exact ID search: Checks cache, then fetches from BrickLink API if needed
- * 2. Name-based search: Searches the full MinifigCatalog (downloaded from BrickLink)
+ * 2. Name-based search: Uses PostgreSQL trigram fuzzy search on MinifigCatalog
  *
  * This complies with BrickLink API Terms:
  * - Catalog data is from their official download, not systematic API enumeration
@@ -22,28 +22,6 @@ function generateKeywords(text: string): string[] {
     .replace(/[^\w\s-]/g, ' ') // Remove special chars
     .split(/\s+/)
     .filter(word => word.length >= 2); // Min 2 chars
-}
-
-// Helper: Check if search query matches cached item
-function matchesSearch(item: { name: string; keywords: string[] }, searchTerm: string): boolean {
-  const searchLower = searchTerm.toLowerCase();
-  const searchWords = generateKeywords(searchTerm);
-
-  // Exact match on name
-  if (item.name.toLowerCase() === searchLower) return true;
-
-  // Name starts with search term
-  if (item.name.toLowerCase().startsWith(searchLower)) return true;
-
-  // All search words appear in keywords
-  if (searchWords.length > 1) {
-    return searchWords.every(word =>
-      item.keywords.some(keyword => keyword.includes(word))
-    );
-  }
-
-  // Single word matches any keyword
-  return item.keywords.some(keyword => keyword.includes(searchLower));
 }
 
 export async function GET(request: NextRequest) {
@@ -200,18 +178,18 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // NAME-BASED SEARCH: Use PostgreSQL trigram fuzzy search
+    // NAME-BASED SEARCH: Use PostgreSQL trigram fuzzy search with fallback
     // This helps users find minifigs even with typos (e.g., "luke skywaker" finds "Luke Skywalker")
     const searchLower = searchTerm.toLowerCase();
 
-    // Set similarity threshold (0.3 = 30% match - allows for typos and partial matches)
-    await prisma.$executeRawUnsafe('SELECT set_limit(0.3)');
+    // Set similarity threshold (0.2 = 20% match - allows for typos and partial matches)
+    await prisma.$executeRawUnsafe('SELECT set_limit(0.2)');
 
     // Build WHERE clause for category filter
     const categoryFilter = categoryId ? `AND category_id = ${parseInt(categoryId)}` : '';
 
-    // Use similarity() function for fuzzy matching and ranking
-    const catalogItems = await prisma.$queryRawUnsafe<Array<{
+    // Try fuzzy search first
+    let catalogItems = await prisma.$queryRawUnsafe<Array<{
       minifigure_no: string;
       name: string;
       category_id: number;
@@ -232,6 +210,35 @@ export async function GET(request: NextRequest) {
       LIMIT 200`,
       searchLower
     );
+
+    // Fallback: If fuzzy search finds nothing, use regular ILIKE search
+    // This handles cases like accented characters (padmé vs padme)
+    if (catalogItems.length === 0) {
+      const whereClause: any = {
+        search_name: {
+          contains: searchLower,
+          mode: 'insensitive'
+        }
+      };
+
+      if (categoryId) {
+        whereClause.category_id = parseInt(categoryId);
+      }
+
+      const fallbackResults = await prisma.minifigCatalog.findMany({
+        where: whereClause,
+        take: 200
+      });
+
+      catalogItems = fallbackResults.map(item => ({
+        minifigure_no: item.minifigure_no,
+        name: item.name,
+        category_id: item.category_id,
+        category_name: item.category_name,
+        year_released: item.year_released,
+        similarity: 0 // Not from fuzzy search
+      }));
+    }
 
     // Map catalog items to response format
     const matchedItems = catalogItems.map(item => ({
