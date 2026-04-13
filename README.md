@@ -172,7 +172,6 @@ minifig-price-tracker/
 │   └── PricingCard.tsx
 ├── lib/                      # Utilities
 │   ├── bricklink.ts          # BrickLink API wrapper
-│   ├── bricklink-scraper.ts  # Web scraping for pricing
 │   ├── database.ts           # Prisma client
 │   └── minifig-catalog.ts    # Complete catalog (1,567 minifigs)
 ├── prisma/                   # Database schema
