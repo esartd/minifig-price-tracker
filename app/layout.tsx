@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   authors: [{ name: 'FigTracker', url: 'https://figtracker.ericksu.com' }],
   creator: 'FigTracker',
   publisher: 'FigTracker',
+  verification: {
+    google: 'google4cb0f4f6d8842b29',
+  },
   robots: {
     index: true,
     follow: true,
