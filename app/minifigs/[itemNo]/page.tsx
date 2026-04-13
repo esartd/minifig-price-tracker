@@ -100,8 +100,7 @@ export default async function MinifigPage({
         { category_id: minifig.category_id }
       ]
     },
-    orderBy: { year_released: 'desc' },
-    take: 12
+    orderBy: { year_released: 'desc' }
   });
 
   // Fetch similar set minifigs (same category and year)
@@ -113,8 +112,7 @@ export default async function MinifigPage({
         { year_released: minifig.year_released || undefined }
       ]
     },
-    orderBy: { minifigure_no: 'asc' },
-    take: 12
+    orderBy: { minifigure_no: 'asc' }
   });
 
   const variantsData = characterVariants.map(m => ({
