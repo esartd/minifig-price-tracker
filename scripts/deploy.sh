@@ -21,7 +21,18 @@ fi
 echo "📦 Staging changes..."
 git add .
 
-# 4. Commit with message (use argument or prompt)
+# 4. Test build locally before pushing
+echo "🏗️  Testing build locally..."
+npm run build || {
+  echo ""
+  echo "❌ Build failed! Fix errors before deploying."
+  echo "   Restoring working tree..."
+  git restore --staged .
+  exit 1
+}
+echo "✅ Build successful"
+
+# 5. Commit with message (use argument or prompt)
 if [ -z "$1" ]; then
   echo ""
   read -p "💬 Commit message: " COMMIT_MSG
@@ -35,7 +46,7 @@ git commit -m "$COMMIT_MSG" || {
   exit 1
 }
 
-# 5. Push to main (pre-push hook will validate)
+# 6. Push to main (pre-push hook will validate)
 echo "🚀 Pushing to main..."
 git push origin main
 
