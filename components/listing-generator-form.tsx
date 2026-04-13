@@ -147,7 +147,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
 
   const getMostFrequentConditionFromStats = (stats: any, platform: 'facebook' | 'ebay' | 'bricklink'): string => {
     const conditions = stats.conditionCounts[platform];
-    const entries = Object.entries(conditions);
+    const entries = Object.entries(conditions) as [string, number][];
     if (entries.length === 0) return 'new';
     return entries.reduce((a, b) => a[1] > b[1] ? a : b, ['new', 0])[0];
   };
