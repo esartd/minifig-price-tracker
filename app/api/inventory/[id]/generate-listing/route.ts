@@ -5,7 +5,7 @@ import { generateListing, extractTheme } from '@/lib/listing-templates';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -13,9 +13,12 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Await params (Next.js 15+ requirement)
+    const { id } = await params;
+
     // Verify ownership
     const item = await prisma.collectionItem.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: { user: true }
     });
 
@@ -25,7 +28,7 @@ export async function POST(
 
     // Parse request body
     const body = await request.json();
-    const { platform, condition_detail, accessories, known_flaws, quantity } = body;
+    const { platform, condition_detail, accessories, known_flaws, quantity, preferences } = body;
 
     // Validate required fields
     if (!platform || !condition_detail) {
@@ -57,7 +60,8 @@ export async function POST(
       condition: condition_detail,
       accessories,
       knownFlaws: known_flaws,
-      quantity: quantity || 1
+      quantity: quantity || 1,
+      preferences: preferences || {}
     });
 
     return NextResponse.json({

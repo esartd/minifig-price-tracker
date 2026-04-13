@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "node scripts/validate-schema.js && prisma generate && next build",
+    "validate-schema": "node scripts/validate-schema.js",
+    "deploy": "bash scripts/deploy.sh",
     "start": "next start",
     "lint": "next lint",
     "db:generate": "prisma generate",

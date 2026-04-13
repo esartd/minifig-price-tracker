@@ -918,27 +918,37 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  display: 'block',
-                  marginTop: '24px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  marginTop: '16px',
                   padding: '14px 20px',
                   fontSize: '15px',
                   fontWeight: '600',
-                  color: '#ffffff',
-                  background: '#3b82f6',
+                  color: '#525252',
+                  background: '#ffffff',
+                  border: '1px solid #e5e5e5',
                   borderRadius: '8px',
                   textDecoration: 'none',
-                  textAlign: 'center',
                   transition: 'all 0.2s',
                   cursor: 'pointer'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#2563eb';
+                  e.currentTarget.style.background = '#f5f5f5';
+                  e.currentTarget.style.borderColor = '#d4d4d4';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#3b82f6';
+                  e.currentTarget.style.background = '#ffffff';
+                  e.currentTarget.style.borderColor = '#e5e5e5';
                 }}
               >
-                View on Bricklink →
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                View on Bricklink
               </a>
             </div>
           </div>

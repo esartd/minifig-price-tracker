@@ -1,5 +1,25 @@
 // Free template-based listing generator (no AI, no API costs)
 
+interface ListingPreferences {
+  // Facebook
+  offersShipping?: boolean;
+  offersLocalPickup?: boolean;
+  offersBundleDiscount?: boolean;
+  acceptsCash?: boolean;
+  acceptsVenmo?: boolean;
+  acceptsPayPal?: boolean;
+
+  // eBay
+  acceptsOffers?: boolean;
+  fastShipping?: boolean;
+  carefulPackaging?: boolean;
+  messageWithQuestions?: boolean;
+
+  // All platforms
+  smokeFreeHome?: boolean;
+  shipsWithTracking?: boolean;
+}
+
 interface ListingData {
   minifigName: string;
   minifigNo: string;
@@ -11,27 +31,28 @@ interface ListingData {
   accessories?: string;
   knownFlaws?: string;
   quantity: number;
+  preferences?: ListingPreferences;
 }
 
 // Extract clean character name from full minifig name
 function extractCharacterName(fullName: string): string {
-  // Remove theme prefix (e.g., "Star Wars - Captain Rex..." → "Captain Rex...")
-  let cleaned = fullName.replace(/^[^-]+-\s*/, '');
+  // Handle names with parentheses like "Boba Fett (Cloud City - Printed Arms & Legs)"
+  // We want just "Boba Fett"
 
-  // Take everything before first comma or parenthesis
-  const commaIndex = cleaned.indexOf(',');
-  const parenIndex = cleaned.indexOf('(');
-
-  let endIndex = cleaned.length;
-  if (commaIndex > -1 && parenIndex > -1) {
-    endIndex = Math.min(commaIndex, parenIndex);
-  } else if (commaIndex > -1) {
-    endIndex = commaIndex;
-  } else if (parenIndex > -1) {
-    endIndex = parenIndex;
+  // First check if there's a parenthesis - if so, take everything before it
+  const parenIndex = fullName.indexOf('(');
+  if (parenIndex > -1) {
+    return fullName.substring(0, parenIndex).trim();
   }
 
-  return cleaned.substring(0, endIndex).trim();
+  // If no parenthesis, check for comma
+  const commaIndex = fullName.indexOf(',');
+  if (commaIndex > -1) {
+    return fullName.substring(0, commaIndex).trim();
+  }
+
+  // Otherwise return the whole name
+  return fullName.trim();
 }
 
 // Extract theme from minifig name
@@ -40,22 +61,43 @@ export function extractTheme(name: string): string {
   return match ? match[1].trim() : 'LEGO';
 }
 
-// Format condition for display
-function formatCondition(condition: string): string {
-  const conditionMap: Record<string, string> = {
+// Format condition for display based on platform
+function formatCondition(condition: string, platform: string): string {
+  const facebookConditions: Record<string, string> = {
     'new': 'New',
-    'like_new': 'Like New',
-    'excellent': 'Excellent',
+    'like_new': 'Like new',
     'good': 'Good',
     'fair': 'Fair'
   };
-  return conditionMap[condition] || condition;
+
+  const ebayConditions: Record<string, string> = {
+    'new': 'New',
+    'like_new': 'Like New',
+    'very_good': 'Very Good',
+    'good': 'Good',
+    'acceptable': 'Acceptable'
+  };
+
+  const bricklinkConditions: Record<string, string> = {
+    'new': 'New',
+    'like_new': 'Used - Like New',
+    'very_good': 'Used - Very Good',
+    'good': 'Used - Good',
+    'acceptable': 'Used - Acceptable'
+  };
+
+  if (platform === 'facebook') return facebookConditions[condition] || condition;
+  if (platform === 'ebay') return ebayConditions[condition] || condition;
+  if (platform === 'bricklink') return bricklinkConditions[condition] || condition;
+
+  return condition;
 }
 
 // Generate eBay listing
 function generateEbayListing(data: ListingData): { title: string; description: string } {
   const characterName = extractCharacterName(data.minifigName);
-  const formattedCondition = formatCondition(data.condition);
+  const formattedCondition = formatCondition(data.condition, 'ebay');
+  const prefs = data.preferences || {};
 
   // eBay title: Character + ID + Theme + Condition (SEO optimized)
   const title = `LEGO ${data.theme} ${characterName} (${data.minifigNo}) Genuine Minifigure - ${formattedCondition} Condition`;
@@ -77,21 +119,32 @@ Condition: ${formattedCondition}`;
     description += `\n\nIncludes:\n${accessoriesList}`;
   }
 
-  description += `\n\nPrice: $${data.suggestedPrice.toFixed(2)}`;
-
   if (data.quantity > 1) {
-    description += `\nQuantity Available: ${data.quantity}`;
+    description += `\n\nQuantity Available: ${data.quantity}`;
   }
 
-  description += `\n\nShips fast and securely in protective packaging.
-From a smoke-free home.
-Feel free to message with any questions!
+  // Build dynamic shipping/home info
+  const shippingInfo: string[] = [];
+  if (prefs.fastShipping) shippingInfo.push('Ships fast and securely in protective packaging.');
+  if (prefs.smokeFreeHome) shippingInfo.push('From a smoke-free home.');
+  if (prefs.messageWithQuestions) shippingInfo.push('Feel free to message with any questions!');
 
-✓ Authentic LEGO
-✓ Fast shipping
-✓ Carefully packaged
+  if (shippingInfo.length > 0) {
+    description += `\n\n${shippingInfo.join('\n')}`;
+  }
 
-Offers accepted - click "Make Offer" to negotiate!`;
+  // Build checkmarks section
+  const checkmarks: string[] = ['✓ Authentic LEGO'];
+  if (prefs.fastShipping) checkmarks.push('✓ Fast shipping');
+  if (prefs.carefulPackaging) checkmarks.push('✓ Carefully packaged');
+
+  if (checkmarks.length > 0) {
+    description += `\n\n${checkmarks.join('\n')}`;
+  }
+
+  if (prefs.acceptsOffers) {
+    description += `\n\nOffers accepted - click "Make Offer" to negotiate!`;
+  }
 
   return { title, description };
 }
@@ -99,7 +152,8 @@ Offers accepted - click "Make Offer" to negotiate!`;
 // Generate Facebook Marketplace listing
 function generateFacebookListing(data: ListingData): { title: string; description: string } {
   const characterName = extractCharacterName(data.minifigName);
-  const formattedCondition = formatCondition(data.condition);
+  const formattedCondition = formatCondition(data.condition, 'facebook');
+  const prefs = data.preferences || {};
 
   // Facebook title: Casual, under 100 chars
   const title = `LEGO ${data.theme} ${characterName} Minifigure - ${formattedCondition}`;
@@ -117,24 +171,47 @@ Condition: ${formattedCondition}`;
     description += `\nComes with: ${data.accessories}`;
   }
 
-  description += `\n\nAsking $${data.suggestedPrice.toFixed(2)}`;
-
   if (data.quantity > 1) {
     description += `\n\n${data.quantity} available`;
   }
 
-  description += `\n\nLocal pickup or I can ship!
-Bundle discounts available if you're buying multiple 😊
+  // Build dynamic preferences section
+  const deliveryOptions: string[] = [];
+  if (prefs.offersLocalPickup) deliveryOptions.push('Local pickup');
+  if (prefs.offersShipping) deliveryOptions.push('I can ship');
 
-From smoke-free home
-Cash or Venmo accepted`;
+  if (deliveryOptions.length > 0) {
+    description += `\n\n${deliveryOptions.join(' or ')}!`;
+  }
+
+  if (prefs.offersBundleDiscount) {
+    description += `\nBundle discounts available if you're buying multiple 😊`;
+  }
+
+  // Build payment/home info section
+  const extraInfo: string[] = [];
+  if (prefs.smokeFreeHome) extraInfo.push('From smoke-free home');
+
+  const paymentMethods: string[] = [];
+  if (prefs.acceptsCash) paymentMethods.push('Cash');
+  if (prefs.acceptsVenmo) paymentMethods.push('Venmo');
+  if (prefs.acceptsPayPal) paymentMethods.push('PayPal');
+
+  if (paymentMethods.length > 0) {
+    extraInfo.push(`${paymentMethods.join(' or ')} accepted`);
+  }
+
+  if (extraInfo.length > 0) {
+    description += `\n\n${extraInfo.join('\n')}`;
+  }
 
   return { title, description };
 }
 
 // Generate BrickLink listing
 function generateBricklinkListing(data: ListingData): { title: string; description: string } {
-  const formattedCondition = formatCondition(data.condition);
+  const formattedCondition = formatCondition(data.condition, 'bricklink');
+  const prefs = data.preferences || {};
 
   // BrickLink title: Technical, precise with ID
   const title = `${data.minifigNo} - ${extractCharacterName(data.minifigName)} - ${formattedCondition}`;
@@ -156,12 +233,24 @@ Condition: ${formattedCondition}`;
     description += `\n\nQuantity: ${data.quantity}`;
   }
 
-  description += `\n\nPrice: $${data.suggestedPrice.toFixed(2)}
+  description += `\n\nAuthentic LEGO minifigure from private collection.`;
 
-Authentic LEGO minifigure from private collection.
-Carefully packaged and shipped with tracking.
+  // Build shipping/packaging info
+  const shippingInfo: string[] = [];
+  if (prefs.carefulPackaging) shippingInfo.push('Carefully packaged');
+  if (prefs.shipsWithTracking) shippingInfo.push('shipped with tracking');
 
-Contact with questions before purchasing.`;
+  if (shippingInfo.length > 0) {
+    description += `\n${shippingInfo.join(' and ')}.`;
+  }
+
+  if (prefs.smokeFreeHome) {
+    description += `\nFrom smoke-free home.`;
+  }
+
+  if (prefs.messageWithQuestions) {
+    description += `\n\nContact with questions before purchasing.`;
+  }
 
   return { title, description };
 }
