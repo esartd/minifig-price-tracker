@@ -50,6 +50,40 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const query = searchParams.get('q');
+    const categoryId = searchParams.get('category');
+
+    // Category browsing (no search query, just category)
+    if (!query && categoryId) {
+      const categoryIdNum = parseInt(categoryId);
+
+      const catalogItems = await prisma.minifigCatalog.findMany({
+        where: {
+          category_id: categoryIdNum
+        },
+        orderBy: [
+          { year_released: 'desc' },
+          { minifigure_no: 'desc' }
+        ],
+        take: 500 // Show up to 500 minifigs per category
+      });
+
+      const matchedItems = catalogItems.map(item => ({
+        no: item.minifigure_no,
+        name: item.name,
+        category_id: item.category_id,
+        category_name: item.category_name,
+        year_released: item.year_released,
+        image_url: `https://img.bricklink.com/ItemImage/MN/0/${item.minifigure_no}.png`
+      }));
+
+      return NextResponse.json({
+        success: true,
+        data: matchedItems,
+        total: matchedItems.length,
+        category: matchedItems[0]?.category_name || 'Unknown',
+        source: 'catalog_category'
+      });
+    }
 
     if (!query) {
       return NextResponse.json(
@@ -135,13 +169,20 @@ export async function GET(request: NextRequest) {
     }
 
     // NAME-BASED SEARCH: Search full catalog (from downloaded Bricklink data)
+    // Optional: filter by category
+    const whereClause: any = {
+      search_name: {
+        contains: searchTerm.toLowerCase(),
+        mode: 'insensitive'
+      }
+    };
+
+    if (categoryId) {
+      whereClause.category_id = parseInt(categoryId);
+    }
+
     const catalogItems = await prisma.minifigCatalog.findMany({
-      where: {
-        search_name: {
-          contains: searchTerm.toLowerCase(),
-          mode: 'insensitive'
-        }
-      },
+      where: whereClause,
       take: 200 // Allow more results for popular characters
     });
 

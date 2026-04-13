@@ -263,6 +263,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
             items={[
               { label: 'Home', href: '/' },
               { label: 'Search', href: '/search' },
+              { label: minifig.category_name, href: `/search?category=${minifig.category_id}` },
               { label: minifig.no }
             ]}
           />

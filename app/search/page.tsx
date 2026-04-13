@@ -98,6 +98,8 @@ function SearchPageContent() {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searchResult, setSearchResult] = useState<any>(null);
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
+  const [categoryId, setCategoryId] = useState<string | null>(searchParams.get('category'));
+  const [categoryName, setCategoryName] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -109,6 +111,16 @@ function SearchPageContent() {
   useEffect(() => {
     // Generate positions only on client to avoid hydration mismatch
     setMinifigPositions(generateFireworkPositions(12));
+  }, []);
+
+  // Load category browsing on mount if category param exists
+  useEffect(() => {
+    const category = searchParams.get('category');
+    if (category && !searchParams.get('q')) {
+      setCategoryId(category);
+      setLoading(true);
+      performSearch('', category);
+    }
   }, []);
 
   // Track if search is active (has query or results)
@@ -126,7 +138,7 @@ function SearchPageContent() {
       setLoading(true);
       setHasSearched(false);
       debounceTimer.current = setTimeout(() => {
-        performSearch(searchQuery);
+        performSearch(searchQuery, categoryId);
       }, 50); // Very minimal debounce for instant feel
     } else {
       setSearchResults([]);
@@ -142,16 +154,42 @@ function SearchPageContent() {
     };
   }, [searchQuery]);
 
-  // Update URL with query param
+  // Update URL with query params
   useEffect(() => {
-    if (searchQuery) {
-      router.push(`/search?q=${encodeURIComponent(searchQuery)}`, { scroll: false });
-    } else {
-      router.push('/search', { scroll: false });
-    }
-  }, [searchQuery]);
+    const params = new URLSearchParams();
+    if (searchQuery) params.set('q', searchQuery);
+    if (categoryId) params.set('category', categoryId);
 
-  const performSearch = async (term: string) => {
+    const queryString = params.toString();
+    router.push(`/search${queryString ? '?' + queryString : ''}`, { scroll: false });
+  }, [searchQuery, categoryId]);
+
+  const performSearch = async (term: string, category: string | null = null) => {
+    // Category-only browsing (no search term)
+    if (!term && category) {
+      try {
+        const response = await fetch(`/api/minifigs/search?category=${encodeURIComponent(category)}`);
+        const data = await response.json();
+
+        if (data.success && data.data.length > 0) {
+          setSearchResults(data.data);
+          setSearchResult(null);
+          setCategoryName(data.category || '');
+        } else {
+          setSearchResults([]);
+          setSearchResult(null);
+        }
+      } catch (error) {
+        console.error('Category browse failed:', error);
+        setSearchResults([]);
+        setSearchResult(null);
+      } finally {
+        setLoading(false);
+        setHasSearched(true);
+      }
+      return;
+    }
+
     if (!term || term.length < 1) {
       setSearchResults([]);
       setSearchResult(null);
@@ -161,7 +199,10 @@ function SearchPageContent() {
     }
 
     try {
-      const response = await fetch(`/api/minifigs/search?q=${encodeURIComponent(term)}`);
+      const params = new URLSearchParams({ q: term });
+      if (category) params.set('category', category);
+
+      const response = await fetch(`/api/minifigs/search?${params.toString()}`);
       const data = await response.json();
 
       if (data.success && data.data.length > 0) {
@@ -172,6 +213,7 @@ function SearchPageContent() {
           setSearchResults(data.data);
           setSearchResult(null);
         }
+        if (data.category) setCategoryName(data.category);
       } else {
         setSearchResults([]);
         setSearchResult(null);
@@ -309,6 +351,66 @@ function SearchPageContent() {
               onSearchQueryChange={handleSearchQueryChange}
             />
           </div>
+
+          {/* Category Browsing Header */}
+          {categoryId && categoryName && !searchQuery && (
+            <div style={{
+              maxWidth: '800px',
+              margin: '0 auto 32px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '16px'
+            }}>
+              <div>
+                <h2 style={{
+                  fontSize: '28px',
+                  fontWeight: '600',
+                  color: '#171717',
+                  letterSpacing: '-0.01em',
+                  marginBottom: '8px'
+                }}>
+                  {categoryName}
+                </h2>
+                <p style={{
+                  fontSize: '14px',
+                  color: '#737373'
+                }}>
+                  {searchResults.length} minifigure{searchResults.length !== 1 ? 's' : ''}
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  setCategoryId(null);
+                  setCategoryName('');
+                  setSearchResults([]);
+                  router.push('/search');
+                }}
+                style={{
+                  padding: '8px 16px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  color: '#737373',
+                  background: '#ffffff',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  whiteSpace: 'nowrap'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#f5f5f5';
+                  e.currentTarget.style.borderColor = '#d4d4d4';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = '#ffffff';
+                  e.currentTarget.style.borderColor = '#e5e5e5';
+                }}
+              >
+                Clear filter
+              </button>
+            </div>
+          )}
 
           {/* Loading State */}
           {loading && (

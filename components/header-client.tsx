@@ -356,6 +356,23 @@ export function HeaderClient({ user }: HeaderClientProps) {
             </Link>
 
             <Link
+              href="/categories"
+              style={{
+                color: '#171717',
+                textDecoration: 'none',
+                fontSize: '15px',
+                fontWeight: '500',
+                padding: '0 4px',
+                transition: 'color 0.2s',
+                display: 'flex',
+                alignItems: 'center',
+                height: '36px'
+              }}
+            >
+              Categories
+            </Link>
+
+            <Link
               href="/inventory"
               style={{
                 fontSize: '15px',
@@ -547,6 +564,16 @@ export function HeaderClient({ user }: HeaderClientProps) {
             fontSize: '16px'
           }}>
             Search
+          </Link>
+          <Link href="/categories" onClick={() => setMobileMenuOpen(false)} style={{
+            display: 'block',
+            padding: '15px 0',
+            borderBottom: '1px solid #f5f5f5',
+            color: '#171717',
+            textDecoration: 'none',
+            fontSize: '16px'
+          }}>
+            Categories
           </Link>
           <Link href="/inventory" onClick={() => setMobileMenuOpen(false)} style={{
             display: 'block',
