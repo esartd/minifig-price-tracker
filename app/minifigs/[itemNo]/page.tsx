@@ -86,13 +86,11 @@ export default async function MinifigPage({
     weight_grams: minifig.weight_grams
   };
 
-  // Fetch related minifigs (same character, different variations)
-  // First remove theme prefix (e.g., "Star Wars - " or "Harry Potter - ")
+  // Fetch character variants (same character, different variations)
   const withoutTheme = minifig.name.replace(/^[^-]+-\s*/, '');
-  // Then get character name (before first comma)
   const characterName = withoutTheme.split(',')[0].trim();
 
-  const relatedMinifigs = await prisma.minifigCatalog.findMany({
+  const characterVariants = await prisma.minifigCatalog.findMany({
     where: {
       AND: [
         { minifigure_no: { not: itemNo } },
@@ -104,11 +102,30 @@ export default async function MinifigPage({
     take: 12
   });
 
-  const relatedData = relatedMinifigs.map(m => ({
+  // Fetch similar set minifigs (same category and year)
+  const themeMinifigs = await prisma.minifigCatalog.findMany({
+    where: {
+      AND: [
+        { minifigure_no: { not: itemNo } },
+        { category_id: minifig.category_id },
+        { year_released: minifig.year_released || undefined }
+      ]
+    },
+    orderBy: { minifigure_no: 'asc' },
+    take: 12
+  });
+
+  const variantsData = characterVariants.map(m => ({
     no: m.minifigure_no,
     name: m.name,
     image_url: `https://img.bricklink.com/ItemImage/MN/0/${m.minifigure_no}.png`
   }));
 
-  return <MinifigDetailClient minifig={minifigData} related={relatedData} />;
+  const similarSetsData = themeMinifigs.map(m => ({
+    no: m.minifigure_no,
+    name: m.name,
+    image_url: `https://img.bricklink.com/ItemImage/MN/0/${m.minifigure_no}.png`
+  }));
+
+  return <MinifigDetailClient minifig={minifigData} variants={variantsData} similarSets={similarSetsData} />;
 }

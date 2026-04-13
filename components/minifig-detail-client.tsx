@@ -20,10 +20,11 @@ interface MinifigData {
 
 interface MinifigDetailClientProps {
   minifig: MinifigData;
-  related: Array<{ no: string; name: string; image_url: string }>;
+  variants: Array<{ no: string; name: string; image_url: string }>;
+  similarSets: Array<{ no: string; name: string; image_url: string }>;
 }
 
-export default function MinifigDetailClient({ minifig, related }: MinifigDetailClientProps) {
+export default function MinifigDetailClient({ minifig, variants, similarSets }: MinifigDetailClientProps) {
   const router = useRouter();
   const { data: session } = useSession();
   const [addLoading, setAddLoading] = useState(false);
@@ -795,18 +796,18 @@ export default function MinifigDetailClient({ minifig, related }: MinifigDetailC
             </div>
           </div>
 
-          {/* Related Variants Section */}
-          {related.length > 0 && (
+          {/* Character Variants Section */}
+          {variants.length > 0 && (
             <div className="minifig-related-section" style={{ marginTop: '32px', padding: '0 16px' }}>
               <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
                 <h2 className="minifig-related-heading">
-                  Related Variants
+                  Other Variants
                 </h2>
                 <p className="minifig-related-description">
                   Different versions of this character
                 </p>
                 <div className="minifig-related-grid">
-                  {related.map((variant) => (
+                  {variants.map((variant) => (
                     <a
                       key={variant.no}
                       href={`/minifigs/${variant.no}`}
@@ -862,18 +863,75 @@ export default function MinifigDetailClient({ minifig, related }: MinifigDetailC
               </div>
             </div>
           )}
-        </div>
-      </div>
 
-      {/* Bricklink attribution */}
-      <div style={{
-        marginTop: '32px',
-        padding: '16px',
-        textAlign: 'center',
-        fontSize: '12px',
-        color: '#737373'
-      }}>
-        The term 'BrickLink' is a trademark of the LEGO Group BrickLink. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.
+          {/* From Similar Sets Section */}
+          {similarSets.length > 0 && (
+            <div className="minifig-related-section" style={{ marginTop: '32px', padding: '0 16px' }}>
+              <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+                <h2 className="minifig-related-heading">
+                  From Similar Sets
+                </h2>
+                <p className="minifig-related-description">
+                  Minifigures released around the same time
+                </p>
+                <div className="minifig-related-grid">
+                  {similarSets.map((related) => (
+                    <a
+                      key={related.no}
+                      href={`/minifigs/${related.no}`}
+                      style={{
+                        display: 'block',
+                        background: '#ffffff',
+                        borderRadius: '12px',
+                        border: '1px solid #e5e5e5',
+                        overflow: 'hidden',
+                        textDecoration: 'none',
+                        transition: 'all 0.2s',
+                        cursor: 'pointer'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = '#3b82f6';
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.1)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = '#e5e5e5';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
+                    >
+                      <div className="minifig-variant-image">
+                        <img
+                          src={related.image_url}
+                          alt={related.name}
+                        />
+                      </div>
+                      <div style={{ padding: '8px 16px 16px' }}>
+                        <p style={{
+                          fontSize: '14px',
+                          fontWeight: '600',
+                          color: '#171717',
+                          marginBottom: '4px',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                          lineHeight: '1.4'
+                        }}>
+                          {related.name}
+                        </p>
+                        <p style={{
+                          fontSize: '12px',
+                          color: '#737373',
+                          fontFamily: 'monospace'
+                        }}>
+                          {related.no}
+                        </p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
