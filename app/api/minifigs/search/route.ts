@@ -178,67 +178,64 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // NAME-BASED SEARCH: Use PostgreSQL trigram fuzzy search with fallback
-    // This helps users find minifigs even with typos (e.g., "luke skywaker" finds "Luke Skywalker")
+    // NAME-BASED SEARCH: Try exact substring match first, then fuzzy for typos
     const searchLower = searchTerm.toLowerCase();
 
-    // Set similarity threshold (0.2 = 20% match - allows for typos and partial matches)
-    await prisma.$executeRawUnsafe('SELECT set_limit(0.2)');
-
     // Build WHERE clause for category filter
-    const categoryFilter = categoryId ? `AND category_id = ${parseInt(categoryId)}` : '';
-
-    // Try fuzzy search first
-    let catalogItems = await prisma.$queryRawUnsafe<Array<{
-      minifigure_no: string;
-      name: string;
-      category_id: number;
-      category_name: string;
-      year_released: string | null;
-      similarity: number;
-    }>>(
-      `SELECT
-        minifigure_no,
-        name,
-        category_id,
-        category_name,
-        year_released,
-        similarity(search_name, $1) as similarity
-      FROM "MinifigCatalog"
-      WHERE search_name % $1 ${categoryFilter}
-      ORDER BY similarity DESC
-      LIMIT 200`,
-      searchLower
-    );
-
-    // Fallback: If fuzzy search finds nothing, use regular ILIKE search
-    // This handles cases like accented characters (padmé vs padme)
-    if (catalogItems.length === 0) {
-      const whereClause: any = {
-        search_name: {
-          contains: searchLower,
-          mode: 'insensitive'
-        }
-      };
-
-      if (categoryId) {
-        whereClause.category_id = parseInt(categoryId);
+    const whereClause: any = {
+      search_name: {
+        contains: searchLower,
+        mode: 'insensitive'
       }
+    };
 
-      const fallbackResults = await prisma.minifigCatalog.findMany({
-        where: whereClause,
-        take: 200
-      });
-
-      catalogItems = fallbackResults.map(item => ({
-        minifigure_no: item.minifigure_no,
-        name: item.name,
-        category_id: item.category_id,
-        category_name: item.category_name,
-        year_released: item.year_released,
-        similarity: 0 // Not from fuzzy search
-      }));
+    if (categoryId) {
+      whereClause.category_id = parseInt(categoryId);
     }
+
+    // Try exact substring match first (what users expect)
+    let rawResults = await prisma.minifigCatalog.findMany({
+      where: whereClause,
+      select: {
+        minifigure_no: true,
+        name: true,
+        category_id: true,
+        category_name: true,
+        year_released: true
+      },
+      take: 200
+    });
+
+    // If exact match finds nothing, try fuzzy search for typos
+    // e.g., "luke skywaker" → "Luke Skywalker"
+    if (rawResults.length === 0) {
+      await prisma.$executeRawUnsafe('SELECT set_limit(0.2)');
+
+      const categoryFilter = categoryId ? `AND category_id = ${parseInt(categoryId)}` : '';
+
+      rawResults = await prisma.$queryRawUnsafe<Array<{
+        minifigure_no: string;
+        name: string;
+        category_id: number;
+        category_name: string;
+        year_released: string | null;
+      }>>(
+        `SELECT
+          minifigure_no,
+          name,
+          category_id,
+          category_name,
+          year_released
+        FROM "MinifigCatalog"
+        WHERE search_name % $1 ${categoryFilter}
+        ORDER BY similarity(search_name, $1) DESC
+        LIMIT 200`,
+        searchLower
+      );
+    }
+
+    // Map to common response format
+    const catalogItems = rawResults;
 
     // Map catalog items to response format
     const matchedItems = catalogItems.map(item => ({
