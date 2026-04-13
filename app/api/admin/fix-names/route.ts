@@ -7,9 +7,9 @@ import { auth } from '@/auth';
  *
  * Updates all collection items with correct character names from MinifigCache
  *
- * POST /api/admin/fix-names
+ * GET or POST /api/admin/fix-names
  */
-export async function POST() {
+async function fixNames() {
   try {
     // Only allow admin (check if user is logged in - add stricter auth if needed)
     const session = await auth();
@@ -82,4 +82,13 @@ export async function POST() {
       { status: 500 }
     );
   }
+}
+
+// Allow both GET and POST
+export async function GET() {
+  return fixNames();
+}
+
+export async function POST() {
+  return fixNames();
 }
