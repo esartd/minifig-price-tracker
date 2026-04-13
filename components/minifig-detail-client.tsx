@@ -175,10 +175,9 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     }
   };
 
-  // Clean display name
+  // Display name as-is from BrickLink (no modifications)
   const getDisplayName = (fullName: string) => {
-    let cleaned = fullName.replace(/^[^-]+-\s*/, '');
-    const parts = cleaned.split(',');
+    const parts = fullName.split(',');
 
     if (parts.length > 1) {
       return {
@@ -187,7 +186,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
       };
     }
 
-    return { title: cleaned.trim() };
+    return { title: fullName.trim() };
   };
 
   // Product schema for SEO
