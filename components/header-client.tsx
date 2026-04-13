@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { signOut } from 'next-auth/react';
 
@@ -111,9 +112,11 @@ export function HeaderClient({ user }: HeaderClientProps) {
         transition: 'border-color 0.2s',
         position: 'relative'
       }}>
-        <img
+        <Image
           src={imageUrl}
           alt="Avatar"
+          width={size}
+          height={size * 2}
           style={{
             width: 'auto',
             height: '200%',
@@ -123,6 +126,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             transform: 'translateX(-50%)',
             objectFit: 'contain'
           }}
+          unoptimized
         />
       </div>
     );

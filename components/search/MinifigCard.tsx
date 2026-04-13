@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 interface MinifigCardProps {
   minifig: any;
@@ -71,15 +72,19 @@ export default function MinifigCard({
         }}
       >
         {minifig.image_url ? (
-          <img
+          <Image
             className="minifig-card-image"
             src={minifig.image_url}
             alt={minifig.name}
+            width={100}
+            height={140}
             style={{
               height: '140px',
               width: 'auto',
-              maxWidth: 'none'
+              maxWidth: 'none',
+              objectFit: 'contain'
             }}
+            unoptimized
           />
         ) : (
           <div style={{

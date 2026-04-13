@@ -41,7 +41,18 @@ export async function generateMetadata({
 
   return {
     title: `${fullName} (${minifig.minifigure_no}) - LEGO Minifigure Price Guide`,
-    description: `${minifig.category_name} - ${fullName}. View current prices, historical trends, and add to your inventory. Released ${minifig.year_released || 'date unknown'}.`,
+    description: `${minifig.category_name} - ${fullName}. Track current BrickLink prices, view historical trends, and manage your LEGO minifigure inventory. Released ${minifig.year_released || 'date unknown'}.`,
+    keywords: [
+      'LEGO minifigure',
+      fullName,
+      minifig.minifigure_no,
+      minifig.category_name,
+      'BrickLink price',
+      'minifigure price guide',
+      'LEGO price tracker',
+      'collectible minifigures',
+      'LEGO inventory'
+    ],
     openGraph: {
       title: `${fullName} - ${minifig.category_name}`,
       description: `LEGO Minifigure ${minifig.minifigure_no} - Price tracking and inventory management`,
@@ -174,5 +185,36 @@ export default async function MinifigPage({
     image_url: `https://img.bricklink.com/ItemImage/MN/0/${m.minifigure_no}.png`
   }));
 
-  return <MinifigDetailClient minifig={minifigData} variants={variantsData} similarSets={similarSetsData} />;
+  // Schema.org structured data for rich search results
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: minifig.name,
+    description: `${minifig.category_name} LEGO minifigure ${minifig.minifigure_no}`,
+    image: `https://img.bricklink.com/ItemImage/MN/0/${minifig.minifigure_no}.png`,
+    brand: {
+      '@type': 'Brand',
+      name: 'LEGO'
+    },
+    category: minifig.category_name,
+    identifier: minifig.minifigure_no,
+    ...(minifig.year_released && {
+      releaseDate: minifig.year_released
+    }),
+    offers: {
+      '@type': 'AggregateOffer',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock'
+    }
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <MinifigDetailClient minifig={minifigData} variants={variantsData} similarSets={similarSetsData} />
+    </>
+  );
 }

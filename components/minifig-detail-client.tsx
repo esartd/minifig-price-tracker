@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Script from 'next/script';
+import Image from 'next/image';
 import AddToCollectionForm from '@/components/search/AddToCollectionForm';
 import PriceHistoryChart from '@/components/PriceHistoryChart';
 import ListingGeneratorForm from '@/components/listing-generator-form';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 interface MinifigData {
   no: string;
@@ -254,6 +256,20 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
         </div>
       </div>
 
+      {/* Breadcrumbs */}
+      <div style={{ padding: '0 16px' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', paddingTop: '16px' }}>
+          <Breadcrumbs
+            items={[
+              { label: 'Home', href: '/' },
+              { label: 'Search', href: '/search' },
+              { label: minifig.category_name, href: `/search?category=${minifig.category_id}` },
+              { label: minifig.no }
+            ]}
+          />
+        </div>
+      </div>
+
       {/* Main Content */}
       <div className="minifig-main-content-wrapper" style={{ padding: '0 16px' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
@@ -277,11 +293,15 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   borderRight: 'none'
                 }}
               >
-                <img
+                <Image
                   src={minifig.image_url}
                   alt={minifig.name}
                   className="minifig-main-image"
+                  width={200}
+                  height={200}
                   style={{ maxHeight: '200px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+                  unoptimized
+                  priority
                 />
               </div>
 
@@ -830,9 +850,13 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       }}
                     >
                       <div className="minifig-variant-image">
-                        <img
+                        <Image
                           src={related.image_url}
                           alt={related.name}
+                          width={120}
+                          height={150}
+                          style={{ objectFit: 'contain' }}
+                          unoptimized
                         />
                       </div>
                       <div style={{ padding: '8px 16px 16px' }}>
@@ -898,9 +922,13 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       }}
                     >
                       <div className="minifig-variant-image">
-                        <img
+                        <Image
                           src={variant.image_url}
                           alt={variant.name}
+                          width={120}
+                          height={150}
+                          style={{ objectFit: 'contain' }}
+                          unoptimized
                         />
                       </div>
                       <div style={{ padding: '8px 16px 16px' }}>

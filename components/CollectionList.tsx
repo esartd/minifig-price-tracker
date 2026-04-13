@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { CollectionItem } from '@/types';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -131,10 +132,13 @@ export default function CollectionList({
             overflow: 'hidden'
           }}>
             {item.image_url ? (
-              <img
+              <Image
                 src={item.image_url}
                 alt={item.minifigure_name}
-                style={{ height: '100px', width: 'auto', maxWidth: 'none' }}
+                width={80}
+                height={100}
+                style={{ height: '100px', width: 'auto', maxWidth: 'none', objectFit: 'contain' }}
+                unoptimized
               />
             ) : (
               <span style={{ fontSize: '28px' }}>🧱</span>

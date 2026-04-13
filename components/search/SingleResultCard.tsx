@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import PriceDisplay from './PriceDisplay';
 import AddToCollectionForm from './AddToCollectionForm';
 import { Session } from 'next-auth';
@@ -59,15 +60,19 @@ export default function SingleResultCard({
         }}
       >
         {minifig.image_url ? (
-          <img
+          <Image
             src={minifig.image_url}
             alt={minifig.name}
             onClick={(e) => onImageClick(minifig.image_url, minifig.name, e)}
+            width={160}
+            height={220}
             style={{
               height: '220px',
               width: 'auto',
-              maxWidth: 'none'
+              maxWidth: 'none',
+              objectFit: 'contain'
             }}
+            unoptimized
           />
         ) : (
           <div style={{
