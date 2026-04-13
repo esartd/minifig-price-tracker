@@ -3,13 +3,16 @@ import { bricklinkAPI } from '@/lib/bricklink';
 import { prisma } from '@/lib/prisma';
 
 /**
- * COMPLIANT SEARCH IMPLEMENTATION
+ * SEARCH IMPLEMENTATION
  *
- * This search is user-driven and complies with BrickLink API Terms:
- * - NO systematic enumeration (no robot/spider behavior)
- * - Caches only what users search for (reasonable caching)
- * - API calls driven by actual user requests (not automated)
- * - 30-day cache TTL (reasonable period for minifig metadata)
+ * This endpoint provides two search methods:
+ * 1. Exact ID search: Checks cache, then fetches from BrickLink API if needed
+ * 2. Name-based search: Searches the full MinifigCatalog (downloaded from BrickLink)
+ *
+ * This complies with BrickLink API Terms:
+ * - Catalog data is from their official download, not systematic API enumeration
+ * - API calls only for exact ID lookups (user-driven requests)
+ * - Pricing still fetched via API with proper caching
  */
 
 // Helper: Generate search keywords from text
@@ -131,59 +134,39 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // NAME-BASED SEARCH: Search cached items only (user-driven, no systematic enumeration)
-    // This searches only minifigs that users have previously looked up
-    const cachedItems = await prisma.minifigCache.findMany({
+    // NAME-BASED SEARCH: Search full catalog (from downloaded Bricklink data)
+    const catalogItems = await prisma.minifigCatalog.findMany({
       where: {
-        expires_at: { gt: new Date() }, // Only non-expired cache
-        OR: [
-          { name: { contains: searchTerm, mode: 'insensitive' } },
-          { keywords: { has: searchTerm.toLowerCase() } }
-        ]
+        search_name: {
+          contains: searchTerm.toLowerCase(),
+          mode: 'insensitive'
+        }
       },
-      orderBy: { last_searched_at: 'desc' }, // Popular items first
       take: 50 // Limit results
     });
 
-    // Filter and rank results
-    const matchedItems = cachedItems
-      .filter(item => matchesSearch(item, searchTerm))
-      .map(item => ({
-        no: item.minifigure_no,
-        name: item.name,
-        category_id: item.category_id,
-        image_url: item.image_url
-      }));
+    // Map catalog items to response format
+    const matchedItems = catalogItems.map(item => ({
+      no: item.minifigure_no,
+      name: item.name,
+      category_id: item.category_id,
+      category_name: item.category_name,
+      year_released: item.year_released,
+      image_url: `https://img.bricklink.com/ItemImage/MN/0/${item.minifigure_no}.png`
+    }));
 
     if (matchedItems.length === 0) {
-      // Provide helpful guidance based on search term
-      let suggestion = '';
-      const lowerTerm = searchTerm.toLowerCase();
-
-      // Theme-specific suggestions
-      if (lowerTerm.includes('star wars') || lowerTerm.includes('luke') || lowerTerm.includes('vader') || lowerTerm.includes('yoda')) {
-        suggestion = ' Try: sw1219 (Luke Skywalker), sw0001a (Darth Vader)';
-      } else if (lowerTerm.includes('harry') || lowerTerm.includes('potter') || lowerTerm.includes('hermione')) {
-        suggestion = ' Try: hp001 (Harry Potter), hp002 (Hermione)';
-      } else if (lowerTerm.includes('disney') || lowerTerm.includes('snow white') || lowerTerm.includes('mickey')) {
-        suggestion = ' Try: dis134 (Snow White), dis001 (Mickey Mouse)';
-      } else if (lowerTerm.includes('super hero') || lowerTerm.includes('batman') || lowerTerm.includes('spider')) {
-        suggestion = ' Try: sh001 (Batman), sh536 (Spider-Man)';
-      } else if (lowerTerm.includes('ninjago')) {
-        suggestion = ' Try: njo001 (Kai), njo002 (Cole)';
-      }
-
       return NextResponse.json({
         success: false,
-        error: `No minifigures found matching "${searchTerm}". Search by exact BrickLink ID to add new items to the catalog.${suggestion}`,
+        error: `No minifigures found matching "${searchTerm}". Try a different search term or check spelling.`,
         hint: {
-          message: 'Common prefixes: sw=Star Wars, hp=Harry Potter, dis=Disney, sh=Super Heroes, njo=Ninjago',
-          examples: ['dis134', 'sw1219', 'hp001', 'sh536']
+          message: 'Search by name (e.g., "Luke Skywalker") or BrickLink ID (e.g., "sw1219")',
+          examples: ['luke skywalker', 'darth vader', 'sw1219', 'hp001']
         }
       }, { status: 404 });
     }
 
-    // Sort results: exact matches first, then starts-with, then by popularity
+    // Sort results: exact matches first, then starts-with
     const searchLower = searchTerm.toLowerCase();
     matchedItems.sort((a, b) => {
       const aNameLower = a.name.toLowerCase();
@@ -199,16 +182,15 @@ export async function GET(request: NextRequest) {
       if (aStarts && !bStarts) return -1;
       if (bStarts && !aStarts) return 1;
 
-      // Otherwise maintain order (already sorted by last_searched_at)
-      return 0;
+      // Sort alphabetically
+      return aNameLower.localeCompare(bNameLower);
     });
 
     return NextResponse.json({
       success: true,
       data: matchedItems,
       total: matchedItems.length,
-      source: 'cache',
-      hint: matchedItems.length < 5 ? 'Search by exact BrickLink ID (e.g., dis134) to add more items to searchable catalog' : undefined
+      source: 'catalog'
     });
 
   } catch (error) {

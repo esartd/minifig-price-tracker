@@ -189,3 +189,23 @@ model Listing {
   @@index([collectionItemId])
   @@index([status])
 }
+
+model MinifigCatalog {
+  minifigure_no     String   @id  // Bricklink ID (e.g., "sw1219", "cas004")
+  name              String        // Full minifigure name
+  category_id       Int
+  category_name     String
+  year_released     String?       // Can be "?" for unknown
+  weight_grams      Float?
+
+  // Search optimization
+  search_name       String        // Lowercase name for case-insensitive search
+
+  // Metadata
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+
+  @@index([search_name])
+  @@index([category_name])
+  @@index([year_released])
+}

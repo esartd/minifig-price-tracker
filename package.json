@@ -16,7 +16,11 @@
     "db:studio": "prisma studio",
     "restore-collection": "tsx scripts/migrate-existing-data.ts",
     "check-api-usage": "tsx scripts/check-api-usage.ts",
-    "fix-names": "tsx scripts/fix-minifig-names.ts"
+    "fix-names": "tsx scripts/fix-minifig-names.ts",
+    "import-catalog": "tsx scripts/import-catalog.ts",
+    "check-catalog": "curl https://figtracker.ericksu.com/api/admin/check-catalog-changes",
+    "upload-catalog": "curl -X POST https://figtracker.ericksu.com/api/admin/upload-catalog -H 'Authorization: Bearer $ADMIN_SECRET' -H 'Content-Type: text/plain' --data-binary @Minifigures.txt",
+    "test-catalog-download": "curl https://figtracker.ericksu.com/api/admin/test-catalog-download -H 'Authorization: Bearer $ADMIN_SECRET'"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.1",

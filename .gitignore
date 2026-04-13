@@ -43,3 +43,6 @@ dev.db
 
 # user uploads
 public/uploads/
+
+# Bricklink catalog download (large file, auto-downloaded by cron)
+Minifigures.txt
