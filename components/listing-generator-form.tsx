@@ -119,26 +119,26 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
       const defaultPlatform = getMostFrequentPlatformFromStats(stats);
       const defaultCondition = getMostFrequentConditionFromStats(stats, defaultPlatform);
 
-      // Load last-used form values
-      const savedFormValues = localStorage.getItem('lastListingFormValues');
-      if (savedFormValues) {
-        const lastValues = JSON.parse(savedFormValues);
-        setFormData({
-          platform: defaultPlatform,
-          condition_detail: defaultCondition,
-          accessories: lastValues.accessories || '',
-          known_flaws: lastValues.known_flaws || '',
-          quantity: lastValues.quantity || 1
-        });
-      } else {
-        setFormData(prev => ({
-          ...prev,
-          platform: defaultPlatform,
-          condition_detail: defaultCondition
-        }));
-      }
+      // Only load platform and condition (accessories/flaws are unique per minifig)
+      setFormData(prev => ({
+        ...prev,
+        platform: defaultPlatform,
+        condition_detail: defaultCondition
+      }));
     }
   }, []);
+
+  // Reset minifig-specific fields when item changes
+  useEffect(() => {
+    setFormData(prev => ({
+      ...prev,
+      accessories: '',
+      known_flaws: '',
+      quantity: 1
+    }));
+    setPreview(null);
+    setShowDetailedForm(false);
+  }, [item.id]);
 
   // Helper functions to get most frequent from stats object
   const getMostFrequentPlatformFromStats = (stats: any): 'facebook' | 'ebay' | 'bricklink' => {
@@ -195,13 +195,6 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
 
         // Save preferences for next time
         localStorage.setItem('listingPreferences', JSON.stringify(preferences));
-
-        // Save form values for next time
-        localStorage.setItem('lastListingFormValues', JSON.stringify({
-          accessories: formData.accessories,
-          known_flaws: formData.known_flaws,
-          quantity: formData.quantity
-        }));
 
         // Update usage statistics
         const updatedStats = {
