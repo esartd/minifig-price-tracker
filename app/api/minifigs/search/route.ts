@@ -166,29 +166,45 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // Sort results: exact matches first, then starts-with
+    // Sort results: newest first (by year), then by item number
     const searchLower = searchTerm.toLowerCase();
     matchedItems.sort((a, b) => {
       const aNameLower = a.name.toLowerCase();
       const bNameLower = b.name.toLowerCase();
 
-      // Exact match
+      // Exact match takes priority
       if (aNameLower === searchLower && bNameLower !== searchLower) return -1;
       if (bNameLower === searchLower && aNameLower !== searchLower) return 1;
 
-      // Starts with
-      const aStarts = aNameLower.startsWith(searchLower);
-      const bStarts = bNameLower.startsWith(searchLower);
-      if (aStarts && !bStarts) return -1;
-      if (bStarts && !aStarts) return 1;
+      // Then sort by year (newest first)
+      const aYear = a.year_released ? parseInt(a.year_released) : 0;
+      const bYear = b.year_released ? parseInt(b.year_released) : 0;
 
-      // Sort alphabetically
-      return aNameLower.localeCompare(bNameLower);
+      // Put items with unknown year at the end
+      if (aYear === 0 && bYear !== 0) return 1;
+      if (bYear === 0 && aYear !== 0) return -1;
+
+      // Sort by year descending (newest first)
+      if (aYear !== bYear) return bYear - aYear;
+
+      // If same year, sort by item number (higher number = newer)
+      return b.no.localeCompare(a.no);
+    });
+
+    // Group by year for easier browsing
+    const groupedByYear: Record<string, typeof matchedItems> = {};
+    matchedItems.forEach(item => {
+      const year = item.year_released || 'Unknown';
+      if (!groupedByYear[year]) {
+        groupedByYear[year] = [];
+      }
+      groupedByYear[year].push(item);
     });
 
     return NextResponse.json({
       success: true,
       data: matchedItems,
+      grouped_by_year: groupedByYear,
       total: matchedItems.length,
       source: 'catalog'
     });
