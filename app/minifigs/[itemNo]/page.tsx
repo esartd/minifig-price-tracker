@@ -36,21 +36,20 @@ export async function generateMetadata({
     };
   }
 
-  const cleanName = minifig.name
-    .replace(/^[^-]+-\s*/, '') // Remove theme prefix
-    .trim();
+  // Use full BrickLink name for SEO (better keyword matching)
+  const fullName = minifig.name;
 
   return {
-    title: `${cleanName} (${minifig.minifigure_no}) - LEGO Minifigure Price Guide`,
-    description: `${minifig.category_name} - ${cleanName}. View current prices, historical trends, and add to your inventory. Released ${minifig.year_released || 'date unknown'}.`,
+    title: `${fullName} (${minifig.minifigure_no}) - LEGO Minifigure Price Guide`,
+    description: `${minifig.category_name} - ${fullName}. View current prices, historical trends, and add to your inventory. Released ${minifig.year_released || 'date unknown'}.`,
     openGraph: {
-      title: `${cleanName} - ${minifig.category_name}`,
+      title: `${fullName} - ${minifig.category_name}`,
       description: `LEGO Minifigure ${minifig.minifigure_no} - Price tracking and inventory management`,
       images: [`https://img.bricklink.com/ItemImage/MN/0/${minifig.minifigure_no}.png`],
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${cleanName}`,
+      title: `${fullName}`,
       description: `${minifig.category_name} minifigure price guide`,
       images: [`https://img.bricklink.com/ItemImage/MN/0/${minifig.minifigure_no}.png`],
     },
