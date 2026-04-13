@@ -249,18 +249,6 @@ export async function GET(request: NextRequest) {
       if (aNameLower === searchLower && bNameLower !== searchLower) return -1;
       if (bNameLower === searchLower && aNameLower !== searchLower) return 1;
 
-      // Then sort by year (newest first)
-      const aYear = a.year_released ? parseInt(a.year_released) : 0;
-      const bYear = b.year_released ? parseInt(b.year_released) : 0;
-
-      // Put items with unknown year at the end
-      if (aYear === 0 && bYear !== 0) return 1;
-      if (bYear === 0 && aYear !== 0) return -1;
-
-      // Sort by year descending (newest first)
-      if (aYear !== bYear) return bYear - aYear;
-
-      // Same year: sort by item number numerically (higher = newer)
       // Parse full ID: sw1500a → prefix="sw", num=1500, suffix="a"
       const parseId = (id: string) => {
         const match = id.match(/^([a-z]+)(\d+)([a-z])?$/i);
@@ -275,13 +263,29 @@ export async function GET(request: NextRequest) {
       const aParsed = parseId(a.no);
       const bParsed = parseId(b.no);
 
-      // Compare numeric part (descending - higher = newer)
+      // PRIMARY SORT: By item number (descending - higher = newer)
+      // sw1507 > sw0106a (1507 > 106)
       if (aParsed.num !== bParsed.num) {
         return bParsed.num - aParsed.num;
       }
 
-      // Same number: sort by suffix alphabetically (ascending)
-      // sw0019 comes before sw0019a, sw0019b, etc.
+      // SECONDARY SORT: Same number - sort by year if both have valid years
+      // sw0106 (2010) > sw0106a (unknown)
+      const aYear = a.year_released ? parseInt(a.year_released) : 0;
+      const bYear = b.year_released ? parseInt(b.year_released) : 0;
+      const aYearValid = !isNaN(aYear) && aYear > 0;
+      const bYearValid = !isNaN(bYear) && bYear > 0;
+
+      if (aYearValid && bYearValid && aYear !== bYear) {
+        return bYear - aYear; // Newer year first
+      }
+
+      // If only one has valid year, put it first
+      if (aYearValid && !bYearValid) return -1;
+      if (bYearValid && !aYearValid) return 1;
+
+      // TERTIARY SORT: Same number, same/unknown year - sort by suffix
+      // sw0106 comes before sw0106a, sw0106b, etc.
       return aParsed.suffix.localeCompare(bParsed.suffix);
     });
 
