@@ -20,6 +20,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   collections   CollectionItem[]
+  listings      Listing[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -81,6 +82,9 @@ model CollectionItem {
   // User ownership
   userId       String
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Listings relationship
+  listings     Listing[]
 
   date_added    DateTime @default(now())
   last_updated  DateTime @updatedAt
@@ -147,4 +151,38 @@ model MinifigCache {
   expires_at        DateTime // Cache for 30 days (minifig metadata rarely changes)
 
   @@index([expires_at])
+}
+
+model Listing {
+  id                   String   @id @default(uuid())
+
+  // Relationships
+  userId               String
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  collectionItemId     String
+  collectionItem       CollectionItem @relation(fields: [collectionItemId], references: [id], onDelete: Cascade)
+
+  // Generated content
+  title                String
+  description          String   @db.Text
+
+  // User inputs (used for generation)
+  platform             String    // 'facebook', 'ebay', or 'bricklink'
+  condition_detail     String    // 'new', 'like_new', 'excellent', 'good', 'fair'
+  accessories          String?   // "Helmet, blasters"
+  known_flaws          String?   // "Minor print wear on torso"
+  quantity_to_list     Int       @default(1)
+  list_price           Float?    // User's asking price (defaults to suggested_price)
+
+  // Metadata
+  status               String    @default("draft")  // 'draft', 'active', 'sold', 'archived'
+
+  // Timestamps
+  created_at           DateTime  @default(now())
+  updated_at           DateTime  @updatedAt
+  sold_at              DateTime?
+
+  @@index([userId])
+  @@index([collectionItemId])
+  @@index([status])
 }

@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import Script from 'next/script';
 import AddToCollectionForm from '@/components/search/AddToCollectionForm';
 import PriceHistoryChart from '@/components/PriceHistoryChart';
+import ListingGeneratorForm from '@/components/listing-generator-form';
 
 interface MinifigPageProps {
   params: Promise<{
@@ -885,6 +886,16 @@ export default function MinifigPage({ params }: MinifigPageProps) {
                   </>
                 )}
               </div>
+
+              {/* Listing Generator - Only show if item is in inventory */}
+              {collectionItem && (
+                <ListingGeneratorForm
+                  item={collectionItem}
+                  onSuccess={(listing) => {
+                    alert('Listing saved! You can copy and paste it to your marketplace.');
+                  }}
+                />
+              )}
 
               {error && (
                 <div style={{
