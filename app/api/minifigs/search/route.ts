@@ -260,7 +260,18 @@ export async function GET(request: NextRequest) {
       // Sort by year descending (newest first)
       if (aYear !== bYear) return bYear - aYear;
 
-      // If same year, sort by item number (higher number = newer)
+      // Same year: sort by item number numerically (higher = newer)
+      // Extract numeric part: sw1500 → 1500, sw106a → 106
+      const aMatch = a.no.match(/\d+/);
+      const bMatch = b.no.match(/\d+/);
+
+      if (aMatch && bMatch) {
+        const aNum = parseInt(aMatch[0]);
+        const bNum = parseInt(bMatch[0]);
+        if (aNum !== bNum) return bNum - aNum; // Descending
+      }
+
+      // Fallback to string comparison if no numbers found
       return b.no.localeCompare(a.no);
     });
 
