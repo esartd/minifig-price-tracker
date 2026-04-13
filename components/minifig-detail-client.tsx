@@ -212,8 +212,8 @@ export default function MinifigDetailClient({ minifig, related }: MinifigDetailC
   const displayName = getDisplayName(minifig.name);
 
   return (
-    <div style={{ backgroundColor: '#fafafa', minHeight: '100vh', paddingBottom: '64px' }}>
-      {/* Schema.org structured data */}
+    <div className="min-h-screen minifig-detail-page" style={{ backgroundColor: '#fafafa', overflowX: 'hidden', paddingBottom: '80px' }}>
+      {/* Product Schema JSON-LD */}
       {productSchema && (
         <Script
           id="product-schema"
@@ -222,25 +222,31 @@ export default function MinifigDetailClient({ minifig, related }: MinifigDetailC
         />
       )}
 
-      {/* Back button */}
-      <div style={{ padding: 'var(--space-2)' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', paddingTop: 'var(--space-2)' }}>
+      {/* Back Button */}
+      <div className="minifig-back-button-wrapper" style={{ padding: '0 16px' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', paddingTop: '16px' }}>
           <button
             onClick={() => router.back()}
+            className="minifig-back-button"
             style={{
               color: '#3b82f6',
+              height: '40px',
               background: 'none',
               border: 'none',
               padding: '0',
               cursor: 'pointer',
               fontSize: '16px',
               fontWeight: '500',
+              whiteSpace: 'nowrap',
               display: 'flex',
               alignItems: 'center',
-              gap: 'var(--space-1)'
+              gap: '8px',
+              transition: 'color 0.2s'
             }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#2563eb'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#3b82f6'}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" style={{ width: '20px', height: '20px' }}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" style={{ width: '20px', height: '20px', flexShrink: 0 }}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
             </svg>
             Back
@@ -248,275 +254,611 @@ export default function MinifigDetailClient({ minifig, related }: MinifigDetailC
         </div>
       </div>
 
-      {/* Main content */}
-      <div style={{ padding: '0 var(--space-2)', marginTop: 'var(--space-3)' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <div style={{
+      {/* Main Content */}
+      <div className="minifig-main-content-wrapper" style={{ padding: '0 16px' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+          <div className="minifig-card-wrapper" style={{
             background: '#ffffff',
             borderRadius: '16px',
             boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-            overflow: 'hidden',
-            padding: 'var(--space-3)'
+            overflow: 'hidden'
           }}>
-            {/* Image */}
-            <div style={{
-              display: 'flex',
-              justifyContent: 'center',
-              marginBottom: 'var(--space-4)'
-            }}>
-              <img
-                src={minifig.image_url}
-                alt={minifig.name}
-                style={{ maxHeight: '300px', width: 'auto' }}
-              />
-            </div>
-
-            {/* Header */}
-            <div style={{ marginBottom: 'var(--space-4)' }}>
-              <div style={{ marginBottom: 'var(--space-1)' }}>
-                <span style={{
-                  fontSize: '11px',
-                  fontWeight: '500',
-                  color: '#3b82f6',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em'
-                }}>
-                  {minifig.category_name}
-                </span>
-                {minifig.year_released && (
-                  <span style={{
-                    marginLeft: 'var(--space-2)',
-                    fontSize: '11px',
-                    color: '#737373'
-                  }}>
-                    {minifig.year_released}
-                  </span>
-                )}
+            <div className="minifig-detail-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 0 }}>
+              {/* Image Section */}
+              <div
+                className="minifig-image-container"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: '#ffffff',
+                  padding: '16px',
+                  minHeight: 'auto',
+                  borderRight: 'none'
+                }}
+              >
+                <img
+                  src={minifig.image_url}
+                  alt={minifig.name}
+                  className="minifig-main-image"
+                  style={{ maxHeight: '200px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+                />
               </div>
 
-              <h1 style={{
-                fontSize: '28px',
-                fontWeight: '600',
-                color: '#171717',
-                marginBottom: 'var(--space-1)',
-                lineHeight: '1.2'
+              {/* Details Section */}
+              <div className="minifig-details-section" style={{
+                display: 'flex',
+                flexDirection: 'column',
+                padding: '16px 16px 24px'
               }}>
-                {displayName.title}
-              </h1>
-
-              {displayName.subtitle && (
-                <p style={{ fontSize: '14px', color: '#737373', marginBottom: 'var(--space-1)' }}>
-                  {displayName.subtitle}
-                </p>
-              )}
-
-              <p style={{ fontSize: '14px', color: '#737373', fontFamily: 'monospace' }}>
-                {minifig.no}
-              </p>
-            </div>
-
-            {/* Pricing */}
-            {pricing.loading ? (
-              <div style={{ padding: 'var(--space-4)', textAlign: 'center', color: '#737373' }}>
-                Loading pricing...
-              </div>
-            ) : pricing.suggestedPrice > 0 ? (
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
-                gap: 'var(--space-2)',
-                marginBottom: 'var(--space-4)'
-              }}>
-                <div>
-                  <p style={{ fontSize: '11px', color: '#737373', textTransform: 'uppercase', marginBottom: 'var(--space-1)' }}>
-                    Qty Avg
-                  </p>
-                  <p style={{ fontSize: '20px', fontWeight: '700', color: '#171717' }}>
-                    ${pricing.sixMonthAverage.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p style={{ fontSize: '11px', color: '#737373', textTransform: 'uppercase', marginBottom: 'var(--space-1)' }}>
-                    Simple Avg
-                  </p>
-                  <p style={{ fontSize: '20px', fontWeight: '700', color: '#171717' }}>
-                    ${pricing.currentAverage.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p style={{ fontSize: '11px', color: '#737373', textTransform: 'uppercase', marginBottom: 'var(--space-1)' }}>
-                    Lowest
-                  </p>
-                  <p style={{ fontSize: '20px', fontWeight: '700', color: '#171717' }}>
-                    ${pricing.currentLowest.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <p style={{ fontSize: '11px', color: '#3b82f6', textTransform: 'uppercase', marginBottom: 'var(--space-1)' }}>
-                    Suggested
-                  </p>
-                  <p style={{ fontSize: '20px', fontWeight: '700', color: '#3b82f6' }}>
-                    ${pricing.suggestedPrice.toFixed(2)}
-                  </p>
-                </div>
-              </div>
-            ) : null}
-
-            {/* Price history */}
-            {collectionItem && (
-              <div style={{ marginBottom: 'var(--space-4)' }}>
-                <PriceHistoryChart minifigure_no={minifig.no} condition="new" />
-              </div>
-            )}
-
-            {/* Inventory section */}
-            <div style={{ borderTop: '1px solid #e5e5e5', paddingTop: 'var(--space-3)' }}>
-              {checkingCollection ? (
-                <div style={{ textAlign: 'center', padding: 'var(--space-3)', color: '#737373' }}>
-                  Checking inventory...
-                </div>
-              ) : collectionItem ? (
-                <>
-                  <h2 style={{ fontSize: '16px', fontWeight: '600', marginBottom: 'var(--space-2)' }}>
-                    In Your Inventory
-                  </h2>
-                  <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
-                    <div style={{
-                      display: 'flex',
-                      border: '1px solid #e5e5e5',
-                      borderRadius: '8px',
-                      overflow: 'hidden'
+                {/* Header */}
+                <div style={{ marginBottom: '24px' }}>
+                  {/* Theme Badge */}
+                  <div style={{ marginBottom: '8px' }}>
+                    <span style={{
+                      display: 'inline-block',
+                      fontSize: '11px',
+                      fontWeight: '500',
+                      color: '#3b82f6',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em'
                     }}>
-                      <button
-                        onClick={() => collectionItem.quantity > 1 && handleUpdateQuantity(collectionItem.quantity - 1)}
-                        disabled={collectionItem.quantity <= 1}
-                        style={{
-                          width: '44px',
-                          height: '44px',
-                          border: 'none',
-                          borderRight: '1px solid #e5e5e5',
-                          background: collectionItem.quantity > 1 ? '#fff' : '#f5f5f5',
-                          cursor: collectionItem.quantity > 1 ? 'pointer' : 'not-allowed'
-                        }}
-                      >
-                        −
-                      </button>
-                      <div style={{ minWidth: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600' }}>
-                        {collectionItem.quantity}
-                      </div>
-                      <button
-                        onClick={() => handleUpdateQuantity(collectionItem.quantity + 1)}
-                        style={{
-                          width: '44px',
-                          height: '44px',
-                          border: 'none',
-                          borderLeft: '1px solid #e5e5e5',
-                          background: '#fff',
-                          cursor: 'pointer'
-                        }}
-                      >
-                        +
-                      </button>
+                      {minifig.category_name}
+                    </span>
+                    {minifig.year_released && (
+                      <span style={{
+                        marginLeft: '16px',
+                        fontSize: '11px',
+                        color: '#737373'
+                      }}>
+                        {minifig.year_released}
+                      </span>
+                    )}
+                  </div>
+
+                  <h1 style={{
+                    fontSize: '22px',
+                    fontWeight: '600',
+                    color: '#171717',
+                    letterSpacing: '-0.02em',
+                    lineHeight: '1.3',
+                    marginBottom: '4px'
+                  }}>
+                    {displayName.title}
+                  </h1>
+                  {displayName.subtitle && (
+                    <p style={{
+                      fontSize: '13px',
+                      color: '#737373',
+                      lineHeight: '1.4',
+                      marginBottom: '8px'
+                    }}>
+                      {displayName.subtitle}
+                    </p>
+                  )}
+                  <p style={{
+                    fontSize: '14px',
+                    color: '#737373',
+                    fontFamily: 'monospace',
+                    marginBottom: '16px'
+                  }}>
+                    {minifig.no}
+                  </p>
+
+                  {/* Pricing Row */}
+                  {pricing.loading ? (
+                    <div style={{
+                      padding: '32px',
+                      textAlign: 'center',
+                      color: '#737373'
+                    }}>
+                      <div style={{
+                        width: '32px',
+                        height: '32px',
+                        margin: '0 auto 12px',
+                        border: '3px solid #e5e5e5',
+                        borderTop: '3px solid #3b82f6',
+                        borderRadius: '50%',
+                        animation: 'spin 0.8s linear infinite'
+                      }}></div>
+                      <p style={{ fontSize: '14px' }}>Loading pricing...</p>
                     </div>
-                    <button
-                      onClick={handleRemoveFromCollection}
-                      style={{
-                        padding: '0 var(--space-2)',
-                        height: '44px',
-                        border: '1px solid #e5e5e5',
-                        borderRadius: '8px',
-                        background: '#fff',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                  <div style={{ marginTop: 'var(--space-4)' }}>
-                    <ListingGeneratorForm
-                      item={collectionItem}
-                      onSuccess={(listing) => alert('Listing saved!')}
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <h2 style={{ fontSize: '16px', fontWeight: '600', marginBottom: 'var(--space-2)' }}>
-                    Add to Inventory
-                  </h2>
-                  <AddToCollectionForm
-                    onAdd={handleAddToCollection}
-                    loading={addLoading}
-                    session={session}
+                  ) : pricing.suggestedPrice > 0 ? (
+                    <div className="minifig-pricing-row" style={{
+                      display: 'flex',
+                      width: '100%',
+                      marginBottom: '0px',
+                      alignItems: 'stretch'
+                    }}>
+                      {/* Qty Weighted Average */}
+                      <div className="pricing-item pricing-item-1" style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start'
+                      }}>
+                        <p style={{
+                          fontSize: '10px',
+                          fontWeight: '500',
+                          color: '#737373',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.03em',
+                          marginBottom: '6px',
+                          height: '14px',
+                          lineHeight: '14px',
+                          whiteSpace: 'nowrap'
+                        }}>
+                          Qty Avg
+                        </p>
+                        <p style={{
+                          fontSize: '18px',
+                          fontWeight: '700',
+                          color: '#171717',
+                          letterSpacing: '-0.01em',
+                          lineHeight: '1'
+                        }}>
+                          ${pricing.sixMonthAverage.toFixed(2)}
+                        </p>
+                      </div>
+
+                      {/* Divider */}
+                      <div className="pricing-divider" style={{
+                        width: '1px',
+                        background: '#e5e5e5'
+                      }}></div>
+
+                      {/* Simple Average */}
+                      <div className="pricing-item pricing-item-2" style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start'
+                      }}>
+                        <p style={{
+                          fontSize: '10px',
+                          fontWeight: '500',
+                          color: '#737373',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.03em',
+                          marginBottom: '6px',
+                          height: '14px',
+                          lineHeight: '14px',
+                          whiteSpace: 'nowrap'
+                        }}>
+                          Simple Avg
+                        </p>
+                        <p style={{
+                          fontSize: '18px',
+                          fontWeight: '700',
+                          color: '#171717',
+                          letterSpacing: '-0.01em',
+                          lineHeight: '1'
+                        }}>
+                          ${pricing.currentAverage.toFixed(2)}
+                        </p>
+                      </div>
+
+                      {/* Divider */}
+                      <div className="pricing-divider" style={{
+                        width: '1px',
+                        background: '#e5e5e5'
+                      }}></div>
+
+                      {/* Lowest Listing */}
+                      <div className="pricing-item pricing-item-3" style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start'
+                      }}>
+                        <p style={{
+                          fontSize: '10px',
+                          fontWeight: '500',
+                          color: '#737373',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.03em',
+                          marginBottom: '6px',
+                          height: '14px',
+                          lineHeight: '14px',
+                          whiteSpace: 'nowrap'
+                        }}>
+                          Lowest
+                        </p>
+                        <p style={{
+                          fontSize: '18px',
+                          fontWeight: '700',
+                          color: '#171717',
+                          letterSpacing: '-0.01em',
+                          lineHeight: '1'
+                        }}>
+                          ${pricing.currentLowest.toFixed(2)}
+                        </p>
+                      </div>
+
+                      {/* Divider */}
+                      <div className="pricing-divider" style={{
+                        width: '1px',
+                        background: '#e5e5e5'
+                      }}></div>
+
+                      {/* Suggested Price */}
+                      <div className="pricing-item pricing-item-4 pricing-suggested" style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start'
+                      }}>
+                        <p style={{
+                          fontSize: '11px',
+                          fontWeight: '500',
+                          color: '#3b82f6',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.03em',
+                          marginBottom: '8px',
+                          height: '15px',
+                          lineHeight: '15px',
+                          whiteSpace: 'nowrap'
+                        }}>
+                          Suggested
+                        </p>
+                        <p style={{
+                          fontSize: '20px',
+                          fontWeight: '700',
+                          color: '#3b82f6',
+                          letterSpacing: '-0.01em',
+                          lineHeight: '1'
+                        }}>
+                          ${pricing.suggestedPrice.toFixed(2)}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div style={{
+                      padding: '24px',
+                      textAlign: 'center',
+                      background: '#fafafa',
+                      borderRadius: '8px',
+                      color: '#737373',
+                      fontSize: '14px'
+                    }}>
+                      No pricing data available
+                    </div>
+                  )}
+                </div>
+
+                {/* Price History Chart */}
+                {collectionItem && (
+                  <>
+                    <div style={{
+                      height: '1px',
+                      background: '#e5e5e5',
+                      marginTop: '24px',
+                      marginBottom: '24px'
+                    }}></div>
+                    <div style={{ marginBottom: '24px' }}>
+                      <PriceHistoryChart minifigure_no={minifig.no} condition="new" />
+                    </div>
+                  </>
+                )}
+
+                {/* Divider */}
+                <div style={{
+                  height: '1px',
+                  background: '#e5e5e5',
+                  marginTop: '16px',
+                  marginBottom: '16px'
+                }}></div>
+
+                {/* Inventory Section */}
+                <div>
+                  {checkingCollection ? (
+                    <div style={{ textAlign: 'center', padding: '20px', color: '#737373' }}>
+                      Checking inventory...
+                    </div>
+                  ) : collectionItem ? (
+                    <>
+                      <h2 style={{
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        color: '#171717',
+                        marginBottom: '16px'
+                      }}>
+                        In Your Inventory
+                      </h2>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        flexWrap: 'wrap'
+                      }}>
+                        {/* Quantity Stepper */}
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0',
+                          border: '1px solid #e5e5e5',
+                          borderRadius: '8px',
+                          overflow: 'hidden',
+                          background: '#ffffff'
+                        }}>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (collectionItem.quantity > 1) {
+                                handleUpdateQuantity(collectionItem.quantity - 1);
+                              }
+                            }}
+                            disabled={collectionItem.quantity <= 1}
+                            style={{
+                              width: '44px',
+                              minWidth: '44px',
+                              height: '44px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              background: collectionItem.quantity > 1 ? '#ffffff' : '#f5f5f5',
+                              border: 'none',
+                              borderRight: '1px solid #e5e5e5',
+                              cursor: collectionItem.quantity > 1 ? 'pointer' : 'not-allowed',
+                              color: collectionItem.quantity > 1 ? '#171717' : '#a3a3a3',
+                              transition: 'all 0.2s',
+                              fontSize: '20px',
+                              fontWeight: '600',
+                              padding: 0,
+                              flexShrink: 0
+                            }}
+                            onMouseEnter={(e) => {
+                              if (collectionItem.quantity > 1) e.currentTarget.style.background = '#f5f5f5';
+                            }}
+                            onMouseLeave={(e) => {
+                              if (collectionItem.quantity > 1) e.currentTarget.style.background = '#ffffff';
+                            }}
+                          >
+                            −
+                          </button>
+
+                          <div style={{
+                            minWidth: '60px',
+                            height: '44px',
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            color: '#171717',
+                            background: '#ffffff',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            userSelect: 'none',
+                            padding: '0 16px'
+                          }}>
+                            {collectionItem.quantity}
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (collectionItem.quantity < 9999) {
+                                handleUpdateQuantity(collectionItem.quantity + 1);
+                              }
+                            }}
+                            disabled={collectionItem.quantity >= 9999}
+                            style={{
+                              width: '44px',
+                              minWidth: '44px',
+                              height: '44px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              background: collectionItem.quantity < 9999 ? '#ffffff' : '#f5f5f5',
+                              border: 'none',
+                              borderLeft: '1px solid #e5e5e5',
+                              cursor: collectionItem.quantity < 9999 ? 'pointer' : 'not-allowed',
+                              color: collectionItem.quantity < 9999 ? '#171717' : '#a3a3a3',
+                              transition: 'all 0.2s',
+                              fontSize: '20px',
+                              fontWeight: '600',
+                              padding: 0,
+                              flexShrink: 0
+                            }}
+                            onMouseEnter={(e) => {
+                              if (collectionItem.quantity < 9999) e.currentTarget.style.background = '#f5f5f5';
+                            }}
+                            onMouseLeave={(e) => {
+                              if (collectionItem.quantity < 9999) e.currentTarget.style.background = '#ffffff';
+                            }}
+                          >
+                            +
+                          </button>
+                        </div>
+
+                        {/* Delete Button */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (confirm('Delete this item from your inventory?')) {
+                              handleRemoveFromCollection();
+                            }
+                          }}
+                          style={{
+                            width: '44px',
+                            minWidth: '44px',
+                            height: '44px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#737373',
+                            background: '#ffffff',
+                            border: '1px solid #e5e5e5',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            outline: 'none',
+                            transition: 'all 0.2s',
+                            padding: 0,
+                            flexShrink: 0
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = '#fee2e2';
+                            e.currentTarget.style.color = '#dc2626';
+                            e.currentTarget.style.borderColor = '#fca5a5';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = '#ffffff';
+                            e.currentTarget.style.color = '#737373';
+                            e.currentTarget.style.borderColor = '#e5e5e5';
+                          }}
+                        >
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <h2 style={{
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        color: '#171717',
+                        marginBottom: '16px'
+                      }}>
+                        Add to Inventory
+                      </h2>
+                      <AddToCollectionForm
+                        onAdd={handleAddToCollection}
+                        loading={addLoading}
+                        session={session}
+                      />
+                    </>
+                  )}
+                </div>
+
+                {/* Listing Generator */}
+                {collectionItem && (
+                  <ListingGeneratorForm
+                    item={collectionItem}
+                    onSuccess={(listing) => {
+                      alert('Listing saved!');
+                    }}
                   />
-                </>
-              )}
-            </div>
+                )}
 
-            {error && (
-              <div style={{
-                marginTop: 'var(--space-3)',
-                padding: 'var(--space-2)',
-                background: '#fee2e2',
-                borderRadius: '8px',
-                color: '#991b1b'
-              }}>
-                {error}
+                {error && (
+                  <div style={{
+                    marginTop: '32px',
+                    padding: '16px 20px',
+                    background: '#fee2e2',
+                    border: '1px solid #fca5a5',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    color: '#991b1b',
+                    fontWeight: '500'
+                  }}>
+                    {error}
+                  </div>
+                )}
+
+                {/* View on Bricklink Button */}
+                <a
+                  href={`https://www.bricklink.com/catalogPG.asp?M=${minifig.no}&ColorID=0`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    marginTop: '16px',
+                    padding: '14px 20px',
+                    fontSize: '15px',
+                    fontWeight: '600',
+                    color: '#525252',
+                    background: '#ffffff',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s',
+                    cursor: 'pointer'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#f5f5f5';
+                    e.currentTarget.style.borderColor = '#d4d4d4';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#ffffff';
+                    e.currentTarget.style.borderColor = '#e5e5e5';
+                  }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                  View on Bricklink
+                </a>
               </div>
-            )}
-
-            {/* View on Bricklink */}
-            <a
-              href={`https://www.bricklink.com/catalogPG.asp?M=${minifig.no}&ColorID=0`}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'block',
-                marginTop: 'var(--space-3)',
-                padding: 'var(--space-2)',
-                textAlign: 'center',
-                border: '1px solid #e5e5e5',
-                borderRadius: '8px',
-                textDecoration: 'none',
-                color: '#525252',
-                fontWeight: '600'
-              }}
-            >
-              View on Bricklink →
-            </a>
+            </div>
           </div>
 
-          {/* Related minifigs */}
+          {/* Related Variants Section */}
           {related.length > 0 && (
-            <div style={{ marginTop: 'var(--space-6)' }}>
-              <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: 'var(--space-3)' }}>
-                Related Variants
-              </h2>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
-                gap: 'var(--space-3)'
-              }}>
-                {related.map((r) => (
-                  <a
-                    key={r.no}
-                    href={`/minifigs/${r.no}`}
-                    style={{
-                      display: 'block',
-                      padding: 'var(--space-2)',
-                      background: '#fff',
-                      borderRadius: '12px',
-                      border: '1px solid #e5e5e5',
-                      textDecoration: 'none',
-                      color: '#171717',
-                      transition: 'all 0.2s'
-                    }}
-                  >
-                    <img src={r.image_url} alt={r.name} style={{ width: '100%', height: 'auto', marginBottom: 'var(--space-1)' }} />
-                    <p style={{ fontSize: '13px', fontWeight: '600' }}>{r.name.split(',')[0]}</p>
-                    <p style={{ fontSize: '11px', color: '#737373', fontFamily: 'monospace' }}>{r.no}</p>
-                  </a>
-                ))}
+            <div className="minifig-related-section" style={{ marginTop: '32px', padding: '0 16px' }}>
+              <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+                <h2 className="minifig-related-heading">
+                  Related Variants
+                </h2>
+                <p className="minifig-related-description">
+                  Different versions of this character
+                </p>
+                <div className="minifig-related-grid">
+                  {related.map((variant) => (
+                    <a
+                      key={variant.no}
+                      href={`/minifigs/${variant.no}`}
+                      style={{
+                        display: 'block',
+                        background: '#ffffff',
+                        borderRadius: '12px',
+                        border: '1px solid #e5e5e5',
+                        overflow: 'hidden',
+                        textDecoration: 'none',
+                        transition: 'all 0.2s',
+                        cursor: 'pointer'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = '#3b82f6';
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.1)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = '#e5e5e5';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
+                    >
+                      <div className="minifig-variant-image">
+                        <img
+                          src={variant.image_url}
+                          alt={variant.name}
+                        />
+                      </div>
+                      <div style={{ padding: '8px 16px 16px' }}>
+                        <p style={{
+                          fontSize: '14px',
+                          fontWeight: '600',
+                          color: '#171717',
+                          marginBottom: '4px',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                          lineHeight: '1.4'
+                        }}>
+                          {variant.name}
+                        </p>
+                        <p style={{
+                          fontSize: '12px',
+                          color: '#737373',
+                          fontFamily: 'monospace'
+                        }}>
+                          {variant.no}
+                        </p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
           )}
@@ -525,8 +867,8 @@ export default function MinifigDetailClient({ minifig, related }: MinifigDetailC
 
       {/* Bricklink attribution */}
       <div style={{
-        marginTop: 'var(--space-6)',
-        padding: 'var(--space-3)',
+        marginTop: '32px',
+        padding: '16px',
         textAlign: 'center',
         fontSize: '12px',
         color: '#737373'
