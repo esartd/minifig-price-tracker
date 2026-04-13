@@ -9,9 +9,12 @@ interface CollectionItem {
   quantity: number;
   condition: string;
   image_url?: string;
-  pricing_suggested_price?: number;
-  pricing_current_avg?: number;
-  pricing_current_lowest?: number;
+  pricing?: {
+    suggestedPrice: number;
+    currentAverage: number;
+    currentLowest: number;
+    sixMonthAverage: number;
+  };
 }
 
 interface ListingGeneratorFormProps {
@@ -489,8 +492,8 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                 <button
                   onClick={() => {
                     const price = formData.platform === 'facebook'
-                      ? Math.round(item.pricing_suggested_price || 0).toString()
-                      : (item.pricing_suggested_price || 0).toFixed(2);
+                      ? Math.round(item.pricing?.suggestedPrice ?? 0).toString()
+                      : (item.pricing?.suggestedPrice ?? 0).toFixed(2);
                     navigator.clipboard.writeText(price);
                     alert('Price copied to clipboard!');
                   }}
@@ -517,8 +520,8 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
               </div>
               <div style={{ padding: '12px', backgroundColor: '#f9fafb', borderRadius: '8px', fontSize: '16px', fontWeight: '600', color: '#171717' }}>
                 {formData.platform === 'facebook'
-                  ? `$${Math.round(item.pricing_suggested_price || 0)}`
-                  : `$${(item.pricing_suggested_price || 0).toFixed(2)}`
+                  ? `$${Math.round(item.pricing?.suggestedPrice ?? 0)}`
+                  : `$${(item.pricing?.suggestedPrice ?? 0).toFixed(2)}`
                 }
                 {formData.platform === 'facebook' && (
                   <span style={{ fontSize: '12px', color: '#737373', marginLeft: '8px', fontWeight: 'normal' }}>
