@@ -156,9 +156,30 @@ export async function GET(request: NextRequest) {
       }));
 
     if (matchedItems.length === 0) {
+      // Provide helpful guidance based on search term
+      let suggestion = '';
+      const lowerTerm = searchTerm.toLowerCase();
+
+      // Theme-specific suggestions
+      if (lowerTerm.includes('star wars') || lowerTerm.includes('luke') || lowerTerm.includes('vader') || lowerTerm.includes('yoda')) {
+        suggestion = ' Try: sw1219 (Luke Skywalker), sw0001a (Darth Vader)';
+      } else if (lowerTerm.includes('harry') || lowerTerm.includes('potter') || lowerTerm.includes('hermione')) {
+        suggestion = ' Try: hp001 (Harry Potter), hp002 (Hermione)';
+      } else if (lowerTerm.includes('disney') || lowerTerm.includes('snow white') || lowerTerm.includes('mickey')) {
+        suggestion = ' Try: dis134 (Snow White), dis001 (Mickey Mouse)';
+      } else if (lowerTerm.includes('super hero') || lowerTerm.includes('batman') || lowerTerm.includes('spider')) {
+        suggestion = ' Try: sh001 (Batman), sh536 (Spider-Man)';
+      } else if (lowerTerm.includes('ninjago')) {
+        suggestion = ' Try: njo001 (Kai), njo002 (Cole)';
+      }
+
       return NextResponse.json({
         success: false,
-        error: `No minifigures found matching "${searchTerm}". Try searching by exact BrickLink ID (e.g., dis134, sw1219) to add new items to the searchable catalog.`,
+        error: `No minifigures found matching "${searchTerm}". Search by exact BrickLink ID to add new items to the catalog.${suggestion}`,
+        hint: {
+          message: 'Common prefixes: sw=Star Wars, hp=Harry Potter, dis=Disney, sh=Super Heroes, njo=Ninjago',
+          examples: ['dis134', 'sw1219', 'hp001', 'sh536']
+        }
       }, { status: 404 });
     }
 

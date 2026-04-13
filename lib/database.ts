@@ -28,7 +28,36 @@ class DatabaseService {
       where: { userId },
       orderBy: { date_added: 'desc' }
     });
-    return items.map((item: any) => this.transformFromDB(item));
+
+    // CRITICAL: Always read fresh pricing from PriceCache (6-hour compliance)
+    // CollectionItem pricing fields are stale - only PriceCache is kept fresh
+    const itemsWithFreshPricing = await Promise.all(
+      items.map(async (item) => {
+        const freshPrice = await prisma.priceCache.findUnique({
+          where: {
+            minifigure_no_condition: {
+              minifigure_no: item.minifigure_no,
+              condition: item.condition
+            }
+          }
+        });
+
+        // Use fresh pricing if available and not expired (<6 hours old)
+        if (freshPrice && freshPrice.expires_at > new Date()) {
+          return {
+            ...item,
+            pricing_six_month_avg: freshPrice.six_month_avg,
+            pricing_current_avg: freshPrice.current_avg,
+            pricing_current_lowest: freshPrice.current_lowest,
+            pricing_suggested_price: freshPrice.suggested_price
+          };
+        }
+
+        return item; // Keep existing if no fresh cache (shouldn't happen)
+      })
+    );
+
+    return itemsWithFreshPricing.map((item: any) => this.transformFromDB(item));
   }
 
   async getItemById(id: string): Promise<(CollectionItem & { userId: string }) | null> {
