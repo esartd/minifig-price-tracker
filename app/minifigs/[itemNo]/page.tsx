@@ -104,15 +104,31 @@ export default async function MinifigPage({
   // e.g., "Luke Skywalker (Tatooine)" → "Luke Skywalker"
   const characterName = minifig.name.split(/\s+-\s+|,|\(/)[0].trim();
 
-  const characterVariants = await prisma.minifigCatalog.findMany({
+  let characterVariants = await prisma.minifigCatalog.findMany({
     where: {
       AND: [
         { minifigure_no: { not: itemNo } },
         { search_name: { contains: characterName.toLowerCase() } },
         { category_id: minifig.category_id }
       ]
-    },
-    orderBy: { year_released: 'desc' }
+    }
+  });
+
+  // Sort by year (newest first), then by item number (higher = newer)
+  // Put items with no year at the end
+  characterVariants.sort((a, b) => {
+    const aYear = a.year_released ? parseInt(a.year_released) : 0;
+    const bYear = b.year_released ? parseInt(b.year_released) : 0;
+
+    // Items with no year go to the end
+    if (aYear === 0 && bYear !== 0) return 1;
+    if (bYear === 0 && aYear !== 0) return -1;
+
+    // Sort by year descending (newest first)
+    if (aYear !== bYear) return bYear - aYear;
+
+    // Same year: sort by item number descending (higher number = newer)
+    return b.minifigure_no.localeCompare(a.minifigure_no);
   });
 
   // Fetch similar set minifigs (nearby item numbers: 4 before, 4 after)
