@@ -21,7 +21,7 @@ export default function SingleResultCard({
   pricingData,
   session
 }: SingleResultCardProps) {
-  // Clean up minifig name for display
+  // Display full minifig name from BrickLink (no modifications)
   const getDisplayName = (fullName: string): string => {
     const decodeHTML = (html: string) => {
       const txt = document.createElement('textarea');
@@ -30,7 +30,6 @@ export default function SingleResultCard({
     };
 
     let cleaned = decodeHTML(fullName);
-    cleaned = cleaned.replace(/^[^-]+-\s*/, '');
     const parts = cleaned.split(',');
     return parts.length > 1 ? parts[0].trim() : cleaned.trim();
   };

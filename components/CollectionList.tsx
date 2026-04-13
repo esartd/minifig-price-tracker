@@ -21,7 +21,7 @@ export default function CollectionList({
   const [editingQuantityId, setEditingQuantityId] = useState<string | null>(null);
   const [tempQuantity, setTempQuantity] = useState<string>('');
 
-  // Clean up minifig name for display
+  // Display full minifig name from BrickLink (no modifications)
   const getDisplayName = (fullName: string): string => {
     const decodeHTML = (html: string) => {
       const txt = document.createElement('textarea');
@@ -30,7 +30,6 @@ export default function CollectionList({
     };
 
     let cleaned = decodeHTML(fullName);
-    cleaned = cleaned.replace(/^[^-]+-\s*/, '');
     const parts = cleaned.split(',');
     if (parts.length > 1) {
       return parts[0].trim();
