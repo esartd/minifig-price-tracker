@@ -87,7 +87,11 @@ export default async function MinifigPage({
   };
 
   // Fetch related minifigs (same character, different variations)
-  const characterName = minifig.name.split(/[-,()]/)[0].trim();
+  // First remove theme prefix (e.g., "Star Wars - " or "Harry Potter - ")
+  const withoutTheme = minifig.name.replace(/^[^-]+-\s*/, '');
+  // Then get character name (before first comma)
+  const characterName = withoutTheme.split(',')[0].trim();
+
   const relatedMinifigs = await prisma.minifigCatalog.findMany({
     where: {
       AND: [
