@@ -63,35 +63,35 @@ export async function GET(request: Request) {
       }
 
       const cacheAgeMs = now.getTime() - cache.cached_at.getTime();
-      const cacheAgeDays = cacheAgeMs / (1000 * 60 * 60 * 24);
+      const cacheAgeHours = cacheAgeMs / (1000 * 60 * 60);
       const value = cache.suggested_price;
 
-      // Determine priority tier and TTL
+      // BrickLink API Terms: Product information cannot be more than 6 hours old
+      // All pricing must be refreshed every 6 hours to comply
+      const MAX_CACHE_HOURS = 6;
+
+      // Determine priority tier for refresh ordering (but all use 6-hour TTL)
       let tier: number;
-      let ttlDays: number;
 
       if (value >= 50) {
-        // Tier 1: High value (>= $50) - refresh every 2 days
+        // Tier 1: High value (>= $50) - refresh first
         tier = 1;
-        ttlDays = 2;
       } else if (value >= 10) {
-        // Tier 2: Medium value ($10-$49) - refresh every 7 days
+        // Tier 2: Medium value ($10-$49) - refresh second
         tier = 2;
-        ttlDays = 7;
       } else {
-        // Tier 3: Low value (< $10) - refresh every 14 days
+        // Tier 3: Low value (< $10) - refresh last
         tier = 3;
-        ttlDays = 14;
       }
 
-      // Check if cache has expired based on tier
-      if (cacheAgeDays >= ttlDays) {
+      // Check if cache has expired (6 hours for ALL items per BrickLink terms)
+      if (cacheAgeHours >= MAX_CACHE_HOURS) {
         refreshCandidates.push({
           minifigure_no: item.minifigure_no,
           condition: item.condition,
           priority: tier,
           value: value,
-          cacheAge: cacheAgeDays,
+          cacheAge: cacheAgeHours,
         });
       }
     }
@@ -122,7 +122,7 @@ export async function GET(request: Request) {
       try {
         console.log(
           `[${i + 1}/${toRefresh.length}] Refreshing ${item.minifigure_no} (${item.condition}) - ` +
-          `Tier ${item.priority}, Value: $${item.value.toFixed(2)}, Age: ${item.cacheAge.toFixed(1)} days`
+          `Tier ${item.priority}, Value: $${item.value.toFixed(2)}, Age: ${item.cacheAge.toFixed(1)} hours`
         );
 
         // This will fetch fresh data and update the cache
