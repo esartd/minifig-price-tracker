@@ -239,16 +239,8 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // Sort results: newest first (by year), then by item number
-    const searchLower = searchTerm.toLowerCase();
+    // Sort results by ID number first (newest IDs first)
     matchedItems.sort((a, b) => {
-      const aNameLower = a.name.toLowerCase();
-      const bNameLower = b.name.toLowerCase();
-
-      // Exact match takes priority
-      if (aNameLower === searchLower && bNameLower !== searchLower) return -1;
-      if (bNameLower === searchLower && aNameLower !== searchLower) return 1;
-
       // Parse full ID: sw1500a → prefix="sw", num=1500, suffix="a"
       const parseId = (id: string) => {
         const match = id.match(/^([a-z]+)(\d+)([a-z])?$/i);
