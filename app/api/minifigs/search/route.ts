@@ -142,7 +142,7 @@ export async function GET(request: NextRequest) {
           mode: 'insensitive'
         }
       },
-      take: 50 // Limit results
+      take: 200 // Allow more results for popular characters
     });
 
     // Map catalog items to response format
