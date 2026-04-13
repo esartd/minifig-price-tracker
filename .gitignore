@@ -46,3 +46,9 @@ public/uploads/
 
 # Bricklink catalog download (large file, auto-downloaded by cron)
 Minifigures.txt
+
+# BrickLink catalog downloads (not used in app)
+Catalogs.txt
+Instructions.txt
+Parts.txt
+Sets.txt
