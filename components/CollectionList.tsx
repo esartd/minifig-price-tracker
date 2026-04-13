@@ -160,7 +160,7 @@ export default function CollectionList({
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap'
             }}>
-              {getDisplayName(item.minifigure_name)}
+              {item.minifigure_name}
             </h3>
             <p style={{
               fontSize: '13px',
