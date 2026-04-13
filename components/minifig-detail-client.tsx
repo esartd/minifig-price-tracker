@@ -796,74 +796,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
             </div>
           </div>
 
-          {/* Character Variants Section */}
-          {variants.length > 0 && (
-            <div className="minifig-related-section" style={{ marginTop: '32px', padding: '0 16px' }}>
-              <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-                <h2 className="minifig-related-heading">
-                  Other Variants
-                </h2>
-                <p className="minifig-related-description">
-                  Different versions of this character
-                </p>
-                <div className="minifig-related-grid">
-                  {variants.map((variant) => (
-                    <a
-                      key={variant.no}
-                      href={`/minifigs/${variant.no}`}
-                      style={{
-                        display: 'block',
-                        background: '#ffffff',
-                        borderRadius: '12px',
-                        border: '1px solid #e5e5e5',
-                        overflow: 'hidden',
-                        textDecoration: 'none',
-                        transition: 'all 0.2s',
-                        cursor: 'pointer'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = '#3b82f6';
-                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.1)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = '#e5e5e5';
-                        e.currentTarget.style.boxShadow = 'none';
-                      }}
-                    >
-                      <div className="minifig-variant-image">
-                        <img
-                          src={variant.image_url}
-                          alt={variant.name}
-                        />
-                      </div>
-                      <div style={{ padding: '8px 16px 16px' }}>
-                        <p style={{
-                          fontSize: '14px',
-                          fontWeight: '600',
-                          color: '#171717',
-                          marginBottom: '4px',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap',
-                          lineHeight: '1.4'
-                        }}>
-                          {variant.name}
-                        </p>
-                        <p style={{
-                          fontSize: '12px',
-                          color: '#737373',
-                          fontFamily: 'monospace'
-                        }}>
-                          {variant.no}
-                        </p>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-
           {/* From Similar Sets Section */}
           {similarSets.length > 0 && (
             <div className="minifig-related-section" style={{ marginTop: '32px', padding: '0 16px' }}>
@@ -923,6 +855,74 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           fontFamily: 'monospace'
                         }}>
                           {related.no}
+                        </p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Character Variants Section */}
+          {variants.length > 0 && (
+            <div className="minifig-related-section" style={{ marginTop: '32px', padding: '0 16px' }}>
+              <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+                <h2 className="minifig-related-heading">
+                  Other Variants
+                </h2>
+                <p className="minifig-related-description">
+                  Different versions of this character
+                </p>
+                <div className="minifig-related-grid">
+                  {variants.map((variant) => (
+                    <a
+                      key={variant.no}
+                      href={`/minifigs/${variant.no}`}
+                      style={{
+                        display: 'block',
+                        background: '#ffffff',
+                        borderRadius: '12px',
+                        border: '1px solid #e5e5e5',
+                        overflow: 'hidden',
+                        textDecoration: 'none',
+                        transition: 'all 0.2s',
+                        cursor: 'pointer'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = '#3b82f6';
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.1)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = '#e5e5e5';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
+                    >
+                      <div className="minifig-variant-image">
+                        <img
+                          src={variant.image_url}
+                          alt={variant.name}
+                        />
+                      </div>
+                      <div style={{ padding: '8px 16px 16px' }}>
+                        <p style={{
+                          fontSize: '14px',
+                          fontWeight: '600',
+                          color: '#171717',
+                          marginBottom: '4px',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                          lineHeight: '1.4'
+                        }}>
+                          {variant.name}
+                        </p>
+                        <p style={{
+                          fontSize: '12px',
+                          color: '#737373',
+                          fontFamily: 'monospace'
+                        }}>
+                          {variant.no}
                         </p>
                       </div>
                     </a>
