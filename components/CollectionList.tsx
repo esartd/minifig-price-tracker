@@ -101,9 +101,11 @@ export default function CollectionList({
           className="collection-item-card"
           onClick={() => router.push(`/minifigs/${item.minifigure_no}`)}
           style={{
-            display: 'flex',
-            padding: '20px',
-            gap: '16px',
+            display: 'grid',
+            gridTemplateColumns: '80px 1fr auto',
+            gridTemplateRows: 'auto',
+            padding: '16px',
+            gap: '12px',
             background: '#ffffff',
             borderRadius: '12px',
             border: '1px solid #e5e5e5',
@@ -211,8 +213,10 @@ export default function CollectionList({
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '10px',
-            flexShrink: 0
+            justifyContent: 'flex-end',
+            gap: '8px',
+            flexShrink: 0,
+            gridColumn: '3'
           }}>
             {/* Quantity Stepper */}
             <div onClick={(e) => e.stopPropagation()} style={{
