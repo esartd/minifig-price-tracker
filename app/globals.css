@@ -832,7 +832,8 @@
   }
 
   .minifig-main-image {
-    max-height: 320px !important;
+    max-height: 280px !important;
+    max-width: 228px !important;
   }
 
   .minifig-details-section {
