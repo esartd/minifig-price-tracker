@@ -265,8 +265,7 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // Re-sort results by ID number (newest first)
-    // Fuzzy search finds matches despite typos, then we rank by ID for newest minifigs first
+    // Sort results: Year first (most reliable), then ID, then suffix
     matchedItems.sort((a, b) => {
       // Parse full ID: sw1500a → prefix="sw", num=1500, suffix="a"
       const parseId = (id: string) => {
@@ -282,28 +281,31 @@ export async function GET(request: NextRequest) {
       const aParsed = parseId(a.no);
       const bParsed = parseId(b.no);
 
-      // PRIMARY SORT: By item number (descending - higher = newer)
-      // sw1507 > sw0106a (1507 > 106)
-      if (aParsed.num !== bParsed.num) {
-        return bParsed.num - aParsed.num;
-      }
-
-      // SECONDARY SORT: Same number - sort by year if both have valid years
-      // sw0106 (2010) > sw0106a (unknown)
+      // Parse years
       const aYear = a.year_released ? parseInt(a.year_released) : 0;
       const bYear = b.year_released ? parseInt(b.year_released) : 0;
       const aYearValid = !isNaN(aYear) && aYear > 0;
       const bYearValid = !isNaN(bYear) && bYear > 0;
 
-      if (aYearValid && bYearValid && aYear !== bYear) {
-        return bYear - aYear; // Newer year first
+      // PRIMARY SORT: Year (newest first, unknown years at bottom)
+      // Year is most reliable data from BrickLink
+      if (aYearValid && bYearValid) {
+        if (aYear !== bYear) {
+          return bYear - aYear; // 2023 > 2019 > 2010
+        }
+      } else if (aYearValid && !bYearValid) {
+        return -1; // Valid year comes first
+      } else if (!aYearValid && bYearValid) {
+        return 1; // Unknown year goes last
       }
 
-      // If only one has valid year, put it first
-      if (aYearValid && !bYearValid) return -1;
-      if (bYearValid && !aYearValid) return 1;
+      // SECONDARY SORT: Within same year, sort by ID number (descending)
+      // sw1507 > sw0106 (higher ID = newer within same year)
+      if (aParsed.num !== bParsed.num) {
+        return bParsed.num - aParsed.num;
+      }
 
-      // TERTIARY SORT: Same number, same/unknown year - sort by suffix
+      // TERTIARY SORT: Same year, same ID number - sort by suffix
       // sw0106 comes before sw0106a, sw0106b, etc.
       return aParsed.suffix.localeCompare(bParsed.suffix);
     });
