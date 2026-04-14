@@ -785,12 +785,15 @@
     border-right: 1px solid #e5e5e5 !important;
     align-items: flex-start !important;
     justify-content: center !important;
+    position: relative !important;
   }
 
   /* Make image sticky on desktop */
   .minifig-image-container > div {
+    position: -webkit-sticky !important;
     position: sticky !important;
-    top: 24px !important;
+    top: 80px !important;
+    align-self: flex-start !important;
   }
 
   .minifig-main-image {
