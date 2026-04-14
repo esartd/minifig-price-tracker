@@ -145,8 +145,8 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
 function LineChart({ data }: { data: PriceHistoryData[] }) {
   if (data.length === 0) return null;
 
-  // Extract prices for chart
-  const prices = data.map(d => d.current_avg);
+  // Extract prices for chart (using suggested_price - the most important number)
+  const prices = data.map(d => d.suggested_price);
   const minPrice = Math.min(...prices);
   const maxPrice = Math.max(...prices);
   const priceRange = maxPrice - minPrice || 1; // Avoid division by zero
@@ -161,8 +161,8 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
   // Calculate points for the line
   const points = data.map((d, i) => {
     const x = chartPadding.left + (i / (data.length - 1)) * plotWidth;
-    const y = chartPadding.top + plotHeight - ((d.current_avg - minPrice) / priceRange) * plotHeight;
-    return { x, y, date: d.recorded_at, price: d.current_avg };
+    const y = chartPadding.top + plotHeight - ((d.suggested_price - minPrice) / priceRange) * plotHeight;
+    return { x, y, date: d.recorded_at, price: d.suggested_price };
   });
 
   // Create SVG path

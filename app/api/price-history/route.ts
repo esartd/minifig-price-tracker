@@ -25,16 +25,16 @@ export async function GET(request: Request) {
       },
     });
 
-    // Calculate some useful stats
+    // Calculate some useful stats (based on suggested_price - the most important number)
     const stats = history.length > 0 ? {
       dataPoints: history.length,
       firstRecorded: history[0].recorded_at,
       lastRecorded: history[history.length - 1].recorded_at,
-      currentPrice: history[history.length - 1].current_avg,
-      lowestPrice: Math.min(...history.map(h => h.current_avg)),
-      highestPrice: Math.max(...history.map(h => h.current_avg)),
+      currentPrice: history[history.length - 1].suggested_price,
+      lowestPrice: Math.min(...history.map(h => h.suggested_price)),
+      highestPrice: Math.max(...history.map(h => h.suggested_price)),
       priceChange: history.length > 1
-        ? ((history[history.length - 1].current_avg - history[0].current_avg) / history[0].current_avg * 100).toFixed(2)
+        ? ((history[history.length - 1].suggested_price - history[0].suggested_price) / history[0].suggested_price * 100).toFixed(2)
         : 0,
     } : null;
 
