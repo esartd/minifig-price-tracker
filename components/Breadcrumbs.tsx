@@ -40,11 +40,12 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
         <ol style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '8px',
+          gap: '4px',
           listStyle: 'none',
           padding: 0,
           margin: 0,
-          flexWrap: 'wrap'
+          flexWrap: 'wrap',
+          lineHeight: '1.5'
         }}>
           {items.map((item, index) => (
             <li
@@ -52,11 +53,11 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px'
+                gap: '4px'
               }}
             >
               {index > 0 && (
-                <span style={{ color: '#a3a3a3' }}>/</span>
+                <span style={{ color: '#a3a3a3', padding: '0 4px' }}>/</span>
               )}
               {item.href ? (
                 <Link
@@ -64,7 +65,8 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
                   style={{
                     color: '#3b82f6',
                     textDecoration: 'none',
-                    transition: 'color 0.2s'
+                    transition: 'color 0.2s',
+                    whiteSpace: 'nowrap'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.color = '#2563eb';
@@ -76,7 +78,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
                   {item.label}
                 </Link>
               ) : (
-                <span style={{ color: '#737373' }}>{item.label}</span>
+                <span style={{ color: '#737373', whiteSpace: 'nowrap' }}>{item.label}</span>
               )}
             </li>
           ))}
