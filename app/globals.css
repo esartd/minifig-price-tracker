@@ -813,7 +813,7 @@
 
   .minifig-image-container {
     position: sticky !important;
-    top: 24px !important;
+    top: 88px !important;
     width: 480px !important;
     height: fit-content !important;
     flex-shrink: 0 !important;
