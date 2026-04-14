@@ -108,7 +108,14 @@ export default async function MinifigPage({
     where: {
       AND: [
         { minifigure_no: { not: itemNo } },
-        { search_name: { contains: characterName.toLowerCase() } },
+        {
+          OR: [
+            { search_name: { startsWith: characterName.toLowerCase() + ' ' } },
+            { search_name: { startsWith: characterName.toLowerCase() + ',' } },
+            { search_name: { startsWith: characterName.toLowerCase() + ' -' } },
+            { search_name: { equals: characterName.toLowerCase() } }
+          ]
+        },
         { category_id: minifig.category_id }
       ]
     }
