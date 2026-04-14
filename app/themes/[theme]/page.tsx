@@ -94,24 +94,22 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
       padding: '48px 16px'
     }}>
       {/* Breadcrumb */}
-      <div style={{ marginBottom: '32px' }}>
-        <Link
-          href="/themes"
-          style={{
-            fontSize: '14px',
-            color: '#3b82f6',
-            textDecoration: 'none',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '4px'
-          }}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" style={{ width: '16px', height: '16px' }}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-          </svg>
-          All Themes
-        </Link>
-      </div>
+      <nav style={{ marginBottom: '32px', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+        <ol style={{ display: 'flex', alignItems: 'center', gap: '8px', listStyle: 'none', padding: 0, margin: 0, whiteSpace: 'nowrap' }}>
+          <li style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+            <Link
+              href="/themes"
+              style={{
+                fontSize: '14px',
+                color: '#3b82f6',
+                textDecoration: 'none'
+              }}
+            >
+              All Themes
+            </Link>
+          </li>
+        </ol>
+      </nav>
 
       <div style={{ marginBottom: '48px' }}>
         <h1 style={{
