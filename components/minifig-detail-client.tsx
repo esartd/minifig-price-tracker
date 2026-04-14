@@ -260,7 +260,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
           {/* Breadcrumbs */}
           <Breadcrumbs
             items={(() => {
-              const breadcrumbs = [
+              const breadcrumbs: Array<{ label: string; href?: string }> = [
                 { label: 'Home', href: '/' },
                 { label: 'Themes', href: '/themes' },
               ];
