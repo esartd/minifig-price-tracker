@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useState, useEffect, useRef } from 'react';
 
 interface BreadcrumbItem {
   label: string;
@@ -12,6 +13,10 @@ interface BreadcrumbsProps {
 }
 
 export default function Breadcrumbs({ items }: BreadcrumbsProps) {
+  const [visibleItems, setVisibleItems] = useState(items);
+  const containerRef = useRef<HTMLElement>(null);
+  const itemsRef = useRef<(HTMLLIElement | null)[]>([]);
+
   // Schema.org BreadcrumbList for SEO
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -24,12 +29,51 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
     }))
   };
 
-  // On mobile: show only last 3 items with "..." if truncated
-  // On desktop: show all items
-  const shouldTruncate = items.length > 3;
-  const mobileItems = shouldTruncate
-    ? [{ label: '...', href: undefined }, ...items.slice(-2)]
-    : items;
+  useEffect(() => {
+    const calculateVisibleItems = () => {
+      if (!containerRef.current) return;
+
+      const containerWidth = containerRef.current.offsetWidth;
+      const gapWidth = 8; // 8px gap between items
+      const ellipsisWidth = 30; // Approximate width of "..."
+      const separatorWidth = 20; // Approximate width of "/"
+
+      // Always show last item (current page)
+      let totalWidth = 0;
+      let visibleCount = 0;
+
+      // Measure from the end (most important items)
+      for (let i = items.length - 1; i >= 0; i--) {
+        const estimatedWidth = items[i].label.length * 8 + separatorWidth + gapWidth;
+
+        if (totalWidth + estimatedWidth > containerWidth - ellipsisWidth) {
+          break;
+        }
+
+        totalWidth += estimatedWidth;
+        visibleCount++;
+      }
+
+      // Always show at least the last item
+      if (visibleCount === 0) visibleCount = 1;
+
+      // If we can't show all items, add ellipsis at the start
+      if (visibleCount < items.length) {
+        const truncatedItems = [
+          { label: '...', href: undefined },
+          ...items.slice(-visibleCount)
+        ];
+        setVisibleItems(truncatedItems);
+      } else {
+        setVisibleItems(items);
+      }
+    };
+
+    calculateVisibleItems();
+
+    window.addEventListener('resize', calculateVisibleItems);
+    return () => window.removeEventListener('resize', calculateVisibleItems);
+  }, [items]);
 
   return (
     <>
@@ -37,14 +81,13 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* Desktop: full breadcrumbs */}
       <nav
+        ref={containerRef}
         aria-label="Breadcrumb"
-        className="breadcrumb-desktop"
         style={{
           marginBottom: '24px',
           fontSize: '14px',
-          display: 'none'
+          overflow: 'hidden'
         }}
       >
         <ol style={{
@@ -56,13 +99,17 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
           margin: 0,
           lineHeight: '1'
         }}>
-          {items.map((item, index) => (
+          {visibleItems.map((item, index) => (
             <li
               key={index}
+              ref={(el) => {
+                itemsRef.current[index] = el;
+              }}
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px'
+                gap: '8px',
+                flexShrink: 0
               }}
             >
               {item.href ? (
@@ -71,7 +118,8 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
                   style={{
                     color: '#3b82f6',
                     textDecoration: 'none',
-                    transition: 'color 0.2s'
+                    transition: 'color 0.2s',
+                    whiteSpace: 'nowrap'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.color = '#2563eb';
@@ -83,72 +131,15 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
                   {item.label}
                 </Link>
               ) : (
-                <span style={{ color: '#737373' }}>{item.label}</span>
+                <span style={{ color: '#737373', whiteSpace: 'nowrap' }}>{item.label}</span>
               )}
-              {index < items.length - 1 && (
+              {index < visibleItems.length - 1 && (
                 <span style={{ color: '#a3a3a3' }}>/</span>
               )}
             </li>
           ))}
         </ol>
       </nav>
-
-      {/* Mobile: last 3 items only */}
-      <nav
-        aria-label="Breadcrumb"
-        className="breadcrumb-mobile"
-        style={{
-          marginBottom: '24px',
-          fontSize: '14px',
-          display: 'block'
-        }}
-      >
-        <ol style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          listStyle: 'none',
-          padding: 0,
-          margin: 0,
-          lineHeight: '1'
-        }}>
-          {mobileItems.map((item, index) => (
-            <li
-              key={index}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}
-            >
-              {item.href ? (
-                <Link
-                  href={item.href}
-                  style={{
-                    color: '#3b82f6',
-                    textDecoration: 'none',
-                    transition: 'color 0.2s'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = '#2563eb';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = '#3b82f6';
-                  }}
-                >
-                  {item.label}
-                </Link>
-              ) : (
-                <span style={{ color: '#737373' }}>{item.label}</span>
-              )}
-              {index < mobileItems.length - 1 && (
-                <span style={{ color: '#a3a3a3' }}>/</span>
-              )}
-            </li>
-          ))}
-        </ol>
-      </nav>
-
     </>
   );
 }

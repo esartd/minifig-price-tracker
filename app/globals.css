@@ -844,25 +844,6 @@
   display: inline;
 }
 
-/* Breadcrumb Responsive Display */
-.breadcrumb-mobile {
-  display: block;
-}
-
-.breadcrumb-desktop {
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .breadcrumb-mobile {
-    display: none;
-  }
-
-  .breadcrumb-desktop {
-    display: block;
-  }
-}
-
 /* Desktop: sticky side-by-side layout */
 @media (min-width: 768px) {
   .minifig-card-wrapper {
