@@ -6,6 +6,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const minifigure_no = searchParams.get('minifigure_no');
     const condition = searchParams.get('condition');
+    const timeframe = searchParams.get('timeframe') || '6months'; // Default: 6 months
 
     if (!minifigure_no || !condition) {
       return NextResponse.json(
@@ -14,11 +15,21 @@ export async function GET(request: Request) {
       );
     }
 
+    // Calculate date filter based on timeframe
+    let dateFilter = {};
+    if (timeframe === '6months') {
+      const sixMonthsAgo = new Date();
+      sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+      dateFilter = { recorded_at: { gte: sixMonthsAgo } };
+    }
+    // For 'all' timeframe, no date filter
+
     // Fetch price history for this minifig, sorted by date (oldest first for charting)
     const history = await prisma.priceHistory.findMany({
       where: {
         minifigure_no,
         condition,
+        ...dateFilter,
       },
       orderBy: {
         recorded_at: 'asc',

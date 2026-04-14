@@ -33,10 +33,11 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
   const [stats, setStats] = useState<PriceHistoryStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [timeframe, setTimeframe] = useState<'6months' | 'all'>('6months');
 
   useEffect(() => {
     fetchPriceHistory();
-  }, [minifigure_no, condition]);
+  }, [minifigure_no, condition, timeframe]);
 
   const fetchPriceHistory = async () => {
     setLoading(true);
@@ -44,7 +45,7 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
 
     try {
       const response = await fetch(
-        `/api/price-history?minifigure_no=${encodeURIComponent(minifigure_no)}&condition=${encodeURIComponent(condition)}`
+        `/api/price-history?minifigure_no=${encodeURIComponent(minifigure_no)}&condition=${encodeURIComponent(condition)}&timeframe=${timeframe}`
       );
       const result = await response.json();
 
@@ -135,6 +136,68 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
       width: '100%',
       boxSizing: 'border-box'
     }}>
+      {/* Timeframe Toggle */}
+      <div style={{
+        display: 'flex',
+        gap: '8px',
+        marginBottom: '16px'
+      }}>
+        <button
+          onClick={() => setTimeframe('6months')}
+          style={{
+            padding: '8px 16px',
+            fontSize: '14px',
+            fontWeight: '500',
+            color: timeframe === '6months' ? '#ffffff' : '#737373',
+            background: timeframe === '6months' ? '#3b82f6' : '#ffffff',
+            border: '1px solid',
+            borderColor: timeframe === '6months' ? '#3b82f6' : '#e5e5e5',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            transition: 'all 0.2s'
+          }}
+          onMouseEnter={(e) => {
+            if (timeframe !== '6months') {
+              e.currentTarget.style.borderColor = '#d4d4d4';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (timeframe !== '6months') {
+              e.currentTarget.style.borderColor = '#e5e5e5';
+            }
+          }}
+        >
+          6 Months
+        </button>
+        <button
+          onClick={() => setTimeframe('all')}
+          style={{
+            padding: '8px 16px',
+            fontSize: '14px',
+            fontWeight: '500',
+            color: timeframe === 'all' ? '#ffffff' : '#737373',
+            background: timeframe === 'all' ? '#3b82f6' : '#ffffff',
+            border: '1px solid',
+            borderColor: timeframe === 'all' ? '#3b82f6' : '#e5e5e5',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            transition: 'all 0.2s'
+          }}
+          onMouseEnter={(e) => {
+            if (timeframe !== 'all') {
+              e.currentTarget.style.borderColor = '#d4d4d4';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (timeframe !== 'all') {
+              e.currentTarget.style.borderColor = '#e5e5e5';
+            }
+          }}
+        >
+          All Time
+        </button>
+      </div>
+
       {/* Chart */}
       <LineChart data={data} />
     </div>
