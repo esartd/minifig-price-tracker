@@ -34,7 +34,9 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
         aria-label="Breadcrumb"
         style={{
           marginBottom: '24px',
-          fontSize: '14px'
+          fontSize: '14px',
+          overflowX: 'auto',
+          WebkitOverflowScrolling: 'touch'
         }}
       >
         <ol style={{
@@ -44,7 +46,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
           listStyle: 'none',
           padding: 0,
           margin: 0,
-          flexWrap: 'wrap',
+          whiteSpace: 'nowrap',
           lineHeight: '1.5'
         }}>
           {items.map((item, index) => (
