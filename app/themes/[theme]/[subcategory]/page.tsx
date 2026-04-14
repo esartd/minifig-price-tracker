@@ -35,8 +35,11 @@ export default function SubcategoryMinifigsPage({
 
   const fetchMinifigs = async (themeName: string, subcategoryName: string) => {
     try {
-      // Construct the full category name: "Theme / Subcategory"
-      const fullCategoryName = `${themeName} / ${subcategoryName}`;
+      // If subcategory is "General", it means there's no real subcategory
+      // Search by theme name only (e.g., "Agents" not "Agents / General")
+      const fullCategoryName = subcategoryName === 'General'
+        ? themeName
+        : `${themeName} / ${subcategoryName}`;
 
       const response = await fetch(
         `/api/minifigs/search?subcategory=${encodeURIComponent(fullCategoryName)}`
@@ -92,18 +95,24 @@ export default function SubcategoryMinifigsPage({
           All Themes
         </Link>
         <span style={{ color: '#d4d4d4' }}>/</span>
-        <Link
-          href={`/themes/${encodeURIComponent(theme)}`}
-          style={{
-            fontSize: '14px',
-            color: '#3b82f6',
-            textDecoration: 'none'
-          }}
-        >
-          {theme}
-        </Link>
-        <span style={{ color: '#d4d4d4' }}>/</span>
-        <span style={{ fontSize: '14px', color: '#737373' }}>{subcategory}</span>
+        {subcategory === 'General' ? (
+          <span style={{ fontSize: '14px', color: '#737373' }}>{theme}</span>
+        ) : (
+          <>
+            <Link
+              href={`/themes/${encodeURIComponent(theme)}`}
+              style={{
+                fontSize: '14px',
+                color: '#3b82f6',
+                textDecoration: 'none'
+              }}
+            >
+              {theme}
+            </Link>
+            <span style={{ color: '#d4d4d4' }}>/</span>
+            <span style={{ fontSize: '14px', color: '#737373' }}>{subcategory}</span>
+          </>
+        )}
       </div>
 
       <div style={{ marginBottom: '48px' }}>
@@ -114,14 +123,14 @@ export default function SubcategoryMinifigsPage({
           letterSpacing: '-0.02em',
           marginBottom: '8px'
         }}>
-          {subcategory}
+          {subcategory === 'General' ? theme : subcategory}
         </h1>
         <p style={{
           fontSize: '18px',
           color: '#737373',
           lineHeight: '1.6'
         }}>
-          {minifigs.length.toLocaleString()} minifigure{minifigs.length !== 1 ? 's' : ''} · {theme}
+          {minifigs.length.toLocaleString()} minifigure{minifigs.length !== 1 ? 's' : ''}{subcategory !== 'General' && ` · ${theme}`}
         </p>
       </div>
 
