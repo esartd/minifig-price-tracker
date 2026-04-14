@@ -54,7 +54,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
           listStyle: 'none',
           padding: 0,
           margin: 0,
-          lineHeight: '1.8'
+          lineHeight: '1'
         }}>
           {items.map((item, index) => (
             <li
@@ -110,7 +110,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
           listStyle: 'none',
           padding: 0,
           margin: 0,
-          lineHeight: '1.8'
+          lineHeight: '1'
         }}>
           {mobileItems.map((item, index) => (
             <li
