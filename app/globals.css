@@ -831,9 +831,15 @@
     overflow: hidden !important;
   }
 
+  .minifig-sticky-wrapper {
+    max-width: 228px !important;
+  }
+
   .minifig-main-image {
     max-height: 280px !important;
     max-width: 228px !important;
+    width: auto !important;
+    height: auto !important;
   }
 
   .minifig-details-section {
