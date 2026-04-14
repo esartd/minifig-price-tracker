@@ -31,19 +31,17 @@ export async function GET(request: NextRequest) {
       }
     });
 
-    const subcategories = categories
-      .map(cat => {
-        const parts = cat.category_name.split(' / ');
-        const subTheme = parts.slice(1).join(' / ') || 'General';
+    const subcategories = categories.map(cat => {
+      const parts = cat.category_name.split(' / ');
+      const subTheme = parts.slice(1).join(' / ') || 'Other';
 
-        return {
-          id: cat.category_id,
-          fullName: cat.category_name,
-          subTheme,
-          count: cat._count.minifigure_no
-        };
-      })
-      .filter(sub => sub.subTheme !== 'General'); // Exclude General subcategories
+      return {
+        id: cat.category_id,
+        fullName: cat.category_name,
+        subTheme,
+        count: cat._count.minifigure_no
+      };
+    });
 
     // Fetch representative images for each subcategory
     const subcategoriesWithImages = await Promise.all(

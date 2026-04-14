@@ -36,9 +36,9 @@ export default function SubcategoryMinifigsPage({
 
   const fetchMinifigs = async (themeName: string, subcategoryName: string) => {
     try {
-      // If subcategory is "General", it means there's no real subcategory
-      // Search by theme name only (e.g., "Agents" not "Agents / General")
-      const fullCategoryName = subcategoryName === 'General'
+      // If subcategory is "Other", it means there's no real subcategory
+      // Search by theme name only (e.g., "Agents" not "Agents / Other")
+      const fullCategoryName = subcategoryName === 'Other'
         ? themeName
         : `${themeName} / ${subcategoryName}`;
 
@@ -86,7 +86,7 @@ export default function SubcategoryMinifigsPage({
       {/* Back Button */}
       <div style={{ marginBottom: '16px' }}>
         <button
-          onClick={() => subcategory === 'General' ? router.push('/themes') : router.push(`/themes/${encodeURIComponent(theme)}`)}
+          onClick={() => subcategory === 'Other' ? router.push('/themes') : router.push(`/themes/${encodeURIComponent(theme)}`)}
           style={{
             color: '#3b82f6',
             height: '40px',
@@ -108,7 +108,7 @@ export default function SubcategoryMinifigsPage({
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" style={{ width: '20px', height: '20px', flexShrink: 0 }}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
           </svg>
-          {subcategory === 'General' ? 'All Themes' : theme}
+          {subcategory === 'Other' ? 'All Themes' : theme}
         </button>
       </div>
 
@@ -125,7 +125,7 @@ export default function SubcategoryMinifigsPage({
           All Themes
         </Link>
         <span style={{ color: '#d4d4d4' }}>/</span>
-        {subcategory === 'General' ? (
+        {subcategory === 'Other' ? (
           <span style={{ fontSize: '14px', color: '#737373' }}>{theme}</span>
         ) : (
           <>
@@ -153,14 +153,14 @@ export default function SubcategoryMinifigsPage({
           letterSpacing: '-0.02em',
           marginBottom: '8px'
         }}>
-          {subcategory === 'General' ? theme : subcategory}
+          {subcategory === 'Other' ? theme : subcategory}
         </h1>
         <p style={{
           fontSize: '18px',
           color: '#737373',
           lineHeight: '1.6'
         }}>
-          {minifigs.length.toLocaleString()} minifigure{minifigs.length !== 1 ? 's' : ''}{subcategory !== 'General' && ` · ${theme}`}
+          {minifigs.length.toLocaleString()} minifigure{minifigs.length !== 1 ? 's' : ''}{subcategory !== 'Other' && ` · ${theme}`}
         </p>
       </div>
 

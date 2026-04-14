@@ -71,6 +71,14 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
   }
 
   const totalMinifigs = subcategories.reduce((sum, sub) => sum + sub.count, 0);
+  const seriesCount = subcategories.filter(sub => sub.subTheme !== 'Other').length;
+
+  // Sort: alphabetically, but "Other" always at the bottom
+  const sortedSubcategories = [...subcategories].sort((a, b) => {
+    if (a.subTheme === 'Other') return 1;
+    if (b.subTheme === 'Other') return -1;
+    return a.subTheme.localeCompare(b.subTheme);
+  });
 
   return (
     <div style={{
@@ -113,7 +121,7 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
           color: '#737373',
           lineHeight: '1.6'
         }}>
-          {totalMinifigs.toLocaleString()} minifigures across {subcategories.length} {subcategories.length === 1 ? 'series' : 'series'}
+          {totalMinifigs.toLocaleString()} minifigures across {seriesCount} {seriesCount === 1 ? 'series' : 'series'}
         </p>
       </div>
 
@@ -122,7 +130,7 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
         gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
         gap: '16px'
       }}>
-        {subcategories.map((subcategory) => (
+        {sortedSubcategories.map((subcategory) => (
           <button
             key={subcategory.fullName}
             onClick={() => router.push(`/themes/${encodeURIComponent(theme)}/${encodeURIComponent(subcategory.subTheme)}`)}
