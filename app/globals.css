@@ -782,7 +782,10 @@
     padding: 32px 24px !important;
     background: #ffffff !important;
     border-right: 1px solid #e5e5e5 !important;
-    align-self: start !important;
+    min-height: 100% !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
   }
 
   /* Make image sticky on desktop */
