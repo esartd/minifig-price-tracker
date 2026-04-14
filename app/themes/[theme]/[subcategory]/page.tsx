@@ -214,7 +214,7 @@ export default function SubcategoryMinifigsPage({
                   width: '100%',
                   paddingBottom: '100%',
                   marginBottom: '12px',
-                  background: '#fafafa',
+                  background: '#ffffff',
                   borderRadius: '8px',
                   overflow: 'hidden'
                 }}>

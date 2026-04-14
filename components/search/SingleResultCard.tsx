@@ -56,7 +56,7 @@ export default function SingleResultCard({
           justifyContent: 'center',
           width: '160px',
           minHeight: '220px',
-          backgroundColor: '#fafafa',
+          backgroundColor: '#ffffff',
           cursor: minifig.image_url ? 'zoom-in' : 'default'
         }}
       >
