@@ -123,7 +123,7 @@ export default function CategoriesPage() {
                 width: '80px',
                 height: '80px',
                 flexShrink: 0,
-                background: '#fafafa',
+                background: '#ffffff',
                 borderRadius: '8px',
                 display: 'flex',
                 alignItems: 'center',
@@ -132,9 +132,9 @@ export default function CategoriesPage() {
                 <Image
                   src={theme.representativeImage}
                   alt={theme.parent}
-                  width={64}
-                  height={64}
-                  style={{ objectFit: 'contain' }}
+                  width={80}
+                  height={80}
+                  style={{ objectFit: 'contain', width: '100%', height: '100%' }}
                   unoptimized
                 />
               </div>
