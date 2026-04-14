@@ -799,9 +799,6 @@
 /* Desktop: sticky side-by-side layout */
 @media (min-width: 768px) {
   .minifig-card-wrapper {
-    background: #ffffff !important;
-    border-radius: 16px !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
     overflow: visible !important;
   }
 
@@ -809,8 +806,9 @@
     display: flex !important;
     flex-direction: row !important;
     align-items: flex-start !important;
+    background: #ffffff !important;
     border-radius: 16px !important;
-    overflow: hidden !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
   }
 
   .minifig-image-container {
@@ -822,11 +820,15 @@
     padding: 32px 24px !important;
     border-right: 1px solid #e5e5e5 !important;
     align-self: flex-start !important;
+    border-radius: 16px 0 0 16px !important;
+    overflow: hidden !important;
   }
 
   .minifig-details-section {
     flex: 1 !important;
     max-width: 600px !important;
+    border-radius: 0 16px 16px 0 !important;
+    overflow: hidden !important;
   }
 
   .minifig-main-image {
