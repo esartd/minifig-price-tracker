@@ -46,8 +46,18 @@ export async function POST(
       );
     }
 
-    // Extract theme from minifig name
-    const theme = extractTheme(item.minifigure_name);
+    // Look up theme from catalog
+    const catalogEntry = await prisma.minifigCatalog.findUnique({
+      where: { minifigure_no: item.minifigure_no },
+      select: { category_name: true }
+    });
+
+    // Extract parent theme from category (e.g., "Star Wars / The Bad Batch" → "Star Wars")
+    let theme = 'LEGO';
+    if (catalogEntry?.category_name) {
+      const parts = catalogEntry.category_name.split(' / ');
+      theme = parts[0]; // Get parent theme
+    }
 
     // Generate listing using template
     const result = generateListing(platform, {
