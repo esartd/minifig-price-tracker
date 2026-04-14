@@ -104,21 +104,46 @@ export default async function MinifigPage({
   // e.g., "Luke Skywalker (Tatooine)" → "Luke Skywalker"
   const characterName = minifig.name.split(/\s+-\s+|,|\(/)[0].trim();
 
-  let characterVariants = await prisma.minifigCatalog.findMany({
+  // Different characters that should NOT be grouped together
+  const exclusions: { [key: string]: string[] } = {
+    'thor': ['mighty thor'],
+    'mighty thor': ['thor'], // If on Mighty Thor page, exclude regular Thor
+  };
+
+  const excludePatterns = exclusions[characterName.toLowerCase()] || [];
+
+  // Fetch all potential matches with the character name
+  const allMatches = await prisma.minifigCatalog.findMany({
     where: {
       AND: [
         { minifigure_no: { not: itemNo } },
-        {
-          OR: [
-            { search_name: { startsWith: characterName.toLowerCase() + ' ' } },
-            { search_name: { startsWith: characterName.toLowerCase() + ',' } },
-            { search_name: { startsWith: characterName.toLowerCase() + ' -' } },
-            { search_name: { equals: characterName.toLowerCase() } }
-          ]
-        },
+        { search_name: { contains: characterName.toLowerCase() } },
         { category_id: minifig.category_id }
       ]
     }
+  });
+
+  // Filter to only include matches where character name appears as a complete word
+  // and exclude different characters with similar names
+  const characterVariants = allMatches.filter(variant => {
+    const searchName = variant.search_name.toLowerCase();
+    const charName = characterName.toLowerCase();
+
+    // Check if character name appears as a complete word (not substring)
+    // e.g., "thor" should match "thor -" or "bro thor" but not "luthor"
+    const wordBoundaryRegex = new RegExp(`(^|\\s)${charName}(\\s|$|,|-|\\()`, 'i');
+    if (!wordBoundaryRegex.test(searchName)) {
+      return false;
+    }
+
+    // Exclude different characters with similar names
+    for (const pattern of excludePatterns) {
+      if (searchName.startsWith(pattern)) {
+        return false;
+      }
+    }
+
+    return true;
   });
 
   // Sort by year first (most reliable), then ID, then suffix
