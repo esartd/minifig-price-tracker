@@ -820,7 +820,7 @@
   .minifig-image-container {
     position: sticky !important;
     top: 24px !important;
-    width: 400px !important;
+    width: 480px !important;
     height: fit-content !important;
     flex-shrink: 0 !important;
     padding: 32px 24px !important;
@@ -830,6 +830,7 @@
 
   .minifig-details-section {
     flex: 1 !important;
+    max-width: 600px !important;
   }
 
   .minifig-main-image {

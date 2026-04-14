@@ -767,7 +767,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    display: 'inline-flex',
+                    display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '8px',
@@ -781,8 +781,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     borderRadius: '8px',
                     textDecoration: 'none',
                     transition: 'all 0.2s',
-                    cursor: 'pointer',
-                    width: 'fit-content'
+                    cursor: 'pointer'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = '#f5f5f5';
