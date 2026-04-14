@@ -84,9 +84,9 @@ export default function SubcategoryMinifigsPage({
       padding: '48px 16px'
     }}>
       {/* Breadcrumb */}
-      <nav style={{ marginBottom: '32px', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
-        <ol style={{ display: 'flex', alignItems: 'center', gap: '8px', listStyle: 'none', padding: 0, margin: 0, whiteSpace: 'nowrap' }}>
-          <li style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+      <nav style={{ marginBottom: '32px' }}>
+        <ol style={{ display: 'flex', alignItems: 'center', gap: '8px', listStyle: 'none', padding: 0, margin: 0, flexWrap: 'wrap', lineHeight: '1.8' }}>
+          <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Link
               href="/themes"
               style={{
@@ -97,15 +97,15 @@ export default function SubcategoryMinifigsPage({
             >
               All Themes
             </Link>
+            <span style={{ color: '#a3a3a3' }}>/</span>
           </li>
-          <li style={{ display: 'inline-block', color: '#d4d4d4' }}>/</li>
           {subcategory === 'Uncategorized' ? (
-            <li style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+            <li style={{ display: 'flex', alignItems: 'center' }}>
               <span style={{ fontSize: '14px', color: '#737373' }}>{theme}</span>
             </li>
           ) : (
             <>
-              <li style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Link
                   href={`/themes/${encodeURIComponent(theme)}`}
                   style={{
@@ -116,9 +116,9 @@ export default function SubcategoryMinifigsPage({
                 >
                   {theme}
                 </Link>
+                <span style={{ color: '#a3a3a3' }}>/</span>
               </li>
-              <li style={{ display: 'inline-block', color: '#d4d4d4' }}>/</li>
-              <li style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+              <li style={{ display: 'flex', alignItems: 'center' }}>
                 <span style={{ fontSize: '14px', color: '#737373' }}>{subcategory}</span>
               </li>
             </>

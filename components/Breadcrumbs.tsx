@@ -34,27 +34,26 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
         aria-label="Breadcrumb"
         style={{
           marginBottom: '24px',
-          fontSize: '14px',
-          overflowX: 'auto',
-          WebkitOverflowScrolling: 'touch'
+          fontSize: '14px'
         }}
       >
         <ol style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '0',
+          gap: '8px',
           listStyle: 'none',
           padding: 0,
           margin: 0,
-          whiteSpace: 'nowrap',
-          lineHeight: '1.5'
+          flexWrap: 'wrap',
+          lineHeight: '1.8'
         }}>
           {items.map((item, index) => (
             <li
               key={index}
               style={{
-                display: 'inline-block',
-                whiteSpace: 'nowrap'
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
               }}
             >
               {item.href ? (
@@ -78,7 +77,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
                 <span style={{ color: '#737373' }}>{item.label}</span>
               )}
               {index < items.length - 1 && (
-                <span style={{ color: '#a3a3a3', padding: '0 8px' }}>/</span>
+                <span style={{ color: '#a3a3a3' }}>/</span>
               )}
             </li>
           ))}

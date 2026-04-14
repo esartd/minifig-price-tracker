@@ -94,9 +94,9 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
       padding: '48px 16px'
     }}>
       {/* Breadcrumb */}
-      <nav style={{ marginBottom: '32px', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
-        <ol style={{ display: 'flex', alignItems: 'center', gap: '8px', listStyle: 'none', padding: 0, margin: 0, whiteSpace: 'nowrap' }}>
-          <li style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+      <nav style={{ marginBottom: '32px' }}>
+        <ol style={{ display: 'flex', alignItems: 'center', gap: '8px', listStyle: 'none', padding: 0, margin: 0, flexWrap: 'wrap', lineHeight: '1.8' }}>
+          <li style={{ display: 'flex', alignItems: 'center' }}>
             <Link
               href="/themes"
               style={{
