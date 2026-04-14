@@ -135,81 +135,13 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
       width: '100%',
       boxSizing: 'border-box'
     }}>
-      {/* Stats Cards */}
-      {stats && (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-          gap: '16px',
-          marginBottom: '24px'
-        }}>
-          <StatCard
-            label="Current"
-            value={`$${stats.currentPrice.toFixed(2)}`}
-            trend={parseFloat(stats.priceChange) !== 0 ? stats.priceChange : null}
-          />
-          <StatCard
-            label="Lowest"
-            value={`$${stats.lowestPrice.toFixed(2)}`}
-          />
-          <StatCard
-            label="Highest"
-            value={`$${stats.highestPrice.toFixed(2)}`}
-          />
-          <StatCard
-            label="Data Points"
-            value={stats.dataPoints.toString()}
-          />
-        </div>
-      )}
-
       {/* Chart */}
       <LineChart data={data} />
     </div>
   );
 }
 
-// Stat Card Component (Atom-level: 12px padding)
-function StatCard({ label, value, trend }: { label: string; value: string; trend?: string | null }) {
-  return (
-    <div style={{
-      padding: '16px',
-      backgroundColor: '#ffffff',
-      borderRadius: '8px',
-      border: '1px solid #e5e5e5'
-    }}>
-      <p style={{
-        fontSize: '14px',
-        color: '#737373',
-        margin: '0 0 4px 0',
-        fontWeight: '500'
-      }}>
-        {label}
-      </p>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-        <p style={{
-          fontSize: '20px',
-          fontWeight: '600',
-          color: '#171717',
-          margin: 0
-        }}>
-          {value}
-        </p>
-        {trend && (
-          <span style={{
-            fontSize: '14px',
-            fontWeight: '500',
-            color: parseFloat(trend) >= 0 ? '#15803d' : '#dc2626'
-          }}>
-            {parseFloat(trend) >= 0 ? '+' : ''}{trend}%
-          </span>
-        )}
-      </div>
-    </div>
-  );
-}
-
-// Line Chart Component (Organism-level: 24px padding)
+// Line Chart Component
 function LineChart({ data }: { data: PriceHistoryData[] }) {
   if (data.length === 0) return null;
 
