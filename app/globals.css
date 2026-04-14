@@ -777,18 +777,15 @@
   .minifig-detail-grid {
     display: flex !important;
     flex-direction: row !important;
-    align-items: flex-start !important;
+    align-items: stretch !important;
   }
 
   .minifig-image-container {
     width: 400px !important;
     flex-shrink: 0 !important;
-    padding: 32px 24px !important;
+    padding: 32px 24px 32px 24px !important;
     background: #ffffff !important;
     border-right: 1px solid #e5e5e5 !important;
-    display: flex !important;
-    align-items: flex-start !important;
-    justify-content: center !important;
   }
 
   /* Make image sticky on desktop */
@@ -803,6 +800,7 @@
 
   .minifig-details-section {
     flex: 1 !important;
+    min-height: 100vh !important;
   }
 
   .minifig-main-image {
