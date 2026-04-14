@@ -3,6 +3,7 @@ import './globals.css'
 import Header from '@/components/header'
 import AuthProvider from '@/components/session-provider'
 import { Analytics } from '@vercel/analytics/react'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://figtracker.ericksu.com'),
@@ -102,6 +103,19 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased" style={{ margin: 0, padding: 0 }}>
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-PXLF7KRTSB"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-PXLF7KRTSB');
+          `}
+        </Script>
         <AuthProvider>
           <div className="min-h-screen" style={{ backgroundColor: '#fafafa', display: 'flex', flexDirection: 'column' }}>
             <Header />
