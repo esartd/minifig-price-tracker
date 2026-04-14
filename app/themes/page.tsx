@@ -91,75 +91,102 @@ export default function CategoriesPage() {
           Explore {totalMinifigs.toLocaleString()} minifigures across {themes.length} themes
         </p>
 
-        {/* Search Bar */}
-        <div style={{ position: 'relative', maxWidth: '600px' }}>
-          <input
-            type="text"
-            placeholder="Search themes..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+        {/* Search Bar - Google Style (matches search page) */}
+        <div style={{
+          position: 'relative',
+          width: '100%',
+          maxWidth: '600px',
+          boxSizing: 'border-box'
+        }}>
+          <div
             style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
               width: '100%',
-              padding: '14px 48px 14px 20px',
-              fontSize: '16px',
-              border: '1px solid #e5e5e5',
-              borderRadius: '12px',
-              outline: 'none',
-              transition: 'all 0.2s',
+              height: '48px',
+              padding: '0 16px',
               backgroundColor: '#ffffff',
-              color: '#171717'
+              border: '1px solid #dfe1e5',
+              borderRadius: '24px',
+              boxSizing: 'border-box',
+              boxShadow: 'none',
+              transition: 'box-shadow 200ms'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = '0 1px 6px rgba(32,33,36,.28)';
+            }}
+            onMouseLeave={(e) => {
+              const input = e.currentTarget.querySelector('input');
+              if (document.activeElement !== input) {
+                e.currentTarget.style.boxShadow = 'none';
+              }
             }}
             onFocus={(e) => {
-              e.currentTarget.style.borderColor = '#3b82f6';
-              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+              e.currentTarget.style.boxShadow = '0 1px 6px rgba(32,33,36,.28)';
             }}
             onBlur={(e) => {
-              e.currentTarget.style.borderColor = '#e5e5e5';
               e.currentTarget.style.boxShadow = 'none';
             }}
-          />
-          {/* Search Icon */}
-          <div style={{
-            position: 'absolute',
-            right: '16px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            color: '#737373',
-            pointerEvents: 'none'
-          }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="m21 21-4.35-4.35"></path>
+          >
+            {/* Search Icon - Fixed 20px */}
+            <svg style={{ width: '20px', height: '20px', flexShrink: 0, color: '#9aa0a6' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-          </div>
-          {/* Clear button */}
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery('')}
+
+            {/* Input - Fills remaining space */}
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search themes..."
+              autoComplete="off"
               style={{
-                position: 'absolute',
-                right: '44px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                background: 'none',
+                flex: 1,
                 border: 'none',
-                color: '#737373',
-                cursor: 'pointer',
-                padding: '4px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'color 0.2s'
+                outline: 'none',
+                fontSize: '16px',
+                fontWeight: '400',
+                color: '#202124',
+                backgroundColor: 'transparent',
+                padding: 0
               }}
-              onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
-              onMouseLeave={(e) => e.currentTarget.style.color = '#737373'}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-          )}
+            />
+
+            {/* Clear button (X) - Google Style */}
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                style={{
+                  width: '20px',
+                  height: '20px',
+                  minWidth: '20px',
+                  minHeight: '20px',
+                  flexShrink: 0,
+                  borderRadius: '50%',
+                  backgroundColor: 'transparent',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: 0,
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.15s',
+                  boxSizing: 'border-box'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#f1f3f4';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="#70757a"/>
+                </svg>
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
