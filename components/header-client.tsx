@@ -356,7 +356,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             </Link>
 
             <Link
-              href="/categories"
+              href="/themes"
               style={{
                 color: '#171717',
                 textDecoration: 'none',
@@ -565,7 +565,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
           }}>
             Search
           </Link>
-          <Link href="/categories" onClick={() => setMobileMenuOpen(false)} style={{
+          <Link href="/themes" onClick={() => setMobileMenuOpen(false)} style={{
             display: 'block',
             padding: '15px 0',
             borderBottom: '1px solid #f5f5f5',

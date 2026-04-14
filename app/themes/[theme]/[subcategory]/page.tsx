@@ -82,7 +82,7 @@ export default function SubcategoryMinifigsPage({
       {/* Breadcrumb */}
       <div style={{ marginBottom: '32px', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
         <Link
-          href="/categories"
+          href="/themes"
           style={{
             fontSize: '14px',
             color: '#3b82f6',
@@ -93,7 +93,7 @@ export default function SubcategoryMinifigsPage({
         </Link>
         <span style={{ color: '#d4d4d4' }}>/</span>
         <Link
-          href={`/categories/${encodeURIComponent(theme)}`}
+          href={`/themes/${encodeURIComponent(theme)}`}
           style={{
             fontSize: '14px',
             color: '#3b82f6',

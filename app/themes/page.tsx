@@ -17,7 +17,7 @@ export default function CategoriesPage() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch('/api/categories');
+        const response = await fetch('/api/themes');
         const data = await response.json();
 
         if (data.success) {
@@ -88,7 +88,7 @@ export default function CategoriesPage() {
         {themes.map((theme) => (
           <button
             key={theme.parent}
-            onClick={() => router.push(`/categories/${encodeURIComponent(theme.parent)}`)}
+            onClick={() => router.push(`/themes/${encodeURIComponent(theme.parent)}`)}
             style={{
               padding: '24px',
               background: '#ffffff',

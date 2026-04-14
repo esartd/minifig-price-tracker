@@ -71,7 +71,7 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
       {/* Breadcrumb */}
       <div style={{ marginBottom: '32px' }}>
         <Link
-          href="/categories"
+          href="/themes"
           style={{
             fontSize: '14px',
             color: '#3b82f6',
@@ -115,7 +115,7 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
         {subcategories.map((subcategory) => (
           <button
             key={subcategory.fullName}
-            onClick={() => router.push(`/categories/${encodeURIComponent(theme)}/${encodeURIComponent(subcategory.subTheme)}`)}
+            onClick={() => router.push(`/themes/${encodeURIComponent(theme)}/${encodeURIComponent(subcategory.subTheme)}`)}
             style={{
               padding: '24px',
               background: '#ffffff',
