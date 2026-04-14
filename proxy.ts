@@ -39,5 +39,5 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ['/((?!api/auth|api/minifigs|_next/static|_next/image|favicon.ico|uploads).*)'],
+  matcher: ['/((?!api/auth|api/minifigs|api/cron|api/price-history|api/inventory/temp-pricing|_next/static|_next/image|favicon.ico|uploads).*)'],
 };
