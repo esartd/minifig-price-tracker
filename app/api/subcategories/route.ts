@@ -27,9 +27,7 @@ export async function GET(request: NextRequest) {
         minifigure_no: true
       },
       orderBy: {
-        _count: {
-          minifigure_no: 'desc'
-        }
+        category_name: 'asc'
       }
     });
 
