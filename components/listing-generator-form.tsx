@@ -228,16 +228,13 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
     const defaultPlatform = getMostFrequentPlatform();
     const defaultCondition = getMostFrequentCondition(defaultPlatform);
 
-    // Get last used form values
-    const savedFormValues = localStorage.getItem('lastListingFormValues');
-    const lastValues = savedFormValues ? JSON.parse(savedFormValues) : {};
-
+    // Accessories and known_flaws always start empty (unique per listing)
     const quickFormData = {
       platform: defaultPlatform,
       condition_detail: defaultCondition,
-      accessories: lastValues.accessories || '',
-      known_flaws: lastValues.known_flaws || '',
-      quantity: lastValues.quantity || 1
+      accessories: '',
+      known_flaws: '',
+      quantity: 1
     };
 
     setLoading(true);
