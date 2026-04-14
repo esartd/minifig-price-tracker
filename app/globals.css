@@ -796,6 +796,54 @@
   justify-content: center !important;
 }
 
+/* Inventory Actions - Mobile First */
+.inventory-actions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.quantity-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+  width: 100%;
+}
+
+.inventory-delete-btn {
+  min-height: 44px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #737373;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+  padding: 0 16px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.inventory-delete-btn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fca5a5;
+}
+
+.inventory-delete-text {
+  display: inline;
+}
+
 /* Desktop: sticky side-by-side layout */
 @media (min-width: 768px) {
   .minifig-card-wrapper {
@@ -861,6 +909,30 @@
   .minifig-related-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
+  }
+
+  .inventory-actions-container {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+  }
+
+  .quantity-stepper {
+    width: auto !important;
+    flex: 0 0 auto !important;
+  }
+
+  .inventory-delete-btn {
+    width: 44px !important;
+    min-width: 44px !important;
+    padding: 0 !important;
+  }
+
+  .inventory-delete-btn svg {
+    margin: 0 !important;
+  }
+
+  .inventory-delete-text {
+    display: none !important;
   }
 }
 

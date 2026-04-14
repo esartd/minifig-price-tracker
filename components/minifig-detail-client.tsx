@@ -569,22 +569,9 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       }}>
                         In Your Inventory
                       </h2>
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '12px',
-                        flexWrap: 'wrap'
-                      }}>
+                      <div className="inventory-actions-container">
                         {/* Quantity Stepper */}
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0',
-                          border: '1px solid #e5e5e5',
-                          borderRadius: '8px',
-                          overflow: 'hidden',
-                          background: '#ffffff'
-                        }}>
+                        <div className="quantity-stepper">
                           <button
                             type="button"
                             onClick={() => {
@@ -682,38 +669,13 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                               handleRemoveFromCollection();
                             }
                           }}
-                          style={{
-                            width: '44px',
-                            minWidth: '44px',
-                            height: '44px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: '#737373',
-                            background: '#ffffff',
-                            border: '1px solid #e5e5e5',
-                            borderRadius: '8px',
-                            cursor: 'pointer',
-                            outline: 'none',
-                            transition: 'all 0.2s',
-                            padding: 0,
-                            flexShrink: 0
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.background = '#fee2e2';
-                            e.currentTarget.style.color = '#dc2626';
-                            e.currentTarget.style.borderColor = '#fca5a5';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.background = '#ffffff';
-                            e.currentTarget.style.color = '#737373';
-                            e.currentTarget.style.borderColor = '#e5e5e5';
-                          }}
+                          className="inventory-delete-btn"
                         >
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="3 6 5 6 21 6"></polyline>
                             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                           </svg>
+                          <span className="inventory-delete-text">Remove from Inventory</span>
                         </button>
                       </div>
                     </>
