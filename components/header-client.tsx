@@ -369,7 +369,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 height: '36px'
               }}
             >
-              Categories
+              Themes
             </Link>
 
             <Link
@@ -573,7 +573,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             textDecoration: 'none',
             fontSize: '16px'
           }}>
-            Categories
+            Themes
           </Link>
           <Link href="/inventory" onClick={() => setMobileMenuOpen(false)} style={{
             display: 'block',
