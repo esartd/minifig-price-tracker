@@ -51,9 +51,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
             <li
               key={index}
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0'
+                display: 'inline-block'
               }}
             >
               {item.href ? (
@@ -77,7 +75,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
                 <span style={{ color: '#737373' }}>{item.label}</span>
               )}
               {index < items.length - 1 && (
-                <span style={{ color: '#a3a3a3', padding: '0 8px' }}>/</span>
+                <span style={{ color: '#a3a3a3', padding: '0 8px' }}> / </span>
               )}
             </li>
           ))}
