@@ -228,35 +228,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
       {/* Navigation */}
       <div style={{ padding: '0 16px' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto', paddingTop: '24px' }}>
-          {/* Back Button */}
-          <button
-            onClick={() => router.back()}
-            className="minifig-back-button"
-            style={{
-              color: '#3b82f6',
-              height: '40px',
-              background: 'none',
-              border: 'none',
-              padding: '0',
-              cursor: 'pointer',
-              fontSize: '16px',
-              fontWeight: '500',
-              whiteSpace: 'nowrap',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              transition: 'color 0.2s',
-              marginBottom: '16px'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.color = '#2563eb'}
-            onMouseLeave={(e) => e.currentTarget.style.color = '#3b82f6'}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" style={{ width: '20px', height: '20px', flexShrink: 0 }}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-            </svg>
-            Back
-          </button>
-
           {/* Breadcrumbs */}
           <Breadcrumbs
             items={(() => {
