@@ -270,8 +270,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
       </div>
 
       {/* Main Content */}
-      <div className="minifig-main-content-wrapper" style={{ padding: '0 16px' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+      <div className="minifig-main-content-wrapper" style={{ padding: '0 16px', overflow: 'visible' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', overflow: 'visible' }}>
           <div className="minifig-card-wrapper" style={{
             background: '#ffffff',
             borderRadius: '16px',
@@ -293,8 +293,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                 }}
               >
                 <div style={{
-                  position: 'sticky',
-                  top: '24px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'

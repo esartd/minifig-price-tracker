@@ -783,8 +783,14 @@
     min-height: auto !important;
     background: #ffffff !important;
     border-right: 1px solid #e5e5e5 !important;
-    align-items: center !important;
+    align-items: flex-start !important;
     justify-content: center !important;
+  }
+
+  /* Make image sticky on desktop */
+  .minifig-image-container > div {
+    position: sticky !important;
+    top: 24px !important;
   }
 
   .minifig-main-image {
