@@ -31,7 +31,15 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
       const data = await response.json();
 
       if (data.success) {
-        setSubcategories(data.data);
+        const subs = data.data;
+
+        // If only 1 subcategory, skip hub page and go directly to minifigures
+        if (subs.length === 1) {
+          router.push(`/themes/${encodeURIComponent(themeName)}/${encodeURIComponent(subs[0].subTheme)}`);
+          return;
+        }
+
+        setSubcategories(subs);
       }
     } catch (error) {
       console.error('Failed to fetch subcategories:', error);
