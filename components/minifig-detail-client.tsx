@@ -276,7 +276,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
             background: '#ffffff',
             borderRadius: '16px',
             boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-            overflow: 'hidden'
+            overflow: 'visible'
           }}>
             <div className="minifig-detail-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 0 }}>
               {/* Image Section */}
@@ -284,7 +284,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                 className="minifig-image-container"
                 style={{
                   display: 'flex',
-                  alignItems: 'center',
+                  alignItems: 'flex-start',
                   justifyContent: 'center',
                   backgroundColor: '#ffffff',
                   padding: '16px',
@@ -292,22 +292,30 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   borderRight: 'none'
                 }}
               >
-                <Image
-                  src={minifig.image_url}
-                  alt={minifig.name}
-                  className="minifig-main-image"
-                  width={200}
-                  height={200}
-                  style={{
-                    maxHeight: '200px',
-                    width: 'auto',
-                    maxWidth: '100%',
-                    objectFit: 'contain',
-                    ...getSensitiveImageStyles(minifig.no, minifig.name)
-                  }}
-                  unoptimized
-                  priority
-                />
+                <div style={{
+                  position: 'sticky',
+                  top: '24px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <Image
+                    src={minifig.image_url}
+                    alt={minifig.name}
+                    className="minifig-main-image"
+                    width={200}
+                    height={200}
+                    style={{
+                      maxHeight: '200px',
+                      width: 'auto',
+                      maxWidth: '100%',
+                      objectFit: 'contain',
+                      ...getSensitiveImageStyles(minifig.no, minifig.name)
+                    }}
+                    unoptimized
+                    priority
+                  />
+                </div>
               </div>
 
               {/* Details Section */}
