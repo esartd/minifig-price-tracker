@@ -71,12 +71,19 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
   }
 
   const totalMinifigs = subcategories.reduce((sum, sub) => sum + sub.count, 0);
-  const seriesCount = subcategories.filter(sub => sub.subTheme !== 'Other').length;
+  const seriesCount = subcategories.filter(sub => sub.subTheme !== 'Uncategorized' && sub.subTheme !== '(Other)').length;
 
-  // Sort: alphabetically, but "Other" always at the bottom
+  // Sort: A-Z, then "Uncategorized", then "(Other)" at the very bottom
   const sortedSubcategories = [...subcategories].sort((a, b) => {
-    if (a.subTheme === 'Other') return 1;
-    if (b.subTheme === 'Other') return -1;
+    // "(Other)" always at the very end
+    if (a.subTheme === '(Other)') return 1;
+    if (b.subTheme === '(Other)') return -1;
+
+    // "Uncategorized" second to last
+    if (a.subTheme === 'Uncategorized') return 1;
+    if (b.subTheme === 'Uncategorized') return -1;
+
+    // Everything else alphabetically
     return a.subTheme.localeCompare(b.subTheme);
   });
 

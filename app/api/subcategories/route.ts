@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
 
     const subcategories = categories.map(cat => {
       const parts = cat.category_name.split(' / ');
-      const subTheme = parts.slice(1).join(' / ') || 'Other';
+      const subTheme = parts.slice(1).join(' / ') || 'Uncategorized';
 
       return {
         id: cat.category_id,
