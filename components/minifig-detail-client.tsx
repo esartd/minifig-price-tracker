@@ -224,9 +224,10 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
         />
       )}
 
-      {/* Back Button */}
-      <div className="minifig-back-button-wrapper" style={{ padding: '0 16px' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', paddingTop: '16px' }}>
+      {/* Navigation */}
+      <div style={{ padding: '0 16px' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', paddingTop: '24px' }}>
+          {/* Back Button */}
           <button
             onClick={() => router.back()}
             className="minifig-back-button"
@@ -243,7 +244,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
-              transition: 'color 0.2s'
+              transition: 'color 0.2s',
+              marginBottom: '16px'
             }}
             onMouseEnter={(e) => e.currentTarget.style.color = '#2563eb'}
             onMouseLeave={(e) => e.currentTarget.style.color = '#3b82f6'}
@@ -253,12 +255,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
             </svg>
             Back
           </button>
-        </div>
-      </div>
 
-      {/* Breadcrumbs */}
-      <div style={{ padding: '0 16px' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', paddingTop: '16px' }}>
+          {/* Breadcrumbs */}
           <Breadcrumbs
             items={[
               { label: 'Home', href: '/' },
