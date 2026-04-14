@@ -115,7 +115,7 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
         {subcategories.map((subcategory) => (
           <button
             key={subcategory.fullName}
-            onClick={() => router.push(`/search?subcategory=${encodeURIComponent(subcategory.fullName)}`)}
+            onClick={() => router.push(`/categories/${encodeURIComponent(theme)}/${encodeURIComponent(subcategory.subTheme)}`)}
             style={{
               padding: '24px',
               background: '#ffffff',
