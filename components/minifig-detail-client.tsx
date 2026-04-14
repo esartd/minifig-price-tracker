@@ -283,20 +283,13 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
               <div
                 className="minifig-image-container"
                 style={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  justifyContent: 'center',
                   backgroundColor: '#ffffff',
                   padding: '16px',
                   minHeight: 'auto',
                   borderRight: 'none'
                 }}
               >
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
+                <div className="minifig-sticky-wrapper">
                   <Image
                     src={minifig.image_url}
                     alt={minifig.name}

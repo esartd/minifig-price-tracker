@@ -780,20 +780,22 @@
 
   .minifig-image-container {
     padding: 32px 24px !important;
-    min-height: auto !important;
+    min-height: 100vh !important;
     background: #ffffff !important;
     border-right: 1px solid #e5e5e5 !important;
+    display: flex !important;
     align-items: flex-start !important;
     justify-content: center !important;
-    position: relative !important;
   }
 
   /* Make image sticky on desktop */
-  .minifig-image-container > div {
+  .minifig-sticky-wrapper {
     position: -webkit-sticky !important;
     position: sticky !important;
-    top: 80px !important;
-    align-self: flex-start !important;
+    top: 100px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .minifig-main-image {
