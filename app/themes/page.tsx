@@ -92,7 +92,7 @@ export default function CategoriesPage() {
             key={theme.parent}
             onClick={() => router.push(`/themes/${encodeURIComponent(theme.parent)}`)}
             style={{
-              padding: '0',
+              padding: '16px',
               background: '#ffffff',
               border: '1px solid #e5e5e5',
               borderRadius: '12px',
@@ -102,7 +102,9 @@ export default function CategoriesPage() {
               boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
               overflow: 'hidden',
               display: 'flex',
-              flexDirection: 'column'
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: '16px'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
@@ -115,13 +117,14 @@ export default function CategoriesPage() {
               e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
-            {/* Representative Image */}
+            {/* Representative Image - Left side */}
             {theme.representativeImage && (
               <div style={{
-                position: 'relative',
-                width: '100%',
-                height: '200px',
+                width: '80px',
+                height: '80px',
+                flexShrink: 0,
                 background: '#fafafa',
+                borderRadius: '8px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
@@ -129,21 +132,21 @@ export default function CategoriesPage() {
                 <Image
                   src={theme.representativeImage}
                   alt={theme.parent}
-                  width={160}
-                  height={160}
+                  width={64}
+                  height={64}
                   style={{ objectFit: 'contain' }}
                   unoptimized
                 />
               </div>
             )}
 
-            {/* Text Content */}
-            <div style={{ padding: '24px' }}>
+            {/* Text Content - Right side */}
+            <div style={{ flex: 1, minWidth: 0 }}>
               <h3 style={{
                 fontSize: '18px',
                 fontWeight: '600',
                 color: '#171717',
-                marginBottom: '8px',
+                marginBottom: '4px',
                 letterSpacing: '-0.01em'
               }}>
                 {theme.parent}
