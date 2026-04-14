@@ -271,9 +271,9 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
             background: '#ffffff',
             borderRadius: '16px',
             boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-            overflow: 'hidden'
+            overflow: 'visible'
           }}>
-            <div className="minifig-detail-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 0 }}>
+            <div className="minifig-detail-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 0, borderRadius: '16px', overflow: 'hidden' }}>
               {/* Image Section */}
               <div
                 className="minifig-image-container"
