@@ -773,6 +773,19 @@
 }
 
 /* Mobile: centered image with proper padding */
+.minifig-card-wrapper {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.minifig-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
 .minifig-image-container {
   padding: 16px !important;
   background: #ffffff !important;
@@ -789,10 +802,19 @@
 
 /* Desktop: sticky side-by-side layout */
 @media (min-width: 768px) {
+  .minifig-card-wrapper {
+    background: #ffffff !important;
+    border-radius: 16px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+    overflow: visible !important;
+  }
+
   .minifig-detail-grid {
     display: flex !important;
     flex-direction: row !important;
     align-items: flex-start !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
   }
 
   .minifig-image-container {

@@ -265,15 +265,10 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
       </div>
 
       {/* Main Content */}
-      <div className="minifig-main-content-wrapper" style={{ padding: '0 16px', overflow: 'visible' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', overflow: 'visible' }}>
-          <div className="minifig-card-wrapper" style={{
-            background: '#ffffff',
-            borderRadius: '16px',
-            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-            overflow: 'visible'
-          }}>
-            <div className="minifig-detail-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 0, borderRadius: '16px', overflow: 'hidden' }}>
+      <div className="minifig-main-content-wrapper" style={{ padding: '0 16px' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+          <div className="minifig-card-wrapper">
+            <div className="minifig-detail-grid">
               {/* Image Section */}
               <div
                 className="minifig-image-container"
