@@ -227,7 +227,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
       {/* Navigation */}
       <div style={{ padding: '0 16px' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', paddingTop: '24px' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '24px' }}>
           {/* Breadcrumbs */}
           <Breadcrumbs
             items={(() => {
@@ -266,7 +266,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
       {/* Main Content */}
       <div className="minifig-main-content-wrapper" style={{ padding: '0 16px' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div className="minifig-card-wrapper">
             <div className="minifig-detail-grid">
               {/* Image Section */}
@@ -767,7 +767,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    display: 'flex',
+                    display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '8px',
@@ -781,7 +781,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     borderRadius: '8px',
                     textDecoration: 'none',
                     transition: 'all 0.2s',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    width: 'fit-content'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = '#f5f5f5';
@@ -806,7 +807,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
           {/* From Similar Sets Section */}
           {similarSets.length > 0 && (
             <div className="minifig-related-section" style={{ marginTop: '32px', padding: '0 16px' }}>
-              <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+              <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 <h2 className="minifig-related-heading">
                   From Similar Sets
                 </h2>
@@ -881,7 +882,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
           {/* Character Variants Section */}
           {variants.length > 0 && (
             <div className="minifig-related-section" style={{ marginTop: '32px', padding: '0 16px' }}>
-              <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+              <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 <h2 className="minifig-related-heading">
                   Other Variants
                 </h2>
