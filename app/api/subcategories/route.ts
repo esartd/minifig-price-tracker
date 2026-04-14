@@ -13,6 +13,8 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    console.log('Fetching subcategories for theme:', theme);
+
     // Get all subcategories for this theme
     const categories = await prisma.minifigCatalog.groupBy({
       by: ['category_id', 'category_name'],
