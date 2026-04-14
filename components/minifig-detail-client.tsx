@@ -9,6 +9,7 @@ import AddToCollectionForm from '@/components/search/AddToCollectionForm';
 import PriceHistoryChart from '@/components/PriceHistoryChart';
 import ListingGeneratorForm from '@/components/listing-generator-form';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 
 interface MinifigData {
   no: string;
@@ -297,7 +298,13 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   className="minifig-main-image"
                   width={200}
                   height={200}
-                  style={{ maxHeight: '200px', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+                  style={{
+                    maxHeight: '200px',
+                    width: 'auto',
+                    maxWidth: '100%',
+                    objectFit: 'contain',
+                    ...getSensitiveImageStyles(minifig.no, minifig.name)
+                  }}
                   unoptimized
                   priority
                 />
@@ -853,7 +860,10 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           alt={related.name}
                           width={120}
                           height={150}
-                          style={{ objectFit: 'contain' }}
+                          style={{
+                            objectFit: 'contain',
+                            ...getSensitiveImageStyles(related.no, related.name)
+                          }}
                           unoptimized
                         />
                       </div>
@@ -925,7 +935,10 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           alt={variant.name}
                           width={120}
                           height={150}
-                          style={{ objectFit: 'contain' }}
+                          style={{
+                            objectFit: 'contain',
+                            ...getSensitiveImageStyles(variant.no, variant.name)
+                          }}
                           unoptimized
                         />
                       </div>

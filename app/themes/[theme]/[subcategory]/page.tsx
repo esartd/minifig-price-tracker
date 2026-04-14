@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 
 interface Minifig {
   no: string;
@@ -82,6 +83,35 @@ export default function SubcategoryMinifigsPage({
       margin: '0 auto',
       padding: '48px 16px'
     }}>
+      {/* Back Button */}
+      <div style={{ marginBottom: '16px' }}>
+        <button
+          onClick={() => subcategory === 'General' ? router.push('/themes') : router.push(`/themes/${encodeURIComponent(theme)}`)}
+          style={{
+            color: '#3b82f6',
+            height: '40px',
+            background: 'none',
+            border: 'none',
+            padding: '0',
+            cursor: 'pointer',
+            fontSize: '16px',
+            fontWeight: '500',
+            whiteSpace: 'nowrap',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            transition: 'color 0.2s'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.color = '#2563eb'}
+          onMouseLeave={(e) => e.currentTarget.style.color = '#3b82f6'}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" style={{ width: '20px', height: '20px', flexShrink: 0 }}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+          {subcategory === 'General' ? 'All Themes' : theme}
+        </button>
+      </div>
+
       {/* Breadcrumb */}
       <div style={{ marginBottom: '32px', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
         <Link
@@ -193,7 +223,11 @@ export default function SubcategoryMinifigsPage({
                     alt={minifig.name}
                     fill
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 180px"
-                    style={{ objectFit: 'contain', padding: '8px' }}
+                    style={{
+                      objectFit: 'contain',
+                      padding: '8px',
+                      ...getSensitiveImageStyles(minifig.no, minifig.name)
+                    }}
                     unoptimized
                   />
                 </div>

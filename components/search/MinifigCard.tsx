@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 
 interface MinifigCardProps {
   minifig: any;
@@ -82,7 +83,8 @@ export default function MinifigCard({
               height: '140px',
               width: 'auto',
               maxWidth: 'none',
-              objectFit: 'contain'
+              objectFit: 'contain',
+              ...getSensitiveImageStyles(minifig.no, minifig.name)
             }}
             unoptimized
           />

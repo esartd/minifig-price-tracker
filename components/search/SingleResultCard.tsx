@@ -4,6 +4,7 @@ import Image from 'next/image';
 import PriceDisplay from './PriceDisplay';
 import AddToCollectionForm from './AddToCollectionForm';
 import { Session } from 'next-auth';
+import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 
 interface SingleResultCardProps {
   minifig: any;
@@ -70,7 +71,8 @@ export default function SingleResultCard({
               height: '220px',
               width: 'auto',
               maxWidth: 'none',
-              objectFit: 'contain'
+              objectFit: 'contain',
+              ...getSensitiveImageStyles(minifig.no, minifig.name)
             }}
             unoptimized
           />
