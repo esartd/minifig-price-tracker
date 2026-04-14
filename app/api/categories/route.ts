@@ -58,28 +58,42 @@ export async function GET() {
         subcategories: theme.subcategories.sort((a, b) => a.name.localeCompare(b.name))
       }));
 
+    // Special override minifigures for certain themes (for appropriate representation)
+    const themeOverrides: Record<string, string> = {
+      'Scala': '23049' // Use dressed minifig instead of naked one
+    };
+
     // Fetch a representative minifig for each theme (newest by year, then ID)
     const themesWithImages = await Promise.all(
       groupedThemes.map(async (theme) => {
-        const representativeMinifig = await prisma.minifigCatalog.findFirst({
-          where: {
-            category_name: {
-              startsWith: theme.parent
+        let minifigNo: string | null = null;
+
+        // Check if there's a manual override for this theme
+        if (themeOverrides[theme.parent]) {
+          minifigNo = themeOverrides[theme.parent];
+        } else {
+          // Otherwise, get the newest minifig
+          const representativeMinifig = await prisma.minifigCatalog.findFirst({
+            where: {
+              category_name: {
+                startsWith: theme.parent
+              }
+            },
+            orderBy: [
+              { year_released: 'desc' },
+              { minifigure_no: 'desc' }
+            ],
+            select: {
+              minifigure_no: true
             }
-          },
-          orderBy: [
-            { year_released: 'desc' },
-            { minifigure_no: 'desc' }
-          ],
-          select: {
-            minifigure_no: true
-          }
-        });
+          });
+          minifigNo = representativeMinifig?.minifigure_no || null;
+        }
 
         return {
           ...theme,
-          representativeImage: representativeMinifig
-            ? `https://img.bricklink.com/ItemImage/MN/0/${representativeMinifig.minifigure_no}.png`
+          representativeImage: minifigNo
+            ? `https://img.bricklink.com/ItemImage/MN/0/${minifigNo}.png`
             : null
         };
       })
