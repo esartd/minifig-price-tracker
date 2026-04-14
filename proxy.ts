@@ -7,6 +7,7 @@ export default auth((req) => {
   const isPublicPage = req.nextUrl.pathname === '/' ||
                        req.nextUrl.pathname.startsWith('/search') ||
                        req.nextUrl.pathname.startsWith('/minifig') ||
+                       req.nextUrl.pathname.startsWith('/themes') ||
                        req.nextUrl.pathname.startsWith('/about');
   const isProtectedPage = req.nextUrl.pathname.startsWith('/inventory') ||
                           req.nextUrl.pathname.startsWith('/account');
