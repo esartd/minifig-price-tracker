@@ -43,11 +43,36 @@ export async function GET(request: NextRequest) {
       };
     });
 
+    // Fetch representative images for each subcategory
+    const subcategoriesWithImages = await Promise.all(
+      subcategories.map(async (sub) => {
+        const representativeMinifig = await prisma.minifigCatalog.findFirst({
+          where: {
+            category_name: sub.fullName
+          },
+          orderBy: [
+            { year_released: 'desc' },
+            { minifigure_no: 'desc' }
+          ],
+          select: {
+            minifigure_no: true
+          }
+        });
+
+        return {
+          ...sub,
+          representativeImage: representativeMinifig
+            ? `https://img.bricklink.com/ItemImage/MN/0/${representativeMinifig.minifigure_no}.png`
+            : null
+        };
+      })
+    );
+
     return NextResponse.json({
       success: true,
-      data: subcategories,
+      data: subcategoriesWithImages,
       theme,
-      total: subcategories.length
+      total: subcategoriesWithImages.length
     });
   } catch (error) {
     console.error('Error fetching subcategories:', error);

@@ -3,12 +3,14 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Subcategory {
   id: number;
   fullName: string;
   subTheme: string;
   count: number;
+  representativeImage: string | null;
 }
 
 export default function SubcategoriesPage({ params }: { params: Promise<{ theme: string }> }) {
@@ -125,14 +127,19 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
             key={subcategory.fullName}
             onClick={() => router.push(`/themes/${encodeURIComponent(theme)}/${encodeURIComponent(subcategory.subTheme)}`)}
             style={{
-              padding: '24px',
+              padding: '16px',
               background: '#ffffff',
               border: '1px solid #e5e5e5',
               borderRadius: '12px',
               cursor: 'pointer',
               transition: 'all 0.2s',
               textAlign: 'left',
-              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: '16px'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
@@ -145,21 +152,47 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
               e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
-            <h3 style={{
-              fontSize: '18px',
-              fontWeight: '600',
-              color: '#171717',
-              marginBottom: '8px',
-              letterSpacing: '-0.01em'
-            }}>
-              {subcategory.subTheme}
-            </h3>
-            <p style={{
-              fontSize: '14px',
-              color: '#737373'
-            }}>
-              {subcategory.count.toLocaleString()} minifigure{subcategory.count !== 1 ? 's' : ''}
-            </p>
+            {/* Representative Image - Left side */}
+            {subcategory.representativeImage && (
+              <div style={{
+                width: '80px',
+                height: '80px',
+                flexShrink: 0,
+                background: '#ffffff',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Image
+                  src={subcategory.representativeImage}
+                  alt={subcategory.subTheme}
+                  width={80}
+                  height={80}
+                  style={{ objectFit: 'contain', width: '100%', height: '100%' }}
+                  unoptimized
+                />
+              </div>
+            )}
+
+            {/* Text Content - Right side */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <h3 style={{
+                fontSize: '18px',
+                fontWeight: '600',
+                color: '#171717',
+                marginBottom: '4px',
+                letterSpacing: '-0.01em'
+              }}>
+                {subcategory.subTheme}
+              </h3>
+              <p style={{
+                fontSize: '14px',
+                color: '#737373'
+              }}>
+                {subcategory.count.toLocaleString()} minifigure{subcategory.count !== 1 ? 's' : ''}
+              </p>
+            </div>
           </button>
         ))}
       </div>
