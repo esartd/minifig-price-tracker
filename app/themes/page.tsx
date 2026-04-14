@@ -17,7 +17,7 @@ export default function CategoriesPage() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch('/api/themes');
+        const response = await fetch('/api/categories');
         const data = await response.json();
 
         if (data.success) {
