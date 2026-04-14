@@ -1,3 +1,19 @@
+/**
+ * BrickLink Catalog Import Script
+ *
+ * IMPORTANT TERMINOLOGY:
+ * - BrickLink data files use "Category" (e.g., "Star Wars", "Harry Potter")
+ * - Database columns: category_id, category_name (matches BrickLink)
+ * - App UI displays these as "Themes" for better user experience
+ *
+ * When importing new BrickLink catalog files:
+ * - Column names in files: "Category ID", "Category Name"
+ * - Maps to DB fields: category_id, category_name
+ * - Displayed in UI as: "Themes" (/themes, not /categories)
+ *
+ * This mapping is intentional - don't change "category" to "theme" in the database!
+ */
+
 import { PrismaClient } from '@prisma/client';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -6,8 +22,8 @@ import * as readline from 'readline';
 const prisma = new PrismaClient();
 
 interface MinifigRow {
-  categoryId: number;
-  categoryName: string;
+  categoryId: number;        // BrickLink: "Category ID" → DB: category_id → UI: "Theme"
+  categoryName: string;       // BrickLink: "Category Name" → DB: category_name → UI: "Theme name"
   number: string;
   name: string;
   yearReleased: string | null;
