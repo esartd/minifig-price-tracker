@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { bricklinkAPI } from '@/lib/bricklink';
 import { prisma } from '@/lib/prisma';
+import { runMigrations } from '@/lib/run-migrations';
 
 /**
  * SEARCH IMPLEMENTATION
@@ -25,6 +26,8 @@ function generateKeywords(text: string): string[] {
 }
 
 export async function GET(request: NextRequest) {
+  // Run migrations if needed (only runs once)
+  await runMigrations();
   try {
     const searchParams = request.nextUrl.searchParams;
     const query = searchParams.get('q');
