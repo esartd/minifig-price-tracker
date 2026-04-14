@@ -9,6 +9,7 @@ interface Theme {
   subcategories: Array<any>;
   totalCount: number;
   representativeImage: string | null;
+  isCurrent: boolean;
 }
 
 export default function CategoriesPage() {
@@ -56,6 +57,8 @@ export default function CategoriesPage() {
   }
 
   const totalMinifigs = themes.reduce((sum, theme) => sum + theme.totalCount, 0);
+  const currentThemes = themes.filter(t => t.isCurrent);
+  const allThemes = themes.filter(t => !t.isCurrent);
 
   return (
     <div style={{
@@ -82,86 +85,128 @@ export default function CategoriesPage() {
         </p>
       </div>
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: '16px'
-      }}>
-        {themes.map((theme) => (
-          <button
-            key={theme.parent}
-            onClick={() => router.push(`/themes/${encodeURIComponent(theme.parent)}`)}
-            style={{
-              padding: '16px',
-              background: '#ffffff',
-              border: '1px solid #e5e5e5',
-              borderRadius: '12px',
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-              textAlign: 'left',
-              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-              overflow: 'hidden',
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: '16px'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
-              e.currentTarget.style.borderColor = '#d4d4d4';
-              e.currentTarget.style.transform = 'translateY(-2px)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.05)';
-              e.currentTarget.style.borderColor = '#e5e5e5';
-              e.currentTarget.style.transform = 'translateY(0)';
-            }}
-          >
-            {/* Representative Image - Left side */}
-            {theme.representativeImage && (
-              <div style={{
-                width: '80px',
-                height: '80px',
-                flexShrink: 0,
-                background: '#ffffff',
-                borderRadius: '8px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <Image
-                  src={theme.representativeImage}
-                  alt={theme.parent}
-                  width={80}
-                  height={80}
-                  style={{ objectFit: 'contain', width: '100%', height: '100%' }}
-                  unoptimized
-                />
-              </div>
-            )}
+      {/* Current Themes Section */}
+      {currentThemes.length > 0 && (
+        <div style={{ marginBottom: '64px' }}>
+          <h2 style={{
+            fontSize: '24px',
+            fontWeight: '600',
+            color: '#171717',
+            letterSpacing: '-0.02em',
+            marginBottom: '24px'
+          }}>
+            Current Themes
+          </h2>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+            gap: '16px'
+          }}>
+            {currentThemes.map((theme) => (
+              <ThemeTile key={theme.parent} theme={theme} router={router} />
+            ))}
+          </div>
+        </div>
+      )}
 
-            {/* Text Content - Right side */}
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <h3 style={{
-                fontSize: '18px',
-                fontWeight: '600',
-                color: '#171717',
-                marginBottom: '4px',
-                letterSpacing: '-0.01em'
-              }}>
-                {theme.parent}
-              </h3>
-              <p style={{
-                fontSize: '14px',
-                color: '#737373'
-              }}>
-                {theme.totalCount.toLocaleString()} minifigure{theme.totalCount !== 1 ? 's' : ''}
-                {theme.subcategories.length > 0 && ` · ${theme.subcategories.length} ${theme.subcategories.length === 1 ? 'series' : 'series'}`}
-              </p>
-            </div>
-          </button>
-        ))}
+      {/* All Themes Section */}
+      <div>
+        <h2 style={{
+          fontSize: '24px',
+          fontWeight: '600',
+          color: '#171717',
+          letterSpacing: '-0.02em',
+          marginBottom: '24px'
+        }}>
+          All Themes
+        </h2>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+          gap: '16px'
+        }}>
+          {allThemes.map((theme) => (
+            <ThemeTile key={theme.parent} theme={theme} router={router} />
+          ))}
+        </div>
       </div>
     </div>
+  );
+}
+
+// Theme tile component to avoid duplication
+function ThemeTile({ theme, router }: { theme: Theme; router: any }) {
+  return (
+    <button
+      onClick={() => router.push(`/themes/${encodeURIComponent(theme.parent)}`)}
+      style={{
+        padding: '16px',
+        background: '#ffffff',
+        border: '1px solid #e5e5e5',
+        borderRadius: '12px',
+        cursor: 'pointer',
+        transition: 'all 0.2s',
+        textAlign: 'left',
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: '16px'
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+        e.currentTarget.style.borderColor = '#d4d4d4';
+        e.currentTarget.style.transform = 'translateY(-2px)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.05)';
+        e.currentTarget.style.borderColor = '#e5e5e5';
+        e.currentTarget.style.transform = 'translateY(0)';
+      }}
+    >
+      {/* Representative Image - Left side */}
+      {theme.representativeImage && (
+        <div style={{
+          width: '80px',
+          height: '80px',
+          flexShrink: 0,
+          background: '#ffffff',
+          borderRadius: '8px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <Image
+            src={theme.representativeImage}
+            alt={theme.parent}
+            width={80}
+            height={80}
+            style={{ objectFit: 'contain', width: '100%', height: '100%' }}
+            unoptimized
+          />
+        </div>
+      )}
+
+      {/* Text Content - Right side */}
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <h3 style={{
+          fontSize: '18px',
+          fontWeight: '600',
+          color: '#171717',
+          marginBottom: '4px',
+          letterSpacing: '-0.01em'
+        }}>
+          {theme.parent}
+        </h3>
+        <p style={{
+          fontSize: '14px',
+          color: '#737373'
+        }}>
+          {theme.totalCount.toLocaleString()} minifigure{theme.totalCount !== 1 ? 's' : ''}
+          {theme.subcategories.length > 0 && ` · ${theme.subcategories.length} ${theme.subcategories.length === 1 ? 'series' : 'series'}`}
+        </p>
+      </div>
+    </button>
   );
 }
