@@ -259,12 +259,36 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
           {/* Breadcrumbs */}
           <Breadcrumbs
-            items={[
-              { label: 'Home', href: '/' },
-              { label: 'Search', href: '/search' },
-              { label: minifig.category_name, href: `/search?category=${minifig.category_id}` },
-              { label: minifig.no }
-            ]}
+            items={(() => {
+              const breadcrumbs = [
+                { label: 'Home', href: '/' },
+                { label: 'Themes', href: '/themes' },
+              ];
+
+              // Parse category_name (e.g., "Star Wars / Episode 1" or "Agents")
+              const parts = minifig.category_name.split(' / ');
+              const theme = parts[0];
+              const subcategory = parts.length > 1 ? parts.slice(1).join(' / ') : null;
+
+              // Add theme link
+              breadcrumbs.push({
+                label: theme,
+                href: `/themes/${encodeURIComponent(theme)}`
+              });
+
+              // Add subcategory link if exists
+              if (subcategory) {
+                breadcrumbs.push({
+                  label: subcategory,
+                  href: `/themes/${encodeURIComponent(theme)}/${encodeURIComponent(subcategory)}`
+                });
+              }
+
+              // Add current minifig (no link)
+              breadcrumbs.push({ label: minifig.no });
+
+              return breadcrumbs;
+            })()}
           />
         </div>
       </div>
