@@ -772,7 +772,22 @@
   object-fit: contain;
 }
 
-/* Tablet - keep 2x2 grid if space is tight */
+/* Mobile: centered image with proper padding */
+.minifig-image-container {
+  padding: 16px !important;
+  background: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.minifig-sticky-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Desktop: sticky side-by-side layout */
 @media (min-width: 768px) {
   .minifig-detail-grid {
     display: flex !important;
@@ -787,15 +802,8 @@
     height: fit-content !important;
     flex-shrink: 0 !important;
     padding: 32px 24px !important;
-    background: #ffffff !important;
     border-right: 1px solid #e5e5e5 !important;
     align-self: flex-start !important;
-  }
-
-  .minifig-sticky-wrapper {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
   }
 
   .minifig-details-section {
