@@ -775,19 +775,20 @@
 /* Tablet - keep 2x2 grid if space is tight */
 @media (min-width: 768px) {
   .minifig-detail-grid {
-    grid-template-columns: 400px 1fr !important;
-    align-items: start !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
   }
 
   .minifig-image-container {
+    width: 400px !important;
+    flex-shrink: 0 !important;
     padding: 32px 24px !important;
     background: #ffffff !important;
     border-right: 1px solid #e5e5e5 !important;
-    height: 100% !important;
     display: flex !important;
     align-items: flex-start !important;
     justify-content: center !important;
-    position: relative !important;
   }
 
   /* Make image sticky on desktop */
@@ -798,7 +799,10 @@
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    max-height: calc(100vh - 48px) !important;
+  }
+
+  .minifig-details-section {
+    flex: 1 !important;
   }
 
   .minifig-main-image {
