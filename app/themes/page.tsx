@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 interface Theme {
   parent: string;
   subcategories: Array<any>;
   totalCount: number;
+  representativeImage: string | null;
 }
 
 export default function CategoriesPage() {
@@ -90,14 +92,17 @@ export default function CategoriesPage() {
             key={theme.parent}
             onClick={() => router.push(`/themes/${encodeURIComponent(theme.parent)}`)}
             style={{
-              padding: '24px',
+              padding: '0',
               background: '#ffffff',
               border: '1px solid #e5e5e5',
               borderRadius: '12px',
               cursor: 'pointer',
               transition: 'all 0.2s',
               textAlign: 'left',
-              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
@@ -110,22 +115,47 @@ export default function CategoriesPage() {
               e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
-            <h3 style={{
-              fontSize: '18px',
-              fontWeight: '600',
-              color: '#171717',
-              marginBottom: '8px',
-              letterSpacing: '-0.01em'
-            }}>
-              {theme.parent}
-            </h3>
-            <p style={{
-              fontSize: '14px',
-              color: '#737373'
-            }}>
-              {theme.totalCount.toLocaleString()} minifigure{theme.totalCount !== 1 ? 's' : ''}
-              {theme.subcategories.length > 0 && ` · ${theme.subcategories.length} ${theme.subcategories.length === 1 ? 'series' : 'series'}`}
-            </p>
+            {/* Representative Image */}
+            {theme.representativeImage && (
+              <div style={{
+                position: 'relative',
+                width: '100%',
+                height: '200px',
+                background: '#fafafa',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Image
+                  src={theme.representativeImage}
+                  alt={theme.parent}
+                  width={160}
+                  height={160}
+                  style={{ objectFit: 'contain' }}
+                  unoptimized
+                />
+              </div>
+            )}
+
+            {/* Text Content */}
+            <div style={{ padding: '24px' }}>
+              <h3 style={{
+                fontSize: '18px',
+                fontWeight: '600',
+                color: '#171717',
+                marginBottom: '8px',
+                letterSpacing: '-0.01em'
+              }}>
+                {theme.parent}
+              </h3>
+              <p style={{
+                fontSize: '14px',
+                color: '#737373'
+              }}>
+                {theme.totalCount.toLocaleString()} minifigure{theme.totalCount !== 1 ? 's' : ''}
+                {theme.subcategories.length > 0 && ` · ${theme.subcategories.length} ${theme.subcategories.length === 1 ? 'series' : 'series'}`}
+              </p>
+            </div>
           </button>
         ))}
       </div>

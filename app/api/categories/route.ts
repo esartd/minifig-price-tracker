@@ -58,10 +58,37 @@ export async function GET() {
         subcategories: theme.subcategories.sort((a, b) => a.name.localeCompare(b.name))
       }));
 
+    // Fetch a representative minifig for each theme (newest by year, then ID)
+    const themesWithImages = await Promise.all(
+      groupedThemes.map(async (theme) => {
+        const representativeMinifig = await prisma.minifigCatalog.findFirst({
+          where: {
+            category_name: {
+              startsWith: theme.parent
+            }
+          },
+          orderBy: [
+            { year_released: 'desc' },
+            { minifigure_no: 'desc' }
+          ],
+          select: {
+            minifigure_no: true
+          }
+        });
+
+        return {
+          ...theme,
+          representativeImage: representativeMinifig
+            ? `https://img.bricklink.com/ItemImage/MN/0/${representativeMinifig.minifigure_no}.png`
+            : null
+        };
+      })
+    );
+
     return NextResponse.json({
       success: true,
-      data: groupedThemes,
-      total: groupedThemes.length
+      data: themesWithImages,
+      total: themesWithImages.length
     });
   } catch (error) {
     console.error('Error fetching categories:', error);
