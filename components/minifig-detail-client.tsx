@@ -215,7 +215,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
   const displayName = getDisplayName(minifig.name);
 
   return (
-    <div className="min-h-screen minifig-detail-page" style={{ backgroundColor: '#fafafa', overflowX: 'hidden', paddingBottom: '80px' }}>
+    <div className="min-h-screen minifig-detail-page" style={{ backgroundColor: '#fafafa', paddingBottom: '80px' }}>
       {/* Product Schema JSON-LD */}
       {productSchema && (
         <Script
