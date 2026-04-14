@@ -25,15 +25,18 @@ export default function SearchResults({
   const [selectedThemes, setSelectedThemes] = useState<Set<string>>(new Set());
   const [pricing, setPricing] = useState<Record<string, { suggestedPrice: number; loading: boolean }>>({});
 
-  // Extract theme from minifig number
-  const getTheme = (no: string): string => {
-    const match = no.match(/^[a-z]+/i);
-    return match ? match[0].toLowerCase() : 'other';
+  // Extract parent theme from category_name (e.g., "Star Wars / Episode 1" → "Star Wars")
+  const getTheme = (minifig: any): string => {
+    if (minifig.category_name) {
+      const parts = minifig.category_name.split(' / ');
+      return parts[0]; // Return parent theme
+    }
+    return 'Other';
   };
 
   // Group results by theme
   const themeGroups = searchResults.reduce((acc, minifig) => {
-    const theme = getTheme(minifig.no);
+    const theme = getTheme(minifig);
     if (!acc[theme]) {
       acc[theme] = { count: 0, items: [] };
     }
@@ -66,7 +69,7 @@ export default function SearchResults({
 
   const filteredResults = selectedThemes.size === 0
     ? searchResults
-    : searchResults.filter(minifig => selectedThemes.has(getTheme(minifig.no)));
+    : searchResults.filter(minifig => selectedThemes.has(getTheme(minifig)));
 
   // Pricing disabled for search results - only fetch when adding to collection
 
