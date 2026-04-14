@@ -282,12 +282,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
               {/* Image Section */}
               <div
                 className="minifig-image-container"
-                style={{
-                  backgroundColor: '#ffffff',
-                  padding: '16px',
-                  minHeight: 'auto',
-                  borderRight: 'none'
-                }}
               >
                 <div className="minifig-sticky-wrapper">
                   <Image
