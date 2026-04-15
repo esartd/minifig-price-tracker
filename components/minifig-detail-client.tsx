@@ -5,11 +5,17 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Script from 'next/script';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import AddToCollectionForm from '@/components/search/AddToCollectionForm';
-import PriceHistoryChart from '@/components/PriceHistoryChart';
 import ListingGeneratorForm from '@/components/listing-generator-form';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
+
+// Lazy load PriceHistoryChart (only loads when in inventory)
+const PriceHistoryChart = dynamic(() => import('@/components/PriceHistoryChart'), {
+  loading: () => <div style={{ padding: '24px', textAlign: 'center', color: '#737373' }}>Loading chart...</div>,
+  ssr: false
+});
 
 interface MinifigData {
   no: string;

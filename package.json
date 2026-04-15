@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "node scripts/validate-schema.js && prisma generate && next build",
+    "analyze": "ANALYZE=true npm run build",
     "validate-schema": "node scripts/validate-schema.js",
     "deploy": "bash scripts/deploy.sh",
     "start": "next start",
@@ -47,6 +48,7 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^16.2.3",
     "@types/bcryptjs": "^2.4.6",
     "prisma": "^5.19.0",
     "tsx": "^4.21.0"
