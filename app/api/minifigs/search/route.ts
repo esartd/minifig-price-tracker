@@ -111,7 +111,27 @@ export async function GET(request: NextRequest) {
     if (isItemNumber) {
       const itemNo = searchTerm.toLowerCase();
 
-      // Check cache first
+      // Check catalog first (instant)
+      const catalogItem = await prisma.minifigCatalog.findUnique({
+        where: { minifigure_no: itemNo }
+      });
+
+      if (catalogItem) {
+        return NextResponse.json({
+          success: true,
+          data: [{
+            no: catalogItem.minifigure_no,
+            name: catalogItem.name,
+            category_id: catalogItem.category_id,
+            category_name: catalogItem.category_name,
+            year_released: catalogItem.year_released,
+            image_url: `https://img.bricklink.com/ItemImage/MN/0/${catalogItem.minifigure_no}.png`
+          }],
+          source: 'catalog_exact_match'
+        });
+      }
+
+      // Not in catalog - check cache
       const cached = await prisma.minifigCache.findUnique({
         where: { minifigure_no: itemNo }
       });
@@ -135,7 +155,7 @@ export async function GET(request: NextRequest) {
         });
       }
 
-      // Not in cache - fetch from BrickLink API (user-driven request)
+      // Not in catalog or cache - fetch from BrickLink API as last resort (user-driven request)
       try {
         const minifig = await bricklinkAPI.getMinifigureByNumber(itemNo);
 
