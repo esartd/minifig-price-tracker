@@ -232,8 +232,8 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
   const priceRange = maxPrice - minPrice || 1; // Avoid division by zero
 
   // Chart dimensions (responsive)
-  const chartHeight = 120;
-  const chartPadding = { top: 12, right: 20, bottom: 32, left: 60 };
+  const chartHeight = 140;
+  const chartPadding = { top: 16, right: 24, bottom: 40, left: 70 };
   const chartWidth = 600; // SVG viewBox width (will scale)
   const plotWidth = chartWidth - chartPadding.left - chartPadding.right;
   const plotHeight = chartHeight - chartPadding.top - chartPadding.bottom;
