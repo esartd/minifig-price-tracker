@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Header from '@/components/header'
 import AuthProvider from '@/components/session-provider'
+import ScrollToTop from '@/components/ScrollToTop'
 import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
 
@@ -155,6 +156,7 @@ export default function RootLayout({
                 </a>
               </p>
             </footer>
+            <ScrollToTop />
           </div>
         </AuthProvider>
         <Analytics />
