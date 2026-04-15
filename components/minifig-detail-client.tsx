@@ -192,7 +192,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
       if (data.success) {
         setPersonalCollectionItem(data.data);
-        setSuccessMessage(`Added ${quantity} to Personal Collection!`);
+        setSuccessMessage(`Added ${quantity} to Your Collection!`);
         setQuantity(1);
       } else {
         if (response.status === 401) {
@@ -738,7 +738,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         </>
                       )}
 
-                      {/* Personal Collection Section */}
+                      {/* Your Collection Section */}
                       {personalCollectionItem && (
                         <>
                           <h2 style={{
@@ -748,7 +748,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                             marginTop: collectionItem ? '32px' : '0',
                             marginBottom: '16px'
                           }}>
-                            In Your Personal Collection
+                            In Your Your Collection
                           </h2>
                           <div className="inventory-actions-container">
                             {/* Quantity Stepper */}
@@ -892,7 +892,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                 <polyline points="3 6 5 6 21 6"></polyline>
                                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                               </svg>
-                              <span className="inventory-delete-text">Remove from Personal Collection</span>
+                              <span className="inventory-delete-text">Remove from Your Collection</span>
                             </button>
                           </div>
                         </>
@@ -1111,7 +1111,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                     if (!addPersonalLoading) e.currentTarget.style.background = '#3b82f6';
                                   }}
                                 >
-                                  {addPersonalLoading ? 'Adding...' : '+ Add to Personal Collection'}
+                                  {addPersonalLoading ? 'Adding...' : '+ Add to Your Collection'}
                                 </button>
                               )}
                             </>

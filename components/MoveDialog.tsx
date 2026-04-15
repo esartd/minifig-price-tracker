@@ -25,7 +25,7 @@ export default function MoveDialog({
 
   if (!isOpen) return null;
 
-  const title = direction === 'to-inventory' ? 'Move to Inventory' : 'Move to Personal Collection';
+  const title = direction === 'to-inventory' ? 'Move to Inventory' : 'Move to Your Collection';
   const description = direction === 'to-inventory'
     ? 'This will move the item to your selling inventory.'
     : 'This will move the item to your personal collection.';

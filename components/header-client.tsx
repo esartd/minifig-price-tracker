@@ -211,7 +211,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   paddingBottom: '2px'
                 }}
               >
-                My Inventory
+                Your Inventory
               </Link>
 
               <Link
@@ -230,7 +230,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   paddingBottom: '2px'
                 }}
               >
-                Personal Collection
+                Your Collection
               </Link>
 
               <Link
@@ -336,7 +336,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               textDecoration: 'none',
               fontSize: '16px'
             }}>
-              My Inventory
+              Your Inventory
             </Link>
             <Link href="/collection" onClick={() => setMobileMenuOpen(false)} style={{
               display: 'block',
@@ -346,7 +346,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               textDecoration: 'none',
               fontSize: '16px'
             }}>
-              Personal Collection
+              Your Collection
             </Link>
             <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
               display: 'block',
@@ -475,7 +475,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 height: '36px'
               }}
             >
-              My Inventory
+              Your Inventory
             </Link>
 
             <Link
@@ -492,7 +492,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 height: '36px'
               }}
             >
-              Personal Collection
+              Your Collection
             </Link>
 
             <Link
@@ -689,7 +689,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             textDecoration: 'none',
             fontSize: '16px'
           }}>
-            My Inventory
+            Your Inventory
           </Link>
           <Link href="/collection" onClick={() => setMobileMenuOpen(false)} style={{
             display: 'block',
@@ -699,7 +699,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             textDecoration: 'none',
             fontSize: '16px'
           }}>
-            Personal Collection
+            Your Collection
           </Link>
           <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
             display: 'block',

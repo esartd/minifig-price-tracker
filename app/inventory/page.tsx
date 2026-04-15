@@ -311,7 +311,7 @@ export default function CollectionPage() {
                 color: '#171717',
                 marginBottom: '8px'
               }}>
-                My Inventory
+                Your Inventory
               </h1>
               <p className="collection-subtitle" style={{
                 fontSize: '16px',

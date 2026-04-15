@@ -9,7 +9,7 @@ interface CollectionSwitcherProps {
 export default function CollectionSwitcher({ currentPage }: CollectionSwitcherProps) {
   const router = useRouter();
 
-  const displayName = currentPage === 'inventory' ? 'Inventory' : 'Personal Collection';
+  const displayName = currentPage === 'inventory' ? 'Inventory' : 'Your Collection';
   const targetPage = currentPage === 'inventory' ? '/collection' : '/inventory';
 
   const handleClick = () => {

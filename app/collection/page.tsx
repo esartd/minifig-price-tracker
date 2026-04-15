@@ -311,7 +311,7 @@ export default function PersonalCollectionPage() {
                 color: '#171717',
                 marginBottom: '8px'
               }}>
-                Personal Collection
+                Your Collection
               </h1>
               <p className="collection-subtitle" style={{
                 fontSize: '16px',

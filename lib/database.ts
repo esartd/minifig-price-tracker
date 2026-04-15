@@ -170,7 +170,7 @@ class DatabaseService {
     return item ? this.transformFromDB(item) : null;
   }
 
-  // =============== Personal Collection Methods ===============
+  // =============== Your Collection Methods ===============
 
   async getAllPersonalItems(userId: string): Promise<PersonalCollectionItem[]> {
     const items = await prisma.personalCollectionItem.findMany({

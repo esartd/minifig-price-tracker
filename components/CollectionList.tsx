@@ -352,7 +352,7 @@ export default function CollectionList({
                     padding: 0,
                     transition: 'all 0.2s'
                   }}
-                  title="Move to Personal Collection"
+                  title="Move to Your Collection"
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = '#eff6ff';
                     e.currentTarget.style.color = '#3b82f6';
