@@ -231,9 +231,9 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
   const maxPrice = Math.max(...prices);
   const priceRange = maxPrice - minPrice || 1; // Avoid division by zero
 
-  // Chart dimensions (responsive)
-  const chartHeight = 140;
-  const chartPadding = { top: 16, right: 24, bottom: 40, left: 70 };
+  // Chart dimensions - designed for mobile-first
+  const chartHeight = 180;
+  const chartPadding = { top: 20, right: 16, bottom: 32, left: 56 };
   const chartWidth = 600; // SVG viewBox width (will scale)
   const plotWidth = chartWidth - chartPadding.left - chartPadding.right;
   const plotHeight = chartHeight - chartPadding.top - chartPadding.bottom;
@@ -251,11 +251,10 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
   // Create SVG path
   const pathData = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
 
-  // Y-axis labels (adjust count based on price range to prevent overlap)
-  const numTicks = priceRange < 2 ? 3 : 5; // Use 3 ticks for small ranges
-  const yTicks = Array.from({ length: numTicks }, (_, i) => {
-    const value = minPrice + (priceRange * (numTicks - 1 - i) / (numTicks - 1));
-    const y = chartPadding.top + (i * plotHeight / (numTicks - 1));
+  // Y-axis labels - always use 4 ticks for clean spacing on mobile
+  const yTicks = Array.from({ length: 4 }, (_, i) => {
+    const value = minPrice + (priceRange * (3 - i) / 3);
+    const y = chartPadding.top + (i * plotHeight / 3);
     return { value, y };
   });
 
@@ -263,17 +262,16 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
     <div style={{
       backgroundColor: '#fafafa',
       borderRadius: '8px',
-      padding: '16px',
+      padding: '12px',
       border: '1px solid #e5e5e5',
       position: 'relative'
     }}>
-      <div style={{ position: 'relative' }}>
+      <div style={{ position: 'relative', minHeight: '180px' }}>
         <svg
           viewBox={`0 0 ${chartWidth} ${chartHeight}`}
           style={{
             width: '100%',
             height: 'auto',
-            maxHeight: '300px',
             display: 'block'
           }}
         >
@@ -325,10 +323,10 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
                 top: `${topPercent}%`,
                 left: '0',
                 transform: 'translateY(-50%)',
-                fontSize: '10px',
+                fontSize: '11px',
                 fontWeight: '500',
                 color: '#737373',
-                paddingRight: '4px',
+                paddingRight: '8px',
                 textAlign: 'right',
                 width: `${(chartPadding.left / chartWidth) * 100}%`,
                 pointerEvents: 'none',
@@ -348,9 +346,9 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
               <div
                 style={{
                   position: 'absolute',
-                  bottom: '4px',
+                  bottom: '8px',
                   left: `${chartPadding.left / chartWidth * 100}%`,
-                  fontSize: '10px',
+                  fontSize: '11px',
                   fontWeight: '500',
                   color: '#737373',
                   pointerEvents: 'none',
@@ -364,10 +362,10 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
             <div
               style={{
                 position: 'absolute',
-                bottom: '4px',
+                bottom: '8px',
                 right: data.length === 1 ? '50%' : `${chartPadding.right / chartWidth * 100}%`,
                 transform: data.length === 1 ? 'translateX(50%)' : 'none',
-                fontSize: '10px',
+                fontSize: '11px',
                 fontWeight: '500',
                 color: '#737373',
                 pointerEvents: 'none',
