@@ -275,17 +275,25 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
               <div
                 className="minifig-image-container"
               >
-                <div className="minifig-sticky-wrapper">
+                <div className="minifig-sticky-wrapper" style={{
+                  width: '200px',
+                  height: '250px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto'
+                }}>
                   <Image
                     src={minifig.image_url}
                     alt={minifig.name}
                     className="minifig-main-image"
                     width={200}
-                    height={200}
+                    height={250}
                     style={{
-                      maxHeight: '200px',
+                      maxHeight: '250px',
+                      maxWidth: '200px',
                       width: 'auto',
-                      maxWidth: '100%',
+                      height: 'auto',
                       objectFit: 'contain',
                       ...getSensitiveImageStyles(minifig.no, minifig.name)
                     }}
