@@ -245,15 +245,6 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
       padding: '24px',
       border: '1px solid #e5e5e5'
     }}>
-      <h3 style={{
-        fontSize: '18px',
-        fontWeight: '600',
-        color: '#171717',
-        margin: '0 0 16px 0'
-      }}>
-        Price History
-      </h3>
-
       <svg
         viewBox={`0 0 ${chartWidth} ${chartHeight}`}
         style={{
