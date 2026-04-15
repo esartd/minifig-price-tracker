@@ -11,6 +11,15 @@ export async function GET() {
       }
     });
 
+    // If no data, return empty array
+    if (!categories || categories.length === 0) {
+      return NextResponse.json({
+        success: true,
+        data: [],
+        total: 0
+      });
+    }
+
     // Parse category names and group by parent theme
     // e.g., "Star Wars / Star Wars Episode 1" → parent: "Star Wars"
     const themeMap = new Map<string, {
