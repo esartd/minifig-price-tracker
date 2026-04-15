@@ -817,7 +817,8 @@
 
 .inventory-delete-btn {
   min-height: 44px;
-  width: 100%;
+  width: 44px;
+  min-width: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -829,7 +830,7 @@
   cursor: pointer;
   outline: none;
   transition: all 0.2s;
-  padding: 0 16px;
+  padding: 0;
   font-size: 15px;
   font-weight: 500;
 }
@@ -841,7 +842,7 @@
 }
 
 .inventory-delete-text {
-  display: inline;
+  display: none;
 }
 
 /* Desktop: sticky side-by-side layout */
@@ -922,17 +923,14 @@
   }
 
   .inventory-delete-btn {
-    width: 44px !important;
-    min-width: 44px !important;
-    padding: 0 !important;
-  }
-
-  .inventory-delete-btn svg {
-    margin: 0 !important;
+    width: auto !important;
+    min-width: auto !important;
+    padding: 0 16px !important;
+    flex: 1 !important;
   }
 
   .inventory-delete-text {
-    display: none !important;
+    display: inline !important;
   }
 }
 
