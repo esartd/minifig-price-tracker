@@ -218,11 +218,11 @@ export default function PersonalCollectionList({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-end',
-            gap: '0',
+            gap: '8px',
             flexShrink: 0,
             gridColumn: '3'
           }}>
-            {/* All controls grouped together */}
+            {/* Quantity Stepper */}
             <div onClick={(e) => e.stopPropagation()} style={{
               display: 'flex',
               alignItems: 'center',
@@ -241,8 +241,8 @@ export default function PersonalCollectionList({
                 }}
                 disabled={item.quantity <= 1}
                 style={{
-                  width: '32px',
-                  height: '32px',
+                  width: '44px',
+                  height: '44px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -270,8 +270,8 @@ export default function PersonalCollectionList({
                   onClick={(e) => e.stopPropagation()}
                   autoFocus
                   style={{
-                    width: '44px',
-                    height: '32px',
+                    width: '60px',
+                    height: '44px',
                     fontSize: '14px',
                     fontWeight: '600',
                     color: '#171717',
@@ -286,8 +286,8 @@ export default function PersonalCollectionList({
                 <div
                   onClick={(e) => handleQuantityClick(item, e)}
                   style={{
-                    width: '44px',
-                    height: '32px',
+                    width: '60px',
+                    height: '44px',
                     fontSize: '14px',
                     fontWeight: '600',
                     color: '#171717',
@@ -312,8 +312,8 @@ export default function PersonalCollectionList({
                 }}
                 disabled={item.quantity >= 9999}
                 style={{
-                  width: '32px',
-                  height: '32px',
+                  width: '44px',
+                  height: '44px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -329,24 +329,25 @@ export default function PersonalCollectionList({
               >
                 +
               </button>
+            </div>
 
-              {/* Move to Inventory Button - inside same group */}
-              {onItemMove && (
-                <button
+            {/* Move to Inventory Button */}
+            {onItemMove && (
+              <button
                   onClick={(e) => {
                     e.stopPropagation();
                     setMoveDialogItem(item);
                   }}
                   style={{
-                    width: '32px',
-                    height: '32px',
+                    width: '44px',
+                    height: '44px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: '#737373',
                     background: '#ffffff',
-                    border: 'none',
-                    borderLeft: '1px solid #e5e5e5',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
                     cursor: 'pointer',
                     padding: 0,
                     transition: 'all 0.2s'
@@ -367,43 +368,44 @@ export default function PersonalCollectionList({
                 </button>
               )}
 
-              {/* Delete Button - inside same group */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (confirm('Delete this item from your personal collection?')) {
-                    onItemDelete(item.id);
-                  }
-                }}
-                style={{
-                  width: '32px',
-                  height: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#737373',
-                  background: '#ffffff',
-                  border: 'none',
-                  borderLeft: '1px solid #e5e5e5',
-                  cursor: 'pointer',
-                  padding: 0,
-                  transition: 'all 0.2s'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#fee2e2';
-                  e.currentTarget.style.color = '#dc2626';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#ffffff';
-                  e.currentTarget.style.color = '#737373';
-                }}
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="3 6 5 6 21 6"></polyline>
-                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                </svg>
-              </button>
-            </div>
+            {/* Delete Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                if (confirm('Delete this item from your personal collection?')) {
+                  onItemDelete(item.id);
+                }
+              }}
+              style={{
+                width: '44px',
+                height: '44px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#737373',
+                background: '#ffffff',
+                border: '1px solid #e5e5e5',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                padding: 0,
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#fee2e2';
+                e.currentTarget.style.color = '#dc2626';
+                e.currentTarget.style.borderColor = '#fca5a5';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#ffffff';
+                e.currentTarget.style.color = '#737373';
+                e.currentTarget.style.borderColor = '#e5e5e5';
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+            </button>
           </div>
         </div>
       ))}
