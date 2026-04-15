@@ -237,6 +237,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
   const chartWidth = 600; // SVG viewBox width (will scale)
   const plotWidth = chartWidth - chartPadding.left - chartPadding.right;
   const plotHeight = chartHeight - chartPadding.top - chartPadding.bottom;
+  const aspectRatio = chartWidth / chartHeight;
 
   // Calculate points for the line
   const points = data.map((d, i) => {
@@ -266,12 +267,19 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
       border: '1px solid #e5e5e5',
       position: 'relative'
     }}>
-      <div style={{ position: 'relative', minHeight: '180px' }}>
+      <div style={{
+        position: 'relative',
+        width: '100%',
+        paddingBottom: `${(1 / aspectRatio) * 100}%`
+      }}>
         <svg
           viewBox={`0 0 ${chartWidth} ${chartHeight}`}
           style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
             width: '100%',
-            height: 'auto',
+            height: '100%',
             display: 'block'
           }}
         >
