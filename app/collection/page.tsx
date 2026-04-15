@@ -40,7 +40,7 @@ export default function PersonalCollectionPage() {
 
   const loadCollection = async () => {
     try {
-      const response = await fetch('/api/collection');
+      const response = await fetch('/api/personal-collection');
       const data = await response.json();
       if (data.success) {
         setCollection(data.data);
@@ -54,7 +54,7 @@ export default function PersonalCollectionPage() {
 
   const handleItemDeleted = async (id: string) => {
     try {
-      const response = await fetch(`/api/collection/${id}`, {
+      const response = await fetch(`/api/personal-collection/${id}`, {
         method: 'DELETE',
       });
 
@@ -68,7 +68,7 @@ export default function PersonalCollectionPage() {
 
   const handleItemUpdated = async (id: string, updates: Partial<PersonalCollectionItem>) => {
     try {
-      const response = await fetch(`/api/collection/${id}`, {
+      const response = await fetch(`/api/personal-collection/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ export default function PersonalCollectionPage() {
 
   const handleItemMoved = async (id: string, quantity: number) => {
     try {
-      const response = await fetch(`/api/collection/${id}/move-to-inventory`, {
+      const response = await fetch(`/api/personal-collection/${id}/move-to-inventory`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

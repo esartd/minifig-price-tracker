@@ -103,7 +103,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
         }
 
         // Check personal collection
-        const personalResponse = await fetch('/api/collection');
+        const personalResponse = await fetch('/api/personal-collection');
         const personalData = await personalResponse.json();
 
         if (personalData.success && personalData.data) {
@@ -176,7 +176,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     setSuccessMessage('');
 
     try {
-      const response = await fetch('/api/collection', {
+      const response = await fetch('/api/personal-collection', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -758,7 +758,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                 onClick={async () => {
                                   if (personalCollectionItem.quantity > 1) {
                                     try {
-                                      const response = await fetch(`/api/collection/${personalCollectionItem.id}`, {
+                                      const response = await fetch(`/api/personal-collection/${personalCollectionItem.id}`, {
                                         method: 'PATCH',
                                         headers: { 'Content-Type': 'application/json' },
                                         body: JSON.stringify({ quantity: personalCollectionItem.quantity - 1 })
@@ -823,7 +823,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                 onClick={async () => {
                                   if (personalCollectionItem.quantity < 9999) {
                                     try {
-                                      const response = await fetch(`/api/collection/${personalCollectionItem.id}`, {
+                                      const response = await fetch(`/api/personal-collection/${personalCollectionItem.id}`, {
                                         method: 'PATCH',
                                         headers: { 'Content-Type': 'application/json' },
                                         body: JSON.stringify({ quantity: personalCollectionItem.quantity + 1 })
@@ -874,7 +874,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                 e.stopPropagation();
                                 if (confirm('Delete this item from your personal collection?')) {
                                   try {
-                                    const response = await fetch(`/api/collection/${personalCollectionItem.id}`, {
+                                    const response = await fetch(`/api/personal-collection/${personalCollectionItem.id}`, {
                                       method: 'DELETE'
                                     });
                                     if (response.ok) {
