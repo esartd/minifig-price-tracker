@@ -240,9 +240,9 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
 
   return (
     <div style={{
-      backgroundColor: '#ffffff',
-      borderRadius: '12px',
-      padding: '24px',
+      backgroundColor: '#fafafa',
+      borderRadius: '8px',
+      padding: '16px',
       border: '1px solid #e5e5e5'
     }}>
       <svg
@@ -262,7 +262,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
             x2={chartWidth - chartPadding.right}
             y2={tick.y}
             stroke="#e5e5e5"
-            strokeWidth="1"
+            strokeWidth="0.5"
           />
         ))}
 
@@ -286,8 +286,8 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
         <path
           d={pathData}
           fill="none"
-          stroke="#005C97"
-          strokeWidth="3"
+          stroke="#3b82f6"
+          strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
@@ -298,8 +298,10 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
             key={i}
             cx={p.x}
             cy={p.y}
-            r="4"
-            fill="#005C97"
+            r="3"
+            fill="#3b82f6"
+            stroke="#ffffff"
+            strokeWidth="1.5"
           />
         ))}
 
