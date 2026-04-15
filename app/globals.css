@@ -25,6 +25,15 @@
   --space-8: 64px;
   --space-9: 72px;
   --space-10: 80px;
+
+  /* Responsive type scale - fluid sizing with clamp() */
+  --text-xs: clamp(12px, 1.5vw, 13px);   /* Tiny: badges, labels */
+  --text-sm: clamp(14px, 1.75vw, 15px);  /* Small: captions, metadata */
+  --text-base: clamp(16px, 2vw, 18px);   /* Body: paragraphs, UI text */
+  --text-lg: clamp(18px, 2.5vw, 22px);   /* Large: subheadings, H3 */
+  --text-xl: clamp(24px, 3vw, 28px);     /* H2: section headings */
+  --text-2xl: clamp(32px, 4vw, 40px);    /* H1: page headings */
+  --text-3xl: clamp(48px, 5vw, 56px);    /* Hero: hero sections */
 }
 
 @layer base {
@@ -300,11 +309,11 @@
   }
 
   .fun-header-title {
-    font-size: 28px !important;
+    font-size: var(--text-xl) !important;
   }
 
   .fun-header-subtitle {
-    font-size: 15px !important;
+    font-size: var(--text-sm) !important;
   }
 
   .fun-search-card {
@@ -323,7 +332,7 @@
   /* Footer responsive */
   footer {
     padding: 32px 20px !important;
-    font-size: 13px !important;
+    font-size: var(--text-xs) !important;
   }
 }
 
@@ -410,11 +419,11 @@
   }
 
   .fun-header-title {
-    font-size: 36px !important;
+    font-size: var(--text-2xl) !important;
   }
 
   .fun-header-subtitle {
-    font-size: 16px !important;
+    font-size: var(--text-base) !important;
   }
 
   .fun-search-card {
@@ -560,11 +569,11 @@
 /* Landscape phone adjustments */
 @media (max-height: 600px) and (orientation: landscape) {
   .fun-header-title {
-    font-size: 32px !important;
+    font-size: var(--text-2xl) !important;
   }
 
   .fun-header-subtitle {
-    font-size: 14px !important;
+    font-size: var(--text-sm) !important;
   }
 
   .hero-section {
@@ -644,7 +653,7 @@
   }
 
   .hero-section h1 {
-    font-size: 64px !important;
+    font-size: var(--text-3xl) !important;
   }
 
   .section-header h2,
@@ -652,7 +661,7 @@
   .about-personas-section h2,
   .about-trust-section h2,
   .about-cta-section h2 {
-    font-size: 48px !important;
+    font-size: var(--text-3xl) !important;
   }
 }
 
@@ -734,14 +743,14 @@
 }
 
 .minifig-related-heading {
-  font-size: 20px;
+  font-size: var(--text-lg);
   font-weight: 600;
   color: #171717;
   margin-bottom: 8px;
 }
 
 .minifig-related-description {
-  font-size: 14px;
+  font-size: var(--text-sm);
   color: #737373;
   margin-bottom: 24px;
 }
@@ -832,7 +841,7 @@
   outline: none;
   transition: all 0.2s;
   padding: 0;
-  font-size: 15px;
+  font-size: var(--text-sm);
   font-weight: 500;
 }
 
@@ -897,15 +906,15 @@
   }
 
   .minifig-detail-grid h1 {
-    font-size: 32px !important;
+    font-size: var(--text-2xl) !important;
   }
 
   .minifig-related-heading {
-    font-size: 24px;
+    font-size: var(--text-xl);
   }
 
   .minifig-related-description {
-    font-size: 16px;
+    font-size: var(--text-base);
   }
 
   .minifig-related-grid {
@@ -986,7 +995,7 @@
   }
 
   .minifig-detail-grid h1 {
-    font-size: 36px !important;
+    font-size: var(--text-2xl) !important;
   }
 
   .minifig-related-grid {
@@ -1015,20 +1024,20 @@
 
 .hero-badge {
   display: inline-block;
-  padding: 8px 16px;
+  padding: 10px 20px;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
   border-radius: 32px;
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-weight: 500;
   color: #ffffff;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
   letter-spacing: 0.8px;
   text-transform: uppercase;
 }
 
 .hero-section h1 {
-  font-size: 40px;
+  font-size: var(--text-2xl);
   font-weight: 600;
   line-height: 1.1;
   color: #ffffff;
@@ -1037,7 +1046,7 @@
 }
 
 .hero-section p {
-  font-size: 18px;
+  font-size: var(--text-lg);
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.95);
   max-width: 560px;
@@ -1095,7 +1104,7 @@
 }
 
 .section-header h2 {
-  font-size: 32px;
+  font-size: var(--text-2xl);
   font-weight: 600;
   line-height: 1.15;
   color: #171717;
@@ -1104,7 +1113,7 @@
 }
 
 .section-header p {
-  font-size: 18px;
+  font-size: var(--text-lg);
   line-height: 1.7;
   color: #737373;
 }
@@ -1115,7 +1124,7 @@
 }
 
 .about-problem-section h2 {
-  font-size: 32px;
+  font-size: var(--text-2xl);
   font-weight: 600;
   line-height: 1.25;
   color: #171717;
@@ -1124,7 +1133,7 @@
 }
 
 .about-problem-section p {
-  font-size: 18px;
+  font-size: var(--text-lg);
   line-height: 1.8;
   color: #525252;
   margin-bottom: 20px;
@@ -1157,7 +1166,7 @@
 }
 
 .stat-number {
-  font-size: 64px;
+  font-size: var(--text-3xl);
   font-weight: 600;
   color: #005C97;
   line-height: 1;
@@ -1166,7 +1175,7 @@
 }
 
 .stat-label {
-  font-size: 17px;
+  font-size: var(--text-base);
   line-height: 1.5;
   color: #737373;
   font-weight: 500;
@@ -1215,7 +1224,7 @@
 }
 
 .feature-card h3 {
-  font-size: 22px;
+  font-size: var(--text-lg);
   font-weight: 600;
   color: #171717;
   margin-bottom: 16px;
@@ -1223,7 +1232,7 @@
 }
 
 .feature-card p {
-  font-size: 17px;
+  font-size: var(--text-base);
   line-height: 1.65;
   color: #525252;
 }
@@ -1234,7 +1243,7 @@
 }
 
 .about-personas-section h2 {
-  font-size: 32px;
+  font-size: var(--text-2xl);
   font-weight: 600;
   line-height: 1.25;
   color: #171717;
@@ -1264,13 +1273,13 @@
 }
 
 .persona-emoji {
-  font-size: 48px;
+  font-size: var(--text-3xl);
   margin-bottom: 24px;
   line-height: 1;
 }
 
 .persona-card h3 {
-  font-size: 21px;
+  font-size: var(--text-lg);
   font-weight: 600;
   color: #171717;
   margin-bottom: 16px;
@@ -1278,7 +1287,7 @@
 }
 
 .persona-card p {
-  font-size: 17px;
+  font-size: var(--text-base);
   line-height: 1.65;
   color: #525252;
 }
@@ -1306,7 +1315,7 @@
 }
 
 .trust-badge span {
-  font-size: 13px;
+  font-size: var(--text-xs);
   font-weight: 600;
   color: #15803d;
   letter-spacing: 0.8px;
@@ -1314,7 +1323,7 @@
 }
 
 .about-trust-section h2 {
-  font-size: 32px;
+  font-size: var(--text-2xl);
   font-weight: 600;
   line-height: 1.25;
   color: #171717;
@@ -1323,7 +1332,7 @@
 }
 
 .trust-description {
-  font-size: 18px;
+  font-size: var(--text-lg);
   line-height: 1.8;
   color: #525252;
   margin-bottom: 56px;
@@ -1352,13 +1361,13 @@
 }
 
 .trust-emoji {
-  font-size: 48px;
+  font-size: var(--text-3xl);
   line-height: 1;
   flex-shrink: 0;
 }
 
 .trust-label {
-  font-size: 17px;
+  font-size: var(--text-base);
   font-weight: 500;
   color: #171717;
 }
@@ -1369,7 +1378,7 @@
 }
 
 .about-cta-section h2 {
-  font-size: 32px;
+  font-size: var(--text-2xl);
   font-weight: 600;
   line-height: 1.25;
   color: #171717;
@@ -1378,7 +1387,7 @@
 }
 
 .about-cta-section p {
-  font-size: 18px;
+  font-size: var(--text-lg);
   line-height: 1.8;
   color: #525252;
   margin-bottom: 48px;
@@ -1391,7 +1400,7 @@
   padding: 18px 36px;
   background: linear-gradient(135deg, #005C97 0%, #363795 100%);
   color: #ffffff;
-  font-size: 17px;
+  font-size: var(--text-base);
   font-weight: 600;
   border-radius: 14px;
   text-decoration: none;
@@ -1423,11 +1432,11 @@
   }
 
   .hero-section h1 {
-    font-size: 56px;
+    font-size: var(--text-3xl);
   }
 
   .hero-section p {
-    font-size: 20px;
+    font-size: var(--text-lg);
   }
 
   .hero-decoration-1 {
@@ -1453,24 +1462,24 @@
   }
 
   .section-header h2 {
-    font-size: 44px;
+    font-size: var(--text-2xl);
     margin-bottom: 24px;
   }
 
   .section-header p {
-    font-size: 20px;
+    font-size: var(--text-lg);
   }
 
   .about-problem-section h2,
   .about-personas-section h2,
   .about-trust-section h2,
   .about-cta-section h2 {
-    font-size: 44px;
+    font-size: var(--text-2xl);
     margin-bottom: 48px;
   }
 
   .about-problem-section p {
-    font-size: 20px;
+    font-size: var(--text-lg);
     margin-bottom: 24px;
   }
 
@@ -1485,12 +1494,12 @@
   }
 
   .stat-number {
-    font-size: 72px;
+    font-size: var(--text-3xl);
     margin-bottom: 24px;
   }
 
   .stat-label {
-    font-size: 18px;
+    font-size: var(--text-lg);
   }
 
   .features-grid {
@@ -1514,12 +1523,12 @@
   }
 
   .feature-card h3 {
-    font-size: 24px;
+    font-size: var(--text-xl);
     margin-bottom: 18px;
   }
 
   .feature-card p {
-    font-size: 18px;
+    font-size: var(--text-lg);
     line-height: 1.7;
   }
 
@@ -1534,22 +1543,22 @@
   }
 
   .persona-emoji {
-    font-size: 56px;
+    font-size: var(--text-3xl);
     margin-bottom: 28px;
   }
 
   .persona-card h3 {
-    font-size: 22px;
+    font-size: var(--text-lg);
     margin-bottom: 18px;
   }
 
   .persona-card p {
-    font-size: 18px;
+    font-size: var(--text-lg);
     line-height: 1.7;
   }
 
   .trust-description {
-    font-size: 20px;
+    font-size: var(--text-lg);
     margin-bottom: 64px;
   }
 
@@ -1569,21 +1578,21 @@
   }
 
   .trust-emoji {
-    font-size: 56px;
+    font-size: var(--text-3xl);
   }
 
   .trust-label {
-    font-size: 18px;
+    font-size: var(--text-lg);
   }
 
   .about-cta-section p {
-    font-size: 20px;
+    font-size: var(--text-lg);
     margin-bottom: 56px;
   }
 
   .cta-button {
     padding: 20px 40px;
-    font-size: 18px;
+    font-size: var(--text-lg);
   }
 }
 
@@ -1595,12 +1604,12 @@
   }
 
   .hero-section h1 {
-    font-size: 72px;
+    font-size: var(--text-3xl);
     margin-bottom: 40px;
   }
 
   .hero-section p {
-    font-size: 22px;
+    font-size: var(--text-lg);
     line-height: 1.75;
   }
 
@@ -1617,7 +1626,7 @@
   }
 
   .section-header h2 {
-    font-size: 52px;
+    font-size: var(--text-3xl);
     margin-bottom: 28px;
   }
 
@@ -1625,12 +1634,12 @@
   .about-personas-section h2,
   .about-trust-section h2,
   .about-cta-section h2 {
-    font-size: 52px;
+    font-size: var(--text-3xl);
     margin-bottom: 56px;
   }
 
   .about-problem-section p {
-    font-size: 22px;
+    font-size: var(--text-lg);
   }
 
   .stats-grid {
@@ -1643,7 +1652,7 @@
   }
 
   .stat-number {
-    font-size: 80px;
+    font-size: var(--text-3xl);
   }
 
   .features-grid {
@@ -1655,11 +1664,11 @@
   }
 
   .feature-card h3 {
-    font-size: 26px;
+    font-size: var(--text-xl);
   }
 
   .feature-card p {
-    font-size: 19px;
+    font-size: var(--text-lg);
   }
 
   .personas-grid {
@@ -1672,11 +1681,11 @@
   }
 
   .persona-card h3 {
-    font-size: 24px;
+    font-size: var(--text-xl);
   }
 
   .persona-card p {
-    font-size: 19px;
+    font-size: var(--text-lg);
   }
 
   .trust-item {
@@ -1685,7 +1694,7 @@
 
   .cta-button {
     padding: 22px 48px;
-    font-size: 19px;
+    font-size: var(--text-lg);
   }
 }
 
@@ -1710,7 +1719,7 @@
   }
 
   .collection-header h1 {
-    font-size: 40px !important;
+    font-size: var(--text-2xl) !important;
   }
 
   .collection-add-button {
@@ -1718,7 +1727,7 @@
   }
 
   .collection-subtitle {
-    font-size: 18px !important;
+    font-size: var(--text-lg) !important;
   }
 
   .collection-stats {
@@ -1732,7 +1741,7 @@
   }
 
   .collection-stat-value {
-    font-size: 32px !important;
+    font-size: var(--text-2xl) !important;
   }
 
   .collection-list-container {
@@ -1746,7 +1755,7 @@
   }
 
   .collection-list-header h2 {
-    font-size: 22px !important;
+    font-size: var(--text-lg) !important;
   }
 
   .collection-controls {
@@ -1767,7 +1776,7 @@
   }
 
   .collection-header h1 {
-    font-size: 48px !important;
+    font-size: var(--text-3xl) !important;
   }
 
   .collection-stats {
@@ -1780,7 +1789,7 @@
   }
 
   .collection-stat-value {
-    font-size: 36px !important;
+    font-size: var(--text-2xl) !important;
   }
 
   .collection-list-container {
@@ -1788,18 +1797,18 @@
   }
 
   .collection-list-header h2 {
-    font-size: 24px !important;
+    font-size: var(--text-xl) !important;
   }
 
   .collection-controls button {
     padding: 16px 32px !important;
-    font-size: 16px !important;
+    font-size: var(--text-base) !important;
   }
 
   .collection-controls select {
     padding: 16px 32px !important;
     padding-right: 3rem !important;
-    font-size: 16px !important;
+    font-size: var(--text-base) !important;
   }
 }
 
@@ -1834,7 +1843,7 @@
   }
 
   .collection-item-card h3 {
-    font-size: 15px !important;
+    font-size: var(--text-sm) !important;
   }
 
   .collection-item-actions {
@@ -1874,7 +1883,7 @@
   }
 
   .collection-item-card h3 {
-    font-size: 19px !important;
+    font-size: var(--text-lg) !important;
   }
 
   .collection-item-actions {
@@ -1900,7 +1909,7 @@
   }
 
   .collection-item-card h3 {
-    font-size: 20px !important;
+    font-size: var(--text-lg) !important;
   }
 
   .collection-item-image {
@@ -1923,7 +1932,7 @@
   .collection-item-actions > div > div {
     min-width: 50px !important;
     height: 36px !important;
-    font-size: 15px !important;
+    font-size: var(--text-sm) !important;
   }
 
   /* Delete button */
