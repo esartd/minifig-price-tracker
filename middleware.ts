@@ -1,54 +1,43 @@
-import { auth } from "@/auth"
-import { NextResponse } from "next/server"
+import { auth } from '@/auth';
+import { NextResponse } from 'next/server';
 
 export default auth((req) => {
-  const { pathname } = req.nextUrl
-  const isLoggedIn = !!req.auth
+  const isLoggedIn = !!req.auth;
+  const isAuthPage = req.nextUrl.pathname.startsWith('/auth');
+  const isPublicPage = req.nextUrl.pathname === '/' ||
+                       req.nextUrl.pathname.startsWith('/search') ||
+                       req.nextUrl.pathname.startsWith('/minifig') ||
+                       req.nextUrl.pathname.startsWith('/themes') ||
+                       req.nextUrl.pathname.startsWith('/about');
+  const isProtectedPage = req.nextUrl.pathname.startsWith('/inventory') ||
+                          req.nextUrl.pathname.startsWith('/account');
 
-  // Always allow NextAuth API routes
-  if (pathname.startsWith('/api/auth')) {
-    return NextResponse.next()
+  // Allow public access to home, search, minifig detail, and about pages
+  if (isPublicPage) {
+    return NextResponse.next();
   }
 
-  // Public routes that don't require authentication
-  const publicRoutes = [
-    '/',
-    '/about',
-    '/search',
-    '/themes',
-    '/auth/signin',
-    '/auth/signup',
-    '/auth/forgot-password',
-    '/auth/reset-password',
-  ]
-
-  // Check if current path is public
-  const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route))
-
-  // Allow public routes
-  if (isPublicRoute) {
-    return NextResponse.next()
+  // Protected pages require login
+  if (isProtectedPage && !isLoggedIn) {
+    const signInUrl = new URL('/auth/signin', req.nextUrl.origin);
+    return NextResponse.redirect(signInUrl);
   }
 
-  // Allow all other API routes (they handle their own auth)
-  if (pathname.startsWith('/api')) {
-    return NextResponse.next()
+  // If not logged in and not on auth page or public page, redirect to sign-in
+  if (!isLoggedIn && !isAuthPage && !isPublicPage) {
+    const signInUrl = new URL('/auth/signin', req.nextUrl.origin);
+    return NextResponse.redirect(signInUrl);
   }
 
-  // Allow minifig detail pages (public)
-  if (pathname.startsWith('/minifigs/')) {
-    return NextResponse.next()
+  // If logged in and on auth page, redirect to search
+  if (isLoggedIn && isAuthPage) {
+    const searchUrl = new URL('/search', req.nextUrl.origin);
+    return NextResponse.redirect(searchUrl);
   }
 
-  // Protect all other routes - require authentication
-  if (!isLoggedIn) {
-    const signInUrl = new URL('/auth/signin', req.url)
-    return NextResponse.redirect(signInUrl)
-  }
-
-  return NextResponse.next()
-})
+  return NextResponse.next();
+});
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|avatars).*)'],
-}
+  matcher: ['/((?!api/auth|api/minifigs|api/cron|api/price-history|api/inventory/temp-pricing|_next/static|_next/image|favicon.ico|uploads).*)'],
+};
