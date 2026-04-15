@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 interface Subcategory {
   id: number;
@@ -94,22 +95,11 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
       padding: '48px 16px'
     }}>
       {/* Breadcrumb */}
-      <nav style={{ marginBottom: '32px' }}>
-        <ol style={{ display: 'flex', alignItems: 'center', gap: '8px', listStyle: 'none', padding: 0, margin: 0, flexWrap: 'wrap', lineHeight: '1' }}>
-          <li style={{ display: 'flex', alignItems: 'center' }}>
-            <Link
-              href="/themes"
-              style={{
-                fontSize: '14px',
-                color: '#3b82f6',
-                textDecoration: 'none'
-              }}
-            >
-              All Themes
-            </Link>
-          </li>
-        </ol>
-      </nav>
+      <Breadcrumbs items={[
+        { label: 'Home', href: '/' },
+        { label: 'Themes', href: '/themes' },
+        { label: theme }
+      ]} />
 
       <div style={{ marginBottom: '48px' }}>
         <h1 style={{

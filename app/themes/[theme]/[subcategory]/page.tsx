@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 
 interface Minifig {
@@ -77,6 +78,23 @@ export default function SubcategoryMinifigsPage({
     );
   }
 
+  // Build breadcrumb items
+  const breadcrumbItems = [
+    { label: 'Home', href: '/' },
+    { label: 'Themes', href: '/themes' }
+  ];
+
+  if (subcategory === 'Uncategorized') {
+    // For uncategorized, just show theme as final item
+    breadcrumbItems.push({ label: theme });
+  } else {
+    // For subcategories, show theme link then subcategory
+    breadcrumbItems.push(
+      { label: theme, href: `/themes/${encodeURIComponent(theme)}` },
+      { label: subcategory }
+    );
+  }
+
   return (
     <div style={{
       maxWidth: '1200px',
@@ -84,47 +102,7 @@ export default function SubcategoryMinifigsPage({
       padding: '48px 16px'
     }}>
       {/* Breadcrumb */}
-      <nav style={{ marginBottom: '32px' }}>
-        <ol style={{ display: 'flex', alignItems: 'center', gap: '8px', listStyle: 'none', padding: 0, margin: 0, flexWrap: 'wrap', lineHeight: '1' }}>
-          <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Link
-              href="/themes"
-              style={{
-                fontSize: '14px',
-                color: '#3b82f6',
-                textDecoration: 'none'
-              }}
-            >
-              All Themes
-            </Link>
-            <span style={{ color: '#a3a3a3' }}>/</span>
-          </li>
-          {subcategory === 'Uncategorized' ? (
-            <li style={{ display: 'flex', alignItems: 'center' }}>
-              <span style={{ fontSize: '14px', color: '#737373' }}>{theme}</span>
-            </li>
-          ) : (
-            <>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Link
-                  href={`/themes/${encodeURIComponent(theme)}`}
-                  style={{
-                    fontSize: '14px',
-                    color: '#3b82f6',
-                    textDecoration: 'none'
-                  }}
-                >
-                  {theme}
-                </Link>
-                <span style={{ color: '#a3a3a3' }}>/</span>
-              </li>
-              <li style={{ display: 'flex', alignItems: 'center' }}>
-                <span style={{ fontSize: '14px', color: '#737373' }}>{subcategory}</span>
-              </li>
-            </>
-          )}
-        </ol>
-      </nav>
+      <Breadcrumbs items={breadcrumbItems} />
 
       <div style={{ marginBottom: '48px' }}>
         <h1 style={{
