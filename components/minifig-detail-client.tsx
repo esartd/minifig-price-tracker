@@ -52,7 +52,9 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     loading: true
   });
   const [collectionItem, setCollectionItem] = useState<any>(null);
+  const [personalCollectionItem, setPersonalCollectionItem] = useState<any>(null);
   const [checkingCollection, setCheckingCollection] = useState(true);
+  const [addPersonalLoading, setAddPersonalLoading] = useState(false);
 
   // Fetch pricing on client-side (user-driven, not pre-generated)
   useEffect(() => {
@@ -80,30 +82,40 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     fetchPricing();
   }, [minifig.no]);
 
-  // Check if item is in collection
+  // Check if item is in inventory and personal collection
   useEffect(() => {
     if (!session) {
       setCheckingCollection(false);
       return;
     }
 
-    const checkCollection = async () => {
+    const checkCollections = async () => {
       try {
-        const response = await fetch('/api/inventory');
-        const data = await response.json();
+        // Check inventory
+        const inventoryResponse = await fetch('/api/inventory');
+        const inventoryData = await inventoryResponse.json();
 
-        if (data.success && data.data) {
-          const found = data.data.find((item: any) => item.minifigure_no === minifig.no);
+        if (inventoryData.success && inventoryData.data) {
+          const found = inventoryData.data.find((item: any) => item.minifigure_no === minifig.no);
           setCollectionItem(found || null);
         }
+
+        // Check personal collection
+        const personalResponse = await fetch('/api/personal-collection');
+        const personalData = await personalResponse.json();
+
+        if (personalData.success && personalData.data) {
+          const found = personalData.data.find((item: any) => item.minifigure_no === minifig.no);
+          setPersonalCollectionItem(found || null);
+        }
       } catch (err) {
-        console.error('Error checking collection:', err);
+        console.error('Error checking collections:', err);
       } finally {
         setCheckingCollection(false);
       }
     };
 
-    checkCollection();
+    checkCollections();
   }, [minifig.no, session]);
 
   const handleAddToCollection = async (quantity: number) => {
@@ -145,6 +157,48 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
       setError('Failed to add to inventory');
     } finally {
       setAddLoading(false);
+    }
+  };
+
+  const handleAddToPersonalCollection = async (quantity: number) => {
+    if (!session) {
+      router.push('/auth/signin');
+      return;
+    }
+
+    setAddPersonalLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch('/api/personal-collection', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          minifigure_no: minifig.no,
+          minifigure_name: minifig.name,
+          quantity,
+          condition: 'new',
+          image_url: minifig.image_url,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setPersonalCollectionItem(data.data);
+      } else {
+        if (response.status === 401) {
+          setError('Please sign in to add items');
+        } else if (response.status === 409) {
+          setError('Already in personal collection');
+        } else {
+          setError(data.error || 'Failed to add');
+        }
+      }
+    } catch (err: any) {
+      setError('Failed to add to personal collection');
+    } finally {
+      setAddPersonalLoading(false);
     }
   };
 
@@ -687,13 +741,67 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         color: '#171717',
                         marginBottom: '16px'
                       }}>
-                        Add to Inventory
+                        Add to Collection
                       </h2>
-                      <AddToCollectionForm
-                        onAdd={handleAddToCollection}
-                        loading={addLoading}
-                        session={session}
-                      />
+                      <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 1fr',
+                        gap: '12px',
+                        marginBottom: '20px'
+                      }}>
+                        <button
+                          onClick={() => handleAddToCollection(1)}
+                          disabled={addLoading}
+                          style={{
+                            padding: '14px 20px',
+                            fontSize: '15px',
+                            fontWeight: '600',
+                            color: '#ffffff',
+                            background: addLoading ? '#a3a3a3' : '#3b82f6',
+                            border: 'none',
+                            borderRadius: '8px',
+                            cursor: addLoading ? 'not-allowed' : 'pointer',
+                            transition: 'all 0.2s',
+                            whiteSpace: 'nowrap'
+                          }}
+                          onMouseEnter={(e) => {
+                            if (!addLoading) e.currentTarget.style.background = '#2563eb';
+                          }}
+                          onMouseLeave={(e) => {
+                            if (!addLoading) e.currentTarget.style.background = '#3b82f6';
+                          }}
+                        >
+                          {addLoading ? 'Adding...' : '+ Inventory'}
+                        </button>
+                        <button
+                          onClick={() => handleAddToPersonalCollection(1)}
+                          disabled={addPersonalLoading}
+                          style={{
+                            padding: '14px 20px',
+                            fontSize: '15px',
+                            fontWeight: '600',
+                            color: '#3b82f6',
+                            background: '#ffffff',
+                            border: '2px solid #3b82f6',
+                            borderRadius: '8px',
+                            cursor: addPersonalLoading ? 'not-allowed' : 'pointer',
+                            transition: 'all 0.2s',
+                            whiteSpace: 'nowrap'
+                          }}
+                          onMouseEnter={(e) => {
+                            if (!addPersonalLoading) {
+                              e.currentTarget.style.background = '#eff6ff';
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            if (!addPersonalLoading) {
+                              e.currentTarget.style.background = '#ffffff';
+                            }
+                          }}
+                        >
+                          {addPersonalLoading ? 'Adding...' : '+ Personal'}
+                        </button>
+                      </div>
                     </>
                   )}
                 </div>
