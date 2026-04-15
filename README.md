@@ -13,6 +13,8 @@ A Next.js web application for LEGO minifigure collectors to track their collecti
 - **Real-time Pricing** - Live pricing data from BrickLink API with smart 24-hour caching
 - **Smart Search** - Search by name or item number (e.g., "Luke Skywalker" or "sw0004", "Harry Potter" or "hp001")
 - **Price Tracking** - Current market average, quantity-weighted average, lowest listing, and suggested sell price
+- **Set Discovery** - See which LEGO sets contain each minifigure with direct purchase links
+- **Affiliate Links** - Monetize your site with BrickLink affiliate program integration
 - **Inventory Management** - Track quantity, condition (new/used), and total collection value
 - **Beautiful UI** - Apple-inspired design with smooth animations
 - **Monthly Updates** - Automatic catalog updates for new minifig releases
@@ -122,6 +124,20 @@ npm run discover-themes
 Auto-detects new theme prefixes and suggests adding them to enumeration.
 
 GitHub Actions runs the **incremental update** automatically on the 1st of every month!
+
+## Monetization (Optional)
+
+FigTracker supports **Amazon Associates** and **Rakuten Advertising** (LEGO.com) to help you earn commissions from set purchases!
+
+See [AMAZON_RAKUTEN_AFFILIATE_SETUP.md](./AMAZON_RAKUTEN_AFFILIATE_SETUP.md) for complete setup instructions.
+
+**Quick setup:**
+1. Join Amazon Associates (approved in hours!)
+2. Add `AMAZON_AFFILIATE_TAG=yoursite-20` to `.env`
+3. Users see "Buy on Amazon" buttons on every set
+4. Earn 3-4% commission on all purchases!
+
+**Optional:** Apply to Rakuten for LEGO.com affiliate links
 
 ## Deployment
 

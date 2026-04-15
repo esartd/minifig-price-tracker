@@ -290,10 +290,29 @@ export class BricklinkAPI {
   }
 
   async getSetsContainingMinifig(itemNo: string): Promise<SetInfo[]> {
-    // NOTE: This method is not currently used in the app
-    // Left here for potential future use, but scraping is not recommended for production
-    // BrickLink API's /subsets endpoint returns PARTS in a minifig, not SETS containing it
-    return [];
+    try {
+      // Use /supersets endpoint to get all sets that contain this minifigure
+      const data = await this.makeRequest(`/items/MINIFIG/${itemNo}/supersets`);
+
+      if (!data || !Array.isArray(data)) {
+        return [];
+      }
+
+      // Transform the response into SetInfo format
+      const sets: SetInfo[] = data
+        .filter((entry: any) => entry.item.type === 'SET') // Only include sets, not other types
+        .map((entry: any) => ({
+          no: entry.item.no,
+          name: entry.item.name || '',
+          quantity: entry.entries?.[0]?.quantity || 1,
+          image_url: `https://img.bricklink.com/ItemImage/SN/0/${entry.item.no}.png`
+        }));
+
+      return sets;
+    } catch (error) {
+      console.error('Error fetching sets for minifig:', error);
+      return [];
+    }
   }
 
   async calculatePricingData(itemNo: string, condition: 'new' | 'used'): Promise<PricingData> {

@@ -97,7 +97,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
           listStyle: 'none',
           padding: 0,
           margin: 0,
-          lineHeight: '1'
+          lineHeight: '1.5'
         }}>
           {visibleItems.map((item, index) => (
             <li
@@ -119,7 +119,9 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
                     color: '#3b82f6',
                     textDecoration: 'none',
                     transition: 'color 0.2s',
-                    whiteSpace: 'nowrap'
+                    whiteSpace: 'nowrap',
+                    display: 'inline-flex',
+                    alignItems: 'center'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.color = '#2563eb';
@@ -131,10 +133,19 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
                   {item.label}
                 </Link>
               ) : (
-                <span style={{ color: '#737373', whiteSpace: 'nowrap' }}>{item.label}</span>
+                <span style={{
+                  color: '#737373',
+                  whiteSpace: 'nowrap',
+                  display: 'inline-flex',
+                  alignItems: 'center'
+                }}>{item.label}</span>
               )}
               {index < visibleItems.length - 1 && (
-                <span style={{ color: '#a3a3a3' }}>/</span>
+                <span style={{
+                  color: '#a3a3a3',
+                  display: 'inline-flex',
+                  alignItems: 'center'
+                }}>/</span>
               )}
             </li>
           ))}
