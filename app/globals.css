@@ -783,7 +783,7 @@
 }
 
 .minifig-image-container {
-  padding: 16px 16px 24px !important;
+  padding: 40px 16px !important;
   background: #ffffff !important;
   display: flex !important;
   align-items: center !important;
