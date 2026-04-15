@@ -38,6 +38,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
   const { data: session } = useSession();
   const [addLoading, setAddLoading] = useState(false);
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [pricing, setPricing] = useState<{
     sixMonthAverage: number;
     currentAverage: number;
@@ -55,6 +56,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
   const [personalCollectionItem, setPersonalCollectionItem] = useState<any>(null);
   const [checkingCollection, setCheckingCollection] = useState(true);
   const [addPersonalLoading, setAddPersonalLoading] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
   // Fetch pricing on client-side (user-driven, not pre-generated)
   useEffect(() => {
@@ -126,6 +128,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
     setAddLoading(true);
     setError('');
+    setSuccessMessage('');
 
     try {
       const response = await fetch('/api/inventory', {
@@ -144,6 +147,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
       if (data.success) {
         setCollectionItem(data.data);
+        setSuccessMessage(`Added ${quantity} to Inventory!`);
+        setQuantity(1);
       } else {
         if (response.status === 401) {
           setError('Please sign in to add items');
@@ -168,6 +173,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
     setAddPersonalLoading(true);
     setError('');
+    setSuccessMessage('');
 
     try {
       const response = await fetch('/api/personal-collection', {
@@ -186,6 +192,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
       if (data.success) {
         setPersonalCollectionItem(data.data);
+        setSuccessMessage(`Added ${quantity} to Personal Collection!`);
+        setQuantity(1);
       } else {
         if (response.status === 401) {
           setError('Please sign in to add items');
@@ -743,14 +751,103 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       }}>
                         Add to Collection
                       </h2>
+
+                      {/* Quantity Selector */}
+                      <div style={{ marginBottom: '16px' }}>
+                        <label style={{
+                          display: 'block',
+                          fontSize: '14px',
+                          fontWeight: '500',
+                          color: '#525252',
+                          marginBottom: '8px'
+                        }}>
+                          Quantity
+                        </label>
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          border: '1px solid #e5e5e5',
+                          borderRadius: '8px',
+                          overflow: 'hidden',
+                          width: 'fit-content'
+                        }}>
+                          <button
+                            type="button"
+                            onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                            disabled={quantity <= 1}
+                            style={{
+                              width: '44px',
+                              height: '44px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              background: quantity > 1 ? '#ffffff' : '#f5f5f5',
+                              border: 'none',
+                              borderRight: '1px solid #e5e5e5',
+                              cursor: quantity > 1 ? 'pointer' : 'not-allowed',
+                              color: quantity > 1 ? '#171717' : '#a3a3a3',
+                              fontSize: '20px',
+                              fontWeight: '600'
+                            }}
+                          >
+                            −
+                          </button>
+                          <input
+                            type="text"
+                            inputMode="numeric"
+                            value={quantity}
+                            onChange={(e) => {
+                              const val = parseInt(e.target.value);
+                              if (!isNaN(val) && val >= 1 && val <= 9999) {
+                                setQuantity(val);
+                              } else if (e.target.value === '') {
+                                setQuantity(1);
+                              }
+                            }}
+                            style={{
+                              width: '60px',
+                              height: '44px',
+                              fontSize: '16px',
+                              fontWeight: '600',
+                              color: '#171717',
+                              background: '#ffffff',
+                              border: 'none',
+                              textAlign: 'center',
+                              outline: 'none'
+                            }}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setQuantity(Math.min(9999, quantity + 1))}
+                            disabled={quantity >= 9999}
+                            style={{
+                              width: '44px',
+                              height: '44px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              background: quantity < 9999 ? '#ffffff' : '#f5f5f5',
+                              border: 'none',
+                              borderLeft: '1px solid #e5e5e5',
+                              cursor: quantity < 9999 ? 'pointer' : 'not-allowed',
+                              color: quantity < 9999 ? '#171717' : '#a3a3a3',
+                              fontSize: '20px',
+                              fontWeight: '600'
+                            }}
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Add Buttons */}
                       <div style={{
                         display: 'grid',
                         gridTemplateColumns: '1fr 1fr',
-                        gap: '12px',
-                        marginBottom: '20px'
+                        gap: '12px'
                       }}>
                         <button
-                          onClick={() => handleAddToCollection(1)}
+                          onClick={() => handleAddToCollection(quantity)}
                           disabled={addLoading}
                           style={{
                             padding: '14px 20px',
@@ -774,7 +871,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           {addLoading ? 'Adding...' : '+ Inventory'}
                         </button>
                         <button
-                          onClick={() => handleAddToPersonalCollection(1)}
+                          onClick={() => handleAddToPersonalCollection(quantity)}
                           disabled={addPersonalLoading}
                           style={{
                             padding: '14px 20px',
@@ -816,9 +913,24 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   />
                 )}
 
+                {successMessage && (
+                  <div style={{
+                    marginTop: '24px',
+                    padding: '16px 20px',
+                    background: '#d1fae5',
+                    border: '1px solid #6ee7b7',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    color: '#065f46',
+                    fontWeight: '500'
+                  }}>
+                    ✓ {successMessage}
+                  </div>
+                )}
+
                 {error && (
                   <div style={{
-                    marginTop: '32px',
+                    marginTop: '24px',
                     padding: '16px 20px',
                     background: '#fee2e2',
                     border: '1px solid #fca5a5',
