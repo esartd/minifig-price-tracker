@@ -758,63 +758,150 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           }}>
                             In Your Personal Collection
                           </h2>
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                            {/* Quantity Display with Add Button */}
-                            <div style={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: '12px'
-                            }}>
-                              <div style={{
-                                padding: '12px 16px',
-                                background: '#f5f5f5',
-                                borderRadius: '8px',
-                                fontSize: '14px',
-                                color: '#525252',
-                                fontWeight: '500',
-                                flex: 1
-                              }}>
-                                Quantity: {personalCollectionItem.quantity}
-                              </div>
+                          <div className="inventory-actions-container">
+                            {/* Quantity Stepper */}
+                            <div className="quantity-stepper">
                               <button
+                                type="button"
                                 onClick={async () => {
-                                  try {
-                                    const response = await fetch(`/api/personal-collection/${personalCollectionItem.id}`, {
-                                      method: 'PATCH',
-                                      headers: { 'Content-Type': 'application/json' },
-                                      body: JSON.stringify({ quantity: personalCollectionItem.quantity + 1 })
-                                    });
-                                    if (response.ok) {
-                                      const data = await response.json();
-                                      setPersonalCollectionItem(data.data);
-                                      setSuccessMessage('Added 1 more!');
+                                  if (personalCollectionItem.quantity > 1) {
+                                    try {
+                                      const response = await fetch(`/api/personal-collection/${personalCollectionItem.id}`, {
+                                        method: 'PATCH',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ quantity: personalCollectionItem.quantity - 1 })
+                                      });
+                                      if (response.ok) {
+                                        const data = await response.json();
+                                        setPersonalCollectionItem(data.data);
+                                      }
+                                    } catch (err) {
+                                      setError('Failed to update quantity');
                                     }
-                                  } catch (err) {
-                                    setError('Failed to update quantity');
                                   }
                                 }}
+                                disabled={personalCollectionItem.quantity <= 1}
                                 style={{
-                                  padding: '12px 20px',
-                                  fontSize: '14px',
-                                  fontWeight: '600',
-                                  color: '#3b82f6',
-                                  background: '#ffffff',
-                                  border: '2px solid #3b82f6',
-                                  borderRadius: '8px',
-                                  cursor: 'pointer',
+                                  width: '44px',
+                                  minWidth: '44px',
+                                  height: '44px',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  background: personalCollectionItem.quantity > 1 ? '#ffffff' : '#f5f5f5',
+                                  border: 'none',
+                                  borderRight: '1px solid #e5e5e5',
+                                  cursor: personalCollectionItem.quantity > 1 ? 'pointer' : 'not-allowed',
+                                  color: personalCollectionItem.quantity > 1 ? '#171717' : '#a3a3a3',
                                   transition: 'all 0.2s',
-                                  whiteSpace: 'nowrap'
+                                  fontSize: '20px',
+                                  fontWeight: '600',
+                                  padding: 0,
+                                  flexShrink: 0
                                 }}
                                 onMouseEnter={(e) => {
-                                  e.currentTarget.style.background = '#eff6ff';
+                                  if (personalCollectionItem.quantity > 1) e.currentTarget.style.background = '#f5f5f5';
                                 }}
                                 onMouseLeave={(e) => {
-                                  e.currentTarget.style.background = '#ffffff';
+                                  if (personalCollectionItem.quantity > 1) e.currentTarget.style.background = '#ffffff';
                                 }}
                               >
-                                + Add Another
+                                −
+                              </button>
+
+                              <div style={{
+                                flex: 1,
+                                minWidth: '40px',
+                                height: '44px',
+                                fontSize: '16px',
+                                fontWeight: '600',
+                                color: '#171717',
+                                background: '#ffffff',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                userSelect: 'none',
+                                padding: '0 8px'
+                              }}>
+                                {personalCollectionItem.quantity}
+                              </div>
+
+                              <button
+                                type="button"
+                                onClick={async () => {
+                                  if (personalCollectionItem.quantity < 9999) {
+                                    try {
+                                      const response = await fetch(`/api/personal-collection/${personalCollectionItem.id}`, {
+                                        method: 'PATCH',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ quantity: personalCollectionItem.quantity + 1 })
+                                      });
+                                      if (response.ok) {
+                                        const data = await response.json();
+                                        setPersonalCollectionItem(data.data);
+                                        setSuccessMessage('Added 1 more!');
+                                      }
+                                    } catch (err) {
+                                      setError('Failed to update quantity');
+                                    }
+                                  }
+                                }}
+                                disabled={personalCollectionItem.quantity >= 9999}
+                                style={{
+                                  width: '44px',
+                                  minWidth: '44px',
+                                  height: '44px',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  background: personalCollectionItem.quantity < 9999 ? '#ffffff' : '#f5f5f5',
+                                  border: 'none',
+                                  borderLeft: '1px solid #e5e5e5',
+                                  cursor: personalCollectionItem.quantity < 9999 ? 'pointer' : 'not-allowed',
+                                  color: personalCollectionItem.quantity < 9999 ? '#171717' : '#a3a3a3',
+                                  transition: 'all 0.2s',
+                                  fontSize: '20px',
+                                  fontWeight: '600',
+                                  padding: 0,
+                                  flexShrink: 0
+                                }}
+                                onMouseEnter={(e) => {
+                                  if (personalCollectionItem.quantity < 9999) e.currentTarget.style.background = '#f5f5f5';
+                                }}
+                                onMouseLeave={(e) => {
+                                  if (personalCollectionItem.quantity < 9999) e.currentTarget.style.background = '#ffffff';
+                                }}
+                              >
+                                +
                               </button>
                             </div>
+
+                            {/* Delete Button */}
+                            <button
+                              onClick={async (e) => {
+                                e.stopPropagation();
+                                if (confirm('Delete this item from your personal collection?')) {
+                                  try {
+                                    const response = await fetch(`/api/personal-collection/${personalCollectionItem.id}`, {
+                                      method: 'DELETE'
+                                    });
+                                    if (response.ok) {
+                                      setPersonalCollectionItem(null);
+                                      setSuccessMessage('Removed from personal collection');
+                                    }
+                                  } catch (err) {
+                                    setError('Failed to delete item');
+                                  }
+                                }
+                              }}
+                              className="inventory-delete-btn"
+                            >
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                              </svg>
+                              <span className="inventory-delete-text">Remove from Personal Collection</span>
+                            </button>
                           </div>
                         </>
                       )}
