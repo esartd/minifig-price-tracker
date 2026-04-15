@@ -914,13 +914,13 @@
   }
 
   .inventory-delete-btn {
-    width: auto !important;
-    min-width: auto !important;
-    padding: 0 16px !important;
+    width: 44px !important;
+    min-width: 44px !important;
+    padding: 0 !important;
   }
 
   .inventory-delete-text {
-    display: inline !important;
+    display: none !important;
   }
 }
 
