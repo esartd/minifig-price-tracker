@@ -608,7 +608,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           </button>
 
                           <div style={{
-                            minWidth: '60px',
+                            flex: 1,
+                            minWidth: '40px',
                             height: '44px',
                             fontSize: '16px',
                             fontWeight: '600',
@@ -618,7 +619,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                             alignItems: 'center',
                             justifyContent: 'center',
                             userSelect: 'none',
-                            padding: '0 16px'
+                            padding: '0 8px'
                           }}>
                             {collectionItem.quantity}
                           </div>

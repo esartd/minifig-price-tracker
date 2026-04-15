@@ -799,7 +799,7 @@
 /* Inventory Actions - Mobile First */
 .inventory-actions-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 12px;
   width: 100%;
 }
@@ -812,7 +812,8 @@
   border-radius: 8px;
   overflow: hidden;
   background: #ffffff;
-  width: 100%;
+  flex: 1;
+  min-width: 0;
 }
 
 .inventory-delete-btn {
@@ -912,21 +913,10 @@
     gap: 24px;
   }
 
-  .inventory-actions-container {
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-  }
-
-  .quantity-stepper {
-    width: auto !important;
-    flex: 0 0 auto !important;
-  }
-
   .inventory-delete-btn {
     width: auto !important;
     min-width: auto !important;
     padding: 0 16px !important;
-    flex: 1 !important;
   }
 
   .inventory-delete-text {
