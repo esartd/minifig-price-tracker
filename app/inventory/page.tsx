@@ -376,7 +376,7 @@ export default function CollectionPage() {
                     flex: '0 0 auto',
                     minWidth: '200px',
                     padding: '8px 16px',
-                    fontSize: 'var(--text-xs)',
+                    fontSize: '13px',
                     fontWeight: '600',
                     color: '#171717',
                     background: '#f5f5f5',
@@ -404,7 +404,7 @@ export default function CollectionPage() {
                   onClick={() => setShowDecimals(!showDecimals)}
                   style={{
                     padding: '8px 20px',
-                    fontSize: 'var(--text-xs)',
+                    fontSize: '13px',
                     fontWeight: '700',
                     color: showDecimals ? '#ffffff' : '#525252',
                     background: showDecimals ? '#3b82f6' : '#f5f5f5',
