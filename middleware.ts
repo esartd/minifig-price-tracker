@@ -5,6 +5,11 @@ export default auth((req) => {
   const { pathname } = req.nextUrl
   const isLoggedIn = !!req.auth
 
+  // Always allow NextAuth API routes
+  if (pathname.startsWith('/api/auth')) {
+    return NextResponse.next()
+  }
+
   // Public routes that don't require authentication
   const publicRoutes = [
     '/',
@@ -25,7 +30,7 @@ export default auth((req) => {
     return NextResponse.next()
   }
 
-  // Allow all API routes (they handle their own auth)
+  // Allow all other API routes (they handle their own auth)
   if (pathname.startsWith('/api')) {
     return NextResponse.next()
   }
@@ -45,5 +50,5 @@ export default auth((req) => {
 })
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|avatars|api/auth).*)'],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|avatars).*)'],
 }
