@@ -233,7 +233,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
 
   // Chart dimensions - designed for mobile-first
   const chartHeight = 180;
-  const chartPadding = { top: 20, right: 16, bottom: 32, left: 56 };
+  const chartPadding = { top: 20, right: 20, bottom: 36, left: 80 };
   const chartWidth = 600; // SVG viewBox width (will scale)
   const plotWidth = chartWidth - chartPadding.left - chartPadding.right;
   const plotHeight = chartHeight - chartPadding.top - chartPadding.bottom;
@@ -326,9 +326,9 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
                 fontSize: '11px',
                 fontWeight: '500',
                 color: '#737373',
-                paddingRight: '8px',
+                paddingRight: '12px',
                 textAlign: 'right',
-                width: `${(chartPadding.left / chartWidth) * 100}%`,
+                width: '68px',
                 pointerEvents: 'none',
                 whiteSpace: 'nowrap'
               }}
@@ -346,8 +346,8 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
               <div
                 style={{
                   position: 'absolute',
-                  bottom: '8px',
-                  left: `${chartPadding.left / chartWidth * 100}%`,
+                  bottom: '6px',
+                  left: '80px',
                   fontSize: '11px',
                   fontWeight: '500',
                   color: '#737373',
@@ -362,8 +362,8 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
             <div
               style={{
                 position: 'absolute',
-                bottom: '8px',
-                right: data.length === 1 ? '50%' : `${chartPadding.right / chartWidth * 100}%`,
+                bottom: '6px',
+                right: data.length === 1 ? '50%' : '20px',
                 transform: data.length === 1 ? 'translateX(50%)' : 'none',
                 fontSize: '11px',
                 fontWeight: '500',
