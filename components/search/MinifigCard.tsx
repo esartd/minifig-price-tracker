@@ -126,7 +126,7 @@ export default function MinifigCard({
           <p className="minifig-card-id" style={{
             fontSize: '14px',
             color: '#737373',
-            fontFamily: 'monospace'
+            fontFamily: 'inherit'
           }}>
             {minifig.no}
           </p>

@@ -174,7 +174,7 @@ export default function PersonalCollectionList({
             <p style={{
               fontSize: '13px',
               color: '#737373',
-              fontFamily: 'monospace',
+              fontFamily: 'inherit',
               marginBottom: '10px'
             }}>
               {item.minifigure_no}

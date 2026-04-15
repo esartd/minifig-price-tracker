@@ -197,7 +197,7 @@ export default function SubcategoryMinifigsPage({
                   fontWeight: '600',
                   color: '#3b82f6',
                   marginBottom: '4px',
-                  fontFamily: 'monospace'
+                  fontFamily: 'inherit'
                 }}>
                   {minifig.no}
                 </div>

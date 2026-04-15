@@ -108,7 +108,7 @@ export default function SingleResultCard({
           <p style={{
             fontSize: '16px',
             color: '#737373',
-            fontFamily: 'monospace',
+            fontFamily: 'inherit',
             marginBottom: '16px'
           }}>
             {minifig.no}

@@ -35,7 +35,7 @@ export async function sendPasswordResetEmail(email: string, resetToken: string) 
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <style>
               body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+                font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
                 line-height: 1.6;
                 color: #171717;
                 margin: 0;
@@ -135,7 +135,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <style>
               body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+                font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
                 line-height: 1.6;
                 color: #171717;
                 margin: 0;

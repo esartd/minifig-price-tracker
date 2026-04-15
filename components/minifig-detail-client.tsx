@@ -423,7 +423,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   <p style={{
                     fontSize: '14px',
                     color: '#737373',
-                    fontFamily: 'monospace',
+                    fontFamily: 'inherit',
                     marginBottom: '16px'
                   }}>
                     {minifig.no}
@@ -1284,7 +1284,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         <p style={{
                           fontSize: '12px',
                           color: '#737373',
-                          fontFamily: 'monospace'
+                          fontFamily: 'inherit'
                         }}>
                           {related.no}
                         </p>
@@ -1359,7 +1359,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         <p style={{
                           fontSize: '12px',
                           color: '#737373',
-                          fontFamily: 'monospace'
+                          fontFamily: 'inherit'
                         }}>
                           {variant.no}
                         </p>

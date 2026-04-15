@@ -37,7 +37,6 @@ export default function CollectionSwitcher({ currentPage }: CollectionSwitcherPr
         backgroundRepeat: 'no-repeat',
         backgroundSize: '16px 16px',
         boxSizing: 'border-box',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif',
         minHeight: '44px',
         width: 'fit-content',
         display: 'inline-block',
