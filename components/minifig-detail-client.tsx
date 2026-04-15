@@ -277,7 +277,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   width: '200px',
                   height: '250px',
                   display: 'flex',
-                  alignItems: 'center',
+                  alignItems: 'flex-start',
                   justifyContent: 'center',
                   margin: '0 auto'
                 }}>
@@ -308,9 +308,9 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                 padding: '40px 16px'
               }}>
                 {/* Header */}
-                <div style={{ marginBottom: '24px' }}>
+                <div style={{ marginBottom: '24px', marginTop: 0 }}>
                   {/* Theme Badge */}
-                  <div style={{ marginBottom: '8px' }}>
+                  <div style={{ marginBottom: '8px', marginTop: 0 }}>
                     <span style={{
                       display: 'inline-block',
                       fontSize: '11px',
