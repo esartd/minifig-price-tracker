@@ -33,12 +33,14 @@ export default function CollectionSwitcher({ currentPage }: CollectionSwitcherPr
         transition: 'all 0.2s',
         appearance: 'none',
         backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23171717' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`,
-        backgroundPosition: 'right 0 center', // 16px gap from text
+        backgroundPosition: 'right 0 center',
         backgroundRepeat: 'no-repeat',
-        backgroundSize: '16px 16px', // Icon size 16px (2 units on 8px scale)
+        backgroundSize: '16px 16px',
         boxSizing: 'border-box',
         fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif',
-        minHeight: '44px'
+        minHeight: '44px',
+        width: 'fit-content',
+        display: 'inline-block'
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.opacity = '0.7';
