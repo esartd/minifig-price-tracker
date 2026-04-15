@@ -391,7 +391,8 @@ export default function PersonalCollectionPage() {
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: '1.25em 1.25em',
                     paddingRight: '3rem',
-                    boxSizing: 'border-box'
+                    boxSizing: 'border-box',
+                    height: '44px'
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.background = '#e5e5e5'}
                   onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}
@@ -417,7 +418,8 @@ export default function PersonalCollectionPage() {
                     boxSizing: 'border-box',
                     whiteSpace: 'nowrap',
                     minWidth: '70px',
-                    flex: '0 0 auto'
+                    flex: '0 0 auto',
+                    height: '44px'
                   }}
                   onMouseEnter={(e) => {
                     if (!showDecimals) {
