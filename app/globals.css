@@ -865,7 +865,7 @@
     width: 480px !important;
     height: fit-content !important;
     flex-shrink: 0 !important;
-    padding: 32px 24px !important;
+    padding: 48px 24px !important;
     align-self: flex-start !important;
     border-radius: 16px 0 0 16px !important;
     overflow: hidden !important;
@@ -985,7 +985,7 @@
   }
 
   .minifig-image-container {
-    padding: 24px 16px !important;
+    padding: 64px 16px !important;
   }
 
   .minifig-main-image {
