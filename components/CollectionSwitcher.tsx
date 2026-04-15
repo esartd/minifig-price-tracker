@@ -3,14 +3,14 @@
 import { useRouter } from 'next/navigation';
 
 interface CollectionSwitcherProps {
-  currentPage: 'inventory' | 'personal-collection';
+  currentPage: 'inventory' | 'collection';
 }
 
 export default function CollectionSwitcher({ currentPage }: CollectionSwitcherProps) {
   const router = useRouter();
 
   const displayName = currentPage === 'inventory' ? 'Inventory' : 'Personal Collection';
-  const targetPage = currentPage === 'inventory' ? '/personal-collection' : '/inventory';
+  const targetPage = currentPage === 'inventory' ? '/collection' : '/inventory';
 
   const handleClick = () => {
     router.push(targetPage);

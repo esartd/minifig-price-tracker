@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { signOut } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
 
 interface HeaderClientProps {
   user: {
@@ -14,6 +15,7 @@ interface HeaderClientProps {
 }
 
 export function HeaderClient({ user }: HeaderClientProps) {
+  const pathname = usePathname();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -197,31 +199,35 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 href="/inventory"
                 style={{
                   fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#525252',
+                  fontWeight: pathname === '/inventory' ? '600' : '500',
+                  color: pathname === '/inventory' ? '#171717' : '#525252',
                   textDecoration: 'none',
                   transition: 'color 0.2s',
                   lineHeight: '1',
                   display: 'flex',
                   alignItems: 'center',
-                  height: '36px'
+                  height: '36px',
+                  borderBottom: pathname === '/inventory' ? '2px solid #3b82f6' : 'none',
+                  paddingBottom: '2px'
                 }}
               >
                 My Inventory
               </Link>
 
               <Link
-                href="/personal-collection"
+                href="/collection"
                 style={{
                   fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#525252',
+                  fontWeight: pathname === '/collection' ? '600' : '500',
+                  color: pathname === '/collection' ? '#171717' : '#525252',
                   textDecoration: 'none',
                   transition: 'color 0.2s',
                   lineHeight: '1',
                   display: 'flex',
                   alignItems: 'center',
-                  height: '36px'
+                  height: '36px',
+                  borderBottom: pathname === '/collection' ? '2px solid #3b82f6' : 'none',
+                  paddingBottom: '2px'
                 }}
               >
                 Personal Collection
@@ -231,14 +237,16 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 href="/about"
                 style={{
                   fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#525252',
+                  fontWeight: pathname === '/about' ? '600' : '500',
+                  color: pathname === '/about' ? '#171717' : '#525252',
                   textDecoration: 'none',
                   transition: 'color 0.2s',
                   lineHeight: '1',
                   display: 'flex',
                   alignItems: 'center',
-                  height: '36px'
+                  height: '36px',
+                  borderBottom: pathname === '/about' ? '2px solid #3b82f6' : 'none',
+                  paddingBottom: '2px'
                 }}
               >
                 About
@@ -330,7 +338,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             }}>
               My Inventory
             </Link>
-            <Link href="/personal-collection" onClick={() => setMobileMenuOpen(false)} style={{
+            <Link href="/collection" onClick={() => setMobileMenuOpen(false)} style={{
               display: 'block',
               padding: '15px 0',
               borderBottom: '1px solid #f5f5f5',
@@ -471,7 +479,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             </Link>
 
             <Link
-              href="/personal-collection"
+              href="/collection"
               style={{
                 fontSize: '15px',
                 fontWeight: '500',
@@ -683,7 +691,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
           }}>
             My Inventory
           </Link>
-          <Link href="/personal-collection" onClick={() => setMobileMenuOpen(false)} style={{
+          <Link href="/collection" onClick={() => setMobileMenuOpen(false)} style={{
             display: 'block',
             padding: '15px 0',
             borderBottom: '1px solid #f5f5f5',
