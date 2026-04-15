@@ -275,7 +275,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
             textAnchor="end"
             dominantBaseline="middle"
             fill="#737373"
-            fontSize="11"
+            fontSize="10"
             fontWeight="500"
           >
             ${tick.value.toFixed(2)}
@@ -311,7 +311,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
               y={chartHeight - chartPadding.bottom + 24}
               textAnchor="start"
               fill="#737373"
-              fontSize="11"
+              fontSize="10"
               fontWeight="500"
             >
               {new Date(data[0].recorded_at).toLocaleDateString()}
@@ -321,7 +321,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
               y={chartHeight - chartPadding.bottom + 24}
               textAnchor="end"
               fill="#737373"
-              fontSize="11"
+              fontSize="10"
               fontWeight="500"
             >
               {new Date(data[data.length - 1].recorded_at).toLocaleDateString()}
