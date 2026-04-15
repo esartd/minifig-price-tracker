@@ -136,12 +136,28 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
       width: '100%',
       boxSizing: 'border-box'
     }}>
-      {/* Timeframe Toggle */}
+      {/* Header with Timeframe Toggle */}
       <div style={{
         display: 'flex',
-        gap: '8px',
-        marginBottom: '16px'
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: '16px',
+        flexWrap: 'wrap',
+        gap: '12px'
       }}>
+        <h2 style={{
+          fontSize: '18px',
+          fontWeight: '600',
+          color: '#171717',
+          margin: 0,
+          letterSpacing: '-0.01em'
+        }}>
+          Price History
+        </h2>
+        <div style={{
+          display: 'flex',
+          gap: '8px'
+        }}>
         <button
           onClick={() => setTimeframe('6months')}
           style={{
@@ -196,6 +212,7 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
         >
           All Time
         </button>
+        </div>
       </div>
 
       {/* Chart */}

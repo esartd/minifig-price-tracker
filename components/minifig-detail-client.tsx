@@ -769,15 +769,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   padding: '24px',
                   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
                 }}>
-                  <h2 style={{
-                    fontSize: '18px',
-                    fontWeight: '600',
-                    color: '#171717',
-                    marginBottom: '20px',
-                    letterSpacing: '-0.01em'
-                  }}>
-                    Price History
-                  </h2>
                   <PriceHistoryChart minifigure_no={minifig.no} condition="new" />
                 </div>
               </div>
