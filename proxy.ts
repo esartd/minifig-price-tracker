@@ -2,15 +2,22 @@ import { auth } from '@/auth';
 import { NextResponse } from 'next/server';
 
 export default auth((req) => {
+  const { pathname } = req.nextUrl;
   const isLoggedIn = !!req.auth;
-  const isAuthPage = req.nextUrl.pathname.startsWith('/auth');
-  const isPublicPage = req.nextUrl.pathname === '/' ||
-                       req.nextUrl.pathname.startsWith('/search') ||
-                       req.nextUrl.pathname.startsWith('/minifig') ||
-                       req.nextUrl.pathname.startsWith('/themes') ||
-                       req.nextUrl.pathname.startsWith('/about');
-  const isProtectedPage = req.nextUrl.pathname.startsWith('/inventory') ||
-                          req.nextUrl.pathname.startsWith('/account');
+
+  // Always allow all API routes
+  if (pathname.startsWith('/api')) {
+    return NextResponse.next();
+  }
+
+  const isAuthPage = pathname.startsWith('/auth');
+  const isPublicPage = pathname === '/' ||
+                       pathname.startsWith('/search') ||
+                       pathname.startsWith('/minifig') ||
+                       pathname.startsWith('/themes') ||
+                       pathname.startsWith('/about');
+  const isProtectedPage = pathname.startsWith('/inventory') ||
+                          pathname.startsWith('/account');
 
   // Allow public access to home, search, minifig detail, and about pages
   if (isPublicPage) {
@@ -39,5 +46,5 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ['/((?!api/auth|api/minifigs|api/cron|api/price-history|api/inventory/temp-pricing|_next/static|_next/image|favicon.ico|uploads).*)'],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|avatars).*)'],
 };
