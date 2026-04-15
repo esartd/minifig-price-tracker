@@ -26,8 +26,6 @@ function generateKeywords(text: string): string[] {
 }
 
 export async function GET(request: NextRequest) {
-  // Run migrations if needed (only runs once)
-  await runMigrations();
   try {
     const searchParams = request.nextUrl.searchParams;
     const query = searchParams.get('q');
@@ -185,17 +183,10 @@ export async function GET(request: NextRequest) {
     // Handles: "padme" finds "padmé", "naive" finds "naïve", etc.
     const searchLower = searchTerm.toLowerCase();
 
-    // Remove accents from search term using unaccent
-    const searchUnaccented = await prisma.$queryRawUnsafe<Array<{ result: string }>>(
-      `SELECT unaccent($1) as result`,
-      searchLower
-    );
-    const searchNormalized = searchUnaccented[0].result;
-
     // Build WHERE clause for category filter
     const categoryFilter = categoryId ? `AND category_id = ${parseInt(categoryId)}` : '';
 
-    // Try exact substring match first on unaccented column
+    // Try exact substring match first - unaccent inline to avoid extra query
     let rawResults = await prisma.$queryRawUnsafe<Array<{
       minifigure_no: string;
       name: string;
@@ -210,16 +201,18 @@ export async function GET(request: NextRequest) {
         category_name,
         year_released
       FROM "MinifigCatalog"
-      WHERE search_name_unaccent LIKE $1 ${categoryFilter}
+      WHERE search_name_unaccent LIKE '%' || unaccent($1) || '%' ${categoryFilter}
+      ORDER BY
+        CASE WHEN year_released IS NULL OR year_released = '' THEN 9999 ELSE CAST(year_released AS INTEGER) END DESC,
+        CAST(regexp_replace(minifigure_no, '[^0-9]', '', 'g') AS INTEGER) DESC,
+        minifigure_no
       LIMIT 200`,
-      `%${searchNormalized}%`
+      searchLower
     );
 
     // If exact match finds nothing, try fuzzy search for typos
     // e.g., "luke skywaker" → "Luke Skywalker"
     if (rawResults.length === 0) {
-      await prisma.$executeRawUnsafe('SELECT set_limit(0.2)');
-
       rawResults = await prisma.$queryRawUnsafe<Array<{
         minifigure_no: string;
         name: string;
@@ -232,19 +225,22 @@ export async function GET(request: NextRequest) {
           name,
           category_id,
           category_name,
-          year_released
+          year_released,
+          similarity(search_name_unaccent, unaccent($1)) as sim
         FROM "MinifigCatalog"
-        WHERE search_name_unaccent % $1 ${categoryFilter}
-        ORDER BY similarity(search_name_unaccent, $1) DESC
+        WHERE similarity(search_name_unaccent, unaccent($1)) > 0.2 ${categoryFilter}
+        ORDER BY
+          sim DESC,
+          CASE WHEN year_released IS NULL OR year_released = '' THEN 9999 ELSE CAST(year_released AS INTEGER) END DESC
         LIMIT 200`,
-        searchNormalized
+        searchLower
       );
     }
 
     // Map to common response format
     const catalogItems = rawResults;
 
-    // Map catalog items to response format
+    // Map catalog items to response format (sorting already done in SQL)
     const matchedItems = catalogItems.map(item => ({
       no: item.minifigure_no,
       name: item.name,
@@ -265,65 +261,9 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // Sort results: Year first (most reliable), then ID, then suffix
-    matchedItems.sort((a, b) => {
-      // Parse full ID: sw1500a → prefix="sw", num=1500, suffix="a"
-      const parseId = (id: string) => {
-        const match = id.match(/^([a-z]+)(\d+)([a-z])?$/i);
-        if (!match) return { prefix: id, num: 0, suffix: '' };
-        return {
-          prefix: match[1],
-          num: parseInt(match[2]),
-          suffix: match[3] || ''
-        };
-      };
-
-      const aParsed = parseId(a.no);
-      const bParsed = parseId(b.no);
-
-      // Parse years
-      const aYear = a.year_released ? parseInt(a.year_released) : 0;
-      const bYear = b.year_released ? parseInt(b.year_released) : 0;
-      const aYearValid = !isNaN(aYear) && aYear > 0;
-      const bYearValid = !isNaN(bYear) && bYear > 0;
-
-      // PRIMARY SORT: Year (newest first, unknown years at bottom)
-      // Year is most reliable data from BrickLink
-      if (aYearValid && bYearValid) {
-        if (aYear !== bYear) {
-          return bYear - aYear; // 2023 > 2019 > 2010
-        }
-      } else if (aYearValid && !bYearValid) {
-        return -1; // Valid year comes first
-      } else if (!aYearValid && bYearValid) {
-        return 1; // Unknown year goes last
-      }
-
-      // SECONDARY SORT: Within same year, sort by ID number (descending)
-      // sw1507 > sw0106 (higher ID = newer within same year)
-      if (aParsed.num !== bParsed.num) {
-        return bParsed.num - aParsed.num;
-      }
-
-      // TERTIARY SORT: Same year, same ID number - sort by suffix
-      // sw0106 comes before sw0106a, sw0106b, etc.
-      return aParsed.suffix.localeCompare(bParsed.suffix);
-    });
-
-    // Group by year for easier browsing
-    const groupedByYear: Record<string, typeof matchedItems> = {};
-    matchedItems.forEach(item => {
-      const year = item.year_released || 'Unknown';
-      if (!groupedByYear[year]) {
-        groupedByYear[year] = [];
-      }
-      groupedByYear[year].push(item);
-    });
-
     return NextResponse.json({
       success: true,
       data: matchedItems,
-      grouped_by_year: groupedByYear,
       total: matchedItems.length,
       source: 'catalog'
     });
