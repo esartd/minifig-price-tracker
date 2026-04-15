@@ -1792,13 +1792,13 @@
 
   .collection-controls button {
     padding: 8px 20px !important;
-    font-size: 13px !important;
+    font-size: 11px !important;
   }
 
   .collection-controls select {
     padding: 8px 16px !important;
     padding-right: 3rem !important;
-    font-size: 13px !important;
+    font-size: 11px !important;
   }
 }
 
