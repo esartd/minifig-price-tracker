@@ -240,7 +240,10 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
 
   // Calculate points for the line
   const points = data.map((d, i) => {
-    const x = chartPadding.left + (i / (data.length - 1)) * plotWidth;
+    // Handle single data point case
+    const x = data.length === 1
+      ? chartPadding.left + plotWidth / 2
+      : chartPadding.left + (i / (data.length - 1)) * plotWidth;
     const y = chartPadding.top + plotHeight - ((d.suggested_price - minPrice) / priceRange) * plotHeight;
     return { x, y, date: d.recorded_at, price: d.suggested_price };
   });
@@ -248,10 +251,11 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
   // Create SVG path
   const pathData = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
 
-  // Y-axis labels (5 ticks)
-  const yTicks = Array.from({ length: 5 }, (_, i) => {
-    const value = minPrice + (priceRange * (4 - i) / 4);
-    const y = chartPadding.top + (i * plotHeight / 4);
+  // Y-axis labels (adjust count based on price range to prevent overlap)
+  const numTicks = priceRange < 2 ? 3 : 5; // Use 3 ticks for small ranges
+  const yTicks = Array.from({ length: numTicks }, (_, i) => {
+    const value = minPrice + (priceRange * (numTicks - 1 - i) / (numTicks - 1));
+    const y = chartPadding.top + (i * plotHeight / (numTicks - 1));
     return { value, y };
   });
 
@@ -321,13 +325,14 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
                 top: `${topPercent}%`,
                 left: '0',
                 transform: 'translateY(-50%)',
-                fontSize: '11px',
+                fontSize: '10px',
                 fontWeight: '500',
                 color: '#737373',
-                paddingRight: '6px',
+                paddingRight: '4px',
                 textAlign: 'right',
                 width: `${(chartPadding.left / chartWidth) * 100}%`,
-                pointerEvents: 'none'
+                pointerEvents: 'none',
+                whiteSpace: 'nowrap'
               }}
             >
               ${tick.value.toFixed(2)}
@@ -338,28 +343,35 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
         {/* X-axis labels (HTML/CSS) */}
         {data.length > 0 && (
           <>
+            {/* Only show start date if more than 1 data point */}
+            {data.length > 1 && (
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: `${(chartPadding.bottom - 24) / chartHeight * 100}%`,
+                  left: `${chartPadding.left / chartWidth * 100}%`,
+                  fontSize: '10px',
+                  fontWeight: '500',
+                  color: '#737373',
+                  pointerEvents: 'none',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                {new Date(data[0].recorded_at).toLocaleDateString()}
+              </div>
+            )}
+            {/* End date (or only date if single point) */}
             <div
               style={{
                 position: 'absolute',
                 bottom: `${(chartPadding.bottom - 24) / chartHeight * 100}%`,
-                left: `${chartPadding.left / chartWidth * 100}%`,
-                fontSize: '11px',
+                right: data.length === 1 ? '50%' : `${chartPadding.right / chartWidth * 100}%`,
+                transform: data.length === 1 ? 'translateX(50%)' : 'none',
+                fontSize: '10px',
                 fontWeight: '500',
                 color: '#737373',
-                pointerEvents: 'none'
-              }}
-            >
-              {new Date(data[0].recorded_at).toLocaleDateString()}
-            </div>
-            <div
-              style={{
-                position: 'absolute',
-                bottom: `${(chartPadding.bottom - 24) / chartHeight * 100}%`,
-                right: `${chartPadding.right / chartWidth * 100}%`,
-                fontSize: '11px',
-                fontWeight: '500',
-                color: '#737373',
-                pointerEvents: 'none'
+                pointerEvents: 'none',
+                whiteSpace: 'nowrap'
               }}
             >
               {new Date(data[data.length - 1].recorded_at).toLocaleDateString()}
