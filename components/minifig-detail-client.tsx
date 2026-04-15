@@ -461,24 +461,22 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         justifyContent: 'flex-start'
                       }}>
                         <p style={{
-                          fontSize: '10px',
+                          fontSize: 'clamp(9px, 2vw, 10px)',
                           fontWeight: '500',
                           color: '#737373',
                           textTransform: 'uppercase',
                           letterSpacing: '0.03em',
                           marginBottom: '6px',
-                          height: '14px',
-                          lineHeight: '14px',
-                          whiteSpace: 'nowrap'
+                          lineHeight: '1.2'
                         }}>
                           Qty Avg
                         </p>
                         <p style={{
-                          fontSize: '18px',
+                          fontSize: 'clamp(16px, 3.5vw, 18px)',
                           fontWeight: '700',
                           color: '#171717',
                           letterSpacing: '-0.01em',
-                          lineHeight: '1'
+                          lineHeight: '1.2'
                         }}>
                           ${pricing.sixMonthAverage.toFixed(2)}
                         </p>
@@ -497,24 +495,22 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         justifyContent: 'flex-start'
                       }}>
                         <p style={{
-                          fontSize: '10px',
+                          fontSize: 'clamp(9px, 2vw, 10px)',
                           fontWeight: '500',
                           color: '#737373',
                           textTransform: 'uppercase',
                           letterSpacing: '0.03em',
                           marginBottom: '6px',
-                          height: '14px',
-                          lineHeight: '14px',
-                          whiteSpace: 'nowrap'
+                          lineHeight: '1.2'
                         }}>
                           Simple Avg
                         </p>
                         <p style={{
-                          fontSize: '18px',
+                          fontSize: 'clamp(16px, 3.5vw, 18px)',
                           fontWeight: '700',
                           color: '#171717',
                           letterSpacing: '-0.01em',
-                          lineHeight: '1'
+                          lineHeight: '1.2'
                         }}>
                           ${pricing.currentAverage.toFixed(2)}
                         </p>
@@ -533,24 +529,22 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         justifyContent: 'flex-start'
                       }}>
                         <p style={{
-                          fontSize: '10px',
+                          fontSize: 'clamp(9px, 2vw, 10px)',
                           fontWeight: '500',
                           color: '#737373',
                           textTransform: 'uppercase',
                           letterSpacing: '0.03em',
                           marginBottom: '6px',
-                          height: '14px',
-                          lineHeight: '14px',
-                          whiteSpace: 'nowrap'
+                          lineHeight: '1.2'
                         }}>
                           Lowest
                         </p>
                         <p style={{
-                          fontSize: '18px',
+                          fontSize: 'clamp(16px, 3.5vw, 18px)',
                           fontWeight: '700',
                           color: '#171717',
                           letterSpacing: '-0.01em',
-                          lineHeight: '1'
+                          lineHeight: '1.2'
                         }}>
                           ${pricing.currentLowest.toFixed(2)}
                         </p>
@@ -569,24 +563,22 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         justifyContent: 'flex-start'
                       }}>
                         <p style={{
-                          fontSize: '11px',
+                          fontSize: 'clamp(9px, 2vw, 11px)',
                           fontWeight: '500',
                           color: '#3b82f6',
                           textTransform: 'uppercase',
                           letterSpacing: '0.03em',
                           marginBottom: '8px',
-                          height: '15px',
-                          lineHeight: '15px',
-                          whiteSpace: 'nowrap'
+                          lineHeight: '1.2'
                         }}>
                           Suggested
                         </p>
                         <p style={{
-                          fontSize: '20px',
+                          fontSize: 'clamp(18px, 4vw, 20px)',
                           fontWeight: '700',
                           color: '#3b82f6',
                           letterSpacing: '-0.01em',
-                          lineHeight: '1'
+                          lineHeight: '1.2'
                         }}>
                           ${pricing.suggestedPrice.toFixed(2)}
                         </p>
