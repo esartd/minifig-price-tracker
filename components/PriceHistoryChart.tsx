@@ -348,7 +348,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
               <div
                 style={{
                   position: 'absolute',
-                  bottom: `${(chartPadding.bottom - 24) / chartHeight * 100}%`,
+                  bottom: '4px',
                   left: `${chartPadding.left / chartWidth * 100}%`,
                   fontSize: '10px',
                   fontWeight: '500',
@@ -364,7 +364,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
             <div
               style={{
                 position: 'absolute',
-                bottom: `${(chartPadding.bottom - 24) / chartHeight * 100}%`,
+                bottom: '4px',
                 right: data.length === 1 ? '50%' : `${chartPadding.right / chartWidth * 100}%`,
                 transform: data.length === 1 ? 'translateX(50%)' : 'none',
                 fontSize: '10px',
