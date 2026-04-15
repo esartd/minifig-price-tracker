@@ -9,9 +9,7 @@ import AddToCollectionForm from '@/components/search/AddToCollectionForm';
 import PriceHistoryChart from '@/components/PriceHistoryChart';
 import ListingGeneratorForm from '@/components/listing-generator-form';
 import Breadcrumbs from '@/components/Breadcrumbs';
-import MinifigSets from '@/components/MinifigSets';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
-import { getBrickLinkPriceGuideUrl } from '@/lib/affiliate-links';
 
 interface MinifigData {
   no: string;
@@ -720,7 +718,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
                 {/* View on Bricklink Button */}
                 <a
-                  href={getBrickLinkPriceGuideUrl(minifig.no)}
+                  href={`https://www.bricklink.com/catalogPG.asp?M=${minifig.no}&ColorID=0`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -785,13 +783,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
               </div>
             </div>
           )}
-
-          {/* Sets Containing This Minifig */}
-          <div style={{ padding: '0 16px' }}>
-            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-              <MinifigSets minifigNo={minifig.no} />
-            </div>
-          </div>
 
           {/* From Similar Sets Section */}
           {similarSets.length > 0 && (
