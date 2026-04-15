@@ -77,7 +77,7 @@ async function getThemes(): Promise<Theme[]> {
 
     // Theme overrides
     const themeOverrides: Record<string, string> = {
-      'Scala': 'sc002' // Scala girl with better outfit
+      'Scala': 'sw1360' // Clear Star Wars minifig instead of blurry Scala
     };
 
     // Fetch representative minifig and check if theme is current
