@@ -540,26 +540,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   )}
                 </div>
 
-                {/* Price History Chart */}
-                {collectionItem && (
-                  <>
-                    <div style={{
-                      height: '1px',
-                      background: '#e5e5e5',
-                      marginTop: '24px',
-                      marginBottom: '24px'
-                    }}></div>
-                    <div style={{ marginBottom: '24px' }}>
-                      <PriceHistoryChart minifigure_no={minifig.no} condition="new" />
-                    </div>
-                  </>
-                )}
-
                 {/* Divider */}
                 <div style={{
                   height: '1px',
                   background: '#e5e5e5',
-                  marginTop: '16px',
+                  marginTop: '24px',
                   marginBottom: '16px'
                 }}></div>
 
@@ -774,6 +759,32 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
               </div>
             </div>
           </div>
+
+          {/* Price History Section */}
+          {collectionItem && (
+            <div style={{ padding: '0 16px', marginTop: '32px' }}>
+              <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+                <div style={{
+                  background: '#ffffff',
+                  borderRadius: '12px',
+                  border: '1px solid #e5e5e5',
+                  padding: '24px',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
+                }}>
+                  <h2 style={{
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: '#171717',
+                    marginBottom: '20px',
+                    letterSpacing: '-0.01em'
+                  }}>
+                    Price History
+                  </h2>
+                  <PriceHistoryChart minifigure_no={minifig.no} condition="new" />
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Sets Containing This Minifig */}
           <div style={{ padding: '0 16px' }}>
