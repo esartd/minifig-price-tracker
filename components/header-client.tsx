@@ -182,14 +182,16 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 href="/themes"
                 style={{
                   fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#525252',
+                  fontWeight: pathname === '/themes' ? '600' : '500',
+                  color: pathname === '/themes' ? '#171717' : '#525252',
                   textDecoration: 'none',
                   transition: 'color 0.2s',
                   lineHeight: '1',
                   display: 'flex',
                   alignItems: 'center',
-                  height: '36px'
+                  height: '36px',
+                  borderBottom: pathname === '/themes' ? '2px solid #3b82f6' : 'none',
+                  paddingBottom: '2px'
                 }}
               >
                 Themes
@@ -431,14 +433,16 @@ export function HeaderClient({ user }: HeaderClientProps) {
               href="/search"
               style={{
                 fontSize: '15px',
-                fontWeight: '500',
-                color: '#525252',
+                fontWeight: pathname === '/search' ? '600' : '500',
+                color: pathname === '/search' ? '#171717' : '#525252',
                 textDecoration: 'none',
                 transition: 'color 0.2s',
                 lineHeight: '1',
                 display: 'flex',
                 alignItems: 'center',
-                height: '36px'
+                height: '36px',
+                borderBottom: pathname === '/search' ? '2px solid #3b82f6' : 'none',
+                paddingBottom: '2px'
               }}
             >
               Search
@@ -447,15 +451,17 @@ export function HeaderClient({ user }: HeaderClientProps) {
             <Link
               href="/themes"
               style={{
-                color: '#171717',
-                textDecoration: 'none',
                 fontSize: '15px',
-                fontWeight: '500',
-                padding: '0 4px',
+                fontWeight: pathname === '/themes' ? '600' : '500',
+                color: pathname === '/themes' ? '#171717' : '#525252',
+                textDecoration: 'none',
                 transition: 'color 0.2s',
+                lineHeight: '1',
                 display: 'flex',
                 alignItems: 'center',
-                height: '36px'
+                height: '36px',
+                borderBottom: pathname === '/themes' ? '2px solid #3b82f6' : 'none',
+                paddingBottom: '2px'
               }}
             >
               Themes
@@ -465,14 +471,16 @@ export function HeaderClient({ user }: HeaderClientProps) {
               href="/inventory"
               style={{
                 fontSize: '15px',
-                fontWeight: '500',
-                color: '#525252',
+                fontWeight: pathname === '/inventory' ? '600' : '500',
+                color: pathname === '/inventory' ? '#171717' : '#525252',
                 textDecoration: 'none',
                 transition: 'color 0.2s',
                 lineHeight: '1',
                 display: 'flex',
                 alignItems: 'center',
-                height: '36px'
+                height: '36px',
+                borderBottom: pathname === '/inventory' ? '2px solid #3b82f6' : 'none',
+                paddingBottom: '2px'
               }}
             >
               Your Inventory
@@ -482,14 +490,16 @@ export function HeaderClient({ user }: HeaderClientProps) {
               href="/collection"
               style={{
                 fontSize: '15px',
-                fontWeight: '500',
-                color: '#525252',
+                fontWeight: pathname === '/collection' ? '600' : '500',
+                color: pathname === '/collection' ? '#171717' : '#525252',
                 textDecoration: 'none',
                 transition: 'color 0.2s',
                 lineHeight: '1',
                 display: 'flex',
                 alignItems: 'center',
-                height: '36px'
+                height: '36px',
+                borderBottom: pathname === '/collection' ? '2px solid #3b82f6' : 'none',
+                paddingBottom: '2px'
               }}
             >
               Your Collection
@@ -499,14 +509,16 @@ export function HeaderClient({ user }: HeaderClientProps) {
               href="/about"
               style={{
                 fontSize: '15px',
-                fontWeight: '500',
-                color: '#525252',
+                fontWeight: pathname === '/about' ? '600' : '500',
+                color: pathname === '/about' ? '#171717' : '#525252',
                 textDecoration: 'none',
                 transition: 'color 0.2s',
                 lineHeight: '1',
                 display: 'flex',
                 alignItems: 'center',
-                height: '36px'
+                height: '36px',
+                borderBottom: pathname === '/about' ? '2px solid #3b82f6' : 'none',
+                paddingBottom: '2px'
               }}
             >
               About
