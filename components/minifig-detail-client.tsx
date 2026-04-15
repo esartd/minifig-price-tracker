@@ -777,167 +777,221 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       {/* Add Buttons Section - Show if either is not in collections */}
                       {(!collectionItem || !personalCollectionItem) && (
                         <>
-                          <h2 style={{
-                            fontSize: '16px',
-                            fontWeight: '600',
-                            color: '#171717',
-                            marginTop: (collectionItem || personalCollectionItem) ? '32px' : '0',
-                            marginBottom: '16px'
-                          }}>
-                            Add to Collection
-                          </h2>
+                          {/* Show quantity selector only when NEITHER collection has the item */}
+                          {!collectionItem && !personalCollectionItem ? (
+                            <>
+                              <h2 style={{
+                                fontSize: '16px',
+                                fontWeight: '600',
+                                color: '#171717',
+                                marginBottom: '16px'
+                              }}>
+                                Add to Collection
+                              </h2>
 
-                      {/* Quantity Selector */}
-                      <div style={{ marginBottom: '16px' }}>
-                        <label style={{
-                          display: 'block',
-                          fontSize: '14px',
-                          fontWeight: '500',
-                          color: '#525252',
-                          marginBottom: '8px'
-                        }}>
-                          Quantity
-                        </label>
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          border: '1px solid #e5e5e5',
-                          borderRadius: '8px',
-                          overflow: 'hidden',
-                          width: 'fit-content'
-                        }}>
-                          <button
-                            type="button"
-                            onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                            disabled={quantity <= 1}
-                            style={{
-                              width: '44px',
-                              height: '44px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              background: quantity > 1 ? '#ffffff' : '#f5f5f5',
-                              border: 'none',
-                              borderRight: '1px solid #e5e5e5',
-                              cursor: quantity > 1 ? 'pointer' : 'not-allowed',
-                              color: quantity > 1 ? '#171717' : '#a3a3a3',
-                              fontSize: '20px',
-                              fontWeight: '600'
-                            }}
-                          >
-                            −
-                          </button>
-                          <input
-                            type="text"
-                            inputMode="numeric"
-                            value={quantity}
-                            onChange={(e) => {
-                              const val = parseInt(e.target.value);
-                              if (!isNaN(val) && val >= 1 && val <= 9999) {
-                                setQuantity(val);
-                              } else if (e.target.value === '') {
-                                setQuantity(1);
-                              }
-                            }}
-                            style={{
-                              width: '60px',
-                              height: '44px',
-                              fontSize: '16px',
-                              fontWeight: '600',
-                              color: '#171717',
-                              background: '#ffffff',
-                              border: 'none',
-                              textAlign: 'center',
-                              outline: 'none'
-                            }}
-                          />
-                          <button
-                            type="button"
-                            onClick={() => setQuantity(Math.min(9999, quantity + 1))}
-                            disabled={quantity >= 9999}
-                            style={{
-                              width: '44px',
-                              height: '44px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              background: quantity < 9999 ? '#ffffff' : '#f5f5f5',
-                              border: 'none',
-                              borderLeft: '1px solid #e5e5e5',
-                              cursor: quantity < 9999 ? 'pointer' : 'not-allowed',
-                              color: quantity < 9999 ? '#171717' : '#a3a3a3',
-                              fontSize: '20px',
-                              fontWeight: '600'
-                            }}
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
+                              {/* Quantity Selector */}
+                              <div style={{ marginBottom: '16px' }}>
+                                <label style={{
+                                  display: 'block',
+                                  fontSize: '14px',
+                                  fontWeight: '500',
+                                  color: '#525252',
+                                  marginBottom: '8px'
+                                }}>
+                                  Quantity
+                                </label>
+                                <div style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  border: '1px solid #e5e5e5',
+                                  borderRadius: '8px',
+                                  overflow: 'hidden',
+                                  width: 'fit-content'
+                                }}>
+                                  <button
+                                    type="button"
+                                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                                    disabled={quantity <= 1}
+                                    style={{
+                                      width: '44px',
+                                      height: '44px',
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      background: quantity > 1 ? '#ffffff' : '#f5f5f5',
+                                      border: 'none',
+                                      borderRight: '1px solid #e5e5e5',
+                                      cursor: quantity > 1 ? 'pointer' : 'not-allowed',
+                                      color: quantity > 1 ? '#171717' : '#a3a3a3',
+                                      fontSize: '20px',
+                                      fontWeight: '600'
+                                    }}
+                                  >
+                                    −
+                                  </button>
+                                  <input
+                                    type="text"
+                                    inputMode="numeric"
+                                    value={quantity}
+                                    onChange={(e) => {
+                                      const val = parseInt(e.target.value);
+                                      if (!isNaN(val) && val >= 1 && val <= 9999) {
+                                        setQuantity(val);
+                                      } else if (e.target.value === '') {
+                                        setQuantity(1);
+                                      }
+                                    }}
+                                    style={{
+                                      width: '60px',
+                                      height: '44px',
+                                      fontSize: '16px',
+                                      fontWeight: '600',
+                                      color: '#171717',
+                                      background: '#ffffff',
+                                      border: 'none',
+                                      textAlign: 'center',
+                                      outline: 'none'
+                                    }}
+                                  />
+                                  <button
+                                    type="button"
+                                    onClick={() => setQuantity(Math.min(9999, quantity + 1))}
+                                    disabled={quantity >= 9999}
+                                    style={{
+                                      width: '44px',
+                                      height: '44px',
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      background: quantity < 9999 ? '#ffffff' : '#f5f5f5',
+                                      border: 'none',
+                                      borderLeft: '1px solid #e5e5e5',
+                                      cursor: quantity < 9999 ? 'pointer' : 'not-allowed',
+                                      color: quantity < 9999 ? '#171717' : '#a3a3a3',
+                                      fontSize: '20px',
+                                      fontWeight: '600'
+                                    }}
+                                  >
+                                    +
+                                  </button>
+                                </div>
+                              </div>
 
-                      {/* Add Buttons */}
-                      <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: collectionItem && !personalCollectionItem ? '1fr' : !collectionItem && personalCollectionItem ? '1fr' : '1fr 1fr',
-                        gap: '12px'
-                      }}>
-                        {!collectionItem && (
-                          <button
-                            onClick={() => handleAddToCollection(quantity)}
-                            disabled={addLoading}
-                            style={{
-                              padding: '14px 20px',
-                              fontSize: '15px',
-                              fontWeight: '600',
-                              color: '#ffffff',
-                              background: addLoading ? '#a3a3a3' : '#3b82f6',
-                              border: 'none',
-                              borderRadius: '8px',
-                              cursor: addLoading ? 'not-allowed' : 'pointer',
-                              transition: 'all 0.2s',
-                              whiteSpace: 'nowrap'
-                            }}
-                            onMouseEnter={(e) => {
-                              if (!addLoading) e.currentTarget.style.background = '#2563eb';
-                            }}
-                            onMouseLeave={(e) => {
-                              if (!addLoading) e.currentTarget.style.background = '#3b82f6';
-                            }}
-                          >
-                            {addLoading ? 'Adding...' : '+ Inventory'}
-                          </button>
-                        )}
-                        {!personalCollectionItem && (
-                          <button
-                            onClick={() => handleAddToPersonalCollection(quantity)}
-                            disabled={addPersonalLoading}
-                            style={{
-                              padding: '14px 20px',
-                              fontSize: '15px',
-                              fontWeight: '600',
-                              color: '#3b82f6',
-                              background: '#ffffff',
-                              border: '2px solid #3b82f6',
-                              borderRadius: '8px',
-                              cursor: addPersonalLoading ? 'not-allowed' : 'pointer',
-                              transition: 'all 0.2s',
-                              whiteSpace: 'nowrap'
-                            }}
-                            onMouseEnter={(e) => {
-                              if (!addPersonalLoading) {
-                                e.currentTarget.style.background = '#eff6ff';
-                              }
-                            }}
-                            onMouseLeave={(e) => {
-                              if (!addPersonalLoading) {
-                                e.currentTarget.style.background = '#ffffff';
-                              }
-                            }}
-                          >
-                            {addPersonalLoading ? 'Adding...' : '+ Collection'}
-                          </button>
-                        )}
-                      </div>
+                              {/* Two buttons side by side */}
+                              <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: '1fr 1fr',
+                                gap: '12px'
+                              }}>
+                                <button
+                                  onClick={() => handleAddToCollection(quantity)}
+                                  disabled={addLoading}
+                                  style={{
+                                    padding: '14px 20px',
+                                    fontSize: '15px',
+                                    fontWeight: '600',
+                                    color: '#ffffff',
+                                    background: addLoading ? '#a3a3a3' : '#3b82f6',
+                                    border: 'none',
+                                    borderRadius: '8px',
+                                    cursor: addLoading ? 'not-allowed' : 'pointer',
+                                    transition: 'all 0.2s',
+                                    whiteSpace: 'nowrap'
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    if (!addLoading) e.currentTarget.style.background = '#2563eb';
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    if (!addLoading) e.currentTarget.style.background = '#3b82f6';
+                                  }}
+                                >
+                                  {addLoading ? 'Adding...' : '+ Inventory'}
+                                </button>
+                                <button
+                                  onClick={() => handleAddToPersonalCollection(quantity)}
+                                  disabled={addPersonalLoading}
+                                  style={{
+                                    padding: '14px 20px',
+                                    fontSize: '15px',
+                                    fontWeight: '600',
+                                    color: '#ffffff',
+                                    background: addPersonalLoading ? '#a3a3a3' : '#3b82f6',
+                                    border: 'none',
+                                    borderRadius: '8px',
+                                    cursor: addPersonalLoading ? 'not-allowed' : 'pointer',
+                                    transition: 'all 0.2s',
+                                    whiteSpace: 'nowrap'
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    if (!addPersonalLoading) e.currentTarget.style.background = '#2563eb';
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    if (!addPersonalLoading) e.currentTarget.style.background = '#3b82f6';
+                                  }}
+                                >
+                                  {addPersonalLoading ? 'Adding...' : '+ Collection'}
+                                </button>
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              {/* Single button, no quantity selector - just add 1 */}
+                              {!collectionItem && (
+                                <button
+                                  onClick={() => handleAddToCollection(1)}
+                                  disabled={addLoading}
+                                  style={{
+                                    width: '100%',
+                                    padding: '16px 32px',
+                                    fontSize: '16px',
+                                    fontWeight: '600',
+                                    color: '#ffffff',
+                                    background: addLoading ? '#a3a3a3' : '#3b82f6',
+                                    border: 'none',
+                                    borderRadius: '8px',
+                                    cursor: addLoading ? 'not-allowed' : 'pointer',
+                                    transition: 'all 0.2s',
+                                    marginTop: '24px'
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    if (!addLoading) e.currentTarget.style.background = '#2563eb';
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    if (!addLoading) e.currentTarget.style.background = '#3b82f6';
+                                  }}
+                                >
+                                  {addLoading ? 'Adding...' : '+ Add to Inventory'}
+                                </button>
+                              )}
+                              {!personalCollectionItem && (
+                                <button
+                                  onClick={() => handleAddToPersonalCollection(1)}
+                                  disabled={addPersonalLoading}
+                                  style={{
+                                    width: '100%',
+                                    padding: '16px 32px',
+                                    fontSize: '16px',
+                                    fontWeight: '600',
+                                    color: '#ffffff',
+                                    background: addPersonalLoading ? '#a3a3a3' : '#3b82f6',
+                                    border: 'none',
+                                    borderRadius: '8px',
+                                    cursor: addPersonalLoading ? 'not-allowed' : 'pointer',
+                                    transition: 'all 0.2s',
+                                    marginTop: '24px'
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    if (!addPersonalLoading) e.currentTarget.style.background = '#2563eb';
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    if (!addPersonalLoading) e.currentTarget.style.background = '#3b82f6';
+                                  }}
+                                >
+                                  {addPersonalLoading ? 'Adding...' : '+ Add to Personal Collection'}
+                                </button>
+                              )}
+                            </>
+                          )}
                         </>
                       )}
                     </>

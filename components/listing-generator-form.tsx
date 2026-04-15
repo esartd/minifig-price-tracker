@@ -312,9 +312,9 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
             style={{
               flex: 1,
               padding: '14px 20px',
-              backgroundColor: loading ? '#9ca3af' : '#3b82f6',
-              color: 'white',
-              border: 'none',
+              backgroundColor: '#ffffff',
+              color: loading ? '#a3a3a3' : '#3b82f6',
+              border: loading ? '2px solid #d4d4d4' : '2px solid #3b82f6',
               borderRadius: '8px',
               fontSize: '15px',
               fontWeight: '600',
@@ -326,10 +326,10 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
               transition: 'all 0.2s'
             }}
             onMouseEnter={(e) => {
-              if (!loading) e.currentTarget.style.background = '#2563eb';
+              if (!loading) e.currentTarget.style.background = '#eff6ff';
             }}
             onMouseLeave={(e) => {
-              if (!loading) e.currentTarget.style.background = '#3b82f6';
+              if (!loading) e.currentTarget.style.background = '#ffffff';
             }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
