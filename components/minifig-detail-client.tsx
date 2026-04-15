@@ -758,17 +758,62 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           }}>
                             In Your Personal Collection
                           </h2>
-                          <div className="inventory-actions-container">
-                            {/* Quantity Display */}
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                            {/* Quantity Display with Add Button */}
                             <div style={{
-                              padding: '12px 16px',
-                              background: '#f5f5f5',
-                              borderRadius: '8px',
-                              fontSize: '14px',
-                              color: '#525252',
-                              fontWeight: '500'
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '12px'
                             }}>
-                              Quantity: {personalCollectionItem.quantity}
+                              <div style={{
+                                padding: '12px 16px',
+                                background: '#f5f5f5',
+                                borderRadius: '8px',
+                                fontSize: '14px',
+                                color: '#525252',
+                                fontWeight: '500',
+                                flex: 1
+                              }}>
+                                Quantity: {personalCollectionItem.quantity}
+                              </div>
+                              <button
+                                onClick={async () => {
+                                  try {
+                                    const response = await fetch(`/api/personal-collection/${personalCollectionItem.id}`, {
+                                      method: 'PATCH',
+                                      headers: { 'Content-Type': 'application/json' },
+                                      body: JSON.stringify({ quantity: personalCollectionItem.quantity + 1 })
+                                    });
+                                    if (response.ok) {
+                                      const data = await response.json();
+                                      setPersonalCollectionItem(data.data);
+                                      setSuccessMessage('Added 1 more!');
+                                    }
+                                  } catch (err) {
+                                    setError('Failed to update quantity');
+                                  }
+                                }}
+                                style={{
+                                  padding: '12px 20px',
+                                  fontSize: '14px',
+                                  fontWeight: '600',
+                                  color: '#3b82f6',
+                                  background: '#ffffff',
+                                  border: '2px solid #3b82f6',
+                                  borderRadius: '8px',
+                                  cursor: 'pointer',
+                                  transition: 'all 0.2s',
+                                  whiteSpace: 'nowrap'
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.background = '#eff6ff';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.background = '#ffffff';
+                                }}
+                              >
+                                + Add Another
+                              </button>
                             </div>
                           </div>
                         </>
