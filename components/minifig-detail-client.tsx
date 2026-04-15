@@ -305,7 +305,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
               <div className="minifig-details-section" style={{
                 display: 'flex',
                 flexDirection: 'column',
-                padding: '40px 16px'
+                padding: '16px'
               }}>
                 {/* Header */}
                 <div style={{ marginBottom: '24px', marginTop: 0 }}>
