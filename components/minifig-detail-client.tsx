@@ -618,18 +618,21 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                 <div>
                   {checkingCollection ? (
                     <div style={{ textAlign: 'center', padding: '20px', color: '#737373' }}>
-                      Checking inventory...
+                      Checking collections...
                     </div>
-                  ) : collectionItem ? (
+                  ) : (
                     <>
-                      <h2 style={{
-                        fontSize: '16px',
-                        fontWeight: '600',
-                        color: '#171717',
-                        marginBottom: '16px'
-                      }}>
-                        In Your Inventory
-                      </h2>
+                      {/* Inventory Section */}
+                      {collectionItem && (
+                        <>
+                          <h2 style={{
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            color: '#171717',
+                            marginBottom: '16px'
+                          }}>
+                            In Your Inventory
+                          </h2>
                       <div className="inventory-actions-container">
                         {/* Quantity Stepper */}
                         <div className="quantity-stepper">
@@ -740,17 +743,49 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           <span className="inventory-delete-text">Remove from Inventory</span>
                         </button>
                       </div>
-                    </>
-                  ) : (
-                    <>
-                      <h2 style={{
-                        fontSize: '16px',
-                        fontWeight: '600',
-                        color: '#171717',
-                        marginBottom: '16px'
-                      }}>
-                        Add to Collection
-                      </h2>
+                        </>
+                      )}
+
+                      {/* Personal Collection Section */}
+                      {personalCollectionItem && (
+                        <>
+                          <h2 style={{
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            color: '#171717',
+                            marginTop: collectionItem ? '32px' : '0',
+                            marginBottom: '16px'
+                          }}>
+                            In Your Personal Collection
+                          </h2>
+                          <div className="inventory-actions-container">
+                            {/* Quantity Display */}
+                            <div style={{
+                              padding: '12px 16px',
+                              background: '#f5f5f5',
+                              borderRadius: '8px',
+                              fontSize: '14px',
+                              color: '#525252',
+                              fontWeight: '500'
+                            }}>
+                              Quantity: {personalCollectionItem.quantity}
+                            </div>
+                          </div>
+                        </>
+                      )}
+
+                      {/* Add Buttons Section - Show if either is not in collections */}
+                      {(!collectionItem || !personalCollectionItem) && (
+                        <>
+                          <h2 style={{
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            color: '#171717',
+                            marginTop: (collectionItem || personalCollectionItem) ? '32px' : '0',
+                            marginBottom: '16px'
+                          }}>
+                            Add to Collection
+                          </h2>
 
                       {/* Quantity Selector */}
                       <div style={{ marginBottom: '16px' }}>
@@ -843,62 +878,68 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       {/* Add Buttons */}
                       <div style={{
                         display: 'grid',
-                        gridTemplateColumns: '1fr 1fr',
+                        gridTemplateColumns: collectionItem && !personalCollectionItem ? '1fr' : !collectionItem && personalCollectionItem ? '1fr' : '1fr 1fr',
                         gap: '12px'
                       }}>
-                        <button
-                          onClick={() => handleAddToCollection(quantity)}
-                          disabled={addLoading}
-                          style={{
-                            padding: '14px 20px',
-                            fontSize: '15px',
-                            fontWeight: '600',
-                            color: '#ffffff',
-                            background: addLoading ? '#a3a3a3' : '#3b82f6',
-                            border: 'none',
-                            borderRadius: '8px',
-                            cursor: addLoading ? 'not-allowed' : 'pointer',
-                            transition: 'all 0.2s',
-                            whiteSpace: 'nowrap'
-                          }}
-                          onMouseEnter={(e) => {
-                            if (!addLoading) e.currentTarget.style.background = '#2563eb';
-                          }}
-                          onMouseLeave={(e) => {
-                            if (!addLoading) e.currentTarget.style.background = '#3b82f6';
-                          }}
-                        >
-                          {addLoading ? 'Adding...' : '+ Inventory'}
-                        </button>
-                        <button
-                          onClick={() => handleAddToPersonalCollection(quantity)}
-                          disabled={addPersonalLoading}
-                          style={{
-                            padding: '14px 20px',
-                            fontSize: '15px',
-                            fontWeight: '600',
-                            color: '#3b82f6',
-                            background: '#ffffff',
-                            border: '2px solid #3b82f6',
-                            borderRadius: '8px',
-                            cursor: addPersonalLoading ? 'not-allowed' : 'pointer',
-                            transition: 'all 0.2s',
-                            whiteSpace: 'nowrap'
-                          }}
-                          onMouseEnter={(e) => {
-                            if (!addPersonalLoading) {
-                              e.currentTarget.style.background = '#eff6ff';
-                            }
-                          }}
-                          onMouseLeave={(e) => {
-                            if (!addPersonalLoading) {
-                              e.currentTarget.style.background = '#ffffff';
-                            }
-                          }}
-                        >
-                          {addPersonalLoading ? 'Adding...' : '+ Collection'}
-                        </button>
+                        {!collectionItem && (
+                          <button
+                            onClick={() => handleAddToCollection(quantity)}
+                            disabled={addLoading}
+                            style={{
+                              padding: '14px 20px',
+                              fontSize: '15px',
+                              fontWeight: '600',
+                              color: '#ffffff',
+                              background: addLoading ? '#a3a3a3' : '#3b82f6',
+                              border: 'none',
+                              borderRadius: '8px',
+                              cursor: addLoading ? 'not-allowed' : 'pointer',
+                              transition: 'all 0.2s',
+                              whiteSpace: 'nowrap'
+                            }}
+                            onMouseEnter={(e) => {
+                              if (!addLoading) e.currentTarget.style.background = '#2563eb';
+                            }}
+                            onMouseLeave={(e) => {
+                              if (!addLoading) e.currentTarget.style.background = '#3b82f6';
+                            }}
+                          >
+                            {addLoading ? 'Adding...' : '+ Inventory'}
+                          </button>
+                        )}
+                        {!personalCollectionItem && (
+                          <button
+                            onClick={() => handleAddToPersonalCollection(quantity)}
+                            disabled={addPersonalLoading}
+                            style={{
+                              padding: '14px 20px',
+                              fontSize: '15px',
+                              fontWeight: '600',
+                              color: '#3b82f6',
+                              background: '#ffffff',
+                              border: '2px solid #3b82f6',
+                              borderRadius: '8px',
+                              cursor: addPersonalLoading ? 'not-allowed' : 'pointer',
+                              transition: 'all 0.2s',
+                              whiteSpace: 'nowrap'
+                            }}
+                            onMouseEnter={(e) => {
+                              if (!addPersonalLoading) {
+                                e.currentTarget.style.background = '#eff6ff';
+                              }
+                            }}
+                            onMouseLeave={(e) => {
+                              if (!addPersonalLoading) {
+                                e.currentTarget.style.background = '#ffffff';
+                              }
+                            }}
+                          >
+                            {addPersonalLoading ? 'Adding...' : '+ Collection'}
+                          </button>
+                        )}
                       </div>
+                        </>
+                      )}
                     </>
                   )}
                 </div>
