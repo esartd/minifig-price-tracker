@@ -16,7 +16,19 @@ export async function GET() {
     }
 
     const items = await database.getAllPersonalItems(session.user.id);
-    return NextResponse.json({ success: true, data: items });
+
+    // Merge fresh pricing from PriceCache for each item
+    const itemsWithFreshPricing = await Promise.all(
+      items.map(async (item) => {
+        const freshPricing = await bricklinkAPI.calculatePricingData(item.minifigure_no, item.condition);
+        return {
+          ...item,
+          pricing: freshPricing
+        };
+      })
+    );
+
+    return NextResponse.json({ success: true, data: itemsWithFreshPricing });
   } catch (error) {
     console.error('Error fetching personal collection:', error);
     return NextResponse.json(
