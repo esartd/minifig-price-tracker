@@ -799,7 +799,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                             }
                           }}
                         >
-                          {addPersonalLoading ? 'Adding...' : '+ Personal'}
+                          {addPersonalLoading ? 'Adding...' : '+ Collection'}
                         </button>
                       </div>
                     </>
