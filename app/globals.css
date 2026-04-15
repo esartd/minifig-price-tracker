@@ -1025,6 +1025,7 @@
 .hero-badge {
   display: inline-flex;
   align-items: center;
+  gap: 10px;
   padding: 10px 20px;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
@@ -1032,7 +1033,8 @@
   font-size: var(--text-xs);
   font-weight: 600;
   color: #ffffff;
-  margin-bottom: 32px;
+  line-height: 1;
+  margin-bottom: 40px;
   letter-spacing: 0.8px;
   text-transform: uppercase;
 }
