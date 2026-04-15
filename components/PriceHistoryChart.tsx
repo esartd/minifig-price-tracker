@@ -328,7 +328,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
                 color: '#737373',
                 paddingRight: '12px',
                 textAlign: 'right',
-                width: '68px',
+                width: `${(chartPadding.left / chartWidth) * 100}%`,
                 pointerEvents: 'none',
                 whiteSpace: 'nowrap'
               }}
@@ -347,7 +347,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
                 style={{
                   position: 'absolute',
                   bottom: '6px',
-                  left: '80px',
+                  left: `${(chartPadding.left / chartWidth) * 100}%`,
                   fontSize: '11px',
                   fontWeight: '500',
                   color: '#737373',
@@ -355,7 +355,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
                   whiteSpace: 'nowrap'
                 }}
               >
-                {new Date(data[0].recorded_at).toLocaleDateString()}
+                {new Date(data[0].recorded_at).toLocaleDateString('en', { month: 'short', day: 'numeric' })}
               </div>
             )}
             {/* End date (or only date if single point) */}
@@ -363,7 +363,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
               style={{
                 position: 'absolute',
                 bottom: '6px',
-                right: data.length === 1 ? '50%' : '20px',
+                right: data.length === 1 ? '50%' : `${(chartPadding.right / chartWidth) * 100}%`,
                 transform: data.length === 1 ? 'translateX(50%)' : 'none',
                 fontSize: '11px',
                 fontWeight: '500',
@@ -372,7 +372,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
                 whiteSpace: 'nowrap'
               }}
             >
-              {new Date(data[data.length - 1].recorded_at).toLocaleDateString()}
+              {new Date(data[data.length - 1].recorded_at).toLocaleDateString('en', { month: 'short', day: 'numeric' })}
             </div>
           </>
         )}
