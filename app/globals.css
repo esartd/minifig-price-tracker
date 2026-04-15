@@ -1022,23 +1022,6 @@
   max-width: 680px;
 }
 
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  border-radius: 32px;
-  font-size: var(--text-xs);
-  font-weight: 600;
-  color: #ffffff;
-  line-height: 1;
-  margin-bottom: 40px;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-}
-
 .hero-section h1 {
   font-size: var(--text-2xl);
   font-weight: 600;
@@ -1298,31 +1281,6 @@
 /* Trust Section */
 .about-trust-section {
   background-color: #ffffff;
-}
-
-.trust-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 20px;
-  background: #f0fdf4;
-  border-radius: 32px;
-  margin-bottom: 40px;
-  border: 1px solid #bbf7d0;
-}
-
-.trust-badge svg {
-  width: 22px;
-  height: 22px;
-  color: #15803d;
-}
-
-.trust-badge span {
-  font-size: var(--text-xs);
-  font-weight: 600;
-  color: #15803d;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
 }
 
 .about-trust-section h2 {
