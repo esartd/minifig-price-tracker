@@ -260,94 +260,113 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
       backgroundColor: '#fafafa',
       borderRadius: '8px',
       padding: '16px',
-      border: '1px solid #e5e5e5'
+      border: '1px solid #e5e5e5',
+      position: 'relative'
     }}>
-      <svg
-        viewBox={`0 0 ${chartWidth} ${chartHeight}`}
-        style={{
-          width: '100%',
-          height: 'auto',
-          maxHeight: '300px'
-        }}
-      >
-        {/* Grid lines */}
-        {yTicks.map((tick, i) => (
-          <line
-            key={i}
-            x1={chartPadding.left}
-            y1={tick.y}
-            x2={chartWidth - chartPadding.right}
-            y2={tick.y}
-            stroke="#e5e5e5"
-            strokeWidth="0.5"
+      <div style={{ position: 'relative' }}>
+        <svg
+          viewBox={`0 0 ${chartWidth} ${chartHeight}`}
+          style={{
+            width: '100%',
+            height: 'auto',
+            maxHeight: '300px',
+            display: 'block'
+          }}
+        >
+          {/* Grid lines */}
+          {yTicks.map((tick, i) => (
+            <line
+              key={i}
+              x1={chartPadding.left}
+              y1={tick.y}
+              x2={chartWidth - chartPadding.right}
+              y2={tick.y}
+              stroke="#e5e5e5"
+              strokeWidth="0.5"
+            />
+          ))}
+
+          {/* Line path */}
+          <path
+            d={pathData}
+            fill="none"
+            stroke="#3b82f6"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
-        ))}
 
-        {/* Y-axis labels */}
-        {yTicks.map((tick, i) => (
-          <text
-            key={i}
-            x={chartPadding.left - 8}
-            y={tick.y}
-            textAnchor="end"
-            dominantBaseline="middle"
-            fill="#737373"
-            fontSize="9"
-            fontWeight="500"
-          >
-            ${tick.value.toFixed(2)}
-          </text>
-        ))}
+          {/* Data points */}
+          {points.map((p, i) => (
+            <circle
+              key={i}
+              cx={p.x}
+              cy={p.y}
+              r="3"
+              fill="#3b82f6"
+              stroke="#ffffff"
+              strokeWidth="1.5"
+            />
+          ))}
+        </svg>
 
-        {/* Line path */}
-        <path
-          d={pathData}
-          fill="none"
-          stroke="#3b82f6"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        {/* Y-axis labels (HTML/CSS) */}
+        {yTicks.map((tick, i) => {
+          const topPercent = (tick.y / chartHeight) * 100;
+          return (
+            <div
+              key={i}
+              style={{
+                position: 'absolute',
+                top: `${topPercent}%`,
+                left: '0',
+                transform: 'translateY(-50%)',
+                fontSize: '11px',
+                fontWeight: '500',
+                color: '#737373',
+                paddingRight: '6px',
+                textAlign: 'right',
+                width: `${(chartPadding.left / chartWidth) * 100}%`,
+                pointerEvents: 'none'
+              }}
+            >
+              ${tick.value.toFixed(2)}
+            </div>
+          );
+        })}
 
-        {/* Data points */}
-        {points.map((p, i) => (
-          <circle
-            key={i}
-            cx={p.x}
-            cy={p.y}
-            r="3"
-            fill="#3b82f6"
-            stroke="#ffffff"
-            strokeWidth="1.5"
-          />
-        ))}
-
-        {/* X-axis labels (first and last date) */}
+        {/* X-axis labels (HTML/CSS) */}
         {data.length > 0 && (
           <>
-            <text
-              x={chartPadding.left}
-              y={chartHeight - chartPadding.bottom + 24}
-              textAnchor="start"
-              fill="#737373"
-              fontSize="9"
-              fontWeight="500"
+            <div
+              style={{
+                position: 'absolute',
+                bottom: `${(chartPadding.bottom - 24) / chartHeight * 100}%`,
+                left: `${chartPadding.left / chartWidth * 100}%`,
+                fontSize: '11px',
+                fontWeight: '500',
+                color: '#737373',
+                pointerEvents: 'none'
+              }}
             >
               {new Date(data[0].recorded_at).toLocaleDateString()}
-            </text>
-            <text
-              x={chartWidth - chartPadding.right}
-              y={chartHeight - chartPadding.bottom + 24}
-              textAnchor="end"
-              fill="#737373"
-              fontSize="9"
-              fontWeight="500"
+            </div>
+            <div
+              style={{
+                position: 'absolute',
+                bottom: `${(chartPadding.bottom - 24) / chartHeight * 100}%`,
+                right: `${chartPadding.right / chartWidth * 100}%`,
+                fontSize: '11px',
+                fontWeight: '500',
+                color: '#737373',
+                pointerEvents: 'none'
+              }}
             >
               {new Date(data[data.length - 1].recorded_at).toLocaleDateString()}
-            </text>
+            </div>
           </>
         )}
-      </svg>
+      </div>
     </div>
   );
 }
