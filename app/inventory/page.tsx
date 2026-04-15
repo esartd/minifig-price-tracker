@@ -15,6 +15,20 @@ export default function CollectionPage() {
   const [sortOrder, setSortOrder] = useState<'default' | 'price-high' | 'price-low' | 'id'>('price-high');
   const [showDecimals, setShowDecimals] = useState(false);
 
+  // Load saved sort order on mount
+  useEffect(() => {
+    const savedSortOrder = localStorage.getItem('inventorySortOrder');
+    if (savedSortOrder) {
+      setSortOrder(savedSortOrder as 'default' | 'price-high' | 'price-low' | 'id');
+    }
+  }, []);
+
+  // Save sort order when it changes
+  const handleSortOrderChange = (newSortOrder: 'default' | 'price-high' | 'price-low' | 'id') => {
+    setSortOrder(newSortOrder);
+    localStorage.setItem('inventorySortOrder', newSortOrder);
+  };
+
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/auth/signin');
@@ -365,7 +379,7 @@ export default function CollectionPage() {
               <div className="collection-controls" style={{ display: 'flex', gap: '12px', width: '100%', flexWrap: 'wrap', alignItems: 'center' }}>
                 <select
                   value={sortOrder}
-                  onChange={(e) => setSortOrder(e.target.value as any)}
+                  onChange={(e) => handleSortOrderChange(e.target.value as any)}
                   style={{
                     flex: '0 0 auto',
                     minWidth: '200px',
