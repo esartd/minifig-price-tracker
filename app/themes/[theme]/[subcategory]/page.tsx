@@ -79,7 +79,7 @@ export default function SubcategoryMinifigsPage({
   }
 
   // Build breadcrumb items
-  const breadcrumbItems = [
+  const breadcrumbItems: Array<{ label: string; href?: string }> = [
     { label: 'Home', href: '/' },
     { label: 'Themes', href: '/themes' }
   ];
