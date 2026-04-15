@@ -218,11 +218,11 @@ export default function CollectionList({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-end',
-            gap: '8px',
+            gap: '0',
             flexShrink: 0,
             gridColumn: '3'
           }}>
-            {/* Quantity Stepper */}
+            {/* All controls grouped together */}
             <div onClick={(e) => e.stopPropagation()} style={{
               display: 'flex',
               alignItems: 'center',
@@ -329,14 +329,51 @@ export default function CollectionList({
               >
                 +
               </button>
-            </div>
 
-            {/* Move Button */}
-            {onItemMove && (
+              {/* Move Button - inside same group */}
+              {onItemMove && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setMoveDialogItem(item);
+                  }}
+                  style={{
+                    width: '32px',
+                    height: '32px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#737373',
+                    background: '#ffffff',
+                    border: 'none',
+                    borderLeft: '1px solid #e5e5e5',
+                    cursor: 'pointer',
+                    padding: 0,
+                    transition: 'all 0.2s'
+                  }}
+                  title="Move to Personal Collection"
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#eff6ff';
+                    e.currentTarget.style.color = '#3b82f6';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#ffffff';
+                    e.currentTarget.style.color = '#737373';
+                  }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 12h18M15 6l6 6-6 6"/>
+                  </svg>
+                </button>
+              )}
+
+              {/* Delete Button - inside same group */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  setMoveDialogItem(item);
+                  if (confirm('Delete this item from your inventory?')) {
+                    onItemDelete(item.id);
+                  }
                 }}
                 style={{
                   width: '32px',
@@ -346,68 +383,27 @@ export default function CollectionList({
                   justifyContent: 'center',
                   color: '#737373',
                   background: '#ffffff',
-                  border: '1px solid #e5e5e5',
-                  borderRadius: '8px',
+                  border: 'none',
+                  borderLeft: '1px solid #e5e5e5',
                   cursor: 'pointer',
                   padding: 0,
                   transition: 'all 0.2s'
                 }}
-                title="Move to Personal Collection"
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#eff6ff';
-                  e.currentTarget.style.color = '#3b82f6';
-                  e.currentTarget.style.borderColor = '#bfdbfe';
+                  e.currentTarget.style.background = '#fee2e2';
+                  e.currentTarget.style.color = '#dc2626';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = '#ffffff';
                   e.currentTarget.style.color = '#737373';
-                  e.currentTarget.style.borderColor = '#e5e5e5';
                 }}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M3 12h18M15 6l6 6-6 6"/>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                 </svg>
               </button>
-            )}
-
-            {/* Delete Button */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                if (confirm('Delete this item from your inventory?')) {
-                  onItemDelete(item.id);
-                }
-              }}
-              style={{
-                width: '32px',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#737373',
-                background: '#ffffff',
-                border: '1px solid #e5e5e5',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                padding: 0,
-                transition: 'all 0.2s'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#fee2e2';
-                e.currentTarget.style.color = '#dc2626';
-                e.currentTarget.style.borderColor = '#fca5a5';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#ffffff';
-                e.currentTarget.style.color = '#737373';
-                e.currentTarget.style.borderColor = '#e5e5e5';
-              }}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="3 6 5 6 21 6"></polyline>
-                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-              </svg>
-            </button>
+            </div>
           </div>
         </div>
       ))}
