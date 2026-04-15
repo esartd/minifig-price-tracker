@@ -2018,7 +2018,7 @@
   .collection-item-card > div:nth-child(3) {
     grid-column: 3 !important;
     grid-row: 1 !important;
-    justify-content: flex-end !important;
+    justify-content: flex-start !important;
     border-top: none !important;
     padding-top: 0 !important;
   }

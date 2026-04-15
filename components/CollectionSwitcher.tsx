@@ -25,7 +25,7 @@ export default function CollectionSwitcher({ currentPage }: CollectionSwitcherPr
         letterSpacing: '-0.02em',
         color: '#171717',
         margin: 0,
-        padding: '0 24px 0 0',
+        padding: '0 32px 0 0', // 16px gap + 16px icon = 32px right padding
         background: 'transparent',
         border: 'none',
         cursor: 'pointer',
@@ -33,9 +33,9 @@ export default function CollectionSwitcher({ currentPage }: CollectionSwitcherPr
         transition: 'all 0.2s',
         appearance: 'none',
         backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23171717' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`,
-        backgroundPosition: 'right center',
+        backgroundPosition: 'right 0 center', // 16px gap from text
         backgroundRepeat: 'no-repeat',
-        backgroundSize: '16px 16px',
+        backgroundSize: '16px 16px', // Icon size 16px (2 units on 8px scale)
         boxSizing: 'border-box',
         fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif',
         minHeight: '44px'

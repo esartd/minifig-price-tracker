@@ -217,7 +217,7 @@ export default function CollectionList({
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'flex-end',
+            justifyContent: 'flex-start',
             gap: '8px',
             flexShrink: 0,
             gridColumn: '3'
