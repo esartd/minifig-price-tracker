@@ -177,6 +177,40 @@ export function HeaderClient({ user }: HeaderClientProps) {
               gap: '32px'
             }}>
               <Link
+                href="/themes"
+                style={{
+                  fontSize: '15px',
+                  fontWeight: '500',
+                  color: '#525252',
+                  textDecoration: 'none',
+                  transition: 'color 0.2s',
+                  lineHeight: '1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  height: '36px'
+                }}
+              >
+                Themes
+              </Link>
+
+              <Link
+                href="/inventory"
+                style={{
+                  fontSize: '15px',
+                  fontWeight: '500',
+                  color: '#525252',
+                  textDecoration: 'none',
+                  transition: 'color 0.2s',
+                  lineHeight: '1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  height: '36px'
+                }}
+              >
+                My Inventory
+              </Link>
+
+              <Link
                 href="/about"
                 style={{
                   fontSize: '15px',
@@ -259,6 +293,26 @@ export function HeaderClient({ user }: HeaderClientProps) {
             padding: '20px',
             paddingBottom: '40px'
           }}>
+            <Link href="/themes" onClick={() => setMobileMenuOpen(false)} style={{
+              display: 'block',
+              padding: '15px 0',
+              borderBottom: '1px solid #f5f5f5',
+              color: '#171717',
+              textDecoration: 'none',
+              fontSize: '16px'
+            }}>
+              Themes
+            </Link>
+            <Link href="/inventory" onClick={() => setMobileMenuOpen(false)} style={{
+              display: 'block',
+              padding: '15px 0',
+              borderBottom: '1px solid #f5f5f5',
+              color: '#171717',
+              textDecoration: 'none',
+              fontSize: '16px'
+            }}>
+              My Inventory
+            </Link>
             <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
               display: 'block',
               padding: '15px 0',
