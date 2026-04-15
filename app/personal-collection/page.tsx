@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { PersonalCollectionItem } from '@/types';
 import PersonalCollectionList from '@/components/PersonalCollectionList';
+import CollectionSwitcher from '@/components/CollectionSwitcher';
 import Link from 'next/link';
 
 export default function PersonalCollectionPage() {
@@ -175,16 +176,7 @@ export default function PersonalCollectionPage() {
               marginBottom: '16px',
               gap: '16px'
             }}>
-              <h1 style={{
-                fontSize: '28px',
-                fontWeight: '700',
-                lineHeight: '1',
-                letterSpacing: '-0.02em',
-                color: '#171717',
-                margin: 0
-              }}>
-                Personal Collection
-              </h1>
+              <CollectionSwitcher currentPage="personal-collection" />
               <Link
                 href="/search?mode=personal"
                 className="collection-add-button"

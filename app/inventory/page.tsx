@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { CollectionItem } from '@/types';
 import CollectionList from '@/components/CollectionList';
+import CollectionSwitcher from '@/components/CollectionSwitcher';
 import Link from 'next/link';
 
 export default function CollectionPage() {
@@ -175,16 +176,7 @@ export default function CollectionPage() {
               marginBottom: '16px',
               gap: '16px'
             }}>
-              <h1 style={{
-                fontSize: '28px',
-                fontWeight: '700',
-                lineHeight: '1',
-                letterSpacing: '-0.02em',
-                color: '#171717',
-                margin: 0
-              }}>
-                My Inventory
-              </h1>
+              <CollectionSwitcher currentPage="inventory" />
               <Link
                 href="/search"
                 className="collection-add-button"
