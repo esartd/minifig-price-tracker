@@ -211,6 +211,23 @@ export function HeaderClient({ user }: HeaderClientProps) {
               </Link>
 
               <Link
+                href="/personal-collection"
+                style={{
+                  fontSize: '15px',
+                  fontWeight: '500',
+                  color: '#525252',
+                  textDecoration: 'none',
+                  transition: 'color 0.2s',
+                  lineHeight: '1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  height: '36px'
+                }}
+              >
+                Personal Collection
+              </Link>
+
+              <Link
                 href="/about"
                 style={{
                   fontSize: '15px',
@@ -312,6 +329,16 @@ export function HeaderClient({ user }: HeaderClientProps) {
               fontSize: '16px'
             }}>
               My Inventory
+            </Link>
+            <Link href="/personal-collection" onClick={() => setMobileMenuOpen(false)} style={{
+              display: 'block',
+              padding: '15px 0',
+              borderBottom: '1px solid #f5f5f5',
+              color: '#171717',
+              textDecoration: 'none',
+              fontSize: '16px'
+            }}>
+              Personal Collection
             </Link>
             <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
               display: 'block',
@@ -441,6 +468,23 @@ export function HeaderClient({ user }: HeaderClientProps) {
               }}
             >
               My Inventory
+            </Link>
+
+            <Link
+              href="/personal-collection"
+              style={{
+                fontSize: '15px',
+                fontWeight: '500',
+                color: '#525252',
+                textDecoration: 'none',
+                transition: 'color 0.2s',
+                lineHeight: '1',
+                display: 'flex',
+                alignItems: 'center',
+                height: '36px'
+              }}
+            >
+              Personal Collection
             </Link>
 
             <Link
@@ -638,6 +682,16 @@ export function HeaderClient({ user }: HeaderClientProps) {
             fontSize: '16px'
           }}>
             My Inventory
+          </Link>
+          <Link href="/personal-collection" onClick={() => setMobileMenuOpen(false)} style={{
+            display: 'block',
+            padding: '15px 0',
+            borderBottom: '1px solid #f5f5f5',
+            color: '#171717',
+            textDecoration: 'none',
+            fontSize: '16px'
+          }}>
+            Personal Collection
           </Link>
           <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
             display: 'block',

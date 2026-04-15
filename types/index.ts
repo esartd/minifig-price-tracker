@@ -52,6 +52,31 @@ export interface CollectionItem {
   last_updated: string;
 }
 
+export interface PersonalCollectionItem {
+  id: string;
+  userId: string;
+  minifigure_no: string;
+  minifigure_name: string;
+  quantity: number;
+  condition: 'new' | 'used';
+  image_url?: string;
+  pricing?: PricingData;
+  notes?: string;
+  acquisition_date?: string;
+  acquisition_notes?: string;
+  display_location?: string;
+  date_added: string;
+  last_updated: string;
+}
+
+export interface MoveToCollectionRequest {
+  quantity: number;
+}
+
+export interface MoveToInventoryRequest {
+  quantity: number;
+}
+
 export interface BricklinkConfig {
   consumerKey: string;
   consumerSecret: string;

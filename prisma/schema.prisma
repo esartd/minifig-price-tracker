@@ -8,18 +8,19 @@ datasource db {
 }
 
 model User {
-  id            String           @id @default(cuid())
-  name          String?
-  email         String           @unique
-  password      String?
-  emailVerified DateTime?
-  image         String?
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
-  accounts      Account[]
-  collections   CollectionItem[]
-  listings      Listing[]
-  sessions      Session[]
+  id                  String                    @id @default(cuid())
+  name                String?
+  email               String                    @unique
+  password            String?
+  emailVerified       DateTime?
+  image               String?
+  createdAt           DateTime                  @default(now())
+  updatedAt           DateTime                  @updatedAt
+  accounts            Account[]
+  collections         CollectionItem[]
+  personalCollections PersonalCollectionItem[]
+  listings            Listing[]
+  sessions            Session[]
 }
 
 model Account {
@@ -170,4 +171,28 @@ model MinifigCatalog {
   @@index([search_name])
   @@index([category_name])
   @@index([year_released])
+}
+
+model PersonalCollectionItem {
+  id                        String    @id @default(uuid())
+  userId                    String
+  minifigure_no             String
+  minifigure_name           String
+  quantity                  Int       @default(1)
+  condition                 String    @default("new")
+  image_url                 String?
+  pricing_six_month_avg     Float?
+  pricing_current_avg       Float?
+  pricing_current_lowest    Float?
+  pricing_suggested_price   Float?
+  notes                     String?   @db.Text
+  acquisition_date          DateTime?
+  acquisition_notes         String?   @db.Text
+  display_location          String?
+  date_added                DateTime  @default(now())
+  last_updated              DateTime  @updatedAt
+  user                      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, minifigure_no, condition])
+  @@index([userId])
 }

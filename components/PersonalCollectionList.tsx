@@ -1,30 +1,30 @@
 'use client';
 
 import Image from 'next/image';
-import { CollectionItem } from '@/types';
+import { PersonalCollectionItem } from '@/types';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import MoveDialog from './MoveDialog';
 
-interface CollectionListProps {
-  items: CollectionItem[];
+interface PersonalCollectionListProps {
+  items: PersonalCollectionItem[];
   onItemDelete: (id: string) => void;
-  onItemUpdate: (id: string, updates: Partial<CollectionItem>) => void;
+  onItemUpdate: (id: string, updates: Partial<PersonalCollectionItem>) => void;
   showDecimals: boolean;
   onItemMove?: (id: string, quantity: number) => Promise<void>;
 }
 
-export default function CollectionList({
+export default function PersonalCollectionList({
   items,
   onItemDelete,
   onItemUpdate,
   showDecimals,
   onItemMove,
-}: CollectionListProps) {
+}: PersonalCollectionListProps) {
   const router = useRouter();
   const [editingQuantityId, setEditingQuantityId] = useState<string | null>(null);
   const [tempQuantity, setTempQuantity] = useState<string>('');
-  const [moveDialogItem, setMoveDialogItem] = useState<CollectionItem | null>(null);
+  const [moveDialogItem, setMoveDialogItem] = useState<PersonalCollectionItem | null>(null);
 
   // Display full minifig name from BrickLink (no modifications)
   const getDisplayName = (fullName: string): string => {
@@ -42,7 +42,7 @@ export default function CollectionList({
     return cleaned.trim();
   };
 
-  const handleQuantityClick = (item: CollectionItem, e: React.MouseEvent) => {
+  const handleQuantityClick = (item: PersonalCollectionItem, e: React.MouseEvent) => {
     e.stopPropagation();
     setEditingQuantityId(item.id);
     setTempQuantity(item.quantity.toString());
@@ -55,7 +55,7 @@ export default function CollectionList({
     }
   };
 
-  const handleQuantityBlur = (item: CollectionItem) => {
+  const handleQuantityBlur = (item: PersonalCollectionItem) => {
     const num = parseInt(tempQuantity, 10);
     if (!isNaN(num) && num >= 1 && num <= 9999 && num !== item.quantity) {
       onItemUpdate(item.id, { quantity: num });
@@ -63,7 +63,7 @@ export default function CollectionList({
     setEditingQuantityId(null);
   };
 
-  const handleQuantityKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, item: CollectionItem) => {
+  const handleQuantityKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, item: PersonalCollectionItem) => {
     if (e.key === 'Enter') {
       handleQuantityBlur(item);
     } else if (e.key === 'Escape') {
@@ -77,21 +77,21 @@ export default function CollectionList({
         textAlign: 'center',
         padding: '80px 32px'
       }}>
-        <div style={{ fontSize: '64px', marginBottom: '24px' }}>🔍</div>
+        <div style={{ fontSize: '64px', marginBottom: '24px' }}>🏠</div>
         <p style={{
           fontSize: '18px',
           fontWeight: '600',
           color: '#171717',
           marginBottom: '8px'
         }}>
-          No minifigures in your inventory yet
+          No minifigures in your personal collection yet
         </p>
         <p style={{
           fontSize: '16px',
           color: '#737373',
           lineHeight: '1.6'
         }}>
-          Search for minifigures to get started
+          Track your personal LEGO minifigures separately from items for sale
         </p>
       </div>
     );
@@ -331,7 +331,7 @@ export default function CollectionList({
               </button>
             </div>
 
-            {/* Move Button */}
+            {/* Move to Inventory Button */}
             {onItemMove && (
               <button
                 onClick={(e) => {
@@ -352,11 +352,11 @@ export default function CollectionList({
                   padding: 0,
                   transition: 'all 0.2s'
                 }}
-                title="Move to Personal Collection"
+                title="Move to Inventory"
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#eff6ff';
-                  e.currentTarget.style.color = '#3b82f6';
-                  e.currentTarget.style.borderColor = '#bfdbfe';
+                  e.currentTarget.style.background = '#f0fdf4';
+                  e.currentTarget.style.color = '#22c55e';
+                  e.currentTarget.style.borderColor = '#bbf7d0';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = '#ffffff';
@@ -365,7 +365,7 @@ export default function CollectionList({
                 }}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M3 12h18M15 6l6 6-6 6"/>
+                  <path d="M21 12H3M9 6l-6 6 6 6"/>
                 </svg>
               </button>
             )}
@@ -374,7 +374,7 @@ export default function CollectionList({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                if (confirm('Delete this item from your inventory?')) {
+                if (confirm('Delete this item from your personal collection?')) {
                   onItemDelete(item.id);
                 }
               }}
@@ -419,7 +419,7 @@ export default function CollectionList({
           onClose={() => setMoveDialogItem(null)}
           itemName={moveDialogItem.minifigure_name}
           maxQuantity={moveDialogItem.quantity}
-          direction="to-collection"
+          direction="to-inventory"
           onConfirm={async (quantity) => {
             await onItemMove(moveDialogItem.id, quantity);
             setMoveDialogItem(null);

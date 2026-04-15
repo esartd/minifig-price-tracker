@@ -3,16 +3,16 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { CollectionItem } from '@/types';
-import CollectionList from '@/components/CollectionList';
+import { PersonalCollectionItem } from '@/types';
+import PersonalCollectionList from '@/components/PersonalCollectionList';
 import Link from 'next/link';
 
-export default function CollectionPage() {
+export default function PersonalCollectionPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [collection, setCollection] = useState<CollectionItem[]>([]);
+  const [collection, setCollection] = useState<PersonalCollectionItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [sortOrder, setSortOrder] = useState<'default' | 'price-high' | 'price-low' | 'id'>('price-high');
+  const [sortOrder, setSortOrder] = useState<'default' | 'price-high' | 'price-low' | 'id'>('default');
   const [showDecimals, setShowDecimals] = useState(false);
 
   useEffect(() => {
@@ -25,13 +25,13 @@ export default function CollectionPage() {
 
   const loadCollection = async () => {
     try {
-      const response = await fetch('/api/inventory');
+      const response = await fetch('/api/personal-collection');
       const data = await response.json();
       if (data.success) {
         setCollection(data.data);
       }
     } catch (error) {
-      console.error('Error loading collection:', error);
+      console.error('Error loading personal collection:', error);
     } finally {
       setLoading(false);
     }
@@ -39,7 +39,7 @@ export default function CollectionPage() {
 
   const handleItemDeleted = async (id: string) => {
     try {
-      const response = await fetch(`/api/inventory/${id}`, {
+      const response = await fetch(`/api/personal-collection/${id}`, {
         method: 'DELETE',
       });
 
@@ -51,9 +51,9 @@ export default function CollectionPage() {
     }
   };
 
-  const handleItemUpdated = async (id: string, updates: Partial<CollectionItem>) => {
+  const handleItemUpdated = async (id: string, updates: Partial<PersonalCollectionItem>) => {
     try {
-      const response = await fetch(`/api/inventory/${id}`, {
+      const response = await fetch(`/api/personal-collection/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ export default function CollectionPage() {
 
   const handleItemMoved = async (id: string, quantity: number) => {
     try {
-      const response = await fetch(`/api/inventory/${id}/move-to-collection`, {
+      const response = await fetch(`/api/personal-collection/${id}/move-to-inventory`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -169,10 +169,10 @@ export default function CollectionPage() {
                 color: '#171717',
                 margin: 0
               }}>
-                My Inventory
+                Personal Collection
               </h1>
               <Link
-                href="/search"
+                href="/search?mode=personal"
                 className="collection-add-button"
                 style={{
                   display: 'inline-flex',
@@ -305,18 +305,18 @@ export default function CollectionPage() {
                 color: '#171717',
                 marginBottom: '8px'
               }}>
-                My Inventory
+                Personal Collection
               </h1>
               <p className="collection-subtitle" style={{
                 fontSize: '16px',
                 color: '#525252',
                 lineHeight: '1.6'
               }}>
-                Track your LEGO minifig inventory with real-time pricing
+                Track your personal LEGO minifigures separately from items for sale
               </p>
             </div>
             <Link
-              href="/search"
+              href="/search?mode=personal"
               className="collection-add-button"
               style={{
                 display: 'inline-flex',
@@ -390,6 +390,7 @@ export default function CollectionPage() {
                   onMouseEnter={(e) => e.currentTarget.style.background = '#e5e5e5'}
                   onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}
                 >
+                  <option value="default">Recently Added</option>
                   <option value="price-high">Price: High to Low</option>
                   <option value="price-low">Price: Low to High</option>
                   <option value="id">Bricklink ID</option>
@@ -431,9 +432,7 @@ export default function CollectionPage() {
 
           {collection.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '60px 0' }}>
-              <svg style={{ width: '64px', height: '64px', color: '#a3a3a3', margin: '0 auto 24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-              </svg>
+              <div style={{ fontSize: '64px', marginBottom: '24px' }}>🏠</div>
               <h3 style={{
                 fontSize: '20px',
                 fontWeight: '600',
@@ -448,10 +447,10 @@ export default function CollectionPage() {
                 marginBottom: '32px',
                 lineHeight: '1.6'
               }}>
-                Start adding to your inventory by searching for minifigs
+                Start adding to your personal collection
               </p>
               <Link
-                href="/search"
+                href="/search?mode=personal"
                 style={{
                   display: 'inline-block',
                   padding: '16px 32px',
@@ -468,7 +467,7 @@ export default function CollectionPage() {
               </Link>
             </div>
           ) : (
-            <CollectionList
+            <PersonalCollectionList
               items={getSortedCollection()}
               onItemDelete={handleItemDeleted}
               onItemUpdate={handleItemUpdated}

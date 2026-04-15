@@ -17,6 +17,7 @@ export default auth((req) => {
                        pathname.startsWith('/themes') ||
                        pathname.startsWith('/about');
   const isProtectedPage = pathname.startsWith('/inventory') ||
+                          pathname.startsWith('/personal-collection') ||
                           pathname.startsWith('/account');
 
   // Allow public access to home, search, minifig detail, and about pages
