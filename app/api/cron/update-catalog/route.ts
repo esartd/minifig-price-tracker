@@ -1,21 +1,25 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { downloadBricklinkCatalog, parseCatalogData, importCatalogItems } from '@/lib/bricklink-catalog';
+import { downloadAllBricklinkFiles } from '@/lib/bricklink-files';
 
 /**
- * CRON JOB: Update Minifigure Catalog
+ * CRON JOB: Update Bricklink Catalogs
  *
  * Runs monthly (1st of each month at 3 AM) to automatically fetch and import
- * the latest Bricklink catalog.
+ * the latest Bricklink catalog files.
  *
- * This job attempts to:
- * 1. Download catalog directly from Bricklink (tries multiple URL patterns)
- * 2. Fall back to CATALOG_URL if direct download fails
- * 3. Parse and import all minifigures into the database
+ * This job:
+ * 1. Downloads Minifigures.txt → imports to database for search/pricing
+ * 2. Downloads Sets.txt → saves to disk for Amazon affiliate ads
+ * 3. Downloads categories.txt → saves to disk for theme organization
  *
  * Setup:
- * - No setup required! It attempts automatic download from Bricklink
- * - Optional: Set CATALOG_URL as a fallback if auto-download fails
+ * - No setup required! Attempts automatic download from Bricklink
+ * - Optional fallback environment variables:
+ *   - BRICKLINK_MINIFIGURES_URL
+ *   - BRICKLINK_SETS_URL
+ *   - BRICKLINK_CATEGORIES_URL
  * - Set CRON_SECRET for authentication
  */
 
@@ -32,40 +36,57 @@ export async function GET(request: Request) {
       );
     }
 
-    console.log('🔄 Starting automatic catalog update...');
+    console.log('🔄 Starting monthly Bricklink catalog update...\n');
 
-    // Attempt to download catalog from Bricklink
-    const downloadResult = await downloadBricklinkCatalog();
+    // STEP 1: Download all catalog files (Minifigures.txt, Sets.txt, categories.txt)
+    console.log('📥 Step 1: Downloading all catalog files...');
+    const downloadResults = await downloadAllBricklinkFiles();
 
-    if (!downloadResult.success) {
-      console.error('❌ Failed to download catalog:', downloadResult.error);
+    if (!downloadResults.success) {
+      console.error('❌ Failed to download required catalog files');
       return NextResponse.json({
         success: false,
-        error: downloadResult.error,
-        hint: 'Set CATALOG_URL environment variable as a fallback, or use manual upload via /api/admin/upload-catalog'
+        error: 'Failed to download required catalog files',
+        results: downloadResults.results,
+        hint: 'Set BRICKLINK_*_URL environment variables as fallbacks'
       }, { status: 500 });
     }
 
-    console.log(`✅ Downloaded catalog from: ${downloadResult.source}`);
+    console.log('✅ All catalog files downloaded successfully\n');
 
-    const catalogText = downloadResult.data!;
+    // STEP 2: Import Minifigures.txt into database
+    console.log('📥 Step 2: Importing minifigures into database...');
+    const minifigsDownload = await downloadBricklinkCatalog();
+
+    if (!minifigsDownload.success) {
+      console.error('❌ Failed to process minifigures');
+      return NextResponse.json({
+        success: false,
+        error: 'Catalog files downloaded but minifig import failed',
+        filesDownloaded: downloadResults.results
+      }, { status: 500 });
+    }
+
+    const catalogText = minifigsDownload.data!;
 
     // Parse the catalog data
-    console.log('📖 Parsing catalog data...');
+    console.log('📖 Parsing minifigure data...');
     const items = parseCatalogData(catalogText);
-    console.log(`✅ Parsed ${items.length} items`);
+    console.log(`✅ Parsed ${items.length} minifigures`);
 
     // Import into database
     console.log('💾 Importing into database...');
     const { created, updated } = await importCatalogItems(items, prisma);
 
-    console.log('📊 Catalog update complete:', { created, updated, total: created + updated });
+    console.log('\n📊 Monthly catalog update complete!');
+    console.log(`  Minifigures: ${created} created, ${updated} updated`);
+    console.log(`  Files downloaded: ${Object.keys(downloadResults.results).length}`);
 
     return NextResponse.json({
       success: true,
-      message: 'Catalog updated successfully',
-      source: downloadResult.source,
-      stats: {
+      message: 'Monthly catalog update completed successfully',
+      files: downloadResults.results,
+      minifigs: {
         created,
         updated,
         total: created + updated
