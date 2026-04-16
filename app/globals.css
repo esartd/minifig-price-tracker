@@ -45,7 +45,7 @@
   --icon-3xl: 64px;  /* 3XL: hero sections, major empty states */
 
   /* Icon stroke weight - consistent across all icons */
-  --icon-stroke: 2;
+  --icon-stroke: 2.5;
 }
 
 @layer base {
