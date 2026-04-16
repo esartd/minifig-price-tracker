@@ -4,6 +4,8 @@
  *
  * Use this for cases where the main character is known but might not
  * have the most variants (e.g., supporting characters are more popular)
+ *
+ * Updated: 2024
  */
 
 export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
