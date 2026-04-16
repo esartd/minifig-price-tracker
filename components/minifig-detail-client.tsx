@@ -1198,31 +1198,28 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
           {/* Price History Section */}
           {collectionItem && (
-            <div style={{ padding: '0 16px', marginTop: '32px' }}>
-              <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                <div style={{
-                  background: '#ffffff',
-                  borderRadius: '12px',
-                  border: '1px solid #e5e5e5',
-                  padding: '24px',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
-                }}>
-                  <PriceHistoryChart minifigure_no={minifig.no} condition="new" />
-                </div>
+            <div style={{ marginTop: '32px' }}>
+              <div style={{
+                background: '#ffffff',
+                borderRadius: '12px',
+                border: '1px solid #e5e5e5',
+                padding: '24px',
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
+              }}>
+                <PriceHistoryChart minifigure_no={minifig.no} condition="new" />
               </div>
             </div>
           )}
 
           {/* From Similar Sets Section */}
           {similarSets.length > 0 && (
-            <div className="minifig-related-section" style={{ marginTop: '32px', padding: '0 16px' }}>
-              <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                <h2 className="minifig-related-heading">
-                  From Similar Sets
-                </h2>
-                <p className="minifig-related-description">
-                  Minifigures released around the same time
-                </p>
+            <div className="minifig-related-section" style={{ marginTop: '32px' }}>
+              <h2 className="minifig-related-heading">
+                From Similar Sets
+              </h2>
+              <p className="minifig-related-description">
+                Minifigures released around the same time
+              </p>
                 <div className="minifig-related-grid">
                   {similarSets.map((related) => (
                     <a
@@ -1284,20 +1281,18 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     </a>
                   ))}
                 </div>
-              </div>
             </div>
           )}
 
           {/* Character Variants Section */}
           {variants.length > 0 && (
-            <div className="minifig-related-section" style={{ marginTop: '32px', padding: '0 16px' }}>
-              <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                <h2 className="minifig-related-heading">
-                  Other Variants
-                </h2>
-                <p className="minifig-related-description">
-                  Different versions of this character
-                </p>
+            <div className="minifig-related-section" style={{ marginTop: '32px' }}>
+              <h2 className="minifig-related-heading">
+                Other Variants
+              </h2>
+              <p className="minifig-related-description">
+                Different versions of this character
+              </p>
                 <div className="minifig-related-grid">
                   {variants.map((variant) => (
                     <a
@@ -1359,7 +1354,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     </a>
                   ))}
                 </div>
-              </div>
             </div>
           )}
         </div>
