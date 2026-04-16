@@ -131,7 +131,7 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
  * Main theme overrides (for parent themes)
  */
 export const THEME_OVERRIDES: { [theme: string]: string } = {
-  'Scala': 'sw1360', // Use non-blurry minifig
+  'Scala': 'scaFemY07',
   'Collectible Minifigures': 'col161',
   'Despicable Me and Minions': 'mnn005',
   'Dune': 'dun001',
