@@ -1,6 +1,21 @@
 import { prisma } from '@/lib/prisma';
 import ThemesClient from './themes-client';
 import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Browse LEGO Minifigures by Theme - Star Wars, Harry Potter & More',
+  description: 'Explore LEGO minifigures organized by theme. Browse Star Wars, Harry Potter, Marvel, DC, Ninjago, and 50+ other themes. Get pricing data and track your collection.',
+  keywords: ['LEGO themes', 'Star Wars minifigures', 'Harry Potter LEGO', 'Marvel LEGO', 'DC LEGO', 'Ninjago minifigs', 'LEGO catalog by theme'],
+  openGraph: {
+    title: 'Browse LEGO Minifigures by Theme | FigTracker',
+    description: 'Explore minifigures from Star Wars, Harry Potter, Marvel, and 50+ other LEGO themes with real-time pricing.',
+    url: 'https://figtracker.ericksu.com/themes',
+  },
+  alternates: {
+    canonical: 'https://figtracker.ericksu.com/themes',
+  },
+};
 
 interface Theme {
   parent: string;

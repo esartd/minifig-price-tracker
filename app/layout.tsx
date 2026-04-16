@@ -132,9 +132,18 @@ export default function RootLayout({
               background: '#ffffff'
             }}>
               <p style={{ margin: 0, lineHeight: '1.6', marginBottom: '12px' }}>
-                The term "BrickLink" is a trademark of the LEGO Group BrickLink. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.
+                FigTracker is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program.
+                {' '}<a
+                  href="/disclosure"
+                  style={{ color: '#3b82f6', textDecoration: 'none' }}
+                >
+                  See full disclosure
+                </a>.
               </p>
               <p style={{ margin: 0, lineHeight: '1.6', marginBottom: '12px' }}>
+                The term "BrickLink" is a trademark of the LEGO Group BrickLink. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.
+              </p>
+              <p style={{ margin: 0, lineHeight: '1.6', marginBottom: '16px' }}>
                 Minifigure data provided by <a
                   href="https://www.bricklink.com"
                   target="_blank"
@@ -145,6 +154,18 @@ export default function RootLayout({
                 </a>.
                 {' '}LEGO® is a trademark of the LEGO Group.
               </p>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '20px',
+                marginBottom: '16px',
+                fontSize: 'var(--text-sm)',
+                flexWrap: 'wrap'
+              }}>
+                <a href="/about" style={{ color: '#3b82f6', textDecoration: 'none' }}>About</a>
+                <a href="/privacy" style={{ color: '#3b82f6', textDecoration: 'none' }}>Privacy Policy</a>
+                <a href="/disclosure" style={{ color: '#3b82f6', textDecoration: 'none' }}>Affiliate Disclosure</a>
+              </div>
               <p style={{ margin: 0, lineHeight: '1.6', fontSize: 'var(--text-xs)', color: '#a3a3a3' }}>
                 Designed by <a
                   href="https://ericksu.com"

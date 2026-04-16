@@ -11,7 +11,10 @@ Disallow: /account/
 Allow: /
 Allow: /search
 Allow: /about
+Allow: /privacy
+Allow: /disclosure
 Allow: /minifigs/
+Allow: /themes/
 Allow: /auth/signin
 Allow: /auth/signup
 
