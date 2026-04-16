@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import Image from 'next/image';
 
 interface Theme {
@@ -13,7 +13,6 @@ interface Theme {
 }
 
 export default function ThemesClient({ themes }: { themes: Theme[] }) {
-  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
 
   // Filter themes based on search query
@@ -184,7 +183,7 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
             gap: '16px'
           }}>
             {currentThemes.map((theme) => (
-              <ThemeTile key={theme.parent} theme={theme} router={router} />
+              <ThemeTile key={theme.parent} theme={theme} />
             ))}
           </div>
         </div>
@@ -209,7 +208,7 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
             gap: '16px'
           }}>
             {allThemes.map((theme) => (
-              <ThemeTile key={theme.parent} theme={theme} router={router} />
+              <ThemeTile key={theme.parent} theme={theme} />
             ))}
           </div>
         </div>
@@ -219,10 +218,10 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
 }
 
 // Theme tile component to avoid duplication
-function ThemeTile({ theme, router }: { theme: Theme; router: any }) {
+function ThemeTile({ theme }: { theme: Theme }) {
   return (
-    <button
-      onClick={() => router.push(`/themes/${encodeURIComponent(theme.parent)}`)}
+    <Link
+      href={`/themes/${encodeURIComponent(theme.parent)}`}
       style={{
         padding: '16px',
         background: '#ffffff',
@@ -236,7 +235,8 @@ function ThemeTile({ theme, router }: { theme: Theme; router: any }) {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        gap: '16px'
+        gap: '16px',
+        textDecoration: 'none'
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
@@ -291,6 +291,6 @@ function ThemeTile({ theme, router }: { theme: Theme; router: any }) {
           {theme.subcategories.length > 0 && ` · ${theme.subcategories.length} ${theme.subcategories.length === 1 ? 'series' : 'series'}`}
         </p>
       </div>
-    </button>
+    </Link>
   );
 }

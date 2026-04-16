@@ -38,7 +38,7 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
 
         // If only 1 subcategory, skip hub page and go directly to minifigures
         if (subs.length === 1) {
-          router.push(`/themes/${encodeURIComponent(themeName)}/${encodeURIComponent(subs[0].subTheme)}`);
+          router.replace(`/themes/${encodeURIComponent(themeName)}/${encodeURIComponent(subs[0].subTheme)}`);
           return;
         }
 
@@ -126,9 +126,9 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
         gap: '16px'
       }}>
         {sortedSubcategories.map((subcategory) => (
-          <button
+          <Link
             key={subcategory.fullName}
-            onClick={() => router.push(`/themes/${encodeURIComponent(theme)}/${encodeURIComponent(subcategory.subTheme)}`)}
+            href={`/themes/${encodeURIComponent(theme)}/${encodeURIComponent(subcategory.subTheme)}`}
             style={{
               padding: '16px',
               background: '#ffffff',
@@ -142,7 +142,8 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
-              gap: '16px'
+              gap: '16px',
+              textDecoration: 'none'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
@@ -196,7 +197,7 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
                 {subcategory.count.toLocaleString()} minifigure{subcategory.count !== 1 ? 's' : ''}
               </p>
             </div>
-          </button>
+          </Link>
         ))}
       </div>
     </div>
