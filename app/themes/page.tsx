@@ -86,64 +86,23 @@ async function getThemes(): Promise<Theme[]> {
         if (THEME_OVERRIDES[theme.parent]) {
           minifigNo = THEME_OVERRIDES[theme.parent];
         } else {
-          // STEP 2: Auto-detect by counting variants
-          // Get all minifigs in this theme to find character with most variants
-          const allMinifigs = await prisma.minifigCatalog.findMany({
+          // STEP 2: Use newest minifig as fallback (fast, simple)
+          const newestMinifig = await prisma.minifigCatalog.findFirst({
             where: {
               category_name: {
                 startsWith: theme.parent
               }
             },
+            orderBy: [
+              { year_released: 'desc' },
+              { minifigure_no: 'desc' }
+            ],
             select: {
-              minifigure_no: true,
-              name: true,
-              year_released: true
+              minifigure_no: true
             }
           });
 
-          if (allMinifigs.length > 0) {
-            // Extract character names and count variants
-            const characterCounts = new Map<string, { count: number; latestMinifig: string; latestYear: string | null }>();
-
-            allMinifigs.forEach(minifig => {
-              // Extract character name (before " - ", "," or "(")
-              const characterName = minifig.name.split(/\s+-\s+|,|\(/)[0].trim().toLowerCase();
-
-              if (!characterCounts.has(characterName)) {
-                characterCounts.set(characterName, {
-                  count: 0,
-                  latestMinifig: minifig.minifigure_no,
-                  latestYear: minifig.year_released
-                });
-              }
-
-              const current = characterCounts.get(characterName)!;
-              current.count++;
-
-              // Keep track of the latest minifig for this character
-              if (!current.latestYear ||
-                  (minifig.year_released && minifig.year_released > current.latestYear)) {
-                current.latestMinifig = minifig.minifigure_no;
-                current.latestYear = minifig.year_released;
-              } else if (minifig.year_released === current.latestYear &&
-                         minifig.minifigure_no > current.latestMinifig) {
-                current.latestMinifig = minifig.minifigure_no;
-              }
-            });
-
-            // Find character with most variants
-            let maxCount = 0;
-            let mainCharacterMinifig = allMinifigs[0].minifigure_no; // fallback
-
-            characterCounts.forEach((data, characterName) => {
-              if (data.count > maxCount) {
-                maxCount = data.count;
-                mainCharacterMinifig = data.latestMinifig;
-              }
-            });
-
-            minifigNo = mainCharacterMinifig;
-          }
+          minifigNo = newestMinifig?.minifigure_no || null;
         }
 
         const hasRecentMinifigs = await prisma.minifigCatalog.findFirst({

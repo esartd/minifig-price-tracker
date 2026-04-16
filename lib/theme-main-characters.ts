@@ -11,7 +11,7 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Star Wars Episode 1': 'Qui-Gon Jinn',
   'Star Wars Episode 2': 'Anakin Skywalker',
   'Star Wars Episode 3': 'Anakin Skywalker',
-  'Star Wars Episode 4/5/6': 'Luke Skywalker',
+  'Star Wars Episode 4/5/6': 'sw1507', // Direct minifig ID override
   'Star Wars Episode 7': 'Rey',
   'Star Wars Episode 8': 'Rey',
   'Star Wars Episode 9': 'Rey',

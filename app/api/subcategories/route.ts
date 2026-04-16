@@ -52,13 +52,39 @@ export async function GET(request: NextRequest) {
         let representativeMinifig = null;
 
         if (knownMainCharacter) {
-          // Use manual mapping - search for this specific character
-          const manualMatch = await prisma.minifigCatalog.findFirst({
-            where: {
-              category_name: sub.fullName,
-              search_name: {
-                contains: knownMainCharacter.toLowerCase()
+          // Check if it's a direct minifig ID (e.g., "sw1507") or character name
+          if (/^[a-z]+\d+[a-z]?$/i.test(knownMainCharacter)) {
+            // Direct minifig ID - use it directly
+            representativeMinifig = knownMainCharacter;
+          } else {
+            // Character name - search for it
+            const manualMatch = await prisma.minifigCatalog.findFirst({
+              where: {
+                category_name: sub.fullName,
+                search_name: {
+                  contains: knownMainCharacter.toLowerCase()
+                }
+              },
+              orderBy: [
+                { year_released: 'desc' },
+                { minifigure_no: 'desc' }
+              ],
+              select: {
+                minifigure_no: true
               }
+            });
+
+            if (manualMatch) {
+              representativeMinifig = manualMatch.minifigure_no;
+            }
+          }
+        }
+
+        // STEP 2: If no manual mapping or not found, use newest minifig (fast fallback)
+        if (!representativeMinifig) {
+          const newestMinifig = await prisma.minifigCatalog.findFirst({
+            where: {
+              category_name: sub.fullName
             },
             orderBy: [
               { year_released: 'desc' },
@@ -69,67 +95,7 @@ export async function GET(request: NextRequest) {
             }
           });
 
-          if (manualMatch) {
-            representativeMinifig = manualMatch.minifigure_no;
-          }
-        }
-
-        // STEP 2: If no manual mapping or character not found, auto-detect by counting variants
-        if (!representativeMinifig) {
-          const allMinifigs = await prisma.minifigCatalog.findMany({
-            where: {
-              category_name: sub.fullName
-            },
-            select: {
-              minifigure_no: true,
-              name: true,
-              year_released: true
-            }
-          });
-
-          if (allMinifigs.length > 0) {
-            // Extract character names and count variants
-            const characterCounts = new Map<string, { count: number; latestMinifig: string; latestYear: string | null }>();
-
-            allMinifigs.forEach(minifig => {
-              // Extract character name (before " - ", "," or "(")
-              const characterName = minifig.name.split(/\s+-\s+|,|\(/)[0].trim().toLowerCase();
-
-              if (!characterCounts.has(characterName)) {
-                characterCounts.set(characterName, {
-                  count: 0,
-                  latestMinifig: minifig.minifigure_no,
-                  latestYear: minifig.year_released
-                });
-              }
-
-              const current = characterCounts.get(characterName)!;
-              current.count++;
-
-              // Keep track of the latest minifig for this character
-              if (!current.latestYear ||
-                  (minifig.year_released && minifig.year_released > current.latestYear)) {
-                current.latestMinifig = minifig.minifigure_no;
-                current.latestYear = minifig.year_released;
-              } else if (minifig.year_released === current.latestYear &&
-                         minifig.minifigure_no > current.latestMinifig) {
-                current.latestMinifig = minifig.minifigure_no;
-              }
-            });
-
-            // Find character with most variants
-            let maxCount = 0;
-            let mainCharacterMinifig = allMinifigs[0].minifigure_no; // fallback
-
-            characterCounts.forEach((data, characterName) => {
-              if (data.count > maxCount) {
-                maxCount = data.count;
-                mainCharacterMinifig = data.latestMinifig;
-              }
-            });
-
-            representativeMinifig = mainCharacterMinifig;
-          }
+          representativeMinifig = newestMinifig?.minifigure_no || null;
         }
 
         return {
