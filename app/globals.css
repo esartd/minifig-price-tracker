@@ -48,6 +48,11 @@
   --icon-stroke: 2.5;
 }
 
+/* Override Heroicons default stroke width */
+svg {
+  stroke-width: 2.5;
+}
+
 @layer base {
   * {
     box-sizing: border-box;
