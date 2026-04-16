@@ -124,7 +124,7 @@ export default function RootLayout({
               {children}
             </main>
             <footer style={{
-              padding: '40px 32px',
+              padding: 'var(--space-5) var(--space-4)',
               textAlign: 'center',
               fontSize: 'var(--text-sm)',
               color: '#737373',
@@ -143,7 +143,7 @@ export default function RootLayout({
               <p style={{ margin: 0, lineHeight: '1.6', marginBottom: '12px' }}>
                 The term "BrickLink" is a trademark of the LEGO Group BrickLink. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.
               </p>
-              <p style={{ margin: 0, lineHeight: '1.6', marginBottom: '16px' }}>
+              <p style={{ margin: 0, lineHeight: '1.6', marginBottom: 'var(--space-2)' }}>
                 Minifigure data provided by <a
                   href="https://www.bricklink.com"
                   target="_blank"
@@ -158,7 +158,7 @@ export default function RootLayout({
                 display: 'flex',
                 justifyContent: 'center',
                 gap: '20px',
-                marginBottom: '16px',
+                marginBottom: 'var(--space-2)',
                 fontSize: 'var(--text-sm)',
                 flexWrap: 'wrap'
               }}>
