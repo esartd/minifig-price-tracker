@@ -118,6 +118,7 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
 
   // Misc Movies
   'The LEGO Movie': 'Emmet',
+  'The LEGO Movie 2': 'Emmet',
   'The LEGO Batman Movie': 'Batman',
   'The LEGO Ninjago Movie': 'Lloyd',
   'Toy Story': 'Woody',
