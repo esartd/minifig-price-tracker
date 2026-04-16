@@ -185,7 +185,7 @@ export default function PersonalCollectionPage() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   padding: '10px 20px',
-                  fontSize: '14px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: '600',
                   color: 'white',
                   background: '#3b82f6',
@@ -227,7 +227,7 @@ export default function PersonalCollectionPage() {
                   minWidth: '140px'
                 }}>
                   <div className="collection-stat-label" style={{
-                    fontSize: '12px',
+                    fontSize: 'var(--text-xs)',
                     fontWeight: '500',
                     color: '#737373',
                     marginBottom: '4px',
@@ -236,7 +236,7 @@ export default function PersonalCollectionPage() {
                     Total Value
                   </div>
                   <div className="collection-stat-value" style={{
-                    fontSize: '24px',
+                    fontSize: 'var(--text-xl)',
                     fontWeight: '700',
                     color: '#171717',
                     lineHeight: '1'
@@ -252,7 +252,7 @@ export default function PersonalCollectionPage() {
                   minWidth: '140px'
                 }}>
                   <div className="collection-stat-label" style={{
-                    fontSize: '12px',
+                    fontSize: 'var(--text-xs)',
                     fontWeight: '500',
                     color: '#737373',
                     marginBottom: '4px',
@@ -261,7 +261,7 @@ export default function PersonalCollectionPage() {
                     Total Items
                   </div>
                   <div className="collection-stat-value" style={{
-                    fontSize: '24px',
+                    fontSize: 'var(--text-xl)',
                     fontWeight: '700',
                     color: '#171717',
                     lineHeight: '1'
@@ -277,7 +277,7 @@ export default function PersonalCollectionPage() {
                   minWidth: '140px'
                 }}>
                   <div className="collection-stat-label" style={{
-                    fontSize: '12px',
+                    fontSize: 'var(--text-xs)',
                     fontWeight: '500',
                     color: '#737373',
                     marginBottom: '4px',
@@ -286,7 +286,7 @@ export default function PersonalCollectionPage() {
                     Avg Value
                   </div>
                   <div className="collection-stat-value" style={{
-                    fontSize: '24px',
+                    fontSize: 'var(--text-xl)',
                     fontWeight: '700',
                     color: '#171717',
                     lineHeight: '1'
@@ -304,7 +304,7 @@ export default function PersonalCollectionPage() {
           <div className="collection-header-wrapper" style={{ marginBottom: '32px' }}>
             <div style={{ marginBottom: '16px' }}>
               <h1 style={{
-                fontSize: '32px',
+                fontSize: 'var(--text-2xl)',
                 fontWeight: '700',
                 lineHeight: '1.2',
                 letterSpacing: '-0.02em',
@@ -314,7 +314,7 @@ export default function PersonalCollectionPage() {
                 Your Collection
               </h1>
               <p className="collection-subtitle" style={{
-                fontSize: '16px',
+                fontSize: 'var(--text-base)',
                 color: '#525252',
                 lineHeight: '1.6'
               }}>
@@ -329,7 +329,7 @@ export default function PersonalCollectionPage() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 padding: '16px 32px',
-                fontSize: '16px',
+                fontSize: 'var(--text-base)',
                 fontWeight: '600',
                 color: 'white',
                 background: '#3b82f6',
@@ -360,7 +360,7 @@ export default function PersonalCollectionPage() {
             marginBottom: '32px'
           }}>
             <h2 style={{
-              fontSize: '20px',
+              fontSize: 'var(--text-lg)',
               fontWeight: '600',
               color: '#171717',
               letterSpacing: '-0.01em'
@@ -376,7 +376,7 @@ export default function PersonalCollectionPage() {
                     flex: '0 0 auto',
                     minWidth: '200px',
                     padding: '8px 16px',
-                    fontSize: '13px',
+                    fontSize: 'var(--text-xs)',
                     fontWeight: '600',
                     color: '#171717',
                     background: '#f5f5f5',
@@ -406,7 +406,7 @@ export default function PersonalCollectionPage() {
                   onClick={() => setShowDecimals(!showDecimals)}
                   style={{
                     padding: '8px 20px',
-                    fontSize: '13px',
+                    fontSize: 'var(--text-xs)',
                     fontWeight: '700',
                     color: showDecimals ? '#ffffff' : '#525252',
                     background: showDecimals ? '#3b82f6' : '#f5f5f5',
@@ -440,9 +440,9 @@ export default function PersonalCollectionPage() {
 
           {collection.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '60px 0' }}>
-              <div style={{ fontSize: '64px', marginBottom: '24px' }}>🏠</div>
+              <div style={{ fontSize: 'var(--text-3xl)', marginBottom: '24px' }}>🏠</div>
               <h3 style={{
-                fontSize: '20px',
+                fontSize: 'var(--text-lg)',
                 fontWeight: '600',
                 color: '#171717',
                 marginBottom: '12px'
@@ -450,7 +450,7 @@ export default function PersonalCollectionPage() {
                 No minifigs yet
               </h3>
               <p style={{
-                fontSize: '16px',
+                fontSize: 'var(--text-base)',
                 color: '#737373',
                 marginBottom: '32px',
                 lineHeight: '1.6'
@@ -462,7 +462,7 @@ export default function PersonalCollectionPage() {
                 style={{
                   display: 'inline-block',
                   padding: '16px 32px',
-                  fontSize: '16px',
+                  fontSize: 'var(--text-base)',
                   fontWeight: '600',
                   color: 'white',
                   background: '#3b82f6',

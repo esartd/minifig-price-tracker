@@ -298,7 +298,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
             padding: '12px',
             backgroundColor: '#eff6ff',
             borderRadius: '6px',
-            fontSize: '13px',
+            fontSize: 'var(--text-xs)',
             color: '#1e40af',
             border: '1px solid #dbeafe'
           }}>
@@ -316,7 +316,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
               color: loading ? '#a3a3a3' : '#3b82f6',
               border: loading ? '2px solid #d4d4d4' : '2px solid #3b82f6',
               borderRadius: '8px',
-              fontSize: '15px',
+              fontSize: 'var(--text-sm)',
               fontWeight: '600',
               cursor: loading ? 'not-allowed' : 'pointer',
               display: 'flex',
@@ -357,7 +357,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
             color: '#525252',
             border: '1px solid #e5e5e5',
             borderRadius: '8px',
-            fontSize: '15px',
+            fontSize: 'var(--text-sm)',
             fontWeight: '600',
             cursor: 'pointer',
             display: 'flex',
@@ -394,7 +394,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
       {preview && !showDetailedForm ? (
         <>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-            <h3 style={{ fontSize: '20px', fontWeight: '600', margin: 0 }}>Generated Listing</h3>
+            <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', margin: 0 }}>Generated Listing</h3>
             <button
               onClick={() => setShowDetailedForm(true)}
               title="Adjust Settings"
@@ -430,7 +430,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
           <div style={{ marginBottom: '24px' }}>
             <div style={{ marginBottom: '16px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                <strong style={{ fontSize: '14px', fontWeight: '600', color: '#171717' }}>Title:</strong>
+                <strong style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: '#171717' }}>Title:</strong>
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText(editedTitle);
@@ -442,7 +442,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                     color: 'white',
                     border: 'none',
                     borderRadius: '8px',
-                    fontSize: '13px',
+                    fontSize: 'var(--text-xs)',
                     fontWeight: '600',
                     cursor: 'pointer',
                     transition: 'all 0.2s'
@@ -466,7 +466,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                   backgroundColor: '#f9fafb',
                   border: '1px solid #e5e5e5',
                   borderRadius: '8px',
-                  fontSize: '14px',
+                  fontSize: 'var(--text-sm)',
                   fontFamily: 'inherit',
                   minHeight: '60px',
                   resize: 'vertical',
@@ -478,7 +478,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
             {/* Suggested Price */}
             <div style={{ marginBottom: '16px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                <strong style={{ fontSize: '14px', fontWeight: '600', color: '#171717' }}>Price:</strong>
+                <strong style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: '#171717' }}>Price:</strong>
                 <button
                   onClick={() => {
                     const price = formData.platform === 'facebook'
@@ -493,7 +493,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                     color: 'white',
                     border: 'none',
                     borderRadius: '8px',
-                    fontSize: '13px',
+                    fontSize: 'var(--text-xs)',
                     fontWeight: '600',
                     cursor: 'pointer',
                     transition: 'all 0.2s'
@@ -508,13 +508,13 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                   Copy Price
                 </button>
               </div>
-              <div style={{ padding: '12px', backgroundColor: '#f9fafb', borderRadius: '8px', fontSize: '16px', fontWeight: '600', color: '#171717' }}>
+              <div style={{ padding: '12px', backgroundColor: '#f9fafb', borderRadius: '8px', fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717' }}>
                 {formData.platform === 'facebook'
                   ? `$${Math.round(item.pricing?.suggestedPrice ?? 0)}`
                   : `$${(item.pricing?.suggestedPrice ?? 0).toFixed(2)}`
                 }
                 {formData.platform === 'facebook' && (
-                  <span style={{ fontSize: '12px', color: '#737373', marginLeft: '8px', fontWeight: 'normal' }}>
+                  <span style={{ fontSize: 'var(--text-xs)', color: '#737373', marginLeft: '8px', fontWeight: 'normal' }}>
                     (whole number)
                   </span>
                 )}
@@ -523,7 +523,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
 
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                <strong style={{ fontSize: '14px', fontWeight: '600', color: '#171717' }}>Description:</strong>
+                <strong style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: '#171717' }}>Description:</strong>
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText(editedDescription);
@@ -535,7 +535,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                     color: 'white',
                     border: 'none',
                     borderRadius: '8px',
-                    fontSize: '13px',
+                    fontSize: 'var(--text-xs)',
                     fontWeight: '600',
                     cursor: 'pointer',
                     transition: 'all 0.2s'
@@ -559,7 +559,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                   backgroundColor: '#f9fafb',
                   border: '1px solid #e5e5e5',
                   borderRadius: '8px',
-                  fontSize: '14px',
+                  fontSize: 'var(--text-sm)',
                   fontFamily: 'inherit',
                   minHeight: '200px',
                   resize: 'vertical',
@@ -584,7 +584,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
-                fontSize: '15px',
+                fontSize: 'var(--text-sm)',
                 fontWeight: '600',
                 cursor: 'pointer',
                 transition: 'all 0.2s'
@@ -602,13 +602,13 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
         </>
       ) : showDetailedForm ? (
         <>
-          <h3 style={{ fontSize: '20px', fontWeight: '600', margin: 0, marginBottom: '24px' }}>
+          <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', margin: 0, marginBottom: '24px' }}>
             {preview ? 'Adjust Settings' : 'Generate Listing'}
           </h3>
 
           {/* Platform Selection */}
           <div style={{ marginBottom: '16px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: '14px', color: '#171717' }}>Platform:</label>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Platform:</label>
             <select
               value={formData.platform}
               onChange={(e) => handlePlatformChange(e.target.value as 'facebook' | 'ebay' | 'bricklink')}
@@ -617,7 +617,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                 padding: '12px 16px',
                 border: '1px solid #e5e5e5',
                 borderRadius: '8px',
-                fontSize: '14px',
+                fontSize: 'var(--text-sm)',
                 backgroundColor: '#ffffff',
                 cursor: 'pointer',
                 appearance: 'none',
@@ -636,7 +636,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
 
           {/* Condition */}
           <div style={{ marginBottom: '16px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: '14px', color: '#171717' }}>Condition:</label>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Condition:</label>
             <select
               value={formData.condition_detail}
               onChange={(e) => setFormData(prev => ({ ...prev, condition_detail: e.target.value }))}
@@ -645,7 +645,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                 padding: '12px 16px',
                 border: '1px solid #e5e5e5',
                 borderRadius: '8px',
-                fontSize: '14px',
+                fontSize: 'var(--text-sm)',
                 backgroundColor: '#ffffff',
                 cursor: 'pointer',
                 appearance: 'none',
@@ -687,7 +687,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
 
           {/* Accessories */}
           <div style={{ marginBottom: '16px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: '14px', color: '#171717' }}>Accessories Included:</label>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Accessories Included:</label>
             <textarea
               placeholder="Helmet, blasters, cape..."
               value={formData.accessories}
@@ -697,7 +697,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                 padding: '12px',
                 border: '1px solid #e5e5e5',
                 borderRadius: '8px',
-                fontSize: '14px',
+                fontSize: 'var(--text-sm)',
                 minHeight: '80px',
                 fontFamily: 'inherit',
                 resize: 'vertical',
@@ -708,7 +708,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
 
           {/* Known Flaws */}
           <div style={{ marginBottom: '16px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: '14px', color: '#171717' }}>Known Flaws (optional):</label>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Known Flaws (optional):</label>
             <textarea
               placeholder="Minor print wear, loose joints..."
               value={formData.known_flaws}
@@ -718,7 +718,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                 padding: '12px',
                 border: '1px solid #e5e5e5',
                 borderRadius: '8px',
-                fontSize: '14px',
+                fontSize: 'var(--text-sm)',
                 minHeight: '80px',
                 fontFamily: 'inherit',
                 resize: 'vertical',
@@ -729,7 +729,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
 
           {/* Quantity */}
           <div style={{ marginBottom: '24px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: '14px', color: '#171717' }}>Quantity to List:</label>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Quantity to List:</label>
             <input
               type="number"
               min="1"
@@ -741,20 +741,20 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                 padding: '12px 16px',
                 border: '1px solid #e5e5e5',
                 borderRadius: '8px',
-                fontSize: '14px'
+                fontSize: 'var(--text-sm)'
               }}
             />
           </div>
 
           {/* Preferences */}
           <div style={{ marginBottom: '24px', padding: '16px', backgroundColor: '#f9fafb', borderRadius: '8px', border: '1px solid #e5e5e5' }}>
-            <label style={{ display: 'block', marginBottom: '12px', fontWeight: '600', fontSize: '14px', color: '#171717' }}>Include in listing:</label>
+            <label style={{ display: 'block', marginBottom: '12px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Include in listing:</label>
 
             <div style={{ display: 'grid', gap: '8px' }}>
               {/* Facebook-specific */}
               {formData.platform === 'facebook' && (
                 <>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
                     <input
                       type="checkbox"
                       checked={preferences.offersShipping}
@@ -763,7 +763,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                     I offer shipping
                   </label>
 
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
                     <input
                       type="checkbox"
                       checked={preferences.offersLocalPickup}
@@ -772,7 +772,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                     I offer local pickup
                   </label>
 
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
                     <input
                       type="checkbox"
                       checked={preferences.offersBundleDiscount}
@@ -781,7 +781,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                     Bundle discounts available
                   </label>
 
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
                     <input
                       type="checkbox"
                       checked={preferences.acceptsCash}
@@ -790,7 +790,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                     Accept cash
                   </label>
 
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
                     <input
                       type="checkbox"
                       checked={preferences.acceptsVenmo}
@@ -799,7 +799,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                     Accept Venmo
                   </label>
 
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
                     <input
                       type="checkbox"
                       checked={preferences.acceptsPayPal}
@@ -813,7 +813,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
               {/* eBay-specific */}
               {formData.platform === 'ebay' && (
                 <>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
                     <input
                       type="checkbox"
                       checked={preferences.acceptsOffers}
@@ -822,7 +822,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                     Offers accepted - "Make Offer" enabled
                   </label>
 
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
                     <input
                       type="checkbox"
                       checked={preferences.fastShipping}
@@ -831,7 +831,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                     Ships fast and securely
                   </label>
 
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
                     <input
                       type="checkbox"
                       checked={preferences.carefulPackaging}
@@ -840,7 +840,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                     Carefully packaged in protective material
                   </label>
 
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
                     <input
                       type="checkbox"
                       checked={preferences.messageWithQuestions}
@@ -854,7 +854,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
               {/* BrickLink-specific */}
               {formData.platform === 'bricklink' && (
                 <>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
                     <input
                       type="checkbox"
                       checked={preferences.shipsWithTracking}
@@ -863,7 +863,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                     Shipped with tracking
                   </label>
 
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
                     <input
                       type="checkbox"
                       checked={preferences.carefulPackaging}
@@ -872,7 +872,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                     Carefully packaged
                   </label>
 
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', cursor: 'pointer' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
                     <input
                       type="checkbox"
                       checked={preferences.messageWithQuestions}
@@ -884,7 +884,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
               )}
 
               {/* Common to all platforms */}
-              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', cursor: 'pointer' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
                 <input
                   type="checkbox"
                   checked={preferences.smokeFreeHome}
@@ -910,7 +910,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                 color: '#525252',
                 border: '1px solid #e5e5e5',
                 borderRadius: '8px',
-                fontSize: '15px',
+                fontSize: 'var(--text-sm)',
                 fontWeight: '600',
                 cursor: 'pointer',
                 transition: 'all 0.2s'
@@ -934,7 +934,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
-                fontSize: '15px',
+                fontSize: 'var(--text-sm)',
                 fontWeight: '600',
                 cursor: loading ? 'not-allowed' : 'pointer',
                 transition: 'all 0.2s'

@@ -126,7 +126,7 @@ export default function RootLayout({
             <footer style={{
               padding: '40px 32px',
               textAlign: 'center',
-              fontSize: '14px',
+              fontSize: 'var(--text-sm)',
               color: '#737373',
               borderTop: '1px solid #e5e5e5',
               background: '#ffffff'
@@ -145,7 +145,7 @@ export default function RootLayout({
                 </a>.
                 {' '}LEGO® is a trademark of the LEGO Group.
               </p>
-              <p style={{ margin: 0, lineHeight: '1.6', fontSize: '13px', color: '#a3a3a3' }}>
+              <p style={{ margin: 0, lineHeight: '1.6', fontSize: 'var(--text-xs)', color: '#a3a3a3' }}>
                 Designed by <a
                   href="https://ericksu.com"
                   target="_blank"

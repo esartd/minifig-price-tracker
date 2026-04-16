@@ -8,7 +8,7 @@ export default function PriceDisplay({ loading, price, compact = false }: PriceD
   if (loading) {
     return (
       <div style={{
-        fontSize: '14px',
+        fontSize: 'var(--text-sm)',
         color: '#a3a3a3'
       }}>
         Loading price...
@@ -20,7 +20,7 @@ export default function PriceDisplay({ loading, price, compact = false }: PriceD
     return (
       <div style={{ marginTop: '12px' }}>
         <div style={{
-          fontSize: '12px',
+          fontSize: 'var(--text-xs)',
           fontWeight: '500',
           color: '#737373',
           textTransform: 'uppercase',
@@ -30,7 +30,7 @@ export default function PriceDisplay({ loading, price, compact = false }: PriceD
           Suggested Price
         </div>
         <div style={{
-          fontSize: '16px',
+          fontSize: 'var(--text-base)',
           fontWeight: '500',
           color: '#a3a3a3',
           fontStyle: 'italic'
@@ -48,7 +48,7 @@ export default function PriceDisplay({ loading, price, compact = false }: PriceD
         marginLeft: '12px'
       }}>
         <div style={{
-          fontSize: '12px',
+          fontSize: 'var(--text-xs)',
           fontWeight: '500',
           color: '#737373',
           textTransform: 'uppercase',
@@ -58,7 +58,7 @@ export default function PriceDisplay({ loading, price, compact = false }: PriceD
           Suggested Price
         </div>
         <div style={{
-          fontSize: '18px',
+          fontSize: 'var(--text-base)',
           fontWeight: '600',
           color: '#171717'
         }}>
@@ -71,7 +71,7 @@ export default function PriceDisplay({ loading, price, compact = false }: PriceD
   return (
     <div style={{ marginTop: '12px' }}>
       <div style={{
-        fontSize: '12px',
+        fontSize: 'var(--text-xs)',
         fontWeight: '500',
         color: '#737373',
         textTransform: 'uppercase',
@@ -81,7 +81,7 @@ export default function PriceDisplay({ loading, price, compact = false }: PriceD
         Suggested Price
       </div>
       <div style={{
-        fontSize: '32px',
+        fontSize: 'var(--text-2xl)',
         fontWeight: '600',
         color: '#171717',
         letterSpacing: '-0.01em'

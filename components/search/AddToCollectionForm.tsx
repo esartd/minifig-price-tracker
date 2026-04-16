@@ -53,7 +53,7 @@ export default function AddToCollectionForm({ onAdd, loading, session }: AddToCo
       <div>
         <label style={{
           display: 'block',
-          fontSize: '14px',
+          fontSize: 'var(--text-sm)',
           fontWeight: '500',
           color: '#525252',
           marginBottom: '12px',
@@ -90,7 +90,7 @@ export default function AddToCollectionForm({ onAdd, loading, session }: AddToCo
               cursor: quantity > 1 ? 'pointer' : 'not-allowed',
               color: quantity > 1 ? '#171717' : '#a3a3a3',
               transition: 'all 0.2s',
-              fontSize: '20px',
+              fontSize: 'var(--text-lg)',
               fontWeight: '600',
               padding: 0
             }}
@@ -118,7 +118,7 @@ export default function AddToCollectionForm({ onAdd, loading, session }: AddToCo
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '16px',
+              fontSize: 'var(--text-base)',
               fontWeight: '600',
               color: '#171717',
               background: '#ffffff',
@@ -148,7 +148,7 @@ export default function AddToCollectionForm({ onAdd, loading, session }: AddToCo
               cursor: 'pointer',
               color: '#171717',
               transition: 'all 0.2s',
-              fontSize: '20px',
+              fontSize: 'var(--text-lg)',
               fontWeight: '600',
               padding: 0
             }}
@@ -168,7 +168,7 @@ export default function AddToCollectionForm({ onAdd, loading, session }: AddToCo
           style={{
             width: '100%',
             padding: '16px 32px',
-            fontSize: '16px',
+            fontSize: 'var(--text-base)',
             fontWeight: '600',
             color: '#ffffff',
             background: loading ? '#a3a3a3' : '#3b82f6',

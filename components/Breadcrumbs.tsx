@@ -86,7 +86,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
         aria-label="Breadcrumb"
         style={{
           marginBottom: '24px',
-          fontSize: '14px',
+          fontSize: 'var(--text-sm)',
           overflow: 'hidden'
         }}
       >

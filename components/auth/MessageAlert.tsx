@@ -28,7 +28,7 @@ export default function MessageAlert({ type, message }: MessageAlertProps) {
       borderRadius: '12px'
     }}>
       <p style={{
-        fontSize: '14px',
+        fontSize: 'var(--text-sm)',
         color: style.color,
         fontWeight: '500'
       }}>

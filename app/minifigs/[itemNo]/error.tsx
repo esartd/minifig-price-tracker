@@ -15,14 +15,14 @@ export default function Error({
       textAlign: 'center'
     }}>
       <div style={{
-        fontSize: '64px',
+        fontSize: 'var(--text-3xl)',
         marginBottom: '24px'
       }}>
         ⚠️
       </div>
 
       <h2 style={{
-        fontSize: '24px',
+        fontSize: 'var(--text-xl)',
         fontWeight: '600',
         color: '#171717',
         marginBottom: '16px',
@@ -32,7 +32,7 @@ export default function Error({
       </h2>
 
       <p style={{
-        fontSize: '16px',
+        fontSize: 'var(--text-base)',
         color: '#737373',
         lineHeight: '1.6',
         marginBottom: '32px'
@@ -50,7 +50,7 @@ export default function Error({
           onClick={reset}
           style={{
             padding: '12px 24px',
-            fontSize: '16px',
+            fontSize: 'var(--text-base)',
             fontWeight: '600',
             color: '#ffffff',
             background: '#3b82f6',
@@ -73,7 +73,7 @@ export default function Error({
           href="/search"
           style={{
             padding: '12px 24px',
-            fontSize: '16px',
+            fontSize: 'var(--text-base)',
             fontWeight: '600',
             color: '#171717',
             background: '#ffffff',

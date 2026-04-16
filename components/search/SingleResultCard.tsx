@@ -83,7 +83,7 @@ export default function SingleResultCard({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '48px'
+            fontSize: 'var(--text-3xl)'
           }}>
             🧱
           </div>
@@ -97,7 +97,7 @@ export default function SingleResultCard({
       }}>
         <div style={{ marginBottom: '40px' }}>
           <h3 style={{
-            fontSize: '24px',
+            fontSize: 'var(--text-xl)',
             fontWeight: '600',
             color: '#171717',
             letterSpacing: '-0.01em',
@@ -106,7 +106,7 @@ export default function SingleResultCard({
             {getDisplayName(minifig.name)}
           </h3>
           <p style={{
-            fontSize: '16px',
+            fontSize: 'var(--text-base)',
             color: '#737373',
             fontFamily: 'inherit',
             marginBottom: '16px'

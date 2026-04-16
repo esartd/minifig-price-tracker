@@ -33,7 +33,7 @@ export default function AuthLayout({ children, footerText = 'Track LEGO minifig 
           textAlign: 'center'
         }}>
           <p style={{
-            fontSize: '14px',
+            fontSize: 'var(--text-sm)',
             color: 'rgba(255, 255, 255, 0.6)',
             lineHeight: '1.6'
           }}>

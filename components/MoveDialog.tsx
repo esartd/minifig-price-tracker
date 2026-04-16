@@ -81,7 +81,7 @@ export default function MoveDialog({
       >
         {/* Header */}
         <h2 style={{
-          fontSize: '20px',
+          fontSize: 'var(--text-lg)',
           fontWeight: '600',
           marginBottom: '8px',
           color: '#171717'
@@ -89,7 +89,7 @@ export default function MoveDialog({
           {title}
         </h2>
         <p style={{
-          fontSize: '14px',
+          fontSize: 'var(--text-sm)',
           color: '#737373',
           marginBottom: '16px'
         }}>
@@ -104,7 +104,7 @@ export default function MoveDialog({
           marginBottom: '20px'
         }}>
           <p style={{
-            fontSize: '14px',
+            fontSize: 'var(--text-sm)',
             fontWeight: '500',
             color: '#171717'
           }}>
@@ -116,7 +116,7 @@ export default function MoveDialog({
         <div style={{ marginBottom: '20px' }}>
           <label style={{
             display: 'block',
-            fontSize: '14px',
+            fontSize: 'var(--text-sm)',
             fontWeight: '500',
             color: '#171717',
             marginBottom: '8px'
@@ -142,7 +142,7 @@ export default function MoveDialog({
                 borderRadius: '8px',
                 cursor: quantity <= 1 || loading ? 'not-allowed' : 'pointer',
                 color: quantity <= 1 ? '#d4d4d4' : '#171717',
-                fontSize: '18px',
+                fontSize: 'var(--text-base)',
                 fontWeight: '600',
                 transition: 'all 0.2s'
               }}
@@ -165,7 +165,7 @@ export default function MoveDialog({
                 flex: 1,
                 height: '36px',
                 textAlign: 'center',
-                fontSize: '14px',
+                fontSize: 'var(--text-sm)',
                 fontWeight: '500',
                 border: '1px solid #e5e5e5',
                 borderRadius: '8px',
@@ -187,7 +187,7 @@ export default function MoveDialog({
                 borderRadius: '8px',
                 cursor: quantity >= maxQuantity || loading ? 'not-allowed' : 'pointer',
                 color: quantity >= maxQuantity ? '#d4d4d4' : '#171717',
-                fontSize: '18px',
+                fontSize: 'var(--text-base)',
                 fontWeight: '600',
                 transition: 'all 0.2s'
               }}
@@ -196,7 +196,7 @@ export default function MoveDialog({
             </button>
           </div>
           <p style={{
-            fontSize: '12px',
+            fontSize: 'var(--text-xs)',
             color: '#737373',
             marginTop: '6px'
           }}>
@@ -214,7 +214,7 @@ export default function MoveDialog({
             marginBottom: '16px'
           }}>
             <p style={{
-              fontSize: '14px',
+              fontSize: 'var(--text-sm)',
               color: '#dc2626'
             }}>
               {error}
@@ -234,7 +234,7 @@ export default function MoveDialog({
             style={{
               flex: 1,
               padding: '10px 16px',
-              fontSize: '14px',
+              fontSize: 'var(--text-sm)',
               fontWeight: '500',
               color: '#171717',
               backgroundColor: '#ffffff',
@@ -252,7 +252,7 @@ export default function MoveDialog({
             style={{
               flex: 1,
               padding: '10px 16px',
-              fontSize: '14px',
+              fontSize: 'var(--text-sm)',
               fontWeight: '500',
               color: '#ffffff',
               backgroundColor: loading ? '#a3a3a3' : '#171717',

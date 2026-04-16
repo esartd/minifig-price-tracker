@@ -106,7 +106,7 @@ export default function SubcategoryMinifigsPage({
 
       <div style={{ marginBottom: '48px' }}>
         <h1 style={{
-          fontSize: '40px',
+          fontSize: 'var(--text-2xl)',
           fontWeight: '600',
           color: '#171717',
           letterSpacing: '-0.02em',
@@ -115,7 +115,7 @@ export default function SubcategoryMinifigsPage({
           {subcategory === 'Uncategorized' ? theme : subcategory}
         </h1>
         <p style={{
-          fontSize: '18px',
+          fontSize: 'var(--text-base)',
           color: '#737373',
           lineHeight: '1.6'
         }}>
@@ -193,7 +193,7 @@ export default function SubcategoryMinifigsPage({
 
                 {/* Item Number */}
                 <div style={{
-                  fontSize: '12px',
+                  fontSize: 'var(--text-xs)',
                   fontWeight: '600',
                   color: '#3b82f6',
                   marginBottom: '4px',
@@ -204,7 +204,7 @@ export default function SubcategoryMinifigsPage({
 
                 {/* Name */}
                 <div style={{
-                  fontSize: '14px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: '500',
                   color: '#171717',
                   lineHeight: '1.4',
@@ -221,7 +221,7 @@ export default function SubcategoryMinifigsPage({
                 {/* Year */}
                 {minifig.year_released && (
                   <div style={{
-                    fontSize: '12px',
+                    fontSize: 'var(--text-xs)',
                     color: '#737373',
                     marginTop: 'auto'
                   }}>

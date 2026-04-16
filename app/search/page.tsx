@@ -342,7 +342,7 @@ function SearchPageContent() {
               transition: 'all 0.4s ease-out'
             }}>
               <h1 className="fun-header-title" style={{
-                fontSize: '72px',
+                fontSize: 'var(--text-3xl)',
                 fontWeight: '600',
                 letterSpacing: '-0.02em',
                 lineHeight: '1.1',
@@ -355,7 +355,7 @@ function SearchPageContent() {
                 Track Prices. Sell Smarter.
               </h1>
               <p className="fun-header-subtitle" style={{
-                fontSize: '20px',
+                fontSize: 'var(--text-lg)',
                 lineHeight: '1.6',
                 maxWidth: '600px',
                 margin: '0 auto',
@@ -395,7 +395,7 @@ function SearchPageContent() {
             }}>
               <div>
                 <h2 style={{
-                  fontSize: '28px',
+                  fontSize: 'var(--text-xl)',
                   fontWeight: '600',
                   color: '#171717',
                   letterSpacing: '-0.01em',
@@ -404,7 +404,7 @@ function SearchPageContent() {
                   {categoryName}
                 </h2>
                 <p style={{
-                  fontSize: '14px',
+                  fontSize: 'var(--text-sm)',
                   color: '#737373'
                 }}>
                   {searchResults.length} minifigure{searchResults.length !== 1 ? 's' : ''}
@@ -420,7 +420,7 @@ function SearchPageContent() {
                 }}
                 style={{
                   padding: '8px 16px',
-                  fontSize: '14px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: '500',
                   color: '#737373',
                   background: '#ffffff',
@@ -460,7 +460,7 @@ function SearchPageContent() {
                 animation: 'spin 0.8s linear infinite'
               }}></div>
               <p style={{
-                fontSize: '16px',
+                fontSize: 'var(--text-base)',
                 color: '#737373'
               }}>
                 Searching...
@@ -475,7 +475,7 @@ function SearchPageContent() {
               padding: '80px 16px'
             }}>
               <p style={{
-                fontSize: '18px',
+                fontSize: 'var(--text-base)',
                 color: '#737373'
               }}>
                 No results found for "{searchQuery}"

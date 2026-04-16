@@ -103,7 +103,7 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
 
       <div style={{ marginBottom: '48px' }}>
         <h1 style={{
-          fontSize: '40px',
+          fontSize: 'var(--text-2xl)',
           fontWeight: '600',
           color: '#171717',
           letterSpacing: '-0.02em',
@@ -112,7 +112,7 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
           {theme}
         </h1>
         <p style={{
-          fontSize: '18px',
+          fontSize: 'var(--text-base)',
           color: '#737373',
           lineHeight: '1.6'
         }}>
@@ -181,7 +181,7 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
             {/* Text Content - Right side */}
             <div style={{ flex: 1, minWidth: 0 }}>
               <h3 style={{
-                fontSize: '18px',
+                fontSize: 'var(--text-base)',
                 fontWeight: '600',
                 color: '#171717',
                 marginBottom: '4px',
@@ -190,7 +190,7 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
                 {subcategory.subTheme}
               </h3>
               <p style={{
-                fontSize: '14px',
+                fontSize: 'var(--text-sm)',
                 color: '#737373'
               }}>
                 {subcategory.count.toLocaleString()} minifigure{subcategory.count !== 1 ? 's' : ''}

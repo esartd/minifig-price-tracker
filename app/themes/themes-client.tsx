@@ -33,7 +33,7 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
     }}>
       <div style={{ marginBottom: '48px' }}>
         <h1 style={{
-          fontSize: '40px',
+          fontSize: 'var(--text-2xl)',
           fontWeight: '600',
           color: '#171717',
           letterSpacing: '-0.02em',
@@ -42,7 +42,7 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
           Browse by Theme
         </h1>
         <p style={{
-          fontSize: '18px',
+          fontSize: 'var(--text-base)',
           color: '#737373',
           lineHeight: '1.6',
           marginBottom: '24px'
@@ -104,7 +104,7 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
                 flex: 1,
                 border: 'none',
                 outline: 'none',
-                fontSize: '16px',
+                fontSize: 'var(--text-base)',
                 fontWeight: '400',
                 color: '#202124',
                 backgroundColor: 'transparent',
@@ -160,8 +160,8 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
             <circle cx="11" cy="11" r="8"></circle>
             <path d="m21 21-4.35-4.35"></path>
           </svg>
-          <p style={{ fontSize: '18px', marginBottom: '8px', color: '#171717' }}>No themes found</p>
-          <p style={{ fontSize: '14px' }}>Try searching for something else</p>
+          <p style={{ fontSize: 'var(--text-base)', marginBottom: '8px', color: '#171717' }}>No themes found</p>
+          <p style={{ fontSize: 'var(--text-sm)' }}>Try searching for something else</p>
         </div>
       )}
 
@@ -169,14 +169,14 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
       {currentThemes.length > 0 && (
         <div style={{ marginBottom: '64px' }}>
           <h2 style={{
-            fontSize: '24px',
+            fontSize: 'var(--text-xl)',
             fontWeight: '600',
             color: '#171717',
             letterSpacing: '-0.02em',
             marginBottom: '24px'
           }}>
             Current Themes
-            {searchQuery && <span style={{ fontSize: '16px', fontWeight: 'normal', color: '#737373', marginLeft: '12px' }}>({currentThemes.length})</span>}
+            {searchQuery && <span style={{ fontSize: 'var(--text-base)', fontWeight: 'normal', color: '#737373', marginLeft: '12px' }}>({currentThemes.length})</span>}
           </h2>
           <div style={{
             display: 'grid',
@@ -194,14 +194,14 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
       {allThemes.length > 0 && (
         <div>
           <h2 style={{
-            fontSize: '24px',
+            fontSize: 'var(--text-xl)',
             fontWeight: '600',
             color: '#171717',
             letterSpacing: '-0.02em',
             marginBottom: '24px'
           }}>
             All Themes
-            {searchQuery && <span style={{ fontSize: '16px', fontWeight: 'normal', color: '#737373', marginLeft: '12px' }}>({allThemes.length})</span>}
+            {searchQuery && <span style={{ fontSize: 'var(--text-base)', fontWeight: 'normal', color: '#737373', marginLeft: '12px' }}>({allThemes.length})</span>}
           </h2>
           <div style={{
             display: 'grid',
@@ -275,7 +275,7 @@ function ThemeTile({ theme, router }: { theme: Theme; router: any }) {
       {/* Text Content - Right side */}
       <div style={{ flex: 1, minWidth: 0 }}>
         <h3 style={{
-          fontSize: '18px',
+          fontSize: 'var(--text-base)',
           fontWeight: '600',
           color: '#171717',
           marginBottom: '4px',
@@ -284,7 +284,7 @@ function ThemeTile({ theme, router }: { theme: Theme; router: any }) {
           {theme.parent}
         </h3>
         <p style={{
-          fontSize: '14px',
+          fontSize: 'var(--text-sm)',
           color: '#737373'
         }}>
           {theme.totalCount.toLocaleString()} minifigure{theme.totalCount !== 1 ? 's' : ''}

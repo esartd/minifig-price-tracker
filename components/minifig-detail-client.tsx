@@ -381,7 +381,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   <div style={{ marginBottom: '8px', marginTop: 0 }}>
                     <span style={{
                       display: 'inline-block',
-                      fontSize: '11px',
+                      fontSize: 'var(--text-xs)',
                       fontWeight: '500',
                       color: '#3b82f6',
                       textTransform: 'uppercase',
@@ -392,7 +392,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     {minifig.year_released && (
                       <span style={{
                         marginLeft: '16px',
-                        fontSize: '11px',
+                        fontSize: 'var(--text-xs)',
                         color: '#737373'
                       }}>
                         {minifig.year_released}
@@ -401,7 +401,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   </div>
 
                   <h1 style={{
-                    fontSize: '22px',
+                    fontSize: 'var(--text-lg)',
                     fontWeight: '600',
                     color: '#171717',
                     letterSpacing: '-0.02em',
@@ -412,7 +412,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   </h1>
                   {displayName.subtitle && (
                     <p style={{
-                      fontSize: '13px',
+                      fontSize: 'var(--text-xs)',
                       color: '#737373',
                       lineHeight: '1.4',
                       marginBottom: '8px'
@@ -421,7 +421,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     </p>
                   )}
                   <p style={{
-                    fontSize: '14px',
+                    fontSize: 'var(--text-sm)',
                     color: '#737373',
                     fontFamily: 'inherit',
                     marginBottom: '16px'
@@ -445,7 +445,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         borderRadius: '50%',
                         animation: 'spin 0.8s linear infinite'
                       }}></div>
-                      <p style={{ fontSize: '14px' }}>Loading pricing...</p>
+                      <p style={{ fontSize: 'var(--text-sm)' }}>Loading pricing...</p>
                     </div>
                   ) : pricing.suggestedPrice > 0 ? (
                     <div className="minifig-pricing-row" style={{
@@ -591,7 +591,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       background: '#fafafa',
                       borderRadius: '8px',
                       color: '#737373',
-                      fontSize: '14px'
+                      fontSize: 'var(--text-sm)'
                     }}>
                       No pricing data available
                     </div>
@@ -618,7 +618,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       {collectionItem && (
                         <>
                           <h2 style={{
-                            fontSize: '16px',
+                            fontSize: 'var(--text-base)',
                             fontWeight: '600',
                             color: '#171717',
                             marginBottom: '16px'
@@ -649,7 +649,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                               cursor: collectionItem.quantity > 1 ? 'pointer' : 'not-allowed',
                               color: collectionItem.quantity > 1 ? '#171717' : '#a3a3a3',
                               transition: 'all 0.2s',
-                              fontSize: '20px',
+                              fontSize: 'var(--text-lg)',
                               fontWeight: '600',
                               padding: 0,
                               flexShrink: 0
@@ -668,7 +668,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                             flex: 1,
                             minWidth: '40px',
                             height: '44px',
-                            fontSize: '16px',
+                            fontSize: 'var(--text-base)',
                             fontWeight: '600',
                             color: '#171717',
                             background: '#ffffff',
@@ -702,7 +702,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                               cursor: collectionItem.quantity < 9999 ? 'pointer' : 'not-allowed',
                               color: collectionItem.quantity < 9999 ? '#171717' : '#a3a3a3',
                               transition: 'all 0.2s',
-                              fontSize: '20px',
+                              fontSize: 'var(--text-lg)',
                               fontWeight: '600',
                               padding: 0,
                               flexShrink: 0
@@ -742,7 +742,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       {personalCollectionItem && (
                         <>
                           <h2 style={{
-                            fontSize: '16px',
+                            fontSize: 'var(--text-base)',
                             fontWeight: '600',
                             color: '#171717',
                             marginTop: collectionItem ? '32px' : '0',
@@ -786,7 +786,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                   cursor: personalCollectionItem.quantity > 1 ? 'pointer' : 'not-allowed',
                                   color: personalCollectionItem.quantity > 1 ? '#171717' : '#a3a3a3',
                                   transition: 'all 0.2s',
-                                  fontSize: '20px',
+                                  fontSize: 'var(--text-lg)',
                                   fontWeight: '600',
                                   padding: 0,
                                   flexShrink: 0
@@ -805,7 +805,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                 flex: 1,
                                 minWidth: '40px',
                                 height: '44px',
-                                fontSize: '16px',
+                                fontSize: 'var(--text-base)',
                                 fontWeight: '600',
                                 color: '#171717',
                                 background: '#ffffff',
@@ -852,7 +852,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                   cursor: personalCollectionItem.quantity < 9999 ? 'pointer' : 'not-allowed',
                                   color: personalCollectionItem.quantity < 9999 ? '#171717' : '#a3a3a3',
                                   transition: 'all 0.2s',
-                                  fontSize: '20px',
+                                  fontSize: 'var(--text-lg)',
                                   fontWeight: '600',
                                   padding: 0,
                                   flexShrink: 0
@@ -905,7 +905,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           {!collectionItem && !personalCollectionItem ? (
                             <>
                               <h2 style={{
-                                fontSize: '16px',
+                                fontSize: 'var(--text-base)',
                                 fontWeight: '600',
                                 color: '#171717',
                                 marginBottom: '16px'
@@ -917,7 +917,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                               <div style={{ marginBottom: '16px' }}>
                                 <label style={{
                                   display: 'block',
-                                  fontSize: '14px',
+                                  fontSize: 'var(--text-sm)',
                                   fontWeight: '500',
                                   color: '#525252',
                                   marginBottom: '8px'
@@ -947,7 +947,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                       borderRight: '1px solid #e5e5e5',
                                       cursor: quantity > 1 ? 'pointer' : 'not-allowed',
                                       color: quantity > 1 ? '#171717' : '#a3a3a3',
-                                      fontSize: '20px',
+                                      fontSize: 'var(--text-lg)',
                                       fontWeight: '600'
                                     }}
                                   >
@@ -968,7 +968,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                     style={{
                                       width: '60px',
                                       height: '44px',
-                                      fontSize: '16px',
+                                      fontSize: 'var(--text-base)',
                                       fontWeight: '600',
                                       color: '#171717',
                                       background: '#ffffff',
@@ -992,7 +992,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                       borderLeft: '1px solid #e5e5e5',
                                       cursor: quantity < 9999 ? 'pointer' : 'not-allowed',
                                       color: quantity < 9999 ? '#171717' : '#a3a3a3',
-                                      fontSize: '20px',
+                                      fontSize: 'var(--text-lg)',
                                       fontWeight: '600'
                                     }}
                                   >
@@ -1012,7 +1012,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                   disabled={addLoading}
                                   style={{
                                     padding: '14px 20px',
-                                    fontSize: '15px',
+                                    fontSize: 'var(--text-sm)',
                                     fontWeight: '600',
                                     color: '#ffffff',
                                     background: addLoading ? '#a3a3a3' : '#3b82f6',
@@ -1036,7 +1036,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                   disabled={addPersonalLoading}
                                   style={{
                                     padding: '14px 20px',
-                                    fontSize: '15px',
+                                    fontSize: 'var(--text-sm)',
                                     fontWeight: '600',
                                     color: '#ffffff',
                                     background: addPersonalLoading ? '#a3a3a3' : '#3b82f6',
@@ -1067,7 +1067,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                   style={{
                                     width: '100%',
                                     padding: '16px 32px',
-                                    fontSize: '16px',
+                                    fontSize: 'var(--text-base)',
                                     fontWeight: '600',
                                     color: '#ffffff',
                                     background: addLoading ? '#a3a3a3' : '#3b82f6',
@@ -1094,7 +1094,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                   style={{
                                     width: '100%',
                                     padding: '16px 32px',
-                                    fontSize: '16px',
+                                    fontSize: 'var(--text-base)',
                                     fontWeight: '600',
                                     color: '#ffffff',
                                     background: addPersonalLoading ? '#a3a3a3' : '#3b82f6',
@@ -1139,7 +1139,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     background: '#d1fae5',
                     border: '1px solid #6ee7b7',
                     borderRadius: '8px',
-                    fontSize: '14px',
+                    fontSize: 'var(--text-sm)',
                     color: '#065f46',
                     fontWeight: '500'
                   }}>
@@ -1154,7 +1154,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     background: '#fee2e2',
                     border: '1px solid #fca5a5',
                     borderRadius: '8px',
-                    fontSize: '14px',
+                    fontSize: 'var(--text-sm)',
                     color: '#991b1b',
                     fontWeight: '500'
                   }}>
@@ -1174,7 +1174,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     gap: '8px',
                     marginTop: '16px',
                     padding: '14px 20px',
-                    fontSize: '15px',
+                    fontSize: 'var(--text-sm)',
                     fontWeight: '600',
                     color: '#525252',
                     background: '#ffffff',
@@ -1270,7 +1270,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       </div>
                       <div style={{ padding: '8px 16px 16px' }}>
                         <p style={{
-                          fontSize: '14px',
+                          fontSize: 'var(--text-sm)',
                           fontWeight: '600',
                           color: '#171717',
                           marginBottom: '4px',
@@ -1282,7 +1282,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           {related.name}
                         </p>
                         <p style={{
-                          fontSize: '12px',
+                          fontSize: 'var(--text-xs)',
                           color: '#737373',
                           fontFamily: 'inherit'
                         }}>
@@ -1345,7 +1345,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       </div>
                       <div style={{ padding: '8px 16px 16px' }}>
                         <p style={{
-                          fontSize: '14px',
+                          fontSize: 'var(--text-sm)',
                           fontWeight: '600',
                           color: '#171717',
                           marginBottom: '4px',
@@ -1357,7 +1357,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           {variant.name}
                         </p>
                         <p style={{
-                          fontSize: '12px',
+                          fontSize: 'var(--text-xs)',
                           color: '#737373',
                           fontFamily: 'inherit'
                         }}>

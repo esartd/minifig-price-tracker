@@ -73,14 +73,14 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
         border: '1px solid #e5e5e5'
       }}>
         <p style={{
-          fontSize: '16px',
+          fontSize: 'var(--text-base)',
           color: '#737373',
           margin: 0
         }}>
           Price history will appear here as data is collected over time
         </p>
         <p style={{
-          fontSize: '14px',
+          fontSize: 'var(--text-sm)',
           color: '#a3a3a3',
           marginTop: '8px',
           marginBottom: 0
@@ -120,7 +120,7 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
         border: '1px solid #fca5a5'
       }}>
         <p style={{
-          fontSize: '14px',
+          fontSize: 'var(--text-sm)',
           color: '#991b1b',
           margin: 0
         }}>
@@ -146,7 +146,7 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
         gap: '12px'
       }}>
         <h2 style={{
-          fontSize: '18px',
+          fontSize: 'var(--text-base)',
           fontWeight: '600',
           color: '#171717',
           margin: 0,
@@ -162,7 +162,7 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
           onClick={() => setTimeframe('6months')}
           style={{
             padding: '8px 16px',
-            fontSize: '14px',
+            fontSize: 'var(--text-sm)',
             fontWeight: '500',
             color: timeframe === '6months' ? '#ffffff' : '#737373',
             background: timeframe === '6months' ? '#3b82f6' : '#ffffff',
@@ -189,7 +189,7 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
           onClick={() => setTimeframe('all')}
           style={{
             padding: '8px 16px',
-            fontSize: '14px',
+            fontSize: 'var(--text-sm)',
             fontWeight: '500',
             color: timeframe === 'all' ? '#ffffff' : '#737373',
             background: timeframe === 'all' ? '#3b82f6' : '#ffffff',
@@ -331,7 +331,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
                 top: `${topPercent}%`,
                 left: '0',
                 transform: 'translateY(-50%)',
-                fontSize: '11px',
+                fontSize: 'var(--text-xs)',
                 fontWeight: '500',
                 color: '#737373',
                 paddingRight: '12px',
@@ -356,7 +356,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
                   position: 'absolute',
                   bottom: '6px',
                   left: `${(chartPadding.left / chartWidth) * 100}%`,
-                  fontSize: '11px',
+                  fontSize: 'var(--text-xs)',
                   fontWeight: '500',
                   color: '#737373',
                   pointerEvents: 'none',
@@ -373,7 +373,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
                 bottom: '6px',
                 right: data.length === 1 ? '50%' : `${(chartPadding.right / chartWidth) * 100}%`,
                 transform: data.length === 1 ? 'translateX(50%)' : 'none',
-                fontSize: '11px',
+                fontSize: 'var(--text-xs)',
                 fontWeight: '500',
                 color: '#737373',
                 pointerEvents: 'none',

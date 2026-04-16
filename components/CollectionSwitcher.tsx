@@ -20,7 +20,7 @@ export default function CollectionSwitcher({ currentPage }: CollectionSwitcherPr
     <button
       onClick={handleClick}
       style={{
-        fontSize: '28px',
+        fontSize: 'var(--text-xl)',
         fontWeight: '700',
         lineHeight: '1',
         letterSpacing: '-0.02em',

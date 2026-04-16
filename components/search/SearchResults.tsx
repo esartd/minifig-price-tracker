@@ -141,7 +141,7 @@ export default function SearchResults({
     }}>
       <div className="search-results-header" style={{ marginBottom: '32px' }}>
         <h2 style={{
-          fontSize: '24px',
+          fontSize: 'var(--text-xl)',
           fontWeight: '600',
           color: '#171717',
           letterSpacing: '-0.01em'
@@ -162,7 +162,7 @@ export default function SearchResults({
           />
 
           <p className="search-results-count" style={{
-            fontSize: '15px',
+            fontSize: 'var(--text-sm)',
             fontWeight: '500',
             color: '#737373',
             marginBottom: '8px'

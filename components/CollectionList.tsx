@@ -77,9 +77,9 @@ export default function CollectionList({
         textAlign: 'center',
         padding: '80px 32px'
       }}>
-        <div style={{ fontSize: '64px', marginBottom: '24px' }}>🔍</div>
+        <div style={{ fontSize: 'var(--text-3xl)', marginBottom: '24px' }}>🔍</div>
         <p style={{
-          fontSize: '18px',
+          fontSize: 'var(--text-base)',
           fontWeight: '600',
           color: '#171717',
           marginBottom: '8px'
@@ -87,7 +87,7 @@ export default function CollectionList({
           No minifigures in your inventory yet
         </p>
         <p style={{
-          fontSize: '16px',
+          fontSize: 'var(--text-base)',
           color: '#737373',
           lineHeight: '1.6'
         }}>
@@ -147,7 +147,7 @@ export default function CollectionList({
                 unoptimized
               />
             ) : (
-              <span style={{ fontSize: '28px' }}>🧱</span>
+              <span style={{ fontSize: 'var(--text-xl)' }}>🧱</span>
             )}
           </div>
 
@@ -160,7 +160,7 @@ export default function CollectionList({
             justifyContent: 'center'
           }}>
             <h3 style={{
-              fontSize: '17px',
+              fontSize: 'var(--text-base)',
               fontWeight: '600',
               color: '#171717',
               marginBottom: '6px',
@@ -172,7 +172,7 @@ export default function CollectionList({
               {item.minifigure_name}
             </h3>
             <p style={{
-              fontSize: '13px',
+              fontSize: 'var(--text-xs)',
               color: '#737373',
               fontFamily: 'inherit',
               marginBottom: '10px'
@@ -184,24 +184,24 @@ export default function CollectionList({
                 {item.quantity > 1 ? (
                   <>
                     <div style={{
-                      fontSize: '13px',
+                      fontSize: 'var(--text-xs)',
                       color: '#737373',
                       fontWeight: '500'
                     }}>
                       ${showDecimals ? item.pricing.suggestedPrice.toFixed(2) : Math.round(item.pricing.suggestedPrice)} ea
                     </div>
                     <div style={{
-                      fontSize: '20px',
+                      fontSize: 'var(--text-lg)',
                       fontWeight: '700',
                       color: '#3b82f6',
                       letterSpacing: '-0.01em'
                     }}>
-                      ${showDecimals ? (item.pricing.suggestedPrice * item.quantity).toFixed(2) : Math.round(item.pricing.suggestedPrice * item.quantity)} <span style={{ fontSize: '13px', fontWeight: '500', color: '#737373' }}>total</span>
+                      ${showDecimals ? (item.pricing.suggestedPrice * item.quantity).toFixed(2) : Math.round(item.pricing.suggestedPrice * item.quantity)} <span style={{ fontSize: 'var(--text-xs)', fontWeight: '500', color: '#737373' }}>total</span>
                     </div>
                   </>
                 ) : (
                   <div style={{
-                    fontSize: '20px',
+                    fontSize: 'var(--text-lg)',
                     fontWeight: '700',
                     color: '#3b82f6',
                     letterSpacing: '-0.01em'
@@ -251,7 +251,7 @@ export default function CollectionList({
                   borderRight: '1px solid #e5e5e5',
                   cursor: item.quantity > 1 ? 'pointer' : 'not-allowed',
                   color: item.quantity > 1 ? '#171717' : '#a3a3a3',
-                  fontSize: '18px',
+                  fontSize: 'var(--text-base)',
                   fontWeight: '600',
                   padding: 0
                 }}
@@ -272,7 +272,7 @@ export default function CollectionList({
                   style={{
                     width: '60px',
                     height: '44px',
-                    fontSize: '14px',
+                    fontSize: 'var(--text-sm)',
                     fontWeight: '600',
                     color: '#171717',
                     background: '#ffffff',
@@ -288,7 +288,7 @@ export default function CollectionList({
                   style={{
                     width: '60px',
                     height: '44px',
-                    fontSize: '14px',
+                    fontSize: 'var(--text-sm)',
                     fontWeight: '600',
                     color: '#171717',
                     display: 'flex',
@@ -322,7 +322,7 @@ export default function CollectionList({
                   borderLeft: '1px solid #e5e5e5',
                   cursor: item.quantity < 9999 ? 'pointer' : 'not-allowed',
                   color: item.quantity < 9999 ? '#171717' : '#a3a3a3',
-                  fontSize: '18px',
+                  fontSize: 'var(--text-base)',
                   fontWeight: '600',
                   padding: 0
                 }}

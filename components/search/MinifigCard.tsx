@@ -95,7 +95,7 @@ export default function MinifigCard({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '32px'
+            fontSize: 'var(--text-2xl)'
           }}>
             🧱
           </div>
@@ -112,7 +112,7 @@ export default function MinifigCard({
       }}>
         <div style={{ flex: 1, minWidth: 0 }}>
           <h4 className="minifig-card-title" style={{
-            fontSize: '18px',
+            fontSize: 'var(--text-base)',
             fontWeight: '600',
             color: '#171717',
             letterSpacing: '-0.01em',
@@ -124,7 +124,7 @@ export default function MinifigCard({
             {getDisplayName(minifig.name)}
           </h4>
           <p className="minifig-card-id" style={{
-            fontSize: '14px',
+            fontSize: 'var(--text-sm)',
             color: '#737373',
             fontFamily: 'inherit'
           }}>

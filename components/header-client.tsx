@@ -162,7 +162,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
           }}>
             <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', height: '36px' }}>
               <div style={{
-                fontSize: '20px',
+                fontSize: 'var(--text-lg)',
                 fontWeight: '600',
                 color: '#171717',
                 letterSpacing: '-0.01em',
@@ -181,7 +181,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               <Link
                 href="/themes"
                 style={{
-                  fontSize: '15px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: pathname === '/themes' ? '600' : '500',
                   color: pathname === '/themes' ? '#171717' : '#525252',
                   textDecoration: 'none',
@@ -200,7 +200,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               <Link
                 href="/inventory"
                 style={{
-                  fontSize: '15px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: pathname === '/inventory' ? '600' : '500',
                   color: pathname === '/inventory' ? '#171717' : '#525252',
                   textDecoration: 'none',
@@ -219,7 +219,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               <Link
                 href="/collection"
                 style={{
-                  fontSize: '15px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: pathname === '/collection' ? '600' : '500',
                   color: pathname === '/collection' ? '#171717' : '#525252',
                   textDecoration: 'none',
@@ -238,7 +238,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               <Link
                 href="/about"
                 style={{
-                  fontSize: '15px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: pathname === '/about' ? '600' : '500',
                   color: pathname === '/about' ? '#171717' : '#525252',
                   textDecoration: 'none',
@@ -263,7 +263,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   href="/auth/signin"
                   style={{
                     padding: '10px 20px',
-                    fontSize: '15px',
+                    fontSize: 'var(--text-sm)',
                     fontWeight: '500',
                     color: '#525252',
                     textDecoration: 'none',
@@ -276,7 +276,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   href="/auth/signup"
                   style={{
                     padding: '10px 20px',
-                    fontSize: '15px',
+                    fontSize: 'var(--text-sm)',
                     fontWeight: '600',
                     color: '#ffffff',
                     background: '#3b82f6',
@@ -326,7 +326,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               borderBottom: '1px solid #f5f5f5',
               color: '#171717',
               textDecoration: 'none',
-              fontSize: '16px'
+              fontSize: 'var(--text-base)'
             }}>
               Themes
             </Link>
@@ -336,7 +336,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               borderBottom: '1px solid #f5f5f5',
               color: '#171717',
               textDecoration: 'none',
-              fontSize: '16px'
+              fontSize: 'var(--text-base)'
             }}>
               Your Inventory
             </Link>
@@ -346,7 +346,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               borderBottom: '1px solid #f5f5f5',
               color: '#171717',
               textDecoration: 'none',
-              fontSize: '16px'
+              fontSize: 'var(--text-base)'
             }}>
               Your Collection
             </Link>
@@ -356,7 +356,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               borderBottom: '1px solid #f5f5f5',
               color: '#171717',
               textDecoration: 'none',
-              fontSize: '16px'
+              fontSize: 'var(--text-base)'
             }}>
               About
             </Link>
@@ -366,7 +366,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               borderBottom: '1px solid #f5f5f5',
               color: '#171717',
               textDecoration: 'none',
-              fontSize: '16px'
+              fontSize: 'var(--text-base)'
             }}>
               Sign In
             </Link>
@@ -379,7 +379,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               textAlign: 'center',
               borderRadius: '8px',
               textDecoration: 'none',
-              fontSize: '16px',
+              fontSize: 'var(--text-base)',
               fontWeight: '600'
             }}>
               Sign Up
@@ -413,7 +413,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
         }}>
           <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', height: '36px' }}>
             <div style={{
-              fontSize: '20px',
+              fontSize: 'var(--text-lg)',
               fontWeight: '600',
               color: '#171717',
               letterSpacing: '-0.01em',
@@ -432,7 +432,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             <Link
               href="/search"
               style={{
-                fontSize: '15px',
+                fontSize: 'var(--text-sm)',
                 fontWeight: pathname === '/search' ? '600' : '500',
                 color: pathname === '/search' ? '#171717' : '#525252',
                 textDecoration: 'none',
@@ -451,7 +451,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             <Link
               href="/themes"
               style={{
-                fontSize: '15px',
+                fontSize: 'var(--text-sm)',
                 fontWeight: pathname === '/themes' ? '600' : '500',
                 color: pathname === '/themes' ? '#171717' : '#525252',
                 textDecoration: 'none',
@@ -470,7 +470,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             <Link
               href="/inventory"
               style={{
-                fontSize: '15px',
+                fontSize: 'var(--text-sm)',
                 fontWeight: pathname === '/inventory' ? '600' : '500',
                 color: pathname === '/inventory' ? '#171717' : '#525252',
                 textDecoration: 'none',
@@ -489,7 +489,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             <Link
               href="/collection"
               style={{
-                fontSize: '15px',
+                fontSize: 'var(--text-sm)',
                 fontWeight: pathname === '/collection' ? '600' : '500',
                 color: pathname === '/collection' ? '#171717' : '#525252',
                 textDecoration: 'none',
@@ -508,7 +508,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             <Link
               href="/about"
               style={{
-                fontSize: '15px',
+                fontSize: 'var(--text-sm)',
                 fontWeight: pathname === '/about' ? '600' : '500',
                 color: pathname === '/about' ? '#171717' : '#525252',
                 textDecoration: 'none',
@@ -559,7 +559,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     marginBottom: '8px'
                   }}>
                     <p style={{
-                      fontSize: '14px',
+                      fontSize: 'var(--text-sm)',
                       fontWeight: '600',
                       color: '#171717',
                       marginBottom: '4px',
@@ -570,7 +570,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                       {user.name || 'User'}
                     </p>
                     <p style={{
-                      fontSize: '13px',
+                      fontSize: 'var(--text-xs)',
                       color: '#737373',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
@@ -588,7 +588,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                       alignItems: 'center',
                       gap: '12px',
                       padding: '10px 12px',
-                      fontSize: '14px',
+                      fontSize: 'var(--text-sm)',
                       fontWeight: '500',
                       color: '#171717',
                       borderRadius: '6px',
@@ -620,7 +620,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                       alignItems: 'center',
                       gap: '12px',
                       padding: '10px 12px',
-                      fontSize: '14px',
+                      fontSize: 'var(--text-sm)',
                       fontWeight: '500',
                       color: '#dc2626',
                       background: 'transparent',
@@ -679,7 +679,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             borderBottom: '1px solid #f5f5f5',
             color: '#171717',
             textDecoration: 'none',
-            fontSize: '16px'
+            fontSize: 'var(--text-base)'
           }}>
             Search
           </Link>
@@ -689,7 +689,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             borderBottom: '1px solid #f5f5f5',
             color: '#171717',
             textDecoration: 'none',
-            fontSize: '16px'
+            fontSize: 'var(--text-base)'
           }}>
             Themes
           </Link>
@@ -699,7 +699,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             borderBottom: '1px solid #f5f5f5',
             color: '#171717',
             textDecoration: 'none',
-            fontSize: '16px'
+            fontSize: 'var(--text-base)'
           }}>
             Your Inventory
           </Link>
@@ -709,7 +709,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             borderBottom: '1px solid #f5f5f5',
             color: '#171717',
             textDecoration: 'none',
-            fontSize: '16px'
+            fontSize: 'var(--text-base)'
           }}>
             Your Collection
           </Link>
@@ -719,7 +719,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             borderBottom: '1px solid #f5f5f5',
             color: '#171717',
             textDecoration: 'none',
-            fontSize: '16px'
+            fontSize: 'var(--text-base)'
           }}>
             About
           </Link>
@@ -729,7 +729,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             borderBottom: '1px solid #f5f5f5',
             color: '#171717',
             textDecoration: 'none',
-            fontSize: '16px'
+            fontSize: 'var(--text-base)'
           }}>
             Account Settings
           </Link>
@@ -743,7 +743,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             textAlign: 'center',
             borderRadius: '8px',
             border: 'none',
-            fontSize: '16px',
+            fontSize: 'var(--text-base)',
             fontWeight: '600',
             cursor: 'pointer'
           }}>

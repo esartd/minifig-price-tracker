@@ -85,7 +85,7 @@ function ResetPasswordForm() {
     <AuthLayout footerText="Price your inventory with real-time Bricklink data">
       <div style={{ marginBottom: '48px' }}>
         <h1 style={{
-          fontSize: '36px',
+          fontSize: 'var(--text-2xl)',
           fontWeight: '700',
           color: '#171717',
           marginBottom: '12px',
@@ -95,7 +95,7 @@ function ResetPasswordForm() {
           Set New Password
         </h1>
         <p style={{
-          fontSize: '16px',
+          fontSize: 'var(--text-base)',
           color: '#737373',
           lineHeight: '1.6'
         }}>
@@ -132,7 +132,7 @@ function ResetPasswordForm() {
           style={{
             width: '100%',
             padding: '16px',
-            fontSize: '16px',
+            fontSize: 'var(--text-base)',
             fontWeight: '600',
             color: 'white',
             background: (loading || !token) ? '#a3a3a3' : '#3b82f6',
@@ -155,7 +155,7 @@ function ResetPasswordForm() {
         <Link
           href="/auth/signin"
           style={{
-            fontSize: '15px',
+            fontSize: 'var(--text-sm)',
             color: '#737373',
             fontWeight: '500',
             textDecoration: 'none',
@@ -181,7 +181,7 @@ export default function ResetPassword() {
       }}>
         <div style={{
           color: 'white',
-          fontSize: '18px'
+          fontSize: 'var(--text-base)'
         }}>
           Loading...
         </div>

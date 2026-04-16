@@ -39,7 +39,7 @@ export default function PasswordInput({
           marginBottom: '12px'
         }}>
           <label htmlFor={id} style={{
-            fontSize: '14px',
+            fontSize: 'var(--text-sm)',
             fontWeight: '500',
             color: '#525252',
             letterSpacing: '0.01em'
@@ -50,7 +50,7 @@ export default function PasswordInput({
             type="button"
             onClick={onForgotClick}
             style={{
-              fontSize: '14px',
+              fontSize: 'var(--text-sm)',
               color: '#3b82f6',
               fontWeight: '500',
               textDecoration: 'none',
@@ -67,7 +67,7 @@ export default function PasswordInput({
       ) : (
         <label htmlFor={id} style={{
           display: 'block',
-          fontSize: '14px',
+          fontSize: 'var(--text-sm)',
           fontWeight: '500',
           color: '#525252',
           marginBottom: '12px',
@@ -88,7 +88,7 @@ export default function PasswordInput({
           style={{
             width: '100%',
             padding: '16px 52px 16px 20px',
-            fontSize: '16px',
+            fontSize: 'var(--text-base)',
             border: '1px solid #e5e5e5',
             borderRadius: '8px',
             color: '#171717',

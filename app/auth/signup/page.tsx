@@ -62,7 +62,7 @@ export default function SignUp() {
     <AuthLayout footerText="Price your inventory with real-time Bricklink data">
       <div style={{ marginBottom: '48px' }}>
         <h1 style={{
-          fontSize: '36px',
+          fontSize: 'var(--text-2xl)',
           fontWeight: '700',
           color: '#171717',
           marginBottom: '12px',
@@ -72,7 +72,7 @@ export default function SignUp() {
           Manage Your Inventory
         </h1>
         <p style={{
-          fontSize: '16px',
+          fontSize: 'var(--text-base)',
           color: '#737373',
           lineHeight: '1.6',
           marginBottom: '16px'
@@ -92,19 +92,19 @@ export default function SignUp() {
             <svg style={{ width: '16px', height: '16px', color: '#3b82f6' }} fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            <span style={{ fontSize: '14px', color: '#525252' }}>Track unlimited items</span>
+            <span style={{ fontSize: 'var(--text-sm)', color: '#525252' }}>Track unlimited items</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <svg style={{ width: '16px', height: '16px', color: '#3b82f6' }} fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            <span style={{ fontSize: '14px', color: '#525252' }}>Real-time suggested prices</span>
+            <span style={{ fontSize: 'var(--text-sm)', color: '#525252' }}>Real-time suggested prices</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <svg style={{ width: '16px', height: '16px', color: '#3b82f6' }} fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            <span style={{ fontSize: '14px', color: '#525252' }}>Know your total inventory value</span>
+            <span style={{ fontSize: 'var(--text-sm)', color: '#525252' }}>Know your total inventory value</span>
           </div>
         </div>
       </div>
@@ -148,7 +148,7 @@ export default function SignUp() {
           style={{
             width: '100%',
             padding: '16px',
-            fontSize: '16px',
+            fontSize: 'var(--text-base)',
             fontWeight: '600',
             color: 'white',
             background: loading ? '#a3a3a3' : '#3b82f6',
@@ -168,7 +168,7 @@ export default function SignUp() {
         textAlign: 'center'
       }}>
         <p style={{
-          fontSize: '15px',
+          fontSize: 'var(--text-sm)',
           color: '#737373'
         }}>
           Already have an account?{' '}

@@ -353,7 +353,7 @@ export default function AccountPage() {
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            fontSize: '15px',
+            fontSize: 'var(--text-sm)',
             color: '#737373',
             textDecoration: 'none',
             gap: '8px',
@@ -370,7 +370,7 @@ export default function AccountPage() {
         {/* Header */}
         <div style={{ marginBottom: '40px' }}>
           <h1 style={{
-            fontSize: '32px',
+            fontSize: 'var(--text-2xl)',
             fontWeight: '700',
             lineHeight: '1.2',
             letterSpacing: '-0.02em',
@@ -380,7 +380,7 @@ export default function AccountPage() {
             Account Settings
           </h1>
           <p style={{
-            fontSize: '16px',
+            fontSize: 'var(--text-base)',
             color: '#525252',
             lineHeight: '1.6'
           }}>
@@ -399,7 +399,7 @@ export default function AccountPage() {
             borderColor: message.type === 'success' ? '#86efac' : '#fca5a5'
           }}>
             <p style={{
-              fontSize: '14px',
+              fontSize: 'var(--text-sm)',
               fontWeight: '500',
               color: message.type === 'success' ? '#166534' : '#991b1b'
             }}>
@@ -434,7 +434,7 @@ export default function AccountPage() {
             minWidth: '140px'
           }}>
             <p style={{
-              fontSize: '13px',
+              fontSize: 'var(--text-xs)',
               fontWeight: '500',
               color: '#737373',
               marginBottom: '8px',
@@ -443,7 +443,7 @@ export default function AccountPage() {
               Total Items
             </p>
             <p style={{
-              fontSize: '28px',
+              fontSize: 'var(--text-xl)',
               fontWeight: '700',
               color: '#171717',
               lineHeight: '1'
@@ -459,7 +459,7 @@ export default function AccountPage() {
             minWidth: '140px'
           }}>
             <p style={{
-              fontSize: '13px',
+              fontSize: 'var(--text-xs)',
               fontWeight: '500',
               color: '#737373',
               marginBottom: '8px',
@@ -468,7 +468,7 @@ export default function AccountPage() {
               Collection Value
             </p>
             <p style={{
-              fontSize: '28px',
+              fontSize: 'var(--text-xl)',
               fontWeight: '700',
               color: '#171717',
               lineHeight: '1'
@@ -484,7 +484,7 @@ export default function AccountPage() {
             minWidth: '140px'
           }}>
             <p style={{
-              fontSize: '13px',
+              fontSize: 'var(--text-xs)',
               fontWeight: '500',
               color: '#737373',
               marginBottom: '8px',
@@ -493,7 +493,7 @@ export default function AccountPage() {
               Member Since
             </p>
             <p style={{
-              fontSize: '28px',
+              fontSize: 'var(--text-xl)',
               fontWeight: '700',
               color: '#171717',
               lineHeight: '1'
@@ -513,7 +513,7 @@ export default function AccountPage() {
           boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
         }}>
           <h2 style={{
-            fontSize: '20px',
+            fontSize: 'var(--text-lg)',
             fontWeight: '600',
             color: '#171717',
             marginBottom: '32px',
@@ -534,7 +534,7 @@ export default function AccountPage() {
                 disabled={loading}
                 style={{
                   padding: '12px 24px',
-                  fontSize: '15px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: '600',
                   color: '#3b82f6',
                   background: '#ffffff',
@@ -598,7 +598,7 @@ export default function AccountPage() {
               <form onSubmit={handleNameUpdate} style={{ marginBottom: '32px' }}>
                 <label htmlFor="name" style={{
                   display: 'block',
-                  fontSize: '14px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: '500',
                   marginBottom: '12px',
                   color: '#525252',
@@ -616,7 +616,7 @@ export default function AccountPage() {
                     style={{
                       width: '100%',
                       padding: '14px 16px',
-                      fontSize: '15px',
+                      fontSize: 'var(--text-sm)',
                       borderRadius: '8px',
                       border: '1px solid #e5e5e5',
                       color: '#171717',
@@ -640,7 +640,7 @@ export default function AccountPage() {
                     disabled={loading || name === session.user.name}
                     style={{
                       padding: '14px 24px',
-                      fontSize: '15px',
+                      fontSize: 'var(--text-sm)',
                       fontWeight: '600',
                       background: (loading || name === session.user.name) ? '#a3a3a3' : '#3b82f6',
                       border: 'none',
@@ -662,7 +662,7 @@ export default function AccountPage() {
               <div>
                 <label style={{
                   display: 'block',
-                  fontSize: '14px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: '500',
                   marginBottom: '12px',
                   color: '#525252',
@@ -672,7 +672,7 @@ export default function AccountPage() {
                 </label>
                 <div style={{
                   padding: '14px 16px',
-                  fontSize: '15px',
+                  fontSize: 'var(--text-sm)',
                   borderRadius: '8px',
                   border: '1px solid #e5e5e5',
                   background: '#f5f5f5',
@@ -682,7 +682,7 @@ export default function AccountPage() {
                   {session.user.email}
                 </div>
                 <p style={{
-                  fontSize: '13px',
+                  fontSize: 'var(--text-xs)',
                   color: '#a3a3a3',
                   marginTop: '8px',
                   lineHeight: '1.5'
@@ -703,7 +703,7 @@ export default function AccountPage() {
           boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
         }}>
           <h2 style={{
-            fontSize: '20px',
+            fontSize: 'var(--text-lg)',
             fontWeight: '600',
             color: '#171717',
             marginBottom: '32px',
@@ -722,7 +722,7 @@ export default function AccountPage() {
               <div>
                 <label htmlFor="currentPassword" style={{
                   display: 'block',
-                  fontSize: '14px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: '500',
                   marginBottom: '12px',
                   color: '#525252',
@@ -740,7 +740,7 @@ export default function AccountPage() {
                     style={{
                       width: '100%',
                       padding: '14px 48px 14px 16px',
-                      fontSize: '15px',
+                      fontSize: 'var(--text-sm)',
                       borderRadius: '8px',
                       border: '1px solid #e5e5e5',
                       color: '#171717',
@@ -795,7 +795,7 @@ export default function AccountPage() {
               <div>
                 <label htmlFor="newPassword" style={{
                   display: 'block',
-                  fontSize: '14px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: '500',
                   marginBottom: '12px',
                   color: '#525252',
@@ -813,7 +813,7 @@ export default function AccountPage() {
                     style={{
                       width: '100%',
                       padding: '14px 48px 14px 16px',
-                      fontSize: '15px',
+                      fontSize: 'var(--text-sm)',
                       borderRadius: '8px',
                       border: '1px solid #e5e5e5',
                       color: '#171717',
@@ -868,7 +868,7 @@ export default function AccountPage() {
               <div>
                 <label htmlFor="confirmPassword" style={{
                   display: 'block',
-                  fontSize: '14px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: '500',
                   marginBottom: '12px',
                   color: '#525252',
@@ -886,7 +886,7 @@ export default function AccountPage() {
                     style={{
                       width: '100%',
                       padding: '14px 48px 14px 16px',
-                      fontSize: '15px',
+                      fontSize: 'var(--text-sm)',
                       borderRadius: '8px',
                       border: '1px solid #e5e5e5',
                       color: '#171717',
@@ -944,7 +944,7 @@ export default function AccountPage() {
               disabled={loading || !currentPassword || !newPassword || !confirmPassword}
               style={{
                 padding: '14px 24px',
-                fontSize: '15px',
+                fontSize: 'var(--text-sm)',
                 fontWeight: '600',
                 color: '#ffffff',
                 background: (loading || !currentPassword || !newPassword || !confirmPassword) ? '#a3a3a3' : '#3b82f6',
@@ -971,7 +971,7 @@ export default function AccountPage() {
           boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
         }}>
           <h2 style={{
-            fontSize: '20px',
+            fontSize: 'var(--text-lg)',
             fontWeight: '600',
             color: '#171717',
             marginBottom: '32px',
@@ -990,7 +990,7 @@ export default function AccountPage() {
             }}>
               <div style={{ marginBottom: '16px' }}>
                 <h3 style={{
-                  fontSize: '15px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: '600',
                   color: '#171717',
                   marginBottom: '6px'
@@ -998,7 +998,7 @@ export default function AccountPage() {
                   Export Collection Data
                 </h3>
                 <p style={{
-                  fontSize: '14px',
+                  fontSize: 'var(--text-sm)',
                   color: '#737373',
                   lineHeight: '1.6'
                 }}>
@@ -1009,7 +1009,7 @@ export default function AccountPage() {
                 onClick={handleExportData}
                 style={{
                   padding: '14px 24px',
-                  fontSize: '15px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: '600',
                   color: '#525252',
                   background: '#ffffff',
@@ -1032,7 +1032,7 @@ export default function AccountPage() {
             }}>
               <div style={{ marginBottom: '16px' }}>
                 <h3 style={{
-                  fontSize: '15px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: '600',
                   color: '#dc2626',
                   marginBottom: '6px'
@@ -1040,7 +1040,7 @@ export default function AccountPage() {
                   Delete Account
                 </h3>
                 <p style={{
-                  fontSize: '14px',
+                  fontSize: 'var(--text-sm)',
                   color: '#737373',
                   lineHeight: '1.6'
                 }}>
@@ -1052,7 +1052,7 @@ export default function AccountPage() {
                 disabled={loading}
                 style={{
                   padding: '14px 24px',
-                  fontSize: '15px',
+                  fontSize: 'var(--text-sm)',
                   fontWeight: '600',
                   color: '#dc2626',
                   background: '#fee2e2',

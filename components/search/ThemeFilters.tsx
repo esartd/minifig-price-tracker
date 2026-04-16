@@ -31,7 +31,7 @@ export default function ThemeFilters({
               onClick={() => onToggleTheme(theme)}
               style={{
                 padding: '12px 20px',
-                fontSize: '15px',
+                fontSize: 'var(--text-sm)',
                 fontWeight: '500',
                 background: isSelected ? '#3b82f6' : '#ffffff',
                 border: isSelected ? 'none' : '1px solid #e5e5e5',
@@ -53,7 +53,7 @@ export default function ThemeFilters({
             onClick={onToggleAll}
             style={{
               padding: '12px 20px',
-              fontSize: '15px',
+              fontSize: 'var(--text-sm)',
               fontWeight: '500',
               background: '#ffffff',
               border: '1px solid #e5e5e5',

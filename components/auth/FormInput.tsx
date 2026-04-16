@@ -25,7 +25,7 @@ export default function FormInput({
     <div style={{ marginBottom: '24px' }}>
       <label htmlFor={id} style={{
         display: 'block',
-        fontSize: '14px',
+        fontSize: 'var(--text-sm)',
         fontWeight: '500',
         color: '#525252',
         marginBottom: '12px',
@@ -44,7 +44,7 @@ export default function FormInput({
         style={{
           width: '100%',
           padding: '16px 20px',
-          fontSize: '16px',
+          fontSize: 'var(--text-base)',
           border: '1px solid #e5e5e5',
           borderRadius: '8px',
           color: '#171717',

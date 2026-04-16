@@ -25,7 +25,7 @@ export default function SuccessCard({ title, message, actionText, actionHref }: 
         </svg>
       </div>
       <h2 style={{
-        fontSize: '28px',
+        fontSize: 'var(--text-xl)',
         fontWeight: '700',
         color: '#171717',
         marginBottom: '12px',
@@ -34,7 +34,7 @@ export default function SuccessCard({ title, message, actionText, actionHref }: 
         {title}
       </h2>
       <p style={{
-        fontSize: '16px',
+        fontSize: 'var(--text-base)',
         color: '#737373',
         lineHeight: '1.6',
         marginBottom: '32px'
@@ -47,7 +47,7 @@ export default function SuccessCard({ title, message, actionText, actionHref }: 
           display: 'block',
           width: '100%',
           padding: '16px',
-          fontSize: '16px',
+          fontSize: 'var(--text-base)',
           fontWeight: '600',
           color: '#ffffff',
           background: '#3b82f6',
