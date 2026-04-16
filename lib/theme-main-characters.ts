@@ -26,6 +26,7 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Star Wars Andor': 'Cassian Andor',
   'Star Wars The Book of Boba Fett': 'Boba Fett',
   'Star Wars Jedi: Fallen Order': 'sw1377',
+  'Star Wars Other / Star Wars Rebuild the Galaxy': 'sw1437',
 
   // Marvel Movies & Shows (Super Heroes theme)
   'Iron Man': 'Iron Man',
