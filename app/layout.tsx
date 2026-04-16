@@ -131,47 +131,51 @@ export default function RootLayout({
               borderTop: '1px solid #e5e5e5',
               background: '#ffffff'
             }}>
-              <p style={{ margin: 0, lineHeight: '1.6', marginBottom: '12px' }}>
-                FigTracker is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program.
-                {' '}<a
-                  href="/disclosure"
-                  style={{ color: '#3b82f6', textDecoration: 'none' }}
-                >
-                  See full disclosure
-                </a>.
-              </p>
-              <p style={{ margin: 0, lineHeight: '1.6', marginBottom: '12px' }}>
-                The term "BrickLink" is a trademark of the LEGO Group BrickLink. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.
-              </p>
-              <p style={{ margin: 0, lineHeight: '1.6', marginBottom: 'var(--space-2)' }}>
-                Minifigure data provided by <a
-                  href="https://www.bricklink.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: '#3b82f6', textDecoration: 'none' }}
-                >
-                  Bricklink.com
-                </a>.
-                {' '}LEGO® is a trademark of the LEGO Group.
-              </p>
+              {/* Navigation Links */}
               <div style={{
                 display: 'flex',
                 justifyContent: 'center',
-                gap: '20px',
-                marginBottom: 'var(--space-2)',
+                gap: 'var(--space-3)',
+                marginBottom: 'var(--space-4)',
                 fontSize: 'var(--text-sm)',
                 flexWrap: 'wrap'
               }}>
-                <a href="/about" style={{ color: '#3b82f6', textDecoration: 'none' }}>About</a>
-                <a href="/privacy" style={{ color: '#3b82f6', textDecoration: 'none' }}>Privacy Policy</a>
-                <a href="/disclosure" style={{ color: '#3b82f6', textDecoration: 'none' }}>Affiliate Disclosure</a>
+                <a href="/about" style={{ color: '#3b82f6', textDecoration: 'none', fontWeight: '500' }}>About</a>
+                <span style={{ color: '#e5e5e5' }}>·</span>
+                <a href="/privacy" style={{ color: '#3b82f6', textDecoration: 'none', fontWeight: '500' }}>Privacy</a>
+                <span style={{ color: '#e5e5e5' }}>·</span>
+                <a href="/disclosure" style={{ color: '#3b82f6', textDecoration: 'none', fontWeight: '500' }}>Disclosure</a>
               </div>
-              <p style={{ margin: 0, lineHeight: '1.6', fontSize: 'var(--text-xs)', color: '#a3a3a3' }}>
+
+              {/* Legal Notices */}
+              <div style={{
+                maxWidth: '800px',
+                margin: '0 auto',
+                marginBottom: 'var(--space-3)',
+                lineHeight: '1.6'
+              }}>
+                <p style={{ margin: 0, marginBottom: 'var(--space-2)', fontSize: 'var(--text-xs)' }}>
+                  Minifigure data provided by <a
+                    href="https://www.bricklink.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: '#3b82f6', textDecoration: 'none' }}
+                  >
+                    Bricklink.com
+                  </a>. LEGO® is a trademark of the LEGO Group.
+                </p>
+                <p style={{ margin: 0, fontSize: 'var(--text-xs)' }}>
+                  The term "BrickLink" is a trademark of the LEGO Group. Not endorsed by LEGO or BrickLink.
+                </p>
+              </div>
+
+              {/* Credit */}
+              <p style={{ margin: 0, fontSize: 'var(--text-xs)', color: '#a3a3a3' }}>
                 Designed by <a
                   href="https://ericksu.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ color: '#3b82f6', textDecoration: 'none' }}
+                  style={{ color: '#a3a3a3', textDecoration: 'none' }}
                 >
                   ES Art & D LLC
                 </a>
