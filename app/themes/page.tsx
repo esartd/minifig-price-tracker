@@ -75,29 +75,8 @@ async function getThemes(): Promise<Theme[]> {
         subcategories: theme.subcategories.sort((a, b) => a.name.localeCompare(b.name))
       }));
 
-    // Theme overrides - Use iconic characters for main themes
+    // Theme overrides for special cases
     const themeOverrides: Record<string, string> = {
-      // Star Wars - Use Darth Vader (most iconic)
-      'Star Wars': 'sw1502', // Darth Vader - SMART Minifigure (latest)
-
-      // Super Heroes - Use Spider-Man (most popular)
-      'Super Heroes': 'sh0614', // Spider-Man Noir (latest)
-
-      // Harry Potter - Use Harry Potter
-      'Harry Potter': 'hp610', // Harry Potter (latest)
-
-      // Indiana Jones - Use Indiana Jones
-      'Indiana Jones': 'iaj046', // Indiana Jones (latest)
-
-      // Pirates - Use Jack Sparrow
-      'Pirates': 'poc044', // Captain Jack Sparrow (latest)
-
-      // Jurassic World - Use Owen
-      'Jurassic World': 'jw102', // Owen Grady (latest)
-
-      // LEGO Movie - Use Emmet (using newest from theme since we found it exists)
-      'The LEGO Movie': 'tlm053', // From The LEGO Movie theme
-
       // Scala - Use non-blurry minifig
       'Scala': 'sw1360'
     };
@@ -111,22 +90,63 @@ async function getThemes(): Promise<Theme[]> {
         if (themeOverrides[theme.parent]) {
           minifigNo = themeOverrides[theme.parent];
         } else {
-          const representativeMinifig = await prisma.minifigCatalog.findFirst({
+          // Get all minifigs in this theme to find character with most variants
+          const allMinifigs = await prisma.minifigCatalog.findMany({
             where: {
               category_name: {
                 startsWith: theme.parent
               }
             },
-            orderBy: [
-              { year_released: 'desc' },
-              { minifigure_no: 'desc' }
-            ],
             select: {
               minifigure_no: true,
+              name: true,
               year_released: true
             }
           });
-          minifigNo = representativeMinifig?.minifigure_no || null;
+
+          if (allMinifigs.length > 0) {
+            // Extract character names and count variants
+            const characterCounts = new Map<string, { count: number; latestMinifig: string; latestYear: string | null }>();
+
+            allMinifigs.forEach(minifig => {
+              // Extract character name (before " - ", "," or "(")
+              const characterName = minifig.name.split(/\s+-\s+|,|\(/)[0].trim().toLowerCase();
+
+              if (!characterCounts.has(characterName)) {
+                characterCounts.set(characterName, {
+                  count: 0,
+                  latestMinifig: minifig.minifigure_no,
+                  latestYear: minifig.year_released
+                });
+              }
+
+              const current = characterCounts.get(characterName)!;
+              current.count++;
+
+              // Keep track of the latest minifig for this character
+              if (!current.latestYear ||
+                  (minifig.year_released && minifig.year_released > current.latestYear)) {
+                current.latestMinifig = minifig.minifigure_no;
+                current.latestYear = minifig.year_released;
+              } else if (minifig.year_released === current.latestYear &&
+                         minifig.minifigure_no > current.latestMinifig) {
+                current.latestMinifig = minifig.minifigure_no;
+              }
+            });
+
+            // Find character with most variants
+            let maxCount = 0;
+            let mainCharacterMinifig = allMinifigs[0].minifigure_no; // fallback
+
+            characterCounts.forEach((data, characterName) => {
+              if (data.count > maxCount) {
+                maxCount = data.count;
+                mainCharacterMinifig = data.latestMinifig;
+              }
+            });
+
+            minifigNo = mainCharacterMinifig;
+          }
         }
 
         const hasRecentMinifigs = await prisma.minifigCatalog.findFirst({
