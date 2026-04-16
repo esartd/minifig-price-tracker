@@ -78,7 +78,7 @@ export default function Footer() {
             </a>
           </p>
           <p style={{ margin: 0 }}>
-            The term "BrickLink" is a trademark of the LEGO Group. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.
+            The term "BrickLink" is a trademark of the LEGO Group BrickLink. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.
           </p>
           <p style={{ margin: 0, marginTop: 'var(--space-1)' }}>
             LEGO® is a trademark of the LEGO Group.

@@ -1,165 +1,98 @@
-# BrickLink API Compliance Review
+# BrickLink API Compliance Checklist
 
-**Date:** 2026-04-13  
-**Status:** ✅ FULLY COMPLIANT - All Issues Resolved
+**Status**: ✅ COMPLIANT - Ready for public launch
 
----
+This document verifies FigTracker's compliance with [BrickLink API Terms of Use](https://www.bricklink.com/v3/api.page?page=terms).
 
-## ✅ Compliance Summary
+## Required Elements
 
-All previously identified issues have been resolved. This application is now fully compliant with BrickLink's API Terms of Service.
+### 1. Cache Duration (Section 1)
+✅ **COMPLIANT**
+- **Requirement**: "You must not display item Content or product information and/or images which is more than six hours older than such information is on the Website."
+- **Implementation**: 
+  - `MinifigCache`: 6 hour expiration ([lib/bricklink.ts:252](lib/bricklink.ts#L252))
+  - `PriceCache`: 6 hour expiration ([lib/bricklink.ts:356](lib/bricklink.ts#L356))
+  - Both enforce automatic refresh via database `expires_at` checks
 
----
+### 2. Rate Limiting (Section 1)
+✅ **COMPLIANT**
+- **Requirement**: "You must not make more than 5,000 calls per day."
+- **Implementation**: 
+  - Hard limit enforced via `ApiCallTracker` table ([lib/bricklink.ts:61](lib/bricklink.ts#L61))
+  - 3-second minimum delay between requests ([lib/bricklink.ts:71](lib/bricklink.ts#L71))
+  - Throws error at 5,000 calls with clear message
+  - Warns at 90% threshold (4,500 calls)
 
-## Issue Resolutions
+### 3. Privacy Policy (Section 2)
+✅ **COMPLIANT**
+- **Requirement**: "You must provide a privacy policy and contact information."
+- **Implementation**: 
+  - Privacy policy at `/privacy` ([app/privacy/page.tsx](app/privacy/page.tsx))
+  - Contact email: hello@ericksu.com (displayed on privacy page)
+  - Footer links to privacy policy ([components/Footer.tsx:35](components/Footer.tsx#L35))
 
-### 1. ✅ RATE LIMITING (Fixed: March 2026)
+### 4. Attribution Notice (Section 2)
+✅ **COMPLIANT**
+- **Requirement**: "You must display the attribution notice on all pages that display BrickLink content."
+- **Exact wording required**: "The term 'BrickLink' is a trademark of the LEGO Group BrickLink..."
+- **Implementation**: 
+  - Displayed in site footer on every page ([components/Footer.tsx:63-86](components/Footer.tsx#L63-L86))
+  - Exact required text matches API Terms
+  - Includes BrickLink.com hyperlink as required
+  - Includes LEGO® trademark notice
 
-**Previous Issue:** API key was blocked after ~10,780 requests due to insufficient delays (100ms between requests).
+### 5. No Checkout Replication (Section 4)
+✅ **COMPLIANT**
+- **Requirement**: "You must not replicate BrickLink's checkout or ordering process."
+- **Implementation**: 
+  - No checkout functionality
+  - No order placement features
+  - External links to Amazon Associates only (no BrickLink store integration)
 
-**Solution Implemented:**
-- ✅ 3-second minimum delay between all API requests
-- ✅ Hard limit of 5,000 calls/day with automatic stopping
-- ✅ Database tracking prevents accidental overages
-- ✅ Exponential backoff for errors
-- ✅ Request queuing system
-
-**Current Usage:**
-- Daily catalog updates: ~400 calls/day
-- **8% of daily limit** - well within safe range
-- Scripts automatically stop if approaching limit
-
-**Documentation:** See [API_RATE_LIMITING.md](API_RATE_LIMITING.md) for full details.
-
----
-
-### 2. ✅ WEB SCRAPING (Removed: April 2026)
-
-**Previous Issue:** Application used Puppeteer to scrape BrickLink web pages alongside API calls, which potentially violated Terms of Service.
-
-**Solution Implemented:**
-- ✅ Deleted `lib/bricklink-scraper.ts`
-- ✅ Deleted `scripts/scrape-bricklink-catalog.ts`
-- ✅ Deleted `scripts/debug-sets-page.ts`
-- ✅ Removed `app/api/test-scraper/` debug routes
-- ✅ Removed `app/api/debug/pricing/` routes
-- ✅ Removed Puppeteer dependency from package.json
-- ✅ Removed Cheerio dependency from package.json
-- ✅ Removed `scrape-catalog` npm script
-
-**Result:** Application is now **100% API-only**. No web scraping, no stealth techniques, no ToS concerns.
-
----
-
-### 3. ✅ BULK ENUMERATION (Optimized: March 2026)
-
-**Previous Issue:** Brute-force checking of 10,000+ sequential IDs in short timeframe appeared excessive.
-
-**Solution Implemented:**
-- ✅ Incremental updates (check only recent ID ranges)
-- ✅ Aggressive caching to avoid re-checking known items
-- ✅ Spaced out over 24+ hours with 3-second delays
-- ✅ Rate limiter prevents excessive requests
-- ✅ Progress saving every 10 items
-
-**Result:** Daily catalog updates stay well under the 5,000 call limit (uses ~400 calls).
-
----
-
-### 4. ✅ ATTRIBUTION (Added: March 2026)
-
-**Previous Issue:** No visible attribution in web UI.
-
-**Solution Implemented:**
-- ✅ Footer displays required BrickLink trademark notice
-- ✅ Links back to Bricklink.com
-- ✅ LEGO trademark acknowledgment
-- ✅ Located at [app/layout.tsx:117-128](app/layout.tsx#L117-L128)
-
-**Attribution Text:**
-> "The term 'BrickLink' is a trademark of the LEGO Group BrickLink. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc."
-> 
-> "Minifigure data provided by [Bricklink.com](https://www.bricklink.com). LEGO® is a trademark of the LEGO Group."
-
----
-
-### 5. ✅ COMMERCIAL USE (Verified: Compliant)
-
-**Status:** This application qualifies as acceptable commercial use under BrickLink's terms.
-
-**Compliance Points:**
-- ✅ Personal collection management tool for legitimate sellers
-- ✅ Uses official API access for inventory tracking
+### 6. Prohibited Uses (Section 6)
+✅ **COMPLIANT**
+- ✅ Not competing directly with BrickLink marketplace
+- ✅ Not scraping or systematically downloading entire catalog
+- ✅ Not using data for price manipulation
+- ✅ Not creating automated buying/selling bots
 - ✅ Not reselling API access
-- ✅ Not creating competing marketplace or checkout system
-- ✅ Not caching excessively (follows data freshness rules)
-- ✅ Attribution properly displayed
-- ✅ Usage patterns within acceptable limits (8% of daily limit)
-- ✅ 3-second delays between requests (exceeds 1-second minimum)
 
----
+### 7. Commercial Use Allowance (Section 5)
+✅ **COMPLIANT**
+- **Allowed**: "You may display advertising on your Application."
+- **Implementation**: Amazon Associates affiliate links comply with this allowance
 
-## Current API Usage Patterns
+## Monitoring
 
-| Activity | API Calls | Daily Limit | Usage % |
-|----------|-----------|-------------|---------|
-| Daily catalog update | ~400 | 5,000 | 8% ✅ |
-| User searches | 10-50 | 5,000 | <1% ✅ |
-| Price refreshes | 20-40 | 5,000 | <1% ✅ |
+To verify continued compliance:
 
-**Monitoring:** Run `npm run check-api-usage` anytime to see current usage.
+```bash
+# Check today's API call count
+psql $DATABASE_URL -c "SELECT * FROM \"ApiCallTracker\" WHERE date = CURRENT_DATE;"
 
----
+# Check cache expiration times (should all be < 6 hours from cached_at)
+psql $DATABASE_URL -c "SELECT minifigure_no, cached_at, expires_at, 
+  EXTRACT(EPOCH FROM (expires_at - cached_at))/3600 as hours_until_expiry 
+  FROM \"MinifigCache\" ORDER BY cached_at DESC LIMIT 10;"
 
-## Compliance Checklist (All Complete)
+# Verify attribution is present in footer
+curl https://figtracker.ericksu.com | grep "BrickLink is a trademark of the LEGO Group BrickLink"
+```
 
-- [x] **Increase API delays to minimum 2-3 seconds** ✅
-- [x] **Implement proper rate limiter class** ✅
-- [x] **Add exponential backoff for errors** ✅
-- [x] **Review web scraping - verify if allowed** ✅ (REMOVED entirely)
-- [x] **Add robots.txt compliance check** ✅ (N/A - no scraping)
-- [x] **Add visible attribution to UI** ✅
-- [x] **Add BrickLink copyright notices** ✅
-- [x] **Reduce bulk enumeration frequency** ✅
-- [x] **Implement 24-hour cache for pricing data** ✅
-- [x] **Review commercial use restrictions** ✅
-- [x] **Document API usage patterns** ✅
-- [x] **Add request logging/monitoring** ✅
+## Critical Files
 
----
+Files containing BrickLink API compliance logic:
+- [lib/bricklink.ts](lib/bricklink.ts) - API client with rate limiting and caching
+- [components/Footer.tsx](components/Footer.tsx) - Attribution notice
+- [app/privacy/page.tsx](app/privacy/page.tsx) - Privacy policy
+- [prisma/schema.prisma](prisma/schema.prisma) - Database models for cache and rate tracking
 
-## Key BrickLink API Terms (Verified Compliance)
+## Compliance Fixes Applied (2026-04-16)
 
-| Requirement | Status | Implementation |
-|-------------|--------|----------------|
-| 5,000 calls/day max | ✅ | Hard limit enforced, currently 8% usage |
-| Minimum delay between requests | ✅ | 3 seconds (exceeds 1-second minimum) |
-| Attribution required | ✅ | Footer on all pages |
-| No excessive caching | ✅ | 24-hour cache for pricing data |
-| No web scraping | ✅ | All scraping removed |
-| No database mirroring | ✅ | Incremental updates only |
-| Commercial use allowed | ✅ | Personal seller inventory management |
+Before public launch, corrected critical violations:
 
----
+1. **MinifigCache duration**: Changed from 30 days → 6 hours
+2. **PriceCache duration**: Changed from 7 days → 6 hours  
+3. **Attribution text**: Added "BrickLink" to match exact required wording
 
-## Maintenance
-
-**Monthly Review:**
-- Check API usage patterns remain under 50% of daily limit
-- Verify attribution remains visible on all pages
-- Confirm no new scraping functionality introduced
-- Review any new API endpoint usage
-
-**Resources:**
-- [API_RATE_LIMITING.md](API_RATE_LIMITING.md) - Full rate limiting documentation
-- `npm run check-api-usage` - Check current usage
-- BrickLink API Support: apisupport@bricklink.com
-
----
-
-**Last Updated:** April 13, 2026  
-**Next Review:** May 13, 2026
-
----
-
-**Remember:** BrickLink provides this API as a service to the community. Responsible usage ensures it remains available for everyone.
+All violations resolved. Site is ready for public launch.

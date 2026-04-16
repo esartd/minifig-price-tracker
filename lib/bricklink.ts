@@ -245,9 +245,11 @@ export class BricklinkAPI {
         image_url: imageUrl,
       };
 
-      // STEP 3: Store in cache (30-day expiration - minifig metadata rarely changes)
+      // STEP 3: Store in cache (6 hour expiration per BrickLink API Terms Section 1)
+      // "Display item Content or product information and/or images which is more than
+      // six hours older than such information is on the Website"
       const expiresAt = new Date();
-      expiresAt.setDate(expiresAt.getDate() + 30);
+      expiresAt.setHours(expiresAt.getHours() + 6);
 
       await prisma.minifigCache.upsert({
         where: { minifigure_no: data.no },
@@ -347,9 +349,11 @@ export class BricklinkAPI {
       suggestedPrice: parseFloat(suggestedPrice.toFixed(2)),
     };
 
-    // Store in cache with 7 day expiration (LEGO prices are stable)
+    // Store in cache with 6 hour expiration per BrickLink API Terms Section 1
+    // "Display item Content or product information and/or images which is more than
+    // six hours older than such information is on the Website"
     const expiresAt = new Date();
-    expiresAt.setDate(expiresAt.getDate() + 7);
+    expiresAt.setHours(expiresAt.getHours() + 6);
 
     await prisma.priceCache.upsert({
       where: {
