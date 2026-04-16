@@ -79,15 +79,15 @@ export default function PersonalCollectionList({
       }}>
         <div style={{ fontSize: 'var(--text-3xl)', marginBottom: '24px' }}>🏠</div>
         <p style={{
-          fontSize: 'var(--text-base)',
-          fontWeight: '600',
+          
+          
           color: '#171717',
           marginBottom: '8px'
         }}>
           No minifigures in your personal collection yet
         </p>
         <p style={{
-          fontSize: 'var(--text-base)',
+          
           color: '#737373',
           lineHeight: '1.6'
         }}>
@@ -160,8 +160,8 @@ export default function PersonalCollectionList({
             justifyContent: 'center'
           }}>
             <h3 style={{
-              fontSize: 'var(--text-base)',
-              fontWeight: '600',
+              
+              
               color: '#171717',
               marginBottom: '6px',
               letterSpacing: '-0.01em',
@@ -250,13 +250,13 @@ export default function PersonalCollectionList({
                   border: 'none',
                   borderRight: '1px solid #e5e5e5',
                   cursor: item.quantity > 1 ? 'pointer' : 'not-allowed',
-                  color: item.quantity > 1 ? '#171717' : '#a3a3a3',
-                  fontSize: 'var(--text-base)',
-                  fontWeight: '600',
+                  color: item.quantity > 1 ? '#737373' : '#a3a3a3',
                   padding: 0
                 }}
               >
-                −
+                <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
               </button>
 
               {editingQuantityId === item.id ? (
@@ -273,7 +273,7 @@ export default function PersonalCollectionList({
                     width: '60px',
                     height: '44px',
                     fontSize: 'var(--text-sm)',
-                    fontWeight: '600',
+                    
                     color: '#171717',
                     background: '#ffffff',
                     border: 'none',
@@ -289,7 +289,7 @@ export default function PersonalCollectionList({
                     width: '60px',
                     height: '44px',
                     fontSize: 'var(--text-sm)',
-                    fontWeight: '600',
+                    
                     color: '#171717',
                     display: 'flex',
                     alignItems: 'center',
@@ -321,13 +321,14 @@ export default function PersonalCollectionList({
                   border: 'none',
                   borderLeft: '1px solid #e5e5e5',
                   cursor: item.quantity < 9999 ? 'pointer' : 'not-allowed',
-                  color: item.quantity < 9999 ? '#171717' : '#a3a3a3',
-                  fontSize: 'var(--text-base)',
-                  fontWeight: '600',
+                  color: item.quantity < 9999 ? '#737373' : '#a3a3a3',
                   padding: 0
                 }}
               >
-                +
+                <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
               </button>
             </div>
 
@@ -362,7 +363,7 @@ export default function PersonalCollectionList({
                     e.currentTarget.style.color = '#737373';
                   }}
                 >
-                  <svg width="var(--icon-xs)" height="var(--icon-xs)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M21 12H3M9 6l-6 6 6 6"/>
                   </svg>
                 </button>
@@ -401,7 +402,7 @@ export default function PersonalCollectionList({
                 e.currentTarget.style.borderColor = '#e5e5e5';
               }}
             >
-              <svg width="var(--icon-xs)" height="var(--icon-xs)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="3 6 5 6 21 6"></polyline>
                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
               </svg>

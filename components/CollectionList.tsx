@@ -250,13 +250,13 @@ export default function CollectionList({
                   border: 'none',
                   borderRight: '1px solid #e5e5e5',
                   cursor: item.quantity > 1 ? 'pointer' : 'not-allowed',
-                  color: item.quantity > 1 ? '#171717' : '#a3a3a3',
-                  fontSize: 'var(--text-base)',
-                  fontWeight: '600',
+                  color: item.quantity > 1 ? '#737373' : '#a3a3a3',
                   padding: 0
                 }}
               >
-                −
+                <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
               </button>
 
               {editingQuantityId === item.id ? (
@@ -321,13 +321,14 @@ export default function CollectionList({
                   border: 'none',
                   borderLeft: '1px solid #e5e5e5',
                   cursor: item.quantity < 9999 ? 'pointer' : 'not-allowed',
-                  color: item.quantity < 9999 ? '#171717' : '#a3a3a3',
-                  fontSize: 'var(--text-base)',
-                  fontWeight: '600',
+                  color: item.quantity < 9999 ? '#737373' : '#a3a3a3',
                   padding: 0
                 }}
               >
-                +
+                <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
               </button>
             </div>
 
@@ -362,7 +363,7 @@ export default function CollectionList({
                     e.currentTarget.style.color = '#737373';
                   }}
                 >
-                  <svg width="var(--icon-xs)" height="var(--icon-xs)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M3 12h18M15 6l6 6-6 6"/>
                   </svg>
                 </button>
@@ -401,7 +402,7 @@ export default function CollectionList({
                 e.currentTarget.style.borderColor = '#e5e5e5';
               }}
             >
-              <svg width="var(--icon-xs)" height="var(--icon-xs)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="3 6 5 6 21 6"></polyline>
                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
               </svg>
