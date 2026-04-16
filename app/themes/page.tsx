@@ -75,9 +75,31 @@ async function getThemes(): Promise<Theme[]> {
         subcategories: theme.subcategories.sort((a, b) => a.name.localeCompare(b.name))
       }));
 
-    // Theme overrides
+    // Theme overrides - Use iconic characters for main themes
     const themeOverrides: Record<string, string> = {
-      'Scala': 'sw1360' // Clear Star Wars minifig instead of blurry Scala
+      // Star Wars - Use Darth Vader (most iconic)
+      'Star Wars': 'sw1502', // Darth Vader - SMART Minifigure (latest)
+
+      // Super Heroes - Use Spider-Man (most popular)
+      'Super Heroes': 'sh0614', // Spider-Man Noir (latest)
+
+      // Harry Potter - Use Harry Potter
+      'Harry Potter': 'hp610', // Harry Potter (latest)
+
+      // Indiana Jones - Use Indiana Jones
+      'Indiana Jones': 'iaj046', // Indiana Jones (latest)
+
+      // Pirates - Use Jack Sparrow
+      'Pirates': 'poc044', // Captain Jack Sparrow (latest)
+
+      // Jurassic World - Use Owen
+      'Jurassic World': 'jw102', // Owen Grady (latest)
+
+      // LEGO Movie - Use Emmet (using newest from theme since we found it exists)
+      'The LEGO Movie': 'tlm053', // From The LEGO Movie theme
+
+      // Scala - Use non-blurry minifig
+      'Scala': 'sw1360'
     };
 
     // Fetch representative minifig and check if theme is current
