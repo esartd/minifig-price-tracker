@@ -117,8 +117,6 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Dominion': 'Owen',
 
   // Misc Movies
-  'The LEGO Movie': 'Emmet',
-  'The LEGO Movie 2': 'Emmet',
   'The LEGO Batman Movie': 'Batman',
   'The LEGO Ninjago Movie': 'Lloyd',
   'Toy Story': 'Woody',
@@ -154,6 +152,8 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Super Heroes': 'sh0115',
   'Super Mario': 'mar0213',
   'The Hobbit and The Lord of the Rings': 'lor112',
+  'The LEGO Movie': 'tlm096',
+  'The LEGO Movie 2': 'tlm209',
   'The Legend of Zelda': 'loz002',
   'The Simpsons': 'sim043',
   'Wednesday': 'wed006',
