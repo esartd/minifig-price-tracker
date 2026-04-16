@@ -133,6 +133,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Despicable Me and Minions': 'mnn005',
   'Dune': 'dun001',
   'DREAMZzz': 'drm103',
+  'Gabby\'s Dollhouse': 'gdh010',
 };
 
 /**
