@@ -25,14 +25,22 @@ export interface LegoSet {
   dimensions: string;
 }
 
+// In-memory cache with expiration
 let cachedCurrentSets: LegoSet[] | null = null;
+let cacheTimestamp: number = 0;
+const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
 
 /**
- * Load current sets from Sets.txt (cached)
+ * Load current sets from Sets.txt (cached with 24h TTL)
  * "Current" = sets from last 3 years based on CURRENT_YEARS_LOOKBACK constant
  */
 export function loadCurrentSets(): LegoSet[] {
-  if (cachedCurrentSets) return cachedCurrentSets;
+  const now = Date.now();
+
+  // Return cached data if still valid
+  if (cachedCurrentSets && (now - cacheTimestamp) < CACHE_TTL) {
+    return cachedCurrentSets;
+  }
 
   try {
     const setsPath = path.join(process.cwd(), 'Sets.txt');
@@ -90,6 +98,7 @@ export function loadCurrentSets(): LegoSet[] {
       })
       .filter((set): set is LegoSet => set !== null);
 
+    cacheTimestamp = now; // Update cache timestamp
     return cachedCurrentSets;
   } catch (error) {
     console.error('Error loading Sets.txt:', error);

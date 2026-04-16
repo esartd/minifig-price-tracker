@@ -12,6 +12,33 @@ const nextConfig: NextConfig = {
         hostname: 'img.bricklink.com',
       },
     ],
+    formats: ['image/avif', 'image/webp'],
+  },
+  async headers() {
+    return [
+      {
+        source: '/avatars/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN'
+          }
+        ],
+      },
+    ];
   },
   async redirects() {
     return [

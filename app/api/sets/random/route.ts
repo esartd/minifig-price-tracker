@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getRandomCurrentSetsFromTheme, getSetImageUrl } from '@/lib/sets-data';
 
+// Cache for 1 hour on CDN
+export const revalidate = 3600;
+
 /**
  * GET /api/sets/random?theme=Star Wars&count=5
  * Returns random LEGO sets from last 2 years from a theme for affiliate advertising
