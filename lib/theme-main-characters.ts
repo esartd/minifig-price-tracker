@@ -152,6 +152,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Super Mario': 'mar0213',
   'The Hobbit and The Lord of the Rings': 'lor112',
   'The Legend of Zelda': 'loz002',
+  'Wednesday': 'wed006',
 };
 
 /**
