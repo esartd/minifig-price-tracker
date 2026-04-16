@@ -7,6 +7,7 @@ import { PersonalCollectionItem } from '@/types';
 import PersonalCollectionList from '@/components/PersonalCollectionList';
 import CollectionSwitcher from '@/components/CollectionSwitcher';
 import Link from 'next/link';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
 export default function PersonalCollectionPage() {
   const { data: session, status } = useSession();
@@ -369,39 +370,46 @@ export default function PersonalCollectionPage() {
             </h2>
             {collection.length > 0 && (
               <div className="collection-controls" style={{ display: 'flex', gap: '12px', width: '100%', flexWrap: 'wrap', alignItems: 'center' }}>
-                <select
-                  value={sortOrder}
-                  onChange={(e) => handleSortOrderChange(e.target.value as any)}
-                  style={{
-                    flex: '0 0 auto',
-                    minWidth: '200px',
-                    padding: '8px 16px',
-                    fontSize: 'var(--text-xs)',
-                    fontWeight: '600',
-                    color: '#171717',
-                    background: '#f5f5f5',
-                    border: '1px solid #e5e5e5',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    outline: 'none',
-                    transition: 'all 0.2s',
-                    appearance: 'none',
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23525252' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`,
-                    backgroundPosition: 'right 0.75rem center',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: '1.25em 1.25em',
-                    paddingRight: '3rem',
-                    boxSizing: 'border-box',
-                    height: '44px'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#e5e5e5'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}
-                >
-                  <option value="default">Recently Added</option>
-                  <option value="price-high">Price: High to Low</option>
-                  <option value="price-low">Price: Low to High</option>
-                  <option value="id">Bricklink ID</option>
-                </select>
+                <div style={{ position: 'relative', flex: '0 0 auto', minWidth: '200px' }}>
+                  <select
+                    value={sortOrder}
+                    onChange={(e) => handleSortOrderChange(e.target.value as any)}
+                    style={{
+                      width: '100%',
+                      padding: '8px 16px',
+                      paddingRight: '40px',
+                      fontSize: 'var(--text-xs)',
+                      fontWeight: '600',
+                      color: '#171717',
+                      background: '#f5f5f5',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      outline: 'none',
+                      transition: 'all 0.2s',
+                      appearance: 'none',
+                      boxSizing: 'border-box',
+                      height: '44px'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#e5e5e5'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}
+                  >
+                    <option value="default">Recently Added</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="id">Bricklink ID</option>
+                  </select>
+                  <ChevronDownIcon style={{
+                    position: 'absolute',
+                    right: '12px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: 'var(--icon-sm)',
+                    height: 'var(--icon-sm)',
+                    color: '#737373',
+                    pointerEvents: 'none'
+                  }} />
+                </div>
                 <button
                   onClick={() => setShowDecimals(!showDecimals)}
                   style={{
