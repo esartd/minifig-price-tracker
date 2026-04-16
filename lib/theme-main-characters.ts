@@ -141,6 +141,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'NINJAGO': 'njo0974',
   'One Piece': 'op016',
   'Star Wars': 'sw1398',
+  'Super Heroes': 'sh0115',
 };
 
 /**
