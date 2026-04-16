@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { prisma } from '@/lib/prisma';
+import { CurrencyDollarIcon, BriefcaseIcon, BoltIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
 
 // Force dynamic rendering to show current searchable catalog count
 export const dynamic = 'force-dynamic';
@@ -131,9 +132,7 @@ export default async function AboutPage() {
           <div className="features-grid">
             <div className="feature-card">
               <div className="feature-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+                <CurrencyDollarIcon />
               </div>
               <h3>One Suggested Price</h3>
               <p>We calculate a weighted price from current Bricklink marketplace listings—quantity-weighted average, simple average, and lowest price. One number, ready to use.</p>
@@ -141,9 +140,7 @@ export default async function AboutPage() {
 
             <div className="feature-card">
               <div className="feature-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
+                <BriefcaseIcon />
               </div>
               <h3>Simple Inventory</h3>
               <p>Track quantities, conditions, and total inventory value. Sort by price or ID. Your entire stock in one clean dashboard.</p>
@@ -151,9 +148,7 @@ export default async function AboutPage() {
 
             <div className="feature-card">
               <div className="feature-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+                <BoltIcon />
               </div>
               <h3>Smart Search</h3>
               <p>Search any minifig by exact BrickLink ID (e.g., dis134, sw1219). Name search finds items from {catalogCountText} searchable entries that grow as users discover more minifigs.</p>
@@ -161,9 +156,7 @@ export default async function AboutPage() {
 
             <div className="feature-card">
               <div className="feature-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
+                <ShieldCheckIcon />
               </div>
               <h3>Real Bricklink Data</h3>
               <p>Official API integration means accurate, current US marketplace prices. Refresh anytime to get the latest values.</p>
