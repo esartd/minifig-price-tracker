@@ -146,6 +146,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Stranger Things': 'st011',
   'Super Heroes': 'sh0115',
   'The Hobbit and The Lord of the Rings': 'lor112',
+  'The Legend of Zelda': 'loz002',
 };
 
 /**
