@@ -1,10 +1,19 @@
 /**
  * LEGO Sets data utilities
- * Loads current sets (2024-2026) from Sets.txt for affiliate advertising
+ * Loads current sets from Sets.txt for affiliate advertising
+ *
+ * "Current" = sets from last 3 years (e.g., 2024-2026 in 2026)
+ * This matches the minifig catalog's definition of current themes
  */
 
 import fs from 'fs';
 import path from 'path';
+
+/**
+ * Number of years to look back for "current" sets
+ * Kept in sync with theme page's definition of current themes
+ */
+const CURRENT_YEARS_LOOKBACK = 2; // Last 3 years (currentYear - 2)
 
 export interface LegoSet {
   categoryId: number;
@@ -19,7 +28,8 @@ export interface LegoSet {
 let cachedCurrentSets: LegoSet[] | null = null;
 
 /**
- * Load current sets (2024-2026) from Sets.txt (cached)
+ * Load current sets from Sets.txt (cached)
+ * "Current" = sets from last 3 years based on CURRENT_YEARS_LOOKBACK constant
  */
 export function loadCurrentSets(): LegoSet[] {
   if (cachedCurrentSets) return cachedCurrentSets;
@@ -30,7 +40,7 @@ export function loadCurrentSets(): LegoSet[] {
     const lines = fileContent.split('\n').slice(3); // Skip header rows
 
     const currentYear = new Date().getFullYear();
-    const minYear = currentYear - 2; // Last 3 years (e.g., 2024-2026 in 2026, 2025-2027 in 2027)
+    const minYear = currentYear - CURRENT_YEARS_LOOKBACK;
 
     cachedCurrentSets = lines
       .filter(line => line.trim())
@@ -39,7 +49,7 @@ export function loadCurrentSets(): LegoSet[] {
         if (parts.length < 7) return null;
 
         const year = parseInt(parts[4]);
-        // Only include current sets (2024+)
+        // Only include current sets
         if (isNaN(year) || year < minYear) return null;
 
         const setNo = parts[2] || '';
@@ -89,6 +99,7 @@ export function loadCurrentSets(): LegoSet[] {
 
 /**
  * Get newest current sets from a specific theme (sorted by year DESC)
+ * Uses sets already filtered by loadCurrentSets() (within CURRENT_YEARS_LOOKBACK)
  * @param themeName - Theme name (e.g., "Star Wars", "Harry Potter")
  * @param count - Number of newest sets to return
  */
@@ -148,14 +159,15 @@ export function getNewestCurrentSetsFromTheme(themeName: string, count: number =
 }
 
 /**
- * Get random current sets from a specific theme from last 2 years
+ * Get random current sets from a specific theme
+ * Only returns sets if theme is "current" (has sets within CURRENT_YEARS_LOOKBACK)
  * @param themeName - Theme name (e.g., "Star Wars", "Harry Potter")
  * @param count - Number of random sets to return
  */
 export function getRandomCurrentSetsFromTheme(themeName: string, count: number = 3): LegoSet[] {
   const allCurrentSets = loadCurrentSets();
   const currentYear = new Date().getFullYear();
-  const minYear = currentYear - 1; // Last 2 years (e.g., 2025-2026 in 2026)
+  const minYear = currentYear - CURRENT_YEARS_LOOKBACK;
 
   // Normalize theme name for flexible matching
   const normalizedTheme = themeName.toLowerCase().trim();
