@@ -122,9 +122,6 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Frozen': 'Elsa',
   'Moana': 'Moana',
 
-  // DREAMZzz
-  'Uncategorized': 'drm103',
-
   // Add more as needed...
 };
 
@@ -135,6 +132,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Scala': 'sw1360', // Use non-blurry minifig
   'Despicable Me and Minions': 'mnn005',
   'Dune': 'dun001',
+  'DREAMZzz': 'drm103',
 };
 
 /**
