@@ -24,10 +24,20 @@ const SHIRTLESS_SCALA_IDS = new Set([
   'x4cx02'     // Baby Thomas - Large Eyes
 ]);
 
+// Minifigs that should never be blurred (overrides all other rules)
+const NEVER_BLUR_IDS = new Set([
+  'sw1360', // Rascal - Star Wars minifig, not Scala
+]);
+
 /**
  * Check if a minifigure should have its image blurred
  */
 export function shouldBlurImage(minifigNo: string, name?: string): boolean {
+  // Never blur if explicitly excluded
+  if (NEVER_BLUR_IDS.has(minifigNo)) {
+    return false;
+  }
+
   // Check explicit shirtless IDs
   if (SHIRTLESS_SCALA_IDS.has(minifigNo)) {
     return true;
