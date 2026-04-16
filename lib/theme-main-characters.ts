@@ -145,6 +145,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Star Wars': 'sw1398',
   'Stranger Things': 'st011',
   'Super Heroes': 'sh0115',
+  'The Hobbit and The Lord of the Rings': 'lor112',
 };
 
 /**
