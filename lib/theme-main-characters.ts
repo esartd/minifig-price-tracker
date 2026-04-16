@@ -137,6 +137,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Harry Potter': 'hp605',
   'Horizon': 'hrz001',
   'Jurassic World': 'jw117',
+  'NINJAGO': 'njo0974',
 };
 
 /**
