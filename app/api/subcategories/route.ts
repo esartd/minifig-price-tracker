@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { getMainCharacter } from '@/lib/theme-main-characters';
 
 export async function GET(request: NextRequest) {
   try {
@@ -46,18 +47,44 @@ export async function GET(request: NextRequest) {
     // Fetch representative images for each subcategory
     const subcategoriesWithImages = await Promise.all(
       subcategories.map(async (sub) => {
-        const representativeMinifig = await prisma.minifigCatalog.findFirst({
-          where: {
-            category_name: sub.fullName
-          },
-          orderBy: [
-            { year_released: 'desc' },
-            { minifigure_no: 'desc' }
-          ],
-          select: {
-            minifigure_no: true
-          }
-        });
+        const mainCharacter = getMainCharacter(sub.subTheme);
+
+        let representativeMinifig;
+
+        if (mainCharacter) {
+          // For TV shows/movies: Try to find main character first
+          representativeMinifig = await prisma.minifigCatalog.findFirst({
+            where: {
+              category_name: sub.fullName,
+              search_name: {
+                contains: mainCharacter.toLowerCase()
+              }
+            },
+            orderBy: [
+              { year_released: 'desc' },
+              { minifigure_no: 'desc' }
+            ],
+            select: {
+              minifigure_no: true
+            }
+          });
+        }
+
+        // Fallback: If no main character mapping or not found, use newest
+        if (!representativeMinifig) {
+          representativeMinifig = await prisma.minifigCatalog.findFirst({
+            where: {
+              category_name: sub.fullName
+            },
+            orderBy: [
+              { year_released: 'desc' },
+              { minifigure_no: 'desc' }
+            ],
+            select: {
+              minifigure_no: true
+            }
+          });
+        }
 
         return {
           ...sub,
