@@ -369,8 +369,8 @@ export default function CollectionPage() {
               Items <span style={{ color: '#a3a3a3', fontWeight: '400' }}>({collection.length})</span>
             </h2>
             {collection.length > 0 && (
-              <div className="collection-controls" style={{ display: 'flex', gap: '12px', width: '100%', flexWrap: 'wrap', alignItems: 'center' }}>
-                <div style={{ position: 'relative', flex: '0 0 auto', minWidth: '200px' }}>
+              <div className="collection-controls" style={{ display: 'flex', gap: '12px', width: '100%', alignItems: 'stretch' }}>
+                <div style={{ position: 'relative', flex: '1 1 0', minWidth: 0 }}>
                   <select
                     value={sortOrder}
                     onChange={(e) => handleSortOrderChange(e.target.value as any)}
@@ -412,7 +412,7 @@ export default function CollectionPage() {
                 <button
                   onClick={() => setShowDecimals(!showDecimals)}
                   style={{
-                    padding: '8px 20px',
+                    padding: '8px 16px',
                     fontSize: 'var(--text-xs)',
                     fontWeight: '700',
                     color: showDecimals ? '#ffffff' : '#525252',
@@ -424,7 +424,6 @@ export default function CollectionPage() {
                     outline: 'none',
                     boxSizing: 'border-box',
                     whiteSpace: 'nowrap',
-                    minWidth: '70px',
                     flex: '0 0 auto',
                     height: '44px'
                   }}
