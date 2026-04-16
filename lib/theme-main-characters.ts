@@ -18,6 +18,7 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Star Wars The Clone Wars': 'Anakin Skywalker',
   'Star Wars The Mandalorian': 'The Mandalorian',
   'Star Wars Rebels': 'Ezra Bridger',
+  'Star Wars Resistance': 'sw1012',
   'Star Wars Rogue One': 'Jyn Erso',
   'Star Wars Solo': 'Han Solo',
   'Star Wars The Bad Batch': 'Hunter',
