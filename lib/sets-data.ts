@@ -114,7 +114,9 @@ export function getNewestCurrentSetsFromTheme(themeName: string, count: number =
     'ideas': ['ideas'],
     'disney': ['disney'],
     'speed champions': ['speed champions'],
-    'minecraft': ['minecraft']
+    'minecraft': ['minecraft'],
+    'despicable me': ['despicable me and minions', 'despicable me', 'minions'],
+    'minions': ['despicable me and minions', 'despicable me', 'minions']
   };
 
   // Find matching theme variations
@@ -174,7 +176,9 @@ export function getRandomCurrentSetsFromTheme(themeName: string, count: number =
     'ideas': ['ideas'],
     'disney': ['disney'],
     'speed champions': ['speed champions'],
-    'minecraft': ['minecraft']
+    'minecraft': ['minecraft'],
+    'despicable me': ['despicable me and minions', 'despicable me', 'minions'],
+    'minions': ['despicable me and minions', 'despicable me', 'minions']
   };
 
   // Find matching theme variations
@@ -186,8 +190,8 @@ export function getRandomCurrentSetsFromTheme(themeName: string, count: number =
     }
   }
 
-  // Filter sets matching theme AND from last 2 years
-  const themeSets = allCurrentSets.filter(set =>
+  // First, try to get sets from theme AND last 2 years
+  const recentThemeSets = allCurrentSets.filter(set =>
     set.yearReleased >= minYear &&
     matchingThemes.some(theme =>
       set.categoryName.toLowerCase().includes(theme) ||
@@ -195,16 +199,30 @@ export function getRandomCurrentSetsFromTheme(themeName: string, count: number =
     )
   );
 
-  if (themeSets.length === 0) {
-    // Fallback: return random sets from any theme (last 2 years)
-    const recentSets = allCurrentSets.filter(set => set.yearReleased >= minYear);
-    const shuffled = [...recentSets].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, count);
+  if (recentThemeSets.length > 0) {
+    // Found recent sets from this theme
+    const shuffled = [...recentThemeSets].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, Math.min(count, shuffled.length));
   }
 
-  // Shuffle and return random sets from last 2 years
-  const shuffled = [...themeSets].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, Math.min(count, shuffled.length));
+  // No recent sets from this theme - try ALL sets from this theme (any year)
+  const allThemeSets = allCurrentSets.filter(set =>
+    matchingThemes.some(theme =>
+      set.categoryName.toLowerCase().includes(theme) ||
+      theme.includes(set.categoryName.toLowerCase())
+    )
+  );
+
+  if (allThemeSets.length > 0) {
+    // Found older sets from this theme - show most recent ones
+    const sorted = [...allThemeSets].sort((a, b) => b.yearReleased - a.yearReleased);
+    return sorted.slice(0, Math.min(count, sorted.length));
+  }
+
+  // Fallback: return random recent sets from any theme
+  const recentSets = allCurrentSets.filter(set => set.yearReleased >= minYear);
+  const shuffled = [...recentSets].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
 }
 
 /**
@@ -235,7 +253,9 @@ function _getRandomCurrentSetsFromTheme_OLD(themeName: string, count: number = 3
     'ideas': ['ideas'],
     'disney': ['disney'],
     'speed champions': ['speed champions'],
-    'minecraft': ['minecraft']
+    'minecraft': ['minecraft'],
+    'despicable me': ['despicable me and minions', 'despicable me', 'minions'],
+    'minions': ['despicable me and minions', 'despicable me', 'minions']
   };
 
   // Find matching theme variations
