@@ -122,6 +122,9 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Frozen': 'Elsa',
   'Moana': 'Moana',
 
+  // DREAMZzz
+  'Uncategorized': 'drm103',
+
   // Add more as needed...
 };
 
