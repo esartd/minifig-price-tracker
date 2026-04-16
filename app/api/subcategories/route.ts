@@ -17,12 +17,15 @@ export async function GET(request: NextRequest) {
     console.log('Fetching subcategories for theme:', theme);
 
     // Get all subcategories for this theme
+    // Use exact match for parent theme OR "parent / sub-theme" format
+    // This prevents "Friends" from matching "Friends TV Series"
     const categories = await prisma.minifigCatalog.groupBy({
       by: ['category_id', 'category_name'],
       where: {
-        category_name: {
-          startsWith: theme
-        }
+        OR: [
+          { category_name: theme }, // Exact match (e.g., "Friends")
+          { category_name: { startsWith: `${theme} / ` } } // Sub-themes (e.g., "Friends / Series 1")
+        ]
       },
       _count: {
         minifigure_no: true
