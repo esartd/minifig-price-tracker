@@ -13,7 +13,7 @@ export default function Loading() {
         alignItems: 'center'
       }}>
         <div style={{
-          height: '32px',
+          height: 'var(--icon-xl)',
           width: '200px',
           borderRadius: '8px',
           background: '#e5e5e5'
@@ -63,13 +63,13 @@ export default function Loading() {
                 background: '#e5e5e5'
               }} />
               <div style={{
-                height: '14px',
+                height: 'var(--icon-xs)',
                 width: '30%',
                 borderRadius: '8px',
                 background: '#e5e5e5'
               }} />
               <div style={{
-                height: '20px',
+                height: 'var(--icon-base)',
                 width: '40%',
                 borderRadius: '8px',
                 background: '#e5e5e5'
@@ -84,13 +84,13 @@ export default function Loading() {
             }}>
               <div style={{
                 width: '108px',
-                height: '32px',
+                height: 'var(--icon-xl)',
                 borderRadius: '8px',
                 background: '#e5e5e5'
               }} />
               <div style={{
-                width: '32px',
-                height: '32px',
+                width: 'var(--icon-xl)',
+                height: 'var(--icon-xl)',
                 borderRadius: '8px',
                 background: '#e5e5e5'
               }} />

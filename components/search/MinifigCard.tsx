@@ -136,7 +136,7 @@ export default function MinifigCard({
           marginLeft: '16px',
           color: '#a3a3a3'
         }}>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" style={{ width: '20px', height: '20px' }}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="var(--icon-stroke)" stroke="currentColor" style={{ width: 'var(--icon-base)', height: 'var(--icon-base)' }}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
           </svg>
         </div>

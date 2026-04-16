@@ -98,8 +98,8 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
         textAlign: 'center'
       }}>
         <div style={{
-          width: '32px',
-          height: '32px',
+          width: 'var(--icon-xl)',
+          height: 'var(--icon-xl)',
           margin: '0 auto',
           border: '3px solid #e5e5e5',
           borderTop: '3px solid #005C97',
@@ -301,7 +301,7 @@ function LineChart({ data }: { data: PriceHistoryData[] }) {
             d={pathData}
             fill="none"
             stroke="#3b82f6"
-            strokeWidth="2.5"
+            strokeWidth="var(--icon-stroke)"
             strokeLinecap="round"
             strokeLinejoin="round"
           />

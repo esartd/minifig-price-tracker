@@ -146,8 +146,8 @@ export default function PersonalCollectionPage() {
         backgroundColor: '#fafafa'
       }}>
         <div style={{
-          width: '48px',
-          height: '48px',
+          width: 'var(--icon-2xl)',
+          height: 'var(--icon-2xl)',
           border: '3px solid #e5e5e5',
           borderTop: '3px solid #3b82f6',
           borderRadius: '50%',

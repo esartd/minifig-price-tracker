@@ -34,6 +34,18 @@
   --text-xl: clamp(24px, 3vw, 28px);     /* H2: section headings */
   --text-2xl: clamp(32px, 4vw, 40px);    /* H1: page headings */
   --text-3xl: clamp(48px, 5vw, 56px);    /* Hero: hero sections */
+
+  /* Icon size scale - 4px increments, aligned with 8px grid */
+  --icon-xs: 12px;   /* Tiny: inline icons, decorative */
+  --icon-sm: 16px;   /* Small: input icons, nav items */
+  --icon-base: 20px; /* Base: buttons, cards, primary actions */
+  --icon-lg: 24px;   /* Large: emphasis, headers, mobile nav */
+  --icon-xl: 32px;   /* XL: feature highlights, success states */
+  --icon-2xl: 48px;  /* 2XL: empty states, illustrations */
+  --icon-3xl: 64px;  /* 3XL: hero sections, major empty states */
+
+  /* Icon stroke weight - consistent across all icons */
+  --icon-stroke: 2;
 }
 
 @layer base {

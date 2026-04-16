@@ -10,7 +10,7 @@ export default function Loading() {
         marginBottom: '32px'
       }}>
         <div style={{
-          height: '48px',
+          height: 'var(--icon-2xl)',
           borderRadius: '12px',
           background: '#e5e5e5'
         }} />
@@ -43,13 +43,13 @@ export default function Loading() {
               gap: '12px'
             }}>
               <div style={{
-                height: '20px',
+                height: 'var(--icon-base)',
                 width: '70%',
                 borderRadius: '8px',
                 background: '#e5e5e5'
               }} />
               <div style={{
-                height: '16px',
+                height: 'var(--icon-sm)',
                 width: '40%',
                 borderRadius: '8px',
                 background: '#e5e5e5'

@@ -437,8 +437,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       color: '#737373'
                     }}>
                       <div style={{
-                        width: '32px',
-                        height: '32px',
+                        width: 'var(--icon-xl)',
+                        height: 'var(--icon-xl)',
                         margin: '0 auto 12px',
                         border: '3px solid #e5e5e5',
                         borderTop: '3px solid #3b82f6',
@@ -728,7 +728,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           }}
                           className="inventory-delete-btn"
                         >
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <svg width="var(--icon-base)" height="var(--icon-base)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="3 6 5 6 21 6"></polyline>
                             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                           </svg>
@@ -888,7 +888,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                               }}
                               className="inventory-delete-btn"
                             >
-                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <svg width="var(--icon-base)" height="var(--icon-base)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
                                 <polyline points="3 6 5 6 21 6"></polyline>
                                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                               </svg>
@@ -1193,7 +1193,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     e.currentTarget.style.borderColor = '#e5e5e5';
                   }}
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                     <polyline points="15 3 21 3 21 9"></polyline>
                     <line x1="10" y1="14" x2="21" y2="3"></line>

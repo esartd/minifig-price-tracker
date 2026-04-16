@@ -63,7 +63,7 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
               alignItems: 'center',
               gap: '12px',
               width: '100%',
-              height: '48px',
+              height: 'var(--icon-2xl)',
               padding: '0 16px',
               backgroundColor: '#ffffff',
               border: '1px solid #dfe1e5',
@@ -89,7 +89,7 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
             }}
           >
             {/* Search Icon - Fixed 20px */}
-            <svg style={{ width: '20px', height: '20px', flexShrink: 0, color: '#9aa0a6' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+            <svg style={{ width: 'var(--icon-base)', height: 'var(--icon-base)', flexShrink: 0, color: '#9aa0a6' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="var(--icon-stroke)">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
 
@@ -117,8 +117,8 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
               <button
                 onClick={() => setSearchQuery('')}
                 style={{
-                  width: '20px',
-                  height: '20px',
+                  width: 'var(--icon-base)',
+                  height: 'var(--icon-base)',
                   minWidth: '20px',
                   minHeight: '20px',
                   flexShrink: 0,
@@ -140,7 +140,7 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
                   e.currentTarget.style.backgroundColor = 'transparent';
                 }}
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <svg width="var(--icon-xs)" height="var(--icon-xs)" viewBox="0 0 24 24" fill="none">
                   <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="#70757a"/>
                 </svg>
               </button>
@@ -156,7 +156,7 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
           padding: '64px 16px',
           color: '#737373'
         }}>
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto 16px', opacity: 0.5 }}>
+          <svg width="var(--icon-2xl)" height="var(--icon-2xl)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto 16px', opacity: 0.5 }}>
             <circle cx="11" cy="11" r="8"></circle>
             <path d="m21 21-4.35-4.35"></path>
           </svg>

@@ -41,8 +41,8 @@ export default function ScrollToTop() {
         position: 'fixed',
         bottom: '32px',
         right: '32px',
-        width: '48px',
-        height: '48px',
+        width: 'var(--icon-2xl)',
+        height: 'var(--icon-2xl)',
         borderRadius: '12px',
         background: '#3b82f6',
         border: 'none',
@@ -65,12 +65,12 @@ export default function ScrollToTop() {
       }}
     >
       <svg
-        width="20"
-        height="20"
+        width="var(--icon-base)"
+        height="var(--icon-base)"
         viewBox="0 0 24 24"
         fill="none"
         stroke="white"
-        strokeWidth="2.5"
+        strokeWidth="var(--icon-stroke)"
         strokeLinecap="round"
         strokeLinejoin="round"
       >

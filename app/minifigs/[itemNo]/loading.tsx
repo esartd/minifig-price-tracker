@@ -13,14 +13,14 @@ export default function Loading() {
         gap: '16px'
       }}>
         <div style={{
-          width: '32px',
-          height: '32px',
+          width: 'var(--icon-xl)',
+          height: 'var(--icon-xl)',
           borderRadius: '8px',
           background: '#e5e5e5'
         }} />
         <div style={{
           flex: 1,
-          height: '20px',
+          height: 'var(--icon-base)',
           borderRadius: '8px',
           background: '#e5e5e5'
         }} />
@@ -44,14 +44,14 @@ export default function Loading() {
         {/* Details skeleton */}
         <div style={{ flex: 1 }}>
           <div style={{
-            height: '32px',
+            height: 'var(--icon-xl)',
             width: '60%',
             borderRadius: '8px',
             background: '#e5e5e5',
             marginBottom: '16px'
           }} />
           <div style={{
-            height: '24px',
+            height: 'var(--icon-lg)',
             width: '40%',
             borderRadius: '8px',
             background: '#e5e5e5',
