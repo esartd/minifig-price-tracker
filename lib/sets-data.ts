@@ -222,67 +222,6 @@ export function getRandomCurrentSetsFromTheme(themeName: string, count: number =
 }
 
 /**
- * DEPRECATED: Use getRandomCurrentSetsFromTheme instead
- * Get random current sets from a specific theme (kept for backwards compatibility)
- * @param themeName - Theme name (e.g., "Star Wars", "Harry Potter")
- * @param count - Number of random sets to return
- */
-function _getRandomCurrentSetsFromTheme_OLD(themeName: string, count: number = 3): LegoSet[] {
-  const allCurrentSets = loadCurrentSets();
-
-  // Normalize theme name for flexible matching
-  const normalizedTheme = themeName.toLowerCase().trim();
-
-  // Theme mapping for flexible matching (category names vs user-facing theme names)
-  const themeMap: Record<string, string[]> = {
-    'star wars': ['star wars'],
-    'harry potter': ['harry potter'],
-    'marvel': ['marvel', 'spider-man', 'avengers', 'super heroes'],
-    'dc': ['dc', 'batman', 'superman', 'super heroes'],
-    'super heroes': ['marvel', 'dc', 'super heroes'],
-    'ninjago': ['ninjago'],
-    'city': ['city'],
-    'friends': ['friends'],
-    'creator': ['creator'],
-    'technic': ['technic'],
-    'architecture': ['architecture'],
-    'ideas': ['ideas'],
-    'disney': ['disney'],
-    'speed champions': ['speed champions'],
-    'minecraft': ['minecraft'],
-    'despicable me': ['despicable me and minions', 'despicable me', 'minions'],
-    'minions': ['despicable me and minions', 'despicable me', 'minions']
-  };
-
-  // Find matching theme variations
-  let matchingThemes: string[] = [normalizedTheme];
-  for (const [key, variations] of Object.entries(themeMap)) {
-    if (variations.some(v => normalizedTheme.includes(v) || v.includes(normalizedTheme))) {
-      matchingThemes = variations;
-      break;
-    }
-  }
-
-  // Filter sets matching any theme variation
-  const themeSets = allCurrentSets.filter(set =>
-    matchingThemes.some(theme =>
-      set.categoryName.toLowerCase().includes(theme) ||
-      theme.includes(set.categoryName.toLowerCase())
-    )
-  );
-
-  if (themeSets.length === 0) {
-    // Fallback: return random current sets from any theme
-    const shuffled = [...allCurrentSets].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, count);
-  }
-
-  // Shuffle and return random sets
-  const shuffled = [...themeSets].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, Math.min(count, shuffled.length));
-}
-
-/**
  * Get LEGO set image URL from BrickLink
  * @param setNo - Set number (e.g., "75373-1")
  */

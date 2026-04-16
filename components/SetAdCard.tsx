@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { generateLegoAffiliateLink, generateAmazonLegoSetLink, generateTrackingPixel } from '@/lib/affiliate-links';
+import { generateAmazonLegoSetLink } from '@/lib/affiliate-links';
 
 interface SetAdCardProps {
   setNumber: string;
@@ -11,13 +11,11 @@ interface SetAdCardProps {
 }
 
 /**
- * Ad card component for LEGO sets with affiliate links
- * Designed to blend naturally into the minifig grid like Tiffany's scattered ads
+ * Ad card component for LEGO sets with Amazon affiliate links
+ * Designed to blend naturally into the minifig grid
  */
 export default function SetAdCard({ setNumber, setName, imageUrl, year }: SetAdCardProps) {
-  const legoLink = generateLegoAffiliateLink(setNumber, setName);
   const amazonLink = generateAmazonLegoSetLink(setNumber, setName);
-  const trackingPixel = generateTrackingPixel(setNumber);
 
   return (
     <div
@@ -151,15 +149,6 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year }: SetAdC
         >
           Buy on Amazon
         </a>
-
-        {/* Tracking pixel (invisible 1x1 image for conversion tracking) */}
-        <img
-          src={trackingPixel}
-          alt=""
-          width={1}
-          height={1}
-          style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}
-        />
       </div>
     </div>
   );
