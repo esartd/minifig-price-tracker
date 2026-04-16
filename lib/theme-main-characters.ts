@@ -136,6 +136,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Gabby\'s Dollhouse': 'gdh010',
   'Harry Potter': 'hp605',
   'Horizon': 'hrz001',
+  'Jurassic World': 'jw117',
 };
 
 /**
