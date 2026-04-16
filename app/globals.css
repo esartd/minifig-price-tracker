@@ -45,12 +45,12 @@
   --icon-3xl: 64px;  /* 3XL: hero sections, major empty states */
 
   /* Icon stroke weight - consistent across all icons */
-  --icon-stroke: 2.5;
+  --icon-stroke: 2;
 }
 
 /* Override Heroicons default stroke width */
 svg {
-  stroke-width: 2.5;
+  stroke-width: 2;
 }
 
 @layer base {
