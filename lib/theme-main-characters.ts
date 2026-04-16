@@ -140,6 +140,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Horizon': 'hrz001',
   'Jurassic World': 'jw117',
   'Minecraft': 'min200',
+  'Monkie Kid': 'mk152',
   'NINJAGO': 'njo0974',
   'One Piece': 'op016',
   'Pirates of the Caribbean': 'poc044',
