@@ -139,6 +139,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Jurassic World': 'jw117',
   'Minecraft': 'min200',
   'NINJAGO': 'njo0974',
+  'One Piece': 'op016',
 };
 
 /**
