@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic';
 import AddToCollectionForm from '@/components/search/AddToCollectionForm';
 import ListingGeneratorForm from '@/components/listing-generator-form';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import SetAdCard from '@/components/SetAdCard';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 
 // Lazy load PriceHistoryChart (only loads when in inventory)
@@ -57,6 +58,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
   const [checkingCollection, setCheckingCollection] = useState(true);
   const [addPersonalLoading, setAddPersonalLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [featuredSets, setFeaturedSets] = useState<any[]>([]);
 
   // Fetch pricing on client-side (user-driven, not pre-generated)
   useEffect(() => {
@@ -83,6 +85,26 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
     fetchPricing();
   }, [minifig.no]);
+
+  // Fetch 3 random sets from this theme (last 2 years)
+  useEffect(() => {
+    const fetchFeaturedSets = async () => {
+      try {
+        // Extract main theme from category_name (e.g., "Star Wars" from "Star Wars / Episode 1")
+        const mainTheme = minifig.category_name.split('/')[0].trim();
+        const response = await fetch(`/api/sets/random?theme=${encodeURIComponent(mainTheme)}&count=3`);
+        const data = await response.json();
+
+        if (data.success && data.data.length > 0) {
+          setFeaturedSets(data.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch featured sets:', err);
+      }
+    };
+
+    fetchFeaturedSets();
+  }, [minifig.category_name]);
 
   // Check if item is in inventory and personal collection
   useEffect(() => {
@@ -1354,6 +1376,44 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     </a>
                   ))}
                 </div>
+            </div>
+          )}
+
+          {/* Featured Sets Section - Bottom of Page */}
+          {featuredSets.length > 0 && (
+            <div style={{ marginTop: '48px' }}>
+              <h2 style={{
+                fontSize: 'var(--text-xl)',
+                fontWeight: '600',
+                color: '#171717',
+                marginBottom: '12px',
+                letterSpacing: '-0.02em'
+              }}>
+                Featured {minifig.category_name.split('/')[0].trim()} Sets
+              </h2>
+              <p style={{
+                fontSize: 'var(--text-base)',
+                color: '#737373',
+                marginBottom: '32px',
+                lineHeight: '1.6'
+              }}>
+                Current LEGO sets from this theme
+              </p>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '24px'
+              }}>
+                {featuredSets.map((set: any) => (
+                  <SetAdCard
+                    key={set.setNumber}
+                    setNumber={set.setNumber}
+                    setName={set.name}
+                    imageUrl={set.imageUrl}
+                    year={set.year}
+                  />
+                ))}
+              </div>
             </div>
           )}
         </div>

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { prisma } from '@/lib/prisma';
-import { CurrencyDollarIcon, BriefcaseIcon, BoltIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
+import { CurrencyDollarIcon, BriefcaseIcon, MagnifyingGlassIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
 
 // Force dynamic rendering to show current searchable catalog count
 export const dynamic = 'force-dynamic';
@@ -42,7 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: 'About FigTracker - Free LEGO Minifigure Price Tracker',
-    description: `Learn how FigTracker helps LEGO resellers and collectors price minifigures accurately with real-time Bricklink marketplace data. Search ${catalogCountText} minifigs. Free to use, no ads.`,
+    description: `Learn how FigTracker helps LEGO resellers and collectors price minifigures accurately with real-time Bricklink marketplace data. Search ${catalogCountText} minifigs. Free to use.`,
     openGraph: {
       title: 'About FigTracker - Free LEGO Minifigure Price Tracker',
       description: `Built by sellers, for sellers. Price your LEGO minifigures with confidence using real Bricklink data. ${catalogCountText} minifigs searchable.`,
@@ -148,7 +148,7 @@ export default async function AboutPage() {
 
             <div className="feature-card">
               <div className="feature-icon">
-                <BoltIcon />
+                <MagnifyingGlassIcon />
               </div>
               <h3>Smart Search</h3>
               <p>Search any minifig by exact BrickLink ID (e.g., dis134, sw1219). Name search finds items from {catalogCountText} searchable entries that grow as users discover more minifigs.</p>
@@ -230,7 +230,7 @@ export default async function AboutPage() {
             </div>
 
             <h2>Free to use. No hidden fees.</h2>
-            <p className="trust-description">Your inventory data is private and secure. Currently free with no ads or payment required.</p>
+            <p className="trust-description">Your inventory data is private and secure. Currently free with no payment required to track your collection.</p>
 
             <div className="trust-features">
               <div className="trust-item">
@@ -238,8 +238,8 @@ export default async function AboutPage() {
                 <div className="trust-label">Secure & Private</div>
               </div>
               <div className="trust-item">
-                <div className="trust-emoji">🚫</div>
-                <div className="trust-label">No Ads</div>
+                <div className="trust-emoji">⚡</div>
+                <div className="trust-label">Fast & Reliable</div>
               </div>
               <div className="trust-item">
                 <div className="trust-emoji">💸</div>

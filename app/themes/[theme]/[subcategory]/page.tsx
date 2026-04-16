@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import SetAdCard from '@/components/SetAdCard';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 
 interface Minifig {
@@ -12,6 +13,14 @@ interface Minifig {
   name: string;
   year_released: string | null;
   image_url: string;
+}
+
+interface LegoSet {
+  setNumber: string;
+  name: string;
+  theme: string;
+  year: number;
+  imageUrl: string;
 }
 
 export default function SubcategoryMinifigsPage({
@@ -23,6 +32,7 @@ export default function SubcategoryMinifigsPage({
   const [theme, setTheme] = useState<string>('');
   const [subcategory, setSubcategory] = useState<string>('');
   const [minifigs, setMinifigs] = useState<Minifig[]>([]);
+  const [featuredSets, setFeaturedSets] = useState<LegoSet[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -43,16 +53,32 @@ export default function SubcategoryMinifigsPage({
         ? themeName
         : `${themeName} / ${subcategoryName}`;
 
-      const response = await fetch(
+      // Fetch minifigs
+      const minifigsResponse = await fetch(
         `/api/minifigs/search?subcategory=${encodeURIComponent(fullCategoryName)}`
       );
-      const data = await response.json();
+      const minifigsData = await minifigsResponse.json();
 
-      if (data.success) {
-        setMinifigs(data.data);
+      if (minifigsData.success) {
+        setMinifigs(minifigsData.data);
+
+        // Calculate dynamic ad count based on page length
+        // Formula: Math.floor(minifigs / 15) + 1 (max 10 ads)
+        const numMinifigs = minifigsData.data.length;
+        const numAds = Math.min(10, Math.floor(numMinifigs / 15) + 1);
+
+        // Fetch random sets from last 2 years (number based on page length)
+        const setsResponse = await fetch(
+          `/api/sets/random?theme=${encodeURIComponent(themeName)}&count=${numAds}`
+        );
+        const setsData = await setsResponse.json();
+
+        if (setsData.success && setsData.data.length > 0) {
+          setFeaturedSets(setsData.data);
+        }
       }
     } catch (error) {
-      console.error('Failed to fetch minifigs:', error);
+      console.error('Failed to fetch data:', error);
     } finally {
       setLoading(false);
     }
@@ -137,7 +163,53 @@ export default function SubcategoryMinifigsPage({
           gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
           gap: '16px'
         }}>
-          {minifigs.map((minifig) => (
+          {(() => {
+            // Scattered grid pattern for theme pages
+            // Pattern: Ads at positions 10, 25, 40, 55... (first at 10, then every 15)
+            const items: Array<{ type: 'minifig' | 'set'; data: Minifig | LegoSet; key: string }> = [];
+
+            const firstAdPosition = 10;
+            const spacing = 15;
+            const adPositions: number[] = [];
+
+            // Calculate ad positions based on available sets
+            for (let i = 0; i < featuredSets.length; i++) {
+              const position = firstAdPosition + (i * spacing);
+              if (position <= minifigs.length) {
+                adPositions.push(position);
+              }
+            }
+
+            minifigs.forEach((minifig, index) => {
+              items.push({ type: 'minifig', data: minifig, key: minifig.no });
+
+              // Insert ad at strategic positions
+              const adIndex = adPositions.indexOf(index + 1);
+              if (adIndex !== -1 && featuredSets[adIndex]) {
+                items.push({
+                  type: 'set',
+                  data: featuredSets[adIndex],
+                  key: `set-${featuredSets[adIndex].setNumber}`
+                });
+              }
+            });
+
+            return items.map((item) => {
+              if (item.type === 'set') {
+                const set = item.data as LegoSet;
+                return (
+                  <SetAdCard
+                    key={item.key}
+                    setNumber={set.setNumber}
+                    setName={set.name}
+                    imageUrl={set.imageUrl}
+                    year={set.year}
+                  />
+                );
+              }
+
+              const minifig = item.data as Minifig;
+              return (
             <Link
               key={minifig.no}
               href={`/minifigs/${minifig.no}`}
@@ -230,7 +302,9 @@ export default function SubcategoryMinifigsPage({
                 )}
               </div>
             </Link>
-          ))}
+              );
+            });
+          })()}
         </div>
       )}
     </div>
