@@ -5,6 +5,7 @@ import { CollectionItem } from '@/types';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import MoveDialog from './MoveDialog';
+import { MinusIcon, PlusIcon, ArrowRightIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 interface CollectionListProps {
   items: CollectionItem[];
@@ -254,9 +255,7 @@ export default function CollectionList({
                   padding: 0
                 }}
               >
-                <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
+                <MinusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
               </button>
 
               {editingQuantityId === item.id ? (
@@ -325,10 +324,7 @@ export default function CollectionList({
                   padding: 0
                 }}
               >
-                <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="12" y1="5" x2="12" y2="19"></line>
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
+                <PlusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
               </button>
             </div>
 
@@ -363,9 +359,7 @@ export default function CollectionList({
                     e.currentTarget.style.color = '#737373';
                   }}
                 >
-                  <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M3 12h18M15 6l6 6-6 6"/>
-                  </svg>
+                  <ArrowRightIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
                 </button>
               )}
 
@@ -402,10 +396,7 @@ export default function CollectionList({
                 e.currentTarget.style.borderColor = '#e5e5e5';
               }}
             >
-              <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="3 6 5 6 21 6"></polyline>
-                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-              </svg>
+              <TrashIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
             </button>
           </div>
         </div>
