@@ -142,6 +142,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Minecraft': 'min200',
   'NINJAGO': 'njo0974',
   'One Piece': 'op016',
+  'Star Trek': 'trek006',
   'Star Wars': 'sw1398',
   'Stranger Things': 'st011',
   'Super Heroes': 'sh0115',
