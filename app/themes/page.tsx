@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import ThemesClient from './themes-client';
+import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
 
 interface Theme {
   parent: string;
@@ -75,21 +76,17 @@ async function getThemes(): Promise<Theme[]> {
         subcategories: theme.subcategories.sort((a, b) => a.name.localeCompare(b.name))
       }));
 
-    // Theme overrides for special cases
-    const themeOverrides: Record<string, string> = {
-      // Scala - Use non-blurry minifig
-      'Scala': 'sw1360'
-    };
-
     // Fetch representative minifig and check if theme is current
     const currentYear = new Date().getFullYear();
     const themesWithImages = await Promise.all(
       groupedThemes.map(async (theme) => {
         let minifigNo: string | null = null;
 
-        if (themeOverrides[theme.parent]) {
-          minifigNo = themeOverrides[theme.parent];
+        // STEP 1: Check manual overrides for special cases
+        if (THEME_OVERRIDES[theme.parent]) {
+          minifigNo = THEME_OVERRIDES[theme.parent];
         } else {
+          // STEP 2: Auto-detect by counting variants
           // Get all minifigs in this theme to find character with most variants
           const allMinifigs = await prisma.minifigCatalog.findMany({
             where: {
