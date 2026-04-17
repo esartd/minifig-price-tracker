@@ -492,16 +492,22 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         display: 'flex',
                         gap: '8px'
                       }}>
-                        {allInventoryItems.map((item: any) => (
-                          <span key={item.id}>
-                            Inventory: {item.quantity}x {item.condition === 'new' ? 'New' : 'Used'}
+                        {allInventoryItems.length > 0 && (
+                          <span>
+                            Inventory: {allInventoryItems
+                              .sort((a, b) => a.condition === 'new' ? -1 : 1)
+                              .map((item: any) => `${item.quantity}x ${item.condition === 'new' ? 'New' : 'Used'}`)
+                              .join(', ')}
                           </span>
-                        ))}
-                        {allCollectionItems.map((item: any) => (
-                          <span key={item.id}>
-                            Collection: {item.quantity}x {item.condition === 'new' ? 'New' : 'Used'}
+                        )}
+                        {allCollectionItems.length > 0 && (
+                          <span>
+                            Collection: {allCollectionItems
+                              .sort((a, b) => a.condition === 'new' ? -1 : 1)
+                              .map((item: any) => `${item.quantity}x ${item.condition === 'new' ? 'New' : 'Used'}`)
+                              .join(', ')}
                           </span>
-                        ))}
+                        )}
                       </div>
                     )}
                   </div>
