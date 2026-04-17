@@ -126,70 +126,79 @@ export default function MoveDialog({
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '12px'
+            border: '1px solid #e5e5e5',
+            borderRadius: '8px',
+            overflow: 'hidden',
+            background: '#ffffff',
+            width: 'fit-content'
           }}>
             <button
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
               disabled={quantity <= 1 || loading}
               style={{
-                width: '36px',
-                height: '36px',
+                width: '44px',
+                height: '44px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: quantity <= 1 ? '#fafafa' : '#ffffff',
-                border: '1px solid #e5e5e5',
-                borderRadius: '8px',
-                cursor: quantity <= 1 || loading ? 'not-allowed' : 'pointer',
-                color: quantity <= 1 ? '#d4d4d4' : '#171717',
-                fontSize: 'var(--text-base)',
+                background: quantity > 1 ? '#ffffff' : '#f5f5f5',
+                border: 'none',
+                borderRight: '1px solid #e5e5e5',
+                cursor: quantity > 1 ? 'pointer' : 'not-allowed',
+                color: quantity > 1 ? '#171717' : '#a3a3a3',
+                fontSize: 'var(--text-lg)',
                 fontWeight: '600',
+                padding: 0,
                 transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                if (quantity > 1) e.currentTarget.style.background = '#f5f5f5';
+              }}
+              onMouseLeave={(e) => {
+                if (quantity > 1) e.currentTarget.style.background = '#ffffff';
               }}
             >
               −
             </button>
-            <input
-              type="number"
-              value={quantity}
-              onChange={(e) => {
-                const val = parseInt(e.target.value);
-                if (!isNaN(val) && val >= 1 && val <= maxQuantity) {
-                  setQuantity(val);
-                }
-              }}
-              min={1}
-              max={maxQuantity}
-              disabled={loading}
-              style={{
-                flex: 1,
-                height: '36px',
-                textAlign: 'center',
-                fontSize: 'var(--text-sm)',
-                fontWeight: '500',
-                border: '1px solid #e5e5e5',
-                borderRadius: '8px',
-                backgroundColor: loading ? '#fafafa' : '#ffffff',
-                color: '#171717'
-              }}
-            />
+            <div style={{
+              minWidth: '60px',
+              height: '44px',
+              fontSize: 'var(--text-base)',
+              fontWeight: '600',
+              color: '#171717',
+              background: '#ffffff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              userSelect: 'none',
+              padding: '0 8px'
+            }}>
+              {quantity}
+            </div>
             <button
               onClick={() => setQuantity(Math.min(maxQuantity, quantity + 1))}
               disabled={quantity >= maxQuantity || loading}
               style={{
-                width: '36px',
-                height: '36px',
+                width: '44px',
+                height: '44px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: quantity >= maxQuantity ? '#fafafa' : '#ffffff',
-                border: '1px solid #e5e5e5',
-                borderRadius: '8px',
-                cursor: quantity >= maxQuantity || loading ? 'not-allowed' : 'pointer',
-                color: quantity >= maxQuantity ? '#d4d4d4' : '#171717',
-                fontSize: 'var(--text-base)',
+                background: quantity < maxQuantity ? '#ffffff' : '#f5f5f5',
+                border: 'none',
+                borderLeft: '1px solid #e5e5e5',
+                cursor: quantity < maxQuantity ? 'pointer' : 'not-allowed',
+                color: quantity < maxQuantity ? '#171717' : '#a3a3a3',
+                fontSize: 'var(--text-lg)',
                 fontWeight: '600',
+                padding: 0,
                 transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                if (quantity < maxQuantity) e.currentTarget.style.background = '#f5f5f5';
+              }}
+              onMouseLeave={(e) => {
+                if (quantity < maxQuantity) e.currentTarget.style.background = '#ffffff';
               }}
             >
               +
