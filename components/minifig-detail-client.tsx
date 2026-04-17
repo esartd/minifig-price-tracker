@@ -10,6 +10,7 @@ import AddToCollectionForm from '@/components/search/AddToCollectionForm';
 import ListingGeneratorForm from '@/components/listing-generator-form';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SetAdCard from '@/components/SetAdCard';
+import MoveDialog from '@/components/MoveDialog';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 
 // Lazy load PriceHistoryChart (only loads when in inventory)
@@ -58,6 +59,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
   const [checkingCollection, setCheckingCollection] = useState(true);
   const [addPersonalLoading, setAddPersonalLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [showMoveDialog, setShowMoveDialog] = useState(false);
 
   // Initialize condition from URL query parameter
   const [condition, setCondition] = useState<'new' | 'used'>(() => {
@@ -796,69 +798,37 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
                         {/* Move and Delete Buttons */}
                         <button
-                          onClick={async (e) => {
+                          onClick={(e) => {
                             e.stopPropagation();
-                            const moveQty = prompt(`How many to move to Your Collection? (Max: ${collectionItem.quantity})`, '1');
-                            if (moveQty) {
-                              const qty = parseInt(moveQty);
-                              if (qty > 0 && qty <= collectionItem.quantity) {
-                                try {
-                                  const response = await fetch(`/api/inventory/${collectionItem.id}/move-to-collection`, {
-                                    method: 'POST',
-                                    headers: { 'Content-Type': 'application/json' },
-                                    body: JSON.stringify({ quantity: qty })
-                                  });
-                                  if (response.ok) {
-                                    // Refresh both collections
-                                    const [invRes, colRes] = await Promise.all([
-                                      fetch('/api/inventory'),
-                                      fetch('/api/personal-collection')
-                                    ]);
-                                    const invData = await invRes.json();
-                                    const colData = await colRes.json();
-
-                                    const updatedInv = invData.data?.find((item: any) => item.minifigure_no === minifig.no);
-                                    const updatedCol = colData.data?.find((item: any) => item.minifigure_no === minifig.no);
-
-                                    setCollectionItem(updatedInv || null);
-                                    setPersonalCollectionItem(updatedCol || null);
-                                    setSuccessMessage(`Moved ${qty} to Your Collection!`);
-                                  }
-                                } catch (err) {
-                                  setError('Failed to move item');
-                                }
-                              }
-                            }
+                            setShowMoveDialog(true);
                           }}
                           style={{
-                            padding: '12px 16px',
-                            fontSize: 'var(--text-sm)',
-                            fontWeight: '600',
-                            color: '#3b82f6',
+                            width: '44px',
+                            height: '44px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#737373',
                             background: '#ffffff',
                             border: '1px solid #e5e5e5',
                             borderRadius: '8px',
                             cursor: 'pointer',
-                            transition: 'all 0.2s',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            whiteSpace: 'nowrap'
+                            padding: 0,
+                            transition: 'all 0.2s'
                           }}
+                          title="Move to Your Collection"
                           onMouseEnter={(e) => {
                             e.currentTarget.style.background = '#eff6ff';
-                            e.currentTarget.style.borderColor = '#3b82f6';
+                            e.currentTarget.style.color = '#3b82f6';
                           }}
                           onMouseLeave={(e) => {
                             e.currentTarget.style.background = '#ffffff';
-                            e.currentTarget.style.borderColor = '#e5e5e5';
+                            e.currentTarget.style.color = '#737373';
                           }}
                         >
-                          <svg width="var(--icon-base)" height="var(--icon-base)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="17 11 12 6 7 11"></polyline>
-                            <polyline points="17 18 12 13 7 18"></polyline>
+                          <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
                           </svg>
-                          <span>Move to Collection</span>
                         </button>
                         <button
                           onClick={(e) => {
@@ -1611,6 +1581,45 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
           )}
         </div>
       </div>
+
+      {/* Move Dialog */}
+      {showMoveDialog && collectionItem && (
+        <MoveDialog
+          isOpen={true}
+          onClose={() => setShowMoveDialog(false)}
+          itemName={minifig.name}
+          maxQuantity={collectionItem.quantity}
+          direction="to-collection"
+          onConfirm={async (quantity) => {
+            try {
+              const response = await fetch(`/api/inventory/${collectionItem.id}/move-to-collection`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ quantity })
+              });
+              if (response.ok) {
+                // Refresh both collections
+                const [invRes, colRes] = await Promise.all([
+                  fetch('/api/inventory'),
+                  fetch('/api/personal-collection')
+                ]);
+                const invData = await invRes.json();
+                const colData = await colRes.json();
+
+                const updatedInv = invData.data?.find((item: any) => item.minifigure_no === minifig.no);
+                const updatedCol = colData.data?.find((item: any) => item.minifigure_no === minifig.no);
+
+                setCollectionItem(updatedInv || null);
+                setPersonalCollectionItem(updatedCol || null);
+                setSuccessMessage(`Moved ${quantity} to Your Collection!`);
+              }
+            } catch (err) {
+              setError('Failed to move item');
+            }
+            setShowMoveDialog(false);
+          }}
+        />
+      )}
     </div>
   );
 }
