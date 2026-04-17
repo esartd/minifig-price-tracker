@@ -57,6 +57,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
   const [collectionItem, setCollectionItem] = useState<any>(null);
   const [personalCollectionItem, setPersonalCollectionItem] = useState<any>(null);
   const [checkingCollection, setCheckingCollection] = useState(true);
+  const [allInventoryItems, setAllInventoryItems] = useState<any[]>([]);
+  const [allCollectionItems, setAllCollectionItems] = useState<any[]>([]);
   const [addPersonalLoading, setAddPersonalLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [showMoveDialog, setShowMoveDialog] = useState(false);
@@ -133,9 +135,14 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
         const inventoryData = await inventoryResponse.json();
 
         if (inventoryData.success && inventoryData.data) {
-          const found = inventoryData.data.find((item: any) =>
-            item.minifigure_no === minifig.no && item.condition === condition
+          // Store all items for this minifig (both conditions)
+          const allItems = inventoryData.data.filter((item: any) =>
+            item.minifigure_no === minifig.no
           );
+          setAllInventoryItems(allItems);
+
+          // Find current condition item
+          const found = allItems.find((item: any) => item.condition === condition);
           setCollectionItem(found || null);
         }
 
@@ -144,9 +151,14 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
         const personalData = await personalResponse.json();
 
         if (personalData.success && personalData.data) {
-          const found = personalData.data.find((item: any) =>
-            item.minifigure_no === minifig.no && item.condition === condition
+          // Store all items for this minifig (both conditions)
+          const allItems = personalData.data.filter((item: any) =>
+            item.minifigure_no === minifig.no
           );
+          setAllCollectionItems(allItems);
+
+          // Find current condition item
+          const found = allItems.find((item: any) => item.condition === condition);
           setPersonalCollectionItem(found || null);
         }
       } catch (err) {
@@ -461,49 +473,73 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   </p>
 
                   {/* Condition Toggle */}
-                  <div style={{
-                    display: 'flex',
-                    gap: '8px',
-                    marginBottom: '16px',
-                    padding: '4px',
-                    background: '#f5f5f5',
-                    borderRadius: '8px',
-                    width: 'fit-content'
-                  }}>
-                    <button
-                      onClick={() => setCondition('new')}
-                      style={{
-                        padding: '8px 16px',
-                        fontSize: 'var(--text-sm)',
-                        fontWeight: '600',
-                        color: condition === 'new' ? '#ffffff' : '#525252',
-                        background: condition === 'new' ? '#3b82f6' : 'transparent',
-                        border: 'none',
-                        borderRadius: '6px',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s',
-                        whiteSpace: 'nowrap'
-                      }}
-                    >
-                      New
-                    </button>
-                    <button
-                      onClick={() => setCondition('used')}
-                      style={{
-                        padding: '8px 16px',
-                        fontSize: 'var(--text-sm)',
-                        fontWeight: '600',
-                        color: condition === 'used' ? '#ffffff' : '#525252',
-                        background: condition === 'used' ? '#3b82f6' : 'transparent',
-                        border: 'none',
-                        borderRadius: '6px',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s',
-                        whiteSpace: 'nowrap'
-                      }}
-                    >
-                      Used
-                    </button>
+                  <div style={{ marginBottom: '16px' }}>
+                    <div style={{
+                      display: 'flex',
+                      gap: '8px',
+                      padding: '4px',
+                      background: '#f5f5f5',
+                      borderRadius: '8px',
+                      width: 'fit-content'
+                    }}>
+                      <button
+                        onClick={() => setCondition('new')}
+                        style={{
+                          padding: '8px 16px',
+                          fontSize: 'var(--text-sm)',
+                          fontWeight: '600',
+                          color: condition === 'new' ? '#ffffff' : '#525252',
+                          background: condition === 'new' ? '#3b82f6' : 'transparent',
+                          border: 'none',
+                          borderRadius: '6px',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s',
+                          whiteSpace: 'nowrap'
+                        }}
+                      >
+                        New
+                      </button>
+                      <button
+                        onClick={() => setCondition('used')}
+                        style={{
+                          padding: '8px 16px',
+                          fontSize: 'var(--text-sm)',
+                          fontWeight: '600',
+                          color: condition === 'used' ? '#ffffff' : '#525252',
+                          background: condition === 'used' ? '#3b82f6' : 'transparent',
+                          border: 'none',
+                          borderRadius: '6px',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s',
+                          whiteSpace: 'nowrap'
+                        }}
+                      >
+                        Used
+                      </button>
+                    </div>
+
+                    {/* Show what user owns */}
+                    {session && (allInventoryItems.length > 0 || allCollectionItems.length > 0) && (
+                      <div style={{
+                        marginTop: '8px',
+                        fontSize: 'var(--text-xs)',
+                        color: '#737373',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '2px'
+                      }}>
+                        {allInventoryItems.map((item: any) => (
+                          <div key={item.id}>
+                            Inventory: {item.quantity}x {item.condition === 'new' ? 'New' : 'Used'}
+                          </div>
+                        ))}
+                        {allCollectionItems.map((item: any) => (
+                          <div key={item.id}>
+                            Collection: {item.quantity}x {item.condition === 'new' ? 'New' : 'Used'}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   {/* Pricing Row */}
