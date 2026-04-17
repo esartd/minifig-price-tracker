@@ -728,15 +728,15 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                 fontWeight: '600',
                                 color: collectionItem.condition === 'new' ? '#059669' : '#525252',
                                 background: collectionItem.condition === 'new' ? '#d1fae5' : '#f5f5f5',
-                                padding: '3px 8px',
-                                paddingRight: '24px',
+                                padding: '3px 8px 3px 8px',
+                                paddingRight: '20px',
                                 borderRadius: '4px',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.03em',
                                 border: 'none',
                                 cursor: 'pointer',
                                 outline: 'none',
-                                marginRight: '8px'
+                                marginRight: '12px'
                               }}
                             >
                               <option value="new">NEW</option>
@@ -962,15 +962,15 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                 fontWeight: '600',
                                 color: personalCollectionItem.condition === 'new' ? '#059669' : '#525252',
                                 background: personalCollectionItem.condition === 'new' ? '#d1fae5' : '#f5f5f5',
-                                padding: '3px 8px',
-                                paddingRight: '24px',
+                                padding: '3px 8px 3px 8px',
+                                paddingRight: '20px',
                                 borderRadius: '4px',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.03em',
                                 border: 'none',
                                 cursor: 'pointer',
                                 outline: 'none',
-                                marginRight: '8px'
+                                marginRight: '12px'
                               }}
                             >
                               <option value="new">NEW</option>
