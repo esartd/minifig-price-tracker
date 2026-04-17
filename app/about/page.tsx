@@ -305,7 +305,7 @@ export default async function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="about-section about-trust-section">
+      <section className="about-section about-cta-section">
         <div className="about-page-container">
           <div className="section-content-narrow">
             <h2>Ready to stop guessing?</h2>
