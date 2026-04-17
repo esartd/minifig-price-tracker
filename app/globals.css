@@ -2111,3 +2111,15 @@ select.custom-dropdown.condition-new {
 select.custom-dropdown.condition-used {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23525252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
 }
+
+/* ============================================ */
+/* Force Consistent Font Sizes */
+/* ============================================ */
+
+/* All filter controls use same exact font size */
+.collection-controls,
+.collection-controls button,
+.collection-controls select {
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+}
