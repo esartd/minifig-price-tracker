@@ -210,8 +210,8 @@ export default function CollectionList({
                 style={{
                   fontSize: 'var(--text-xs)',
                   fontWeight: '600',
-                  color: item.condition === 'new' ? '#059669' : '#d97706',
-                  background: item.condition === 'new' ? '#d1fae5' : '#fef3c7',
+                  color: item.condition === 'new' ? '#059669' : '#525252',
+                  background: item.condition === 'new' ? '#d1fae5' : '#f5f5f5',
                   padding: '3px 8px',
                   paddingRight: '24px',
                   borderRadius: '4px',
