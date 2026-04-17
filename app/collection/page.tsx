@@ -510,41 +510,64 @@ export default function PersonalCollectionPage() {
             )}
           </div>
 
-          {collection.length === 0 ? (
+          {getSortedCollection().length === 0 ? (
             <div style={{ textAlign: 'center', padding: '60px 0' }}>
-              <div style={{ fontSize: 'var(--text-3xl)', marginBottom: '24px' }}>🏠</div>
-              <h3 style={{
-                fontSize: 'var(--text-lg)',
-                fontWeight: '600',
-                color: '#171717',
-                marginBottom: '12px'
-              }}>
-                No minifigs yet
-              </h3>
-              <p style={{
-                fontSize: 'var(--text-base)',
-                color: '#737373',
-                marginBottom: '32px',
-                lineHeight: '1.6'
-              }}>
-                Start adding to your personal collection
-              </p>
-              <Link
-                href="/search?mode=collection"
-                style={{
-                  display: 'inline-block',
-                  padding: '16px 32px',
-                  fontSize: 'var(--text-base)',
-                  fontWeight: '600',
-                  color: 'white',
-                  background: '#3b82f6',
-                  borderRadius: '12px',
-                  textDecoration: 'none',
-                  transition: 'all 0.2s'
-                }}
-              >
-                Search Minifigs
-              </Link>
+              {conditionFilter === 'all' ? (
+                <>
+                  <div style={{ fontSize: 'var(--text-3xl)', marginBottom: '24px' }}>🏠</div>
+                  <h3 style={{
+                    fontSize: 'var(--text-lg)',
+                    fontWeight: '600',
+                    color: '#171717',
+                    marginBottom: '12px'
+                  }}>
+                    No minifigs yet
+                  </h3>
+                  <p style={{
+                    fontSize: 'var(--text-base)',
+                    color: '#737373',
+                    marginBottom: '32px',
+                    lineHeight: '1.6'
+                  }}>
+                    Start adding to your personal collection
+                  </p>
+                  <Link
+                    href="/search?mode=collection"
+                    style={{
+                      display: 'inline-block',
+                      padding: '16px 32px',
+                      fontSize: 'var(--text-base)',
+                      fontWeight: '600',
+                      color: 'white',
+                      background: '#3b82f6',
+                      borderRadius: '12px',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s'
+                    }}
+                  >
+                    Search Minifigs
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <div style={{ fontSize: 'var(--text-3xl)', marginBottom: '24px' }}>🔍</div>
+                  <h3 style={{
+                    fontSize: 'var(--text-lg)',
+                    fontWeight: '600',
+                    color: '#171717',
+                    marginBottom: '12px'
+                  }}>
+                    No {conditionFilter} condition minifigs
+                  </h3>
+                  <p style={{
+                    fontSize: 'var(--text-base)',
+                    color: '#737373',
+                    lineHeight: '1.6'
+                  }}>
+                    You have {collection.length} minifig{collection.length !== 1 ? 's' : ''} in other conditions
+                  </p>
+                </>
+              )}
             </div>
           ) : (
             <PersonalCollectionList

@@ -509,43 +509,66 @@ export default function CollectionPage() {
             )}
           </div>
 
-          {collection.length === 0 ? (
+          {getSortedCollection().length === 0 ? (
             <div style={{ textAlign: 'center', padding: '60px 0' }}>
-              <svg style={{ width: 'var(--icon-3xl)', height: 'var(--icon-3xl)', color: '#a3a3a3', margin: '0 auto 24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-              </svg>
-              <h3 style={{
-                fontSize: 'var(--text-lg)',
-                fontWeight: '600',
-                color: '#171717',
-                marginBottom: '12px'
-              }}>
-                No minifigs yet
-              </h3>
-              <p style={{
-                fontSize: 'var(--text-base)',
-                color: '#737373',
-                marginBottom: '32px',
-                lineHeight: '1.6'
-              }}>
-                Start adding to your inventory by searching for minifigs
-              </p>
-              <Link
-                href="/search"
-                style={{
-                  display: 'inline-block',
-                  padding: '16px 32px',
-                  fontSize: 'var(--text-base)',
-                  fontWeight: '600',
-                  color: 'white',
-                  background: '#3b82f6',
-                  borderRadius: '12px',
-                  textDecoration: 'none',
-                  transition: 'all 0.2s'
-                }}
-              >
-                Search Minifigs
-              </Link>
+              {conditionFilter === 'all' ? (
+                <>
+                  <svg style={{ width: 'var(--icon-3xl)', height: 'var(--icon-3xl)', color: '#a3a3a3', margin: '0 auto 24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                  </svg>
+                  <h3 style={{
+                    fontSize: 'var(--text-lg)',
+                    fontWeight: '600',
+                    color: '#171717',
+                    marginBottom: '12px'
+                  }}>
+                    No minifigs yet
+                  </h3>
+                  <p style={{
+                    fontSize: 'var(--text-base)',
+                    color: '#737373',
+                    marginBottom: '32px',
+                    lineHeight: '1.6'
+                  }}>
+                    Start adding to your inventory by searching for minifigs
+                  </p>
+                  <Link
+                    href="/search"
+                    style={{
+                      display: 'inline-block',
+                      padding: '16px 32px',
+                      fontSize: 'var(--text-base)',
+                      fontWeight: '600',
+                      color: 'white',
+                      background: '#3b82f6',
+                      borderRadius: '12px',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s'
+                    }}
+                  >
+                    Search Minifigs
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <div style={{ fontSize: 'var(--text-3xl)', marginBottom: '24px' }}>🔍</div>
+                  <h3 style={{
+                    fontSize: 'var(--text-lg)',
+                    fontWeight: '600',
+                    color: '#171717',
+                    marginBottom: '12px'
+                  }}>
+                    No {conditionFilter} condition minifigs
+                  </h3>
+                  <p style={{
+                    fontSize: 'var(--text-base)',
+                    color: '#737373',
+                    lineHeight: '1.6'
+                  }}>
+                    You have {collection.length} minifig{collection.length !== 1 ? 's' : ''} in other conditions
+                  </p>
+                </>
+              )}
             </div>
           ) : (
             <CollectionList
