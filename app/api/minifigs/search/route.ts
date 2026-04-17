@@ -201,32 +201,30 @@ export async function GET(request: NextRequest) {
 
     // NAME-BASED SEARCH: Search from our MinifigCatalog database
     const searchLower = searchTerm.toLowerCase();
+    const categoryFilterSQL = categoryId ? `AND category_id = ${parseInt(categoryId)}` : '';
 
-    // Build WHERE clause for category filter
-    const categoryFilter = categoryId ? { category_id: parseInt(categoryId) } : {};
-
-    // Simple database search using the search_name column
-    const catalogItems = await prisma.minifigCatalog.findMany({
-      where: {
-        search_name: {
-          contains: searchLower,
-          mode: 'insensitive'
-        },
-        ...categoryFilter
-      },
-      select: {
-        minifigure_no: true,
-        name: true,
-        category_id: true,
-        category_name: true,
-        year_released: true
-      },
-      orderBy: [
-        { year_released: 'desc' },
-        { minifigure_no: 'desc' }
-      ],
-      take: 200
-    });
+    // Search with proper year sorting (year as integer, newest first)
+    const catalogItems = await prisma.$queryRawUnsafe<Array<{
+      minifigure_no: string;
+      name: string;
+      category_id: number;
+      category_name: string;
+      year_released: string | null;
+    }>>(
+      `SELECT
+        minifigure_no,
+        name,
+        category_id,
+        category_name,
+        year_released
+      FROM "MinifigCatalog"
+      WHERE LOWER(search_name) LIKE '%' || $1 || '%' ${categoryFilterSQL}
+      ORDER BY
+        CASE WHEN year_released IS NULL OR year_released = '' THEN 0 ELSE CAST(year_released AS INTEGER) END DESC,
+        minifigure_no DESC
+      LIMIT 200`,
+      searchLower
+    );
 
     // Map catalog items to response format (sorting already done in SQL)
     const matchedItems = catalogItems.map(item => ({
