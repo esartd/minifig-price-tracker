@@ -379,9 +379,6 @@ export default function CollectionPage() {
                 <div style={{
                   display: 'flex',
                   gap: '8px',
-                  padding: '4px',
-                  background: '#f5f5f5',
-                  borderRadius: '8px',
                   width: 'fit-content'
                 }}>
                   <button
@@ -390,10 +387,10 @@ export default function CollectionPage() {
                       padding: '8px 16px',
                       fontSize: 'var(--text-sm)',
                       fontWeight: '600',
-                      color: conditionFilter === 'all' ? '#ffffff' : '#525252',
-                      background: conditionFilter === 'all' ? '#171717' : 'transparent',
-                      border: 'none',
-                      borderRadius: '6px',
+                      color: conditionFilter === 'all' ? '#171717' : '#737373',
+                      background: conditionFilter === 'all' ? '#f5f5f5' : '#ffffff',
+                      border: conditionFilter === 'all' ? '2px solid #3b82f6' : '1px solid #e5e5e5',
+                      borderRadius: '8px',
                       cursor: 'pointer',
                       transition: 'all 0.2s',
                       whiteSpace: 'nowrap'
@@ -407,10 +404,10 @@ export default function CollectionPage() {
                       padding: '8px 16px',
                       fontSize: 'var(--text-sm)',
                       fontWeight: '600',
-                      color: conditionFilter === 'new' ? '#ffffff' : '#525252',
-                      background: conditionFilter === 'new' ? '#171717' : 'transparent',
-                      border: 'none',
-                      borderRadius: '6px',
+                      color: conditionFilter === 'new' ? '#171717' : '#737373',
+                      background: conditionFilter === 'new' ? '#f5f5f5' : '#ffffff',
+                      border: conditionFilter === 'new' ? '2px solid #3b82f6' : '1px solid #e5e5e5',
+                      borderRadius: '8px',
                       cursor: 'pointer',
                       transition: 'all 0.2s',
                       whiteSpace: 'nowrap'
@@ -424,10 +421,10 @@ export default function CollectionPage() {
                       padding: '8px 16px',
                       fontSize: 'var(--text-sm)',
                       fontWeight: '600',
-                      color: conditionFilter === 'used' ? '#ffffff' : '#525252',
-                      background: conditionFilter === 'used' ? '#171717' : 'transparent',
-                      border: 'none',
-                      borderRadius: '6px',
+                      color: conditionFilter === 'used' ? '#171717' : '#737373',
+                      background: conditionFilter === 'used' ? '#f5f5f5' : '#ffffff',
+                      border: conditionFilter === 'used' ? '2px solid #3b82f6' : '1px solid #e5e5e5',
+                      borderRadius: '8px',
                       cursor: 'pointer',
                       transition: 'all 0.2s',
                       whiteSpace: 'nowrap'
