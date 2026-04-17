@@ -251,7 +251,7 @@ export default async function AboutPage() {
       </section>
 
       {/* Contact & Support Section */}
-      <section className="about-section about-trust-section">
+      <section className="about-section about-personas-section">
         <div className="about-page-container">
           <div className="section-content-narrow">
             <h2>Need Help?</h2>
@@ -305,7 +305,7 @@ export default async function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="about-section about-cta-section">
+      <section className="about-section about-trust-section">
         <div className="about-page-container">
           <div className="section-content-narrow">
             <h2>Ready to stop guessing?</h2>
