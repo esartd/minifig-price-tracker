@@ -214,7 +214,7 @@ export default function PersonalCollectionList({
                   fontWeight: '600',
                   color: item.condition === 'new' ? '#059669' : '#d97706',
                   background: item.condition === 'new' ? '#d1fae5' : '#fef3c7',
-                  padding: '2px 8px',
+                  padding: '3px 20px 3px 8px',
                   borderRadius: '4px',
                   textTransform: 'uppercase',
                   letterSpacing: '0.03em',
