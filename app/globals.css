@@ -2116,10 +2116,11 @@ select.custom-dropdown.condition-used {
 /* Force Consistent Font Sizes */
 /* ============================================ */
 
-/* All filter controls use same exact font size */
+/* All filter controls use same exact font size and height */
 .collection-controls,
 .collection-controls button,
 .collection-controls select {
   font-size: 14px !important;
   line-height: 1.4 !important;
+  height: 44px !important;
 }
