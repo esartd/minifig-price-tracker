@@ -732,7 +732,72 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           </button>
                         </div>
 
-                        {/* Delete Button */}
+                        {/* Move and Delete Buttons */}
+                        <button
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            const moveQty = prompt(`How many to move to Your Collection? (Max: ${collectionItem.quantity})`, '1');
+                            if (moveQty) {
+                              const qty = parseInt(moveQty);
+                              if (qty > 0 && qty <= collectionItem.quantity) {
+                                try {
+                                  const response = await fetch(`/api/inventory/${collectionItem.id}/move-to-collection`, {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ quantity: qty })
+                                  });
+                                  if (response.ok) {
+                                    // Refresh both collections
+                                    const [invRes, colRes] = await Promise.all([
+                                      fetch('/api/inventory'),
+                                      fetch('/api/personal-collection')
+                                    ]);
+                                    const invData = await invRes.json();
+                                    const colData = await colRes.json();
+
+                                    const updatedInv = invData.data?.find((item: any) => item.minifigure_no === minifig.no);
+                                    const updatedCol = colData.data?.find((item: any) => item.minifigure_no === minifig.no);
+
+                                    setCollectionItem(updatedInv || null);
+                                    setPersonalCollectionItem(updatedCol || null);
+                                    setSuccessMessage(`Moved ${qty} to Your Collection!`);
+                                  }
+                                } catch (err) {
+                                  setError('Failed to move item');
+                                }
+                              }
+                            }
+                          }}
+                          style={{
+                            padding: '12px 16px',
+                            fontSize: 'var(--text-sm)',
+                            fontWeight: '600',
+                            color: '#3b82f6',
+                            background: '#ffffff',
+                            border: '1px solid #e5e5e5',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            whiteSpace: 'nowrap'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = '#eff6ff';
+                            e.currentTarget.style.borderColor = '#3b82f6';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = '#ffffff';
+                            e.currentTarget.style.borderColor = '#e5e5e5';
+                          }}
+                        >
+                          <svg width="var(--icon-base)" height="var(--icon-base)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="17 11 12 6 7 11"></polyline>
+                            <polyline points="17 18 12 13 7 18"></polyline>
+                          </svg>
+                          <span>Move to Collection</span>
+                        </button>
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -882,7 +947,72 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                               </button>
                             </div>
 
-                            {/* Delete Button */}
+                            {/* Move and Delete Buttons */}
+                            <button
+                              onClick={async (e) => {
+                                e.stopPropagation();
+                                const moveQty = prompt(`How many to move to Inventory? (Max: ${personalCollectionItem.quantity})`, '1');
+                                if (moveQty) {
+                                  const qty = parseInt(moveQty);
+                                  if (qty > 0 && qty <= personalCollectionItem.quantity) {
+                                    try {
+                                      const response = await fetch(`/api/personal-collection/${personalCollectionItem.id}/move-to-inventory`, {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ quantity: qty })
+                                      });
+                                      if (response.ok) {
+                                        // Refresh both collections
+                                        const [invRes, colRes] = await Promise.all([
+                                          fetch('/api/inventory'),
+                                          fetch('/api/personal-collection')
+                                        ]);
+                                        const invData = await invRes.json();
+                                        const colData = await colRes.json();
+
+                                        const updatedInv = invData.data?.find((item: any) => item.minifigure_no === minifig.no);
+                                        const updatedCol = colData.data?.find((item: any) => item.minifigure_no === minifig.no);
+
+                                        setCollectionItem(updatedInv || null);
+                                        setPersonalCollectionItem(updatedCol || null);
+                                        setSuccessMessage(`Moved ${qty} to Inventory!`);
+                                      }
+                                    } catch (err) {
+                                      setError('Failed to move item');
+                                    }
+                                  }
+                                }
+                              }}
+                              style={{
+                                padding: '12px 16px',
+                                fontSize: 'var(--text-sm)',
+                                fontWeight: '600',
+                                color: '#3b82f6',
+                                background: '#ffffff',
+                                border: '1px solid #e5e5e5',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                whiteSpace: 'nowrap'
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.background = '#eff6ff';
+                                e.currentTarget.style.borderColor = '#3b82f6';
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.background = '#ffffff';
+                                e.currentTarget.style.borderColor = '#e5e5e5';
+                              }}
+                            >
+                              <svg width="var(--icon-base)" height="var(--icon-base)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="7 13 12 18 17 13"></polyline>
+                                <polyline points="7 6 12 11 17 6"></polyline>
+                              </svg>
+                              <span>Move to Inventory</span>
+                            </button>
                             <button
                               onClick={async (e) => {
                                 e.stopPropagation();
