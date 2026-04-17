@@ -212,13 +212,15 @@ export default function PersonalCollectionList({
                   fontWeight: '600',
                   color: item.condition === 'new' ? '#059669' : '#d97706',
                   background: item.condition === 'new' ? '#d1fae5' : '#fef3c7',
-                  padding: '3px 20px 3px 8px',
+                  padding: '3px 8px',
+                  paddingRight: '24px',
                   borderRadius: '4px',
                   textTransform: 'uppercase',
                   letterSpacing: '0.03em',
                   border: 'none',
                   cursor: 'pointer',
-                  outline: 'none'
+                  outline: 'none',
+                  marginRight: '4px'
                 }}
               >
                 <option value="new">NEW</option>
