@@ -282,7 +282,7 @@ export default async function AboutPage() {
                 Email us with any issues, questions, or feedback
               </p>
               <a
-                href="mailto:support@figtracker.com"
+                href="mailto:hello@ericksu.com"
                 style={{
                   display: 'inline-block',
                   padding: '12px 24px',
@@ -298,7 +298,7 @@ export default async function AboutPage() {
                 onMouseEnter={(e) => e.currentTarget.style.background = '#2563eb'}
                 onMouseLeave={(e) => e.currentTarget.style.background = '#3b82f6'}
               >
-                support@figtracker.com
+                hello@ericksu.com
               </a>
             </div>
           </div>

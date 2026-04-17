@@ -32,7 +32,7 @@ export default function Footer() {
           onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
           onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
           >About</a>
-          <a href="mailto:support@figtracker.com" style={{
+          <a href="mailto:hello@ericksu.com" style={{
             color: '#525252',
             textDecoration: 'none',
             fontWeight: '500',
@@ -41,7 +41,7 @@ export default function Footer() {
           onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
           onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
           >Report a Problem</a>
-          <a href="mailto:support@figtracker.com" style={{
+          <a href="mailto:hello@ericksu.com" style={{
             color: '#525252',
             textDecoration: 'none',
             fontWeight: '500',
