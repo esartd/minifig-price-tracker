@@ -188,7 +188,7 @@ export default function PersonalCollectionList({
                 {item.minifigure_no}
               </p>
               <select
-                className="custom-dropdown"
+                className={`custom-dropdown condition-${item.condition}`}
                 value={item.condition}
                 onChange={async (e) => {
                   e.stopPropagation();
@@ -225,11 +225,7 @@ export default function PersonalCollectionList({
                   border: 'none',
                   cursor: 'pointer',
                   outline: 'none',
-                  marginRight: '12px',
-                  backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='${item.condition === 'new' ? '%23059669' : '%23525252'}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'right 6px center',
-                  backgroundSize: '14px 14px'
+                  marginRight: '12px'
                 }}
               >
                 <option value="new">NEW</option>
