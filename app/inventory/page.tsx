@@ -18,11 +18,16 @@ export default function CollectionPage() {
   const [showDecimals, setShowDecimals] = useState(false);
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
 
-  // Load saved sort order on mount
+  // Load saved preferences on mount
   useEffect(() => {
     const savedSortOrder = localStorage.getItem('inventorySortOrder');
     if (savedSortOrder) {
       setSortOrder(savedSortOrder as 'default' | 'price-high' | 'price-low' | 'id');
+    }
+
+    const savedShowDecimals = localStorage.getItem('showDecimals');
+    if (savedShowDecimals !== null) {
+      setShowDecimals(savedShowDecimals === 'true');
     }
   }, []);
 
@@ -30,6 +35,13 @@ export default function CollectionPage() {
   const handleSortOrderChange = (newSortOrder: 'default' | 'price-high' | 'price-low' | 'id') => {
     setSortOrder(newSortOrder);
     localStorage.setItem('inventorySortOrder', newSortOrder);
+  };
+
+  // Save decimal preference when it changes
+  const handleToggleDecimals = () => {
+    const newValue = !showDecimals;
+    setShowDecimals(newValue);
+    localStorage.setItem('showDecimals', newValue.toString());
   };
 
   useEffect(() => {
@@ -475,7 +487,7 @@ export default function CollectionPage() {
                   }} />
                 </div>
                 <button
-                  onClick={() => setShowDecimals(!showDecimals)}
+                  onClick={handleToggleDecimals}
                   style={{
                     padding: '8px 12px',
                     fontSize: 'var(--text-sm)',
