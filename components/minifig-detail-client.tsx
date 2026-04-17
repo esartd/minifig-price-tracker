@@ -898,6 +898,22 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           <span className="inventory-delete-text">Remove from Inventory</span>
                         </button>
                       </div>
+
+                        {/* Success message for inventory actions */}
+                        {successMessage && successMessage.includes('Inventory') && (
+                          <div style={{
+                            marginTop: '16px',
+                            padding: '12px 16px',
+                            background: '#d1fae5',
+                            border: '1px solid #6ee7b7',
+                            borderRadius: '8px',
+                            fontSize: 'var(--text-sm)',
+                            color: '#065f46',
+                            fontWeight: '500'
+                          }}>
+                            ✓ {successMessage}
+                          </div>
+                        )}
                         </>
                       )}
 
@@ -1108,6 +1124,22 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                               <span className="inventory-delete-text">Remove from Your Collection</span>
                             </button>
                           </div>
+
+                          {/* Success message for collection actions */}
+                          {successMessage && successMessage.includes('Collection') && (
+                            <div style={{
+                              marginTop: '16px',
+                              padding: '12px 16px',
+                              background: '#d1fae5',
+                              border: '1px solid #6ee7b7',
+                              borderRadius: '8px',
+                              fontSize: 'var(--text-sm)',
+                              color: '#065f46',
+                              fontWeight: '500'
+                            }}>
+                              ✓ {successMessage}
+                            </div>
+                          )}
                         </>
                       )}
 
@@ -1343,21 +1375,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       alert('Listing saved!');
                     }}
                   />
-                )}
-
-                {successMessage && (
-                  <div style={{
-                    marginTop: '24px',
-                    padding: '16px 20px',
-                    background: '#d1fae5',
-                    border: '1px solid #6ee7b7',
-                    borderRadius: '8px',
-                    fontSize: 'var(--text-sm)',
-                    color: '#065f46',
-                    fontWeight: '500'
-                  }}>
-                    ✓ {successMessage}
-                  </div>
                 )}
 
                 {error && (
