@@ -58,7 +58,17 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
   const [checkingCollection, setCheckingCollection] = useState(true);
   const [addPersonalLoading, setAddPersonalLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const [condition, setCondition] = useState<'new' | 'used'>('new');
+
+  // Initialize condition from URL query parameter
+  const [condition, setCondition] = useState<'new' | 'used'>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const conditionParam = params.get('condition');
+      return conditionParam === 'used' ? 'used' : 'new';
+    }
+    return 'new';
+  });
+
   const [featuredSets, setFeaturedSets] = useState<any[]>([]);
 
   // Fetch pricing on client-side (user-driven, not pre-generated)
