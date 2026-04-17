@@ -190,22 +190,20 @@ export default function CollectionList({
                 onChange={async (e) => {
                   e.stopPropagation();
                   const newCondition = e.target.value as 'new' | 'used';
-                  if (confirm(`Change condition to ${newCondition}? This will merge with existing ${newCondition} items if any.`)) {
-                    try {
-                      const response = await fetch(`/api/inventory/${item.id}/change-condition`, {
-                        method: 'PATCH',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ newCondition })
-                      });
-                      if (response.ok) {
-                        window.location.reload();
-                      } else {
-                        const data = await response.json();
-                        alert(data.error || 'Failed to change condition');
-                      }
-                    } catch (err) {
-                      alert('Failed to change condition');
+                  try {
+                    const response = await fetch(`/api/inventory/${item.id}/change-condition`, {
+                      method: 'PATCH',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ newCondition })
+                    });
+                    if (response.ok) {
+                      window.location.reload();
+                    } else {
+                      const data = await response.json();
+                      alert(data.error || 'Failed to change condition');
                     }
+                  } catch (err) {
+                    alert('Failed to change condition');
                   }
                 }}
                 onClick={(e) => e.stopPropagation()}
