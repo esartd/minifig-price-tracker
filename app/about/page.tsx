@@ -250,6 +250,61 @@ export default async function AboutPage() {
         </div>
       </section>
 
+      {/* Contact & Support Section */}
+      <section className="about-section about-trust-section">
+        <div className="about-page-container">
+          <div className="section-content-narrow">
+            <h2>Need Help?</h2>
+            <p style={{ marginBottom: '32px' }}>Found a bug or have a feature request? We'd love to hear from you.</p>
+
+            <div style={{
+              background: '#fafafa',
+              border: '1px solid #e5e5e5',
+              borderRadius: '12px',
+              padding: '32px',
+              textAlign: 'center'
+            }}>
+              <div style={{
+                fontSize: '48px',
+                marginBottom: '16px'
+              }}>📧</div>
+              <h3 style={{
+                fontSize: 'var(--text-lg)',
+                fontWeight: '600',
+                color: '#171717',
+                marginBottom: '8px'
+              }}>Contact Support</h3>
+              <p style={{
+                fontSize: 'var(--text-sm)',
+                color: '#737373',
+                marginBottom: '20px'
+              }}>
+                Email us with any issues, questions, or feedback
+              </p>
+              <a
+                href="mailto:support@figtracker.com"
+                style={{
+                  display: 'inline-block',
+                  padding: '12px 24px',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: '600',
+                  color: '#ffffff',
+                  background: '#3b82f6',
+                  border: 'none',
+                  borderRadius: '8px',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = '#2563eb'}
+                onMouseLeave={(e) => e.currentTarget.style.background = '#3b82f6'}
+              >
+                support@figtracker.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="about-section about-cta-section">
         <div className="about-page-container">
