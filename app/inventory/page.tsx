@@ -434,7 +434,7 @@ export default function CollectionPage() {
                   </button>
                 </div>
 
-              <div className="collection-controls" style={{ display: 'flex', gap: '12px', width: '100%', alignItems: 'stretch' }}>
+              <div className="collection-controls" style={{ display: 'flex', gap: '12px', width: '100%', alignItems: 'stretch', fontSize: 'var(--text-sm)' }}>
                 <div style={{ position: 'relative', flex: '1 1 0', minWidth: 0 }}>
                   <select
                     value={sortOrder}
@@ -443,7 +443,7 @@ export default function CollectionPage() {
                       width: '100%',
                       padding: '8px 16px',
                       paddingRight: '36px',
-                      fontSize: 'var(--text-sm)',
+                      fontSize: 'inherit',
                       fontWeight: '600',
                       color: '#171717',
                       background: '#ffffff',
@@ -453,7 +453,8 @@ export default function CollectionPage() {
                       outline: 'none',
                       transition: 'all 0.2s',
                       appearance: 'none',
-                      boxSizing: 'border-box'
+                      boxSizing: 'border-box',
+                      fontFamily: 'inherit'
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.background = '#f5f5f5'}
                     onMouseLeave={(e) => e.currentTarget.style.background = '#ffffff'}
