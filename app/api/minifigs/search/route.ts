@@ -199,66 +199,34 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // NAME-BASED SEARCH: Use unaccented column for accent-insensitive search
-    // Handles: "padme" finds "padmé", "naive" finds "naïve", etc.
+    // NAME-BASED SEARCH: Search from our MinifigCatalog database
     const searchLower = searchTerm.toLowerCase();
 
     // Build WHERE clause for category filter
-    const categoryFilter = categoryId ? `AND category_id = ${parseInt(categoryId)}` : '';
+    const categoryFilter = categoryId ? { category_id: parseInt(categoryId) } : {};
 
-    // Try exact substring match first - unaccent inline to avoid extra query
-    let rawResults = await prisma.$queryRawUnsafe<Array<{
-      minifigure_no: string;
-      name: string;
-      category_id: number;
-      category_name: string;
-      year_released: string | null;
-    }>>(
-      `SELECT
-        minifigure_no,
-        name,
-        category_id,
-        category_name,
-        year_released
-      FROM "MinifigCatalog"
-      WHERE search_name_unaccent LIKE '%' || unaccent($1) || '%' ${categoryFilter}
-      ORDER BY
-        CASE WHEN year_released IS NULL OR year_released = '' THEN 9999 ELSE CAST(year_released AS INTEGER) END DESC,
-        CAST(regexp_replace(minifigure_no, '[^0-9]', '', 'g') AS INTEGER) DESC,
-        minifigure_no
-      LIMIT 200`,
-      searchLower
-    );
-
-    // If exact match finds nothing, try fuzzy search for typos
-    // e.g., "luke skywaker" → "Luke Skywalker"
-    if (rawResults.length === 0) {
-      rawResults = await prisma.$queryRawUnsafe<Array<{
-        minifigure_no: string;
-        name: string;
-        category_id: number;
-        category_name: string;
-        year_released: string | null;
-      }>>(
-        `SELECT
-          minifigure_no,
-          name,
-          category_id,
-          category_name,
-          year_released,
-          similarity(search_name_unaccent, unaccent($1)) as sim
-        FROM "MinifigCatalog"
-        WHERE similarity(search_name_unaccent, unaccent($1)) > 0.2 ${categoryFilter}
-        ORDER BY
-          sim DESC,
-          CASE WHEN year_released IS NULL OR year_released = '' THEN 9999 ELSE CAST(year_released AS INTEGER) END DESC
-        LIMIT 200`,
-        searchLower
-      );
-    }
-
-    // Map to common response format
-    const catalogItems = rawResults;
+    // Simple database search using the search_name column
+    const catalogItems = await prisma.minifigCatalog.findMany({
+      where: {
+        search_name: {
+          contains: searchLower,
+          mode: 'insensitive'
+        },
+        ...categoryFilter
+      },
+      select: {
+        minifigure_no: true,
+        name: true,
+        category_id: true,
+        category_name: true,
+        year_released: true
+      },
+      orderBy: [
+        { year_released: 'desc' },
+        { minifigure_no: 'desc' }
+      ],
+      take: 200
+    });
 
     // Map catalog items to response format (sorting already done in SQL)
     const matchedItems = catalogItems.map(item => ({
