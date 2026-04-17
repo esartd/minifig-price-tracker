@@ -366,7 +366,7 @@ export default function PersonalCollectionPage() {
               color: '#171717',
               letterSpacing: '-0.01em'
             }}>
-              Items <span style={{ color: '#a3a3a3', fontWeight: '400' }}>({totalItems})</span>
+              Items
             </h2>
             {collection.length > 0 && (
               <div className="collection-controls" style={{ display: 'flex', gap: '12px', width: '100%', alignItems: 'stretch' }}>
