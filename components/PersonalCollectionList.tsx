@@ -232,7 +232,7 @@ export default function PersonalCollectionList({
                 <option value="used">USED</option>
               </select>
             </div>
-            {item.pricing && (
+            {item.pricing && item.pricing.suggestedPrice > 0 ? (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 {item.quantity > 1 ? (
                   <>
@@ -262,6 +262,14 @@ export default function PersonalCollectionList({
                     ${showDecimals ? item.pricing.suggestedPrice.toFixed(2) : Math.round(item.pricing.suggestedPrice)}
                   </div>
                 )}
+              </div>
+            ) : (
+              <div style={{
+                fontSize: 'var(--text-xs)',
+                color: '#a3a3a3',
+                fontStyle: 'italic'
+              }}>
+                No pricing data
               </div>
             )}
           </div>
