@@ -283,6 +283,7 @@ export default async function AboutPage() {
               </p>
               <a
                 href="mailto:hello@ericksu.com"
+                className="email-button"
                 style={{
                   display: 'inline-block',
                   padding: '12px 24px',
@@ -295,8 +296,6 @@ export default async function AboutPage() {
                   textDecoration: 'none',
                   transition: 'all 0.2s'
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.background = '#2563eb'}
-                onMouseLeave={(e) => e.currentTarget.style.background = '#3b82f6'}
               >
                 hello@ericksu.com
               </a>

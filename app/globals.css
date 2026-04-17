@@ -2124,3 +2124,8 @@ select.custom-dropdown.condition-used {
   line-height: 1.4 !important;
   height: 44px !important;
 }
+
+/* Email button hover effect */
+.email-button:hover {
+  background: #2563eb !important;
+}
