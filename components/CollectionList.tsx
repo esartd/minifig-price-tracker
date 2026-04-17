@@ -13,6 +13,7 @@ interface CollectionListProps {
   onItemUpdate: (id: string, updates: Partial<CollectionItem>) => void;
   showDecimals: boolean;
   onItemMove?: (id: string, quantity: number) => Promise<void>;
+  onRefresh?: () => Promise<void>;
 }
 
 export default function CollectionList({
@@ -21,6 +22,7 @@ export default function CollectionList({
   onItemUpdate,
   showDecimals,
   onItemMove,
+  onRefresh,
 }: CollectionListProps) {
   const router = useRouter();
   const [editingQuantityId, setEditingQuantityId] = useState<string | null>(null);
@@ -197,7 +199,9 @@ export default function CollectionList({
                       body: JSON.stringify({ newCondition })
                     });
                     if (response.ok) {
-                      window.location.reload();
+                      if (onRefresh) {
+                        await onRefresh();
+                      }
                     } else {
                       const data = await response.json();
                       alert(data.error || 'Failed to change condition');

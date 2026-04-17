@@ -489,6 +489,7 @@ export default function CollectionPage() {
               onItemUpdate={handleItemUpdated}
               showDecimals={showDecimals}
               onItemMove={handleItemMoved}
+              onRefresh={loadCollection}
             />
           )}
         </div>

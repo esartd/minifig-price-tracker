@@ -488,6 +488,7 @@ export default function PersonalCollectionPage() {
               onItemUpdate={handleItemUpdated}
               showDecimals={showDecimals}
               onItemMove={handleItemMoved}
+              onRefresh={loadCollection}
             />
           )}
         </div>
