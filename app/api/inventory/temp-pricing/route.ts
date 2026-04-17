@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { bricklinkAPI } from '@/lib/bricklink';
 
-// GET /api/collection/temp-pricing?itemNo=sw0001
+// GET /api/collection/temp-pricing?itemNo=sw0001&condition=new
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const itemNo = searchParams.get('itemNo');
-    const condition = 'new'; // Always use 'new' condition
+    const conditionParam = searchParams.get('condition');
+    const condition = (conditionParam === 'used' ? 'used' : 'new') as 'new' | 'used';
 
     if (!itemNo) {
       return NextResponse.json(
@@ -15,7 +16,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Fetch pricing data from BrickLink (always 'new' condition)
+    // Fetch pricing data from BrickLink with specified condition
     const pricingData = await bricklinkAPI.calculatePricingData(
       itemNo,
       condition

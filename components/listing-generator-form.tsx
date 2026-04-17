@@ -132,13 +132,14 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
   useEffect(() => {
     setFormData(prev => ({
       ...prev,
+      condition_detail: item.condition || 'new',
       accessories: '',
       known_flaws: '',
       quantity: 1
     }));
     setPreview(null);
     setShowDetailedForm(false);
-  }, [item.id]);
+  }, [item.id, item.condition]);
 
   // Helper functions to get most frequent from stats object
   const getMostFrequentPlatformFromStats = (stats: any): 'facebook' | 'ebay' | 'bricklink' => {
@@ -157,7 +158,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
 
   const [formData, setFormData] = useState({
     platform: 'ebay' as 'facebook' | 'ebay' | 'bricklink',
-    condition_detail: 'new',
+    condition_detail: item.condition || 'new',
     accessories: '',
     known_flaws: '',
     quantity: 1

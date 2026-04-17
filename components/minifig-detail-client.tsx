@@ -58,13 +58,14 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
   const [checkingCollection, setCheckingCollection] = useState(true);
   const [addPersonalLoading, setAddPersonalLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [condition, setCondition] = useState<'new' | 'used'>('new');
   const [featuredSets, setFeaturedSets] = useState<any[]>([]);
 
   // Fetch pricing on client-side (user-driven, not pre-generated)
   useEffect(() => {
     const fetchPricing = async () => {
       try {
-        const response = await fetch(`/api/inventory/temp-pricing?itemNo=${minifig.no}`);
+        const response = await fetch(`/api/inventory/temp-pricing?itemNo=${minifig.no}&condition=${condition}`);
         const data = await response.json();
 
         if (data.success && data.pricing) {
@@ -84,7 +85,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     };
 
     fetchPricing();
-  }, [minifig.no]);
+  }, [minifig.no, condition]);
 
   // Fetch 3 random sets from this theme (last 2 years)
   useEffect(() => {
@@ -106,7 +107,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     fetchFeaturedSets();
   }, [minifig.category_name]);
 
-  // Check if item is in inventory and personal collection
+  // Check if item is in inventory and personal collection (for selected condition)
   useEffect(() => {
     if (!session) {
       setCheckingCollection(false);
@@ -120,7 +121,9 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
         const inventoryData = await inventoryResponse.json();
 
         if (inventoryData.success && inventoryData.data) {
-          const found = inventoryData.data.find((item: any) => item.minifigure_no === minifig.no);
+          const found = inventoryData.data.find((item: any) =>
+            item.minifigure_no === minifig.no && item.condition === condition
+          );
           setCollectionItem(found || null);
         }
 
@@ -129,7 +132,9 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
         const personalData = await personalResponse.json();
 
         if (personalData.success && personalData.data) {
-          const found = personalData.data.find((item: any) => item.minifigure_no === minifig.no);
+          const found = personalData.data.find((item: any) =>
+            item.minifigure_no === minifig.no && item.condition === condition
+          );
           setPersonalCollectionItem(found || null);
         }
       } catch (err) {
@@ -140,7 +145,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     };
 
     checkCollections();
-  }, [minifig.no, session]);
+  }, [minifig.no, condition, session]);
 
   const handleAddToCollection = async (quantity: number) => {
     if (!session) {
@@ -160,7 +165,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
           minifigure_no: minifig.no,
           minifigure_name: minifig.name,
           quantity,
-          condition: 'new',
+          condition: condition,
           image_url: minifig.image_url,
         }),
       });
@@ -169,7 +174,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
       if (data.success) {
         setCollectionItem(data.data);
-        setSuccessMessage(`Added ${quantity} to Inventory!`);
+        setSuccessMessage(`Added ${quantity} ${condition} to Inventory!`);
         setQuantity(1);
       } else {
         if (response.status === 401) {
@@ -205,7 +210,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
           minifigure_no: minifig.no,
           minifigure_name: minifig.name,
           quantity,
-          condition: 'new',
+          condition: condition,
           image_url: minifig.image_url,
         }),
       });
@@ -214,7 +219,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
       if (data.success) {
         setPersonalCollectionItem(data.data);
-        setSuccessMessage(`Added ${quantity} to Your Collection!`);
+        setSuccessMessage(`Added ${quantity} ${condition} to Your Collection!`);
         setQuantity(1);
       } else {
         if (response.status === 401) {
@@ -442,6 +447,52 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   }}>
                     {minifig.no}
                   </p>
+
+                  {/* Condition Toggle */}
+                  <div style={{
+                    display: 'flex',
+                    gap: '8px',
+                    marginBottom: '16px',
+                    padding: '4px',
+                    background: '#f5f5f5',
+                    borderRadius: '8px',
+                    width: 'fit-content'
+                  }}>
+                    <button
+                      onClick={() => setCondition('new')}
+                      style={{
+                        padding: '8px 16px',
+                        fontSize: 'var(--text-sm)',
+                        fontWeight: '600',
+                        color: condition === 'new' ? '#ffffff' : '#525252',
+                        background: condition === 'new' ? '#3b82f6' : 'transparent',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      New
+                    </button>
+                    <button
+                      onClick={() => setCondition('used')}
+                      style={{
+                        padding: '8px 16px',
+                        fontSize: 'var(--text-sm)',
+                        fontWeight: '600',
+                        color: condition === 'used' ? '#ffffff' : '#525252',
+                        background: condition === 'used' ? '#3b82f6' : 'transparent',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      Used
+                    </button>
+                  </div>
 
                   {/* Pricing Row */}
                   {pricing.loading ? (

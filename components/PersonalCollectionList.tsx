@@ -172,14 +172,32 @@ export default function PersonalCollectionList({
             }}>
               {item.minifigure_name}
             </h3>
-            <p style={{
-              fontSize: 'var(--text-xs)',
-              color: '#737373',
-              fontFamily: 'inherit',
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
               marginBottom: '10px'
             }}>
-              {item.minifigure_no}
-            </p>
+              <p style={{
+                fontSize: 'var(--text-xs)',
+                color: '#737373',
+                fontFamily: 'inherit'
+              }}>
+                {item.minifigure_no}
+              </p>
+              <span style={{
+                fontSize: 'var(--text-xs)',
+                fontWeight: '600',
+                color: item.condition === 'new' ? '#059669' : '#d97706',
+                background: item.condition === 'new' ? '#d1fae5' : '#fef3c7',
+                padding: '2px 8px',
+                borderRadius: '4px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.03em'
+              }}>
+                {item.condition}
+              </span>
+            </div>
             {item.pricing && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 {item.quantity > 1 ? (
