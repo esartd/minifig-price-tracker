@@ -467,8 +467,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     display: 'flex',
                     alignItems: 'center',
                     gap: '12px',
-                    marginBottom: '16px',
-                    flexWrap: 'wrap'
+                    marginBottom: '16px'
                   }}>
                     <p style={{
                       fontSize: 'var(--text-sm)',
@@ -485,8 +484,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         fontSize: 'var(--text-xs)',
                         color: '#737373',
                         display: 'flex',
-                        gap: '8px',
-                        flexWrap: 'wrap'
+                        gap: '8px'
                       }}>
                         {allInventoryItems.map((item: any) => (
                           <span key={item.id}>
