@@ -15,7 +15,11 @@ export default auth((req) => {
                        pathname.startsWith('/search') ||
                        pathname.startsWith('/minifig') ||
                        pathname.startsWith('/themes') ||
-                       pathname.startsWith('/about');
+                       pathname.startsWith('/about') ||
+                       pathname === '/sitemap.xml' ||
+                       pathname === '/robots.txt' ||
+                       pathname.startsWith('/privacy') ||
+                       pathname.startsWith('/disclosure');
   const isProtectedPage = pathname.startsWith('/inventory') ||
                           pathname.startsWith('/personal-collection') ||
                           pathname.startsWith('/account');
@@ -47,5 +51,5 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|avatars).*)'],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|avatars|sitemap.xml|robots.txt).*)'],
 };
