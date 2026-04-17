@@ -113,42 +113,60 @@ export default function AccountPage() {
   };
 
   useEffect(() => {
-    // Fetch collection stats
+    // Fetch collection stats from both inventory and personal collection
     const fetchStats = async () => {
       try {
-        // Add cache: 'no-store' to always fetch fresh data
-        const response = await fetch('/api/inventory', {
-          cache: 'no-store'
-        });
-        if (response.ok) {
-          const data = await response.json();
-          // Check if response has success and data structure from API
-          const items = data.success ? data.data : (Array.isArray(data) ? data : []);
+        // Fetch both inventory and collection data in parallel
+        const [inventoryResponse, collectionResponse] = await Promise.all([
+          fetch('/api/inventory', { cache: 'no-store' }),
+          fetch('/api/personal-collection', { cache: 'no-store' })
+        ]);
 
-          if (Array.isArray(items)) {
-            const totalValue = items.reduce((sum: number, item: any) => {
+        let totalValue = 0;
+        let totalItems = 0;
+
+        // Process inventory items
+        if (inventoryResponse.ok) {
+          const inventoryData = await inventoryResponse.json();
+          const inventoryItems = inventoryData.success ? inventoryData.data : (Array.isArray(inventoryData) ? inventoryData : []);
+
+          if (Array.isArray(inventoryItems)) {
+            inventoryItems.forEach((item: any) => {
               const price = item.pricing?.suggestedPrice || item.suggestedPrice || 0;
               const qty = item.quantity || 1;
-              return sum + (price * qty);
-            }, 0);
-
-            const totalItems = items.reduce((sum: number, item: any) => sum + (item.quantity || 1), 0);
-
-            setStats({
-              totalItems: totalItems,
-              totalValue: totalValue,
-              memberSince: session?.user?.email ? 'Recently' : ''
-            });
-          } else {
-            setStats({
-              totalItems: 0,
-              totalValue: 0,
-              memberSince: session?.user?.email ? 'Recently' : ''
+              totalValue += price * qty;
+              totalItems += qty;
             });
           }
         }
+
+        // Process personal collection items
+        if (collectionResponse.ok) {
+          const collectionData = await collectionResponse.json();
+          const collectionItems = collectionData.success ? collectionData.data : (Array.isArray(collectionData) ? collectionData : []);
+
+          if (Array.isArray(collectionItems)) {
+            collectionItems.forEach((item: any) => {
+              const price = item.pricing?.suggestedPrice || item.suggestedPrice || 0;
+              const qty = item.quantity || 1;
+              totalValue += price * qty;
+              totalItems += qty;
+            });
+          }
+        }
+
+        setStats({
+          totalItems: totalItems,
+          totalValue: totalValue,
+          memberSince: session?.user?.email ? 'Recently' : ''
+        });
       } catch (error) {
         console.error('Failed to fetch stats:', error);
+        setStats({
+          totalItems: 0,
+          totalValue: 0,
+          memberSince: session?.user?.email ? 'Recently' : ''
+        });
       }
     };
 
