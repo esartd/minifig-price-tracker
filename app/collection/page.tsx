@@ -324,7 +324,7 @@ export default function PersonalCollectionPage() {
                 color: '#525252',
                 lineHeight: '1.6'
               }}>
-                Track your personal LEGO minifigures separately from items for sale
+                Your personal collection — minifigs you're keeping, not selling
               </p>
             </div>
             <Link

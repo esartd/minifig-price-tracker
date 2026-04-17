@@ -324,7 +324,7 @@ export default function CollectionPage() {
                 color: '#525252',
                 lineHeight: '1.6'
               }}>
-                Track your LEGO minifig inventory with real-time pricing
+                Minifigs you're selling or planning to sell with real-time pricing
               </p>
             </div>
             <Link
