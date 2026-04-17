@@ -213,7 +213,7 @@ export default function PersonalCollectionList({
                   color: item.condition === 'new' ? '#059669' : '#525252',
                   background: item.condition === 'new' ? '#d1fae5' : '#f5f5f5',
                   padding: '3px 6px 3px 8px',
-                  paddingRight: '18px',
+                  paddingRight: '22px',
                   borderRadius: '4px',
                   textTransform: 'uppercase',
                   letterSpacing: '0.03em',
