@@ -509,6 +509,7 @@ export default function CollectionPage() {
                   {showDecimals ? '.00' : '.0'}
                 </button>
               </div>
+              </>
             )}
           </div>
 
