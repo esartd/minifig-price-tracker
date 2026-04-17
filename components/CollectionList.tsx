@@ -185,18 +185,47 @@ export default function CollectionList({
               }}>
                 {item.minifigure_no}
               </p>
-              <span style={{
-                fontSize: 'var(--text-xs)',
-                fontWeight: '600',
-                color: item.condition === 'new' ? '#059669' : '#d97706',
-                background: item.condition === 'new' ? '#d1fae5' : '#fef3c7',
-                padding: '2px 8px',
-                borderRadius: '4px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.03em'
-              }}>
-                {item.condition}
-              </span>
+              <select
+                value={item.condition}
+                onChange={async (e) => {
+                  e.stopPropagation();
+                  const newCondition = e.target.value as 'new' | 'used';
+                  if (confirm(`Change condition to ${newCondition}? This will merge with existing ${newCondition} items if any.`)) {
+                    try {
+                      const response = await fetch(`/api/inventory/${item.id}/change-condition`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ newCondition })
+                      });
+                      if (response.ok) {
+                        window.location.reload();
+                      } else {
+                        const data = await response.json();
+                        alert(data.error || 'Failed to change condition');
+                      }
+                    } catch (err) {
+                      alert('Failed to change condition');
+                    }
+                  }
+                }}
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: '600',
+                  color: item.condition === 'new' ? '#059669' : '#d97706',
+                  background: item.condition === 'new' ? '#d1fae5' : '#fef3c7',
+                  padding: '2px 8px',
+                  borderRadius: '4px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.03em',
+                  border: 'none',
+                  cursor: 'pointer',
+                  outline: 'none'
+                }}
+              >
+                <option value="new">NEW</option>
+                <option value="used">USED</option>
+              </select>
             </div>
             {item.pricing && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
