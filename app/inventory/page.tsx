@@ -442,22 +442,21 @@ export default function CollectionPage() {
                     style={{
                       width: '100%',
                       padding: '8px 16px',
-                      paddingRight: '40px',
-                      fontSize: 'var(--text-xs)',
+                      paddingRight: '36px',
+                      fontSize: 'var(--text-sm)',
                       fontWeight: '600',
                       color: '#171717',
-                      background: '#f5f5f5',
+                      background: '#ffffff',
                       border: '1px solid #e5e5e5',
                       borderRadius: '8px',
                       cursor: 'pointer',
                       outline: 'none',
                       transition: 'all 0.2s',
                       appearance: 'none',
-                      boxSizing: 'border-box',
-                      height: '44px'
+                      boxSizing: 'border-box'
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#e5e5e5'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = '#f5f5f5'}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f5f5f5'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = '#ffffff'}
                   >
                     <option value="price-high">Price: High to Low</option>
                     <option value="price-low">Price: Low to High</option>
@@ -477,29 +476,28 @@ export default function CollectionPage() {
                 <button
                   onClick={() => setShowDecimals(!showDecimals)}
                   style={{
-                    padding: '8px 16px',
-                    fontSize: 'var(--text-xs)',
-                    fontWeight: '700',
-                    color: showDecimals ? '#ffffff' : '#525252',
-                    background: showDecimals ? '#3b82f6' : '#f5f5f5',
-                    border: showDecimals ? '1px solid #3b82f6' : '1px solid #e5e5e5',
+                    padding: '8px 12px',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '600',
+                    color: showDecimals ? '#ffffff' : '#737373',
+                    background: showDecimals ? '#3b82f6' : '#ffffff',
+                    border: showDecimals ? '2px solid #3b82f6' : '1px solid #e5e5e5',
                     borderRadius: '8px',
                     cursor: 'pointer',
                     transition: 'all 0.2s',
                     outline: 'none',
                     boxSizing: 'border-box',
                     whiteSpace: 'nowrap',
-                    flex: '0 0 auto',
-                    height: '44px'
+                    flex: '0 0 auto'
                   }}
                   onMouseEnter={(e) => {
                     if (!showDecimals) {
-                      e.currentTarget.style.background = '#e5e5e5';
+                      e.currentTarget.style.background = '#f5f5f5';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!showDecimals) {
-                      e.currentTarget.style.background = '#f5f5f5';
+                      e.currentTarget.style.background = '#ffffff';
                     }
                   }}
                 >
