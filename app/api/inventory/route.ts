@@ -51,8 +51,8 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { minifigure_no, minifigure_name, quantity, image_url } = body;
-    const condition = 'new'; // Always use 'new' condition
+    const { minifigure_no, minifigure_name, quantity, image_url, condition } = body;
+    const itemCondition = (condition === 'used' ? 'used' : 'new') as 'new' | 'used';
 
     // Validate required fields
     if (!minifigure_no || !minifigure_name || !quantity) {
@@ -62,21 +62,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if item already exists for this user
+    // Check if item already exists for this user with this condition
     const existingItem = await database.getItemByMinifigNumberAndCondition(
       session.user.id,
       minifigure_no,
-      condition
+      itemCondition
     );
     if (existingItem) {
       return NextResponse.json(
-        { success: false, error: 'Item already exists in collection' },
+        { success: false, error: `Item already exists in collection as ${itemCondition}` },
         { status: 409 }
       );
     }
 
-    // Get pricing data (always 'new' condition)
-    const pricing = await bricklinkAPI.calculatePricingData(minifigure_no, condition);
+    // Get pricing data for the specified condition
+    const pricing = await bricklinkAPI.calculatePricingData(minifigure_no, itemCondition);
 
     // Add item to database
     const newItem = await database.addItem({
@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
       minifigure_no,
       minifigure_name,
       quantity,
-      condition,
+      condition: itemCondition,
       image_url,
       pricing,
     });
