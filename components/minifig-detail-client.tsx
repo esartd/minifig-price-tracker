@@ -1017,34 +1017,32 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                 }
                               }}
                               style={{
-                                padding: '12px 16px',
-                                fontSize: 'var(--text-sm)',
-                                fontWeight: '600',
-                                color: '#3b82f6',
+                                width: '44px',
+                                height: '44px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: '#737373',
                                 background: '#ffffff',
                                 border: '1px solid #e5e5e5',
                                 borderRadius: '8px',
                                 cursor: 'pointer',
-                                transition: 'all 0.2s',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                whiteSpace: 'nowrap'
+                                padding: 0,
+                                transition: 'all 0.2s'
                               }}
+                              title="Move to Inventory"
                               onMouseEnter={(e) => {
-                                e.currentTarget.style.background = '#eff6ff';
-                                e.currentTarget.style.borderColor = '#3b82f6';
+                                e.currentTarget.style.background = '#f0fdf4';
+                                e.currentTarget.style.color = '#22c55e';
                               }}
                               onMouseLeave={(e) => {
                                 e.currentTarget.style.background = '#ffffff';
-                                e.currentTarget.style.borderColor = '#e5e5e5';
+                                e.currentTarget.style.color = '#737373';
                               }}
                             >
-                              <svg width="var(--icon-base)" height="var(--icon-base)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="7 13 12 18 17 13"></polyline>
-                                <polyline points="7 6 12 11 17 6"></polyline>
+                              <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
                               </svg>
-                              <span>Move to Inventory</span>
                             </button>
                             <button
                               onClick={async (e) => {
