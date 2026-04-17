@@ -564,7 +564,7 @@ export default function PersonalCollectionPage() {
                     color: '#737373',
                     lineHeight: '1.6'
                   }}>
-                    You have {collection.length} minifig{collection.length !== 1 ? 's' : ''} in other conditions
+                    You have {totalItems} item{totalItems !== 1 ? 's' : ''} in other conditions
                   </p>
                 </>
               )}
