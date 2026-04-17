@@ -188,6 +188,7 @@ export default function PersonalCollectionList({
                 {item.minifigure_no}
               </p>
               <select
+                className="custom-dropdown"
                 value={item.condition}
                 onChange={async (e) => {
                   e.stopPropagation();

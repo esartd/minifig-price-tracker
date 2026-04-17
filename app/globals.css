@@ -2073,3 +2073,18 @@ input[type="number"] {
     padding-top: 0 !important;
   }
 }
+
+/* ============================================ */
+/* Custom Select Dropdown - Remove Native Arrow */
+/* ============================================ */
+
+select.custom-dropdown {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+/* Remove IE10+ native arrow */
+select.custom-dropdown::-ms-expand {
+  display: none;
+}
