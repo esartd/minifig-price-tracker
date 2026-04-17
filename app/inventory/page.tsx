@@ -16,6 +16,7 @@ export default function CollectionPage() {
   const [loading, setLoading] = useState(true);
   const [sortOrder, setSortOrder] = useState<'default' | 'price-high' | 'price-low' | 'id'>('price-high');
   const [showDecimals, setShowDecimals] = useState(false);
+  const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
 
   // Load saved sort order on mount
   useEffect(() => {
@@ -110,27 +111,31 @@ export default function CollectionPage() {
   };
 
   const getSortedCollection = () => {
-    const sorted = [...collection];
+    // Filter by condition first
+    let filtered = [...collection];
+    if (conditionFilter !== 'all') {
+      filtered = filtered.filter(item => item.condition === conditionFilter);
+    }
 
     if (sortOrder === 'price-high') {
-      return sorted.sort((a, b) => {
+      return filtered.sort((a, b) => {
         const priceA = a.pricing?.suggestedPrice || 0;
         const priceB = b.pricing?.suggestedPrice || 0;
         return priceB - priceA;
       });
     } else if (sortOrder === 'price-low') {
-      return sorted.sort((a, b) => {
+      return filtered.sort((a, b) => {
         const priceA = a.pricing?.suggestedPrice || 0;
         const priceB = b.pricing?.suggestedPrice || 0;
         return priceA - priceB;
       });
     } else if (sortOrder === 'id') {
-      return sorted.sort((a, b) => {
+      return filtered.sort((a, b) => {
         return a.minifigure_no.localeCompare(b.minifigure_no);
       });
     }
 
-    return sorted;
+    return filtered;
   };
 
   const totalValue = collection.reduce((sum, item) => sum + ((item.pricing?.suggestedPrice || 0) * item.quantity), 0);
@@ -369,6 +374,69 @@ export default function CollectionPage() {
               Items
             </h2>
             {collection.length > 0 && (
+              <>
+                {/* Condition Filter Tabs */}
+                <div style={{
+                  display: 'flex',
+                  gap: '8px',
+                  padding: '4px',
+                  background: '#f5f5f5',
+                  borderRadius: '8px',
+                  width: 'fit-content'
+                }}>
+                  <button
+                    onClick={() => setConditionFilter('all')}
+                    style={{
+                      padding: '8px 16px',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: '600',
+                      color: conditionFilter === 'all' ? '#ffffff' : '#525252',
+                      background: conditionFilter === 'all' ? '#171717' : 'transparent',
+                      border: 'none',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    All
+                  </button>
+                  <button
+                    onClick={() => setConditionFilter('new')}
+                    style={{
+                      padding: '8px 16px',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: '600',
+                      color: conditionFilter === 'new' ? '#ffffff' : '#525252',
+                      background: conditionFilter === 'new' ? '#171717' : 'transparent',
+                      border: 'none',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    New
+                  </button>
+                  <button
+                    onClick={() => setConditionFilter('used')}
+                    style={{
+                      padding: '8px 16px',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: '600',
+                      color: conditionFilter === 'used' ? '#ffffff' : '#525252',
+                      background: conditionFilter === 'used' ? '#171717' : 'transparent',
+                      border: 'none',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    Used
+                  </button>
+                </div>
+
               <div className="collection-controls" style={{ display: 'flex', gap: '12px', width: '100%', alignItems: 'stretch' }}>
                 <div style={{ position: 'relative', flex: '1 1 0', minWidth: 0 }}>
                   <select
