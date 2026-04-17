@@ -212,16 +212,23 @@ export default function PersonalCollectionList({
                   fontWeight: '600',
                   color: item.condition === 'new' ? '#059669' : '#525252',
                   background: item.condition === 'new' ? '#d1fae5' : '#f5f5f5',
-                  padding: '3px 0px 3px 8px',
-                  paddingRight: '30px',
+                  padding: '3px 8px',
+                  paddingRight: '20px',
                   borderRadius: '4px',
                   textTransform: 'uppercase',
                   letterSpacing: '0.03em',
                   border: 'none',
                   cursor: 'pointer',
                   outline: 'none',
-                  marginRight: '12px'
-                }}
+                  marginRight: '12px',
+                  appearance: 'none',
+                  WebkitAppearance: 'none',
+                  MozAppearance: 'none',
+                  backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='${item.condition === 'new' ? '%23059669' : '%23525252'}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'right 6px center',
+                  backgroundSize: '14px 14px'
+                } as React.CSSProperties}
               >
                 <option value="new">NEW</option>
                 <option value="used">USED</option>
