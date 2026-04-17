@@ -121,6 +121,47 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     fetchFeaturedSets();
   }, [minifig.category_name]);
 
+  // Function to refresh collections data
+  const refreshCollections = async () => {
+    if (!session) return;
+
+    try {
+      // Check inventory
+      const inventoryResponse = await fetch('/api/inventory');
+      const inventoryData = await inventoryResponse.json();
+
+      if (inventoryData.success && inventoryData.data) {
+        // Store all items for this minifig (both conditions)
+        const allItems = inventoryData.data.filter((item: any) =>
+          item.minifigure_no === minifig.no
+        );
+        setAllInventoryItems(allItems);
+
+        // Find current condition item
+        const found = allItems.find((item: any) => item.condition === condition);
+        setCollectionItem(found || null);
+      }
+
+      // Check personal collection
+      const personalResponse = await fetch('/api/personal-collection');
+      const personalData = await personalResponse.json();
+
+      if (personalData.success && personalData.data) {
+        // Store all items for this minifig (both conditions)
+        const allItems = personalData.data.filter((item: any) =>
+          item.minifigure_no === minifig.no
+        );
+        setAllCollectionItems(allItems);
+
+        // Find current condition item
+        const found = allItems.find((item: any) => item.condition === condition);
+        setPersonalCollectionItem(found || null);
+      }
+    } catch (err) {
+      console.error('Error checking collections:', err);
+    }
+  };
+
   // Check if item is in inventory and personal collection (for selected condition)
   useEffect(() => {
     if (!session) {
@@ -129,43 +170,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     }
 
     const checkCollections = async () => {
-      try {
-        // Check inventory
-        const inventoryResponse = await fetch('/api/inventory');
-        const inventoryData = await inventoryResponse.json();
-
-        if (inventoryData.success && inventoryData.data) {
-          // Store all items for this minifig (both conditions)
-          const allItems = inventoryData.data.filter((item: any) =>
-            item.minifigure_no === minifig.no
-          );
-          setAllInventoryItems(allItems);
-
-          // Find current condition item
-          const found = allItems.find((item: any) => item.condition === condition);
-          setCollectionItem(found || null);
-        }
-
-        // Check personal collection
-        const personalResponse = await fetch('/api/personal-collection');
-        const personalData = await personalResponse.json();
-
-        if (personalData.success && personalData.data) {
-          // Store all items for this minifig (both conditions)
-          const allItems = personalData.data.filter((item: any) =>
-            item.minifigure_no === minifig.no
-          );
-          setAllCollectionItems(allItems);
-
-          // Find current condition item
-          const found = allItems.find((item: any) => item.condition === condition);
-          setPersonalCollectionItem(found || null);
-        }
-      } catch (err) {
-        console.error('Error checking collections:', err);
-      } finally {
-        setCheckingCollection(false);
-      }
+      await refreshCollections();
+      setCheckingCollection(false);
     };
 
     checkCollections();
@@ -197,7 +203,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
       const data = await response.json();
 
       if (data.success) {
-        setCollectionItem(data.data);
+        await refreshCollections();
         setSuccessMessage(`Added ${quantity} ${condition} to Inventory!`);
         setQuantity(1);
       } else {
@@ -242,7 +248,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
       const data = await response.json();
 
       if (data.success) {
-        setPersonalCollectionItem(data.data);
+        await refreshCollections();
         setSuccessMessage(`Added ${quantity} ${condition} to Your Collection!`);
         setQuantity(1);
       } else {
@@ -273,7 +279,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
       const data = await response.json();
       if (data.success) {
-        setCollectionItem(data.data);
+        await refreshCollections();
       }
     } catch (err) {
       console.error('Error updating quantity:', err);
@@ -290,7 +296,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
       });
 
       if (response.ok) {
-        setCollectionItem(null);
+        await refreshCollections();
       }
     } catch (err) {
       console.error('Error removing:', err);
@@ -916,8 +922,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                         body: JSON.stringify({ quantity: personalCollectionItem.quantity - 1 })
                                       });
                                       if (response.ok) {
-                                        const data = await response.json();
-                                        setPersonalCollectionItem(data.data);
+                                        await refreshCollections();
                                       }
                                     } catch (err) {
                                       setError('Failed to update quantity');
@@ -981,8 +986,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                         body: JSON.stringify({ quantity: personalCollectionItem.quantity + 1 })
                                       });
                                       if (response.ok) {
-                                        const data = await response.json();
-                                        setPersonalCollectionItem(data.data);
+                                        await refreshCollections();
                                         setSuccessMessage('Added 1 more!');
                                       }
                                     } catch (err) {
@@ -1035,19 +1039,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                         body: JSON.stringify({ quantity: qty })
                                       });
                                       if (response.ok) {
-                                        // Refresh both collections
-                                        const [invRes, colRes] = await Promise.all([
-                                          fetch('/api/inventory'),
-                                          fetch('/api/personal-collection')
-                                        ]);
-                                        const invData = await invRes.json();
-                                        const colData = await colRes.json();
-
-                                        const updatedInv = invData.data?.find((item: any) => item.minifigure_no === minifig.no);
-                                        const updatedCol = colData.data?.find((item: any) => item.minifigure_no === minifig.no);
-
-                                        setCollectionItem(updatedInv || null);
-                                        setPersonalCollectionItem(updatedCol || null);
+                                        await refreshCollections();
                                         setSuccessMessage(`Moved ${qty} to Inventory!`);
                                       }
                                     } catch (err) {
@@ -1093,7 +1085,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                       method: 'DELETE'
                                     });
                                     if (response.ok) {
-                                      setPersonalCollectionItem(null);
+                                      await refreshCollections();
                                       setSuccessMessage('Removed from personal collection');
                                     }
                                   } catch (err) {
