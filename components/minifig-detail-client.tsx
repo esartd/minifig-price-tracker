@@ -700,6 +700,50 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           }}>
                             In Your Inventory
                           </h2>
+
+                          {/* Condition Dropdown */}
+                          <div style={{ marginBottom: '16px' }}>
+                            <select
+                              value={collectionItem.condition}
+                              onChange={async (e) => {
+                                const newCondition = e.target.value as 'new' | 'used';
+                                try {
+                                  const response = await fetch(`/api/inventory/${collectionItem.id}/change-condition`, {
+                                    method: 'PATCH',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ newCondition })
+                                  });
+                                  if (response.ok) {
+                                    window.location.reload();
+                                  } else {
+                                    const data = await response.json();
+                                    setError(data.error || 'Failed to change condition');
+                                  }
+                                } catch (err) {
+                                  setError('Failed to change condition');
+                                }
+                              }}
+                              style={{
+                                fontSize: 'var(--text-xs)',
+                                fontWeight: '600',
+                                color: collectionItem.condition === 'new' ? '#059669' : '#525252',
+                                background: collectionItem.condition === 'new' ? '#d1fae5' : '#f5f5f5',
+                                padding: '3px 8px',
+                                paddingRight: '24px',
+                                borderRadius: '4px',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.03em',
+                                border: 'none',
+                                cursor: 'pointer',
+                                outline: 'none',
+                                marginRight: '8px'
+                              }}
+                            >
+                              <option value="new">NEW</option>
+                              <option value="used">USED</option>
+                            </select>
+                          </div>
+
                       <div className="inventory-actions-container">
                         {/* Quantity Stepper */}
                         <div className="quantity-stepper">
@@ -890,6 +934,50 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           }}>
                             In Your Your Collection
                           </h2>
+
+                          {/* Condition Dropdown */}
+                          <div style={{ marginBottom: '16px' }}>
+                            <select
+                              value={personalCollectionItem.condition}
+                              onChange={async (e) => {
+                                const newCondition = e.target.value as 'new' | 'used';
+                                try {
+                                  const response = await fetch(`/api/personal-collection/${personalCollectionItem.id}/change-condition`, {
+                                    method: 'PATCH',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ newCondition })
+                                  });
+                                  if (response.ok) {
+                                    window.location.reload();
+                                  } else {
+                                    const data = await response.json();
+                                    setError(data.error || 'Failed to change condition');
+                                  }
+                                } catch (err) {
+                                  setError('Failed to change condition');
+                                }
+                              }}
+                              style={{
+                                fontSize: 'var(--text-xs)',
+                                fontWeight: '600',
+                                color: personalCollectionItem.condition === 'new' ? '#059669' : '#525252',
+                                background: personalCollectionItem.condition === 'new' ? '#d1fae5' : '#f5f5f5',
+                                padding: '3px 8px',
+                                paddingRight: '24px',
+                                borderRadius: '4px',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.03em',
+                                border: 'none',
+                                cursor: 'pointer',
+                                outline: 'none',
+                                marginRight: '8px'
+                              }}
+                            >
+                              <option value="new">NEW</option>
+                              <option value="used">USED</option>
+                            </select>
+                          </div>
+
                           <div className="inventory-actions-container">
                             {/* Quantity Stepper */}
                             <div className="quantity-stepper">
