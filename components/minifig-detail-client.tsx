@@ -463,83 +463,89 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       {displayName.subtitle}
                     </p>
                   )}
-                  <p style={{
-                    fontSize: 'var(--text-sm)',
-                    color: '#737373',
-                    fontFamily: 'inherit',
-                    marginBottom: '16px'
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    marginBottom: '16px',
+                    flexWrap: 'wrap'
                   }}>
-                    {minifig.no}
-                  </p>
-
-                  {/* Condition Toggle */}
-                  <div style={{ marginBottom: '16px' }}>
-                    <div style={{
-                      display: 'flex',
-                      gap: '8px',
-                      padding: '4px',
-                      background: '#f5f5f5',
-                      borderRadius: '8px',
-                      width: 'fit-content'
+                    <p style={{
+                      fontSize: 'var(--text-sm)',
+                      color: '#737373',
+                      fontFamily: 'inherit',
+                      margin: 0
                     }}>
-                      <button
-                        onClick={() => setCondition('new')}
-                        style={{
-                          padding: '8px 16px',
-                          fontSize: 'var(--text-sm)',
-                          fontWeight: '600',
-                          color: condition === 'new' ? '#ffffff' : '#525252',
-                          background: condition === 'new' ? '#3b82f6' : 'transparent',
-                          border: 'none',
-                          borderRadius: '6px',
-                          cursor: 'pointer',
-                          transition: 'all 0.2s',
-                          whiteSpace: 'nowrap'
-                        }}
-                      >
-                        New
-                      </button>
-                      <button
-                        onClick={() => setCondition('used')}
-                        style={{
-                          padding: '8px 16px',
-                          fontSize: 'var(--text-sm)',
-                          fontWeight: '600',
-                          color: condition === 'used' ? '#ffffff' : '#525252',
-                          background: condition === 'used' ? '#3b82f6' : 'transparent',
-                          border: 'none',
-                          borderRadius: '6px',
-                          cursor: 'pointer',
-                          transition: 'all 0.2s',
-                          whiteSpace: 'nowrap'
-                        }}
-                      >
-                        Used
-                      </button>
-                    </div>
+                      {minifig.no}
+                    </p>
 
                     {/* Show what user owns */}
                     {session && (allInventoryItems.length > 0 || allCollectionItems.length > 0) && (
                       <div style={{
-                        marginTop: '8px',
                         fontSize: 'var(--text-xs)',
                         color: '#737373',
                         display: 'flex',
-                        flexDirection: 'column',
-                        gap: '2px'
+                        gap: '8px',
+                        flexWrap: 'wrap'
                       }}>
                         {allInventoryItems.map((item: any) => (
-                          <div key={item.id}>
+                          <span key={item.id}>
                             Inventory: {item.quantity}x {item.condition === 'new' ? 'New' : 'Used'}
-                          </div>
+                          </span>
                         ))}
                         {allCollectionItems.map((item: any) => (
-                          <div key={item.id}>
+                          <span key={item.id}>
                             Collection: {item.quantity}x {item.condition === 'new' ? 'New' : 'Used'}
-                          </div>
+                          </span>
                         ))}
                       </div>
                     )}
+                  </div>
+
+                  {/* Condition Toggle */}
+                  <div style={{
+                    display: 'flex',
+                    gap: '8px',
+                    marginBottom: '16px',
+                    padding: '4px',
+                    background: '#f5f5f5',
+                    borderRadius: '8px',
+                    width: 'fit-content'
+                  }}>
+                    <button
+                      onClick={() => setCondition('new')}
+                      style={{
+                        padding: '8px 16px',
+                        fontSize: 'var(--text-sm)',
+                        fontWeight: '600',
+                        color: condition === 'new' ? '#ffffff' : '#525252',
+                        background: condition === 'new' ? '#3b82f6' : 'transparent',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      New
+                    </button>
+                    <button
+                      onClick={() => setCondition('used')}
+                      style={{
+                        padding: '8px 16px',
+                        fontSize: 'var(--text-sm)',
+                        fontWeight: '600',
+                        color: condition === 'used' ? '#ffffff' : '#525252',
+                        background: condition === 'used' ? '#3b82f6' : 'transparent',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      Used
+                    </button>
                   </div>
 
                   {/* Pricing Row */}
