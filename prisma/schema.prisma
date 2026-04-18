@@ -54,6 +54,7 @@ model CollectionItem {
   @@unique([userId, minifigure_no, condition])
   @@index([minifigure_no])
   @@index([userId])
+  @@index([userId, condition])
 }
 
 model Listing {
@@ -78,6 +79,7 @@ model Listing {
   @@index([collectionItemId])
   @@index([status])
   @@index([userId])
+  @@index([created_at])
 }
 
 model MinifigCache {
@@ -132,6 +134,7 @@ model PersonalCollectionItem {
 
   @@unique([userId, minifigure_no, condition])
   @@index([userId])
+  @@index([userId, condition])
 }
 
 model PriceCache {
