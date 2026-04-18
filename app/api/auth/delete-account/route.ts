@@ -16,7 +16,7 @@ export async function DELETE(request: Request) {
     // Delete all user's collection items first
     await prisma.collectionItem.deleteMany({
       where: {
-        user: {
+        User: {
           email: session.user.email
         }
       }
