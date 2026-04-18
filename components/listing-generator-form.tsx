@@ -20,6 +20,7 @@ interface CollectionItem {
 interface ListingGeneratorFormProps {
   item: CollectionItem;
   onSuccess: (listing: any) => void;
+  onOpen?: () => void;
 }
 
 interface ListingPreferences {
@@ -62,7 +63,7 @@ const DEFAULT_PREFERENCES: ListingPreferences = {
   shipsWithTracking: true,
 };
 
-export default function ListingGeneratorForm({ item, onSuccess }: ListingGeneratorFormProps) {
+export default function ListingGeneratorForm({ item, onSuccess, onOpen }: ListingGeneratorFormProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [showDetailedForm, setShowDetailedForm] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -226,6 +227,8 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
 
   // Quick generate with saved defaults
   const handleQuickGenerate = async () => {
+    onOpen?.(); // Clear parent success messages
+
     const defaultPlatform = getMostFrequentPlatform();
     const defaultCondition = getMostFrequentCondition(defaultPlatform);
 
@@ -313,9 +316,9 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
             style={{
               flex: 1,
               padding: '14px 20px',
-              backgroundColor: '#ffffff',
-              color: loading ? '#a3a3a3' : '#3b82f6',
-              border: loading ? '2px solid #d4d4d4' : '2px solid #3b82f6',
+              backgroundColor: loading ? '#a3a3a3' : '#3b82f6',
+              color: '#ffffff',
+              border: 'none',
               borderRadius: '8px',
               fontSize: 'var(--text-sm)',
               fontWeight: '600',
@@ -327,10 +330,10 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
               transition: 'all 0.2s'
             }}
             onMouseEnter={(e) => {
-              if (!loading) e.currentTarget.style.background = '#eff6ff';
+              if (!loading) e.currentTarget.style.background = '#2563eb';
             }}
             onMouseLeave={(e) => {
-              if (!loading) e.currentTarget.style.background = '#ffffff';
+              if (!loading) e.currentTarget.style.background = '#3b82f6';
             }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
@@ -340,6 +343,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
           </button>
         <button
           onClick={() => {
+            onOpen?.(); // Clear parent success messages
             setIsOpen(true);
             setShowDetailedForm(true);
             // Set defaults based on usage when opening
@@ -404,8 +408,8 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                   height: '40px',
                   padding: '0',
                   backgroundColor: '#ffffff',
-                  color: '#3b82f6',
-                  border: '1px solid #3b82f6',
+                  color: '#525252',
+                  border: '1px solid #e5e5e5',
                   borderRadius: '8px',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
@@ -415,10 +419,12 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                   flexShrink: 0
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#eff6ff';
+                  e.currentTarget.style.backgroundColor = '#f5f5f5';
+                  e.currentTarget.style.borderColor = '#d4d4d4';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = '#ffffff';
+                  e.currentTarget.style.borderColor = '#e5e5e5';
                 }}
               >
                 <svg width="var(--icon-base)" height="var(--icon-base)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
@@ -430,18 +436,17 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
 
           <div style={{ marginBottom: '24px' }}>
             <div style={{ marginBottom: '16px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
                 <strong style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: '#171717' }}>Title:</strong>
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText(editedTitle);
-                    alert('Title copied to clipboard!');
                   }}
                   style={{
                     padding: '8px 16px',
-                    backgroundColor: '#3b82f6',
-                    color: 'white',
-                    border: 'none',
+                    backgroundColor: '#ffffff',
+                    color: '#3b82f6',
+                    border: '2px solid #3b82f6',
                     borderRadius: '8px',
                     fontSize: 'var(--text-xs)',
                     fontWeight: '600',
@@ -449,10 +454,10 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                     transition: 'all 0.2s'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#2563eb';
+                    e.currentTarget.style.backgroundColor = '#eff6ff';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#3b82f6';
+                    e.currentTarget.style.backgroundColor = '#ffffff';
                   }}
                 >
                   Copy Title
@@ -478,7 +483,7 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
 
             {/* Suggested Price */}
             <div style={{ marginBottom: '16px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
                 <strong style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: '#171717' }}>Price:</strong>
                 <button
                   onClick={() => {
@@ -486,13 +491,12 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                       ? Math.round(item.pricing?.suggestedPrice ?? 0).toString()
                       : (item.pricing?.suggestedPrice ?? 0).toFixed(2);
                     navigator.clipboard.writeText(price);
-                    alert('Price copied to clipboard!');
                   }}
                   style={{
                     padding: '8px 16px',
-                    backgroundColor: '#3b82f6',
-                    color: 'white',
-                    border: 'none',
+                    backgroundColor: '#ffffff',
+                    color: '#3b82f6',
+                    border: '2px solid #3b82f6',
                     borderRadius: '8px',
                     fontSize: 'var(--text-xs)',
                     fontWeight: '600',
@@ -500,10 +504,10 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                     transition: 'all 0.2s'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#2563eb';
+                    e.currentTarget.style.backgroundColor = '#eff6ff';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#3b82f6';
+                    e.currentTarget.style.backgroundColor = '#ffffff';
                   }}
                 >
                   Copy Price
@@ -523,18 +527,17 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
             </div>
 
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
                 <strong style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: '#171717' }}>Description:</strong>
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText(editedDescription);
-                    alert('Description copied to clipboard!');
                   }}
                   style={{
                     padding: '8px 16px',
-                    backgroundColor: '#3b82f6',
-                    color: 'white',
-                    border: 'none',
+                    backgroundColor: '#ffffff',
+                    color: '#3b82f6',
+                    border: '2px solid #3b82f6',
                     borderRadius: '8px',
                     fontSize: 'var(--text-xs)',
                     fontWeight: '600',
@@ -542,10 +545,10 @@ export default function ListingGeneratorForm({ item, onSuccess }: ListingGenerat
                     transition: 'all 0.2s'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#2563eb';
+                    e.currentTarget.style.backgroundColor = '#eff6ff';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#3b82f6';
+                    e.currentTarget.style.backgroundColor = '#ffffff';
                   }}
                 >
                   Copy Description
