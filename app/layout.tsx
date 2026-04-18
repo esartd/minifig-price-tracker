@@ -6,6 +6,7 @@ import AuthProvider from '@/components/session-provider'
 import ScrollToTop from '@/components/ScrollToTop'
 import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
+import '@/lib/startup-checks' // Initialize database safeguards on app startup
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://figtracker.ericksu.com'),
