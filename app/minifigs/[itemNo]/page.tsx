@@ -1,13 +1,13 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { prisma } from '@/lib/prisma';
+import { prisma, prismaPublic } from '@/lib/prisma';
 import MinifigDetailClient from '@/components/minifig-detail-client';
 
 // Generate static params for all minifigures (SSG for SEO)
 export async function generateStaticParams() {
   // Get first 1000 most popular minifigures for initial build
   // Others will be generated on-demand (ISR)
-  const minifigs = await prisma.minifigCatalog.findMany({
+  const minifigs = await prismaPublic.minifigCatalog.findMany({
     select: { minifigure_no: true },
     orderBy: { updated_at: 'desc' },
     take: 1000
@@ -26,7 +26,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { itemNo } = await params;
 
-  const minifig = await prisma.minifigCatalog.findUnique({
+  const minifig = await prismaPublic.minifigCatalog.findUnique({
     where: { minifigure_no: itemNo }
   });
 
@@ -77,7 +77,7 @@ export default async function MinifigPage({
   const { itemNo } = await params;
 
   // Fetch minifig from database (not API)
-  const minifig = await prisma.minifigCatalog.findUnique({
+  const minifig = await prismaPublic.minifigCatalog.findUnique({
     where: { minifigure_no: itemNo }
   });
 
@@ -113,7 +113,7 @@ export default async function MinifigPage({
   const excludePatterns = exclusions[characterName.toLowerCase()] || [];
 
   // Fetch all potential matches with the character name
-  const allMatches = await prisma.minifigCatalog.findMany({
+  const allMatches = await prismaPublic.minifigCatalog.findMany({
     where: {
       AND: [
         { minifigure_no: { not: itemNo } },
@@ -213,7 +213,7 @@ export default async function MinifigPage({
     }
 
     // Query for these specific item numbers
-    const foundMinifigs = await prisma.minifigCatalog.findMany({
+    const foundMinifigs = await prismaPublic.minifigCatalog.findMany({
       where: {
         minifigure_no: { in: targetNumbers },
         category_id: minifig.category_id
@@ -235,7 +235,7 @@ export default async function MinifigPage({
         expandedNumbers.push(`${prefix}${i.toString().padStart(match[2].length, '0')}`);
       }
 
-      const additionalMinifigs = await prisma.minifigCatalog.findMany({
+      const additionalMinifigs = await prismaPublic.minifigCatalog.findMany({
         where: {
           minifigure_no: { in: expandedNumbers },
           category_id: minifig.category_id

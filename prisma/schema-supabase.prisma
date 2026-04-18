@@ -1,0 +1,70 @@
+// SUPABASE DATABASE - Public Data Only
+// Contains catalog, cache, and API tracking (high-bandwidth tables)
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client-supabase"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("SUPABASE_DATABASE_URL")
+  directUrl = env("SUPABASE_DIRECT_URL")
+}
+
+model ApiCallTracker {
+  date         String   @id
+  call_count   Int      @default(0)
+  last_call_at DateTime @default(now())
+
+  @@index([date])
+}
+
+model MinifigCache {
+  minifigure_no    String   @id
+  name             String
+  category_id      Int
+  image_url        String
+  cached_at        DateTime @default(now())
+  expires_at       DateTime
+  keywords         String[]
+  last_searched_at DateTime @default(now())
+
+  @@index([expires_at])
+  @@index([name])
+}
+
+model MinifigCatalog {
+  minifigure_no String   @id
+  name          String
+  category_id   Int
+  category_name String
+  year_released String?
+  weight_grams  Float?
+  search_name   String
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  @@index([category_name])
+  @@index([search_name])
+  @@index([year_released])
+}
+
+model PriceCache {
+  id              String   @id @default(cuid())
+  minifigure_no   String
+  condition       String
+  country_code    String   @default("US")
+  region          String   @default("north_america")
+  currency_code   String   @default("USD")
+  six_month_avg   Float
+  current_avg     Float
+  current_lowest  Float
+  suggested_price Float
+  cached_at       DateTime @default(now())
+  expires_at      DateTime
+
+  @@unique([minifigure_no, condition, country_code, region])
+  @@index([expires_at])
+  @@index([minifigure_no])
+}

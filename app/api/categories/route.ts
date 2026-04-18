@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma, prismaPublic } from '@/lib/prisma';
 
 export async function GET() {
   try {
     // Get all unique categories with counts
-    const categories = await prisma.minifigCatalog.groupBy({
+    const categories = await prismaPublic.minifigCatalog.groupBy({
       by: ['category_id', 'category_name'],
       _count: {
         minifigure_no: true
@@ -83,7 +83,7 @@ export async function GET() {
           minifigNo = themeOverrides[theme.parent];
         } else {
           // Otherwise, get the newest minifig
-          const representativeMinifig = await prisma.minifigCatalog.findFirst({
+          const representativeMinifig = await prismaPublic.minifigCatalog.findFirst({
             where: {
               category_name: {
                 startsWith: theme.parent
@@ -102,7 +102,7 @@ export async function GET() {
         }
 
         // Check if theme has minifigures from last 2 calendar years
-        const hasRecentMinifigs = await prisma.minifigCatalog.findFirst({
+        const hasRecentMinifigs = await prismaPublic.minifigCatalog.findFirst({
           where: {
             category_name: {
               startsWith: theme.parent

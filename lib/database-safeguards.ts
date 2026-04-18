@@ -5,7 +5,7 @@
  * These checks MUST pass before any destructive database operations.
  */
 
-import { prisma } from './prisma';
+import { prisma, prismaPublic } from './prisma';
 
 /**
  * Verify database has data before any destructive operations
@@ -24,7 +24,7 @@ export async function verifyProductionDataExists(): Promise<void> {
   const [userCount, collectionCount, catalogCount] = await Promise.all([
     prisma.user.count(),
     prisma.collectionItem.count(),
-    prisma.minifigCatalog.count(),
+    prismaPublic.minifigCatalog.count(),
   ]);
 
   // If ALL critical tables are empty, something is very wrong
@@ -115,8 +115,8 @@ export async function createSafetySnapshot() {
     users: await prisma.user.count(),
     collectionItems: await prisma.collectionItem.count(),
     personalItems: await prisma.personalCollectionItem.count(),
-    catalog: await prisma.minifigCatalog.count(),
-    priceCache: await prisma.priceCache.count(),
+    catalog: await prismaPublic.minifigCatalog.count(),
+    priceCache: await prismaPublic.priceCache.count(),
   };
 
   console.log('📸 Safety snapshot created:', snapshot);
@@ -128,8 +128,8 @@ export async function createSafetySnapshot() {
         users: await prisma.user.count(),
         collectionItems: await prisma.collectionItem.count(),
         personalItems: await prisma.personalCollectionItem.count(),
-        catalog: await prisma.minifigCatalog.count(),
-        priceCache: await prisma.priceCache.count(),
+        catalog: await prismaPublic.minifigCatalog.count(),
+        priceCache: await prismaPublic.priceCache.count(),
       };
 
       // Check if any critical data was lost (allow growth)

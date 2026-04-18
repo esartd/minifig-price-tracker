@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { bricklinkAPI } from '@/lib/bricklink';
-import { prisma } from '@/lib/prisma';
+import { prisma, prismaPublic } from '@/lib/prisma';
 import { runMigrations } from '@/lib/run-migrations';
 
 /**
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
 
     // Subcategory browsing (by full category_name)
     if (!query && subcategory) {
-      const catalogItems = await prisma.minifigCatalog.findMany({
+      const catalogItems = await prismaPublic.minifigCatalog.findMany({
         where: {
           category_name: subcategory
         },
@@ -67,7 +67,7 @@ export async function GET(request: NextRequest) {
     if (!query && categoryId) {
       const categoryIdNum = parseInt(categoryId);
 
-      const catalogItems = await prisma.minifigCatalog.findMany({
+      const catalogItems = await prismaPublic.minifigCatalog.findMany({
         where: {
           category_id: categoryIdNum
         },
@@ -112,7 +112,7 @@ export async function GET(request: NextRequest) {
       const itemNo = searchTerm.toLowerCase();
 
       // Check catalog first (instant)
-      const catalogItem = await prisma.minifigCatalog.findUnique({
+      const catalogItem = await prismaPublic.minifigCatalog.findUnique({
         where: { minifigure_no: itemNo }
       });
 
@@ -132,13 +132,13 @@ export async function GET(request: NextRequest) {
       }
 
       // Not in catalog - check cache
-      const cached = await prisma.minifigCache.findUnique({
+      const cached = await prismaPublic.minifigCache.findUnique({
         where: { minifigure_no: itemNo }
       });
 
       if (cached && cached.expires_at > new Date()) {
         // Update last_searched_at to track usage
-        await prisma.minifigCache.update({
+        await prismaPublic.minifigCache.update({
           where: { minifigure_no: itemNo },
           data: { last_searched_at: new Date() }
         });
@@ -165,7 +165,7 @@ export async function GET(request: NextRequest) {
           const expiresAt = new Date();
           expiresAt.setHours(expiresAt.getHours() + 24); // 24-hour TTL (per BrickLink "other content" rule)
 
-          await prisma.minifigCache.upsert({
+          await prismaPublic.minifigCache.upsert({
             where: { minifigure_no: itemNo },
             create: {
               minifigure_no: itemNo,

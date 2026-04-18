@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma, prismaPublic } from '@/lib/prisma';
 
 /**
  * ADMIN ENDPOINT: Manual Catalog Upload
@@ -134,11 +134,11 @@ async function insertBatch(batch: any[]) {
   let updated = 0;
 
   const promises = batch.map(async (item) => {
-    const existing = await prisma.minifigCatalog.findUnique({
+    const existing = await prismaPublic.minifigCatalog.findUnique({
       where: { minifigure_no: item.number }
     });
 
-    const result = await prisma.minifigCatalog.upsert({
+    const result = await prismaPublic.minifigCatalog.upsert({
       where: { minifigure_no: item.number },
       update: {
         name: item.name,

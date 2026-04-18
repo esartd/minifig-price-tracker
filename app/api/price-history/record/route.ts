@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma, prismaPublic } from '@/lib/prisma';
 
 export async function POST() {
   try {
@@ -20,7 +20,7 @@ export async function POST() {
     for (const item of uniqueMinifigs) {
       try {
         // Check if price cache exists and is fresh (default US region)
-        const priceCache = await prisma.priceCache.findUnique({
+        const priceCache = await prismaPublic.priceCache.findUnique({
           where: {
             minifigure_no_condition_country_code_region: {
               minifigure_no: item.minifigure_no,
@@ -50,7 +50,7 @@ export async function POST() {
 
             if (data.success && data.pricing) {
               // Fetch the updated cache after the API refreshed it (default US region)
-              currentPriceData = await prisma.priceCache.findUnique({
+              currentPriceData = await prismaPublic.priceCache.findUnique({
                 where: {
                   minifigure_no_condition_country_code_region: {
                     minifigure_no: item.minifigure_no,

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prismaPublic } from '@/lib/prisma';
 import { downloadBricklinkCatalog, parseCatalogData, importCatalogItems } from '@/lib/bricklink-catalog';
 import { downloadAllBricklinkFiles } from '@/lib/bricklink-files';
 
@@ -76,7 +76,7 @@ export async function GET(request: Request) {
 
     // Import into database
     console.log('💾 Importing into database...');
-    const { created, updated } = await importCatalogItems(items, prisma);
+    const { created, updated } = await importCatalogItems(items, prismaPublic);
 
     console.log('\n📊 Monthly catalog update complete!');
     console.log(`  Minifigures: ${created} created, ${updated} updated`);

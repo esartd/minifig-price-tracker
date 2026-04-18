@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma';
+import { prismaPublic } from '@/lib/prisma';
 import ThemesClient from './themes-client';
 import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
 import type { Metadata } from 'next';
@@ -33,7 +33,7 @@ interface Theme {
 async function getThemes(): Promise<Theme[]> {
   try {
     // Get all unique categories with counts
-    const categories = await prisma.minifigCatalog.groupBy({
+    const categories = await prismaPublic.minifigCatalog.groupBy({
       by: ['category_id', 'category_name'],
       _count: {
         minifigure_no: true
@@ -102,7 +102,7 @@ async function getThemes(): Promise<Theme[]> {
           minifigNo = THEME_OVERRIDES[theme.parent];
         } else {
           // STEP 2: Use newest minifig as fallback (fast, simple)
-          const newestMinifig = await prisma.minifigCatalog.findFirst({
+          const newestMinifig = await prismaPublic.minifigCatalog.findFirst({
             where: {
               category_name: {
                 startsWith: theme.parent
@@ -120,7 +120,7 @@ async function getThemes(): Promise<Theme[]> {
           minifigNo = newestMinifig?.minifigure_no || null;
         }
 
-        const hasRecentMinifigs = await prisma.minifigCatalog.findFirst({
+        const hasRecentMinifigs = await prismaPublic.minifigCatalog.findFirst({
           where: {
             category_name: {
               startsWith: theme.parent

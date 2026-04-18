@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { prisma } from '@/lib/prisma'
+import { prisma, prismaPublic } from '@/lib/prisma'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://figtracker.ericksu.com'
@@ -45,7 +45,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]
 
   // Get all minifigure pages from catalog
-  const minifigs = await prisma.minifigCatalog.findMany({
+  const minifigs = await prismaPublic.minifigCatalog.findMany({
     select: {
       minifigure_no: true,
       updated_at: true,

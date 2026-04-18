@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma, prismaPublic } from '@/lib/prisma';
 import { getMainCharacter } from '@/lib/theme-main-characters';
 
 export async function GET(request: NextRequest) {
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     // Get all subcategories for this theme
     // Use exact match for parent theme OR "parent / sub-theme" format
     // This prevents "Friends" from matching "Friends TV Series"
-    const categories = await prisma.minifigCatalog.groupBy({
+    const categories = await prismaPublic.minifigCatalog.groupBy({
       by: ['category_id', 'category_name'],
       where: {
         OR: [
@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
             representativeMinifig = knownMainCharacter;
           } else {
             // Character name - search for it
-            const manualMatch = await prisma.minifigCatalog.findFirst({
+            const manualMatch = await prismaPublic.minifigCatalog.findFirst({
               where: {
                 category_name: sub.fullName,
                 search_name: {
@@ -85,7 +85,7 @@ export async function GET(request: NextRequest) {
 
         // STEP 2: If no manual mapping or not found, use newest minifig (fast fallback)
         if (!representativeMinifig) {
-          const newestMinifig = await prisma.minifigCatalog.findFirst({
+          const newestMinifig = await prismaPublic.minifigCatalog.findFirst({
             where: {
               category_name: sub.fullName
             },

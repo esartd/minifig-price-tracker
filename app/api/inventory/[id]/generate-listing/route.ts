@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
-import { prisma } from '@/lib/prisma';
+import { prisma, prismaPublic } from '@/lib/prisma';
 import { generateListing, extractTheme } from '@/lib/listing-templates';
 
 export async function POST(
@@ -47,7 +47,7 @@ export async function POST(
     }
 
     // Look up theme from catalog
-    const catalogEntry = await prisma.minifigCatalog.findUnique({
+    const catalogEntry = await prismaPublic.minifigCatalog.findUnique({
       where: { minifigure_no: item.minifigure_no },
       select: { category_name: true }
     });

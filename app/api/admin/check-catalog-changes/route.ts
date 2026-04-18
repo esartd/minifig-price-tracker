@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { bricklinkAPI } from '@/lib/bricklink';
-import { prisma } from '@/lib/prisma';
+import { prisma, prismaPublic } from '@/lib/prisma';
 
 /**
  * ADMIN ENDPOINT: Check Catalog Changes
@@ -29,19 +29,19 @@ export async function GET(request: NextRequest) {
     }
 
     // Get catalog stats
-    const totalItems = await prisma.minifigCatalog.count();
-    const oldestUpdate = await prisma.minifigCatalog.findFirst({
+    const totalItems = await prismaPublic.minifigCatalog.count();
+    const oldestUpdate = await prismaPublic.minifigCatalog.findFirst({
       orderBy: { updated_at: 'asc' },
       select: { updated_at: true }
     });
-    const newestUpdate = await prisma.minifigCatalog.findFirst({
+    const newestUpdate = await prismaPublic.minifigCatalog.findFirst({
       orderBy: { updated_at: 'desc' },
       select: { updated_at: true }
     });
 
     // Check a few random items from our catalog against Bricklink API
     // to see if names have changed
-    const sampleItems = await prisma.minifigCatalog.findMany({
+    const sampleItems = await prismaPublic.minifigCatalog.findMany({
       take: 10,
       orderBy: { updated_at: 'asc' }, // Check oldest first
       select: { minifigure_no: true, name: true, updated_at: true }

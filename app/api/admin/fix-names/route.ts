@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma, prismaPublic } from '@/lib/prisma';
 import { auth } from '@/auth';
 
 /**
@@ -36,7 +36,7 @@ async function fixNames() {
 
     for (const item of items) {
       // Look up correct name from MinifigCache
-      const cached = await prisma.minifigCache.findUnique({
+      const cached = await prismaPublic.minifigCache.findUnique({
         where: { minifigure_no: item.minifigure_no }
       });
 

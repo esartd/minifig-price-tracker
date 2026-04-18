@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma, prismaPublic } from '@/lib/prisma';
 
 /**
  * COMPLIANT RELATED MINIFIGS
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Find current minifig in catalog
-    const currentMinifig = await prisma.minifigCatalog.findUnique({
+    const currentMinifig = await prismaPublic.minifigCatalog.findUnique({
       where: { minifigure_no: itemNo.toLowerCase() }
     });
 
@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
     const idRange = 50; // Look for minifigs within ±50 IDs
 
     // Get character variants (same character name, same category)
-    const variantResults = await prisma.minifigCatalog.findMany({
+    const variantResults = await prismaPublic.minifigCatalog.findMany({
       where: {
         AND: [
           { minifigure_no: { not: itemNo.toLowerCase() } },
@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
     const minId = Math.max(1, currentNum - idRange);
     const maxId = currentNum + idRange;
 
-    const themeResults = await prisma.minifigCatalog.findMany({
+    const themeResults = await prismaPublic.minifigCatalog.findMany({
       where: {
         AND: [
           { minifigure_no: { not: itemNo.toLowerCase() } },

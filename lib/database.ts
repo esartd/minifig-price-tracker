@@ -1,5 +1,5 @@
 import { CollectionItem, PersonalCollectionItem } from '@/types';
-import { prisma } from './prisma';
+import { prisma, prismaPublic } from './prisma';
 
 class DatabaseService {
   // Transform DB row to CollectionItem type
@@ -60,7 +60,7 @@ class DatabaseService {
     // CollectionItem pricing fields are stale - only PriceCache is kept fresh
     const itemsWithFreshPricing = await Promise.all(
       items.map(async (item) => {
-        const freshPrice = await prisma.priceCache.findUnique({
+        const freshPrice = await prismaPublic.priceCache.findUnique({
           where: {
             minifigure_no_condition_country_code_region: {
               minifigure_no: item.minifigure_no,
@@ -194,7 +194,7 @@ class DatabaseService {
     // Merge fresh pricing from PriceCache (same as inventory)
     const itemsWithFreshPricing = await Promise.all(
       items.map(async (item) => {
-        const freshPrice = await prisma.priceCache.findUnique({
+        const freshPrice = await prismaPublic.priceCache.findUnique({
           where: {
             minifigure_no_condition_country_code_region: {
               minifigure_no: item.minifigure_no,

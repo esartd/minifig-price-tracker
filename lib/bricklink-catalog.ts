@@ -200,7 +200,7 @@ export function parseCatalogData(catalogText: string) {
 /**
  * Import catalog items into database
  */
-export async function importCatalogItems(items: any[], prisma: any) {
+export async function importCatalogItems(items: any[], prismaPublic: any) {
   let created = 0;
   let updated = 0;
 
@@ -210,11 +210,11 @@ export async function importCatalogItems(items: any[], prisma: any) {
     const batch = items.slice(i, i + batchSize);
 
     const promises = batch.map(async (item) => {
-      const existing = await prisma.minifigCatalog.findUnique({
+      const existing = await prismaPublic.minifigCatalog.findUnique({
         where: { minifigure_no: item.number }
       });
 
-      await prisma.minifigCatalog.upsert({
+      await prismaPublic.minifigCatalog.upsert({
         where: { minifigure_no: item.number },
         update: {
           name: item.name,

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma, prismaPublic } from '@/lib/prisma';
 import { bricklinkAPI } from '@/lib/bricklink';
 
 export async function GET(request: Request) {
@@ -42,7 +42,7 @@ export async function GET(request: Request) {
 
     for (const item of uniqueMinifigs) {
       // Check cache for default region (US/north_america)
-      const cache = await prisma.priceCache.findUnique({
+      const cache = await prismaPublic.priceCache.findUnique({
         where: {
           minifigure_no_condition_country_code_region: {
             minifigure_no: item.minifigure_no,

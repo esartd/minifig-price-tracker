@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import { Minifigure, PriceGuide, PricingData, SetInfo } from '@/types';
-import { prisma } from './prisma';
+import { prisma, prismaPublic } from './prisma';
 import { getCurrencyByCountryCode } from './currency-config';
 
 // Manual name enhancements for minifigs with poor Bricklink API names
@@ -44,13 +44,13 @@ export class BricklinkAPI {
     const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
     // Get today's call count from database
-    let tracker = await prisma.apiCallTracker.findUnique({
+    let tracker = await prismaPublic.apiCallTracker.findUnique({
       where: { date: today }
     });
 
     // Create new tracker if doesn't exist
     if (!tracker) {
-      tracker = await prisma.apiCallTracker.create({
+      tracker = await prismaPublic.apiCallTracker.create({
         data: {
           date: today,
           call_count: 0
@@ -75,7 +75,7 @@ export class BricklinkAPI {
     }
 
     // Update tracker
-    await prisma.apiCallTracker.update({
+    await prismaPublic.apiCallTracker.update({
       where: { date: today },
       data: {
         call_count: tracker.call_count + 1,
@@ -206,7 +206,7 @@ export class BricklinkAPI {
   async getMinifigureByNumber(itemNo: string): Promise<Minifigure | null> {
     try {
       // STEP 1: Check cache first (no API call)
-      const cached = await prisma.minifigCache.findUnique({
+      const cached = await prismaPublic.minifigCache.findUnique({
         where: { minifigure_no: itemNo }
       });
 
@@ -252,7 +252,7 @@ export class BricklinkAPI {
       const expiresAt = new Date();
       expiresAt.setHours(expiresAt.getHours() + 6);
 
-      await prisma.minifigCache.upsert({
+      await prismaPublic.minifigCache.upsert({
         where: { minifigure_no: data.no },
         update: {
           name: enhancedName,
@@ -310,7 +310,7 @@ export class BricklinkAPI {
     const conditionCode = condition === 'new' ? 'N' : 'U';
 
     // Check cache first
-    const cached = await prisma.priceCache.findUnique({
+    const cached = await prismaPublic.priceCache.findUnique({
       where: {
         minifigure_no_condition_country_code_region: {
           minifigure_no: itemNo,
@@ -378,7 +378,7 @@ export class BricklinkAPI {
     const expiresAt = new Date();
     expiresAt.setHours(expiresAt.getHours() + 6);
 
-    await prisma.priceCache.upsert({
+    await prismaPublic.priceCache.upsert({
       where: {
         minifigure_no_condition_country_code_region: {
           minifigure_no: itemNo,

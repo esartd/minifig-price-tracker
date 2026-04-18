@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma, prismaPublic } from '@/lib/prisma';
 import { auth } from '@/auth';
 
 // GET - Check current API usage for today
@@ -17,7 +17,7 @@ export async function GET() {
     const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
     // Get today's call count from database
-    const tracker = await prisma.apiCallTracker.findUnique({
+    const tracker = await prismaPublic.apiCallTracker.findUnique({
       where: { date: today }
     });
 

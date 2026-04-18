@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { database } from '@/lib/database';
 import { bricklinkAPI } from '@/lib/bricklink';
 import { auth } from '@/auth';
-import { prisma } from '@/lib/prisma';
+import { prisma, prismaPublic } from '@/lib/prisma';
 
 // POST - Smart refresh: only refreshes items with expired cache (7 day TTL)
 export async function POST() {
@@ -38,7 +38,7 @@ export async function POST() {
 
     for (const item of items) {
       // Check if price cache exists and is still valid (default US region)
-      const cache = await prisma.priceCache.findUnique({
+      const cache = await prismaPublic.priceCache.findUnique({
         where: {
           minifigure_no_condition_country_code_region: {
             minifigure_no: item.minifigure_no,
