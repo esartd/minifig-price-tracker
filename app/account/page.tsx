@@ -381,8 +381,20 @@ export default function AccountPage() {
           currencySymbol: currency.symbol,
           locale: currency.locale,
         });
-        // Show popup confirmation instead of banner
-        alert(`✓ Currency updated to ${currency.name} (${currency.symbol})\n\nPrices will now display in ${currency.code}.`);
+
+        // Show notification with time estimate
+        const { itemCount, estimatedMinutes } = data.priceUpdate || { itemCount: 0, estimatedMinutes: 0 };
+        let message = `✓ Currency updated to ${currency.name} (${currency.symbol})`;
+
+        if (itemCount > 0) {
+          message += `\n\n⏱️ Updating prices for ${itemCount} items in your collection.`;
+          message += `\nEstimated time: ${estimatedMinutes} minute${estimatedMinutes > 1 ? 's' : ''}`;
+          message += `\n\nRefresh the page in a few minutes to see updated prices.`;
+        } else {
+          message += `\n\nPrices will now display in ${currency.code}.`;
+        }
+
+        alert(message);
         router.refresh();
       }
     } catch (error) {

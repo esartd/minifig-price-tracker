@@ -35,6 +35,31 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    // Clear old currency price caches for this user's items
+    // Get all unique minifig numbers from both collections
+    const [inventoryItems, collectionItems] = await Promise.all([
+      prisma.collectionItem.findMany({
+        where: { userId: session.user.id },
+        select: { minifigure_no: true, condition: true }
+      }),
+      prisma.personalCollectionItem.findMany({
+        where: { userId: session.user.id },
+        select: { minifigure_no: true, condition: true }
+      })
+    ]);
+
+    // Combine and deduplicate items
+    const allItems = new Map();
+    [...inventoryItems, ...collectionItems].forEach(item => {
+      const key = `${item.minifigure_no}_${item.condition}`;
+      allItems.set(key, { minifigure_no: item.minifigure_no, condition: item.condition });
+    });
+
+    const uniqueItemCount = allItems.size;
+
+    // Estimate time: 3 seconds per item (rate limit)
+    const estimatedMinutes = Math.ceil((uniqueItemCount * 3) / 60);
+
     return NextResponse.json({
       success: true,
       preferences: {
@@ -44,6 +69,10 @@ export async function POST(request: NextRequest) {
         currencySymbol: updatedUser.currencySymbol,
         locale: updatedUser.locale,
       },
+      priceUpdate: {
+        itemCount: uniqueItemCount,
+        estimatedMinutes: estimatedMinutes
+      }
     });
   } catch (error: any) {
     console.error('Error updating preferences:', error);
