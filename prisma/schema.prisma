@@ -20,7 +20,7 @@ model Account {
   id_token          String?
   session_state     String?
   createdAt         DateTime @default(now())
-  updatedAt         DateTime
+  updatedAt         DateTime @updatedAt
   User              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
@@ -186,12 +186,12 @@ model Session {
   userId       String
   expires      DateTime
   createdAt    DateTime @default(now())
-  updatedAt    DateTime
+  updatedAt    DateTime @updatedAt
   User         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id                     String                   @id
+  id                     String                   @id @default(cuid())
   name                   String?
   email                  String                   @unique
   password               String?
@@ -203,7 +203,7 @@ model User {
   currencySymbol         String?                  @default("$")
   locale                 String?                  @default("en-US")
   createdAt              DateTime                 @default(now())
-  updatedAt              DateTime
+  updatedAt              DateTime                 @updatedAt
   scanCredits            Int                      @default(0)
   stripeCustomerId       String?
   stripeSubscriptionId   String?
