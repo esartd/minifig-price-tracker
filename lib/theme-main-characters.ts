@@ -140,6 +140,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Friends': 'frnd0896',
   'Gabby\'s Dollhouse': 'gdh010',
   'Harry Potter': 'hp605',
+  'Holiday & Event': 'hol381',
   'Horizon': 'hrz001',
   'Jurassic World': 'jw100',
   'Minecraft': 'min009',
