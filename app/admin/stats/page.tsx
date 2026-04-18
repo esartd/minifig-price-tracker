@@ -148,17 +148,8 @@ export default async function AdminStatsPage() {
               fontWeight: '600',
               borderRadius: '8px',
               textDecoration: 'none',
-              transition: 'all 0.2s',
               border: 'none',
               cursor: 'pointer',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#2563eb';
-              e.currentTarget.style.transform = 'translateY(-1px)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#3b82f6';
-              e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
             <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
