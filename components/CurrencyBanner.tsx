@@ -93,7 +93,7 @@ export default function CurrencyBanner() {
       left: 0,
       right: 0,
       zIndex: 10001,
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      background: 'linear-gradient(135deg, #005C97 0%, #363795 100%)',
       color: 'white',
       padding: '16px',
       boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
@@ -108,13 +108,28 @@ export default function CurrencyBanner() {
         gap: '16px',
         flexWrap: 'wrap'
       }}>
-        <div style={{ flex: 1, minWidth: '200px' }}>
+        <div style={{ flex: 1, minWidth: '200px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ flexShrink: 0 }}
+          >
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
           <p style={{
             fontSize: '15px',
             fontWeight: '500',
             margin: 0
           }}>
-            🌍 We detected you're in {detectedCountry}. Show prices in {detectedCurrency}?
+            We detected you're in {detectedCountry}. Show prices in {detectedCurrency}?
           </p>
         </div>
         <div style={{
@@ -128,7 +143,7 @@ export default function CurrencyBanner() {
               padding: '8px 20px',
               fontSize: '14px',
               fontWeight: '600',
-              color: '#667eea',
+              color: '#005C97',
               background: 'white',
               border: 'none',
               borderRadius: '6px',
