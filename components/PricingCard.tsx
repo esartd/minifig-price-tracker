@@ -30,7 +30,13 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
   return (
     <div className="apple-card sticky top-24">
       <h3 className="text-lg font-semibold mb-1 text-gray-900 tracking-tight">{item.minifigure_name}</h3>
-      <p className="text-xs text-gray-400 mb-6">{item.minifigure_no}</p>
+      <p className="text-xs text-gray-400 mb-2">{item.minifigure_no}</p>
+
+      {currency !== 'USD' && (
+        <p className="text-xs text-orange-600 mb-4 italic">
+          ⓘ Showing USD prices - limited sellers in your region
+        </p>
+      )}
 
       <div className="grid grid-cols-2 gap-3">
         {/* Market Average (Qty Weighted) */}

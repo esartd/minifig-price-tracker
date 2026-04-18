@@ -335,6 +335,10 @@ export class BricklinkAPI {
     const priceGuide = await this.getPriceGuide(itemNo, conditionCode, countryCode, region);
 
     if (!priceGuide) {
+      // If regional pricing fails and not US, fall back to USD pricing
+      if (countryCode !== 'US' || region !== 'north_america') {
+        return this.calculatePricingData(itemNo, condition, 'US', 'north_america');
+      }
       return {
         sixMonthAverage: 0,
         currentAverage: 0,
@@ -358,6 +362,11 @@ export class BricklinkAPI {
       currentLowest: parseFloat(currentLowest.toFixed(2)),
       suggestedPrice: parseFloat(suggestedPrice.toFixed(2)),
     };
+
+    // If all prices are 0 and not US, fall back to USD pricing
+    if (pricingData.suggestedPrice === 0 && (countryCode !== 'US' || region !== 'north_america')) {
+      return this.calculatePricingData(itemNo, condition, 'US', 'north_america');
+    }
 
     // Store in cache with 6 hour expiration per BrickLink API Terms Section 1
     // "Display item Content or product information and/or images which is more than
