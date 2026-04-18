@@ -380,7 +380,8 @@ export default function AccountPage() {
           currencySymbol: currency.symbol,
           locale: currency.locale,
         });
-        showMessage('success', `Currency updated to ${currency.name}`);
+        // Show popup confirmation instead of banner
+        alert(`✓ Currency updated to ${currency.name} (${currency.symbol})\n\nPrices will now display in ${currency.code}.`);
         router.refresh();
       }
     } catch (error) {
