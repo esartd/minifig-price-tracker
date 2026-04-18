@@ -177,8 +177,8 @@ async function getThemes(): Promise<Theme[]> {
   }
 }
 
-// Cache for 1 hour - themes don't change often
-export const revalidate = 3600;
+// Temporarily disable cache to force refresh
+export const revalidate = 0;
 
 export default async function CategoriesPage() {
   const themes = await getThemes();
