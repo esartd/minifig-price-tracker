@@ -126,7 +126,7 @@ async function getThemes(): Promise<Theme[]> {
       }
     }
 
-    // Also check Sets.txt for themes with recent sets (more reliable than minifigs)
+    // Also check Sets.txt for themes with recent sets
     try {
       const fs = await import('fs/promises');
       const path = await import('path');
@@ -134,19 +134,29 @@ async function getThemes(): Promise<Theme[]> {
       const setsContent = await fs.readFile(setsPath, 'utf-8');
       const setsLines = setsContent.split('\n').slice(2); // Skip header rows
 
+      let setsChecked = 0;
+      let setsAdded = 0;
+
       for (const line of setsLines) {
+        if (!line.trim()) continue;
         const parts = line.split('\t');
         if (parts.length >= 5) {
+          setsChecked++;
           const categoryName = parts[1];
           const yearReleased = parts[4];
           const year = parseInt(yearReleased);
 
-          if (year >= currentYear - 2) {
+          if (!isNaN(year) && year >= currentYear - 2) {
             const parent = getParent(categoryName);
+            if (!recentThemes.has(parent)) {
+              setsAdded++;
+            }
             recentThemes.add(parent);
           }
         }
       }
+
+      console.log(`Sets check: ${setsChecked} sets scanned, ${setsAdded} new current themes found`);
     } catch (error) {
       console.error('Failed to read Sets.txt:', error);
       // Continue without sets data
