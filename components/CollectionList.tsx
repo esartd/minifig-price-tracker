@@ -274,7 +274,7 @@ export default function CollectionList({
                 color: '#a3a3a3',
                 fontStyle: 'italic'
               }}>
-                No pricing data
+                No sellers available
               </div>
             )}
           </div>

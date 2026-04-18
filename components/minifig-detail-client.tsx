@@ -903,7 +903,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       color: '#737373',
                       fontSize: 'var(--text-sm)'
                     }}>
-                      No pricing data available
+                      No sellers available in your region
                     </div>
                   )}
                 </div>

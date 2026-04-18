@@ -305,8 +305,7 @@ export class BricklinkAPI {
     itemNo: string,
     condition: 'new' | 'used',
     countryCode: string = 'US',
-    region: string = 'north_america',
-    allowFallback: boolean = true
+    region: string = 'north_america'
   ): Promise<PricingData> {
     const conditionCode = condition === 'new' ? 'N' : 'U';
 
@@ -336,47 +335,20 @@ export class BricklinkAPI {
     // Cache miss or expired - fetch fresh data from API only
     const priceGuide = await this.getPriceGuide(itemNo, conditionCode, countryCode, region);
 
+    // Get currency code from country code
+    const currencyConfig = getCurrencyByCountryCode(countryCode);
+    const currencyCodeValue = currencyConfig?.code || 'USD';
+
     if (!priceGuide) {
-      // If regional pricing fails and not US, fall back to USD pricing
-      if (allowFallback && (countryCode !== 'US' || region !== 'north_america')) {
-        // Try USD cache first (even expired)
-        const usdCache = await prisma.priceCache.findUnique({
-          where: {
-            minifigure_no_condition_country_code_region: {
-              minifigure_no: itemNo,
-              condition: condition,
-              country_code: 'US',
-              region: 'north_america'
-            }
-          }
-        });
-
-        if (usdCache && usdCache.suggested_price > 0) {
-          // Use USD cache data (even if expired - better than nothing)
-          return {
-            sixMonthAverage: usdCache.six_month_avg,
-            currentAverage: usdCache.current_avg,
-            currentLowest: usdCache.current_lowest,
-            suggestedPrice: usdCache.suggested_price,
-            currencyCode: usdCache.currency_code,
-          };
-        }
-
-        // No USD cache, make fresh API call
-        return this.calculatePricingData(itemNo, condition, 'US', 'north_america', false);
-      }
+      // No sellers in this region - return zeros with user's currency
       return {
         sixMonthAverage: 0,
         currentAverage: 0,
         currentLowest: 0,
         suggestedPrice: 0,
-        currencyCode: 'USD',
+        currencyCode: currencyCodeValue,
       };
     }
-
-    // Get currency code from country code via currency config
-    const currencyConfig = getCurrencyByCountryCode(countryCode);
-    const currencyCode = currencyConfig?.code || 'USD';
 
     // Use API data from current marketplace listings (Note: API does not provide historical sales data)
     const sixMonthAverage = parseFloat(priceGuide.qty_avg_price || '0'); // Quantity-weighted average of current listings
@@ -392,36 +364,12 @@ export class BricklinkAPI {
       currentAverage: parseFloat(currentAverage.toFixed(2)),
       currentLowest: parseFloat(currentLowest.toFixed(2)),
       suggestedPrice: parseFloat(suggestedPrice.toFixed(2)),
-      currencyCode: currencyCode,
+      currencyCode: currencyCodeValue,
     };
 
-    // If all prices are 0 and not US, fall back to USD pricing
-    if (allowFallback && pricingData.suggestedPrice === 0 && (countryCode !== 'US' || region !== 'north_america')) {
-      // Try USD cache first (even expired)
-      const usdCache = await prisma.priceCache.findUnique({
-        where: {
-          minifigure_no_condition_country_code_region: {
-            minifigure_no: itemNo,
-            condition: condition,
-            country_code: 'US',
-            region: 'north_america'
-          }
-        }
-      });
-
-      if (usdCache && usdCache.suggested_price > 0) {
-        // Use USD cache data (even if expired - better than nothing)
-        return {
-          sixMonthAverage: usdCache.six_month_avg,
-          currentAverage: usdCache.current_avg,
-          currentLowest: usdCache.current_lowest,
-          suggestedPrice: usdCache.suggested_price,
-          currencyCode: usdCache.currency_code,
-        };
-      }
-
-      // No USD cache, make fresh API call
-      return this.calculatePricingData(itemNo, condition, 'US', 'north_america', false);
+    // If all prices are 0, no sellers in this region - return zeros
+    if (pricingData.suggestedPrice === 0) {
+      return pricingData;
     }
 
     // Store in cache with 6 hour expiration per BrickLink API Terms Section 1
@@ -446,14 +394,14 @@ export class BricklinkAPI {
         suggested_price: pricingData.suggestedPrice,
         cached_at: new Date(),
         expires_at: expiresAt,
-        currency_code: currencyCode,
+        currency_code: currencyCodeValue,
       },
       create: {
         minifigure_no: itemNo,
         condition: condition,
         country_code: countryCode,
         region: region,
-        currency_code: currencyCode,
+        currency_code: currencyCodeValue,
         six_month_avg: pricingData.sixMonthAverage,
         current_avg: pricingData.currentAverage,
         current_lowest: pricingData.currentLowest,
