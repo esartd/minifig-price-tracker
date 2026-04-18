@@ -60,9 +60,11 @@ class DatabaseService {
       items.map(async (item) => {
         const freshPrice = await prisma.priceCache.findUnique({
           where: {
-            minifigure_no_condition: {
+            minifigure_no_condition_country_code_region: {
               minifigure_no: item.minifigure_no,
-              condition: item.condition
+              condition: item.condition,
+              country_code: 'US',
+              region: 'north_america'
             }
           }
         });
@@ -183,9 +185,11 @@ class DatabaseService {
       items.map(async (item) => {
         const freshPrice = await prisma.priceCache.findUnique({
           where: {
-            minifigure_no_condition: {
+            minifigure_no_condition_country_code_region: {
               minifigure_no: item.minifigure_no,
-              condition: item.condition
+              condition: item.condition,
+              country_code: 'US',
+              region: 'north_america'
             }
           }
         });

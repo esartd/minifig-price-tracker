@@ -100,7 +100,7 @@ export async function GET(request: NextRequest) {
     const listings = await prisma.listing.findMany({
       where: { userId: user.id },
       include: {
-        collectionItem: true
+        CollectionItem: true
       },
       orderBy: { created_at: 'desc' }
     });

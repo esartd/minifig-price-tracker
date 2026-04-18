@@ -19,10 +19,10 @@ export async function POST(
     // Verify ownership
     const item = await prisma.collectionItem.findUnique({
       where: { id },
-      include: { user: true }
+      include: { User: true }
     });
 
-    if (!item || item.user.email !== session.user.email) {
+    if (!item || item.User.email !== session.user.email) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
 

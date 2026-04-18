@@ -35,7 +35,7 @@ model ApiCallTracker {
 }
 
 model CollectionItem {
-  id                      String    @id
+  id                      String    @id @default(cuid())
   minifigure_no           String
   minifigure_name         String
   quantity                Int
@@ -47,7 +47,7 @@ model CollectionItem {
   pricing_suggested_price Float?
   userId                  String
   date_added              DateTime  @default(now())
-  last_updated            DateTime
+  last_updated            DateTime  @updatedAt
   User                    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   Listing                 Listing[]
 
@@ -57,7 +57,7 @@ model CollectionItem {
 }
 
 model Listing {
-  id               String         @id
+  id               String         @id @default(cuid())
   userId           String
   collectionItemId String
   title            String
@@ -70,7 +70,7 @@ model Listing {
   list_price       Float?
   status           String         @default("draft")
   created_at       DateTime       @default(now())
-  updated_at       DateTime
+  updated_at       DateTime       @updatedAt
   sold_at          DateTime?
   CollectionItem   CollectionItem @relation(fields: [collectionItemId], references: [id], onDelete: Cascade)
   User             User           @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -103,7 +103,7 @@ model MinifigCatalog {
   weight_grams  Float?
   search_name   String
   created_at    DateTime @default(now())
-  updated_at    DateTime
+  updated_at    DateTime  @updatedAt
 
   @@index([category_name])
   @@index([search_name])
@@ -111,7 +111,7 @@ model MinifigCatalog {
 }
 
 model PersonalCollectionItem {
-  id                      String    @id
+  id                      String    @id @default(cuid())
   userId                  String
   minifigure_no           String
   minifigure_name         String
@@ -127,7 +127,7 @@ model PersonalCollectionItem {
   acquisition_notes       String?
   display_location        String?
   date_added              DateTime  @default(now())
-  last_updated            DateTime
+  last_updated            DateTime  @updatedAt
   User                    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, minifigure_no, condition])
@@ -135,7 +135,7 @@ model PersonalCollectionItem {
 }
 
 model PriceCache {
-  id              String   @id
+  id              String   @id @default(cuid())
   minifigure_no   String
   condition       String
   country_code    String   @default("US")
@@ -154,7 +154,7 @@ model PriceCache {
 }
 
 model PriceHistory {
-  id              String   @id
+  id              String   @id @default(cuid())
   minifigure_no   String
   condition       String
   six_month_avg   Float
@@ -168,7 +168,7 @@ model PriceHistory {
 }
 
 model ScanHistory {
-  id             String   @id
+  id             String   @id @default(cuid())
   userId         String
   imageUrl       String?
   detectedItemNo String?

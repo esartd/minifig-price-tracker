@@ -19,12 +19,14 @@ export async function POST() {
     // For each unique minifig, ensure we have fresh pricing data
     for (const item of uniqueMinifigs) {
       try {
-        // Check if price cache exists and is fresh
+        // Check if price cache exists and is fresh (default US region)
         const priceCache = await prisma.priceCache.findUnique({
           where: {
-            minifigure_no_condition: {
+            minifigure_no_condition_country_code_region: {
               minifigure_no: item.minifigure_no,
               condition: item.condition,
+              country_code: 'US',
+              region: 'north_america',
             },
           },
         });
@@ -47,12 +49,14 @@ export async function POST() {
             const data = await response.json();
 
             if (data.success && data.pricing) {
-              // Fetch the updated cache after the API refreshed it
+              // Fetch the updated cache after the API refreshed it (default US region)
               currentPriceData = await prisma.priceCache.findUnique({
                 where: {
-                  minifigure_no_condition: {
+                  minifigure_no_condition_country_code_region: {
                     minifigure_no: item.minifigure_no,
                     condition: item.condition,
+                    country_code: 'US',
+                    region: 'north_america',
                   },
                 },
               });
