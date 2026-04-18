@@ -247,21 +247,20 @@ class DatabaseService {
           pricing_current_avg: freshPrice.current_avg,
           pricing_current_lowest: freshPrice.current_lowest,
           pricing_suggested_price: freshPrice.suggested_price,
-            pricing_currency_code: freshPrice.currency_code
-          };
-        }
-
-        // No cache for this region - return zeros (will trigger "No sellers available")
-        return {
-          ...item,
-          pricing_six_month_avg: 0,
-          pricing_current_avg: 0,
-          pricing_current_lowest: 0,
-          pricing_suggested_price: 0,
-          pricing_currency_code: undefined
+          pricing_currency_code: freshPrice.currency_code
         };
-      })
-    );
+      }
+
+      // No cache for this region - return zeros (will trigger "No sellers available")
+      return {
+        ...item,
+        pricing_six_month_avg: 0,
+        pricing_current_avg: 0,
+        pricing_current_lowest: 0,
+        pricing_suggested_price: 0,
+        pricing_currency_code: undefined
+      };
+    });
 
     return itemsWithFreshPricing.map((item: any) => this.transformPersonalFromDB(item));
   }
