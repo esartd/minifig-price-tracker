@@ -42,7 +42,7 @@ export async function setupBrowser(config: BrowserConfig = {}): Promise<Browser>
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath(),
-      headless: chromium.headless,
+      headless: true,
     });
   } else {
     // Local development - use system Chrome/Chromium
