@@ -49,10 +49,11 @@ export async function saveCatalogFile(
  * Returns file content as string, or null if not found
  */
 export async function getCatalogFile(filename: string): Promise<string | null> {
+  // Gracefully skip if token not set - allows fallback to other sources
   const token = process.env.BLOB_READ_WRITE_TOKEN;
 
   if (!token) {
-    console.warn('BLOB_READ_WRITE_TOKEN not set, cannot read from Blob Storage');
+    // Don't log warning - this is expected until Blob is set up
     return null;
   }
 
@@ -63,7 +64,7 @@ export async function getCatalogFile(filename: string): Promise<string | null> {
     });
 
     if (blobs.length === 0) {
-      console.log(`File not found in Blob Storage: ${filename}`);
+      // File not in Blob yet - normal during initial setup
       return null;
     }
 
@@ -75,7 +76,8 @@ export async function getCatalogFile(filename: string): Promise<string | null> {
     const response = await fetch(latestBlob.url);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch file: ${response.statusText}`);
+      console.warn(`Failed to fetch ${filename} from Blob: ${response.statusText}`);
+      return null;
     }
 
     const content = await response.text();
@@ -84,7 +86,8 @@ export async function getCatalogFile(filename: string): Promise<string | null> {
 
     return content;
   } catch (error) {
-    console.error(`Error reading ${filename} from Blob Storage:`, error);
+    // Silently fail and let other sources be tried
+    console.warn(`Blob Storage check failed for ${filename}, falling back to other sources`);
     return null;
   }
 }

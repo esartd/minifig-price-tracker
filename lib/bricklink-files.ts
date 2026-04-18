@@ -52,9 +52,8 @@ interface DownloadResult {
 export async function downloadBricklinkFile(file: BricklinkFile): Promise<DownloadResult> {
   console.log(`📥 Downloading ${file.name}...`);
 
-  // Strategy 0: Try Vercel Blob Storage first
+  // Strategy 0: Try Vercel Blob Storage first (if available)
   try {
-    console.log(`  Checking Vercel Blob Storage...`);
     const blobContent = await getCatalogFile(file.filename);
 
     if (blobContent && blobContent.length > 100) {
@@ -66,7 +65,8 @@ export async function downloadBricklinkFile(file: BricklinkFile): Promise<Downlo
       };
     }
   } catch (error) {
-    console.warn(`  Vercel Blob check failed:`, error);
+    // Silently continue to other strategies
+    // This is expected if Blob isn't set up yet
   }
 
   // Strategy 1: Try direct download URLs (Bricklink catalog download page patterns)
