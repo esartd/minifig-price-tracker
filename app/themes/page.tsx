@@ -126,6 +126,32 @@ async function getThemes(): Promise<Theme[]> {
       }
     }
 
+    // Also check Sets.txt for themes with recent sets (more reliable than minifigs)
+    try {
+      const fs = await import('fs/promises');
+      const path = await import('path');
+      const setsPath = path.join(process.cwd(), 'Sets.txt');
+      const setsContent = await fs.readFile(setsPath, 'utf-8');
+      const setsLines = setsContent.split('\n').slice(2); // Skip header rows
+
+      for (const line of setsLines) {
+        const parts = line.split('\t');
+        if (parts.length >= 5) {
+          const categoryName = parts[1];
+          const yearReleased = parts[4];
+          const year = parseInt(yearReleased);
+
+          if (year >= currentYear - 2) {
+            const parent = getParent(categoryName);
+            recentThemes.add(parent);
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Failed to read Sets.txt:', error);
+      // Continue without sets data
+    }
+
     // For themes without recent minifigs, get their full category list and find newest
     const themesNeedingImages = themeParents.filter(p => !newestRecentByTheme.has(p));
     const themeCategories = groupedThemes
