@@ -8,6 +8,7 @@ import CollectionList from '@/components/CollectionList';
 import CollectionSwitcher from '@/components/CollectionSwitcher';
 import Link from 'next/link';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { formatPrice } from '@/lib/format-price';
 
 export default function CollectionPage() {
   const { data: session, status } = useSession();
@@ -259,7 +260,7 @@ export default function CollectionPage() {
                     color: '#171717',
                     lineHeight: '1'
                   }}>
-                    ${totalValue.toFixed(2)}
+                    {formatPrice(totalValue, session?.user?.preferredCurrency || 'USD', true)}
                   </div>
                 </div>
                 <div className="collection-stat-card" style={{

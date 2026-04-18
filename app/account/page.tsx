@@ -5,6 +5,7 @@ import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getCurrenciesByContinent, SUPPORTED_CURRENCIES } from '@/lib/currency-config';
+import { formatPrice } from '@/lib/format-price';
 
 export default function AccountPage() {
   const { data: session, update } = useSession();
@@ -537,7 +538,7 @@ export default function AccountPage() {
               color: '#171717',
               lineHeight: '1'
             }}>
-              ${stats.totalValue.toFixed(2)}
+              {formatPrice(stats.totalValue, session?.user?.preferredCurrency || 'USD', true)}
             </p>
           </div>
           <div style={{
