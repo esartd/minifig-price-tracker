@@ -940,7 +940,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                             marginTop: collectionItem ? '32px' : '0',
                             marginBottom: '16px'
                           }}>
-                            In Your Your Collection
+                            In Your Collection
                           </h2>
 
                           <div className="inventory-actions-container">
