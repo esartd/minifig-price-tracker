@@ -126,8 +126,8 @@ async function getThemes(): Promise<Theme[]> {
       }
     }
 
-    // Log how many themes are marked as current
-    console.log(`Found ${recentThemes.size} themes with minifigs from ${currentYear - 2}+:`, Array.from(recentThemes).sort().slice(0, 10));
+    // Debug logging
+    console.log(`[THEMES DEBUG] Found ${recentThemes.size} current themes from ${currentYear - 2}+ minifigs`);
 
     // For themes without recent minifigs, get their full category list and find newest
     const themesNeedingImages = themeParents.filter(p => !newestRecentByTheme.has(p));
