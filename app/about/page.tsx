@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { prisma } from '@/lib/prisma';
+import { prisma, prismaPublic } from '@/lib/prisma';
 import { CurrencyDollarIcon, BriefcaseIcon, MagnifyingGlassIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
 
 // Force dynamic rendering to show current searchable catalog count
@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic';
 // Get count of searchable minifigs (user-driven cache)
 async function getSearchableCatalogCount(): Promise<number> {
   try {
-    const count = await prisma.minifigCache.count({
+    const count = await prismaPublic.minifigCache.count({
       where: {
         expires_at: { gt: new Date() }
       }

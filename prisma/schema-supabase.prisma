@@ -45,6 +45,7 @@ model MinifigCatalog {
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
 
+  @@index([category_id, category_name])
   @@index([category_name])
   @@index([search_name])
   @@index([year_released])

@@ -91,58 +91,66 @@ async function getThemes(): Promise<Theme[]> {
         subcategories: theme.subcategories.sort((a, b) => a.name.localeCompare(b.name))
       }));
 
-    // Fetch representative minifig and check if theme is current
+    // Fetch representative minifigs and recent status in bulk (optimized)
     const currentYear = new Date().getFullYear();
-    const themesWithImages = await Promise.all(
-      groupedThemes.map(async (theme) => {
-        let minifigNo: string | null = null;
+    const themeParents = groupedThemes.map(t => t.parent);
 
-        // STEP 1: Check manual overrides for special cases
-        if (THEME_OVERRIDES[theme.parent]) {
-          minifigNo = THEME_OVERRIDES[theme.parent];
-        } else {
-          // STEP 2: Use newest minifig as fallback (fast, simple)
-          const newestMinifig = await prismaPublic.minifigCatalog.findFirst({
-            where: {
-              category_name: {
-                startsWith: theme.parent
-              }
-            },
-            orderBy: [
-              { year_released: 'desc' },
-              { minifigure_no: 'desc' }
-            ],
-            select: {
-              minifigure_no: true
-            }
-          });
+    // Fetch newest minifig for each theme in one query
+    const allNewestMinifigs = await prismaPublic.minifigCatalog.findMany({
+      where: {
+        OR: themeParents.map(parent => ({
+          category_name: { startsWith: parent }
+        }))
+      },
+      orderBy: [
+        { year_released: 'desc' },
+        { minifigure_no: 'desc' }
+      ],
+      select: {
+        minifigure_no: true,
+        category_name: true,
+        year_released: true
+      }
+    });
 
-          minifigNo = newestMinifig?.minifigure_no || null;
-        }
-
-        const hasRecentMinifigs = await prismaPublic.minifigCatalog.findFirst({
-          where: {
-            category_name: {
-              startsWith: theme.parent
-            },
-            year_released: {
-              gte: (currentYear - 2).toString()
-            }
-          },
-          select: {
-            minifigure_no: true
-          }
+    // Group by theme parent
+    const newestByTheme = new Map<string, { minifigNo: string, isRecent: boolean }>();
+    for (const minifig of allNewestMinifigs) {
+      const parent = themeParents.find(p => minifig.category_name.startsWith(p));
+      if (parent && !newestByTheme.has(parent)) {
+        const yearReleased = parseInt(minifig.year_released || '0');
+        newestByTheme.set(parent, {
+          minifigNo: minifig.minifigure_no,
+          isRecent: yearReleased >= currentYear - 2
         });
+      }
+    }
 
-        return {
-          ...theme,
-          representativeImage: minifigNo
-            ? `https://img.bricklink.com/ItemImage/MN/0/${minifigNo}.png`
-            : null,
-          isCurrent: !!hasRecentMinifigs
-        };
-      })
-    );
+    // Map themes with images
+    const themesWithImages = groupedThemes.map(theme => {
+      let minifigNo: string | null = null;
+      let isCurrent = false;
+
+      // Check manual overrides first
+      if (THEME_OVERRIDES[theme.parent]) {
+        minifigNo = THEME_OVERRIDES[theme.parent];
+        isCurrent = true; // Assume overrides are current
+      } else {
+        const themeData = newestByTheme.get(theme.parent);
+        if (themeData) {
+          minifigNo = themeData.minifigNo;
+          isCurrent = themeData.isRecent;
+        }
+      }
+
+      return {
+        ...theme,
+        representativeImage: minifigNo
+          ? `https://img.bricklink.com/ItemImage/MN/0/${minifigNo}.png`
+          : null,
+        isCurrent
+      };
+    });
 
     return themesWithImages;
   } catch (error) {
@@ -150,6 +158,9 @@ async function getThemes(): Promise<Theme[]> {
     return [];
   }
 }
+
+// Cache for 1 hour - themes don't change often
+export const revalidate = 3600;
 
 export default async function CategoriesPage() {
   const themes = await getThemes();
