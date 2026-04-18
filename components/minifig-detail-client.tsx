@@ -106,6 +106,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
             currentAverage: data.pricing.currentAverage || 0,
             currentLowest: data.pricing.currentLowest || 0,
             suggestedPrice: data.pricing.suggestedPrice || 0,
+            currencyCode: data.pricing.currencyCode || 'USD',
             loading: false
           });
         } else {
