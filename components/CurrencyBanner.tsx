@@ -143,7 +143,7 @@ export default function CurrencyBanner() {
               padding: '8px 20px',
               fontSize: '14px',
               fontWeight: '600',
-              color: '#005C97',
+              color: '#3b82f6',
               background: 'white',
               border: 'none',
               borderRadius: '6px',
