@@ -17,6 +17,30 @@ interface SetAdCardProps {
 export default function SetAdCard({ setNumber, setName, imageUrl, year }: SetAdCardProps) {
   const amazonLink = generateAmazonLegoSetLink(setNumber, setName);
 
+  const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+
+    try {
+      // Track the click
+      await fetch('/api/track-click', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          platform: 'amazon',
+          productType: 'set',
+          productId: setNumber,
+          productName: setName,
+          redirectUrl: amazonLink,
+        }),
+      });
+    } catch (error) {
+      console.error('Failed to track click:', error);
+    }
+
+    // Redirect to Amazon
+    window.open(amazonLink, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <div
       style={{
@@ -120,7 +144,7 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year }: SetAdC
         {/* Buy Button - Amazon only */}
         <a
           href={amazonLink}
-          target="_blank"
+          onClick={handleClick}
           rel="noopener noreferrer sponsored"
           style={{
             display: 'block',

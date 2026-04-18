@@ -224,3 +224,17 @@ model VerificationToken {
 
   @@id([identifier, token])
 }
+
+model AffiliateClick {
+  id           String   @id @default(cuid())
+  platform     String   // "amazon" | "bricklink" | "rakuten"
+  productType  String   // "set" | "minifig"
+  productId    String   // set number or minifig number
+  productName  String?
+  clickedAt    DateTime @default(now())
+  userId       String?  // optional - if logged in
+
+  @@index([platform])
+  @@index([clickedAt])
+  @@index([productId])
+}

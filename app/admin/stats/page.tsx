@@ -13,6 +13,12 @@ export default async function AdminStatsPage() {
     redirect('/');
   }
 
+  // Date ranges for click stats
+  const now = new Date();
+  const last24Hours = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+  const last7Days = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  const last30Days = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
   // Get all the stats
   const [
     totalUsers,
@@ -22,6 +28,11 @@ export default async function AdminStatsPage() {
     totalPriceCache,
     recentUsers,
     allUsers,
+    totalClicks,
+    clicks24h,
+    clicks7d,
+    clicks30d,
+    topClickedProducts,
   ] = await Promise.all([
     prisma.user.count(),
     prisma.collectionItem.count(),
@@ -55,6 +66,24 @@ export default async function AdminStatsPage() {
           }
         }
       }
+    }),
+    // Affiliate click stats
+    prisma.affiliateClick.count(),
+    prisma.affiliateClick.count({
+      where: { clickedAt: { gte: last24Hours } }
+    }),
+    prisma.affiliateClick.count({
+      where: { clickedAt: { gte: last7Days } }
+    }),
+    prisma.affiliateClick.count({
+      where: { clickedAt: { gte: last30Days } }
+    }),
+    // Top clicked products
+    prisma.affiliateClick.groupBy({
+      by: ['productId', 'productName', 'platform', 'productType'],
+      _count: { id: true },
+      orderBy: { _count: { id: 'desc' } },
+      take: 10,
     }),
   ]);
 
@@ -139,16 +168,147 @@ export default async function AdminStatsPage() {
             color="#8b5cf6"
           />
           <StatCard
-            label="Price Cache"
-            value={totalPriceCache.toLocaleString()}
-            subtitle="Cached prices"
+            label="Total Ad Clicks"
+            value={totalClicks}
+            subtitle={`${clicks24h} today, ${clicks7d} this week`}
             icon={
               <svg style={{ width: '24px', height: '24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
               </svg>
             }
             color="#f59e0b"
           />
+        </div>
+
+        {/* Affiliate Click Stats */}
+        <div style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          border: '1px solid #e5e5e5',
+          padding: 'var(--space-3)',
+          marginBottom: 'var(--space-6)',
+        }}>
+          <h2 style={{
+            fontSize: 'var(--text-lg)',
+            fontWeight: '600',
+            color: '#171717',
+            marginBottom: 'var(--space-3)',
+          }}>
+            Affiliate Click Performance
+          </h2>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: 'var(--space-3)',
+          }}>
+            <div>
+              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '8px' }}>Last 24 Hours</div>
+              <div style={{ fontSize: 'var(--text-2xl)', fontWeight: '600', color: '#171717' }}>{clicks24h}</div>
+            </div>
+            <div>
+              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '8px' }}>Last 7 Days</div>
+              <div style={{ fontSize: 'var(--text-2xl)', fontWeight: '600', color: '#171717' }}>{clicks7d}</div>
+            </div>
+            <div>
+              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '8px' }}>Last 30 Days</div>
+              <div style={{ fontSize: 'var(--text-2xl)', fontWeight: '600', color: '#171717' }}>{clicks30d}</div>
+            </div>
+            <div>
+              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '8px' }}>All Time</div>
+              <div style={{ fontSize: 'var(--text-2xl)', fontWeight: '600', color: '#171717' }}>{totalClicks}</div>
+            </div>
+          </div>
+
+          {topClickedProducts.length > 0 && (
+            <>
+              <div style={{ height: '1px', background: '#e5e5e5', margin: 'var(--space-4) 0' }} />
+              <h3 style={{
+                fontSize: 'var(--text-base)',
+                fontWeight: '600',
+                color: '#171717',
+                marginBottom: 'var(--space-2)',
+              }}>
+                Top Clicked Products
+              </h3>
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid #e5e5e5' }}>
+                      <th style={{
+                        padding: '12px 8px',
+                        textAlign: 'left',
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        color: '#737373',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                      }}>
+                        Product
+                      </th>
+                      <th style={{
+                        padding: '12px 8px',
+                        textAlign: 'left',
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        color: '#737373',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                      }}>
+                        Type
+                      </th>
+                      <th style={{
+                        padding: '12px 8px',
+                        textAlign: 'right',
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        color: '#737373',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                      }}>
+                        Clicks
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {topClickedProducts.map((product, idx) => (
+                      <tr key={idx} style={{ borderBottom: '1px solid #f5f5f5' }}>
+                        <td style={{ padding: '12px 8px' }}>
+                          <div style={{ fontSize: '14px', fontWeight: '500', color: '#171717', marginBottom: '4px' }}>
+                            {product.productName || product.productId}
+                          </div>
+                          <div style={{ fontSize: '12px', color: '#737373', fontFamily: 'monospace' }}>
+                            {product.productId}
+                          </div>
+                        </td>
+                        <td style={{ padding: '12px 8px' }}>
+                          <span style={{
+                            display: 'inline-block',
+                            padding: '4px 8px',
+                            background: product.platform === 'amazon' ? '#ff990015' : '#3b82f615',
+                            color: product.platform === 'amazon' ? '#ff9900' : '#3b82f6',
+                            borderRadius: '4px',
+                            fontSize: '12px',
+                            fontWeight: '600',
+                          }}>
+                            {product.platform}
+                          </span>
+                        </td>
+                        <td style={{
+                          padding: '12px 8px',
+                          fontSize: '14px',
+                          fontWeight: '600',
+                          color: '#171717',
+                          textAlign: 'right',
+                        }}>
+                          {product._count.id}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
         </div>
 
         {/* Database Split Info */}
