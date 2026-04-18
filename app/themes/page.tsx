@@ -168,16 +168,16 @@ async function getThemes(): Promise<Theme[]> {
     // Map themes with images
     const themesWithImages = groupedThemes.map(theme => {
       let minifigNo: string | null = null;
-      let isCurrent = false;
 
-      // Check manual overrides first
+      // Check manual overrides for image first
       if (THEME_OVERRIDES[theme.parent]) {
         minifigNo = THEME_OVERRIDES[theme.parent];
-        isCurrent = true; // Assume overrides are current
       } else {
         minifigNo = newestByTheme.get(theme.parent) || null;
-        isCurrent = recentThemes.has(theme.parent);
       }
+
+      // Determine if current based on recent minifigs (not overrides)
+      const isCurrent = recentThemes.has(theme.parent);
 
       return {
         ...theme,
