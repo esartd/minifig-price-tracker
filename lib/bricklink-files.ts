@@ -9,6 +9,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { getCatalogFile } from './storage/blob-storage';
 
 export interface BricklinkFile {
   name: string;
@@ -50,6 +51,23 @@ interface DownloadResult {
  */
 export async function downloadBricklinkFile(file: BricklinkFile): Promise<DownloadResult> {
   console.log(`📥 Downloading ${file.name}...`);
+
+  // Strategy 0: Try Vercel Blob Storage first
+  try {
+    console.log(`  Checking Vercel Blob Storage...`);
+    const blobContent = await getCatalogFile(file.filename);
+
+    if (blobContent && blobContent.length > 100) {
+      console.log(`  ✅ Found in Vercel Blob Storage (${(blobContent.length / 1024).toFixed(2)} KB)`);
+      return {
+        success: true,
+        data: blobContent,
+        source: 'vercel_blob'
+      };
+    }
+  } catch (error) {
+    console.warn(`  Vercel Blob check failed:`, error);
+  }
 
   // Strategy 1: Try direct download URLs (Bricklink catalog download page patterns)
   const possibleUrls = generateBricklinkUrls(file.filename);
