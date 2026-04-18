@@ -95,34 +95,55 @@ async function getThemes(): Promise<Theme[]> {
     const currentYear = new Date().getFullYear();
     const themeParents = groupedThemes.map(t => t.parent);
 
-    // Fetch newest minifig for each theme in one query
-    const allNewestMinifigs = await prismaPublic.minifigCatalog.findMany({
-      where: {
-        OR: themeParents.map(parent => ({
-          category_name: { startsWith: parent }
-        }))
-      },
-      orderBy: [
-        { year_released: 'desc' },
-        { minifigure_no: 'desc' }
-      ],
-      select: {
-        minifigure_no: true,
-        category_name: true,
-        year_released: true
-      }
-    });
+    // Fetch newest minifig AND check for recent releases in two queries
+    const [allNewestMinifigs, recentMinifigs] = await Promise.all([
+      // Get newest minifig per theme for images
+      prismaPublic.minifigCatalog.findMany({
+        where: {
+          OR: themeParents.map(parent => ({
+            category_name: { startsWith: parent }
+          }))
+        },
+        orderBy: [
+          { year_released: 'desc' },
+          { minifigure_no: 'desc' }
+        ],
+        select: {
+          minifigure_no: true,
+          category_name: true,
+        }
+      }),
+      // Check which themes have ANY minifig from last 2 years
+      prismaPublic.minifigCatalog.findMany({
+        where: {
+          OR: themeParents.map(parent => ({
+            category_name: { startsWith: parent }
+          })),
+          year_released: {
+            gte: (currentYear - 2).toString()
+          }
+        },
+        select: {
+          category_name: true,
+        },
+        distinct: ['category_name']
+      })
+    ]);
 
-    // Group by theme parent
-    const newestByTheme = new Map<string, { minifigNo: string, isRecent: boolean }>();
+    // Build maps
+    const newestByTheme = new Map<string, string>();
     for (const minifig of allNewestMinifigs) {
       const parent = themeParents.find(p => minifig.category_name.startsWith(p));
       if (parent && !newestByTheme.has(parent)) {
-        const yearReleased = parseInt(minifig.year_released || '0');
-        newestByTheme.set(parent, {
-          minifigNo: minifig.minifigure_no,
-          isRecent: yearReleased >= currentYear - 2
-        });
+        newestByTheme.set(parent, minifig.minifigure_no);
+      }
+    }
+
+    const recentThemes = new Set<string>();
+    for (const minifig of recentMinifigs) {
+      const parent = themeParents.find(p => minifig.category_name.startsWith(p));
+      if (parent) {
+        recentThemes.add(parent);
       }
     }
 
@@ -136,11 +157,8 @@ async function getThemes(): Promise<Theme[]> {
         minifigNo = THEME_OVERRIDES[theme.parent];
         isCurrent = true; // Assume overrides are current
       } else {
-        const themeData = newestByTheme.get(theme.parent);
-        if (themeData) {
-          minifigNo = themeData.minifigNo;
-          isCurrent = themeData.isRecent;
-        }
+        minifigNo = newestByTheme.get(theme.parent) || null;
+        isCurrent = recentThemes.has(theme.parent);
       }
 
       return {
