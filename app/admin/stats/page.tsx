@@ -110,22 +110,62 @@ export default async function AdminStatsPage() {
         margin: '0 auto',
       }}>
         {/* Header */}
-        <div style={{ marginBottom: 'var(--space-6)' }}>
-          <h1 style={{
-            fontSize: 'var(--text-2xl)',
-            fontWeight: '600',
-            color: '#171717',
-            marginBottom: 'var(--space-1)',
-            letterSpacing: '-0.02em',
-          }}>
-            Admin Dashboard
-          </h1>
-          <p style={{
-            fontSize: 'var(--text-sm)',
-            color: '#737373',
-          }}>
-            Overview of your FigTracker platform
-          </p>
+        <div style={{
+          marginBottom: 'var(--space-6)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 'var(--space-3)',
+        }}>
+          <div>
+            <h1 style={{
+              fontSize: 'var(--text-2xl)',
+              fontWeight: '600',
+              color: '#171717',
+              marginBottom: 'var(--space-1)',
+              letterSpacing: '-0.02em',
+            }}>
+              Admin Dashboard
+            </h1>
+            <p style={{
+              fontSize: 'var(--text-sm)',
+              color: '#737373',
+            }}>
+              Overview of your FigTracker platform
+            </p>
+          </div>
+          <a
+            href={`mailto:${ADMIN_EMAIL}?bcc=${allUsers.map(u => u.email).join(',')}`}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '12px 20px',
+              background: '#3b82f6',
+              color: '#ffffff',
+              fontSize: 'var(--text-sm)',
+              fontWeight: '600',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              transition: 'all 0.2s',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#2563eb';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#3b82f6';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+          >
+            <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Email All Users ({totalUsers})
+          </a>
         </div>
 
         {/* Stats Grid */}
