@@ -1,6 +1,8 @@
 'use client';
 
 import { CollectionItem } from '@/types';
+import { useSession } from 'next-auth/react';
+import { formatPrice as formatPriceUtil } from '@/lib/format-price';
 
 interface PricingCardProps {
   item: CollectionItem;
@@ -8,10 +10,12 @@ interface PricingCardProps {
 }
 
 export default function PricingCard({ item, showDecimals }: PricingCardProps) {
+  const { data: session } = useSession();
   const pricing = item.pricing;
+  const currency = session?.user?.preferredCurrency || 'USD';
 
   const formatPrice = (price: number) => {
-    return showDecimals ? price.toFixed(2) : Math.round(price).toString();
+    return formatPriceUtil(price, currency, showDecimals);
   };
 
   if (!pricing) {
@@ -35,7 +39,7 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
             Market Avg (Qty Weighted)
           </p>
           <p className="text-2xl font-semibold text-blue-900 tracking-tight">
-            ${formatPrice(pricing.sixMonthAverage)}
+            {formatPrice(pricing.sixMonthAverage)}
           </p>
         </div>
 
@@ -45,7 +49,7 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
             Simple Avg
           </p>
           <p className="text-2xl font-semibold text-purple-900 tracking-tight">
-            ${formatPrice(pricing.currentAverage)}
+            {formatPrice(pricing.currentAverage)}
           </p>
         </div>
 
@@ -55,7 +59,7 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
             Lowest Listing
           </p>
           <p className="text-2xl font-semibold text-orange-900 tracking-tight">
-            ${formatPrice(pricing.currentLowest)}
+            {formatPrice(pricing.currentLowest)}
           </p>
         </div>
 
@@ -65,7 +69,7 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
             Suggested Price
           </p>
           <p className="text-2xl font-semibold text-green-900 tracking-tight">
-            ${formatPrice(pricing.suggestedPrice)}
+            {formatPrice(pricing.suggestedPrice)}
           </p>
         </div>
       </div>

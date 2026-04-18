@@ -39,6 +39,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           email: user.email,
           name: user.name,
           image: user.image,
+          preferredCurrency: user.preferredCurrency,
+          preferredCountryCode: user.preferredCountryCode,
+          preferredRegion: user.preferredRegion,
+          currencySymbol: user.currencySymbol,
+          locale: user.locale,
         }
       }
     })
@@ -57,11 +62,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.name = user.name
         token.email = user.email
         token.picture = user.image
+        token.preferredCurrency = user.preferredCurrency
+        token.preferredCountryCode = user.preferredCountryCode
+        token.preferredRegion = user.preferredRegion
+        token.currencySymbol = user.currencySymbol
+        token.locale = user.locale
       }
 
-      // When session is updated (e.g., avatar change), update token
-      if (trigger === "update" && session?.image) {
-        token.picture = session.image
+      // When session is updated (e.g., avatar change, currency preferences)
+      if (trigger === "update") {
+        if (session?.image) {
+          token.picture = session.image
+        }
+        if (session?.preferredCurrency !== undefined) {
+          token.preferredCurrency = session.preferredCurrency
+          token.preferredCountryCode = session.preferredCountryCode
+          token.preferredRegion = session.preferredRegion
+          token.currencySymbol = session.currencySymbol
+          token.locale = session.locale
+        }
       }
 
       return token
@@ -72,6 +91,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.name = token.name as string
         session.user.email = token.email as string
         session.user.image = token.picture as string
+        session.user.preferredCurrency = token.preferredCurrency as string
+        session.user.preferredCountryCode = token.preferredCountryCode as string
+        session.user.preferredRegion = token.preferredRegion as string
+        session.user.currencySymbol = token.currencySymbol as string
+        session.user.locale = token.locale as string
       }
       return session
     },

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { bricklinkAPI } from '@/lib/bricklink';
+import { auth } from '@/auth';
 
 export async function GET(
   request: NextRequest,
@@ -10,7 +11,12 @@ export async function GET(
     const searchParams = request.nextUrl.searchParams;
     const condition = searchParams.get('condition') as 'new' | 'used' || 'new';
 
-    const pricing = await bricklinkAPI.calculatePricingData(itemNo, condition);
+    // Get user's regional preferences from session
+    const session = await auth();
+    const countryCode = session?.user?.preferredCountryCode || 'US';
+    const region = session?.user?.preferredRegion || 'north_america';
+
+    const pricing = await bricklinkAPI.calculatePricingData(itemNo, condition, countryCode, region);
 
     return NextResponse.json({ success: true, data: pricing });
   } catch (error) {

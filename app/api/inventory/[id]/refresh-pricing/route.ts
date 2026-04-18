@@ -40,10 +40,16 @@ export async function POST(
 
     console.log(`Refreshing pricing for ${item.minifigure_no} (${item.condition})...`);
 
+    // Get user's regional preferences
+    const countryCode = session.user.preferredCountryCode || 'US';
+    const region = session.user.preferredRegion || 'north_america';
+
     // Fetch fresh pricing from Bricklink API (cached 24 hours)
     const pricing = await bricklinkAPI.calculatePricingData(
       item.minifigure_no,
-      item.condition
+      item.condition,
+      countryCode,
+      region
     );
 
     // Update the item with new pricing and timestamp

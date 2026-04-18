@@ -17,10 +17,14 @@ export async function GET() {
 
     const items = await database.getAllItems(session.user.id);
 
+    // Get user's regional preferences (with safe fallbacks)
+    const countryCode = session.user?.preferredCountryCode || 'US';
+    const region = session.user?.preferredRegion || 'north_america';
+
     // Merge fresh pricing from PriceCache for each item
     const itemsWithFreshPricing = await Promise.all(
       items.map(async (item) => {
-        const freshPricing = await bricklinkAPI.calculatePricingData(item.minifigure_no, item.condition);
+        const freshPricing = await bricklinkAPI.calculatePricingData(item.minifigure_no, item.condition, countryCode, region);
         return {
           ...item,
           pricing: freshPricing
@@ -75,8 +79,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Get user's regional preferences (with safe fallbacks)
+    const countryCode = session.user?.preferredCountryCode || 'US';
+    const region = session.user?.preferredRegion || 'north_america';
+
     // Get pricing data for the specified condition
-    const pricing = await bricklinkAPI.calculatePricingData(minifigure_no, itemCondition);
+    const pricing = await bricklinkAPI.calculatePricingData(minifigure_no, itemCondition, countryCode, region);
 
     // Add item to database
     const newItem = await database.addItem({

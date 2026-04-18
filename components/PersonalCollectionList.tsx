@@ -4,8 +4,10 @@ import Image from 'next/image';
 import { PersonalCollectionItem } from '@/types';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import MoveDialog from './MoveDialog';
 import { MinusIcon, PlusIcon, ArrowRightIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { formatPrice } from '@/lib/format-price';
 
 interface PersonalCollectionListProps {
   items: PersonalCollectionItem[];
@@ -25,9 +27,12 @@ export default function PersonalCollectionList({
   onRefresh,
 }: PersonalCollectionListProps) {
   const router = useRouter();
+  const { data: session } = useSession();
   const [editingQuantityId, setEditingQuantityId] = useState<string | null>(null);
   const [tempQuantity, setTempQuantity] = useState<string>('');
   const [moveDialogItem, setMoveDialogItem] = useState<PersonalCollectionItem | null>(null);
+
+  const currency = session?.user?.preferredCurrency || 'USD';
 
   // Display full minifig name from BrickLink (no modifications)
   const getDisplayName = (fullName: string): string => {
@@ -241,7 +246,7 @@ export default function PersonalCollectionList({
                       color: '#737373',
                       fontWeight: '500'
                     }}>
-                      ${showDecimals ? item.pricing.suggestedPrice.toFixed(2) : Math.round(item.pricing.suggestedPrice)} ea
+                      {formatPrice(item.pricing.suggestedPrice, currency, showDecimals)} ea
                     </div>
                     <div style={{
                       fontSize: 'var(--text-lg)',
@@ -249,7 +254,7 @@ export default function PersonalCollectionList({
                       color: '#3b82f6',
                       letterSpacing: '-0.01em'
                     }}>
-                      ${showDecimals ? (item.pricing.suggestedPrice * item.quantity).toFixed(2) : Math.round(item.pricing.suggestedPrice * item.quantity)} <span style={{ fontSize: 'var(--text-xs)', fontWeight: '500', color: '#737373' }}>total</span>
+                      {formatPrice(item.pricing.suggestedPrice * item.quantity, currency, showDecimals)} <span style={{ fontSize: 'var(--text-xs)', fontWeight: '500', color: '#737373' }}>total</span>
                     </div>
                   </>
                 ) : (
@@ -259,7 +264,7 @@ export default function PersonalCollectionList({
                     color: '#3b82f6',
                     letterSpacing: '-0.01em'
                   }}>
-                    ${showDecimals ? item.pricing.suggestedPrice.toFixed(2) : Math.round(item.pricing.suggestedPrice)}
+                    {formatPrice(item.pricing.suggestedPrice, currency, showDecimals)}
                   </div>
                 )}
               </div>

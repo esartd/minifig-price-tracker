@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import { Minifigure, PriceGuide, PricingData, SetInfo } from '@/types';
 import { prisma } from './prisma';
+import { getCurrencyByCountryCode } from './currency-config';
 
 // Manual name enhancements for minifigs with poor Bricklink API names
 // These are searchable, accurate names that help users find what they're looking for
@@ -278,11 +279,13 @@ export class BricklinkAPI {
 
   async getPriceGuide(
     itemNo: string,
-    condition: 'N' | 'U' = 'N'
+    condition: 'N' | 'U' = 'N',
+    countryCode: string = 'US',
+    region: string = 'north_america'
   ): Promise<PriceGuide | null> {
     try {
       const data = await this.makeRequest(
-        `/items/MINIFIG/${itemNo}/price?new_or_used=${condition}&country_code=US&region=north_america`
+        `/items/MINIFIG/${itemNo}/price?new_or_used=${condition}&country_code=${countryCode}&region=${region}`
       );
       return data;
     } catch (error) {
@@ -298,15 +301,22 @@ export class BricklinkAPI {
     return [];
   }
 
-  async calculatePricingData(itemNo: string, condition: 'new' | 'used'): Promise<PricingData> {
+  async calculatePricingData(
+    itemNo: string,
+    condition: 'new' | 'used',
+    countryCode: string = 'US',
+    region: string = 'north_america'
+  ): Promise<PricingData> {
     const conditionCode = condition === 'new' ? 'N' : 'U';
 
     // Check cache first
     const cached = await prisma.priceCache.findUnique({
       where: {
-        minifigure_no_condition: {
+        minifigure_no_condition_country_code_region: {
           minifigure_no: itemNo,
-          condition: condition
+          condition: condition,
+          country_code: countryCode,
+          region: region
         }
       }
     });
@@ -322,7 +332,7 @@ export class BricklinkAPI {
     }
 
     // Cache miss or expired - fetch fresh data from API only
-    const priceGuide = await this.getPriceGuide(itemNo, conditionCode);
+    const priceGuide = await this.getPriceGuide(itemNo, conditionCode, countryCode, region);
 
     if (!priceGuide) {
       return {
@@ -355,11 +365,17 @@ export class BricklinkAPI {
     const expiresAt = new Date();
     expiresAt.setHours(expiresAt.getHours() + 6);
 
+    // Get currency code from country code via currency config
+    const currencyConfig = getCurrencyByCountryCode(countryCode);
+    const currencyCode = currencyConfig?.code || 'USD';
+
     await prisma.priceCache.upsert({
       where: {
-        minifigure_no_condition: {
+        minifigure_no_condition_country_code_region: {
           minifigure_no: itemNo,
-          condition: condition
+          condition: condition,
+          country_code: countryCode,
+          region: region
         }
       },
       update: {
@@ -369,10 +385,14 @@ export class BricklinkAPI {
         suggested_price: pricingData.suggestedPrice,
         cached_at: new Date(),
         expires_at: expiresAt,
+        currency_code: currencyCode,
       },
       create: {
         minifigure_no: itemNo,
         condition: condition,
+        country_code: countryCode,
+        region: region,
+        currency_code: currencyCode,
         six_month_avg: pricingData.sixMonthAverage,
         current_avg: pricingData.currentAverage,
         current_lowest: pricingData.currentLowest,

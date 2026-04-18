@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { getCurrenciesByContinent, SUPPORTED_CURRENCIES } from '@/lib/currency-config';
 
 export default function AccountPage() {
   const { data: session, update } = useSession();
@@ -47,6 +48,9 @@ export default function AccountPage() {
 
   // Collection stats
   const [stats, setStats] = useState({ totalItems: 0, totalValue: 0, memberSince: '' });
+
+  // Currency preference
+  const [selectedCurrency, setSelectedCurrency] = useState(session?.user?.preferredCurrency || 'USD');
 
   useEffect(() => {
     if (session?.user?.name) {
@@ -341,6 +345,47 @@ export default function AccountPage() {
       window.location.href = '/auth/signin';
     } catch (error) {
       showMessage('error', 'An error occurred. Please try again.');
+      setLoading(false);
+    }
+  };
+
+  const handleCurrencyChange = async (currencyCode: string) => {
+    const currency = SUPPORTED_CURRENCIES.find(c => c.code === currencyCode);
+    if (!currency) return;
+
+    setLoading(true);
+    try {
+      const response = await fetch('/api/auth/update-preferences', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          currency: currency.code,
+          countryCode: currency.countryCode,
+          region: currency.region,
+          currencySymbol: currency.symbol,
+          locale: currency.locale,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        showMessage('error', data.error || 'Failed to update currency');
+      } else {
+        setSelectedCurrency(currency.code);
+        await update({
+          preferredCurrency: currency.code,
+          preferredCountryCode: currency.countryCode,
+          preferredRegion: currency.region,
+          currencySymbol: currency.symbol,
+          locale: currency.locale,
+        });
+        showMessage('success', `Currency updated to ${currency.name}`);
+        router.refresh();
+      }
+    } catch (error) {
+      showMessage('error', 'An error occurred. Please try again.');
+    } finally {
       setLoading(false);
     }
   };
@@ -979,6 +1024,94 @@ export default function AccountPage() {
               {loading ? 'Changing...' : 'Change Password'}
             </button>
           </form>
+        </div>
+
+        {/* Regional Settings Section */}
+        <div className="account-section" style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          padding: '24px 16px',
+          marginBottom: '32px',
+          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+        }}>
+          <h2 style={{
+            fontSize: 'var(--text-lg)',
+            fontWeight: '600',
+            color: '#171717',
+            marginBottom: '8px',
+            letterSpacing: '-0.01em'
+          }}>
+            Regional Settings
+          </h2>
+          <p style={{
+            fontSize: 'var(--text-sm)',
+            color: '#737373',
+            marginBottom: '32px',
+            lineHeight: '1.5'
+          }}>
+            Choose your preferred currency for pricing display
+          </p>
+
+          <div style={{ marginBottom: '24px' }}>
+            <label style={{
+              display: 'block',
+              fontSize: 'var(--text-sm)',
+              fontWeight: '500',
+              color: '#171717',
+              marginBottom: '8px'
+            }}>
+              Currency
+            </label>
+            <select
+              value={selectedCurrency}
+              onChange={(e) => handleCurrencyChange(e.target.value)}
+              disabled={loading}
+              style={{
+                width: '100%',
+                padding: '12px 16px',
+                fontSize: 'var(--text-base)',
+                color: '#171717',
+                background: '#ffffff',
+                border: '1px solid #e5e5e5',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                transition: 'border-color 0.2s',
+                outline: 'none',
+                appearance: 'none',
+                backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+                backgroundPosition: 'right 12px center',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: '20px',
+                paddingRight: '40px'
+              }}
+            >
+              {Object.entries(getCurrenciesByContinent()).map(([continent, currencies]) => (
+                <optgroup key={continent} label={continent}>
+                  {currencies.map((currency) => (
+                    <option key={currency.code} value={currency.code}>
+                      {currency.flag} {currency.name} ({currency.symbol})
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
+          </div>
+
+          <div style={{
+            padding: '16px',
+            background: '#f9fafb',
+            borderRadius: '8px',
+            border: '1px solid #e5e5e5'
+          }}>
+            <p style={{
+              fontSize: 'var(--text-sm)',
+              color: '#525252',
+              lineHeight: '1.6'
+            }}>
+              <strong>Note:</strong> Changing your currency will display prices in your selected region's marketplace.
+              Prices may differ from other regions due to local supply, demand, and shipping costs.
+            </p>
+          </div>
         </div>
 
         {/* Data Management Section */}

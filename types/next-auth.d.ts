@@ -7,10 +7,20 @@ declare module 'next-auth' {
       email: string;
       name?: string | null;
       image?: string | null;
+      preferredCurrency?: string | null;
+      preferredCountryCode?: string | null;
+      preferredRegion?: string | null;
+      currencySymbol?: string | null;
+      locale?: string | null;
     };
   }
 
   interface User {
     id: string;
+    preferredCurrency?: string | null;
+    preferredCountryCode?: string | null;
+    preferredRegion?: string | null;
+    currencySymbol?: string | null;
+    locale?: string | null;
   }
 }
