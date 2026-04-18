@@ -41,11 +41,14 @@ export async function GET(request: Request) {
     const now = new Date();
 
     for (const item of uniqueMinifigs) {
+      // Check cache for default region (US/north_america)
       const cache = await prisma.priceCache.findUnique({
         where: {
-          minifigure_no_condition: {
+          minifigure_no_condition_country_code_region: {
             minifigure_no: item.minifigure_no,
             condition: item.condition,
+            country_code: 'US',
+            region: 'north_america',
           },
         },
       });
@@ -125,10 +128,12 @@ export async function GET(request: Request) {
           `Tier ${item.priority}, Value: $${item.value.toFixed(2)}, Age: ${item.cacheAge.toFixed(1)} hours`
         );
 
-        // This will fetch fresh data and update the cache
+        // This will fetch fresh data and update the cache for US region
         await bricklinkAPI.calculatePricingData(
           item.minifigure_no,
-          item.condition as 'new' | 'used'
+          item.condition as 'new' | 'used',
+          'US',
+          'north_america'
         );
 
         refreshed++;
