@@ -794,22 +794,35 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                             −
                           </button>
 
-                          <div style={{
-                            flex: 1,
-                            minWidth: '40px',
-                            height: '44px',
-                            fontSize: 'var(--text-base)',
-                            fontWeight: '600',
-                            color: '#171717',
-                            background: '#ffffff',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            userSelect: 'none',
-                            padding: '0 8px'
-                          }}>
-                            {collectionItem.quantity}
-                          </div>
+                          <input
+                            type="number"
+                            min="1"
+                            max="9999"
+                            value={collectionItem.quantity}
+                            onChange={(e) => {
+                              const val = parseInt(e.target.value);
+                              if (!isNaN(val) && val >= 1 && val <= 9999) {
+                                handleUpdateQuantity(val);
+                              }
+                            }}
+                            onFocus={(e) => e.target.select()}
+                            style={{
+                              flex: 1,
+                              minWidth: '40px',
+                              height: '44px',
+                              fontSize: 'var(--text-base)',
+                              fontWeight: '600',
+                              color: '#171717',
+                              background: '#ffffff',
+                              border: 'none',
+                              textAlign: 'center',
+                              padding: '0 8px',
+                              outline: 'none',
+                              MozAppearance: 'textfield',
+                              WebkitAppearance: 'none',
+                              appearance: 'none'
+                            }}
+                          />
 
                           <button
                             type="button"
@@ -980,22 +993,46 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                 −
                               </button>
 
-                              <div style={{
-                                flex: 1,
-                                minWidth: '40px',
-                                height: '44px',
-                                fontSize: 'var(--text-base)',
-                                fontWeight: '600',
-                                color: '#171717',
-                                background: '#ffffff',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                userSelect: 'none',
-                                padding: '0 8px'
-                              }}>
-                                {personalCollectionItem.quantity}
-                              </div>
+                              <input
+                                type="number"
+                                min="1"
+                                max="9999"
+                                value={personalCollectionItem.quantity}
+                                onChange={async (e) => {
+                                  const val = parseInt(e.target.value);
+                                  if (!isNaN(val) && val >= 1 && val <= 9999) {
+                                    try {
+                                      const response = await fetch(`/api/personal-collection/${personalCollectionItem.id}`, {
+                                        method: 'PATCH',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ quantity: val })
+                                      });
+                                      if (response.ok) {
+                                        await refreshCollections();
+                                      }
+                                    } catch (error) {
+                                      setError('Failed to update quantity');
+                                    }
+                                  }
+                                }}
+                                onFocus={(e) => e.target.select()}
+                                style={{
+                                  flex: 1,
+                                  minWidth: '40px',
+                                  height: '44px',
+                                  fontSize: 'var(--text-base)',
+                                  fontWeight: '600',
+                                  color: '#171717',
+                                  background: '#ffffff',
+                                  border: 'none',
+                                  textAlign: 'center',
+                                  padding: '0 8px',
+                                  outline: 'none',
+                                  MozAppearance: 'textfield',
+                                  WebkitAppearance: 'none',
+                                  appearance: 'none'
+                                }}
+                              />
 
                               <button
                                 type="button"
