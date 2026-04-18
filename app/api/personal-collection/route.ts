@@ -15,24 +15,14 @@ export async function GET() {
       );
     }
 
-    const items = await database.getAllPersonalItems(session.user.id);
-
     // Get user's regional preferences
-    const countryCode = session.user.preferredCountryCode || 'US';
-    const region = session.user.preferredRegion || 'north_america';
+    const countryCode = session.user?.preferredCountryCode || 'US';
+    const region = session.user?.preferredRegion || 'north_america';
 
-    // Merge fresh pricing from PriceCache for each item
-    const itemsWithFreshPricing = await Promise.all(
-      items.map(async (item) => {
-        const freshPricing = await bricklinkAPI.calculatePricingData(item.minifigure_no, item.condition, countryCode, region);
-        return {
-          ...item,
-          pricing: freshPricing
-        };
-      })
-    );
+    // Get items with regional pricing from cache
+    const items = await database.getAllPersonalItems(session.user.id, countryCode, region);
 
-    return NextResponse.json({ success: true, data: itemsWithFreshPricing });
+    return NextResponse.json({ success: true, data: items });
   } catch (error) {
     console.error('Error fetching personal collection:', error);
     return NextResponse.json(

@@ -16,7 +16,8 @@ class DatabaseService {
         sixMonthAverage: item.pricing_six_month_avg,
         currentAverage: item.pricing_current_avg,
         currentLowest: item.pricing_current_lowest,
-        suggestedPrice: item.pricing_suggested_price
+        suggestedPrice: item.pricing_suggested_price,
+        currencyCode: item.pricing_currency_code
       } : undefined,
       date_added: item.date_added.toISOString(),
       last_updated: item.last_updated.toISOString()
@@ -37,7 +38,8 @@ class DatabaseService {
         sixMonthAverage: item.pricing_six_month_avg,
         currentAverage: item.pricing_current_avg,
         currentLowest: item.pricing_current_lowest,
-        suggestedPrice: item.pricing_suggested_price
+        suggestedPrice: item.pricing_suggested_price,
+        currencyCode: item.pricing_currency_code
       } : undefined,
       notes: item.notes || undefined,
       acquisition_date: item.acquisition_date?.toISOString(),
@@ -48,7 +50,7 @@ class DatabaseService {
     };
   }
 
-  async getAllItems(userId: string): Promise<(CollectionItem & { userId: string })[]> {
+  async getAllItems(userId: string, countryCode: string = 'US', region: string = 'north_america'): Promise<(CollectionItem & { userId: string })[]> {
     const items = await prisma.collectionItem.findMany({
       where: { userId },
       orderBy: { date_added: 'desc' }
@@ -63,8 +65,8 @@ class DatabaseService {
             minifigure_no_condition_country_code_region: {
               minifigure_no: item.minifigure_no,
               condition: item.condition,
-              country_code: 'US',
-              region: 'north_america'
+              country_code: countryCode,
+              region: region
             }
           }
         });
@@ -76,7 +78,8 @@ class DatabaseService {
             pricing_six_month_avg: freshPrice.six_month_avg,
             pricing_current_avg: freshPrice.current_avg,
             pricing_current_lowest: freshPrice.current_lowest,
-            pricing_suggested_price: freshPrice.suggested_price
+            pricing_suggested_price: freshPrice.suggested_price,
+            pricing_currency_code: freshPrice.currency_code
           };
         }
 
@@ -174,7 +177,7 @@ class DatabaseService {
 
   // =============== Your Collection Methods ===============
 
-  async getAllPersonalItems(userId: string): Promise<PersonalCollectionItem[]> {
+  async getAllPersonalItems(userId: string, countryCode: string = 'US', region: string = 'north_america'): Promise<PersonalCollectionItem[]> {
     const items = await prisma.personalCollectionItem.findMany({
       where: { userId },
       orderBy: { date_added: 'desc' }
@@ -188,8 +191,8 @@ class DatabaseService {
             minifigure_no_condition_country_code_region: {
               minifigure_no: item.minifigure_no,
               condition: item.condition,
-              country_code: 'US',
-              region: 'north_america'
+              country_code: countryCode,
+              region: region
             }
           }
         });
@@ -200,7 +203,8 @@ class DatabaseService {
             pricing_six_month_avg: freshPrice.six_month_avg,
             pricing_current_avg: freshPrice.current_avg,
             pricing_current_lowest: freshPrice.current_lowest,
-            pricing_suggested_price: freshPrice.suggested_price
+            pricing_suggested_price: freshPrice.suggested_price,
+            pricing_currency_code: freshPrice.currency_code
           };
         }
 
