@@ -95,50 +95,71 @@ async function getThemes(): Promise<Theme[]> {
     const currentYear = new Date().getFullYear();
     const themeParents = groupedThemes.map(t => t.parent);
 
-    // Fetch all minifigs and all recent minifigs in two queries
-    const [allMinifigs, recentMinifigs] = await Promise.all([
-      // Get all minifigs sorted by year
-      prismaPublic.minifigCatalog.findMany({
-        orderBy: [
-          { year_released: 'desc' },
-          { minifigure_no: 'desc' }
-        ],
-        select: {
-          minifigure_no: true,
-          category_name: true,
+    // Fetch ONLY recent minifigs (much smaller dataset ~200 vs 18k)
+    const recentMinifigs = await prismaPublic.minifigCatalog.findMany({
+      where: {
+        year_released: {
+          gte: (currentYear - 2).toString()
         }
-      }),
-      // Get all minifigs from last 2 years
-      prismaPublic.minifigCatalog.findMany({
-        where: {
-          year_released: {
-            gte: (currentYear - 2).toString()
-          }
-        },
-        select: {
-          category_name: true,
-        },
-        distinct: ['category_name']
-      })
-    ]);
+      },
+      select: {
+        minifigure_no: true,
+        category_name: true,
+      },
+      orderBy: [
+        { year_released: 'desc' },
+        { minifigure_no: 'desc' }
+      ]
+    });
 
-    // Build maps - extract parent from category_name
+    // Build maps from recent minifigs only
     const getParent = (categoryName: string) => categoryName.split(' / ')[0];
 
-    // Get newest minifig per theme
-    const newestByTheme = new Map<string, string>();
-    for (const minifig of allMinifigs) {
-      const parent = getParent(minifig.category_name);
-      if (themeParents.includes(parent) && !newestByTheme.has(parent)) {
-        newestByTheme.set(parent, minifig.minifigure_no);
-      }
-    }
-
-    // Get themes with recent minifigs
     const recentThemes = new Set<string>();
+    const newestRecentByTheme = new Map<string, string>();
+
     for (const minifig of recentMinifigs) {
       const parent = getParent(minifig.category_name);
       recentThemes.add(parent);
+      if (!newestRecentByTheme.has(parent)) {
+        newestRecentByTheme.set(parent, minifig.minifigure_no);
+      }
+    }
+
+    // For themes without recent minifigs, get their full category list and find newest
+    const themesNeedingImages = themeParents.filter(p => !newestRecentByTheme.has(p));
+    const themeCategories = groupedThemes
+      .filter(t => themesNeedingImages.includes(t.parent))
+      .map(t => ({
+        parent: t.parent,
+        categoryNames: [t.parent, ...t.subcategories.map(s => s.fullName)]
+      }));
+
+    const olderMinifigs = await Promise.all(
+      themeCategories.map(({ parent, categoryNames }) =>
+        prismaPublic.minifigCatalog.findFirst({
+          where: {
+            category_name: {
+              in: categoryNames
+            }
+          },
+          orderBy: [
+            { year_released: 'desc' },
+            { minifigure_no: 'desc' }
+          ],
+          select: {
+            minifigure_no: true,
+          }
+        }).then(m => ({ parent, minifigNo: m?.minifigure_no }))
+      )
+    );
+
+    // Combine images
+    const newestByTheme = new Map(newestRecentByTheme);
+    for (const { parent, minifigNo } of olderMinifigs) {
+      if (minifigNo) {
+        newestByTheme.set(parent, minifigNo);
+      }
     }
 
     // Map themes with images
