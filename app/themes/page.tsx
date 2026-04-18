@@ -95,15 +95,10 @@ async function getThemes(): Promise<Theme[]> {
     const currentYear = new Date().getFullYear();
     const themeParents = groupedThemes.map(t => t.parent);
 
-    // Fetch newest minifig AND check for recent releases in two queries
-    const [allNewestMinifigs, recentMinifigs] = await Promise.all([
-      // Get newest minifig per theme for images
+    // Fetch all minifigs and all recent minifigs in two queries
+    const [allMinifigs, recentMinifigs] = await Promise.all([
+      // Get all minifigs sorted by year
       prismaPublic.minifigCatalog.findMany({
-        where: {
-          OR: themeParents.map(parent => ({
-            category_name: { startsWith: parent }
-          }))
-        },
         orderBy: [
           { year_released: 'desc' },
           { minifigure_no: 'desc' }
@@ -113,12 +108,9 @@ async function getThemes(): Promise<Theme[]> {
           category_name: true,
         }
       }),
-      // Check which themes have ANY minifig from last 2 years
+      // Get all minifigs from last 2 years
       prismaPublic.minifigCatalog.findMany({
         where: {
-          OR: themeParents.map(parent => ({
-            category_name: { startsWith: parent }
-          })),
           year_released: {
             gte: (currentYear - 2).toString()
           }
@@ -133,14 +125,16 @@ async function getThemes(): Promise<Theme[]> {
     // Build maps - extract parent from category_name
     const getParent = (categoryName: string) => categoryName.split(' / ')[0];
 
+    // Get newest minifig per theme
     const newestByTheme = new Map<string, string>();
-    for (const minifig of allNewestMinifigs) {
+    for (const minifig of allMinifigs) {
       const parent = getParent(minifig.category_name);
-      if (!newestByTheme.has(parent)) {
+      if (themeParents.includes(parent) && !newestByTheme.has(parent)) {
         newestByTheme.set(parent, minifig.minifigure_no);
       }
     }
 
+    // Get themes with recent minifigs
     const recentThemes = new Set<string>();
     for (const minifig of recentMinifigs) {
       const parent = getParent(minifig.category_name);
