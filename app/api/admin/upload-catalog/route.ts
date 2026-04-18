@@ -156,6 +156,7 @@ async function insertBatch(batch: any[]) {
         year_released: item.yearReleased,
         weight_grams: item.weightGrams,
         search_name: item.name.toLowerCase(),
+        updated_at: new Date(),
       },
     });
 
