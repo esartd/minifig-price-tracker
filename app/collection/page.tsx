@@ -310,7 +310,7 @@ export default function PersonalCollectionPage() {
                     color: '#171717',
                     lineHeight: '1'
                   }}>
-                    ${avgValue.toFixed(2)}
+                    {formatPrice(avgValue, session?.user?.preferredCurrency || 'USD', true)}
                   </div>
                 </div>
               </div>
