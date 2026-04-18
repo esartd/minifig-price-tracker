@@ -5,12 +5,13 @@ import MinifigDetailClient from '@/components/minifig-detail-client';
 
 // Generate static params for all minifigures (SSG for SEO)
 export async function generateStaticParams() {
-  // Get first 1000 most popular minifigures for initial build
+  // Get first 100 most popular minifigures for initial build
   // Others will be generated on-demand (ISR)
+  // Reduced from 1000 to avoid connection pool timeout during build
   const minifigs = await prismaPublic.minifigCatalog.findMany({
     select: { minifigure_no: true },
     orderBy: { updated_at: 'desc' },
-    take: 1000
+    take: 100
   });
 
   return minifigs.map((m) => ({
