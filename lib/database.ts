@@ -59,64 +59,44 @@ class DatabaseService {
     // CRITICAL: Always read fresh pricing from PriceCache (6-hour compliance)
     // CollectionItem pricing fields are stale - only PriceCache is kept fresh
 
-    // If no items, return early
-    if (items.length === 0) {
-      return [];
-    }
+    // Map items with fresh pricing (sequential queries to avoid Supabase connection exhaustion)
+    const itemsWithFreshPricing = await Promise.all(
+      items.map(async (item) => {
+        // Lookup fresh pricing from PriceCache
+        const freshPrice = await prismaPublic.priceCache.findUnique({
+          where: {
+            minifigure_no_condition_country_code_region: {
+              minifigure_no: item.minifigure_no,
+              condition: item.condition,
+              country_code: countryCode,
+              region: region
+            }
+          }
+        });
 
-    // OPTIMIZED: Fetch all prices in one query instead of N queries
-    const priceKeys = items.map(item => ({
-      minifigure_no: item.minifigure_no,
-      condition: item.condition,
-      country_code: countryCode,
-      region: region
-    }));
+        // Use fresh pricing if available and not expired (<6 hours old)
+        if (freshPrice && freshPrice.expires_at > new Date()) {
+          return {
+            ...item,
+            pricing_six_month_avg: freshPrice.six_month_avg,
+            pricing_current_avg: freshPrice.current_avg,
+            pricing_current_lowest: freshPrice.current_lowest,
+            pricing_suggested_price: freshPrice.suggested_price,
+            pricing_currency_code: freshPrice.currency_code
+          };
+        }
 
-    const allPrices = await prismaPublic.priceCache.findMany({
-      where: {
-        OR: priceKeys.map(key => ({
-          minifigure_no: key.minifigure_no,
-          condition: key.condition,
-          country_code: key.country_code,
-          region: key.region
-        }))
-      }
-    });
-
-    // Build price lookup map
-    const priceMap = new Map();
-    for (const price of allPrices) {
-      const key = `${price.minifigure_no}:${price.condition}:${price.country_code}:${price.region}`;
-      priceMap.set(key, price);
-    }
-
-    // Map items with pricing
-    const itemsWithFreshPricing = items.map((item) => {
-      const key = `${item.minifigure_no}:${item.condition}:${countryCode}:${region}`;
-      const freshPrice = priceMap.get(key);
-
-      // Use fresh pricing if available and not expired (<6 hours old)
-      if (freshPrice && freshPrice.expires_at > new Date()) {
+        // No cache for this region - return zeros (will trigger "No sellers available")
         return {
           ...item,
-          pricing_six_month_avg: freshPrice.six_month_avg,
-          pricing_current_avg: freshPrice.current_avg,
-          pricing_current_lowest: freshPrice.current_lowest,
-          pricing_suggested_price: freshPrice.suggested_price,
-          pricing_currency_code: freshPrice.currency_code
+          pricing_six_month_avg: 0,
+          pricing_current_avg: 0,
+          pricing_current_lowest: 0,
+          pricing_suggested_price: 0,
+          pricing_currency_code: undefined
         };
-      }
-
-      // No cache for this region - return zeros (will trigger "No sellers available")
-      return {
-        ...item,
-        pricing_six_month_avg: 0,
-        pricing_current_avg: 0,
-        pricing_current_lowest: 0,
-        pricing_suggested_price: 0,
-        pricing_currency_code: undefined
-      };
-    });
+      })
+    );
 
     return itemsWithFreshPricing.map((item: any) => this.transformFromDB(item));
   }
@@ -214,63 +194,43 @@ class DatabaseService {
       orderBy: { date_added: 'desc' }
     });
 
-    // If no items, return early
-    if (items.length === 0) {
-      return [];
-    }
+    // Map items with fresh pricing (sequential queries to avoid Supabase connection exhaustion)
+    const itemsWithFreshPricing = await Promise.all(
+      items.map(async (item) => {
+        // Lookup fresh pricing from PriceCache
+        const freshPrice = await prismaPublic.priceCache.findUnique({
+          where: {
+            minifigure_no_condition_country_code_region: {
+              minifigure_no: item.minifigure_no,
+              condition: item.condition,
+              country_code: countryCode,
+              region: region
+            }
+          }
+        });
 
-    // OPTIMIZED: Fetch all prices in one query
-    const priceKeys = items.map(item => ({
-      minifigure_no: item.minifigure_no,
-      condition: item.condition,
-      country_code: countryCode,
-      region: region
-    }));
+        if (freshPrice && freshPrice.expires_at > new Date()) {
+          return {
+            ...item,
+            pricing_six_month_avg: freshPrice.six_month_avg,
+            pricing_current_avg: freshPrice.current_avg,
+            pricing_current_lowest: freshPrice.current_lowest,
+            pricing_suggested_price: freshPrice.suggested_price,
+            pricing_currency_code: freshPrice.currency_code
+          };
+        }
 
-    const allPrices = await prismaPublic.priceCache.findMany({
-      where: {
-        OR: priceKeys.map(key => ({
-          minifigure_no: key.minifigure_no,
-          condition: key.condition,
-          country_code: key.country_code,
-          region: key.region
-        }))
-      }
-    });
-
-    // Build price lookup map
-    const priceMap = new Map();
-    for (const price of allPrices) {
-      const key = `${price.minifigure_no}:${price.condition}:${price.country_code}:${price.region}`;
-      priceMap.set(key, price);
-    }
-
-    // Map items with pricing
-    const itemsWithFreshPricing = items.map((item) => {
-      const key = `${item.minifigure_no}:${item.condition}:${countryCode}:${region}`;
-      const freshPrice = priceMap.get(key);
-
-      if (freshPrice && freshPrice.expires_at > new Date()) {
+        // No cache for this region - return zeros (will trigger "No sellers available")
         return {
           ...item,
-          pricing_six_month_avg: freshPrice.six_month_avg,
-          pricing_current_avg: freshPrice.current_avg,
-          pricing_current_lowest: freshPrice.current_lowest,
-          pricing_suggested_price: freshPrice.suggested_price,
-          pricing_currency_code: freshPrice.currency_code
+          pricing_six_month_avg: 0,
+          pricing_current_avg: 0,
+          pricing_current_lowest: 0,
+          pricing_suggested_price: 0,
+          pricing_currency_code: undefined
         };
-      }
-
-      // No cache for this region - return zeros (will trigger "No sellers available")
-      return {
-        ...item,
-        pricing_six_month_avg: 0,
-        pricing_current_avg: 0,
-        pricing_current_lowest: 0,
-        pricing_suggested_price: 0,
-        pricing_currency_code: undefined
-      };
-    });
+      })
+    );
 
     return itemsWithFreshPricing.map((item: any) => this.transformPersonalFromDB(item));
   }
