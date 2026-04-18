@@ -92,7 +92,7 @@ export default function CurrencyBanner() {
       top: 0,
       left: 0,
       right: 0,
-      zIndex: 9999,
+      zIndex: 10001,
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
       color: 'white',
       padding: '16px',
