@@ -130,21 +130,21 @@ async function getThemes(): Promise<Theme[]> {
       })
     ]);
 
-    // Build maps
+    // Build maps - extract parent from category_name
+    const getParent = (categoryName: string) => categoryName.split(' / ')[0];
+
     const newestByTheme = new Map<string, string>();
     for (const minifig of allNewestMinifigs) {
-      const parent = themeParents.find(p => minifig.category_name.startsWith(p));
-      if (parent && !newestByTheme.has(parent)) {
+      const parent = getParent(minifig.category_name);
+      if (!newestByTheme.has(parent)) {
         newestByTheme.set(parent, minifig.minifigure_no);
       }
     }
 
     const recentThemes = new Set<string>();
     for (const minifig of recentMinifigs) {
-      const parent = themeParents.find(p => minifig.category_name.startsWith(p));
-      if (parent) {
-        recentThemes.add(parent);
-      }
+      const parent = getParent(minifig.category_name);
+      recentThemes.add(parent);
     }
 
     // Map themes with images
