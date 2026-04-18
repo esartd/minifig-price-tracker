@@ -59,6 +59,11 @@ class DatabaseService {
     // CRITICAL: Always read fresh pricing from PriceCache (6-hour compliance)
     // CollectionItem pricing fields are stale - only PriceCache is kept fresh
 
+    // If no items, return early
+    if (items.length === 0) {
+      return [];
+    }
+
     // OPTIMIZED: Fetch all prices in one query instead of N queries
     const priceKeys = items.map(item => ({
       minifigure_no: item.minifigure_no,
@@ -208,6 +213,11 @@ class DatabaseService {
       where: { userId },
       orderBy: { date_added: 'desc' }
     });
+
+    // If no items, return early
+    if (items.length === 0) {
+      return [];
+    }
 
     // OPTIMIZED: Fetch all prices in one query
     const priceKeys = items.map(item => ({
