@@ -12,6 +12,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import SetAdCard from '@/components/SetAdCard';
 import MoveDialog from '@/components/MoveDialog';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
+import { formatPrice } from '@/lib/format-price';
 
 // Lazy load PriceHistoryChart (only loads when in inventory)
 const PriceHistoryChart = dynamic(() => import('@/components/PriceHistoryChart'), {
@@ -784,7 +785,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           letterSpacing: '-0.01em',
                           lineHeight: '1.2'
                         }}>
-                          ${pricing.sixMonthAverage.toFixed(2)}
+                          {formatPrice(pricing.sixMonthAverage, session?.user?.preferredCurrency || 'USD', true)}
                         </p>
                       </div>
 
@@ -818,7 +819,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           letterSpacing: '-0.01em',
                           lineHeight: '1.2'
                         }}>
-                          ${pricing.currentAverage.toFixed(2)}
+                          {formatPrice(pricing.currentAverage, session?.user?.preferredCurrency || 'USD', true)}
                         </p>
                       </div>
 
@@ -852,7 +853,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           letterSpacing: '-0.01em',
                           lineHeight: '1.2'
                         }}>
-                          ${pricing.currentLowest.toFixed(2)}
+                          {formatPrice(pricing.currentLowest, session?.user?.preferredCurrency || 'USD', true)}
                         </p>
                       </div>
 
@@ -886,7 +887,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           letterSpacing: '-0.01em',
                           lineHeight: '1.2'
                         }}>
-                          ${pricing.suggestedPrice.toFixed(2)}
+                          {formatPrice(pricing.suggestedPrice, session?.user?.preferredCurrency || 'USD', true)}
                         </p>
                       </div>
                     </div>
