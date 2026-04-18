@@ -4,6 +4,7 @@ import Header from '@/components/header'
 import Footer from '@/components/Footer'
 import AuthProvider from '@/components/session-provider'
 import ScrollToTop from '@/components/ScrollToTop'
+import CurrencyBanner from '@/components/CurrencyBanner'
 import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
 import '@/lib/startup-checks' // Initialize database safeguards on app startup
@@ -120,6 +121,7 @@ export default function RootLayout({
           `}
         </Script>
         <AuthProvider>
+          <CurrencyBanner />
           <div className="min-h-screen" style={{ backgroundColor: '#fafafa', display: 'flex', flexDirection: 'column' }}>
             <Header />
             <main style={{ flex: 1 }}>
