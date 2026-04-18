@@ -299,6 +299,7 @@ function SearchPageContent() {
             key={index}
             src={`https://img.bricklink.com/ItemImage/MN/0/${pos.id}.png`}
             alt=""
+            loading="lazy"
             className={`${pos.reverse ? 'floating-emoji-reverse' : 'floating-emoji'} ${isSearchActive ? 'hidden' : ''}`}
             style={{
               position: 'absolute',

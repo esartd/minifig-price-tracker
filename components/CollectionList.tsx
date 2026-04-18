@@ -152,6 +152,7 @@ export default function CollectionList({
                 width={80}
                 height={100}
                 style={{ height: '100px', width: 'auto', maxWidth: 'none', objectFit: 'contain' }}
+                loading="lazy"
                 unoptimized
               />
             ) : (

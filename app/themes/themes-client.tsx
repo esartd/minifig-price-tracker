@@ -267,6 +267,7 @@ function ThemeTile({ theme }: { theme: Theme }) {
             width={80}
             height={80}
             style={{ objectFit: 'contain', width: '100%', height: '100%' }}
+            loading="lazy"
             unoptimized
           />
         </div>
