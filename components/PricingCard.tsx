@@ -12,7 +12,7 @@ interface PricingCardProps {
 export default function PricingCard({ item, showDecimals }: PricingCardProps) {
   const { data: session } = useSession();
   const pricing = item.pricing;
-  const currency = session?.user?.preferredCurrency || 'USD';
+  const currency = item.pricing?.currencyCode || session?.user?.preferredCurrency || 'USD';
 
   const formatPrice = (price: number) => {
     return formatPriceUtil(price, currency, showDecimals);

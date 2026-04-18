@@ -47,12 +47,14 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     currentAverage: number;
     currentLowest: number;
     suggestedPrice: number;
+    currencyCode?: string;
     loading: boolean;
   }>({
     sixMonthAverage: 0,
     currentAverage: 0,
     currentLowest: 0,
     suggestedPrice: 0,
+    currencyCode: 'USD',
     loading: true
   });
   const [collectionItem, setCollectionItem] = useState<any>(null);
@@ -785,7 +787,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           letterSpacing: '-0.01em',
                           lineHeight: '1.2'
                         }}>
-                          {formatPrice(pricing.sixMonthAverage, session?.user?.preferredCurrency || 'USD', true)}
+                          {formatPrice(pricing.sixMonthAverage, pricing.currencyCode || 'USD', true)}
                         </p>
                       </div>
 
@@ -819,7 +821,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           letterSpacing: '-0.01em',
                           lineHeight: '1.2'
                         }}>
-                          {formatPrice(pricing.currentAverage, session?.user?.preferredCurrency || 'USD', true)}
+                          {formatPrice(pricing.currentAverage, pricing.currencyCode || 'USD', true)}
                         </p>
                       </div>
 
@@ -853,7 +855,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           letterSpacing: '-0.01em',
                           lineHeight: '1.2'
                         }}>
-                          {formatPrice(pricing.currentLowest, session?.user?.preferredCurrency || 'USD', true)}
+                          {formatPrice(pricing.currentLowest, pricing.currencyCode || 'USD', true)}
                         </p>
                       </div>
 
@@ -887,7 +889,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           letterSpacing: '-0.01em',
                           lineHeight: '1.2'
                         }}>
-                          {formatPrice(pricing.suggestedPrice, session?.user?.preferredCurrency || 'USD', true)}
+                          {formatPrice(pricing.suggestedPrice, pricing.currencyCode || 'USD', true)}
                         </p>
                       </div>
                     </div>

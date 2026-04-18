@@ -329,6 +329,7 @@ export class BricklinkAPI {
         currentAverage: cached.current_avg,
         currentLowest: cached.current_lowest,
         suggestedPrice: cached.suggested_price,
+        currencyCode: cached.currency_code,
       };
     }
 
@@ -357,6 +358,7 @@ export class BricklinkAPI {
             currentAverage: usdCache.current_avg,
             currentLowest: usdCache.current_lowest,
             suggestedPrice: usdCache.suggested_price,
+            currencyCode: usdCache.currency_code,
           };
         }
 
@@ -368,8 +370,13 @@ export class BricklinkAPI {
         currentAverage: 0,
         currentLowest: 0,
         suggestedPrice: 0,
+        currencyCode: 'USD',
       };
     }
+
+    // Get currency code from country code via currency config
+    const currencyConfig = getCurrencyByCountryCode(countryCode);
+    const currencyCode = currencyConfig?.code || 'USD';
 
     // Use API data from current marketplace listings (Note: API does not provide historical sales data)
     const sixMonthAverage = parseFloat(priceGuide.qty_avg_price || '0'); // Quantity-weighted average of current listings
@@ -385,6 +392,7 @@ export class BricklinkAPI {
       currentAverage: parseFloat(currentAverage.toFixed(2)),
       currentLowest: parseFloat(currentLowest.toFixed(2)),
       suggestedPrice: parseFloat(suggestedPrice.toFixed(2)),
+      currencyCode: currencyCode,
     };
 
     // If all prices are 0 and not US, fall back to USD pricing
@@ -408,6 +416,7 @@ export class BricklinkAPI {
           currentAverage: usdCache.current_avg,
           currentLowest: usdCache.current_lowest,
           suggestedPrice: usdCache.suggested_price,
+          currencyCode: usdCache.currency_code,
         };
       }
 
@@ -420,10 +429,6 @@ export class BricklinkAPI {
     // six hours older than such information is on the Website"
     const expiresAt = new Date();
     expiresAt.setHours(expiresAt.getHours() + 6);
-
-    // Get currency code from country code via currency config
-    const currencyConfig = getCurrencyByCountryCode(countryCode);
-    const currencyCode = currencyConfig?.code || 'USD';
 
     await prisma.priceCache.upsert({
       where: {
