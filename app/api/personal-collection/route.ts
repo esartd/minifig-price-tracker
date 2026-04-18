@@ -22,6 +22,17 @@ export async function GET() {
     // Get items with regional pricing from cache
     const items = await database.getAllPersonalItems(session.user.id, countryCode, region);
 
+    // Background task: fetch pricing for items with no cache (don't await)
+    const itemsNeedingPricing = items.filter(item => !item.pricing || item.pricing.suggestedPrice === 0);
+    if (itemsNeedingPricing.length > 0) {
+      // Trigger background pricing fetch (fire and forget)
+      Promise.all(
+        itemsNeedingPricing.map(item =>
+          bricklinkAPI.calculatePricingData(item.minifigure_no, item.condition, countryCode, region)
+        )
+      ).catch(err => console.error('Background pricing fetch error:', err));
+    }
+
     return NextResponse.json({ success: true, data: items });
   } catch (error) {
     console.error('Error fetching personal collection:', error);

@@ -83,7 +83,15 @@ class DatabaseService {
           };
         }
 
-        return item; // Keep existing if no fresh cache (shouldn't happen)
+        // No cache for this region - return zeros (will trigger "No sellers available")
+        return {
+          ...item,
+          pricing_six_month_avg: 0,
+          pricing_current_avg: 0,
+          pricing_current_lowest: 0,
+          pricing_suggested_price: 0,
+          pricing_currency_code: undefined
+        }; // Keep existing if no fresh cache (shouldn't happen)
       })
     );
 
@@ -208,7 +216,15 @@ class DatabaseService {
           };
         }
 
-        return item;
+        // No cache for this region - return zeros (will trigger "No sellers available")
+        return {
+          ...item,
+          pricing_six_month_avg: 0,
+          pricing_current_avg: 0,
+          pricing_current_lowest: 0,
+          pricing_suggested_price: 0,
+          pricing_currency_code: undefined
+        };
       })
     );
 
