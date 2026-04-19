@@ -114,15 +114,48 @@ async function getThemes(): Promise<Theme[]> {
 
     console.log(`[THEMES DEBUG] Found ${recentThemes.size} current themes from ${currentYear - 2}+`);
 
-    // Map themes with manually curated images only
-    const themesWithImages = groupedThemes.map(theme => {
-      // All images come from THEME_OVERRIDES - no database lookups
-      const minifigNo = THEME_OVERRIDES[theme.parent] || null;
+    // Find themes that need images (not in THEME_OVERRIDES)
+    const themesNeedingImages = groupedThemes.filter(t => !THEME_OVERRIDES[t.parent]);
 
-      // Log themes without images so we can add them manually
-      if (!minifigNo) {
-        console.log(`[THEMES] Missing image for: ${theme.parent}`);
+    // Query for missing images (only if needed)
+    const foundImages = new Map<string, string>();
+    if (themesNeedingImages.length > 0) {
+      console.log(`[THEMES] Finding images for ${themesNeedingImages.length} themes without overrides`);
+
+      const allCategoryNames = themesNeedingImages.flatMap(t =>
+        [t.parent, ...t.subcategories.map(s => s.fullName)]
+      );
+
+      const minifigs = await prismaPublic.minifigCatalog.findMany({
+        where: {
+          category_name: { in: allCategoryNames }
+        },
+        orderBy: [
+          { year_released: 'desc' },
+          { minifigure_no: 'desc' }
+        ],
+        select: {
+          minifigure_no: true,
+          category_name: true,
+        }
+      });
+
+      // Map each theme to its newest minifig
+      for (const theme of themesNeedingImages) {
+        const categoryNames = [theme.parent, ...theme.subcategories.map(s => s.fullName)];
+        const minifig = minifigs.find(m => categoryNames.includes(m.category_name));
+        if (minifig) {
+          foundImages.set(theme.parent, minifig.minifigure_no);
+          // Log so user can add to THEME_OVERRIDES
+          console.log(`[THEMES] ADD TO OVERRIDES: '${theme.parent}': '${minifig.minifigure_no}',`);
+        }
       }
+    }
+
+    // Map themes with images
+    const themesWithImages = groupedThemes.map(theme => {
+      // Use manual override first, otherwise use found image
+      const minifigNo = THEME_OVERRIDES[theme.parent] || foundImages.get(theme.parent) || null;
 
       return {
         ...theme,
