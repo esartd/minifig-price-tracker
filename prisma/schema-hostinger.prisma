@@ -212,3 +212,17 @@ model MinifigCache {
   created_at       DateTime @default(now())
   updated_at       DateTime @updatedAt
 }
+
+model AffiliateClick {
+  id           String   @id @default(cuid())
+  platform     String
+  productType  String
+  productId    String
+  productName  String?
+  clickedAt    DateTime @default(now())
+  userId       String?
+
+  @@index([platform])
+  @@index([clickedAt])
+  @@index([productId])
+}
