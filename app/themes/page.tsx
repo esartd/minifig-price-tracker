@@ -129,33 +129,35 @@ async function getThemes(): Promise<Theme[]> {
     // Debug logging
     console.log(`[THEMES DEBUG] Found ${recentThemes.size} current themes from ${currentYear - 2}+ minifigs`);
 
-    // For themes without recent minifigs, get their full category list and find newest
+    // For themes without recent minifigs, fetch in one query instead of N queries
     const themesNeedingImages = themeParents.filter(p => !newestRecentByTheme.has(p));
-    const themeCategories = groupedThemes
+    const allOldCategoryNames = groupedThemes
       .filter(t => themesNeedingImages.includes(t.parent))
-      .map(t => ({
-        parent: t.parent,
-        categoryNames: [t.parent, ...t.subcategories.map(s => s.fullName)]
-      }));
+      .flatMap(t => [t.parent, ...t.subcategories.map(s => s.fullName)]);
 
-    const olderMinifigs = await Promise.all(
-      themeCategories.map(({ parent, categoryNames }) =>
-        prismaPublic.minifigCatalog.findFirst({
-          where: {
-            category_name: {
-              in: categoryNames
-            }
-          },
-          orderBy: [
-            { year_released: 'desc' },
-            { minifigure_no: 'desc' }
-          ],
-          select: {
-            minifigure_no: true,
-          }
-        }).then(m => ({ parent, minifigNo: m?.minifigure_no }))
-      )
-    );
+    const olderMinifigsData = await prismaPublic.minifigCatalog.findMany({
+      where: {
+        category_name: {
+          in: allOldCategoryNames
+        }
+      },
+      orderBy: [
+        { year_released: 'desc' },
+        { minifigure_no: 'desc' }
+      ],
+      select: {
+        minifigure_no: true,
+        category_name: true,
+      }
+    });
+
+    // Map each theme parent to its newest minifig
+    const olderMinifigs = themesNeedingImages.map(parent => {
+      const themeData = groupedThemes.find(t => t.parent === parent);
+      const categoryNames = [parent, ...(themeData?.subcategories.map(s => s.fullName) || [])];
+      const minifig = olderMinifigsData.find(m => categoryNames.includes(m.category_name));
+      return { parent, minifigNo: minifig?.minifigure_no };
+    });
 
     // Combine images
     const newestByTheme = new Map(newestRecentByTheme);
