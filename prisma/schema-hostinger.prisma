@@ -153,7 +153,7 @@ model PriceCache {
   current_lowest  Float
   suggested_price Float
   cached_at       DateTime @default(now())
-  expires_at      DateTime
+  expires_at      DateTime @default(now())
 
   @@unique([minifigure_no, condition, country_code, region])
   @@index([expires_at])
