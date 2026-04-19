@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAllCategories } from '@/lib/catalog-static';
+import { getAllCategories, getRecentMinifigs } from '@/lib/catalog-static';
 import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
 
 export async function GET() {
@@ -68,6 +68,14 @@ export async function GET() {
         subcategories: theme.subcategories.sort((a, b) => a.name.localeCompare(b.name))
       }));
 
+    // Determine which themes are current (released in last 2 years)
+    const recentMinifigs = await getRecentMinifigs(2);
+    const getParent = (categoryName: string) => categoryName.split(' / ')[0];
+    const recentThemes = new Set<string>();
+    for (const minifig of recentMinifigs) {
+      recentThemes.add(getParent(minifig.category_name));
+    }
+
     // Use manual overrides only - never query for images
     const themesWithImages = groupedThemes.map(theme => {
       const minifigNo = THEME_OVERRIDES[theme.parent] || null;
@@ -77,7 +85,7 @@ export async function GET() {
         representativeImage: minifigNo
           ? `https://img.bricklink.com/ItemImage/MN/0/${minifigNo}.png`
           : null,
-        isCurrent: false // Set to false - this API doesn't need current detection
+        isCurrent: recentThemes.has(theme.parent)
       };
     });
 
