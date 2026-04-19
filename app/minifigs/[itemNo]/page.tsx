@@ -3,20 +3,10 @@ import { notFound } from 'next/navigation';
 import { prisma, prismaPublic } from '@/lib/prisma';
 import MinifigDetailClient from '@/components/minifig-detail-client';
 
-// Generate static params for all minifigures (SSG for SEO)
+// Disable pre-rendering at build time - Supabase free tier can't handle it
+// All pages generate on-demand (ISR) and cache for 24 hours
 export async function generateStaticParams() {
-  // Get first 10 most popular minifigures for initial build
-  // Others will be generated on-demand (ISR)
-  // Reduced to 10 to avoid Supabase free tier connection pool exhaustion
-  const minifigs = await prismaPublic.minifigCatalog.findMany({
-    select: { minifigure_no: true },
-    orderBy: { updated_at: 'desc' },
-    take: 10
-  });
-
-  return minifigs.map((m) => ({
-    itemNo: m.minifigure_no
-  }));
+  return [];
 }
 
 // Generate metadata for SEO
