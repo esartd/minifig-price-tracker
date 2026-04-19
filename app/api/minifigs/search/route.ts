@@ -38,8 +38,8 @@ export async function GET(request: NextRequest) {
       const catalogItems = allMinifigs
         .filter(m => m.category_name === subcategory)
         .sort((a, b) => {
-          const aYear = a.year_released ? parseInt(a.year_released) : 0;
-          const bYear = b.year_released ? parseInt(b.year_released) : 0;
+          const aYear = a.year_released && !isNaN(parseInt(a.year_released)) ? parseInt(a.year_released) : 9999;
+          const bYear = b.year_released && !isNaN(parseInt(b.year_released)) ? parseInt(b.year_released) : 9999;
           if (bYear !== aYear) return bYear - aYear;
           return b.minifigure_no.localeCompare(a.minifigure_no);
         })
@@ -71,8 +71,8 @@ export async function GET(request: NextRequest) {
       const catalogItems = allMinifigs
         .filter(m => m.category_id === categoryIdNum)
         .sort((a, b) => {
-          const aYear = a.year_released ? parseInt(a.year_released) : 0;
-          const bYear = b.year_released ? parseInt(b.year_released) : 0;
+          const aYear = a.year_released && !isNaN(parseInt(a.year_released)) ? parseInt(a.year_released) : 9999;
+          const bYear = b.year_released && !isNaN(parseInt(b.year_released)) ? parseInt(b.year_released) : 9999;
           if (bYear !== aYear) return bYear - aYear;
           return b.minifigure_no.localeCompare(a.minifigure_no);
         })
@@ -152,9 +152,14 @@ export async function GET(request: NextRequest) {
         return matchesSearch && matchesCategory;
       })
       .sort((a, b) => {
-        const aYear = a.year_released ? parseInt(a.year_released) : 0;
-        const bYear = b.year_released ? parseInt(b.year_released) : 0;
+        // Parse years - treat invalid/missing as 9999 to sort them last
+        const aYear = a.year_released && !isNaN(parseInt(a.year_released)) ? parseInt(a.year_released) : 9999;
+        const bYear = b.year_released && !isNaN(parseInt(b.year_released)) ? parseInt(b.year_released) : 9999;
+
+        // Sort by year descending (newest first, unknown last)
         if (bYear !== aYear) return bYear - aYear;
+
+        // Within same year, sort by ID descending (higher numbers are usually newer)
         return b.minifigure_no.localeCompare(a.minifigure_no);
       })
       .slice(0, 200);
