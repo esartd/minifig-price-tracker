@@ -35,10 +35,11 @@ const getCatalogSourceDir = () => {
 const CATALOG_SOURCE_DIR = getCatalogSourceDir();
 const OUTPUT_DIR = path.join(process.cwd(), 'public', 'catalog');
 
-// Hostinger FTP credentials
-const FTP_HOST = 'srv1777.hstgr.io';
-const FTP_USER = 'u493602047';
-const FTP_REMOTE_PATH = '/domains/figtracker.ericksu.com/public_html/catalog';
+// Hostinger FTP credentials (from Hostinger dashboard)
+const FTP_HOST = '46.202.182.145';
+const FTP_USER = 'u493602047.midnightblue-rhinoceros-955220.hostingersite.com';
+const FTP_PORT = 21;
+const FTP_REMOTE_PATH = '/public_html/catalog';
 
 interface ConversionResult {
   filename: string;
@@ -229,6 +230,7 @@ async function uploadToHostinger(results: ConversionResult[]): Promise<void> {
   try {
     await client.access({
       host: FTP_HOST,
+      port: FTP_PORT,
       user: FTP_USER,
       password: password,
       secure: false
@@ -344,7 +346,7 @@ async function updateCatalog() {
     // Summary
     console.log('\n📊 UPDATE SUMMARY');
     console.log('==================');
-    console.log(`✅ Minifigures: ${metadata.totalMinifigures.toLocaleString()}`);
+    console.log(`✅ Minifigures: ${metadata.totalMinifigs.toLocaleString()}`);
     console.log(`✅ Categories: ${metadata.totalCategories.toLocaleString()}`);
     console.log(`✅ Parts: ${metadata.totalParts.toLocaleString()}`);
     console.log(`✅ Sets: ${metadata.totalSets.toLocaleString()}`);
