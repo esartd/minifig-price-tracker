@@ -70,13 +70,15 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
       throw new Error('Catalog file not found in any location');
     }
 
-    // Client-side: fetch from public folder
-    const response = await fetch('/catalog/minifigs.json');
+    // Client-side: fetch from GitHub raw (reliable CDN)
+    const githubRawUrl = 'https://raw.githubusercontent.com/esartd/minifig-price-tracker/main/public/catalog/minifigs.json';
+
+    const response = await fetch(githubRawUrl);
     if (!response.ok) {
-      throw new Error(`Failed to load catalog: ${response.status}`);
+      throw new Error(`Failed to load catalog from GitHub: ${response.status}`);
     }
     catalogCache = await response.json();
-    console.log('[CATALOG] Client loaded:', catalogCache?.length || 0, 'minifigs');
+    console.log('[CATALOG] Client loaded from GitHub:', catalogCache?.length || 0, 'minifigs');
     return catalogCache!;
   } catch (error) {
     console.error('[CATALOG] Error loading catalog:', error);
