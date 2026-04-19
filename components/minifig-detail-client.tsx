@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Script from 'next/script';
@@ -165,8 +165,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     fetchFeaturedSets();
   }, [minifig.category_name]);
 
-  // Function to refresh collections data
-  const refreshCollections = async () => {
+  // Function to refresh collections data - useCallback to prevent infinite loops
+  const refreshCollections = useCallback(async () => {
     if (!session) return;
 
     try {
@@ -204,7 +204,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     } catch (err) {
       console.error('Error checking collections:', err);
     }
-  };
+  }, [session, minifig.no, condition]);
 
   // Check if item is in inventory and personal collection (for selected condition)
   useEffect(() => {
@@ -214,8 +214,43 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     }
 
     const checkCollections = async () => {
-      await refreshCollections();
-      setCheckingCollection(false);
+      try {
+        // Check inventory
+        const inventoryResponse = await fetch('/api/inventory');
+        const inventoryData = await inventoryResponse.json();
+
+        if (inventoryData.success && inventoryData.data) {
+          // Store all items for this minifig (both conditions)
+          const allItems = inventoryData.data.filter((item: any) =>
+            item.minifigure_no === minifig.no
+          );
+          setAllInventoryItems(allItems);
+
+          // Find current condition item
+          const found = allItems.find((item: any) => item.condition === condition);
+          setCollectionItem(found || null);
+        }
+
+        // Check personal collection
+        const personalResponse = await fetch('/api/personal-collection');
+        const personalData = await personalResponse.json();
+
+        if (personalData.success && personalData.data) {
+          // Store all items for this minifig (both conditions)
+          const allItems = personalData.data.filter((item: any) =>
+            item.minifigure_no === minifig.no
+          );
+          setAllCollectionItems(allItems);
+
+          // Find current condition item
+          const found = allItems.find((item: any) => item.condition === condition);
+          setPersonalCollectionItem(found || null);
+        }
+      } catch (err) {
+        console.error('Error checking collections:', err);
+      } finally {
+        setCheckingCollection(false);
+      }
     };
 
     checkCollections();
