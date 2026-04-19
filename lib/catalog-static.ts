@@ -21,54 +21,36 @@ let categoriesCache: Map<number, { name: string; count: number }> | null = null;
 
 /**
  * Load catalog from JSON file (works both server and client side)
+ * ONLY loads on server-side from filesystem - client uses direct API calls
  */
 async function loadCatalog(): Promise<MinifigCatalogItem[]> {
   if (catalogCache) return catalogCache;
 
-  try {
-    // Server-side: Try filesystem first, fallback to API
-    if (typeof window === 'undefined') {
-      // Try local filesystem first (works in dev)
-      try {
-        const fs = await import('fs');
-        const path = await import('path');
-        const filePath = path.join(process.cwd(), 'public', 'catalog', 'minifigs.json');
+  // Server-side ONLY - load from filesystem
+  if (typeof window === 'undefined') {
+    try {
+      const fs = await import('fs');
+      const path = await import('path');
+      const filePath = path.join(process.cwd(), 'public', 'catalog', 'minifigs.json');
 
-        if (fs.existsSync(filePath)) {
-          const content = fs.readFileSync(filePath, 'utf-8');
-          catalogCache = JSON.parse(content);
-          console.log('[CATALOG] Loaded from filesystem:', catalogCache?.length || 0, 'minifigs');
-          return catalogCache!;
-        }
-      } catch (fsError) {
-        console.log('[CATALOG] Filesystem failed, using API fallback');
+      if (fs.existsSync(filePath)) {
+        const content = fs.readFileSync(filePath, 'utf-8');
+        catalogCache = JSON.parse(content);
+        console.log('[CATALOG] Loaded from filesystem:', catalogCache?.length || 0, 'minifigs');
+        return catalogCache!;
+      } else {
+        console.error('[CATALOG] File not found:', filePath);
+        return [];
       }
-
-      // Fallback: Fetch from Hostinger CDN (unlimited bandwidth)
-      console.log('[CATALOG] Fetching from Hostinger CDN...');
-      const response = await fetch('https://midnightblue-rhinoceros-955220.hostingersite.com/catalog/minifigs.json', {
-        signal: AbortSignal.timeout(10000), // 10 second timeout
-      });
-      if (!response.ok) {
-        throw new Error(`Hostinger CDN failed: ${response.status}`);
-      }
-      catalogCache = await response.json();
-      console.log('[CATALOG] Loaded from Hostinger CDN:', catalogCache?.length || 0, 'minifigs');
-      return catalogCache!;
+    } catch (fsError) {
+      console.error('[CATALOG] Filesystem error:', fsError);
+      return [];
     }
-
-    // Client-side: fetch from Hostinger CDN (unlimited bandwidth, fast)
-    const response = await fetch('https://midnightblue-rhinoceros-955220.hostingersite.com/catalog/minifigs.json');
-    if (!response.ok) {
-      throw new Error(`Failed to load catalog: ${response.status}`);
-    }
-    catalogCache = await response.json();
-    console.log('[CATALOG] Client loaded from Hostinger:', catalogCache?.length || 0, 'minifigs');
-    return catalogCache!;
-  } catch (error) {
-    console.error('[CATALOG] Error loading catalog:', error);
-    return [];
   }
+
+  // Client-side: Don't load full catalog - return empty and use specific lookups
+  console.warn('[CATALOG] Client-side should not load full catalog');
+  return [];
 }
 
 /**
@@ -82,8 +64,20 @@ export async function getAllMinifigs(): Promise<MinifigCatalogItem[]> {
  * Find minifig by number
  */
 export async function findMinifigByNumber(minifigure_no: string): Promise<MinifigCatalogItem | null> {
-  const catalog = await loadCatalog();
-  return catalog.find(m => m.minifigure_no === minifigure_no) || null;
+  // Server-side: use filesystem
+  if (typeof window === 'undefined') {
+    const catalog = await loadCatalog();
+    return catalog.find(m => m.minifigure_no === minifigure_no) || null;
+  }
+
+  // Client-side: use API route
+  try {
+    const response = await fetch(`/api/catalog/minifig/${minifigure_no}`);
+    if (!response.ok) return null;
+    return await response.json();
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -114,8 +108,20 @@ export async function getMinifigsByCategory(categoryName: string): Promise<Minif
  * Get minifigs by category ID
  */
 export async function getMinifigsByCategoryId(categoryId: number): Promise<MinifigCatalogItem[]> {
-  const catalog = await loadCatalog();
-  return catalog.filter(m => m.category_id === categoryId);
+  // Server-side: use filesystem
+  if (typeof window === 'undefined') {
+    const catalog = await loadCatalog();
+    return catalog.filter(m => m.category_id === categoryId);
+  }
+
+  // Client-side: use API route
+  try {
+    const response = await fetch(`/api/catalog/category/${categoryId}`);
+    if (!response.ok) return [];
+    return await response.json();
+  } catch {
+    return [];
+  }
 }
 
 /**
