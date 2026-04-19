@@ -31,20 +31,33 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
       const fs = await import('fs');
       const path = await import('path');
       const filePath = path.join(process.cwd(), 'public', 'catalog', 'minifigs.json');
+
+      console.log('[CATALOG] Loading from:', filePath);
+
+      if (!fs.existsSync(filePath)) {
+        console.error('[CATALOG] File not found:', filePath);
+        console.error('[CATALOG] Working directory:', process.cwd());
+        console.error('[CATALOG] Files in public/catalog:', fs.existsSync(path.join(process.cwd(), 'public', 'catalog')) ? fs.readdirSync(path.join(process.cwd(), 'public', 'catalog')) : 'directory not found');
+        return [];
+      }
+
       const content = fs.readFileSync(filePath, 'utf-8');
       catalogCache = JSON.parse(content);
+      console.log('[CATALOG] Loaded', catalogCache.length, 'minifigs');
       return catalogCache!;
     }
 
     // Client-side: fetch from public folder
     const response = await fetch('/catalog/minifigs.json');
     if (!response.ok) {
+      console.error('[CATALOG] Fetch failed:', response.status);
       throw new Error('Failed to load catalog');
     }
     catalogCache = await response.json();
+    console.log('[CATALOG] Fetched', catalogCache.length, 'minifigs');
     return catalogCache!;
   } catch (error) {
-    console.error('Error loading catalog:', error);
+    console.error('[CATALOG] Error loading catalog:', error);
     return [];
   }
 }
