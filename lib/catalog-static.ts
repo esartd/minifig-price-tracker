@@ -45,7 +45,7 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
             console.log('[CATALOG] Loading from:', filePath);
             const content = fs.readFileSync(filePath, 'utf-8');
             catalogCache = JSON.parse(content);
-            console.log('[CATALOG] Loaded', catalogCache.length, 'minifigs');
+            console.log('[CATALOG] Loaded', catalogCache?.length || 0, 'minifigs');
             return catalogCache!;
           }
         } catch (err) {
