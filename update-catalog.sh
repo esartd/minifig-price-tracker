@@ -22,9 +22,25 @@ if [ -z "$HOSTINGER_FTP_PASSWORD" ]; then
     exit 1
 fi
 
-# Run the update script
-npx tsx scripts/update-bricklink-catalog.ts
+# Get current year and month
+YEAR=$(date +%Y)
+MONTH=$(date +%-m)  # Remove leading zero
+CATALOG_PATH="$YEAR/$MONTH"
 
+echo "📅 Using catalog path: $CATALOG_PATH"
 echo ""
-echo "✅ Update complete!"
-echo "Verify at: https://figtracker.ericksu.com/catalog/metadata.json"
+
+# Run the update script with the date path
+npx tsx scripts/update-bricklink-catalog.ts "$CATALOG_PATH"
+
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -eq 0 ]; then
+    echo ""
+    echo "✅ Update complete!"
+    echo "Verify at: https://figtracker.ericksu.com/catalog/metadata.json"
+else
+    echo ""
+    echo "❌ Update failed with exit code $EXIT_CODE"
+    exit $EXIT_CODE
+fi

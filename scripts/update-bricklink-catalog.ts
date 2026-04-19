@@ -16,7 +16,23 @@ import fs from 'fs';
 import path from 'path';
 import { Client } from 'basic-ftp';
 
-const CATALOG_SOURCE_DIR = '/Users/erickkosysu/Code Projects/FigTracker/Bricklink Catalog txt/2026/4';
+// Get catalog source directory from command line argument or use current date
+const getCatalogSourceDir = () => {
+  const baseDir = '/Users/erickkosysu/Code Projects/FigTracker/Bricklink Catalog txt';
+
+  // If date provided as argument (e.g., "2026/5"), use it
+  if (process.argv[2]) {
+    return path.join(baseDir, process.argv[2]);
+  }
+
+  // Otherwise use current year/month
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1; // JavaScript months are 0-indexed
+  return path.join(baseDir, `${year}/${month}`);
+};
+
+const CATALOG_SOURCE_DIR = getCatalogSourceDir();
 const OUTPUT_DIR = path.join(process.cwd(), 'public', 'catalog');
 
 // Hostinger FTP credentials
@@ -254,6 +270,39 @@ async function uploadToHostinger(results: ConversionResult[]): Promise<void> {
 async function updateCatalog() {
   console.log('🚀 BRICKLINK CATALOG UPDATE SCRIPT');
   console.log('===================================\n');
+
+  // Ensure source directory exists
+  if (!fs.existsSync(CATALOG_SOURCE_DIR)) {
+    console.log(`📁 Creating directory: ${CATALOG_SOURCE_DIR}`);
+    fs.mkdirSync(CATALOG_SOURCE_DIR, { recursive: true });
+    console.log('✅ Directory created\n');
+    console.log('📥 Now download BrickLink catalog files to this directory:');
+    console.log(`   ${CATALOG_SOURCE_DIR}`);
+    console.log('\nDownload from: https://www.bricklink.com/catalogDownload.asp');
+    console.log('\nRequired files:');
+    console.log('  - Minifigures.txt');
+    console.log('  - Catalogs.txt');
+    console.log('  - Parts.txt');
+    console.log('  - Original Boxes.txt');
+    console.log('  - categories.txt');
+    console.log('\nAfter downloading, run this script again.\n');
+    process.exit(0);
+  }
+
+  // Verify required files exist
+  const requiredFiles = ['Minifigures.txt', 'Catalogs.txt', 'Parts.txt', 'Original Boxes.txt', 'categories.txt'];
+  const missingFiles = requiredFiles.filter(file => !fs.existsSync(path.join(CATALOG_SOURCE_DIR, file)));
+
+  if (missingFiles.length > 0) {
+    console.log('❌ Missing required files in:', CATALOG_SOURCE_DIR);
+    console.log('\nMissing files:');
+    missingFiles.forEach(file => console.log(`  - ${file}`));
+    console.log('\nDownload from: https://www.bricklink.com/catalogDownload.asp');
+    process.exit(1);
+  }
+
+  console.log(`📂 Source directory: ${CATALOG_SOURCE_DIR}`);
+  console.log(`✅ All required files found\n`);
 
   // Ensure output directory exists
   if (!fs.existsSync(OUTPUT_DIR)) {
