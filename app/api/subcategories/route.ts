@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma, prismaPublic } from '@/lib/prisma';
+import { getAllMinifigs } from '@/lib/catalog-static';
 import { getMainCharacter } from '@/lib/theme-main-characters';
 
 export async function GET(request: NextRequest) {
@@ -16,99 +16,54 @@ export async function GET(request: NextRequest) {
 
     console.log('Fetching subcategories for theme:', theme);
 
-    // Get all subcategories for this theme
-    // Use exact match for parent theme OR "parent / sub-theme" format
-    // This prevents "Friends" from matching "Friends TV Series"
-    const categories = await prismaPublic.minifigCatalog.groupBy({
-      by: ['category_id', 'category_name'],
-      where: {
-        OR: [
-          { category_name: theme }, // Exact match (e.g., "Friends")
-          { category_name: { startsWith: `${theme} / ` } } // Sub-themes (e.g., "Friends / Series 1")
-        ]
-      },
-      _count: {
-        minifigure_no: true
-      },
-      orderBy: {
-        category_name: 'asc'
+    // Get all minifigs from static catalog and group by category
+    const allMinifigs = await getAllMinifigs();
+    const categoryMap = new Map<string, { id: number; count: number }>();
+
+    allMinifigs.forEach(m => {
+      // Filter: exact match OR "parent / sub-theme" format
+      if (m.category_name === theme || m.category_name.startsWith(`${theme} / `)) {
+        const existing = categoryMap.get(m.category_name);
+        if (existing) {
+          existing.count++;
+        } else {
+          categoryMap.set(m.category_name, { id: m.category_id, count: 1 });
+        }
       }
     });
 
-    const subcategories = categories.map(cat => {
-      const parts = cat.category_name.split(' / ');
-      const subTheme = parts.slice(1).join(' / ') || 'Uncategorized';
-
-      return {
-        id: cat.category_id,
-        fullName: cat.category_name,
-        subTheme,
-        count: cat._count.minifigure_no
-      };
-    });
-
-    // Fetch representative images for each subcategory
-    const subcategoriesWithImages = await Promise.all(
-      subcategories.map(async (sub) => {
-        // STEP 1: Check if we have a manual mapping for this sub-theme
-        const knownMainCharacter = getMainCharacter(sub.subTheme);
-        let representativeMinifig = null;
-
-        if (knownMainCharacter) {
-          // Check if it's a direct minifig ID (e.g., "sw1507") or character name
-          if (/^[a-z]+\d+[a-z]?$/i.test(knownMainCharacter)) {
-            // Direct minifig ID - use it directly
-            representativeMinifig = knownMainCharacter;
-          } else {
-            // Character name - search for it
-            const manualMatch = await prismaPublic.minifigCatalog.findFirst({
-              where: {
-                category_name: sub.fullName,
-                search_name: {
-                  contains: knownMainCharacter.toLowerCase()
-                }
-              },
-              orderBy: [
-                { year_released: 'desc' },
-                { minifigure_no: 'desc' }
-              ],
-              select: {
-                minifigure_no: true
-              }
-            });
-
-            if (manualMatch) {
-              representativeMinifig = manualMatch.minifigure_no;
-            }
-          }
-        }
-
-        // STEP 2: If no manual mapping or not found, use newest minifig (fast fallback)
-        if (!representativeMinifig) {
-          const newestMinifig = await prismaPublic.minifigCatalog.findFirst({
-            where: {
-              category_name: sub.fullName
-            },
-            orderBy: [
-              { year_released: 'desc' },
-              { minifigure_no: 'desc' }
-            ],
-            select: {
-              minifigure_no: true
-            }
-          });
-
-          representativeMinifig = newestMinifig?.minifigure_no || null;
-        }
+    const subcategories = Array.from(categoryMap.entries())
+      .map(([categoryName, data]) => {
+        const parts = categoryName.split(' / ');
+        const subTheme = parts.slice(1).join(' / ') || 'Uncategorized';
 
         return {
-          ...sub,
-          representativeImage: representativeMinifig
-            ? `https://img.bricklink.com/ItemImage/MN/0/${representativeMinifig}.png`
-            : null
+          id: data.id,
+          fullName: categoryName,
+          subTheme,
+          count: data.count
         };
       })
-    );
+      .sort((a, b) => a.fullName.localeCompare(b.fullName));
+
+    // Use manual overrides only for subcategory images
+    const subcategoriesWithImages = subcategories.map(sub => {
+      const knownMainCharacter = getMainCharacter(sub.subTheme);
+      let representativeMinifig = null;
+
+      if (knownMainCharacter && /^[a-z]+\d+[a-z]?$/i.test(knownMainCharacter)) {
+        // Direct minifig ID - use it
+        representativeMinifig = knownMainCharacter;
+      }
+      // If no manual ID, leave it null (no auto-searching)
+
+      return {
+        ...sub,
+        representativeImage: representativeMinifig
+          ? `https://img.bricklink.com/ItemImage/MN/0/${representativeMinifig}.png`
+          : null
+      };
+    });
 
     return NextResponse.json({
       success: true,

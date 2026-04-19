@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { prisma, prismaPublic } from '@/lib/prisma';
+import { findMinifigByNumber, getAllMinifigs } from '@/lib/catalog-static';
 import MinifigDetailClient from '@/components/minifig-detail-client';
 
 // Disable pre-rendering at build time - Supabase free tier can't handle it
@@ -17,9 +17,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { itemNo } = await params;
 
-  const minifig = await prismaPublic.minifigCatalog.findUnique({
-    where: { minifigure_no: itemNo }
-  });
+  const minifig = await findMinifigByNumber(itemNo);
 
   if (!minifig) {
     return {
@@ -67,10 +65,8 @@ export default async function MinifigPage({
 }) {
   const { itemNo } = await params;
 
-  // Fetch minifig from database (not API)
-  const minifig = await prismaPublic.minifigCatalog.findUnique({
-    where: { minifigure_no: itemNo }
-  });
+  // Fetch minifig from static catalog
+  const minifig = await findMinifigByNumber(itemNo);
 
   if (!minifig) {
     notFound();
@@ -84,7 +80,7 @@ export default async function MinifigPage({
     category_name: minifig.category_name,
     year_released: minifig.year_released,
     image_url: `https://img.bricklink.com/ItemImage/MN/0/${minifig.minifigure_no}.png`,
-    weight_grams: minifig.weight_grams
+    weight_grams: null
   };
 
   // Fetch character variants (same character, different variations)
@@ -103,21 +99,20 @@ export default async function MinifigPage({
 
   const excludePatterns = exclusions[characterName.toLowerCase()] || [];
 
-  // Fetch all potential matches with the character name
-  const allMatches = await prismaPublic.minifigCatalog.findMany({
-    where: {
-      AND: [
-        { minifigure_no: { not: itemNo } },
-        { search_name: { contains: characterName.toLowerCase() } },
-        { category_id: minifig.category_id }
-      ]
-    }
-  });
+  // Fetch all minifigs from static catalog
+  const allMinifigs = await getAllMinifigs();
+
+  // Filter for same category and character name
+  const allMatches = allMinifigs.filter(m =>
+    m.minifigure_no !== itemNo &&
+    m.name.toLowerCase().includes(characterName.toLowerCase()) &&
+    m.category_id === minifig.category_id
+  );
 
   // Filter to only include matches where character name appears as a complete word
   // and exclude different characters with similar names
   const characterVariants = allMatches.filter(variant => {
-    const searchName = variant.search_name.toLowerCase();
+    const searchName = variant.name.toLowerCase();
     const charName = characterName.toLowerCase();
 
     // Check if character name appears as a complete word (not substring)
@@ -203,14 +198,13 @@ export default async function MinifigPage({
       }
     }
 
-    // Query for these specific item numbers
-    const foundMinifigs = await prismaPublic.minifigCatalog.findMany({
-      where: {
-        minifigure_no: { in: targetNumbers },
-        category_id: minifig.category_id
-      },
-      orderBy: { minifigure_no: 'asc' }
-    });
+    // Query static catalog for these specific item numbers
+    const foundMinifigs = allMinifigs
+      .filter(m =>
+        targetNumbers.includes(m.minifigure_no) &&
+        m.category_id === minifig.category_id
+      )
+      .sort((a, b) => a.minifigure_no.localeCompare(b.minifigure_no));
 
     // If we didn't find 8, expand the range to get more
     if (foundMinifigs.length < 8) {
@@ -226,13 +220,12 @@ export default async function MinifigPage({
         expandedNumbers.push(`${prefix}${i.toString().padStart(match[2].length, '0')}`);
       }
 
-      const additionalMinifigs = await prismaPublic.minifigCatalog.findMany({
-        where: {
-          minifigure_no: { in: expandedNumbers },
-          category_id: minifig.category_id
-        },
-        orderBy: { minifigure_no: 'asc' }
-      });
+      const additionalMinifigs = allMinifigs
+        .filter(m =>
+          expandedNumbers.includes(m.minifigure_no) &&
+          m.category_id === minifig.category_id
+        )
+        .sort((a, b) => a.minifigure_no.localeCompare(b.minifigure_no));
 
       themeMinifigs = [...foundMinifigs, ...additionalMinifigs].slice(0, 8);
     } else {

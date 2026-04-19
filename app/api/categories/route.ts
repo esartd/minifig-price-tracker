@@ -1,15 +1,16 @@
 import { NextResponse } from 'next/server';
-import { prisma, prismaPublic } from '@/lib/prisma';
+import { getAllCategories } from '@/lib/catalog-static';
+import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
 
 export async function GET() {
   try {
-    // Get all unique categories with counts
-    const categories = await prismaPublic.minifigCatalog.groupBy({
-      by: ['category_id', 'category_name'],
-      _count: {
-        minifigure_no: true
-      }
-    });
+    // Get all unique categories with counts from static catalog
+    const categoriesData = await getAllCategories();
+    const categories = categoriesData.map(cat => ({
+      category_id: cat.id,
+      category_name: cat.name,
+      _count: { minifigure_no: cat.count }
+    }));
 
     // If no data, return empty array
     if (!categories || categories.length === 0) {
@@ -67,64 +68,18 @@ export async function GET() {
         subcategories: theme.subcategories.sort((a, b) => a.name.localeCompare(b.name))
       }));
 
-    // Special override minifigures for certain themes (for appropriate representation)
-    const themeOverrides: Record<string, string> = {
-      'Scala': '23049' // Use dressed minifig instead of naked one
-    };
+    // Use manual overrides only - never query for images
+    const themesWithImages = groupedThemes.map(theme => {
+      const minifigNo = THEME_OVERRIDES[theme.parent] || null;
 
-    // Fetch a representative minifig and check if theme is current (last 2 years)
-    const currentYear = new Date().getFullYear();
-    const themesWithImages = await Promise.all(
-      groupedThemes.map(async (theme) => {
-        let minifigNo: string | null = null;
-
-        // Check if there's a manual override for this theme
-        if (themeOverrides[theme.parent]) {
-          minifigNo = themeOverrides[theme.parent];
-        } else {
-          // Otherwise, get the newest minifig
-          const representativeMinifig = await prismaPublic.minifigCatalog.findFirst({
-            where: {
-              category_name: {
-                startsWith: theme.parent
-              }
-            },
-            orderBy: [
-              { year_released: 'desc' },
-              { minifigure_no: 'desc' }
-            ],
-            select: {
-              minifigure_no: true,
-              year_released: true
-            }
-          });
-          minifigNo = representativeMinifig?.minifigure_no || null;
-        }
-
-        // Check if theme has minifigures from last 2 calendar years
-        const hasRecentMinifigs = await prismaPublic.minifigCatalog.findFirst({
-          where: {
-            category_name: {
-              startsWith: theme.parent
-            },
-            year_released: {
-              gte: (currentYear - 2).toString()
-            }
-          },
-          select: {
-            minifigure_no: true
-          }
-        });
-
-        return {
-          ...theme,
-          representativeImage: minifigNo
-            ? `https://img.bricklink.com/ItemImage/MN/0/${minifigNo}.png`
-            : null,
-          isCurrent: !!hasRecentMinifigs
-        };
-      })
-    );
+      return {
+        ...theme,
+        representativeImage: minifigNo
+          ? `https://img.bricklink.com/ItemImage/MN/0/${minifigNo}.png`
+          : null,
+        isCurrent: false // Set to false - this API doesn't need current detection
+      };
+    });
 
     return NextResponse.json({
       success: true,

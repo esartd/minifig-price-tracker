@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { bricklinkAPI } from '@/lib/bricklink';
-import { prisma, prismaPublic } from '@/lib/prisma';
-import { runMigrations } from '@/lib/run-migrations';
+import { prismaPublic } from '@/lib/prisma';
+import { getAllMinifigs, findMinifigByNumber } from '@/lib/catalog-static';
 
 /**
  * SEARCH IMPLEMENTATION
@@ -34,16 +34,16 @@ export async function GET(request: NextRequest) {
 
     // Subcategory browsing (by full category_name)
     if (!query && subcategory) {
-      const catalogItems = await prismaPublic.minifigCatalog.findMany({
-        where: {
-          category_name: subcategory
-        },
-        orderBy: [
-          { year_released: 'desc' },
-          { minifigure_no: 'desc' }
-        ],
-        take: 500
-      });
+      const allMinifigs = await getAllMinifigs();
+      const catalogItems = allMinifigs
+        .filter(m => m.category_name === subcategory)
+        .sort((a, b) => {
+          const aYear = a.year_released ? parseInt(a.year_released) : 0;
+          const bYear = b.year_released ? parseInt(b.year_released) : 0;
+          if (bYear !== aYear) return bYear - aYear;
+          return b.minifigure_no.localeCompare(a.minifigure_no);
+        })
+        .slice(0, 500);
 
       const matchedItems = catalogItems.map(item => ({
         no: item.minifigure_no,
@@ -66,17 +66,17 @@ export async function GET(request: NextRequest) {
     // Category browsing (no search query, just category)
     if (!query && categoryId) {
       const categoryIdNum = parseInt(categoryId);
+      const allMinifigs = await getAllMinifigs();
 
-      const catalogItems = await prismaPublic.minifigCatalog.findMany({
-        where: {
-          category_id: categoryIdNum
-        },
-        orderBy: [
-          { year_released: 'desc' },
-          { minifigure_no: 'desc' }
-        ],
-        take: 500 // Show up to 500 minifigs per category
-      });
+      const catalogItems = allMinifigs
+        .filter(m => m.category_id === categoryIdNum)
+        .sort((a, b) => {
+          const aYear = a.year_released ? parseInt(a.year_released) : 0;
+          const bYear = b.year_released ? parseInt(b.year_released) : 0;
+          if (bYear !== aYear) return bYear - aYear;
+          return b.minifigure_no.localeCompare(a.minifigure_no);
+        })
+        .slice(0, 500);
 
       const matchedItems = catalogItems.map(item => ({
         no: item.minifigure_no,
@@ -112,9 +112,7 @@ export async function GET(request: NextRequest) {
       const itemNo = searchTerm.toLowerCase();
 
       // Check catalog first (instant)
-      const catalogItem = await prismaPublic.minifigCatalog.findUnique({
-        where: { minifigure_no: itemNo }
-      });
+      const catalogItem = await findMinifigByNumber(itemNo);
 
       if (catalogItem) {
         return NextResponse.json({
@@ -199,34 +197,30 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // NAME-BASED SEARCH: Search from our MinifigCatalog database
+    // NAME-BASED SEARCH: Search from static catalog
     const searchLower = searchTerm.toLowerCase();
-    const categoryFilterSQL = categoryId ? `AND category_id = ${parseInt(categoryId)}` : '';
+    const categoryIdNum = categoryId ? parseInt(categoryId) : null;
+    const allMinifigs = await getAllMinifigs();
 
-    // Search with proper year sorting (year as integer, newest first)
-    const catalogItems = await prisma.$queryRawUnsafe<Array<{
-      minifigure_no: string;
-      name: string;
-      category_id: number;
-      category_name: string;
-      year_released: string | null;
-    }>>(
-      `SELECT
-        minifigure_no,
-        name,
-        category_id,
-        category_name,
-        year_released
-      FROM "MinifigCatalog"
-      WHERE LOWER(search_name) LIKE '%' || $1 || '%' ${categoryFilterSQL}
-      ORDER BY
-        CASE WHEN year_released IS NULL OR year_released = '' THEN 0 ELSE CAST(year_released AS INTEGER) END DESC,
-        minifigure_no DESC
-      LIMIT 200`,
-      searchLower
-    );
+    // Filter and sort catalog items
+    const catalogItems = allMinifigs
+      .filter(m => {
+        const matchesSearch =
+          m.minifigure_no.toLowerCase().includes(searchLower) ||
+          m.name.toLowerCase().includes(searchLower) ||
+          m.category_name.toLowerCase().includes(searchLower);
+        const matchesCategory = !categoryIdNum || m.category_id === categoryIdNum;
+        return matchesSearch && matchesCategory;
+      })
+      .sort((a, b) => {
+        const aYear = a.year_released ? parseInt(a.year_released) : 0;
+        const bYear = b.year_released ? parseInt(b.year_released) : 0;
+        if (bYear !== aYear) return bYear - aYear;
+        return b.minifigure_no.localeCompare(a.minifigure_no);
+      })
+      .slice(0, 200);
 
-    // Map catalog items to response format (sorting already done in SQL)
+    // Map catalog items to response format
     const matchedItems = catalogItems.map(item => ({
       no: item.minifigure_no,
       name: item.name,

@@ -1,6 +1,6 @@
-import { prismaPublic } from '@/lib/prisma';
 import ThemesClient from './themes-client';
 import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
+import { getAllCategories, getRecentMinifigs } from '@/lib/catalog-static';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -32,13 +32,8 @@ interface Theme {
 
 async function getThemes(): Promise<Theme[]> {
   try {
-    // Get all unique categories with counts
-    const categories = await prismaPublic.minifigCatalog.groupBy({
-      by: ['category_id', 'category_name'],
-      _count: {
-        minifigure_no: true
-      }
-    });
+    // Get all unique categories with counts from static JSON
+    const categories = await getAllCategories();
 
     // If no data, return empty array
     if (!categories || categories.length === 0) {
@@ -58,7 +53,7 @@ async function getThemes(): Promise<Theme[]> {
     }>();
 
     categories.forEach(cat => {
-      const parts = cat.category_name.split(' / ');
+      const parts = cat.name.split(' / ');
       const parentTheme = parts[0];
       const subCategory = parts.length > 1 ? parts.slice(1).join(' / ') : null;
 
@@ -71,14 +66,14 @@ async function getThemes(): Promise<Theme[]> {
       }
 
       const theme = themeMap.get(parentTheme)!;
-      theme.totalCount += cat._count.minifigure_no;
+      theme.totalCount += cat.count;
 
       if (subCategory) {
         theme.subcategories.push({
-          id: cat.category_id,
+          id: cat.id,
           name: subCategory,
-          fullName: cat.category_name,
-          count: cat._count.minifigure_no
+          fullName: cat.name,
+          count: cat.count
         });
       }
     });
@@ -91,19 +86,9 @@ async function getThemes(): Promise<Theme[]> {
         subcategories: theme.subcategories.sort((a, b) => a.name.localeCompare(b.name))
       }));
 
-    // Determine which themes are current (released in last 2 years)
+    // Determine which themes are current (released in last 2 years) from static JSON
     const currentYear = new Date().getFullYear();
-    const recentMinifigs = await prismaPublic.minifigCatalog.findMany({
-      where: {
-        year_released: {
-          gte: (currentYear - 2).toString()
-        }
-      },
-      select: {
-        category_name: true,
-      },
-      distinct: ['category_name']
-    });
+    const recentMinifigs = await getRecentMinifigs(2);
 
     // Build set of current themes
     const getParent = (categoryName: string) => categoryName.split(' / ')[0];
