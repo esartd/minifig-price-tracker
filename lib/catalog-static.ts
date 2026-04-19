@@ -121,9 +121,13 @@ export async function getAllCategories(): Promise<Array<{ id: number; name: stri
 export async function getRecentMinifigs(yearsSince: number): Promise<MinifigCatalogItem[]> {
   const catalog = await loadCatalog();
   const currentYear = new Date().getFullYear();
-  const cutoffYear = (currentYear - yearsSince).toString();
+  const cutoffYear = currentYear - yearsSince;
 
-  return catalog.filter(m => m.year_released && m.year_released >= cutoffYear);
+  return catalog.filter(m => {
+    if (!m.year_released) return false;
+    const year = parseInt(m.year_released);
+    return !isNaN(year) && year >= cutoffYear;
+  });
 }
 
 /**
