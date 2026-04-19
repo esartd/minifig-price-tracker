@@ -26,38 +26,48 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
   if (catalogCache) return catalogCache;
 
   try {
-    // Server-side: Try filesystem first, fallback to fetch
+    // Server-side: Always use filesystem (Vercel includes public/ in serverless bundle)
     if (typeof window === 'undefined') {
-      // Try local filesystem (works in dev, might not work in Vercel)
-      try {
-        const fs = await import('fs');
-        const path = await import('path');
-        const filePath = path.join(process.cwd(), 'public', 'catalog', 'minifigs.json');
+      const fs = await import('fs');
+      const path = await import('path');
 
-        if (fs.existsSync(filePath)) {
-          const content = fs.readFileSync(filePath, 'utf-8');
-          catalogCache = JSON.parse(content);
-          console.log('[CATALOG] Loaded from filesystem:', catalogCache.length, 'minifigs');
-          return catalogCache!;
+      // In Vercel, files are at /var/task/public/
+      // In local, files are at process.cwd()/public/
+      const possiblePaths = [
+        path.join(process.cwd(), 'public', 'catalog', 'minifigs.json'),
+        path.join('/var/task', 'public', 'catalog', 'minifigs.json'),
+        path.join('/var/task', '.next', 'server', 'app', 'public', 'catalog', 'minifigs.json'),
+      ];
+
+      for (const filePath of possiblePaths) {
+        try {
+          if (fs.existsSync(filePath)) {
+            console.log('[CATALOG] Loading from:', filePath);
+            const content = fs.readFileSync(filePath, 'utf-8');
+            catalogCache = JSON.parse(content);
+            console.log('[CATALOG] Loaded', catalogCache.length, 'minifigs');
+            return catalogCache!;
+          }
+        } catch (err) {
+          console.log('[CATALOG] Failed to read from', filePath);
+          continue;
         }
-      } catch (fsError) {
-        console.log('[CATALOG] Filesystem read failed, falling back to fetch:', fsError);
       }
 
-      // Fallback: fetch from own domain (works in Vercel serverless)
-      const baseUrl = process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : 'http://localhost:3000';
-
-      console.log('[CATALOG] Fetching from:', `${baseUrl}/catalog/minifigs.json`);
-
-      const response = await fetch(`${baseUrl}/catalog/minifigs.json`);
-      if (!response.ok) {
-        throw new Error(`Fetch failed with status ${response.status}`);
+      // Last resort: try to list what's available
+      console.error('[CATALOG] File not found in any location. Checking directories...');
+      console.error('[CATALOG] CWD:', process.cwd());
+      try {
+        console.error('[CATALOG] Files in CWD:', fs.readdirSync(process.cwd()).slice(0, 10));
+        const publicPath = path.join(process.cwd(), 'public');
+        if (fs.existsSync(publicPath)) {
+          console.error('[CATALOG] Files in public:', fs.readdirSync(publicPath));
+        }
+      } catch (e) {
+        console.error('[CATALOG] Could not list directories');
       }
-      catalogCache = await response.json();
-      console.log('[CATALOG] Loaded from CDN:', catalogCache.length, 'minifigs');
-      return catalogCache!;
+
+      throw new Error('Catalog file not found in any location');
     }
 
     // Client-side: fetch from public folder
