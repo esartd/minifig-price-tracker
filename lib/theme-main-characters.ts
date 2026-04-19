@@ -177,7 +177,6 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'DC Super Hero Girls': 'shg014',
   'Dimensions': 'dim043',
   'Dino': 'dino005',
-  'Education': 'edu031',
   'Elves': 'elf050',
   'Exo-Force': 'exf019',
   'Fabuland': 'fab7g',
