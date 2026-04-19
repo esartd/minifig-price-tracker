@@ -38,9 +38,14 @@ export async function GET(request: NextRequest) {
       const catalogItems = allMinifigs
         .filter(m => m.category_name === subcategory)
         .sort((a, b) => {
-          const aYear = a.year_released && !isNaN(parseInt(a.year_released)) ? parseInt(a.year_released) : 9999;
-          const bYear = b.year_released && !isNaN(parseInt(b.year_released)) ? parseInt(b.year_released) : 9999;
+          // Parse years - treat invalid/missing as 0 to sort them last
+          const aYear = a.year_released && !isNaN(parseInt(a.year_released)) ? parseInt(a.year_released) : 0;
+          const bYear = b.year_released && !isNaN(parseInt(b.year_released)) ? parseInt(b.year_released) : 0;
+
+          // Sort by year descending (newest first, unknown at bottom)
           if (bYear !== aYear) return bYear - aYear;
+
+          // Within same year, sort by ID descending
           return b.minifigure_no.localeCompare(a.minifigure_no);
         })
         .slice(0, 500);
@@ -71,9 +76,14 @@ export async function GET(request: NextRequest) {
       const catalogItems = allMinifigs
         .filter(m => m.category_id === categoryIdNum)
         .sort((a, b) => {
-          const aYear = a.year_released && !isNaN(parseInt(a.year_released)) ? parseInt(a.year_released) : 9999;
-          const bYear = b.year_released && !isNaN(parseInt(b.year_released)) ? parseInt(b.year_released) : 9999;
+          // Parse years - treat invalid/missing as 0 to sort them last
+          const aYear = a.year_released && !isNaN(parseInt(a.year_released)) ? parseInt(a.year_released) : 0;
+          const bYear = b.year_released && !isNaN(parseInt(b.year_released)) ? parseInt(b.year_released) : 0;
+
+          // Sort by year descending (newest first, unknown at bottom)
           if (bYear !== aYear) return bYear - aYear;
+
+          // Within same year, sort by ID descending
           return b.minifigure_no.localeCompare(a.minifigure_no);
         })
         .slice(0, 500);
