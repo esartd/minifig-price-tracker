@@ -233,7 +233,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Western': 'ww018',
 
   // Additional themes - manually verified representative minifigs
-  '4 Juniors': 'jun066',
+  '4 Juniors': 'cre001',
   'Animal Crossing': 'ani007',
   'Architecture': 'gen192',
   'Bluey': 'blu007',
