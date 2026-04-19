@@ -668,19 +668,17 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                 {/* Header */}
                 <div style={{ marginBottom: '24px', marginTop: 0 }}>
                   {/* Year Badge */}
-                  {minifig.year_released && (
-                    <div style={{ marginBottom: '8px', marginTop: 0 }}>
-                      <span style={{
-                        fontSize: 'var(--text-xs)',
-                        fontWeight: '500',
-                        color: '#3b82f6',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em'
-                      }}>
-                        {minifig.year_released}
-                      </span>
-                    </div>
-                  )}
+                  <div style={{ marginBottom: '8px', marginTop: 0 }}>
+                    <span style={{
+                      fontSize: 'var(--text-xs)',
+                      fontWeight: '500',
+                      color: '#3b82f6',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em'
+                    }}>
+                      {minifig.year_released && minifig.year_released !== '?' ? minifig.year_released : 'Year Unknown'}
+                    </span>
+                  </div>
 
                   <h1 style={{
                     fontSize: 'var(--text-lg)',
