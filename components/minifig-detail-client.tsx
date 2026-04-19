@@ -120,6 +120,15 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     fetchPricing();
   }, [minifig.no, condition]);
 
+  // Update URL when condition changes
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      url.searchParams.set('condition', condition);
+      window.history.replaceState({}, '', url.toString());
+    }
+  }, [condition]);
+
   // Clear success message when condition changes
   useEffect(() => {
     setSuccessMessage('');
