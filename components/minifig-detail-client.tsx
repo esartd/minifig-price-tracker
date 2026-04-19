@@ -90,10 +90,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
   useEffect(() => {
     const conditionParam = searchParams.get('condition');
     const newCondition = conditionParam === 'used' ? 'used' : 'new';
-    if (newCondition !== condition) {
-      setCondition(newCondition);
-    }
-  }, [searchParams, condition]); // Run when URL params change
+    setCondition(newCondition);
+  }, [searchParams]); // Only depend on searchParams, not condition (avoids loop)
 
   const [featuredSets, setFeaturedSets] = useState<any[]>([]);
 
