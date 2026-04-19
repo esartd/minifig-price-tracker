@@ -1,12 +1,11 @@
-import { PrismaClient } from '@prisma/client'
-import { PrismaClient as PrismaClientSupabase } from '../node_modules/.prisma/client-supabase'
+import { PrismaClient } from '../node_modules/.prisma/client-hostinger/index.js'
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
-  prismaPublic: PrismaClientSupabase | undefined
 }
 
-// Neon Database - User data (accounts, collections, listings)
+// Hostinger MySQL Database - All user data (accounts, collections, listings, price cache)
+// Migrated from Neon PostgreSQL - April 2026
 export const prisma: PrismaClient = globalForPrisma.prisma ?? new PrismaClient({
   datasources: {
     db: {
@@ -15,19 +14,9 @@ export const prisma: PrismaClient = globalForPrisma.prisma ?? new PrismaClient({
   }
 })
 
-// Supabase Database - Public data (catalog, cache, API tracker)
-// Limit connections to avoid MaxClientsInSessionMode error during builds
-export const prismaPublic: PrismaClientSupabase = globalForPrisma.prismaPublic ?? new PrismaClientSupabase({
-  datasources: {
-    db: {
-      url: process.env.SUPABASE_DATABASE_URL
-    }
-  },
-  // Limit connection pool for Session mode pooler
-  log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error'],
-})
+// Legacy export for compatibility
+export const prismaPublic = prisma;
 
 if (process.env.NODE_ENV !== 'production') {
   globalForPrisma.prisma = prisma
-  globalForPrisma.prismaPublic = prismaPublic
 }
