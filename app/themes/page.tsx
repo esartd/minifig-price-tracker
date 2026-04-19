@@ -1,6 +1,6 @@
 import ThemesClient from './themes-client';
 import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
-import { getAllCategories, getRecentMinifigs } from '@/lib/catalog-static';
+import { getAllCategories, getRecentMinifigs, getAllMinifigs } from '@/lib/catalog-static';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -99,9 +99,21 @@ async function getThemes(): Promise<Theme[]> {
 
     console.log(`[THEMES DEBUG] Found ${recentThemes.size} current themes from ${currentYear - 2}+`);
 
-    // Map themes with images - use manual overrides only
+    // Map themes with images - use overrides, fallback to first minifig from that theme
+    const allMinifigs = await getAllMinifigs();
     const themesWithImages = groupedThemes.map(theme => {
-      const minifigNo = THEME_OVERRIDES[theme.parent] || null;
+      let minifigNo = THEME_OVERRIDES[theme.parent] || null;
+
+      // If no override, find first minifig from this theme
+      if (!minifigNo) {
+        const minifigFromTheme = allMinifigs.find(m => {
+          const parentTheme = m.category_name.split(' / ')[0];
+          return parentTheme === theme.parent;
+        });
+        if (minifigFromTheme) {
+          minifigNo = minifigFromTheme.minifigure_no;
+        }
+      }
 
       return {
         ...theme,

@@ -246,7 +246,6 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Discovery': 'dis001',
   'Disney': 'dis070',
   'Editions': 'pln169',
-  'Education': 'edu031',
   'Educational & Dacta': 'edu031',
   'FIRST LEGO League': 'edu031',
   'Fusion': 'fus001',
