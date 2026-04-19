@@ -59,7 +59,7 @@ async function fixNames() {
       updates.push({
         id: item.minifigure_no,
         old: item.minifigure_name,
-        new: cached.name
+        new: catalogItem.name
       });
       updated++;
     }
