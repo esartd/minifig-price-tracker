@@ -1,32 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma, prismaPublic } from '@/lib/prisma';
 
 /**
- * ADMIN ENDPOINT: Manual Catalog Upload
+ * ADMIN ENDPOINT: Manual Catalog Upload - DEPRECATED
  *
- * Upload Minifigures.txt directly via POST request.
- *
- * Usage:
- * curl -X POST https://figtracker.ericksu.com/api/admin/upload-catalog \
- *   -H "Authorization: Bearer YOUR_ADMIN_SECRET" \
- *   -H "Content-Type: text/plain" \
- *   --data-binary @Minifigures.txt
+ * This endpoint is no longer used. We now use static JSON catalog files.
+ * To update the catalog:
+ * 1. Download Minifigures.txt from BrickLink
+ * 2. Run: npx tsx scripts/convert-minifigs-to-json.ts
+ * 3. Upload public/catalog/minifigs.json to Hostinger CDN
  */
 
 export async function POST(request: NextRequest) {
-  try {
-    const authHeader = request.headers.get('authorization');
-    const adminSecret = process.env.ADMIN_SECRET;
-
-    // Simple auth check
-    if (adminSecret && authHeader !== `Bearer ${adminSecret}`) {
-      return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
-        { status: 401 }
-      );
+  return NextResponse.json({
+    success: false,
+    error: 'This endpoint is deprecated. Use static JSON catalog instead.',
+    instructions: {
+      step1: 'Download Minifigures.txt from https://www.bricklink.com/catalogDownload.asp',
+      step2: 'Run: npx tsx scripts/convert-minifigs-to-json.ts',
+      step3: 'Upload public/catalog/minifigs.json to Hostinger CDN'
     }
-
-    const catalogText = await request.text();
+  }, { status: 410 });
 
     if (!catalogText || catalogText.length < 100) {
       return NextResponse.json(

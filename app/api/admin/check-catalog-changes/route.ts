@@ -28,63 +28,24 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Get catalog stats
-    const totalItems = await prismaPublic.minifigCatalog.count();
-    const oldestUpdate = await prismaPublic.minifigCatalog.findFirst({
-      orderBy: { updated_at: 'asc' },
-      select: { updated_at: true }
-    });
-    const newestUpdate = await prismaPublic.minifigCatalog.findFirst({
-      orderBy: { updated_at: 'desc' },
-      select: { updated_at: true }
-    });
-
-    // Check a few random items from our catalog against Bricklink API
-    // to see if names have changed
-    const sampleItems = await prismaPublic.minifigCatalog.findMany({
-      take: 10,
-      orderBy: { updated_at: 'asc' }, // Check oldest first
-      select: { minifigure_no: true, name: true, updated_at: true }
-    });
-
+    // Static catalog from BrickLink download (2026-04-18)
+    const totalItems = 18732;
+    const catalogDate = new Date('2026-04-18');
     const changesDetected: any[] = [];
-
-    for (const item of sampleItems) {
-      try {
-        // Fetch current data from Bricklink
-        const current = await bricklinkAPI.getMinifigureByNumber(item.minifigure_no);
-
-        if (current && current.name !== item.name) {
-          changesDetected.push({
-            minifigure_no: item.minifigure_no,
-            old_name: item.name,
-            new_name: current.name,
-            last_updated: item.updated_at
-          });
-        }
-
-        // Respect rate limiting
-        await new Promise(resolve => setTimeout(resolve, 3000));
-      } catch (error) {
-        console.error(`Error checking ${item.minifigure_no}:`, error);
-      }
-    }
 
     return NextResponse.json({
       success: true,
       catalog_stats: {
         total_items: totalItems,
-        oldest_update: oldestUpdate?.updated_at,
-        newest_update: newestUpdate?.updated_at,
+        last_update: catalogDate,
+        source: 'Static JSON from BrickLink download'
       },
       sample_check: {
-        items_checked: sampleItems.length,
-        changes_detected: changesDetected.length,
-        changes: changesDetected
+        items_checked: 0,
+        changes_detected: 0,
+        changes: []
       },
-      recommendation: changesDetected.length > 0
-        ? 'Changes detected! Consider running a full catalog update.'
-        : 'No changes in sample. Catalog appears up to date.',
+      recommendation: 'Using static catalog. Download new Minifigures.txt from BrickLink and run conversion script to update.',
       manual_check_urls: {
         name_changes: 'https://www.bricklink.com/catalogReqList.asp?viewYear=&viewMonth=&viewGeDate=&q=&viewStatus=1&itemType=M&viewAction=N',
         item_number_changes: 'https://www.bricklink.com/catalogReqList.asp?viewYear=&viewMonth=&viewGeDate=&q=&viewStatus=1&itemType=M&viewAction=I',

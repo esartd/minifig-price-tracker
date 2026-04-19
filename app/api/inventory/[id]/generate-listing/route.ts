@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
-import { prisma, prismaPublic } from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
+import { findMinifigByNumber } from '@/lib/catalog-static';
 import { generateListing, extractTheme } from '@/lib/listing-templates';
 
 export async function POST(
@@ -47,10 +48,7 @@ export async function POST(
     }
 
     // Look up theme from catalog
-    const catalogEntry = await prismaPublic.minifigCatalog.findUnique({
-      where: { minifigure_no: item.minifigure_no },
-      select: { category_name: true }
-    });
+    const catalogEntry = await findMinifigByNumber(item.minifigure_no);
 
     // Extract parent theme from category (e.g., "Star Wars / The Bad Batch" → "Star Wars")
     let theme = 'LEGO';

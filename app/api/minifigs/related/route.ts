@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma, prismaPublic } from '@/lib/prisma';
+import { findMinifigByNumber, getMinifigsByCategoryId } from '@/lib/catalog-static';
 
 /**
  * COMPLIANT RELATED MINIFIGS
  *
  * Shows related minifigs from the full catalog.
- * Uses downloaded BrickLink catalog data (not API enumeration).
+ * Uses static JSON catalog from BrickLink download.
  */
 
 export async function GET(request: NextRequest) {
@@ -21,9 +21,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Find current minifig in catalog
-    const currentMinifig = await prismaPublic.minifigCatalog.findUnique({
-      where: { minifigure_no: itemNo.toLowerCase() }
-    });
+    const currentMinifig = await findMinifigByNumber(itemNo.toLowerCase());
 
     if (!currentMinifig) {
       return NextResponse.json({
@@ -44,33 +42,32 @@ export async function GET(request: NextRequest) {
     const currentNum = parseInt(itemNo.match(/\d+/)?.[0] || '0');
     const idRange = 50; // Look for minifigs within ±50 IDs
 
+    // Get all minifigs in same category
+    const categoryMinifigs = await getMinifigsByCategoryId(currentMinifig.category_id);
+
     // Get character variants (same character name, same category)
-    const variantResults = await prismaPublic.minifigCatalog.findMany({
-      where: {
-        AND: [
-          { minifigure_no: { not: itemNo.toLowerCase() } },
-          { search_name: { contains: characterName } },
-          { category_id: currentMinifig.category_id }
-        ]
-      },
-      orderBy: { year_released: 'desc' },
-      take: 12
-    });
+    const variantResults = categoryMinifigs
+      .filter(m =>
+        m.minifigure_no !== itemNo.toLowerCase() &&
+        m.name.toLowerCase().includes(characterName)
+      )
+      .sort((a, b) => {
+        const aYear = parseInt(a.year_released || '0');
+        const bYear = parseInt(b.year_released || '0');
+        return bYear - aYear;
+      })
+      .slice(0, 12);
 
     // Get theme minifigs (same theme prefix, nearby ID number)
     const minId = Math.max(1, currentNum - idRange);
     const maxId = currentNum + idRange;
 
-    const themeResults = await prismaPublic.minifigCatalog.findMany({
-      where: {
-        AND: [
-          { minifigure_no: { not: itemNo.toLowerCase() } },
-          { minifigure_no: { startsWith: themePrefix } },
-          { category_id: currentMinifig.category_id }
-        ]
-      },
-      take: 100
-    });
+    const themeResults = categoryMinifigs
+      .filter(m =>
+        m.minifigure_no !== itemNo.toLowerCase() &&
+        m.minifigure_no.startsWith(themePrefix)
+      )
+      .slice(0, 100);
 
     // Filter by ID range and calculate distance
     const themeMinifigs = themeResults
