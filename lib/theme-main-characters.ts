@@ -261,8 +261,8 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Rock Raiders': 'rck001',
   'Studios': 'stu001',
   'Technic': 'tech039',
-  'Time Cruisers': 'tc001',
-  'Vidiyo': 'vid001',
+  'Time Cruisers': 'tim006',
+  'Vidiyo': 'vid004',
   'World Racers': 'wc001',
 };
 
