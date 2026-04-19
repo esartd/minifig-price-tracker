@@ -91,10 +91,8 @@ async function getThemes(): Promise<Theme[]> {
         subcategories: theme.subcategories.sort((a, b) => a.name.localeCompare(b.name))
       }));
 
-    // Fetch representative minifigs and recent status in bulk (optimized)
+    // Determine which themes are current (released in last 2 years)
     const currentYear = new Date().getFullYear();
-
-    // Fetch ONLY recent minifigs (much smaller dataset ~200 vs 18k)
     const recentMinifigs = await prismaPublic.minifigCatalog.findMany({
       where: {
         year_released: {
@@ -102,56 +100,36 @@ async function getThemes(): Promise<Theme[]> {
         }
       },
       select: {
-        minifigure_no: true,
         category_name: true,
       },
-      orderBy: [
-        { year_released: 'desc' },
-        { minifigure_no: 'desc' }
-      ]
+      distinct: ['category_name']
     });
 
-    // Build maps from recent minifigs only
+    // Build set of current themes
     const getParent = (categoryName: string) => categoryName.split(' / ')[0];
-
     const recentThemes = new Set<string>();
-    const newestRecentByTheme = new Map<string, string>();
-
     for (const minifig of recentMinifigs) {
-      const parent = getParent(minifig.category_name);
-      recentThemes.add(parent);
-      if (!newestRecentByTheme.has(parent)) {
-        newestRecentByTheme.set(parent, minifig.minifigure_no);
-      }
+      recentThemes.add(getParent(minifig.category_name));
     }
 
-    // Debug logging
-    console.log(`[THEMES DEBUG] Found ${recentThemes.size} current themes from ${currentYear - 2}+ minifigs`);
+    console.log(`[THEMES DEBUG] Found ${recentThemes.size} current themes from ${currentYear - 2}+`);
 
-    // Map themes with images - use manual overrides or recent minifigs only
-    // NO database queries for old themes - images are manually curated
+    // Map themes with manually curated images only
     const themesWithImages = groupedThemes.map(theme => {
-      let minifigNo: string | null = null;
+      // All images come from THEME_OVERRIDES - no database lookups
+      const minifigNo = THEME_OVERRIDES[theme.parent] || null;
 
-      // Check manual overrides FIRST
-      if (THEME_OVERRIDES[theme.parent]) {
-        minifigNo = THEME_OVERRIDES[theme.parent];
+      // Log themes without images so we can add them manually
+      if (!minifigNo) {
+        console.log(`[THEMES] Missing image for: ${theme.parent}`);
       }
-      // Otherwise use recent minifig if available
-      else if (newestRecentByTheme.has(theme.parent)) {
-        minifigNo = newestRecentByTheme.get(theme.parent) || null;
-      }
-      // If no override and not recent, no image (don't query database)
-
-      // Determine if current based on recent minifigs (not overrides)
-      const isCurrent = recentThemes.has(theme.parent);
 
       return {
         ...theme,
         representativeImage: minifigNo
           ? `https://img.bricklink.com/ItemImage/MN/0/${minifigNo}.png`
           : null,
-        isCurrent
+        isCurrent: recentThemes.has(theme.parent)
       };
     });
 
