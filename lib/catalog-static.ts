@@ -76,7 +76,7 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
       throw new Error(`Failed to load catalog: ${response.status}`);
     }
     catalogCache = await response.json();
-    console.log('[CATALOG] Client loaded:', catalogCache.length, 'minifigs');
+    console.log('[CATALOG] Client loaded:', catalogCache?.length || 0, 'minifigs');
     return catalogCache!;
   } catch (error) {
     console.error('[CATALOG] Error loading catalog:', error);
