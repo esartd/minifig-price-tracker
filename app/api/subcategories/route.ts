@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
       })
       .sort((a, b) => a.fullName.localeCompare(b.fullName));
 
-    // Use manual overrides, fallback to first minifig from subcategory
+    // Use manual overrides only for subcategory images
     const subcategoriesWithImages = subcategories.map(sub => {
       const knownMainCharacter = getMainCharacter(sub.subTheme);
       let representativeMinifig = null;
@@ -54,13 +54,8 @@ export async function GET(request: NextRequest) {
       if (knownMainCharacter && /^[a-z]+\d+[a-z]?$/i.test(knownMainCharacter)) {
         // Direct minifig ID - use it
         representativeMinifig = knownMainCharacter;
-      } else {
-        // Fallback: use first minifig from this subcategory
-        const firstMinifig = allMinifigs.find(m => m.category_name === sub.fullName);
-        if (firstMinifig) {
-          representativeMinifig = firstMinifig.minifigure_no;
-        }
       }
+      // No fallback - only use manual overrides to ensure correctness
 
       return {
         ...sub,

@@ -99,21 +99,9 @@ async function getThemes(): Promise<Theme[]> {
 
     console.log(`[THEMES DEBUG] Found ${recentThemes.size} current themes from ${currentYear - 2}+`);
 
-    // Map themes with images - use overrides, fallback to first minifig from theme
-    const themesWithImages = await Promise.all(groupedThemes.map(async theme => {
-      let minifigNo = THEME_OVERRIDES[theme.parent] || null;
-
-      // If no override, get the first minifig from this theme as fallback
-      if (!minifigNo && theme.subcategories.length > 0) {
-        const firstSubcategory = theme.subcategories[0];
-        const minifigsInSubcategory = await getRecentMinifigs(100); // Get enough to find one
-        const minifigFromTheme = minifigsInSubcategory.find(m =>
-          m.category_name === firstSubcategory.fullName
-        );
-        if (minifigFromTheme) {
-          minifigNo = minifigFromTheme.minifigure_no;
-        }
-      }
+    // Map themes with images - use manual overrides only
+    const themesWithImages = groupedThemes.map(theme => {
+      const minifigNo = THEME_OVERRIDES[theme.parent] || null;
 
       return {
         ...theme,
@@ -122,7 +110,7 @@ async function getThemes(): Promise<Theme[]> {
           : null,
         isCurrent: recentThemes.has(theme.parent)
       };
-    }));
+    });
 
     return themesWithImages;
   } catch (error) {
