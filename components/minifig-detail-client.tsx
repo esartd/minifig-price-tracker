@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Script from 'next/script';
 import Image from 'next/image';
@@ -38,6 +38,7 @@ interface MinifigDetailClientProps {
 
 export default function MinifigDetailClient({ minifig, variants, similarSets }: MinifigDetailClientProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { data: session } = useSession();
   const [addLoading, setAddLoading] = useState(false);
   const [error, setError] = useState('');
@@ -87,15 +88,12 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
   // Update condition when URL changes (e.g., when navigating from collection)
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const conditionParam = params.get('condition');
-      const newCondition = conditionParam === 'used' ? 'used' : 'new';
-      if (newCondition !== condition) {
-        setCondition(newCondition);
-      }
+    const conditionParam = searchParams.get('condition');
+    const newCondition = conditionParam === 'used' ? 'used' : 'new';
+    if (newCondition !== condition) {
+      setCondition(newCondition);
     }
-  }, [minifig.no]); // Run when minifig changes (navigation)
+  }, [searchParams, condition]); // Run when URL params change
 
   const [featuredSets, setFeaturedSets] = useState<any[]>([]);
 
