@@ -129,35 +129,45 @@ async function getThemes(): Promise<Theme[]> {
     // Debug logging
     console.log(`[THEMES DEBUG] Found ${recentThemes.size} current themes from ${currentYear - 2}+ minifigs`);
 
-    // For themes without recent minifigs, fetch in one query instead of N queries
-    const themesNeedingImages = themeParents.filter(p => !newestRecentByTheme.has(p));
-    const allOldCategoryNames = groupedThemes
-      .filter(t => themesNeedingImages.includes(t.parent))
-      .flatMap(t => [t.parent, ...t.subcategories.map(s => s.fullName)]);
+    // Only fetch images for themes WITHOUT manual overrides
+    const themesNeedingImages = themeParents.filter(p =>
+      !newestRecentByTheme.has(p) && !THEME_OVERRIDES[p]
+    );
 
-    const olderMinifigsData = await prismaPublic.minifigCatalog.findMany({
-      where: {
-        category_name: {
-          in: allOldCategoryNames
+    console.log(`[THEMES DEBUG] Need to query ${themesNeedingImages.length} themes (rest have manual images)`);
+
+    let olderMinifigs: Array<{ parent: string; minifigNo: string | undefined }> = [];
+
+    // Only query if there are themes needing images
+    if (themesNeedingImages.length > 0) {
+      const allOldCategoryNames = groupedThemes
+        .filter(t => themesNeedingImages.includes(t.parent))
+        .flatMap(t => [t.parent, ...t.subcategories.map(s => s.fullName)]);
+
+      const olderMinifigsData = await prismaPublic.minifigCatalog.findMany({
+        where: {
+          category_name: {
+            in: allOldCategoryNames
+          }
+        },
+        orderBy: [
+          { year_released: 'desc' },
+          { minifigure_no: 'desc' }
+        ],
+        select: {
+          minifigure_no: true,
+          category_name: true,
         }
-      },
-      orderBy: [
-        { year_released: 'desc' },
-        { minifigure_no: 'desc' }
-      ],
-      select: {
-        minifigure_no: true,
-        category_name: true,
-      }
-    });
+      });
 
-    // Map each theme parent to its newest minifig
-    const olderMinifigs = themesNeedingImages.map(parent => {
-      const themeData = groupedThemes.find(t => t.parent === parent);
-      const categoryNames = [parent, ...(themeData?.subcategories.map(s => s.fullName) || [])];
-      const minifig = olderMinifigsData.find(m => categoryNames.includes(m.category_name));
-      return { parent, minifigNo: minifig?.minifigure_no };
-    });
+      // Map each theme parent to its newest minifig
+      olderMinifigs = themesNeedingImages.map(parent => {
+        const themeData = groupedThemes.find(t => t.parent === parent);
+        const categoryNames = [parent, ...(themeData?.subcategories.map(s => s.fullName) || [])];
+        const minifig = olderMinifigsData.find(m => categoryNames.includes(m.category_name));
+        return { parent, minifigNo: minifig?.minifigure_no };
+      });
+    }
 
     // Combine images
     const newestByTheme = new Map(newestRecentByTheme);
@@ -167,11 +177,11 @@ async function getThemes(): Promise<Theme[]> {
       }
     }
 
-    // Map themes with images
+    // Map themes with images - ALWAYS check manual overrides first
     const themesWithImages = groupedThemes.map(theme => {
       let minifigNo: string | null = null;
 
-      // Check manual overrides for image first
+      // Check manual overrides for image FIRST (skip database lookup)
       if (THEME_OVERRIDES[theme.parent]) {
         minifigNo = THEME_OVERRIDES[theme.parent];
       } else {
