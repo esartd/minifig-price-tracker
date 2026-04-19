@@ -3,8 +3,10 @@ import { notFound } from 'next/navigation';
 import { findMinifigByNumber, getMinifigsByCategoryId } from '@/lib/catalog-static';
 import MinifigDetailClient from '@/components/minifig-detail-client';
 
-// Disable pre-rendering at build time - Supabase free tier can't handle it
-// All pages generate on-demand (ISR) and cache for 24 hours
+// Force dynamic rendering - required for filesystem access and database queries
+export const dynamic = 'force-dynamic';
+
+// Disable pre-rendering at build time
 export async function generateStaticParams() {
   return [];
 }
