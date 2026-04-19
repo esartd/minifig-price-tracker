@@ -1,5 +1,5 @@
 {
-  "buildCommand": "prisma generate && prisma generate --schema=prisma/schema-neon.prisma && prisma generate --schema=prisma/schema-supabase.prisma && next build",
+  "buildCommand": "prisma generate --schema=prisma/schema-hostinger.prisma && next build",
   "installCommand": "npm install",
   "framework": "nextjs",
   "rewrites": [
