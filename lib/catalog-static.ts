@@ -89,6 +89,14 @@ export async function getMinifigsByCategory(categoryName: string): Promise<Minif
 }
 
 /**
+ * Get minifigs by category ID
+ */
+export async function getMinifigsByCategoryId(categoryId: number): Promise<MinifigCatalogItem[]> {
+  const catalog = await loadCatalog();
+  return catalog.filter(m => m.category_id === categoryId);
+}
+
+/**
  * Get all categories with counts
  */
 export async function getAllCategories(): Promise<Array<{ id: number; name: string; count: number }>> {

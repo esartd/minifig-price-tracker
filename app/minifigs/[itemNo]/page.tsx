@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { findMinifigByNumber, getAllMinifigs } from '@/lib/catalog-static';
+import { findMinifigByNumber, getMinifigsByCategoryId } from '@/lib/catalog-static';
 import MinifigDetailClient from '@/components/minifig-detail-client';
 
 // Disable pre-rendering at build time - Supabase free tier can't handle it
@@ -99,14 +99,13 @@ export default async function MinifigPage({
 
   const excludePatterns = exclusions[characterName.toLowerCase()] || [];
 
-  // Fetch all minifigs from static catalog
-  const allMinifigs = await getAllMinifigs();
+  // Fetch only same-category minifigs (much faster than loading all 18k)
+  const categoryMinifigs = await getMinifigsByCategoryId(minifig.category_id);
 
-  // Filter for same category and character name
-  const allMatches = allMinifigs.filter(m =>
+  // Filter for same character name
+  const allMatches = categoryMinifigs.filter(m =>
     m.minifigure_no !== itemNo &&
-    m.name.toLowerCase().includes(characterName.toLowerCase()) &&
-    m.category_id === minifig.category_id
+    m.name.toLowerCase().includes(characterName.toLowerCase())
   );
 
   // Filter to only include matches where character name appears as a complete word
@@ -198,12 +197,9 @@ export default async function MinifigPage({
       }
     }
 
-    // Query static catalog for these specific item numbers
-    const foundMinifigs = allMinifigs
-      .filter(m =>
-        targetNumbers.includes(m.minifigure_no) &&
-        m.category_id === minifig.category_id
-      )
+    // Query from same-category minifigs for these specific item numbers
+    const foundMinifigs = categoryMinifigs
+      .filter(m => targetNumbers.includes(m.minifigure_no))
       .sort((a, b) => a.minifigure_no.localeCompare(b.minifigure_no));
 
     // If we didn't find 8, expand the range to get more
@@ -220,11 +216,8 @@ export default async function MinifigPage({
         expandedNumbers.push(`${prefix}${i.toString().padStart(match[2].length, '0')}`);
       }
 
-      const additionalMinifigs = allMinifigs
-        .filter(m =>
-          expandedNumbers.includes(m.minifigure_no) &&
-          m.category_id === minifig.category_id
-        )
+      const additionalMinifigs = categoryMinifigs
+        .filter(m => expandedNumbers.includes(m.minifigure_no))
         .sort((a, b) => a.minifigure_no.localeCompare(b.minifigure_no));
 
       themeMinifigs = [...foundMinifigs, ...additionalMinifigs].slice(0, 8);
