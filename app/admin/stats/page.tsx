@@ -24,7 +24,6 @@ export default async function AdminStatsPage() {
     totalUsers,
     totalCollectionItems,
     totalPersonalItems,
-    totalCatalogItems,
     totalPriceCache,
     recentUsers,
     allUsers,
@@ -37,7 +36,6 @@ export default async function AdminStatsPage() {
     prisma.user.count(),
     prisma.collectionItem.count(),
     prisma.personalCollectionItem.count(),
-    prismaPublic.minifigCatalog.count(),
     prisma.priceCache.count(),
     prisma.user.findMany({
       orderBy: { createdAt: 'desc' },
@@ -189,8 +187,8 @@ export default async function AdminStatsPage() {
           />
           <StatCard
             label="Catalog Items"
-            value={totalCatalogItems.toLocaleString()}
-            subtitle="On Supabase"
+            value={(18732).toLocaleString()}
+            subtitle="Static JSON"
             icon={
               <svg style={{ width: '24px', height: '24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -380,7 +378,7 @@ export default async function AdminStatsPage() {
               status="Handles traffic"
               statusColor="#3b82f6"
               items={[
-                `Catalog: ${totalCatalogItems.toLocaleString()} items`,
+                `Catalog: ${(18732).toLocaleString()} items (static JSON)`,
                 `Price Cache: ${totalPriceCache.toLocaleString()} entries`,
                 `API Call Tracker`,
               ]}
