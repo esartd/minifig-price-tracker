@@ -100,7 +100,13 @@ export default async function MinifigPage({
   const excludePatterns = exclusions[characterName.toLowerCase()] || [];
 
   // Fetch only same-category minifigs (much faster than loading all 18k)
-  const categoryMinifigs = await getMinifigsByCategoryId(minifig.category_id);
+  let categoryMinifigs = [];
+  try {
+    categoryMinifigs = await getMinifigsByCategoryId(minifig.category_id);
+  } catch (error) {
+    console.error('[MINIFIG PAGE] Failed to load category minifigs:', error);
+    categoryMinifigs = []; // Fallback to empty array
+  }
 
   // Filter for same character name
   const allMatches = categoryMinifigs.filter(m =>
