@@ -1,10 +1,13 @@
 import { MetadataRoute } from 'next'
-import { prisma, prismaPublic } from '@/lib/prisma'
+
+// Generate sitemap dynamically at runtime to avoid build-time database queries
+export const dynamic = 'force-dynamic'
+export const revalidate = 86400 // 24 hours
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://figtracker.ericksu.com'
 
-  // Static pages
+  // Static pages only - minifigs pages are discovered by Google via links
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -44,24 +47,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ]
 
-  // Get all minifigure pages from catalog
-  const minifigs = await prismaPublic.minifigCatalog.findMany({
-    select: {
-      minifigure_no: true,
-      updated_at: true,
-    },
-    orderBy: {
-      minifigure_no: 'asc'
-    }
-  })
-
-  // Generate URLs for all minifigure pages
-  const minifigPages: MetadataRoute.Sitemap = minifigs.map((minifig) => ({
-    url: `${baseUrl}/minifigs/${minifig.minifigure_no}`,
-    lastModified: minifig.updated_at,
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }))
-
-  return [...staticPages, ...minifigPages]
+  return staticPages
 }
