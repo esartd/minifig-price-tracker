@@ -85,6 +85,18 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     return 'new';
   });
 
+  // Update condition when URL changes (e.g., when navigating from collection)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const conditionParam = params.get('condition');
+      const newCondition = conditionParam === 'used' ? 'used' : 'new';
+      if (newCondition !== condition) {
+        setCondition(newCondition);
+      }
+    }
+  }, [minifig.no]); // Run when minifig changes (navigation)
+
   const [featuredSets, setFeaturedSets] = useState<any[]>([]);
 
   // Fetch pricing on client-side (user-driven, not pre-generated)
