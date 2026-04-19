@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import { prisma, prismaPublic } from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
+import { findMinifigByNumber } from '@/lib/catalog-static';
 
 /**
  * Admin endpoint to fix minifigure names in inventory
@@ -35,18 +36,16 @@ async function fixNames() {
     const updates: Array<{ id: string; old: string; new: string }> = [];
 
     for (const item of items) {
-      // Look up correct name from MinifigCache
-      const cached = await prismaPublic.minifigCache.findUnique({
-        where: { minifigure_no: item.minifigure_no }
-      });
+      // Look up correct name from static catalog
+      const catalogItem = await findMinifigByNumber(item.minifigure_no);
 
-      if (!cached) {
+      if (!catalogItem) {
         skipped++;
         continue;
       }
 
       // Check if name needs updating
-      if (item.minifigure_name === cached.name) {
+      if (item.minifigure_name === catalogItem.name) {
         skipped++;
         continue;
       }
@@ -54,7 +53,7 @@ async function fixNames() {
       // Update the name
       await prisma.collectionItem.update({
         where: { id: item.id },
-        data: { minifigure_name: cached.name }
+        data: { minifigure_name: catalogItem.name }
       });
 
       updates.push({

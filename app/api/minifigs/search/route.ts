@@ -129,68 +129,7 @@ export async function GET(request: NextRequest) {
         });
       }
 
-      // Not in catalog - check cache
-      const cached = await prismaPublic.minifigCache.findUnique({
-        where: { minifigure_no: itemNo }
-      });
-
-      if (cached && cached.expires_at > new Date()) {
-        // Update last_searched_at to track usage
-        await prismaPublic.minifigCache.update({
-          where: { minifigure_no: itemNo },
-          data: { last_searched_at: new Date() }
-        });
-
-        return NextResponse.json({
-          success: true,
-          data: [{
-            no: cached.minifigure_no,
-            name: cached.name,
-            category_id: cached.category_id,
-            image_url: cached.image_url
-          }],
-          source: 'cache_exact_match'
-        });
-      }
-
-      // Not in catalog or cache - fetch from BrickLink API as last resort (user-driven request)
-      try {
-        const minifig = await bricklinkAPI.getMinifigureByNumber(itemNo);
-
-        if (minifig) {
-          // Store in cache for future searches (user-driven caching)
-          const keywords = generateKeywords(minifig.name);
-          const expiresAt = new Date();
-          expiresAt.setHours(expiresAt.getHours() + 24); // 24-hour TTL (per BrickLink "other content" rule)
-
-          await prismaPublic.minifigCache.upsert({
-            where: { minifigure_no: itemNo },
-            create: {
-              minifigure_no: itemNo,
-              name: minifig.name,
-              category_id: minifig.category_id || 0,
-              image_url: minifig.image_url || `https://img.bricklink.com/ItemImage/MN/0/${itemNo}.png`,
-              keywords,
-              expires_at: expiresAt,
-              last_searched_at: new Date()
-            },
-            update: {
-              last_searched_at: new Date(),
-              expires_at: expiresAt // Refresh TTL on re-search
-            }
-          });
-
-          return NextResponse.json({
-            success: true,
-            data: [minifig],
-            source: 'api_exact_match'
-          });
-        }
-      } catch (error) {
-        console.error('BrickLink API error for exact match:', error);
-      }
-
-      // Not found anywhere
+      // Not in static catalog (has all 18,732 minifigs) - not found
       return NextResponse.json({
         success: false,
         error: `Minifigure "${searchTerm}" not found. Please verify the item number is correct.`,

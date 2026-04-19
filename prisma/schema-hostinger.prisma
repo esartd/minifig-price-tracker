@@ -193,3 +193,22 @@ model VerificationToken {
 
   @@id([identifier, token])
 }
+
+model ApiCallTracker {
+  date          String   @id
+  count         Int      @default(0)
+  last_call_at  DateTime @default(now())
+  updated_at    DateTime @updatedAt
+}
+
+model MinifigCache {
+  minifigure_no    String   @id
+  name             String
+  category_id      Int
+  image_url        String?  @db.Text
+  keywords         Json?
+  expires_at       DateTime
+  last_searched_at DateTime @default(now())
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+}

@@ -6,15 +6,11 @@ import { CurrencyDollarIcon, BriefcaseIcon, MagnifyingGlassIcon, ShieldCheckIcon
 // Force dynamic rendering to show current searchable catalog count
 export const dynamic = 'force-dynamic';
 
-// Get count of searchable minifigs (user-driven cache)
+// Get count of searchable minifigs from static catalog
 async function getSearchableCatalogCount(): Promise<number> {
   try {
-    const count = await prismaPublic.minifigCache.count({
-      where: {
-        expires_at: { gt: new Date() }
-      }
-    });
-    return count;
+    // Static catalog has all 18,732 minifigs available
+    return 18732;
   } catch (error) {
     console.error('Error getting catalog count:', error);
     return 0;
