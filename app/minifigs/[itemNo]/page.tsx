@@ -58,7 +58,7 @@ export async function generateMetadata({
   };
 }
 
-export const revalidate = 86400; // Revalidate every 24 hours
+export const revalidate = 21600; // 6 hours (BrickLink compliance maximum)
 
 export default async function MinifigPage({
   params
