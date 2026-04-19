@@ -139,8 +139,8 @@ async function getThemes(): Promise<Theme[]> {
   }
 }
 
-// Cache for 1 hour - themes don't change often
-export const revalidate = 3600;
+// Cache for 6 hours (BrickLink compliance maximum)
+export const revalidate = 21600;
 
 export default async function CategoriesPage() {
   const themes = await getThemes();
