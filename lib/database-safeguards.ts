@@ -116,7 +116,7 @@ export async function createSafetySnapshot() {
     collectionItems: await prisma.collectionItem.count(),
     personalItems: await prisma.personalCollectionItem.count(),
     catalog: await prismaPublic.minifigCatalog.count(),
-    priceCache: await prismaPublic.priceCache.count(),
+    priceCache: await prisma.priceCache.count(),
   };
 
   console.log('📸 Safety snapshot created:', snapshot);
@@ -129,7 +129,7 @@ export async function createSafetySnapshot() {
         collectionItems: await prisma.collectionItem.count(),
         personalItems: await prisma.personalCollectionItem.count(),
         catalog: await prismaPublic.minifigCatalog.count(),
-        priceCache: await prismaPublic.priceCache.count(),
+        priceCache: await prisma.priceCache.count(),
       };
 
       // Check if any critical data was lost (allow growth)

@@ -310,7 +310,7 @@ export class BricklinkAPI {
     const conditionCode = condition === 'new' ? 'N' : 'U';
 
     // Check cache first
-    const cached = await prismaPublic.priceCache.findUnique({
+    const cached = await prisma.priceCache.findUnique({
       where: {
         minifigure_no_condition_country_code_region: {
           minifigure_no: itemNo,
@@ -378,7 +378,7 @@ export class BricklinkAPI {
     const expiresAt = new Date();
     expiresAt.setHours(expiresAt.getHours() + 6);
 
-    await prismaPublic.priceCache.upsert({
+    await prisma.priceCache.upsert({
       where: {
         minifigure_no_condition_country_code_region: {
           minifigure_no: itemNo,

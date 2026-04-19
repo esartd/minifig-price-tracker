@@ -63,7 +63,7 @@ class DatabaseService {
     const itemsWithFreshPricing = await Promise.all(
       items.map(async (item) => {
         // Lookup fresh pricing from PriceCache
-        const freshPrice = await prismaPublic.priceCache.findUnique({
+        const freshPrice = await prisma.priceCache.findUnique({
           where: {
             minifigure_no_condition_country_code_region: {
               minifigure_no: item.minifigure_no,
@@ -198,7 +198,7 @@ class DatabaseService {
     const itemsWithFreshPricing = await Promise.all(
       items.map(async (item) => {
         // Lookup fresh pricing from PriceCache
-        const freshPrice = await prismaPublic.priceCache.findUnique({
+        const freshPrice = await prisma.priceCache.findUnique({
           where: {
             minifigure_no_condition_country_code_region: {
               minifigure_no: item.minifigure_no,

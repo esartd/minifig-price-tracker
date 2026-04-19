@@ -38,7 +38,7 @@ export default async function AdminStatsPage() {
     prisma.collectionItem.count(),
     prisma.personalCollectionItem.count(),
     prismaPublic.minifigCatalog.count(),
-    prismaPublic.priceCache.count(),
+    prisma.priceCache.count(),
     prisma.user.findMany({
       orderBy: { createdAt: 'desc' },
       take: 10,

@@ -38,7 +38,7 @@ export async function POST() {
 
     for (const item of items) {
       // Check if price cache exists and is still valid (default US region)
-      const cache = await prismaPublic.priceCache.findUnique({
+      const cache = await prisma.priceCache.findUnique({
         where: {
           minifigure_no_condition_country_code_region: {
             minifigure_no: item.minifigure_no,
