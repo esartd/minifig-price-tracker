@@ -260,7 +260,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Quatro': 'qtr001',
   'Rock Raiders': 'rck001',
   'Studios': 'stu001',
-  'Technic': 'tech001',
+  'Technic': 'tech039',
   'Time Cruisers': 'tc001',
   'Vidiyo': 'vid001',
   'World Racers': 'wc001',
