@@ -44,30 +44,26 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
         console.log('[CATALOG] Filesystem failed, using API fallback');
       }
 
-      // Fallback: Use the API route (works in Vercel)
-      const baseUrl = process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : 'http://localhost:3000';
-
-      console.log('[CATALOG] Fetching from API:', `${baseUrl}/api/catalog/minifigs`);
-      const response = await fetch(`${baseUrl}/api/catalog/minifigs`, {
+      // Fallback: Fetch from Hostinger CDN (unlimited bandwidth)
+      console.log('[CATALOG] Fetching from Hostinger CDN...');
+      const response = await fetch('https://midnightblue-rhinoceros-955220.hostingersite.com/catalog/minifigs.json', {
         signal: AbortSignal.timeout(10000), // 10 second timeout
       });
       if (!response.ok) {
-        throw new Error(`API failed: ${response.status}`);
+        throw new Error(`Hostinger CDN failed: ${response.status}`);
       }
       catalogCache = await response.json();
-      console.log('[CATALOG] Loaded from API:', catalogCache?.length || 0, 'minifigs');
+      console.log('[CATALOG] Loaded from Hostinger CDN:', catalogCache?.length || 0, 'minifigs');
       return catalogCache!;
     }
 
-    // Client-side: fetch from API route
-    const response = await fetch('/api/catalog/minifigs');
+    // Client-side: fetch from Hostinger CDN (unlimited bandwidth, fast)
+    const response = await fetch('https://midnightblue-rhinoceros-955220.hostingersite.com/catalog/minifigs.json');
     if (!response.ok) {
       throw new Error(`Failed to load catalog: ${response.status}`);
     }
     catalogCache = await response.json();
-    console.log('[CATALOG] Client loaded:', catalogCache?.length || 0, 'minifigs');
+    console.log('[CATALOG] Client loaded from Hostinger:', catalogCache?.length || 0, 'minifigs');
     return catalogCache!;
   } catch (error) {
     console.error('[CATALOG] Error loading catalog:', error);
