@@ -100,7 +100,7 @@ export default async function MinifigPage({
   const excludePatterns = exclusions[characterName.toLowerCase()] || [];
 
   // Fetch only same-category minifigs (much faster than loading all 18k)
-  let categoryMinifigs = [];
+  let categoryMinifigs: Awaited<ReturnType<typeof getMinifigsByCategoryId>> = [];
   try {
     categoryMinifigs = await getMinifigsByCategoryId(minifig.category_id);
   } catch (error) {
