@@ -8,10 +8,11 @@ export const revalidate = 86400; // Cache for 24 hours
 export async function GET() {
   try {
     const filePath = path.join(process.cwd(), 'public', 'catalog', 'minifigs.json');
-    const content = fs.readFileSync(filePath, 'utf-8');
-    const data = JSON.parse(content);
 
-    return NextResponse.json(data, {
+    // Stream the file instead of loading into memory
+    const stream = fs.createReadStream(filePath);
+
+    return new NextResponse(stream as any, {
       headers: {
         'Cache-Control': 'public, max-age=86400, immutable',
         'Content-Type': 'application/json',

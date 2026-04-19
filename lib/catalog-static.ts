@@ -50,7 +50,9 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
         : 'http://localhost:3000';
 
       console.log('[CATALOG] Fetching from API:', `${baseUrl}/api/catalog/minifigs`);
-      const response = await fetch(`${baseUrl}/api/catalog/minifigs`);
+      const response = await fetch(`${baseUrl}/api/catalog/minifigs`, {
+        signal: AbortSignal.timeout(10000), // 10 second timeout
+      });
       if (!response.ok) {
         throw new Error(`API failed: ${response.status}`);
       }
