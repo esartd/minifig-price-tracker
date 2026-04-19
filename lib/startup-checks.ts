@@ -12,6 +12,13 @@ export async function initializeAppSafeguards() {
     return;
   }
 
+  // Skip safeguards during build (Next.js build process)
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
+    console.log('⏭️  Skipping safeguards during build');
+    safeguardsInitialized = true;
+    return;
+  }
+
   console.log('🚀 Initializing application safeguards...');
 
   try {
