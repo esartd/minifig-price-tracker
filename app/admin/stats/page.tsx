@@ -38,6 +38,8 @@ export default async function AdminStatsPage() {
     clicks7d,
     clicks30d,
     topClickedProducts,
+    topThemesByCollection,
+    topThemesByWishlist,
   ] = await Promise.all([
     prisma.user.count({
       where: { email: { not: ADMIN_EMAIL } }
@@ -127,6 +129,52 @@ export default async function AdminStatsPage() {
       _count: { id: true },
       orderBy: { _count: { id: 'desc' } },
       take: 10,
+    }),
+    // Top themes by collection items (excluding admin)
+    prismaPublic.minifigCatalog.findMany({
+      where: {
+        minifigure_no: {
+          in: (await prisma.collectionItem.findMany({
+            where: { User: { email: { not: ADMIN_EMAIL } } },
+            select: { minifigure_no: true },
+            distinct: ['minifigure_no']
+          })).map(item => item.minifigure_no)
+        }
+      },
+      select: { category_name: true }
+    }).then(items => {
+      const themeCounts = items.reduce((acc, item) => {
+        const theme = item.category_name.split('/')[0].trim();
+        acc[theme] = (acc[theme] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>);
+      return Object.entries(themeCounts)
+        .map(([theme, count]) => ({ theme, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 10);
+    }),
+    // Top themes by wishlist items (excluding admin)
+    prismaPublic.minifigCatalog.findMany({
+      where: {
+        minifigure_no: {
+          in: (await prisma.wishlistItem.findMany({
+            where: { User: { email: { not: ADMIN_EMAIL } } },
+            select: { minifigure_no: true },
+            distinct: ['minifigure_no']
+          })).map(item => item.minifigure_no)
+        }
+      },
+      select: { category_name: true }
+    }).then(items => {
+      const themeCounts = items.reduce((acc, item) => {
+        const theme = item.category_name.split('/')[0].trim();
+        acc[theme] = (acc[theme] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>);
+      return Object.entries(themeCounts)
+        .map(([theme, count]) => ({ theme, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 10);
     }),
   ]);
 
@@ -383,6 +431,159 @@ export default async function AdminStatsPage() {
               </div>
             </>
           )}
+        </div>
+
+        {/* Popular Themes */}
+        <div style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          border: '1px solid #e5e5e5',
+          padding: 'var(--space-3)',
+          marginBottom: 'var(--space-6)',
+        }}>
+          <h2 style={{
+            fontSize: 'var(--text-lg)',
+            fontWeight: '600',
+            color: '#171717',
+            marginBottom: 'var(--space-3)',
+          }}>
+            Popular Themes
+          </h2>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: 'var(--space-4)',
+          }}>
+            {/* Top by Collection */}
+            <div>
+              <h3 style={{
+                fontSize: 'var(--text-base)',
+                fontWeight: '600',
+                color: '#171717',
+                marginBottom: 'var(--space-2)',
+              }}>
+                Most Collected Themes
+              </h3>
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid #e5e5e5' }}>
+                      <th style={{
+                        padding: '12px 8px',
+                        textAlign: 'left',
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        color: '#737373',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                      }}>
+                        Theme
+                      </th>
+                      <th style={{
+                        padding: '12px 8px',
+                        textAlign: 'right',
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        color: '#737373',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                      }}>
+                        Count
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {topThemesByCollection.map((item, idx) => (
+                      <tr key={idx} style={{ borderBottom: '1px solid #f5f5f5' }}>
+                        <td style={{
+                          padding: '12px 8px',
+                          fontSize: '14px',
+                          fontWeight: '500',
+                          color: '#171717',
+                        }}>
+                          {item.theme}
+                        </td>
+                        <td style={{
+                          padding: '12px 8px',
+                          fontSize: '14px',
+                          fontWeight: '600',
+                          color: '#171717',
+                          textAlign: 'right',
+                        }}>
+                          {item.count}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Top by Wishlist */}
+            <div>
+              <h3 style={{
+                fontSize: 'var(--text-base)',
+                fontWeight: '600',
+                color: '#171717',
+                marginBottom: 'var(--space-2)',
+              }}>
+                Most Wishlisted Themes
+              </h3>
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid #e5e5e5' }}>
+                      <th style={{
+                        padding: '12px 8px',
+                        textAlign: 'left',
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        color: '#737373',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                      }}>
+                        Theme
+                      </th>
+                      <th style={{
+                        padding: '12px 8px',
+                        textAlign: 'right',
+                        fontSize: '12px',
+                        fontWeight: '600',
+                        color: '#737373',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                      }}>
+                        Count
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {topThemesByWishlist.map((item, idx) => (
+                      <tr key={idx} style={{ borderBottom: '1px solid #f5f5f5' }}>
+                        <td style={{
+                          padding: '12px 8px',
+                          fontSize: '14px',
+                          fontWeight: '500',
+                          color: '#171717',
+                        }}>
+                          {item.theme}
+                        </td>
+                        <td style={{
+                          padding: '12px 8px',
+                          fontSize: '14px',
+                          fontWeight: '600',
+                          color: '#171717',
+                          textAlign: 'right',
+                        }}>
+                          {item.count}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Database Info */}
