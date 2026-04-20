@@ -53,13 +53,13 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
         background: 'linear-gradient(135deg, #ffffff 0%, #f9fafb 100%)',
         border: '1px solid #e5e5e5',
         borderRadius: '12px',
-        padding: '16px', // Match minifig card padding
+        padding: '16px',
         overflow: 'hidden',
         transition: 'all 0.2s',
         boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
         position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
+        display: 'grid',
+        gridTemplateRows: 'auto auto 1fr auto', // Badge, Image, Info, Buttons
         height: '100%'
       }}
       onMouseEnter={(e) => {
@@ -116,11 +116,7 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
       </div>
 
       {/* Set Info */}
-      <div style={{
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column'
-      }}>
+      <div>
         {/* Set Number */}
         <p style={{
           fontSize: 'var(--text-xs)',
@@ -137,22 +133,23 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
           fontWeight: '600',
           color: '#171717',
           lineHeight: '1.4',
-          marginBottom: '12px',
+          marginBottom: '0',
           overflow: 'hidden',
           display: '-webkit-box',
           WebkitLineClamp: 2,
-          WebkitBoxOrient: 'vertical',
-          flex: 1
+          WebkitBoxOrient: 'vertical'
         }}>
           {setName}
         </h3>
+      </div>
 
-        {/* Buy Buttons - LEGO.com and Amazon */}
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '8px'
-        }}>
+      {/* Buy Buttons - LEGO.com and Amazon */}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '8px',
+        alignSelf: 'end'
+      }}>
           <a
             href={legoLink}
             onClick={(e) => handleClick(e, 'lego')}
@@ -218,7 +215,6 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
             Buy on Amazon
           </a>
         </div>
-      </div>
     </div>
   );
 }
