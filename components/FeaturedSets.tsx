@@ -187,7 +187,10 @@ export default function FeaturedSets() {
               border: '1px solid #e5e5e5',
               transition: 'all 0.2s',
               width: '100%',
-              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+              display: 'grid',
+              gridTemplateRows: 'auto 1fr auto',
+              height: '100%'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.borderColor = '#d4d4d4';
@@ -205,9 +208,10 @@ export default function FeaturedSets() {
                 rel="noopener noreferrer"
                 style={{
                   textDecoration: 'none',
-                  display: 'block'
+                  display: 'contents'
                 }}
               >
+                {/* Image */}
                 <div style={{
                   position: 'relative',
                   width: '100%',
@@ -229,25 +233,31 @@ export default function FeaturedSets() {
                     unoptimized
                   />
                 </div>
-                <h3 style={{
-                  fontSize: 'var(--text-lg)',
-                  fontWeight: '600',
-                  color: '#171717',
-                  marginBottom: '4px',
-                  lineHeight: '1.3'
-                }}>
-                  {set.name}
-                </h3>
-                <p style={{
-                  fontSize: 'var(--text-sm)',
-                  color: '#737373',
-                  marginBottom: '12px'
-                }}>
-                  Set #{set.setNumber}
-                </p>
+
+                {/* Text Content */}
+                <div>
+                  <h3 style={{
+                    fontSize: 'var(--text-lg)',
+                    fontWeight: '600',
+                    color: '#171717',
+                    marginBottom: '4px',
+                    lineHeight: '1.3'
+                  }}>
+                    {set.name}
+                  </h3>
+                  <p style={{
+                    fontSize: 'var(--text-sm)',
+                    color: '#737373',
+                    marginBottom: '0'
+                  }}>
+                    Set #{set.setNumber}
+                  </p>
+                </div>
+
+                {/* Button */}
                 <div style={{
                   display: 'inline-block',
-                  padding: '8px 16px',
+                  padding: '10px 20px',
                   fontSize: 'var(--text-sm)',
                   fontWeight: '600',
                   color: '#ffffff',
@@ -255,7 +265,9 @@ export default function FeaturedSets() {
                     ? 'linear-gradient(135deg, #005C97 0%, #363795 100%)'
                     : 'linear-gradient(135deg, #FF9900 0%, #FF6B00 100%)',
                   borderRadius: '8px',
-                  marginTop: '8px'
+                  alignSelf: 'start',
+                  textAlign: 'center',
+                  marginTop: '16px'
                 }}>
                   {set.retailer === 'lego' ? 'Buy on LEGO.com' : 'Buy on Amazon'}
                 </div>
