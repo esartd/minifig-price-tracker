@@ -301,6 +301,8 @@ model User {
   subscriptionEndsAt        DateTime?
   subscriptionPlan          String?
   subscriptionStatus        String?
+  shareToken                String?                     @unique
+  shareEnabled              Boolean                     @default(false)
   Account                   Account[]
   CollectionItem            CollectionItem[]
   Listing                   Listing[]

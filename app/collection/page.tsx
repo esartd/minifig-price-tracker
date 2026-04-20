@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { PersonalCollectionItem } from '@/types';
 import PersonalCollectionList from '@/components/PersonalCollectionList';
 import CollectionSwitcher from '@/components/CollectionSwitcher';
+import ShareCollectionButton from '@/components/ShareCollectionButton';
 import Link from 'next/link';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
@@ -370,28 +371,31 @@ export default function PersonalCollectionPage() {
                 Your personal collection — minifigs you're keeping, not selling
               </p>
             </div>
-            <Link
-              href="/search?mode=collection"
-              className="collection-add-button"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '16px 32px',
-                fontSize: 'var(--text-base)',
-                fontWeight: '600',
-                color: 'white',
-                background: '#3b82f6',
-                borderRadius: '12px',
-                textDecoration: 'none',
-                transition: 'all 0.2s',
-                border: 'none',
-                width: '100%',
-                boxSizing: 'border-box'
-              }}
-            >
-              + Add Minifigs
-            </Link>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <Link
+                href="/search?mode=collection"
+                className="collection-add-button"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '16px 32px',
+                  fontSize: 'var(--text-base)',
+                  fontWeight: '600',
+                  color: 'white',
+                  background: '#3b82f6',
+                  borderRadius: '12px',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s',
+                  border: 'none',
+                  width: '100%',
+                  boxSizing: 'border-box'
+                }}
+              >
+                + Add Minifigs
+              </Link>
+              <ShareCollectionButton />
+            </div>
           </div>
         )}
 
