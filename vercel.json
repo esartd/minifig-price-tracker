@@ -8,32 +8,6 @@
       "destination": "/api/$1"
     }
   ],
-  "crons": [
-    {
-      "path": "/api/cron/backup-database",
-      "schedule": "0 4 * * *"
-    },
-    {
-      "path": "/api/cron/price-history",
-      "schedule": "0 2 * * *"
-    },
-    {
-      "path": "/api/cron/refresh-prices",
-      "schedule": "0 3 * * *"
-    },
-    {
-      "path": "/api/cron/check-catalog-changes",
-      "schedule": "0 2 1,15 * *"
-    },
-    {
-      "path": "/api/cron/download-catalogs",
-      "schedule": "30 2 1,15 * *"
-    },
-    {
-      "path": "/api/cron/update-catalog",
-      "schedule": "0 3 1,15 * *"
-    }
-  ],
   "functions": {
     "app/api/download-catalog/[type]/route.ts": {
       "maxDuration": 60
