@@ -292,13 +292,13 @@ function SearchPageContent() {
       background: '#ffffff',
       transition: 'background 0.4s ease-out'
     }}>
-      {/* Floating Background Minifigures - Only in search section */}
+      {/* Floating Background Minifigures - Only in hero section */}
       <div style={{
         position: 'absolute',
         top: '72px',
         left: 0,
         right: 0,
-        bottom: 0,
+        height: 'calc(100vh - 272px)',
         zIndex: 0,
         pointerEvents: 'none',
         overflow: 'hidden'
