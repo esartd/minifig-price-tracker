@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
 import { prisma, prismaPublic } from '@/lib/prisma';
 import PopularThemesSection from './stats-client';
+import { getAllMinifigs } from '@/lib/catalog-static';
 
 // Admin email - only this user can access
 const ADMIN_EMAIL = 'erickkosysu@gmail.com';
@@ -25,6 +26,10 @@ export default async function AdminStatsPage() {
     where: { email: ADMIN_EMAIL },
     select: { id: true }
   });
+
+  // Get catalog count
+  const catalog = await getAllMinifigs();
+  const catalogCount = catalog.length;
 
   // Get all the stats (excluding admin account)
   const [
@@ -233,7 +238,7 @@ export default async function AdminStatsPage() {
           />
           <StatCard
             label="Catalog Items"
-            value={(18732).toLocaleString()}
+            value={catalogCount.toLocaleString()}
             subtitle="Static JSON"
             icon={
               <svg style={{ width: '24px', height: '24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -421,7 +426,7 @@ export default async function AdminStatsPage() {
                 `Personal Items: ${totalPersonalItems}`,
                 `Price Cache: ${totalPriceCache.toLocaleString()} entries`,
                 `Affiliate Clicks: ${totalClicks}`,
-                `Catalog: ${(18732).toLocaleString()} items`,
+                `Catalog: ${catalogCount.toLocaleString()} items`,
               ]}
             />
           </div>
