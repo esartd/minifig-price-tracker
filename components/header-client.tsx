@@ -810,6 +810,28 @@ export function HeaderClient({ user }: HeaderClientProps) {
           }}>
             Account Settings
           </Link>
+          <Link href="/wishlist" onClick={() => setMobileMenuOpen(false)} style={{
+            display: 'block',
+            padding: '15px 0',
+            borderBottom: '1px solid #f5f5f5',
+            color: '#171717',
+            textDecoration: 'none',
+            fontSize: 'var(--text-base)'
+          }}>
+            Wishlist
+          </Link>
+          {user?.email === 'erickkosysu@gmail.com' && (
+            <Link href="/admin/stats" onClick={() => setMobileMenuOpen(false)} style={{
+              display: 'block',
+              padding: '15px 0',
+              borderBottom: '1px solid #f5f5f5',
+              color: '#171717',
+              textDecoration: 'none',
+              fontSize: 'var(--text-base)'
+            }}>
+              Admin Dashboard
+            </Link>
+          )}
           <button onClick={() => { setMobileMenuOpen(false); handleSignOut(); }} style={{
             display: 'block',
             width: '100%',
