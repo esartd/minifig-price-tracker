@@ -1,14 +1,66 @@
 /**
- * Main character mapping for TV shows and movies
- * Format: "Sub-theme name": "Main character name to search for"
+ * SINGLE SOURCE OF TRUTH for theme and series representative images
  *
- * Use this for cases where the main character is known but might not
- * have the most variants (e.g., supporting characters are more popular)
+ * Both theme list pages AND series detail pages use this via /api/subcategories
+ *
+ * Format: "Sub-theme name": "minifig ID" (e.g., "sw1507") or "Character name"
+ *
+ * - Direct minifig ID (e.g., "cas417"): Use this exact image
+ * - Character name (e.g., "Boba Fett"): Search for best match
+ *
+ * When you update this file, both pages automatically sync.
+ * DO NOT create separate cover image configs elsewhere.
  *
  * Updated: 2024
  */
 
 export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
+  // ====================
+  // SERIES (Sub-themes)
+  // ====================
+
+  // Castle
+  'Castle / Black Knights': 'cas417',
+  'Castle / Dark Forest': 'cas009',
+  'Castle / Dragon Knights': 'cas017',
+  'Castle / Fantasy Era': 'cas430',
+  'Castle / Fright Knights': 'cas215',
+  'Castle / Knights Kingdom I': 'cas309',
+  'Castle / Wolfpack': 'cas585',
+  'Castle': 'cas592', // Uncategorized Castle minifigs
+
+  // Collectible Minifigures
+  'Collectible Minifigures': 'col271', // Uncategorized
+  'Collectible Minifigures / Promotional': 'gen098',
+  'Collectible Minifigures / Series 21 Minifigures': 'col385',
+
+  // Despicable Me and Minions
+  'Despicable Me and Minions / Minions The Rise Of Gru': 'mnn007',
+
+  // Disney
+  'Disney / Disney Princess / Cinderella': 'dp162',
+  'Disney / Disney Princess / Tangled': 'dp225',
+  'Disney / Mickey Mouse': 'mck001',
+
+  // DUPLO
+  'DUPLO / Action Wheelers': '4555pb140',
+  'DUPLO / Lightyear': '47394pb336',
+  'DUPLO / Little Forest Friends': '31231pb03',
+  'DUPLO / Little Robots': '44323',
+  'DUPLO / Peppa Pig': '47205pb116',
+  'DUPLO / Pirates': '47394pb050',
+  'DUPLO / Princess Castle': '47394pb085a',
+  'DUPLO / Super Heroes / Avengers': '47394pb281',
+  'DUPLO / Super Heroes / Batman II': '47394pb187',
+  'DUPLO / Super Heroes / Spider-Man': '47394pb193',
+  'DUPLO / Super Heroes / Spidey and his Amazing Friends': '47394pb311',
+  'DUPLO / Super Heroes / Superman': '47394pb175',
+  'DUPLO / The LEGO Movie 2': '47205pb064',
+  'DUPLO / Toy Story': '47394pb274',
+  'DUPLO / Toy Story / Toy Story 3': '47205pb022',
+  'DUPLO / Western': '31181pb03',
+  'DUPLO / Winnie The Pooh': '47205pb023',
+
   // Star Wars Movies & Shows
   'Star Wars Episode 1': 'Qui-Gon Jinn',
   'Star Wars Episode 2': 'Anakin Skywalker',
@@ -127,7 +179,9 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
 };
 
 /**
- * Main theme overrides (for parent themes)
+ * ========================
+ * PARENT THEMES
+ * ========================
  */
 export const THEME_OVERRIDES: { [theme: string]: string } = {
   // Current themes

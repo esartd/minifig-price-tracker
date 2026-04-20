@@ -48,7 +48,13 @@ export async function GET(request: NextRequest) {
 
     // Use manual overrides, fallback to first minifig from that subcategory
     const subcategoriesWithImages = subcategories.map(sub => {
-      const knownMainCharacter = getMainCharacter(sub.subTheme);
+      // Try full category name first (e.g., "Castle / Black Knights")
+      // Then try just subTheme (e.g., "Black Knights")
+      // Then try parent theme for Uncategorized (e.g., "Castle")
+      let knownMainCharacter = getMainCharacter(sub.fullName)
+        || getMainCharacter(sub.subTheme)
+        || (sub.subTheme === 'Uncategorized' ? getMainCharacter(theme) : null);
+
       let representativeMinifig = null;
 
       if (knownMainCharacter && /^[a-z]+\d+[a-z]?$/i.test(knownMainCharacter)) {

@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SetAdCard from '@/components/SetAdCard';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
-import { getSubcategoryCover } from '@/lib/subcategory-covers';
+import { getMainCharacter } from '@/lib/theme-main-characters';
 
 interface Minifig {
   no: string;
@@ -35,6 +35,7 @@ export default function SubcategoryMinifigsPage({
   const [subcategory, setSubcategory] = useState<string>('');
   const [minifigs, setMinifigs] = useState<Minifig[]>([]);
   const [featuredSets, setFeaturedSets] = useState<LegoSet[]>([]);
+  const [coverImage, setCoverImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -54,6 +55,21 @@ export default function SubcategoryMinifigsPage({
       const fullCategoryName = subcategoryName === 'Uncategorized'
         ? themeName
         : `${themeName} / ${subcategoryName}`;
+
+      // Fetch representative image from subcategories API (same source as theme list page)
+      const subcategoriesResponse = await fetch(
+        `/api/subcategories?theme=${encodeURIComponent(themeName)}`
+      );
+      const subcategoriesData = await subcategoriesResponse.json();
+
+      if (subcategoriesData.success) {
+        const matchingSubcategory = subcategoriesData.data.find(
+          (sub: any) => sub.subTheme === subcategoryName
+        );
+        if (matchingSubcategory?.representativeImage) {
+          setCoverImage(matchingSubcategory.representativeImage);
+        }
+      }
 
       // Fetch minifigs
       const minifigsResponse = await fetch(
@@ -123,8 +139,6 @@ export default function SubcategoryMinifigsPage({
     );
   }
 
-  const coverImage = getSubcategoryCover(theme, subcategory);
-
   return (
     <div style={{
       maxWidth: '1200px',
@@ -134,52 +148,69 @@ export default function SubcategoryMinifigsPage({
       {/* Breadcrumb */}
       <Breadcrumbs items={breadcrumbItems} />
 
-      {/* Hero Section with Cover Image */}
+      {/* Hero Section with Cover Image - Clean Spotify Style */}
       {coverImage && (
         <div style={{
-          position: 'relative',
-          width: '100%',
-          height: '300px',
-          borderRadius: '16px',
-          overflow: 'hidden',
-          marginBottom: '32px',
-          background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          gap: '24px',
+          marginBottom: '32px',
+          padding: '24px',
+          borderRadius: '12px',
+          background: '#ffffff',
+          border: '1px solid #e5e5e5'
         }}>
-          <Image
-            src={coverImage}
-            alt={subcategory === 'Uncategorized' ? theme : subcategory}
-            width={400}
-            height={500}
-            style={{
-              objectFit: 'contain',
-              maxHeight: '280px',
-              filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))'
-            }}
-            priority
-          />
+          {/* Minifig Image */}
           <div style={{
-            position: 'absolute',
-            bottom: '24px',
-            left: '24px',
-            color: '#ffffff',
-            textShadow: '0 2px 8px rgba(0,0,0,0.5)'
+            flexShrink: 0,
+            width: '120px',
+            height: '120px',
+            background: '#ffffff',
+            borderRadius: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: '1px solid #e5e5e5'
           }}>
+            <Image
+              src={coverImage}
+              alt={subcategory === 'Uncategorized' ? theme : subcategory}
+              width={120}
+              height={120}
+              style={{
+                objectFit: 'contain',
+                padding: '8px'
+              }}
+              priority
+            />
+          </div>
+
+          {/* Text Content */}
+          <div style={{
+            flex: 1
+          }}>
+            <div style={{
+              fontSize: 'var(--text-sm)',
+              fontWeight: '600',
+              marginBottom: '8px',
+              color: '#737373'
+            }}>
+              {subcategory !== 'Uncategorized' && theme}
+            </div>
             <h1 style={{
-              fontSize: 'var(--text-3xl)',
+              fontSize: 'var(--text-2xl)',
               fontWeight: '700',
               letterSpacing: '-0.02em',
-              marginBottom: '4px'
+              marginBottom: '8px',
+              color: '#171717'
             }}>
               {subcategory === 'Uncategorized' ? theme : subcategory}
             </h1>
             <p style={{
               fontSize: 'var(--text-base)',
-              opacity: 0.9
+              color: '#737373'
             }}>
-              {minifigs.length.toLocaleString()} minifigure{minifigs.length !== 1 ? 's' : ''}{subcategory !== 'Uncategorized' && ` · ${theme}`}
+              {minifigs.length.toLocaleString()} minifigure{minifigs.length !== 1 ? 's' : ''}
             </p>
           </div>
         </div>

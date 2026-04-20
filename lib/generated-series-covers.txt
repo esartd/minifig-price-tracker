@@ -1,0 +1,474 @@
+// AUTO-GENERATED SERIES COVERS (569 entries with white backgrounds)
+// Copy these into theme-main-characters.ts after your manual Castle/Disney/etc entries
+
+  // 4 Juniors
+  '4 Juniors / Creator': 'cre001',
+  '4 Juniors / Jack Stone': '4j002',
+  '4 Juniors / Pirates': '4j009',
+  '4 Juniors / Spider-Man': '4j004',
+
+  // Adventurers
+  'Adventurers / Desert': 'adv006',
+  'Adventurers / Dino Island': 'adv002',
+  'Adventurers / Jungle': 'adv001',
+  'Adventurers / Orient Expedition': 'adv024',
+
+  // Alpha Team
+  'Alpha Team / Mission Deep Freeze': 'alp021',
+  'Alpha Team / Mission Deep Sea': 'alp010',
+
+  // Aquazone
+  'Aquazone / Aquanauts': 'aqu001',
+  'Aquazone / Aquaraiders I': 'aqu004',
+  'Aquazone / Aquaraiders II': 'aqu015a',
+  'Aquazone / Aquasharks': 'aqu006',
+  'Aquazone / Hydronauts': 'aqu009',
+  'Aquazone / Stingrays': 'aqu012',
+
+  // Avatar
+  'Avatar / The Way of Water': 'avt014',
+
+  // BIONICLE
+  'BIONICLE / Barraki': 'bio013',
+  'BIONICLE / Piraka': 'bio001',
+  'BIONICLE / Toa Hordika': '51635',
+  'BIONICLE / Toa Inika': 'bio005',
+  'BIONICLE / Toa Mahri': 'bio019',
+  'BIONICLE / Visorak': '51991a',
+
+  // Cars
+  'Cars / Cars 2': 'crs040',
+  'Cars / Cars 3': 'crs001',
+
+  // Castle (additional auto-generated series)
+  'Castle / Black Falcons': '90398pb049',
+  'Castle / Forestmen': 'cas152',
+  'Castle / Knights Kingdom II': 'cas384',
+  'Castle / LEGO Castle (2007)': 'cas464',
+  'Castle / Lion Knights': 'cas558',
+  'Castle / Royal Knights': 'cas251',
+
+  // Collectible Minifigures (additional series - many!)
+  'Collectible Minifigures / Disney Series 1': 'coldis06',
+  'Collectible Minifigures / Disney Series 2': 'coldis19',
+  'Collectible Minifigures / DREAMZzz Series 1': 'drm085',
+  'Collectible Minifigures / Harry Potter Series 1': 'colhp01',
+  'Collectible Minifigures / Harry Potter Series 2': 'colhp13',
+  'Collectible Minifigures / Marvel Series 1': 'colmar08',
+  'Collectible Minifigures / Marvel Series 2': 'colmar18',
+  'Collectible Minifigures / Series 1 Minifigures': 'col001',
+  'Collectible Minifigures / Series 10 Minifigures': 'col145',
+  'Collectible Minifigures / Series 11 Minifigures': 'col161',
+  'Collectible Minifigures / Series 12 Minifigures': 'col177',
+  'Collectible Minifigures / Series 13 Minifigures': 'col193',
+  'Collectible Minifigures / Series 14 Minifigures': 'col209',
+  'Collectible Minifigures / Series 15 Minifigures': 'col225',
+  'Collectible Minifigures / Series 16 Minifigures': 'col241',
+  'Collectible Minifigures / Series 17 Minifigures': 'col257',
+  'Collectible Minifigures / Series 18 Minifigures': 'col273',
+  'Collectible Minifigures / Series 19 Minifigures': 'col289',
+  'Collectible Minifigures / Series 2 Minifigures': 'col017',
+  'Collectible Minifigures / Series 20 Minifigures': 'col305',
+  'Collectible Minifigures / Series 22 Minifigures': 'col401',
+  'Collectible Minifigures / Series 23 Minifigures': 'col417',
+  'Collectible Minifigures / Series 24 Minifigures': 'col433',
+  'Collectible Minifigures / Series 25 Minifigures': 'col449',
+  'Collectible Minifigures / Series 26 Minifigures': 'col465',
+  'Collectible Minifigures / Series 3 Minifigures': 'col033',
+  'Collectible Minifigures / Series 4 Minifigures': 'col049',
+  'Collectible Minifigures / Series 5 Minifigures': 'col065',
+  'Collectible Minifigures / Series 6 Minifigures': 'col081',
+  'Collectible Minifigures / Series 7 Minifigures': 'col097',
+  'Collectible Minifigures / Series 8 Minifigures': 'col113',
+  'Collectible Minifigures / Series 9 Minifigures': 'col129',
+  'Collectible Minifigures / Simpsons Series 1': 'sim001',
+  'Collectible Minifigures / Simpsons Series 2': 'sim017',
+  'Collectible Minifigures / The LEGO Batman Movie Series 1': 'coltlbm01',
+  'Collectible Minifigures / The LEGO Batman Movie Series 2': 'coltlbm21',
+  'Collectible Minifigures / The LEGO Movie Series': 'col256',
+  'Collectible Minifigures / The LEGO NINJAGO Movie': 'colnjo01',
+
+  // Despicable Me and Minions
+  'Despicable Me and Minions / Despicable Me 4': 'mnn016',
+
+  // Dimensions
+  'Dimensions / Adventure Time': 'dim026',
+  'Dimensions / Back to the Future': 'dim015',
+  'Dimensions / Beetlejuice': 'dim050',
+  'Dimensions / Doctor Who': 'dim009',
+  'Dimensions / E.T.': 'dim030',
+  'Dimensions / Ghostbusters': 'dim016',
+  'Dimensions / Gremlins': 'dim032',
+  'Dimensions / Harry Potter': 'dim036',
+  'Dimensions / Harry Potter / Fantastic Beasts': 'dim029',
+  'Dimensions / Jurassic World': 'dim004',
+  'Dimensions / Knight Rider': 'dim042',
+  'Dimensions / LEGENDS OF CHIMA': 'dim003',
+  'Dimensions / Midway Arcade': 'dim020',
+  'Dimensions / Mission: Impossible': 'dim025',
+  'Dimensions / NINJAGO / Tournament of Elements': 'dim011',
+  'Dimensions / Portal 2': 'dim006',
+  'Dimensions / Promotional / Super Heroes': 'dim040',
+  'Dimensions / Sonic the Hedgehog': 'dim031',
+  'Dimensions / Super Heroes / Batman II': 'dim002',
+  'Dimensions / Super Heroes / Superman': 'dim019',
+  'Dimensions / Super Heroes / Teen Titans Go!': 'dim048',
+  'Dimensions / Super Heroes / The LEGO Batman Movie': 'dim041',
+  'Dimensions / The A-Team': 'dim024',
+  'Dimensions / The Goonies': 'dim045',
+  'Dimensions / The Hobbit and The Lord of the Rings': 'dim001',
+  'Dimensions / The Hobbit and The Lord of the Rings / The Lord of the Rings': 'dim007',
+  'Dimensions / The LEGO Movie': 'dim010',
+  'Dimensions / The Powerpuff Girls': 'dim051',
+  'Dimensions / The Wizard of Oz': 'dim005',
+  'Dimensions / Town / City / Police': 'dim047',
+
+  // Disney (additional series)
+  'Disney / Disney 100': 'dis085',
+  'Disney / Disney 100 / Up': 'dis090',
+  'Disney / Disney Princess': 'dp094',
+  'Disney / Disney Princess / Aladdin': 'dp012',
+  'Disney / Disney Princess / Ariel': 'dp193',
+  'Disney / Disney Princess / Beauty and the Beast': '38014pb01',
+  'Disney / Disney Princess / Brave': 'dp002',
+  'Disney / Disney Princess / Frozen': 'dp015',
+  'Disney / Disney Princess / Frozen / Frozen II': 'dp070',
+  'Disney / Disney Princess / Moana': 'dp163',
+  'Disney / Disney Princess / Moana 2': 'moa006',
+  'Disney / Disney Princess / Mulan': 'dp044',
+  'Disney / Disney Princess / Sleeping Beauty': 'dis151',
+  'Disney / Disney Princess / Snow White': 'dp043',
+  'Disney / Disney Princess / Tangled / Tangled The Series': 'dp055',
+  'Disney / Disney Princess / The Little Mermaid': 'dis150',
+  'Disney / Disney Princess / The Princess and the Frog': 'dp065',
+  'Disney / Disney Villains': 'dis180',
+  'Disney / Encanto': 'dis058',
+  'Disney / Inside Out 2': 'dis162',
+  'Disney / Lilo & Stitch': 'dis174',
+  'Disney / Mickey and Friends': 'dis047',
+  'Disney / Peter Pan & Wendy': 'dis082',
+  'Disney / Raya and the Last Dragon': 'dp116',
+  'Disney / The Little Mermaid': 'dis110',
+  'Disney / The Nightmare Before Christmas': 'dis192',
+  'Disney / Toy Story': 'dis182',
+  'Disney / Winnie The Pooh': 'dis190',
+  'Disney / Wish': 'dis143',
+
+  // DUPLO (additional series)
+  'DUPLO / Lightyear': '47394pb336',
+  'DUPLO / Little Forest Friends': '31231pb03',
+  'DUPLO / Little Robots': '44323',
+  'DUPLO / Peppa Pig': '47205pb116',
+  'DUPLO / Pirates': '47394pb050',
+  'DUPLO / Princess Castle': '47394pb085a',
+  'DUPLO / Super Heroes / Avengers': '47394pb281',
+  'DUPLO / Super Heroes / Batman II': '47394pb187',
+  'DUPLO / Super Heroes / Spider-Man': '47394pb193',
+  'DUPLO / Super Heroes / Spidey and his Amazing Friends': '47394pb311',
+  'DUPLO / Super Heroes / Superman': '47394pb175',
+  'DUPLO / The LEGO Movie 2': '47205pb064',
+  'DUPLO / Toy Story': '47394pb274',
+  'DUPLO / Toy Story / Toy Story 3': '47205pb022',
+  'DUPLO / Western': '31181pb03',
+  'DUPLO / Winnie The Pooh': '47205pb023',
+
+  // Educational & Dacta
+  'Educational & Dacta / BricQ': 'edu009',
+  'Educational & Dacta / Science': 'pln208',
+  'Educational & Dacta / SPIKE Prime': 'edu007',
+  'Educational & Dacta / Town': 'edu011',
+
+  // Gabby's Dollhouse
+  'Gabby's Dollhouse / Gabby's Dollhouse The Movie': 'gdh013',
+
+  // Games
+  'Games / Harry Potter': '85863pb034',
+  'Games / Heroica': '85863pb058',
+  'Games / LEGENDS OF CHIMA': '85863pb098',
+  'Games / NINJAGO / The Golden Weapons': '85863pb050',
+  'Games / Star Wars / Star Wars Episode 4/5/6': '85863pb075',
+  'Games / Super Heroes / Batman II': '85863pb101',
+  'Games / The Hobbit and The Lord of the Rings / The Hobbit': '85863pb094',
+  'Games / The Hobbit and The Lord of the Rings / The Lord of the Rings': '85863pb114',
+  'Games / Town / City / Police': '85863pb073',
+
+  // Harry Potter (additional series)
+  'Harry Potter / Chamber of Secrets': 'hp017',
+  'Harry Potter / Deathly Hallows': 'hp344',
+  'Harry Potter / Fantastic Beasts': 'hp163',
+  'Harry Potter / Goblet of Fire': 'gen174',
+  'Harry Potter / Half-Blood Prince': 'hp087',
+  'Harry Potter / Order of the Phoenix': 'hp081',
+  'Harry Potter / Prisoner of Azkaban': 'hp042',
+  'Harry Potter / Sorcerer's Stone': '41983',
+
+  // Hero Factory
+  'Hero Factory / Heroes': 'hf002',
+  'Hero Factory / Villains': 'hf007',
+
+  // Hidden Side
+  'Hidden Side / Hidden Side Season 1': 'hs001',
+  'Hidden Side / Hidden Side Season 2': 'hs055',
+
+  // Indiana Jones
+  'Indiana Jones / Indiana Jones IV': 'iaj036',
+  'Indiana Jones / Indiana Jones I-III': 'iaj002',
+
+  // Jurassic World (additional series)
+  'Jurassic World / Fallen Kingdom': 'jw009',
+  'Jurassic World / Jurassic Park': 'jw026',
+  'Jurassic World / Jurassic World Dominion': 'jw036',
+
+  // LEGENDS OF CHIMA (additional series)
+  'LEGENDS OF CHIMA / Speedorz': 'loc084',
+
+  // Minecraft (additional series)
+  'Minecraft / Dungeons': 'min064',
+
+  // Minions (additional)
+  'Despicable Me and Minions / Despicable Me': 'mnn001',
+  'Despicable Me and Minions / Despicable Me 2': 'mnn002',
+  'Despicable Me and Minions / Despicable Me 3': 'mnn003',
+
+  // Monster Fighters
+  'Monster Fighters / Vampires': 'mof001',
+
+  // NEXO KNIGHTS (additional series)
+  'NEXO KNIGHTS / N EXO KNIGHTS Series 1': 'nex001',
+  'NEXO KNIGHTS / NEXO KNIGHTS Series 2': 'nex085',
+
+  // NINJAGO (additional series - many!)
+  'NINJAGO / Anacondrai Tribe': 'njo134',
+  'NINJAGO / Crystallized': 'njo0894',
+  'NINJAGO / Day of the Departed': 'njo0228',
+  'NINJAGO / Dragons Rising': 'njo0974',
+  'NINJAGO / Hands of Time': 'njo0267',
+  'NINJAGO / Hunted': 'njo0392',
+  'NINJAGO / Legacy': 'njo0527',
+  'NINJAGO / March of the Oni': 'njo0465',
+  'NINJAGO / Master of the Mountain': 'njo0602',
+  'NINJAGO / Pilot Episodes': 'njo001',
+  'NINJAGO / Possession': 'njo150',
+  'NINJAGO / Prime Empire': 'njo0571',
+  'NINJAGO / Rise of the Snakes': 'njo012',
+  'NINJAGO / Rebooted': 'njo091',
+  'NINJAGO / Seabound': 'njo0702',
+  'NINJAGO / Secrets of the Forbidden Spinjitzu': 'njo0488',
+  'NINJAGO / Skybound': 'njo180',
+  'NINJAGO / Sons of Garmadon': 'njo0318',
+  'NINJAGO / The Island': 'njo0674',
+  'NINJAGO / The Keepers Village': 'njo0761',
+  'NINJAGO / The Merge': 'njo0951',
+  'NINJAGO / The Overlord': 'njo052',
+  'NINJAGO / The Virtuous Mission': 'njo0802',
+  'NINJAGO / Tournament of Elements': 'njo117',
+
+  // One Piece
+  'One Piece / Monkey D. Luffy's Adventures': 'op001',
+
+  // Pharaoh's Quest
+  'Pharaoh's Quest / The Golden Staff of Amset-Ra': 'pha005',
+
+  // Pirates
+  'Pirates / Armada': 'pi124',
+  'Pirates / Imperial Guard': 'pi087',
+  'Pirates / Islanders': 'pi029',
+  'Pirates / Pirates I': 'pi003',
+  'Pirates / Pirates II': 'pi043',
+
+  // Power Miners
+  'Power Miners / Crystal Sweeper': 'pm001',
+  'Power Miners / Rock Monsters': 'pm022',
+
+  // Racers
+  'Racers / Tiny Turbos': 'rac024',
+
+  // Space
+  'Space / Alien Conquest': 'sp110',
+  'Space / Blacktron': 'sp001',
+  'Space / Blacktron Future Generation': 'sp040',
+  'Space / Classic': 'sp002',
+  'Space / Explorien': 'sp053',
+  'Space / Futuron': 'sp008',
+  'Space / Ice Planet 2002': 'sp047',
+  'Space / Insectoids': 'sp064',
+  'Space / Life on Mars': 'sp071',
+  'Space / M-Tron': 'sp012',
+  'Space / Mars Mission': 'sp098',
+  'Space / Robo Force': 'sp059',
+  'Space / Space Police': 'sp003',
+  'Space / Space Police III': 'sp105',
+  'Space / Spyrius': 'sp056',
+  'Space / UFO': 'sp063',
+  'Space / Unitron': 'sp062',
+
+  // SPEED CHAMPIONS (additional series)
+  'SPEED CHAMPIONS / Formula 1': 'sc066',
+
+  // Spider-Man (additional series)
+  'Spider-Man / Spider-Man 2': 'spd005',
+  'Spider-Man / Spider-Man 3': 'spd013',
+
+  // SpongeBob SquarePants
+  'SpongeBob SquarePants / SpongeBob SquarePants': 'bob001',
+
+  // Sports
+  'Sports / Basketball': 'nba001',
+  'Sports / Football': 'soc081',
+  'Sports / Gravity Games': 'grav001',
+  'Sports / Hockey': 'nhl001',
+  'Sports / Soccer': 'soc001',
+
+  // Star Wars (additional series - many!)
+  'Star Wars / Expanded Universe': 'sw0149',
+  'Star Wars / Star Wars Episode 4/5/6': 'sw0002',
+  'Star Wars / Star Wars Episode 7': 'sw0684',
+  'Star Wars / Star Wars Episode 8': 'sw0855',
+  'Star Wars / Star Wars Episode 9': 'sw1030',
+  'Star Wars / Star Wars Games': 'sw0954',
+  'Star Wars / Star Wars Microfighters': 'sw0541',
+  'Star Wars / Star Wars Other': 'sw0011',
+  'Star Wars / Star Wars Rebels': 'sw0549',
+  'Star Wars / Star Wars Rogue One': 'sw0764',
+  'Star Wars / Star Wars Solo': 'sw0928',
+  'Star Wars / Star Wars The Acolyte': 'sw1443',
+  'Star Wars / Star Wars The Bad Batch': 'sw1130',
+  'Star Wars / Star Wars The Book of Boba Fett': 'sw1169',
+  'Star Wars / Star Wars The Clone Wars': 'sw0201',
+  'Star Wars / Star Wars The Mandalorian': 'sw1012',
+  'Star Wars / Star Wars Young Jedi Adventures': 'sw1268',
+  'Star Wars / Super Heroes / Avengers Age of Ultron': 'sw0664',
+
+  // Super Heroes (additional series - many!)
+  'Super Heroes / Ant-Man and the Wasp': 'sh465',
+  'Super Heroes / Avengers': 'sh033',
+  'Super Heroes / Avengers Age of Ultron': 'sh172',
+  'Super Heroes / Avengers Endgame': 'sh535',
+  'Super Heroes / Avengers Infinity War': 'sh483',
+  'Super Heroes / Batman I': 'sh001',
+  'Super Heroes / Batman II': 'sh009',
+  'Super Heroes / Batman v Superman': 'sh256',
+  'Super Heroes / Black Panther': 'sh458',
+  'Super Heroes / Black Panther Wakanda Forever': 'sh713',
+  'Super Heroes / Captain America Civil War': 'sh309',
+  'Super Heroes / Captain Marvel': 'sh547',
+  'Super Heroes / Doctor Strange': 'sh344',
+  'Super Heroes / Guardians of the Galaxy': 'sh089',
+  'Super Heroes / Guardians of the Galaxy Vol. 2': 'sh374',
+  'Super Heroes / Iron Man 3': 'sh068',
+  'Super Heroes / Shang-Chi and the Legend of the Ten Rings': 'sh659',
+  'Super Heroes / Spider-Man': 'sh010',
+  'Super Heroes / Spider-Man Far From Home': 'sh568',
+  'Super Heroes / Spider-Man Homecoming': 'sh386',
+  'Super Heroes / Spider-Man No Way Home': 'sh647',
+  'Super Heroes / Super Heroes / The Flash': 'sh766',
+  'Super Heroes / Superman': 'sh016',
+  'Super Heroes / Thor Love and Thunder': 'sh688',
+  'Super Heroes / Wonder Woman': 'sh367',
+
+  // Super Mario (additional series)
+  'Super Mario / Adventures with Luigi': 'mar0097',
+  'Super Mario / Adventures with Mario': 'mar0001',
+  'Super Mario / Adventures with Peach': 'mar0140',
+  'Super Mario / Expansion Set': 'mar0055',
+
+  // Teenage Mutant Ninja Turtles
+  'Teenage Mutant Ninja Turtles / Teenage Mutant Ninja Turtles': 'tnt001',
+
+  // The Hobbit and The Lord of the Rings (additional series)
+  'The Hobbit and The Lord of the Rings / The Hobbit': 'lor026',
+  'The Hobbit and The Lord of the Rings / The Hobbit / The Battle of the Five Armies': 'lor098',
+  'The Hobbit and The Lord of the Rings / The Lord of the Rings': 'lor002',
+
+  // The Incredibles
+  'The Incredibles / Incredibles 2': 'incr001',
+
+  // Time Cruisers
+  'Time Cruisers / Twisters': 'gen005',
+
+  // Town (many series!)
+  'Town / Arctic': 'arc001',
+  'Town / City': 'air031',
+  'Town / City / Airport': 'air022',
+  'Town / City / Arctic': 'cty0490',
+  'Town / City / Building': 'cty1232',
+  'Town / City / Cargo': 'cty0798',
+  'Town / City / Coast Guard': 'cty0063',
+  'Town / City / Construction': 'con008',
+  'Town / City / Deep Sea Explorers': 'cty0558',
+  'Town / City / Farm': 'cty0058',
+  'Town / City / Fire': 'cty0003',
+  'Town / City / Food & Drink': 'cty1861',
+  'Town / City / Gas Station': 'cty1117',
+  'Town / City / Harbor': 'boat009',
+  'Town / City / Hospital': 'cty0017',
+  'Town / City / Jungle': 'cty0788',
+  'Town / City / Off-Road': 'cty0385',
+  'Town / City / Police': 'cop045',
+  'Town / City / Post Office': 'cty1106',
+  'Town / City / Race': 'cty0389',
+  'Town / City / Recreation': 'cty0624',
+  'Town / City / Rides / Construction': 'cty1943',
+  'Town / City / Rides / Fire': 'cty1942',
+  'Town / City / Rides / Police': 'cty1941',
+  'Town / City / Rides / Race': 'cty1944',
+  'Town / City / School': 'cty1390',
+  'Town / City / Space Exploration': 'cty0221',
+  'Town / City / Stuntz': 'cty1314',
+  'Town / City / Traffic': 'cty0636',
+  'Town / City / Train': 'cty0499',
+  'Town / City / Volcano Explorers': 'cty0680',
+  'Town / City / Wildlife Rescue': 'cty1292',
+  'Town / City / Wrecker': 'cty1919',
+  'Town / Classic Town': 'bk001',
+  'Town / Classic Town / Airport': 'air001',
+  'Town / Classic Town / Coast Guard': 'res001',
+  'Town / Classic Town / Construction': 'con014',
+  'Town / Classic Town / Fire': 'airdg001',
+  'Town / Classic Town / Gas Station': 'oct002',
+  'Town / Classic Town / Harbor': 'boat001',
+  'Town / Classic Town / Hospital': 'doc001',
+  'Town / Classic Town / Launch Command': 'splc004',
+  'Town / Classic Town / Police': 'cop001',
+  'Town / Classic Town / Post Office': 'post001',
+  'Town / Classic Town / Race': 'oct026',
+  'Town / Classic Town / Traffic': 'twn448',
+  'Town / Divers': 'div001a',
+  'Town / Extreme Team': 'ext001',
+  'Town / Paradisa': 'par003',
+  'Town / Race': 'rac020',
+  'Town / Recreation': 'twn307',
+  'Town / Res-Q': 'rsq002',
+  'Town / Space Exploration': 'twn303',
+  'Town / Space Port': 'spp001',
+  'Town / Town Jr.': 'bnk003',
+  'Town / Town Jr. / Cargo': 'car003',
+  'Town / Town Jr. / Coast Guard': 'res008',
+  'Town / Town Jr. / Construction': 'con001',
+  'Town / Town Jr. / Fire': 'fire001',
+  'Town / Town Jr. / Police': 'cop018',
+  'Town / Town Jr. / Race': 'oct023',
+  'Town / World City': 'chef010',
+  'Town / World City / Coast Guard': 'wc014',
+  'Town / World City / Fire': 'wc016',
+  'Town / World City / Police': 'wc001',
+
+  // Toy Story
+  'Toy Story / Toy Story 3': 'toy007',
+  'Toy Story / Toy Story 4': 'toy016',
+
+  // Unikitty!
+  'Unikitty! / Unikitty! Series 1': 'coluni01',
+
+  // Universe
+  'Universe / Promotional': 'gen164',
+
+  // Vidiyo
+  'Vidiyo / Bandmates Series 1': 'vid002',
+  'Vidiyo / Bandmates Series 2': 'vid035',
+  'Vidiyo / BeatBox': 'vid001',
+  'Vidiyo / Stage': 'vid021',
+
+  // Western
+  'Western / Cowboys': 'ww007',
+  'Western / Indians': 'ww014',
