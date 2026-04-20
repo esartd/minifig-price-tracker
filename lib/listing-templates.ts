@@ -1,7 +1,7 @@
 // Free template-based listing generator (no AI, no API costs)
 
 interface ListingPreferences {
-  // Facebook
+  // Facebook & Vinted
   offersShipping?: boolean;
   offersLocalPickup?: boolean;
   offersBundleDiscount?: boolean;
@@ -86,9 +86,17 @@ function formatCondition(condition: string, platform: string): string {
     'acceptable': 'Used - Acceptable'
   };
 
+  const vintedConditions: Record<string, string> = {
+    'new': 'Brand new',
+    'like_new': 'Like new',
+    'good': 'Good',
+    'fair': 'Satisfactory'
+  };
+
   if (platform === 'facebook') return facebookConditions[condition] || condition;
   if (platform === 'ebay') return ebayConditions[condition] || condition;
   if (platform === 'bricklink') return bricklinkConditions[condition] || condition;
+  if (platform === 'vinted') return vintedConditions[condition] || condition;
 
   return condition;
 }
@@ -255,9 +263,49 @@ Condition: ${formattedCondition}`;
   return { title, description };
 }
 
+// Generate Vinted listing
+function generateVintedListing(data: ListingData): { title: string; description: string } {
+  const characterName = extractCharacterName(data.minifigName);
+  const formattedCondition = formatCondition(data.condition, 'vinted');
+  const prefs = data.preferences || {};
+
+  // Vinted title: Casual, under 100 chars
+  const title = `LEGO ${data.theme} ${characterName} Minifigure`;
+
+  // Vinted description: Very casual, friendly
+  let description = `Authentic LEGO ${characterName} minifigure 🧱
+
+Item number: ${data.minifigNo}
+Condition: ${formattedCondition}`;
+
+  if (data.knownFlaws) {
+    description += ` - ${data.knownFlaws}`;
+  }
+
+  if (data.accessories) {
+    description += `\n\nIncludes: ${data.accessories}`;
+  }
+
+  if (data.quantity > 1) {
+    description += `\n\n${data.quantity} available!`;
+  }
+
+  if (prefs.offersBundleDiscount) {
+    description += `\n\nBuying multiple? I offer bundle discounts! 💰`;
+  }
+
+  if (prefs.smokeFreeHome) {
+    description += `\n\nFrom a smoke-free, pet-free home.`;
+  }
+
+  description += `\n\nFeel free to message if you have any questions! 😊`;
+
+  return { title, description };
+}
+
 // Main function to generate listing based on platform
 export function generateListing(
-  platform: 'facebook' | 'ebay' | 'bricklink',
+  platform: 'facebook' | 'ebay' | 'bricklink' | 'vinted',
   data: ListingData
 ): { title: string; description: string } {
   switch (platform) {
@@ -267,6 +315,8 @@ export function generateListing(
       return generateEbayListing(data);
     case 'bricklink':
       return generateBricklinkListing(data);
+    case 'vinted':
+      return generateVintedListing(data);
     default:
       throw new Error(`Unknown platform: ${platform}`);
   }

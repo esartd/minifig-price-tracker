@@ -40,9 +40,9 @@ export async function POST(
     }
 
     // Validate platform
-    if (!['facebook', 'ebay', 'bricklink'].includes(platform)) {
+    if (!['facebook', 'ebay', 'bricklink', 'vinted'].includes(platform)) {
       return NextResponse.json(
-        { error: 'Invalid platform. Must be facebook, ebay, or bricklink' },
+        { error: 'Invalid platform. Must be facebook, ebay, bricklink, or vinted' },
         { status: 400 }
       );
     }

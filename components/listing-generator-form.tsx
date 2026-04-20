@@ -75,7 +75,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
   // Load preferences from localStorage
   const [preferences, setPreferences] = useState<ListingPreferences>(DEFAULT_PREFERENCES);
   const [lastUsed, setLastUsed] = useState<{
-    platform: 'facebook' | 'ebay' | 'bricklink';
+    platform: 'facebook' | 'ebay' | 'bricklink' | 'vinted';
     condition: string;
   }>({
     platform: 'facebook',
@@ -115,7 +115,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
   }, [item.id, item.condition]);
 
   const [formData, setFormData] = useState({
-    platform: 'facebook' as 'facebook' | 'ebay' | 'bricklink',
+    platform: 'facebook' as 'facebook' | 'ebay' | 'bricklink' | 'vinted',
     condition_detail: item.condition || 'new',
     accessories: '',
     known_flaws: '',
@@ -123,7 +123,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
   });
 
   // Update condition when platform changes
-  const handlePlatformChange = (newPlatform: 'facebook' | 'ebay' | 'bricklink') => {
+  const handlePlatformChange = (newPlatform: 'facebook' | 'ebay' | 'bricklink' | 'vinted') => {
     setFormData(prev => ({
       ...prev,
       platform: newPlatform
@@ -415,7 +415,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
                 <strong style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: '#171717' }}>Price:</strong>
                 <button
                   onClick={() => {
-                    const price = formData.platform === 'facebook'
+                    const price = (formData.platform === 'facebook' || formData.platform === 'vinted')
                       ? Math.round(item.pricing?.suggestedPrice ?? 0).toString()
                       : (item.pricing?.suggestedPrice ?? 0).toFixed(2);
                     navigator.clipboard.writeText(price);
@@ -442,11 +442,11 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
                 </button>
               </div>
               <div style={{ padding: '12px', backgroundColor: '#f9fafb', borderRadius: '8px', fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717' }}>
-                {formData.platform === 'facebook'
+                {(formData.platform === 'facebook' || formData.platform === 'vinted')
                   ? `$${Math.round(item.pricing?.suggestedPrice ?? 0)}`
                   : `$${(item.pricing?.suggestedPrice ?? 0).toFixed(2)}`
                 }
-                {formData.platform === 'facebook' && (
+                {(formData.platform === 'facebook' || formData.platform === 'vinted') && (
                   <span style={{ fontSize: 'var(--text-xs)', color: '#737373', marginLeft: '8px', fontWeight: 'normal' }}>
                     (whole number)
                   </span>
@@ -543,7 +543,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
             <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Platform:</label>
             <select
               value={formData.platform}
-              onChange={(e) => handlePlatformChange(e.target.value as 'facebook' | 'ebay' | 'bricklink')}
+              onChange={(e) => handlePlatformChange(e.target.value as 'facebook' | 'ebay' | 'bricklink' | 'vinted')}
               style={{
                 width: '100%',
                 padding: '12px 16px',
@@ -563,6 +563,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
               <option value="ebay">eBay</option>
               <option value="facebook">Facebook Marketplace</option>
               <option value="bricklink">BrickLink</option>
+              <option value="vinted">Vinted</option>
             </select>
           </div>
 
@@ -612,6 +613,14 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
                   <option value="very_good">Used - Very Good</option>
                   <option value="good">Used - Good</option>
                   <option value="acceptable">Used - Acceptable</option>
+                </>
+              )}
+              {formData.platform === 'vinted' && (
+                <>
+                  <option value="new">Brand new</option>
+                  <option value="like_new">Like new</option>
+                  <option value="good">Good</option>
+                  <option value="fair">Satisfactory</option>
                 </>
               )}
             </select>
@@ -811,6 +820,20 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
                       onChange={(e) => setPreferences(prev => ({ ...prev, messageWithQuestions: e.target.checked }))}
                     />
                     "Contact with questions before purchasing"
+                  </label>
+                </>
+              )}
+
+              {/* Vinted-specific */}
+              {formData.platform === 'vinted' && (
+                <>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={preferences.offersBundleDiscount}
+                      onChange={(e) => setPreferences(prev => ({ ...prev, offersBundleDiscount: e.target.checked }))}
+                    />
+                    Bundle discounts available
                   </label>
                 </>
               )}
