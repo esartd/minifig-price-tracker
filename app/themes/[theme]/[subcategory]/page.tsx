@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SetAdCard from '@/components/SetAdCard';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
+import { getSubcategoryCover } from '@/lib/subcategory-covers';
 
 interface Minifig {
   no: string;
@@ -122,6 +123,8 @@ export default function SubcategoryMinifigsPage({
     );
   }
 
+  const coverImage = getSubcategoryCover(theme, subcategory);
+
   return (
     <div style={{
       maxWidth: '1200px',
@@ -131,24 +134,78 @@ export default function SubcategoryMinifigsPage({
       {/* Breadcrumb */}
       <Breadcrumbs items={breadcrumbItems} />
 
-      <div style={{ marginBottom: '48px' }}>
-        <h1 style={{
-          fontSize: 'var(--text-2xl)',
-          fontWeight: '600',
-          color: '#171717',
-          letterSpacing: '-0.02em',
-          marginBottom: '8px'
+      {/* Hero Section with Cover Image */}
+      {coverImage && (
+        <div style={{
+          position: 'relative',
+          width: '100%',
+          height: '300px',
+          borderRadius: '16px',
+          overflow: 'hidden',
+          marginBottom: '32px',
+          background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
         }}>
-          {subcategory === 'Uncategorized' ? theme : subcategory}
-        </h1>
-        <p style={{
-          fontSize: 'var(--text-base)',
-          color: '#737373',
-          lineHeight: '1.6'
-        }}>
-          {minifigs.length.toLocaleString()} minifigure{minifigs.length !== 1 ? 's' : ''}{subcategory !== 'Uncategorized' && ` · ${theme}`}
-        </p>
-      </div>
+          <Image
+            src={coverImage}
+            alt={subcategory === 'Uncategorized' ? theme : subcategory}
+            width={400}
+            height={500}
+            style={{
+              objectFit: 'contain',
+              maxHeight: '280px',
+              filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))'
+            }}
+            priority
+          />
+          <div style={{
+            position: 'absolute',
+            bottom: '24px',
+            left: '24px',
+            color: '#ffffff',
+            textShadow: '0 2px 8px rgba(0,0,0,0.5)'
+          }}>
+            <h1 style={{
+              fontSize: 'var(--text-3xl)',
+              fontWeight: '700',
+              letterSpacing: '-0.02em',
+              marginBottom: '4px'
+            }}>
+              {subcategory === 'Uncategorized' ? theme : subcategory}
+            </h1>
+            <p style={{
+              fontSize: 'var(--text-base)',
+              opacity: 0.9
+            }}>
+              {minifigs.length.toLocaleString()} minifigure{minifigs.length !== 1 ? 's' : ''}{subcategory !== 'Uncategorized' && ` · ${theme}`}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Standard Header (no cover image) */}
+      {!coverImage && (
+        <div style={{ marginBottom: '48px' }}>
+          <h1 style={{
+            fontSize: 'var(--text-2xl)',
+            fontWeight: '600',
+            color: '#171717',
+            letterSpacing: '-0.02em',
+            marginBottom: '8px'
+          }}>
+            {subcategory === 'Uncategorized' ? theme : subcategory}
+          </h1>
+          <p style={{
+            fontSize: 'var(--text-base)',
+            color: '#737373',
+            lineHeight: '1.6'
+          }}>
+            {minifigs.length.toLocaleString()} minifigure{minifigs.length !== 1 ? 's' : ''}{subcategory !== 'Uncategorized' && ` · ${theme}`}
+          </p>
+        </div>
+      )}
 
       {minifigs.length === 0 ? (
         <div style={{
