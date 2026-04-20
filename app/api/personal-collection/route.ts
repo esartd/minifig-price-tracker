@@ -22,11 +22,11 @@ export async function GET() {
     // Get items with regional pricing from cache
     const items = await database.getAllPersonalItems(session.user.id, countryCode, region);
 
-    // Fetch pricing for items with no cache (await to ensure UI gets data)
+    // Start background pricing fetch for items with no cache (don't await - progressive loading)
     const itemsNeedingPricing = items.filter(item => !item.pricing || item.pricing.suggestedPrice === 0);
     if (itemsNeedingPricing.length > 0) {
-      // Fetch pricing for all items (no limit)
-      await Promise.all(
+      // Fetch pricing in background - prices will appear progressively as they're cached
+      Promise.all(
         itemsNeedingPricing.map(item =>
           bricklinkAPI.calculatePricingData(item.minifigure_no, item.condition, countryCode, region)
             .catch(err => {
@@ -34,11 +34,7 @@ export async function GET() {
               return null; // Continue even if one fails
             })
         )
-      );
-
-      // Re-fetch items with updated pricing
-      const updatedItems = await database.getAllPersonalItems(session.user.id, countryCode, region);
-      return NextResponse.json({ success: true, data: updatedItems });
+      ).catch(err => console.error('Background pricing fetch error:', err));
     }
 
     return NextResponse.json({ success: true, data: items });

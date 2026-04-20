@@ -59,6 +59,36 @@ export default function CollectionPage() {
       const data = await response.json();
       if (data.success) {
         setCollection(data.data);
+
+        // Check if any items are missing pricing
+        const itemsMissingPricing = data.data.filter((item: CollectionItem) => !item.pricing);
+        if (itemsMissingPricing.length > 0) {
+          // Progressive polling: fetch updates every 1.5 seconds until all prices loaded
+          let pollCount = 0;
+          const maxPolls = 20; // Stop after 30 seconds
+
+          const pollInterval = setInterval(async () => {
+            pollCount++;
+
+            try {
+              const updateResponse = await fetch('/api/inventory');
+              const updateData = await updateResponse.json();
+
+              if (updateData.success) {
+                setCollection(updateData.data);
+
+                // Stop polling if all prices loaded or max polls reached
+                const stillMissing = updateData.data.filter((item: CollectionItem) => !item.pricing);
+                if (stillMissing.length === 0 || pollCount >= maxPolls) {
+                  clearInterval(pollInterval);
+                }
+              }
+            } catch (err) {
+              console.error('Polling error:', err);
+              clearInterval(pollInterval);
+            }
+          }, 1500);
+        }
       }
     } catch (error) {
       console.error('Error loading collection:', error);
