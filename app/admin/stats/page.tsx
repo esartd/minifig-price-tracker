@@ -19,6 +19,12 @@ export default async function AdminStatsPage() {
   const last7Days = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
   const last30Days = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
 
+  // Get admin user ID to exclude from click stats
+  const adminUser = await prisma.user.findUnique({
+    where: { email: ADMIN_EMAIL },
+    select: { id: true }
+  });
+
   // Get all the stats (excluding admin account)
   const [
     totalUsers,
@@ -73,20 +79,51 @@ export default async function AdminStatsPage() {
         }
       }
     }),
-    // Affiliate click stats
-    prisma.affiliateClick.count(),
+    // Affiliate click stats (excluding admin)
     prisma.affiliateClick.count({
-      where: { clickedAt: { gte: last24Hours } }
+      where: {
+        OR: [
+          { userId: null },
+          { userId: { not: adminUser?.id } }
+        ]
+      }
     }),
     prisma.affiliateClick.count({
-      where: { clickedAt: { gte: last7Days } }
+      where: {
+        clickedAt: { gte: last24Hours },
+        OR: [
+          { userId: null },
+          { userId: { not: adminUser?.id } }
+        ]
+      }
     }),
     prisma.affiliateClick.count({
-      where: { clickedAt: { gte: last30Days } }
+      where: {
+        clickedAt: { gte: last7Days },
+        OR: [
+          { userId: null },
+          { userId: { not: adminUser?.id } }
+        ]
+      }
     }),
-    // Top clicked products
+    prisma.affiliateClick.count({
+      where: {
+        clickedAt: { gte: last30Days },
+        OR: [
+          { userId: null },
+          { userId: { not: adminUser?.id } }
+        ]
+      }
+    }),
+    // Top clicked products (excluding admin)
     prisma.affiliateClick.groupBy({
       by: ['productId', 'productName', 'platform', 'productType'],
+      where: {
+        OR: [
+          { userId: null },
+          { userId: { not: adminUser?.id } }
+        ]
+      },
       _count: { id: true },
       orderBy: { _count: { id: 'desc' } },
       take: 10,
