@@ -2,11 +2,18 @@ import { NextResponse } from 'next/server';
 
 /**
  * Consolidated cron endpoint - runs all scheduled tasks
- * Hostinger only allows 1 cron job, so this calls all sub-tasks
+ * Hostinger only allows 1 cron job, so this handles everything
  *
- * Schedule: Daily at 2 AM UTC (adjust in Hostinger cron settings)
+ * SETUP IN HOSTINGER:
+ * Set cron to run every 6 hours: 0 */6 * * * (runs at 12 AM, 6 AM, 12 PM, 6 PM UTC)
+ * URL: https://figtracker.ericksu.com/api/cron/consolidated
+ * Method: GET
+ *
+ * Tasks:
+ * 1. Price Refresh (every run) - Required every 6 hours per BrickLink API terms
+ * 2. Price History (once daily) - Records historical snapshots
  */
-export async function GET() {
+export async function GET(request: Request) {
   const results: any = {
     timestamp: new Date().toISOString(),
     tasks: []
@@ -14,34 +21,75 @@ export async function GET() {
 
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://figtracker.ericksu.com';
+    const cronSecret = process.env.CRON_SECRET;
+    const authHeader = request.headers.get('authorization');
 
-    // Task 1: Record price history
-    console.log('Starting price history recording...');
+    // Verify authorization (optional - only if CRON_SECRET is set)
+    if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    // TASK 1: Refresh prices (runs EVERY time - every 6 hours)
+    console.log('Starting price refresh...');
     try {
-      const priceHistoryResponse = await fetch(`${baseUrl}/api/price-history/record`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
+      const priceRefreshResponse = await fetch(`${baseUrl}/api/cron/refresh-prices`, {
+        headers: {
+          'Content-Type': 'application/json',
+          ...(cronSecret && { 'Authorization': `Bearer ${cronSecret}` })
+        }
       });
-      const priceHistoryData = await priceHistoryResponse.json();
+      const priceRefreshData = await priceRefreshResponse.json();
 
       results.tasks.push({
-        name: 'price-history',
-        status: priceHistoryData.success ? 'success' : 'failed',
-        data: priceHistoryData
+        name: 'price-refresh',
+        status: priceRefreshData.success ? 'success' : 'failed',
+        data: priceRefreshData
       });
-      console.log('Price history recording completed:', priceHistoryData);
+      console.log('Price refresh completed:', priceRefreshData);
     } catch (error) {
-      console.error('Price history recording failed:', error);
+      console.error('Price refresh failed:', error);
       results.tasks.push({
-        name: 'price-history',
+        name: 'price-refresh',
         status: 'error',
         error: error instanceof Error ? error.message : 'Unknown error'
       });
     }
 
-    // Add more tasks here as needed
-    // Task 2: Example - cleanup old data
-    // Task 3: Example - send email digests
+    // TASK 2: Record price history (runs ONCE daily - only at midnight UTC)
+    const currentHour = new Date().getUTCHours();
+    if (currentHour === 0) { // Runs at 12 AM UTC
+      console.log('Starting price history recording (daily task)...');
+      try {
+        const priceHistoryResponse = await fetch(`${baseUrl}/api/price-history/record`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const priceHistoryData = await priceHistoryResponse.json();
+
+        results.tasks.push({
+          name: 'price-history',
+          status: priceHistoryData.success ? 'success' : 'failed',
+          data: priceHistoryData
+        });
+        console.log('Price history recording completed:', priceHistoryData);
+      } catch (error) {
+        console.error('Price history recording failed:', error);
+        results.tasks.push({
+          name: 'price-history',
+          status: 'error',
+          error: error instanceof Error ? error.message : 'Unknown error'
+        });
+      }
+    } else {
+      results.tasks.push({
+        name: 'price-history',
+        status: 'skipped',
+        reason: `Only runs at midnight UTC (current hour: ${currentHour})`
+      });
+    }
 
     return NextResponse.json({
       success: true,
