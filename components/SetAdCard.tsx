@@ -8,14 +8,17 @@ interface SetAdCardProps {
   setName: string;
   imageUrl: string;
   year?: number;
+  amazonUrl?: string; // Optional direct Amazon affiliate URL
 }
 
 /**
  * Ad card component for LEGO sets with Amazon affiliate links
  * Designed to blend naturally into the minifig grid
+ * Supports both auto-generated and direct Amazon URLs
  */
-export default function SetAdCard({ setNumber, setName, imageUrl, year }: SetAdCardProps) {
-  const amazonLink = generateAmazonLegoSetLink(setNumber, setName);
+export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUrl }: SetAdCardProps) {
+  // Use provided amazonUrl if available, otherwise generate search link
+  const amazonLink = amazonUrl || generateAmazonLegoSetLink(setNumber, setName);
 
   const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();

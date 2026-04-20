@@ -197,31 +197,117 @@ model Session {
   User         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model SetCollectionItem {
+  id                      String    @id @default(cuid())
+  set_no                  String
+  set_name                String
+  quantity                Int
+  condition               String
+  image_url               String?
+  pricing_six_month_avg   Float?
+  pricing_current_avg     Float?
+  pricing_current_lowest  Float?
+  pricing_suggested_price Float?
+  pricing_currency_code   String?   @default("USD")
+  userId                  String
+  date_added              DateTime  @default(now())
+  last_updated            DateTime  @updatedAt
+  User                    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, set_no, condition])
+  @@index([set_no])
+  @@index([userId])
+  @@index([userId, condition])
+}
+
+model SetPersonalCollectionItem {
+  id                      String    @id @default(cuid())
+  userId                  String
+  set_no                  String
+  set_name                String
+  quantity                Int       @default(1)
+  condition               String    @default("new")
+  image_url               String?
+  pricing_six_month_avg   Float?
+  pricing_current_avg     Float?
+  pricing_current_lowest  Float?
+  pricing_suggested_price Float?
+  pricing_currency_code   String?   @default("USD")
+  notes                   String?   @db.Text
+  acquisition_date        DateTime?
+  acquisition_notes       String?   @db.Text
+  display_location        String?
+  date_added              DateTime  @default(now())
+  last_updated            DateTime  @updatedAt
+  User                    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, set_no, condition])
+  @@index([userId])
+  @@index([userId, condition])
+}
+
+model SetPriceCache {
+  id              String   @id @default(cuid())
+  set_no          String
+  condition       String
+  country_code    String   @default("US")
+  region          String   @default("north_america")
+  currency_code   String   @default("USD")
+  six_month_avg   Float
+  current_avg     Float
+  current_lowest  Float
+  suggested_price Float
+  cached_at       DateTime @default(now())
+  expires_at      DateTime @default(now())
+
+  @@unique([set_no, condition, country_code, region])
+  @@index([expires_at])
+  @@index([set_no])
+}
+
+model SetPriceHistory {
+  id              String   @id @default(cuid())
+  set_no          String
+  condition       String
+  country_code    String   @default("US")
+  region          String   @default("north_america")
+  currency_code   String   @default("USD")
+  avg_price       Float
+  lowest_price    Float
+  highest_price   Float
+  recorded_at     DateTime @default(now())
+
+  @@index([set_no, condition])
+  @@index([recorded_at])
+}
+
 model User {
-  id                     String                   @id @default(cuid())
-  name                   String?
-  email                  String                   @unique
-  password               String?
-  emailVerified          DateTime?
-  image                  String?
-  preferredCurrency      String?                  @default("USD")
-  preferredCountryCode   String?                  @default("US")
-  preferredRegion        String?                  @default("north_america")
-  currencySymbol         String?                  @default("$")
-  locale                 String?                  @default("en-US")
-  createdAt              DateTime                 @default(now())
-  updatedAt              DateTime                 @updatedAt
-  scanCredits            Int                      @default(0)
-  stripeCustomerId       String?
-  stripeSubscriptionId   String?
-  subscriptionEndsAt     DateTime?
-  subscriptionPlan       String?
-  subscriptionStatus     String?
-  Account                Account[]
-  CollectionItem         CollectionItem[]
-  Listing                Listing[]
-  PersonalCollectionItem PersonalCollectionItem[]
-  Session                Session[]
+  id                        String                      @id @default(cuid())
+  name                      String?
+  email                     String                      @unique
+  password                  String?
+  emailVerified             DateTime?
+  image                     String?
+  preferredCurrency         String?                     @default("USD")
+  preferredCountryCode      String?                     @default("US")
+  preferredRegion           String?                     @default("north_america")
+  currencySymbol            String?                     @default("$")
+  locale                    String?                     @default("en-US")
+  createdAt                 DateTime                    @default(now())
+  updatedAt                 DateTime                    @updatedAt
+  scanCredits               Int                         @default(0)
+  stripeCustomerId          String?
+  stripeSubscriptionId      String?
+  subscriptionEndsAt        DateTime?
+  subscriptionPlan          String?
+  subscriptionStatus        String?
+  Account                   Account[]
+  CollectionItem            CollectionItem[]
+  Listing                   Listing[]
+  PersonalCollectionItem    PersonalCollectionItem[]
+  SetCollectionItem         SetCollectionItem[]
+  SetPersonalCollectionItem SetPersonalCollectionItem[]
+  Session                   Session[]
 }
 
 model VerificationToken {

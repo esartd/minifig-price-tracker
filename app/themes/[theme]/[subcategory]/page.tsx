@@ -21,6 +21,7 @@ interface LegoSet {
   theme: string;
   year: number;
   imageUrl: string;
+  amazonUrl?: string; // Optional direct Amazon affiliate URL
 }
 
 export default function SubcategoryMinifigsPage({
@@ -204,6 +205,7 @@ export default function SubcategoryMinifigsPage({
                     setName={set.name}
                     imageUrl={set.imageUrl}
                     year={set.year}
+                    amazonUrl={set.amazonUrl}
                   />
                 );
               }
