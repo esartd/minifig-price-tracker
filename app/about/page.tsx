@@ -138,16 +138,16 @@ export default async function AboutPage() {
               <div className="feature-icon">
                 <BriefcaseIcon />
               </div>
-              <h3>Simple Inventory</h3>
-              <p>Track quantities, conditions, and total inventory value. Sort by price or ID. Your entire stock in one clean dashboard.</p>
+              <h3>Dual Inventory System</h3>
+              <p>Separate tracking for items you're selling and your personal collection. Track quantities, conditions, and total value. Your entire stock organized in one clean dashboard.</p>
             </div>
 
             <div className="feature-card">
               <div className="feature-icon">
                 <MagnifyingGlassIcon />
               </div>
-              <h3>Smart Search</h3>
-              <p>Search any minifig by exact BrickLink ID (e.g., dis134, sw1219). Name search finds items from {catalogCountText} searchable entries that grow as users discover more minifigs.</p>
+              <h3>Smart Search & Browse</h3>
+              <p>Search {catalogCountText} minifigs by exact BrickLink ID (e.g., dis134, sw1219) or name. Browse visually by theme (Star Wars, Harry Potter, Marvel, etc.) with featured LEGO sets from each collection.</p>
             </div>
 
             <div className="feature-card">
