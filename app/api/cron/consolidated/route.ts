@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
  * Hostinger only allows 1 cron job, so this handles everything
  *
  * SETUP IN HOSTINGER:
- * Set cron to run every 6 hours: 0 */6 * * * (runs at 12 AM, 6 AM, 12 PM, 6 PM UTC)
+ * Set cron to run every 6 hours (runs at 12 AM, 6 AM, 12 PM, 6 PM UTC)
  * URL: https://figtracker.ericksu.com/api/cron/consolidated
  * Method: GET
  *
