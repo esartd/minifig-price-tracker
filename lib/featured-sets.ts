@@ -14,39 +14,10 @@ export interface FeaturedSet {
 
 /**
  * Featured Star Wars sets with direct Amazon links
- * Add new sets here for priority placement
- *
- * For pre-order/new sets not yet in BrickLink:
- * - Use a placeholder image or fetch from Amazon product page
- * - setNumber can be approximate or 'pre-order-1', etc.
- * - Update with actual details once sets launch
+ * Currently empty - falls back to auto-generated sets from last 2 years
+ * Add sets here to override with specific affiliate links
  */
-export const FEATURED_STAR_WARS_SETS: FeaturedSet[] = [
-  {
-    setNumber: 'New Set 1',
-    name: 'Star Wars Pre-Order Set', // TODO: Update with actual name from Amazon/Users/erickkosysu/Desktop/Screenshot 2026-04-19 at 5.21.43 PM.png
-    theme: 'Star Wars',
-    year: 2025,
-    imageUrl: 'https://via.placeholder.com/400x400/1e40af/ffffff?text=New+LEGO+Set', // TODO: Replace with actual image
-    amazonUrl: 'https://amzn.to/4tlgKmN'
-  },
-  {
-    setNumber: 'New Set 2',
-    name: 'Star Wars Pre-Order Set', // TODO: Update with actual name from Amazon
-    theme: 'Star Wars',
-    year: 2025,
-    imageUrl: 'https://via.placeholder.com/400x400/1e40af/ffffff?text=New+LEGO+Set', // TODO: Replace with actual image
-    amazonUrl: 'https://amzn.to/4cUMvx6'
-  },
-  {
-    setNumber: 'New Set 3',
-    name: 'Star Wars Pre-Order Set', // TODO: Update with actual name from Amazon
-    theme: 'Star Wars',
-    year: 2025,
-    imageUrl: 'https://via.placeholder.com/400x400/1e40af/ffffff?text=New+LEGO+Set', // TODO: Replace with actual image
-    amazonUrl: 'https://amzn.to/4sHvOKc'
-  }
-];
+export const FEATURED_STAR_WARS_SETS: FeaturedSet[] = [];
 
 /**
  * Get featured sets for a specific theme
