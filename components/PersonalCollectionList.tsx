@@ -535,17 +535,27 @@ export default function PersonalCollectionList({
             onClick={async () => {
               setMoveSuccess(false);
               try {
-                const response = await fetch('/api/inventory/move-to-collection', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    minifigure_no: lastMovedItem.minifigNo,
-                    condition: lastMovedItem.condition,
-                    quantity: 1
-                  })
-                });
-                if (response.ok && onRefresh) {
-                  await onRefresh();
+                // Fetch inventory to find the item that was just moved
+                const inventoryResponse = await fetch('/api/inventory');
+                const inventoryData = await inventoryResponse.json();
+
+                if (inventoryData.success) {
+                  const movedItem = inventoryData.data.find((item: any) =>
+                    item.minifigure_no === lastMovedItem.minifigNo &&
+                    item.condition === lastMovedItem.condition
+                  );
+
+                  if (movedItem) {
+                    const response = await fetch(`/api/inventory/${movedItem.id}/move-to-collection`, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ quantity: 1 })
+                    });
+
+                    if (response.ok && onRefresh) {
+                      await onRefresh();
+                    }
+                  }
                 }
               } catch (err) {
                 console.error('Failed to undo move:', err);

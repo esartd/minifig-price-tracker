@@ -2704,22 +2704,52 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
             onClick={async () => {
               setMoveSuccess(false);
               try {
-                const endpoint = lastMovedItem.direction === 'to-collection'
-                  ? '/api/personal-collection/move-to-inventory'
-                  : '/api/inventory/move-to-collection';
+                if (lastMovedItem.direction === 'to-collection') {
+                  // Item was moved from Inventory to Collection, need to move it back
+                  const collectionResponse = await fetch('/api/personal-collection');
+                  const collectionData = await collectionResponse.json();
 
-                const body = lastMovedItem.direction === 'to-collection'
-                  ? { minifigure_no: minifig.no, condition, quantity: 1 }
-                  : { minifigure_no: minifig.no, condition, quantity: 1 };
+                  if (collectionData.success) {
+                    const movedItem = collectionData.data.find((item: any) =>
+                      item.minifigure_no === minifig.no &&
+                      item.condition === condition
+                    );
 
-                const response = await fetch(endpoint, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(body)
-                });
+                    if (movedItem) {
+                      const response = await fetch(`/api/personal-collection/${movedItem.id}/move-to-inventory`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ quantity: 1 })
+                      });
 
-                if (response.ok) {
-                  await refreshCollections();
+                      if (response.ok) {
+                        await refreshCollections();
+                      }
+                    }
+                  }
+                } else {
+                  // Item was moved from Collection to Inventory, need to move it back
+                  const inventoryResponse = await fetch('/api/inventory');
+                  const inventoryData = await inventoryResponse.json();
+
+                  if (inventoryData.success) {
+                    const movedItem = inventoryData.data.find((item: any) =>
+                      item.minifigure_no === minifig.no &&
+                      item.condition === condition
+                    );
+
+                    if (movedItem) {
+                      const response = await fetch(`/api/inventory/${movedItem.id}/move-to-collection`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ quantity: 1 })
+                      });
+
+                      if (response.ok) {
+                        await refreshCollections();
+                      }
+                    }
+                  }
                 }
               } catch (err) {
                 console.error('Failed to undo move:', err);
