@@ -94,7 +94,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
   const getMostFrequentPlatform = (): 'facebook' | 'ebay' | 'bricklink' => {
     const { platformCounts } = usageStats;
     const entries = Object.entries(platformCounts) as [('facebook' | 'ebay' | 'bricklink'), number][];
-    if (entries.every(([_, count]) => count === 0)) return 'ebay'; // Default
+    if (entries.every(([_, count]) => count === 0)) return 'facebook'; // Default
     return entries.reduce((a, b) => a[1] > b[1] ? a : b)[0];
   };
 
@@ -146,7 +146,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
   const getMostFrequentPlatformFromStats = (stats: any): 'facebook' | 'ebay' | 'bricklink' => {
     const { platformCounts } = stats;
     const entries = Object.entries(platformCounts) as [('facebook' | 'ebay' | 'bricklink'), number][];
-    if (entries.every(([_, count]) => count === 0)) return 'ebay';
+    if (entries.every(([_, count]) => count === 0)) return 'facebook';
     return entries.reduce((a, b) => a[1] > b[1] ? a : b)[0];
   };
 
@@ -158,7 +158,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
   };
 
   const [formData, setFormData] = useState({
-    platform: 'ebay' as 'facebook' | 'ebay' | 'bricklink',
+    platform: 'facebook' as 'facebook' | 'ebay' | 'bricklink',
     condition_detail: item.condition || 'new',
     accessories: '',
     known_flaws: '',
