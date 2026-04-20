@@ -73,6 +73,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<'inventory' | 'collection' | null>(null);
   const [moveSuccess, setMoveSuccess] = useState(false);
+  const [lastMovedItem, setLastMovedItem] = useState<{ id: string; direction: 'to-collection' | 'to-inventory' } | null>(null);
 
   // Independent quantity controls for "Add to Collection/Inventory" sections
   const [addToCollectionQty, setAddToCollectionQty] = useState(1);
@@ -93,6 +94,24 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
   // Wishlist state
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [wishlistLoading, setWishlistLoading] = useState(false);
+
+  // Dismiss notification on any interaction
+  useEffect(() => {
+    if (!moveSuccess) return;
+
+    const handleInteraction = () => {
+      setMoveSuccess(false);
+      setLastMovedItem(null);
+    };
+
+    window.addEventListener('click', handleInteraction);
+    window.addEventListener('scroll', handleInteraction, true);
+
+    return () => {
+      window.removeEventListener('click', handleInteraction);
+      window.removeEventListener('scroll', handleInteraction, true);
+    };
+  }, [moveSuccess]);
 
   // Update condition when URL changes (e.g., when navigating from collection)
   useEffect(() => {
@@ -1428,8 +1447,12 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                 });
                                 if (response.ok) {
                                   await refreshCollections();
+                                  setLastMovedItem({ id: collectionItem.id, direction: 'to-collection' });
                                   setMoveSuccess(true);
-                                  setTimeout(() => setMoveSuccess(false), 2000);
+                                  setTimeout(() => {
+                                    setMoveSuccess(false);
+                                    setLastMovedItem(null);
+                                  }, 5000);
                                 }
                               } catch (err) {
                                 setError('Failed to move item');
@@ -1891,8 +1914,12 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                     });
                                     if (response.ok) {
                                       await refreshCollections();
+                                      setLastMovedItem({ id: personalCollectionItem.id, direction: 'to-inventory' });
                                       setMoveSuccess(true);
-                                      setTimeout(() => setMoveSuccess(false), 2000);
+                                      setTimeout(() => {
+                                        setMoveSuccess(false);
+                                        setLastMovedItem(null);
+                                      }, 5000);
                                     }
                                   } catch (err) {
                                     setError('Failed to move item');
@@ -2656,8 +2683,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
       )}
 
       {/* Success Notification */}
-      {moveSuccess && (
-        <div style={{
+      {moveSuccess && lastMovedItem && (
+        <div onClick={(e) => e.stopPropagation()} style={{
           position: 'fixed',
           bottom: '24px',
           right: '24px',
@@ -2669,9 +2696,58 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
           fontSize: 'var(--text-sm)',
           fontWeight: '600',
           zIndex: 1000,
-          animation: 'slideIn 0.2s ease-out'
+          animation: 'slideIn 0.2s ease-out',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px'
         }}>
-          Moved 1 minifigure
+          <span>Moved 1 minifigure</span>
+          <button
+            onClick={async () => {
+              setMoveSuccess(false);
+              try {
+                const endpoint = lastMovedItem.direction === 'to-collection'
+                  ? '/api/personal-collection/move-to-inventory'
+                  : '/api/inventory/move-to-collection';
+
+                const body = lastMovedItem.direction === 'to-collection'
+                  ? { minifigure_no: minifig.no, condition, quantity: 1 }
+                  : { minifigure_no: minifig.no, condition, quantity: 1 };
+
+                const response = await fetch(endpoint, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(body)
+                });
+
+                if (response.ok) {
+                  await refreshCollections();
+                }
+              } catch (err) {
+                console.error('Failed to undo move:', err);
+              }
+              setLastMovedItem(null);
+            }}
+            style={{
+              background: 'rgba(255, 255, 255, 0.2)',
+              border: '1px solid rgba(255, 255, 255, 0.4)',
+              color: '#ffffff',
+              padding: '6px 12px',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontSize: 'var(--text-sm)',
+              fontWeight: '600',
+              transition: 'all 0.2s'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+            }}
+          >
+            Undo
+          </button>
         </div>
       )}
     </div>

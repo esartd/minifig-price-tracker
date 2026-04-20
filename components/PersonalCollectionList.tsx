@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { PersonalCollectionItem } from '@/types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import MoveDialog from './MoveDialog';
@@ -32,8 +32,27 @@ export default function PersonalCollectionList({
   const [tempQuantity, setTempQuantity] = useState<string>('');
   const [moveDialogItem, setMoveDialogItem] = useState<PersonalCollectionItem | null>(null);
   const [moveSuccess, setMoveSuccess] = useState(false);
+  const [lastMovedItem, setLastMovedItem] = useState<{ id: string; minifigNo: string; condition: string } | null>(null);
 
   const currency = session?.user?.preferredCurrency || 'USD';
+
+  // Dismiss notification on any interaction
+  useEffect(() => {
+    if (!moveSuccess) return;
+
+    const handleInteraction = () => {
+      setMoveSuccess(false);
+      setLastMovedItem(null);
+    };
+
+    window.addEventListener('click', handleInteraction);
+    window.addEventListener('scroll', handleInteraction, true);
+
+    return () => {
+      window.removeEventListener('click', handleInteraction);
+      window.removeEventListener('scroll', handleInteraction, true);
+    };
+  }, [moveSuccess]);
 
   // Display full minifig name from BrickLink (no modifications)
   const getDisplayName = (fullName: string): string => {
@@ -401,9 +420,13 @@ export default function PersonalCollectionList({
                   onClick={async (e) => {
                     e.stopPropagation();
                     if (item.quantity === 1) {
+                      setLastMovedItem({ id: item.id, minifigNo: item.minifigure_no, condition: item.condition });
                       await onItemMove(item.id, 1);
                       setMoveSuccess(true);
-                      setTimeout(() => setMoveSuccess(false), 2000);
+                      setTimeout(() => {
+                        setMoveSuccess(false);
+                        setLastMovedItem(null);
+                      }, 5000);
                     } else {
                       setMoveDialogItem(item);
                     }
@@ -491,8 +514,8 @@ export default function PersonalCollectionList({
       )}
 
       {/* Success Notification */}
-      {moveSuccess && (
-        <div style={{
+      {moveSuccess && lastMovedItem && (
+        <div onClick={(e) => e.stopPropagation()} style={{
           position: 'fixed',
           bottom: '24px',
           right: '24px',
@@ -504,9 +527,53 @@ export default function PersonalCollectionList({
           fontSize: 'var(--text-sm)',
           fontWeight: '600',
           zIndex: 1000,
-          animation: 'slideIn 0.2s ease-out'
+          animation: 'slideIn 0.2s ease-out',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px'
         }}>
-          Moved 1 minifigure to Inventory
+          <span>Moved 1 minifigure to Inventory</span>
+          <button
+            onClick={async () => {
+              setMoveSuccess(false);
+              try {
+                const response = await fetch('/api/inventory/move-to-collection', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    minifigure_no: lastMovedItem.minifigNo,
+                    condition: lastMovedItem.condition,
+                    quantity: 1
+                  })
+                });
+                if (response.ok && onRefresh) {
+                  await onRefresh();
+                }
+              } catch (err) {
+                console.error('Failed to undo move:', err);
+              }
+              setLastMovedItem(null);
+            }}
+            style={{
+              background: 'rgba(255, 255, 255, 0.2)',
+              border: '1px solid rgba(255, 255, 255, 0.4)',
+              color: '#ffffff',
+              padding: '6px 12px',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontSize: 'var(--text-sm)',
+              fontWeight: '600',
+              transition: 'all 0.2s'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+            }}
+          >
+            Undo
+          </button>
         </div>
       )}
     </div>
