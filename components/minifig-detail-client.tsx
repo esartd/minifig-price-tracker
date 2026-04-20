@@ -814,6 +814,54 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     )}
                   </div>
 
+                  {/* Wishlist success message - right below heart button */}
+                  {successMessage && (successMessage.includes('wishlist') || successMessage.includes('Wishlist')) && (
+                    <div style={{
+                      marginTop: '12px',
+                      padding: '16px',
+                      background: '#f5f5f5',
+                      border: '2px solid #171717',
+                      borderRadius: '12px',
+                      fontSize: 'var(--text-base)',
+                      color: '#171717',
+                      fontWeight: '600',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '12px',
+                      animation: 'slideIn 0.3s ease-out'
+                    }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <HeartSolid style={{ width: '20px', height: '20px', color: '#171717' }} />
+                        <span>{successMessage}</span>
+                      </div>
+                      {successMessage.includes('Added') && (
+                        <Link
+                          href="/wishlist"
+                          style={{
+                            display: 'inline-block',
+                            padding: '12px 24px',
+                            background: '#171717',
+                            color: '#ffffff',
+                            borderRadius: '8px',
+                            textDecoration: 'none',
+                            textAlign: 'center',
+                            fontWeight: '600',
+                            transition: 'all 0.2s'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = '#3b82f6';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = '#171717';
+                          }}
+                          onClick={() => setSuccessMessage('')}
+                        >
+                          View Wishlist →
+                        </Link>
+                      )}
+                    </div>
+                  )}
+
                   <h1 style={{
                     fontSize: 'var(--text-lg)',
                     fontWeight: '600',
@@ -1512,70 +1560,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                 <line x1="18" y1="6" x2="6" y2="18"></line>
                                 <line x1="6" y1="6" x2="18" y2="18"></line>
                               </svg>
-                            </button>
-                          </div>
-                        )}
-
-                        {/* Success message for wishlist actions */}
-                        {successMessage && (successMessage.includes('wishlist') || successMessage.includes('Wishlist')) && (
-                          <div style={{
-                            marginTop: '16px',
-                            padding: '12px 16px',
-                            background: '#f5f5f5',
-                            border: '1px solid #d4d4d4',
-                            borderRadius: '8px',
-                            fontSize: 'var(--text-sm)',
-                            color: '#171717',
-                            fontWeight: '500',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            gap: '12px'
-                          }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1 }}>
-                              <span>♥ {successMessage}</span>
-                              {successMessage.includes('Added') && (
-                                <Link
-                                  href="/wishlist"
-                                  style={{
-                                    color: '#3b82f6',
-                                    textDecoration: 'underline',
-                                    fontWeight: '600',
-                                    whiteSpace: 'nowrap'
-                                  }}
-                                  onClick={() => setSuccessMessage('')}
-                                >
-                                  View Wishlist →
-                                </Link>
-                              )}
-                            </div>
-                            <button
-                              onClick={() => setSuccessMessage('')}
-                              style={{
-                                background: 'none',
-                                border: 'none',
-                                color: '#737373',
-                                cursor: 'pointer',
-                                padding: '4px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                borderRadius: '4px',
-                                transition: 'all 0.2s',
-                                flexShrink: 0,
-                                fontSize: '18px',
-                                lineHeight: '1'
-                              }}
-                              onMouseEnter={(e) => {
-                                e.currentTarget.style.background = '#525252';
-                                e.currentTarget.style.color = '#ffffff';
-                              }}
-                              onMouseLeave={(e) => {
-                                e.currentTarget.style.background = 'none';
-                                e.currentTarget.style.color = '#737373';
-                              }}
-                            >
-                              ×
                             </button>
                           </div>
                         )}
