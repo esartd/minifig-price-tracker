@@ -59,6 +59,7 @@ export default function PersonalCollectionPage() {
       const data = await response.json();
       if (data.success) {
         setCollection(data.data);
+        setLoading(false); // Show items immediately
 
         // Check if any items are missing pricing
         const itemsMissingPricing = data.data.filter((item: PersonalCollectionItem) => !item.pricing);
@@ -92,7 +93,6 @@ export default function PersonalCollectionPage() {
       }
     } catch (error) {
       console.error('Error loading personal collection:', error);
-    } finally {
       setLoading(false);
     }
   };
