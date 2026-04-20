@@ -755,6 +755,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
+                    gap: '8px',
                     marginBottom: '8px',
                     marginTop: 0
                   }}>
@@ -763,7 +764,9 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       fontWeight: '500',
                       color: '#3b82f6',
                       textTransform: 'uppercase',
-                      letterSpacing: '0.05em'
+                      letterSpacing: '0.05em',
+                      flex: '0 1 auto',
+                      minWidth: 0
                     }}>
                       {minifig.year_released && minifig.year_released !== '?' ? minifig.year_released : 'Year Unknown'}
                     </span>
@@ -774,6 +777,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         style={{
                           width: '32px',
                           height: '32px',
+                          minWidth: '32px',
+                          minHeight: '32px',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -783,7 +788,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           cursor: wishlistLoading ? 'default' : 'pointer',
                           transition: 'all 0.2s',
                           flexShrink: 0,
-                          opacity: wishlistLoading ? 0.6 : 1
+                          opacity: wishlistLoading ? 0.6 : 1,
+                          padding: 0
                         }}
                         onMouseEnter={(e) => {
                           if (!wishlistLoading) {
