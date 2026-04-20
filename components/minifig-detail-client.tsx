@@ -1447,10 +1447,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                   await refreshCollections();
                                   setLastMovedItem({ id: collectionItem.id, direction: 'to-collection' });
                                   setMoveSuccess(true);
-                                  setTimeout(() => {
-                                    setMoveSuccess(false);
-                                    setLastMovedItem(null);
-                                  }, 5000);
                                 }
                               } catch (err) {
                                 setError('Failed to move item');
@@ -1914,10 +1910,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                       await refreshCollections();
                                       setLastMovedItem({ id: personalCollectionItem.id, direction: 'to-inventory' });
                                       setMoveSuccess(true);
-                                      setTimeout(() => {
-                                        setMoveSuccess(false);
-                                        setLastMovedItem(null);
-                                      }, 5000);
                                     }
                                   } catch (err) {
                                     setError('Failed to move item');

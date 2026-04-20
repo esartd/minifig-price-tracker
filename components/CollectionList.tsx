@@ -429,10 +429,6 @@ export default function CollectionList({
                       setLastMovedItem({ id: item.id, minifigNo: item.minifigure_no, condition: item.condition });
                       await onItemMove(item.id, 1);
                       setMoveSuccess(true);
-                      setTimeout(() => {
-                        setMoveSuccess(false);
-                        setLastMovedItem(null);
-                      }, 5000);
                     } else {
                       setMoveDialogItem(item);
                     }
