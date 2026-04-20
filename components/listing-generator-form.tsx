@@ -74,36 +74,13 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
 
   // Load preferences from localStorage
   const [preferences, setPreferences] = useState<ListingPreferences>(DEFAULT_PREFERENCES);
-  const [usageStats, setUsageStats] = useState<{
-    platformCounts: { facebook: number; ebay: number; bricklink: number };
-    conditionCounts: {
-      facebook: Record<string, number>;
-      ebay: Record<string, number>;
-      bricklink: Record<string, number>;
-    };
+  const [lastUsed, setLastUsed] = useState<{
+    platform: 'facebook' | 'ebay' | 'bricklink';
+    condition: string;
   }>({
-    platformCounts: { facebook: 0, ebay: 0, bricklink: 0 },
-    conditionCounts: {
-      facebook: {},
-      ebay: {},
-      bricklink: {}
-    }
+    platform: 'facebook',
+    condition: 'new'
   });
-
-  // Get most frequently used platform and condition
-  const getMostFrequentPlatform = (): 'facebook' | 'ebay' | 'bricklink' => {
-    const { platformCounts } = usageStats;
-    const entries = Object.entries(platformCounts) as [('facebook' | 'ebay' | 'bricklink'), number][];
-    if (entries.every(([_, count]) => count === 0)) return 'facebook'; // Default
-    return entries.reduce((a, b) => a[1] > b[1] ? a : b)[0];
-  };
-
-  const getMostFrequentCondition = (platform: 'facebook' | 'ebay' | 'bricklink'): string => {
-    const conditions = usageStats.conditionCounts[platform];
-    const entries = Object.entries(conditions);
-    if (entries.length === 0) return 'new'; // Default
-    return entries.reduce((a, b) => a[1] > b[1] ? a : b, ['new', 0])[0];
-  };
 
   useEffect(() => {
     const saved = localStorage.getItem('listingPreferences');
@@ -111,20 +88,16 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
       setPreferences(JSON.parse(saved));
     }
 
-    const savedStats = localStorage.getItem('listingUsageStats');
-    if (savedStats) {
-      const stats = JSON.parse(savedStats);
-      setUsageStats(stats);
+    const savedLastUsed = localStorage.getItem('listingLastUsed');
+    if (savedLastUsed) {
+      const lastUsedData = JSON.parse(savedLastUsed);
+      setLastUsed(lastUsedData);
 
-      // Set form defaults based on usage
-      const defaultPlatform = getMostFrequentPlatformFromStats(stats);
-      const defaultCondition = getMostFrequentConditionFromStats(stats, defaultPlatform);
-
-      // Only load platform and condition (accessories/flaws are unique per minifig)
+      // Set form defaults to last used
       setFormData(prev => ({
         ...prev,
-        platform: defaultPlatform,
-        condition_detail: defaultCondition
+        platform: lastUsedData.platform,
+        condition_detail: lastUsedData.condition
       }));
     }
   }, []);
@@ -133,7 +106,6 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
   useEffect(() => {
     setFormData(prev => ({
       ...prev,
-      condition_detail: item.condition || 'new',
       accessories: '',
       known_flaws: '',
       quantity: 1
@@ -141,21 +113,6 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
     setPreview(null);
     setShowDetailedForm(false);
   }, [item.id, item.condition]);
-
-  // Helper functions to get most frequent from stats object
-  const getMostFrequentPlatformFromStats = (stats: any): 'facebook' | 'ebay' | 'bricklink' => {
-    const { platformCounts } = stats;
-    const entries = Object.entries(platformCounts) as [('facebook' | 'ebay' | 'bricklink'), number][];
-    if (entries.every(([_, count]) => count === 0)) return 'facebook';
-    return entries.reduce((a, b) => a[1] > b[1] ? a : b)[0];
-  };
-
-  const getMostFrequentConditionFromStats = (stats: any, platform: 'facebook' | 'ebay' | 'bricklink'): string => {
-    const conditions = stats.conditionCounts[platform];
-    const entries = Object.entries(conditions) as [string, number][];
-    if (entries.length === 0) return 'new';
-    return entries.reduce((a, b) => a[1] > b[1] ? a : b, ['new', 0])[0];
-  };
 
   const [formData, setFormData] = useState({
     platform: 'facebook' as 'facebook' | 'ebay' | 'bricklink',
@@ -165,13 +122,11 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
     quantity: 1
   });
 
-  // Update condition when platform changes (use most frequent for that platform)
+  // Update condition when platform changes
   const handlePlatformChange = (newPlatform: 'facebook' | 'ebay' | 'bricklink') => {
-    const mostFrequentCondition = getMostFrequentCondition(newPlatform);
     setFormData(prev => ({
       ...prev,
-      platform: newPlatform,
-      condition_detail: mostFrequentCondition
+      platform: newPlatform
     }));
   };
 
@@ -195,25 +150,14 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
         setIsEditing(false);
         setShowDetailedForm(false); // Close form to show preview
 
-        // Save preferences for next time
+        // Save preferences and last used settings
         localStorage.setItem('listingPreferences', JSON.stringify(preferences));
-
-        // Update usage statistics
-        const updatedStats = {
-          platformCounts: {
-            ...usageStats.platformCounts,
-            [formData.platform]: usageStats.platformCounts[formData.platform] + 1
-          },
-          conditionCounts: {
-            ...usageStats.conditionCounts,
-            [formData.platform]: {
-              ...usageStats.conditionCounts[formData.platform],
-              [formData.condition_detail]: (usageStats.conditionCounts[formData.platform][formData.condition_detail] || 0) + 1
-            }
-          }
+        const lastUsedData = {
+          platform: formData.platform,
+          condition: formData.condition_detail
         };
-        setUsageStats(updatedStats);
-        localStorage.setItem('listingUsageStats', JSON.stringify(updatedStats));
+        setLastUsed(lastUsedData);
+        localStorage.setItem('listingLastUsed', JSON.stringify(lastUsedData));
       } else {
         alert(data.error || 'Failed to generate listing');
       }
@@ -225,17 +169,14 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
   };
 
 
-  // Quick generate with saved defaults
+  // Quick generate with last used defaults
   const handleQuickGenerate = async () => {
     onOpen?.(); // Clear parent success messages
 
-    const defaultPlatform = getMostFrequentPlatform();
-    const defaultCondition = getMostFrequentCondition(defaultPlatform);
-
-    // Accessories and known_flaws always start empty (unique per listing)
+    // Use last used settings
     const quickFormData = {
-      platform: defaultPlatform,
-      condition_detail: defaultCondition,
+      platform: lastUsed.platform,
+      condition_detail: lastUsed.condition,
       accessories: '',
       known_flaws: '',
       quantity: 1
@@ -262,22 +203,13 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
         setShowDetailedForm(false);
         setFormData(quickFormData); // Update formData so price displays correctly
 
-        // Update usage stats
-        const updatedStats = {
-          platformCounts: {
-            ...usageStats.platformCounts,
-            [quickFormData.platform]: usageStats.platformCounts[quickFormData.platform] + 1
-          },
-          conditionCounts: {
-            ...usageStats.conditionCounts,
-            [quickFormData.platform]: {
-              ...usageStats.conditionCounts[quickFormData.platform],
-              [quickFormData.condition_detail]: (usageStats.conditionCounts[quickFormData.platform][quickFormData.condition_detail] || 0) + 1
-            }
-          }
+        // Save last used settings
+        const lastUsedData = {
+          platform: quickFormData.platform,
+          condition: quickFormData.condition_detail
         };
-        setUsageStats(updatedStats);
-        localStorage.setItem('listingUsageStats', JSON.stringify(updatedStats));
+        setLastUsed(lastUsedData);
+        localStorage.setItem('listingLastUsed', JSON.stringify(lastUsedData));
       } else {
         alert(data.error || 'Failed to generate listing');
       }
@@ -289,9 +221,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
   };
 
   // Check if user has generated listings before
-  const hasUsageHistory = usageStats.platformCounts.facebook > 0 ||
-                          usageStats.platformCounts.ebay > 0 ||
-                          usageStats.platformCounts.bricklink > 0;
+  const hasUsageHistory = localStorage.getItem('listingLastUsed') !== null;
 
   if (!isOpen) {
     return (
@@ -346,13 +276,11 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
             onOpen?.(); // Clear parent success messages
             setIsOpen(true);
             setShowDetailedForm(true);
-            // Set defaults based on usage when opening
-            const defaultPlatform = getMostFrequentPlatform();
-            const defaultCondition = getMostFrequentCondition(defaultPlatform);
+            // Set defaults to last used when opening
             setFormData(prev => ({
               ...prev,
-              platform: defaultPlatform,
-              condition_detail: defaultCondition
+              platform: lastUsed.platform,
+              condition_detail: lastUsed.condition
             }));
           }}
           title="Customize options"
