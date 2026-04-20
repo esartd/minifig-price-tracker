@@ -25,9 +25,9 @@ export async function GET() {
     // Fetch pricing for items with no cache (await to ensure UI gets data)
     const itemsNeedingPricing = items.filter(item => !item.pricing || item.pricing.suggestedPrice === 0);
     if (itemsNeedingPricing.length > 0) {
-      // Fetch pricing for up to 20 items at once
+      // Fetch pricing for all items (no limit)
       await Promise.all(
-        itemsNeedingPricing.slice(0, 20).map(item =>
+        itemsNeedingPricing.map(item =>
           bricklinkAPI.calculatePricingData(item.minifigure_no, item.condition, countryCode, region)
             .catch(err => {
               console.error(`Pricing fetch error for ${item.minifigure_no}:`, err);
