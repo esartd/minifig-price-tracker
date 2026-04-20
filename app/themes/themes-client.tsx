@@ -16,6 +16,14 @@ interface Theme {
 export default function ThemesClient({ themes }: { themes: Theme[] }) {
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Debug: Log what client receives
+  console.log('[CLIENT] Sample themes received:', themes.slice(0, 3).map(t => ({
+    parent: t.parent,
+    subcategoryCount: t.subcategoryCount,
+    subArrayLength: t.subcategories?.length,
+    totalCount: t.totalCount
+  })));
+
   // Filter themes based on search query
   const filteredThemes = themes.filter(theme =>
     theme.parent.toLowerCase().includes(searchQuery.toLowerCase())
