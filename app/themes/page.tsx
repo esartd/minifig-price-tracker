@@ -140,8 +140,8 @@ async function getThemes(): Promise<Theme[]> {
   }
 }
 
-// Cache for 24 hours - themes rarely change
-export const revalidate = 86400; // Updated to fix Castle series count
+// Cache for 1 hour while debugging, then back to 24h
+export const revalidate = 3600;
 
 export default async function CategoriesPage() {
   const themes = await getThemes();
