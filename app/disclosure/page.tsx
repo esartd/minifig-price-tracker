@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Affiliate Disclosure - FigTracker',
-  description: 'FigTracker participates in the Amazon Associates Program. Learn about our affiliate partnerships and how we earn commissions.',
+  description: 'FigTracker participates in the LEGO.com Affiliate Program and Amazon Associates Program. Learn about our affiliate partnerships and how we earn commissions.',
   openGraph: {
     title: 'Affiliate Disclosure - FigTracker',
     description: 'Learn about our affiliate partnerships and advertising practices.',
@@ -55,62 +55,13 @@ export default function DisclosurePage() {
               color: '#171717',
               marginBottom: 'var(--space-2)'
             }}>
-              Amazon Associates Program
+              Affiliate Programs
             </h2>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              FigTracker (operated by ES Art & D LLC) is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com.
+              FigTracker participates in the LEGO.com Affiliate Program and Amazon Associates Program. When you click on featured product links and make a purchase, we may earn a small commission at no additional cost to you.
             </p>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              As an Amazon Associate, we earn from qualifying purchases made through affiliate links on this site. When you click on a "Buy on Amazon" button or link and make a purchase, we may receive a small commission at no additional cost to you.
-            </p>
-          </section>
-
-          <section style={{ marginBottom: 'var(--space-4)' }}>
-            <h2 style={{
-              fontSize: 'var(--text-xl)',
-              fontWeight: '600',
-              color: '#171717',
-              marginBottom: 'var(--space-2)'
-            }}>
-              How Affiliate Links Work
-            </h2>
-            <p style={{ marginBottom: 'var(--space-2)' }}>
-              Throughout FigTracker, you'll find "Buy on Amazon" buttons on LEGO set advertisements. These buttons contain affiliate tracking codes that help us earn a small commission when you make a purchase.
-            </p>
-            <p style={{ marginBottom: 'var(--space-2)' }}>
-              <strong>Important:</strong> Using affiliate links does not increase the price you pay. Amazon determines all pricing independently.
-            </p>
-          </section>
-
-          <section style={{ marginBottom: 'var(--space-4)' }}>
-            <h2 style={{
-              fontSize: 'var(--text-xl)',
-              fontWeight: '600',
-              color: '#171717',
-              marginBottom: 'var(--space-2)'
-            }}>
-              Product Recommendations
-            </h2>
-            <p style={{ marginBottom: 'var(--space-2)' }}>
-              We display current, purchasable LEGO sets from relevant themes throughout FigTracker. These recommendations are:
-            </p>
-            <ul style={{
-              marginLeft: '20px',
-              marginBottom: 'var(--space-2)',
-              listStyleType: 'disc'
-            }}>
-              <li style={{ marginBottom: '8px' }}>
-                Based on theme relevance to the page content
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                Limited to sets currently available for purchase (2024-2026)
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                Filtered to exclude promotional items and store exclusives
-              </li>
-            </ul>
-            <p style={{ marginBottom: 'var(--space-2)' }}>
-              Our affiliate partnerships do not influence the core functionality of FigTracker, including minifigure pricing data, inventory tracking, or search features.
+              These affiliate partnerships help support FigTracker's development and maintenance while keeping the tool free to use.
             </p>
           </section>
 
@@ -124,21 +75,7 @@ export default function DisclosurePage() {
               LEGO® Trademark Notice
             </h2>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              LEGO® is a trademark of the LEGO Group of companies which does not sponsor, authorize, or endorse this site. FigTracker is an independent tool for LEGO minifigure collectors and resellers.
-            </p>
-          </section>
-
-          <section style={{ marginBottom: 'var(--space-4)' }}>
-            <h2 style={{
-              fontSize: 'var(--text-xl)',
-              fontWeight: '600',
-              color: '#171717',
-              marginBottom: 'var(--space-2)'
-            }}>
-              Questions?
-            </h2>
-            <p style={{ marginBottom: 'var(--space-2)' }}>
-              If you have questions about our affiliate relationships or how we use affiliate links, please contact us through our <Link href="/about" style={{ color: '#3b82f6', textDecoration: 'none' }}>About page</Link>.
+              LEGO® is a trademark of the LEGO Group which does not sponsor, authorize, or endorse this site.
             </p>
           </section>
 
@@ -149,10 +86,10 @@ export default function DisclosurePage() {
               color: '#171717',
               marginBottom: 'var(--space-2)'
             }}>
-              Support FigTracker
+              Questions?
             </h2>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              FigTracker is free to use. By purchasing LEGO sets through our affiliate links, you help support the ongoing development and maintenance of this tool at no extra cost to you. Thank you for your support!
+              If you have questions about our affiliate relationships, please contact us through our <Link href="/about" style={{ color: '#3b82f6', textDecoration: 'none' }}>About page</Link>.
             </p>
           </section>
         </div>
