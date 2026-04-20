@@ -328,7 +328,7 @@ function SearchPageContent() {
           position: 'relative',
           zIndex: 1,
           overflow: 'hidden',
-          minHeight: 'calc(100vh - 72px)',
+          minHeight: isSearchActive ? 'calc(100vh - 72px)' : 'calc(100vh - 200px)',
           display: 'flex',
           alignItems: isSearchActive ? 'flex-start' : 'center',
           paddingTop: isSearchActive ? '60px' : '0px',
