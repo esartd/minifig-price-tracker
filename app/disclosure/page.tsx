@@ -15,6 +15,12 @@ export const metadata: Metadata = {
 };
 
 export default function DisclosurePage() {
+  const lastUpdated = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
   return (
     <article className="min-h-screen" style={{ backgroundColor: '#fafafa' }}>
       <div style={{
@@ -37,7 +43,7 @@ export default function DisclosurePage() {
           color: '#525252',
           marginBottom: 'var(--space-4)'
         }}>
-          Last Updated: April 16, 2026
+          Last Updated: {lastUpdated}
         </div>
 
         <div style={{
