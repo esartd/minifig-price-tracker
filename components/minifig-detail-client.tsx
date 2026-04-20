@@ -72,6 +72,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
   const [showMoveToInventoryDialog, setShowMoveToInventoryDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<'inventory' | 'collection' | null>(null);
+  const [moveSuccess, setMoveSuccess] = useState(false);
 
   // Independent quantity controls for "Add to Collection/Inventory" sections
   const [addToCollectionQty, setAddToCollectionQty] = useState(1);
@@ -1414,9 +1415,28 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
                         {/* Move and Delete Buttons */}
                         <button
-                          onClick={(e) => {
+                          onClick={async (e) => {
                             e.stopPropagation();
-                            setShowMoveDialog(true);
+                            if (collectionItem.quantity === 1) {
+                              setSuccessMessage('');
+                              setError('');
+                              try {
+                                const response = await fetch(`/api/inventory/${collectionItem.id}/move-to-collection`, {
+                                  method: 'POST',
+                                  headers: { 'Content-Type': 'application/json' },
+                                  body: JSON.stringify({ quantity: 1 })
+                                });
+                                if (response.ok) {
+                                  await refreshCollections();
+                                  setMoveSuccess(true);
+                                  setTimeout(() => setMoveSuccess(false), 2000);
+                                }
+                              } catch (err) {
+                                setError('Failed to move item');
+                              }
+                            } else {
+                              setShowMoveDialog(true);
+                            }
                           }}
                           style={{
                             width: '44px',
@@ -1858,9 +1878,28 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
                             {/* Move and Delete Buttons */}
                             <button
-                              onClick={(e) => {
+                              onClick={async (e) => {
                                 e.stopPropagation();
-                                setShowMoveToInventoryDialog(true);
+                                if (personalCollectionItem.quantity === 1) {
+                                  setSuccessMessage('');
+                                  setError('');
+                                  try {
+                                    const response = await fetch(`/api/personal-collection/${personalCollectionItem.id}/move-to-inventory`, {
+                                      method: 'POST',
+                                      headers: { 'Content-Type': 'application/json' },
+                                      body: JSON.stringify({ quantity: 1 })
+                                    });
+                                    if (response.ok) {
+                                      await refreshCollections();
+                                      setMoveSuccess(true);
+                                      setTimeout(() => setMoveSuccess(false), 2000);
+                                    }
+                                  } catch (err) {
+                                    setError('Failed to move item');
+                                  }
+                                } else {
+                                  setShowMoveToInventoryDialog(true);
+                                }
                               }}
                               style={{
                                 width: '44px',
@@ -2614,6 +2653,26 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
             </div>
           </div>
         </>
+      )}
+
+      {/* Success Notification */}
+      {moveSuccess && (
+        <div style={{
+          position: 'fixed',
+          bottom: '24px',
+          right: '24px',
+          background: '#10b981',
+          color: '#ffffff',
+          padding: '16px 24px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+          fontSize: 'var(--text-sm)',
+          fontWeight: '600',
+          zIndex: 1000,
+          animation: 'slideIn 0.2s ease-out'
+        }}>
+          Moved 1 minifigure
+        </div>
       )}
     </div>
   );

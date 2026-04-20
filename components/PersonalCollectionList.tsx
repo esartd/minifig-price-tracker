@@ -31,6 +31,7 @@ export default function PersonalCollectionList({
   const [editingQuantityId, setEditingQuantityId] = useState<string | null>(null);
   const [tempQuantity, setTempQuantity] = useState<string>('');
   const [moveDialogItem, setMoveDialogItem] = useState<PersonalCollectionItem | null>(null);
+  const [moveSuccess, setMoveSuccess] = useState(false);
 
   const currency = session?.user?.preferredCurrency || 'USD';
 
@@ -397,9 +398,15 @@ export default function PersonalCollectionList({
             {/* Move to Inventory Button */}
             {onItemMove && (
               <button
-                  onClick={(e) => {
+                  onClick={async (e) => {
                     e.stopPropagation();
-                    setMoveDialogItem(item);
+                    if (item.quantity === 1) {
+                      await onItemMove(item.id, 1);
+                      setMoveSuccess(true);
+                      setTimeout(() => setMoveSuccess(false), 2000);
+                    } else {
+                      setMoveDialogItem(item);
+                    }
                   }}
                   style={{
                     width: '44px',
@@ -481,6 +488,26 @@ export default function PersonalCollectionList({
             setMoveDialogItem(null);
           }}
         />
+      )}
+
+      {/* Success Notification */}
+      {moveSuccess && (
+        <div style={{
+          position: 'fixed',
+          bottom: '24px',
+          right: '24px',
+          background: '#10b981',
+          color: '#ffffff',
+          padding: '16px 24px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+          fontSize: 'var(--text-sm)',
+          fontWeight: '600',
+          zIndex: 1000,
+          animation: 'slideIn 0.2s ease-out'
+        }}>
+          Moved 1 minifigure to Inventory
+        </div>
       )}
     </div>
   );
