@@ -301,7 +301,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
             if (deleteResponse.ok) {
               setIsInWishlist(false);
               setSuccessMessage('Removed from wishlist');
-              setTimeout(() => setSuccessMessage(''), 2000);
+              setTimeout(() => setSuccessMessage(''), 3000);
             }
           }
         }
@@ -321,8 +321,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
         if (response.ok) {
           setIsInWishlist(true);
-          setSuccessMessage('Added to wishlist');
-          setTimeout(() => setSuccessMessage(''), 2000);
+          setSuccessMessage('Added to wishlist! Find it in your profile menu (top right)');
+          setTimeout(() => setSuccessMessage(''), 5000);
         } else {
           console.error('Failed to add to wishlist:', data.error);
           setError(data.error || 'Failed to add to wishlist');
