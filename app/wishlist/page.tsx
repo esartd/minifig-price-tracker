@@ -273,7 +273,8 @@ export default function WishlistPage() {
               <div style={{
                 padding: '0 16px 16px',
                 display: 'flex',
-                gap: '4px'
+                flexDirection: 'column',
+                gap: '8px'
               }}>
                 <button
                   onClick={(e) => {
@@ -283,9 +284,9 @@ export default function WishlistPage() {
                     handleBuyClick('amazon', item, amazonUrl);
                   }}
                   style={{
-                    flex: 1,
-                    padding: '10px 8px',
-                    fontSize: 'var(--text-xs)',
+                    width: '100%',
+                    padding: '10px 12px',
+                    fontSize: 'var(--text-sm)',
                     fontWeight: '600',
                     color: '#ffffff',
                     background: '#ff9900',
@@ -296,10 +297,7 @@ export default function WishlistPage() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '4px',
-                    minWidth: 0,
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden'
+                    gap: '6px'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = '#e88a00';
@@ -321,9 +319,9 @@ export default function WishlistPage() {
                     handleBuyClick('bricklink', item, bricklinkUrl);
                   }}
                   style={{
-                    flex: 1,
-                    padding: '10px 8px',
-                    fontSize: 'var(--text-xs)',
+                    width: '100%',
+                    padding: '10px 12px',
+                    fontSize: 'var(--text-sm)',
                     fontWeight: '600',
                     color: '#ffffff',
                     background: '#3b82f6',
@@ -334,10 +332,7 @@ export default function WishlistPage() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '4px',
-                    minWidth: 0,
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden'
+                    gap: '6px'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = '#2563eb';
