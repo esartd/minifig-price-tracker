@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Script from 'next/script';
 import Image from 'next/image';
+import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import AddToCollectionForm from '@/components/search/AddToCollectionForm';
 import ListingGeneratorForm from '@/components/listing-generator-form';
@@ -1511,6 +1512,70 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                 <line x1="18" y1="6" x2="6" y2="18"></line>
                                 <line x1="6" y1="6" x2="18" y2="18"></line>
                               </svg>
+                            </button>
+                          </div>
+                        )}
+
+                        {/* Success message for wishlist actions */}
+                        {successMessage && (successMessage.includes('wishlist') || successMessage.includes('Wishlist')) && (
+                          <div style={{
+                            marginTop: '16px',
+                            padding: '12px 16px',
+                            background: '#fef2f2',
+                            border: '1px solid #fecaca',
+                            borderRadius: '8px',
+                            fontSize: 'var(--text-sm)',
+                            color: '#991b1b',
+                            fontWeight: '500',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            gap: '12px'
+                          }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1 }}>
+                              <span>❤️ {successMessage}</span>
+                              {successMessage.includes('Added') && (
+                                <Link
+                                  href="/wishlist"
+                                  style={{
+                                    color: '#dc2626',
+                                    textDecoration: 'underline',
+                                    fontWeight: '600',
+                                    whiteSpace: 'nowrap'
+                                  }}
+                                  onClick={() => setSuccessMessage('')}
+                                >
+                                  View Wishlist →
+                                </Link>
+                              )}
+                            </div>
+                            <button
+                              onClick={() => setSuccessMessage('')}
+                              style={{
+                                background: 'none',
+                                border: 'none',
+                                color: '#991b1b',
+                                cursor: 'pointer',
+                                padding: '4px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                borderRadius: '4px',
+                                transition: 'all 0.2s',
+                                flexShrink: 0,
+                                fontSize: '18px',
+                                lineHeight: '1'
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.background = '#dc2626';
+                                e.currentTarget.style.color = '#ffffff';
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.background = 'none';
+                                e.currentTarget.style.color = '#991b1b';
+                              }}
+                            >
+                              ×
                             </button>
                           </div>
                         )}
