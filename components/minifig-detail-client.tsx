@@ -296,8 +296,12 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
         if (data.success) {
           const item = data.data.find((item: any) => item.minifigure_no === minifig.no);
           if (item) {
-            await fetch(`/api/wishlist/${item.id}`, { method: 'DELETE' });
-            setIsInWishlist(false);
+            const deleteResponse = await fetch(`/api/wishlist/${item.id}`, { method: 'DELETE' });
+            if (deleteResponse.ok) {
+              setIsInWishlist(false);
+              setSuccessMessage('Removed from wishlist');
+              setTimeout(() => setSuccessMessage(''), 2000);
+            }
           }
         }
       } else {
@@ -312,12 +316,22 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
           })
         });
 
+        const data = await response.json();
+
         if (response.ok) {
           setIsInWishlist(true);
+          setSuccessMessage('Added to wishlist');
+          setTimeout(() => setSuccessMessage(''), 2000);
+        } else {
+          console.error('Failed to add to wishlist:', data.error);
+          setError(data.error || 'Failed to add to wishlist');
+          setTimeout(() => setError(''), 3000);
         }
       }
     } catch (err) {
       console.error('Error toggling wishlist:', err);
+      setError('Failed to update wishlist');
+      setTimeout(() => setError(''), 3000);
     } finally {
       setWishlistLoading(false);
     }
@@ -736,8 +750,14 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
               }}>
                 {/* Header */}
                 <div style={{ marginBottom: '24px', marginTop: 0 }}>
-                  {/* Year Badge */}
-                  <div style={{ marginBottom: '8px', marginTop: 0 }}>
+                  {/* Year Badge and Heart Button */}
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginBottom: '8px',
+                    marginTop: 0
+                  }}>
                     <span style={{
                       fontSize: 'var(--text-xs)',
                       fontWeight: '500',
@@ -747,26 +767,13 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     }}>
                       {minifig.year_released && minifig.year_released !== '?' ? minifig.year_released : 'Year Unknown'}
                     </span>
-                  </div>
-
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '4px' }}>
-                    <h1 style={{
-                      fontSize: 'var(--text-lg)',
-                      fontWeight: '600',
-                      color: '#171717',
-                      letterSpacing: '-0.02em',
-                      lineHeight: '1.3',
-                      flex: 1
-                    }}>
-                      {displayName.title}
-                    </h1>
                     {session && (
                       <button
                         onClick={handleToggleWishlist}
                         disabled={wishlistLoading}
                         style={{
-                          width: '40px',
-                          height: '40px',
+                          width: '32px',
+                          height: '32px',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -792,13 +799,24 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         }}
                       >
                         {isInWishlist ? (
-                          <HeartSolid style={{ width: '20px', height: '20px', color: '#ef4444' }} />
+                          <HeartSolid style={{ width: '18px', height: '18px', color: '#ef4444' }} />
                         ) : (
-                          <HeartOutline style={{ width: '20px', height: '20px', color: '#737373' }} />
+                          <HeartOutline style={{ width: '18px', height: '18px', color: '#737373' }} />
                         )}
                       </button>
                     )}
                   </div>
+
+                  <h1 style={{
+                    fontSize: 'var(--text-lg)',
+                    fontWeight: '600',
+                    color: '#171717',
+                    letterSpacing: '-0.02em',
+                    lineHeight: '1.3',
+                    marginBottom: '4px'
+                  }}>
+                    {displayName.title}
+                  </h1>
                   {displayName.subtitle && (
                     <p style={{
                       fontSize: 'var(--text-xs)',
