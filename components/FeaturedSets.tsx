@@ -249,7 +249,7 @@ export default function FeaturedSets() {
                   display: 'inline-block',
                   padding: '8px 16px',
                   fontSize: 'var(--text-sm)',
-                  fontWeight: '500',
+                  fontWeight: '600',
                   color: '#ffffff',
                   background: set.retailer === 'lego'
                     ? 'linear-gradient(135deg, #005C97 0%, #363795 100%)'
@@ -257,7 +257,7 @@ export default function FeaturedSets() {
                   borderRadius: '8px',
                   marginTop: '8px'
                 }}>
-                  {set.retailer === 'lego' ? 'View on LEGO.com' : 'View on Amazon'}
+                  {set.retailer === 'lego' ? 'Buy on LEGO.com' : 'Buy on Amazon'}
                 </div>
               </a>
               {/* Tracking pixel (LEGO.com only) */}
