@@ -321,8 +321,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
         if (response.ok) {
           setIsInWishlist(true);
-          setSuccessMessage('Added to wishlist! Find it in your profile menu (top right)');
-          setTimeout(() => setSuccessMessage(''), 5000);
+          // Trigger header dropdown to open and highlight wishlist
+          window.dispatchEvent(new Event('wishlistAdded'));
         } else {
           console.error('Failed to add to wishlist:', data.error);
           setError(data.error || 'Failed to add to wishlist');
@@ -813,54 +813,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       </button>
                     )}
                   </div>
-
-                  {/* Wishlist success message - right below heart button */}
-                  {successMessage && (successMessage.includes('wishlist') || successMessage.includes('Wishlist')) && (
-                    <div style={{
-                      marginTop: '12px',
-                      padding: '16px',
-                      background: '#f5f5f5',
-                      border: '2px solid #171717',
-                      borderRadius: '12px',
-                      fontSize: 'var(--text-base)',
-                      color: '#171717',
-                      fontWeight: '600',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '12px',
-                      animation: 'slideIn 0.3s ease-out'
-                    }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <HeartSolid style={{ width: '20px', height: '20px', color: '#171717' }} />
-                        <span>{successMessage}</span>
-                      </div>
-                      {successMessage.includes('Added') && (
-                        <Link
-                          href="/wishlist"
-                          style={{
-                            display: 'inline-block',
-                            padding: '12px 24px',
-                            background: '#171717',
-                            color: '#ffffff',
-                            borderRadius: '8px',
-                            textDecoration: 'none',
-                            textAlign: 'center',
-                            fontWeight: '600',
-                            transition: 'all 0.2s'
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.background = '#3b82f6';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.background = '#171717';
-                          }}
-                          onClick={() => setSuccessMessage('')}
-                        >
-                          View Wishlist →
-                        </Link>
-                      )}
-                    </div>
-                  )}
 
                   <h1 style={{
                     fontSize: 'var(--text-lg)',
