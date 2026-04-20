@@ -238,7 +238,15 @@ export default function CollectionList({
                 <option value="used">USED</option>
               </select>
             </div>
-            {item.pricing && item.pricing.suggestedPrice > 0 ? (
+            {!item.pricing ? (
+              <div style={{
+                fontSize: 'var(--text-xs)',
+                color: '#a3a3a3',
+                fontStyle: 'italic'
+              }}>
+                Loading price...
+              </div>
+            ) : item.pricing.suggestedPrice > 0 ? (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 {item.quantity > 1 ? (
                   <>
