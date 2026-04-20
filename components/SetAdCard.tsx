@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { generateAmazonLegoSetLink } from '@/lib/affiliate-links';
+import { generateAmazonLegoSetLink, generateLegoSetLink } from '@/lib/affiliate-links';
 
 interface SetAdCardProps {
   setNumber: string;
@@ -12,16 +12,19 @@ interface SetAdCardProps {
 }
 
 /**
- * Ad card component for LEGO sets with Amazon affiliate links
+ * Ad card component for LEGO sets with LEGO.com and Amazon affiliate links
  * Designed to blend naturally into the minifig grid
  * Supports both auto-generated and direct Amazon URLs
  */
 export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUrl }: SetAdCardProps) {
-  // Use provided amazonUrl if available, otherwise generate search link
+  // Generate affiliate links
+  const legoLink = generateLegoSetLink(setNumber);
   const amazonLink = amazonUrl || generateAmazonLegoSetLink(setNumber, setName);
 
-  const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>, platform: 'lego' | 'amazon') => {
     e.preventDefault();
+
+    const redirectUrl = platform === 'lego' ? legoLink : amazonLink;
 
     try {
       // Track the click
@@ -29,19 +32,19 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          platform: 'amazon',
+          platform,
           productType: 'set',
           productId: setNumber,
           productName: setName,
-          redirectUrl: amazonLink,
+          redirectUrl,
         }),
       });
     } catch (error) {
       console.error('Failed to track click:', error);
     }
 
-    // Redirect to Amazon
-    window.open(amazonLink, '_blank', 'noopener,noreferrer');
+    // Open link
+    window.open(redirectUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -144,38 +147,77 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
           {setName}
         </h3>
 
-        {/* Buy Button - Amazon only */}
-        <a
-          href={amazonLink}
-          onClick={handleClick}
-          rel="noopener noreferrer sponsored"
-          style={{
-            display: 'block',
-            width: '100%',
-            padding: '12px 16px',
-            fontSize: 'var(--text-xs)', // Smaller on desktop to prevent wrapping
-            fontWeight: '600',
-            color: '#ffffff',
-            background: '#3b82f6',
-            border: 'none',
-            borderRadius: '8px',
-            textAlign: 'center',
-            textDecoration: 'none',
-            transition: 'all 0.2s',
-            cursor: 'pointer',
-            whiteSpace: 'nowrap' // Prevent text wrapping
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#2563eb';
-            e.currentTarget.style.transform = 'scale(1.02)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = '#3b82f6';
-            e.currentTarget.style.transform = 'scale(1)';
-          }}
-        >
-          Buy on Amazon
-        </a>
+        {/* Buy Buttons - LEGO.com and Amazon */}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '8px'
+        }}>
+          <a
+            href={legoLink}
+            onClick={(e) => handleClick(e, 'lego')}
+            rel="noopener noreferrer sponsored"
+            style={{
+              display: 'block',
+              width: '100%',
+              padding: '12px 16px',
+              fontSize: 'var(--text-xs)',
+              fontWeight: '600',
+              color: '#ffffff',
+              background: '#3b82f6',
+              border: 'none',
+              borderRadius: '8px',
+              textAlign: 'center',
+              textDecoration: 'none',
+              transition: 'all 0.2s',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#2563eb';
+              e.currentTarget.style.transform = 'scale(1.02)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#3b82f6';
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+          >
+            Buy on LEGO.com
+          </a>
+          <a
+            href={amazonLink}
+            onClick={(e) => handleClick(e, 'amazon')}
+            rel="noopener noreferrer sponsored"
+            style={{
+              display: 'block',
+              width: '100%',
+              padding: '12px 16px',
+              fontSize: 'var(--text-xs)',
+              fontWeight: '500',
+              color: '#737373',
+              background: '#ffffff',
+              border: '1px solid #d4d4d4',
+              borderRadius: '8px',
+              textAlign: 'center',
+              textDecoration: 'none',
+              transition: 'all 0.2s',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#f5f5f5';
+              e.currentTarget.style.borderColor = '#a3a3a3';
+              e.currentTarget.style.color = '#171717';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#ffffff';
+              e.currentTarget.style.borderColor = '#d4d4d4';
+              e.currentTarget.style.color = '#737373';
+            }}
+          >
+            Buy on Amazon
+          </a>
+        </div>
       </div>
     </div>
   );

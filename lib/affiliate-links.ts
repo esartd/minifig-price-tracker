@@ -1,8 +1,26 @@
 /**
- * Affiliate link utilities for Amazon Associates monetization
+ * Affiliate link utilities for Amazon Associates and LEGO Partner Program monetization
  */
 
 const AMAZON_AFFILIATE_TAG = process.env.AMAZON_AFFILIATE_TAG || 'ericksu0c-20';
+const LEGO_AFFILIATE_ID = process.env.LEGO_AFFILIATE_ID || ''; // Set in env when approved
+
+/**
+ * LEGO.com affiliate link generator for LEGO sets
+ * @param setNumber - LEGO set number (e.g., "75373")
+ */
+export function generateLegoSetLink(setNumber: string): string {
+  // Remove any prefix from set number (e.g., "75373-1" becomes "75373")
+  const cleanSetNumber = setNumber.split('-')[0];
+
+  if (LEGO_AFFILIATE_ID) {
+    // With affiliate ID (when approved)
+    return `https://www.lego.com/en-us/product/${cleanSetNumber}?affiliate_id=${LEGO_AFFILIATE_ID}`;
+  }
+
+  // Without affiliate ID (direct link)
+  return `https://www.lego.com/en-us/product/${cleanSetNumber}`;
+}
 
 /**
  * Amazon Associates link generator for LEGO sets
