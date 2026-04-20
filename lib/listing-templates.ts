@@ -87,8 +87,8 @@ function formatCondition(condition: string, platform: string): string {
   };
 
   const vintedConditions: Record<string, string> = {
-    'new': 'Brand new',
-    'like_new': 'Like new',
+    'new': 'New with tags',
+    'like_new': 'Very good',
     'good': 'Good',
     'fair': 'Satisfactory'
   };

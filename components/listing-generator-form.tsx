@@ -617,8 +617,8 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
               )}
               {formData.platform === 'vinted' && (
                 <>
-                  <option value="new">Brand new</option>
-                  <option value="like_new">Like new</option>
+                  <option value="new">New with tags</option>
+                  <option value="like_new">Very good</option>
                   <option value="good">Good</option>
                   <option value="fair">Satisfactory</option>
                 </>
