@@ -308,6 +308,7 @@ model User {
   SetCollectionItem         SetCollectionItem[]
   SetPersonalCollectionItem SetPersonalCollectionItem[]
   Session                   Session[]
+  WishlistItem              WishlistItem[]
 }
 
 model VerificationToken {
@@ -330,4 +331,18 @@ model AffiliateClick {
   @@index([platform])
   @@index([clickedAt])
   @@index([productId])
+}
+
+model WishlistItem {
+  id              String   @id @default(cuid())
+  userId          String
+  minifigure_no   String
+  minifigure_name String
+  image_url       String?
+  date_added      DateTime @default(now())
+  User            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, minifigure_no])
+  @@index([userId])
+  @@index([minifigure_no])
 }
