@@ -131,51 +131,53 @@ export default async function AdminStatsPage() {
       take: 10,
     }),
     // Top themes by collection items (excluding admin)
-    prismaPublic.minifigCatalog.findMany({
-      where: {
-        minifigure_no: {
-          in: (await prisma.collectionItem.findMany({
-            where: { User: { email: { not: ADMIN_EMAIL } } },
-            select: { minifigure_no: true },
-            distinct: ['minifigure_no']
-          })).map(item => item.minifigure_no)
-        }
-      },
-      select: { category_name: true }
-    }).then(items => {
+    (async () => {
+      const collectionMinifigs = await prisma.collectionItem.findMany({
+        where: { User: { email: { not: ADMIN_EMAIL } } },
+        select: { minifigure_no: true },
+        distinct: ['minifigure_no']
+      });
+
+      const items = await prismaPublic.minifigCatalog.findMany({
+        where: { minifigure_no: { in: collectionMinifigs.map(item => item.minifigure_no) } },
+        select: { category_name: true }
+      });
+
       const themeCounts = items.reduce((acc, item) => {
         const theme = item.category_name.split('/')[0].trim();
         acc[theme] = (acc[theme] || 0) + 1;
         return acc;
       }, {} as Record<string, number>);
+
       return Object.entries(themeCounts)
         .map(([theme, count]) => ({ theme, count }))
         .sort((a, b) => b.count - a.count)
         .slice(0, 10);
-    }),
+    })(),
     // Top themes by wishlist items (excluding admin)
-    prismaPublic.minifigCatalog.findMany({
-      where: {
-        minifigure_no: {
-          in: (await prisma.wishlistItem.findMany({
-            where: { User: { email: { not: ADMIN_EMAIL } } },
-            select: { minifigure_no: true },
-            distinct: ['minifigure_no']
-          })).map(item => item.minifigure_no)
-        }
-      },
-      select: { category_name: true }
-    }).then(items => {
+    (async () => {
+      const wishlistMinifigs = await prisma.wishlistItem.findMany({
+        where: { User: { email: { not: ADMIN_EMAIL } } },
+        select: { minifigure_no: true },
+        distinct: ['minifigure_no']
+      });
+
+      const items = await prismaPublic.minifigCatalog.findMany({
+        where: { minifigure_no: { in: wishlistMinifigs.map(item => item.minifigure_no) } },
+        select: { category_name: true }
+      });
+
       const themeCounts = items.reduce((acc, item) => {
         const theme = item.category_name.split('/')[0].trim();
         acc[theme] = (acc[theme] || 0) + 1;
         return acc;
       }, {} as Record<string, number>);
+
       return Object.entries(themeCounts)
         .map(([theme, count]) => ({ theme, count }))
         .sort((a, b) => b.count - a.count)
         .slice(0, 10);
-    }),
+    })(),
   ]);
 
   // Sort by total items (PersonalCollectionItem + CollectionItem)
