@@ -783,8 +783,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          background: isInWishlist ? '#fef2f2' : '#ffffff',
-                          border: `2px solid ${isInWishlist ? '#ef4444' : '#e5e5e5'}`,
+                          background: isInWishlist ? '#f5f5f5' : '#ffffff',
+                          border: `2px solid ${isInWishlist ? '#171717' : '#e5e5e5'}`,
                           borderRadius: '50%',
                           cursor: wishlistLoading ? 'default' : 'pointer',
                           transition: 'all 0.2s',
@@ -795,7 +795,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         onMouseEnter={(e) => {
                           if (!wishlistLoading) {
                             e.currentTarget.style.transform = 'scale(1.1)';
-                            e.currentTarget.style.borderColor = '#ef4444';
+                            e.currentTarget.style.borderColor = '#171717';
                           }
                         }}
                         onMouseLeave={(e) => {
@@ -806,7 +806,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         }}
                       >
                         {isInWishlist ? (
-                          <HeartSolid style={{ width: '18px', height: '18px', color: '#ef4444' }} />
+                          <HeartSolid style={{ width: '18px', height: '18px', color: '#171717' }} />
                         ) : (
                           <HeartOutline style={{ width: '18px', height: '18px', color: '#737373' }} />
                         )}
@@ -1521,11 +1521,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           <div style={{
                             marginTop: '16px',
                             padding: '12px 16px',
-                            background: '#fef2f2',
-                            border: '1px solid #fecaca',
+                            background: '#f5f5f5',
+                            border: '1px solid #d4d4d4',
                             borderRadius: '8px',
                             fontSize: 'var(--text-sm)',
-                            color: '#991b1b',
+                            color: '#171717',
                             fontWeight: '500',
                             display: 'flex',
                             alignItems: 'center',
@@ -1533,12 +1533,12 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                             gap: '12px'
                           }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1 }}>
-                              <span>❤️ {successMessage}</span>
+                              <span>♥ {successMessage}</span>
                               {successMessage.includes('Added') && (
                                 <Link
                                   href="/wishlist"
                                   style={{
-                                    color: '#dc2626',
+                                    color: '#3b82f6',
                                     textDecoration: 'underline',
                                     fontWeight: '600',
                                     whiteSpace: 'nowrap'
@@ -1554,7 +1554,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                               style={{
                                 background: 'none',
                                 border: 'none',
-                                color: '#991b1b',
+                                color: '#737373',
                                 cursor: 'pointer',
                                 padding: '4px',
                                 display: 'flex',
@@ -1567,12 +1567,12 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                 lineHeight: '1'
                               }}
                               onMouseEnter={(e) => {
-                                e.currentTarget.style.background = '#dc2626';
+                                e.currentTarget.style.background = '#525252';
                                 e.currentTarget.style.color = '#ffffff';
                               }}
                               onMouseLeave={(e) => {
                                 e.currentTarget.style.background = 'none';
-                                e.currentTarget.style.color = '#991b1b';
+                                e.currentTarget.style.color = '#737373';
                               }}
                             >
                               ×

@@ -115,7 +115,7 @@ export default function WishlistPage() {
           gap: '12px',
           marginBottom: '8px'
         }}>
-          <HeartIcon style={{ width: '32px', height: '32px', color: '#ef4444' }} />
+          <HeartIcon style={{ width: '32px', height: '32px', color: '#171717' }} />
           <h1 style={{
             fontSize: 'var(--text-2xl)',
             fontWeight: '600',
