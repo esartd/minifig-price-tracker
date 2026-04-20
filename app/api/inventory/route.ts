@@ -20,27 +20,17 @@ export async function GET() {
     const region = session.user?.preferredRegion || 'north_america';
 
     // Get items with regional pricing from cache
-    let items = await database.getAllItems(session.user.id, countryCode, region);
+    const items = await database.getAllItems(session.user.id, countryCode, region);
 
-    // Fetch pricing for items with no cache (WAIT for fresh data)
+    // Background task: fetch pricing for items with no cache (don't await - prevents DB overload)
     const itemsNeedingPricing = items.filter(item => !item.pricing || item.pricing.suggestedPrice === 0);
-    if (itemsNeedingPricing.length > 0) {
-      console.log(`Fetching fresh pricing for ${itemsNeedingPricing.length} items...`);
-
-      // Fetch pricing for all items needing it (calculatePricingData caches results)
-      await Promise.all(
-        itemsNeedingPricing.map(item =>
+    if (itemsNeedingPricing.length > 0 && itemsNeedingPricing.length <= 10) {
+      // Only fetch in background for small collections to avoid overwhelming DB
+      Promise.all(
+        itemsNeedingPricing.slice(0, 5).map(item =>
           bricklinkAPI.calculatePricingData(item.minifigure_no, item.condition, countryCode, region)
-            .catch(err => {
-              console.error(`Error fetching pricing for ${item.minifigure_no}:`, err);
-              return null; // Continue with other items even if one fails
-            })
         )
-      );
-
-      // Re-fetch items to get the newly cached pricing
-      items = await database.getAllItems(session.user.id, countryCode, region);
-      console.log(`Fresh pricing loaded for user's collection`);
+      ).catch(err => console.error('Background pricing fetch error:', err));
     }
 
     return NextResponse.json({ success: true, data: items });
