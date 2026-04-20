@@ -769,47 +769,45 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     }}>
                       {minifig.year_released && minifig.year_released !== '?' ? minifig.year_released : 'Year Unknown'}
                     </span>
-                    {session && (
-                      <button
-                        onClick={handleToggleWishlist}
-                        disabled={wishlistLoading}
-                        style={{
-                          width: '32px',
-                          height: '32px',
-                          minWidth: '32px',
-                          minHeight: '32px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          background: isInWishlist ? '#f5f5f5' : '#ffffff',
-                          border: `2px solid ${isInWishlist ? '#171717' : '#e5e5e5'}`,
-                          borderRadius: '50%',
-                          cursor: wishlistLoading ? 'default' : 'pointer',
-                          transition: 'all 0.2s',
-                          flexShrink: 0,
-                          opacity: wishlistLoading ? 0.6 : 1,
-                          padding: 0
-                        }}
-                        onMouseEnter={(e) => {
-                          if (!wishlistLoading) {
-                            e.currentTarget.style.transform = 'scale(1.1)';
-                            e.currentTarget.style.borderColor = '#171717';
-                          }
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.transform = 'scale(1)';
-                          if (!isInWishlist) {
-                            e.currentTarget.style.borderColor = '#e5e5e5';
-                          }
-                        }}
-                      >
-                        {isInWishlist ? (
-                          <HeartSolid style={{ width: '18px', height: '18px', color: '#171717' }} />
-                        ) : (
-                          <HeartOutline style={{ width: '18px', height: '18px', color: '#737373' }} />
-                        )}
-                      </button>
-                    )}
+                    <button
+                      onClick={handleToggleWishlist}
+                      disabled={wishlistLoading}
+                      style={{
+                        width: '32px',
+                        height: '32px',
+                        minWidth: '32px',
+                        minHeight: '32px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: isInWishlist ? '#f5f5f5' : '#ffffff',
+                        border: `2px solid ${isInWishlist ? '#171717' : '#e5e5e5'}`,
+                        borderRadius: '50%',
+                        cursor: wishlistLoading ? 'default' : 'pointer',
+                        transition: 'all 0.2s',
+                        flexShrink: 0,
+                        opacity: wishlistLoading ? 0.6 : 1,
+                        padding: 0
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!wishlistLoading) {
+                          e.currentTarget.style.transform = 'scale(1.1)';
+                          e.currentTarget.style.borderColor = '#171717';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                        if (!isInWishlist) {
+                          e.currentTarget.style.borderColor = '#e5e5e5';
+                        }
+                      }}
+                    >
+                      {isInWishlist ? (
+                        <HeartSolid style={{ width: '18px', height: '18px', color: '#171717' }} />
+                      ) : (
+                        <HeartOutline style={{ width: '18px', height: '18px', color: '#737373' }} />
+                      )}
+                    </button>
                   </div>
 
                   <h1 style={{

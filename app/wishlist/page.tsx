@@ -23,10 +23,10 @@ export default function WishlistPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/auth/signin');
-    } else if (status === 'authenticated') {
+    if (status === 'authenticated') {
       loadWishlist();
+    } else if (status === 'unauthenticated') {
+      setLoading(false);
     }
   }, [status, router]);
 
@@ -96,6 +96,106 @@ export default function WishlistPage() {
           borderRadius: '50%',
           animation: 'spin 0.8s linear infinite'
         }}></div>
+      </div>
+    );
+  }
+
+  // Show sign-in prompt for unauthenticated users
+  if (status === 'unauthenticated') {
+    return (
+      <div style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '48px 16px',
+        minHeight: 'calc(100vh - 72px)'
+      }}>
+        <div style={{
+          textAlign: 'center',
+          padding: '80px 32px',
+          background: '#ffffff',
+          borderRadius: '12px',
+          border: '1px solid #e5e5e5'
+        }}>
+          <HeartIcon style={{
+            width: '64px',
+            height: '64px',
+            color: '#171717',
+            margin: '0 auto 24px'
+          }} />
+          <p style={{
+            fontSize: 'var(--text-xl)',
+            fontWeight: '600',
+            color: '#171717',
+            marginBottom: '12px'
+          }}>
+            Save Your Favorite Minifigures
+          </p>
+          <p style={{
+            fontSize: 'var(--text-base)',
+            color: '#737373',
+            marginBottom: '32px',
+            lineHeight: '1.6',
+            maxWidth: '500px',
+            margin: '0 auto 32px'
+          }}>
+            Create a free account to save minifigures to your wishlist, track your collection, and get price updates.
+          </p>
+          <div style={{
+            display: 'flex',
+            gap: '12px',
+            justifyContent: 'center',
+            flexWrap: 'wrap'
+          }}>
+            <Link
+              href="/auth/signin"
+              style={{
+                display: 'inline-block',
+                padding: '14px 28px',
+                fontSize: 'var(--text-base)',
+                fontWeight: '600',
+                color: '#ffffff',
+                background: '#3b82f6',
+                border: 'none',
+                borderRadius: '8px',
+                textDecoration: 'none',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#2563eb';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#3b82f6';
+              }}
+            >
+              Sign In
+            </Link>
+            <Link
+              href="/auth/signup"
+              style={{
+                display: 'inline-block',
+                padding: '14px 28px',
+                fontSize: 'var(--text-base)',
+                fontWeight: '600',
+                color: '#171717',
+                background: '#ffffff',
+                border: '2px solid #e5e5e5',
+                borderRadius: '8px',
+                textDecoration: 'none',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#f5f5f5';
+                e.currentTarget.style.borderColor = '#d4d4d4';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#ffffff';
+                e.currentTarget.style.borderColor = '#e5e5e5';
+              }}
+            >
+              Create Free Account
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }
