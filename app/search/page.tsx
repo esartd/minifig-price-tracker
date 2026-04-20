@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import SearchBar from '@/components/SearchBar';
 import { SearchResults } from '@/components/search';
 import { CollectionItem } from '@/types';
+import FeaturedSets from '@/components/FeaturedSets';
 
 // Diverse minifigures from multiple themes (verified to exist in catalog)
 const MINIFIG_POOL = [
@@ -289,11 +290,19 @@ function SearchPageContent() {
       overflowX: 'hidden',
       backgroundColor: '#ffffff',
       background: '#ffffff',
-      position: 'relative',
       transition: 'background 0.4s ease-out'
     }}>
-      {/* Floating Background Minifigures - Avoiding text/search area */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
+      {/* Floating Background Minifigures - Only in search section */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 0,
+        pointerEvents: 'none',
+        overflow: 'hidden'
+      }}>
         {minifigPositions.map((pos, index) => (
           <img
             key={index}
@@ -501,6 +510,11 @@ function SearchPageContent() {
           )}
         </div>
       </section>
+
+      {/* Featured Sets - Only show when not actively searching */}
+      {!isSearchActive && (
+        <FeaturedSets />
+      )}
     </div>
   );
 }
