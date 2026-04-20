@@ -280,41 +280,6 @@ export default function WishlistPage() {
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    const amazonUrl = generateAmazonMinifigLink(item.minifigure_no, item.minifigure_name);
-                    handleBuyClick('amazon', item, amazonUrl);
-                  }}
-                  style={{
-                    width: '100%',
-                    padding: '10px 12px',
-                    fontSize: 'var(--text-sm)',
-                    fontWeight: '600',
-                    color: '#ffffff',
-                    background: '#ff9900',
-                    border: 'none',
-                    borderRadius: '6px',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '6px'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#e88a00';
-                    e.currentTarget.style.transform = 'translateY(-1px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#ff9900';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  <ShoppingCartIcon style={{ width: '14px', height: '14px', flexShrink: 0 }} />
-                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>Amazon</span>
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
                     const bricklinkUrl = generateBrickLinkMinifigLink(item.minifigure_no);
                     handleBuyClick('bricklink', item, bricklinkUrl);
                   }}
@@ -345,6 +310,41 @@ export default function WishlistPage() {
                 >
                   <ShoppingCartIcon style={{ width: '14px', height: '14px', flexShrink: 0 }} />
                   <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>BrickLink</span>
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const amazonUrl = generateAmazonMinifigLink(item.minifigure_no, item.minifigure_name);
+                    handleBuyClick('amazon', item, amazonUrl);
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '600',
+                    color: '#ffffff',
+                    background: '#ff9900',
+                    border: 'none',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '6px'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#e88a00';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#ff9900';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <ShoppingCartIcon style={{ width: '14px', height: '14px', flexShrink: 0 }} />
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>Amazon</span>
                 </button>
               </div>
 
