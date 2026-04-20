@@ -300,8 +300,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
             const deleteResponse = await fetch(`/api/wishlist/${item.id}`, { method: 'DELETE' });
             if (deleteResponse.ok) {
               setIsInWishlist(false);
-              setSuccessMessage('Removed from wishlist');
-              setTimeout(() => setSuccessMessage(''), 3000);
             }
           }
         }
