@@ -13,6 +13,8 @@ import SetAdCard from '@/components/SetAdCard';
 import MoveDialog from '@/components/MoveDialog';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 import { formatPrice } from '@/lib/format-price';
+import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline';
+import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
 
 // Lazy load PriceHistoryChart (only loads when in inventory)
 const PriceHistoryChart = dynamic(() => import('@/components/PriceHistoryChart'), {
@@ -85,6 +87,10 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     }
     return 'new';
   });
+
+  // Wishlist state
+  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [wishlistLoading, setWishlistLoading] = useState(false);
 
   // Update condition when URL changes (e.g., when navigating from collection)
   useEffect(() => {
@@ -251,6 +257,71 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
     checkCollections();
   }, [minifig.no, condition, session]);
+
+  // Check if item is in wishlist
+  useEffect(() => {
+    if (!session) return;
+
+    const checkWishlist = async () => {
+      try {
+        const response = await fetch('/api/wishlist');
+        const data = await response.json();
+
+        if (data.success) {
+          const found = data.data.some((item: any) => item.minifigure_no === minifig.no);
+          setIsInWishlist(found);
+        }
+      } catch (err) {
+        console.error('Error checking wishlist:', err);
+      }
+    };
+
+    checkWishlist();
+  }, [minifig.no, session]);
+
+  const handleToggleWishlist = async () => {
+    if (!session) {
+      router.push('/auth/signin');
+      return;
+    }
+
+    setWishlistLoading(true);
+
+    try {
+      if (isInWishlist) {
+        // Remove from wishlist
+        const response = await fetch('/api/wishlist');
+        const data = await response.json();
+
+        if (data.success) {
+          const item = data.data.find((item: any) => item.minifigure_no === minifig.no);
+          if (item) {
+            await fetch(`/api/wishlist/${item.id}`, { method: 'DELETE' });
+            setIsInWishlist(false);
+          }
+        }
+      } else {
+        // Add to wishlist
+        const response = await fetch('/api/wishlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            minifigure_no: minifig.no,
+            minifigure_name: minifig.name,
+            image_url: minifig.image_url
+          })
+        });
+
+        if (response.ok) {
+          setIsInWishlist(true);
+        }
+      }
+    } catch (err) {
+      console.error('Error toggling wishlist:', err);
+    } finally {
+      setWishlistLoading(false);
+    }
+  };
 
   const handleAddToCollection = async (quantity: number) => {
     if (!session) {
@@ -678,16 +749,56 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     </span>
                   </div>
 
-                  <h1 style={{
-                    fontSize: 'var(--text-lg)',
-                    fontWeight: '600',
-                    color: '#171717',
-                    letterSpacing: '-0.02em',
-                    lineHeight: '1.3',
-                    marginBottom: '4px'
-                  }}>
-                    {displayName.title}
-                  </h1>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '4px' }}>
+                    <h1 style={{
+                      fontSize: 'var(--text-lg)',
+                      fontWeight: '600',
+                      color: '#171717',
+                      letterSpacing: '-0.02em',
+                      lineHeight: '1.3',
+                      flex: 1
+                    }}>
+                      {displayName.title}
+                    </h1>
+                    {session && (
+                      <button
+                        onClick={handleToggleWishlist}
+                        disabled={wishlistLoading}
+                        style={{
+                          width: '40px',
+                          height: '40px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          background: isInWishlist ? '#fef2f2' : '#ffffff',
+                          border: `2px solid ${isInWishlist ? '#ef4444' : '#e5e5e5'}`,
+                          borderRadius: '50%',
+                          cursor: wishlistLoading ? 'default' : 'pointer',
+                          transition: 'all 0.2s',
+                          flexShrink: 0,
+                          opacity: wishlistLoading ? 0.6 : 1
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!wishlistLoading) {
+                            e.currentTarget.style.transform = 'scale(1.1)';
+                            e.currentTarget.style.borderColor = '#ef4444';
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                          if (!isInWishlist) {
+                            e.currentTarget.style.borderColor = '#e5e5e5';
+                          }
+                        }}
+                      >
+                        {isInWishlist ? (
+                          <HeartSolid style={{ width: '20px', height: '20px', color: '#ef4444' }} />
+                        ) : (
+                          <HeartOutline style={{ width: '20px', height: '20px', color: '#737373' }} />
+                        )}
+                      </button>
+                    )}
+                  </div>
                   {displayName.subtitle && (
                     <p style={{
                       fontSize: 'var(--text-xs)',
