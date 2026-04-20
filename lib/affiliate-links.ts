@@ -39,3 +39,23 @@ export function generateBrickLinkAffiliateLink(itemType: string, itemNo: string)
   // BrickLink affiliate structure (verify with their docs when you get approved)
   return `https://www.bricklink.com/v2/catalog/catalogitem.page?${itemType}=${itemNo}&affid=${bricklinkId}`;
 }
+
+/**
+ * Amazon Associates link for LEGO minifigures
+ * @param minifigNo - Minifig number (e.g., "sw1219")
+ * @param minifigName - Minifig name for search query
+ */
+export function generateAmazonMinifigLink(minifigNo: string, minifigName: string): string {
+  const searchQuery = `LEGO Minifigure ${minifigNo} ${minifigName}`;
+  const encodedQuery = encodeURIComponent(searchQuery);
+
+  return `https://www.amazon.com/s?k=${encodedQuery}&tag=${AMAZON_AFFILIATE_TAG}`;
+}
+
+/**
+ * BrickLink minifig page link
+ * @param minifigNo - Minifig number (e.g., "sw1219")
+ */
+export function generateBrickLinkMinifigLink(minifigNo: string): string {
+  return generateBrickLinkAffiliateLink('M', minifigNo);
+}

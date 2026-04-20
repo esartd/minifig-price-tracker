@@ -5,7 +5,8 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { HeartIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { HeartIcon, TrashIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { generateAmazonMinifigLink, generateBrickLinkMinifigLink } from '@/lib/affiliate-links';
 
 interface WishlistItem {
   id: string;
@@ -55,6 +56,28 @@ export default function WishlistPage() {
     } catch (error) {
       console.error('Error removing from wishlist:', error);
     }
+  };
+
+  const handleBuyClick = async (platform: 'amazon' | 'bricklink', item: WishlistItem, url: string) => {
+    try {
+      // Track the click
+      await fetch('/api/track-click', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          platform,
+          productType: 'minifig',
+          productId: item.minifigure_no,
+          productName: item.minifigure_name,
+          redirectUrl: url,
+        }),
+      });
+    } catch (error) {
+      console.error('Failed to track click:', error);
+    }
+
+    // Open in new tab
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   if (status === 'loading' || loading) {
@@ -239,11 +262,91 @@ export default function WishlistPage() {
                 <p style={{
                   fontSize: 'var(--text-xs)',
                   color: '#737373',
-                  fontFamily: 'monospace'
+                  fontFamily: 'monospace',
+                  marginBottom: '12px'
                 }}>
                   {item.minifigure_no}
                 </p>
               </Link>
+
+              {/* Buy Buttons */}
+              <div style={{
+                padding: '0 16px 16px',
+                display: 'flex',
+                gap: '8px'
+              }}>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const amazonUrl = generateAmazonMinifigLink(item.minifigure_no, item.minifigure_name);
+                    handleBuyClick('amazon', item, amazonUrl);
+                  }}
+                  style={{
+                    flex: 1,
+                    padding: '8px 12px',
+                    fontSize: 'var(--text-xs)',
+                    fontWeight: '600',
+                    color: '#ffffff',
+                    background: '#ff9900',
+                    border: 'none',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '6px'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#e88a00';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#ff9900';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <ShoppingCartIcon style={{ width: '14px', height: '14px' }} />
+                  Amazon
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const bricklinkUrl = generateBrickLinkMinifigLink(item.minifigure_no);
+                    handleBuyClick('bricklink', item, bricklinkUrl);
+                  }}
+                  style={{
+                    flex: 1,
+                    padding: '8px 12px',
+                    fontSize: 'var(--text-xs)',
+                    fontWeight: '600',
+                    color: '#ffffff',
+                    background: '#3b82f6',
+                    border: 'none',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '6px'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#2563eb';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#3b82f6';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <ShoppingCartIcon style={{ width: '14px', height: '14px' }} />
+                  BrickLink
+                </button>
+              </div>
+
               <button
                 onClick={(e) => {
                   e.stopPropagation();
