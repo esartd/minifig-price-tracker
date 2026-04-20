@@ -166,26 +166,6 @@ export const SUPPORTED_CURRENCIES: CurrencyOption[] = [
     continent: 'Europe',
   },
   {
-    code: 'RSD',
-    symbol: 'дин',
-    name: 'Serbian Dinar',
-    countryCode: 'RS',
-    region: 'europe',
-    locale: 'sr-RS',
-    flag: '🇷🇸',
-    continent: 'Europe',
-  },
-  {
-    code: 'TRY',
-    symbol: '₺',
-    name: 'Turkish Lira',
-    countryCode: 'TR',
-    region: 'europe',
-    locale: 'tr-TR',
-    flag: '🇹🇷',
-    continent: 'Europe',
-  },
-  {
     code: 'RUB',
     symbol: '₽',
     name: 'Russian Rouble',
@@ -193,16 +173,6 @@ export const SUPPORTED_CURRENCIES: CurrencyOption[] = [
     region: 'europe',
     locale: 'ru-RU',
     flag: '🇷🇺',
-    continent: 'Europe',
-  },
-  {
-    code: 'UAH',
-    symbol: '₴',
-    name: 'Ukraine Hryvnia',
-    countryCode: 'UA',
-    region: 'europe',
-    locale: 'uk-UA',
-    flag: '🇺🇦',
     continent: 'Europe',
   },
 
@@ -258,16 +228,6 @@ export const SUPPORTED_CURRENCIES: CurrencyOption[] = [
     continent: 'Asia',
   },
   {
-    code: 'TWD',
-    symbol: 'NT$',
-    name: 'Taiwan New Dollar',
-    countryCode: 'TW',
-    region: 'asia_pacific',
-    locale: 'zh-TW',
-    flag: '🇹🇼',
-    continent: 'Asia',
-  },
-  {
     code: 'SGD',
     symbol: 'S$',
     name: 'Singapore Dollar',
@@ -307,26 +267,6 @@ export const SUPPORTED_CURRENCIES: CurrencyOption[] = [
     flag: '🇵🇭',
     continent: 'Asia',
   },
-  {
-    code: 'IDR',
-    symbol: 'Rp',
-    name: 'Indonesian Rupiah',
-    countryCode: 'ID',
-    region: 'asia_pacific',
-    locale: 'id-ID',
-    flag: '🇮🇩',
-    continent: 'Asia',
-  },
-  {
-    code: 'INR',
-    symbol: '₹',
-    name: 'Indian Rupee',
-    countryCode: 'IN',
-    region: 'asia_pacific',
-    locale: 'en-IN',
-    flag: '🇮🇳',
-    continent: 'Asia',
-  },
 
   // Oceania
   {
@@ -350,51 +290,6 @@ export const SUPPORTED_CURRENCIES: CurrencyOption[] = [
     continent: 'Oceania',
   },
 
-  // South America
-  {
-    code: 'BRL',
-    symbol: 'R$',
-    name: 'Brazilian Real',
-    countryCode: 'BR',
-    region: 'south_america',
-    locale: 'pt-BR',
-    flag: '🇧🇷',
-    continent: 'South America',
-  },
-  {
-    code: 'ARS',
-    symbol: 'AR$',
-    name: 'Argentine Peso',
-    countryCode: 'AR',
-    region: 'south_america',
-    locale: 'es-AR',
-    flag: '🇦🇷',
-    continent: 'South America',
-  },
-
-  // Africa
-  {
-    code: 'ZAR',
-    symbol: 'R',
-    name: 'South African Rand',
-    countryCode: 'ZA',
-    region: 'africa',
-    locale: 'en-ZA',
-    flag: '🇿🇦',
-    continent: 'Africa',
-  },
-
-  // Middle East
-  {
-    code: 'ILS',
-    symbol: '₪',
-    name: 'Israeli New Shekel',
-    countryCode: 'IL',
-    region: 'middle_east',
-    locale: 'he-IL',
-    flag: '🇮🇱',
-    continent: 'Middle East',
-  },
 ];
 
 export function getCurrencyByCode(code: string): CurrencyOption | undefined {
