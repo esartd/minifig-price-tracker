@@ -36,21 +36,19 @@ export default function PersonalCollectionList({
 
   const currency = session?.user?.preferredCurrency || 'USD';
 
-  // Dismiss notification on any interaction
+  // Dismiss notification on click
   useEffect(() => {
     if (!moveSuccess) return;
 
-    const handleInteraction = () => {
+    const handleClick = () => {
       setMoveSuccess(false);
       setLastMovedItem(null);
     };
 
-    window.addEventListener('click', handleInteraction);
-    window.addEventListener('scroll', handleInteraction, true);
+    window.addEventListener('click', handleClick);
 
     return () => {
-      window.removeEventListener('click', handleInteraction);
-      window.removeEventListener('scroll', handleInteraction, true);
+      window.removeEventListener('click', handleClick);
     };
   }, [moveSuccess]);
 
