@@ -25,6 +25,7 @@ interface Theme {
     fullName: string;
     count: number;
   }>;
+  subcategoryCount: number; // Add explicit count
   totalCount: number;
   representativeImage: string | null;
   isCurrent: boolean;
@@ -86,6 +87,13 @@ async function getThemes(): Promise<Theme[]> {
         subcategories: theme.subcategories.sort((a, b) => a.name.localeCompare(b.name))
       }));
 
+    // Debug: Log a few themes to verify data
+    console.log('[THEMES DEBUG] Sample themes:', groupedThemes.slice(0, 3).map(t => ({
+      parent: t.parent,
+      subCount: t.subcategories.length,
+      totalCount: t.totalCount
+    })));
+
     // Determine which themes are current (released in last 2 years) from static JSON
     const currentYear = new Date().getFullYear();
     const recentMinifigs = await getRecentMinifigs(2);
@@ -117,6 +125,7 @@ async function getThemes(): Promise<Theme[]> {
 
       return {
         ...theme,
+        subcategoryCount: theme.subcategories.length, // Explicit count
         representativeImage: minifigNo
           ? `https://img.bricklink.com/ItemImage/MN/0/${minifigNo}.png`
           : null,

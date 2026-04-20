@@ -7,6 +7,7 @@ import Image from 'next/image';
 interface Theme {
   parent: string;
   subcategories: Array<any>;
+  subcategoryCount: number;
   totalCount: number;
   representativeImage: string | null;
   isCurrent: boolean;
@@ -289,7 +290,7 @@ function ThemeTile({ theme }: { theme: Theme }) {
           color: '#737373'
         }}>
           {theme.totalCount.toLocaleString()} minifigure{theme.totalCount !== 1 ? 's' : ''}
-          {theme.subcategories.length > 0 && ` · ${theme.subcategories.length} ${theme.subcategories.length === 1 ? 'series' : 'series'}`}
+          {theme.subcategoryCount > 0 && ` · ${theme.subcategoryCount} ${theme.subcategoryCount === 1 ? 'series' : 'series'}`}
         </p>
       </div>
     </Link>
