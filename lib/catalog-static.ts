@@ -130,23 +130,25 @@ export async function getMinifigsByCategoryId(categoryId: number): Promise<Minif
 export async function getAllCategories(): Promise<Array<{ id: number; name: string; count: number }>> {
   const catalog = await loadCatalog();
 
-  const categoryMap = new Map<number, { name: string; count: number }>();
+  // Group by category_name instead of category_id
+  // (BrickLink uses same category_id for parent theme and all subcategories)
+  const categoryMap = new Map<string, { id: number; count: number }>();
 
   for (const minifig of catalog) {
-    const existing = categoryMap.get(minifig.category_id);
+    const existing = categoryMap.get(minifig.category_name);
     if (existing) {
       existing.count++;
     } else {
-      categoryMap.set(minifig.category_id, {
-        name: minifig.category_name,
+      categoryMap.set(minifig.category_name, {
+        id: minifig.category_id,
         count: 1
       });
     }
   }
 
-  return Array.from(categoryMap.entries()).map(([id, data]) => ({
-    id,
-    name: data.name,
+  return Array.from(categoryMap.entries()).map(([name, data]) => ({
+    id: data.id,
+    name: name,
     count: data.count
   }));
 }
