@@ -130,12 +130,10 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
   // Update URL when condition changes
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const url = new URL(window.location.href);
-      url.searchParams.set('condition', condition);
-      window.history.replaceState({}, '', url.toString());
-    }
-  }, [condition]);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('condition', condition);
+    router.replace(`?${params.toString()}`, { scroll: false });
+  }, [condition, router, searchParams]);
 
   // Clear success message when condition changes
   useEffect(() => {
