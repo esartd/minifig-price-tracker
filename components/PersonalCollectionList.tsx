@@ -516,7 +516,7 @@ export default function PersonalCollectionList({
         <div onClick={(e) => e.stopPropagation()} style={{
           position: 'fixed',
           bottom: '24px',
-          right: '24px',
+          left: '24px',
           background: '#10b981',
           color: '#ffffff',
           padding: '16px 24px',
