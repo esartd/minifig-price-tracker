@@ -295,7 +295,7 @@ function SearchPageContent() {
       {/* Floating Background Minifigures - Only in search section */}
       <div style={{
         position: 'absolute',
-        top: 0,
+        top: '72px',
         left: 0,
         right: 0,
         bottom: 0,
