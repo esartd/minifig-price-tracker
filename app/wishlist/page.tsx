@@ -185,7 +185,7 @@ export default function WishlistPage() {
       ) : (
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
           gap: '16px'
         }}>
           {wishlist.map((item) => (
@@ -224,7 +224,7 @@ export default function WishlistPage() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginBottom: '12px',
-                  background: '#fafafa',
+                  background: '#ffffff',
                   borderRadius: '8px'
                 }}>
                   {item.image_url ? (
@@ -273,7 +273,7 @@ export default function WishlistPage() {
               <div style={{
                 padding: '0 16px 16px',
                 display: 'flex',
-                gap: '8px'
+                gap: '4px'
               }}>
                 <button
                   onClick={(e) => {
@@ -284,7 +284,7 @@ export default function WishlistPage() {
                   }}
                   style={{
                     flex: 1,
-                    padding: '8px 12px',
+                    padding: '10px 8px',
                     fontSize: 'var(--text-xs)',
                     fontWeight: '600',
                     color: '#ffffff',
@@ -296,7 +296,10 @@ export default function WishlistPage() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '6px'
+                    gap: '4px',
+                    minWidth: 0,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = '#e88a00';
@@ -307,8 +310,8 @@ export default function WishlistPage() {
                     e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
-                  <ShoppingCartIcon style={{ width: '14px', height: '14px' }} />
-                  Amazon
+                  <ShoppingCartIcon style={{ width: '14px', height: '14px', flexShrink: 0 }} />
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>Amazon</span>
                 </button>
                 <button
                   onClick={(e) => {
@@ -319,7 +322,7 @@ export default function WishlistPage() {
                   }}
                   style={{
                     flex: 1,
-                    padding: '8px 12px',
+                    padding: '10px 8px',
                     fontSize: 'var(--text-xs)',
                     fontWeight: '600',
                     color: '#ffffff',
@@ -331,7 +334,10 @@ export default function WishlistPage() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '6px'
+                    gap: '4px',
+                    minWidth: 0,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = '#2563eb';
@@ -342,8 +348,8 @@ export default function WishlistPage() {
                     e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
-                  <ShoppingCartIcon style={{ width: '14px', height: '14px' }} />
-                  BrickLink
+                  <ShoppingCartIcon style={{ width: '14px', height: '14px', flexShrink: 0 }} />
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>BrickLink</span>
                 </button>
               </div>
 
