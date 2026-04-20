@@ -19,7 +19,7 @@ export default async function AdminStatsPage() {
   const last7Days = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
   const last30Days = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
 
-  // Get all the stats
+  // Get all the stats (excluding admin account)
   const [
     totalUsers,
     totalCollectionItems,
@@ -33,11 +33,18 @@ export default async function AdminStatsPage() {
     clicks30d,
     topClickedProducts,
   ] = await Promise.all([
-    prisma.user.count(),
-    prisma.collectionItem.count(),
-    prisma.personalCollectionItem.count(),
+    prisma.user.count({
+      where: { email: { not: ADMIN_EMAIL } }
+    }),
+    prisma.collectionItem.count({
+      where: { User: { email: { not: ADMIN_EMAIL } } }
+    }),
+    prisma.personalCollectionItem.count({
+      where: { User: { email: { not: ADMIN_EMAIL } } }
+    }),
     prisma.priceCache.count(),
     prisma.user.findMany({
+      where: { email: { not: ADMIN_EMAIL } },
       orderBy: { createdAt: 'desc' },
       take: 10,
       select: {
@@ -54,6 +61,7 @@ export default async function AdminStatsPage() {
     }),
     // Fetch all users to sort by TOTAL items (not just one collection type)
     prisma.user.findMany({
+      where: { email: { not: ADMIN_EMAIL } },
       select: {
         email: true,
         name: true,
