@@ -322,10 +322,10 @@ export default function WishlistPage() {
                     width: '100%',
                     padding: '10px 12px',
                     fontSize: 'var(--text-sm)',
-                    fontWeight: '600',
-                    color: '#ffffff',
-                    background: '#ff9900',
-                    border: 'none',
+                    fontWeight: '500',
+                    color: '#737373',
+                    background: '#ffffff',
+                    border: '1px solid #d4d4d4',
                     borderRadius: '6px',
                     cursor: 'pointer',
                     transition: 'all 0.2s',
@@ -335,12 +335,14 @@ export default function WishlistPage() {
                     gap: '6px'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#e88a00';
-                    e.currentTarget.style.transform = 'translateY(-1px)';
+                    e.currentTarget.style.background = '#f5f5f5';
+                    e.currentTarget.style.borderColor = '#a3a3a3';
+                    e.currentTarget.style.color = '#171717';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#ff9900';
-                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.background = '#ffffff';
+                    e.currentTarget.style.borderColor = '#d4d4d4';
+                    e.currentTarget.style.color = '#737373';
                   }}
                 >
                   <ShoppingCartIcon style={{ width: '14px', height: '14px', flexShrink: 0 }} />
