@@ -109,8 +109,8 @@ export async function GET(request: Request) {
 
     console.log(`Found ${refreshCandidates.length} expired caches to refresh`);
 
-    // Limit to 500 refreshes per day (safety buffer)
-    const MAX_REFRESHES = 500;
+    // Limit to 1000 refreshes per day (runs once daily on Hobby plan)
+    const MAX_REFRESHES = 1000;
     const toRefresh = refreshCandidates.slice(0, MAX_REFRESHES);
 
     console.log(`Refreshing top ${toRefresh.length} items...`);
