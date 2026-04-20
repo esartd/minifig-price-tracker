@@ -59,19 +59,6 @@ export default function CollectionPage() {
       const data = await response.json();
       if (data.success) {
         setCollection(data.data);
-
-        // If any items are missing pricing, poll for updates
-        const itemsMissingPricing = data.data.filter((item: CollectionItem) => !item.pricing);
-        if (itemsMissingPricing.length > 0) {
-          // Poll after 2 seconds to get updated pricing
-          setTimeout(async () => {
-            const updateResponse = await fetch('/api/inventory');
-            const updateData = await updateResponse.json();
-            if (updateData.success) {
-              setCollection(updateData.data);
-            }
-          }, 2000);
-        }
       }
     } catch (error) {
       console.error('Error loading collection:', error);
