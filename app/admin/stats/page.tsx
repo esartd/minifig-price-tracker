@@ -340,7 +340,7 @@ export default async function AdminStatsPage() {
           )}
         </div>
 
-        {/* Database Split Info */}
+        {/* Database Info */}
         <div style={{
           background: '#ffffff',
           borderRadius: '12px',
@@ -354,7 +354,7 @@ export default async function AdminStatsPage() {
             color: '#171717',
             marginBottom: 'var(--space-3)',
           }}>
-            Database Split Overview
+            Database Overview
           </h2>
           <div style={{
             display: 'grid',
@@ -362,25 +362,17 @@ export default async function AdminStatsPage() {
             gap: 'var(--space-4)',
           }}>
             <DatabaseInfo
-              title="Neon"
-              bandwidth="5GB/month"
-              status="Low usage"
+              title="Hostinger MySQL"
+              bandwidth="Unlimited bandwidth"
+              status="Active"
               statusColor="#10b981"
               items={[
                 `Users: ${totalUsers}`,
                 `Collection Items: ${totalCollectionItems}`,
                 `Personal Items: ${totalPersonalItems}`,
-              ]}
-            />
-            <DatabaseInfo
-              title="Supabase"
-              bandwidth="50GB/month"
-              status="Handles traffic"
-              statusColor="#3b82f6"
-              items={[
-                `Catalog: ${(18732).toLocaleString()} items (static JSON)`,
                 `Price Cache: ${totalPriceCache.toLocaleString()} entries`,
-                `API Call Tracker`,
+                `Affiliate Clicks: ${totalClicks}`,
+                `Catalog: ${(18732).toLocaleString()} items`,
               ]}
             />
           </div>
