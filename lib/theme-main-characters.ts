@@ -273,9 +273,148 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
 
   // Western subseries
   'Western / Cowboys': 'ww012',
+  'Western / Indians': 'ww014',
 
   // Animal Crossing
   'Animal Crossing': 'ani027',
+
+  // NINJAGO subseries (locked permanent images)
+  'NINJAGO / (Other)': 'njo0108',
+  'NINJAGO / Core': 'njo0715',
+  'NINJAGO / Crystalized': 'njo0766',
+  'NINJAGO / Day of the Departed': 'njo0220',
+  'NINJAGO / Dragons Rising Season 1': 'njo0811',
+  'NINJAGO / Dragons Rising Season 2': 'njo0833',
+  'NINJAGO / Dragons Rising Season 3': 'njo0940',
+  'NINJAGO / Dragons Rising Season 4': 'njo1024',
+  'NINJAGO / Hunted': 'njo0456',
+  'NINJAGO / Hunted / Dragon Masters': 'njo0452',
+  'NINJAGO / Legacy': 'njo0489',
+  'NINJAGO / Legacy / Core': 'njo0807',
+  'NINJAGO / Legacy / Day of the Departed': 'njo1026',
+  'NINJAGO / March of the Oni': 'njo0510',
+  'NINJAGO / Master of the Mountain': 'njo0599',
+  'NINJAGO / NINJAGO Legends': 'njo0984',
+  'NINJAGO / Possession': 'njo0140',
+  'NINJAGO / Prime Empire': 'njo0558',
+  'NINJAGO / Rebooted': 'njo0083',
+
+  // Castle subseries
+  'Castle / Black Falcons': 'cas098',
+  'Castle / Classic Castle': 'cas075',
+  'Castle / Crusaders': 'cas109',
+  'Castle / Forestmen': 'cas124',
+  'Castle / Kingdoms': 'cas435',
+  'Castle / Knights Kingdom II': 'cas256',
+  'Castle / Lion Knights': 'cas170',
+  'Castle / Royal Knights': 'cas059',
+
+  // Pirates subseries
+  'Pirates / Pirates I': 'pi005',
+  'Pirates / Pirates I / Imperial Armada': 'pi010',
+  'Pirates / Pirates I / Imperial Soldiers': 'pi004',
+  'Pirates / Pirates I / Islanders': 'pi066',
+  'Pirates / Pirates II': 'pi081',
+  'Pirates / Pirates II / Imperial Guards': 'pi085',
+  'Pirates / Pirates III': 'pi148',
+  'Pirates / Pirates III / Imperial Soldiers': 'pi149a',
+  'Pirates / Pirates IV': 'pi185',
+  'Pirates / Pirates IV / Imperial Soldiers': 'pi188',
+
+  // Town / City subseries (continued)
+  'Town / Arctic': 'arc001',
+  'Town / City': 'chef009',
+  'Town / City / Airport': 'air022',
+  'Town / City / Arctic': 'cty0490',
+  'Town / City / Building': 'twn233',
+  'Town / City / Cargo': 'cty0798',
+  'Town / City / Coast Guard': 'cty0071',
+  'Town / City / Construction': 'cty0009',
+  'Town / City / Deep Sea Explorers': 'cty0558',
+  'Town / City / Food & Drink': 'twn495',
+  'Town / City / Gas Station': 'oct049',
+  'Town / City / Harbor': 'boat009',
+  'Town / City / Hospital': 'cty0017',
+  'Town / City / Jungle': 'cty0788',
+  'Town / City / Off-Road': 'oct066',
+  'Town / City / Police': 'cop045',
+  'Town / City / Post Office': 'post006',
+
+  // Disney subseries
+  'Disney / Disney 100': 'dis088',
+  'Disney / Disney 100 / Up': 'dis091',
+  'Disney / Disney Princess': 'dp094',
+  'Disney / Disney Princess / Aladdin': 'dp012',
+  'Disney / Disney Princess / Ariel': 'dp193',
+  'Disney / Disney Princess / Beauty and the Beast': 'dp029',
+  'Disney / Disney Princess / Brave': 'dp002',
+  'Disney / Disney Princess / Frozen': 'dp017',
+  'Disney / Disney Princess / Frozen / Frozen II': 'dp069',
+  'Disney / Disney Princess / Moana': 'moa001',
+  'Disney / Disney Princess / Moana 2': 'moa006',
+  'Disney / Disney Princess / Mulan': 'dp044',
+  'Disney / Disney Princess / Snow White': 'dp043',
+  'Disney / Disney Princess / Tangled / Tangled The Series': 'dp055',
+  'Disney / Disney Princess / The Little Mermaid': 'dp001',
+  'Disney / Disney Princess / The Princess and the Frog': 'dp065',
+
+  // DUPLO subseries
+  'DUPLO / Action Wheelers': '4555pb040',
+  'DUPLO / Arctic': '47394pb200',
+  'DUPLO / Basic Set': '2327pb01',
+  'DUPLO / Bluey': '47205pb128',
+  'DUPLO / Bob The Builder': '4555pb021',
+  'DUPLO / Cars': 'crs049',
+  'DUPLO / Cars / Cars 2': 'crs079',
+  'DUPLO / Cars / Cars 3': 'crs019',
+  'DUPLO / Castle': 'cas592',
+  'DUPLO / Dino': '6453pb001',
+  'DUPLO / Disney / Disney 100': '47394pb342',
+  'DUPLO / Disney / Disney Junior / Doc McStuffins': '47394pb201',
+  'DUPLO / Disney / Disney Junior / Jake and the Never Land Pirates': '47394pb162',
+  'DUPLO / Disney / Disney Junior / Mickey': '47394pb278',
+  'DUPLO / Disney / Disney Junior / Mickey and the Roadster Racers': '47394pb232',
+  'DUPLO / Disney / Disney Junior / Mickey Mouse Clubhouse': '47394pb194',
+  'DUPLO / Disney / Disney Junior / Miles From Tomorrowland': '47394pb198',
+  'DUPLO / Disney / Disney Junior / Minnie': '47394pb202',
+  'DUPLO / Disney / Disney Junior / Sofia the First': '47205pb033',
+
+  // Adventurers subseries (continued)
+  'Adventurers / Dino Island': 'adv002',
+  'Adventurers / Jungle': 'adv001',
+  'Adventurers / Orient Expedition': 'adv024',
+
+  // BIONICLE subseries (continued)
+  'BIONICLE / Barraki': 'bio013',
+  'BIONICLE / Piraka': 'bio001',
+  'BIONICLE / Toa Hordika': '51637',
+  'BIONICLE / Toa Inika': 'bio005',
+  'BIONICLE / Visorak': '51991a',
+
+  // Cars subseries (continued)
+  'Cars / Cars 3': 'crs001',
+
+  // Games subseries (continued)
+  'Games / Harry Potter': '85863pb034',
+  'Games / LEGENDS OF CHIMA': '85863pb098',
+  'Games / NINJAGO / The Golden Weapons': '85863pb050',
+  'Games / Star Wars / Star Wars Episode 4/5/6': '85863pb075',
+  'Games / Super Heroes / Batman II': '85863pb101',
+  'Games / The Hobbit and The Lord of the Rings / The Hobbit': '85863pb094',
+  'Games / The Hobbit and The Lord of the Rings / The Lord of the Rings': '85863pb109',
+  'Games / Town / City / Police': '85863pb073',
+
+  // Racers subseries (continued)
+  'Racers / Factory': 'rac038',
+  'Racers / Ferrari': 'rac022s',
+  'Racers / Williams F1': 'rac018s',
+
+  // Spider-Man subseries (continued)
+  'Spider-Man / Spider-Man 1': 'spd001',
+
+  // Sports subseries (continued)
+  'Sports / Basketball': 'nba004',
+  'Sports / Promotional': 'gen156s',
 
   // Add more as needed...
 };
