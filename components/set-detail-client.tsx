@@ -10,8 +10,6 @@ import SetAdCard from '@/components/SetAdCard';
 import MoveDialog from '@/components/MoveDialog';
 import { formatPrice } from '@/lib/format-price';
 
-// TODO: Add PriceHistoryChart support for sets (requires SetPriceHistory schema)
-
 interface SetData {
   box_no: string;
   name: string;
@@ -56,8 +54,9 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
   const [allInventoryItems, setAllInventoryItems] = useState<any[]>([]);
   const [allCollectionItems, setAllCollectionItems] = useState<any[]>([]);
 
-  const [addToInventoryQty, setAddToInventoryQty] = useState(1);
-  const [addToInventoryLoading, setAddToInventoryLoading] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [addLoading, setAddLoading] = useState(false);
+  const [addPersonalLoading, setAddPersonalLoading] = useState(false);
   const [addToCollectionQty, setAddToCollectionQty] = useState(1);
   const [addToCollectionLoading, setAddToCollectionLoading] = useState(false);
 
@@ -67,10 +66,6 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
   const [deleteTarget, setDeleteTarget] = useState<'inventory' | 'collection' | null>(null);
   const [moveSuccess, setMoveSuccess] = useState(false);
   const [lastMovedItem, setLastMovedItem] = useState<{ id: string; direction: 'to-collection' | 'to-inventory' } | null>(null);
-
-  // Wishlist state (TODO: Add WishlistSetItem to schema)
-  // const [isInWishlist, setIsInWishlist] = useState(false);
-  // const [wishlistLoading, setWishlistLoading] = useState(false);
 
   const [condition, setCondition] = useState<'new' | 'used'>(() => {
     if (typeof window !== 'undefined') {
@@ -83,30 +78,22 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
 
   const [featuredSets, setFeaturedSets] = useState<any[]>([]);
 
-  // Dismiss notification on click
   useEffect(() => {
     if (!moveSuccess) return;
-
     const handleClick = () => {
       setMoveSuccess(false);
       setLastMovedItem(null);
     };
-
     window.addEventListener('click', handleClick);
-
-    return () => {
-      window.removeEventListener('click', handleClick);
-    };
+    return () => window.removeEventListener('click', handleClick);
   }, [moveSuccess]);
 
-  // Update condition when URL changes
   useEffect(() => {
     const conditionParam = searchParams.get('condition');
     const newCondition = conditionParam === 'used' ? 'used' : 'new';
     setCondition(newCondition);
   }, [searchParams]);
 
-  // Fetch pricing on client-side
   useEffect(() => {
     if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
       setPricing({ ...pricing, loading: false });
@@ -117,7 +104,6 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
       try {
         const response = await fetch(`/api/set-pricing/temp?boxNo=${set.box_no}&condition=${condition}`);
         const data = await response.json();
-
         if (data.success && data.pricing) {
           setPricing({
             sixMonthAverage: data.pricing.sixMonthAverage || 0,
@@ -134,31 +120,26 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
         setPricing({ ...pricing, loading: false });
       }
     };
-
     fetchPricing();
   }, [set.box_no, condition]);
 
-  // Update URL when condition changes
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('condition', condition);
     router.replace(`?${params.toString()}`, { scroll: false });
   }, [condition, router, searchParams]);
 
-  // Clear messages when condition changes
   useEffect(() => {
     setSuccessMessage('');
     setError('');
   }, [condition]);
 
-  // Fetch 3 random sets from this theme
   useEffect(() => {
     const fetchFeaturedSets = async () => {
       try {
         const mainTheme = set.category_name.split('/')[0].trim();
         const response = await fetch(`/api/sets/random?theme=${encodeURIComponent(mainTheme)}&count=3`);
         const data = await response.json();
-
         if (data.success && data.data.length > 0) {
           setFeaturedSets(data.data);
         }
@@ -166,37 +147,26 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
         console.error('Failed to fetch featured sets:', err);
       }
     };
-
     fetchFeaturedSets();
   }, [set.category_name]);
 
-  // Function to refresh collections data
   const refreshCollections = useCallback(async () => {
     if (!session) return;
-
     try {
       const inventoryResponse = await fetch('/api/set-inventory');
       const inventoryData = await inventoryResponse.json();
-
       if (inventoryData.success && inventoryData.data) {
-        const allItems = inventoryData.data.filter((item: any) =>
-          item.box_no === set.box_no
-        );
+        const allItems = inventoryData.data.filter((item: any) => item.box_no === set.box_no);
         setAllInventoryItems(allItems);
-
         const found = allItems.find((item: any) => item.condition === condition);
         setInventoryItem(found || null);
       }
 
       const personalResponse = await fetch('/api/set-personal-collection');
       const personalData = await personalResponse.json();
-
       if (personalData.success && personalData.data) {
-        const allItems = personalData.data.filter((item: any) =>
-          item.box_no === set.box_no
-        );
+        const allItems = personalData.data.filter((item: any) => item.box_no === set.box_no);
         setAllCollectionItems(allItems);
-
         const found = allItems.find((item: any) => item.condition === condition);
         setPersonalCollectionItem(found || null);
       }
@@ -205,13 +175,11 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
     }
   }, [session, set.box_no, condition]);
 
-  // Check collections on mount and when condition changes
   useEffect(() => {
     if (!session) {
       setCheckingCollection(false);
       return;
     }
-
     const checkCollections = async () => {
       try {
         await refreshCollections();
@@ -221,146 +189,91 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
         setCheckingCollection(false);
       }
     };
-
     checkCollections();
   }, [set.box_no, condition, session, refreshCollections]);
 
-  // TODO: Implement wishlist for sets (requires WishlistSetItem schema)
-  // Check if item is in wishlist
-  // useEffect(() => {
-  //   if (!session) return;
-  //   const checkWishlist = async () => {
-  //     try {
-  //       const response = await fetch('/api/wishlist-sets');
-  //       const data = await response.json();
-  //       if (data.success) {
-  //         const found = data.data.some((item: any) => item.box_no === set.box_no);
-  //         setIsInWishlist(found);
-  //       }
-  //     } catch (err) {
-  //       console.error('Error checking wishlist:', err);
-  //     }
-  //   };
-  //   checkWishlist();
-  // }, [set.box_no, session]);
-
-  // const handleToggleWishlist = async () => {
-  //   if (!session) {
-  //     router.push('/auth/signin');
-  //     return;
-  //   }
-  //   setWishlistLoading(true);
-  //   try {
-  //     if (isInWishlist) {
-  //       const response = await fetch('/api/wishlist-sets');
-  //       const data = await response.json();
-  //       if (data.success) {
-  //         const item = data.data.find((item: any) => item.box_no === set.box_no);
-  //         if (item) {
-  //           const deleteResponse = await fetch(`/api/wishlist-sets/${item.id}`, { method: 'DELETE' });
-  //           if (deleteResponse.ok) {
-  //             setIsInWishlist(false);
-  //           }
-  //         }
-  //       }
-  //     } else {
-  //       const response = await fetch('/api/wishlist-sets', {
-  //         method: 'POST',
-  //         headers: { 'Content-Type': 'application/json' },
-  //         body: JSON.stringify({
-  //           box_no: set.box_no,
-  //           set_name: set.name,
-  //           image_url: set.image_url
-  //         })
-  //       });
-  //       const data = await response.json();
-  //       if (response.ok) {
-  //         setIsInWishlist(true);
-  //         window.dispatchEvent(new Event('wishlistAdded'));
-  //       } else {
-  //         console.error('Failed to add to wishlist:', data.error);
-  //         setError(data.error || 'Failed to add to wishlist');
-  //         setTimeout(() => setError(''), 3000);
-  //       }
-  //     }
-  //   } catch (err) {
-  //     console.error('Error toggling wishlist:', err);
-  //     setError('Failed to update wishlist');
-  //     setTimeout(() => setError(''), 3000);
-  //   } finally {
-  //     setWishlistLoading(false);
-  //   }
-  // };
-
-  const handleAddToInventory = async () => {
+  const handleAddToInventory = async (qty: number) => {
     if (!session) {
       router.push('/auth/signin');
       return;
     }
-
-    setAddToInventoryLoading(true);
+    setAddLoading(true);
     setError('');
     setSuccessMessage('');
-
     try {
       const response = await fetch('/api/set-inventory', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          box_no: set.box_no,
-          quantity: addToInventoryQty,
-          condition
-        })
+        body: JSON.stringify({ box_no: set.box_no, quantity: qty, condition })
       });
-
       const data = await response.json();
-
       if (data.success) {
-        setSuccessMessage(`Added ${addToInventoryQty}x to inventory!`);
         await refreshCollections();
-        setAddToInventoryQty(1);
+        setSuccessMessage(`Added ${qty} ${condition} to Inventory!`);
+        setQuantity(1);
       } else {
         setError(data.error || 'Failed to add set');
       }
     } catch (err) {
-      setError('Failed to add set');
+      setError('Failed to add to inventory');
     } finally {
-      setAddToInventoryLoading(false);
+      setAddLoading(false);
     }
   };
 
-  const handleAddToCollection = async () => {
+  const handleAddToPersonalCollection = async (qty: number) => {
     if (!session) {
       router.push('/auth/signin');
       return;
     }
-
-    setAddToCollectionLoading(true);
+    setAddPersonalLoading(true);
     setError('');
     setSuccessMessage('');
-
     try {
       const response = await fetch('/api/set-personal-collection', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          box_no: set.box_no,
-          quantity: addToCollectionQty,
-          condition
-        })
+        body: JSON.stringify({ box_no: set.box_no, quantity: qty, condition })
       });
-
       const data = await response.json();
-
       if (data.success) {
-        setSuccessMessage(`Added ${addToCollectionQty}x to collection!`);
         await refreshCollections();
-        setAddToCollectionQty(1);
+        setSuccessMessage(`Added ${qty} ${condition} to Your Collection!`);
+        setQuantity(1);
       } else {
         setError(data.error || 'Failed to add set');
       }
     } catch (err) {
-      setError('Failed to add set');
+      setError('Failed to add to personal collection');
+    } finally {
+      setAddPersonalLoading(false);
+    }
+  };
+
+  const handleAddToCollectionFromSection = async () => {
+    if (!session) {
+      router.push('/auth/signin');
+      return;
+    }
+    setAddToCollectionLoading(true);
+    setError('');
+    setSuccessMessage('');
+    try {
+      const response = await fetch('/api/set-personal-collection', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ box_no: set.box_no, quantity: addToCollectionQty, condition })
+      });
+      const data = await response.json();
+      if (data.success) {
+        await refreshCollections();
+        setSuccessMessage(`Added ${addToCollectionQty} ${condition} to Your Collection!`);
+        setAddToCollectionQty(1);
+      } else {
+        setError(data.error || 'Failed to add');
+      }
+    } catch (err) {
+      setError('Failed to add to personal collection');
     } finally {
       setAddToCollectionLoading(false);
     }
@@ -368,27 +281,16 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
 
   const handleUpdateInventoryQuantity = async (newQuantity: number) => {
     if (!inventoryItem || !session) return;
-
     setSuccessMessage('');
     setError('');
-
-    // Optimistic update
     setInventoryItem({ ...inventoryItem, quantity: newQuantity });
-    setAllInventoryItems(prev =>
-      prev.map(item =>
-        item.id === inventoryItem.id
-          ? { ...item, quantity: newQuantity }
-          : item
-      )
-    );
-
+    setAllInventoryItems(prev => prev.map(item => item.id === inventoryItem.id ? { ...item, quantity: newQuantity } : item));
     try {
       const response = await fetch(`/api/set-inventory/${inventoryItem.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ quantity: newQuantity }),
       });
-
       const data = await response.json();
       if (!data.success) {
         await refreshCollections();
@@ -402,27 +304,16 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
 
   const handleUpdatePersonalQuantity = async (newQuantity: number) => {
     if (!personalCollectionItem || !session) return;
-
     setSuccessMessage('');
     setError('');
-
-    // Optimistic update
     setPersonalCollectionItem({ ...personalCollectionItem, quantity: newQuantity });
-    setAllCollectionItems(prev =>
-      prev.map(item =>
-        item.id === personalCollectionItem.id
-          ? { ...item, quantity: newQuantity }
-          : item
-      )
-    );
-
+    setAllCollectionItems(prev => prev.map(item => item.id === personalCollectionItem.id ? { ...item, quantity: newQuantity } : item));
     try {
       const response = await fetch(`/api/set-personal-collection/${personalCollectionItem.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ quantity: newQuantity }),
       });
-
       const data = await response.json();
       if (!data.success) {
         await refreshCollections();
@@ -436,95 +327,29 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
 
   const handleRemoveFromInventory = async () => {
     if (!inventoryItem || !session) return;
-
-    setSuccessMessage('');
-    setError('');
-
     try {
-      const response = await fetch(`/api/set-inventory/${inventoryItem.id}`, {
-        method: 'DELETE',
-      });
-
+      const response = await fetch(`/api/set-inventory/${inventoryItem.id}`, { method: 'DELETE' });
       if (response.ok) {
         await refreshCollections();
         setShowDeleteDialog(false);
         setDeleteTarget(null);
       }
     } catch (err) {
-      console.error('Error removing:', err);
       setError('Failed to remove from inventory');
     }
   };
 
   const handleRemoveFromCollection = async () => {
     if (!personalCollectionItem || !session) return;
-
-    setSuccessMessage('');
-    setError('');
-
     try {
-      const response = await fetch(`/api/set-personal-collection/${personalCollectionItem.id}`, {
-        method: 'DELETE',
-      });
-
+      const response = await fetch(`/api/set-personal-collection/${personalCollectionItem.id}`, { method: 'DELETE' });
       if (response.ok) {
         await refreshCollections();
         setShowDeleteDialog(false);
         setDeleteTarget(null);
       }
     } catch (err) {
-      console.error('Error removing:', err);
       setError('Failed to remove from collection');
-    }
-  };
-
-  const handleMoveToCollection = async (quantityToMove: number) => {
-    if (!inventoryItem || !session) return;
-
-    try {
-      const response = await fetch(`/api/set-inventory/${inventoryItem.id}/move-to-collection`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ quantity: quantityToMove }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        await refreshCollections();
-        setMoveSuccess(true);
-        setLastMovedItem({ id: inventoryItem.id, direction: 'to-collection' });
-        setShowMoveDialog(false);
-      } else {
-        setError(data.error || 'Failed to move');
-      }
-    } catch (err) {
-      setError('Failed to move to collection');
-    }
-  };
-
-  const handleMoveToInventory = async (quantityToMove: number) => {
-    if (!personalCollectionItem || !session) return;
-
-    try {
-      const response = await fetch(`/api/set-personal-collection/${personalCollectionItem.id}/move-to-inventory`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ quantity: quantityToMove }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        await refreshCollections();
-        setMoveSuccess(true);
-        setLastMovedItem({ id: personalCollectionItem.id, direction: 'to-inventory' });
-        setShowMoveToInventoryDialog(false);
-      } else {
-        setError(data.error || 'Failed to move');
-      }
-    } catch (err) {
-      setError('Failed to move to inventory');
     }
   };
 
@@ -532,702 +357,478 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
   const subcategory = set.category_name.split(' / ').slice(1).join(' / ');
 
   return (
-    <>
-      <style jsx>{`
-        .responsive-padding {
-          padding: 16px !important;
-        }
-
-        @media (min-width: 768px) {
-          .responsive-padding {
-            padding: 24px !important;
-          }
-        }
-
-        @media (min-width: 1024px) {
-          .responsive-padding {
-            padding: 32px !important;
-          }
-        }
-
-        .grid-layout {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 32px;
-        }
-
-        @media (min-width: 1024px) {
-          .grid-layout {
-            grid-template-columns: 1fr 1.2fr;
-          }
-        }
-      `}</style>
-
-      <div style={{ minHeight: '100vh', background: '#fafafa' }}>
-        {/* Success Notification */}
-        {moveSuccess && lastMovedItem && (
-          <div style={{
-            position: 'fixed',
-            top: '80px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 9999,
-            background: '#10b981',
-            color: 'white',
-            padding: '16px 24px',
-            borderRadius: '12px',
-            boxShadow: '0 8px 16px rgba(0,0,0,0.15)',
-            fontSize: '15px',
-            fontWeight: '600',
-            cursor: 'pointer',
-            animation: 'slideDown 0.3s ease-out',
-            maxWidth: '90vw'
-          }}>
-            ✓ Moved to {lastMovedItem.direction === 'to-collection' ? 'Collection' : 'Inventory'}! Click anywhere to dismiss.
-          </div>
-        )}
-
-        {/* Breadcrumbs */}
-        <div style={{ background: 'white', borderBottom: '1px solid #e5e5e5' }}>
-          <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '16px' }} className="responsive-padding">
-            <Breadcrumbs items={[
-              { label: 'Home', href: '/' },
-              { label: 'Set Themes', href: '/sets-themes' },
-              { label: parentTheme, href: `/sets-themes/${encodeURIComponent(parentTheme)}` },
-              { label: set.name }
-            ]} />
-          </div>
+    <div style={{ minHeight: '100vh', background: '#fafafa' }}>
+      {moveSuccess && lastMovedItem && (
+        <div style={{
+          position: 'fixed', top: '80px', left: '50%', transform: 'translateX(-50%)', zIndex: 9999,
+          background: '#10b981', color: 'white', padding: '16px 24px', borderRadius: '12px',
+          boxShadow: '0 8px 16px rgba(0,0,0,0.15)', fontSize: '15px', fontWeight: '600',
+          cursor: 'pointer', maxWidth: '90vw'
+        }}>
+          ✓ Moved to {lastMovedItem.direction === 'to-collection' ? 'Collection' : 'Inventory'}! Click anywhere to dismiss.
         </div>
+      )}
 
-        {/* Main Content */}
-        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '16px' }} className="responsive-padding">
-          <div className="grid-layout">
-            {/* Left Column: Image */}
-            <div>
-              <div style={{
-                background: 'white',
-                borderRadius: '12px',
-                padding: '32px',
-                border: '1px solid #e5e5e5',
-                position: 'relative'
-              }}>
-                {/* TODO: Add Wishlist Button when WishlistSetItem schema is added */}
-
-                <Image
-                  src={set.image_url}
-                  alt={set.name}
-                  width={400}
-                  height={400}
-                  style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
-                  unoptimized
-                />
-              </div>
-            </div>
-
-            {/* Right Column: Details */}
-            <div>
-              {/* Title */}
-              <h1 style={{
-                fontSize: 'clamp(24px, 4vw, 32px)',
-                fontWeight: '700',
-                color: '#171717',
-                marginBottom: '8px'
-              }}>
-                {set.name}
-              </h1>
-
-              <div style={{ fontSize: '14px', color: '#737373', marginBottom: '16px' }}>
-                <Link href={`/sets-themes/${encodeURIComponent(parentTheme)}`} style={{ color: '#3b82f6', textDecoration: 'none' }}>
-                  {parentTheme}
-                </Link>
-                {subcategory && ` / ${subcategory}`}
-                <div>Box No: {set.box_no} • Year: {set.year_released} • Weight: {set.weight}g</div>
-              </div>
-
-              {/* Condition Selector */}
-              <div style={{ marginBottom: '24px' }}>
-                <div style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', color: '#171717' }}>Condition:</div>
-                <div style={{ display: 'flex', gap: '12px' }}>
-                  <button
-                    onClick={() => setCondition('new')}
-                    style={{
-                      padding: '10px 20px',
-                      borderRadius: '8px',
-                      border: condition === 'new' ? '2px solid #3b82f6' : '1px solid #e5e5e5',
-                      background: condition === 'new' ? '#eff6ff' : 'white',
-                      color: condition === 'new' ? '#3b82f6' : '#525252',
-                      cursor: 'pointer',
-                      fontWeight: '600',
-                      fontSize: '14px',
-                      minHeight: '44px'
-                    }}
-                  >
-                    New
-                  </button>
-                  <button
-                    onClick={() => setCondition('used')}
-                    style={{
-                      padding: '10px 20px',
-                      borderRadius: '8px',
-                      border: condition === 'used' ? '2px solid #3b82f6' : '1px solid #e5e5e5',
-                      background: condition === 'used' ? '#eff6ff' : 'white',
-                      color: condition === 'used' ? '#3b82f6' : '#525252',
-                      cursor: 'pointer',
-                      fontWeight: '600',
-                      fontSize: '14px',
-                      minHeight: '44px'
-                    }}
-                  >
-                    Used
-                  </button>
-                </div>
-              </div>
-
-              {/* Pricing */}
-              <div style={{
-                background: 'white',
-                borderRadius: '12px',
-                padding: '24px',
-                border: '1px solid #e5e5e5',
-                marginBottom: '24px'
-              }}>
-                <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '16px', color: '#171717' }}>
-                  BrickLink Pricing
-                </h3>
-                {pricing.loading ? (
-                  <div style={{ color: '#737373' }}>Loading pricing...</div>
-                ) : pricing.suggestedPrice > 0 ? (
-                  <>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '16px' }}>
-                      <div>
-                        <div style={{ fontSize: '12px', color: '#737373', marginBottom: '4px' }}>6-Month Avg</div>
-                        <div style={{ fontSize: '20px', fontWeight: '700', color: '#171717' }}>
-                          {formatPrice(pricing.sixMonthAverage, pricing.currencyCode)}
-                        </div>
-                      </div>
-                      <div>
-                        <div style={{ fontSize: '12px', color: '#737373', marginBottom: '4px' }}>Current Avg</div>
-                        <div style={{ fontSize: '20px', fontWeight: '700', color: '#171717' }}>
-                          {formatPrice(pricing.currentAverage, pricing.currencyCode)}
-                        </div>
-                      </div>
-                      <div>
-                        <div style={{ fontSize: '12px', color: '#737373', marginBottom: '4px' }}>Current Lowest</div>
-                        <div style={{ fontSize: '20px', fontWeight: '700', color: '#171717' }}>
-                          {formatPrice(pricing.currentLowest, pricing.currencyCode)}
-                        </div>
-                      </div>
-                      <div>
-                        <div style={{ fontSize: '12px', color: '#737373', marginBottom: '4px' }}>Suggested Price</div>
-                        <div style={{ fontSize: '20px', fontWeight: '700', color: '#3b82f6' }}>
-                          {formatPrice(pricing.suggestedPrice, pricing.currencyCode)}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* TODO: Add Price History Chart for sets */}
-                  </>
-                ) : (
-                  <div style={{ color: '#737373' }}>No pricing data available</div>
-                )}
-              </div>
-
-              {/* Success/Error Messages */}
-              {successMessage && (
-                <div style={{
-                  padding: '12px 16px',
-                  background: '#dcfce7',
-                  color: '#166534',
-                  borderRadius: '8px',
-                  marginBottom: '16px',
-                  fontSize: '14px',
-                  fontWeight: '500'
-                }}>
-                  {successMessage}
-                </div>
-              )}
-              {error && (
-                <div style={{
-                  padding: '12px 16px',
-                  background: '#fee2e2',
-                  color: '#991b1b',
-                  borderRadius: '8px',
-                  marginBottom: '16px',
-                  fontSize: '14px',
-                  fontWeight: '500'
-                }}>
-                  {error}
-                </div>
-              )}
-
-              {/* Inventory Status - with edit controls */}
-              {inventoryItem && (
-                <div style={{
-                  background: 'white',
-                  borderRadius: '12px',
-                  padding: '24px',
-                  border: '1px solid #e5e5e5',
-                  marginBottom: '16px'
-                }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#171717' }}>
-                      In Your Inventory (For Sale)
-                    </h3>
-                    <div style={{
-                      padding: '4px 12px',
-                      background: '#eff6ff',
-                      color: '#3b82f6',
-                      borderRadius: '6px',
-                      fontSize: '12px',
-                      fontWeight: '600'
-                    }}>
-                      {condition}
-                    </div>
-                  </div>
-
-                  {/* Quantity Controls */}
-                  <div style={{ marginBottom: '16px' }}>
-                    <div style={{ fontSize: '14px', color: '#737373', marginBottom: '8px' }}>Quantity</div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <button
-                        onClick={() => handleUpdateInventoryQuantity(Math.max(1, inventoryItem.quantity - 1))}
-                        style={{
-                          width: '44px',
-                          height: '44px',
-                          borderRadius: '8px',
-                          border: '1px solid #e5e5e5',
-                          background: 'white',
-                          cursor: 'pointer',
-                          fontSize: '18px',
-                          fontWeight: '600',
-                          color: '#525252'
-                        }}
-                      >
-                        −
-                      </button>
-                      <div style={{
-                        fontSize: '20px',
-                        fontWeight: '700',
-                        color: '#171717',
-                        minWidth: '40px',
-                        textAlign: 'center'
-                      }}>
-                        {inventoryItem.quantity}
-                      </div>
-                      <button
-                        onClick={() => handleUpdateInventoryQuantity(inventoryItem.quantity + 1)}
-                        style={{
-                          width: '44px',
-                          height: '44px',
-                          borderRadius: '8px',
-                          border: '1px solid #e5e5e5',
-                          background: 'white',
-                          cursor: 'pointer',
-                          fontSize: '18px',
-                          fontWeight: '600',
-                          color: '#525252'
-                        }}
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                    <button
-                      onClick={() => setShowMoveDialog(true)}
-                      style={{
-                        flex: '1 1 auto',
-                        minWidth: '140px',
-                        padding: '12px 20px',
-                        background: '#10b981',
-                        color: 'white',
-                        borderRadius: '8px',
-                        border: 'none',
-                        cursor: 'pointer',
-                        fontWeight: '600',
-                        fontSize: '14px',
-                        minHeight: '44px'
-                      }}
-                    >
-                      Move to Collection
-                    </button>
-                    <button
-                      onClick={() => {
-                        setDeleteTarget('inventory');
-                        setShowDeleteDialog(true);
-                      }}
-                      style={{
-                        flex: '1 1 auto',
-                        minWidth: '100px',
-                        padding: '12px 20px',
-                        background: 'white',
-                        color: '#ef4444',
-                        borderRadius: '8px',
-                        border: '1px solid #fecaca',
-                        cursor: 'pointer',
-                        fontWeight: '600',
-                        fontSize: '14px',
-                        minHeight: '44px'
-                      }}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* Personal Collection Status - with edit controls */}
-              {personalCollectionItem && (
-                <div style={{
-                  background: 'white',
-                  borderRadius: '12px',
-                  padding: '24px',
-                  border: '1px solid #e5e5e5',
-                  marginBottom: '16px'
-                }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#171717' }}>
-                      In Your Collection (To Keep)
-                    </h3>
-                    <div style={{
-                      padding: '4px 12px',
-                      background: '#dcfce7',
-                      color: '#10b981',
-                      borderRadius: '6px',
-                      fontSize: '12px',
-                      fontWeight: '600'
-                    }}>
-                      {condition}
-                    </div>
-                  </div>
-
-                  {/* Quantity Controls */}
-                  <div style={{ marginBottom: '16px' }}>
-                    <div style={{ fontSize: '14px', color: '#737373', marginBottom: '8px' }}>Quantity</div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <button
-                        onClick={() => handleUpdatePersonalQuantity(Math.max(1, personalCollectionItem.quantity - 1))}
-                        style={{
-                          width: '44px',
-                          height: '44px',
-                          borderRadius: '8px',
-                          border: '1px solid #e5e5e5',
-                          background: 'white',
-                          cursor: 'pointer',
-                          fontSize: '18px',
-                          fontWeight: '600',
-                          color: '#525252'
-                        }}
-                      >
-                        −
-                      </button>
-                      <div style={{
-                        fontSize: '20px',
-                        fontWeight: '700',
-                        color: '#171717',
-                        minWidth: '40px',
-                        textAlign: 'center'
-                      }}>
-                        {personalCollectionItem.quantity}
-                      </div>
-                      <button
-                        onClick={() => handleUpdatePersonalQuantity(personalCollectionItem.quantity + 1)}
-                        style={{
-                          width: '44px',
-                          height: '44px',
-                          borderRadius: '8px',
-                          border: '1px solid #e5e5e5',
-                          background: 'white',
-                          cursor: 'pointer',
-                          fontSize: '18px',
-                          fontWeight: '600',
-                          color: '#525252'
-                        }}
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                    <button
-                      onClick={() => setShowMoveToInventoryDialog(true)}
-                      style={{
-                        flex: '1 1 auto',
-                        minWidth: '140px',
-                        padding: '12px 20px',
-                        background: '#3b82f6',
-                        color: 'white',
-                        borderRadius: '8px',
-                        border: 'none',
-                        cursor: 'pointer',
-                        fontWeight: '600',
-                        fontSize: '14px',
-                        minHeight: '44px'
-                      }}
-                    >
-                      Move to Inventory
-                    </button>
-                    <button
-                      onClick={() => {
-                        setDeleteTarget('collection');
-                        setShowDeleteDialog(true);
-                      }}
-                      style={{
-                        flex: '1 1 auto',
-                        minWidth: '100px',
-                        padding: '12px 20px',
-                        background: 'white',
-                        color: '#ef4444',
-                        borderRadius: '8px',
-                        border: '1px solid #fecaca',
-                        cursor: 'pointer',
-                        fontWeight: '600',
-                        fontSize: '14px',
-                        minHeight: '44px'
-                      }}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* Add to Inventory */}
-              {session && !inventoryItem && (
-                <div style={{
-                  background: 'white',
-                  borderRadius: '12px',
-                  padding: '24px',
-                  border: '1px solid #e5e5e5',
-                  marginBottom: '16px'
-                }}>
-                  <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '12px', color: '#171717' }}>
-                    Add to Inventory (For Sale)
-                  </h3>
-                  <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
-                    <input
-                      type="number"
-                      min="1"
-                      value={addToInventoryQty}
-                      onChange={(e) => setAddToInventoryQty(Math.max(1, parseInt(e.target.value) || 1))}
-                      style={{
-                        width: '80px',
-                        padding: '10px',
-                        border: '1px solid #e5e5e5',
-                        borderRadius: '8px',
-                        fontSize: '14px',
-                        minHeight: '44px'
-                      }}
-                    />
-                    <button
-                      onClick={handleAddToInventory}
-                      disabled={addToInventoryLoading}
-                      style={{
-                        flex: '1 1 auto',
-                        minWidth: '140px',
-                        padding: '10px 20px',
-                        background: '#3b82f6',
-                        color: 'white',
-                        borderRadius: '8px',
-                        border: 'none',
-                        cursor: addToInventoryLoading ? 'not-allowed' : 'pointer',
-                        fontWeight: '600',
-                        opacity: addToInventoryLoading ? 0.5 : 1,
-                        fontSize: '14px',
-                        minHeight: '44px'
-                      }}
-                    >
-                      {addToInventoryLoading ? 'Adding...' : 'Add to Inventory'}
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* Add to Collection */}
-              {session && !personalCollectionItem && (
-                <div style={{
-                  background: 'white',
-                  borderRadius: '12px',
-                  padding: '24px',
-                  border: '1px solid #e5e5e5'
-                }}>
-                  <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '12px', color: '#171717' }}>
-                    Add to Collection (To Keep)
-                  </h3>
-                  <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
-                    <input
-                      type="number"
-                      min="1"
-                      value={addToCollectionQty}
-                      onChange={(e) => setAddToCollectionQty(Math.max(1, parseInt(e.target.value) || 1))}
-                      style={{
-                        width: '80px',
-                        padding: '10px',
-                        border: '1px solid #e5e5e5',
-                        borderRadius: '8px',
-                        fontSize: '14px',
-                        minHeight: '44px'
-                      }}
-                    />
-                    <button
-                      onClick={handleAddToCollection}
-                      disabled={addToCollectionLoading}
-                      style={{
-                        flex: '1 1 auto',
-                        minWidth: '140px',
-                        padding: '10px 20px',
-                        background: '#10b981',
-                        color: 'white',
-                        borderRadius: '8px',
-                        border: 'none',
-                        cursor: addToCollectionLoading ? 'not-allowed' : 'pointer',
-                        fontWeight: '600',
-                        opacity: addToCollectionLoading ? 0.5 : 1,
-                        fontSize: '14px',
-                        minHeight: '44px'
-                      }}
-                    >
-                      {addToCollectionLoading ? 'Adding...' : 'Add to Collection'}
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Featured Sets Section */}
-          {featuredSets.length > 0 && (
-            <div style={{ marginTop: '48px' }}>
-              <h2 style={{ fontSize: 'clamp(20px, 3vw, 24px)', fontWeight: '700', marginBottom: '24px', color: '#171717' }}>
-                Featured {parentTheme} Sets
-              </h2>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                gap: '24px'
-              }}>
-                {featuredSets.map((setAd) => (
-                  <SetAdCard
-                    key={setAd.setNumber || setAd.box_no}
-                    setNumber={setAd.setNumber || setAd.box_no}
-                    setName={setAd.name}
-                    imageUrl={setAd.imageUrl || setAd.image_url}
-                    year={setAd.year || (setAd.year_released ? parseInt(setAd.year_released) : undefined)}
-                    amazonUrl={setAd.amazonUrl}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Related Sets Section */}
-          {themeSets.length > 0 && (
-            <div style={{ marginTop: '48px' }}>
-              <h2 style={{ fontSize: 'clamp(20px, 3vw, 24px)', fontWeight: '700', marginBottom: '24px', color: '#171717' }}>
-                More from {parentTheme}
-              </h2>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                gap: '24px'
-              }}>
-                {themeSets.map(s => (
-                  <Link key={s.box_no} href={`/sets/${s.box_no}`} style={{ textDecoration: 'none' }}>
-                    <div style={{
-                      background: 'white',
-                      borderRadius: '12px',
-                      overflow: 'hidden',
-                      border: '1px solid #e5e5e5',
-                      transition: 'transform 0.2s',
-                      cursor: 'pointer'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
-                    onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-                      <div style={{ padding: '16px', height: '180px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#ffffff' }}>
-                        <Image
-                          src={s.image_url}
-                          alt={s.name}
-                          width={160}
-                          height={160}
-                          style={{ objectFit: 'contain', maxHeight: '160px' }}
-                          unoptimized
-                        />
-                      </div>
-                      <div style={{ padding: '16px', borderTop: '1px solid #e5e5e5' }}>
-                        <div style={{ fontSize: '14px', fontWeight: '600', color: '#171717', marginBottom: '4px' }}>
-                          {s.name}
-                        </div>
-                        <div style={{ fontSize: '12px', color: '#737373' }}>
-                          {s.box_no}
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
+      <div style={{ background: 'white', borderBottom: '1px solid #e5e5e5', padding: '16px' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <Breadcrumbs items={[
+            { label: 'Home', href: '/' },
+            { label: 'Set Themes', href: '/sets-themes' },
+            { label: parentTheme, href: `/sets-themes/${encodeURIComponent(parentTheme)}` },
+            { label: set.name }
+          ]} />
         </div>
       </div>
 
-      {/* Move Dialog - Inventory to Collection */}
-      {showMoveDialog && inventoryItem && (
-        <MoveDialog
-          isOpen={true}
-          onClose={() => setShowMoveDialog(false)}
-          itemName={set.name}
-          maxQuantity={inventoryItem.quantity}
-          direction="to-collection"
-          onConfirm={handleMoveToCollection}
-        />
-      )}
-
-      {/* Move Dialog - Collection to Inventory */}
-      {showMoveToInventoryDialog && personalCollectionItem && (
-        <MoveDialog
-          isOpen={true}
-          onClose={() => setShowMoveToInventoryDialog(false)}
-          itemName={set.name}
-          maxQuantity={personalCollectionItem.quantity}
-          direction="to-inventory"
-          onConfirm={handleMoveToInventory}
-        />
-      )}
-
-      {/* Delete Confirmation Dialog */}
-      {showDeleteDialog && deleteTarget && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 9999,
-          padding: '20px'
-        }}
-        onClick={() => {
-          setShowDeleteDialog(false);
-          setDeleteTarget(null);
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 16px' }}>
+        <div className="minifig-detail-grid" style={{
+          display: 'flex', flexDirection: 'column', background: '#ffffff',
+          marginTop: '24px', borderRadius: '16px', overflow: 'hidden',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
         }}>
-          <div
-            style={{
-              background: 'white',
-              borderRadius: '16px',
-              padding: '32px',
-              maxWidth: '400px',
-              width: '100%',
-              boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)'
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="minifig-image-container" style={{
+            padding: '32px', background: '#ffffff', display: 'flex',
+            alignItems: 'center', justifyContent: 'center'
+          }}>
+            <Image src={set.image_url} alt={set.name} width={400} height={400}
+              style={{ width: '100%', maxWidth: '400px', height: 'auto', objectFit: 'contain' }}
+              unoptimized />
+          </div>
+
+          <div className="minifig-details-section" style={{ padding: '32px' }}>
+            <h1 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', color: '#171717', marginBottom: '8px' }}>
+              {set.name}
+            </h1>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+              <p style={{ fontSize: 'var(--text-sm)', color: '#737373', margin: 0 }}>
+                {set.box_no}
+              </p>
+              {session && (allInventoryItems.length > 0 || allCollectionItems.length > 0) && (
+                <div style={{ fontSize: 'var(--text-xs)', color: '#737373', display: 'flex', gap: '8px' }}>
+                  {allInventoryItems.length > 0 && (
+                    <span>Inventory: {allInventoryItems.sort((a, b) => a.condition === 'new' ? -1 : 1)
+                      .map((item: any) => `${item.quantity}x ${item.condition === 'new' ? 'New' : 'Used'}`).join(', ')}</span>
+                  )}
+                  {allCollectionItems.length > 0 && (
+                    <span>Collection: {allCollectionItems.sort((a, b) => a.condition === 'new' ? -1 : 1)
+                      .map((item: any) => `${item.quantity}x ${item.condition === 'new' ? 'New' : 'Used'}`).join(', ')}</span>
+                  )}
+                </div>
+              )}
+            </div>
+
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', padding: '4px',
+              background: '#f5f5f5', borderRadius: '8px', width: 'fit-content' }}>
+              <button onClick={() => setCondition('new')} style={{
+                padding: '8px 16px', fontSize: 'var(--text-sm)', fontWeight: '600',
+                color: condition === 'new' ? '#ffffff' : '#525252',
+                background: condition === 'new' ? '#3b82f6' : 'transparent',
+                border: 'none', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.2s',
+                whiteSpace: 'nowrap'
+              }}>New</button>
+              <button onClick={() => setCondition('used')} style={{
+                padding: '8px 16px', fontSize: 'var(--text-sm)', fontWeight: '600',
+                color: condition === 'used' ? '#ffffff' : '#525252',
+                background: condition === 'used' ? '#3b82f6' : 'transparent',
+                border: 'none', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.2s',
+                whiteSpace: 'nowrap'
+              }}>Used</button>
+            </div>
+
+            {pricing.loading ? (
+              <div style={{ padding: '32px', textAlign: 'center', color: '#737373' }}>
+                <p style={{ fontSize: 'var(--text-sm)' }}>Loading pricing...</p>
+              </div>
+            ) : pricing.suggestedPrice > 0 ? (
+              <div className="minifig-pricing-row" style={{
+                display: 'flex', width: '100%', marginBottom: '24px', alignItems: 'stretch'
+              }}>
+                <div className="pricing-item" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                  <p style={{ fontSize: 'clamp(9px, 2vw, 10px)', fontWeight: '500', color: '#737373',
+                    textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>Qty Avg</p>
+                  <p style={{ fontSize: 'clamp(16px, 3.5vw, 18px)', fontWeight: '700', color: '#171717' }}>
+                    {formatPrice(pricing.sixMonthAverage, pricing.currencyCode, true)}</p>
+                </div>
+                <div className="pricing-divider" style={{ width: '1px', background: '#e5e5e5' }}></div>
+                <div className="pricing-item" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                  <p style={{ fontSize: 'clamp(9px, 2vw, 10px)', fontWeight: '500', color: '#737373',
+                    textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>Avg</p>
+                  <p style={{ fontSize: 'clamp(16px, 3.5vw, 18px)', fontWeight: '700', color: '#171717' }}>
+                    {formatPrice(pricing.currentAverage, pricing.currencyCode, true)}</p>
+                </div>
+                <div className="pricing-divider" style={{ width: '1px', background: '#e5e5e5' }}></div>
+                <div className="pricing-item" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                  <p style={{ fontSize: 'clamp(9px, 2vw, 10px)', fontWeight: '500', color: '#737373',
+                    textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>Min</p>
+                  <p style={{ fontSize: 'clamp(16px, 3.5vw, 18px)', fontWeight: '700', color: '#171717' }}>
+                    {formatPrice(pricing.currentLowest, pricing.currencyCode, true)}</p>
+                </div>
+                <div className="pricing-divider" style={{ width: '1px', background: '#e5e5e5' }}></div>
+                <div className="pricing-item" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                  <p style={{ fontSize: 'clamp(9px, 2vw, 10px)', fontWeight: '500', color: '#737373',
+                    textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>Suggested</p>
+                  <p style={{ fontSize: 'clamp(18px, 4vw, 20px)', fontWeight: '700', color: '#3b82f6' }}>
+                    {formatPrice(pricing.suggestedPrice, pricing.currencyCode, true)}</p>
+                </div>
+              </div>
+            ) : (
+              <div style={{ padding: '24px', textAlign: 'center', background: '#fafafa',
+                borderRadius: '8px', color: '#737373', fontSize: 'var(--text-sm)', marginBottom: '24px' }}>
+                No sellers available in your region
+              </div>
+            )}
+
+            <div style={{ height: '1px', background: '#e5e5e5', marginBottom: '16px' }}></div>
+
+            <div>
+              {checkingCollection ? (
+                <div style={{ textAlign: 'center', padding: '20px', color: '#737373' }}>Checking collections...</div>
+              ) : (
+                <>
+                  {!inventoryItem && !personalCollectionItem && (
+                    <div>
+                      <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
+                        marginTop: 0, marginBottom: '16px' }}>Add This Set</h2>
+                      <div style={{ marginBottom: '12px' }}>
+                        <label style={{ display: 'block', fontSize: 'var(--text-sm)', fontWeight: '500',
+                          color: '#525252', marginBottom: '8px' }}>Quantity</label>
+                        <div className="quantity-stepper" style={{ flex: 1 }}>
+                          <button type="button" onClick={() => { if (quantity > 1) setQuantity(quantity - 1); }}
+                            disabled={quantity <= 1} style={{
+                              width: '44px', minWidth: '44px', height: '44px', display: 'flex',
+                              alignItems: 'center', justifyContent: 'center',
+                              background: quantity > 1 ? '#ffffff' : '#f5f5f5', border: 'none',
+                              borderRight: '1px solid #e5e5e5', cursor: quantity > 1 ? 'pointer' : 'not-allowed',
+                              color: quantity > 1 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
+                              fontWeight: '600', padding: 0, flexShrink: 0, transition: 'all 0.2s'
+                            }}>−</button>
+                          <input type="number" min="1" max="9999" value={quantity}
+                            onChange={(e) => { const val = parseInt(e.target.value);
+                              if (!isNaN(val) && val >= 1 && val <= 9999) setQuantity(val); }}
+                            onFocus={(e) => e.target.select()}
+                            style={{ flex: 1, minWidth: '40px', height: '44px', fontSize: 'var(--text-base)',
+                              fontWeight: '600', color: '#171717', background: '#ffffff', border: 'none',
+                              textAlign: 'center', padding: '0 8px', outline: 'none', appearance: 'none' }} />
+                          <button type="button" onClick={() => { if (quantity < 9999) setQuantity(quantity + 1); }}
+                            disabled={quantity >= 9999} style={{
+                              width: '44px', minWidth: '44px', height: '44px', display: 'flex',
+                              alignItems: 'center', justifyContent: 'center',
+                              background: quantity < 9999 ? '#ffffff' : '#f5f5f5', border: 'none',
+                              borderLeft: '1px solid #e5e5e5', cursor: quantity < 9999 ? 'pointer' : 'not-allowed',
+                              color: quantity < 9999 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
+                              fontWeight: '600', padding: 0, flexShrink: 0, transition: 'all 0.2s'
+                            }}>+</button>
+                        </div>
+                      </div>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                        <button onClick={() => handleAddToInventory(quantity)} disabled={addLoading}
+                          style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            gap: '8px', background: addLoading ? '#a3a3a3' : '#3b82f6', color: '#ffffff',
+                            border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
+                            cursor: addLoading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+                          + Inventory
+                        </button>
+                        <button onClick={() => handleAddToPersonalCollection(quantity)} disabled={addPersonalLoading}
+                          style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            gap: '8px', background: addPersonalLoading ? '#a3a3a3' : '#3b82f6', color: '#ffffff',
+                            border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
+                            cursor: addPersonalLoading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+                          + Collection
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {inventoryItem && (
+                    <>
+                      <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
+                        marginBottom: '16px' }}>In Your Inventory</h2>
+                      <div className="inventory-actions-container">
+                        <div className="quantity-stepper">
+                          <button type="button"
+                            onClick={() => { if (inventoryItem.quantity > 1) handleUpdateInventoryQuantity(inventoryItem.quantity - 1); }}
+                            disabled={inventoryItem.quantity <= 1} style={{
+                              width: '44px', minWidth: '44px', height: '44px', display: 'flex', alignItems: 'center',
+                              justifyContent: 'center', background: inventoryItem.quantity > 1 ? '#ffffff' : '#f5f5f5',
+                              border: 'none', borderRight: '1px solid #e5e5e5',
+                              cursor: inventoryItem.quantity > 1 ? 'pointer' : 'not-allowed',
+                              color: inventoryItem.quantity > 1 ? '#171717' : '#a3a3a3', transition: 'all 0.2s',
+                              fontSize: 'var(--text-lg)', fontWeight: '600', padding: 0, flexShrink: 0
+                            }}>−</button>
+                          <input type="number" min="1" max="9999" value={inventoryItem.quantity}
+                            onChange={(e) => { const val = parseInt(e.target.value);
+                              if (!isNaN(val) && val >= 1 && val <= 9999) handleUpdateInventoryQuantity(val); }}
+                            onFocus={(e) => e.target.select()}
+                            style={{ flex: 1, minWidth: '40px', height: '44px', fontSize: 'var(--text-base)',
+                              fontWeight: '600', color: '#171717', background: '#ffffff', border: 'none',
+                              textAlign: 'center', padding: '0 8px', outline: 'none', appearance: 'none' }} />
+                          <button type="button"
+                            onClick={() => { if (inventoryItem.quantity < 9999) handleUpdateInventoryQuantity(inventoryItem.quantity + 1); }}
+                            disabled={inventoryItem.quantity >= 9999} style={{
+                              width: '44px', minWidth: '44px', height: '44px', display: 'flex', alignItems: 'center',
+                              justifyContent: 'center', background: inventoryItem.quantity < 9999 ? '#ffffff' : '#f5f5f5',
+                              border: 'none', borderLeft: '1px solid #e5e5e5',
+                              cursor: inventoryItem.quantity < 9999 ? 'pointer' : 'not-allowed',
+                              color: inventoryItem.quantity < 9999 ? '#171717' : '#a3a3a3', transition: 'all 0.2s',
+                              fontSize: 'var(--text-lg)', fontWeight: '600', padding: 0, flexShrink: 0
+                            }}>+</button>
+                        </div>
+                        <button onClick={async (e) => {
+                          e.stopPropagation();
+                          if (inventoryItem.quantity === 1) {
+                            try {
+                              const response = await fetch(`/api/set-inventory/${inventoryItem.id}/move-to-collection`, {
+                                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ quantity: 1 })
+                              });
+                              if (response.ok) {
+                                await refreshCollections();
+                                setLastMovedItem({ id: inventoryItem.id, direction: 'to-collection' });
+                                setMoveSuccess(true);
+                                setTimeout(() => { setMoveSuccess(false); setLastMovedItem(null); }, 10000);
+                              }
+                            } catch (err) {
+                              setError('Failed to move item');
+                            }
+                          } else {
+                            setShowMoveDialog(true);
+                          }
+                        }} style={{
+                          width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          color: '#737373', background: '#ffffff', border: '1px solid #e5e5e5', borderRadius: '8px',
+                          cursor: 'pointer', padding: 0, transition: 'all 0.2s'
+                        }} title="Move to Your Collection">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                          </svg>
+                        </button>
+                        <button onClick={(e) => { e.stopPropagation(); setDeleteTarget('inventory'); setShowDeleteDialog(true); }}
+                          className="inventory-delete-btn">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </>
+                  )}
+
+                  {inventoryItem && !personalCollectionItem && (
+                    <div style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid #e5e5e5',
+                      padding: '20px', marginTop: '24px' }}>
+                      <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
+                        marginBottom: '16px', marginTop: '0' }}>Add to Your Collection?</h2>
+                      <div style={{ marginBottom: '16px' }}>
+                        <label style={{ display: 'block', fontSize: 'var(--text-sm)', fontWeight: '500',
+                          color: '#525252', marginBottom: '8px' }}>Quantity</label>
+                        <div className="quantity-stepper">
+                          <button type="button" onClick={() => setAddToCollectionQty(Math.max(1, addToCollectionQty - 1))}
+                            disabled={addToCollectionQty <= 1} style={{
+                              width: '44px', minWidth: '44px', height: '44px', display: 'flex', alignItems: 'center',
+                              justifyContent: 'center', background: addToCollectionQty > 1 ? '#ffffff' : '#f5f5f5',
+                              border: 'none', borderRight: '1px solid #e5e5e5',
+                              cursor: addToCollectionQty > 1 ? 'pointer' : 'not-allowed',
+                              color: addToCollectionQty > 1 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
+                              fontWeight: '600', padding: 0, flexShrink: 0, transition: 'all 0.2s'
+                            }}>−</button>
+                          <input type="number" min="1" max="9999" value={addToCollectionQty}
+                            onChange={(e) => { const val = parseInt(e.target.value);
+                              if (!isNaN(val) && val >= 1 && val <= 9999) setAddToCollectionQty(val); }}
+                            onFocus={(e) => e.target.select()}
+                            style={{ flex: '1', minWidth: '40px', height: '44px', fontSize: 'var(--text-base)',
+                              fontWeight: '600', color: '#171717', background: '#ffffff', border: 'none',
+                              textAlign: 'center', padding: '0 8px', outline: 'none', appearance: 'none' }} />
+                          <button type="button" onClick={() => setAddToCollectionQty(Math.min(9999, addToCollectionQty + 1))}
+                            disabled={addToCollectionQty >= 9999} style={{
+                              width: '44px', minWidth: '44px', height: '44px', display: 'flex', alignItems: 'center',
+                              justifyContent: 'center', background: addToCollectionQty < 9999 ? '#ffffff' : '#f5f5f5',
+                              border: 'none', borderLeft: '1px solid #e5e5e5',
+                              cursor: addToCollectionQty < 9999 ? 'pointer' : 'not-allowed',
+                              color: addToCollectionQty < 9999 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
+                              fontWeight: '600', padding: 0, flexShrink: 0, transition: 'all 0.2s'
+                            }}>+</button>
+                        </div>
+                      </div>
+                      <button onClick={handleAddToCollectionFromSection} disabled={addToCollectionLoading}
+                        style={{ width: '100%', height: '44px', background: addToCollectionLoading ? '#a3a3a3' : '#10b981',
+                          color: '#ffffff', border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)',
+                          fontWeight: '600', cursor: addToCollectionLoading ? 'not-allowed' : 'pointer',
+                          transition: 'all 0.2s' }}>
+                        {addToCollectionLoading ? 'Adding...' : 'Add to Collection'}
+                      </button>
+                    </div>
+                  )}
+
+                  {personalCollectionItem && (
+                    <>
+                      <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
+                        marginBottom: '16px', marginTop: '24px' }}>In Your Collection</h2>
+                      <div className="inventory-actions-container">
+                        <div className="quantity-stepper">
+                          <button type="button"
+                            onClick={() => { if (personalCollectionItem.quantity > 1) handleUpdatePersonalQuantity(personalCollectionItem.quantity - 1); }}
+                            disabled={personalCollectionItem.quantity <= 1} style={{
+                              width: '44px', minWidth: '44px', height: '44px', display: 'flex', alignItems: 'center',
+                              justifyContent: 'center', background: personalCollectionItem.quantity > 1 ? '#ffffff' : '#f5f5f5',
+                              border: 'none', borderRight: '1px solid #e5e5e5',
+                              cursor: personalCollectionItem.quantity > 1 ? 'pointer' : 'not-allowed',
+                              color: personalCollectionItem.quantity > 1 ? '#171717' : '#a3a3a3', transition: 'all 0.2s',
+                              fontSize: 'var(--text-lg)', fontWeight: '600', padding: 0, flexShrink: 0
+                            }}>−</button>
+                          <input type="number" min="1" max="9999" value={personalCollectionItem.quantity}
+                            onChange={(e) => { const val = parseInt(e.target.value);
+                              if (!isNaN(val) && val >= 1 && val <= 9999) handleUpdatePersonalQuantity(val); }}
+                            onFocus={(e) => e.target.select()}
+                            style={{ flex: 1, minWidth: '40px', height: '44px', fontSize: 'var(--text-base)',
+                              fontWeight: '600', color: '#171717', background: '#ffffff', border: 'none',
+                              textAlign: 'center', padding: '0 8px', outline: 'none', appearance: 'none' }} />
+                          <button type="button"
+                            onClick={() => { if (personalCollectionItem.quantity < 9999) handleUpdatePersonalQuantity(personalCollectionItem.quantity + 1); }}
+                            disabled={personalCollectionItem.quantity >= 9999} style={{
+                              width: '44px', minWidth: '44px', height: '44px', display: 'flex', alignItems: 'center',
+                              justifyContent: 'center', background: personalCollectionItem.quantity < 9999 ? '#ffffff' : '#f5f5f5',
+                              border: 'none', borderLeft: '1px solid #e5e5e5',
+                              cursor: personalCollectionItem.quantity < 9999 ? 'pointer' : 'not-allowed',
+                              color: personalCollectionItem.quantity < 9999 ? '#171717' : '#a3a3a3', transition: 'all 0.2s',
+                              fontSize: 'var(--text-lg)', fontWeight: '600', padding: 0, flexShrink: 0
+                            }}>+</button>
+                        </div>
+                        <button onClick={async (e) => {
+                          e.stopPropagation();
+                          if (personalCollectionItem.quantity === 1) {
+                            try {
+                              const response = await fetch(`/api/set-personal-collection/${personalCollectionItem.id}/move-to-inventory`, {
+                                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ quantity: 1 })
+                              });
+                              if (response.ok) {
+                                await refreshCollections();
+                                setLastMovedItem({ id: personalCollectionItem.id, direction: 'to-inventory' });
+                                setMoveSuccess(true);
+                                setTimeout(() => { setMoveSuccess(false); setLastMovedItem(null); }, 10000);
+                              }
+                            } catch (err) {
+                              setError('Failed to move item');
+                            }
+                          } else {
+                            setShowMoveToInventoryDialog(true);
+                          }
+                        }} style={{
+                          width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          color: '#737373', background: '#ffffff', border: '1px solid #e5e5e5', borderRadius: '8px',
+                          cursor: 'pointer', padding: 0, transition: 'all 0.2s'
+                        }} title="Move to Inventory">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                          </svg>
+                        </button>
+                        <button onClick={(e) => { e.stopPropagation(); setDeleteTarget('collection'); setShowDeleteDialog(true); }}
+                          className="inventory-delete-btn">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {featuredSets.length > 0 && (
+          <div style={{ marginTop: '48px', marginBottom: '48px' }}>
+            <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: '24px', color: '#171717' }}>
+              Featured {parentTheme} Sets
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
+              {featuredSets.map((setAd) => (
+                <SetAdCard key={setAd.setNumber || setAd.box_no} setNumber={setAd.setNumber || setAd.box_no}
+                  setName={setAd.name} imageUrl={setAd.imageUrl || setAd.image_url}
+                  year={setAd.year || (setAd.year_released ? parseInt(setAd.year_released) : undefined)}
+                  amazonUrl={setAd.amazonUrl} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {themeSets.length > 0 && (
+          <div style={{ marginTop: '48px', marginBottom: '48px' }}>
+            <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: '24px', color: '#171717' }}>
+              More from {parentTheme}
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '24px' }}>
+              {themeSets.map(s => (
+                <Link key={s.box_no} href={`/sets/${s.box_no}`} style={{ textDecoration: 'none' }}>
+                  <div style={{ background: 'white', borderRadius: '12px', overflow: 'hidden', border: '1px solid #e5e5e5',
+                    transition: 'transform 0.2s', cursor: 'pointer' }}>
+                    <div style={{ padding: '16px', height: '180px', display: 'flex', alignItems: 'center',
+                      justifyContent: 'center', background: '#ffffff' }}>
+                      <Image src={s.image_url} alt={s.name} width={160} height={160}
+                        style={{ objectFit: 'contain', maxHeight: '160px' }} unoptimized />
+                    </div>
+                    <div style={{ padding: '16px', borderTop: '1px solid #e5e5e5' }}>
+                      <div style={{ fontSize: '14px', fontWeight: '600', color: '#171717', marginBottom: '4px' }}>{s.name}</div>
+                      <div style={{ fontSize: '12px', color: '#737373' }}>{s.box_no}</div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {showMoveDialog && inventoryItem && (
+        <MoveDialog isOpen={true} onClose={() => setShowMoveDialog(false)} itemName={set.name}
+          maxQuantity={inventoryItem.quantity} direction="to-collection"
+          onConfirm={async (quantityToMove) => {
+            try {
+              const response = await fetch(`/api/set-inventory/${inventoryItem.id}/move-to-collection`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quantity: quantityToMove })
+              });
+              if (response.ok) {
+                await refreshCollections();
+                setMoveSuccess(true);
+                setLastMovedItem({ id: inventoryItem.id, direction: 'to-collection' });
+                setShowMoveDialog(false);
+              }
+            } catch (err) {
+              setError('Failed to move');
+            }
+          }} />
+      )}
+
+      {showMoveToInventoryDialog && personalCollectionItem && (
+        <MoveDialog isOpen={true} onClose={() => setShowMoveToInventoryDialog(false)} itemName={set.name}
+          maxQuantity={personalCollectionItem.quantity} direction="to-inventory"
+          onConfirm={async (quantityToMove) => {
+            try {
+              const response = await fetch(`/api/set-personal-collection/${personalCollectionItem.id}/move-to-inventory`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quantity: quantityToMove })
+              });
+              if (response.ok) {
+                await refreshCollections();
+                setMoveSuccess(true);
+                setLastMovedItem({ id: personalCollectionItem.id, direction: 'to-inventory' });
+                setShowMoveToInventoryDialog(false);
+              }
+            } catch (err) {
+              setError('Failed to move');
+            }
+          }} />
+      )}
+
+      {showDeleteDialog && deleteTarget && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, padding: '20px' }}
+          onClick={() => { setShowDeleteDialog(false); setDeleteTarget(null); }}>
+          <div style={{ background: 'white', borderRadius: '16px', padding: '32px', maxWidth: '400px',
+            width: '100%', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}
+            onClick={(e) => e.stopPropagation()}>
             <h3 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '12px', color: '#171717' }}>
               Remove from {deleteTarget === 'inventory' ? 'Inventory' : 'Collection'}?
             </h3>
@@ -1235,47 +836,20 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
               This will permanently remove this set from your {deleteTarget === 'inventory' ? 'inventory' : 'collection'}.
             </p>
             <div style={{ display: 'flex', gap: '12px' }}>
-              <button
-                onClick={() => {
-                  setShowDeleteDialog(false);
-                  setDeleteTarget(null);
-                }}
-                style={{
-                  flex: 1,
-                  padding: '12px',
-                  background: 'white',
-                  color: '#525252',
-                  border: '1px solid #e5e5e5',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  fontWeight: '600',
-                  fontSize: '14px',
-                  minHeight: '44px'
-                }}
-              >
+              <button onClick={() => { setShowDeleteDialog(false); setDeleteTarget(null); }}
+                style={{ flex: 1, padding: '12px', background: 'white', color: '#525252', border: '1px solid #e5e5e5',
+                  borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '14px', minHeight: '44px' }}>
                 Cancel
               </button>
-              <button
-                onClick={deleteTarget === 'inventory' ? handleRemoveFromInventory : handleRemoveFromCollection}
-                style={{
-                  flex: 1,
-                  padding: '12px',
-                  background: '#ef4444',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  fontWeight: '600',
-                  fontSize: '14px',
-                  minHeight: '44px'
-                }}
-              >
+              <button onClick={deleteTarget === 'inventory' ? handleRemoveFromInventory : handleRemoveFromCollection}
+                style={{ flex: 1, padding: '12px', background: '#ef4444', color: 'white', border: 'none',
+                  borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '14px', minHeight: '44px' }}>
                 Remove
               </button>
             </div>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
