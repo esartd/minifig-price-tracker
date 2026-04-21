@@ -12,7 +12,7 @@ class DatabaseService {
       quantity: item.quantity,
       condition: item.condition as 'new' | 'used',
       image_url: item.image_url,
-      pricing: item.pricing_six_month_avg ? {
+      pricing: item.pricing_six_month_avg !== undefined && item.pricing_six_month_avg !== null ? {
         sixMonthAverage: item.pricing_six_month_avg,
         currentAverage: item.pricing_current_avg,
         currentLowest: item.pricing_current_lowest,

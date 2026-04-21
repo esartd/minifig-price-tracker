@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SetAdCard from '@/components/SetAdCard';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
-import { getMainCharacter } from '@/lib/theme-main-characters';
+import { getMainCharacter, THEME_OVERRIDES } from '@/lib/theme-main-characters';
 
 interface Minifig {
   no: string;
@@ -68,6 +68,12 @@ export default function SubcategoryMinifigsPage({
         );
         if (matchingSubcategory?.representativeImage) {
           setCoverImage(matchingSubcategory.representativeImage);
+        } else if (subcategoryName === 'Uncategorized') {
+          // For uncategorized, use theme override or wait for first minifig
+          const overrideMinifig = THEME_OVERRIDES[themeName];
+          if (overrideMinifig) {
+            setCoverImage(`https://img.bricklink.com/ItemImage/MN/0/${overrideMinifig}.png`);
+          }
         }
       }
 
@@ -78,7 +84,13 @@ export default function SubcategoryMinifigsPage({
       const minifigsData = await minifigsResponse.json();
 
       if (minifigsData.success) {
-        setMinifigs(minifigsData.data);
+        const minifigsData_array = minifigsData.data;
+        setMinifigs(minifigsData_array);
+
+        // If no cover image yet (uncategorized without override), use first minifig
+        if (!coverImage && subcategoryName === 'Uncategorized' && minifigsData_array.length > 0) {
+          setCoverImage(minifigsData_array[0].image_url);
+        }
 
         // Calculate dynamic ad count based on page length
         // Formula: Math.floor(minifigs / 15) + 1 (max 10 ads)

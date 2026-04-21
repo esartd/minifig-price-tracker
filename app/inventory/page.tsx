@@ -62,34 +62,39 @@ export default function CollectionPage() {
         setCollection(data.data);
         setLoading(false); // Show items immediately
 
-        // Check if any items are missing pricing
-        const itemsMissingPricing = data.data.filter((item: CollectionItem) => !item.pricing);
+        // For each item missing pricing, fetch individually
+        const itemsMissingPricing = data.data.filter((item: CollectionItem) =>
+          !item.pricing || item.pricing.suggestedPrice === 0
+        );
+
+        console.log(`Found ${itemsMissingPricing.length} items needing pricing`);
+
         if (itemsMissingPricing.length > 0) {
-          // Progressive polling: fetch updates every 1.5 seconds until all prices loaded
-          let pollCount = 0;
-          const maxPolls = 20; // Stop after 30 seconds
-
-          const pollInterval = setInterval(async () => {
-            pollCount++;
-
+          // Fetch each item's pricing individually
+          itemsMissingPricing.forEach(async (item: CollectionItem) => {
             try {
-              const updateResponse = await fetch('/api/inventory');
-              const updateData = await updateResponse.json();
+              console.log(`Fetching price for ${item.minifigure_no}...`);
+              const priceResponse = await fetch(`/api/inventory/${item.id}/refresh-pricing`, {
+                method: 'POST'
+              });
+              const priceData = await priceResponse.json();
 
-              if (updateData.success) {
-                setCollection(updateData.data);
+              console.log(`Price response for ${item.minifigure_no}:`, priceData);
 
-                // Stop polling if all prices loaded or max polls reached
-                const stillMissing = updateData.data.filter((item: CollectionItem) => !item.pricing);
-                if (stillMissing.length === 0 || pollCount >= maxPolls) {
-                  clearInterval(pollInterval);
-                }
+              if (priceData.success && priceData.data) {
+                // Update just this item in the collection
+                setCollection(prev => {
+                  const updated = prev.map(i =>
+                    i.id === item.id ? priceData.data : i
+                  );
+                  console.log(`Updated collection for ${item.minifigure_no}`);
+                  return updated;
+                });
               }
             } catch (err) {
-              console.error('Polling error:', err);
-              clearInterval(pollInterval);
+              console.error(`Failed to load pricing for ${item.minifigure_no}:`, err);
             }
-          }, 1500);
+          });
         }
       }
     } catch (error) {
