@@ -213,8 +213,14 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Super Mario / Super Mario Series 4': 'mar0093',
 
   // Town / City subseries
+  'Town / City / Farm': 'cty1761',
   'Town / City / Fire': 'cty1949',
   'Town / City / Recreation': 'cty1807',
+  'Town / Classic Town / Launch Command': 'splc005',
+  'Town / Paradisa': 'par031b',
+  'Town / Res-Q': 'rsq010',
+  'Town / Space Exploration': 'twn401',
+  'Town / World City / Coast Guard': 'wc017',
 
   // Nike
   'Nike': 'nike003',
