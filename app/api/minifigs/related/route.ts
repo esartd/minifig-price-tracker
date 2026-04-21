@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { findMinifigByNumber, getMinifigsByCategoryId } from '@/lib/catalog-static';
+import { getCharacterName, getCharacterVariations } from '@/lib/character-aliases';
 
 /**
  * COMPLIANT RELATED MINIFIGS
  *
  * Shows related minifigs from the full catalog.
  * Uses static JSON catalog from BrickLink download.
+ * Uses character mapping to find variations even when names differ.
  */
 
 export async function GET(request: NextRequest) {
@@ -31,9 +33,46 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // Extract character name (remove theme prefix, then take text before comma)
-    const withoutTheme = currentMinifig.name.replace(/^[^-]+-\s*/, '');
-    const characterName = withoutTheme.split(',')[0].trim().toLowerCase();
+    // Try character mapping first
+    const mappedCharacter = getCharacterName(itemNo.toLowerCase());
+    let variantResults: any[] = [];
+
+    if (mappedCharacter) {
+      // Use character mapping to find all variations
+      const characterVariationIds = getCharacterVariations(itemNo.toLowerCase())
+        .filter(id => id !== itemNo.toLowerCase());
+
+      const categoryMinifigs = await getMinifigsByCategoryId(currentMinifig.category_id);
+
+      variantResults = categoryMinifigs
+        .filter(m => characterVariationIds.includes(m.minifigure_no))
+        .sort((a, b) => {
+          const aYear = parseInt(a.year_released || '0');
+          const bYear = parseInt(b.year_released || '0');
+          return bYear - aYear;
+        })
+        .slice(0, 12);
+    }
+
+    // Fallback to name matching if no mapped character or no results
+    if (variantResults.length === 0) {
+      const withoutTheme = currentMinifig.name.replace(/^[^-]+-\s*/, '');
+      const characterName = withoutTheme.split(',')[0].trim().toLowerCase();
+
+      const categoryMinifigs = await getMinifigsByCategoryId(currentMinifig.category_id);
+
+      variantResults = categoryMinifigs
+        .filter(m =>
+          m.minifigure_no !== itemNo.toLowerCase() &&
+          m.name.toLowerCase().includes(characterName)
+        )
+        .sort((a, b) => {
+          const aYear = parseInt(a.year_released || '0');
+          const bYear = parseInt(b.year_released || '0');
+          return bYear - aYear;
+        })
+        .slice(0, 12);
+    }
 
     // Extract theme prefix
     const themePrefix = itemNo.match(/^[a-z]+/i)?.[0]?.toLowerCase() || '';
@@ -44,19 +83,6 @@ export async function GET(request: NextRequest) {
 
     // Get all minifigs in same category
     const categoryMinifigs = await getMinifigsByCategoryId(currentMinifig.category_id);
-
-    // Get character variants (same character name, same category)
-    const variantResults = categoryMinifigs
-      .filter(m =>
-        m.minifigure_no !== itemNo.toLowerCase() &&
-        m.name.toLowerCase().includes(characterName)
-      )
-      .sort((a, b) => {
-        const aYear = parseInt(a.year_released || '0');
-        const bYear = parseInt(b.year_released || '0');
-        return bYear - aYear;
-      })
-      .slice(0, 12);
 
     // Get theme minifigs (same theme prefix, nearby ID number)
     const minId = Math.max(1, currentNum - idRange);
