@@ -185,6 +185,12 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Frozen': 'Elsa',
   'Moana': 'Moana',
 
+  // DC Shows
+  'Super Heroes / Legends of Tomorrow': 'sh0434',
+
+  // Space
+  'Space / UFO': 'sp044',
+
   // Add more as needed...
 };
 
@@ -264,7 +270,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Lightyear': 'dis070',
   'Monster Fighters': 'mof007',
   'NEXO KNIGHTS': 'nex147',
-  'Nike': 'nike002',
+  'Nike': 'nike003',
   'Overwatch': 'ow001',
   'Pharaoh\'s Quest': 'pha012',
   'Pirates': 'pi015',
