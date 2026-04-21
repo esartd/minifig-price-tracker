@@ -210,6 +210,7 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
 
   // Super Mario subseries
   'Super Mario / Super Mario Series 2': 'mar0055',
+  'Super Mario / Super Mario Series 4': 'mar0093',
 
   // Add more as needed...
 };
