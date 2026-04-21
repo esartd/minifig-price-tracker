@@ -38,8 +38,18 @@ export async function GET() {
     }
 
     return NextResponse.json({ success: true, data: items });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching personal collection:', error);
+
+    // Check if it's a database connection limit error
+    const errorMessage = error?.message || String(error);
+    if (errorMessage.includes('max_connections_per_hour')) {
+      return NextResponse.json(
+        { success: false, error: errorMessage },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(
       { success: false, error: 'Failed to fetch personal collection' },
       { status: 500 }
