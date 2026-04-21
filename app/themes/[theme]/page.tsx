@@ -412,19 +412,20 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
               >
                 <div style={{
                   width: '100%',
-                  aspectRatio: '1',
+                  height: '160px',
                   background: '#ffffff',
                   borderRadius: '8px',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  overflow: 'hidden'
                 }}>
                   <Image
                     src={minifig.image_url}
                     alt={minifig.name}
                     width={120}
-                    height={120}
-                    style={{ objectFit: 'contain', width: '100%', height: '100%' }}
+                    height={160}
+                    style={{ objectFit: 'contain', maxWidth: '100%', maxHeight: '100%' }}
                     unoptimized
                   />
                 </div>

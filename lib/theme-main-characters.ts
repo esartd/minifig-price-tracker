@@ -39,6 +39,7 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
 
   // Disney
   'Disney / Disney Princess / Cinderella': 'dp162',
+  'Disney / Disney Princess / Sleeping Beauty': '47394pb172',
   'Disney / Disney Princess / Tangled': 'dp225',
   'Disney / Mickey Mouse': 'mck001',
 
@@ -133,10 +134,11 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
 
   // Harry Potter
   'Philosopher\'s Stone': 'Harry Potter',
-  'Chamber of Secrets': 'Harry Potter',
-  'Prisoner of Azkaban': 'Harry Potter',
-  'Goblet of Fire': 'Harry Potter',
-  'Order of the Phoenix': 'Harry Potter',
+  'Sorcerer\'s Stone': 'hp480',
+  'Chamber of Secrets': 'hp372',
+  'Prisoner of Azkaban': 'hp603',
+  'Goblet of Fire': 'hp507',
+  'Order of the Phoenix': 'hp337',
   'Half-Blood Prince': 'Harry Potter',
   'Deathly Hallows': 'Harry Potter',
   'Fantastic Beasts': 'Newt Scamander',
