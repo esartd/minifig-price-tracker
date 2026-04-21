@@ -208,6 +208,9 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Space / UFO': 'sp044',
   'Space / Unitron': 'sp048',
 
+  // Super Mario subseries
+  'Super Mario / Super Mario Series 2': 'mar0055',
+
   // Add more as needed...
 };
 
