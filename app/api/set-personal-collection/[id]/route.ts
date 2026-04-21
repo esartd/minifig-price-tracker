@@ -4,7 +4,7 @@ import { auth } from '@/auth';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -16,7 +16,8 @@ export async function GET(
       );
     }
 
-    const item = await database.getSetPersonalCollectionItemById(params.id);
+    const { id } = await params;
+    const item = await database.getSetPersonalCollectionItemById(id);
 
     if (!item) {
       return NextResponse.json(
@@ -48,7 +49,7 @@ export async function GET(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -60,7 +61,8 @@ export async function PATCH(
       );
     }
 
-    const item = await database.getSetPersonalCollectionItemById(params.id);
+    const { id } = await params;
+    const item = await database.getSetPersonalCollectionItemById(id);
 
     if (!item) {
       return NextResponse.json(
@@ -77,7 +79,7 @@ export async function PATCH(
     }
 
     const body = await request.json();
-    const updated = await database.updateSetPersonalCollectionItem(params.id, body);
+    const updated = await database.updateSetPersonalCollectionItem(id, body);
 
     return NextResponse.json({
       success: true,
@@ -94,7 +96,7 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -106,7 +108,8 @@ export async function DELETE(
       );
     }
 
-    const item = await database.getSetPersonalCollectionItemById(params.id);
+    const { id } = await params;
+    const item = await database.getSetPersonalCollectionItemById(id);
 
     if (!item) {
       return NextResponse.json(
@@ -122,7 +125,7 @@ export async function DELETE(
       );
     }
 
-    await database.deleteSetPersonalCollectionItem(params.id);
+    await database.deleteSetPersonalCollectionItem(id);
 
     return NextResponse.json({
       success: true

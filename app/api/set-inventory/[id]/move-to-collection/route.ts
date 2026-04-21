@@ -4,7 +4,7 @@ import { auth } from '@/auth';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -16,7 +16,8 @@ export async function POST(
       );
     }
 
-    const item = await database.getSetInventoryItemById(params.id);
+    const { id } = await params;
+    const item = await database.getSetInventoryItemById(id);
 
     if (!item) {
       return NextResponse.json(
@@ -42,7 +43,7 @@ export async function POST(
       );
     }
 
-    const result = await database.moveSetToPersonalCollection(params.id, quantity);
+    const result = await database.moveSetToPersonalCollection(id, quantity);
 
     return NextResponse.json({
       success: true,
