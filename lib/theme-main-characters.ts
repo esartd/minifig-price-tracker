@@ -45,6 +45,9 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
 
   // DUPLO
   'DUPLO / Action Wheelers': '4555pb140',
+
+  // LEGO Brand
+  'LEGO Brand / LEGO Brand Store / Build-A-Minifigure / Holiday & Event / Easter': 'hol201',
   'DUPLO / Lightyear': '47394pb336',
   'DUPLO / Little Forest Friends': '31231pb03',
   'DUPLO / Little Robots': '44323',
