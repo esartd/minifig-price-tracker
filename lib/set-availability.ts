@@ -33,7 +33,8 @@ const MANUAL_OVERRIDES: Record<string, { status: SetAvailabilityStatus; notes?: 
 
 /**
  * Detect availability based on year released
- * Sets from current year and previous 2 years are likely still available
+ * Conservative approach: Only show "available" for current year sets
+ * Older sets marked as "unknown" since we don't have real-time LEGO data
  */
 export function detectAvailabilityByYear(yearReleased: string | null): SetAvailabilityStatus {
   if (!yearReleased || yearReleased === '?') {
@@ -47,15 +48,12 @@ export function detectAvailabilityByYear(yearReleased: string | null): SetAvaila
   if (yearsSinceRelease < 0) {
     // Future release
     return 'unknown';
-  } else if (yearsSinceRelease <= 1) {
-    // Released this year or last year - likely available
+  } else if (yearsSinceRelease === 0) {
+    // Released this year - likely still available
     return 'available';
-  } else if (yearsSinceRelease === 2) {
-    // Released 2 years ago - might be retiring soon
-    return 'retiring_soon';
   } else {
-    // Released 3+ years ago - likely retired
-    return 'retired';
+    // Older sets - we don't know LEGO's retirement schedule
+    return 'unknown';
   }
 }
 

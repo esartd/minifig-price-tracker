@@ -9,7 +9,8 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import SetAdCard from '@/components/SetAdCard';
 import MoveDialog from '@/components/MoveDialog';
 import { formatPrice } from '@/lib/format-price';
-import { getSetAvailability, getAvailabilityBadge, getLegoComUrl } from '@/lib/set-availability';
+import { getSetAvailability } from '@/lib/set-availability';
+import { generateLegoSetLink, generateAmazonLegoSetLink } from '@/lib/affiliate-links';
 
 interface SetData {
   box_no: string;
@@ -357,10 +358,10 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
   const parentTheme = set.category_name.split(' / ')[0].trim();
   const subcategory = set.category_name.split(' / ').slice(1).join(' / ');
 
-  // Get availability status
+  // Get availability status (only current year sets marked as available)
   const availability = getSetAvailability(set.box_no, set.year_released);
-  const availabilityBadge = getAvailabilityBadge(availability.status);
-  const legoComUrl = getLegoComUrl(set.box_no, set.name);
+  const legoAffiliateUrl = generateLegoSetLink(set.box_no);
+  const amazonAffiliateUrl = generateAmazonLegoSetLink(set.box_no, set.name);
 
   return (
     <div style={{ minHeight: '100vh', background: '#fafafa' }}>
@@ -402,19 +403,12 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
           </div>
 
           <div className="minifig-details-section" style={{ padding: '32px' }}>
-            {/* Year Badge and Availability */}
+            {/* Year Badge */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
               gap: '8px', marginBottom: '8px', marginTop: 0, flexWrap: 'wrap' }}>
               <span style={{ fontSize: 'var(--text-xs)', fontWeight: '500', color: '#3b82f6',
                 textTransform: 'uppercase', letterSpacing: '0.05em', flex: '0 1 auto', minWidth: 0 }}>
                 {set.year_released && set.year_released !== '?' ? set.year_released : 'Year Unknown'}
-              </span>
-              <span style={{
-                fontSize: 'var(--text-xs)', fontWeight: '600', color: availabilityBadge.color,
-                background: availabilityBadge.bgColor, padding: '4px 8px', borderRadius: '4px',
-                textTransform: 'uppercase', letterSpacing: '0.05em'
-              }}>
-                {availabilityBadge.text}
               </span>
             </div>
 
@@ -503,40 +497,70 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
 
             <div style={{ height: '1px', background: '#e5e5e5', marginBottom: '16px' }}></div>
 
-            {/* Buy on LEGO.com button for available sets */}
-            {(availability.status === 'available' || availability.status === 'retiring_soon') && (
-              <a
-                href={legoComUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  padding: '12px 16px',
-                  background: '#FFCF00',
-                  color: '#000000',
-                  border: 'none',
-                  borderRadius: '8px',
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: '700',
-                  textAlign: 'center',
-                  textDecoration: 'none',
-                  marginBottom: '16px',
-                  transition: 'all 0.2s',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#E8BD00';
-                  e.currentTarget.style.transform = 'translateY(-1px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#FFCF00';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                🛒 Buy on LEGO.com
-                {availability.status === 'retiring_soon' && ' - Retiring Soon!'}
-              </a>
+            {/* Buy buttons for current year sets only */}
+            {availability.status === 'available' && (
+              <div style={{ marginBottom: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <a
+                  href={legoAffiliateUrl}
+                  target="_blank"
+                  rel="noopener noreferrer sponsored"
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    padding: '12px 16px',
+                    background: '#FFCF00',
+                    color: '#000000',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '700',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s',
+                    cursor: 'pointer'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#E8BD00';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#FFCF00';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  Buy on LEGO.com
+                </a>
+                <a
+                  href={amazonAffiliateUrl}
+                  target="_blank"
+                  rel="noopener noreferrer sponsored"
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    padding: '12px 16px',
+                    background: '#ffffff',
+                    color: '#171717',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '600',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s',
+                    cursor: 'pointer'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#f5f5f5';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#ffffff';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  Find on Amazon
+                </a>
+              </div>
             )}
 
             <div>
