@@ -212,6 +212,9 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Super Mario / Super Mario Series 2': 'mar0055',
   'Super Mario / Super Mario Series 4': 'mar0093',
 
+  // Town / City subseries
+  'Town / City / Recreation': 'cty1807',
+
   // Add more as needed...
 };
 
