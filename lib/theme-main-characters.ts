@@ -188,8 +188,25 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   // DC Shows
   'Super Heroes / Legends of Tomorrow': 'sh0434',
 
-  // Space
+  // Space subseries (locked permanent images)
+  'Space / Alien Conquest': 'ac001',
+  'Space / Blacktron I': 'sp001',
+  'Space / Blacktron II': 'sp002',
+  'Space / Classic Space': 'sp003',
+  'Space / Exploriens': 'sp008',
+  'Space / Factory': 'sp085',
+  'Space / Futuron': 'sp013',
+  'Space / Galaxy Squad': 'gs001',
+  'Space / Ice Planet 2002': 'sp017',
+  'Space / M:Tron': 'sp033',
+  'Space / Mars Mission': 'mm001',
+  'Space / RoboForce': 'sp035',
+  'Space / Space Police I': 'sp036',
+  'Space / Space Police II': 'sp037',
+  'Space / Space Police III': 'sp091',
+  'Space / Spyrius': 'sp039',
   'Space / UFO': 'sp044',
+  'Space / Unitron': 'sp048',
 
   // Add more as needed...
 };
@@ -283,7 +300,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'School Supplies': 'pln169',
   'Scooby-Doo': 'scd013',
   'Sonic the Hedgehog': 'son004',
-  'Space': 'sp145',
+  'Space': 'sp061',
   'Space / Insectoids': 'sp029',
   'Space / Life on Mars': 'lom018',
   'SPEED CHAMPIONS': 'sc122',
