@@ -170,7 +170,7 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'The Hobbit': 'Bilbo Baggins',
   'An Unexpected Journey': 'Bilbo Baggins',
   'The Desolation of Smaug': 'Bilbo Baggins',
-  'The Battle of the Five Armies': 'lor103',
+  'The Hobbit and The Lord of the Rings / The Hobbit / The Battle of the Five Armies': 'lor103',
 
   // Jurassic Park / World
   'Jurassic Park': 'Dr. Alan Grant',
