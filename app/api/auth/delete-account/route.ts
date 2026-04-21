@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@/auth';
+import { auth, signOut } from '@/auth';
 import { prisma } from '@/lib/prisma';
 
 export async function DELETE(request: Request) {
@@ -13,23 +13,20 @@ export async function DELETE(request: Request) {
       );
     }
 
-    // Delete all user's collection items first
-    await prisma.collectionItem.deleteMany({
-      where: {
-        User: {
-          email: session.user.email
-        }
-      }
+    const userEmail = session.user.email;
+
+    // Delete the user account (cascade delete will handle related records)
+    await prisma.user.delete({
+      where: { email: userEmail }
     });
 
-    // Delete the user account
-    await prisma.user.delete({
-      where: { email: session.user.email }
-    });
+    // Sign out the user
+    await signOut({ redirect: false });
 
     return NextResponse.json({
       success: true,
-      message: 'Account deleted successfully'
+      message: 'Account deleted successfully',
+      redirect: '/auth/signin'
     });
   } catch (error) {
     console.error('Delete account error:', error);

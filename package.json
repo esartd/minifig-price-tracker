@@ -55,6 +55,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^16.2.3",
     "@types/bcryptjs": "^2.4.6",
+    "canvas": "^3.2.3",
     "prisma": "^5.19.0",
     "tsx": "^4.21.0"
   }
