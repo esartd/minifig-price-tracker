@@ -318,7 +318,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'The Powerpuff Girls': 'ppg005',
   'Town': 'cty1210',
   'Town / City / Farm': 'cty1761',
-  'Town / City / Fire': 'cty1950',
+  'Town / City / Fire': 'cty1949',
   'Toy Story': 'toy025',
   'Train': 'trn254',
   'Trolls World Tour': 'twt022',
