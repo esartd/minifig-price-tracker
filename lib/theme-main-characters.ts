@@ -27,10 +27,8 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Castle / Fright Knights': 'cas215',
   'Castle / Knights Kingdom I': 'cas309',
   'Castle / Wolfpack': 'cas585',
-  'Castle': 'cas592', // Uncategorized Castle minifigs
 
   // Collectible Minifigures
-  'Collectible Minifigures': 'col271', // Uncategorized
   'Collectible Minifigures / Promotional': 'gen098',
   'Collectible Minifigures / Series 21 Minifigures': 'col385',
 
@@ -100,7 +98,6 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Avengers Age of Ultron': 'Iron Man',
   'Avengers Infinity War': 'Iron Man',
   'Avengers Endgame': 'Iron Man',
-  'Spider-Man': 'sh0708',
   'Spider-Man No Way Home': 'Spider-Man',
   'Black Panther': 'Black Panther',
   'Black Panther Wakanda Forever': 'Black Panther',
@@ -158,7 +155,6 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Kingdom of the Crystal Skull': 'Indiana Jones',
 
   // Pirates of the Caribbean
-  'Pirates of the Caribbean': 'Jack Sparrow',
   'Dead Man\'s Chest': 'Jack Sparrow',
   'At World\'s End': 'Jack Sparrow',
   'On Stranger Tides': 'Jack Sparrow',
@@ -174,14 +170,12 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
 
   // Jurassic Park / World
   'Jurassic Park': 'Dr. Alan Grant',
-  'Jurassic World': 'Owen',
   'Fallen Kingdom': 'Owen',
   'Dominion': 'Owen',
 
   // Misc Movies
   'The LEGO Batman Movie': 'Batman',
   'The LEGO Ninjago Movie': 'Lloyd',
-  'Toy Story': 'Woody',
   'Frozen': 'Elsa',
   'Moana': 'Moana',
 
@@ -358,27 +352,6 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Disney / Disney Princess / The Little Mermaid': 'dp001',
   'Disney / Disney Princess / The Princess and the Frog': 'dp065',
 
-  // DUPLO subseries
-  'DUPLO / Action Wheelers': '4555pb040',
-  'DUPLO / Arctic': '47394pb200',
-  'DUPLO / Basic Set': '2327pb01',
-  'DUPLO / Bluey': '47205pb128',
-  'DUPLO / Bob The Builder': '4555pb021',
-  'DUPLO / Cars': 'crs049',
-  'DUPLO / Cars / Cars 2': 'crs079',
-  'DUPLO / Cars / Cars 3': 'crs019',
-  'DUPLO / Castle': 'cas592',
-  'DUPLO / Dino': '6453pb001',
-  'DUPLO / Disney / Disney 100': '47394pb342',
-  'DUPLO / Disney / Disney Junior / Doc McStuffins': '47394pb201',
-  'DUPLO / Disney / Disney Junior / Jake and the Never Land Pirates': '47394pb162',
-  'DUPLO / Disney / Disney Junior / Mickey': '47394pb278',
-  'DUPLO / Disney / Disney Junior / Mickey and the Roadster Racers': '47394pb232',
-  'DUPLO / Disney / Disney Junior / Mickey Mouse Clubhouse': '47394pb194',
-  'DUPLO / Disney / Disney Junior / Miles From Tomorrowland': '47394pb198',
-  'DUPLO / Disney / Disney Junior / Minnie': '47394pb202',
-  'DUPLO / Disney / Disney Junior / Sofia the First': '47205pb033',
-
   // Adventurers subseries (continued)
   'Adventurers / Dino Island': 'adv002',
   'Adventurers / Jungle': 'adv001',
@@ -495,7 +468,6 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Lightyear': 'dis070',
   'Monster Fighters': 'mof007',
   'NEXO KNIGHTS': 'nex147',
-  'Nike': 'nike003',
   'Overwatch': 'ow001',
   'Pharaoh\'s Quest': 'pha012',
   'Pirates': 'pi015',
@@ -525,7 +497,6 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'The Lone Ranger': 'tlr010',
   'The Powerpuff Girls': 'ppg005',
   'Town': 'cty1210',
-  'Town / City / Farm': 'cty1761',
   'Toy Story': 'toy025',
   'Train': 'trn254',
   'Trolls World Tour': 'twt022',
@@ -537,7 +508,6 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
 
   // Additional themes - manually verified representative minifigs
   '4 Juniors': 'cre001',
-  'Animal Crossing': 'ani007',
   'Architecture': 'gen192',
   'Bluey': 'blu007',
   'BrickLink Designer Program': 'bdp309',
