@@ -220,10 +220,62 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Town / Paradisa': 'par031b',
   'Town / Res-Q': 'rsq010',
   'Town / Space Exploration': 'twn401',
+  'Town / Town Jr. / Cargo': 'car003',
   'Town / World City / Coast Guard': 'wc017',
 
   // Nike
   'Nike': 'nike003',
+
+  // Adventurers subseries
+  'Adventurers / Desert': 'adv039',
+
+  // Alpha Team subseries
+  'Alpha Team / Mission Deep Sea': 'alp034',
+
+  // Avatar subseries
+  'Avatar / The Way of Water': 'avt014',
+
+  // BIONICLE subseries
+  'BIONICLE / Toa Mahri': 'bio019',
+
+  // Cars subseries
+  'Cars / Cars 2': 'crs079',
+
+  // Games subseries
+  'Games / Heroica': '85863pb068',
+
+  // Hero Factory subseries
+  'Hero Factory / Heroes': 'hf019',
+
+  // Indiana Jones subseries
+  'Indiana Jones / Kingdom of the Crystal Skull': 'iaj044',
+
+  // Pirates subseries
+  'Pirates / Pirates I / Imperial Guards': 'pi062',
+
+  // Racers subseries
+  'Racers / Drome Racers': 'rac103',
+  'Racers / Xalax': '30598pb08',
+
+  // Spider-Man subseries
+  'Spider-Man / Spider-Man 2': 'spd017',
+
+  // Sports subseries
+  'Sports / Gravity Games': 'gg005',
+  'Sports / Hockey': 'hky012s',
+  'Sports / Soccer': 'soc158',
+
+  // The Incredibles subseries
+  'The Incredibles / Incredibles 2': 'incr006',
+
+  // Toy Story subseries
+  'Toy Story / Toy Story 3': 'toy014',
+
+  // Western subseries
+  'Western / Cowboys': 'ww012',
+
+  // Animal Crossing
+  'Animal Crossing': 'ani027',
 
   // Add more as needed...
 };
