@@ -213,7 +213,11 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Super Mario / Super Mario Series 4': 'mar0093',
 
   // Town / City subseries
+  'Town / City / Fire': 'cty1949',
   'Town / City / Recreation': 'cty1807',
+
+  // Nike
+  'Nike': 'nike003',
 
   // Add more as needed...
 };
@@ -325,7 +329,6 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'The Powerpuff Girls': 'ppg005',
   'Town': 'cty1210',
   'Town / City / Farm': 'cty1761',
-  'Town / City / Fire': 'cty1949',
   'Toy Story': 'toy025',
   'Train': 'trn254',
   'Trolls World Tour': 'twt022',
