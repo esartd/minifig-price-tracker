@@ -396,6 +396,15 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
           </div>
 
           <div className="minifig-details-section" style={{ padding: '32px' }}>
+            {/* Year Badge */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              gap: '8px', marginBottom: '8px', marginTop: 0 }}>
+              <span style={{ fontSize: 'var(--text-xs)', fontWeight: '500', color: '#3b82f6',
+                textTransform: 'uppercase', letterSpacing: '0.05em', flex: '0 1 auto', minWidth: 0 }}>
+                {set.year_released && set.year_released !== '?' ? set.year_released : 'Year Unknown'}
+              </span>
+            </div>
+
             <h1 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', color: '#171717', marginBottom: '8px' }}>
               {set.name}
             </h1>
