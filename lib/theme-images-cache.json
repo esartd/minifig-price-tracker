@@ -1,0 +1,1953 @@
+{
+  "_comment": "This file caches the verified working image for each LEGO set theme",
+  "_lastUpdated": "2026-04-21T18:44:09.661Z",
+  "_totalThemes": 170,
+  "themes": {
+    "Racers": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40190-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/40191-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40192-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40193-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40194-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40195-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.655Z",
+      "setCount": 264
+    },
+    "Technic": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/30735-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/42218-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/42219-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/42220-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/42221-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/42222-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.655Z",
+      "setCount": 577
+    },
+    "LEGOLAND": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/1610-2.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/1555-2.png",
+        "https://img.bricklink.com/ItemImage/ON/0/1611-2.png",
+        "https://img.bricklink.com/ItemImage/ON/0/492-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/663-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/664-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.655Z",
+      "setCount": 166
+    },
+    "Universal Building Set": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/11959-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/11929-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11931-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11922-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11921-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11917-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.656Z",
+      "setCount": 522
+    },
+    "FreeStyle": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/3035-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/3234-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4258-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4255-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4280-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4271-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.656Z",
+      "setCount": 76
+    },
+    "Samsonite": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/9903-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/55-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/78-3.png",
+        "https://img.bricklink.com/ItemImage/ON/0/88-2.png",
+        "https://img.bricklink.com/ItemImage/ON/0/300-2.png",
+        "https://img.bricklink.com/ItemImage/ON/0/798-2.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.656Z",
+      "setCount": 191
+    },
+    "Classic": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/11039-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/11040-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11041-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11042-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11043-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11044-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.656Z",
+      "setCount": 506
+    },
+    "Homemaker": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/5235-2.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/5233-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/261-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/268-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/269-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/230-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.656Z",
+      "setCount": 32
+    },
+    "DUPLO": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/10463-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/10465-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10470-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10471-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10473-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10474-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.656Z",
+      "setCount": 1336
+    },
+    "Educational & Dacta": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/45521-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/45522-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/45547-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/45546-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/45620-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/45621-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.657Z",
+      "setCount": 1239
+    },
+    "Service Packs": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/21303sup-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/6040079-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/630-3.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10213sup-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3750-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3748-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.657Z",
+      "setCount": 531
+    },
+    "Primo": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/2104-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/2030-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/2039-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/2046-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/2076-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/2044-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.657Z",
+      "setCount": 61
+    },
+    "Minitalia": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/1-12.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/2-11.png",
+        "https://img.bricklink.com/ItemImage/ON/0/31-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/30-2.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11-2.png",
+        "https://img.bricklink.com/ItemImage/ON/0/32-2.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.657Z",
+      "setCount": 21
+    },
+    "Sports": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40634-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/RedSox2-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/RedSox-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/Giants-2.png",
+        "https://img.bricklink.com/ItemImage/ON/0/Giants-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3573-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.657Z",
+      "setCount": 171
+    },
+    "Explore": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/7331-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/7330-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7332-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7333-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5350-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7442-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.657Z",
+      "setCount": 139
+    },
+    "Architecture": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/21064-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/21062-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/21063-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/21068-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/21061-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/21060-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.657Z",
+      "setCount": 71
+    },
+    "Hobby Sets": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/10021-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/398-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/394-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/396-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/393-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/395-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.657Z",
+      "setCount": 9
+    },
+    "LEGO Brand": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/6614213-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/bam2026-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40507-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40952-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/pab2026-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/6626053-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.657Z",
+      "setCount": 690
+    },
+    "Space": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40921-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/10355-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40767-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5009806-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40712-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40716-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.657Z",
+      "setCount": 344
+    },
+    "Holiday & Event": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40864-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/80118-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/80119-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40863-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40867-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40920-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.657Z",
+      "setCount": 2254
+    },
+    "Train": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/60336-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/60337-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/60335-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40370-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10277-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/60197-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.657Z",
+      "setCount": 300
+    },
+    "Alpha Team": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/4774-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/4770-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4742-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4743-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4744-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4745-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.657Z",
+      "setCount": 34
+    },
+    "Town": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/60508-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/30719-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/60478-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/60479-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/60481-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/60482-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 1616
+    },
+    "Island Xtreme Stunts": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/3388-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/3386-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3387-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/6733-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/6740-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/6736-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 13
+    },
+    "Baby": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/5462-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/5465-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5460-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5464-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5463-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5461-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 48
+    },
+    "Building Set with People": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/205-2.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/340-2.png",
+        "https://img.bricklink.com/ItemImage/ON/0/208-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/330-2.png",
+        "https://img.bricklink.com/ItemImage/ON/0/217-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/215-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 30
+    },
+    "Castle": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40775-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/10332-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40601-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40567-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10305-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5004419-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 268
+    },
+    "Adventurers": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/7410-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/7418-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7417-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7412-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7415-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7411-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 88
+    },
+    "Aquazone": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/7774-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/7773-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7770-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7771-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7772-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7775-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 37
+    },
+    "Ninja": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/3344-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/3345-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3346-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/cnminifigures-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/1099-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/1184-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 36
+    },
+    "Fabuland": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/3647-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/3663-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3676-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3622-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3623-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3646-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 106
+    },
+    "Rock Raiders": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/1274-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/1275-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/1276-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/1277-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3347-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3348-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 18
+    },
+    "Pirates": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/10320-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/70411-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70413-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70412-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70410-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70409-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 94
+    },
+    "Value Packs": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/66777-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/6254652-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/CNYvalue-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/66580-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/78660-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4288478676-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 28
+    },
+    "Time Cruisers": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/6495-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/6496-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/6497-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/6499-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/1853-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/6491-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 9
+    },
+    "Belville": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/7583-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/7585-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7586-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7587-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7580-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7581-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 92
+    },
+    "Model Team": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/10151-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/5533-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5563-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/2556-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5542-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5561-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 16
+    },
+    "Western": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/6764-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/6762-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/6763-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/K6762-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/2845-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/2846-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 24
+    },
+    "BIONICLE": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40581-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/71302-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71307-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71303-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71301-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71311-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 459
+    },
+    "Scala": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/3122-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/3123-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3124-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3121-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/VP27-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3148-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 75
+    },
+    "Boat": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40318-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/40227-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7244-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4002-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4012-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4022-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 24
+    },
+    "Star Wars": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/75449-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/30727-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75436-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75437-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75440-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75441-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 1036
+    },
+    "Znap": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/3505-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/3506-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3520-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3521-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3554-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3555-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 20
+    },
+    "MINDSTORMS": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/51515-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/40413-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/45517-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/MS1030-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/45500-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/45501-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 91
+    },
+    "Disney": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/43290-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/30720-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/43281-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/43284-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/43285-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/43286-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 217
+    },
+    "Bulk Bricks": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/BAG6-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/F6316-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10145-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10146-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10147-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10148-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 135
+    },
+    "Studios": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/1382-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/1383-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/1380-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/1381-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/K1383-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/1371-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 55
+    },
+    "Dinosaurs": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/6719-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/6720-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/6721-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/6722-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7000-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7001-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 13
+    },
+    "Sculptures": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40955-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/40819-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40649-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10307-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10282-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10294-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.658Z",
+      "setCount": 40
+    },
+    "Creator": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/11372-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/11371-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/31380-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/30714-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/30715-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/31385-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 723
+    },
+    "4 Juniors": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/4666-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/4667-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4668-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4669-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7070-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7071-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 56
+    },
+    "Harry Potter": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/76464-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/76467-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/76466-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/76470-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/76461-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/76460-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 186
+    },
+    "Spider-Man": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/65572-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/4855-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4853-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4854-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4856-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4857-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 15
+    },
+    "Spybotics": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/3806-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/3807-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3808-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3809-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 4
+    },
+    "Galidor": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/8317-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/8320-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8310-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8311-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8312-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8313-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 20
+    },
+    "Building Event": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/5010173-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/6568276-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5009616-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/6508942-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/6535388-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/6541140-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 47
+    },
+    "Discovery": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/7469-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/7470-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7471-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7467-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7468-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10029-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 8
+    },
+    "Designer Sets": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/VP-6.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/4881-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4882-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4883-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7268-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7269-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 44
+    },
+    "Clikits": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/7548-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/7549-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7545-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7546-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7554-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7555-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 79
+    },
+    "Inventor": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/4090-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/4093-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4094-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4095-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 4
+    },
+    "X-Pod": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/4418-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/4415-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4417-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4416-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/K4415-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4337-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 24
+    },
+    "Quatro": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/5476-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/5470-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5357-2.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5361-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5363-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5357-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 10
+    },
+    "School Supplies": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40385-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/40251-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40155-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40118-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4677-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 5
+    },
+    "FIRST LEGO League": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/45829-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/45830-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/45831-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/45826-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/45827-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/45828-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 55
+    },
+    "Dino Attack": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/7473-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/7474-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7475-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7477-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7476-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 5
+    },
+    "Vikings": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/7020-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/7021-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/851861-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7018-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7017-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7015-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 8
+    },
+    "Factory": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/10191-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/10192-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10200-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10183-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5524-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5525-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 7
+    },
+    "Dino 2010": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/7294-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/7295-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7296-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7297-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7298-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 5
+    },
+    "Exo-Force": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/K8107-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/8117-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8118-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8112-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8111-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8113-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 50
+    },
+    "Batman I": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/7886-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/7888-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7885-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7884-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/comcon003-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7786-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 15
+    },
+    "SpongeBob SquarePants": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/3817-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/3818-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3815-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3816-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3833-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3834-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 14
+    },
+    "Avatar The Last Airbender": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/3828-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/3829-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 2
+    },
+    "Promotional": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40913-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/40906-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40907-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40757-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40782-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5009157-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 163
+    },
+    "Indiana Jones": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/77013-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/77015-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/77012-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7683-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7682-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7198-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 22
+    },
+    "Power Functions": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/88021-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/88019-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/88015-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/88017-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/88018-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/88016-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 33
+    },
+    "Speed Racer": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/8158-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/8159-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8160-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8161-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 4
+    },
+    "Agents": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/8967-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/8968-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8969-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8970-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8971-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8631-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 13
+    },
+    "Collectible Minifigures": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/71051-4.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/col28-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/col28-5.png",
+        "https://img.bricklink.com/ItemImage/ON/0/col28-2.png",
+        "https://img.bricklink.com/ItemImage/ON/0/col28-3.png",
+        "https://img.bricklink.com/ItemImage/ON/0/col28-4.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 957
+    },
+    "Power Miners": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/8188-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/8189-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8190-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8191-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8961-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8960-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 24
+    },
+    "Universe": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/2853944-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/55001-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/lup03-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/lup04-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/lup05-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/lup06-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 9
+    },
+    "Ben 10": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/8409-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/8410-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8411-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8517-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8518-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8519-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 6
+    },
+    "Toy Story": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/10769-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/10771-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10766-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10770-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10768-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10767-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 22
+    },
+    "Prince of Persia": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/7573-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/7572-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7570-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7571-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7569-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/20017-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 6
+    },
+    "Atlantis": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/7985-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/7976-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7977-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7978-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7984-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8059-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 24
+    },
+    "World Racers": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/8864-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/8863-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8897-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8896-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8899-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8898-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 9
+    },
+    "Hero Factory": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/44015-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/44016-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/44017-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/44018-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/44019-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/44020-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 108
+    },
+    "Muji": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/e1a1401-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/e1a1402-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/e1a1403-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/e1a1404-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8785452-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/8785476-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 14
+    },
+    "Pharaoh's Quest": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/7305-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/7306-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7307-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7325-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7326-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/7327-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 9
+    },
+    "NINJAGO": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/71858-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/71853-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71860-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71866-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71861-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/30723-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 614
+    },
+    "Cars": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/9486-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/9485-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/9484-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/9483-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/9481-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/9480-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 27
+    },
+    "Pirates of the Caribbean": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/10365-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/5009609-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71042-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4195-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4194-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/4193-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 19
+    },
+    "LEGO Ideas (CUUSOO)": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/21365-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/21376-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/21366-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/21367-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/21354-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/21355-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 88
+    },
+    "Master Builder Academy": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/20215-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/20214-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/20216-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/20217-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/20204-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/20205-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 15
+    },
+    "Super Heroes": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/76330-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/76332-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/76333-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/76331-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/76334-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/76335-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 600
+    },
+    "Dino": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/5882-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/5883-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5884-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5885-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5886-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5887-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 7
+    },
+    "Friends": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/42684-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/30721-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/30722-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/42675-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/42677-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/42678-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 644
+    },
+    "The Hobbit and The Lord of the Rings": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/11373-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/10354-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40761-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10367-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10333-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40693-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 47
+    },
+    "Monster Fighters": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/9468-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/9465-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/9462-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/9463-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/9461-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/9464-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 14
+    },
+    "LEGENDS OF CHIMA": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/70232-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/70231-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70230-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70229-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70224-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70223-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 139
+    },
+    "Teenage Mutant Ninja Turtles": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/79115-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/79116-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/79117-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/79118-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/79119-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/79120-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 23
+    },
+    "The Lone Ranger": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/79111-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/30260-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/30261-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/79109-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/79110-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/79107-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.659Z",
+      "setCount": 8
+    },
+    "Minecraft": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/21583-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/21584-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/21585-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/21586-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/21587-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/21588-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 193
+    },
+    "MIXELS": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/41554-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/41555-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41556-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41557-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41558-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41559-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 121
+    },
+    "Juniors": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/10750-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/10751-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10749-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10748-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10753-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10754-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 67
+    },
+    "The LEGO Movie": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/70818-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/70819-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70817-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70802-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70800-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70801-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 32
+    },
+    "The Simpsons": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/10352-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/5009325-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71016-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71006-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 4
+    },
+    "Ultra Agents": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/70170-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/70168-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70167-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70166-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70169-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5004554-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 15
+    },
+    "Fusion": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/21204-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/21205-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/21206-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/21208-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 4
+    },
+    "SPEED CHAMPIONS": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/77255-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/77256-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/77252-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/77253-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/77254-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/77257-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 100
+    },
+    "Elves": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/41190-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/41192-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41193-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41194-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41191-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41196-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 42
+    },
+    "Jurassic World": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/122509-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/76967-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/76969-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/122409-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/76968-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/122501-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 115
+    },
+    "Scooby-Doo": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/30601-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/75902-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75900-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75901-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75903-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75904-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 7
+    },
+    "Dimensions": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/71264-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/71344-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71286-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71267-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71348-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71266-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 72
+    },
+    "NEXO KNIGHTS": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/72003-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/72002-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/72006-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/72004-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/72005-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/72001-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 104
+    },
+    "Ghostbusters": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/10274-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/75827-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75828-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 3
+    },
+    "The Angry Birds Movie": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/75821-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/75822-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75823-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75824-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75825-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75826-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 6
+    },
+    "BrickHeadz": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40879-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/40922-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40861-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40878-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40881-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40910-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 184
+    },
+    "DC Super Hero Girls": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/41230-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/41231-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41232-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41233-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41234-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41235-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 12
+    },
+    "Boost": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/17101-1.png",
+      "fallbackImages": [],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 1
+    },
+    "The LEGO NINJAGO Movie": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/70629-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/70632-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70631-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70628-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70657-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70614-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 30
+    },
+    "Cities of Wonders": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/COWMY4-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/COWMY3-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/COWMY1-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/COWMY2-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/COWHK3-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/COWHK1-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 12
+    },
+    "Building Bigger Thinking": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/10401-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/10402-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10403-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10404-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10405-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 5
+    },
+    "The Powerpuff Girls": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/41287-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/41288-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 2
+    },
+    "Unikitty!": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/41451-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/41452-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41453-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41454-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41455-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41775-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 24
+    },
+    "The Incredibles": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/30615-1.png",
+      "fallbackImages": [],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 1
+    },
+    "xtra": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40464-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/40465-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40376-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40375-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/854048-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/854065-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 14
+    },
+    "The LEGO Movie 2": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/70827-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/70829-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70830-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70841-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70833-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70832-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 38
+    },
+    "Overwatch": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/75970-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/75971-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75972-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75973-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75974-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75975-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 10
+    },
+    "FORMA": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/81000-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/81001-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/81002-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/81003-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 4
+    },
+    "Hidden Side": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/70427-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/70428-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70429-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70430-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70431-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/70432-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 32
+    },
+    "Stranger Things": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40891-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/11370-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75810-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/comcon060-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 4
+    },
+    "BrickLink Designer Program": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/910054-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/910055-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/910056-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/910057-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/910058-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/910039-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 58
+    },
+    "Modulex": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/Modulex-12.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/Modulex-11.png",
+        "https://img.bricklink.com/ItemImage/ON/0/Modulex-10.png",
+        "https://img.bricklink.com/ItemImage/ON/0/Modulex-9.png",
+        "https://img.bricklink.com/ItemImage/ON/0/Modulex-8.png",
+        "https://img.bricklink.com/ItemImage/ON/0/Modulex-7.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 13
+    },
+    "LEGO Originals": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/11926-1.png",
+      "fallbackImages": [],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 1
+    },
+    "Trolls World Tour": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/41251-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/41250-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41252-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41253-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41254-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41255-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 9
+    },
+    "Dots": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/30637-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/41801-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41802-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41803-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41805-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41806-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 80
+    },
+    "Despicable Me and Minions": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/75582-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/75583-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75580-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75581-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/30678-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75550-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 12
+    },
+    "Art": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/31218-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/31220-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/31214-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/31215-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/31216-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/31217-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 24
+    },
+    "Super Mario": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/72050-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/72031-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/72032-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/72033-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/72034-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/72035-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 174
+    },
+    "Monkie Kid": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/80065-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/80066-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/80053-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/80050-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/80051-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/80054-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 58
+    },
+    "Brick Sketches": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40536-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/40535-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40456-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40457-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40391-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40431-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 8
+    },
+    "IKEA": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40357-1.png",
+      "fallbackImages": [],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 1
+    },
+    "Explorer": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/11975-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/11974-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11976-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11977-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11978-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11961-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 32
+    },
+    "Botanicals": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/11501-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/11504-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11508-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11509-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/5009934-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11503-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 43
+    },
+    "Vidiyo": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/43102-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/43103-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/43104-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/43105-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/43106-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/43107-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 43
+    },
+    "Games": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/11989-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/50003-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/50006-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/50011-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3863-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/3864-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 43
+    },
+    "Horizon": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/77037-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/76989-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 2
+    },
+    "Lightyear": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/76830-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/76831-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/76832-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 3
+    },
+    "Avatar": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/75575-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/75576-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75577-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75578-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75579-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75574-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 9
+    },
+    "Braille Bricks": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/30711-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/40722-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40723-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40724-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40655-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/40656-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 8
+    },
+    "Sonic the Hedgehog": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/77117-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/77118-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/30733-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/77001-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/77003-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/77002-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 23
+    },
+    "Gabby's Dollhouse": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/11215-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/11204-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11205-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10795-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10796-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/10797-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 10
+    },
+    "DREAMZzz": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/71508-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/71512-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71513-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71514-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71515-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/L0002288-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 55
+    },
+    "Fortnite": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/77075-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/77076-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/77078-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/77077-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/77070-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/77071-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 9
+    },
+    "Animal Crossing": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/30731-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/77053-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/77054-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/77055-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/30703-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/77056-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 16
+    },
+    "The Legend of Zelda": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/77093-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/77092-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 2
+    },
+    "Build Together": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/41838-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/41839-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/41838-2.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 3
+    },
+    "Wicked": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/75691-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/75685-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75687-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75688-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75689-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75690-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 11
+    },
+    "Wednesday": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/76784-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/76786-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/76785-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/76780-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/76781-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 5
+    },
+    "Collectibles": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/71049-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/71049-2.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71049-3.png",
+        "https://img.bricklink.com/ItemImage/ON/0/66796-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/71049-4.png",
+        "https://img.bricklink.com/ItemImage/ON/0/colf1rc-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 17
+    },
+    "Bluey": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/30687-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/11201-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11202-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/11203-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.660Z",
+      "setCount": 4
+    },
+    "BrickLink": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/5009260-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/6598433-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.661Z",
+      "setCount": 2
+    },
+    "Nike": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/43025-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/43008-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/43021-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/43010-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.661Z",
+      "setCount": 4
+    },
+    "One Piece": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/75636-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/75637-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75638-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75639-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/75640-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.661Z",
+      "setCount": 5
+    },
+    "(Other)": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/GearSet-4.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/GearSet-3.png",
+        "https://img.bricklink.com/ItemImage/ON/0/GearSet-2.png",
+        "https://img.bricklink.com/ItemImage/ON/0/GearSet-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.661Z",
+      "setCount": 4
+    },
+    "Star Trek": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/10356-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/40768-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.661Z",
+      "setCount": 2
+    },
+    "Editions": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/43020-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/43019-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.661Z",
+      "setCount": 2
+    },
+    "Pokémon": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40892-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/40911-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/72151-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/72152-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/72153-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.661Z",
+      "setCount": 5
+    },
+    "Education": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/45200-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/45201-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/45202-1.png",
+        "https://img.bricklink.com/ItemImage/ON/0/45203-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.661Z",
+      "setCount": 4
+    },
+    "Crocs": {
+      "representativeImage": "https://img.bricklink.com/ItemImage/ON/0/40972-1.png",
+      "fallbackImages": [
+        "https://img.bricklink.com/ItemImage/ON/0/40973-1.png"
+      ],
+      "lastVerified": "2026-04-21T18:44:09.661Z",
+      "setCount": 2
+    }
+  }
+}

@@ -312,8 +312,9 @@ export class BricklinkAPI {
     // Check cache first
     const cached = await prisma.priceCache.findUnique({
       where: {
-        minifigure_no_condition_country_code_region: {
-          minifigure_no: itemNo,
+        item_no_item_type_condition_country_code_region: {
+          item_no: itemNo,
+          item_type: 'MINIFIG',
           condition: condition,
           country_code: countryCode,
           region: region
@@ -380,8 +381,9 @@ export class BricklinkAPI {
 
     await prisma.priceCache.upsert({
       where: {
-        minifigure_no_condition_country_code_region: {
-          minifigure_no: itemNo,
+        item_no_item_type_condition_country_code_region: {
+          item_no: itemNo,
+          item_type: 'MINIFIG',
           condition: condition,
           country_code: countryCode,
           region: region
@@ -397,7 +399,143 @@ export class BricklinkAPI {
         currency_code: currencyCodeValue,
       },
       create: {
-        minifigure_no: itemNo,
+        item_no: itemNo,
+        item_type: 'MINIFIG',
+        condition: condition,
+        country_code: countryCode,
+        region: region,
+        currency_code: currencyCodeValue,
+        six_month_avg: pricingData.sixMonthAverage,
+        current_avg: pricingData.currentAverage,
+        current_lowest: pricingData.currentLowest,
+        suggested_price: pricingData.suggestedPrice,
+        expires_at: expiresAt,
+      }
+    });
+
+    return pricingData;
+  }
+
+  async getSetPriceGuide(
+    boxNo: string,
+    condition: 'N' | 'U' = 'N',
+    countryCode: string = 'US',
+    region: string = 'north_america'
+  ): Promise<PriceGuide | null> {
+    try {
+      // Strip -1 suffix if present (BrickLink uses "75192" not "75192-1")
+      const bricklinkNo = boxNo.replace(/-1$/, '');
+
+      const data = await this.makeRequest(
+        `/items/SET/${bricklinkNo}/price?new_or_used=${condition}&country_code=${countryCode}&region=${region}`
+      );
+      return data;
+    } catch (error) {
+      console.error('Error fetching set price guide:', error);
+      return null;
+    }
+  }
+
+  async calculateSetPricing(
+    boxNo: string,
+    condition: 'new' | 'used',
+    countryCode: string = 'US',
+    region: string = 'north_america'
+  ): Promise<PricingData> {
+    const conditionCode = condition === 'new' ? 'N' : 'U';
+
+    // Check cache first
+    const cached = await prisma.priceCache.findUnique({
+      where: {
+        item_no_item_type_condition_country_code_region: {
+          item_no: boxNo,
+          item_type: 'SET',
+          condition: condition,
+          country_code: countryCode,
+          region: region
+        }
+      }
+    });
+
+    // If cache exists and hasn't expired, return cached data
+    if (cached && cached.expires_at > new Date()) {
+      return {
+        sixMonthAverage: cached.six_month_avg,
+        currentAverage: cached.current_avg,
+        currentLowest: cached.current_lowest,
+        suggestedPrice: cached.suggested_price,
+        currencyCode: cached.currency_code,
+      };
+    }
+
+    // Cache miss or expired - fetch fresh data from API only
+    const priceGuide = await this.getSetPriceGuide(boxNo, conditionCode, countryCode, region);
+
+    // Get currency code from country code
+    const currencyConfig = getCurrencyByCountryCode(countryCode);
+    const currencyCodeValue = currencyConfig?.code || 'USD';
+
+    if (!priceGuide) {
+      // No sellers in this region - return zeros with user's currency
+      return {
+        sixMonthAverage: 0,
+        currentAverage: 0,
+        currentLowest: 0,
+        suggestedPrice: 0,
+        currencyCode: currencyCodeValue,
+      };
+    }
+
+    // Use API data from current marketplace listings (Note: API does not provide historical sales data)
+    const sixMonthAverage = parseFloat(priceGuide.qty_avg_price || '0'); // Quantity-weighted average of current listings
+    const currentAverage = parseFloat(priceGuide.avg_price || '0'); // Simple average of current listings
+    const currentLowest = parseFloat(priceGuide.min_price || '0'); // Lowest current listing
+
+    // Calculate suggested price: weight Current Lowest 8x to approximate sold prices
+    // Formula: (qty-weighted avg + simple avg + lowest*8) / 10 = 10% + 10% + 80%
+    const suggestedPrice = (sixMonthAverage + currentAverage + (currentLowest * 8)) / 10;
+
+    const pricingData = {
+      sixMonthAverage: parseFloat(sixMonthAverage.toFixed(2)),
+      currentAverage: parseFloat(currentAverage.toFixed(2)),
+      currentLowest: parseFloat(currentLowest.toFixed(2)),
+      suggestedPrice: parseFloat(suggestedPrice.toFixed(2)),
+      currencyCode: currencyCodeValue,
+    };
+
+    // If all prices are 0, no sellers in this region - return zeros
+    if (pricingData.suggestedPrice === 0) {
+      return pricingData;
+    }
+
+    // Store in cache with 6 hour expiration per BrickLink API Terms Section 1
+    // "Display item Content or product information and/or images which is more than
+    // six hours older than such information is on the Website"
+    const expiresAt = new Date();
+    expiresAt.setHours(expiresAt.getHours() + 6);
+
+    await prisma.priceCache.upsert({
+      where: {
+        item_no_item_type_condition_country_code_region: {
+          item_no: boxNo,
+          item_type: 'SET',
+          condition: condition,
+          country_code: countryCode,
+          region: region
+        }
+      },
+      update: {
+        six_month_avg: pricingData.sixMonthAverage,
+        current_avg: pricingData.currentAverage,
+        current_lowest: pricingData.currentLowest,
+        suggested_price: pricingData.suggestedPrice,
+        cached_at: new Date(),
+        expires_at: expiresAt,
+        currency_code: currencyCodeValue,
+      },
+      create: {
+        item_no: boxNo,
+        item_type: 'SET',
         condition: condition,
         country_code: countryCode,
         region: region,

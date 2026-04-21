@@ -139,7 +139,8 @@ model PersonalCollectionItem {
 
 model PriceCache {
   id              String   @id @default(cuid())
-  minifigure_no   String
+  item_no         String
+  item_type       String   @default("MINIFIG")
   condition       String
   country_code    String   @default("US")
   region          String   @default("north_america")
@@ -151,9 +152,9 @@ model PriceCache {
   cached_at       DateTime @default(now())
   expires_at      DateTime
 
-  @@unique([minifigure_no, condition, country_code, region])
+  @@unique([item_no, item_type, condition, country_code, region])
   @@index([expires_at])
-  @@index([minifigure_no])
+  @@index([item_no, item_type])
 }
 
 model PriceHistory {
@@ -194,31 +195,33 @@ model Session {
 }
 
 model User {
-  id                     String                   @id @default(cuid())
-  name                   String?
-  email                  String                   @unique
-  password               String?
-  emailVerified          DateTime?
-  image                  String?
-  preferredCurrency      String?                  @default("USD")
-  preferredCountryCode   String?                  @default("US")
-  preferredRegion        String?                  @default("north_america")
-  currencySymbol         String?                  @default("$")
-  locale                 String?                  @default("en-US")
-  createdAt              DateTime                 @default(now())
-  updatedAt              DateTime                 @updatedAt
-  scanCredits            Int                      @default(0)
-  stripeCustomerId       String?
-  stripeSubscriptionId   String?
-  subscriptionEndsAt     DateTime?
-  subscriptionPlan       String?
-  subscriptionStatus     String?
-  Account                Account[]
-  CollectionItem         CollectionItem[]
-  Listing                Listing[]
-  PersonalCollectionItem PersonalCollectionItem[]
-  Session                Session[]
-  WishlistItem           WishlistItem[]
+  id                        String                       @id @default(cuid())
+  name                      String?
+  email                     String                       @unique
+  password                  String?
+  emailVerified             DateTime?
+  image                     String?
+  preferredCurrency         String?                      @default("USD")
+  preferredCountryCode      String?                      @default("US")
+  preferredRegion           String?                      @default("north_america")
+  currencySymbol            String?                      @default("$")
+  locale                    String?                      @default("en-US")
+  createdAt                 DateTime                     @default(now())
+  updatedAt                 DateTime                     @updatedAt
+  scanCredits               Int                          @default(0)
+  stripeCustomerId          String?
+  stripeSubscriptionId      String?
+  subscriptionEndsAt        DateTime?
+  subscriptionPlan          String?
+  subscriptionStatus        String?
+  Account                   Account[]
+  CollectionItem            CollectionItem[]
+  Listing                   Listing[]
+  PersonalCollectionItem    PersonalCollectionItem[]
+  Session                   Session[]
+  WishlistItem              WishlistItem[]
+  SetInventoryItem          SetInventoryItem[]
+  SetPersonalCollectionItem SetPersonalCollectionItem[]
 }
 
 model VerificationToken {
@@ -255,4 +258,55 @@ model WishlistItem {
   @@unique([userId, minifigure_no])
   @@index([userId])
   @@index([minifigure_no])
+}
+
+model SetInventoryItem {
+  id                      String   @id @default(cuid())
+  box_no                  String
+  set_name                String
+  category_name           String?
+  quantity                Int
+  condition               String
+  image_url               String?
+  pricing_six_month_avg   Float?
+  pricing_current_avg     Float?
+  pricing_current_lowest  Float?
+  pricing_suggested_price Float?
+  userId                  String
+  date_added              DateTime @default(now())
+  last_updated            DateTime @updatedAt
+  User                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, box_no, condition])
+  @@index([box_no])
+  @@index([userId])
+  @@index([userId, condition])
+  @@index([category_name])
+}
+
+model SetPersonalCollectionItem {
+  id                      String    @id @default(cuid())
+  userId                  String
+  box_no                  String
+  set_name                String
+  category_name           String?
+  quantity                Int       @default(1)
+  condition               String    @default("new")
+  image_url               String?
+  pricing_six_month_avg   Float?
+  pricing_current_avg     Float?
+  pricing_current_lowest  Float?
+  pricing_suggested_price Float?
+  notes                   String?
+  acquisition_date        DateTime?
+  acquisition_notes       String?
+  display_location        String?
+  date_added              DateTime  @default(now())
+  last_updated            DateTime  @updatedAt
+  User                    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, box_no, condition])
+  @@index([userId])
+  @@index([userId, condition])
+  @@index([category_name])
 }

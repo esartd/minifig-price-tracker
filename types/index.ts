@@ -84,3 +84,49 @@ export interface BricklinkConfig {
   tokenValue: string;
   tokenSecret: string;
 }
+
+// LEGO Set from boxes.json catalog
+export interface LegoBox {
+  category_id: number;
+  category_name: string;
+  box_no: string;           // e.g., "75192-1"
+  name: string;
+  year_released: string;
+  weight: string;
+  image_url: string;
+  thumbnail_url: string;
+  updated_at: string;
+}
+
+// User's set inventory (for sale)
+export interface SetInventoryItem {
+  id: string;
+  box_no: string;
+  set_name: string;
+  category_name?: string;
+  quantity: number;
+  condition: 'new' | 'used';
+  image_url?: string;
+  pricing?: PricingData;
+  date_added: string;
+  last_updated: string;
+}
+
+// User's personal set collection (to keep)
+export interface SetPersonalCollectionItem {
+  id: string;
+  userId: string;
+  box_no: string;
+  set_name: string;
+  category_name?: string;
+  quantity: number;
+  condition: 'new' | 'used';
+  image_url?: string;
+  pricing?: PricingData;
+  notes?: string;
+  acquisition_date?: string;
+  acquisition_notes?: string;
+  display_location?: string;
+  date_added: string;
+  last_updated: string;
+}

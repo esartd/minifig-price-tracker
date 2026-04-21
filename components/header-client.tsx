@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
+import { UserIcon, CubeIcon, StarIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
 
 interface HeaderClientProps {
   user: {
@@ -17,9 +18,13 @@ interface HeaderClientProps {
 export function HeaderClient({ user }: HeaderClientProps) {
   const pathname = usePathname();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [browseDropdownOpen, setBrowseDropdownOpen] = useState(false);
+  const [legoDropdownOpen, setLegoDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [highlightWishlist, setHighlightWishlist] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const browseDropdownRef = useRef<HTMLDivElement>(null);
+  const legoDropdownRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -27,6 +32,12 @@ export function HeaderClient({ user }: HeaderClientProps) {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setDropdownOpen(false);
+      }
+      if (browseDropdownRef.current && !browseDropdownRef.current.contains(event.target as Node)) {
+        setBrowseDropdownOpen(false);
+      }
+      if (legoDropdownRef.current && !legoDropdownRef.current.contains(event.target as Node)) {
+        setLegoDropdownOpen(false);
       }
       if (
         mobileMenuRef.current &&
@@ -461,62 +472,192 @@ export function HeaderClient({ user }: HeaderClientProps) {
               Search
             </Link>
 
-            <Link
-              href="/themes"
-              style={{
-                fontSize: 'var(--text-sm)',
-                fontWeight: pathname === '/themes' ? '600' : '500',
-                color: pathname === '/themes' ? '#171717' : '#525252',
-                textDecoration: 'none',
-                transition: 'color 0.2s',
-                lineHeight: '1',
-                display: 'flex',
-                alignItems: 'center',
-                height: '36px',
-                borderBottom: pathname === '/themes' ? '2px solid #3b82f6' : 'none',
-                paddingBottom: '2px'
-              }}
-            >
-              Themes
-            </Link>
+            {/* Browse Dropdown */}
+            <div style={{ position: 'relative' }} ref={browseDropdownRef}>
+              <button
+                onClick={() => setBrowseDropdownOpen(!browseDropdownOpen)}
+                style={{
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: '500',
+                  color: '#525252',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  height: '36px',
+                  padding: 0
+                }}
+              >
+                Browse
+                <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
 
-            <Link
-              href="/inventory"
-              style={{
-                fontSize: 'var(--text-sm)',
-                fontWeight: pathname === '/inventory' ? '600' : '500',
-                color: pathname === '/inventory' ? '#171717' : '#525252',
-                textDecoration: 'none',
-                transition: 'color 0.2s',
-                lineHeight: '1',
-                display: 'flex',
-                alignItems: 'center',
-                height: '36px',
-                borderBottom: pathname === '/inventory' ? '2px solid #3b82f6' : 'none',
-                paddingBottom: '2px'
-              }}
-            >
-              Your Inventory
-            </Link>
+              {browseDropdownOpen && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  marginTop: '12px',
+                  background: 'white',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                  border: '1px solid #e5e5e5',
+                  minWidth: '220px',
+                  overflow: 'hidden',
+                  zIndex: 1000
+                }}>
+                  <Link href="/themes" onClick={() => setBrowseDropdownOpen(false)} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '16px 20px',
+                    color: '#171717',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-sm)',
+                    borderBottom: '1px solid #f5f5f5',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    <UserIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                    <span>Minifigure Themes</span>
+                  </Link>
+                  <Link href="/sets-themes" onClick={() => setBrowseDropdownOpen(false)} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '16px 20px',
+                    color: '#171717',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-sm)',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    <CubeIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                    <span>Set Themes</span>
+                  </Link>
+                </div>
+              )}
+            </div>
 
-            <Link
-              href="/collection"
-              style={{
-                fontSize: 'var(--text-sm)',
-                fontWeight: pathname === '/collection' ? '600' : '500',
-                color: pathname === '/collection' ? '#171717' : '#525252',
-                textDecoration: 'none',
-                transition: 'color 0.2s',
-                lineHeight: '1',
-                display: 'flex',
-                alignItems: 'center',
-                height: '36px',
-                borderBottom: pathname === '/collection' ? '2px solid #3b82f6' : 'none',
-                paddingBottom: '2px'
-              }}
-            >
-              Your Collection
-            </Link>
+            {/* Your LEGO Dropdown */}
+            <div style={{ position: 'relative' }} ref={legoDropdownRef}>
+              <button
+                onClick={() => setLegoDropdownOpen(!legoDropdownOpen)}
+                style={{
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: '500',
+                  color: '#525252',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  height: '36px',
+                  padding: 0
+                }}
+              >
+                Your LEGO
+                <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {legoDropdownOpen && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  marginTop: '12px',
+                  background: 'white',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                  border: '1px solid #e5e5e5',
+                  minWidth: '240px',
+                  overflow: 'hidden',
+                  zIndex: 1000
+                }}>
+                  {/* Minifigures Section */}
+                  <div style={{ padding: '12px 20px 8px', fontSize: '11px', fontWeight: '600', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    Minifigures
+                  </div>
+                  <Link href="/inventory" onClick={() => setLegoDropdownOpen(false)} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '12px 20px',
+                    color: '#171717',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-sm)',
+                    borderBottom: '1px solid #f5f5f5',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    <CurrencyDollarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                    <span>Minifigures for Sale</span>
+                  </Link>
+                  <Link href="/collection" onClick={() => setLegoDropdownOpen(false)} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '12px 20px',
+                    color: '#171717',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-sm)',
+                    borderBottom: '1px solid #f5f5f5',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    <StarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                    <span>Minifigures to Keep</span>
+                  </Link>
+
+                  {/* Sets Section */}
+                  <div style={{ padding: '12px 20px 8px', fontSize: '11px', fontWeight: '600', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    Sets
+                  </div>
+                  <Link href="/sets-inventory" onClick={() => setLegoDropdownOpen(false)} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '12px 20px',
+                    color: '#171717',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-sm)',
+                    borderBottom: '1px solid #f5f5f5',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    <CurrencyDollarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                    <span>Sets for Sale</span>
+                  </Link>
+                  <Link href="/sets-collection" onClick={() => setLegoDropdownOpen(false)} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '12px 20px',
+                    color: '#171717',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-sm)',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    <StarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                    <span>Sets to Keep</span>
+                  </Link>
+                </div>
+              )}
+            </div>
 
             <Link
               href="/about"

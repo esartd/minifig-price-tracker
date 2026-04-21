@@ -1,4 +1,4 @@
-import { CollectionItem, PersonalCollectionItem } from '@/types';
+import { CollectionItem, PersonalCollectionItem, SetInventoryItem, SetPersonalCollectionItem } from '@/types';
 import { prisma, prismaPublic } from './prisma';
 
 class DatabaseService {
@@ -495,6 +495,488 @@ class DatabaseService {
         }
       });
       return { inventory, personal: this.transformPersonalFromDB(updated) };
+    }
+  }
+
+  // =============== Set Inventory Methods ===============
+
+  // Transform DB row to SetInventoryItem type
+  private transformSetInventoryFromDB(item: any): SetInventoryItem & { userId: string } {
+    return {
+      id: item.id,
+      userId: item.userId,
+      box_no: item.box_no,
+      set_name: item.set_name,
+      category_name: item.category_name,
+      quantity: item.quantity,
+      condition: item.condition as 'new' | 'used',
+      image_url: item.image_url,
+      pricing: item.pricing_six_month_avg !== undefined && item.pricing_six_month_avg !== null ? {
+        sixMonthAverage: item.pricing_six_month_avg,
+        currentAverage: item.pricing_current_avg,
+        currentLowest: item.pricing_current_lowest,
+        suggestedPrice: item.pricing_suggested_price,
+        currencyCode: item.pricing_currency_code
+      } : undefined,
+      date_added: item.date_added.toISOString(),
+      last_updated: item.last_updated.toISOString()
+    };
+  }
+
+  // Transform DB row to SetPersonalCollectionItem type
+  private transformSetPersonalFromDB(item: any): SetPersonalCollectionItem {
+    return {
+      id: item.id,
+      userId: item.userId,
+      box_no: item.box_no,
+      set_name: item.set_name,
+      category_name: item.category_name,
+      quantity: item.quantity,
+      condition: item.condition as 'new' | 'used',
+      image_url: item.image_url,
+      pricing: item.pricing_six_month_avg ? {
+        sixMonthAverage: item.pricing_six_month_avg,
+        currentAverage: item.pricing_current_avg,
+        currentLowest: item.pricing_current_lowest,
+        suggestedPrice: item.pricing_suggested_price,
+        currencyCode: item.pricing_currency_code
+      } : undefined,
+      notes: item.notes || undefined,
+      acquisition_date: item.acquisition_date?.toISOString(),
+      acquisition_notes: item.acquisition_notes || undefined,
+      display_location: item.display_location || undefined,
+      date_added: item.date_added.toISOString(),
+      last_updated: item.last_updated.toISOString()
+    };
+  }
+
+  async getAllSetInventoryItems(userId: string, countryCode: string = 'US', region: string = 'north_america'): Promise<(SetInventoryItem & { userId: string })[]> {
+    const items = await prisma.setInventoryItem.findMany({
+      where: { userId },
+      orderBy: { date_added: 'desc' }
+    });
+
+    // Batch fetch all prices in ONE query
+    const priceCacheKeys = items.map(item => ({
+      item_no: item.box_no.replace(/-\d+$/, ''), // Strip -1 suffix for BrickLink
+      item_type: 'SET',
+      condition: item.condition,
+      country_code: countryCode,
+      region: region
+    }));
+
+    const allPrices = await prisma.priceCache.findMany({
+      where: {
+        OR: priceCacheKeys,
+        expires_at: { gt: new Date() }
+      }
+    });
+
+    // Create lookup map
+    const priceMap = new Map(
+      allPrices.map(price => [
+        `${price.item_no}-${price.item_type}-${price.condition}-${price.country_code}-${price.region}`,
+        price
+      ])
+    );
+
+    // Map items with pricing
+    const itemsWithFreshPricing = items.map(item => {
+      const itemNo = item.box_no.replace(/-\d+$/, '');
+      const key = `${itemNo}-SET-${item.condition}-${countryCode}-${region}`;
+      const freshPrice = priceMap.get(key);
+
+      if (freshPrice) {
+        return {
+          ...item,
+          pricing_six_month_avg: freshPrice.six_month_avg,
+          pricing_current_avg: freshPrice.current_avg,
+          pricing_current_lowest: freshPrice.current_lowest,
+          pricing_suggested_price: freshPrice.suggested_price,
+          pricing_currency_code: freshPrice.currency_code
+        };
+      }
+
+      return {
+        ...item,
+        pricing_six_month_avg: 0,
+        pricing_current_avg: 0,
+        pricing_current_lowest: 0,
+        pricing_suggested_price: 0,
+        pricing_currency_code: undefined
+      };
+    });
+
+    return itemsWithFreshPricing.map((item: any) => this.transformSetInventoryFromDB(item));
+  }
+
+  async getSetInventoryItemById(id: string): Promise<(SetInventoryItem & { userId: string }) | null> {
+    const item = await prisma.setInventoryItem.findUnique({
+      where: { id }
+    });
+    return item ? this.transformSetInventoryFromDB(item) : null;
+  }
+
+  async addSetInventoryItem(item: Omit<SetInventoryItem, 'id' | 'date_added' | 'last_updated'> & { userId: string }): Promise<SetInventoryItem> {
+    const created = await prisma.setInventoryItem.create({
+      data: {
+        userId: item.userId,
+        box_no: item.box_no,
+        set_name: item.set_name,
+        category_name: item.category_name,
+        quantity: item.quantity,
+        condition: item.condition,
+        image_url: item.image_url,
+        pricing_six_month_avg: item.pricing?.sixMonthAverage,
+        pricing_current_avg: item.pricing?.currentAverage,
+        pricing_current_lowest: item.pricing?.currentLowest,
+        pricing_suggested_price: item.pricing?.suggestedPrice,
+      }
+    });
+    return this.transformSetInventoryFromDB(created);
+  }
+
+  async updateSetInventoryItem(id: string, updates: Partial<SetInventoryItem>): Promise<SetInventoryItem | null> {
+    const data: any = {};
+
+    if (updates.quantity !== undefined) data.quantity = updates.quantity;
+    if (updates.condition !== undefined) data.condition = updates.condition;
+    if (updates.image_url !== undefined) data.image_url = updates.image_url;
+    if (updates.category_name !== undefined) data.category_name = updates.category_name;
+
+    if (updates.pricing) {
+      data.pricing_six_month_avg = updates.pricing.sixMonthAverage;
+      data.pricing_current_avg = updates.pricing.currentAverage;
+      data.pricing_current_lowest = updates.pricing.currentLowest;
+      data.pricing_suggested_price = updates.pricing.suggestedPrice;
+    }
+
+    const updated = await prisma.setInventoryItem.update({
+      where: { id },
+      data
+    });
+
+    return this.transformSetInventoryFromDB(updated);
+  }
+
+  async deleteSetInventoryItem(id: string): Promise<void> {
+    await prisma.setInventoryItem.delete({
+      where: { id }
+    });
+  }
+
+  // =============== Set Personal Collection Methods ===============
+
+  async getAllSetPersonalCollectionItems(userId: string, countryCode: string = 'US', region: string = 'north_america'): Promise<SetPersonalCollectionItem[]> {
+    const items = await prisma.setPersonalCollectionItem.findMany({
+      where: { userId },
+      orderBy: { date_added: 'desc' }
+    });
+
+    // Batch fetch all prices
+    const priceCacheKeys = items.map(item => ({
+      item_no: item.box_no.replace(/-\d+$/, ''),
+      item_type: 'SET',
+      condition: item.condition,
+      country_code: countryCode,
+      region: region
+    }));
+
+    const allPrices = await prisma.priceCache.findMany({
+      where: {
+        OR: priceCacheKeys,
+        expires_at: { gt: new Date() }
+      }
+    });
+
+    const priceMap = new Map(
+      allPrices.map(price => [
+        `${price.item_no}-${price.item_type}-${price.condition}-${price.country_code}-${price.region}`,
+        price
+      ])
+    );
+
+    const itemsWithFreshPricing = items.map(item => {
+      const itemNo = item.box_no.replace(/-\d+$/, '');
+      const key = `${itemNo}-SET-${item.condition}-${countryCode}-${region}`;
+      const freshPrice = priceMap.get(key);
+
+      if (freshPrice) {
+        return {
+          ...item,
+          pricing_six_month_avg: freshPrice.six_month_avg,
+          pricing_current_avg: freshPrice.current_avg,
+          pricing_current_lowest: freshPrice.current_lowest,
+          pricing_suggested_price: freshPrice.suggested_price,
+          pricing_currency_code: freshPrice.currency_code
+        };
+      }
+
+      return {
+        ...item,
+        pricing_six_month_avg: 0,
+        pricing_current_avg: 0,
+        pricing_current_lowest: 0,
+        pricing_suggested_price: 0,
+        pricing_currency_code: undefined
+      };
+    });
+
+    return itemsWithFreshPricing.map((item: any) => this.transformSetPersonalFromDB(item));
+  }
+
+  async getSetPersonalCollectionItemById(id: string): Promise<SetPersonalCollectionItem | null> {
+    const item = await prisma.setPersonalCollectionItem.findUnique({
+      where: { id }
+    });
+    return item ? this.transformSetPersonalFromDB(item) : null;
+  }
+
+  async addSetPersonalCollectionItem(item: Omit<SetPersonalCollectionItem, 'id' | 'date_added' | 'last_updated'>): Promise<SetPersonalCollectionItem> {
+    const created = await prisma.setPersonalCollectionItem.create({
+      data: {
+        userId: item.userId,
+        box_no: item.box_no,
+        set_name: item.set_name,
+        category_name: item.category_name,
+        quantity: item.quantity,
+        condition: item.condition,
+        image_url: item.image_url,
+        pricing_six_month_avg: item.pricing?.sixMonthAverage,
+        pricing_current_avg: item.pricing?.currentAverage,
+        pricing_current_lowest: item.pricing?.currentLowest,
+        pricing_suggested_price: item.pricing?.suggestedPrice,
+        notes: item.notes,
+        acquisition_date: item.acquisition_date ? new Date(item.acquisition_date) : null,
+        acquisition_notes: item.acquisition_notes,
+        display_location: item.display_location,
+      }
+    });
+    return this.transformSetPersonalFromDB(created);
+  }
+
+  async updateSetPersonalCollectionItem(id: string, updates: Partial<SetPersonalCollectionItem>): Promise<SetPersonalCollectionItem | null> {
+    const data: any = {};
+
+    if (updates.quantity !== undefined) data.quantity = updates.quantity;
+    if (updates.condition !== undefined) data.condition = updates.condition;
+    if (updates.image_url !== undefined) data.image_url = updates.image_url;
+    if (updates.category_name !== undefined) data.category_name = updates.category_name;
+    if (updates.notes !== undefined) data.notes = updates.notes;
+    if (updates.acquisition_date !== undefined) data.acquisition_date = updates.acquisition_date ? new Date(updates.acquisition_date) : null;
+    if (updates.acquisition_notes !== undefined) data.acquisition_notes = updates.acquisition_notes;
+    if (updates.display_location !== undefined) data.display_location = updates.display_location;
+
+    if (updates.pricing) {
+      data.pricing_six_month_avg = updates.pricing.sixMonthAverage;
+      data.pricing_current_avg = updates.pricing.currentAverage;
+      data.pricing_current_lowest = updates.pricing.currentLowest;
+      data.pricing_suggested_price = updates.pricing.suggestedPrice;
+    }
+
+    const updated = await prisma.setPersonalCollectionItem.update({
+      where: { id },
+      data
+    });
+
+    return this.transformSetPersonalFromDB(updated);
+  }
+
+  async deleteSetPersonalCollectionItem(id: string): Promise<void> {
+    await prisma.setPersonalCollectionItem.delete({
+      where: { id }
+    });
+  }
+
+  // =============== Set Movement Methods ===============
+
+  async moveSetToPersonalCollection(
+    inventoryItemId: string,
+    quantityToMove: number
+  ): Promise<{ personal: SetPersonalCollectionItem; inventory?: SetInventoryItem & { userId: string } }> {
+    const inventoryItem = await prisma.setInventoryItem.findUnique({
+      where: { id: inventoryItemId }
+    });
+
+    if (!inventoryItem) {
+      throw new Error('Set inventory item not found');
+    }
+
+    if (quantityToMove > inventoryItem.quantity) {
+      throw new Error('Cannot move more than available quantity');
+    }
+
+    // Check if same set + condition already exists in personal collection
+    const existingPersonal = await prisma.setPersonalCollectionItem.findUnique({
+      where: {
+        userId_box_no_condition: {
+          userId: inventoryItem.userId,
+          box_no: inventoryItem.box_no,
+          condition: inventoryItem.condition
+        }
+      }
+    });
+
+    if (existingPersonal) {
+      // Increment existing personal collection quantity
+      const updated = await prisma.setPersonalCollectionItem.update({
+        where: { id: existingPersonal.id },
+        data: {
+          quantity: existingPersonal.quantity + quantityToMove
+        }
+      });
+
+      if (quantityToMove === inventoryItem.quantity) {
+        // Move all - delete from inventory
+        await prisma.setInventoryItem.delete({
+          where: { id: inventoryItemId }
+        });
+        return { personal: this.transformSetPersonalFromDB(updated) };
+      } else {
+        // Move partial - reduce inventory quantity
+        const updatedInventory = await prisma.setInventoryItem.update({
+          where: { id: inventoryItemId },
+          data: {
+            quantity: inventoryItem.quantity - quantityToMove
+          }
+        });
+        return {
+          personal: this.transformSetPersonalFromDB(updated),
+          inventory: this.transformSetInventoryFromDB(updatedInventory)
+        };
+      }
+    } else {
+      // Create new personal collection item
+      const created = await prisma.setPersonalCollectionItem.create({
+        data: {
+          userId: inventoryItem.userId,
+          box_no: inventoryItem.box_no,
+          set_name: inventoryItem.set_name,
+          category_name: inventoryItem.category_name,
+          quantity: quantityToMove,
+          condition: inventoryItem.condition,
+          image_url: inventoryItem.image_url,
+          pricing_six_month_avg: inventoryItem.pricing_six_month_avg,
+          pricing_current_avg: inventoryItem.pricing_current_avg,
+          pricing_current_lowest: inventoryItem.pricing_current_lowest,
+          pricing_suggested_price: inventoryItem.pricing_suggested_price
+        }
+      });
+
+      if (quantityToMove === inventoryItem.quantity) {
+        // Move all - delete from inventory
+        await prisma.setInventoryItem.delete({
+          where: { id: inventoryItemId }
+        });
+        return { personal: this.transformSetPersonalFromDB(created) };
+      } else {
+        // Move partial - reduce inventory quantity
+        const updatedInventory = await prisma.setInventoryItem.update({
+          where: { id: inventoryItemId },
+          data: {
+            quantity: inventoryItem.quantity - quantityToMove
+          }
+        });
+        return {
+          personal: this.transformSetPersonalFromDB(created),
+          inventory: this.transformSetInventoryFromDB(updatedInventory)
+        };
+      }
+    }
+  }
+
+  async moveSetToInventory(
+    personalItemId: string,
+    quantityToMove: number
+  ): Promise<{ inventory: SetInventoryItem & { userId: string }; personal?: SetPersonalCollectionItem }> {
+    const personalItem = await prisma.setPersonalCollectionItem.findUnique({
+      where: { id: personalItemId }
+    });
+
+    if (!personalItem) {
+      throw new Error('Set personal collection item not found');
+    }
+
+    if (quantityToMove > personalItem.quantity) {
+      throw new Error('Cannot move more than available quantity');
+    }
+
+    // Check if same set + condition already exists in inventory
+    const existingInventory = await prisma.setInventoryItem.findUnique({
+      where: {
+        userId_box_no_condition: {
+          userId: personalItem.userId,
+          box_no: personalItem.box_no,
+          condition: personalItem.condition
+        }
+      }
+    });
+
+    if (existingInventory) {
+      // Increment existing inventory quantity
+      const updated = await prisma.setInventoryItem.update({
+        where: { id: existingInventory.id },
+        data: {
+          quantity: existingInventory.quantity + quantityToMove
+        }
+      });
+
+      if (quantityToMove === personalItem.quantity) {
+        // Move all - delete from personal collection
+        await prisma.setPersonalCollectionItem.delete({
+          where: { id: personalItemId }
+        });
+        return { inventory: this.transformSetInventoryFromDB(updated) };
+      } else {
+        // Move partial - reduce personal collection quantity
+        const updatedPersonal = await prisma.setPersonalCollectionItem.update({
+          where: { id: personalItemId },
+          data: {
+            quantity: personalItem.quantity - quantityToMove
+          }
+        });
+        return {
+          inventory: this.transformSetInventoryFromDB(updated),
+          personal: this.transformSetPersonalFromDB(updatedPersonal)
+        };
+      }
+    } else {
+      // Create new inventory item
+      const created = await prisma.setInventoryItem.create({
+        data: {
+          userId: personalItem.userId,
+          box_no: personalItem.box_no,
+          set_name: personalItem.set_name,
+          category_name: personalItem.category_name,
+          quantity: quantityToMove,
+          condition: personalItem.condition,
+          image_url: personalItem.image_url,
+          pricing_six_month_avg: personalItem.pricing_six_month_avg,
+          pricing_current_avg: personalItem.pricing_current_avg,
+          pricing_current_lowest: personalItem.pricing_current_lowest,
+          pricing_suggested_price: personalItem.pricing_suggested_price
+        }
+      });
+
+      if (quantityToMove === personalItem.quantity) {
+        // Move all - delete from personal collection
+        await prisma.setPersonalCollectionItem.delete({
+          where: { id: personalItemId }
+        });
+        return { inventory: this.transformSetInventoryFromDB(created) };
+      } else {
+        // Move partial - reduce personal collection quantity
+        const updatedPersonal = await prisma.setPersonalCollectionItem.update({
+          where: { id: personalItemId },
+          data: {
+            quantity: personalItem.quantity - quantityToMove
+          }
+        });
+        return {
+          inventory: this.transformSetInventoryFromDB(created),
+          personal: this.transformSetPersonalFromDB(updatedPersonal)
+        };
+      }
     }
   }
 }

@@ -7,6 +7,7 @@ import { CollectionItem } from '@/types';
 import CollectionList from '@/components/CollectionList';
 import CollectionSwitcher from '@/components/CollectionSwitcher';
 import ShareCollectionButton from '@/components/ShareCollectionButton';
+import DatabaseLimitError from '@/components/DatabaseLimitError';
 import Link from 'next/link';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
@@ -19,7 +20,7 @@ export default function CollectionPage() {
   const [sortOrder, setSortOrder] = useState<'default' | 'price-high' | 'price-low' | 'id'>('price-high');
   const [showDecimals, setShowDecimals] = useState(false);
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
-  const [dbError, setDbError] = useState<{ message: string; resetTime: string } | null>(null);
+  const [dbError, setDbError] = useState<Date | null>(null);
 
   // Load saved preferences on mount
   useEffect(() => {
@@ -65,16 +66,8 @@ export default function CollectionPage() {
         const now = new Date();
         const nextHour = new Date(now);
         nextHour.setHours(now.getHours() + 1, 0, 0, 0);
-        const resetTime = nextHour.toLocaleTimeString('en-US', {
-          hour: 'numeric',
-          minute: '2-digit',
-          hour12: true
-        });
 
-        setDbError({
-          message: 'Database connection limit reached',
-          resetTime
-        });
+        setDbError(nextHour);
         setLoading(false);
         return;
       }
@@ -242,50 +235,7 @@ export default function CollectionPage() {
         boxSizing: 'border-box'
       }}>
         {/* Database Error Message */}
-        {dbError && (
-          <div style={{
-            background: '#fef2f2',
-            border: '1px solid #fecaca',
-            borderRadius: '12px',
-            padding: '20px',
-            marginBottom: '24px'
-          }}>
-            <div style={{
-              display: 'flex',
-              gap: '12px',
-              alignItems: 'flex-start'
-            }}>
-              <svg style={{ width: '24px', height: '24px', color: '#dc2626', flexShrink: 0, marginTop: '2px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-              <div style={{ flex: 1 }}>
-                <h3 style={{
-                  fontSize: 'var(--text-base)',
-                  fontWeight: '600',
-                  color: '#991b1b',
-                  marginBottom: '8px'
-                }}>
-                  Site Temporarily Unavailable
-                </h3>
-                <p style={{
-                  fontSize: 'var(--text-sm)',
-                  color: '#7f1d1d',
-                  lineHeight: '1.6',
-                  marginBottom: '8px'
-                }}>
-                  We've reached our hourly database connection limit. This happens during heavy development and testing.
-                </p>
-                <p style={{
-                  fontSize: 'var(--text-sm)',
-                  color: '#7f1d1d',
-                  lineHeight: '1.6'
-                }}>
-                  <strong>The site will be back up at {dbError.resetTime}.</strong> Normal usage won't cause this issue.
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
+        {dbError && <DatabaseLimitError resetTime={dbError} />}
 
         {/* Compact Header with Stats and Action */}
         {collection.length > 0 && (
