@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const query = searchParams.get('q') || '';
-    const limit = parseInt(searchParams.get('limit') || '50');
+    const limit = parseInt(searchParams.get('limit') || '200');
 
     if (!query.trim()) {
       return NextResponse.json({
@@ -20,10 +20,10 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // Search both minifigures and sets in parallel
+    // Search both minifigures and sets in parallel with full limit for each
     const [minifigs, sets] = await Promise.all([
-      searchMinifigs(query, Math.ceil(limit / 2)),
-      Promise.resolve(searchBoxes(query, Math.ceil(limit / 2)))
+      searchMinifigs(query, limit),
+      Promise.resolve(searchBoxes(query, limit))
     ]);
 
     return NextResponse.json({
