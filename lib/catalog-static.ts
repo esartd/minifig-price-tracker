@@ -87,18 +87,25 @@ export async function searchMinifigs(query: string, limit = 50): Promise<Minifig
   const catalog = await loadCatalog();
   const lowerQuery = query.toLowerCase();
 
-  return catalog
-    .filter(m => {
-      // Only include minifigs with valid IDs
-      if (!m.minifigure_no) return false;
+  const matches = catalog.filter(m => {
+    // Only include minifigs with valid IDs
+    if (!m.minifigure_no) return false;
 
-      return (
-        m.minifigure_no.toLowerCase().includes(lowerQuery) ||
-        m.name.toLowerCase().includes(lowerQuery) ||
-        m.category_name.toLowerCase().includes(lowerQuery)
-      );
-    })
-    .slice(0, limit);
+    return (
+      m.minifigure_no.toLowerCase().includes(lowerQuery) ||
+      m.name.toLowerCase().includes(lowerQuery) ||
+      m.category_name.toLowerCase().includes(lowerQuery)
+    );
+  });
+
+  // Sort by year (newest first) BEFORE limiting
+  matches.sort((a, b) => {
+    const yearA = parseInt(a.year_released || '0');
+    const yearB = parseInt(b.year_released || '0');
+    return yearB - yearA; // Descending (newest first)
+  });
+
+  return matches.slice(0, limit);
 }
 
 /**
