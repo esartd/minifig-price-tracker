@@ -276,7 +276,7 @@ model User {
   CollectionItem            CollectionItem[]
   Listing                   Listing[]
   PersonalCollectionItem    PersonalCollectionItem[]
-  SetCollectionItem         SetCollectionItem[]
+  SetInventoryItem          SetInventoryItem[]
   SetPersonalCollectionItem SetPersonalCollectionItem[]
   Session                   Session[]
   WishlistItem              WishlistItem[]
