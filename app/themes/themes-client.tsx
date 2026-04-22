@@ -71,8 +71,8 @@ function ThemeCard({ theme }: { theme: Theme }) {
               width={180}
               height={180}
               style={{ objectFit: 'contain', maxHeight: '180px', maxWidth: '100%' }}
-              unoptimized
               onError={handleImageError}
+              priority={theme.isCurrent}
             />
           ) : (
             <div style={{
