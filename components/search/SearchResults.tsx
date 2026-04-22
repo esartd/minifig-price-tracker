@@ -89,12 +89,11 @@ export default function SearchResults({
     return yearB - yearA; // Descending (newest first)
   });
 
-  // Debug log first 5 results after sort
-  console.log('Sorted results (first 5):', sortedResults.slice(0, 5).map(r => ({
-    name: r.name,
-    year: r.year_released,
-    no: r.minifigure_no || r.box_no
-  })));
+  // Debug log first 10 results after sort
+  console.log('=== SEARCH RESULTS SORT DEBUG ===');
+  sortedResults.slice(0, 10).forEach((r, i) => {
+    console.log(`${i + 1}. Year: ${r.year_released} | ${r.minifigure_no || r.box_no} | ${r.name?.substring(0, 40)}`);
+  });
 
   // Paginate results
   const paginatedResults = sortedResults.slice(0, displayCount);
