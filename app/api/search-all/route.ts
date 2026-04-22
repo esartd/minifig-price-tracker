@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { searchMinifigures } from '@/lib/catalog-static';
+import { searchMinifigs } from '@/lib/catalog-static';
 import { searchBoxes } from '@/lib/boxes-data';
 
 export const dynamic = 'force-dynamic';
@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
 
     // Search both minifigures and sets in parallel
     const [minifigs, sets] = await Promise.all([
-      Promise.resolve(searchMinifigures(query, Math.ceil(limit / 2))),
+      searchMinifigs(query, Math.ceil(limit / 2)),
       Promise.resolve(searchBoxes(query, Math.ceil(limit / 2)))
     ]);
 
