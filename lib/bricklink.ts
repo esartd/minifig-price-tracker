@@ -284,16 +284,19 @@ export class BricklinkAPI {
     region: string = 'north_america'
   ): Promise<PriceGuide | null> {
     try {
-      console.log(`Fetching price guide for ${itemNo} (${condition}) in ${countryCode}/${region}`);
+      // BrickLink API: country_code and region are mutually exclusive
+      // Use country_code for specific countries (GB, US, CA, etc.)
+      // Region is only used when country_code is not specified
+      console.log(`Fetching price guide for ${itemNo} (${condition}) in ${countryCode}`);
       const data = await this.makeRequest(
-        `/items/MINIFIG/${itemNo}/price?new_or_used=${condition}&country_code=${countryCode}&region=${region}`
+        `/items/MINIFIG/${itemNo}/price?new_or_used=${condition}&country_code=${countryCode}`
       );
       if (!data) {
-        console.log(`No price data returned for ${itemNo} in ${countryCode}/${region}`);
+        console.log(`No price data returned for ${itemNo} in ${countryCode}`);
       }
       return data;
     } catch (error) {
-      console.error(`Error fetching price guide for ${itemNo} in ${countryCode}/${region}:`, error);
+      console.error(`Error fetching price guide for ${itemNo} in ${countryCode}:`, error);
       return null;
     }
   }
@@ -467,8 +470,9 @@ export class BricklinkAPI {
       // Strip ALL suffixes (BrickLink uses "75192" not "75192-1", "40892" not "40892-1")
       const bricklinkNo = boxNo.replace(/-\d+$/, '');
 
+      // BrickLink API: country_code and region are mutually exclusive
       const data = await this.makeRequest(
-        `/items/SET/${bricklinkNo}/price?new_or_used=${condition}&country_code=${countryCode}&region=${region}`
+        `/items/SET/${bricklinkNo}/price?new_or_used=${condition}&country_code=${countryCode}`
       );
       return data;
     } catch (error) {
