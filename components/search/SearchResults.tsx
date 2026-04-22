@@ -24,6 +24,14 @@ export default function SearchResults({
 }: SearchResultsProps) {
   const [selectedThemes, setSelectedThemes] = useState<Set<string>>(new Set());
   const [pricing, setPricing] = useState<Record<string, { suggestedPrice: number; loading: boolean }>>({});
+  const [activeTab, setActiveTab] = useState<'all' | 'minifigs' | 'sets'>('all');
+
+  // Separate minifigs and sets
+  const minifigs = searchResults.filter(item => item.resultType !== 'set');
+  const sets = searchResults.filter(item => item.resultType === 'set');
+
+  // Determine which results to show based on active tab
+  const displayedResults = activeTab === 'minifigs' ? minifigs : activeTab === 'sets' ? sets : searchResults;
 
   // Extract parent theme from category_name (e.g., "Star Wars / Episode 1" → "Star Wars")
   const getTheme = (minifig: any): string => {
@@ -34,8 +42,8 @@ export default function SearchResults({
     return 'Other';
   };
 
-  // Group results by theme
-  const themeGroups = searchResults.reduce((acc, minifig) => {
+  // Group results by theme (only for displayed results)
+  const themeGroups = displayedResults.reduce((acc, minifig) => {
     const theme = getTheme(minifig);
     if (!acc[theme]) {
       acc[theme] = { count: 0, items: [] };
@@ -68,8 +76,8 @@ export default function SearchResults({
   };
 
   const filteredResults = selectedThemes.size === 0
-    ? searchResults
-    : searchResults.filter(minifig => selectedThemes.has(getTheme(minifig)));
+    ? displayedResults
+    : displayedResults.filter(minifig => selectedThemes.has(getTheme(minifig)));
 
   // Pricing disabled for search results - only fetch when adding to collection
 
@@ -139,15 +147,78 @@ export default function SearchResults({
       boxSizing: 'border-box',
       overflowX: 'hidden'
     }}>
-      <div className="search-results-header" style={{ marginBottom: '32px' }}>
+      <div className="search-results-header" style={{ marginBottom: '24px' }}>
         <h2 style={{
           fontSize: 'var(--text-xl)',
           fontWeight: '600',
           color: '#171717',
-          letterSpacing: '-0.01em'
+          letterSpacing: '-0.01em',
+          marginBottom: '16px'
         }}>
           Search Results
         </h2>
+
+        {/* Tabs */}
+        {searchResults.length > 0 && (
+          <div style={{
+            display: 'flex',
+            gap: '8px',
+            borderBottom: '2px solid #e5e5e5',
+            paddingBottom: '0'
+          }}>
+            <button
+              onClick={() => setActiveTab('all')}
+              style={{
+                padding: '12px 20px',
+                fontSize: 'var(--text-sm)',
+                fontWeight: '600',
+                color: activeTab === 'all' ? '#3b82f6' : '#737373',
+                background: 'transparent',
+                border: 'none',
+                borderBottom: activeTab === 'all' ? '2px solid #3b82f6' : '2px solid transparent',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                marginBottom: '-2px'
+              }}
+            >
+              All ({searchResults.length})
+            </button>
+            <button
+              onClick={() => setActiveTab('minifigs')}
+              style={{
+                padding: '12px 20px',
+                fontSize: 'var(--text-sm)',
+                fontWeight: '600',
+                color: activeTab === 'minifigs' ? '#3b82f6' : '#737373',
+                background: 'transparent',
+                border: 'none',
+                borderBottom: activeTab === 'minifigs' ? '2px solid #3b82f6' : '2px solid transparent',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                marginBottom: '-2px'
+              }}
+            >
+              Minifigures ({minifigs.length})
+            </button>
+            <button
+              onClick={() => setActiveTab('sets')}
+              style={{
+                padding: '12px 20px',
+                fontSize: 'var(--text-sm)',
+                fontWeight: '600',
+                color: activeTab === 'sets' ? '#3b82f6' : '#737373',
+                background: 'transparent',
+                border: 'none',
+                borderBottom: activeTab === 'sets' ? '2px solid #3b82f6' : '2px solid transparent',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                marginBottom: '-2px'
+              }}
+            >
+              Sets ({sets.length})
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Multiple Results List */}
@@ -168,7 +239,7 @@ export default function SearchResults({
             marginBottom: '8px'
           }}>
             {filteredResults.length} result{filteredResults.length !== 1 ? 's' : ''} shown
-            {selectedThemes.size > 0 && ` (${searchResults.length} total)`}
+            {selectedThemes.size > 0 && ` (${displayedResults.length} total)`}
           </p>
 
           <div className="search-results-list" style={{
