@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { database } from '@/lib/database';
 import { auth } from '@/auth';
 
+// POST move set from personal collection to inventory
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -17,8 +18,19 @@ export async function POST(
     }
 
     const { id } = await params;
-    const item = await database.getSetPersonalCollectionItemById(id);
+    const body = await request.json();
+    const { quantity } = body;
 
+    // Validate quantity
+    if (!quantity || quantity < 1) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid quantity' },
+        { status: 400 }
+      );
+    }
+
+    // Verify the item belongs to the authenticated user
+    const item = await database.getSetPersonalCollectionItemById(id);
     if (!item) {
       return NextResponse.json(
         { success: false, error: 'Item not found' },
@@ -33,26 +45,22 @@ export async function POST(
       );
     }
 
-    const body = await request.json();
-    const { quantity } = body;
-
-    if (!quantity || quantity <= 0) {
+    // Validate quantity doesn't exceed available
+    if (quantity > item.quantity) {
       return NextResponse.json(
-        { success: false, error: 'Invalid quantity' },
+        { success: false, error: 'Cannot move more than available quantity' },
         { status: 400 }
       );
     }
 
+    // Move to inventory
     const result = await database.moveSetToInventory(id, quantity);
 
-    return NextResponse.json({
-      success: true,
-      data: result
-    });
-  } catch (error: any) {
+    return NextResponse.json({ success: true, data: result });
+  } catch (error) {
     console.error('Error moving set to inventory:', error);
     return NextResponse.json(
-      { success: false, error: error.message || 'Failed to move set' },
+      { success: false, error: 'Failed to move set to inventory' },
       { status: 500 }
     );
   }

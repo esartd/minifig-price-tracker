@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { database } from '@/lib/database';
+import { bricklinkAPI } from '@/lib/bricklink';
 import { auth } from '@/auth';
 
+// GET a single set inventory item
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -26,7 +28,7 @@ export async function GET(
       );
     }
 
-    // Verify ownership
+    // Verify the item belongs to the authenticated user
     if (item.userId !== session.user.id) {
       return NextResponse.json(
         { success: false, error: 'Forbidden' },
@@ -34,10 +36,7 @@ export async function GET(
       );
     }
 
-    return NextResponse.json({
-      success: true,
-      data: item
-    });
+    return NextResponse.json({ success: true, data: item });
   } catch (error) {
     console.error('Error fetching set inventory item:', error);
     return NextResponse.json(
@@ -47,6 +46,7 @@ export async function GET(
   }
 }
 
+// PATCH update a set inventory item
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -62,8 +62,10 @@ export async function PATCH(
     }
 
     const { id } = await params;
-    const item = await database.getSetInventoryItemById(id);
+    const body = await request.json();
 
+    // Verify the item belongs to the authenticated user
+    const item = await database.getSetInventoryItemById(id);
     if (!item) {
       return NextResponse.json(
         { success: false, error: 'Item not found' },
@@ -78,13 +80,23 @@ export async function PATCH(
       );
     }
 
-    const body = await request.json();
-    const updated = await database.updateSetInventoryItem(id, body);
+    // If condition changed, recalculate pricing
+    if (body.condition) {
+      const countryCode = session.user.preferredCountryCode || 'US';
+      const region = session.user.preferredRegion || 'north_america';
 
-    return NextResponse.json({
-      success: true,
-      data: updated
-    });
+      const pricing = await bricklinkAPI.calculateSetPricing(
+        item.box_no,
+        body.condition,
+        countryCode,
+        region
+      );
+      body.pricing = pricing;
+    }
+
+    const updatedItem = await database.updateSetInventoryItem(id, body);
+
+    return NextResponse.json({ success: true, data: updatedItem });
   } catch (error) {
     console.error('Error updating set inventory item:', error);
     return NextResponse.json(
@@ -94,6 +106,7 @@ export async function PATCH(
   }
 }
 
+// DELETE a set inventory item
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -109,8 +122,9 @@ export async function DELETE(
     }
 
     const { id } = await params;
-    const item = await database.getSetInventoryItemById(id);
 
+    // Verify the item belongs to the authenticated user
+    const item = await database.getSetInventoryItemById(id);
     if (!item) {
       return NextResponse.json(
         { success: false, error: 'Item not found' },
@@ -125,11 +139,9 @@ export async function DELETE(
       );
     }
 
-    await database.deleteSetInventoryItem(id);
+    const success = await database.deleteSetInventoryItem(id);
 
-    return NextResponse.json({
-      success: true
-    });
+    return NextResponse.json({ success: true, message: 'Item deleted successfully' });
   } catch (error) {
     console.error('Error deleting set inventory item:', error);
     return NextResponse.json(
