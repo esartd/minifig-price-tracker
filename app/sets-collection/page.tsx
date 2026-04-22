@@ -301,7 +301,7 @@ export default function SetsCollectionPage() {
                     color: '#171717',
                     lineHeight: '1'
                   }}>
-                    {totalQuantity}
+                    {totalItems}
                   </div>
                 </div>
                 <div className="collection-stat-card" style={{
@@ -595,7 +595,7 @@ export default function SetsCollectionPage() {
                     color: '#737373',
                     lineHeight: '1.6'
                   }}>
-                    You have {totalQuantity} item{totalQuantity !== 1 ? 's' : ''} in other conditions
+                    You have {totalItems} item{totalItems !== 1 ? 's' : ''} in other conditions
                   </p>
                 </>
               )}

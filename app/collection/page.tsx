@@ -93,7 +93,7 @@ export default function PersonalCollectionPage() {
             pollCount++;
 
             try {
-              const updateResponse = await fetch(`/api/personal-collection?page=${page}&limit=50`);
+              const updateResponse = await fetch(`/api/personal-collection?all=true`);
               const updateData = await updateResponse.json();
 
               if (updateData.success) {
@@ -166,7 +166,7 @@ export default function PersonalCollectionPage() {
       const data = await response.json();
       if (data.success) {
         // Reload collection after move, staying on current page
-        await loadCollection(currentPage);
+        await loadCollection();
       }
     } catch (error) {
       console.error('Error moving item:', error);
@@ -217,10 +217,6 @@ export default function PersonalCollectionPage() {
   const totalItems = collection.reduce((sum, item) => sum + item.quantity, 0);
   const avgValue = collection.length > 0 ? (collection.reduce((sum, item) => sum + (item.pricing?.suggestedPrice || 0), 0) / collection.length) : 0;
 
-  // Use stats from API (total collection) instead of current page
-  const displayTotalValue = totalValue;
-  const displayTotalItems = totalQuantity;
-  const displayAvgValue = avgValue;
 
   if (status === 'loading' || loading) {
     return (
@@ -330,7 +326,7 @@ export default function PersonalCollectionPage() {
                     color: '#171717',
                     lineHeight: '1'
                   }}>
-                    {formatPrice(displayTotalValue, session?.user?.preferredCurrency || 'USD', true)}
+                    {formatPrice(totalValue, session?.user?.preferredCurrency || 'USD', true)}
                   </div>
                 </div>
                 <div className="collection-stat-card" style={{
@@ -355,7 +351,7 @@ export default function PersonalCollectionPage() {
                     color: '#171717',
                     lineHeight: '1'
                   }}>
-                    {displayTotalItems}
+                    {totalItems}
                   </div>
                 </div>
                 <div className="collection-stat-card" style={{
@@ -380,7 +376,7 @@ export default function PersonalCollectionPage() {
                     color: '#171717',
                     lineHeight: '1'
                   }}>
-                    {formatPrice(displayAvgValue, session?.user?.preferredCurrency || 'USD', true)}
+                    {formatPrice(avgValue, session?.user?.preferredCurrency || 'USD', true)}
                   </div>
                 </div>
               </div>
@@ -650,7 +646,7 @@ export default function PersonalCollectionPage() {
                     color: '#737373',
                     lineHeight: '1.6'
                   }}>
-                    You have {displayTotalItems} item{displayTotalItems !== 1 ? 's' : ''} in other conditions
+                    You have {totalItems} item{totalItems !== 1 ? 's' : ''} in other conditions
                   </p>
                 </>
               )}

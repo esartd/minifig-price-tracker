@@ -20,21 +20,10 @@ export default function SetsInventoryPage() {
   const [showDecimals, setShowDecimals] = useState(false);
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
 
-  // Pagination state
-  // Pagination state for display only (all items loaded client-side)
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 50;
-  // Pagination state for display only (all items loaded client-side)
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 50;
   // Pagination state for display only (all items loaded client-side)
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 50;
 
-  // Stats state
-  const [totalValue, setTotalValue] = useState(0);
-  const [totalQuantity, setTotalQuantity] = useState(0);
-  const [avgValue, setAvgValue] = useState(0);
 
   // Load saved preferences on mount
   useEffect(() => {
@@ -182,6 +171,11 @@ export default function SetsInventoryPage() {
     currentPage * itemsPerPage
   );
 
+  // Stats are always based on entire inventory (not filtered)
+  const totalValue = inventory.reduce((sum, item) => sum + ((item.pricing?.suggestedPrice || 0) * item.quantity), 0);
+  const totalItems = inventory.reduce((sum, item) => sum + item.quantity, 0);
+  const avgValue = inventory.length > 0 ? (inventory.reduce((sum, item) => sum + (item.pricing?.suggestedPrice || 0), 0) / inventory.length) : 0;
+
   if (status === 'loading' || loading) {
     return (
       <div style={{
@@ -312,7 +306,7 @@ export default function SetsInventoryPage() {
                     color: '#171717',
                     lineHeight: '1'
                   }}>
-                    {totalQuantity}
+                    {totalItems}
                   </div>
                 </div>
                 <div className="collection-stat-card" style={{
@@ -607,7 +601,7 @@ export default function SetsInventoryPage() {
                     color: '#737373',
                     lineHeight: '1.6'
                   }}>
-                    You have {totalQuantity} item{totalQuantity !== 1 ? 's' : ''} in other conditions
+                    You have {totalItems} item{totalItems !== 1 ? 's' : ''} in other conditions
                   </p>
                 </>
               )}
