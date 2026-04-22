@@ -8,6 +8,7 @@ import PersonalCollectionList from '@/components/PersonalCollectionList';
 import CollectionSwitcher from '@/components/CollectionSwitcher';
 import ShareCollectionButton from '@/components/ShareCollectionButton';
 import DatabaseLimitError from '@/components/DatabaseLimitError';
+import CollectionPagination from '@/components/CollectionPagination';
 import Link from 'next/link';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
@@ -21,6 +22,12 @@ export default function PersonalCollectionPage() {
   const [showDecimals, setShowDecimals] = useState(false);
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
   const [dbError, setDbError] = useState<Date | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const [totalValue, setTotalValue] = useState(0);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const [avgValue, setAvgValue] = useState(0);
 
   // Load saved preferences on mount
   useEffect(() => {
@@ -56,9 +63,9 @@ export default function PersonalCollectionPage() {
     }
   }, [status, router]);
 
-  const loadCollection = async () => {
+  const loadCollection = async (page: number = 1) => {
     try {
-      const response = await fetch('/api/personal-collection');
+      const response = await fetch(`/api/personal-collection?page=${page}&limit=50`);
       const data = await response.json();
 
       // Check for database connection limit error
@@ -76,6 +83,20 @@ export default function PersonalCollectionPage() {
         setCollection(data.data);
         setLoading(false); // Show items immediately
 
+        // Update pagination state
+        if (data.pagination) {
+          setTotalPages(data.pagination.totalPages);
+          setTotalCount(data.pagination.totalItems);
+          setCurrentPage(data.pagination.page);
+        }
+
+        // Update stats from API response
+        if (data.stats) {
+          setTotalValue(data.stats.totalValue);
+          setTotalQuantity(data.stats.totalQuantity);
+          setAvgValue(data.stats.avgValue);
+        }
+
         // Check if any items are missing pricing
         const itemsMissingPricing = data.data.filter((item: PersonalCollectionItem) => !item.pricing);
         if (itemsMissingPricing.length > 0) {
@@ -87,7 +108,7 @@ export default function PersonalCollectionPage() {
             pollCount++;
 
             try {
-              const updateResponse = await fetch('/api/personal-collection');
+              const updateResponse = await fetch(`/api/personal-collection?page=${page}&limit=50`);
               const updateData = await updateResponse.json();
 
               if (updateData.success) {
@@ -159,8 +180,8 @@ export default function PersonalCollectionPage() {
 
       const data = await response.json();
       if (data.success) {
-        // Reload collection after move
-        await loadCollection();
+        // Reload collection after move, staying on current page
+        await loadCollection(currentPage);
       }
     } catch (error) {
       console.error('Error moving item:', error);
@@ -196,9 +217,10 @@ export default function PersonalCollectionPage() {
     return filtered;
   };
 
-  const totalValue = collection.reduce((sum, item) => sum + ((item.pricing?.suggestedPrice || 0) * item.quantity), 0);
-  const totalItems = collection.reduce((sum, item) => sum + item.quantity, 0);
-  const avgValue = collection.length > 0 ? (collection.reduce((sum, item) => sum + (item.pricing?.suggestedPrice || 0), 0) / collection.length) : 0;
+  // Use stats from API (total collection) instead of current page
+  const displayTotalValue = totalValue;
+  const displayTotalItems = totalQuantity;
+  const displayAvgValue = avgValue;
 
   if (status === 'loading' || loading) {
     return (
@@ -308,7 +330,7 @@ export default function PersonalCollectionPage() {
                     color: '#171717',
                     lineHeight: '1'
                   }}>
-                    {formatPrice(totalValue, session?.user?.preferredCurrency || 'USD', true)}
+                    {formatPrice(displayTotalValue, session?.user?.preferredCurrency || 'USD', true)}
                   </div>
                 </div>
                 <div className="collection-stat-card" style={{
@@ -333,7 +355,7 @@ export default function PersonalCollectionPage() {
                     color: '#171717',
                     lineHeight: '1'
                   }}>
-                    {totalItems}
+                    {displayTotalItems}
                   </div>
                 </div>
                 <div className="collection-stat-card" style={{
@@ -358,7 +380,7 @@ export default function PersonalCollectionPage() {
                     color: '#171717',
                     lineHeight: '1'
                   }}>
-                    {formatPrice(avgValue, session?.user?.preferredCurrency || 'USD', true)}
+                    {formatPrice(displayAvgValue, session?.user?.preferredCurrency || 'USD', true)}
                   </div>
                 </div>
               </div>
@@ -628,7 +650,7 @@ export default function PersonalCollectionPage() {
                     color: '#737373',
                     lineHeight: '1.6'
                   }}>
-                    You have {totalItems} item{totalItems !== 1 ? 's' : ''} in other conditions
+                    You have {displayTotalItems} item{displayTotalItems !== 1 ? 's' : ''} in other conditions
                   </p>
                 </>
               )}
@@ -644,6 +666,17 @@ export default function PersonalCollectionPage() {
             />
           )}
         </div>
+
+        <CollectionPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          currentCount={collection.length}
+          totalCount={totalCount}
+          onPageChange={(page) => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            loadCollection(page);
+          }}
+        />
       </div>
     </div>
   );

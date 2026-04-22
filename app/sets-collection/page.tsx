@@ -5,8 +5,9 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { SetPersonalCollectionItem } from '@/types';
 import Link from 'next/link';
-import Image from 'next/image';
 import { formatPrice } from '@/lib/format-price';
+import CollectionPagination from '@/components/CollectionPagination';
+import SetCardImage from '@/components/SetCard';
 
 export default function SetsCollectionPage() {
   const { data: session, status } = useSession();
@@ -15,6 +16,9 @@ export default function SetsCollectionPage() {
   const [loading, setLoading] = useState(true);
   const [sortOrder, setSortOrder] = useState<'default' | 'price-high' | 'price-low' | 'name'>('default');
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -24,13 +28,20 @@ export default function SetsCollectionPage() {
     }
   }, [status, router]);
 
-  const loadCollection = async () => {
+  const loadCollection = async (page: number = 1) => {
     try {
-      const response = await fetch('/api/set-personal-collection');
+      const response = await fetch(`/api/set-personal-collection?page=${page}&limit=50`);
       const data = await response.json();
 
       if (data.success) {
         setCollection(data.data);
+
+        // Update pagination state
+        if (data.pagination) {
+          setTotalPages(data.pagination.totalPages);
+          setTotalCount(data.pagination.totalItems);
+          setCurrentPage(data.pagination.page);
+        }
       }
     } catch (error) {
       console.error('Error loading collection:', error);
@@ -259,18 +270,7 @@ export default function SetsCollectionPage() {
                       justifyContent: 'center',
                       padding: '20px'
                     }}>
-                      {item.image_url ? (
-                        <Image
-                          src={item.image_url}
-                          alt={item.set_name}
-                          width={180}
-                          height={180}
-                          style={{ objectFit: 'contain', maxHeight: '180px' }}
-                          unoptimized
-                        />
-                      ) : (
-                        <div style={{ fontSize: '72px', opacity: 0.3 }}>📦</div>
-                      )}
+                      <SetCardImage imageUrl={item.image_url} setName={item.set_name} />
                     </div>
 
                     {/* Content */}
@@ -356,6 +356,17 @@ export default function SetsCollectionPage() {
               ))}
             </div>
           )}
+
+          <CollectionPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            currentCount={collection.length}
+            totalCount={totalCount}
+            onPageChange={(page) => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              loadCollection(page);
+            }}
+          />
         </div>
       </div>
     </>

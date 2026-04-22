@@ -27,8 +27,13 @@ export async function GET(request: NextRequest) {
 
     // Get all items first to calculate total
     const allItems = await database.getAllPersonalItems(session.user.id, countryCode, region);
-    const totalItems = allItems.length;
-    const totalPages = Math.ceil(totalItems / limit);
+    const totalItemsCount = allItems.length;
+    const totalPages = Math.ceil(totalItemsCount / limit);
+
+    // Calculate aggregate stats from all items
+    const totalValue = allItems.reduce((sum, item) => sum + ((item.pricing?.suggestedPrice || 0) * item.quantity), 0);
+    const totalQuantity = allItems.reduce((sum, item) => sum + item.quantity, 0);
+    const avgValue = allItems.length > 0 ? (allItems.reduce((sum, item) => sum + (item.pricing?.suggestedPrice || 0), 0) / allItems.length) : 0;
 
     // Slice for current page
     const items = allItems.slice(offset, offset + limit);
@@ -54,8 +59,13 @@ export async function GET(request: NextRequest) {
       pagination: {
         page,
         limit,
-        totalItems,
+        totalItems: totalItemsCount,
         totalPages
+      },
+      stats: {
+        totalValue,
+        totalQuantity,
+        avgValue
       }
     });
   } catch (error: any) {

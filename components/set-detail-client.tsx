@@ -9,6 +9,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import SetAdCard from '@/components/SetAdCard';
 import MoveDialog from '@/components/MoveDialog';
 import ListingGeneratorForm from '@/components/listing-generator-form';
+import SetCardImage from '@/components/SetCard';
 import { formatPrice } from '@/lib/format-price';
 import { getSetAvailability } from '@/lib/set-availability';
 import { generateLegoSetLink, generateAmazonLegoSetLink } from '@/lib/affiliate-links';
@@ -75,6 +76,8 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
   const [condition, setCondition] = useState<'new' | 'used'>('new');
 
   const [featuredSets, setFeaturedSets] = useState<any[]>([]);
+  const [imageError, setImageError] = useState(false);
+  const [imageUrl, setImageUrl] = useState(set.image_url);
 
   useEffect(() => {
     if (!moveSuccess) return;
@@ -422,9 +425,28 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
             padding: '32px', background: '#ffffff', display: 'flex',
             alignItems: 'center', justifyContent: 'center'
           }}>
-            <Image src={set.image_url} alt={set.name} width={400} height={400}
-              style={{ width: '100%', maxWidth: '400px', height: 'auto', objectFit: 'contain' }}
-              unoptimized />
+            {!imageError ? (
+              <Image
+                src={imageUrl}
+                alt={set.name}
+                width={400}
+                height={400}
+                style={{ width: '100%', maxWidth: '400px', height: 'auto', objectFit: 'contain' }}
+                unoptimized
+                onError={(e) => {
+                  if (imageUrl.includes('/ON/')) {
+                    const snUrl = imageUrl.replace('/ON/', '/SN/');
+                    if (e.currentTarget.src !== snUrl) {
+                      setImageUrl(snUrl);
+                      return;
+                    }
+                  }
+                  setImageError(true);
+                }}
+              />
+            ) : (
+              <div style={{ fontSize: '72px', opacity: 0.3 }}>📦</div>
+            )}
           </div>
 
           <div className="minifig-details-section" style={{ padding: '32px' }}>
@@ -882,8 +904,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                     transition: 'transform 0.2s', cursor: 'pointer' }}>
                     <div style={{ padding: '16px', height: '180px', display: 'flex', alignItems: 'center',
                       justifyContent: 'center', background: '#ffffff' }}>
-                      <Image src={s.image_url} alt={s.name} width={160} height={160}
-                        style={{ objectFit: 'contain', maxHeight: '160px' }} unoptimized />
+                      <SetCardImage imageUrl={s.image_url} setName={s.name} width={160} height={160} maxHeight="160px" />
                     </div>
                     <div style={{ padding: '16px', borderTop: '1px solid #e5e5e5' }}>
                       <div style={{ fontSize: '14px', fontWeight: '600', color: '#171717', marginBottom: '4px' }}>{s.name}</div>
