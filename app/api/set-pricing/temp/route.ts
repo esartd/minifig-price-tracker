@@ -16,8 +16,11 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    // Strip -1 suffix for BrickLink API
+    const cleanBoxNo = boxNo.replace(/-\d+$/, '');
+
     const pricing = await bricklinkAPI.calculateSetPricing(
-      boxNo,
+      cleanBoxNo,
       condition as 'new' | 'used',
       countryCode,
       region
