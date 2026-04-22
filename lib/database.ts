@@ -7,8 +7,7 @@ class DatabaseService {
     return {
       id: item.id,
       userId: item.userId,
-      item_no: item.minifigure_no,
-      item_type: 'MINIFIG',
+      minifigure_no: item.minifigure_no,
       minifigure_name: item.minifigure_name,
       quantity: item.quantity,
       condition: item.condition as 'new' | 'used',
