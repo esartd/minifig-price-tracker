@@ -26,8 +26,6 @@ export default function SearchResults({
   const [pricing, setPricing] = useState<Record<string, { suggestedPrice: number; loading: boolean }>>({});
   const [activeTab, setActiveTab] = useState<'minifigs' | 'sets' | null>(null);
   const [displayCount, setDisplayCount] = useState(50);
-  const [minifigDisplayCount, setMinifigDisplayCount] = useState(5);
-  const [setsDisplayCount, setSetsDisplayCount] = useState(5);
 
   const RESULTS_PER_PAGE = 50;
   const PREVIEW_LIMIT = 5;
@@ -114,12 +112,10 @@ export default function SearchResults({
   const paginatedResults = sortedResults.slice(0, displayCount);
   const hasMore = sortedResults.length > displayCount;
 
-  // Reset display counts when search results change
+  // Reset to grouped view when search results change
   useEffect(() => {
-    setDisplayCount(RESULTS_PER_PAGE);
-    setMinifigDisplayCount(PREVIEW_LIMIT);
-    setSetsDisplayCount(PREVIEW_LIMIT);
     setActiveTab(null);
+    setDisplayCount(RESULTS_PER_PAGE);
   }, [searchResults]);
 
   // Reset display count when tab changes or filters change
@@ -300,40 +296,13 @@ export default function SearchResults({
                     maxWidth: '100%',
                     boxSizing: 'border-box'
                   }}>
-                    {minifigs.slice(0, minifigDisplayCount).map((minifig, index) => (
+                    {minifigs.slice(0, PREVIEW_LIMIT).map((minifig, index) => (
                       <MinifigCard
                         key={minifig.minifigure_no || minifig.no || index}
                         minifig={minifig}
                       />
                     ))}
                   </div>
-                  {/* Load More Button for Minifigs */}
-                  {minifigs.length > minifigDisplayCount && minifigDisplayCount < 50 && (
-                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
-                      <button
-                        onClick={() => setMinifigDisplayCount(prev => Math.min(prev + PREVIEW_LIMIT, minifigs.length))}
-                        style={{
-                          padding: '10px 24px',
-                          fontSize: 'var(--text-sm)',
-                          fontWeight: '600',
-                          color: '#3b82f6',
-                          background: '#ffffff',
-                          border: '1px solid #3b82f6',
-                          borderRadius: '8px',
-                          cursor: 'pointer',
-                          transition: 'all 0.2s'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#eff6ff';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = '#ffffff';
-                        }}
-                      >
-                        Show More ({Math.min(minifigs.length - minifigDisplayCount, PREVIEW_LIMIT)} more)
-                      </button>
-                    </div>
-                  )}
                 </div>
               )}
 
@@ -387,40 +356,13 @@ export default function SearchResults({
                     maxWidth: '100%',
                     boxSizing: 'border-box'
                   }}>
-                    {sets.slice(0, setsDisplayCount).map((set, index) => (
+                    {sets.slice(0, PREVIEW_LIMIT).map((set, index) => (
                       <MinifigCard
                         key={set.box_no || index}
                         minifig={set}
                       />
                     ))}
                   </div>
-                  {/* Load More Button for Sets */}
-                  {sets.length > setsDisplayCount && setsDisplayCount < 50 && (
-                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
-                      <button
-                        onClick={() => setSetsDisplayCount(prev => Math.min(prev + PREVIEW_LIMIT, sets.length))}
-                        style={{
-                          padding: '10px 24px',
-                          fontSize: 'var(--text-sm)',
-                          fontWeight: '600',
-                          color: '#3b82f6',
-                          background: '#ffffff',
-                          border: '1px solid #3b82f6',
-                          borderRadius: '8px',
-                          cursor: 'pointer',
-                          transition: 'all 0.2s'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#eff6ff';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = '#ffffff';
-                        }}
-                      >
-                        Show More ({Math.min(sets.length - setsDisplayCount, PREVIEW_LIMIT)} more)
-                      </button>
-                    </div>
-                  )}
                 </div>
               )}
             </>
