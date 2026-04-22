@@ -284,12 +284,16 @@ export class BricklinkAPI {
     region: string = 'north_america'
   ): Promise<PriceGuide | null> {
     try {
+      console.log(`Fetching price guide for ${itemNo} (${condition}) in ${countryCode}/${region}`);
       const data = await this.makeRequest(
         `/items/MINIFIG/${itemNo}/price?new_or_used=${condition}&country_code=${countryCode}&region=${region}`
       );
+      if (!data) {
+        console.log(`No price data returned for ${itemNo} in ${countryCode}/${region}`);
+      }
       return data;
     } catch (error) {
-      console.error('Error fetching price guide:', error);
+      console.error(`Error fetching price guide for ${itemNo} in ${countryCode}/${region}:`, error);
       return null;
     }
   }
@@ -341,7 +345,45 @@ export class BricklinkAPI {
     const currencyCodeValue = currencyConfig?.code || 'USD';
 
     if (!priceGuide) {
-      // No sellers in this region - return zeros with user's currency
+      console.log(`No price guide returned for ${itemNo} in ${countryCode}/${region} - caching zeros for 1 hour`);
+      // No data from API - cache zeros for 1 hour to avoid repeated failed API calls
+      const expiresAt = new Date();
+      expiresAt.setHours(expiresAt.getHours() + 1);
+
+      await prisma.priceCache.upsert({
+        where: {
+          item_no_item_type_condition_country_code_region: {
+            item_no: itemNo,
+            item_type: 'MINIFIG',
+            condition: condition,
+            country_code: countryCode,
+            region: region
+          }
+        },
+        update: {
+          six_month_avg: 0,
+          current_avg: 0,
+          current_lowest: 0,
+          suggested_price: 0,
+          cached_at: new Date(),
+          expires_at: expiresAt,
+          currency_code: currencyCodeValue,
+        },
+        create: {
+          item_no: itemNo,
+          item_type: 'MINIFIG',
+          condition: condition,
+          country_code: countryCode,
+          region: region,
+          currency_code: currencyCodeValue,
+          six_month_avg: 0,
+          current_avg: 0,
+          current_lowest: 0,
+          suggested_price: 0,
+          expires_at: expiresAt,
+        }
+      });
+
       return {
         sixMonthAverage: 0,
         currentAverage: 0,
@@ -368,16 +410,15 @@ export class BricklinkAPI {
       currencyCode: currencyCodeValue,
     };
 
-    // If all prices are 0, no sellers in this region - return zeros
-    if (pricingData.suggestedPrice === 0) {
-      return pricingData;
-    }
-
-    // Store in cache with 6 hour expiration per BrickLink API Terms Section 1
-    // "Display item Content or product information and/or images which is more than
-    // six hours older than such information is on the Website"
+    // Store in cache - use shorter expiration for zero prices (1 hour vs 6 hours)
+    // This allows re-checking for new sellers without hammering the API
     const expiresAt = new Date();
-    expiresAt.setHours(expiresAt.getHours() + 6);
+    if (pricingData.suggestedPrice === 0) {
+      expiresAt.setHours(expiresAt.getHours() + 1); // 1 hour for no-seller regions
+      console.log(`No sellers found for ${itemNo} in ${countryCode}/${region}, caching zeros for 1 hour`);
+    } else {
+      expiresAt.setHours(expiresAt.getHours() + 6); // 6 hour per BrickLink API Terms
+    }
 
     await prisma.priceCache.upsert({
       where: {
@@ -476,7 +517,45 @@ export class BricklinkAPI {
     const currencyCodeValue = currencyConfig?.code || 'USD';
 
     if (!priceGuide) {
-      // No sellers in this region - return zeros with user's currency
+      console.log(`No price guide returned for set ${boxNo} in ${countryCode}/${region} - caching zeros for 1 hour`);
+      // No data from API - cache zeros for 1 hour to avoid repeated failed API calls
+      const expiresAt = new Date();
+      expiresAt.setHours(expiresAt.getHours() + 1);
+
+      await prisma.priceCache.upsert({
+        where: {
+          item_no_item_type_condition_country_code_region: {
+            item_no: boxNo,
+            item_type: 'SET',
+            condition: condition,
+            country_code: countryCode,
+            region: region
+          }
+        },
+        update: {
+          six_month_avg: 0,
+          current_avg: 0,
+          current_lowest: 0,
+          suggested_price: 0,
+          cached_at: new Date(),
+          expires_at: expiresAt,
+          currency_code: currencyCodeValue,
+        },
+        create: {
+          item_no: boxNo,
+          item_type: 'SET',
+          condition: condition,
+          country_code: countryCode,
+          region: region,
+          currency_code: currencyCodeValue,
+          six_month_avg: 0,
+          current_avg: 0,
+          current_lowest: 0,
+          suggested_price: 0,
+          expires_at: expiresAt,
+        }
+      });
+
       return {
         sixMonthAverage: 0,
         currentAverage: 0,
@@ -503,16 +582,15 @@ export class BricklinkAPI {
       currencyCode: currencyCodeValue,
     };
 
-    // If all prices are 0, no sellers in this region - return zeros
-    if (pricingData.suggestedPrice === 0) {
-      return pricingData;
-    }
-
-    // Store in cache with 6 hour expiration per BrickLink API Terms Section 1
-    // "Display item Content or product information and/or images which is more than
-    // six hours older than such information is on the Website"
+    // Store in cache - use shorter expiration for zero prices (1 hour vs 6 hours)
+    // This allows re-checking for new sellers without hammering the API
     const expiresAt = new Date();
-    expiresAt.setHours(expiresAt.getHours() + 6);
+    if (pricingData.suggestedPrice === 0) {
+      expiresAt.setHours(expiresAt.getHours() + 1); // 1 hour for no-seller regions
+      console.log(`No sellers found for set ${boxNo} in ${countryCode}/${region}, caching zeros for 1 hour`);
+    } else {
+      expiresAt.setHours(expiresAt.getHours() + 6); // 6 hour per BrickLink API Terms
+    }
 
     await prisma.priceCache.upsert({
       where: {

@@ -56,6 +56,7 @@ export default function CurrencyBanner() {
         });
 
         if (response.ok) {
+          // Update session first
           await update({
             preferredCurrency: currency.code,
             preferredCountryCode: currency.countryCode,
@@ -63,8 +64,12 @@ export default function CurrencyBanner() {
             currencySymbol: currency.symbol,
             locale: currency.locale
           });
-          setShow(false);
-          window.location.reload(); // Refresh to fetch prices in new currency
+
+          // Wait a bit for session to propagate, then reload
+          setTimeout(() => {
+            setShow(false);
+            window.location.reload(); // Refresh to fetch prices in new currency
+          }, 500);
         }
       } catch (error) {
         console.error('Failed to update currency:', error);
