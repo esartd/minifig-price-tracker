@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { CollectionItem } from '@/types';
 import ThemeFilters from './ThemeFilters';
 import MinifigCard from './MinifigCard';
@@ -30,21 +30,24 @@ export default function SearchResults({
   const RESULTS_PER_PAGE = 50;
   const PREVIEW_LIMIT = 5;
 
-  // Separate minifigs and sets
-  const allMinifigs = searchResults.filter(item => item.resultType !== 'set');
-  const allSets = searchResults.filter(item => item.resultType === 'set');
-
-  // Sort by year (newest first) - apply to both groups
-  const sortByYear = (items: any[]) => {
-    return [...items].sort((a, b) => {
+  // Separate and sort minifigs and sets using useMemo for stable references
+  const minifigs = useMemo(() => {
+    const allMinifigs = searchResults.filter(item => item.resultType !== 'set');
+    return [...allMinifigs].sort((a, b) => {
       const yearA = parseInt(a.year_released || '0');
       const yearB = parseInt(b.year_released || '0');
       return yearB - yearA; // Descending (newest first)
     });
-  };
+  }, [searchResults]);
 
-  const minifigs = sortByYear(allMinifigs);
-  const sets = sortByYear(allSets);
+  const sets = useMemo(() => {
+    const allSets = searchResults.filter(item => item.resultType === 'set');
+    return [...allSets].sort((a, b) => {
+      const yearA = parseInt(a.year_released || '0');
+      const yearB = parseInt(b.year_released || '0');
+      return yearB - yearA; // Descending (newest first)
+    });
+  }, [searchResults]);
 
   // Determine which results to show based on active tab (for theme filtering)
   const displayedResults = activeTab === 'minifigs' ? minifigs : activeTab === 'sets' ? sets : searchResults;
