@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 interface SetCardImageProps {
-  imageUrl: string;
+  imageUrl?: string;
   setName: string;
   width?: number;
   height?: number;
