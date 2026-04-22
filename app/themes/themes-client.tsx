@@ -15,6 +15,7 @@ interface Theme {
 
 export default function ThemesClient({ themes }: { themes: Theme[] }) {
   const [searchQuery, setSearchQuery] = useState('');
+  const [showAllOlderThemes, setShowAllOlderThemes] = useState(false);
 
   // Debug: Log what client receives
   console.log('[CLIENT] Sample themes received:', themes.slice(0, 3).map(t => ({
@@ -216,10 +217,39 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
             gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
             gap: '16px'
           }}>
-            {allThemes.map((theme) => (
+            {(showAllOlderThemes ? allThemes : allThemes.slice(0, 12)).map((theme) => (
               <ThemeTile key={theme.parent} theme={theme} />
             ))}
           </div>
+
+          {!showAllOlderThemes && allThemes.length > 12 && (
+            <div style={{ textAlign: 'center', marginTop: '32px' }}>
+              <button
+                onClick={() => setShowAllOlderThemes(true)}
+                style={{
+                  padding: '12px 32px',
+                  fontSize: 'var(--text-base)',
+                  fontWeight: '600',
+                  color: '#3b82f6',
+                  background: '#ffffff',
+                  border: '2px solid #3b82f6',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#3b82f6';
+                  e.currentTarget.style.color = '#ffffff';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = '#ffffff';
+                  e.currentTarget.style.color = '#3b82f6';
+                }}
+              >
+                Show More ({allThemes.length - 12} more themes)
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

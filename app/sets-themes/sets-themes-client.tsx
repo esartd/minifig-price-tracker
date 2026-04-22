@@ -170,6 +170,7 @@ function ThemeCard({ theme }: { theme: Theme }) {
 
 export default function SetsThemesClient({ themes, currentThemes }: SetsThemesClientProps) {
   const [searchQuery, setSearchQuery] = useState('');
+  const [showAllOlderThemes, setShowAllOlderThemes] = useState(false);
 
   // Calculate dynamic year range for "Current Themes"
   const currentYear = new Date().getFullYear();
@@ -401,10 +402,42 @@ export default function SetsThemesClient({ themes, currentThemes }: SetsThemesCl
             gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
             gap: '28px'
           }}>
-            {filteredAllThemes.map(theme => (
+            {(showAllOlderThemes ? filteredAllThemes : filteredAllThemes.slice(0, 12)).map(theme => (
               <ThemeCard key={theme.parent} theme={theme} />
             ))}
           </div>
+
+          {!showAllOlderThemes && filteredAllThemes.length > 12 && (
+            <div style={{ textAlign: 'center', marginTop: '40px' }}>
+              <button
+                onClick={() => setShowAllOlderThemes(true)}
+                style={{
+                  padding: '14px 40px',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  color: '#3b82f6',
+                  background: '#ffffff',
+                  border: '2px solid #3b82f6',
+                  borderRadius: '12px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  boxShadow: '0 2px 8px rgba(59, 130, 246, 0.1)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#3b82f6';
+                  e.currentTarget.style.color = '#ffffff';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.2)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = '#ffffff';
+                  e.currentTarget.style.color = '#3b82f6';
+                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(59, 130, 246, 0.1)';
+                }}
+              >
+                Show More ({filteredAllThemes.length - 12} more themes)
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Empty State */}
