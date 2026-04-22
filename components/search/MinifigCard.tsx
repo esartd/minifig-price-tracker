@@ -126,7 +126,7 @@ export default function MinifigCard({
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
-            marginBottom: '8px'
+            marginBottom: '6px'
           }}>
             {getDisplayName(minifig.name)}
           </h4>
