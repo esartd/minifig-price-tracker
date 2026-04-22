@@ -658,6 +658,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                       <div style={{ marginTop: '16px' }}>
                         <ListingGeneratorForm
                           item={{...inventoryItem, minifigure_no: inventoryItem.box_no, minifigure_name: inventoryItem.set_name}}
+                          itemType="set"
                           onSuccess={(listing) => {
                             alert('Listing saved!');
                           }}

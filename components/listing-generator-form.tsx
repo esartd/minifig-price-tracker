@@ -21,6 +21,7 @@ interface ListingGeneratorFormProps {
   item: CollectionItem;
   onSuccess: (listing: any) => void;
   onOpen?: () => void;
+  itemType?: 'minifig' | 'set';
 }
 
 interface ListingPreferences {
@@ -63,7 +64,7 @@ const DEFAULT_PREFERENCES: ListingPreferences = {
   shipsWithTracking: true,
 };
 
-export default function ListingGeneratorForm({ item, onSuccess, onOpen }: ListingGeneratorFormProps) {
+export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType = 'minifig' }: ListingGeneratorFormProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [showDetailedForm, setShowDetailedForm] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -102,12 +103,18 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
     }
   }, []);
 
-  // Reset minifig-specific fields when item changes
+  // Reset fields when item changes
   useEffect(() => {
     setFormData(prev => ({
       ...prev,
       accessories: '',
       known_flaws: '',
+      box_condition: 'sealed',
+      completeness: 'complete',
+      building_status: 'unbuilt',
+      instructions_included: true,
+      minifigures_included: true,
+      set_notes: '',
       quantity: 1
     }));
     setPreview(null);
@@ -117,8 +124,16 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
   const [formData, setFormData] = useState({
     platform: 'facebook' as 'facebook' | 'ebay' | 'bricklink' | 'vinted',
     condition_detail: item.condition || 'new',
+    // Minifig fields
     accessories: '',
     known_flaws: '',
+    // Set fields
+    box_condition: 'sealed',
+    completeness: 'complete',
+    building_status: 'unbuilt',
+    instructions_included: true,
+    minifigures_included: true,
+    set_notes: '',
     quantity: 1
   });
 
@@ -626,47 +641,168 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen }: Listin
             </select>
           </div>
 
-          {/* Accessories */}
-          <div style={{ marginBottom: '16px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Accessories Included:</label>
-            <textarea
-              placeholder="Helmet, blasters, cape..."
-              value={formData.accessories}
-              onChange={(e) => setFormData(prev => ({ ...prev, accessories: e.target.value }))}
-              style={{
-                width: '100%',
-                padding: '12px',
-                border: '1px solid #e5e5e5',
-                borderRadius: '8px',
-                fontSize: 'var(--text-sm)',
-                minHeight: '80px',
-                fontFamily: 'inherit',
-                resize: 'vertical',
-                lineHeight: '1.5'
-              }}
-            />
-          </div>
+          {/* Minifig-specific fields */}
+          {itemType === 'minifig' && (
+            <>
+              {/* Accessories */}
+              <div style={{ marginBottom: '16px' }}>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Accessories Included:</label>
+                <textarea
+                  placeholder="Helmet, blasters, cape..."
+                  value={formData.accessories}
+                  onChange={(e) => setFormData(prev => ({ ...prev, accessories: e.target.value }))}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-sm)',
+                    minHeight: '80px',
+                    fontFamily: 'inherit',
+                    resize: 'vertical',
+                    lineHeight: '1.5'
+                  }}
+                />
+              </div>
 
-          {/* Known Flaws */}
-          <div style={{ marginBottom: '16px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Known Flaws (optional):</label>
-            <textarea
-              placeholder="Minor print wear, loose joints..."
-              value={formData.known_flaws}
-              onChange={(e) => setFormData(prev => ({ ...prev, known_flaws: e.target.value }))}
-              style={{
-                width: '100%',
-                padding: '12px',
-                border: '1px solid #e5e5e5',
-                borderRadius: '8px',
-                fontSize: 'var(--text-sm)',
-                minHeight: '80px',
-                fontFamily: 'inherit',
-                resize: 'vertical',
-                lineHeight: '1.5'
-              }}
-            />
-          </div>
+              {/* Known Flaws */}
+              <div style={{ marginBottom: '16px' }}>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Known Flaws (optional):</label>
+                <textarea
+                  placeholder="Minor print wear, loose joints..."
+                  value={formData.known_flaws}
+                  onChange={(e) => setFormData(prev => ({ ...prev, known_flaws: e.target.value }))}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-sm)',
+                    minHeight: '80px',
+                    fontFamily: 'inherit',
+                    resize: 'vertical',
+                    lineHeight: '1.5'
+                  }}
+                />
+              </div>
+            </>
+          )}
+
+          {/* Set-specific fields */}
+          {itemType === 'set' && (
+            <>
+              {/* Box Condition */}
+              <div style={{ marginBottom: '16px' }}>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Box Condition:</label>
+                <select
+                  value={formData.box_condition}
+                  onChange={(e) => setFormData(prev => ({ ...prev, box_condition: e.target.value }))}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-sm)',
+                    background: '#ffffff'
+                  }}
+                >
+                  <option value="sealed">Sealed (never opened)</option>
+                  <option value="opened_mint">Opened - box in mint condition</option>
+                  <option value="opened_good">Opened - box in good condition</option>
+                  <option value="opened_damaged">Opened - box has wear/damage</option>
+                  <option value="no_box">No box (set only)</option>
+                </select>
+              </div>
+
+              {/* Building Status */}
+              <div style={{ marginBottom: '16px' }}>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Building Status:</label>
+                <select
+                  value={formData.building_status}
+                  onChange={(e) => setFormData(prev => ({ ...prev, building_status: e.target.value }))}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-sm)',
+                    background: '#ffffff'
+                  }}
+                >
+                  <option value="unbuilt">Unbuilt (bags sealed)</option>
+                  <option value="partially_built">Partially built</option>
+                  <option value="fully_built">Fully built</option>
+                  <option value="disassembled">Built then disassembled</option>
+                </select>
+              </div>
+
+              {/* Completeness */}
+              <div style={{ marginBottom: '16px' }}>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Completeness:</label>
+                <select
+                  value={formData.completeness}
+                  onChange={(e) => setFormData(prev => ({ ...prev, completeness: e.target.value }))}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-sm)',
+                    background: '#ffffff'
+                  }}
+                >
+                  <option value="complete">100% complete (all pieces)</option>
+                  <option value="complete_verified">100% complete (verified piece count)</option>
+                  <option value="appears_complete">Appears complete (not verified)</option>
+                  <option value="missing_minor">Missing minor pieces</option>
+                  <option value="missing_major">Missing some pieces</option>
+                </select>
+              </div>
+
+              {/* Instructions & Minifigures checkboxes */}
+              <div style={{ marginBottom: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={formData.instructions_included}
+                    onChange={(e) => setFormData(prev => ({ ...prev, instructions_included: e.target.checked }))}
+                    style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                  />
+                  <span style={{ fontSize: 'var(--text-sm)', color: '#171717' }}>Instructions included</span>
+                </label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={formData.minifigures_included}
+                    onChange={(e) => setFormData(prev => ({ ...prev, minifigures_included: e.target.checked }))}
+                    style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                  />
+                  <span style={{ fontSize: 'var(--text-sm)', color: '#171717' }}>All minifigures included</span>
+                </label>
+              </div>
+
+              {/* Additional Notes */}
+              <div style={{ marginBottom: '16px' }}>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Additional Notes (optional):</label>
+                <textarea
+                  placeholder="Any other details about the set condition..."
+                  value={formData.set_notes}
+                  onChange={(e) => setFormData(prev => ({ ...prev, set_notes: e.target.value }))}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-sm)',
+                    minHeight: '80px',
+                    fontFamily: 'inherit',
+                    resize: 'vertical',
+                    lineHeight: '1.5'
+                  }}
+                />
+              </div>
+            </>
+          )}
 
           {/* Quantity */}
           <div style={{ marginBottom: '24px' }}>
