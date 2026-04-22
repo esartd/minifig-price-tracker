@@ -62,6 +62,8 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
   const [addPersonalLoading, setAddPersonalLoading] = useState(false);
   const [addToCollectionQty, setAddToCollectionQty] = useState(1);
   const [addToCollectionLoading, setAddToCollectionLoading] = useState(false);
+  const [addToInventoryQty, setAddToInventoryQty] = useState(1);
+  const [addToInventoryLoading, setAddToInventoryLoading] = useState(false);
 
   const [showMoveDialog, setShowMoveDialog] = useState(false);
   const [showMoveToInventoryDialog, setShowMoveToInventoryDialog] = useState(false);
@@ -272,6 +274,35 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
       setError('Failed to add to personal collection');
     } finally {
       setAddToCollectionLoading(false);
+    }
+  };
+
+  const handleAddToInventoryFromSection = async () => {
+    if (!session) {
+      router.push('/auth/signin');
+      return;
+    }
+    setAddToInventoryLoading(true);
+    setError('');
+    setSuccessMessage('');
+    try {
+      const response = await fetch('/api/set-inventory', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ box_no: set.box_no, quantity: addToInventoryQty, condition })
+      });
+      const data = await response.json();
+      if (data.success) {
+        await refreshCollections();
+        setSuccessMessage(`Added ${addToInventoryQty} ${condition} to Your Inventory!`);
+        setAddToInventoryQty(1);
+      } else {
+        setError(data.error || 'Failed to add');
+      }
+    } catch (err) {
+      setError('Failed to add to inventory');
+    } finally {
+      setAddToInventoryLoading(false);
     }
   };
 
@@ -688,7 +719,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                   {personalCollectionItem && (
                     <>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
-                        marginBottom: '16px', marginTop: '24px' }}>In Your Collection</h2>
+                        marginBottom: '16px', marginTop: inventoryItem ? '24px' : '0' }}>In Your Collection</h2>
                       <div className="inventory-actions-container">
                         <div className="quantity-stepper">
                           <button type="button"
@@ -757,6 +788,53 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                         </button>
                       </div>
                     </>
+                  )}
+
+                  {/* Add to Inventory Section - Only show when collection exists but inventory doesn't */}
+                  {personalCollectionItem && !inventoryItem && (
+                    <div style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid #e5e5e5',
+                      padding: '20px', marginTop: '24px' }}>
+                      <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
+                        marginBottom: '16px', marginTop: '0' }}>Add to Your Inventory?</h2>
+                      <div style={{ marginBottom: '16px' }}>
+                        <label style={{ display: 'block', fontSize: 'var(--text-sm)', fontWeight: '500',
+                          color: '#525252', marginBottom: '8px' }}>Quantity</label>
+                        <div className="quantity-stepper">
+                          <button type="button" onClick={() => setAddToInventoryQty(Math.max(1, addToInventoryQty - 1))}
+                            disabled={addToInventoryQty <= 1} style={{
+                              width: '44px', minWidth: '44px', height: '44px', display: 'flex', alignItems: 'center',
+                              justifyContent: 'center', background: addToInventoryQty > 1 ? '#ffffff' : '#f5f5f5',
+                              border: 'none', borderRight: '1px solid #e5e5e5',
+                              cursor: addToInventoryQty > 1 ? 'pointer' : 'not-allowed',
+                              color: addToInventoryQty > 1 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
+                              fontWeight: '600', padding: 0, flexShrink: 0, transition: 'all 0.2s'
+                            }}>−</button>
+                          <input type="number" min="1" max="9999" value={addToInventoryQty}
+                            onChange={(e) => { const val = parseInt(e.target.value);
+                              if (!isNaN(val) && val >= 1 && val <= 9999) setAddToInventoryQty(val); }}
+                            onFocus={(e) => e.target.select()}
+                            style={{ flex: '1', minWidth: '40px', height: '44px', fontSize: 'var(--text-base)',
+                              fontWeight: '600', color: '#171717', background: '#ffffff', border: 'none',
+                              textAlign: 'center', padding: '0 8px', outline: 'none', appearance: 'none' }} />
+                          <button type="button" onClick={() => setAddToInventoryQty(Math.min(9999, addToInventoryQty + 1))}
+                            disabled={addToInventoryQty >= 9999} style={{
+                              width: '44px', minWidth: '44px', height: '44px', display: 'flex', alignItems: 'center',
+                              justifyContent: 'center', background: addToInventoryQty < 9999 ? '#ffffff' : '#f5f5f5',
+                              border: 'none', borderLeft: '1px solid #e5e5e5',
+                              cursor: addToInventoryQty < 9999 ? 'pointer' : 'not-allowed',
+                              color: addToInventoryQty < 9999 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
+                              fontWeight: '600', padding: 0, flexShrink: 0, transition: 'all 0.2s'
+                            }}>+</button>
+                        </div>
+                      </div>
+                      <button onClick={handleAddToInventoryFromSection} disabled={addToInventoryLoading}
+                        style={{ width: '100%', height: '44px', background: addToInventoryLoading ? '#a3a3a3' : '#3b82f6',
+                          color: '#ffffff', border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)',
+                          fontWeight: '600', cursor: addToInventoryLoading ? 'not-allowed' : 'pointer',
+                          transition: 'all 0.2s' }}>
+                        {addToInventoryLoading ? 'Adding...' : 'Add to Inventory'}
+                      </button>
+                    </div>
                   )}
                 </>
               )}
