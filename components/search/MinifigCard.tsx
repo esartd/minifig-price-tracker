@@ -13,6 +13,9 @@ export default function MinifigCard({
 }: MinifigCardProps) {
   const router = useRouter();
 
+  // Detect if this is a set or minifig
+  const isSet = minifig.resultType === 'set' || minifig.box_no;
+
   // Display full minifig name from BrickLink (no modifications)
   const getDisplayName = (fullName: string): string => {
     const decodeHTML = (html: string) => {
@@ -27,7 +30,11 @@ export default function MinifigCard({
   };
 
   const handleClick = () => {
-    router.push(`/minifigs/${minifig.no}`);
+    if (isSet) {
+      router.push(`/sets/${minifig.box_no}`);
+    } else {
+      router.push(`/minifigs/${minifig.no}`);
+    }
   };
 
   return (
@@ -123,13 +130,27 @@ export default function MinifigCard({
           }}>
             {getDisplayName(minifig.name)}
           </h4>
-          <p className="minifig-card-id" style={{
-            fontSize: 'var(--text-sm)',
-            color: '#737373',
-            fontFamily: 'inherit'
-          }}>
-            {minifig.no}
-          </p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <p className="minifig-card-id" style={{
+              fontSize: 'var(--text-sm)',
+              color: '#737373',
+              fontFamily: 'inherit'
+            }}>
+              {isSet ? minifig.box_no : minifig.no}
+            </p>
+            {isSet && (
+              <span style={{
+                fontSize: 'var(--text-xs)',
+                fontWeight: '600',
+                color: '#3b82f6',
+                background: '#eff6ff',
+                padding: '2px 8px',
+                borderRadius: '4px'
+              }}>
+                SET
+              </span>
+            )}
+          </div>
         </div>
 
         <div className="minifig-card-arrow" style={{

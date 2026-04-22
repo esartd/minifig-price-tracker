@@ -231,21 +231,33 @@ function SearchPageContent() {
     }
 
     try {
+      // Use unified search that returns both minifigs and sets
       const params = new URLSearchParams({ q: term });
       if (category) params.set('category', category);
 
-      const response = await fetch(`/api/minifigs/search?${params.toString()}`);
+      const response = await fetch(`/api/search-all?${params.toString()}`);
       const data = await response.json();
 
-      if (data.success && data.data.length > 0) {
-        if (data.data.length === 1) {
-          setSearchResult(data.data[0]);
+      if (data.success) {
+        const minifigs = data.data.minifigs || [];
+        const sets = data.data.sets || [];
+
+        // Combine results with type indicator
+        const combinedResults = [
+          ...minifigs.map((m: any) => ({ ...m, resultType: 'minifig' })),
+          ...sets.map((s: any) => ({ ...s, resultType: 'set' }))
+        ];
+
+        if (combinedResults.length === 1) {
+          setSearchResult(combinedResults[0]);
           setSearchResults([]);
+        } else if (combinedResults.length > 0) {
+          setSearchResults(combinedResults);
+          setSearchResult(null);
         } else {
-          setSearchResults(data.data);
+          setSearchResults([]);
           setSearchResult(null);
         }
-        if (data.category) setCategoryName(data.category);
       } else {
         setSearchResults([]);
         setSearchResult(null);
