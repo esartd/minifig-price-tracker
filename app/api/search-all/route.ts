@@ -31,6 +31,10 @@ export async function GET(request: NextRequest) {
         minifigs,
         sets
       }
+    }, {
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      }
     });
   } catch (error) {
     console.error('Error in unified search:', error);
