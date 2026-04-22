@@ -814,22 +814,6 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
           </div>
         </div>
 
-        {featuredSets.length > 0 && (
-          <div style={{ marginTop: '48px', marginBottom: '48px' }}>
-            <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: '24px', color: '#171717' }}>
-              Featured {parentTheme} Sets
-            </h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
-              {featuredSets.map((setAd) => (
-                <SetAdCard key={setAd.setNumber || setAd.box_no} setNumber={setAd.setNumber || setAd.box_no}
-                  setName={setAd.name} imageUrl={setAd.imageUrl || setAd.image_url}
-                  year={setAd.year || (setAd.year_released ? parseInt(setAd.year_released) : undefined)}
-                  amazonUrl={setAd.amazonUrl} />
-              ))}
-            </div>
-          </div>
-        )}
-
         {themeSets.length > 0 && (
           <div style={{ marginTop: '48px', marginBottom: '48px' }}>
             <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: '24px', color: '#171717' }}>
@@ -851,6 +835,22 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                     </div>
                   </div>
                 </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {featuredSets.length > 0 && (
+          <div style={{ marginTop: '48px', marginBottom: '48px' }}>
+            <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: '24px', color: '#171717' }}>
+              Featured {parentTheme} Sets
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
+              {featuredSets.map((setAd) => (
+                <SetAdCard key={setAd.setNumber || setAd.box_no} setNumber={setAd.setNumber || setAd.box_no}
+                  setName={setAd.name} imageUrl={setAd.imageUrl || setAd.image_url}
+                  year={setAd.year || (setAd.year_released ? parseInt(setAd.year_released) : undefined)}
+                  amazonUrl={setAd.amazonUrl} />
               ))}
             </div>
           </div>
