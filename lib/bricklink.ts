@@ -316,6 +316,10 @@ export class BricklinkAPI {
   ): Promise<PricingData> {
     const conditionCode = condition === 'new' ? 'N' : 'U';
 
+    // Standardize region to empty string since we only use country_code now
+    // This ensures cache key consistency after the API parameter fix
+    const cacheRegion = '';
+
     // Check cache first
     const cached = await prisma.priceCache.findUnique({
       where: {
@@ -324,7 +328,7 @@ export class BricklinkAPI {
           item_type: 'MINIFIG',
           condition: condition,
           country_code: countryCode,
-          region: region
+          region: cacheRegion
         }
       }
     });
@@ -348,7 +352,7 @@ export class BricklinkAPI {
     const currencyCodeValue = currencyConfig?.code || 'USD';
 
     if (!priceGuide) {
-      console.log(`No price guide returned for ${itemNo} in ${countryCode}/${region} - caching zeros for 1 hour`);
+      console.log(`No price guide returned for ${itemNo} in ${countryCode} - caching zeros for 1 hour`);
       // No data from API - cache zeros for 1 hour to avoid repeated failed API calls
       const expiresAt = new Date();
       expiresAt.setHours(expiresAt.getHours() + 1);
@@ -360,7 +364,7 @@ export class BricklinkAPI {
             item_type: 'MINIFIG',
             condition: condition,
             country_code: countryCode,
-            region: region
+            region: cacheRegion
           }
         },
         update: {
@@ -377,7 +381,7 @@ export class BricklinkAPI {
           item_type: 'MINIFIG',
           condition: condition,
           country_code: countryCode,
-          region: region,
+          region: cacheRegion,
           currency_code: currencyCodeValue,
           six_month_avg: 0,
           current_avg: 0,
@@ -418,7 +422,7 @@ export class BricklinkAPI {
     const expiresAt = new Date();
     if (pricingData.suggestedPrice === 0) {
       expiresAt.setHours(expiresAt.getHours() + 1); // 1 hour for no-seller regions
-      console.log(`No sellers found for ${itemNo} in ${countryCode}/${region}, caching zeros for 1 hour`);
+      console.log(`No sellers found for ${itemNo} in ${countryCode}, caching zeros for 1 hour`);
     } else {
       expiresAt.setHours(expiresAt.getHours() + 6); // 6 hour per BrickLink API Terms
     }
@@ -430,7 +434,7 @@ export class BricklinkAPI {
           item_type: 'MINIFIG',
           condition: condition,
           country_code: countryCode,
-          region: region
+          region: cacheRegion
         }
       },
       update: {
@@ -447,7 +451,7 @@ export class BricklinkAPI {
         item_type: 'MINIFIG',
         condition: condition,
         country_code: countryCode,
-        region: region,
+        region: cacheRegion,
         currency_code: currencyCodeValue,
         six_month_avg: pricingData.sixMonthAverage,
         current_avg: pricingData.currentAverage,
@@ -489,6 +493,9 @@ export class BricklinkAPI {
   ): Promise<PricingData> {
     const conditionCode = condition === 'new' ? 'N' : 'U';
 
+    // Standardize region to empty string since we only use country_code now
+    const cacheRegion = '';
+
     // Check cache first
     const cached = await prisma.priceCache.findUnique({
       where: {
@@ -497,7 +504,7 @@ export class BricklinkAPI {
           item_type: 'SET',
           condition: condition,
           country_code: countryCode,
-          region: region
+          region: cacheRegion
         }
       }
     });
@@ -521,7 +528,7 @@ export class BricklinkAPI {
     const currencyCodeValue = currencyConfig?.code || 'USD';
 
     if (!priceGuide) {
-      console.log(`No price guide returned for set ${boxNo} in ${countryCode}/${region} - caching zeros for 1 hour`);
+      console.log(`No price guide returned for set ${boxNo} in ${countryCode} - caching zeros for 1 hour`);
       // No data from API - cache zeros for 1 hour to avoid repeated failed API calls
       const expiresAt = new Date();
       expiresAt.setHours(expiresAt.getHours() + 1);
@@ -533,7 +540,7 @@ export class BricklinkAPI {
             item_type: 'SET',
             condition: condition,
             country_code: countryCode,
-            region: region
+            region: cacheRegion
           }
         },
         update: {
@@ -550,7 +557,7 @@ export class BricklinkAPI {
           item_type: 'SET',
           condition: condition,
           country_code: countryCode,
-          region: region,
+          region: cacheRegion,
           currency_code: currencyCodeValue,
           six_month_avg: 0,
           current_avg: 0,
@@ -591,7 +598,7 @@ export class BricklinkAPI {
     const expiresAt = new Date();
     if (pricingData.suggestedPrice === 0) {
       expiresAt.setHours(expiresAt.getHours() + 1); // 1 hour for no-seller regions
-      console.log(`No sellers found for set ${boxNo} in ${countryCode}/${region}, caching zeros for 1 hour`);
+      console.log(`No sellers found for set ${boxNo} in ${countryCode}, caching zeros for 1 hour`);
     } else {
       expiresAt.setHours(expiresAt.getHours() + 6); // 6 hour per BrickLink API Terms
     }
@@ -603,7 +610,7 @@ export class BricklinkAPI {
           item_type: 'SET',
           condition: condition,
           country_code: countryCode,
-          region: region
+          region: cacheRegion
         }
       },
       update: {
@@ -620,7 +627,7 @@ export class BricklinkAPI {
         item_type: 'SET',
         condition: condition,
         country_code: countryCode,
-        region: region,
+        region: cacheRegion,
         currency_code: currencyCodeValue,
         six_month_avg: pricingData.sixMonthAverage,
         current_avg: pricingData.currentAverage,
