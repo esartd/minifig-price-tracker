@@ -16,7 +16,17 @@ interface LegoBox {
 }
 
 function SetCard({ set }: { set: LegoBox }) {
-  const [imageError, setImageError] = useState(false);
+  const [currentImageUrl, setCurrentImageUrl] = useState(set.image_url);
+  const [showFallback, setShowFallback] = useState(false);
+
+  const handleImageError = () => {
+    // Try fallback: ON -> SN (Original New -> Standard New)
+    if (currentImageUrl.includes('/ON/')) {
+      setCurrentImageUrl(currentImageUrl.replace('/ON/', '/SN/'));
+    } else {
+      setShowFallback(true);
+    }
+  };
 
   return (
     <Link
@@ -48,15 +58,16 @@ function SetCard({ set }: { set: LegoBox }) {
           justifyContent: 'center',
           padding: '20px'
         }}>
-          {!imageError ? (
+          {!showFallback ? (
             <Image
-              src={set.image_url}
+              key={currentImageUrl}
+              src={currentImageUrl}
               alt={set.name}
               width={240}
               height={240}
               style={{ objectFit: 'contain', maxHeight: '220px' }}
               unoptimized
-              onError={() => setImageError(true)}
+              onError={handleImageError}
             />
           ) : (
             <div style={{

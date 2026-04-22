@@ -6,6 +6,103 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { LegoBox } from '@/types';
 
+function SetCard({ set }: { set: LegoBox }) {
+  const [currentImageUrl, setCurrentImageUrl] = useState(set.image_url || '');
+  const [showFallback, setShowFallback] = useState(!set.image_url);
+
+  const handleImageError = () => {
+    // Try fallback: ON -> SN (Original New -> Standard New)
+    if (currentImageUrl.includes('/ON/')) {
+      setCurrentImageUrl(currentImageUrl.replace('/ON/', '/SN/'));
+    } else {
+      setShowFallback(true);
+    }
+  };
+
+  return (
+    <Link
+      href={`/sets/${set.box_no}`}
+      style={{ textDecoration: 'none' }}
+    >
+      <div style={{
+        background: 'white',
+        borderRadius: '12px',
+        overflow: 'hidden',
+        border: '1px solid #e5e5e5',
+        transition: 'all 0.2s',
+        cursor: 'pointer',
+        height: '100%'
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = 'translateY(-4px)';
+        e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.1)';
+        e.currentTarget.style.borderColor = '#3b82f6';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.boxShadow = 'none';
+        e.currentTarget.style.borderColor = '#e5e5e5';
+      }}>
+        {/* Image */}
+        <div style={{
+          height: '200px',
+          background: '#ffffff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px'
+        }}>
+          {!showFallback ? (
+            <Image
+              key={currentImageUrl}
+              src={currentImageUrl}
+              alt={set.name}
+              width={180}
+              height={180}
+              style={{ objectFit: 'contain', maxHeight: '180px' }}
+              unoptimized
+              onError={handleImageError}
+            />
+          ) : (
+            <div style={{ fontSize: '72px', opacity: 0.3 }}>📦</div>
+          )}
+        </div>
+
+        {/* Content */}
+        <div style={{ padding: '16px' }}>
+          <div style={{
+            fontSize: '12px',
+            color: '#3b82f6',
+            fontWeight: '600',
+            marginBottom: '4px'
+          }}>
+            {set.box_no}
+          </div>
+
+          <h3 style={{
+            fontSize: '15px',
+            fontWeight: '600',
+            color: '#171717',
+            marginBottom: '8px',
+            lineHeight: '1.4',
+            minHeight: '42px'
+          }}>
+            {set.name}
+          </h3>
+
+          <div style={{
+            fontSize: '12px',
+            color: '#737373'
+          }}>
+            {set.year_released && `Year: ${set.year_released}`}
+            {set.weight && ` • Weight: ${set.weight}g`}
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 function SetsBrowseContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -184,100 +281,7 @@ function SetsBrowseContent() {
                 gap: '24px'
               }}>
                 {sets.map(set => (
-                  <Link
-                    key={set.box_no}
-                    href={`/sets/${set.box_no}`}
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <div style={{
-                      background: 'white',
-                      borderRadius: '12px',
-                      overflow: 'hidden',
-                      border: '1px solid #e5e5e5',
-                      transition: 'all 0.2s',
-                      cursor: 'pointer',
-                      height: '100%'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-4px)';
-                      e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.1)';
-                      e.currentTarget.style.borderColor = '#3b82f6';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = 'none';
-                      e.currentTarget.style.borderColor = '#e5e5e5';
-                    }}>
-                      {/* Image */}
-                      <div style={{
-                        height: '200px',
-                        background: '#ffffff',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        padding: '20px'
-                      }}>
-                        {set.image_url ? (
-                          <Image
-                            src={set.image_url}
-                            alt={set.name}
-                            width={180}
-                            height={180}
-                            style={{ objectFit: 'contain', maxHeight: '180px' }}
-                            unoptimized
-                          />
-                        ) : (
-                          <div style={{ fontSize: '72px', opacity: 0.3 }}>📦</div>
-                        )}
-                      </div>
-
-                      {/* Content */}
-                      <div style={{ padding: '16px' }}>
-                        <div style={{
-                          fontSize: '12px',
-                          color: '#3b82f6',
-                          fontWeight: '600',
-                          marginBottom: '4px'
-                        }}>
-                          {set.box_no}
-                        </div>
-
-                        <h3 style={{
-                          fontSize: '15px',
-                          fontWeight: '600',
-                          color: '#171717',
-                          marginBottom: '8px',
-                          lineHeight: '1.4',
-                          minHeight: '42px'
-                        }}>
-                          {set.name}
-                        </h3>
-
-                        {/* Theme Badge */}
-                        {set.category_name && (
-                          <div style={{
-                            fontSize: '11px',
-                            background: '#f0f9ff',
-                            color: '#0369a1',
-                            padding: '4px 8px',
-                            borderRadius: '6px',
-                            marginBottom: '8px',
-                            display: 'inline-block'
-                          }}>
-                            {set.category_name.split(' / ')[0]}
-                          </div>
-                        )}
-
-                        <div style={{
-                          fontSize: '12px',
-                          color: '#737373',
-                          marginTop: '8px'
-                        }}>
-                          Year: {set.year_released} • {set.weight}g
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
+                  <SetCard key={set.box_no} set={set} />
                 ))}
               </div>
             </>
