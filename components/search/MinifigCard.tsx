@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
@@ -12,6 +13,7 @@ export default function MinifigCard({
   minifig
 }: MinifigCardProps) {
   const router = useRouter();
+  const [imageError, setImageError] = useState(false);
 
   // Detect if this is a set or minifig
   const isSet = minifig.resultType === 'set' || minifig.box_no;
@@ -105,7 +107,7 @@ export default function MinifigCard({
           overflow: 'hidden'
         }}
       >
-        {imageUrl ? (
+        {imageUrl && !imageError ? (
           <Image
             className="minifig-card-image"
             src={imageUrl}
@@ -120,6 +122,17 @@ export default function MinifigCard({
               ...getSensitiveImageStyles(minifig.minifigure_no || minifig.no, minifig.name)
             }}
             unoptimized
+            onError={(e) => {
+              // If ON format fails for sets, try SN format
+              if (isSet && imageUrl.includes('/ON/')) {
+                const snUrl = imageUrl.replace('/ON/', '/SN/');
+                if (e.currentTarget.src !== snUrl) {
+                  e.currentTarget.src = snUrl;
+                  return;
+                }
+              }
+              setImageError(true);
+            }}
           />
         ) : (
           <div style={{
