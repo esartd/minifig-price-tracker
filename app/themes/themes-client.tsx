@@ -1,29 +1,166 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface Theme {
   parent: string;
-  subcategories: Array<any>;
+  subcategories: Array<{
+    name: string;
+    fullName: string;
+    count: number;
+  }>;
   subcategoryCount: number;
   totalCount: number;
   representativeImage: string | null;
   isCurrent: boolean;
 }
 
-export default function ThemesClient({ themes }: { themes: Theme[] }) {
+interface ThemesClientProps {
+  themes: Theme[];
+}
+
+function ThemeCard({ theme }: { theme: Theme }) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showFallback, setShowFallback] = useState(false);
+
+  const handleImageError = () => {
+    // Show brick emoji fallback
+    setShowFallback(true);
+  };
+
+  return (
+    <Link
+      href={`/themes/${encodeURIComponent(theme.parent)}`}
+      style={{ textDecoration: 'none' }}
+    >
+      <div style={{
+        background: 'white',
+        borderRadius: '12px',
+        overflow: 'hidden',
+        border: '1px solid #e5e5e5',
+        transition: 'all 0.2s',
+        cursor: 'pointer',
+        height: '100%'
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = 'translateY(-4px)';
+        e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.1)';
+        e.currentTarget.style.borderColor = '#3b82f6';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.boxShadow = 'none';
+        e.currentTarget.style.borderColor = '#e5e5e5';
+      }}>
+        {/* Representative Image */}
+        <div style={{
+          height: '200px',
+          background: '#ffffff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative',
+          padding: '20px'
+        }}>
+          {theme.representativeImage && !showFallback ? (
+            <Image
+              src={theme.representativeImage}
+              alt={theme.parent}
+              width={180}
+              height={180}
+              style={{ objectFit: 'contain', maxHeight: '180px', maxWidth: '100%' }}
+              unoptimized
+              onError={handleImageError}
+            />
+          ) : (
+            <div style={{
+              fontSize: '72px',
+              opacity: 0.3
+            }}>
+              🧱
+            </div>
+          )}
+        </div>
+
+        {/* Content */}
+        <div style={{ padding: '24px' }}>
+          <h2 style={{
+            fontSize: '18px',
+            fontWeight: '700',
+            color: '#171717',
+            marginBottom: '12px',
+            lineHeight: '1.4'
+          }}>
+            {theme.parent}
+          </h2>
+
+          <div style={{
+            fontSize: '14px',
+            color: '#737373',
+            marginBottom: '16px',
+            lineHeight: '1.5'
+          }}>
+            {theme.totalCount.toLocaleString()} minifigures
+            {theme.subcategoryCount > 0 && (
+              <> • {theme.subcategoryCount} {theme.subcategoryCount === 1 ? 'series' : 'series'}</>
+            )}
+          </div>
+
+          {/* Subcategories Preview */}
+          {theme.subcategories && theme.subcategories.length > 0 && (
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '8px',
+              marginTop: '16px'
+            }}>
+              {theme.subcategories.slice(0, 3).map(sub => (
+                <div
+                  key={sub.name}
+                  style={{
+                    fontSize: '11px',
+                    background: '#f0f9ff',
+                    color: '#0369a1',
+                    padding: '6px 10px',
+                    borderRadius: '6px',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    maxWidth: '140px'
+                  }}
+                >
+                  {sub.name} ({sub.count})
+                </div>
+              ))}
+              {theme.subcategories.length > 3 && (
+                <div style={{
+                  fontSize: '11px',
+                  background: '#f3f4f6',
+                  color: '#6b7280',
+                  padding: '6px 10px',
+                  borderRadius: '6px'
+                }}>
+                  +{theme.subcategories.length - 3} more
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+export default function ThemesClient({ themes }: ThemesClientProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [showAllOlderThemes, setShowAllOlderThemes] = useState(false);
 
-  // Debug: Log what client receives
-  console.log('[CLIENT] Sample themes received:', themes.slice(0, 3).map(t => ({
-    parent: t.parent,
-    subcategoryCount: t.subcategoryCount,
-    subArrayLength: t.subcategories?.length,
-    totalCount: t.totalCount
-  })));
+  // Calculate dynamic year range for "Current Themes"
+  const currentYear = new Date().getFullYear();
+  const minCurrentYear = currentYear - 2;
+  const yearRange = `${minCurrentYear}-${currentYear}`;
 
   // Filter themes based on search query
   const filteredThemes = themes.filter(theme =>
@@ -31,78 +168,93 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
   );
 
   const totalMinifigs = themes.reduce((sum, theme) => sum + theme.totalCount, 0);
-  const currentThemes = filteredThemes.filter(t => t.isCurrent);
-  const allThemes = filteredThemes.filter(t => !t.isCurrent);
+  const filteredCurrentThemes = filteredThemes.filter(t => t.isCurrent);
+  const filteredAllThemes = filteredThemes.filter(t => !t.isCurrent);
 
   return (
-    <div style={{
-      maxWidth: '1200px',
-      margin: '0 auto',
-      padding: '48px 16px'
-    }}>
-      <div style={{ marginBottom: '48px' }}>
-        <h1 style={{
-          fontSize: 'var(--text-2xl)',
-          fontWeight: '600',
-          color: '#171717',
-          letterSpacing: '-0.02em',
-          marginBottom: '16px'
-        }}>
-          Browse by Theme
-        </h1>
-        <p style={{
-          fontSize: 'var(--text-base)',
-          color: '#737373',
-          lineHeight: '1.6',
-          marginBottom: '24px'
-        }}>
-          Explore {totalMinifigs.toLocaleString()} minifigures across {themes.length} themes
-        </p>
+    <>
+      <style jsx>{`
+        .responsive-padding {
+          padding: 16px !important;
+        }
 
-        {/* Search Bar - Google Style (matches search page) */}
+        @media (min-width: 768px) {
+          .responsive-padding {
+            padding: 24px !important;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .responsive-padding {
+            padding: 32px !important;
+          }
+        }
+      `}</style>
+
+      <div style={{
+        minHeight: '100vh',
+        background: '#fafafa'
+      }}>
+      {/* Header */}
+      <div style={{
+        background: 'white',
+        borderBottom: '1px solid #e5e5e5',
+        position: 'sticky',
+        top: 0,
+        zIndex: 100
+      }}>
         <div style={{
-          position: 'relative',
-          width: '100%',
-          maxWidth: '600px',
-          boxSizing: 'border-box'
-        }}>
+          maxWidth: '1400px',
+          margin: '0 auto',
+          padding: '16px'
+        }}
+        className="responsive-padding">
+          <h1 style={{
+            fontSize: 'clamp(28px, 5vw, 36px)',
+            fontWeight: '700',
+            marginBottom: '8px',
+            color: '#171717',
+            lineHeight: '1.2'
+          }}>
+            Browse Minifigures by Theme
+          </h1>
+          <p style={{
+            fontSize: 'clamp(14px, 2vw, 16px)',
+            color: '#737373',
+            marginBottom: '16px',
+            lineHeight: '1.5'
+          }}>
+            Explore {totalMinifigs.toLocaleString()} minifigures across {themes.length} themes
+          </p>
+
+          {/* Search */}
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               gap: '12px',
-              width: '100%',
-              height: 'var(--icon-2xl)',
-              padding: '0 16px',
-              backgroundColor: '#ffffff',
+              padding: '14px 16px',
+              background: '#ffffff',
               border: '1px solid #dfe1e5',
               borderRadius: '24px',
-              boxSizing: 'border-box',
-              boxShadow: 'none',
-              transition: 'box-shadow 200ms'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = '0 1px 6px rgba(32,33,36,.28)';
-            }}
-            onMouseLeave={(e) => {
-              const input = e.currentTarget.querySelector('input');
-              if (document.activeElement !== input) {
-                e.currentTarget.style.boxShadow = 'none';
-              }
+              transition: 'box-shadow 0.2s, border-color 0.2s',
+              width: '100%',
+              maxWidth: '720px'
             }}
             onFocus={(e) => {
+              e.currentTarget.style.borderColor = 'transparent';
               e.currentTarget.style.boxShadow = '0 1px 6px rgba(32,33,36,.28)';
             }}
             onBlur={(e) => {
               e.currentTarget.style.boxShadow = 'none';
             }}
           >
-            {/* Search Icon - Fixed 20px */}
+            {/* Search Icon */}
             <svg style={{ width: 'var(--icon-base)', height: 'var(--icon-base)', flexShrink: 0, color: '#9aa0a6' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="var(--icon-stroke)">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
 
-            {/* Input - Fills remaining space */}
+            {/* Input */}
             <input
               type="text"
               value={searchQuery}
@@ -121,26 +273,23 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
               }}
             />
 
-            {/* Clear button (X) - Google Style */}
+            {/* Clear button (X) */}
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
                 style={{
-                  width: 'var(--icon-base)',
-                  height: 'var(--icon-base)',
-                  minWidth: '20px',
-                  minHeight: '20px',
-                  flexShrink: 0,
-                  borderRadius: '50%',
-                  backgroundColor: 'transparent',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  width: '24px',
+                  height: '24px',
                   padding: 0,
+                  background: 'none',
                   border: 'none',
                   cursor: 'pointer',
-                  transition: 'background-color 0.15s',
-                  boxSizing: 'border-box'
+                  borderRadius: '50%',
+                  flexShrink: 0,
+                  color: '#5f6368'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = '#f1f3f4';
@@ -149,8 +298,8 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
                   e.currentTarget.style.backgroundColor = 'transparent';
                 }}
               >
-                <svg width="var(--icon-xs)" height="var(--icon-xs)" viewBox="0 0 24 24" fill="none">
-                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="#70757a"/>
+                <svg style={{ width: '18px', height: '18px' }} fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
                 </svg>
               </button>
             )}
@@ -158,179 +307,142 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
         </div>
       </div>
 
-      {/* No results message */}
-      {filteredThemes.length === 0 && searchQuery && (
-        <div style={{
-          textAlign: 'center',
-          padding: '64px 16px',
-          color: '#737373'
-        }}>
-          <svg width="var(--icon-2xl)" height="var(--icon-2xl)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto 16px', opacity: 0.5 }}>
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="m21 21-4.35-4.35"></path>
-          </svg>
-          <p style={{ fontSize: 'var(--text-base)', marginBottom: '8px', color: '#171717' }}>No themes found</p>
-          <p style={{ fontSize: 'var(--text-sm)' }}>Try searching for something else</p>
-        </div>
-      )}
-
-      {/* Current Themes Section */}
-      {currentThemes.length > 0 && (
-        <div style={{ marginBottom: '64px' }}>
-          <h2 style={{
-            fontSize: 'var(--text-xl)',
-            fontWeight: '600',
-            color: '#171717',
-            letterSpacing: '-0.02em',
-            marginBottom: '24px'
-          }}>
-            Current Themes
-            {searchQuery && <span style={{ fontSize: 'var(--text-base)', fontWeight: 'normal', color: '#737373', marginLeft: '12px' }}>({currentThemes.length})</span>}
-          </h2>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-            gap: '16px'
-          }}>
-            {currentThemes.map((theme) => (
-              <ThemeTile key={theme.parent} theme={theme} />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Older Themes Section */}
-      {allThemes.length > 0 && (
-        <div>
-          <h2 style={{
-            fontSize: 'var(--text-xl)',
-            fontWeight: '600',
-            color: '#171717',
-            letterSpacing: '-0.02em',
-            marginBottom: '24px'
-          }}>
-            Older Themes
-            {searchQuery && <span style={{ fontSize: 'var(--text-base)', fontWeight: 'normal', color: '#737373', marginLeft: '12px' }}>({allThemes.length})</span>}
-          </h2>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-            gap: '16px'
-          }}>
-            {(showAllOlderThemes ? allThemes : allThemes.slice(0, 12)).map((theme) => (
-              <ThemeTile key={theme.parent} theme={theme} />
-            ))}
-          </div>
-
-          {!showAllOlderThemes && allThemes.length > 12 && (
-            <div style={{ textAlign: 'center', marginTop: '32px' }}>
-              <button
-                onClick={() => setShowAllOlderThemes(true)}
-                style={{
-                  padding: '12px 32px',
-                  fontSize: 'var(--text-base)',
-                  fontWeight: '600',
-                  color: '#3b82f6',
-                  background: '#ffffff',
-                  border: '2px solid #3b82f6',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#3b82f6';
-                  e.currentTarget.style.color = '#ffffff';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#ffffff';
-                  e.currentTarget.style.color = '#3b82f6';
-                }}
-              >
-                Show More ({allThemes.length - 12} more themes)
-              </button>
+      <div style={{
+        maxWidth: '1400px',
+        margin: '0 auto',
+        padding: '16px'
+      }}
+      className="responsive-padding">
+        {/* Current Themes Section */}
+        {filteredCurrentThemes.length > 0 && (
+          <div style={{ marginBottom: '64px' }}>
+            <h2 style={{
+              fontSize: '24px',
+              fontWeight: '700',
+              color: '#171717',
+              marginBottom: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}>
+              Current Themes
+              <span style={{
+                fontSize: '16px',
+                fontWeight: '500',
+                color: '#737373'
+              }}>
+                ({filteredCurrentThemes.length})
+              </span>
+            </h2>
+            <p style={{
+              fontSize: '14px',
+              color: '#737373',
+              marginBottom: '24px'
+            }}>
+              Themes with minifigures released in the last 2 years ({yearRange})
+            </p>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gap: '28px'
+            }}>
+              {filteredCurrentThemes.map(theme => (
+                <ThemeCard key={theme.parent} theme={theme} />
+              ))}
             </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
+          </div>
+        )}
 
-// Theme tile component to avoid duplication
-function ThemeTile({ theme }: { theme: Theme }) {
-  return (
-    <Link
-      href={`/themes/${encodeURIComponent(theme.parent)}`}
-      style={{
-        padding: '16px',
-        background: '#ffffff',
-        border: '1px solid #e5e5e5',
-        borderRadius: '12px',
-        cursor: 'pointer',
-        transition: 'all 0.2s',
-        textAlign: 'left',
-        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: '16px',
-        textDecoration: 'none'
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
-        e.currentTarget.style.borderColor = '#d4d4d4';
-        e.currentTarget.style.transform = 'translateY(-2px)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.05)';
-        e.currentTarget.style.borderColor = '#e5e5e5';
-        e.currentTarget.style.transform = 'translateY(0)';
-      }}
-    >
-      {/* Representative Image - Left side */}
-      {theme.representativeImage && (
-        <div style={{
-          width: '80px',
-          height: '80px',
-          flexShrink: 0,
-          background: '#ffffff',
-          borderRadius: '8px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          <Image
-            src={theme.representativeImage}
-            alt={theme.parent}
-            width={80}
-            height={80}
-            style={{ objectFit: 'contain', width: '100%', height: '100%' }}
-            loading="lazy"
-            unoptimized
-          />
-        </div>
-      )}
+        {/* Older Themes Section */}
+        {filteredAllThemes.length > 0 && (
+          <div>
+            <h2 style={{
+              fontSize: '24px',
+              fontWeight: '700',
+              color: '#171717',
+              marginBottom: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}>
+              Older Themes
+              <span style={{
+                fontSize: '16px',
+                fontWeight: '500',
+                color: '#737373'
+              }}>
+                ({filteredAllThemes.length})
+              </span>
+            </h2>
+            <p style={{
+              fontSize: '14px',
+              color: '#737373',
+              marginBottom: '24px'
+            }}>
+              Themes from previous years
+            </p>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gap: '28px'
+            }}>
+              {(showAllOlderThemes ? filteredAllThemes : filteredAllThemes.slice(0, 12)).map(theme => (
+                <ThemeCard key={theme.parent} theme={theme} />
+              ))}
+            </div>
 
-      {/* Text Content - Right side */}
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <h3 style={{
-          fontSize: 'var(--text-base)',
-          fontWeight: '600',
-          color: '#171717',
-          marginBottom: '4px',
-          letterSpacing: '-0.01em'
-        }}>
-          {theme.parent}
-        </h3>
-        <p style={{
-          fontSize: 'var(--text-sm)',
-          color: '#737373'
-        }}>
-          {theme.totalCount.toLocaleString()} minifigure{theme.totalCount !== 1 ? 's' : ''}
-          {theme.subcategoryCount > 0 && ` · ${theme.subcategoryCount} ${theme.subcategoryCount === 1 ? 'series' : 'series'}`}
-        </p>
+            {!showAllOlderThemes && filteredAllThemes.length > 12 && (
+              <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                <button
+                  onClick={() => setShowAllOlderThemes(true)}
+                  style={{
+                    padding: '14px 40px',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    color: '#3b82f6',
+                    background: '#ffffff',
+                    border: '2px solid #3b82f6',
+                    borderRadius: '12px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    boxShadow: '0 2px 8px rgba(59, 130, 246, 0.1)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#3b82f6';
+                    e.currentTarget.style.color = '#ffffff';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.2)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#ffffff';
+                    e.currentTarget.style.color = '#3b82f6';
+                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(59, 130, 246, 0.1)';
+                  }}
+                >
+                  Show More ({filteredAllThemes.length - 12} more themes)
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Empty State */}
+        {filteredCurrentThemes.length === 0 && filteredAllThemes.length === 0 && (
+          <div style={{
+            textAlign: 'center',
+            padding: '80px 20px',
+            color: '#737373'
+          }}>
+            <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
+            <div style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>
+              No themes found
+            </div>
+            <div style={{ fontSize: '14px' }}>
+              Try adjusting your search
+            </div>
+          </div>
+        )}
       </div>
-    </Link>
+      </div>
+    </>
   );
 }
