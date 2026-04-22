@@ -37,6 +37,25 @@ export default function MinifigCard({
     }
   };
 
+  // Get image URL - use provided image_url or construct from minifigure number
+  const getImageUrl = () => {
+    if (minifig.image_url) {
+      return minifig.image_url;
+    }
+
+    // Fallback: construct BrickLink image URL from item number
+    const itemNo = isSet ? minifig.box_no : (minifig.minifigure_no || minifig.no);
+    if (itemNo) {
+      return isSet
+        ? `https://img.bricklink.com/ItemImage/SN/0/${itemNo}.png`
+        : `https://img.bricklink.com/ItemImage/MN/0/${itemNo}.png`;
+    }
+
+    return null;
+  };
+
+  const imageUrl = getImageUrl();
+
   return (
     <div
       className="minifig-card"
@@ -79,10 +98,10 @@ export default function MinifigCard({
           overflow: 'hidden'
         }}
       >
-        {minifig.image_url ? (
+        {imageUrl ? (
           <Image
             className="minifig-card-image"
-            src={minifig.image_url}
+            src={imageUrl}
             alt={minifig.name}
             width={100}
             height={140}
@@ -91,7 +110,7 @@ export default function MinifigCard({
               width: 'auto',
               maxWidth: 'none',
               objectFit: 'contain',
-              ...getSensitiveImageStyles(minifig.no, minifig.name)
+              ...getSensitiveImageStyles(minifig.minifigure_no || minifig.no, minifig.name)
             }}
             unoptimized
           />
