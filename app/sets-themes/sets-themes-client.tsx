@@ -369,7 +369,7 @@ export default function SetsThemesClient({ themes, currentThemes }: SetsThemesCl
           </div>
         )}
 
-        {/* All Themes Section */}
+        {/* Older Themes Section */}
         <div>
           <h2 style={{
             fontSize: '24px',
@@ -380,7 +380,7 @@ export default function SetsThemesClient({ themes, currentThemes }: SetsThemesCl
             alignItems: 'center',
             gap: '8px'
           }}>
-            All Themes
+            Older Themes
             <span style={{
               fontSize: '16px',
               fontWeight: '500',
@@ -394,7 +394,7 @@ export default function SetsThemesClient({ themes, currentThemes }: SetsThemesCl
             color: '#737373',
             marginBottom: '24px'
           }}>
-            Complete catalog of all LEGO set themes
+            Themes from previous years
           </p>
           <div style={{
             display: 'grid',

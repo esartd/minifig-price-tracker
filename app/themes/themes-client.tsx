@@ -198,7 +198,7 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
         </div>
       )}
 
-      {/* All Themes Section */}
+      {/* Older Themes Section */}
       {allThemes.length > 0 && (
         <div>
           <h2 style={{
@@ -208,7 +208,7 @@ export default function ThemesClient({ themes }: { themes: Theme[] }) {
             letterSpacing: '-0.02em',
             marginBottom: '24px'
           }}>
-            All Themes
+            Older Themes
             {searchQuery && <span style={{ fontSize: 'var(--text-base)', fontWeight: 'normal', color: '#737373', marginLeft: '12px' }}>({allThemes.length})</span>}
           </h2>
           <div style={{
