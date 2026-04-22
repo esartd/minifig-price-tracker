@@ -124,8 +124,7 @@ class DatabaseService {
     const created = await prisma.collectionItem.create({
       data: {
         userId: item.userId,
-        item_no: item.minifigure_no,
-      item_type: 'MINIFIG',
+        minifigure_no: item.minifigure_no,
         minifigure_name: item.minifigure_name,
         quantity: item.quantity,
         condition: item.condition,
@@ -272,8 +271,7 @@ class DatabaseService {
     const created = await prisma.personalCollectionItem.create({
       data: {
         userId: item.userId,
-        item_no: item.minifigure_no,
-      item_type: 'MINIFIG',
+        minifigure_no: item.minifigure_no,
         minifigure_name: item.minifigure_name,
         quantity: item.quantity,
         condition: item.condition,
