@@ -77,7 +77,7 @@ class DatabaseService {
     // Create lookup map for O(1) access
     const priceMap = new Map(
       allPrices.map(price => [
-        `${price.minifigure_no}-${price.condition}-${price.country_code}-${price.region}`,
+        `${price.item_no}-${price.condition}-${price.country_code}-${price.region}`,
         price
       ])
     );
@@ -223,7 +223,7 @@ class DatabaseService {
     // Create lookup map for O(1) access
     const priceMap = new Map(
       allPrices.map(price => [
-        `${price.minifigure_no}-${price.condition}-${price.country_code}-${price.region}`,
+        `${price.item_no}-${price.condition}-${price.country_code}-${price.region}`,
         price
       ])
     );
