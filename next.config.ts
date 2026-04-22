@@ -13,7 +13,6 @@ const nextConfig: NextConfig = {
       },
     ],
     formats: ['image/avif', 'image/webp'],
-    quality: 90, // Higher quality (default is 75)
   },
   async headers() {
     return [
