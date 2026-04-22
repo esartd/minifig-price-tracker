@@ -46,6 +46,12 @@ export default function SearchResults({
   const minifigs = sortByYear(allMinifigs);
   const sets = sortByYear(allSets);
 
+  // Debug: Log what we're showing in grouped view
+  console.log('[SearchResults] Top 5 minifigs for display:');
+  minifigs.slice(0, 5).forEach((m, i) => {
+    console.log(`  ${i + 1}. ${m.year_released} | ${m.minifigure_no} | ${m.name.substring(0, 40)}`);
+  });
+
   // Determine which results to show based on active tab (for theme filtering)
   const displayedResults = activeTab === 'minifigs' ? minifigs : activeTab === 'sets' ? sets : searchResults;
 
