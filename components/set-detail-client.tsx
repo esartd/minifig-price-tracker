@@ -69,14 +69,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
   const [moveSuccess, setMoveSuccess] = useState(false);
   const [lastMovedItem, setLastMovedItem] = useState<{ id: string; direction: 'to-collection' | 'to-inventory' } | null>(null);
 
-  const [condition, setCondition] = useState<'new' | 'used'>(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const conditionParam = params.get('condition');
-      return conditionParam === 'used' ? 'used' : 'new';
-    }
-    return 'new';
-  });
+  const [condition, setCondition] = useState<'new' | 'used'>('new');
 
   const [featuredSets, setFeaturedSets] = useState<any[]>([]);
 
