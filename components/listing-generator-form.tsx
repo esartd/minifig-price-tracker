@@ -148,7 +148,10 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
   const handleGenerate = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/inventory/${item.id}/generate-listing`, {
+      const endpoint = itemType === 'set'
+        ? `/api/set-inventory/${item.id}/generate-listing`
+        : `/api/inventory/${item.id}/generate-listing`;
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -205,7 +208,10 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
 
     setLoading(true);
     try {
-      const response = await fetch(`/api/inventory/${item.id}/generate-listing`, {
+      const endpoint = itemType === 'set'
+        ? `/api/set-inventory/${item.id}/generate-listing`
+        : `/api/inventory/${item.id}/generate-listing`;
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

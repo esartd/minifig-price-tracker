@@ -21,17 +21,31 @@ interface ListingPreferences {
 }
 
 interface ListingData {
-  minifigName: string;
-  minifigNo: string;
+  // Common fields
   theme: string;
   suggestedPrice: number;
   currentAvg: number;
   currentLowest: number;
   condition: string;
-  accessories?: string;
-  knownFlaws?: string;
   quantity: number;
   preferences?: ListingPreferences;
+  itemType?: 'minifig' | 'set';
+
+  // Minifig fields
+  minifigName?: string;
+  minifigNo?: string;
+  accessories?: string;
+  knownFlaws?: string;
+
+  // Set fields
+  setName?: string;
+  setNo?: string;
+  boxCondition?: string;
+  completeness?: string;
+  buildingStatus?: string;
+  instructionsIncluded?: boolean;
+  minifigsIncluded?: boolean;
+  setNotes?: string;
 }
 
 // Extract clean character name from full minifig name
@@ -308,6 +322,12 @@ export function generateListing(
   platform: 'facebook' | 'ebay' | 'bricklink' | 'vinted',
   data: ListingData
 ): { title: string; description: string } {
+  // Handle sets with basic template for now
+  if (data.itemType === 'set' && data.setName && data.setNo) {
+    return generateSetListing(platform, data);
+  }
+
+  // Original minifig templates
   switch (platform) {
     case 'facebook':
       return generateFacebookListing(data);
@@ -320,4 +340,98 @@ export function generateListing(
     default:
       throw new Error(`Unknown platform: ${platform}`);
   }
+}
+
+// Simple set listing generator
+function generateSetListing(
+  platform: string,
+  data: ListingData
+): { title: string; description: string } {
+  const prefs = data.preferences || {};
+
+  let title = `LEGO ${data.theme} ${data.setNo} - ${data.setName}`;
+  if (title.length > 100) {
+    title = `LEGO ${data.setNo} ${data.setName!.substring(0, 70)}...`;
+  }
+
+  let description = `LEGO ${data.theme} Set ${data.setNo} - ${data.setName}\n\nCondition: ${data.condition}`;
+
+  // Box condition
+  if (data.boxCondition) {
+    const boxText: Record<string, string> = {
+      'sealed': 'Box sealed (never opened)',
+      'opened_mint': 'Box opened, in mint condition',
+      'opened_good': 'Box opened, in good condition',
+      'opened_damaged': 'Box opened, has wear/damage',
+      'no_box': 'No original box'
+    };
+    description += `\nBox: ${boxText[data.boxCondition] || data.boxCondition}`;
+  }
+
+  // Building status
+  if (data.buildingStatus) {
+    const buildText: Record<string, string> = {
+      'unbuilt': 'Bags sealed, never built',
+      'partially_built': 'Partially built',
+      'fully_built': 'Fully assembled',
+      'disassembled': 'Built then disassembled'
+    };
+    description += `\nBuilding Status: ${buildText[data.buildingStatus] || data.buildingStatus}`;
+  }
+
+  // Completeness
+  if (data.completeness) {
+    const completeText: Record<string, string> = {
+      'complete': '100% complete',
+      'complete_verified': '100% complete (verified piece count)',
+      'appears_complete': 'Appears complete',
+      'missing_minor': 'Missing minor pieces',
+      'missing_major': 'Missing some pieces'
+    };
+    description += `\nCompleteness: ${completeText[data.completeness] || data.completeness}`;
+  }
+
+  // Instructions and minifigs
+  if (data.instructionsIncluded !== undefined) {
+    description += `\nInstructions: ${data.instructionsIncluded ? 'Included' : 'Not included'}`;
+  }
+  if (data.minifigsIncluded !== undefined) {
+    description += `\nMinifigures: ${data.minifigsIncluded ? 'All included' : 'Not included'}`;
+  }
+
+  if (data.setNotes) {
+    description += `\n\nNotes: ${data.setNotes}`;
+  }
+
+  if (data.quantity > 1) {
+    description += `\n\n${data.quantity} available`;
+  }
+
+  // Delivery options
+  const deliveryOptions: string[] = [];
+  if (prefs.offersLocalPickup) deliveryOptions.push('Local pickup available');
+  if (prefs.offersShipping) deliveryOptions.push('Shipping available');
+  if (deliveryOptions.length > 0) {
+    description += `\n\n${deliveryOptions.join('\n')}`;
+  }
+
+  if (prefs.offersBundleDiscount) {
+    description += `\nBundle discounts available`;
+  }
+
+  // Extra info
+  const extraInfo: string[] = [];
+  if (prefs.smokeFreeHome) extraInfo.push('From smoke-free home');
+  const paymentMethods: string[] = [];
+  if (prefs.acceptsCash) paymentMethods.push('Cash');
+  if (prefs.acceptsVenmo) paymentMethods.push('Venmo');
+  if (prefs.acceptsPayPal) paymentMethods.push('PayPal');
+  if (paymentMethods.length > 0) {
+    extraInfo.push(`Payment: ${paymentMethods.join(', ')}`);
+  }
+  if (extraInfo.length > 0) {
+    description += `\n\n${extraInfo.join('\n')}`;
+  }
+
+  return { title, description };
 }
