@@ -117,7 +117,7 @@ function formatCondition(condition: string, platform: string): string {
 
 // Generate eBay listing
 function generateEbayListing(data: ListingData): { title: string; description: string } {
-  const characterName = extractCharacterName(data.minifigName);
+  const characterName = extractCharacterName(data.minifigName!);
   const formattedCondition = formatCondition(data.condition, 'ebay');
   const prefs = data.preferences || {};
 
@@ -173,7 +173,7 @@ Condition: ${formattedCondition}`;
 
 // Generate Facebook Marketplace listing
 function generateFacebookListing(data: ListingData): { title: string; description: string } {
-  const characterName = extractCharacterName(data.minifigName);
+  const characterName = extractCharacterName(data.minifigName!);
   const formattedCondition = formatCondition(data.condition, 'facebook');
   const prefs = data.preferences || {};
 
@@ -181,7 +181,7 @@ function generateFacebookListing(data: ListingData): { title: string; descriptio
   const title = `LEGO ${data.theme} ${characterName} Minifigure - ${formattedCondition}`;
 
   // Facebook description: Casual, friendly
-  let description = `Authentic LEGO ${characterName} minifigure (${data.minifigNo})
+  let description = `Authentic LEGO ${characterName} minifigure (${data.minifigNo!})
 
 Condition: ${formattedCondition}`;
 
@@ -236,7 +236,7 @@ function generateBricklinkListing(data: ListingData): { title: string; descripti
   const prefs = data.preferences || {};
 
   // BrickLink title: Technical, precise with ID
-  const title = `${data.minifigNo} - ${extractCharacterName(data.minifigName)} - ${formattedCondition}`;
+  const title = `${data.minifigNo} - ${extractCharacterName(data.minifigName!)} - ${formattedCondition}`;
 
   // BrickLink description: Technical, accurate
   let description = `Item: ${data.minifigNo}
@@ -279,7 +279,7 @@ Condition: ${formattedCondition}`;
 
 // Generate Vinted listing
 function generateVintedListing(data: ListingData): { title: string; description: string } {
-  const characterName = extractCharacterName(data.minifigName);
+  const characterName = extractCharacterName(data.minifigName!);
   const formattedCondition = formatCondition(data.condition, 'vinted');
   const prefs = data.preferences || {};
 
