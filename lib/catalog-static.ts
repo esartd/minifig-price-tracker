@@ -88,11 +88,16 @@ export async function searchMinifigs(query: string, limit = 50): Promise<Minifig
   const lowerQuery = query.toLowerCase();
 
   return catalog
-    .filter(m =>
-      m.minifigure_no?.toLowerCase().includes(lowerQuery) ||
-      m.name.toLowerCase().includes(lowerQuery) ||
-      m.category_name.toLowerCase().includes(lowerQuery)
-    )
+    .filter(m => {
+      // Only include minifigs with valid IDs
+      if (!m.minifigure_no) return false;
+
+      return (
+        m.minifigure_no.toLowerCase().includes(lowerQuery) ||
+        m.name.toLowerCase().includes(lowerQuery) ||
+        m.category_name.toLowerCase().includes(lowerQuery)
+      );
+    })
     .slice(0, limit);
 }
 

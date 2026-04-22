@@ -33,7 +33,7 @@ export default function MinifigCard({
     if (isSet) {
       router.push(`/sets/${minifig.box_no}`);
     } else {
-      router.push(`/minifigs/${minifig.no}`);
+      router.push(`/minifigs/${minifig.minifigure_no || minifig.no}`);
     }
   };
 
@@ -136,7 +136,7 @@ export default function MinifigCard({
               color: '#737373',
               fontFamily: 'inherit'
             }}>
-              {isSet ? minifig.box_no : minifig.no}
+              {isSet ? minifig.box_no : (minifig.minifigure_no || minifig.no)}
             </p>
             {minifig.year_released && minifig.year_released !== '?' && (
               <span style={{
