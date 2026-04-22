@@ -105,6 +105,14 @@ export async function searchMinifigs(query: string, limit = 50): Promise<Minifig
     return yearB - yearA; // Descending (newest first)
   });
 
+  // Debug: Log first 3 results after sort
+  if (matches.length > 0) {
+    console.log(`[searchMinifigs] Query: "${query}", Top 3 after sort:`);
+    matches.slice(0, 3).forEach((m, i) => {
+      console.log(`  ${i + 1}. ${m.year_released} | ${m.minifigure_no} | ${m.name.substring(0, 40)}`);
+    });
+  }
+
   return matches.slice(0, limit);
 }
 
