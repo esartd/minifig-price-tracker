@@ -423,8 +423,8 @@ export class BricklinkAPI {
     region: string = 'north_america'
   ): Promise<PriceGuide | null> {
     try {
-      // Strip -1 suffix if present (BrickLink uses "75192" not "75192-1")
-      const bricklinkNo = boxNo.replace(/-1$/, '');
+      // Strip ALL suffixes (BrickLink uses "75192" not "75192-1", "40892" not "40892-1")
+      const bricklinkNo = boxNo.replace(/-\d+$/, '');
 
       const data = await this.makeRequest(
         `/items/SET/${bricklinkNo}/price?new_or_used=${condition}&country_code=${countryCode}&region=${region}`
