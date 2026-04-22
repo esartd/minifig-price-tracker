@@ -901,43 +901,102 @@ export function HeaderClient({ user }: HeaderClientProps) {
           }}>
             Search
           </Link>
+
+          {/* Browse Section */}
+          <div style={{
+            fontSize: '11px',
+            fontWeight: '600',
+            color: '#737373',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+            padding: '15px 0 8px',
+            marginTop: '8px'
+          }}>
+            Browse
+          </div>
           <Link href="/themes" onClick={() => setMobileMenuOpen(false)} style={{
             display: 'block',
-            padding: '15px 0',
+            padding: '12px 0',
             borderBottom: '1px solid #f5f5f5',
             color: '#171717',
             textDecoration: 'none',
-            fontSize: 'var(--text-base)'
+            fontSize: 'var(--text-sm)'
           }}>
-            Themes
+            Minifigure Themes
           </Link>
+          <Link href="/sets-themes" onClick={() => setMobileMenuOpen(false)} style={{
+            display: 'block',
+            padding: '12px 0',
+            borderBottom: '1px solid #f5f5f5',
+            color: '#171717',
+            textDecoration: 'none',
+            fontSize: 'var(--text-sm)'
+          }}>
+            Set Themes
+          </Link>
+
+          {/* Your LEGO Section */}
+          <div style={{
+            fontSize: '11px',
+            fontWeight: '600',
+            color: '#737373',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+            padding: '15px 0 8px',
+            marginTop: '8px'
+          }}>
+            Your LEGO
+          </div>
           <Link href="/inventory" onClick={() => setMobileMenuOpen(false)} style={{
             display: 'block',
-            padding: '15px 0',
+            padding: '12px 0',
             borderBottom: '1px solid #f5f5f5',
             color: '#171717',
             textDecoration: 'none',
-            fontSize: 'var(--text-base)'
+            fontSize: 'var(--text-sm)'
           }}>
-            Your Inventory
+            Minifigures for Sale
           </Link>
           <Link href="/collection" onClick={() => setMobileMenuOpen(false)} style={{
             display: 'block',
-            padding: '15px 0',
+            padding: '12px 0',
             borderBottom: '1px solid #f5f5f5',
             color: '#171717',
             textDecoration: 'none',
-            fontSize: 'var(--text-base)'
+            fontSize: 'var(--text-sm)'
           }}>
-            Your Collection
+            Minifigures to Keep
           </Link>
+          <Link href="/sets-inventory" onClick={() => setMobileMenuOpen(false)} style={{
+            display: 'block',
+            padding: '12px 0',
+            borderBottom: '1px solid #f5f5f5',
+            color: '#171717',
+            textDecoration: 'none',
+            fontSize: 'var(--text-sm)'
+          }}>
+            Sets for Sale
+          </Link>
+          <Link href="/sets-collection" onClick={() => setMobileMenuOpen(false)} style={{
+            display: 'block',
+            padding: '12px 0',
+            borderBottom: '1px solid #f5f5f5',
+            color: '#171717',
+            textDecoration: 'none',
+            fontSize: 'var(--text-sm)'
+          }}>
+            Sets to Keep
+          </Link>
+
+          {/* Other Links */}
           <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
             display: 'block',
             padding: '15px 0',
             borderBottom: '1px solid #f5f5f5',
             color: '#171717',
             textDecoration: 'none',
-            fontSize: 'var(--text-base)'
+            fontSize: 'var(--text-base)',
+            marginTop: '8px'
           }}>
             About
           </Link>
