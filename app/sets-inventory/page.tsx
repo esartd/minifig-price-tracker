@@ -21,9 +21,15 @@ export default function SetsInventoryPage() {
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
 
   // Pagination state
+  // Pagination state for display only (all items loaded client-side)
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
+  const itemsPerPage = 50;
+  // Pagination state for display only (all items loaded client-side)
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 50;
+  // Pagination state for display only (all items loaded client-side)
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 50;
 
   // Stats state
   const [totalValue, setTotalValue] = useState(0);
@@ -64,27 +70,17 @@ export default function SetsInventoryPage() {
     }
   }, [status, router]);
 
-  const loadInventory = async (page: number = 1) => {
+  const loadInventory = async () => {
     try {
-      const response = await fetch(`/api/set-inventory?page=${page}&limit=50`);
+      const response = await fetch(`/api/set-inventory?all=true`);
       const data = await response.json();
 
       if (data.success) {
         setInventory(data.data);
 
         // Update pagination state
-        if (data.pagination) {
-          setTotalPages(data.pagination.totalPages);
-          setTotalCount(data.pagination.totalItems);
-          setCurrentPage(data.pagination.page);
-        }
 
         // Update stats from API response
-        if (data.stats) {
-          setTotalValue(data.stats.totalValue);
-          setTotalQuantity(data.stats.totalQuantity);
-          setAvgValue(data.stats.avgValue);
-        }
 
         setLoading(false);
       }
@@ -101,7 +97,7 @@ export default function SetsInventoryPage() {
       });
 
       if (response.ok) {
-        await loadInventory(currentPage);
+        await loadInventory();
       }
     } catch (error) {
       console.error('Error deleting set:', error);
@@ -141,7 +137,7 @@ export default function SetsInventoryPage() {
 
       const data = await response.json();
       if (data.success) {
-        await loadInventory(currentPage);
+        await loadInventory();
       }
     } catch (error) {
       console.error('Error moving set:', error);
@@ -149,32 +145,42 @@ export default function SetsInventoryPage() {
     }
   };
 
-  const getSortedInventory = () => {
+  const getSortedAndFilteredInventory = () => {
     let filtered = [...inventory];
     if (conditionFilter !== 'all') {
       filtered = filtered.filter(item => item.condition === conditionFilter);
     }
 
+    // Sort
     if (sortOrder === 'price-high') {
-      return filtered.sort((a, b) => {
+      filtered.sort((a, b) => {
         const priceA = a.pricing?.suggestedPrice || 0;
         const priceB = b.pricing?.suggestedPrice || 0;
         return priceB - priceA;
       });
     } else if (sortOrder === 'price-low') {
-      return filtered.sort((a, b) => {
+      filtered.sort((a, b) => {
         const priceA = a.pricing?.suggestedPrice || 0;
         const priceB = b.pricing?.suggestedPrice || 0;
         return priceA - priceB;
       });
     } else if (sortOrder === 'name') {
-      return filtered.sort((a, b) => {
+      filtered.sort((a, b) => {
         return a.set_name.localeCompare(b.set_name);
       });
     }
 
     return filtered;
   };
+
+  // Get filtered/sorted items, then paginate for display
+  const sortedAndFiltered = getSortedAndFilteredInventory();
+  const totalFiltered = sortedAndFiltered.length;
+  const totalPages = Math.ceil(totalFiltered / itemsPerPage);
+  const paginatedItems = sortedAndFiltered.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   if (status === 'loading' || loading) {
     return (
@@ -545,7 +551,7 @@ export default function SetsInventoryPage() {
             )}
           </div>
 
-          {getSortedInventory().length === 0 ? (
+          {sortedAndFiltered.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '60px 0' }}>
               {conditionFilter === 'all' ? (
                 <>
@@ -608,27 +614,29 @@ export default function SetsInventoryPage() {
             </div>
           ) : (
             <SetInventoryList
-              items={getSortedInventory()}
+              items={paginatedItems}
               onItemDelete={handleItemDeleted}
               onItemUpdate={handleItemUpdated}
               showDecimals={showDecimals}
               onItemMove={handleItemMoved}
-              onRefresh={() => loadInventory(currentPage)}
+              onRefresh={loadInventory}
             />
           )}
 
           {/* Pagination */}
           {!loading && inventory.length > 0 && (
-            <CollectionPagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              currentCount={inventory.length}
-              totalCount={totalCount}
-              onPageChange={(page) => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                loadInventory(page);
-              }}
-            />
+            {sortedAndFiltered.length > 0 && totalPages > 1 && (
+              <CollectionPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                currentCount={paginatedItems.length}
+                totalCount={totalFiltered}
+                onPageChange={(page) => {
+                  setCurrentPage(page);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+              />
+            )}
           )}
         </div>
       </div>

@@ -20,15 +20,9 @@ export default function SetsCollectionPage() {
   const [showDecimals, setShowDecimals] = useState(false);
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
 
-  // Pagination state
+  // Pagination state for display only (all items loaded client-side)
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
-
-  // Stats state
-  const [totalValue, setTotalValue] = useState(0);
-  const [totalQuantity, setTotalQuantity] = useState(0);
-  const [avgValue, setAvgValue] = useState(0);
+  const itemsPerPage = 50;
 
   // Load saved preferences on mount
   useEffect(() => {
@@ -64,28 +58,14 @@ export default function SetsCollectionPage() {
     }
   }, [status, router]);
 
-  const loadCollection = async (page: number = 1) => {
+  const loadCollection = async () => {
     try {
-      const response = await fetch(`/api/set-personal-collection?page=${page}&limit=50`);
+      // Fetch ALL items at once
+      const response = await fetch(`/api/set-personal-collection?all=true`);
       const data = await response.json();
 
       if (data.success) {
         setCollection(data.data);
-
-        // Update pagination state
-        if (data.pagination) {
-          setTotalPages(data.pagination.totalPages);
-          setTotalCount(data.pagination.totalItems);
-          setCurrentPage(data.pagination.page);
-        }
-
-        // Update stats from API response
-        if (data.stats) {
-          setTotalValue(data.stats.totalValue);
-          setTotalQuantity(data.stats.totalQuantity);
-          setAvgValue(data.stats.avgValue);
-        }
-
         setLoading(false);
       }
     } catch (error) {
@@ -101,7 +81,7 @@ export default function SetsCollectionPage() {
       });
 
       if (response.ok) {
-        await loadCollection(currentPage);
+        await loadCollection();
       }
     } catch (error) {
       console.error('Error deleting set:', error);
@@ -141,7 +121,7 @@ export default function SetsCollectionPage() {
 
       const data = await response.json();
       if (data.success) {
-        await loadCollection(currentPage);
+        await loadCollection();
       }
     } catch (error) {
       console.error('Error moving set:', error);
@@ -149,32 +129,47 @@ export default function SetsCollectionPage() {
     }
   };
 
-  const getSortedCollection = () => {
+  const getSortedAndFilteredCollection = () => {
     let filtered = [...collection];
     if (conditionFilter !== 'all') {
       filtered = filtered.filter(item => item.condition === conditionFilter);
     }
 
+    // Sort
     if (sortOrder === 'price-high') {
-      return filtered.sort((a, b) => {
+      filtered.sort((a, b) => {
         const priceA = a.pricing?.suggestedPrice || 0;
         const priceB = b.pricing?.suggestedPrice || 0;
         return priceB - priceA;
       });
     } else if (sortOrder === 'price-low') {
-      return filtered.sort((a, b) => {
+      filtered.sort((a, b) => {
         const priceA = a.pricing?.suggestedPrice || 0;
         const priceB = b.pricing?.suggestedPrice || 0;
         return priceA - priceB;
       });
     } else if (sortOrder === 'name') {
-      return filtered.sort((a, b) => {
+      filtered.sort((a, b) => {
         return a.set_name.localeCompare(b.set_name);
       });
     }
 
     return filtered;
   };
+
+  // Get filtered/sorted items, then paginate for display
+  const sortedAndFiltered = getSortedAndFilteredCollection();
+  const totalFiltered = sortedAndFiltered.length;
+  const totalPages = Math.ceil(totalFiltered / itemsPerPage);
+  const paginatedItems = sortedAndFiltered.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  // Stats are always based on entire collection (not filtered)
+  const totalValue = collection.reduce((sum, item) => sum + ((item.pricing?.suggestedPrice || 0) * item.quantity), 0);
+  const totalItems = collection.reduce((sum, item) => sum + item.quantity, 0);
+  const avgValue = collection.length > 0 ? (collection.reduce((sum, item) => sum + (item.pricing?.suggestedPrice || 0), 0) / collection.length) : 0;
 
   if (status === 'loading' || loading) {
     return (
@@ -546,7 +541,7 @@ export default function SetsCollectionPage() {
             )}
           </div>
 
-          {getSortedCollection().length === 0 ? (
+          {sortedAndFiltered.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '60px 0' }}>
               {conditionFilter === 'all' ? (
                 <>
@@ -607,25 +602,25 @@ export default function SetsCollectionPage() {
             </div>
           ) : (
             <SetPersonalCollectionList
-              items={getSortedCollection()}
+              items={paginatedItems}
               onItemDelete={handleItemDeleted}
               onItemUpdate={handleItemUpdated}
               showDecimals={showDecimals}
               onItemMove={handleItemMoved}
-              onRefresh={() => loadCollection(currentPage)}
+              onRefresh={loadCollection}
             />
           )}
 
           {/* Pagination */}
-          {!loading && collection.length > 0 && (
+          {!loading && sortedAndFiltered.length > 0 && totalPages > 1 && (
             <CollectionPagination
               currentPage={currentPage}
               totalPages={totalPages}
-              currentCount={collection.length}
-              totalCount={totalCount}
+              currentCount={paginatedItems.length}
+              totalCount={totalFiltered}
               onPageChange={(page) => {
+                setCurrentPage(page);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                loadCollection(page);
               }}
             />
           )}

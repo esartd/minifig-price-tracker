@@ -23,10 +23,9 @@ export default function CollectionPage() {
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
   const [dbError, setDbError] = useState<Date | null>(null);
 
-  // Pagination state
+  // Pagination state for display only (all items loaded client-side)
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
+  const itemsPerPage = 50;
 
   // Load saved preferences on mount
   useEffect(() => {
@@ -62,9 +61,10 @@ export default function CollectionPage() {
     }
   }, [status, router]);
 
-  const loadCollection = async (page: number = 1) => {
+  const loadCollection = async () => {
     try {
-      const response = await fetch(`/api/inventory?page=${page}&limit=50`);
+      // Fetch ALL items at once
+      const response = await fetch(`/api/inventory?all=true`);
       const data = await response.json();
 
       // Check for database connection limit error
@@ -80,11 +80,6 @@ export default function CollectionPage() {
 
       if (data.success) {
         setCollection(data.data);
-        if (data.pagination) {
-          setTotalPages(data.pagination.totalPages);
-          setTotalCount(data.pagination.totalItems);
-          setCurrentPage(data.pagination.page);
-        }
         setLoading(false); // Show items immediately
 
         // For each item missing pricing, fetch individually
@@ -184,27 +179,28 @@ export default function CollectionPage() {
     }
   };
 
-  const getSortedCollection = () => {
+  const getSortedAndFilteredCollection = () => {
     // Filter by condition first
     let filtered = [...collection];
     if (conditionFilter !== 'all') {
       filtered = filtered.filter(item => item.condition === conditionFilter);
     }
 
+    // Sort
     if (sortOrder === 'price-high') {
-      return filtered.sort((a, b) => {
+      filtered.sort((a, b) => {
         const priceA = a.pricing?.suggestedPrice || 0;
         const priceB = b.pricing?.suggestedPrice || 0;
         return priceB - priceA;
       });
     } else if (sortOrder === 'price-low') {
-      return filtered.sort((a, b) => {
+      filtered.sort((a, b) => {
         const priceA = a.pricing?.suggestedPrice || 0;
         const priceB = b.pricing?.suggestedPrice || 0;
         return priceA - priceB;
       });
     } else if (sortOrder === 'id') {
-      return filtered.sort((a, b) => {
+      filtered.sort((a, b) => {
         return a.minifigure_no.localeCompare(b.minifigure_no);
       });
     }
@@ -212,6 +208,16 @@ export default function CollectionPage() {
     return filtered;
   };
 
+  // Get filtered/sorted items, then paginate for display
+  const sortedAndFiltered = getSortedAndFilteredCollection();
+  const totalFiltered = sortedAndFiltered.length;
+  const totalPages = Math.ceil(totalFiltered / itemsPerPage);
+  const paginatedItems = sortedAndFiltered.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  // Stats are always based on entire collection (not filtered)
   const totalValue = collection.reduce((sum, item) => sum + ((item.pricing?.suggestedPrice || 0) * item.quantity), 0);
   const totalItems = collection.reduce((sum, item) => sum + item.quantity, 0);
   const avgValue = collection.length > 0 ? (collection.reduce((sum, item) => sum + (item.pricing?.suggestedPrice || 0), 0) / collection.length) : 0;
@@ -589,7 +595,7 @@ export default function CollectionPage() {
             )}
           </div>
 
-          {getSortedCollection().length === 0 ? (
+          {sortedAndFiltered.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '60px 0' }}>
               {conditionFilter === 'all' ? (
                 <>
@@ -652,7 +658,7 @@ export default function CollectionPage() {
             </div>
           ) : (
             <CollectionList
-              items={getSortedCollection()}
+              items={paginatedItems}
               onItemDelete={handleItemDeleted}
               onItemUpdate={handleItemUpdated}
               showDecimals={showDecimals}
@@ -662,15 +668,15 @@ export default function CollectionPage() {
           )}
 
           {/* Pagination */}
-          {!loading && collection.length > 0 && (
+          {!loading && sortedAndFiltered.length > 0 && totalPages > 1 && (
             <CollectionPagination
               currentPage={currentPage}
               totalPages={totalPages}
-              currentCount={collection.length}
-              totalCount={totalCount}
+              currentCount={paginatedItems.length}
+              totalCount={totalFiltered}
               onPageChange={(page) => {
+                setCurrentPage(page);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                loadCollection(page);
               }}
             />
           )}

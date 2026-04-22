@@ -16,6 +16,7 @@ export async function GET(request: NextRequest) {
     }
 
     const searchParams = request.nextUrl.searchParams;
+    const fetchAll = searchParams.get('all') === 'true';
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = (page - 1) * limit;
@@ -36,7 +37,8 @@ export async function GET(request: NextRequest) {
     const totalQuantity = allItems.reduce((sum, item) => sum + item.quantity, 0);
     const avgValue = allItems.length > 0 ? (allItems.reduce((sum, item) => sum + (item.pricing?.suggestedPrice || 0), 0) / allItems.length) : 0;
 
-    const items = allItems.slice(offset, offset + limit);
+    // Return all items if requested, otherwise slice for current page
+    const items = fetchAll ? allItems : allItems.slice(offset, offset + limit);
 
     return NextResponse.json({
       success: true,

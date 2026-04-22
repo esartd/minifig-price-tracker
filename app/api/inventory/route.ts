@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
 
     // Get pagination parameters
     const searchParams = request.nextUrl.searchParams;
+    const fetchAll = searchParams.get('all') === 'true';
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = (page - 1) * limit;
@@ -30,8 +31,8 @@ export async function GET(request: NextRequest) {
     const totalItems = allItems.length;
     const totalPages = Math.ceil(totalItems / limit);
 
-    // Slice for current page
-    const items = allItems.slice(offset, offset + limit);
+    // Return all items if requested, otherwise slice for current page
+    const items = fetchAll ? allItems : allItems.slice(offset, offset + limit);
 
     // Start background pricing fetch for items with no cache (don't await - progressive loading)
     const itemsNeedingPricing = items.filter(item => !item.pricing || item.pricing.suggestedPrice === 0);
