@@ -194,6 +194,12 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
       condition_detail: lastUsed.condition,
       accessories: '',
       known_flaws: '',
+      box_condition: 'sealed',
+      completeness: 'complete',
+      building_status: 'unbuilt',
+      instructions_included: true,
+      minifigures_included: true,
+      set_notes: '',
       quantity: 1
     };
 
