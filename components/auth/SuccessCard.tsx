@@ -20,7 +20,7 @@ export default function SuccessCard({ title, message, actionText, actionHref }: 
         justifyContent: 'center',
         margin: '0 auto 24px'
       }}>
-        <svg style={{ width: 'var(--icon-xl)', height: 'var(--icon-xl)', color: '#059669' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg style={{ width: 'var(--icon-xl)', height: 'var(--icon-xl)', color: '#2563eb' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M5 13l4 4L19 7" />
         </svg>
       </div>

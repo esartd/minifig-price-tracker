@@ -239,7 +239,7 @@ export default function CollectionList({
                 style={{
                   fontSize: 'var(--text-xs)',
                   fontWeight: '600',
-                  color: item.condition === 'new' ? '#059669' : '#525252',
+                  color: item.condition === 'new' ? '#2563eb' : '#525252',
                   background: item.condition === 'new' ? '#d1fae5' : '#f5f5f5',
                   padding: '3px 8px',
                   paddingRight: '20px',
@@ -525,7 +525,7 @@ export default function CollectionList({
           position: 'fixed',
           bottom: '24px',
           left: '24px',
-          background: '#10b981',
+          background: '#3b82f6',
           color: '#ffffff',
           padding: '16px 24px',
           borderRadius: '8px',

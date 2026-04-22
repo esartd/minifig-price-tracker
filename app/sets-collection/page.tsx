@@ -175,7 +175,7 @@ export default function SetsCollectionPage() {
                 href="/sets/browse"
                 style={{
                   padding: '10px 20px',
-                  background: '#10b981',
+                  background: '#3b82f6',
                   color: 'white',
                   borderRadius: '8px',
                   textDecoration: 'none',
@@ -211,7 +211,7 @@ export default function SetsCollectionPage() {
                 style={{
                   display: 'inline-block',
                   padding: '12px 24px',
-                  background: '#10b981',
+                  background: '#3b82f6',
                   color: 'white',
                   borderRadius: '8px',
                   textDecoration: 'none',
@@ -277,7 +277,7 @@ export default function SetsCollectionPage() {
                     <div style={{ padding: '16px' }}>
                       <div style={{
                         fontSize: '12px',
-                        color: '#10b981',
+                        color: '#3b82f6',
                         fontWeight: '600',
                         marginBottom: '4px'
                       }}>
@@ -324,7 +324,7 @@ export default function SetsCollectionPage() {
                         </div>
                         <div style={{ textAlign: 'right' }}>
                           <div style={{ fontSize: '11px', color: '#737373' }}>Value</div>
-                          <div style={{ fontSize: '16px', fontWeight: '700', color: '#10b981' }}>
+                          <div style={{ fontSize: '16px', fontWeight: '700', color: '#3b82f6' }}>
                             {item.pricing?.suggestedPrice
                               ? formatPrice(item.pricing.suggestedPrice, item.pricing.currencyCode)
                               : 'N/A'}

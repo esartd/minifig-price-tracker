@@ -1327,14 +1327,14 @@ input[type="number"] {
 .trust-badge svg {
   width: 22px;
   height: 22px;
-  color: #15803d;
+  color: #2563eb;
   flex-shrink: 0;
 }
 
 .trust-badge span {
   font-size: var(--text-xs);
   font-weight: 600;
-  color: #15803d;
+  color: #2563eb;
   letter-spacing: 0.8px;
   text-transform: uppercase;
   line-height: 1;

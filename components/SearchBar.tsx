@@ -184,7 +184,7 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
           borderRadius: '12px',
           fontSize: 'var(--text-sm)',
           fontWeight: '500',
-          color: '#15803d',
+          color: '#2563eb',
           textAlign: 'center',
           border: '1px solid #bbf7d0'
         }}>

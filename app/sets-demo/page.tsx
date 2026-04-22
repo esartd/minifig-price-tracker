@@ -346,7 +346,7 @@ export default function SetsDemoPage() {
           <div style={{ fontSize: '16px', color: '#166534', fontWeight: '600', marginBottom: '8px' }}>
             ✅ Backend Complete - Ready for Full Implementation
           </div>
-          <div style={{ fontSize: '14px', color: '#15803d' }}>
+          <div style={{ fontSize: '14px', color: '#2563eb' }}>
             Database schema ✓ • Type definitions ✓ • Catalog service ✓ • Database service ✓
           </div>
         </div>
