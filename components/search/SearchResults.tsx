@@ -34,20 +34,27 @@ export default function SearchResults({
   const allMinifigs = searchResults.filter(item => item.resultType !== 'set');
   const allSets = searchResults.filter(item => item.resultType === 'set');
 
+  // Debug: Log raw input data
+  console.log('[SearchResults] Raw searchResults first 3:');
+  searchResults.slice(0, 3).forEach((r, i) => {
+    console.log(`  ${i + 1}. ${r.year_released} | ${r.minifigure_no || r.box_no} | Type: ${r.resultType} | ${r.name?.substring(0, 40)}`);
+  });
+
   // Sort by year (newest first) - apply to both groups
   const sortByYear = (items: any[]) => {
-    return [...items].sort((a, b) => {
+    const sorted = [...items].sort((a, b) => {
       const yearA = parseInt(a.year_released || '0');
       const yearB = parseInt(b.year_released || '0');
       return yearB - yearA; // Descending (newest first)
     });
+    return sorted;
   };
 
   const minifigs = sortByYear(allMinifigs);
   const sets = sortByYear(allSets);
 
   // Debug: Log what we're showing in grouped view
-  console.log('[SearchResults] Top 5 minifigs for display:');
+  console.log('[SearchResults] Top 5 SORTED minifigs for display:');
   minifigs.slice(0, 5).forEach((m, i) => {
     console.log(`  ${i + 1}. ${m.year_released} | ${m.minifigure_no} | ${m.name.substring(0, 40)}`);
   });
