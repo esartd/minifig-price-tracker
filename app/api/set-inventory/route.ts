@@ -16,18 +16,31 @@ export async function GET(request: NextRequest) {
     }
 
     const searchParams = request.nextUrl.searchParams;
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '50');
+    const offset = (page - 1) * limit;
     const countryCode = searchParams.get('countryCode') || 'US';
     const region = searchParams.get('region') || 'north_america';
 
-    const items = await database.getAllSetInventoryItems(
+    const allItems = await database.getAllSetInventoryItems(
       session.user.id,
       countryCode,
       region
     );
 
+    const totalItems = allItems.length;
+    const totalPages = Math.ceil(totalItems / limit);
+    const items = allItems.slice(offset, offset + limit);
+
     return NextResponse.json({
       success: true,
-      data: items
+      data: items,
+      pagination: {
+        page,
+        limit,
+        totalItems,
+        totalPages
+      }
     });
   } catch (error) {
     console.error('Error fetching set inventory:', error);

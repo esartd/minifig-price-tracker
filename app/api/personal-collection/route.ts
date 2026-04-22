@@ -3,8 +3,8 @@ import { database } from '@/lib/database';
 import { bricklinkAPI } from '@/lib/bricklink';
 import { auth } from '@/auth';
 
-// GET all personal collection items for authenticated user
-export async function GET() {
+// GET all personal collection items for authenticated user (with pagination)
+export async function GET(request: NextRequest) {
   try {
     const session = await auth();
 
@@ -15,12 +15,23 @@ export async function GET() {
       );
     }
 
+    // Get pagination parameters
+    const searchParams = request.nextUrl.searchParams;
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '50');
+    const offset = (page - 1) * limit;
+
     // Get user's regional preferences
     const countryCode = session.user?.preferredCountryCode || 'US';
     const region = session.user?.preferredRegion || 'north_america';
 
-    // Get items with regional pricing from cache
-    const items = await database.getAllPersonalItems(session.user.id, countryCode, region);
+    // Get all items first to calculate total
+    const allItems = await database.getAllPersonalItems(session.user.id, countryCode, region);
+    const totalItems = allItems.length;
+    const totalPages = Math.ceil(totalItems / limit);
+
+    // Slice for current page
+    const items = allItems.slice(offset, offset + limit);
 
     // Start background pricing fetch for items with no cache (don't await - progressive loading)
     const itemsNeedingPricing = items.filter(item => !item.pricing || item.pricing.suggestedPrice === 0);
@@ -37,7 +48,16 @@ export async function GET() {
       ).catch(err => console.error('Background pricing fetch error:', err));
     }
 
-    return NextResponse.json({ success: true, data: items });
+    return NextResponse.json({
+      success: true,
+      data: items,
+      pagination: {
+        page,
+        limit,
+        totalItems,
+        totalPages
+      }
+    });
   } catch (error: any) {
     console.error('Error fetching personal collection:', error);
 

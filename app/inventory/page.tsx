@@ -11,7 +11,7 @@ import DatabaseLimitError from '@/components/DatabaseLimitError';
 import Link from 'next/link';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
-import Pagination from '@/components/Pagination';
+import CollectionPagination from '@/components/CollectionPagination';
 
 export default function CollectionPage() {
   const { data: session, status} = useSession();
@@ -62,9 +62,9 @@ export default function CollectionPage() {
     }
   }, [status, router]);
 
-  const loadCollection = async () => {
+  const loadCollection = async (page: number = 1) => {
     try {
-      const response = await fetch('/api/inventory');
+      const response = await fetch(`/api/inventory?page=${page}&limit=50`);
       const data = await response.json();
 
       // Check for database connection limit error
@@ -80,6 +80,11 @@ export default function CollectionPage() {
 
       if (data.success) {
         setCollection(data.data);
+        if (data.pagination) {
+          setTotalPages(data.pagination.totalPages);
+          setTotalCount(data.pagination.totalItems);
+          setCurrentPage(data.pagination.page);
+        }
         setLoading(false); // Show items immediately
 
         // For each item missing pricing, fetch individually
@@ -653,6 +658,20 @@ export default function CollectionPage() {
               showDecimals={showDecimals}
               onItemMove={handleItemMoved}
               onRefresh={loadCollection}
+            />
+          )}
+
+          {/* Pagination */}
+          {!loading && collection.length > 0 && (
+            <CollectionPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              currentCount={collection.length}
+              totalCount={totalCount}
+              onPageChange={(page) => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                loadCollection(page);
+              }}
             />
           )}
         </div>
