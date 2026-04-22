@@ -89,6 +89,13 @@ export default function SearchResults({
     return yearB - yearA; // Descending (newest first)
   });
 
+  // Debug log first 5 results after sort
+  console.log('Sorted results (first 5):', sortedResults.slice(0, 5).map(r => ({
+    name: r.name,
+    year: r.year_released,
+    no: r.minifigure_no || r.box_no
+  })));
+
   // Paginate results
   const paginatedResults = sortedResults.slice(0, displayCount);
   const hasMore = sortedResults.length > displayCount;
