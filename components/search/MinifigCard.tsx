@@ -118,6 +118,20 @@ export default function MinifigCard({
         minWidth: 0
       }}>
         <div style={{ flex: 1, minWidth: 0 }}>
+          {/* Year Eyebrow */}
+          {minifig.year_released && minifig.year_released !== '?' && (
+            <div style={{
+              fontSize: 'var(--text-xs)',
+              fontWeight: '600',
+              color: '#737373',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              marginBottom: '4px'
+            }}>
+              {minifig.year_released}
+            </div>
+          )}
+
           <h4 className="minifig-card-title" style={{
             fontSize: 'var(--text-base)',
             fontWeight: '600',
@@ -139,18 +153,6 @@ export default function MinifigCard({
             }}>
               {isSet ? minifig.box_no : (minifig.minifigure_no || minifig.no)}
             </p>
-            {minifig.year_released && minifig.year_released !== '?' && (
-              <span style={{
-                fontSize: 'var(--text-xs)',
-                fontWeight: '600',
-                color: '#737373',
-                background: '#f5f5f5',
-                padding: '2px 8px',
-                borderRadius: '4px'
-              }}>
-                {minifig.year_released}
-              </span>
-            )}
             {isSet && (
               <span style={{
                 fontSize: 'var(--text-xs)',
