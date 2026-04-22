@@ -264,28 +264,60 @@ export default function CollectionPage() {
               gap: '16px'
             }}>
               <CollectionSwitcher currentPage="inventory" />
-              <Link
-                href="/search"
-                className="collection-add-button"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '10px 20px',
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: '600',
-                  color: 'white',
-                  background: '#3b82f6',
-                  borderRadius: '8px',
-                  textDecoration: 'none',
-                  transition: 'all 0.2s',
-                  border: 'none',
-                  whiteSpace: 'nowrap',
-                  flexShrink: 0
-                }}
-              >
-                + Add
-              </Link>
+              <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+                <button
+                  onClick={async () => {
+                    if (confirm('This will refresh prices for all items in your inventory. Continue?')) {
+                      const response = await fetch('/api/inventory/refresh-pricing', { method: 'POST' });
+                      const data = await response.json();
+                      if (data.success) {
+                        alert(`Price refresh started! ${data.message}`);
+                        loadCollection();
+                      } else {
+                        alert(`Error: ${data.error}`);
+                      }
+                    }
+                  }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '10px 16px',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '600',
+                    color: '#525252',
+                    background: 'white',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  ⟳ Refresh Prices
+                </button>
+                <Link
+                  href="/search"
+                  className="collection-add-button"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '10px 20px',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '600',
+                    color: 'white',
+                    background: '#3b82f6',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s',
+                    border: 'none',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  + Add
+                </Link>
+              </div>
             </div>
 
             {/* Compact Stats Row */}
