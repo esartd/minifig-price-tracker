@@ -624,19 +624,17 @@ export default function SetsInventoryPage() {
           )}
 
           {/* Pagination */}
-          {!loading && inventory.length > 0 && (
-            {sortedAndFiltered.length > 0 && totalPages > 1 && (
-              <CollectionPagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                currentCount={paginatedItems.length}
-                totalCount={totalFiltered}
-                onPageChange={(page) => {
-                  setCurrentPage(page);
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-              />
-            )}
+          {!loading && sortedAndFiltered.length > 0 && totalPages > 1 && (
+            <CollectionPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              currentCount={paginatedItems.length}
+              totalCount={totalFiltered}
+              onPageChange={(page) => {
+                setCurrentPage(page);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
           )}
         </div>
       </div>
