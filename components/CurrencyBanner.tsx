@@ -47,9 +47,9 @@ export default function CurrencyBanner() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            preferredCurrency: currency.code,
-            preferredCountryCode: currency.countryCode,
-            preferredRegion: currency.region,
+            currency: currency.code,
+            countryCode: currency.countryCode,
+            region: currency.region,
             currencySymbol: currency.symbol,
             locale: currency.locale
           })
