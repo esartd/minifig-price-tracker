@@ -11,9 +11,10 @@ import DatabaseLimitError from '@/components/DatabaseLimitError';
 import Link from 'next/link';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
+import Pagination from '@/components/Pagination';
 
 export default function CollectionPage() {
-  const { data: session, status } = useSession();
+  const { data: session, status} = useSession();
   const router = useRouter();
   const [collection, setCollection] = useState<CollectionItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -21,6 +22,11 @@ export default function CollectionPage() {
   const [showDecimals, setShowDecimals] = useState(false);
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
   const [dbError, setDbError] = useState<Date | null>(null);
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
 
   // Load saved preferences on mount
   useEffect(() => {

@@ -1,61 +1,107 @@
 'use client';
 
-interface PaginationProps {
+import { useState, useEffect } from 'react';
+
+interface CollectionPaginationProps {
   currentPage: number;
   totalPages: number;
+  currentCount: number;
+  totalCount: number;
   onPageChange: (page: number) => void;
 }
 
-export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
+export default function CollectionPagination({
+  currentPage,
+  totalPages,
+  currentCount,
+  totalCount,
+  onPageChange
+}: CollectionPaginationProps) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const hasMore = currentPage < totalPages;
+
+  // Mobile: Show More button (like Google mobile)
+  if (isMobile) {
+    if (!hasMore) return null;
+
+    return (
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '16px',
+        padding: '32px 16px'
+      }}>
+        <p style={{
+          fontSize: 'var(--text-sm)',
+          color: '#737373'
+        }}>
+          Showing {currentCount} of {totalCount}
+        </p>
+        <button
+          onClick={() => onPageChange(currentPage + 1)}
+          style={{
+            padding: '12px 32px',
+            fontSize: 'var(--text-base)',
+            fontWeight: '600',
+            color: '#ffffff',
+            background: '#3b82f6',
+            border: 'none',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            transition: 'all 0.2s',
+            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = '#2563eb';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = '#3b82f6';
+          }}
+        >
+          Show More
+        </button>
+      </div>
+    );
+  }
+
+  // Desktop: Page numbers (like Google desktop)
   if (totalPages <= 1) return null;
 
-  const getPageNumbers = (isMobile: boolean) => {
+  const getPageNumbers = () => {
     const pages: (number | string)[] = [];
-    const maxVisible = isMobile ? 5 : 7; // Google shows ~5 on mobile, 7+ on desktop
-
-    if (totalPages <= maxVisible) {
-      // Show all pages if total is less than max
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
     } else {
-      // Always show first page
       pages.push(1);
+      if (currentPage > 3) pages.push('...');
 
-      if (currentPage > (isMobile ? 3 : 3)) {
-        pages.push('...');
-      }
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      for (let i = start; i <= end; i++) pages.push(i);
 
-      // Show pages around current page
-      const range = isMobile ? 1 : 1; // 1 page on each side
-      const start = Math.max(2, currentPage - range);
-      const end = Math.min(totalPages - 1, currentPage + range);
-
-      for (let i = start; i <= end; i++) {
-        pages.push(i);
-      }
-
-      if (currentPage < totalPages - (isMobile ? 2 : 2)) {
-        pages.push('...');
-      }
-
-      // Always show last page
+      if (currentPage < totalPages - 2) pages.push('...');
       pages.push(totalPages);
     }
-
     return pages;
   };
 
-  // Detect mobile
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const pageNumbers = getPageNumbers(isMobile);
+  const pageNumbers = getPageNumbers();
 
   return (
     <div style={{
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: isMobile ? '4px' : '8px',
+      gap: '8px',
       padding: '32px 16px',
       fontSize: 'var(--text-sm)',
       flexWrap: 'wrap'
@@ -65,7 +111,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
         style={{
-          padding: isMobile ? '8px 12px' : '8px 16px',
+          padding: '8px 16px',
           fontSize: 'var(--text-sm)',
           fontWeight: '500',
           color: currentPage === 1 ? '#a3a3a3' : '#171717',
@@ -76,25 +122,20 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
           transition: 'all 0.2s'
         }}
         onMouseEnter={(e) => {
-          if (currentPage !== 1) {
-            e.currentTarget.style.background = '#f5f5f5';
-          }
+          if (currentPage !== 1) e.currentTarget.style.background = '#f5f5f5';
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.background = 'transparent';
         }}
       >
-        {isMobile ? '←' : '← Previous'}
+        ← Previous
       </button>
 
       {/* Page Numbers */}
       {pageNumbers.map((page, index) => {
         if (page === '...') {
           return (
-            <span key={`ellipsis-${index}`} style={{
-              padding: '8px 12px',
-              color: '#a3a3a3'
-            }}>
+            <span key={`ellipsis-${index}`} style={{ padding: '8px 12px', color: '#a3a3a3' }}>
               ...
             </span>
           );
@@ -120,14 +161,10 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
               transition: 'all 0.2s'
             }}
             onMouseEnter={(e) => {
-              if (!isActive) {
-                e.currentTarget.style.background = '#f5f5f5';
-              }
+              if (!isActive) e.currentTarget.style.background = '#f5f5f5';
             }}
             onMouseLeave={(e) => {
-              if (!isActive) {
-                e.currentTarget.style.background = 'transparent';
-              }
+              if (!isActive) e.currentTarget.style.background = 'transparent';
             }}
           >
             {pageNum}
@@ -140,7 +177,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
         style={{
-          padding: isMobile ? '8px 12px' : '8px 16px',
+          padding: '8px 16px',
           fontSize: 'var(--text-sm)',
           fontWeight: '500',
           color: currentPage === totalPages ? '#a3a3a3' : '#171717',
@@ -151,15 +188,13 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
           transition: 'all 0.2s'
         }}
         onMouseEnter={(e) => {
-          if (currentPage !== totalPages) {
-            e.currentTarget.style.background = '#f5f5f5';
-          }
+          if (currentPage !== totalPages) e.currentTarget.style.background = '#f5f5f5';
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.background = 'transparent';
         }}
       >
-        {isMobile ? '→' : 'Next →'}
+        Next →
       </button>
     </div>
   );
