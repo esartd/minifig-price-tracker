@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { LegoBox } from '@/types';
 
-export default function SetsBrowsePage() {
+function SetsBrowseContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [sets, setSets] = useState<LegoBox[]>([]);
@@ -285,5 +285,20 @@ export default function SetsBrowsePage() {
         </div>
       </div>
     </>
+  );
+}
+
+export default function SetsBrowsePage() {
+  return (
+    <Suspense fallback={
+      <div style={{ minHeight: '100vh', background: '#fafafa', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
+          <div style={{ fontSize: '18px', color: '#525252' }}>Loading...</div>
+        </div>
+      </div>
+    }>
+      <SetsBrowseContent />
+    </Suspense>
   );
 }
