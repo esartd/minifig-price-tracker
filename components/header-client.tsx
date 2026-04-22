@@ -205,61 +205,96 @@ export function HeaderClient({ user }: HeaderClientProps) {
               gap: '32px'
             }}>
               <Link
-                href="/themes"
+                href="/search"
                 style={{
                   fontSize: 'var(--text-sm)',
-                  fontWeight: pathname === '/themes' ? '600' : '500',
-                  color: pathname === '/themes' ? '#171717' : '#525252',
+                  fontWeight: pathname === '/search' ? '600' : '500',
+                  color: pathname === '/search' ? '#171717' : '#525252',
                   textDecoration: 'none',
                   transition: 'color 0.2s',
                   lineHeight: '1',
                   display: 'flex',
                   alignItems: 'center',
                   height: '36px',
-                  borderBottom: pathname === '/themes' ? '2px solid #3b82f6' : 'none',
+                  borderBottom: pathname === '/search' ? '2px solid #3b82f6' : 'none',
                   paddingBottom: '2px'
                 }}
               >
-                Themes
+                Search
               </Link>
 
-              <Link
-                href="/inventory"
-                style={{
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: pathname === '/inventory' ? '600' : '500',
-                  color: pathname === '/inventory' ? '#171717' : '#525252',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s',
-                  lineHeight: '1',
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: '36px',
-                  borderBottom: pathname === '/inventory' ? '2px solid #3b82f6' : 'none',
-                  paddingBottom: '2px'
-                }}
-              >
-                Your Inventory
-              </Link>
+              {/* Browse Dropdown */}
+              <div style={{ position: 'relative' }} ref={browseDropdownRef}>
+                <button
+                  onClick={() => setBrowseDropdownOpen(!browseDropdownOpen)}
+                  style={{
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '500',
+                    color: '#525252',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    height: '36px',
+                    padding: 0
+                  }}
+                >
+                  Browse
+                  <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
 
-              <Link
-                href="/collection"
-                style={{
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: pathname === '/collection' ? '600' : '500',
-                  color: pathname === '/collection' ? '#171717' : '#525252',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s',
-                  lineHeight: '1',
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: '36px',
-                  borderBottom: pathname === '/collection' ? '2px solid #3b82f6' : 'none',
-                  paddingBottom: '2px'
-                }}
-              >
-                Your Collection
-              </Link>
+                {browseDropdownOpen && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    marginTop: '12px',
+                    background: 'white',
+                    borderRadius: '12px',
+                    boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                    border: '1px solid #e5e5e5',
+                    minWidth: '220px',
+                    overflow: 'hidden',
+                    zIndex: 1000
+                  }}>
+                    <Link href="/themes" onClick={() => setBrowseDropdownOpen(false)} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '16px 20px',
+                      color: '#171717',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-sm)',
+                      borderBottom: '1px solid #f5f5f5',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                      <UserIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                      <span>Minifigure Themes</span>
+                    </Link>
+                    <Link href="/sets-themes" onClick={() => setBrowseDropdownOpen(false)} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '16px 20px',
+                      color: '#171717',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-sm)',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                      <CubeIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                      <span>Set Themes</span>
+                    </Link>
+                  </div>
+                )}
+              </div>
 
               <Link
                 href="/about"
@@ -343,59 +378,122 @@ export function HeaderClient({ user }: HeaderClientProps) {
         {mobileMenuOpen && (
           <nav ref={mobileMenuRef} style={{
             background: '#fff',
-            padding: '20px',
-            paddingBottom: '40px'
+            padding: '16px 16px 32px',
+            borderTop: '1px solid #f5f5f5'
           }}>
-            <Link href="/themes" onClick={() => setMobileMenuOpen(false)} style={{
-              display: 'block',
-              padding: '15px 0',
+            <Link href="/search" onClick={() => setMobileMenuOpen(false)} style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '16px 0',
               borderBottom: '1px solid #f5f5f5',
               color: '#171717',
               textDecoration: 'none',
-              fontSize: 'var(--text-base)'
+              fontSize: 'var(--text-base)',
+              fontWeight: '600',
+              minHeight: '44px'
             }}>
-              Themes
+              Search
             </Link>
-            <Link href="/inventory" onClick={() => setMobileMenuOpen(false)} style={{
-              display: 'block',
-              padding: '15px 0',
-              borderBottom: '1px solid #f5f5f5',
-              color: '#171717',
-              textDecoration: 'none',
-              fontSize: 'var(--text-base)'
+
+            {/* Browse Dropdown */}
+            <div style={{ borderBottom: '1px solid #f5f5f5' }}>
+              <button
+                onClick={() => setMobileBrowseOpen(!mobileBrowseOpen)}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '16px 0',
+                  background: 'none',
+                  border: 'none',
+                  color: '#171717',
+                  fontSize: 'var(--text-base)',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  minHeight: '44px'
+                }}
+              >
+                <span>Themes</span>
+                <svg
+                  style={{
+                    width: '20px',
+                    height: '20px',
+                    transition: 'transform 0.2s',
+                    transform: mobileBrowseOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                    flexShrink: 0
+                  }}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {mobileBrowseOpen && (
+                <div style={{ paddingLeft: '16px', paddingBottom: '16px' }}>
+                  <Link href="/themes" onClick={() => setMobileMenuOpen(false)} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '8px 0',
+                    color: '#525252',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-base)',
+                    minHeight: '44px'
+                  }}>
+                    <UserIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
+                    <span>Minifigure Themes</span>
+                  </Link>
+                  <Link href="/sets-themes" onClick={() => setMobileMenuOpen(false)} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '8px 0',
+                    color: '#525252',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-base)',
+                    minHeight: '44px'
+                  }}>
+                    <CubeIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
+                    <span>Set Themes</span>
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Other Links */}
+            <div style={{
+              marginTop: '32px'
             }}>
-              Your Inventory
-            </Link>
-            <Link href="/collection" onClick={() => setMobileMenuOpen(false)} style={{
-              display: 'block',
-              padding: '15px 0',
-              borderBottom: '1px solid #f5f5f5',
-              color: '#171717',
-              textDecoration: 'none',
-              fontSize: 'var(--text-base)'
-            }}>
-              Your Collection
-            </Link>
-            <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
-              display: 'block',
-              padding: '15px 0',
-              borderBottom: '1px solid #f5f5f5',
-              color: '#171717',
-              textDecoration: 'none',
-              fontSize: 'var(--text-base)'
-            }}>
-              About
-            </Link>
-            <Link href="/auth/signin" onClick={() => setMobileMenuOpen(false)} style={{
-              display: 'block',
-              padding: '15px 0',
-              borderBottom: '1px solid #f5f5f5',
-              color: '#171717',
-              textDecoration: 'none',
-              fontSize: 'var(--text-base)'
-            }}>
-              Sign In
-            </Link>
+              <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '16px 0',
+                borderBottom: '1px solid #f5f5f5',
+                color: '#171717',
+                textDecoration: 'none',
+                fontSize: 'var(--text-base)',
+                fontWeight: '600',
+                minHeight: '44px'
+              }}>
+                About
+              </Link>
+              <Link href="/auth/signin" onClick={() => setMobileMenuOpen(false)} style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '16px 0',
+                borderBottom: '1px solid #f5f5f5',
+                color: '#171717',
+                textDecoration: 'none',
+                fontSize: 'var(--text-base)',
+                fontWeight: '600',
+                minHeight: '44px'
+              }}>
+                Sign In
+              </Link>
+            </div>
             <Link href="/auth/signup" onClick={() => setMobileMenuOpen(false)} style={{
               display: 'block',
               marginTop: '20px',
