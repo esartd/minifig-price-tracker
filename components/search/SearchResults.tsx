@@ -34,30 +34,17 @@ export default function SearchResults({
   const allMinifigs = searchResults.filter(item => item.resultType !== 'set');
   const allSets = searchResults.filter(item => item.resultType === 'set');
 
-  // Debug: Log raw input data
-  console.log('[SearchResults] Raw searchResults first 3:');
-  searchResults.slice(0, 3).forEach((r, i) => {
-    console.log(`  ${i + 1}. ${r.year_released} | ${r.minifigure_no || r.box_no} | Type: ${r.resultType} | ${r.name?.substring(0, 40)}`);
-  });
-
   // Sort by year (newest first) - apply to both groups
   const sortByYear = (items: any[]) => {
-    const sorted = [...items].sort((a, b) => {
+    return [...items].sort((a, b) => {
       const yearA = parseInt(a.year_released || '0');
       const yearB = parseInt(b.year_released || '0');
       return yearB - yearA; // Descending (newest first)
     });
-    return sorted;
   };
 
   const minifigs = sortByYear(allMinifigs);
   const sets = sortByYear(allSets);
-
-  // Debug: Log what we're showing in grouped view
-  console.log('[SearchResults] Top 5 SORTED minifigs for display:');
-  minifigs.slice(0, 5).forEach((m, i) => {
-    console.log(`  ${i + 1}. ${m.year_released} | ${m.minifigure_no} | ${m.name.substring(0, 40)}`);
-  });
 
   // Determine which results to show based on active tab (for theme filtering)
   const displayedResults = activeTab === 'minifigs' ? minifigs : activeTab === 'sets' ? sets : searchResults;
@@ -113,12 +100,6 @@ export default function SearchResults({
     const yearA = parseInt(a.year_released || '0');
     const yearB = parseInt(b.year_released || '0');
     return yearB - yearA; // Descending (newest first)
-  });
-
-  // Debug log first 10 results after sort
-  console.log('=== SEARCH RESULTS SORT DEBUG ===');
-  sortedResults.slice(0, 10).forEach((r, i) => {
-    console.log(`${i + 1}. Year: ${r.year_released} | ${r.minifigure_no || r.box_no} | ${r.name?.substring(0, 40)}`);
   });
 
   // Paginate results
@@ -295,45 +276,15 @@ export default function SearchResults({
               {/* Minifigures Group */}
               {minifigs.length > 0 && (
                 <div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
+                  <h3 style={{
+                    fontSize: 'var(--text-lg)',
+                    fontWeight: '600',
+                    color: '#171717',
+                    letterSpacing: '-0.01em',
                     marginBottom: '16px'
                   }}>
-                    <h3 style={{
-                      fontSize: 'var(--text-lg)',
-                      fontWeight: '600',
-                      color: '#171717',
-                      letterSpacing: '-0.01em'
-                    }}>
-                      Minifigures ({minifigs.length})
-                    </h3>
-                    {minifigs.length > PREVIEW_LIMIT && (
-                      <button
-                        onClick={() => setActiveTab('minifigs')}
-                        style={{
-                          padding: '8px 16px',
-                          fontSize: 'var(--text-sm)',
-                          fontWeight: '600',
-                          color: '#3b82f6',
-                          background: '#eff6ff',
-                          border: 'none',
-                          borderRadius: '8px',
-                          cursor: 'pointer',
-                          transition: 'all 0.2s'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#dbeafe';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = '#eff6ff';
-                        }}
-                      >
-                        See All →
-                      </button>
-                    )}
-                  </div>
+                    Minifigures ({minifigs.length})
+                  </h3>
                   <div className="search-results-list" style={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -349,51 +300,54 @@ export default function SearchResults({
                       />
                     ))}
                   </div>
+                  {minifigs.length > PREVIEW_LIMIT && (
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      marginTop: '24px'
+                    }}>
+                      <button
+                        onClick={() => setActiveTab('minifigs')}
+                        style={{
+                          padding: '12px 32px',
+                          fontSize: 'var(--text-base)',
+                          fontWeight: '600',
+                          color: '#ffffff',
+                          background: '#3b82f6',
+                          border: 'none',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s',
+                          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = '#2563eb';
+                          e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.3)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = '#3b82f6';
+                          e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+                        }}
+                      >
+                        See All Minifigures →
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
 
               {/* Sets Group */}
               {sets.length > 0 && (
                 <div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
+                  <h3 style={{
+                    fontSize: 'var(--text-lg)',
+                    fontWeight: '600',
+                    color: '#171717',
+                    letterSpacing: '-0.01em',
                     marginBottom: '16px'
                   }}>
-                    <h3 style={{
-                      fontSize: 'var(--text-lg)',
-                      fontWeight: '600',
-                      color: '#171717',
-                      letterSpacing: '-0.01em'
-                    }}>
-                      Sets ({sets.length})
-                    </h3>
-                    {sets.length > PREVIEW_LIMIT && (
-                      <button
-                        onClick={() => setActiveTab('sets')}
-                        style={{
-                          padding: '8px 16px',
-                          fontSize: 'var(--text-sm)',
-                          fontWeight: '600',
-                          color: '#3b82f6',
-                          background: '#eff6ff',
-                          border: 'none',
-                          borderRadius: '8px',
-                          cursor: 'pointer',
-                          transition: 'all 0.2s'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#dbeafe';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = '#eff6ff';
-                        }}
-                      >
-                        See All →
-                      </button>
-                    )}
-                  </div>
+                    Sets ({sets.length})
+                  </h3>
                   <div className="search-results-list" style={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -409,6 +363,39 @@ export default function SearchResults({
                       />
                     ))}
                   </div>
+                  {sets.length > PREVIEW_LIMIT && (
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      marginTop: '24px'
+                    }}>
+                      <button
+                        onClick={() => setActiveTab('sets')}
+                        style={{
+                          padding: '12px 32px',
+                          fontSize: 'var(--text-base)',
+                          fontWeight: '600',
+                          color: '#ffffff',
+                          background: '#3b82f6',
+                          border: 'none',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s',
+                          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = '#2563eb';
+                          e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.3)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = '#3b82f6';
+                          e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+                        }}
+                      >
+                        See All Sets →
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </>

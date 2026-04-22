@@ -47,14 +47,11 @@ export default function MinifigCard({
     // Fallback: construct BrickLink image URL from item number
     const itemNo = isSet ? minifig.box_no : (minifig.minifigure_no || minifig.no);
     if (itemNo) {
-      const fallbackUrl = isSet
+      return isSet
         ? `https://img.bricklink.com/ItemImage/SN/0/${itemNo}.png`
         : `https://img.bricklink.com/ItemImage/MN/0/${itemNo}.png`;
-      console.log('[MinifigCard] Using fallback URL for', itemNo, ':', fallbackUrl);
-      return fallbackUrl;
     }
 
-    console.warn('[MinifigCard] No image URL available for:', minifig);
     return null;
   };
 
