@@ -707,11 +707,14 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                         </div>
                       </div>
                       <button onClick={handleAddToCollectionFromSection} disabled={addToCollectionLoading}
-                        style={{ width: '100%', height: '44px', background: addToCollectionLoading ? '#a3a3a3' : '#3b82f6',
-                          color: '#ffffff', border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)',
-                          fontWeight: '600', cursor: addToCollectionLoading ? 'not-allowed' : 'pointer',
+                        style={{ width: '100%', height: '44px', display: 'flex', alignItems: 'center',
+                          justifyContent: 'center', gap: '8px', background: '#ffffff',
+                          color: addToCollectionLoading ? '#a3a3a3' : '#3b82f6',
+                          border: addToCollectionLoading ? '2px solid #d4d4d4' : '2px solid #3b82f6',
+                          borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
+                          cursor: addToCollectionLoading ? 'not-allowed' : 'pointer',
                           transition: 'all 0.2s' }}>
-                        {addToCollectionLoading ? 'Adding...' : 'Add to Collection'}
+                        {addToCollectionLoading ? 'Adding...' : '+ Add to Collection'}
                       </button>
                     </div>
                   )}
