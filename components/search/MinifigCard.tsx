@@ -130,7 +130,7 @@ export default function MinifigCard({
           }}>
             {getDisplayName(minifig.name)}
           </h4>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
             <p className="minifig-card-id" style={{
               fontSize: 'var(--text-sm)',
               color: '#737373',
@@ -138,6 +138,18 @@ export default function MinifigCard({
             }}>
               {isSet ? minifig.box_no : minifig.no}
             </p>
+            {minifig.year_released && minifig.year_released !== '?' && (
+              <span style={{
+                fontSize: 'var(--text-xs)',
+                fontWeight: '600',
+                color: '#737373',
+                background: '#f5f5f5',
+                padding: '2px 8px',
+                borderRadius: '4px'
+              }}>
+                {minifig.year_released}
+              </span>
+            )}
             {isSet && (
               <span style={{
                 fontSize: 'var(--text-xs)',
