@@ -216,7 +216,7 @@ export default function ThemesClient({ themes }: ThemesClientProps) {
             color: '#171717',
             lineHeight: '1.2'
           }}>
-            Browse Minifigures by Theme
+            Browse LEGO Minifigures by Theme
           </h1>
           <p style={{
             fontSize: 'clamp(14px, 2vw, 16px)',
@@ -224,7 +224,7 @@ export default function ThemesClient({ themes }: ThemesClientProps) {
             marginBottom: '16px',
             lineHeight: '1.5'
           }}>
-            Explore {totalMinifigs.toLocaleString()} minifigures across {themes.length} themes
+            Explore {themes.length.toLocaleString()} themes with {totalMinifigs.toLocaleString()} LEGO minifigures
           </p>
 
           {/* Search */}
