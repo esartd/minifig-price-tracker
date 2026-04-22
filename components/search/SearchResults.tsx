@@ -206,36 +206,69 @@ export default function SearchResults({
           Search Results
         </h2>
 
-        {/* Tabs - Only show when viewing a specific type */}
-        {searchResults.length > 0 && activeTab && (
+        {/* Tabs */}
+        {searchResults.length > 0 && (
           <div style={{
             display: 'flex',
             gap: '8px',
-            alignItems: 'center',
-            marginBottom: '16px'
+            borderBottom: '2px solid #e5e5e5',
+            paddingBottom: '0'
           }}>
             <button
               onClick={() => setActiveTab(null)}
               style={{
-                padding: '8px 16px',
+                padding: '12px 20px',
                 fontSize: 'var(--text-sm)',
-                fontWeight: '500',
-                color: '#737373',
+                fontWeight: '600',
+                color: activeTab === null ? '#3b82f6' : '#737373',
                 background: 'transparent',
-                border: '1px solid #e5e5e5',
-                borderRadius: '8px',
+                border: 'none',
+                borderBottom: activeTab === null ? '2px solid #3b82f6' : '2px solid transparent',
                 cursor: 'pointer',
-                transition: 'all 0.2s'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#f5f5f5';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'transparent';
+                transition: 'all 0.2s',
+                marginBottom: '-2px'
               }}
             >
-              ← Back to all results
+              All ({minifigs.length + sets.length})
             </button>
+            {minifigs.length > 0 && (
+              <button
+                onClick={() => setActiveTab('minifigs')}
+                style={{
+                  padding: '12px 20px',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: '600',
+                  color: activeTab === 'minifigs' ? '#3b82f6' : '#737373',
+                  background: 'transparent',
+                  border: 'none',
+                  borderBottom: activeTab === 'minifigs' ? '2px solid #3b82f6' : '2px solid transparent',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  marginBottom: '-2px'
+                }}
+              >
+                Minifigures ({minifigs.length})
+              </button>
+            )}
+            {sets.length > 0 && (
+              <button
+                onClick={() => setActiveTab('sets')}
+                style={{
+                  padding: '12px 20px',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: '600',
+                  color: activeTab === 'sets' ? '#3b82f6' : '#737373',
+                  background: 'transparent',
+                  border: 'none',
+                  borderBottom: activeTab === 'sets' ? '2px solid #3b82f6' : '2px solid transparent',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  marginBottom: '-2px'
+                }}
+              >
+                Sets ({sets.length})
+              </button>
+            )}
           </div>
         )}
       </div>

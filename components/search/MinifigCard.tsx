@@ -39,6 +39,7 @@ export default function MinifigCard({
 
   // Get image URL - use provided image_url or construct from minifigure number
   const getImageUrl = () => {
+    // First try: use provided image_url
     if (minifig.image_url) {
       return minifig.image_url;
     }
@@ -46,11 +47,14 @@ export default function MinifigCard({
     // Fallback: construct BrickLink image URL from item number
     const itemNo = isSet ? minifig.box_no : (minifig.minifigure_no || minifig.no);
     if (itemNo) {
-      return isSet
+      const fallbackUrl = isSet
         ? `https://img.bricklink.com/ItemImage/SN/0/${itemNo}.png`
         : `https://img.bricklink.com/ItemImage/MN/0/${itemNo}.png`;
+      console.log('[MinifigCard] Using fallback URL for', itemNo, ':', fallbackUrl);
+      return fallbackUrl;
     }
 
+    console.warn('[MinifigCard] No image URL available for:', minifig);
     return null;
   };
 
