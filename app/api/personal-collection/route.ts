@@ -129,11 +129,9 @@ export async function POST(request: NextRequest) {
       itemCondition
     );
 
-    // If item exists, update quantity instead of rejecting
     if (existingItem) {
-      const newQuantity = existingItem.quantity + quantity;
       const updatedItem = await database.updatePersonalItem(existingItem.id, {
-        quantity: newQuantity
+        quantity: existingItem.quantity + quantity
       });
       return NextResponse.json({ success: true, data: updatedItem, quantityAdded: quantity }, { status: 200 });
     }

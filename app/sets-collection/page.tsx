@@ -9,6 +9,7 @@ import SetCollectionSwitcher from '@/components/SetCollectionSwitcher';
 import Link from 'next/link';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
+import { calculateCollectionStats } from '@/lib/collection-stats';
 import CollectionPagination from '@/components/CollectionPagination';
 
 export default function SetsCollectionPage() {
@@ -166,10 +167,7 @@ export default function SetsCollectionPage() {
     currentPage * itemsPerPage
   );
 
-  // Stats are always based on entire collection (not filtered)
-  const totalValue = collection.reduce((sum, item) => sum + ((item.pricing?.suggestedPrice || 0) * item.quantity), 0);
-  const totalItems = collection.reduce((sum, item) => sum + item.quantity, 0);
-  const avgValue = collection.length > 0 ? (collection.reduce((sum, item) => sum + (item.pricing?.suggestedPrice || 0), 0) / collection.length) : 0;
+  const { totalValue, totalItems, avgValue } = calculateCollectionStats(collection);
 
   if (status === 'loading' || loading) {
     return (
