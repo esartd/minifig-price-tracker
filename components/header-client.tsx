@@ -21,6 +21,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
   const [browseDropdownOpen, setBrowseDropdownOpen] = useState(false);
   const [legoDropdownOpen, setLegoDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileBrowseOpen, setMobileBrowseOpen] = useState(false);
+  const [mobileLegoOpen, setMobileLegoOpen] = useState(false);
   const [highlightWishlist, setHighlightWishlist] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const browseDropdownRef = useRef<HTMLDivElement>(null);
@@ -902,91 +904,160 @@ export function HeaderClient({ user }: HeaderClientProps) {
             Search
           </Link>
 
-          {/* Browse Section */}
-          <div style={{
-            fontSize: '11px',
-            fontWeight: '600',
-            color: '#737373',
-            textTransform: 'uppercase',
-            letterSpacing: '0.5px',
-            padding: '15px 0 8px',
-            marginTop: '8px'
-          }}>
-            Browse
+          {/* Browse Dropdown */}
+          <div style={{ borderBottom: '1px solid #f5f5f5' }}>
+            <button
+              onClick={() => setMobileBrowseOpen(!mobileBrowseOpen)}
+              style={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '15px 0',
+                background: 'none',
+                border: 'none',
+                color: '#171717',
+                fontSize: 'var(--text-base)',
+                fontWeight: '500',
+                cursor: 'pointer',
+                textAlign: 'left'
+              }}
+            >
+              <span>Themes</span>
+              <svg
+                style={{
+                  width: '20px',
+                  height: '20px',
+                  transition: 'transform 0.2s',
+                  transform: mobileBrowseOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+                }}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {mobileBrowseOpen && (
+              <div style={{ paddingLeft: '16px', paddingBottom: '8px' }}>
+                <Link href="/themes" onClick={() => setMobileMenuOpen(false)} style={{
+                  display: 'block',
+                  padding: '12px 0',
+                  color: '#525252',
+                  textDecoration: 'none',
+                  fontSize: 'var(--text-sm)'
+                }}>
+                  Minifigure Themes
+                </Link>
+                <Link href="/sets-themes" onClick={() => setMobileMenuOpen(false)} style={{
+                  display: 'block',
+                  padding: '12px 0',
+                  color: '#525252',
+                  textDecoration: 'none',
+                  fontSize: 'var(--text-sm)'
+                }}>
+                  Set Themes
+                </Link>
+              </div>
+            )}
           </div>
-          <Link href="/themes" onClick={() => setMobileMenuOpen(false)} style={{
-            display: 'block',
-            padding: '12px 0',
-            borderBottom: '1px solid #f5f5f5',
-            color: '#171717',
-            textDecoration: 'none',
-            fontSize: 'var(--text-sm)'
-          }}>
-            Minifigure Themes
-          </Link>
-          <Link href="/sets-themes" onClick={() => setMobileMenuOpen(false)} style={{
-            display: 'block',
-            padding: '12px 0',
-            borderBottom: '1px solid #f5f5f5',
-            color: '#171717',
-            textDecoration: 'none',
-            fontSize: 'var(--text-sm)'
-          }}>
-            Set Themes
-          </Link>
 
-          {/* Your LEGO Section */}
-          <div style={{
-            fontSize: '11px',
-            fontWeight: '600',
-            color: '#737373',
-            textTransform: 'uppercase',
-            letterSpacing: '0.5px',
-            padding: '15px 0 8px',
-            marginTop: '8px'
-          }}>
-            Your LEGO
+          {/* Your LEGO Dropdown */}
+          <div style={{ borderBottom: '1px solid #f5f5f5' }}>
+            <button
+              onClick={() => setMobileLegoOpen(!mobileLegoOpen)}
+              style={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '15px 0',
+                background: 'none',
+                border: 'none',
+                color: '#171717',
+                fontSize: 'var(--text-base)',
+                fontWeight: '500',
+                cursor: 'pointer',
+                textAlign: 'left'
+              }}
+            >
+              <span>Your LEGO</span>
+              <svg
+                style={{
+                  width: '20px',
+                  height: '20px',
+                  transition: 'transform 0.2s',
+                  transform: mobileLegoOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+                }}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {mobileLegoOpen && (
+              <div style={{ paddingLeft: '16px', paddingBottom: '8px' }}>
+                <div style={{
+                  fontSize: '11px',
+                  fontWeight: '600',
+                  color: '#737373',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px',
+                  padding: '8px 0'
+                }}>
+                  Minifigures
+                </div>
+                <Link href="/inventory" onClick={() => setMobileMenuOpen(false)} style={{
+                  display: 'block',
+                  padding: '10px 0',
+                  color: '#525252',
+                  textDecoration: 'none',
+                  fontSize: 'var(--text-sm)'
+                }}>
+                  For Sale
+                </Link>
+                <Link href="/collection" onClick={() => setMobileMenuOpen(false)} style={{
+                  display: 'block',
+                  padding: '10px 0',
+                  color: '#525252',
+                  textDecoration: 'none',
+                  fontSize: 'var(--text-sm)'
+                }}>
+                  To Keep
+                </Link>
+                <div style={{
+                  fontSize: '11px',
+                  fontWeight: '600',
+                  color: '#737373',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px',
+                  padding: '8px 0',
+                  marginTop: '8px'
+                }}>
+                  Sets
+                </div>
+                <Link href="/sets-inventory" onClick={() => setMobileMenuOpen(false)} style={{
+                  display: 'block',
+                  padding: '10px 0',
+                  color: '#525252',
+                  textDecoration: 'none',
+                  fontSize: 'var(--text-sm)'
+                }}>
+                  For Sale
+                </Link>
+                <Link href="/sets-collection" onClick={() => setMobileMenuOpen(false)} style={{
+                  display: 'block',
+                  padding: '10px 0',
+                  color: '#525252',
+                  textDecoration: 'none',
+                  fontSize: 'var(--text-sm)'
+                }}>
+                  To Keep
+                </Link>
+              </div>
+            )}
           </div>
-          <Link href="/inventory" onClick={() => setMobileMenuOpen(false)} style={{
-            display: 'block',
-            padding: '12px 0',
-            borderBottom: '1px solid #f5f5f5',
-            color: '#171717',
-            textDecoration: 'none',
-            fontSize: 'var(--text-sm)'
-          }}>
-            Minifigures for Sale
-          </Link>
-          <Link href="/collection" onClick={() => setMobileMenuOpen(false)} style={{
-            display: 'block',
-            padding: '12px 0',
-            borderBottom: '1px solid #f5f5f5',
-            color: '#171717',
-            textDecoration: 'none',
-            fontSize: 'var(--text-sm)'
-          }}>
-            Minifigures to Keep
-          </Link>
-          <Link href="/sets-inventory" onClick={() => setMobileMenuOpen(false)} style={{
-            display: 'block',
-            padding: '12px 0',
-            borderBottom: '1px solid #f5f5f5',
-            color: '#171717',
-            textDecoration: 'none',
-            fontSize: 'var(--text-sm)'
-          }}>
-            Sets for Sale
-          </Link>
-          <Link href="/sets-collection" onClick={() => setMobileMenuOpen(false)} style={{
-            display: 'block',
-            padding: '12px 0',
-            borderBottom: '1px solid #f5f5f5',
-            color: '#171717',
-            textDecoration: 'none',
-            fontSize: 'var(--text-sm)'
-          }}>
-            Sets to Keep
-          </Link>
 
           {/* Other Links */}
           <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
@@ -995,8 +1066,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             borderBottom: '1px solid #f5f5f5',
             color: '#171717',
             textDecoration: 'none',
-            fontSize: 'var(--text-base)',
-            marginTop: '8px'
+            fontSize: 'var(--text-base)'
           }}>
             About
           </Link>
