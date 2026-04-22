@@ -495,7 +495,8 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                 <div style={{ textAlign: 'center', padding: '20px', color: '#737373' }}>Checking collections...</div>
               ) : (
                 <>
-                  {!inventoryItem && !personalCollectionItem && (
+                  {/* Show add buttons if not already added */}
+                  {(!inventoryItem || !personalCollectionItem) && (
                     <div>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
                         marginTop: 0, marginBottom: '16px' }}>Add This Set</h2>
@@ -530,21 +531,25 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                             }}>+</button>
                         </div>
                       </div>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                        <button onClick={() => handleAddToInventory(quantity)} disabled={addLoading}
-                          style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            gap: '8px', background: addLoading ? '#a3a3a3' : '#3b82f6', color: '#ffffff',
-                            border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
-                            cursor: addLoading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
-                          + Inventory
-                        </button>
-                        <button onClick={() => handleAddToPersonalCollection(quantity)} disabled={addPersonalLoading}
-                          style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            gap: '8px', background: addPersonalLoading ? '#a3a3a3' : '#3b82f6', color: '#ffffff',
-                            border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
-                            cursor: addPersonalLoading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
-                          + Collection
-                        </button>
+                      <div style={{ display: 'grid', gridTemplateColumns: !inventoryItem && !personalCollectionItem ? '1fr 1fr' : '1fr', gap: '12px' }}>
+                        {!inventoryItem && (
+                          <button onClick={() => handleAddToInventory(quantity)} disabled={addLoading}
+                            style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                              gap: '8px', background: addLoading ? '#a3a3a3' : '#3b82f6', color: '#ffffff',
+                              border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
+                              cursor: addLoading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+                            + Inventory
+                          </button>
+                        )}
+                        {!personalCollectionItem && (
+                          <button onClick={() => handleAddToPersonalCollection(quantity)} disabled={addPersonalLoading}
+                            style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                              gap: '8px', background: addPersonalLoading ? '#a3a3a3' : '#3b82f6', color: '#ffffff',
+                              border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
+                              cursor: addPersonalLoading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
+                            + Collection
+                          </button>
+                        )}
                       </div>
                     </div>
                   )}
