@@ -19,9 +19,9 @@ export default function SetCardImage({
   maxHeight = '180px'
 }: SetCardImageProps) {
   const [imageError, setImageError] = useState(false);
-  const [currentImageUrl, setCurrentImageUrl] = useState(imageUrl);
+  const [currentImageUrl, setCurrentImageUrl] = useState(imageUrl || '');
 
-  if (!imageUrl || imageError) {
+  if (!imageUrl || imageError || !currentImageUrl) {
     return <div style={{ fontSize: '72px', opacity: 0.3 }}>📦</div>;
   }
 
