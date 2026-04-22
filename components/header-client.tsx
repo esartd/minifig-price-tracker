@@ -890,16 +890,19 @@ export function HeaderClient({ user }: HeaderClientProps) {
       {mobileMenuOpen && (
         <nav ref={mobileMenuRef} style={{
           background: '#fff',
-          padding: '20px',
-          paddingBottom: '40px'
+          padding: '16px 16px 32px',
+          borderTop: '1px solid #f5f5f5'
         }}>
           <Link href="/search" onClick={() => setMobileMenuOpen(false)} style={{
-            display: 'block',
-            padding: '15px 0',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '16px 0',
             borderBottom: '1px solid #f5f5f5',
             color: '#171717',
             textDecoration: 'none',
-            fontSize: 'var(--text-base)'
+            fontSize: 'var(--text-base)',
+            fontWeight: '600',
+            minHeight: '44px'
           }}>
             Search
           </Link>
@@ -907,20 +910,24 @@ export function HeaderClient({ user }: HeaderClientProps) {
           {/* Browse Dropdown */}
           <div style={{ borderBottom: '1px solid #f5f5f5' }}>
             <button
-              onClick={() => setMobileBrowseOpen(!mobileBrowseOpen)}
+              onClick={() => {
+                setMobileBrowseOpen(!mobileBrowseOpen);
+                if (!mobileBrowseOpen) setMobileLegoOpen(false); // Close other dropdown
+              }}
               style={{
                 width: '100%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '15px 0',
+                padding: '16px 0',
                 background: 'none',
                 border: 'none',
                 color: '#171717',
                 fontSize: 'var(--text-base)',
-                fontWeight: '500',
+                fontWeight: '600',
                 cursor: 'pointer',
-                textAlign: 'left'
+                textAlign: 'left',
+                minHeight: '44px'
               }}
             >
               <span>Themes</span>
@@ -929,7 +936,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   width: '20px',
                   height: '20px',
                   transition: 'transform 0.2s',
-                  transform: mobileBrowseOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+                  transform: mobileBrowseOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                  flexShrink: 0
                 }}
                 fill="none"
                 stroke="currentColor"
@@ -939,24 +947,32 @@ export function HeaderClient({ user }: HeaderClientProps) {
               </svg>
             </button>
             {mobileBrowseOpen && (
-              <div style={{ paddingLeft: '16px', paddingBottom: '8px' }}>
+              <div style={{ paddingLeft: '16px', paddingBottom: '16px' }}>
                 <Link href="/themes" onClick={() => setMobileMenuOpen(false)} style={{
-                  display: 'block',
-                  padding: '12px 0',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  padding: '8px 0',
                   color: '#525252',
                   textDecoration: 'none',
-                  fontSize: 'var(--text-sm)'
+                  fontSize: 'var(--text-base)',
+                  minHeight: '44px'
                 }}>
-                  Minifigure Themes
+                  <UserIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
+                  <span>Minifigure Themes</span>
                 </Link>
                 <Link href="/sets-themes" onClick={() => setMobileMenuOpen(false)} style={{
-                  display: 'block',
-                  padding: '12px 0',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  padding: '8px 0',
                   color: '#525252',
                   textDecoration: 'none',
-                  fontSize: 'var(--text-sm)'
+                  fontSize: 'var(--text-base)',
+                  minHeight: '44px'
                 }}>
-                  Set Themes
+                  <CubeIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
+                  <span>Set Themes</span>
                 </Link>
               </div>
             )}
@@ -965,20 +981,24 @@ export function HeaderClient({ user }: HeaderClientProps) {
           {/* Your LEGO Dropdown */}
           <div style={{ borderBottom: '1px solid #f5f5f5' }}>
             <button
-              onClick={() => setMobileLegoOpen(!mobileLegoOpen)}
+              onClick={() => {
+                setMobileLegoOpen(!mobileLegoOpen);
+                if (!mobileLegoOpen) setMobileBrowseOpen(false); // Close other dropdown
+              }}
               style={{
                 width: '100%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '15px 0',
+                padding: '16px 0',
                 background: 'none',
                 border: 'none',
                 color: '#171717',
                 fontSize: 'var(--text-base)',
-                fontWeight: '500',
+                fontWeight: '600',
                 cursor: 'pointer',
-                textAlign: 'left'
+                textAlign: 'left',
+                minHeight: '44px'
               }}
             >
               <span>Your LEGO</span>
@@ -987,7 +1007,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   width: '20px',
                   height: '20px',
                   transition: 'transform 0.2s',
-                  transform: mobileLegoOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+                  transform: mobileLegoOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                  flexShrink: 0
                 }}
                 fill="none"
                 stroke="currentColor"
@@ -997,111 +1018,144 @@ export function HeaderClient({ user }: HeaderClientProps) {
               </svg>
             </button>
             {mobileLegoOpen && (
-              <div style={{ paddingLeft: '16px', paddingBottom: '8px' }}>
+              <div style={{ paddingLeft: '16px', paddingBottom: '16px' }}>
                 <div style={{
-                  fontSize: '11px',
+                  fontSize: 'var(--text-xs)',
                   fontWeight: '600',
-                  color: '#737373',
+                  color: '#a3a3a3',
                   textTransform: 'uppercase',
                   letterSpacing: '0.5px',
-                  padding: '8px 0'
+                  padding: '8px 0 4px',
+                  marginTop: '4px'
                 }}>
                   Minifigures
                 </div>
                 <Link href="/inventory" onClick={() => setMobileMenuOpen(false)} style={{
-                  display: 'block',
-                  padding: '10px 0',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  padding: '8px 0',
                   color: '#525252',
                   textDecoration: 'none',
-                  fontSize: 'var(--text-sm)'
+                  fontSize: 'var(--text-base)',
+                  minHeight: '44px'
                 }}>
-                  For Sale
+                  <CurrencyDollarIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
+                  <span>For Sale</span>
                 </Link>
                 <Link href="/collection" onClick={() => setMobileMenuOpen(false)} style={{
-                  display: 'block',
-                  padding: '10px 0',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  padding: '8px 0',
                   color: '#525252',
                   textDecoration: 'none',
-                  fontSize: 'var(--text-sm)'
+                  fontSize: 'var(--text-base)',
+                  minHeight: '44px'
                 }}>
-                  To Keep
+                  <StarIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
+                  <span>To Keep</span>
                 </Link>
                 <div style={{
-                  fontSize: '11px',
+                  fontSize: 'var(--text-xs)',
                   fontWeight: '600',
-                  color: '#737373',
+                  color: '#a3a3a3',
                   textTransform: 'uppercase',
                   letterSpacing: '0.5px',
-                  padding: '8px 0',
-                  marginTop: '8px'
+                  padding: '8px 0 4px',
+                  marginTop: '16px'
                 }}>
                   Sets
                 </div>
                 <Link href="/sets-inventory" onClick={() => setMobileMenuOpen(false)} style={{
-                  display: 'block',
-                  padding: '10px 0',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  padding: '8px 0',
                   color: '#525252',
                   textDecoration: 'none',
-                  fontSize: 'var(--text-sm)'
+                  fontSize: 'var(--text-base)',
+                  minHeight: '44px'
                 }}>
-                  For Sale
+                  <CurrencyDollarIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
+                  <span>For Sale</span>
                 </Link>
                 <Link href="/sets-collection" onClick={() => setMobileMenuOpen(false)} style={{
-                  display: 'block',
-                  padding: '10px 0',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  padding: '8px 0',
                   color: '#525252',
                   textDecoration: 'none',
-                  fontSize: 'var(--text-sm)'
+                  fontSize: 'var(--text-base)',
+                  minHeight: '44px'
                 }}>
-                  To Keep
+                  <StarIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
+                  <span>To Keep</span>
                 </Link>
               </div>
             )}
           </div>
 
           {/* Other Links */}
-          <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
-            display: 'block',
-            padding: '15px 0',
-            borderBottom: '1px solid #f5f5f5',
-            color: '#171717',
-            textDecoration: 'none',
-            fontSize: 'var(--text-base)'
+          <div style={{
+            marginTop: '32px'
           }}>
-            About
-          </Link>
-          <Link href="/account" onClick={() => setMobileMenuOpen(false)} style={{
-            display: 'block',
-            padding: '15px 0',
-            borderBottom: '1px solid #f5f5f5',
-            color: '#171717',
-            textDecoration: 'none',
-            fontSize: 'var(--text-base)'
-          }}>
-            Account Settings
-          </Link>
-          <Link href="/wishlist" onClick={() => setMobileMenuOpen(false)} style={{
-            display: 'block',
-            padding: '15px 0',
-            borderBottom: '1px solid #f5f5f5',
-            color: '#171717',
-            textDecoration: 'none',
-            fontSize: 'var(--text-base)'
-          }}>
-            Wishlist
-          </Link>
-          {user?.email === 'erickkosysu@gmail.com' && (
-            <Link href="/admin/stats" onClick={() => setMobileMenuOpen(false)} style={{
-              display: 'block',
-              padding: '15px 0',
+            <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '16px 0',
               borderBottom: '1px solid #f5f5f5',
               color: '#171717',
               textDecoration: 'none',
-              fontSize: 'var(--text-base)'
+              fontSize: 'var(--text-base)',
+              fontWeight: '600',
+              minHeight: '44px'
             }}>
-              Admin Dashboard
+              About
             </Link>
-          )}
+            <Link href="/account" onClick={() => setMobileMenuOpen(false)} style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '16px 0',
+              borderBottom: '1px solid #f5f5f5',
+              color: '#171717',
+              textDecoration: 'none',
+              fontSize: 'var(--text-base)',
+              fontWeight: '600',
+              minHeight: '44px'
+            }}>
+              Account Settings
+            </Link>
+            <Link href="/wishlist" onClick={() => setMobileMenuOpen(false)} style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '16px 0',
+              borderBottom: '1px solid #f5f5f5',
+              color: '#171717',
+              textDecoration: 'none',
+              fontSize: 'var(--text-base)',
+              fontWeight: '600',
+              minHeight: '44px'
+            }}>
+              Wishlist
+            </Link>
+            {user?.email === 'erickkosysu@gmail.com' && (
+              <Link href="/admin/stats" onClick={() => setMobileMenuOpen(false)} style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '16px 0',
+                borderBottom: '1px solid #f5f5f5',
+                color: '#171717',
+                textDecoration: 'none',
+                fontSize: 'var(--text-base)',
+                fontWeight: '600',
+                minHeight: '44px'
+              }}>
+                Admin Dashboard
+              </Link>
+            )}
+          </div>
           <button onClick={() => { setMobileMenuOpen(false); handleSignOut(); }} style={{
             display: 'block',
             width: '100%',
