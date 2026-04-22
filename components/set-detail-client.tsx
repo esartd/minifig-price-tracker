@@ -780,7 +780,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           cursor: 'pointer', padding: 0, transition: 'all 0.2s'
                         }} title="Move to Inventory">
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <polyline points="15 18 9 12 15 6"></polyline>
+                            <polyline points="9 18 15 12 9 6"></polyline>
                           </svg>
                         </button>
                         <button onClick={(e) => { e.stopPropagation(); setDeleteTarget('collection'); setShowDeleteDialog(true); }}
