@@ -83,18 +83,21 @@ export default function CollectionPage() {
         setCollection(data.data);
         setLoading(false); // Show items immediately
 
-        // For each item missing pricing, fetch individually
-        const itemsMissingPricing = data.data.filter((item: CollectionItem) =>
-          !item.pricing || item.pricing.suggestedPrice === 0
+        // For each item missing pricing OR with wrong currency, fetch individually
+        const userCurrency = session?.user?.preferredCurrency || 'USD';
+        const itemsNeedingRefresh = data.data.filter((item: CollectionItem) =>
+          !item.pricing ||
+          item.pricing.suggestedPrice === 0 ||
+          item.pricing.currencyCode !== userCurrency
         );
 
-        console.log(`Found ${itemsMissingPricing.length} items needing pricing`);
+        console.log(`Found ${itemsNeedingRefresh.length} items needing pricing refresh (current currency: ${userCurrency})`);
 
-        if (itemsMissingPricing.length > 0) {
+        if (itemsNeedingRefresh.length > 0) {
           // Fetch each item's pricing individually
-          itemsMissingPricing.forEach(async (item: CollectionItem) => {
+          itemsNeedingRefresh.forEach(async (item: CollectionItem) => {
             try {
-              console.log(`Fetching price for ${item.minifigure_no}...`);
+              console.log(`Fetching ${userCurrency} price for ${item.minifigure_no} (current: ${item.pricing?.currencyCode})...`);
               const priceResponse = await fetch(`/api/inventory/${item.id}/refresh-pricing`, {
                 method: 'POST'
               });

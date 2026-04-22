@@ -83,9 +83,17 @@ export default function PersonalCollectionPage() {
         setCollection(data.data);
         setLoading(false); // Show items immediately
 
-        // Check if any items are missing pricing
-        const itemsMissingPricing = data.data.filter((item: PersonalCollectionItem) => !item.pricing);
-        if (itemsMissingPricing.length > 0) {
+        // Check if any items are missing pricing or have wrong currency
+        const userCurrency = session?.user?.preferredCurrency || 'USD';
+        const itemsNeedingRefresh = data.data.filter((item: PersonalCollectionItem) =>
+          !item.pricing ||
+          !item.pricing.suggestedPrice ||
+          item.pricing.currencyCode !== userCurrency
+        );
+
+        console.log(`Found ${itemsNeedingRefresh.length} items needing pricing refresh (current currency: ${userCurrency})`);
+
+        if (itemsNeedingRefresh.length > 0) {
           // Progressive polling: fetch updates every 1.5 seconds until all prices loaded
           let pollCount = 0;
           const maxPolls = 20; // Stop after 30 seconds
@@ -101,7 +109,11 @@ export default function PersonalCollectionPage() {
                 setCollection(updateData.data);
 
                 // Stop polling if all prices loaded or max polls reached
-                const stillMissing = updateData.data.filter((item: PersonalCollectionItem) => !item.pricing);
+                const stillMissing = updateData.data.filter((item: PersonalCollectionItem) =>
+                  !item.pricing ||
+                  !item.pricing.suggestedPrice ||
+                  item.pricing.currencyCode !== userCurrency
+                );
                 if (stillMissing.length === 0 || pollCount >= maxPolls) {
                   clearInterval(pollInterval);
                 }
