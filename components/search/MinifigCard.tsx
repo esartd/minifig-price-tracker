@@ -39,17 +39,23 @@ export default function MinifigCard({
 
   // Get image URL - use provided image_url or construct from minifigure number
   const getImageUrl = () => {
+    const itemNo = isSet ? minifig.box_no : (minifig.minifigure_no || minifig.no);
+
     // First try: use provided image_url
     if (minifig.image_url) {
       return minifig.image_url;
     }
 
+    // Debug: Log when fallback is used
+    if (!minifig.image_url && itemNo) {
+      console.warn(`[MinifigCard] No image_url for ${itemNo}, using fallback`);
+    }
+
     // Fallback: construct BrickLink image URL from item number
-    const itemNo = isSet ? minifig.box_no : (minifig.minifigure_no || minifig.no);
     if (itemNo) {
       return isSet
-        ? `https://img.bricklink.com/ItemImage/SN/0/${itemNo}.png`
-        : `https://img.bricklink.com/ItemImage/MN/0/${itemNo}.png`;
+        ? `https://img.bricklink.com/ItemImage/ON/0/${itemNo}.png` // ON = Original Normal for sets
+        : `https://img.bricklink.com/ItemImage/MN/0/${itemNo}.png`; // MN = Minifig Normal
     }
 
     return null;
