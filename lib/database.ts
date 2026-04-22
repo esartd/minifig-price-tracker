@@ -7,7 +7,8 @@ class DatabaseService {
     return {
       id: item.id,
       userId: item.userId,
-      minifigure_no: item.minifigure_no,
+      item_no: item.minifigure_no,
+      item_type: 'MINIFIG',
       minifigure_name: item.minifigure_name,
       quantity: item.quantity,
       condition: item.condition as 'new' | 'used',
@@ -29,7 +30,8 @@ class DatabaseService {
     return {
       id: item.id,
       userId: item.userId,
-      minifigure_no: item.minifigure_no,
+      item_no: item.minifigure_no,
+      item_type: 'MINIFIG',
       minifigure_name: item.minifigure_name,
       quantity: item.quantity,
       condition: item.condition as 'new' | 'used',
@@ -61,7 +63,8 @@ class DatabaseService {
 
     // Batch fetch all prices in ONE query instead of N queries
     const priceCacheKeys = items.map(item => ({
-      minifigure_no: item.minifigure_no,
+      item_no: item.minifigure_no,
+      item_type: 'MINIFIG',
       condition: item.condition,
       country_code: countryCode,
       region: region
@@ -123,7 +126,8 @@ class DatabaseService {
     const created = await prisma.collectionItem.create({
       data: {
         userId: item.userId,
-        minifigure_no: item.minifigure_no,
+        item_no: item.minifigure_no,
+      item_type: 'MINIFIG',
         minifigure_name: item.minifigure_name,
         quantity: item.quantity,
         condition: item.condition,
@@ -207,7 +211,8 @@ class DatabaseService {
 
     // Batch fetch all prices in ONE query instead of N queries
     const priceCacheKeys = items.map(item => ({
-      minifigure_no: item.minifigure_no,
+      item_no: item.minifigure_no,
+      item_type: 'MINIFIG',
       condition: item.condition,
       country_code: countryCode,
       region: region
@@ -269,7 +274,8 @@ class DatabaseService {
     const created = await prisma.personalCollectionItem.create({
       data: {
         userId: item.userId,
-        minifigure_no: item.minifigure_no,
+        item_no: item.minifigure_no,
+      item_type: 'MINIFIG',
         minifigure_name: item.minifigure_name,
         quantity: item.quantity,
         condition: item.condition,
