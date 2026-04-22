@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SetAdCard from '@/components/SetAdCard';
 import MoveDialog from '@/components/MoveDialog';
+import ListingGeneratorForm from '@/components/listing-generator-form';
 import { formatPrice } from '@/lib/format-price';
 import { getSetAvailability } from '@/lib/set-availability';
 import { generateLegoSetLink, generateAmazonLegoSetLink } from '@/lib/affiliate-links';
@@ -554,72 +555,6 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                     </div>
                   )}
 
-                  {/* Buy buttons for current year sets only - show always */}
-                  {availability.status === 'available' && (
-                    <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                      <a
-                        href={amazonAffiliateUrl}
-                        target="_blank"
-                        rel="noopener noreferrer sponsored"
-                        style={{
-                          display: 'block',
-                          width: '100%',
-                          padding: '12px 16px',
-                          background: '#ffffff',
-                          color: '#171717',
-                          border: '1px solid #e5e5e5',
-                          borderRadius: '8px',
-                          fontSize: 'var(--text-sm)',
-                          fontWeight: '600',
-                          textAlign: 'center',
-                          textDecoration: 'none',
-                          transition: 'all 0.2s',
-                          cursor: 'pointer'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#f5f5f5';
-                          e.currentTarget.style.transform = 'translateY(-1px)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = '#ffffff';
-                          e.currentTarget.style.transform = 'translateY(0)';
-                        }}
-                      >
-                        Find on Amazon
-                      </a>
-                      <a
-                        href={legoAffiliateUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                          display: 'block',
-                          width: '100%',
-                          padding: '12px 16px',
-                          background: '#ffffff',
-                          color: '#171717',
-                          border: '1px solid #e5e5e5',
-                          borderRadius: '8px',
-                          fontSize: 'var(--text-sm)',
-                          fontWeight: '600',
-                          textAlign: 'center',
-                          textDecoration: 'none',
-                          transition: 'all 0.2s',
-                          cursor: 'pointer'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#f5f5f5';
-                          e.currentTarget.style.transform = 'translateY(-1px)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = '#ffffff';
-                          e.currentTarget.style.transform = 'translateY(0)';
-                        }}
-                      >
-                        View on LEGO.com
-                      </a>
-                    </div>
-                  )}
-
                   {inventoryItem && (
                     <>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
@@ -691,6 +626,20 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           </svg>
                         </button>
                       </div>
+
+                      {/* Generate Listing - part of inventory section */}
+                      <div style={{ marginTop: '16px' }}>
+                        <ListingGeneratorForm
+                          item={{...inventoryItem, minifigure_no: inventoryItem.box_no, minifigure_name: inventoryItem.set_name}}
+                          onSuccess={(listing) => {
+                            alert('Listing saved!');
+                          }}
+                          onOpen={() => {
+                            setSuccessMessage('');
+                            setError('');
+                          }}
+                        />
+                      </div>
                     </>
                   )}
 
@@ -731,7 +680,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                         </div>
                       </div>
                       <button onClick={handleAddToCollectionFromSection} disabled={addToCollectionLoading}
-                        style={{ width: '100%', height: '44px', background: addToCollectionLoading ? '#a3a3a3' : '#10b981',
+                        style={{ width: '100%', height: '44px', background: addToCollectionLoading ? '#a3a3a3' : '#3b82f6',
                           color: '#ffffff', border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)',
                           fontWeight: '600', cursor: addToCollectionLoading ? 'not-allowed' : 'pointer',
                           transition: 'all 0.2s' }}>
@@ -814,6 +763,30 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                     </>
                   )}
                 </>
+              )}
+
+              {/* Buy Buttons - always show after collection controls */}
+              {availability.status === 'available' && (
+                <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid #e5e5e5' }}>
+                  <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
+                    marginBottom: '16px', marginTop: '0' }}>Buy This Set</h2>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <a href={amazonAffiliateUrl} target="_blank" rel="noopener noreferrer nofollow"
+                      style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        gap: '8px', background: '#ffffff', color: '#525252', border: '1px solid #e5e5e5',
+                        borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
+                        textDecoration: 'none', transition: 'all 0.2s' }}>
+                      Find on Amazon
+                    </a>
+                    <a href={legoAffiliateUrl} target="_blank" rel="noopener noreferrer nofollow"
+                      style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        gap: '8px', background: '#ffffff', color: '#525252', border: '1px solid #e5e5e5',
+                        borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
+                        textDecoration: 'none', transition: 'all 0.2s' }}>
+                      Buy on LEGO.com
+                    </a>
+                  </div>
+                </div>
               )}
             </div>
           </div>
