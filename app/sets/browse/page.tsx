@@ -60,7 +60,6 @@ function SetCard({ set }: { set: LegoBox }) {
               width={180}
               height={180}
               style={{ objectFit: 'contain', maxHeight: '180px' }}
-              unoptimized
               onError={handleImageError}
             />
           ) : (

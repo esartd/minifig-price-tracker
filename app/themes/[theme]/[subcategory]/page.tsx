@@ -361,7 +361,6 @@ export default function SubcategoryMinifigsPage({
                       padding: '8px',
                       ...getSensitiveImageStyles(minifig.no, minifig.name)
                     }}
-                    unoptimized
                   />
                 </div>
 

@@ -190,7 +190,6 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
                 objectFit: 'contain',
                 padding: '12px'
               }}
-              unoptimized
             />
           </div>
 
@@ -312,7 +311,6 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
                       width={80}
                       height={80}
                       style={{ objectFit: 'contain', width: '100%', height: '100%' }}
-                      unoptimized
                     />
                   </div>
                 )}
@@ -426,7 +424,6 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
                     width={120}
                     height={160}
                     style={{ objectFit: 'contain', maxWidth: '100%', maxHeight: '100%' }}
-                    unoptimized
                   />
                 </div>
                 <div>

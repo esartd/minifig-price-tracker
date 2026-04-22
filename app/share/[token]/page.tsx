@@ -240,7 +240,6 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
                       maxWidth: '100%',
                       objectFit: 'contain'
                     }}
-                    unoptimized
                   />
                 ) : (
                   <span style={{ fontSize: '48px' }}>🧱</span>

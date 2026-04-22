@@ -339,7 +339,6 @@ export default function WishlistPage() {
                         maxWidth: '100%',
                         objectFit: 'contain'
                       }}
-                      unoptimized
                     />
                   ) : (
                     <span style={{ fontSize: '48px' }}>🧱</span>

@@ -397,7 +397,6 @@ export default function UnifiedSearchClient() {
                               width={160}
                               height={160}
                               style={{ objectFit: 'contain', maxHeight: '160px' }}
-                              unoptimized
                             />
                           </div>
                           <div style={{ padding: '16px' }}>
@@ -507,7 +506,6 @@ export default function UnifiedSearchClient() {
                               width={160}
                               height={160}
                               style={{ objectFit: 'contain', maxHeight: '160px' }}
-                              unoptimized
                             />
                           </div>
                           <div style={{ padding: '16px' }}>

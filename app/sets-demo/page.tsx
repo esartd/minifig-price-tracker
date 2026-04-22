@@ -227,7 +227,6 @@ export default function SetsDemoPage() {
                       width={200}
                       height={200}
                       style={{ objectFit: 'contain', maxHeight: '180px' }}
-                      unoptimized
                     />
                   </div>
                   <div style={{
