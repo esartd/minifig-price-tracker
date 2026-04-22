@@ -128,11 +128,14 @@ export async function POST(request: NextRequest) {
       minifigure_no,
       itemCondition
     );
+
+    // If item exists, update quantity instead of rejecting
     if (existingItem) {
-      return NextResponse.json(
-        { success: false, error: `Item already exists in personal collection as ${itemCondition}` },
-        { status: 409 }
-      );
+      const newQuantity = existingItem.quantity + quantity;
+      const updatedItem = await database.updatePersonalItem(existingItem.id, {
+        quantity: newQuantity
+      });
+      return NextResponse.json({ success: true, data: updatedItem, quantityAdded: quantity }, { status: 200 });
     }
 
     // Get user's regional preferences

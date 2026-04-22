@@ -426,13 +426,14 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
       if (data.success) {
         await refreshCollections();
-        setSuccessMessage(`Added ${quantity} ${condition} to Your Collection!`);
+        const message = data.quantityAdded
+          ? `Added ${data.quantityAdded} more ${condition} to Your Collection!`
+          : `Added ${quantity} ${condition} to Your Collection!`;
+        setSuccessMessage(message);
         setQuantity(1);
       } else {
         if (response.status === 401) {
           setError('Please sign in to add items');
-        } else if (response.status === 409) {
-          setError('Already in personal collection');
         } else {
           setError(data.error || 'Failed to add');
         }
@@ -569,13 +570,14 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
       if (data.success) {
         await refreshCollections();
-        setSuccessMessage(`Added ${addToCollectionQty} ${condition} to Your Collection!`);
+        const message = data.quantityAdded
+          ? `Added ${data.quantityAdded} more ${condition} to Your Collection!`
+          : `Added ${addToCollectionQty} ${condition} to Your Collection!`;
+        setSuccessMessage(message);
         setAddToCollectionQty(1); // Reset
       } else {
         if (response.status === 401) {
           setError('Please sign in to add items');
-        } else if (response.status === 409) {
-          setError('Already in personal collection');
         } else {
           setError(data.error || 'Failed to add');
         }
@@ -618,13 +620,14 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
       if (data.success) {
         await refreshCollections();
-        setSuccessMessage(`Added ${addToInventoryQty} ${condition} to Your Inventory!`);
+        const message = data.quantityAdded
+          ? `Added ${data.quantityAdded} more ${condition} to Your Inventory!`
+          : `Added ${addToInventoryQty} ${condition} to Your Inventory!`;
+        setSuccessMessage(message);
         setAddToInventoryQty(1); // Reset
       } else {
         if (response.status === 401) {
           setError('Please sign in to add items');
-        } else if (response.status === 409) {
-          setError('Already in inventory');
         } else {
           setError(data.error || 'Failed to add');
         }
@@ -1585,7 +1588,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                             marginBottom: '16px',
                             marginTop: '0'
                           }}>
-                            Add to Your Collection?
+                            {personalCollectionItem ? 'In Your Collection' : 'Add to Your Collection?'}
                           </h2>
 
                           <div style={{ marginBottom: '16px' }}>
