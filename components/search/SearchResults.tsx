@@ -25,6 +25,9 @@ export default function SearchResults({
   const [selectedThemes, setSelectedThemes] = useState<Set<string>>(new Set());
   const [pricing, setPricing] = useState<Record<string, { suggestedPrice: number; loading: boolean }>>({});
   const [activeTab, setActiveTab] = useState<'all' | 'minifigs' | 'sets'>('all');
+  const [displayCount, setDisplayCount] = useState(50);
+
+  const RESULTS_PER_PAGE = 50;
 
   // Separate minifigs and sets
   const minifigs = searchResults.filter(item => item.resultType !== 'set');
@@ -85,6 +88,19 @@ export default function SearchResults({
     const yearB = parseInt(b.year_released || '0');
     return yearB - yearA; // Descending (newest first)
   });
+
+  // Paginate results
+  const paginatedResults = sortedResults.slice(0, displayCount);
+  const hasMore = sortedResults.length > displayCount;
+
+  // Reset display count when tab changes or filters change
+  useEffect(() => {
+    setDisplayCount(RESULTS_PER_PAGE);
+  }, [activeTab, selectedThemes]);
+
+  const handleLoadMore = () => {
+    setDisplayCount(prev => prev + RESULTS_PER_PAGE);
+  };
 
   // Pricing disabled for search results - only fetch when adding to collection
 
@@ -245,7 +261,7 @@ export default function SearchResults({
             color: '#737373',
             marginBottom: '8px'
           }}>
-            {sortedResults.length} result{sortedResults.length !== 1 ? 's' : ''} shown
+            Showing {paginatedResults.length} of {sortedResults.length} result{sortedResults.length !== 1 ? 's' : ''}
             {selectedThemes.size > 0 && ` (${displayedResults.length} total)`}
           </p>
 
@@ -257,13 +273,44 @@ export default function SearchResults({
             maxWidth: '100%',
             boxSizing: 'border-box'
           }}>
-            {sortedResults.map((minifig, index) => (
+            {paginatedResults.map((minifig, index) => (
               <MinifigCard
                 key={index}
                 minifig={minifig}
               />
             ))}
           </div>
+
+          {/* Load More Button */}
+          {hasMore && (
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '32px' }}>
+              <button
+                onClick={handleLoadMore}
+                style={{
+                  padding: '12px 32px',
+                  fontSize: 'var(--text-base)',
+                  fontWeight: '600',
+                  color: '#ffffff',
+                  background: '#3b82f6',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#2563eb';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.3)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = '#3b82f6';
+                  e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+                }}
+              >
+                Load More ({sortedResults.length - displayCount} remaining)
+              </button>
+            </div>
+          )}
         </div>
       )}
 
