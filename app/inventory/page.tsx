@@ -26,7 +26,7 @@ export default function CollectionPage() {
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [totalItems, setTotalItems] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
 
   // Load saved preferences on mount
   useEffect(() => {
