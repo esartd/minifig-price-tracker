@@ -23,10 +23,21 @@ async function getThemes(): Promise<{ themes: Theme[]; currentThemes: Theme[] }>
   try {
     // In server components, we can import the API logic directly instead of fetching
     const { loadAllBoxes } = await import('@/lib/boxes-data');
-    const { getPopularThemes } = await import('@/lib/boxes-data');
+    const fs = await import('fs');
+    const path = await import('path');
 
     const boxes = loadAllBoxes();
     const currentYear = new Date().getFullYear();
+
+    // Load permanent theme images cache
+    const cacheFilePath = path.join(process.cwd(), 'lib', 'theme-images-cache.json');
+    let themeImagesCache: any = { themes: {} };
+    try {
+      const cacheContent = fs.readFileSync(cacheFilePath, 'utf-8');
+      themeImagesCache = JSON.parse(cacheContent);
+    } catch (error) {
+      console.warn('Could not load theme images cache:', error);
+    }
 
     // Group by parent theme
     const themeGroups = new Map<string, any>();
@@ -36,12 +47,15 @@ async function getThemes(): Promise<{ themes: Theme[]; currentThemes: Theme[] }>
       const isCurrent = box.year_released === currentYear.toString();
 
       if (!themeGroups.has(parent)) {
+        // Use permanent cached images if available
+        const cachedTheme = themeImagesCache.themes[parent];
+
         themeGroups.set(parent, {
           parent,
           subcategories: new Map(),
           totalCount: 0,
-          representativeImage: null,
-          fallbackImages: [],
+          representativeImage: cachedTheme?.representativeImage || null,
+          fallbackImages: cachedTheme?.fallbackImages || [],
           isCurrent: false
         });
       }
@@ -53,9 +67,11 @@ async function getThemes(): Promise<{ themes: Theme[]; currentThemes: Theme[] }>
         theme.isCurrent = true;
       }
 
-      // Add to fallback images
-      if (theme.fallbackImages.length < 5 && box.image_url) {
-        theme.fallbackImages.push(box.image_url);
+      // Only add fallback images if none are cached
+      if (theme.fallbackImages.length === 0 && box.image_url) {
+        if (theme.fallbackImages.length < 5) {
+          theme.fallbackImages.push(box.image_url);
+        }
       }
 
       // Track subcategories
