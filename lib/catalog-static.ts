@@ -89,9 +89,11 @@ export async function searchMinifigs(query: string, limit = 50): Promise<Minifig
 
   return catalog
     .filter(m =>
-      m.minifigure_no.toLowerCase().includes(lowerQuery) ||
-      m.name.toLowerCase().includes(lowerQuery) ||
-      m.category_name.toLowerCase().includes(lowerQuery)
+      m.minifigure_no && ( // Skip entries with null minifigure_no
+        m.minifigure_no.toLowerCase().includes(lowerQuery) ||
+        m.name.toLowerCase().includes(lowerQuery) ||
+        m.category_name.toLowerCase().includes(lowerQuery)
+      )
     )
     .slice(0, limit);
 }
