@@ -4,10 +4,12 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { SetInventoryItem } from '@/types';
+import SetInventoryList from '@/components/SetInventoryList';
+import SetCollectionSwitcher from '@/components/SetCollectionSwitcher';
 import Link from 'next/link';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
 import CollectionPagination from '@/components/CollectionPagination';
-import SetCardImage from '@/components/SetCard';
 
 export default function SetsInventoryPage() {
   const { data: session, status } = useSession();
@@ -15,10 +17,44 @@ export default function SetsInventoryPage() {
   const [inventory, setInventory] = useState<SetInventoryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [sortOrder, setSortOrder] = useState<'default' | 'price-high' | 'price-low' | 'name'>('price-high');
+  const [showDecimals, setShowDecimals] = useState(false);
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
+
+  // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
+
+  // Stats state
+  const [totalValue, setTotalValue] = useState(0);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const [avgValue, setAvgValue] = useState(0);
+
+  // Load saved preferences on mount
+  useEffect(() => {
+    const savedSortOrder = localStorage.getItem('setInventorySortOrder');
+    if (savedSortOrder) {
+      setSortOrder(savedSortOrder as 'default' | 'price-high' | 'price-low' | 'name');
+    }
+
+    const savedShowDecimals = localStorage.getItem('showDecimals');
+    if (savedShowDecimals !== null) {
+      setShowDecimals(savedShowDecimals === 'true');
+    }
+  }, []);
+
+  // Save sort order when it changes
+  const handleSortOrderChange = (newSortOrder: 'default' | 'price-high' | 'price-low' | 'name') => {
+    setSortOrder(newSortOrder);
+    localStorage.setItem('setInventorySortOrder', newSortOrder);
+  };
+
+  // Save decimal preference when it changes
+  const handleToggleDecimals = () => {
+    const newValue = !showDecimals;
+    setShowDecimals(newValue);
+    localStorage.setItem('showDecimals', newValue.toString());
+  };
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -42,323 +78,560 @@ export default function SetsInventoryPage() {
           setTotalCount(data.pagination.totalItems);
           setCurrentPage(data.pagination.page);
         }
+
+        // Update stats from API response
+        if (data.stats) {
+          setTotalValue(data.stats.totalValue);
+          setTotalQuantity(data.stats.totalQuantity);
+          setAvgValue(data.stats.avgValue);
+        }
+
+        setLoading(false);
       }
     } catch (error) {
-      console.error('Error loading inventory:', error);
-    } finally {
+      console.error('Error loading set inventory:', error);
       setLoading(false);
     }
   };
 
-  // Filter by condition
-  const filteredInventory = inventory.filter(item => {
-    if (conditionFilter === 'all') return true;
-    return item.condition === conditionFilter;
-  });
+  const handleItemDeleted = async (id: string) => {
+    try {
+      const response = await fetch(`/api/set-inventory/${id}`, {
+        method: 'DELETE',
+      });
 
-  // Sort inventory
-  const sortedInventory = [...filteredInventory].sort((a, b) => {
-    if (sortOrder === 'price-high') {
-      return (b.pricing?.suggestedPrice || 0) - (a.pricing?.suggestedPrice || 0);
-    } else if (sortOrder === 'price-low') {
-      return (a.pricing?.suggestedPrice || 0) - (b.pricing?.suggestedPrice || 0);
-    } else if (sortOrder === 'name') {
-      return a.set_name.localeCompare(b.set_name);
-    } else {
-      return new Date(b.date_added).getTime() - new Date(a.date_added).getTime();
+      if (response.ok) {
+        await loadInventory(currentPage);
+      }
+    } catch (error) {
+      console.error('Error deleting set:', error);
     }
-  });
+  };
 
-  // Calculate stats
-  const totalValue = filteredInventory.reduce((sum, item) => {
-    return sum + (item.pricing?.suggestedPrice || 0) * item.quantity;
-  }, 0);
+  const handleItemUpdated = async (id: string, updates: Partial<SetInventoryItem>) => {
+    try {
+      const response = await fetch(`/api/set-inventory/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updates),
+      });
 
-  const totalItems = filteredInventory.reduce((sum, item) => sum + item.quantity, 0);
+      const data = await response.json();
+      if (data.success) {
+        setInventory(
+          inventory.map((item) => (item.id === id ? data.data : item))
+        );
+      }
+    } catch (error) {
+      console.error('Error updating set:', error);
+    }
+  };
 
-  if (loading) {
+  const handleItemMoved = async (id: string, quantity: number) => {
+    try {
+      const response = await fetch(`/api/set-inventory/${id}/move-to-collection`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ quantity }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        await loadInventory(currentPage);
+      }
+    } catch (error) {
+      console.error('Error moving set:', error);
+      throw error;
+    }
+  };
+
+  const getSortedInventory = () => {
+    let filtered = [...inventory];
+    if (conditionFilter !== 'all') {
+      filtered = filtered.filter(item => item.condition === conditionFilter);
+    }
+
+    if (sortOrder === 'price-high') {
+      return filtered.sort((a, b) => {
+        const priceA = a.pricing?.suggestedPrice || 0;
+        const priceB = b.pricing?.suggestedPrice || 0;
+        return priceB - priceA;
+      });
+    } else if (sortOrder === 'price-low') {
+      return filtered.sort((a, b) => {
+        const priceA = a.pricing?.suggestedPrice || 0;
+        const priceB = b.pricing?.suggestedPrice || 0;
+        return priceA - priceB;
+      });
+    } else if (sortOrder === 'name') {
+      return filtered.sort((a, b) => {
+        return a.set_name.localeCompare(b.set_name);
+      });
+    }
+
+    return filtered;
+  };
+
+  if (status === 'loading' || loading) {
     return (
       <div style={{
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#fafafa'
+        backgroundColor: '#fafafa'
       }}>
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '48px', marginBottom: '16px' }}>📦</div>
-          <div style={{ fontSize: '18px', color: '#525252' }}>Loading your sets...</div>
-        </div>
+        <div style={{
+          width: 'var(--icon-2xl)',
+          height: 'var(--icon-2xl)',
+          border: '3px solid #e5e5e5',
+          borderTop: '3px solid #3b82f6',
+          borderRadius: '50%',
+          animation: 'spin 1s linear infinite'
+        }}></div>
       </div>
     );
   }
 
   return (
-    <>
-      <style jsx>{`
-        .responsive-padding {
-          padding: 16px !important;
-        }
-
-        @media (min-width: 768px) {
-          .responsive-padding {
-            padding: 24px !important;
-          }
-        }
-
-        @media (min-width: 1024px) {
-          .responsive-padding {
-            padding: 32px !important;
-          }
-        }
-      `}</style>
-
-      <div style={{ minHeight: '100vh', background: '#fafafa' }}>
-        {/* Header */}
-        <div style={{ background: 'white', borderBottom: '1px solid #e5e5e5' }}>
-          <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '16px' }} className="responsive-padding">
-            <h1 style={{
-              fontSize: 'clamp(28px, 5vw, 36px)',
-              fontWeight: '700',
-              marginBottom: '8px',
-              color: '#171717'
+    <div style={{ minHeight: '100vh', backgroundColor: '#fafafa', overflowX: 'hidden' }}>
+      <div className="collection-page-wrapper" style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '24px 16px 80px',
+        boxSizing: 'border-box'
+      }}>
+        {/* Compact Header with Stats and Action */}
+        {inventory.length > 0 && (
+          <div style={{ marginBottom: '16px' }}>
+            {/* Title + Add Button Row */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: '16px',
+              gap: '16px'
             }}>
-              Sets for Sale
-            </h1>
-            <p style={{
-              fontSize: 'clamp(14px, 2vw, 16px)',
-              color: '#737373',
-              marginBottom: '16px'
-            }}>
-              {totalItems} sets • Total value: {formatPrice(totalValue, 'USD')}
-            </p>
-
-            {/* Controls */}
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <select
-                value={conditionFilter}
-                onChange={(e) => setConditionFilter(e.target.value as 'all' | 'new' | 'used')}
-                style={{
-                  padding: '10px 48px 10px 16px',
-                  fontSize: '15px',
-                  border: '1px solid #e5e5e5',
-                  borderRadius: '8px',
-                  background: 'white',
-                  cursor: 'pointer',
-                  minHeight: '44px',
-                  appearance: 'none',
-                  WebkitAppearance: 'none',
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23525252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'right 16px center'
-                }}
-              >
-                <option value="all">All Conditions ({inventory.length})</option>
-                <option value="new">New ({inventory.filter(i => i.condition === 'new').length})</option>
-                <option value="used">Used ({inventory.filter(i => i.condition === 'used').length})</option>
-              </select>
-
-              <select
-                value={sortOrder}
-                onChange={(e) => setSortOrder(e.target.value as any)}
-                style={{
-                  padding: '10px 48px 10px 16px',
-                  fontSize: '15px',
-                  border: '1px solid #e5e5e5',
-                  borderRadius: '8px',
-                  background: 'white',
-                  cursor: 'pointer',
-                  minHeight: '44px',
-                  appearance: 'none',
-                  WebkitAppearance: 'none',
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23525252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'right 16px center'
-                }}
-              >
-                <option value="default">Sort by Date Added</option>
-                <option value="price-high">Sort by Price (High to Low)</option>
-                <option value="price-low">Sort by Price (Low to High)</option>
-                <option value="name">Sort by Name (A-Z)</option>
-              </select>
-
+              <SetCollectionSwitcher currentPage="sets-inventory" />
               <Link
                 href="/sets/browse"
+                className="collection-add-button"
                 style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   padding: '10px 20px',
-                  background: '#3b82f6',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: '600',
                   color: 'white',
+                  background: '#3b82f6',
                   borderRadius: '8px',
                   textDecoration: 'none',
-                  fontWeight: '600',
-                  display: 'flex',
+                  transition: 'all 0.2s',
+                  border: 'none',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0
+                }}
+              >
+                + Add
+              </Link>
+            </div>
+
+            {/* Compact Stats Row */}
+            <div style={{
+              overflowX: 'auto',
+              WebkitOverflowScrolling: 'touch',
+              marginLeft: '-16px',
+              marginRight: '-16px',
+              paddingLeft: '16px',
+              paddingRight: '16px',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none'
+            }}
+            className="hide-scrollbar">
+              <div className="collection-stats" style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, minmax(140px, 1fr))',
+                gap: '12px',
+                minWidth: 'max-content'
+              }}>
+                <div className="collection-stat-card" style={{
+                  background: '#ffffff',
+                  borderRadius: '8px',
+                  padding: '16px',
+                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                  minWidth: '140px'
+                }}>
+                  <div className="collection-stat-label" style={{
+                    fontSize: 'var(--text-xs)',
+                    fontWeight: '500',
+                    color: '#737373',
+                    marginBottom: '4px',
+                    letterSpacing: '0.01em'
+                  }}>
+                    Total Value
+                  </div>
+                  <div className="collection-stat-value" style={{
+                    fontSize: 'var(--text-xl)',
+                    fontWeight: '700',
+                    color: '#171717',
+                    lineHeight: '1'
+                  }}>
+                    {formatPrice(totalValue, session?.user?.preferredCurrency || 'USD', true)}
+                  </div>
+                </div>
+                <div className="collection-stat-card" style={{
+                  background: '#ffffff',
+                  borderRadius: '8px',
+                  padding: '16px',
+                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                  minWidth: '140px'
+                }}>
+                  <div className="collection-stat-label" style={{
+                    fontSize: 'var(--text-xs)',
+                    fontWeight: '500',
+                    color: '#737373',
+                    marginBottom: '4px',
+                    letterSpacing: '0.01em'
+                  }}>
+                    Total Items
+                  </div>
+                  <div className="collection-stat-value" style={{
+                    fontSize: 'var(--text-xl)',
+                    fontWeight: '700',
+                    color: '#171717',
+                    lineHeight: '1'
+                  }}>
+                    {totalQuantity}
+                  </div>
+                </div>
+                <div className="collection-stat-card" style={{
+                  background: '#ffffff',
+                  borderRadius: '8px',
+                  padding: '16px',
+                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                  minWidth: '140px'
+                }}>
+                  <div className="collection-stat-label" style={{
+                    fontSize: 'var(--text-xs)',
+                    fontWeight: '500',
+                    color: '#737373',
+                    marginBottom: '4px',
+                    letterSpacing: '0.01em'
+                  }}>
+                    Avg Value
+                  </div>
+                  <div className="collection-stat-value" style={{
+                    fontSize: 'var(--text-xl)',
+                    fontWeight: '700',
+                    color: '#171717',
+                    lineHeight: '1'
+                  }}>
+                    {formatPrice(avgValue, session?.user?.preferredCurrency || 'USD', true)}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Empty State Header (only when no items) */}
+        {inventory.length === 0 && (
+          <div className="collection-header-wrapper" style={{ marginBottom: '32px' }}>
+            <div style={{ marginBottom: '16px' }}>
+              <h1 style={{
+                fontSize: 'var(--text-2xl)',
+                fontWeight: '700',
+                lineHeight: '1.2',
+                letterSpacing: '-0.02em',
+                color: '#171717',
+                marginBottom: '8px'
+              }}>
+                Your Sets for Sale
+              </h1>
+              <p className="collection-subtitle" style={{
+                fontSize: 'var(--text-base)',
+                color: '#525252',
+                lineHeight: '1.6'
+              }}>
+                Sets you're selling or planning to sell with real-time pricing
+              </p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <Link
+                href="/sets/browse"
+                className="collection-add-button"
+                style={{
+                  display: 'inline-flex',
                   alignItems: 'center',
-                  minHeight: '44px'
+                  justifyContent: 'center',
+                  padding: '16px 32px',
+                  fontSize: 'var(--text-base)',
+                  fontWeight: '600',
+                  color: 'white',
+                  background: '#3b82f6',
+                  borderRadius: '12px',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s',
+                  border: 'none',
+                  width: '100%',
+                  boxSizing: 'border-box'
                 }}
               >
                 + Add Sets
               </Link>
             </div>
           </div>
-        </div>
+        )}
 
-        {/* Inventory Grid */}
-        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '16px' }} className="responsive-padding">
-          {sortedInventory.length === 0 ? (
-            <div style={{
-              textAlign: 'center',
-              padding: '80px 20px',
-              color: '#737373'
+        {/* Collection List */}
+        <div className="collection-list-container" style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          padding: '24px 16px',
+          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+        }}>
+          <div className="collection-list-header" style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+            marginBottom: '32px'
+          }}>
+            <h2 style={{
+              fontSize: 'var(--text-lg)',
+              fontWeight: '600',
+              color: '#171717',
+              letterSpacing: '-0.01em'
             }}>
-              <div style={{ fontSize: '72px', marginBottom: '16px' }}>📦</div>
-              <div style={{ fontSize: '24px', fontWeight: '600', marginBottom: '8px' }}>
-                No sets in inventory
-              </div>
-              <div style={{ fontSize: '16px', marginBottom: '24px' }}>
-                Add sets you want to sell to your inventory
-              </div>
-              <Link
-                href="/sets/browse"
-                style={{
-                  display: 'inline-block',
-                  padding: '12px 24px',
-                  background: '#3b82f6',
-                  color: 'white',
-                  borderRadius: '8px',
-                  textDecoration: 'none',
-                  fontWeight: '600'
-                }}
-              >
-                Browse Sets
-              </Link>
-            </div>
-          ) : (
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-              gap: '24px'
-            }}>
-              {sortedInventory.map(item => (
-                <Link
-                  key={item.id}
-                  href={`/sets/${item.box_no}?condition=${item.condition}`}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <div style={{
-                    background: 'white',
-                    borderRadius: '12px',
-                    overflow: 'hidden',
-                    border: '1px solid #e5e5e5',
-                    transition: 'all 0.2s',
+              Items
+            </h2>
+            {inventory.length > 0 && (
+              <>
+                {/* Condition Filter Tabs */}
+                <div style={{
+                  display: 'flex',
+                  gap: '8px',
+                  width: 'fit-content'
+                }}>
+                  <button
+                    onClick={() => setConditionFilter('all')}
+                    style={{
+                      padding: '8px 16px',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: '600',
+                      color: conditionFilter === 'all' ? '#171717' : '#737373',
+                      background: conditionFilter === 'all' ? '#f5f5f5' : '#ffffff',
+                      border: conditionFilter === 'all' ? '2px solid #3b82f6' : '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    All
+                  </button>
+                  <button
+                    onClick={() => setConditionFilter('new')}
+                    style={{
+                      padding: '8px 16px',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: '600',
+                      color: conditionFilter === 'new' ? '#171717' : '#737373',
+                      background: conditionFilter === 'new' ? '#f5f5f5' : '#ffffff',
+                      border: conditionFilter === 'new' ? '2px solid #3b82f6' : '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    New
+                  </button>
+                  <button
+                    onClick={() => setConditionFilter('used')}
+                    style={{
+                      padding: '8px 16px',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: '600',
+                      color: conditionFilter === 'used' ? '#171717' : '#737373',
+                      background: conditionFilter === 'used' ? '#f5f5f5' : '#ffffff',
+                      border: conditionFilter === 'used' ? '2px solid #3b82f6' : '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    Used
+                  </button>
+                </div>
+
+              <div className="collection-controls" style={{ display: 'flex', gap: '12px', width: '100%', alignItems: 'stretch', fontSize: 'var(--text-sm)' }}>
+                <div style={{ position: 'relative', flex: '1 1 0', minWidth: 0 }}>
+                  <select
+                    value={sortOrder}
+                    onChange={(e) => handleSortOrderChange(e.target.value as any)}
+                    style={{
+                      width: '100%',
+                      padding: '8px 16px',
+                      paddingRight: '36px',
+                      fontSize: 'inherit',
+                      fontWeight: '600',
+                      color: '#171717',
+                      background: '#ffffff',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      outline: 'none',
+                      transition: 'all 0.2s',
+                      appearance: 'none',
+                      boxSizing: 'border-box',
+                      fontFamily: 'inherit'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f5f5f5'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = '#ffffff'}
+                  >
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="name">Name (A-Z)</option>
+                  </select>
+                  <ChevronDownIcon style={{
+                    position: 'absolute',
+                    right: '12px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: 'var(--icon-sm)',
+                    height: 'var(--icon-sm)',
+                    color: '#737373',
+                    pointerEvents: 'none'
+                  }} />
+                </div>
+                <button
+                  onClick={handleToggleDecimals}
+                  style={{
+                    padding: '8px 12px',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '600',
+                    color: showDecimals ? '#ffffff' : '#737373',
+                    background: showDecimals ? '#3b82f6' : '#ffffff',
+                    border: showDecimals ? '2px solid #3b82f6' : '1px solid #e5e5e5',
+                    borderRadius: '8px',
                     cursor: 'pointer',
-                    height: '100%'
+                    transition: 'all 0.2s',
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                    whiteSpace: 'nowrap',
+                    flex: '0 0 auto'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.1)';
+                    if (!showDecimals) {
+                      e.currentTarget.style.background = '#f5f5f5';
+                    }
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = 'none';
+                    if (!showDecimals) {
+                      e.currentTarget.style.background = '#ffffff';
+                    }
+                  }}
+                >
+                  {showDecimals ? '.00' : '.0'}
+                </button>
+              </div>
+              </>
+            )}
+          </div>
+
+          {getSortedInventory().length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '60px 0' }}>
+              {conditionFilter === 'all' ? (
+                <>
+                  <svg style={{ width: 'var(--icon-3xl)', height: 'var(--icon-3xl)', color: '#a3a3a3', margin: '0 auto 24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                  </svg>
+                  <h3 style={{
+                    fontSize: 'var(--text-lg)',
+                    fontWeight: '600',
+                    color: '#171717',
+                    marginBottom: '12px'
                   }}>
-                    {/* Image */}
-                    <div style={{
-                      height: '200px',
-                      background: '#ffffff',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      padding: '20px'
-                    }}>
-                      <SetCardImage imageUrl={item.image_url} setName={item.set_name} />
-                    </div>
-
-                    {/* Content */}
-                    <div style={{ padding: '16px' }}>
-                      <div style={{
-                        fontSize: '12px',
-                        color: '#3b82f6',
-                        fontWeight: '600',
-                        marginBottom: '4px'
-                      }}>
-                        {item.box_no}
-                      </div>
-
-                      <h3 style={{
-                        fontSize: '15px',
-                        fontWeight: '600',
-                        color: '#171717',
-                        marginBottom: '8px',
-                        lineHeight: '1.4',
-                        minHeight: '42px'
-                      }}>
-                        {item.set_name}
-                      </h3>
-
-                      {/* Theme Badge */}
-                      {item.category_name && (
-                        <div style={{
-                          fontSize: '11px',
-                          background: '#f0f9ff',
-                          color: '#0369a1',
-                          padding: '4px 8px',
-                          borderRadius: '6px',
-                          marginBottom: '8px',
-                          display: 'inline-block'
-                        }}>
-                          {item.category_name.split(' / ')[0]}
-                        </div>
-                      )}
-
-                      <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        marginTop: '12px'
-                      }}>
-                        <div>
-                          <div style={{ fontSize: '11px', color: '#737373' }}>Quantity</div>
-                          <div style={{ fontSize: '16px', fontWeight: '700' }}>
-                            {item.quantity}
-                          </div>
-                        </div>
-                        <div style={{ textAlign: 'right' }}>
-                          <div style={{ fontSize: '11px', color: '#737373' }}>Price</div>
-                          <div style={{ fontSize: '16px', fontWeight: '700', color: '#3b82f6' }}>
-                            {item.pricing?.suggestedPrice
-                              ? formatPrice(item.pricing.suggestedPrice, item.pricing.currencyCode)
-                              : 'N/A'}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div style={{
-                        fontSize: '11px',
-                        color: '#737373',
-                        marginTop: '8px',
-                        textTransform: 'capitalize'
-                      }}>
-                        Condition: {item.condition}
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
+                    No sets yet
+                  </h3>
+                  <p style={{
+                    fontSize: 'var(--text-base)',
+                    color: '#737373',
+                    marginBottom: '32px',
+                    lineHeight: '1.6'
+                  }}>
+                    Start adding to your inventory by browsing sets
+                  </p>
+                  <Link
+                    href="/sets/browse"
+                    style={{
+                      display: 'inline-block',
+                      padding: '16px 32px',
+                      fontSize: 'var(--text-base)',
+                      fontWeight: '600',
+                      color: 'white',
+                      background: '#3b82f6',
+                      borderRadius: '12px',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s'
+                    }}
+                  >
+                    Browse Sets
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <div style={{ fontSize: 'var(--text-3xl)', marginBottom: '24px' }}>🔍</div>
+                  <h3 style={{
+                    fontSize: 'var(--text-lg)',
+                    fontWeight: '600',
+                    color: '#171717',
+                    marginBottom: '12px'
+                  }}>
+                    No {conditionFilter} condition sets
+                  </h3>
+                  <p style={{
+                    fontSize: 'var(--text-base)',
+                    color: '#737373',
+                    lineHeight: '1.6'
+                  }}>
+                    You have {totalQuantity} item{totalQuantity !== 1 ? 's' : ''} in other conditions
+                  </p>
+                </>
+              )}
             </div>
+          ) : (
+            <SetInventoryList
+              items={getSortedInventory()}
+              onItemDelete={handleItemDeleted}
+              onItemUpdate={handleItemUpdated}
+              showDecimals={showDecimals}
+              onItemMove={handleItemMoved}
+              onRefresh={() => loadInventory(currentPage)}
+            />
           )}
 
-          <CollectionPagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            currentCount={inventory.length}
-            totalCount={totalCount}
-            onPageChange={(page) => {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-              loadInventory(page);
-            }}
-          />
+          {/* Pagination */}
+          {!loading && inventory.length > 0 && (
+            <CollectionPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              currentCount={inventory.length}
+              totalCount={totalCount}
+              onPageChange={(page) => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                loadInventory(page);
+              }}
+            />
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
