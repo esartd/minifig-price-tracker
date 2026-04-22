@@ -55,8 +55,8 @@ export async function PATCH(
     });
 
     // Get fresh pricing for the new condition
-    const countryCode = session.user.preferredCountryCode || 'US';
-    const region = session.user.preferredRegion || 'north_america';
+    const countryCode = session.user?.preferredCountryCode || 'US';
+    const region = session.user?.preferredRegion || 'north_america';
 
     const pricing = await bricklinkAPI.calculateSetPricing(
       currentItem.box_no,

@@ -137,8 +137,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Get user's regional preferences
-    const countryCode = session.user.preferredCountryCode || 'US';
-    const region = session.user.preferredRegion || 'north_america';
+    const countryCode = session.user?.preferredCountryCode || 'US';
+    const region = session.user?.preferredRegion || 'north_america';
 
     // Get pricing data for the specified condition
     const pricing = await bricklinkAPI.calculatePricingData(minifigure_no, itemCondition, countryCode, region);

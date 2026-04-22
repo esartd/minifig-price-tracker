@@ -82,8 +82,8 @@ export async function PATCH(
 
     // If condition changed, recalculate pricing
     if (body.condition) {
-      const countryCode = session.user.preferredCountryCode || 'US';
-      const region = session.user.preferredRegion || 'north_america';
+      const countryCode = session.user?.preferredCountryCode || 'US';
+      const region = session.user?.preferredRegion || 'north_america';
 
       const pricing = await bricklinkAPI.calculateSetPricing(
         item.box_no,

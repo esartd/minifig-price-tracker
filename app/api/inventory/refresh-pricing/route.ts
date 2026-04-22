@@ -31,9 +31,9 @@ export async function POST() {
 
     console.log(`Checking ${items.length} items for stale cache...`);
 
-    // Get user's preferred region and country code
-    const region = session.user.preferredRegion || 'north_america';
-    const countryCode = session.user.preferredCountryCode || 'US';
+    // Get user's preferred region and country code with safe fallbacks
+    const region = session.user?.preferredRegion || 'north_america';
+    const countryCode = session.user?.preferredCountryCode || 'US';
 
     // Check which items need refreshing (cache expired)
     const now = new Date();
