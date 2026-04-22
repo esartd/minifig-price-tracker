@@ -86,6 +86,28 @@ function ThemeCard({ theme }: { theme: Theme }) {
 
         {/* Content */}
         <div style={{ padding: '24px' }}>
+          {/* Theme indicator badge */}
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            padding: '4px 10px',
+            background: '#eff6ff',
+            border: '1px solid #bfdbfe',
+            borderRadius: '6px',
+            fontSize: '11px',
+            fontWeight: '600',
+            color: '#1e40af',
+            marginBottom: '12px',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px'
+          }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M3 7h18M3 12h18M3 17h18" />
+            </svg>
+            Theme
+          </div>
+
           <h2 style={{
             fontSize: '18px',
             fontWeight: '700',
