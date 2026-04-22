@@ -551,36 +551,6 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                       {availability.status === 'available' && (
                         <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                           <a
-                            href={legoAffiliateUrl}
-                            target="_blank"
-                            rel="noopener noreferrer sponsored"
-                            style={{
-                              display: 'block',
-                              width: '100%',
-                              padding: '12px 16px',
-                              background: '#FFCF00',
-                              color: '#000000',
-                              border: 'none',
-                              borderRadius: '8px',
-                              fontSize: 'var(--text-sm)',
-                              fontWeight: '700',
-                              textAlign: 'center',
-                              textDecoration: 'none',
-                              transition: 'all 0.2s',
-                              cursor: 'pointer'
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.background = '#E8BD00';
-                              e.currentTarget.style.transform = 'translateY(-1px)';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.background = '#FFCF00';
-                              e.currentTarget.style.transform = 'translateY(0)';
-                            }}
-                          >
-                            Buy on LEGO.com
-                          </a>
-                          <a
                             href={amazonAffiliateUrl}
                             target="_blank"
                             rel="noopener noreferrer sponsored"
@@ -609,6 +579,36 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                             }}
                           >
                             Find on Amazon
+                          </a>
+                          <a
+                            href={legoAffiliateUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              display: 'block',
+                              width: '100%',
+                              padding: '12px 16px',
+                              background: '#ffffff',
+                              color: '#171717',
+                              border: '1px solid #e5e5e5',
+                              borderRadius: '8px',
+                              fontSize: 'var(--text-sm)',
+                              fontWeight: '600',
+                              textAlign: 'center',
+                              textDecoration: 'none',
+                              transition: 'all 0.2s',
+                              cursor: 'pointer'
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = '#f5f5f5';
+                              e.currentTarget.style.transform = 'translateY(-1px)';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = '#ffffff';
+                              e.currentTarget.style.transform = 'translateY(0)';
+                            }}
+                          >
+                            View on LEGO.com
                           </a>
                         </div>
                       )}
