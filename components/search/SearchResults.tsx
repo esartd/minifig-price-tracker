@@ -79,6 +79,13 @@ export default function SearchResults({
     ? displayedResults
     : displayedResults.filter(minifig => selectedThemes.has(getTheme(minifig)));
 
+  // Sort by year (newest first)
+  const sortedResults = [...filteredResults].sort((a, b) => {
+    const yearA = parseInt(a.year_released || '0');
+    const yearB = parseInt(b.year_released || '0');
+    return yearB - yearA; // Descending (newest first)
+  });
+
   // Pricing disabled for search results - only fetch when adding to collection
 
   // Fetch pricing for single result
@@ -238,7 +245,7 @@ export default function SearchResults({
             color: '#737373',
             marginBottom: '8px'
           }}>
-            {filteredResults.length} result{filteredResults.length !== 1 ? 's' : ''} shown
+            {sortedResults.length} result{sortedResults.length !== 1 ? 's' : ''} shown
             {selectedThemes.size > 0 && ` (${displayedResults.length} total)`}
           </p>
 
@@ -250,7 +257,7 @@ export default function SearchResults({
             maxWidth: '100%',
             boxSizing: 'border-box'
           }}>
-            {filteredResults.map((minifig, index) => (
+            {sortedResults.map((minifig, index) => (
               <MinifigCard
                 key={index}
                 minifig={minifig}
