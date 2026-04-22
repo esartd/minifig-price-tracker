@@ -134,7 +134,8 @@ export default function MinifigCard({
             <p className="minifig-card-id" style={{
               fontSize: 'var(--text-sm)',
               color: '#737373',
-              fontFamily: 'inherit'
+              fontFamily: 'inherit',
+              margin: 0
             }}>
               {isSet ? minifig.box_no : (minifig.minifigure_no || minifig.no)}
             </p>
