@@ -31,21 +31,25 @@ export async function POST() {
 
     console.log(`Checking ${items.length} items for stale cache...`);
 
+    // Get user's preferred region and country code
+    const region = session.user.preferredRegion || 'north_america';
+    const countryCode = session.user.preferredCountryCode || 'US';
+
     // Check which items need refreshing (cache expired)
     const now = new Date();
     const itemsToRefresh = [];
     const itemsAlreadyFresh = [];
 
     for (const item of items) {
-      // Check if price cache exists and is still valid (default US region)
+      // Check if price cache exists and is still valid for user's region
       const cache = await prisma.priceCache.findUnique({
         where: {
           item_no_item_type_condition_country_code_region: {
             item_no: item.minifigure_no,
             item_type: 'MINIFIG',
             condition: item.condition,
-            country_code: 'US',
-            region: 'north_america'
+            country_code: countryCode,
+            region: region
           }
         }
       });
@@ -103,10 +107,12 @@ export async function POST() {
           await new Promise(resolve => setTimeout(resolve, delay));
         }
 
-        // Fetch fresh pricing from Bricklink API (this updates cache with 24hr expiration)
+        // Fetch fresh pricing from Bricklink API with user's region (this updates cache with 24hr expiration)
         const pricing = await bricklinkAPI.calculatePricingData(
           item.minifigure_no,
-          item.condition
+          item.condition,
+          countryCode,
+          region
         );
 
         // Update the item with new pricing and timestamp
