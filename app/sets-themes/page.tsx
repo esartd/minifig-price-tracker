@@ -100,7 +100,7 @@ async function getThemes(): Promise<{ themes: Theme[]; currentThemes: Theme[] }>
 
     return {
       themes: otherThemes.sort((a, b) => a.parent.localeCompare(b.parent)),
-      currentThemes: currentThemes.sort((a, b) => b.totalCount - a.totalCount)
+      currentThemes: currentThemes.sort((a, b) => a.parent.localeCompare(b.parent))
     };
   } catch (error) {
     console.error('Error fetching themes:', error);
