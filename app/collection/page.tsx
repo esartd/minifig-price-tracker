@@ -94,12 +94,14 @@ export default function PersonalCollectionPage() {
         console.log(`Found ${itemsNeedingRefresh.length} items needing pricing refresh (current currency: ${userCurrency})`);
 
         if (itemsNeedingRefresh.length > 0) {
+          console.log(`🔄 Starting polling for ${itemsNeedingRefresh.length} items needing prices...`);
           // Progressive polling: fetch updates every 1.5 seconds until all prices loaded
           let pollCount = 0;
           const maxPolls = 20; // Stop after 30 seconds
 
           const pollInterval = setInterval(async () => {
             pollCount++;
+            console.log(`📊 Poll ${pollCount}/${maxPolls}: Checking for updated prices...`);
 
             try {
               const updateResponse = await fetch(`/api/personal-collection?all=true`);
@@ -114,12 +116,14 @@ export default function PersonalCollectionPage() {
                   !item.pricing.suggestedPrice ||
                   item.pricing.currencyCode !== userCurrency
                 );
+                console.log(`  Still missing prices: ${stillMissing.length} items`);
                 if (stillMissing.length === 0 || pollCount >= maxPolls) {
+                  console.log(`✅ Polling complete. Reason: ${stillMissing.length === 0 ? 'All prices loaded' : 'Max polls reached'}`);
                   clearInterval(pollInterval);
                 }
               }
             } catch (err) {
-              console.error('Polling error:', err);
+              console.error('❌ Polling error:', err);
               clearInterval(pollInterval);
             }
           }, 1500);
