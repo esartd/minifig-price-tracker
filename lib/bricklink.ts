@@ -29,9 +29,15 @@ export class BricklinkAPI {
   }
 
   private isLocalhost(): boolean {
-    return process.env.NEXTAUTH_URL?.includes('localhost') ||
-           process.env.AUTH_URL?.includes('localhost') ||
-           process.env.NODE_ENV === 'development';
+    // Only block on actual localhost - NOT on production even if NODE_ENV is development
+    const url = process.env.NEXTAUTH_URL || process.env.AUTH_URL || process.env.VERCEL_URL || '';
+    const isActuallyLocalhost = url.includes('localhost') || url.includes('127.0.0.1');
+
+    // Also check if we're in Vercel production (VERCEL_ENV === 'production')
+    const isVercelProduction = process.env.VERCEL_ENV === 'production';
+
+    // Only block if actually localhost, never block on Vercel production
+    return isActuallyLocalhost && !isVercelProduction;
   }
 
   /**
