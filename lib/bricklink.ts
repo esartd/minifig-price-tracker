@@ -300,13 +300,15 @@ export class BricklinkAPI {
     currencyCode?: string
   ): Promise<PriceGuide | null> {
     try {
-      // BrickLink API: country_code and region are mutually exclusive
-      // Use country_code for specific countries (GB, US, CA, etc.)
-      // currency_code triggers conversion to desired currency
-      let url = `/items/MINIFIG/${itemNo}/price?new_or_used=${condition}&country_code=${countryCode}`;
+      // BrickLink API parameters:
+      // - country_code: FILTERS sellers to only that country (very restrictive)
+      // - currency_code: CONVERTS prices to that currency (all sellers, just different display)
+      // For pricing, we want ALL sellers with currency conversion, NOT filtered by country
+      let url = `/items/MINIFIG/${itemNo}/price?new_or_used=${condition}`;
       if (currencyCode) {
         url += `&currency_code=${currencyCode}`;
       }
+      // Don't use country_code - it filters sellers which gives zeros for rare items
 
       console.log(`[getPriceGuide] Requesting: ${url}`);
 
@@ -349,8 +351,8 @@ export class BricklinkAPI {
     console.log(`[calculatePricingData] START: ${itemNo}, condition=${condition}, country=${countryCode}`);
     const conditionCode = condition === 'new' ? 'N' : 'U';
 
-    // Standardize region to empty string since we only use country_code now
-    // This ensures cache key consistency after the API parameter fix
+    // Note: countryCode is used for cache key (to separate USD from GBP prices)
+    // but NOT passed to Bricklink API (which would filter sellers)
     const cacheRegion = '';
 
     // Check cache first
@@ -512,9 +514,8 @@ export class BricklinkAPI {
       // Strip ALL suffixes (BrickLink uses "75192" not "75192-1", "40892" not "40892-1")
       const bricklinkNo = boxNo.replace(/-\d+$/, '');
 
-      // BrickLink API: country_code and region are mutually exclusive
-      // currency_code triggers conversion to desired currency
-      let url = `/items/SET/${bricklinkNo}/price?new_or_used=${condition}&country_code=${countryCode}`;
+      // BrickLink API: Don't use country_code (filters sellers), use currency_code (converts prices)
+      let url = `/items/SET/${bricklinkNo}/price?new_or_used=${condition}`;
       if (currencyCode) {
         url += `&currency_code=${currencyCode}`;
       }
