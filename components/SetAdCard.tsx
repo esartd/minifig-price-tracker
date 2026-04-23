@@ -148,7 +148,7 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
       }}>
           <a
             href={amazonLink}
-            onClick={(e) => handleClick(e, 'amazon')}
+            onClick={handleClick}
             rel="noopener noreferrer sponsored"
             style={{
               display: 'block',
