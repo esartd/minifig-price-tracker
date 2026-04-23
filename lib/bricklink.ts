@@ -190,11 +190,19 @@ export class BricklinkAPI {
       },
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
+      // Log the error response body from Bricklink
+      console.error(`[makeRequest] Bricklink API ${response.status} error for ${endpoint}:`, JSON.stringify(data));
+      (this as any).lastError = {
+        endpoint,
+        status: response.status,
+        statusText: response.statusText,
+        body: data
+      };
       throw new Error(`Bricklink API error: ${response.statusText}`);
     }
-
-    const data = await response.json();
 
     // Log the raw response for debugging
     console.log(`[makeRequest] Raw Bricklink response for ${endpoint}:`, JSON.stringify(data));
