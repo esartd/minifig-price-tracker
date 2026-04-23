@@ -5,7 +5,9 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import SetAdCard from '@/components/SetAdCard';
 import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
+import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 
 interface Subcategory {
   id: number;
@@ -22,11 +24,21 @@ interface Minifig {
   image_url: string;
 }
 
+interface LegoSet {
+  setNumber: string;
+  name: string;
+  theme: string;
+  year: number;
+  imageUrl: string;
+  amazonUrl?: string;
+}
+
 export default function SubcategoriesPage({ params }: { params: Promise<{ theme: string }> }) {
   const router = useRouter();
   const [theme, setTheme] = useState<string>('');
   const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
   const [uncategorizedMinifigs, setUncategorizedMinifigs] = useState<Minifig[]>([]);
+  const [featuredSets, setFeaturedSets] = useState<LegoSet[]>([]);
   const [themeHeroImage, setThemeHeroImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -102,7 +114,22 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
       const data = await response.json();
 
       if (data.success) {
-        setUncategorizedMinifigs(data.data);
+        const minifigsData = data.data;
+        setUncategorizedMinifigs(minifigsData);
+
+        // Calculate dynamic ad count based on page length
+        const numMinifigs = minifigsData.length;
+        const numAds = Math.min(10, Math.floor(numMinifigs / 15) + 1);
+
+        // Fetch random sets from last 2 years
+        const setsResponse = await fetch(
+          `/api/sets/random?theme=${encodeURIComponent(themeName)}&count=${numAds}`
+        );
+        const setsData = await setsResponse.json();
+
+        if (setsData.success && setsData.data.length > 0) {
+          setFeaturedSets(setsData.data);
+        }
       }
     } catch (error) {
       console.error('Failed to fetch uncategorized minifigs:', error);
@@ -375,81 +402,151 @@ export default function SubcategoriesPage({ params }: { params: Promise<{ theme:
           )}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
             gap: '16px'
           }}>
-            {uncategorizedMinifigs.map((minifig) => (
-              <Link
-                key={minifig.no}
-                href={`/minifigs/${minifig.no}`}
-                style={{
-                  padding: '16px',
-                  background: '#ffffff',
-                  border: '1px solid #e5e5e5',
-                  borderRadius: '12px',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                  textAlign: 'center',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px',
-                  textDecoration: 'none'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
-                  e.currentTarget.style.borderColor = '#d4d4d4';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.05)';
-                  e.currentTarget.style.borderColor = '#e5e5e5';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <div style={{
-                  width: '100%',
-                  height: '160px',
-                  background: '#ffffff',
-                  borderRadius: '8px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  overflow: 'hidden'
-                }}>
-                  <Image
-                    src={minifig.image_url}
-                    alt={minifig.name}
-                    width={120}
-                    height={160}
-                    style={{ objectFit: 'contain', maxWidth: '100%', maxHeight: '100%' }}
-                  />
-                </div>
-                <div>
-                  <h3 style={{
-                    fontSize: 'var(--text-sm)',
-                    fontWeight: '500',
-                    color: '#171717',
-                    marginBottom: '4px',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                    lineHeight: '1.4'
-                  }}>
-                    {minifig.name}
-                  </h3>
-                  <p style={{
-                    fontSize: 'var(--text-xs)',
-                    color: '#a3a3a3'
-                  }}>
-                    {minifig.no}
-                  </p>
-                </div>
-              </Link>
-            ))}
+            {(() => {
+              // Scattered grid pattern for theme pages
+              // Pattern: Ads at positions 10, 25, 40, 55... (first at 10, then every 15)
+              const items: Array<{ type: 'minifig' | 'set'; data: Minifig | LegoSet; key: string }> = [];
+
+              const firstAdPosition = 10;
+              const spacing = 15;
+              const adPositions: number[] = [];
+
+              // Calculate ad positions based on available sets
+              for (let i = 0; i < featuredSets.length; i++) {
+                const position = firstAdPosition + (i * spacing);
+                if (position <= uncategorizedMinifigs.length) {
+                  adPositions.push(position);
+                }
+              }
+
+              uncategorizedMinifigs.forEach((minifig, index) => {
+                items.push({ type: 'minifig', data: minifig, key: minifig.no });
+
+                // Insert ad at strategic positions
+                const adIndex = adPositions.indexOf(index + 1);
+                if (adIndex !== -1 && featuredSets[adIndex]) {
+                  items.push({
+                    type: 'set',
+                    data: featuredSets[adIndex],
+                    key: `set-${featuredSets[adIndex].setNumber}`
+                  });
+                }
+              });
+
+              return items.map((item) => {
+                if (item.type === 'set') {
+                  const set = item.data as LegoSet;
+                  return (
+                    <SetAdCard
+                      key={item.key}
+                      setNumber={set.setNumber}
+                      setName={set.name}
+                      imageUrl={set.imageUrl}
+                      year={set.year}
+                      amazonUrl={set.amazonUrl}
+                    />
+                  );
+                }
+
+                const minifig = item.data as Minifig;
+                return (
+                  <Link
+                    key={minifig.no}
+                    href={`/minifigs/${minifig.no}`}
+                    style={{
+                      textDecoration: 'none',
+                      display: 'block'
+                    }}
+                  >
+                    <div style={{
+                      background: '#ffffff',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '12px',
+                      padding: '16px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                      e.currentTarget.style.borderColor = '#d4d4d4';
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.05)';
+                      e.currentTarget.style.borderColor = '#e5e5e5';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}>
+                      {/* Image */}
+                      <div style={{
+                        position: 'relative',
+                        width: '100%',
+                        paddingBottom: '100%',
+                        marginBottom: '12px',
+                        background: '#ffffff',
+                        borderRadius: '8px',
+                        overflow: 'hidden'
+                      }}>
+                        <Image
+                          src={minifig.image_url}
+                          alt={minifig.name}
+                          fill
+                          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 180px"
+                          style={{
+                            objectFit: 'contain',
+                            padding: '8px',
+                            ...getSensitiveImageStyles(minifig.no, minifig.name)
+                          }}
+                        />
+                      </div>
+
+                      {/* Item Number */}
+                      <div style={{
+                        fontSize: 'var(--text-xs)',
+                        fontWeight: '600',
+                        color: '#3b82f6',
+                        marginBottom: '4px',
+                        fontFamily: 'inherit'
+                      }}>
+                        {minifig.no}
+                      </div>
+
+                      {/* Name */}
+                      <div style={{
+                        fontSize: 'var(--text-sm)',
+                        fontWeight: '500',
+                        color: '#171717',
+                        lineHeight: '1.4',
+                        marginBottom: '4px',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical'
+                      }}>
+                        {minifig.name}
+                      </div>
+
+                      {/* Year */}
+                      {minifig.year_released && (
+                        <div style={{
+                          fontSize: 'var(--text-xs)',
+                          color: '#737373',
+                          marginTop: 'auto'
+                        }}>
+                          {minifig.year_released}
+                        </div>
+                      )}
+                    </div>
+                  </Link>
+                );
+              });
+            })()}
           </div>
         </>
       )}
