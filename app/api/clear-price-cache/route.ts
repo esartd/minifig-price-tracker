@@ -16,7 +16,8 @@ export async function POST(request: NextRequest) {
 
     const countryCode = session.user?.preferredCountryCode || 'US';
 
-    // Delete all cached prices for this country
+    // Delete all cached prices for this country (including old entries with non-empty region)
+    // This clears both new cache entries (region='') and old entries (region='europe', etc.)
     const result = await prisma.priceCache.deleteMany({
       where: {
         country_code: countryCode

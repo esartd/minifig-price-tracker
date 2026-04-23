@@ -320,6 +320,18 @@ export class BricklinkAPI {
     // This ensures cache key consistency after the API parameter fix
     const cacheRegion = '';
 
+    // MIGRATION: Delete old cache entries with non-empty region for this item
+    // This prevents unique constraint violations when inserting new cache entries
+    await prisma.priceCache.deleteMany({
+      where: {
+        item_no: itemNo,
+        item_type: 'MINIFIG',
+        condition: condition,
+        country_code: countryCode,
+        region: { not: '' }
+      }
+    });
+
     // Check cache first
     const cached = await prisma.priceCache.findUnique({
       where: {
@@ -495,6 +507,17 @@ export class BricklinkAPI {
 
     // Standardize region to empty string since we only use country_code now
     const cacheRegion = '';
+
+    // MIGRATION: Delete old cache entries with non-empty region for this item
+    await prisma.priceCache.deleteMany({
+      where: {
+        item_no: boxNo,
+        item_type: 'SET',
+        condition: condition,
+        country_code: countryCode,
+        region: { not: '' }
+      }
+    });
 
     // Check cache first
     const cached = await prisma.priceCache.findUnique({
