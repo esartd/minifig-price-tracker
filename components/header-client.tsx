@@ -67,6 +67,20 @@ export function HeaderClient({ user }: HeaderClientProps) {
     return () => window.removeEventListener('wishlistAdded', handleWishlistAdded);
   }, []);
 
+  // Close mobile menu when resizing to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+        setMobileBrowseOpen(false);
+        setMobileLegoOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [mobileMenuOpen]);
+
   const getInitials = (name?: string | null, email?: string | null) => {
     if (name) {
       const names = name.split(' ');
