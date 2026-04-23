@@ -196,6 +196,9 @@ export class BricklinkAPI {
 
     const data = await response.json();
 
+    // Log the raw response for debugging
+    console.log(`[makeRequest] Raw Bricklink response for ${endpoint}:`, JSON.stringify(data));
+
     // BrickLink returns 200 OK even for errors, check meta field
     if (data.meta && data.meta.code && data.meta.code !== 200) {
       const errorDetails = {
