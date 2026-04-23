@@ -55,17 +55,24 @@ export async function GET(request: NextRequest) {
     console.log(`Personal collection: ${itemsNeedingPricing.length} items need pricing refresh (user currency: ${userCurrency})`);
 
     if (itemsNeedingPricing.length > 0) {
+      console.log(`🔄 Starting background fetch for ${itemsNeedingPricing.length} items...`);
       // Fetch pricing in background - prices will appear progressively as they're cached
       Promise.all(
-        itemsNeedingPricing.map(item => {
-          console.log(`Fetching ${userCurrency} price for ${item.minifigure_no} (current: ${item.pricing?.currencyCode || 'none'})`);
+        itemsNeedingPricing.map((item, index) => {
+          console.log(`  [${index + 1}/${itemsNeedingPricing.length}] Fetching ${userCurrency} price for ${item.minifigure_no} (current: ${item.pricing?.currencyCode || 'none'})`);
           return bricklinkAPI.calculatePricingData(item.minifigure_no, item.condition, countryCode, cacheRegion)
+            .then(result => {
+              console.log(`  ✅ [${index + 1}/${itemsNeedingPricing.length}] Got price for ${item.minifigure_no}: $${result.suggestedPrice}`);
+              return result;
+            })
             .catch(err => {
-              console.error(`Pricing fetch error for ${item.minifigure_no}:`, err);
+              console.error(`  ❌ [${index + 1}/${itemsNeedingPricing.length}] Pricing fetch error for ${item.minifigure_no}:`, err);
               return null; // Continue even if one fails
             });
         })
-      ).catch(err => console.error('Background pricing fetch error:', err));
+      ).then(() => {
+        console.log(`✅ Background pricing fetch completed for ${itemsNeedingPricing.length} items`);
+      }).catch(err => console.error('❌ Background pricing fetch error:', err));
     }
 
     return NextResponse.json({

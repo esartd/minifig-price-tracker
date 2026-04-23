@@ -198,7 +198,13 @@ export class BricklinkAPI {
 
     // BrickLink returns 200 OK even for errors, check meta field
     if (data.meta && data.meta.code && data.meta.code !== 200) {
-      console.error(`BrickLink API error: ${data.meta.message} - ${data.meta.description}`);
+      console.error(`BrickLink API error [${endpoint}]: Code ${data.meta.code}, Message: ${data.meta.message}, Description: ${data.meta.description}`);
+      return null;
+    }
+
+    // Log if data is empty/null
+    if (!data.data) {
+      console.warn(`BrickLink API returned no data for ${endpoint}`);
       return null;
     }
 
@@ -328,6 +334,7 @@ export class BricklinkAPI {
     countryCode: string = 'US',
     region: string = 'north_america'
   ): Promise<PricingData> {
+    console.log(`[calculatePricingData] START: ${itemNo}, condition=${condition}, country=${countryCode}`);
     const conditionCode = condition === 'new' ? 'N' : 'U';
 
     // Standardize region to empty string since we only use country_code now
@@ -349,6 +356,7 @@ export class BricklinkAPI {
 
     // If cache exists and hasn't expired, return cached data
     if (cached && cached.expires_at > new Date()) {
+      console.log(`[calculatePricingData] Cache HIT for ${itemNo}: $${cached.suggested_price}`);
       return {
         sixMonthAverage: cached.six_month_avg,
         currentAverage: cached.current_avg,
@@ -358,12 +366,15 @@ export class BricklinkAPI {
       };
     }
 
+    console.log(`[calculatePricingData] Cache MISS for ${itemNo}, fetching from API...`);
+
     // Get currency code from country code
     const currencyConfig = getCurrencyByCountryCode(countryCode);
     const currencyCodeValue = currencyConfig?.code || 'USD';
 
     // Cache miss or expired - fetch fresh data from API with currency conversion
     const priceGuide = await this.getPriceGuide(itemNo, conditionCode, countryCode, region, currencyCodeValue);
+    console.log(`[calculatePricingData] API response for ${itemNo}:`, priceGuide ? 'SUCCESS' : 'NULL');
 
     if (!priceGuide) {
       console.log(`No price guide returned for ${itemNo} in ${countryCode} - caching zeros for 1 hour`);
