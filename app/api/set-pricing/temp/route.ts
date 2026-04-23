@@ -18,11 +18,10 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Strip -1 suffix for BrickLink API
-    const cleanBoxNo = boxNo.replace(/-\d+$/, '');
-
+    // Keep the full box number including variant suffix (e.g., "75411-1")
+    // BrickLink API requires this for price guide requests
     const pricing = await bricklinkAPI.calculateSetPricing(
-      cleanBoxNo,
+      boxNo,
       condition as 'new' | 'used',
       countryCode,
       region
