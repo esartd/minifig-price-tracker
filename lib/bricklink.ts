@@ -539,6 +539,14 @@ export class BricklinkAPI {
 
       if (!data) {
         console.log(`[getSetPriceGuide] No data returned for set ${bricklinkNo}`);
+        // Check if lastError was set by makeRequest
+        if (!(this as any).lastError) {
+          (this as any).lastError = {
+            endpoint: url,
+            reason: 'makeRequest returned null but did not set lastError',
+            boxNo: bricklinkNo
+          };
+        }
         return null;
       }
 
