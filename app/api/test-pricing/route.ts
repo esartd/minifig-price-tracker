@@ -16,27 +16,41 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const itemNo = searchParams.get('itemNo') || 'sw1319'; // Clone Trooper as test
     const condition = searchParams.get('condition') || 'new';
+    const itemType = searchParams.get('type') || 'minifig'; // 'minifig' or 'set'
     const countryCode = session.user?.preferredCountryCode || 'US';
 
     console.log(`\n========== TEST PRICING START ==========`);
-    console.log(`Item: ${itemNo}, Condition: ${condition}, Country: ${countryCode}`);
+    console.log(`Item: ${itemNo}, Type: ${itemType}, Condition: ${condition}, Country: ${countryCode}`);
 
     const startTime = Date.now();
 
-    // Also get raw price guide to see what Bricklink returns
     const conditionCode = condition === 'new' ? 'N' : 'U';
     const currencyConfig = await import('@/lib/currency-config');
     const currency = currencyConfig.getCurrencyByCountryCode(countryCode);
     const currencyCode = currency?.code || 'USD';
 
-    const rawPriceGuide = await bricklinkAPI.getPriceGuide(itemNo, conditionCode, countryCode, '', currencyCode);
+    // Try to get raw price guide for debugging (different method for sets vs minifigs)
+    let rawPriceGuide = null;
+    let apiError = null;
 
-    const pricing = await bricklinkAPI.calculatePricingData(
-      itemNo,
-      condition as 'new' | 'used',
-      countryCode,
-      '' // empty region
-    );
+    try {
+      if (itemType === 'set') {
+        rawPriceGuide = await bricklinkAPI.getSetPriceGuide(itemNo, conditionCode, countryCode, '', currencyCode);
+      } else {
+        rawPriceGuide = await bricklinkAPI.getPriceGuide(itemNo, conditionCode, countryCode, '', currencyCode);
+      }
+    } catch (err: any) {
+      apiError = err.message;
+      console.error('Error getting raw price guide:', err);
+    }
+
+    // Get calculated pricing
+    let pricing;
+    if (itemType === 'set') {
+      pricing = await bricklinkAPI.calculateSetPricing(itemNo, condition as 'new' | 'used', countryCode, '');
+    } else {
+      pricing = await bricklinkAPI.calculatePricingData(itemNo, condition as 'new' | 'used', countryCode, '');
+    }
     const duration = Date.now() - startTime;
 
     console.log(`Result: ${JSON.stringify(pricing)}`);
@@ -51,7 +65,9 @@ export async function GET(request: NextRequest) {
       currencyCode,
       duration: `${duration}ms`,
       pricing,
-      rawPriceGuide // Include raw Bricklink response to see what's actually returned
+      rawPriceGuide, // Include raw Bricklink response to see what's actually returned
+      apiError, // Include any errors
+      note: rawPriceGuide ? 'Got data' : 'Null response from Bricklink'
     });
   } catch (error: any) {
     console.error('Test pricing error:', error);
