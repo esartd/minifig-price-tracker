@@ -356,6 +356,7 @@ export default function SetsInventoryPage() {
                     <AnimatedCounter
                       value={totalValue}
                       formatFn={(val) => formatPrice(val, session?.user?.preferredCurrency || 'USD', true)}
+                      isUpdating={pricesUpdating > 0}
                     />
                   </div>
                 </div>
@@ -418,6 +419,7 @@ export default function SetsInventoryPage() {
                     <AnimatedCounter
                       value={avgValue}
                       formatFn={(val) => formatPrice(val, session?.user?.preferredCurrency || 'USD', true)}
+                      isUpdating={pricesUpdating > 0}
                     />
                   </div>
                 </div>
