@@ -5,7 +5,7 @@ import { auth } from '@/auth';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -17,7 +17,7 @@ export async function POST(
       );
     }
 
-    const itemId = params.id;
+    const { id: itemId } = await params;
 
     // Get the item from database
     const item = await database.getPersonalItemById(itemId);
