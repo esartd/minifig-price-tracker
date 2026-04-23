@@ -55,6 +55,10 @@ export async function GET(request: NextRequest) {
 
     console.log(`Result: ${JSON.stringify(pricing)}`);
     console.log(`Duration: ${duration}ms`);
+
+    // Capture and log the lastError before responding
+    const lastError = (bricklinkAPI as any).lastError;
+    console.log(`Last Error from BricklinkAPI:`, lastError);
     console.log(`========== TEST PRICING END ==========\n`);
 
     return NextResponse.json({
@@ -68,7 +72,7 @@ export async function GET(request: NextRequest) {
       pricing,
       rawPriceGuide, // Include raw Bricklink response to see what's actually returned
       apiError, // Include any errors
-      bricklinkLastError: (bricklinkAPI as any).lastError, // Capture internal error details
+      bricklinkLastError: lastError, // Capture internal error details
       note: rawPriceGuide ? 'Got data' : 'Null response from Bricklink'
     });
   } catch (error: any) {
