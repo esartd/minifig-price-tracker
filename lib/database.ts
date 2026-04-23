@@ -565,8 +565,9 @@ class DatabaseService {
     });
 
     // Batch fetch all prices in ONE query
+    // Keep full box number with variant suffix (e.g., "75411-1") - Bricklink requires this
     const priceCacheKeys = items.map(item => ({
-      item_no: item.box_no.replace(/-\d+$/, ''), // Strip -1 suffix for BrickLink
+      item_no: item.box_no, // Keep the full number like "75411-1"
       item_type: 'SET',
       condition: item.condition,
       country_code: countryCode,
@@ -590,8 +591,8 @@ class DatabaseService {
 
     // Map items with pricing
     const itemsWithFreshPricing = items.map(item => {
-      const itemNo = item.box_no.replace(/-\d+$/, '');
-      const key = `${itemNo}-SET-${item.condition}-${countryCode}-${region}`;
+      // Use full box number with variant suffix for cache lookup
+      const key = `${item.box_no}-SET-${item.condition}-${countryCode}-${region}`;
       const freshPrice = priceMap.get(key);
 
       if (freshPrice) {
@@ -682,8 +683,9 @@ class DatabaseService {
     });
 
     // Batch fetch all prices
+    // Keep full box number with variant suffix (e.g., "75411-1") - Bricklink requires this
     const priceCacheKeys = items.map(item => ({
-      item_no: item.box_no.replace(/-\d+$/, ''),
+      item_no: item.box_no, // Keep the full number like "75411-1"
       item_type: 'SET',
       condition: item.condition,
       country_code: countryCode,
@@ -705,8 +707,8 @@ class DatabaseService {
     );
 
     const itemsWithFreshPricing = items.map(item => {
-      const itemNo = item.box_no.replace(/-\d+$/, '');
-      const key = `${itemNo}-SET-${item.condition}-${countryCode}-${region}`;
+      // Use full box number with variant suffix for cache lookup
+      const key = `${item.box_no}-SET-${item.condition}-${countryCode}-${region}`;
       const freshPrice = priceMap.get(key);
 
       if (freshPrice) {
