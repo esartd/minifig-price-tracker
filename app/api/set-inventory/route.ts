@@ -40,22 +40,6 @@ export async function GET(request: NextRequest) {
     // Return all items if requested, otherwise slice for current page
     const items = fetchAll ? allItems : allItems.slice(offset, offset + limit);
 
-    // Background: Refresh pricing for items with no cached price
-    const itemsNeedingPricing = allItems.filter(item => !item.pricing?.suggestedPrice);
-    if (itemsNeedingPricing.length > 0) {
-      console.log(`[Set Inventory] ${itemsNeedingPricing.length} items need pricing refresh`);
-      // Don't await - let it run in background after response sent
-      Promise.all(
-        itemsNeedingPricing.slice(0, 10).map(async (item) => {
-          try {
-            await bricklinkAPI.calculateSetPricing(item.box_no, item.condition, countryCode, region);
-          } catch (err) {
-            console.error(`Failed to refresh pricing for ${item.box_no}:`, err);
-          }
-        })
-      ).catch(err => console.error('Background pricing refresh failed:', err));
-    }
-
     return NextResponse.json({
       success: true,
       data: items,

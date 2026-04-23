@@ -76,6 +76,50 @@ export default function SetsCollectionPage() {
       if (data.success) {
         setCollection(data.data);
         setLoading(false);
+
+        // Client-side progressive pricing refresh for items without prices
+        const itemsNeedingRefresh = data.data.filter((item: any) =>
+          !item.pricing?.suggestedPrice || item.pricing.suggestedPrice === 0
+        );
+
+        if (itemsNeedingRefresh.length > 0) {
+          console.log(`🔄 Fetching prices for ${itemsNeedingRefresh.length} set items progressively...`);
+
+          let currentIndex = 0;
+          const fetchNextItem = async () => {
+            if (currentIndex >= itemsNeedingRefresh.length) {
+              console.log(`✅ Completed fetching all ${itemsNeedingRefresh.length} items`);
+              return;
+            }
+
+            const item = itemsNeedingRefresh[currentIndex];
+            currentIndex++;
+
+            try {
+              console.log(`[${currentIndex}/${itemsNeedingRefresh.length}] Fetching price for ${item.box_no}...`);
+
+              const response = await fetch(`/api/set-personal-collection/${item.id}/refresh-pricing`, {
+                method: 'POST'
+              });
+              const result = await response.json();
+
+              if (result.success && result.data) {
+                setCollection(prev => prev.map(i =>
+                  i.id === item.id ? result.data : i
+                ));
+                console.log(`  ✅ Updated ${item.box_no}: ${result.data.pricing?.suggestedPrice || 0}`);
+              } else {
+                console.log(`  ⚠️ No price for ${item.box_no}`);
+              }
+            } catch (err) {
+              console.error(`  ❌ Error fetching ${item.box_no}:`, err);
+            }
+
+            setTimeout(fetchNextItem, 500);
+          };
+
+          fetchNextItem();
+        }
       }
     } catch (error) {
       console.error('Error loading set collection:', error);
