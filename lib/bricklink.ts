@@ -520,10 +520,23 @@ export class BricklinkAPI {
         url += `&currency_code=${currencyCode}`;
       }
 
+      console.log(`[getSetPriceGuide] Requesting: ${url}`);
       const data = await this.makeRequest(url);
+
+      if (!data) {
+        console.log(`[getSetPriceGuide] No data returned for set ${bricklinkNo}`);
+        return null;
+      }
+
+      console.log(`[getSetPriceGuide] Response for ${bricklinkNo}:`, {
+        currency_code: data.currency_code,
+        min_price: data.min_price,
+        total_quantity: data.total_quantity
+      });
+
       return data;
     } catch (error) {
-      console.error('Error fetching set price guide:', error);
+      console.error('[getSetPriceGuide] Error fetching set price guide:', error);
       return null;
     }
   }
