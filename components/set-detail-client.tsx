@@ -103,7 +103,20 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
 
     const fetchPricing = async () => {
       try {
-        const response = await fetch(`/api/set-pricing/temp?boxNo=${set.box_no}&condition=${condition}`);
+        // Include user's currency preferences in the API call
+        const params = new URLSearchParams({
+          boxNo: set.box_no,
+          condition
+        });
+
+        if (session?.user?.preferredCountryCode) {
+          params.set('countryCode', session.user.preferredCountryCode);
+        }
+        if (session?.user?.preferredRegion) {
+          params.set('region', session.user.preferredRegion);
+        }
+
+        const response = await fetch(`/api/set-pricing/temp?${params.toString()}`);
         const data = await response.json();
         if (data.success && data.pricing) {
           setPricing({
@@ -111,7 +124,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
             currentAverage: data.pricing.currentAverage || 0,
             currentLowest: data.pricing.currentLowest || 0,
             suggestedPrice: data.pricing.suggestedPrice || 0,
-            currencyCode: data.pricing.currencyCode || 'USD',
+            currencyCode: data.pricing.currencyCode || session?.user?.preferredCurrency || 'USD',
             loading: false
           });
         } else {
@@ -122,7 +135,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
       }
     };
     fetchPricing();
-  }, [set.box_no, condition]);
+  }, [set.box_no, condition, session]);
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
