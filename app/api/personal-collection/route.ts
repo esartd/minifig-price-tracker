@@ -39,18 +39,29 @@ export async function GET(request: NextRequest) {
     // Return all items if requested, otherwise slice for current page
     const items = fetchAll ? allItems : allItems.slice(offset, offset + limit);
 
-    // Start background pricing fetch for items with no cache (don't await - progressive loading)
-    const itemsNeedingPricing = items.filter(item => !item.pricing || item.pricing.suggestedPrice === 0);
+    // Get user's currency for comparison
+    const userCurrency = session.user?.preferredCurrency || 'USD';
+
+    // Start background pricing fetch for items with no cache OR wrong currency
+    const itemsNeedingPricing = items.filter(item =>
+      !item.pricing ||
+      item.pricing.suggestedPrice === 0 ||
+      item.pricing.currencyCode !== userCurrency
+    );
+
+    console.log(`Personal collection: ${itemsNeedingPricing.length} items need pricing refresh (user currency: ${userCurrency})`);
+
     if (itemsNeedingPricing.length > 0) {
       // Fetch pricing in background - prices will appear progressively as they're cached
       Promise.all(
-        itemsNeedingPricing.map(item =>
-          bricklinkAPI.calculatePricingData(item.minifigure_no, item.condition, countryCode, region)
+        itemsNeedingPricing.map(item => {
+          console.log(`Fetching ${userCurrency} price for ${item.minifigure_no} (current: ${item.pricing?.currencyCode || 'none'})`);
+          return bricklinkAPI.calculatePricingData(item.minifigure_no, item.condition, countryCode, region)
             .catch(err => {
               console.error(`Pricing fetch error for ${item.minifigure_no}:`, err);
               return null; // Continue even if one fails
-            })
-        )
+            });
+        })
       ).catch(err => console.error('Background pricing fetch error:', err));
     }
 
