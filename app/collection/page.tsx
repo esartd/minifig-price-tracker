@@ -95,9 +95,10 @@ export default function PersonalCollectionPage() {
 
         if (itemsNeedingRefresh.length > 0) {
           console.log(`🔄 Starting polling for ${itemsNeedingRefresh.length} items needing prices...`);
-          // Progressive polling: fetch updates every 1.5 seconds until all prices loaded
+          // Progressive polling: fetch updates every 3 seconds until all prices loaded
+          // Note: Background fetch has 3-second delay between API calls, so polling needs to be patient
           let pollCount = 0;
-          const maxPolls = 20; // Stop after 30 seconds
+          const maxPolls = 100; // Stop after 5 minutes (100 * 3s = 300s)
 
           const pollInterval = setInterval(async () => {
             pollCount++;
@@ -126,7 +127,7 @@ export default function PersonalCollectionPage() {
               console.error('❌ Polling error:', err);
               clearInterval(pollInterval);
             }
-          }, 1500);
+          }, 3000); // Poll every 3 seconds to match API rate limiting
         }
       }
     } catch (error) {
