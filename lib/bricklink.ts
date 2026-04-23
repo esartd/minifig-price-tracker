@@ -131,7 +131,10 @@ export class BricklinkAPI {
 
   private async makeRequest(endpoint: string, method = 'GET'): Promise<any> {
     // BLOCK all API calls on localhost to preserve production limits
-    if (this.isLocalhost()) {
+    const isLocal = this.isLocalhost();
+    console.log(`Bricklink API call check: isLocalhost=${isLocal}, NODE_ENV=${process.env.NODE_ENV}, NEXTAUTH_URL=${process.env.NEXTAUTH_URL}`);
+
+    if (isLocal) {
       console.warn('🚫 Bricklink API blocked on localhost - use production for real data');
       return null;
     }
