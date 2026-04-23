@@ -60,6 +60,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       success: true,
       item: itemNo,
+      itemType,
       condition,
       countryCode,
       currencyCode,
@@ -67,6 +68,7 @@ export async function GET(request: NextRequest) {
       pricing,
       rawPriceGuide, // Include raw Bricklink response to see what's actually returned
       apiError, // Include any errors
+      bricklinkLastError: (bricklinkAPI as any).lastError, // Capture internal error details
       note: rawPriceGuide ? 'Got data' : 'Null response from Bricklink'
     });
   } catch (error: any) {

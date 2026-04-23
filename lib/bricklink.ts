@@ -198,16 +198,30 @@ export class BricklinkAPI {
 
     // BrickLink returns 200 OK even for errors, check meta field
     if (data.meta && data.meta.code && data.meta.code !== 200) {
-      console.error(`BrickLink API error [${endpoint}]: Code ${data.meta.code}, Message: ${data.meta.message}, Description: ${data.meta.description}`);
+      const errorDetails = {
+        endpoint,
+        code: data.meta.code,
+        message: data.meta.message,
+        description: data.meta.description
+      };
+      console.error(`BrickLink API error:`, JSON.stringify(errorDetails));
+      // Store last error for debugging
+      (this as any).lastError = errorDetails;
       return null;
     }
 
     // Log if data is empty/null
     if (!data.data) {
-      console.warn(`BrickLink API returned no data for ${endpoint}`);
+      console.warn(`BrickLink API returned no data for ${endpoint}`, {
+        meta: data.meta,
+        hasData: !!data.data
+      });
+      (this as any).lastError = { endpoint, reason: 'No data.data field', meta: data.meta };
       return null;
     }
 
+    // Clear last error on success
+    (this as any).lastError = null;
     return data.data;
   }
 
