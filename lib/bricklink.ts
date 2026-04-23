@@ -303,20 +303,32 @@ export class BricklinkAPI {
       // BrickLink API: country_code and region are mutually exclusive
       // Use country_code for specific countries (GB, US, CA, etc.)
       // currency_code triggers conversion to desired currency
-      console.log(`Fetching price guide for ${itemNo} (${condition}) in ${countryCode}${currencyCode ? ` with currency ${currencyCode}` : ''}`);
-
       let url = `/items/MINIFIG/${itemNo}/price?new_or_used=${condition}&country_code=${countryCode}`;
       if (currencyCode) {
         url += `&currency_code=${currencyCode}`;
       }
 
+      console.log(`[getPriceGuide] Requesting: ${url}`);
+
       const data = await this.makeRequest(url);
+
       if (!data) {
-        console.log(`No price data returned for ${itemNo} in ${countryCode}`);
+        console.log(`[getPriceGuide] No data returned for ${itemNo} in ${countryCode}`);
+        return null;
       }
+
+      console.log(`[getPriceGuide] Response for ${itemNo}:`, {
+        currency_code: data.currency_code,
+        min_price: data.min_price,
+        avg_price: data.avg_price,
+        qty_avg_price: data.qty_avg_price,
+        unit_quantity: data.unit_quantity,
+        total_quantity: data.total_quantity
+      });
+
       return data;
     } catch (error) {
-      console.error(`Error fetching price guide for ${itemNo} in ${countryCode}:`, error);
+      console.error(`[getPriceGuide] Error fetching ${itemNo} in ${countryCode}:`, error);
       return null;
     }
   }
