@@ -106,14 +106,19 @@ export default function CollectionPage() {
               console.log(`Price response for ${item.minifigure_no}:`, priceData);
 
               if (priceData.success && priceData.data) {
+                const pricing = priceData.data.pricing;
+                console.log(`  → Pricing details: $${pricing?.suggestedPrice || 0} (${pricing?.currencyCode || 'unknown'})`);
+
                 // Update just this item in the collection
                 setCollection(prev => {
                   const updated = prev.map(i =>
                     i.id === item.id ? priceData.data : i
                   );
-                  console.log(`Updated collection for ${item.minifigure_no}`);
+                  console.log(`  → Updated state for ${item.minifigure_no}`);
                   return updated;
                 });
+              } else {
+                console.log(`  → Failed: ${priceData.error || 'No data'}`);
               }
             } catch (err) {
               console.error(`Failed to load pricing for ${item.minifigure_no}:`, err);
