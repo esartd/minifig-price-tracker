@@ -57,12 +57,20 @@ export default function SetsCollectionPage() {
     } else if (status === 'authenticated') {
       loadCollection();
     }
-  }, [status, router]);
+  }, [status, router, session?.user?.preferredCountryCode, session?.user?.preferredRegion]);
 
   const loadCollection = async () => {
     try {
-      // Fetch ALL items at once
-      const response = await fetch(`/api/set-personal-collection?all=true`);
+      // Include user's currency preferences
+      const params = new URLSearchParams({ all: 'true' });
+      if (session?.user?.preferredCountryCode) {
+        params.set('countryCode', session.user.preferredCountryCode);
+      }
+      if (session?.user?.preferredRegion) {
+        params.set('region', session.user.preferredRegion);
+      }
+
+      const response = await fetch(`/api/set-personal-collection?${params.toString()}`);
       const data = await response.json();
 
       if (data.success) {

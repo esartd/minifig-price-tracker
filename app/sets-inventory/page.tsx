@@ -58,11 +58,20 @@ export default function SetsInventoryPage() {
     } else if (status === 'authenticated') {
       loadInventory();
     }
-  }, [status, router]);
+  }, [status, router, session?.user?.preferredCountryCode, session?.user?.preferredRegion]);
 
   const loadInventory = async () => {
     try {
-      const response = await fetch(`/api/set-inventory?all=true`);
+      // Include user's currency preferences
+      const params = new URLSearchParams({ all: 'true' });
+      if (session?.user?.preferredCountryCode) {
+        params.set('countryCode', session.user.preferredCountryCode);
+      }
+      if (session?.user?.preferredRegion) {
+        params.set('region', session.user.preferredRegion);
+      }
+
+      const response = await fetch(`/api/set-inventory?${params.toString()}`);
       const data = await response.json();
 
       if (data.success) {
