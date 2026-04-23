@@ -26,8 +26,11 @@ export async function GET(request: NextRequest) {
     const countryCode = session.user?.preferredCountryCode || 'US';
     const region = session.user?.preferredRegion || 'north_america';
 
+    // Use empty string for region in cache operations (standardized format)
+    const cacheRegion = '';
+
     // Get all items first to calculate total
-    const allItems = await database.getAllItems(session.user.id, countryCode, region);
+    const allItems = await database.getAllItems(session.user.id, countryCode, cacheRegion);
     const totalItems = allItems.length;
     const totalPages = Math.ceil(totalItems / limit);
 
@@ -40,7 +43,7 @@ export async function GET(request: NextRequest) {
       // Fetch pricing in background - prices will appear progressively as they're cached
       Promise.all(
         itemsNeedingPricing.map(item =>
-          bricklinkAPI.calculatePricingData(item.minifigure_no, item.condition, countryCode, region)
+          bricklinkAPI.calculatePricingData(item.minifigure_no, item.condition, countryCode, cacheRegion)
             .catch(err => {
               console.error(`Pricing fetch error for ${item.minifigure_no}:`, err);
               return null; // Continue even if one fails
@@ -120,8 +123,11 @@ export async function POST(request: NextRequest) {
     const countryCode = session.user?.preferredCountryCode || 'US';
     const region = session.user?.preferredRegion || 'north_america';
 
+    // Use empty string for region in cache operations (standardized format)
+    const cacheRegion = '';
+
     // Get pricing data for the specified condition
-    const pricing = await bricklinkAPI.calculatePricingData(minifigure_no, itemCondition, countryCode, region);
+    const pricing = await bricklinkAPI.calculatePricingData(minifigure_no, itemCondition, countryCode, cacheRegion);
 
     // Add item to database
     const newItem = await database.addItem({
