@@ -290,16 +290,21 @@ export class BricklinkAPI {
     itemNo: string,
     condition: 'N' | 'U' = 'N',
     countryCode: string = 'US',
-    region: string = 'north_america'
+    region: string = 'north_america',
+    currencyCode?: string
   ): Promise<PriceGuide | null> {
     try {
       // BrickLink API: country_code and region are mutually exclusive
       // Use country_code for specific countries (GB, US, CA, etc.)
-      // Region is only used when country_code is not specified
-      console.log(`Fetching price guide for ${itemNo} (${condition}) in ${countryCode}`);
-      const data = await this.makeRequest(
-        `/items/MINIFIG/${itemNo}/price?new_or_used=${condition}&country_code=${countryCode}`
-      );
+      // currency_code triggers conversion to desired currency
+      console.log(`Fetching price guide for ${itemNo} (${condition}) in ${countryCode}${currencyCode ? ` with currency ${currencyCode}` : ''}`);
+
+      let url = `/items/MINIFIG/${itemNo}/price?new_or_used=${condition}&country_code=${countryCode}`;
+      if (currencyCode) {
+        url += `&currency_code=${currencyCode}`;
+      }
+
+      const data = await this.makeRequest(url);
       if (!data) {
         console.log(`No price data returned for ${itemNo} in ${countryCode}`);
       }
@@ -353,12 +358,12 @@ export class BricklinkAPI {
       };
     }
 
-    // Cache miss or expired - fetch fresh data from API only
-    const priceGuide = await this.getPriceGuide(itemNo, conditionCode, countryCode, region);
-
     // Get currency code from country code
     const currencyConfig = getCurrencyByCountryCode(countryCode);
     const currencyCodeValue = currencyConfig?.code || 'USD';
+
+    // Cache miss or expired - fetch fresh data from API with currency conversion
+    const priceGuide = await this.getPriceGuide(itemNo, conditionCode, countryCode, region, currencyCodeValue);
 
     if (!priceGuide) {
       console.log(`No price guide returned for ${itemNo} in ${countryCode} - caching zeros for 1 hour`);
@@ -477,16 +482,21 @@ export class BricklinkAPI {
     boxNo: string,
     condition: 'N' | 'U' = 'N',
     countryCode: string = 'US',
-    region: string = 'north_america'
+    region: string = 'north_america',
+    currencyCode?: string
   ): Promise<PriceGuide | null> {
     try {
       // Strip ALL suffixes (BrickLink uses "75192" not "75192-1", "40892" not "40892-1")
       const bricklinkNo = boxNo.replace(/-\d+$/, '');
 
       // BrickLink API: country_code and region are mutually exclusive
-      const data = await this.makeRequest(
-        `/items/SET/${bricklinkNo}/price?new_or_used=${condition}&country_code=${countryCode}`
-      );
+      // currency_code triggers conversion to desired currency
+      let url = `/items/SET/${bricklinkNo}/price?new_or_used=${condition}&country_code=${countryCode}`;
+      if (currencyCode) {
+        url += `&currency_code=${currencyCode}`;
+      }
+
+      const data = await this.makeRequest(url);
       return data;
     } catch (error) {
       console.error('Error fetching set price guide:', error);
@@ -529,12 +539,12 @@ export class BricklinkAPI {
       };
     }
 
-    // Cache miss or expired - fetch fresh data from API only
-    const priceGuide = await this.getSetPriceGuide(boxNo, conditionCode, countryCode, region);
-
     // Get currency code from country code
     const currencyConfig = getCurrencyByCountryCode(countryCode);
     const currencyCodeValue = currencyConfig?.code || 'USD';
+
+    // Cache miss or expired - fetch fresh data from API with currency conversion
+    const priceGuide = await this.getSetPriceGuide(boxNo, conditionCode, countryCode, region, currencyCodeValue);
 
     if (!priceGuide) {
       console.log(`No price guide returned for set ${boxNo} in ${countryCode} - caching zeros for 1 hour`);
