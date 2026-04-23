@@ -80,10 +80,15 @@ export default function SetsCollectionPage() {
         setCollection(data.data);
         setLoading(false);
 
-        // Client-side progressive pricing refresh for items without prices
+        // Client-side progressive pricing refresh for items without prices or wrong currency
+        const userCurrency = session?.user?.preferredCurrency || 'USD';
         const itemsNeedingRefresh = data.data.filter((item: any) =>
-          !item.pricing?.suggestedPrice || item.pricing.suggestedPrice === 0
+          !item.pricing?.suggestedPrice ||
+          item.pricing.suggestedPrice === 0 ||
+          item.pricing.currencyCode !== userCurrency
         );
+
+        console.log(`Found ${itemsNeedingRefresh.length} set items needing pricing refresh (current currency: ${userCurrency})`);
 
         if (itemsNeedingRefresh.length > 0) {
           console.log(`🔄 Fetching prices for ${itemsNeedingRefresh.length} set items progressively...`);
