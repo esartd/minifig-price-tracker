@@ -2,8 +2,17 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 
+// GET - Clear price cache for user's current currency (same as POST)
+export async function GET(request: NextRequest) {
+  return clearCache();
+}
+
 // POST - Clear price cache for user's current currency
 export async function POST(request: NextRequest) {
+  return clearCache();
+}
+
+async function clearCache() {
   try {
     const session = await auth();
 
