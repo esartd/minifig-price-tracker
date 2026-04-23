@@ -28,6 +28,7 @@ export default function PersonalCollectionPage() {
 
   // Pagination state for display only (all items loaded client-side)
   const [currentPage, setCurrentPage] = useState(1);
+  const [itemsToShow, setItemsToShow] = useState(50); // For mobile "load more"
   const itemsPerPage = 50;
 
   // Load saved preferences on mount
@@ -240,10 +241,22 @@ export default function PersonalCollectionPage() {
   const sortedAndFiltered = getSortedAndFilteredCollection();
   const totalFiltered = sortedAndFiltered.length;
   const totalPages = Math.ceil(totalFiltered / itemsPerPage);
-  const paginatedItems = sortedAndFiltered.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+
+  // Mobile: show accumulated items, Desktop: show paginated items
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const paginatedItems = isMobile
+    ? sortedAndFiltered.slice(0, itemsToShow) // Mobile: accumulate items
+    : sortedAndFiltered.slice( // Desktop: paginate
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+      );
 
   const { totalValue, totalItems, avgValue } = calculateCollectionStats(collection);
 
@@ -731,15 +744,18 @@ export default function PersonalCollectionPage() {
           )}
         </div>
 
-        {sortedAndFiltered.length > 0 && totalPages > 1 && (
+        {sortedAndFiltered.length > 0 && (isMobile ? itemsToShow < totalFiltered : totalPages > 1) && (
           <CollectionPagination
-            currentPage={currentPage}
+            currentPage={isMobile ? Math.ceil(itemsToShow / itemsPerPage) : currentPage}
             totalPages={totalPages}
             currentCount={paginatedItems.length}
             totalCount={totalFiltered}
             onPageChange={(page) => {
               setCurrentPage(page);
               window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            onLoadMore={() => {
+              setItemsToShow(prev => Math.min(prev + itemsPerPage, totalFiltered));
             }}
           />
         )}

@@ -8,6 +8,7 @@ interface CollectionPaginationProps {
   currentCount: number;
   totalCount: number;
   onPageChange: (page: number) => void;
+  onLoadMore?: () => void; // New prop for mobile load more behavior
 }
 
 export default function CollectionPagination({
@@ -15,7 +16,8 @@ export default function CollectionPagination({
   totalPages,
   currentCount,
   totalCount,
-  onPageChange
+  onPageChange,
+  onLoadMore
 }: CollectionPaginationProps) {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -28,7 +30,7 @@ export default function CollectionPagination({
 
   const hasMore = currentPage < totalPages;
 
-  // Mobile: Show More button (like Google mobile)
+  // Mobile: Show More button (accumulates items, no scroll to top)
   if (isMobile) {
     if (!hasMore) return null;
 
@@ -47,7 +49,14 @@ export default function CollectionPagination({
           Showing {currentCount} of {totalCount}
         </p>
         <button
-          onClick={() => onPageChange(currentPage + 1)}
+          onClick={() => {
+            // Use onLoadMore if provided (mobile behavior), otherwise fallback to onPageChange
+            if (onLoadMore) {
+              onLoadMore();
+            } else {
+              onPageChange(currentPage + 1);
+            }
+          }}
           style={{
             padding: '12px 32px',
             fontSize: 'var(--text-base)',
