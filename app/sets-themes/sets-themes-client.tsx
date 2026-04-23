@@ -25,6 +25,7 @@ interface SetsThemesClientProps {
 function ThemeCard({ theme }: { theme: Theme }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showFallback, setShowFallback] = useState(false);
+  const [triedSN, setTriedSN] = useState(false);
 
   // Get all available images (main + fallbacks)
   const allImages = [
@@ -33,7 +34,17 @@ function ThemeCard({ theme }: { theme: Theme }) {
   ].filter(img => img !== null && img !== undefined) as string[];
 
   const handleImageError = () => {
-    // Try next fallback image
+    const currentUrl = allImages[currentImageIndex];
+
+    // If current URL uses /ON/ path, try /SN/ path (for promotional/event sets)
+    if (currentUrl && currentUrl.includes('/ItemImage/ON/') && !triedSN) {
+      setTriedSN(true);
+      // Force re-render with SN path
+      return;
+    }
+
+    // Reset SN flag and try next fallback image
+    setTriedSN(false);
     if (currentImageIndex < allImages.length - 1) {
       setCurrentImageIndex(currentImageIndex + 1);
     } else {
@@ -42,7 +53,11 @@ function ThemeCard({ theme }: { theme: Theme }) {
     }
   };
 
-  const currentImage = allImages[currentImageIndex];
+  // Get current image, potentially with SN path substitution
+  let currentImage = allImages[currentImageIndex];
+  if (currentImage && triedSN && currentImage.includes('/ItemImage/ON/')) {
+    currentImage = currentImage.replace('/ItemImage/ON/', '/ItemImage/SN/');
+  }
 
   return (
     <Link
