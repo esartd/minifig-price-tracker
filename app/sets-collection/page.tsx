@@ -83,7 +83,7 @@ export default function SetsCollectionPage() {
         // Client-side progressive pricing refresh for items without prices or wrong currency
         const userCurrency = session?.user?.preferredCurrency || 'USD';
         const itemsNeedingRefresh = data.data.filter((item: any) =>
-          !item.pricing?.suggestedPrice ||
+          !item.pricing ||
           item.pricing.suggestedPrice === 0 ||
           item.pricing.currencyCode !== userCurrency
         );
