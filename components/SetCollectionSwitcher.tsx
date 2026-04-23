@@ -10,7 +10,7 @@ interface SetCollectionSwitcherProps {
 export default function SetCollectionSwitcher({ currentPage }: SetCollectionSwitcherProps) {
   const router = useRouter();
 
-  const displayName = currentPage === 'sets-inventory' ? 'Your Sets for Sale' : 'Your Sets to Keep';
+  const displayName = currentPage === 'sets-inventory' ? 'Sets for Sale' : 'Sets to Keep';
   const targetPage = currentPage === 'sets-inventory' ? '/sets-collection' : '/sets-inventory';
 
   const handleClick = () => {
