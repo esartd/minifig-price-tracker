@@ -59,13 +59,16 @@ class DatabaseService {
     // CRITICAL: Always read fresh pricing from PriceCache (6-hour compliance)
     // CollectionItem pricing fields are stale - only PriceCache is kept fresh
 
+    // Use empty string for region to match standardized cache format
+    const cacheRegion = '';
+
     // Batch fetch all prices in ONE query instead of N queries
     const priceCacheKeys = items.map(item => ({
       item_no: item.minifigure_no,
       item_type: 'MINIFIG',
       condition: item.condition,
       country_code: countryCode,
-      region: region
+      region: cacheRegion
     }));
 
     const allPrices = await prisma.priceCache.findMany({
@@ -85,7 +88,7 @@ class DatabaseService {
 
     // Map items with pricing
     const itemsWithFreshPricing = items.map(item => {
-      const key = `${item.minifigure_no}-${item.condition}-${countryCode}-${region}`;
+      const key = `${item.minifigure_no}-${item.condition}-${countryCode}-${cacheRegion}`;
       const freshPrice = priceMap.get(key);
 
       if (freshPrice) {
@@ -206,13 +209,16 @@ class DatabaseService {
       orderBy: { date_added: 'desc' }
     });
 
+    // Use empty string for region to match standardized cache format
+    const cacheRegion = '';
+
     // Batch fetch all prices in ONE query instead of N queries
     const priceCacheKeys = items.map(item => ({
       item_no: item.minifigure_no,
       item_type: 'MINIFIG',
       condition: item.condition,
       country_code: countryCode,
-      region: region
+      region: cacheRegion
     }));
 
     const allPrices = await prisma.priceCache.findMany({
@@ -232,7 +238,7 @@ class DatabaseService {
 
     // Map items with pricing
     const itemsWithFreshPricing = items.map(item => {
-      const key = `${item.minifigure_no}-${item.condition}-${countryCode}-${region}`;
+      const key = `${item.minifigure_no}-${item.condition}-${countryCode}-${cacheRegion}`;
       const freshPrice = priceMap.get(key);
 
       if (freshPrice) {
