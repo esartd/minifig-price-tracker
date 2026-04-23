@@ -115,7 +115,7 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
       </div>
 
       {/* Set Info */}
-      <div>
+      <div style={{ marginBottom: '16px' }}>
         {/* Set Number */}
         <p style={{
           fontSize: 'var(--text-xs)',
