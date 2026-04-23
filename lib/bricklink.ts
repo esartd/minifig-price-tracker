@@ -536,8 +536,9 @@ export class BricklinkAPI {
     currencyCode?: string
   ): Promise<PriceGuide | null> {
     try {
-      // Strip ALL suffixes (BrickLink uses "75192" not "75192-1", "40892" not "40892-1")
-      const bricklinkNo = boxNo.replace(/-\d+$/, '');
+      // For price guide, Bricklink needs the full set number INCLUDING the variant suffix (e.g., "10228-1")
+      // This is different from item details which may strip the suffix
+      const bricklinkNo = boxNo; // Keep the full number like "10228-1"
 
       // BrickLink API: Don't use country_code (filters sellers), use currency_code (converts prices)
       // Use SET as item type (same format as MINIFIG for minifigures)
