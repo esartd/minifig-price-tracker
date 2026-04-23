@@ -51,10 +51,11 @@ console.log(`Found ${themeGroups.size} unique themes`);
 const manualOverrides: Record<string, string> = {
   'Star Wars': '75460-1',
   'The Hobbit and The Lord of the Rings': '10316-1',
-  '(Other)': 'GearSet-4',
-  'BrickLink': '5009260-1',
+  '(Other)': 'GearSet-1',  // Use GearSet-1 instead of 4
+  'BrickLink': '6598433-1',  // Use 2025 promotional brick
   'LEGO Originals': '11926-1',
-  'Modulex': 'Modulex-12'
+  'Modulex': 'modu0001-1',  // Use brick box instead of color chart
+  'Building Event': '5010173-1'  // Use 2026 Happy Hummingbird
 };
 
 // Score a set to determine how good it is as a theme representative
