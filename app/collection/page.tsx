@@ -94,40 +94,48 @@ export default function PersonalCollectionPage() {
         console.log(`Found ${itemsNeedingRefresh.length} items needing pricing refresh (current currency: ${userCurrency})`);
 
         if (itemsNeedingRefresh.length > 0) {
-          console.log(`🔄 Starting polling for ${itemsNeedingRefresh.length} items needing prices...`);
-          // Progressive polling: fetch updates every 3 seconds until all prices loaded
-          // Note: Background fetch has 3-second delay between API calls, so polling needs to be patient
-          let pollCount = 0;
-          const maxPolls = 100; // Stop after 5 minutes (100 * 3s = 300s)
+          console.log(`🔄 Fetching prices for ${itemsNeedingRefresh.length} items progressively...`);
 
-          const pollInterval = setInterval(async () => {
-            pollCount++;
-            console.log(`📊 Poll ${pollCount}/${maxPolls}: Checking for updated prices...`);
+          // Client-side progressive fetch: fetch items one by one to avoid serverless timeout
+          let currentIndex = 0;
+
+          const fetchNextItem = async () => {
+            if (currentIndex >= itemsNeedingRefresh.length) {
+              console.log(`✅ Completed fetching all ${itemsNeedingRefresh.length} items`);
+              return;
+            }
+
+            const item = itemsNeedingRefresh[currentIndex];
+            currentIndex++;
 
             try {
-              const updateResponse = await fetch(`/api/personal-collection?all=true`);
-              const updateData = await updateResponse.json();
+              console.log(`[${currentIndex}/${itemsNeedingRefresh.length}] Fetching price for ${item.minifigure_no}...`);
 
-              if (updateData.success) {
-                setCollection(updateData.data);
+              // Call the refresh endpoint for this specific item
+              const response = await fetch(`/api/personal-collection/${item.id}/refresh-pricing`, {
+                method: 'POST'
+              });
+              const result = await response.json();
 
-                // Stop polling if all prices loaded or max polls reached
-                const stillMissing = updateData.data.filter((item: PersonalCollectionItem) =>
-                  !item.pricing ||
-                  !item.pricing.suggestedPrice ||
-                  item.pricing.currencyCode !== userCurrency
-                );
-                console.log(`  Still missing prices: ${stillMissing.length} items`);
-                if (stillMissing.length === 0 || pollCount >= maxPolls) {
-                  console.log(`✅ Polling complete. Reason: ${stillMissing.length === 0 ? 'All prices loaded' : 'Max polls reached'}`);
-                  clearInterval(pollInterval);
-                }
+              if (result.success && result.data) {
+                // Update the collection with new pricing
+                setCollection(prev => prev.map(i =>
+                  i.id === item.id ? result.data : i
+                ));
+                console.log(`  ✅ Updated ${item.minifigure_no}: $${result.data.pricing?.suggestedPrice || 0}`);
+              } else {
+                console.log(`  ⚠️ No price for ${item.minifigure_no}`);
               }
             } catch (err) {
-              console.error('❌ Polling error:', err);
-              clearInterval(pollInterval);
+              console.error(`  ❌ Error fetching ${item.minifigure_no}:`, err);
             }
-          }, 3000); // Poll every 3 seconds to match API rate limiting
+
+            // Fetch next item after a short delay
+            setTimeout(fetchNextItem, 500); // 0.5 second delay between client requests
+          };
+
+          // Start fetching
+          fetchNextItem();
         }
       }
     } catch (error) {
