@@ -328,8 +328,9 @@ export class BricklinkAPI {
       // BrickLink API parameters:
       // - country_code: FILTERS sellers to only that country (very restrictive)
       // - currency_code: CONVERTS prices to that currency (all sellers, just different display)
+      // - guide_type: 'stock' for current listings, 'sold' for historical sales
       // For pricing, we want ALL sellers with currency conversion, NOT filtered by country
-      let url = `/items/MINIFIG/${itemNo}/price?new_or_used=${condition}`;
+      let url = `/items/MINIFIG/${itemNo}/price?new_or_used=${condition}&guide_type=stock`;
       if (currencyCode) {
         url += `&currency_code=${currencyCode}`;
       }
@@ -542,7 +543,8 @@ export class BricklinkAPI {
 
       // BrickLink API: Don't use country_code (filters sellers), use currency_code (converts prices)
       // Use SET as item type (same format as MINIFIG for minifigures)
-      let url = `/items/SET/${bricklinkNo}/price?new_or_used=${condition}`;
+      // guide_type=stock shows current listings (not historical sales)
+      let url = `/items/SET/${bricklinkNo}/price?new_or_used=${condition}&guide_type=stock`;
       if (currencyCode) {
         url += `&currency_code=${currencyCode}`;
       }
