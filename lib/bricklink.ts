@@ -540,8 +540,8 @@ export class BricklinkAPI {
       const bricklinkNo = boxNo.replace(/-\d+$/, '');
 
       // BrickLink API: Don't use country_code (filters sellers), use currency_code (converts prices)
-      // Note: Bricklink uses 'S' for sets, not 'SET'
-      let url = `/items/S/${bricklinkNo}/price?new_or_used=${condition}`;
+      // Use SET as item type (same format as MINIFIG for minifigures)
+      let url = `/items/SET/${bricklinkNo}/price?new_or_used=${condition}`;
       if (currencyCode) {
         url += `&currency_code=${currencyCode}`;
       }
