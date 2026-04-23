@@ -9,6 +9,8 @@ export async function GET(request: NextRequest) {
     const countryCode = searchParams.get('countryCode') || 'US';
     const region = searchParams.get('region') || 'north_america';
 
+    console.log(`[Set Pricing API] boxNo=${boxNo}, condition=${condition}, countryCode=${countryCode}, region=${region}`);
+
     if (!boxNo) {
       return NextResponse.json(
         { success: false, error: 'Missing boxNo parameter' },
@@ -25,6 +27,8 @@ export async function GET(request: NextRequest) {
       countryCode,
       region
     );
+
+    console.log(`[Set Pricing API] Result for ${boxNo}: ${JSON.stringify(pricing)}`);
 
     return NextResponse.json({
       success: true,

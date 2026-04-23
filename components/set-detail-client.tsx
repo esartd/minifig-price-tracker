@@ -116,6 +116,13 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
           params.set('region', session.user.preferredRegion);
         }
 
+        console.log('[Set Detail] Fetching pricing with params:', params.toString());
+        console.log('[Set Detail] Session preferences:', {
+          countryCode: session?.user?.preferredCountryCode,
+          region: session?.user?.preferredRegion,
+          currency: session?.user?.preferredCurrency
+        });
+
         const response = await fetch(`/api/set-pricing/temp?${params.toString()}`);
         const data = await response.json();
         if (data.success && data.pricing) {
