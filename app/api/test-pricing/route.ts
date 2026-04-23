@@ -22,6 +22,15 @@ export async function GET(request: NextRequest) {
     console.log(`Item: ${itemNo}, Condition: ${condition}, Country: ${countryCode}`);
 
     const startTime = Date.now();
+
+    // Also get raw price guide to see what Bricklink returns
+    const conditionCode = condition === 'new' ? 'N' : 'U';
+    const currencyConfig = await import('@/lib/currency-config');
+    const currency = currencyConfig.getCurrencyByCountryCode(countryCode);
+    const currencyCode = currency?.code || 'USD';
+
+    const rawPriceGuide = await bricklinkAPI.getPriceGuide(itemNo, conditionCode, countryCode, '', currencyCode);
+
     const pricing = await bricklinkAPI.calculatePricingData(
       itemNo,
       condition as 'new' | 'used',
@@ -39,8 +48,10 @@ export async function GET(request: NextRequest) {
       item: itemNo,
       condition,
       countryCode,
+      currencyCode,
       duration: `${duration}ms`,
-      pricing
+      pricing,
+      rawPriceGuide // Include raw Bricklink response to see what's actually returned
     });
   } catch (error: any) {
     console.error('Test pricing error:', error);
