@@ -1090,6 +1090,21 @@ export function HeaderClient({ user }: HeaderClientProps) {
             )}
           </div>
 
+          {/* About Link */}
+          <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
+            display: 'flex',
+            alignItems: 'center',
+            padding: '16px 0',
+            borderBottom: '1px solid #f5f5f5',
+            color: '#171717',
+            textDecoration: 'none',
+            fontSize: 'var(--text-base)',
+            fontWeight: '600',
+            minHeight: '44px'
+          }}>
+            About
+          </Link>
+
           {/* Your LEGO Dropdown */}
           <div style={{ borderBottom: '1px solid #f5f5f5' }}>
             <button
@@ -1209,23 +1224,10 @@ export function HeaderClient({ user }: HeaderClientProps) {
             )}
           </div>
 
-          {/* Other Links */}
+          {/* Account & Personal Links */}
           <div style={{
             marginTop: '32px'
           }}>
-            <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
-              display: 'flex',
-              alignItems: 'center',
-              padding: '16px 0',
-              borderBottom: '1px solid #f5f5f5',
-              color: '#171717',
-              textDecoration: 'none',
-              fontSize: 'var(--text-base)',
-              fontWeight: '600',
-              minHeight: '44px'
-            }}>
-              About
-            </Link>
             <Link href="/account" onClick={() => setMobileMenuOpen(false)} style={{
               display: 'flex',
               alignItems: 'center',
