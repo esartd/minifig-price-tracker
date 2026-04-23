@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { generateAmazonLegoSetLink, generateLegoSetLink } from '@/lib/affiliate-links';
+import { generateAmazonLegoSetLink } from '@/lib/affiliate-links';
 
 interface SetAdCardProps {
   setNumber: string;
@@ -12,19 +12,18 @@ interface SetAdCardProps {
 }
 
 /**
- * Ad card component for LEGO sets with LEGO.com and Amazon affiliate links
+ * Ad card component for LEGO sets with Amazon affiliate links
  * Designed to blend naturally into the minifig grid
  * Supports both auto-generated and direct Amazon URLs
  */
 export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUrl }: SetAdCardProps) {
-  // Generate affiliate links
-  const legoLink = generateLegoSetLink(setNumber);
+  // Generate Amazon affiliate link
   const amazonLink = amazonUrl || generateAmazonLegoSetLink(setNumber, setName);
 
-  const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>, platform: 'lego' | 'amazon') => {
+  const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
 
-    const redirectUrl = platform === 'lego' ? legoLink : amazonLink;
+    const redirectUrl = amazonLink;
 
     try {
       // Track the click
@@ -32,7 +31,7 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          platform,
+          platform: 'amazon',
           productType: 'set',
           productId: setNumber,
           productName: setName,
@@ -143,16 +142,13 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
         </h3>
       </div>
 
-      {/* Buy Buttons - LEGO.com and Amazon */}
+      {/* Buy Button - Amazon only (no LEGO.com affiliate program) */}
       <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '8px',
         alignSelf: 'end'
       }}>
           <a
-            href={legoLink}
-            onClick={(e) => handleClick(e, 'lego')}
+            href={amazonLink}
+            onClick={(e) => handleClick(e, 'amazon')}
             rel="noopener noreferrer sponsored"
             style={{
               display: 'block',
@@ -177,39 +173,6 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
             onMouseLeave={(e) => {
               e.currentTarget.style.background = '#3b82f6';
               e.currentTarget.style.transform = 'scale(1)';
-            }}
-          >
-            Buy on LEGO.com
-          </a>
-          <a
-            href={amazonLink}
-            onClick={(e) => handleClick(e, 'amazon')}
-            rel="noopener noreferrer sponsored"
-            style={{
-              display: 'block',
-              width: '100%',
-              padding: '12px 16px',
-              fontSize: 'var(--text-xs)',
-              fontWeight: '500',
-              color: '#737373',
-              background: '#ffffff',
-              border: '1px solid #d4d4d4',
-              borderRadius: '8px',
-              textAlign: 'center',
-              textDecoration: 'none',
-              transition: 'all 0.2s',
-              cursor: 'pointer',
-              whiteSpace: 'nowrap'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#f5f5f5';
-              e.currentTarget.style.borderColor = '#a3a3a3';
-              e.currentTarget.style.color = '#171717';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#ffffff';
-              e.currentTarget.style.borderColor = '#d4d4d4';
-              e.currentTarget.style.color = '#737373';
             }}
           >
             Buy on Amazon
