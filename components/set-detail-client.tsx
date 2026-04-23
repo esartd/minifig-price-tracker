@@ -429,10 +429,12 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
               <Image
                 src={imageUrl}
                 alt={set.name}
-                width={400}
-                height={400}
-                style={{ width: '100%', maxWidth: '400px', height: 'auto', objectFit: 'contain' }}
+                width={600}
+                height={600}
+                quality={100}
+                style={{ width: '100%', maxWidth: '500px', height: 'auto', objectFit: 'contain' }}
                 unoptimized
+                priority
                 onError={(e) => {
                   if (imageUrl.includes('/ON/')) {
                     const snUrl = imageUrl.replace('/ON/', '/SN/');
