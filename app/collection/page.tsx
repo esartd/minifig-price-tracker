@@ -13,6 +13,7 @@ import Link from 'next/link';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
 import { calculateCollectionStats } from '@/lib/collection-stats';
+import AnimatedCounter from '@/components/AnimatedCounter';
 
 export default function PersonalCollectionPage() {
   const { data: session, status } = useSession();
@@ -23,6 +24,7 @@ export default function PersonalCollectionPage() {
   const [showDecimals, setShowDecimals] = useState(false);
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
   const [dbError, setDbError] = useState<Date | null>(null);
+  const [pricesUpdating, setPricesUpdating] = useState(0);
 
   // Pagination state for display only (all items loaded client-side)
   const [currentPage, setCurrentPage] = useState(1);
@@ -95,6 +97,7 @@ export default function PersonalCollectionPage() {
 
         if (itemsNeedingRefresh.length > 0) {
           console.log(`🔄 Fetching prices for ${itemsNeedingRefresh.length} items progressively...`);
+          setPricesUpdating(itemsNeedingRefresh.length);
 
           // Client-side progressive fetch: fetch items one by one to avoid serverless timeout
           let currentIndex = 0;
@@ -102,6 +105,7 @@ export default function PersonalCollectionPage() {
           const fetchNextItem = async () => {
             if (currentIndex >= itemsNeedingRefresh.length) {
               console.log(`✅ Completed fetching all ${itemsNeedingRefresh.length} items`);
+              setPricesUpdating(0);
               return;
             }
 
@@ -129,6 +133,9 @@ export default function PersonalCollectionPage() {
             } catch (err) {
               console.error(`  ❌ Error fetching ${item.minifigure_no}:`, err);
             }
+
+            // Decrement updating count
+            setPricesUpdating(prev => Math.max(0, prev - 1));
 
             // Fetch next item after a short delay
             setTimeout(fetchNextItem, 500); // 0.5 second delay between client requests
@@ -334,14 +341,35 @@ export default function PersonalCollectionPage() {
                   boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
                   minWidth: '140px'
                 }}>
-                  <div className="collection-stat-label" style={{
-                    fontSize: 'var(--text-xs)',
-                    fontWeight: '500',
-                    color: '#737373',
-                    marginBottom: '4px',
-                    letterSpacing: '0.01em'
-                  }}>
-                    Total Value
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                    <div className="collection-stat-label" style={{
+                      fontSize: 'var(--text-xs)',
+                      fontWeight: '500',
+                      color: '#737373',
+                      letterSpacing: '0.01em'
+                    }}>
+                      Total Value
+                    </div>
+                    {pricesUpdating > 0 && (
+                      <div style={{
+                        fontSize: '10px',
+                        fontWeight: '500',
+                        color: '#3b82f6',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px'
+                      }}>
+                        <div style={{
+                          width: '8px',
+                          height: '8px',
+                          border: '2px solid #3b82f6',
+                          borderTop: '2px solid transparent',
+                          borderRadius: '50%',
+                          animation: 'spin 0.8s linear infinite'
+                        }} />
+                        Updating
+                      </div>
+                    )}
                   </div>
                   <div className="collection-stat-value" style={{
                     fontSize: 'var(--text-xl)',
@@ -349,7 +377,10 @@ export default function PersonalCollectionPage() {
                     color: '#171717',
                     lineHeight: '1'
                   }}>
-                    {formatPrice(totalValue, session?.user?.preferredCurrency || 'USD', true)}
+                    <AnimatedCounter
+                      value={totalValue}
+                      formatFn={(val) => formatPrice(val, session?.user?.preferredCurrency || 'USD', true)}
+                    />
                   </div>
                 </div>
                 <div className="collection-stat-card" style={{
@@ -384,14 +415,23 @@ export default function PersonalCollectionPage() {
                   boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
                   minWidth: '140px'
                 }}>
-                  <div className="collection-stat-label" style={{
-                    fontSize: 'var(--text-xs)',
-                    fontWeight: '500',
-                    color: '#737373',
-                    marginBottom: '4px',
-                    letterSpacing: '0.01em'
-                  }}>
-                    Avg Value
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                    <div className="collection-stat-label" style={{
+                      fontSize: 'var(--text-xs)',
+                      fontWeight: '500',
+                      color: '#737373',
+                      letterSpacing: '0.01em'
+                    }}>
+                      Avg Value
+                    </div>
+                    {pricesUpdating > 0 && (
+                      <div style={{
+                        width: '4px',
+                        height: '4px',
+                        background: '#3b82f6',
+                        borderRadius: '50%'
+                      }} />
+                    )}
                   </div>
                   <div className="collection-stat-value" style={{
                     fontSize: 'var(--text-xl)',
@@ -399,7 +439,10 @@ export default function PersonalCollectionPage() {
                     color: '#171717',
                     lineHeight: '1'
                   }}>
-                    {formatPrice(avgValue, session?.user?.preferredCurrency || 'USD', true)}
+                    <AnimatedCounter
+                      value={avgValue}
+                      formatFn={(val) => formatPrice(val, session?.user?.preferredCurrency || 'USD', true)}
+                    />
                   </div>
                 </div>
               </div>

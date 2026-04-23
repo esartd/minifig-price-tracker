@@ -13,6 +13,7 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
 import CollectionPagination from '@/components/CollectionPagination';
 import { calculateCollectionStats } from '@/lib/collection-stats';
+import AnimatedCounter from '@/components/AnimatedCounter';
 
 export default function CollectionPage() {
   const { data: session, status} = useSession();
@@ -23,6 +24,7 @@ export default function CollectionPage() {
   const [showDecimals, setShowDecimals] = useState(false);
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
   const [dbError, setDbError] = useState<Date | null>(null);
+  const [pricesUpdating, setPricesUpdating] = useState(0); // Count of items being updated
 
   // Pagination state for display only (all items loaded client-side)
   const [currentPage, setCurrentPage] = useState(1);
@@ -94,6 +96,8 @@ export default function CollectionPage() {
         console.log(`Found ${itemsNeedingRefresh.length} items needing pricing refresh (current currency: ${userCurrency})`);
 
         if (itemsNeedingRefresh.length > 0) {
+          setPricesUpdating(itemsNeedingRefresh.length);
+
           // Fetch each item's pricing individually
           itemsNeedingRefresh.forEach(async (item: CollectionItem) => {
             try {
@@ -120,8 +124,12 @@ export default function CollectionPage() {
               } else {
                 console.log(`  → Failed: ${priceData.error || 'No data'}`);
               }
+
+              // Decrement updating count
+              setPricesUpdating(prev => Math.max(0, prev - 1));
             } catch (err) {
               console.error(`Failed to load pricing for ${item.minifigure_no}:`, err);
+              setPricesUpdating(prev => Math.max(0, prev - 1));
             }
           });
         }
@@ -321,14 +329,35 @@ export default function CollectionPage() {
                   boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
                   minWidth: '140px'
                 }}>
-                  <div className="collection-stat-label" style={{
-                    fontSize: 'var(--text-xs)',
-                    fontWeight: '500',
-                    color: '#737373',
-                    marginBottom: '4px',
-                    letterSpacing: '0.01em'
-                  }}>
-                    Total Value
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                    <div className="collection-stat-label" style={{
+                      fontSize: 'var(--text-xs)',
+                      fontWeight: '500',
+                      color: '#737373',
+                      letterSpacing: '0.01em'
+                    }}>
+                      Total Value
+                    </div>
+                    {pricesUpdating > 0 && (
+                      <div style={{
+                        fontSize: '10px',
+                        fontWeight: '500',
+                        color: '#3b82f6',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px'
+                      }}>
+                        <div style={{
+                          width: '8px',
+                          height: '8px',
+                          border: '2px solid #3b82f6',
+                          borderTop: '2px solid transparent',
+                          borderRadius: '50%',
+                          animation: 'spin 0.8s linear infinite'
+                        }} />
+                        Updating
+                      </div>
+                    )}
                   </div>
                   <div className="collection-stat-value" style={{
                     fontSize: 'var(--text-xl)',
@@ -336,7 +365,10 @@ export default function CollectionPage() {
                     color: '#171717',
                     lineHeight: '1'
                   }}>
-                    {formatPrice(totalValue, session?.user?.preferredCurrency || 'USD', true)}
+                    <AnimatedCounter
+                      value={totalValue}
+                      formatFn={(val) => formatPrice(val, session?.user?.preferredCurrency || 'USD', true)}
+                    />
                   </div>
                 </div>
                 <div className="collection-stat-card" style={{
@@ -371,14 +403,23 @@ export default function CollectionPage() {
                   boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
                   minWidth: '140px'
                 }}>
-                  <div className="collection-stat-label" style={{
-                    fontSize: 'var(--text-xs)',
-                    fontWeight: '500',
-                    color: '#737373',
-                    marginBottom: '4px',
-                    letterSpacing: '0.01em'
-                  }}>
-                    Avg Value
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                    <div className="collection-stat-label" style={{
+                      fontSize: 'var(--text-xs)',
+                      fontWeight: '500',
+                      color: '#737373',
+                      letterSpacing: '0.01em'
+                    }}>
+                      Avg Value
+                    </div>
+                    {pricesUpdating > 0 && (
+                      <div style={{
+                        width: '4px',
+                        height: '4px',
+                        background: '#3b82f6',
+                        borderRadius: '50%'
+                      }} />
+                    )}
                   </div>
                   <div className="collection-stat-value" style={{
                     fontSize: 'var(--text-xl)',
@@ -386,7 +427,10 @@ export default function CollectionPage() {
                     color: '#171717',
                     lineHeight: '1'
                   }}>
-                    {formatPrice(avgValue, session?.user?.preferredCurrency || 'USD', true)}
+                    <AnimatedCounter
+                      value={avgValue}
+                      formatFn={(val) => formatPrice(val, session?.user?.preferredCurrency || 'USD', true)}
+                    />
                   </div>
                 </div>
               </div>
