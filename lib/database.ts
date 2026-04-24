@@ -566,6 +566,9 @@ class DatabaseService {
       orderBy: { date_added: 'desc' }
     });
 
+    // Use empty string for region to match standardized cache format
+    const cacheRegion = '';
+
     // Batch fetch all prices in ONE query
     // Keep full box number with variant suffix (e.g., "75411-1") - Bricklink requires this
     const priceCacheKeys = items.map(item => ({
@@ -573,7 +576,7 @@ class DatabaseService {
       item_type: 'SET',
       condition: item.condition,
       country_code: countryCode,
-      region: region
+      region: cacheRegion
     }));
 
     const allPrices = await prisma.priceCache.findMany({
@@ -594,7 +597,7 @@ class DatabaseService {
     // Map items with pricing
     const itemsWithFreshPricing = items.map(item => {
       // Use full box number with variant suffix for cache lookup
-      const key = `${item.box_no}-SET-${item.condition}-${countryCode}-${region}`;
+      const key = `${item.box_no}-SET-${item.condition}-${countryCode}-${cacheRegion}`;
       const freshPrice = priceMap.get(key);
 
       if (freshPrice) {
@@ -686,6 +689,9 @@ class DatabaseService {
       orderBy: { date_added: 'desc' }
     });
 
+    // Use empty string for region to match standardized cache format
+    const cacheRegion = '';
+
     // Batch fetch all prices
     // Keep full box number with variant suffix (e.g., "75411-1") - Bricklink requires this
     const priceCacheKeys = items.map(item => ({
@@ -693,7 +699,7 @@ class DatabaseService {
       item_type: 'SET',
       condition: item.condition,
       country_code: countryCode,
-      region: region
+      region: cacheRegion
     }));
 
     const allPrices = await prisma.priceCache.findMany({
@@ -712,7 +718,7 @@ class DatabaseService {
 
     const itemsWithFreshPricing = items.map(item => {
       // Use full box number with variant suffix for cache lookup
-      const key = `${item.box_no}-SET-${item.condition}-${countryCode}-${region}`;
+      const key = `${item.box_no}-SET-${item.condition}-${countryCode}-${cacheRegion}`;
       const freshPrice = priceMap.get(key);
 
       if (freshPrice) {
