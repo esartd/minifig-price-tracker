@@ -83,6 +83,10 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
   const [addToInventoryQty, setAddToInventoryQty] = useState(1);
   const [addToInventoryLoading, setAddToInventoryLoading] = useState(false);
 
+  // Show more variants state
+  const [showAllVariants, setShowAllVariants] = useState(false);
+  const INITIAL_VARIANTS_COUNT = 12;
+
   // Initialize condition from URL query parameter
   const [condition, setCondition] = useState<'new' | 'used'>(() => {
     if (typeof window !== 'undefined') {
@@ -2490,10 +2494,12 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                 Other Variants
               </h2>
               <p className="minifig-related-description">
-                Different versions of this character
+                {variants.length === 1
+                  ? '1 different version of this character'
+                  : `${variants.length} different versions of this character`}
               </p>
                 <div className="minifig-related-grid">
-                  {variants.map((variant) => (
+                  {(showAllVariants ? variants : variants.slice(0, INITIAL_VARIANTS_COUNT)).map((variant) => (
                     <a
                       key={variant.no}
                       href={`/minifigs/${variant.no}`}
@@ -2553,6 +2559,56 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     </a>
                   ))}
                 </div>
+
+                {/* Show More / Show Less Button */}
+                {variants.length > INITIAL_VARIANTS_COUNT && (
+                  <div style={{
+                    marginTop: '24px',
+                    textAlign: 'center'
+                  }}>
+                    <button
+                      onClick={() => setShowAllVariants(!showAllVariants)}
+                      style={{
+                        padding: '12px 32px',
+                        fontSize: 'var(--text-sm)',
+                        fontWeight: '600',
+                        color: '#3b82f6',
+                        background: 'white',
+                        border: '2px solid #3b82f6',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#3b82f6';
+                        e.currentTarget.style.color = 'white';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'white';
+                        e.currentTarget.style.color = '#3b82f6';
+                      }}
+                    >
+                      {showAllVariants ? (
+                        <>
+                          Show Less
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                          </svg>
+                        </>
+                      ) : (
+                        <>
+                          Show {variants.length - INITIAL_VARIANTS_COUNT} More Variants
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                          </svg>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                )}
             </div>
           )}
 
