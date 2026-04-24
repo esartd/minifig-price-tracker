@@ -101,7 +101,7 @@ export default function MinifigCard({
           justifyContent: 'center',
           width: '100px',
           minHeight: '140px',
-          padding: '24px 0',
+          padding: '8px 0',
           backgroundColor: '#ffffff',
           borderTopLeftRadius: '10px',
           borderBottomLeftRadius: '10px',
