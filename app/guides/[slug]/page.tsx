@@ -37,7 +37,7 @@ A minifig with all printed parts, accessories, and original packaging (if applic
 
 ## Star Wars Dominates the Top 10
 
-**Star Wars minifigures consistently command the highest prices**, with several factors contributing to their value:
+[**Star Wars minifigures**](/themes/star-wars) consistently command the highest prices, with several factors contributing to their value:
 
 - Licensed franchise with massive global fanbase
 - Many were only available in expensive sets ($100-$500 retail)
@@ -58,9 +58,9 @@ A minifig with all printed parts, accessories, and original packaging (if applic
 
 Beyond licensed themes, vintage LEGO themes have collectors paying premium prices:
 
-**Classic Space minifigs (1978-1987)** with complete helmets and air tanks in pristine condition are increasingly valuable as original owners age out of collecting.
+[**Classic Space minifigs**](/themes/space) (1978-1987) with complete helmets and air tanks in pristine condition are increasingly valuable as original owners age out of collecting.
 
-**Castle knights** with printed torsos and unique helmets from the 1980s-1990s are harder to find, especially in sets that didn't sell as well.
+[**Castle knights**](/themes/castle) with printed torsos and unique helmets from the 1980s-1990s are harder to find, especially in sets that didn't sell as well.
 
 ## How to Price Your Own Collection
 
@@ -80,7 +80,7 @@ Be honest about:
 - Missing accessories
 
 ### Step 3: Check Current Market Prices
-Use FigTracker to:
+Use [FigTracker's search tool](/search) to:
 - See real-time Bricklink marketplace data
 - Compare quantity-weighted averages vs lowest prices
 - Track price trends over time
@@ -115,7 +115,7 @@ Based on 5+ years of pricing data, minifigs that tend to appreciate include:
 ## Notable Minifigures by Theme
 
 ### Harry Potter
-The revival of Harry Potter sets in 2018 created renewed interest, but original 2001-2005 releases with unique printing remain most valuable:
+The revival of [Harry Potter](/themes/harry-potter) sets in 2018 created renewed interest, but original 2001-2005 releases with unique printing remain most valuable:
 - Dumbledore (gray beard variants)
 - Professor Snape (early versions)
 - Voldemort (red eyes variant)
@@ -123,7 +123,7 @@ The revival of Harry Potter sets in 2018 created renewed interest, but original 
 Prices: $50-$300 depending on variant and condition
 
 ### Marvel Super Heroes
-MCU popularity drives these values:
+MCU popularity drives [Marvel](/themes/marvel-super-heroes) values:
 - Loki (Avengers era, printed legs)
 - Deadpool (first release)
 - Spider-Man variants (symbiote, Iron Spider)
@@ -131,15 +131,15 @@ MCU popularity drives these values:
 Prices: $40-$200 for sought-after variants
 
 ### DC Super Heroes
-Batman variants are plentiful, but rare versions command premiums:
+Batman variants are plentiful, but rare [DC Super Heroes](/themes/dc-comics-super-heroes) versions command premiums:
 - Comic-Con exclusive Batman figures
 - Early Joker variants
 - Original Superman from 2012
 
 ### Pirates & Castle
 Vintage 1980s-1990s themes are hot:
-- Pirates with unique torso prints
-- Castle knights with rare helmets
+- [Pirates](/themes/pirates) with unique torso prints
+- [Castle](/themes/castle) knights with rare helmets
 - Forestmen with complete accessories
 
 Prices: $30-$150 for complete vintage minifigs
@@ -356,7 +356,7 @@ Check if that eBay listing is overpriced before bidding.
 Here's how smart sellers use FigTracker + Bricklink together:
 
 ### Step 1: Price on FigTracker
-Search your minifig by ID (e.g., "sw1219"). Get suggested price in 5 seconds.
+[Search your minifig](/search) by ID (e.g., "sw1219"). Get suggested price in 5 seconds.
 
 ### Step 2: Cross-check on Bricklink (if needed)
 For expensive minifigs ($50+), verify on Bricklink to see actual listings.
@@ -365,7 +365,7 @@ For expensive minifigs ($50+), verify on Bricklink to see actual listings.
 eBay, Facebook Marketplace, or your own Bricklink store.
 
 ### Step 4: Track in FigTracker
-Keep your inventory organized. Refresh prices monthly.
+Keep your [inventory organized](/inventory). Refresh prices monthly.
 
 **Time saved:** 2-3 minutes per minifig × 50 minifigs = 2.5 hours per pricing session.
 
@@ -481,25 +481,38 @@ export default async function GuidePage({
     notFound();
   }
 
-  // Schema.org Article markup
-  const articleSchema = {
+  // Schema.org BlogPosting markup
+  const blogSchema = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': 'BlogPosting',
     headline: guide.title,
     description: guide.description,
     author: {
       '@type': 'Organization',
       name: guide.author,
     },
+    publisher: {
+      '@type': 'Organization',
+      name: 'FigTracker',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://figtracker.ericksu.com/favicon.svg'
+      }
+    },
     datePublished: guide.date,
     dateModified: guide.date,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://figtracker.ericksu.com/guides/${slug}`
+    },
+    image: 'https://figtracker.ericksu.com/og-image.png',
   };
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
       />
 
       <article className="min-h-screen bg-[#fafafa]">

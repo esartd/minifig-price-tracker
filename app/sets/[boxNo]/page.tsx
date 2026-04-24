@@ -120,7 +120,7 @@ export default async function SetPage({
   }));
 
   // Schema.org structured data for rich search results
-  const jsonLd = {
+  const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: set.name,
@@ -147,11 +147,47 @@ export default async function SetPage({
     }
   };
 
+  // BreadcrumbList schema for SEO
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://figtracker.ericksu.com'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Sets',
+        item: 'https://figtracker.ericksu.com/sets/browse'
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: parentTheme,
+        item: `https://figtracker.ericksu.com/sets-themes/${encodeURIComponent(parentTheme.toLowerCase().replace(/\s+/g, '-'))}`
+      },
+      {
+        '@type': 'ListItem',
+        position: 4,
+        name: set.name,
+        item: `https://figtracker.ericksu.com/sets/${set.box_no}`
+      }
+    ]
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <SetDetailClient
         set={setData}

@@ -1,10 +1,18 @@
 'use client';
 
 export default function Footer() {
+  const popularThemes = [
+    { name: 'Star Wars', slug: 'star-wars' },
+    { name: 'Harry Potter', slug: 'harry-potter' },
+    { name: 'Marvel', slug: 'marvel-super-heroes' },
+    { name: 'DC', slug: 'dc-comics-super-heroes' },
+    { name: 'City', slug: 'city' },
+    { name: 'Ninjago', slug: 'ninjago' },
+  ];
+
   return (
     <footer style={{
       padding: 'var(--space-6) var(--space-4)',
-      textAlign: 'center',
       fontSize: 'var(--text-sm)',
       color: '#737373',
       borderTop: '1px solid #e5e5e5',
@@ -14,6 +22,46 @@ export default function Footer() {
         maxWidth: '1000px',
         margin: '0 auto'
       }}>
+        {/* Popular Themes - New Section */}
+        <div style={{
+          marginBottom: 'var(--space-6)',
+          textAlign: 'center'
+        }}>
+          <div style={{
+            fontSize: 'var(--text-xs)',
+            fontWeight: '600',
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            color: '#a3a3a3',
+            marginBottom: 'var(--space-3)'
+          }}>
+            Popular Themes
+          </div>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: 'var(--space-4)',
+            flexWrap: 'wrap'
+          }}>
+            {popularThemes.map((theme) => (
+              <a
+                key={theme.slug}
+                href={`/themes/${theme.slug}`}
+                style={{
+                  color: '#525252',
+                  textDecoration: 'none',
+                  fontSize: 'var(--text-sm)',
+                  transition: 'color 0.2s'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+              >
+                {theme.name}
+              </a>
+            ))}
+          </div>
+        </div>
+
         {/* Navigation Links */}
         <div style={{
           display: 'flex',
@@ -21,7 +69,8 @@ export default function Footer() {
           gap: 'var(--space-4)',
           marginBottom: 'var(--space-5)',
           fontSize: 'var(--text-sm)',
-          flexWrap: 'wrap'
+          flexWrap: 'wrap',
+          textAlign: 'center'
         }}>
           <a href="/about" style={{
             color: '#525252',

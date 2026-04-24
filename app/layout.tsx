@@ -76,7 +76,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const jsonLd = {
+  const webAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'FigTracker',
@@ -98,12 +98,27 @@ export default function RootLayout({
     ],
   };
 
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'FigTracker',
+    url: 'https://figtracker.ericksu.com',
+    logo: 'https://figtracker.ericksu.com/favicon.svg',
+    description: 'Free LEGO minifigure price tracker and inventory management tool',
+    foundingDate: '2024',
+    sameAs: [],
+  };
+
   return (
     <html lang="en" className="antialiased" style={{ margin: 0, padding: 0 }}>
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
       <body className="antialiased" style={{ margin: 0, padding: 0 }}>

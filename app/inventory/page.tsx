@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { CollectionItem } from '@/types';
@@ -97,47 +97,53 @@ export default function CollectionPage() {
         console.log(`Found ${itemsNeedingRefresh.length} items needing pricing refresh (current currency: ${userCurrency})`);
 
         if (itemsNeedingRefresh.length > 0) {
+          console.log(`🔄 Fetching prices for ${itemsNeedingRefresh.length} items progressively...`);
           setPricesUpdating(itemsNeedingRefresh.length);
 
-          // Fetch each item's pricing individually (use Promise.all for proper async handling)
-          const refreshPromises = itemsNeedingRefresh.map(async (item: CollectionItem) => {
+          // Client-side progressive fetch: fetch items one by one to avoid state update race conditions
+          let currentIndex = 0;
+
+          const fetchNextItem = async () => {
+            if (currentIndex >= itemsNeedingRefresh.length) {
+              console.log(`✅ Completed fetching all ${itemsNeedingRefresh.length} items`);
+              setPricesUpdating(0);
+              return;
+            }
+
+            const item = itemsNeedingRefresh[currentIndex];
+            currentIndex++;
+
             try {
-              console.log(`Fetching ${userCurrency} price for ${item.minifigure_no} (current: ${item.pricing?.currencyCode})...`);
-              const priceResponse = await fetch(`/api/inventory/${item.id}/refresh-pricing`, {
+              console.log(`[${currentIndex}/${itemsNeedingRefresh.length}] Fetching price for ${item.minifigure_no}...`);
+
+              // Call the refresh endpoint for this specific item
+              const response = await fetch(`/api/inventory/${item.id}/refresh-pricing`, {
                 method: 'POST'
               });
-              const priceData = await priceResponse.json();
+              const result = await response.json();
 
-              console.log(`Price response for ${item.minifigure_no}:`, priceData);
-
-              if (priceData.success && priceData.data) {
-                const pricing = priceData.data.pricing;
-                console.log(`  → Pricing details: $${pricing?.suggestedPrice || 0} (${pricing?.currencyCode || 'unknown'})`);
-
-                // Update just this item in the collection
-                setCollection(prev => {
-                  const updated = prev.map(i =>
-                    i.id === item.id ? priceData.data : i
-                  );
-                  console.log(`  → Updated state for ${item.minifigure_no}`);
-                  return updated;
-                });
+              if (result.success && result.data) {
+                // Update the collection with new pricing
+                setCollection(prev => prev.map(i =>
+                  i.id === item.id ? result.data : i
+                ));
+                console.log(`  ✅ Updated ${item.minifigure_no}: $${result.data.pricing?.suggestedPrice || 0}`);
               } else {
-                console.log(`  → Failed: ${priceData.error || 'No data'}`);
+                console.log(`  ⚠️ No price for ${item.minifigure_no}`);
               }
-
-              // Decrement updating count
-              setPricesUpdating(prev => Math.max(0, prev - 1));
             } catch (err) {
-              console.error(`Failed to load pricing for ${item.minifigure_no}:`, err);
-              setPricesUpdating(prev => Math.max(0, prev - 1));
+              console.error(`  ❌ Error fetching ${item.minifigure_no}:`, err);
             }
-          });
 
-          // Await all pricing updates (doesn't block rendering, but ensures cleanup)
-          Promise.all(refreshPromises).catch(err => {
-            console.error('Error refreshing prices:', err);
-          });
+            // Decrement updating count
+            setPricesUpdating(prev => Math.max(0, prev - 1));
+
+            // Fetch next item after a short delay
+            setTimeout(fetchNextItem, 500); // 0.5 second delay between client requests
+          };
+
+          // Start fetching
+          fetchNextItem();
         }
       }
     } catch (error) {
@@ -231,8 +237,8 @@ export default function CollectionPage() {
     return filtered;
   };
 
-  // Get filtered/sorted items, then paginate for display
-  const sortedAndFiltered = getSortedAndFilteredCollection();
+  // Get filtered/sorted items, then paginate for display (memoized to react to collection changes)
+  const sortedAndFiltered = useMemo(() => getSortedAndFilteredCollection(), [collection, conditionFilter, sortOrder]);
   const totalFiltered = sortedAndFiltered.length;
   const totalPages = Math.ceil(totalFiltered / itemsPerPage);
 
