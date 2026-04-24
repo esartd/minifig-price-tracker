@@ -310,6 +310,120 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 )}
               </div>
 
+              {/* Your LEGO Dropdown for logged-out users */}
+              <div style={{ position: 'relative' }} ref={legoDropdownRef}>
+                <button
+                  onClick={() => setLegoDropdownOpen(!legoDropdownOpen)}
+                  style={{
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '500',
+                    color: '#525252',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    height: '36px',
+                    padding: 0
+                  }}
+                >
+                  Your LEGO
+                  <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {legoDropdownOpen && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    marginTop: '12px',
+                    background: 'white',
+                    borderRadius: '12px',
+                    boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                    border: '1px solid #e5e5e5',
+                    minWidth: '240px',
+                    overflow: 'hidden',
+                    zIndex: 1000
+                  }}>
+                    {/* Minifigures Section */}
+                    <div style={{ padding: '12px 20px 8px', fontSize: '11px', fontWeight: '600', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                      Minifigures
+                    </div>
+                    <Link href="/auth/signin?callbackUrl=/inventory" onClick={() => setLegoDropdownOpen(false)} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '12px 20px',
+                      color: '#171717',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-sm)',
+                      borderBottom: '1px solid #f5f5f5',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                      <CurrencyDollarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                      <span>Minifigures for Sale</span>
+                    </Link>
+                    <Link href="/auth/signin?callbackUrl=/collection" onClick={() => setLegoDropdownOpen(false)} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '12px 20px',
+                      color: '#171717',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-sm)',
+                      borderBottom: '1px solid #f5f5f5',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                      <StarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                      <span>Minifigures to Keep</span>
+                    </Link>
+
+                    {/* Sets Section */}
+                    <div style={{ padding: '12px 20px 8px', fontSize: '11px', fontWeight: '600', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                      Sets
+                    </div>
+                    <Link href="/auth/signin?callbackUrl=/sets-inventory" onClick={() => setLegoDropdownOpen(false)} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '12px 20px',
+                      color: '#171717',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-sm)',
+                      borderBottom: '1px solid #f5f5f5',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                      <CurrencyDollarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                      <span>Sets for Sale</span>
+                    </Link>
+                    <Link href="/auth/signin?callbackUrl=/sets-collection" onClick={() => setLegoDropdownOpen(false)} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '12px 20px',
+                      color: '#171717',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-sm)',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                      <StarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                      <span>Sets to Keep</span>
+                    </Link>
+                  </div>
+                )}
+              </div>
+
               <Link
                 href="/about"
                 style={{
@@ -472,6 +586,107 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   }}>
                     <CubeIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
                     <span>Set Themes</span>
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Your LEGO Dropdown for mobile logged-out users */}
+            <div style={{ borderBottom: '1px solid #f5f5f5' }}>
+              <button
+                onClick={() => setMobileLegoOpen(!mobileLegoOpen)}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '16px 0',
+                  background: 'none',
+                  border: 'none',
+                  color: '#171717',
+                  fontSize: 'var(--text-base)',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  minHeight: '44px'
+                }}
+              >
+                <span>Your LEGO</span>
+                <svg
+                  style={{
+                    width: '20px',
+                    height: '20px',
+                    transition: 'transform 0.2s',
+                    transform: mobileLegoOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                    flexShrink: 0
+                  }}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {mobileLegoOpen && (
+                <div style={{ paddingLeft: '16px', paddingBottom: '16px' }}>
+                  <div style={{ padding: '8px 0 4px', fontSize: '11px', fontWeight: '600', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    Minifigures
+                  </div>
+                  <Link href="/auth/signin?callbackUrl=/inventory" onClick={() => setMobileMenuOpen(false)} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '8px 0',
+                    color: '#525252',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-base)',
+                    minHeight: '44px'
+                  }}>
+                    <CurrencyDollarIcon style={{ width: '20px', height: '20px', flexShrink: 0, color: '#737373' }} />
+                    <span>Minifigures for Sale</span>
+                  </Link>
+                  <Link href="/auth/signin?callbackUrl=/collection" onClick={() => setMobileMenuOpen(false)} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '8px 0',
+                    color: '#525252',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-base)',
+                    minHeight: '44px'
+                  }}>
+                    <StarIcon style={{ width: '20px', height: '20px', flexShrink: 0, color: '#737373' }} />
+                    <span>Minifigures to Keep</span>
+                  </Link>
+
+                  <div style={{ padding: '12px 0 4px', fontSize: '11px', fontWeight: '600', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    Sets
+                  </div>
+                  <Link href="/auth/signin?callbackUrl=/sets-inventory" onClick={() => setMobileMenuOpen(false)} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '8px 0',
+                    color: '#525252',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-base)',
+                    minHeight: '44px'
+                  }}>
+                    <CurrencyDollarIcon style={{ width: '20px', height: '20px', flexShrink: 0, color: '#737373' }} />
+                    <span>Sets for Sale</span>
+                  </Link>
+                  <Link href="/auth/signin?callbackUrl=/sets-collection" onClick={() => setMobileMenuOpen(false)} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '8px 0',
+                    color: '#525252',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-base)',
+                    minHeight: '44px'
+                  }}>
+                    <StarIcon style={{ width: '20px', height: '20px', flexShrink: 0, color: '#737373' }} />
+                    <span>Sets to Keep</span>
                   </Link>
                 </div>
               )}
