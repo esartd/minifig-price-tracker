@@ -44,18 +44,26 @@ export function generateAmazonAffiliateLink(asin: string): string {
 }
 
 /**
- * BrickLink affiliate link generator (for future use)
+ * BrickLink catalog link generator - goes directly to stores/sellers tab
  * @param itemType - 'S' for sets, 'M' for minifigs
  * @param itemNo - Item number
  */
 export function generateBrickLinkAffiliateLink(itemType: string, itemNo: string): string {
   const bricklinkId = process.env.BRICKLINK_AFFILIATE_ID || '';
-  if (!bricklinkId) {
-    return `https://www.bricklink.com/v2/catalog/catalogitem.page?${itemType}=${itemNo}`;
+
+  // Base URL with item
+  let url = `https://www.bricklink.com/v2/catalog/catalogitem.page?${itemType}=${itemNo}`;
+
+  // Add affiliate ID if available
+  if (bricklinkId) {
+    url += `&affid=${bricklinkId}`;
   }
 
-  // BrickLink affiliate structure (verify with their docs when you get approved)
-  return `https://www.bricklink.com/v2/catalog/catalogitem.page?${itemType}=${itemNo}&affid=${bricklinkId}`;
+  // Add hash to go directly to stores/sellers tab (where people buy)
+  // T=S = Tab: Stores, O={"iconly":0} = Options: show all sellers
+  url += `#T=S&O={%22iconly%22:0}`;
+
+  return url;
 }
 
 /**
