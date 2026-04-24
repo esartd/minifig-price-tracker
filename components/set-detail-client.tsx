@@ -887,11 +887,13 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                 </>
               )}
 
-              {/* Buy Buttons - always show after collection controls */}
-              {availability.status === 'available' && (
+              {/* Buy Buttons - show for available and retiring_soon sets */}
+              {(availability.status === 'available' || availability.status === 'retiring_soon') && (
                 <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid #e5e5e5' }}>
                   <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
-                    marginBottom: '16px', marginTop: '0' }}>Buy This Set</h2>
+                    marginBottom: '16px', marginTop: '0' }}>
+                    {availability.status === 'retiring_soon' ? 'Buy Before It\'s Gone' : 'Buy This Set'}
+                  </h2>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     <a href={amazonAffiliateUrl} target="_blank" rel="noopener noreferrer nofollow"
                       style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
