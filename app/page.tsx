@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { MagnifyingGlassIcon, CurrencyDollarIcon, ChartBarIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
+import NewsletterSignup from '@/components/NewsletterSignup';
 
 export const metadata: Metadata = {
   title: 'FigTracker - LEGO Minifigure Price Tracker & Inventory Management',
@@ -215,6 +216,13 @@ export default function Home() {
                 View All Themes →
               </Link>
             </div>
+          </div>
+        </section>
+
+        {/* Newsletter Section */}
+        <section style={{ padding: '80px 24px' }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+            <NewsletterSignup />
           </div>
         </section>
 

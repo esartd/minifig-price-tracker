@@ -319,3 +319,15 @@ model WishlistItem {
   @@index([userId])
   @@index([minifigure_no])
 }
+
+model NewsletterSubscriber {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  subscribedAt   DateTime  @default(now())
+  confirmed      Boolean   @default(false)
+  confirmedAt    DateTime?
+  unsubscribedAt DateTime?
+
+  @@index([email])
+  @@index([confirmed])
+}
