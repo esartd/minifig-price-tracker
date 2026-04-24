@@ -94,14 +94,14 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
       const lastUsedData = JSON.parse(savedLastUsed);
       setLastUsed(lastUsedData);
 
-      // Set form defaults to last used
+      // Set form defaults to last used platform, but always use item's actual condition
       setFormData(prev => ({
         ...prev,
         platform: lastUsedData.platform,
-        condition_detail: lastUsedData.condition
+        condition_detail: item.condition || 'new' // Use item's condition, not last used
       }));
     }
-  }, []);
+  }, [item.condition]);
 
   // Reset fields when item changes
   useEffect(() => {
