@@ -887,29 +887,20 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                 </>
               )}
 
-              {/* Buy Buttons - show for available and retiring_soon sets */}
+              {/* Amazon Buy Button - show for available and retiring_soon sets */}
               {(availability.status === 'available' || availability.status === 'retiring_soon') && (
                 <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid #e5e5e5' }}>
                   <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
                     marginBottom: '16px', marginTop: '0' }}>
                     {availability.status === 'retiring_soon' ? 'Buy Before It\'s Gone' : 'Buy This Set'}
                   </h2>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    <a href={amazonAffiliateUrl} target="_blank" rel="noopener noreferrer nofollow"
-                      style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        gap: '8px', background: '#ffffff', color: '#525252', border: '1px solid #e5e5e5',
-                        borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
-                        textDecoration: 'none', transition: 'all 0.2s' }}>
-                      Find on Amazon
-                    </a>
-                    <a href={legoAffiliateUrl} target="_blank" rel="noopener noreferrer nofollow"
-                      style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        gap: '8px', background: '#ffffff', color: '#525252', border: '1px solid #e5e5e5',
-                        borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
-                        textDecoration: 'none', transition: 'all 0.2s' }}>
-                      Buy on LEGO.com
-                    </a>
-                  </div>
+                  <a href={amazonAffiliateUrl} target="_blank" rel="noopener noreferrer nofollow"
+                    style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      gap: '8px', background: '#ffffff', color: '#525252', border: '1px solid #e5e5e5',
+                      borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
+                      textDecoration: 'none', transition: 'all 0.2s' }}>
+                    Find on Amazon
+                  </a>
                 </div>
               )}
             </div>
