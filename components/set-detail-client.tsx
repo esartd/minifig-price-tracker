@@ -12,7 +12,8 @@ import ListingGeneratorForm from '@/components/listing-generator-form';
 import SetCardImage from '@/components/SetCard';
 import { formatPrice } from '@/lib/format-price';
 import { getSetAvailability } from '@/lib/set-availability';
-import { generateLegoSetLink, generateAmazonLegoSetLink } from '@/lib/affiliate-links';
+import { generateLegoSetLink, generateAmazonLegoSetLink, generateBrickLinkAffiliateLink } from '@/lib/affiliate-links';
+import { trackAffiliateClick } from '@/lib/analytics';
 
 interface SetData {
   box_no: string;
@@ -887,20 +888,146 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                 </>
               )}
 
-              {/* Amazon Buy Button - show for available and retiring_soon sets */}
+              {/* Where to Buy Section - show for available and retiring_soon sets */}
               {(availability.status === 'available' || availability.status === 'retiring_soon') && (
-                <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid #e5e5e5' }}>
-                  <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
-                    marginBottom: '16px', marginTop: '0' }}>
-                    {availability.status === 'retiring_soon' ? 'Buy Before It\'s Gone' : 'Buy This Set'}
-                  </h2>
-                  <a href={amazonAffiliateUrl} target="_blank" rel="noopener noreferrer nofollow"
-                    style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      gap: '8px', background: '#ffffff', color: '#525252', border: '1px solid #e5e5e5',
-                      borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
-                      textDecoration: 'none', transition: 'all 0.2s' }}>
-                    Find on Amazon
-                  </a>
+                <div style={{
+                  marginTop: '24px',
+                  padding: '20px',
+                  background: '#fafafa',
+                  borderRadius: '12px',
+                  border: '1px solid #e5e5e5'
+                }}>
+                  <h3 style={{
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '600',
+                    color: '#525252',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    marginTop: 0,
+                    marginBottom: '12px'
+                  }}>
+                    Where to Buy
+                  </h3>
+
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px'
+                  }}>
+                    {/* Amazon Link */}
+                    <Link
+                      href={amazonAffiliateUrl}
+                      target="_blank"
+                      rel="noopener noreferrer sponsored"
+                      onClick={() => trackAffiliateClick('amazon', set.box_no, 'set-detail-page')}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '12px 16px',
+                        background: '#FFF9F0',
+                        border: '2px solid #FF9900',
+                        borderRadius: '8px',
+                        textDecoration: 'none',
+                        transition: 'all 0.2s',
+                        cursor: 'pointer'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#FFE4B3';
+                        e.currentTarget.style.transform = 'translateY(-1px)';
+                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(255, 153, 0, 0.15)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = '#FFF9F0';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="9" cy="21" r="1"></circle>
+                          <circle cx="20" cy="21" r="1"></circle>
+                          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <div>
+                          <div style={{
+                            fontWeight: '600',
+                            color: '#171717',
+                            fontSize: 'var(--text-sm)'
+                          }}>
+                            Amazon
+                          </div>
+                          <div style={{
+                            fontSize: 'var(--text-xs)',
+                            color: '#737373'
+                          }}>
+                            Fast shipping
+                          </div>
+                        </div>
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#FF9900" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                      </svg>
+                    </Link>
+
+                    {/* BrickLink Link */}
+                    <Link
+                      href={generateBrickLinkAffiliateLink('S', set.box_no)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackAffiliateClick('bricklink', set.box_no, 'set-detail-page')}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '12px 16px',
+                        background: 'white',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '8px',
+                        textDecoration: 'none',
+                        transition: 'all 0.2s',
+                        cursor: 'pointer'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#f5f5f5';
+                        e.currentTarget.style.borderColor = '#d4d4d4';
+                        e.currentTarget.style.transform = 'translateY(-1px)';
+                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.06)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'white';
+                        e.currentTarget.style.borderColor = '#e5e5e5';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#525252" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        <div>
+                          <div style={{
+                            fontWeight: '600',
+                            color: '#171717',
+                            fontSize: 'var(--text-sm)'
+                          }}>
+                            BrickLink
+                          </div>
+                          <div style={{
+                            fontSize: 'var(--text-xs)',
+                            color: '#737373'
+                          }}>
+                            Largest marketplace
+                          </div>
+                        </div>
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#737373" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                      </svg>
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
