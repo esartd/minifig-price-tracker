@@ -986,7 +986,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           marginBottom: '6px',
                           lineHeight: '1.2'
                         }}>
-                          6 Mo Qty Avg
+                          6 Mo Avg
                         </p>
                         <p style={{
                           fontSize: 'clamp(16px, 3.5vw, 18px)',
@@ -1005,7 +1005,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         background: '#e5e5e5'
                       }}></div>
 
-                      {/* Current Qty Average */}
+                      {/* Current Average */}
                       <div className="pricing-item pricing-item-2" style={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -1020,7 +1020,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           marginBottom: '6px',
                           lineHeight: '1.2'
                         }}>
-                          Current Qty Avg
+                          Current Avg
                         </p>
                         <p style={{
                           fontSize: 'clamp(16px, 3.5vw, 18px)',

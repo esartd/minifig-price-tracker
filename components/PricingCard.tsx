@@ -46,7 +46,7 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
         {/* Sold Qty Avg (6 months) */}
         <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-xl">
           <p className="text-[10px] font-medium text-blue-600 uppercase tracking-wide mb-2">
-            6 Months Qty Avg
+            6 Mo Avg
           </p>
           <p className="text-2xl font-semibold text-blue-900 tracking-tight">
             {formatPrice(pricing.sixMonthAverage)}
@@ -56,7 +56,7 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
         {/* Stock Qty Avg */}
         <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100/50 rounded-xl">
           <p className="text-[10px] font-medium text-purple-600 uppercase tracking-wide mb-2">
-            Current Qty Avg
+            Current Avg
           </p>
           <p className="text-2xl font-semibold text-purple-900 tracking-tight">
             {formatPrice(pricing.currentAverage)}
