@@ -2129,3 +2129,25 @@ select.custom-dropdown.condition-used {
 .email-button:hover {
   background: #2563eb !important;
 }
+
+/* Responsive Amazon button on search cards */
+/* Desktop: button shows inline next to content */
+/* Mobile: button stacks below content, full width */
+
+/* Default mobile-first: show mobile button, hide desktop button */
+.minifig-card-button-desktop {
+  display: none !important;
+}
+.minifig-card-button-mobile {
+  display: flex !important;
+}
+
+/* Desktop (≥640px): show desktop button, hide mobile button */
+@media (min-width: 640px) {
+  .minifig-card-button-desktop {
+    display: flex !important;
+  }
+  .minifig-card-button-mobile {
+    display: none !important;
+  }
+}
