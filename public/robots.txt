@@ -1,8 +1,26 @@
-# Allow search engines to index public pages
-User-agent: *
+# Block AI scrapers and data harvesters (waste CPU without providing SEO value)
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: CCBot
+User-agent: anthropic-ai
+User-agent: Claude-Web
+User-agent: cohere-ai
+User-agent: Omgilibot
+User-agent: FacebookBot
+User-agent: Applebot-Extended
+User-agent: PerplexityBot
+Disallow: /
+
+# Allow legitimate search engines (good for SEO)
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: DuckDuckBot
+User-agent: Slurp
+User-agent: Baiduspider
+User-agent: YandexBot
 Allow: /
 
-# Protect API routes and user data from crawling
+# Protect API routes and user data from all crawlers
 Disallow: /api/
 Disallow: /inventory/
 Disallow: /account/
