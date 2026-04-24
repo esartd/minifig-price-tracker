@@ -18,9 +18,39 @@ export const metadata: Metadata = {
 
 const guides = [
   {
+    icon: BookOpenIcon,
+    title: 'Most Valuable LEGO Minifigures in 2026',
+    description: 'Discover which LEGO minifigures command the highest prices. Learn what makes certain minifigs valuable and how to identify hidden gems.',
+    slug: 'most-valuable-lego-minifigures-2026',
+    status: 'published',
+    topics: [
+      'Top 50 most valuable minifigs analyzed',
+      'Star Wars, Harry Potter, Marvel rarities',
+      'Investment potential and appreciation rates',
+      'Authentication and condition grading',
+      'Where to buy and sell valuable pieces',
+    ],
+  },
+  {
+    icon: ChartBarIcon,
+    title: 'FigTracker vs Bricklink: Which Should You Use?',
+    description: 'Compare FigTracker and Bricklink for LEGO pricing. Learn when to use each platform and how they complement each other.',
+    slug: 'figtracker-vs-bricklink',
+    status: 'published',
+    topics: [
+      'Side-by-side feature comparison',
+      'When to use each platform',
+      'Pricing philosophy differences',
+      'Best workflow: using both together',
+      'Time-saving strategies for sellers',
+    ],
+  },
+  {
     icon: CurrencyDollarIcon,
     title: 'How to Price LEGO Minifigures',
     description: 'Learn the fundamentals of pricing LEGO minifigures using Bricklink marketplace data. Understand quantity-weighted averages, simple averages, and how to factor in condition.',
+    slug: null,
+    status: 'coming-soon',
     topics: [
       'Understanding Bricklink pricing metrics',
       'New vs Used condition pricing',
@@ -33,36 +63,14 @@ const guides = [
     icon: ShoppingBagIcon,
     title: 'Selling LEGO on Bricklink',
     description: 'Complete guide to becoming a successful Bricklink seller. From creating your store to shipping best practices and customer service tips.',
+    slug: null,
+    status: 'coming-soon',
     topics: [
       'Setting up your Bricklink store',
       'Competitive pricing strategies',
       'Writing effective item descriptions',
       'Packaging and shipping minifigures safely',
       'Building seller reputation',
-    ],
-  },
-  {
-    icon: ChartBarIcon,
-    title: 'Inventory Management Best Practices',
-    description: 'Organize your LEGO minifigure inventory efficiently. Track quantities, conditions, and values to streamline your selling operation.',
-    topics: [
-      'Cataloging your minifigure collection',
-      'Separating selling vs personal inventory',
-      'Condition grading standards',
-      'Tracking profit margins',
-      'When to refresh pricing data',
-    ],
-  },
-  {
-    icon: BookOpenIcon,
-    title: 'Most Valuable LEGO Minifigures in 2026',
-    description: 'Discover which LEGO minifigures command the highest prices. Learn what makes certain minifigs valuable and how to identify hidden gems.',
-    topics: [
-      'Top 20 most valuable Star Wars minifigs',
-      'Rare Harry Potter collectibles',
-      'Limited edition promotional minifigures',
-      'Value factors: rarity, age, popularity',
-      'Investment potential of current releases',
     ],
   },
 ];
@@ -206,17 +214,35 @@ export default function GuidesPage() {
                             </ul>
                           </div>
 
-                          <div style={{
-                            padding: '16px 24px',
-                            background: '#fff3cd',
-                            border: '1px solid #ffd966',
-                            borderRadius: '8px',
-                            fontSize: 'var(--text-sm)',
-                            color: '#856404',
-                            fontWeight: '500',
-                          }}>
-                            📝 Guide coming soon - sign up to be notified when it's published
-                          </div>
+                          {guide.status === 'published' ? (
+                            <Link
+                              href={`/guides/${guide.slug}`}
+                              style={{
+                                display: 'inline-block',
+                                padding: '12px 24px',
+                                background: '#3b82f6',
+                                color: '#ffffff',
+                                fontWeight: '600',
+                                borderRadius: '8px',
+                                textDecoration: 'none',
+                                transition: 'background 0.2s',
+                              }}
+                            >
+                              Read Guide →
+                            </Link>
+                          ) : (
+                            <div style={{
+                              padding: '16px 24px',
+                              background: '#fff3cd',
+                              border: '1px solid #ffd966',
+                              borderRadius: '8px',
+                              fontSize: 'var(--text-sm)',
+                              color: '#856404',
+                              fontWeight: '500',
+                            }}>
+                              📝 Guide coming soon - check back later
+                            </div>
+                          )}
                         </div>
                       </div>
                     </article>
