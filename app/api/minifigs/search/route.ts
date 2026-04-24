@@ -162,9 +162,9 @@ export async function GET(request: NextRequest) {
         return matchesSearch && matchesCategory;
       })
       .sort((a, b) => {
-        // Parse years - treat invalid/missing as 9999 to sort them last
-        const aYear = a.year_released && !isNaN(parseInt(a.year_released)) ? parseInt(a.year_released) : 9999;
-        const bYear = b.year_released && !isNaN(parseInt(b.year_released)) ? parseInt(b.year_released) : 9999;
+        // Parse years - treat invalid/missing as 0 to sort them last
+        const aYear = !a.year_released || isNaN(parseInt(a.year_released)) ? 0 : parseInt(a.year_released);
+        const bYear = !b.year_released || isNaN(parseInt(b.year_released)) ? 0 : parseInt(b.year_released);
 
         // Sort by year descending (newest first, unknown last)
         if (bYear !== aYear) return bYear - aYear;

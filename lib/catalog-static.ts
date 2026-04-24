@@ -98,11 +98,17 @@ export async function searchMinifigs(query: string, limit = 50): Promise<Minifig
     );
   });
 
-  // Sort by year (newest first) BEFORE limiting
+  // Sort by year (newest first), then by ID (highest first) BEFORE limiting
   matches.sort((a, b) => {
-    const yearA = parseInt(a.year_released || '0');
-    const yearB = parseInt(b.year_released || '0');
-    return yearB - yearA; // Descending (newest first)
+    // Parse years, treating invalid values as 0 to sort them last
+    const yearA = !a.year_released || isNaN(parseInt(a.year_released)) ? 0 : parseInt(a.year_released);
+    const yearB = !b.year_released || isNaN(parseInt(b.year_released)) ? 0 : parseInt(b.year_released);
+
+    // Primary sort: year descending (newest first, unknown last)
+    if (yearB !== yearA) return yearB - yearA;
+
+    // Secondary sort: minifigure ID descending (higher IDs are usually newer)
+    return b.minifigure_no.localeCompare(a.minifigure_no);
   });
 
   // Debug: Log first 3 results after sort

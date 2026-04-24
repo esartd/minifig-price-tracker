@@ -109,7 +109,10 @@ export function searchBoxes(query: string, limit: number = 50): LegoBox[] {
     if (aExact && !bExact) return -1;
     if (!aExact && bExact) return 1;
 
-    return parseInt(b.year_released) - parseInt(a.year_released);
+    // Parse years, treating invalid values as 0 to sort them last
+    const aYear = !a.year_released || isNaN(parseInt(a.year_released)) ? 0 : parseInt(a.year_released);
+    const bYear = !b.year_released || isNaN(parseInt(b.year_released)) ? 0 : parseInt(b.year_released);
+    return bYear - aYear;
   });
 
   return matches.slice(0, limit);
