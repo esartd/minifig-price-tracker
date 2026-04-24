@@ -210,6 +210,7 @@ model SetInventoryItem {
   pricing_current_avg     Float?
   pricing_current_lowest  Float?
   pricing_suggested_price Float?
+  pricing_currency_code   String?
   userId                  String
   date_added              DateTime @default(now())
   last_updated            DateTime @updatedAt
@@ -235,6 +236,7 @@ model SetPersonalCollectionItem {
   pricing_current_avg     Float?
   pricing_current_lowest  Float?
   pricing_suggested_price Float?
+  pricing_currency_code   String?
   notes                   String?
   acquisition_date        DateTime?
   acquisition_notes       String?
