@@ -94,9 +94,8 @@ export default function MinifigCard({
         e.currentTarget.style.transform = 'translateY(0)';
       }}
     >
-      {/* Top Section: Image + Content + Arrow (desktop includes button) */}
+      {/* Top Section: Image + Content + Buttons */}
       <div
-        onClick={handleClick}
         style={{
           display: 'flex',
           flex: 1
@@ -219,115 +218,179 @@ export default function MinifigCard({
             </div>
           </div>
 
-          {/* Amazon Buy Button - Desktop only */}
-          <Link
-            href={isSet
-              ? generateAmazonLegoSetLink(minifig.box_no, minifig.name)
-              : generateAmazonMinifigLink(minifig.minifigure_no || minifig.no, minifig.name)
-            }
-            target="_blank"
-            rel="noopener noreferrer sponsored"
-            className="minifig-card-button-desktop"
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent card navigation
-              trackAffiliateClick(
-                'amazon',
-                isSet ? minifig.box_no : (minifig.minifigure_no || minifig.no),
-                'search-results'
-              );
-            }}
-            style={{
-              alignItems: 'center',
-              gap: '6px',
-              padding: '8px 14px',
-              background: 'white',
-              color: '#525252',
-              borderRadius: '6px',
-              fontSize: 'var(--text-sm)',
-              fontWeight: '500',
-              textDecoration: 'none',
-              whiteSpace: 'nowrap',
-              marginLeft: '16px',
-              transition: 'all 0.2s',
-              border: '1px solid #e5e5e5',
-              cursor: 'pointer'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#fafafa';
-              e.currentTarget.style.borderColor = '#d4d4d4';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'white';
-              e.currentTarget.style.borderColor = '#e5e5e5';
-            }}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="9" cy="21" r="1"></circle>
-              <circle cx="20" cy="21" r="1"></circle>
-              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-            </svg>
-            Buy on Amazon
-          </Link>
+          {/* Action Buttons - Desktop only */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: '16px' }} className="minifig-card-buttons-desktop">
+            {/* View Details Button */}
+            <button
+              onClick={handleClick}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '8px 14px',
+                background: '#3b82f6',
+                color: 'white',
+                borderRadius: '6px',
+                fontSize: 'var(--text-sm)',
+                fontWeight: '500',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+                transition: 'all 0.2s',
+                border: 'none',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#2563eb';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#3b82f6';
+              }}
+            >
+              View Details
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </button>
 
-          <div className="minifig-card-arrow" style={{
-            marginLeft: '16px',
-            color: '#a3a3a3'
-          }}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="var(--icon-stroke)" stroke="currentColor" style={{ width: 'var(--icon-base)', height: 'var(--icon-base)' }}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
+            {/* Amazon Buy Button */}
+            <Link
+              href={isSet
+                ? generateAmazonLegoSetLink(minifig.box_no, minifig.name)
+                : generateAmazonMinifigLink(minifig.minifigure_no || minifig.no, minifig.name)
+              }
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent card navigation
+                trackAffiliateClick(
+                  'amazon',
+                  isSet ? minifig.box_no : (minifig.minifigure_no || minifig.no),
+                  'search-results'
+                );
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '8px 14px',
+                background: 'white',
+                color: '#525252',
+                borderRadius: '6px',
+                fontSize: 'var(--text-sm)',
+                fontWeight: '500',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+                transition: 'all 0.2s',
+                border: '1px solid #e5e5e5',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#fafafa';
+                e.currentTarget.style.borderColor = '#d4d4d4';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'white';
+                e.currentTarget.style.borderColor = '#e5e5e5';
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              Buy on Amazon
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Amazon Buy Button - Mobile only (below content) */}
-      <Link
-        href={isSet
-          ? generateAmazonLegoSetLink(minifig.box_no, minifig.name)
-          : generateAmazonMinifigLink(minifig.minifigure_no || minifig.no, minifig.name)
-        }
-        target="_blank"
-        rel="noopener noreferrer sponsored"
-        className="minifig-card-button-mobile"
-        onClick={(e) => {
-          e.stopPropagation(); // Prevent card navigation
-          trackAffiliateClick(
-            'amazon',
-            isSet ? minifig.box_no : (minifig.minifigure_no || minifig.no),
-            'search-results'
-          );
-        }}
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '6px',
-          padding: '10px 16px',
-          background: 'white',
-          color: '#525252',
-          fontSize: 'var(--text-sm)',
-          fontWeight: '500',
-          textDecoration: 'none',
-          transition: 'all 0.2s',
-          border: '1px solid #e5e5e5',
-          borderTop: '1px solid #e5e5e5',
-          cursor: 'pointer'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = '#fafafa';
-          e.currentTarget.style.borderColor = '#d4d4d4';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'white';
-          e.currentTarget.style.borderColor = '#e5e5e5';
-        }}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="9" cy="21" r="1"></circle>
-          <circle cx="20" cy="21" r="1"></circle>
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-        </svg>
-        Buy on Amazon
-      </Link>
+      {/* Action Buttons - Mobile only (below content) */}
+      <div className="minifig-card-buttons-mobile" style={{
+        display: 'none',
+        flexDirection: 'column',
+        gap: '0',
+        borderTop: '1px solid #e5e5e5'
+      }}>
+        {/* View Details Button */}
+        <button
+          onClick={handleClick}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            padding: '12px 16px',
+            background: '#3b82f6',
+            color: 'white',
+            fontSize: 'var(--text-sm)',
+            fontWeight: '500',
+            textDecoration: 'none',
+            transition: 'all 0.2s',
+            border: 'none',
+            cursor: 'pointer',
+            borderBottom: '1px solid #2563eb'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = '#2563eb';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = '#3b82f6';
+          }}
+        >
+          View Details
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </button>
+
+        {/* Amazon Buy Button */}
+        <Link
+          href={isSet
+            ? generateAmazonLegoSetLink(minifig.box_no, minifig.name)
+            : generateAmazonMinifigLink(minifig.minifigure_no || minifig.no, minifig.name)
+          }
+          target="_blank"
+          rel="noopener noreferrer sponsored"
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent card navigation
+            trackAffiliateClick(
+              'amazon',
+              isSet ? minifig.box_no : (minifig.minifigure_no || minifig.no),
+              'search-results'
+            );
+          }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            padding: '12px 16px',
+            background: 'white',
+            color: '#525252',
+            fontSize: 'var(--text-sm)',
+            fontWeight: '500',
+            textDecoration: 'none',
+            transition: 'all 0.2s',
+            border: 'none',
+            cursor: 'pointer'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = '#fafafa';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'white';
+          }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          Buy on Amazon
+        </Link>
+      </div>
     </div>
   );
 }

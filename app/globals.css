@@ -2130,24 +2130,24 @@ select.custom-dropdown.condition-used {
   background: #2563eb !important;
 }
 
-/* Responsive Amazon button on search cards */
-/* Desktop: button shows inline next to content */
-/* Mobile: button stacks below content, full width */
+/* Responsive action buttons on search cards */
+/* Desktop: buttons show inline next to content */
+/* Mobile: buttons stack below content, full width */
 
-/* Default mobile-first: show mobile button, hide desktop button */
-.minifig-card-button-desktop {
+/* Default mobile-first: show mobile buttons, hide desktop buttons */
+.minifig-card-buttons-desktop {
   display: none !important;
 }
-.minifig-card-button-mobile {
+.minifig-card-buttons-mobile {
   display: flex !important;
 }
 
-/* Desktop (≥640px): show desktop button, hide mobile button */
+/* Desktop (≥640px): show desktop buttons, hide mobile buttons */
 @media (min-width: 640px) {
-  .minifig-card-button-desktop {
+  .minifig-card-buttons-desktop {
     display: flex !important;
   }
-  .minifig-card-button-mobile {
+  .minifig-card-buttons-mobile {
     display: none !important;
   }
 }
