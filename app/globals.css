@@ -29,11 +29,12 @@
   /* Responsive type scale - fluid sizing with clamp() */
   --text-xs: clamp(12px, 1.5vw, 13px);   /* Tiny: badges, labels */
   --text-sm: clamp(14px, 1.75vw, 15px);  /* Small: captions, metadata */
-  --text-base: clamp(16px, 2vw, 18px);   /* Body: paragraphs, UI text */
+  --text-base: 16px;                     /* Body: paragraphs, UI text - NEVER scale body text */
   --text-lg: clamp(18px, 2.5vw, 22px);   /* Large: subheadings, H3 */
   --text-xl: clamp(24px, 3vw, 28px);     /* H2: section headings */
   --text-2xl: clamp(32px, 4vw, 40px);    /* H1: page headings */
   --text-3xl: clamp(48px, 5vw, 56px);    /* Hero: hero sections */
+  --text-4xl: clamp(56px, 6vw, 72px);    /* Display: largest headings */
 
   /* Icon size scale - 4px increments, aligned with 8px grid */
   --icon-xs: 12px;   /* Tiny: inline icons, decorative */

@@ -502,56 +502,25 @@ export default async function GuidePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
 
-      <article className="min-h-screen" style={{ backgroundColor: '#fafafa' }}>
+      <article className="min-h-screen bg-[#fafafa]">
         {/* Breadcrumbs */}
-        <nav style={{
-          maxWidth: '800px',
-          margin: '0 auto',
-          padding: '24px 24px 0',
-          fontSize: 'var(--text-sm)',
-          color: '#737373',
-        }}>
-          <Link href="/" style={{ color: '#3b82f6', textDecoration: 'none' }}>Home</Link>
+        <nav className="max-w-[800px] mx-auto px-6 pt-6 text-[length:var(--text-sm)] text-[#737373]">
+          <Link href="/" className="text-[#3b82f6] no-underline hover:underline">Home</Link>
           {' > '}
-          <Link href="/guides" style={{ color: '#3b82f6', textDecoration: 'none' }}>Guides</Link>
+          <Link href="/guides" className="text-[#3b82f6] no-underline hover:underline">Guides</Link>
           {' > '}
-          <span style={{ color: '#171717' }}>{guide.title}</span>
+          <span className="text-[#171717]">{guide.title}</span>
         </nav>
 
         {/* Article Header */}
-        <header style={{
-          maxWidth: '800px',
-          margin: '0 auto',
-          padding: '48px 24px 32px',
-        }}>
-          <div style={{
-            fontSize: 'var(--text-sm)',
-            color: '#3b82f6',
-            fontWeight: '600',
-            marginBottom: '16px',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-          }}>
+        <header className="max-w-[800px] mx-auto px-6 pt-12 pb-8">
+          <div className="text-[length:var(--text-sm)] text-[#3b82f6] font-semibold mb-4 uppercase tracking-wide">
             Guide
           </div>
-          <h1 style={{
-            fontSize: 'var(--text-4xl)',
-            fontWeight: '800',
-            color: '#171717',
-            lineHeight: '1.1',
-            marginBottom: '24px',
-            letterSpacing: '-0.02em',
-          }}>
+          <h1 className="text-[length:var(--text-4xl)] font-extrabold text-[#171717] leading-[1.1] mb-6 tracking-tight">
             {guide.title}
           </h1>
-          <div style={{
-            display: 'flex',
-            gap: '16px',
-            fontSize: 'var(--text-sm)',
-            color: '#737373',
-            paddingBottom: '24px',
-            borderBottom: '1px solid #e5e5e5',
-          }}>
+          <div className="flex gap-4 text-[length:var(--text-sm)] text-[#737373] pb-6 border-b border-[#e5e5e5]">
             <span>{guide.author}</span>
             <span>•</span>
             <span>{new Date(guide.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
@@ -561,18 +530,9 @@ export default async function GuidePage({
         </header>
 
         {/* Article Content */}
-        <div style={{
-          maxWidth: '800px',
-          margin: '0 auto',
-          padding: '0 24px 80px',
-        }}>
+        <div className="max-w-[800px] mx-auto px-6 pb-20">
           <div
-            style={{
-              fontSize: 'var(--text-lg)',
-              lineHeight: '1.8',
-              color: '#171717',
-            }}
-            className="prose"
+            className="prose text-[length:var(--text-lg)] leading-[1.8] text-[#171717]"
             dangerouslySetInnerHTML={{
               __html: guide.content
                 .split('\n')
@@ -605,39 +565,17 @@ export default async function GuidePage({
         </div>
 
         {/* CTA Footer */}
-        <section style={{
-          background: '#ffffff',
-          borderTop: '1px solid #e5e5e5',
-          padding: '80px 24px',
-          textAlign: 'center',
-        }}>
-          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'var(--text-2xl)',
-              fontWeight: '700',
-              color: '#171717',
-              marginBottom: '16px',
-            }}>
+        <section className="bg-white border-t border-[#e5e5e5] py-20 px-6 text-center">
+          <div className="max-w-[600px] mx-auto">
+            <h2 className="text-[length:var(--text-2xl)] font-bold text-[#171717] mb-4">
               Start Tracking Your Collection
             </h2>
-            <p style={{
-              fontSize: 'var(--text-base)',
-              color: '#737373',
-              marginBottom: '32px',
-            }}>
+            <p className="text-[length:var(--text-base)] text-[#737373] mb-8">
               Use FigTracker to price your LEGO minifigures accurately with real-time Bricklink data
             </p>
             <Link
               href="/search"
-              style={{
-                display: 'inline-block',
-                padding: '16px 32px',
-                background: '#3b82f6',
-                color: '#ffffff',
-                fontWeight: '600',
-                borderRadius: '12px',
-                textDecoration: 'none',
-              }}
+              className="inline-block px-8 py-4 bg-[#3b82f6] text-white font-semibold rounded-xl no-underline hover:bg-[#2563eb] transition-colors"
             >
               Search Minifigures →
             </Link>

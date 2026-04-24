@@ -91,31 +91,14 @@ export default function GuidesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <article className="min-h-screen" style={{ backgroundColor: '#fafafa' }}>
+      <article className="min-h-screen bg-[#fafafa]">
         {/* Hero Section */}
         <header className="hero-section">
           <div className="hero-content">
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '10px',
-              padding: '10px 20px',
-              background: 'rgba(255, 255, 255, 0.15)',
-              border: '1px solid rgba(255, 255, 255, 0.25)',
-              borderRadius: '32px',
-              marginBottom: '40px',
-              lineHeight: '1',
-              height: '44px',
-            }}>
-              <span style={{
-                fontSize: 'var(--text-xs)',
-                fontWeight: '600',
-                color: '#ffffff',
-                letterSpacing: '0.8px',
-                textTransform: 'uppercase',
-                lineHeight: '1',
-                whiteSpace: 'nowrap'
-              }}>GUIDES & RESOURCES</span>
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/15 border border-white/25 rounded-full mb-10 h-11">
+              <span className="text-[length:var(--text-xs)] font-semibold text-white tracking-wider uppercase leading-none whitespace-nowrap">
+                GUIDES & RESOURCES
+              </span>
             </div>
             <h1>Master LEGO<br />Minifigure Pricing</h1>
             <p>Expert guides to help you price, sell, and manage your minifigure inventory like a pro</p>
@@ -125,89 +108,41 @@ export default function GuidesPage() {
         </header>
 
         {/* Guides Grid */}
-        <section className="about-section" style={{ background: '#ffffff' }}>
+        <section className="about-section bg-white">
           <div className="about-page-container">
-            <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
+            <div className="max-w-[1000px] mx-auto">
+              <div className="flex flex-col gap-12">
                 {guides.map((guide, index) => {
                   const Icon = guide.icon;
                   return (
                     <article
                       key={index}
-                      style={{
-                        background: '#fafafa',
-                        border: '1px solid #e5e5e5',
-                        borderRadius: '16px',
-                        padding: '40px',
-                      }}
+                      className="bg-[#fafafa] border border-[#e5e5e5] rounded-2xl p-6 md:p-10"
                     >
-                      <div style={{ display: 'flex', gap: '24px', alignItems: 'start', flexWrap: 'wrap' }}>
-                        <div style={{
-                          width: '64px',
-                          height: '64px',
-                          borderRadius: '16px',
-                          background: '#dbeafe',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          flexShrink: 0,
-                        }}>
-                          <Icon style={{ width: '32px', height: '32px', color: '#3b82f6' }} />
+                      <div className="flex gap-6 items-start flex-wrap">
+                        <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
+                          <Icon className="w-8 h-8 text-[#3b82f6]" />
                         </div>
 
-                        <div style={{ flex: 1, minWidth: '280px' }}>
-                          <h2 style={{
-                            fontSize: 'var(--text-2xl)',
-                            fontWeight: '700',
-                            color: '#171717',
-                            marginBottom: '12px',
-                          }}>
+                        <div className="flex-1 min-w-[280px]">
+                          <h2 className="text-[length:var(--text-2xl)] font-bold text-[#171717] mb-3">
                             {guide.title}
                           </h2>
-                          <p style={{
-                            fontSize: 'var(--text-base)',
-                            color: '#525252',
-                            lineHeight: '1.7',
-                            marginBottom: '24px',
-                          }}>
+                          <p className="text-[length:var(--text-base)] text-[#525252] leading-[1.7] mb-6">
                             {guide.description}
                           </p>
 
-                          <div style={{ marginBottom: '24px' }}>
-                            <h3 style={{
-                              fontSize: 'var(--text-sm)',
-                              fontWeight: '600',
-                              color: '#171717',
-                              marginBottom: '12px',
-                              textTransform: 'uppercase',
-                              letterSpacing: '0.5px',
-                            }}>
+                          <div className="mb-6">
+                            <h3 className="text-[length:var(--text-sm)] font-semibold text-[#171717] mb-3 uppercase tracking-wide">
                               Topics Covered:
                             </h3>
-                            <ul style={{
-                              listStyle: 'none',
-                              padding: 0,
-                              margin: 0,
-                              display: 'flex',
-                              flexDirection: 'column',
-                              gap: '8px',
-                            }}>
+                            <ul className="list-none p-0 m-0 flex flex-col gap-2">
                               {guide.topics.map((topic, topicIndex) => (
                                 <li
                                   key={topicIndex}
-                                  style={{
-                                    fontSize: 'var(--text-sm)',
-                                    color: '#525252',
-                                    paddingLeft: '24px',
-                                    position: 'relative',
-                                  }}
+                                  className="text-[length:var(--text-sm)] text-[#525252] pl-6 relative"
                                 >
-                                  <span style={{
-                                    position: 'absolute',
-                                    left: '0',
-                                    color: '#3b82f6',
-                                    fontWeight: '600',
-                                  }}>✓</span>
+                                  <span className="absolute left-0 text-[#3b82f6] font-semibold">✓</span>
                                   {topic}
                                 </li>
                               ))}
@@ -217,29 +152,12 @@ export default function GuidesPage() {
                           {guide.status === 'published' ? (
                             <Link
                               href={`/guides/${guide.slug}`}
-                              style={{
-                                display: 'inline-block',
-                                padding: '12px 24px',
-                                background: '#3b82f6',
-                                color: '#ffffff',
-                                fontWeight: '600',
-                                borderRadius: '8px',
-                                textDecoration: 'none',
-                                transition: 'background 0.2s',
-                              }}
+                              className="inline-block px-6 py-3 bg-[#3b82f6] text-white font-semibold rounded-lg no-underline transition-all duration-200 hover:bg-[#2563eb]"
                             >
                               Read Guide →
                             </Link>
                           ) : (
-                            <div style={{
-                              padding: '16px 24px',
-                              background: '#fff3cd',
-                              border: '1px solid #ffd966',
-                              borderRadius: '8px',
-                              fontSize: 'var(--text-sm)',
-                              color: '#856404',
-                              fontWeight: '500',
-                            }}>
+                            <div className="px-6 py-4 bg-[#fff3cd] border border-[#ffd966] rounded-lg text-[length:var(--text-sm)] text-[#856404] font-medium">
                               📝 Guide coming soon - check back later
                             </div>
                           )}
@@ -258,64 +176,36 @@ export default function GuidesPage() {
           <div className="about-page-container">
             <div className="section-content-medium">
               <h2>Quick Pricing Tips</h2>
-              <p style={{ marginBottom: '40px' }}>Essential knowledge every LEGO seller should know</p>
+              <p className="mb-10">Essential knowledge every LEGO seller should know</p>
 
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                gap: '24px',
-              }}>
-                <div style={{
-                  background: '#ffffff',
-                  border: '1px solid #e5e5e5',
-                  borderRadius: '12px',
-                  padding: '24px',
-                }}>
-                  <div style={{ fontSize: '32px', marginBottom: '12px' }}>💡</div>
-                  <h3 style={{
-                    fontSize: 'var(--text-lg)',
-                    fontWeight: '600',
-                    color: '#171717',
-                    marginBottom: '8px',
-                  }}>Refresh Prices Regularly</h3>
-                  <p style={{ fontSize: 'var(--text-sm)', color: '#525252', lineHeight: '1.6' }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="bg-white border border-[#e5e5e5] rounded-xl p-6">
+                  <div className="text-[32px] mb-3">💡</div>
+                  <h3 className="text-[length:var(--text-lg)] font-semibold text-[#171717] mb-2">
+                    Refresh Prices Regularly
+                  </h3>
+                  <p className="text-[length:var(--text-sm)] text-[#525252] leading-[1.6]">
                     Marketplace prices change frequently. Refresh pricing data before listing to ensure competitive pricing.
                   </p>
                 </div>
 
-                <div style={{
-                  background: '#ffffff',
-                  border: '1px solid #e5e5e5',
-                  borderRadius: '12px',
-                  padding: '24px',
-                }}>
-                  <div style={{ fontSize: '32px', marginBottom: '12px' }}>🎯</div>
-                  <h3 style={{
-                    fontSize: 'var(--text-lg)',
-                    fontWeight: '600',
-                    color: '#171717',
-                    marginBottom: '8px',
-                  }}>Condition Matters</h3>
-                  <p style={{ fontSize: 'var(--text-sm)', color: '#525252', lineHeight: '1.6' }}>
+                <div className="bg-white border border-[#e5e5e5] rounded-xl p-6">
+                  <div className="text-[32px] mb-3">🎯</div>
+                  <h3 className="text-[length:var(--text-lg)] font-semibold text-[#171717] mb-2">
+                    Condition Matters
+                  </h3>
+                  <p className="text-[length:var(--text-sm)] text-[#525252] leading-[1.6]">
                     New minifigures command 20-50% higher prices than used. Grade condition honestly to build buyer trust.
                   </p>
                 </div>
 
-                <div style={{
-                  background: '#ffffff',
-                  border: '1px solid #e5e5e5',
-                  borderRadius: '12px',
-                  padding: '24px',
-                }}>
-                  <div style={{ fontSize: '32px', marginBottom: '12px' }}>📊</div>
-                  <h3 style={{
-                    fontSize: 'var(--text-lg)',
-                    fontWeight: '600',
-                    color: '#171717',
-                    marginBottom: '8px',
-                  }}>Use Multiple Data Points</h3>
-                  <p style={{ fontSize: 'var(--text-sm)', color: '#525252', lineHeight: '1.6' }}>
-                    Don't rely on just one metric. FigTracker's suggested price balances quantity-weighted average, simple average, and lowest price.
+                <div className="bg-white border border-[#e5e5e5] rounded-xl p-6">
+                  <div className="text-[32px] mb-3">📊</div>
+                  <h3 className="text-[length:var(--text-lg)] font-semibold text-[#171717] mb-2">
+                    Use Multiple Data Points
+                  </h3>
+                  <p className="text-[length:var(--text-sm)] text-[#525252] leading-[1.6]">
+                    Don&apos;t rely on just one metric. FigTracker&apos;s suggested price balances quantity-weighted average, simple average, and lowest price.
                   </p>
                 </div>
               </div>

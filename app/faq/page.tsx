@@ -87,31 +87,14 @@ export default function FAQPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <article className="min-h-screen" style={{ backgroundColor: '#fafafa' }}>
+      <article className="min-h-screen bg-[#fafafa]">
         {/* Hero Section */}
         <header className="hero-section">
           <div className="hero-content">
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '10px',
-              padding: '10px 20px',
-              background: 'rgba(255, 255, 255, 0.15)',
-              border: '1px solid rgba(255, 255, 255, 0.25)',
-              borderRadius: '32px',
-              marginBottom: '40px',
-              lineHeight: '1',
-              height: '44px',
-            }}>
-              <span style={{
-                fontSize: 'var(--text-xs)',
-                fontWeight: '600',
-                color: '#ffffff',
-                letterSpacing: '0.8px',
-                textTransform: 'uppercase',
-                lineHeight: '1',
-                whiteSpace: 'nowrap'
-              }}>HELP CENTER</span>
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/15 border border-white/25 rounded-full mb-10 h-11">
+              <span className="text-[length:var(--text-xs)] font-semibold text-white tracking-wider uppercase leading-none whitespace-nowrap">
+                HELP CENTER
+              </span>
             </div>
             <h1>Frequently Asked Questions</h1>
             <p>Everything you need to know about pricing and tracking LEGO minifigures</p>
@@ -121,39 +104,20 @@ export default function FAQPage() {
         </header>
 
         {/* FAQ Content */}
-        <section className="about-section" style={{ background: '#ffffff' }}>
+        <section className="about-section bg-white">
           <div className="about-page-container">
-            <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div className="max-w-[800px] mx-auto">
+              <div className="flex flex-col gap-6">
                 {faqs.map((faq, index) => (
                   <details
                     key={index}
-                    style={{
-                      background: '#fafafa',
-                      border: '1px solid #e5e5e5',
-                      borderRadius: '12px',
-                      padding: '24px',
-                    }}
+                    className="bg-[#fafafa] border border-[#e5e5e5] rounded-xl p-6"
                   >
-                    <summary style={{
-                      fontSize: 'var(--text-lg)',
-                      fontWeight: '600',
-                      color: '#171717',
-                      cursor: 'pointer',
-                      listStyle: 'none',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}>
+                    <summary className="text-[length:var(--text-lg)] font-semibold text-[#171717] cursor-pointer list-none flex justify-between items-center">
                       {faq.question}
-                      <span style={{ fontSize: 'var(--text-2xl)', color: '#737373' }}>+</span>
+                      <span className="text-[length:var(--text-2xl)] text-[#737373]">+</span>
                     </summary>
-                    <p style={{
-                      marginTop: '16px',
-                      fontSize: 'var(--text-base)',
-                      color: '#525252',
-                      lineHeight: '1.7',
-                    }}>
+                    <p className="mt-4 text-[length:var(--text-base)] text-[#525252] leading-[1.7]">
                       {faq.answer}
                     </p>
                   </details>
@@ -168,44 +132,19 @@ export default function FAQPage() {
           <div className="about-page-container">
             <div className="section-content-narrow">
               <h2>Still have questions?</h2>
-              <p style={{ marginBottom: '32px' }}>Can't find the answer you're looking for? Reach out to our support team.</p>
+              <p className="mb-8">Can&apos;t find the answer you&apos;re looking for? Reach out to our support team.</p>
 
-              <div style={{
-                background: '#ffffff',
-                border: '1px solid #e5e5e5',
-                borderRadius: '12px',
-                padding: '32px',
-                textAlign: 'center'
-              }}>
-                <div style={{ fontSize: '48px', marginBottom: '16px' }}>📧</div>
-                <h3 style={{
-                  fontSize: 'var(--text-lg)',
-                  fontWeight: '600',
-                  color: '#171717',
-                  marginBottom: '8px'
-                }}>Contact Support</h3>
-                <p style={{
-                  fontSize: 'var(--text-sm)',
-                  color: '#737373',
-                  marginBottom: '20px'
-                }}>
+              <div className="bg-white border border-[#e5e5e5] rounded-xl p-8 text-center">
+                <div className="text-5xl mb-4">📧</div>
+                <h3 className="text-[length:var(--text-lg)] font-semibold text-[#171717] mb-2">
+                  Contact Support
+                </h3>
+                <p className="text-[length:var(--text-sm)] text-[#737373] mb-5">
                   Email us with any questions or feedback
                 </p>
                 <a
                   href="mailto:hello@ericksu.com"
-                  className="email-button"
-                  style={{
-                    display: 'inline-block',
-                    padding: '12px 24px',
-                    fontSize: 'var(--text-sm)',
-                    fontWeight: '600',
-                    color: '#ffffff',
-                    background: '#3b82f6',
-                    border: 'none',
-                    borderRadius: '8px',
-                    textDecoration: 'none',
-                    transition: 'all 0.2s'
-                  }}
+                  className="email-button inline-block px-6 py-3 text-[length:var(--text-sm)] font-semibold text-white bg-[#3b82f6] rounded-lg no-underline transition-all duration-200"
                 >
                   hello@ericksu.com
                 </a>

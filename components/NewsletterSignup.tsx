@@ -35,47 +35,20 @@ export default function NewsletterSignup() {
   };
 
   return (
-    <div style={{
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      borderRadius: '16px',
-      padding: '48px 32px',
-      color: '#ffffff',
-      textAlign: 'center',
-      margin: '48px 0',
-    }}>
-      <h3 style={{
-        fontSize: 'var(--text-2xl)',
-        fontWeight: '700',
-        marginBottom: '12px',
-      }}>
+    <div className="bg-gradient-to-br from-[#667eea] to-[#764ba2] rounded-2xl px-6 py-12 md:px-8 text-white text-center my-12">
+      <h3 className="text-[length:var(--text-2xl)] font-bold mb-3">
         Get Monthly Market Reports
       </h3>
-      <p style={{
-        fontSize: 'var(--text-base)',
-        marginBottom: '24px',
-        opacity: 0.9,
-      }}>
+      <p className="text-[length:var(--text-base)] mb-6 opacity-90">
         Top 10 minifigs that increased in value, market trends, and pricing tips delivered monthly.
       </p>
 
       {status === 'success' ? (
-        <div style={{
-          padding: '16px 24px',
-          background: 'rgba(255, 255, 255, 0.2)',
-          borderRadius: '8px',
-          fontSize: 'var(--text-sm)',
-        }}>
+        <div className="px-6 py-4 bg-white/20 rounded-lg text-[length:var(--text-sm)]">
           ✓ {message}
         </div>
       ) : (
-        <form onSubmit={handleSubmit} style={{
-          display: 'flex',
-          gap: '12px',
-          maxWidth: '500px',
-          margin: '0 auto',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-        }}>
+        <form onSubmit={handleSubmit} className="flex flex-wrap gap-3 max-w-[500px] mx-auto justify-center">
           <input
             type="email"
             value={email}
@@ -83,31 +56,12 @@ export default function NewsletterSignup() {
             placeholder="your@email.com"
             required
             disabled={status === 'loading'}
-            style={{
-              flex: '1',
-              minWidth: '250px',
-              padding: '14px 20px',
-              borderRadius: '8px',
-              border: 'none',
-              fontSize: 'var(--text-base)',
-              outline: 'none',
-            }}
+            className="flex-1 min-w-[250px] px-5 py-3.5 rounded-lg border-0 text-[length:var(--text-base)] outline-none text-gray-900"
           />
           <button
             type="submit"
             disabled={status === 'loading'}
-            style={{
-              padding: '14px 32px',
-              background: '#ffffff',
-              color: '#667eea',
-              border: 'none',
-              borderRadius: '8px',
-              fontSize: 'var(--text-base)',
-              fontWeight: '600',
-              cursor: status === 'loading' ? 'not-allowed' : 'pointer',
-              transition: 'all 0.2s',
-              opacity: status === 'loading' ? 0.6 : 1,
-            }}
+            className="px-8 py-3.5 bg-white text-[#667eea] border-0 rounded-lg text-[length:var(--text-base)] font-semibold cursor-pointer transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed hover:bg-gray-50"
           >
             {status === 'loading' ? 'Subscribing...' : 'Subscribe Free'}
           </button>
@@ -115,20 +69,12 @@ export default function NewsletterSignup() {
       )}
 
       {status === 'error' && (
-        <p style={{
-          marginTop: '12px',
-          fontSize: 'var(--text-sm)',
-          color: '#ffcccc',
-        }}>
+        <p className="mt-3 text-[length:var(--text-sm)] text-red-200">
           {message}
         </p>
       )}
 
-      <p style={{
-        marginTop: '16px',
-        fontSize: 'var(--text-xs)',
-        opacity: 0.7,
-      }}>
+      <p className="mt-4 text-[length:var(--text-xs)] opacity-70">
         No spam. Unsubscribe anytime. We respect your privacy.
       </p>
     </div>
