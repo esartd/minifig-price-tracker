@@ -33,7 +33,9 @@ export async function GET(request: NextRequest) {
       }
     }, {
       headers: {
-        'Cache-Control': 'no-store, must-revalidate',
+        // Cache search results for 1 minute
+        // This eliminates duplicate searches from same users without staleness
+        'Cache-Control': 'public, max-age=60, s-maxage=60',
       }
     });
   } catch (error) {

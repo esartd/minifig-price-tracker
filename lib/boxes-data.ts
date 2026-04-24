@@ -10,10 +10,10 @@ import { LegoBox } from '@/types';
 // In-memory cache with expiration
 let cachedBoxes: LegoBox[] | null = null;
 let cacheTimestamp: number = 0;
-const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
+const CACHE_TTL = 15 * 60 * 1000; // 15 minutes - matches minifigs cache
 
 /**
- * Load all boxes from boxes.json (cached with 24h TTL)
+ * Load all boxes from boxes.json (cached with 15min TTL)
  */
 export function loadAllBoxes(): LegoBox[] {
   const now = Date.now();
@@ -22,6 +22,8 @@ export function loadAllBoxes(): LegoBox[] {
   if (cachedBoxes && (now - cacheTimestamp) < CACHE_TTL) {
     return cachedBoxes;
   }
+
+  console.log('[BOXES] Loading from filesystem:', cachedBoxes ? 'cache expired' : 'first load');
 
   try {
     const boxesPath = path.join(process.cwd(), 'public/catalog/boxes.json');

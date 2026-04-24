@@ -17,6 +17,8 @@ export interface MinifigCatalogItem {
 }
 
 let catalogCache: MinifigCatalogItem[] | null = null;
+let cacheTimestamp: number = 0;
+const CACHE_TTL = 15 * 60 * 1000; // 15 minutes - matches typical Vercel lambda lifetime
 let categoriesCache: Map<number, { name: string; count: number }> | null = null;
 
 /**
@@ -24,7 +26,12 @@ let categoriesCache: Map<number, { name: string; count: number }> | null = null;
  * ONLY loads on server-side from filesystem - client uses direct API calls
  */
 async function loadCatalog(): Promise<MinifigCatalogItem[]> {
-  if (catalogCache) return catalogCache;
+  const now = Date.now();
+
+  // Check if cache is still valid
+  if (catalogCache && (now - cacheTimestamp) < CACHE_TTL) {
+    return catalogCache;
+  }
 
   // Server-side ONLY - load from filesystem
   if (typeof window === 'undefined') {
@@ -36,7 +43,8 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
       if (fs.existsSync(filePath)) {
         const content = fs.readFileSync(filePath, 'utf-8');
         catalogCache = JSON.parse(content);
-        console.log('[CATALOG] Loaded from filesystem:', catalogCache?.length || 0, 'minifigs');
+        cacheTimestamp = now;
+        console.log('[CATALOG] Loaded from filesystem:', catalogCache ? 'cache expired' : 'first load', catalogCache?.length || 0, 'minifigs');
         return catalogCache!;
       } else {
         console.error('[CATALOG] File not found:', filePath);
