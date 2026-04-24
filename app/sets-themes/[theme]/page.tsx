@@ -5,6 +5,8 @@ import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { getSetAvailability } from '@/lib/set-availability';
+import { generateAmazonLegoSetLink } from '@/lib/affiliate-links';
 
 interface LegoBox {
   box_no: string;
@@ -16,6 +18,9 @@ interface LegoBox {
 }
 
 function SetCard({ set }: { set: LegoBox }) {
+  const availability = getSetAvailability(set.box_no, set.year_released);
+  const amazonUrl = generateAmazonLegoSetLink(set.box_no, set.name);
+  const showAmazonLink = availability.status === 'available' || availability.status === 'retiring_soon';
   const [currentImageUrl, setCurrentImageUrl] = useState(set.image_url);
   const [showFallback, setShowFallback] = useState(false);
 
@@ -121,6 +126,40 @@ function SetCard({ set }: { set: LegoBox }) {
           }}>
             Year: {set.year_released} • Weight: {set.weight}g
           </div>
+
+          {/* Amazon Button */}
+          {showAmazonLink && (
+            <a
+              href={amazonUrl}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                display: 'block',
+                marginTop: '12px',
+                padding: '8px 12px',
+                background: '#ffffff',
+                color: '#525252',
+                border: '1px solid #e5e5e5',
+                borderRadius: '6px',
+                fontSize: '13px',
+                fontWeight: '600',
+                textAlign: 'center',
+                textDecoration: 'none',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#f9fafb';
+                e.currentTarget.style.borderColor = '#d1d5db';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#ffffff';
+                e.currentTarget.style.borderColor = '#e5e5e5';
+              }}
+            >
+              Find on Amazon
+            </a>
+          )}
         </div>
       </div>
     </Link>
