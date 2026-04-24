@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient as HostingerPrismaClient } from '@/.prisma/client-hostinger';
+import { prismaHostinger } from '@/lib/prisma-hostinger';
 
-const hostingerPrisma = new HostingerPrismaClient();
+const hostingerPrisma = prismaHostinger;
 
 export async function POST(request: NextRequest) {
   try {
