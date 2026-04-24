@@ -322,7 +322,8 @@ export class BricklinkAPI {
     condition: 'N' | 'U' = 'N',
     countryCode: string = 'US',
     region: string = 'north_america',
-    currencyCode?: string
+    currencyCode?: string,
+    guideType: 'stock' | 'sold' = 'stock'
   ): Promise<PriceGuide | null> {
     try {
       // BrickLink API parameters:
@@ -330,7 +331,7 @@ export class BricklinkAPI {
       // - currency_code: CONVERTS prices to that currency (all sellers, just different display)
       // - guide_type: 'stock' for current listings, 'sold' for historical sales
       // For pricing, we want ALL sellers with currency conversion, NOT filtered by country
-      let url = `/items/MINIFIG/${itemNo}/price?new_or_used=${condition}&guide_type=stock`;
+      let url = `/items/MINIFIG/${itemNo}/price?new_or_used=${condition}&guide_type=${guideType}`;
       if (currencyCode) {
         url += `&currency_code=${currencyCode}`;
       }
@@ -346,6 +347,7 @@ export class BricklinkAPI {
       }
 
       console.log(`[getPriceGuide] Response for ${itemNo}:`, {
+        guide_type: guideType,
         currency_code: data.currency_code,
         min_price: data.min_price,
         avg_price: data.avg_price,
@@ -412,11 +414,19 @@ export class BricklinkAPI {
     const currencyConfig = getCurrencyByCountryCode(countryCode);
     const currencyCodeValue = currencyConfig?.code || 'USD';
 
-    // Cache miss or expired - fetch fresh data from API with currency conversion
-    const priceGuide = await this.getPriceGuide(itemNo, conditionCode, countryCode, region, currencyCodeValue);
-    console.log(`[calculatePricingData] API response for ${itemNo}:`, priceGuide ? 'SUCCESS' : 'NULL');
+    // Cache miss or expired - fetch BOTH stock and sold data from API with currency conversion
+    // Fetch stock data (current listings)
+    const stockPriceGuide = await this.getPriceGuide(itemNo, conditionCode, countryCode, region, currencyCodeValue, 'stock');
+    console.log(`[calculatePricingData] Stock API response for ${itemNo}:`, stockPriceGuide ? 'SUCCESS' : 'NULL');
 
-    if (!priceGuide) {
+    // Wait 3 seconds between API calls (BrickLink rate limit)
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+    // Fetch sold data (historical sales)
+    const soldPriceGuide = await this.getPriceGuide(itemNo, conditionCode, countryCode, region, currencyCodeValue, 'sold');
+    console.log(`[calculatePricingData] Sold API response for ${itemNo}:`, soldPriceGuide ? 'SUCCESS' : 'NULL');
+
+    if (!stockPriceGuide || !soldPriceGuide) {
       console.log(`No price guide returned for ${itemNo} in ${countryCode} - caching zeros for 1 hour`);
       // No data from API - cache zeros for 1 hour to avoid repeated failed API calls
       const expiresAt = new Date();
@@ -465,14 +475,19 @@ export class BricklinkAPI {
       };
     }
 
-    // Use API data from current marketplace listings (Note: API does not provide historical sales data)
-    const sixMonthAverage = parseFloat(priceGuide.qty_avg_price || '0'); // Quantity-weighted average of current listings
-    const currentAverage = parseFloat(priceGuide.avg_price || '0'); // Simple average of current listings
-    const currentLowest = parseFloat(priceGuide.min_price || '0'); // Lowest current listing
+    // Extract pricing data from both sources
+    const soldQtyAvg = parseFloat(soldPriceGuide.qty_avg_price || '0'); // Sold: Quantity-weighted average of historical sales
+    const stockQtyAvg = parseFloat(stockPriceGuide.qty_avg_price || '0'); // Stock: Quantity-weighted average of current listings
+    const stockLowest = parseFloat(stockPriceGuide.min_price || '0'); // Stock: Lowest current listing
 
-    // Calculate suggested price: weight Current Lowest 8x to approximate sold prices
-    // Formula: (qty-weighted avg + simple avg + lowest*8) / 10 = 10% + 10% + 80%
-    const suggestedPrice = (sixMonthAverage + currentAverage + (currentLowest * 8)) / 10;
+    // Store individual components for reference
+    const sixMonthAverage = soldQtyAvg; // Repurpose to store sold qty avg
+    const currentAverage = stockQtyAvg; // Repurpose to store stock qty avg
+    const currentLowest = stockLowest;
+
+    // Calculate suggested price using new formula
+    // Formula: (sold qty avg + stock qty avg + stock lowest) / 3
+    const suggestedPrice = (soldQtyAvg + stockQtyAvg + stockLowest) / 3;
 
     const pricingData = {
       sixMonthAverage: parseFloat(sixMonthAverage.toFixed(2)),
@@ -534,7 +549,8 @@ export class BricklinkAPI {
     condition: 'N' | 'U' = 'N',
     countryCode: string = 'US',
     region: string = 'north_america',
-    currencyCode?: string
+    currencyCode?: string,
+    guideType: 'stock' | 'sold' = 'stock'
   ): Promise<PriceGuide | null> {
     try {
       // For price guide, Bricklink needs the full set number INCLUDING the variant suffix (e.g., "10228-1")
@@ -543,8 +559,8 @@ export class BricklinkAPI {
 
       // BrickLink API: Don't use country_code (filters sellers), use currency_code (converts prices)
       // Use SET as item type (same format as MINIFIG for minifigures)
-      // guide_type=stock shows current listings (not historical sales)
-      let url = `/items/SET/${bricklinkNo}/price?new_or_used=${condition}&guide_type=stock`;
+      // guide_type: 'stock' for current listings, 'sold' for historical sales
+      let url = `/items/SET/${bricklinkNo}/price?new_or_used=${condition}&guide_type=${guideType}`;
       if (currencyCode) {
         url += `&currency_code=${currencyCode}`;
       }
@@ -566,8 +582,10 @@ export class BricklinkAPI {
       }
 
       console.log(`[getSetPriceGuide] Response for ${bricklinkNo}:`, {
+        guide_type: guideType,
         currency_code: data.currency_code,
         min_price: data.min_price,
+        qty_avg_price: data.qty_avg_price,
         total_quantity: data.total_quantity
       });
 
@@ -617,10 +635,19 @@ export class BricklinkAPI {
     const currencyConfig = getCurrencyByCountryCode(countryCode);
     const currencyCodeValue = currencyConfig?.code || 'USD';
 
-    // Cache miss or expired - fetch fresh data from API with currency conversion
-    const priceGuide = await this.getSetPriceGuide(boxNo, conditionCode, countryCode, region, currencyCodeValue);
+    // Cache miss or expired - fetch BOTH stock and sold data from API with currency conversion
+    // Fetch stock data (current listings)
+    const stockPriceGuide = await this.getSetPriceGuide(boxNo, conditionCode, countryCode, region, currencyCodeValue, 'stock');
+    console.log(`[calculateSetPricing] Stock API response for ${boxNo}:`, stockPriceGuide ? 'SUCCESS' : 'NULL');
 
-    if (!priceGuide) {
+    // Wait 3 seconds between API calls (BrickLink rate limit)
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+    // Fetch sold data (historical sales)
+    const soldPriceGuide = await this.getSetPriceGuide(boxNo, conditionCode, countryCode, region, currencyCodeValue, 'sold');
+    console.log(`[calculateSetPricing] Sold API response for ${boxNo}:`, soldPriceGuide ? 'SUCCESS' : 'NULL');
+
+    if (!stockPriceGuide || !soldPriceGuide) {
       console.log(`No price guide returned for set ${boxNo} in ${countryCode} - caching zeros for 1 hour`);
       // No data from API - cache zeros for 1 hour to avoid repeated failed API calls
       const expiresAt = new Date();
@@ -669,14 +696,19 @@ export class BricklinkAPI {
       };
     }
 
-    // Use API data from current marketplace listings (Note: API does not provide historical sales data)
-    const sixMonthAverage = parseFloat(priceGuide.qty_avg_price || '0'); // Quantity-weighted average of current listings
-    const currentAverage = parseFloat(priceGuide.avg_price || '0'); // Simple average of current listings
-    const currentLowest = parseFloat(priceGuide.min_price || '0'); // Lowest current listing
+    // Extract pricing data from both sources
+    const soldQtyAvg = parseFloat(soldPriceGuide.qty_avg_price || '0'); // Sold: Quantity-weighted average of historical sales
+    const stockQtyAvg = parseFloat(stockPriceGuide.qty_avg_price || '0'); // Stock: Quantity-weighted average of current listings
+    const stockLowest = parseFloat(stockPriceGuide.min_price || '0'); // Stock: Lowest current listing
 
-    // Calculate suggested price: weight Current Lowest 8x to approximate sold prices
-    // Formula: (qty-weighted avg + simple avg + lowest*8) / 10 = 10% + 10% + 80%
-    const suggestedPrice = (sixMonthAverage + currentAverage + (currentLowest * 8)) / 10;
+    // Store individual components for reference
+    const sixMonthAverage = soldQtyAvg; // Repurpose to store sold qty avg
+    const currentAverage = stockQtyAvg; // Repurpose to store stock qty avg
+    const currentLowest = stockLowest;
+
+    // Calculate suggested price using new formula
+    // Formula: (sold qty avg + stock qty avg + stock lowest) / 3
+    const suggestedPrice = (soldQtyAvg + stockQtyAvg + stockLowest) / 3;
 
     const pricingData = {
       sixMonthAverage: parseFloat(sixMonthAverage.toFixed(2)),
