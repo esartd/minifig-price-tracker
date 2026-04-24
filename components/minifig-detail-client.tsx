@@ -14,6 +14,8 @@ import SetAdCard from '@/components/SetAdCard';
 import MoveDialog from '@/components/MoveDialog';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 import { formatPrice } from '@/lib/format-price';
+import { generateAmazonMinifigLink, generateBrickLinkMinifigLink } from '@/lib/affiliate-links';
+import { trackAffiliateClick } from '@/lib/analytics';
 import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
 
@@ -1107,6 +1109,133 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       No sellers available in your region
                     </div>
                   )}
+                </div>
+
+                {/* Where to Buy Section */}
+                <div style={{
+                  marginTop: '24px',
+                  padding: '24px',
+                  background: '#fafafa',
+                  borderRadius: '12px',
+                  border: '1px solid #e5e5e5'
+                }}>
+                  <h3 style={{
+                    fontSize: 'var(--text-base)',
+                    fontWeight: '600',
+                    color: '#171717',
+                    marginTop: 0,
+                    marginBottom: '16px'
+                  }}>
+                    Where to Buy
+                  </h3>
+
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '12px'
+                  }}>
+                    {/* Amazon Link */}
+                    <Link
+                      href={generateAmazonMinifigLink(minifig.no, minifig.name)}
+                      target="_blank"
+                      rel="noopener noreferrer sponsored"
+                      onClick={() => trackAffiliateClick('amazon', minifig.no, 'detail-page')}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '16px',
+                        background: '#FFF9F0',
+                        border: '2px solid #FF9900',
+                        borderRadius: '8px',
+                        textDecoration: 'none',
+                        transition: 'all 0.2s',
+                        cursor: 'pointer'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#FFE4B3';
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(255, 153, 0, 0.15)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = '#FFF9F0';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
+                    >
+                      <div>
+                        <div style={{
+                          fontWeight: '600',
+                          color: '#171717',
+                          fontSize: 'var(--text-base)',
+                          marginBottom: '4px'
+                        }}>
+                          Amazon
+                        </div>
+                        <div style={{
+                          fontSize: 'var(--text-sm)',
+                          color: '#737373'
+                        }}>
+                          Often in stock with fast shipping
+                        </div>
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#FF9900" style={{ width: '20px', height: '20px', flexShrink: 0 }}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                      </svg>
+                    </Link>
+
+                    {/* BrickLink Link */}
+                    <Link
+                      href={generateBrickLinkMinifigLink(minifig.no)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackAffiliateClick('bricklink', minifig.no, 'detail-page')}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '16px',
+                        background: 'white',
+                        border: '2px solid #e5e5e5',
+                        borderRadius: '8px',
+                        textDecoration: 'none',
+                        transition: 'all 0.2s',
+                        cursor: 'pointer'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#fafafa';
+                        e.currentTarget.style.borderColor = '#d4d4d4';
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'white';
+                        e.currentTarget.style.borderColor = '#e5e5e5';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
+                    >
+                      <div>
+                        <div style={{
+                          fontWeight: '600',
+                          color: '#171717',
+                          fontSize: 'var(--text-base)',
+                          marginBottom: '4px'
+                        }}>
+                          BrickLink
+                        </div>
+                        <div style={{
+                          fontSize: 'var(--text-sm)',
+                          color: '#737373'
+                        }}>
+                          Largest LEGO marketplace worldwide
+                        </div>
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#737373" style={{ width: '20px', height: '20px', flexShrink: 0 }}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                      </svg>
+                    </Link>
+                  </div>
                 </div>
 
                 {/* Divider */}

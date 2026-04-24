@@ -77,3 +77,44 @@ export function generateAmazonMinifigLink(minifigNo: string, minifigName: string
 export function generateBrickLinkMinifigLink(minifigNo: string): string {
   return generateBrickLinkAffiliateLink('M', minifigNo);
 }
+
+/**
+ * Rakuten/LinkSynergy deep link generator for LEGO sets on LEGO.com
+ * @param setNumber - LEGO set number (e.g., "75373-1")
+ * @param setName - LEGO set name (optional, for future use)
+ */
+export function generateRakutenLegoSetLink(setNumber: string, setName?: string): string {
+  const cleanSetNumber = setNumber.split('-')[0]; // "75373-1" → "75373"
+  const rakutenId = process.env.NEXT_PUBLIC_RAKUTEN_AFFILIATE_ID || process.env.RAKUTEN_AFFILIATE_ID;
+  const rakutenMid = process.env.NEXT_PUBLIC_RAKUTEN_MID || process.env.RAKUTEN_MID;
+
+  if (!rakutenId || !rakutenMid) {
+    // Fallback to direct LEGO.com link if credentials not configured
+    return `https://www.lego.com/en-us/product/${cleanSetNumber}`;
+  }
+
+  // Rakuten/LinkSynergy deep link format
+  const destinationUrl = `https://www.lego.com/en-us/product/${cleanSetNumber}`;
+  const encodedUrl = encodeURIComponent(destinationUrl);
+
+  return `https://click.linksynergy.com/deeplink?id=${rakutenId}&mid=${rakutenMid}&murl=${encodedUrl}`;
+}
+
+/**
+ * Rakuten/LinkSynergy banner link generator for LEGO.com homepage
+ * @param bannerId - Banner identifier for tracking
+ */
+export function generateRakutenBannerLink(bannerId: string): string {
+  const rakutenId = process.env.NEXT_PUBLIC_RAKUTEN_AFFILIATE_ID || process.env.RAKUTEN_AFFILIATE_ID;
+  const rakutenMid = process.env.NEXT_PUBLIC_RAKUTEN_MID || process.env.RAKUTEN_MID;
+
+  if (!rakutenId || !rakutenMid) {
+    // Fallback to direct LEGO.com link if credentials not configured
+    return 'https://www.lego.com/en-us';
+  }
+
+  const destinationUrl = 'https://www.lego.com/en-us';
+  const encodedUrl = encodeURIComponent(destinationUrl);
+
+  return `https://click.linksynergy.com/deeplink?id=${rakutenId}&mid=${rakutenMid}&murl=${encodedUrl}`;
+}

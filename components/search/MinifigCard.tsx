@@ -3,7 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
+import { generateAmazonMinifigLink, generateAmazonLegoSetLink } from '@/lib/affiliate-links';
+import { trackAffiliateClick } from '@/lib/analytics';
 
 interface MinifigCardProps {
   minifig: any;
@@ -207,6 +210,54 @@ export default function MinifigCard({
             )}
           </div>
         </div>
+
+        {/* Amazon Buy Button */}
+        <Link
+          href={isSet
+            ? generateAmazonLegoSetLink(minifig.box_no, minifig.name)
+            : generateAmazonMinifigLink(minifig.minifigure_no || minifig.no, minifig.name)
+          }
+          target="_blank"
+          rel="noopener noreferrer sponsored"
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent card navigation
+            trackAffiliateClick(
+              'amazon',
+              isSet ? minifig.box_no : (minifig.minifigure_no || minifig.no),
+              'search-results'
+            );
+          }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            padding: '8px 16px',
+            background: '#FF9900',
+            color: 'white',
+            borderRadius: '6px',
+            fontSize: 'var(--text-sm)',
+            fontWeight: '600',
+            textDecoration: 'none',
+            whiteSpace: 'nowrap',
+            marginLeft: '16px',
+            transition: 'all 0.2s',
+            border: 'none',
+            cursor: 'pointer'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = '#F08300';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = '#FF9900';
+          }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          Buy on Amazon
+        </Link>
 
         <div className="minifig-card-arrow" style={{
           marginLeft: '16px',
