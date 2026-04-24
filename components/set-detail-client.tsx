@@ -532,21 +532,21 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
               }}>
                 <div className="pricing-item" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                   <p style={{ fontSize: 'clamp(9px, 2vw, 10px)', fontWeight: '500', color: '#737373',
-                    textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>Qty Avg</p>
+                    textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>6 Mo Qty Avg</p>
                   <p style={{ fontSize: 'clamp(16px, 3.5vw, 18px)', fontWeight: '700', color: '#171717' }}>
                     {formatPrice(pricing.sixMonthAverage, pricing.currencyCode, true)}</p>
                 </div>
                 <div className="pricing-divider" style={{ width: '1px', background: '#e5e5e5' }}></div>
                 <div className="pricing-item" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                   <p style={{ fontSize: 'clamp(9px, 2vw, 10px)', fontWeight: '500', color: '#737373',
-                    textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>Avg</p>
+                    textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>Current Qty Avg</p>
                   <p style={{ fontSize: 'clamp(16px, 3.5vw, 18px)', fontWeight: '700', color: '#171717' }}>
                     {formatPrice(pricing.currentAverage, pricing.currencyCode, true)}</p>
                 </div>
                 <div className="pricing-divider" style={{ width: '1px', background: '#e5e5e5' }}></div>
                 <div className="pricing-item" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                   <p style={{ fontSize: 'clamp(9px, 2vw, 10px)', fontWeight: '500', color: '#737373',
-                    textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>Min</p>
+                    textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>Lowest</p>
                   <p style={{ fontSize: 'clamp(16px, 3.5vw, 18px)', fontWeight: '700', color: '#171717' }}>
                     {formatPrice(pricing.currentLowest, pricing.currencyCode, true)}</p>
                 </div>
