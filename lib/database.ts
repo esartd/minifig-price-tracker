@@ -153,6 +153,7 @@ class DatabaseService {
       data.pricing_current_avg = updates.pricing.currentAverage;
       data.pricing_current_lowest = updates.pricing.currentLowest;
       data.pricing_suggested_price = updates.pricing.suggestedPrice;
+      data.pricing_currency_code = updates.pricing.currencyCode;
     }
 
     try {
@@ -311,6 +312,7 @@ class DatabaseService {
       data.pricing_current_avg = updates.pricing.currentAverage;
       data.pricing_current_lowest = updates.pricing.currentLowest;
       data.pricing_suggested_price = updates.pricing.suggestedPrice;
+      data.pricing_currency_code = updates.pricing.currencyCode;
     }
 
     try {
@@ -519,7 +521,7 @@ class DatabaseService {
       quantity: item.quantity,
       condition: item.condition as 'new' | 'used',
       image_url: item.image_url,
-      pricing: item.pricing_six_month_avg !== undefined && item.pricing_six_month_avg !== null ? {
+      pricing: item.pricing_six_month_avg !== undefined && item.pricing_six_month_avg !== null && item.pricing_currency_code ? {
         sixMonthAverage: item.pricing_six_month_avg,
         currentAverage: item.pricing_current_avg,
         currentLowest: item.pricing_current_lowest,
@@ -542,7 +544,7 @@ class DatabaseService {
       quantity: item.quantity,
       condition: item.condition as 'new' | 'used',
       image_url: item.image_url,
-      pricing: item.pricing_six_month_avg ? {
+      pricing: item.pricing_six_month_avg && item.pricing_currency_code ? {
         sixMonthAverage: item.pricing_six_month_avg,
         currentAverage: item.pricing_current_avg,
         currentLowest: item.pricing_current_lowest,
@@ -640,6 +642,7 @@ class DatabaseService {
         pricing_current_avg: item.pricing?.currentAverage,
         pricing_current_lowest: item.pricing?.currentLowest,
         pricing_suggested_price: item.pricing?.suggestedPrice,
+        pricing_currency_code: item.pricing?.currencyCode,
       }
     });
     return this.transformSetInventoryFromDB(created);
@@ -658,6 +661,7 @@ class DatabaseService {
       data.pricing_current_avg = updates.pricing.currentAverage;
       data.pricing_current_lowest = updates.pricing.currentLowest;
       data.pricing_suggested_price = updates.pricing.suggestedPrice;
+      data.pricing_currency_code = updates.pricing.currencyCode;
     }
 
     const updated = await prisma.setInventoryItem.update({
@@ -756,6 +760,7 @@ class DatabaseService {
         pricing_current_avg: item.pricing?.currentAverage,
         pricing_current_lowest: item.pricing?.currentLowest,
         pricing_suggested_price: item.pricing?.suggestedPrice,
+        pricing_currency_code: item.pricing?.currencyCode,
         notes: item.notes,
         acquisition_date: item.acquisition_date ? new Date(item.acquisition_date) : null,
         acquisition_notes: item.acquisition_notes,
@@ -782,6 +787,7 @@ class DatabaseService {
       data.pricing_current_avg = updates.pricing.currentAverage;
       data.pricing_current_lowest = updates.pricing.currentLowest;
       data.pricing_suggested_price = updates.pricing.suggestedPrice;
+      data.pricing_currency_code = updates.pricing.currencyCode;
     }
 
     const updated = await prisma.setPersonalCollectionItem.update({
@@ -869,7 +875,8 @@ class DatabaseService {
           pricing_six_month_avg: inventoryItem.pricing_six_month_avg,
           pricing_current_avg: inventoryItem.pricing_current_avg,
           pricing_current_lowest: inventoryItem.pricing_current_lowest,
-          pricing_suggested_price: inventoryItem.pricing_suggested_price
+          pricing_suggested_price: inventoryItem.pricing_suggested_price,
+          pricing_currency_code: inventoryItem.pricing_currency_code
         }
       });
 
@@ -964,7 +971,8 @@ class DatabaseService {
           pricing_six_month_avg: personalItem.pricing_six_month_avg,
           pricing_current_avg: personalItem.pricing_current_avg,
           pricing_current_lowest: personalItem.pricing_current_lowest,
-          pricing_suggested_price: personalItem.pricing_suggested_price
+          pricing_suggested_price: personalItem.pricing_suggested_price,
+          pricing_currency_code: personalItem.pricing_currency_code
         }
       });
 
