@@ -83,6 +83,27 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
     condition: 'new'
   });
 
+  // Helper function to get smart condition default
+  const getSmartConditionDefault = (platform: string, itemCondition: string): string => {
+    // If item is new, always use "new" for each platform
+    if (itemCondition === 'new') {
+      return 'new';
+    }
+
+    // If item is used, check if we have a saved preference for this platform
+    const savedConditions = localStorage.getItem('listingConditionsByPlatform');
+    if (savedConditions) {
+      const conditions = JSON.parse(savedConditions);
+      const savedCondition = conditions[platform];
+      if (savedCondition) {
+        return savedCondition;
+      }
+    }
+
+    // Default to "like_new" for used items if no preference saved
+    return 'like_new';
+  };
+
   useEffect(() => {
     const saved = localStorage.getItem('listingPreferences');
     if (saved) {
@@ -94,11 +115,12 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
       const lastUsedData = JSON.parse(savedLastUsed);
       setLastUsed(lastUsedData);
 
-      // Set form defaults to last used platform, but always use item's actual condition
+      // Set form defaults: last used platform + smart condition
+      const smartCondition = getSmartConditionDefault(lastUsedData.platform, item.condition);
       setFormData(prev => ({
         ...prev,
         platform: lastUsedData.platform,
-        condition_detail: item.condition || 'new' // Use item's condition, not last used
+        condition_detail: smartCondition
       }));
     }
   }, [item.condition]);
@@ -176,6 +198,14 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
         };
         setLastUsed(lastUsedData);
         localStorage.setItem('listingLastUsed', JSON.stringify(lastUsedData));
+
+        // Save condition preference per platform (for used items)
+        if (item.condition === 'used') {
+          const savedConditions = localStorage.getItem('listingConditionsByPlatform');
+          const conditions = savedConditions ? JSON.parse(savedConditions) : {};
+          conditions[formData.platform] = formData.condition_detail;
+          localStorage.setItem('listingConditionsByPlatform', JSON.stringify(conditions));
+        }
       } else {
         alert(data.error || 'Failed to generate listing');
       }
@@ -191,10 +221,11 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
   const handleQuickGenerate = async () => {
     onOpen?.(); // Clear parent success messages
 
-    // Use last used settings, but always use item's actual condition
+    // Use last used platform + smart condition based on item
+    const smartCondition = getSmartConditionDefault(lastUsed.platform, item.condition);
     const quickFormData = {
       platform: lastUsed.platform,
-      condition_detail: item.condition || 'new', // Use item's condition, not last used
+      condition_detail: smartCondition,
       accessories: '',
       known_flaws: '',
       box_condition: 'sealed',
@@ -237,6 +268,14 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
         };
         setLastUsed(lastUsedData);
         localStorage.setItem('listingLastUsed', JSON.stringify(lastUsedData));
+
+        // Save condition preference per platform (for used items)
+        if (item.condition === 'used') {
+          const savedConditions = localStorage.getItem('listingConditionsByPlatform');
+          const conditions = savedConditions ? JSON.parse(savedConditions) : {};
+          conditions[quickFormData.platform] = quickFormData.condition_detail;
+          localStorage.setItem('listingConditionsByPlatform', JSON.stringify(conditions));
+        }
       } else {
         alert(data.error || 'Failed to generate listing');
       }
