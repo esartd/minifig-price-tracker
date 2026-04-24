@@ -191,10 +191,10 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
   const handleQuickGenerate = async () => {
     onOpen?.(); // Clear parent success messages
 
-    // Use last used settings
+    // Use last used settings, but always use item's actual condition
     const quickFormData = {
       platform: lastUsed.platform,
-      condition_detail: lastUsed.condition,
+      condition_detail: item.condition || 'new', // Use item's condition, not last used
       accessories: '',
       known_flaws: '',
       box_condition: 'sealed',
