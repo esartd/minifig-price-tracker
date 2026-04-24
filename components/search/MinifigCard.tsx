@@ -96,9 +96,11 @@ export default function MinifigCard({
     >
       {/* Top Section: Image + Content + Buttons */}
       <div
+        onClick={handleClick}
         style={{
           display: 'flex',
-          flex: 1
+          flex: 1,
+          cursor: 'pointer'
         }}
       >
       {/* Image */}
