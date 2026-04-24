@@ -34,8 +34,6 @@ export default function CollectionList({
   const [moveSuccess, setMoveSuccess] = useState(false);
   const [lastMovedItem, setLastMovedItem] = useState<{ id: string; minifigNo: string; condition: string } | null>(null);
 
-  const currency = session?.user?.preferredCurrency || 'USD';
-
   // Dismiss notification on click
   useEffect(() => {
     if (!moveSuccess) return;
@@ -273,7 +271,7 @@ export default function CollectionList({
                       color: '#737373',
                       fontWeight: '500'
                     }}>
-                      {formatPrice(item.pricing.suggestedPrice, currency, showDecimals)} ea
+                      {formatPrice(item.pricing.suggestedPrice, item.pricing.currencyCode || 'USD', showDecimals)} ea
                     </div>
                     <div style={{
                       fontSize: 'var(--text-lg)',
@@ -281,7 +279,7 @@ export default function CollectionList({
                       color: '#3b82f6',
                       letterSpacing: '-0.01em'
                     }}>
-                      {formatPrice(item.pricing.suggestedPrice * item.quantity, currency, showDecimals)} <span style={{ fontSize: 'var(--text-xs)', fontWeight: '500', color: '#737373' }}>total</span>
+                      {formatPrice(item.pricing.suggestedPrice * item.quantity, item.pricing.currencyCode || 'USD', showDecimals)} <span style={{ fontSize: 'var(--text-xs)', fontWeight: '500', color: '#737373' }}>total</span>
                     </div>
                   </>
                 ) : (
@@ -291,7 +289,7 @@ export default function CollectionList({
                     color: '#3b82f6',
                     letterSpacing: '-0.01em'
                   }}>
-                    {formatPrice(item.pricing.suggestedPrice, currency, showDecimals)}
+                    {formatPrice(item.pricing.suggestedPrice, item.pricing.currencyCode || 'USD', showDecimals)}
                   </div>
                 )}
               </div>
