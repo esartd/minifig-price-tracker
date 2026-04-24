@@ -99,8 +99,8 @@ export default function CollectionPage() {
         if (itemsNeedingRefresh.length > 0) {
           setPricesUpdating(itemsNeedingRefresh.length);
 
-          // Fetch each item's pricing individually
-          itemsNeedingRefresh.forEach(async (item: CollectionItem) => {
+          // Fetch each item's pricing individually (use Promise.all for proper async handling)
+          const refreshPromises = itemsNeedingRefresh.map(async (item: CollectionItem) => {
             try {
               console.log(`Fetching ${userCurrency} price for ${item.minifigure_no} (current: ${item.pricing?.currencyCode})...`);
               const priceResponse = await fetch(`/api/inventory/${item.id}/refresh-pricing`, {
@@ -132,6 +132,11 @@ export default function CollectionPage() {
               console.error(`Failed to load pricing for ${item.minifigure_no}:`, err);
               setPricesUpdating(prev => Math.max(0, prev - 1));
             }
+          });
+
+          // Await all pricing updates (doesn't block rendering, but ensures cleanup)
+          Promise.all(refreshPromises).catch(err => {
+            console.error('Error refreshing prices:', err);
           });
         }
       }
