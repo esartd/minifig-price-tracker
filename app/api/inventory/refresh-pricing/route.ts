@@ -31,9 +31,10 @@ export async function POST() {
 
     console.log(`Checking ${items.length} items for stale cache...`);
 
-    // Get user's preferred region and country code with safe fallbacks
-    const region = session.user?.preferredRegion || 'north_america';
+    // Get user's preferred country code with safe fallback
     const countryCode = session.user?.preferredCountryCode || 'US';
+    // Region is now standardized to empty string (we fetch all sellers and use currency conversion)
+    const region = '';
 
     // Check which items need refreshing (cache expired)
     const now = new Date();

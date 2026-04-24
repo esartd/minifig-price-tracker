@@ -42,7 +42,8 @@ export async function POST(
 
     // Get user's regional preferences
     const countryCode = session.user?.preferredCountryCode || 'US';
-    const region = session.user?.preferredRegion || 'north_america';
+    // Region is now standardized to empty string (we fetch all sellers and use currency conversion)
+    const region = '';
 
     // Fetch fresh pricing from Bricklink API (cached 24 hours)
     const pricing = await bricklinkAPI.calculatePricingData(

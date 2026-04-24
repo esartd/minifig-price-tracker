@@ -43,30 +43,30 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
       <p className="text-xs text-gray-400 mb-2">{item.minifigure_no}</p>
 
       <div className="grid grid-cols-2 gap-3">
-        {/* Market Average (Qty Weighted) */}
+        {/* Sold Qty Avg (6 months) */}
         <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-xl">
           <p className="text-[10px] font-medium text-blue-600 uppercase tracking-wide mb-2">
-            Market Avg (Qty Weighted)
+            6 Months Qty Avg
           </p>
           <p className="text-2xl font-semibold text-blue-900 tracking-tight">
             {formatPrice(pricing.sixMonthAverage)}
           </p>
         </div>
 
-        {/* Current Simple Average */}
+        {/* Stock Qty Avg */}
         <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100/50 rounded-xl">
           <p className="text-[10px] font-medium text-purple-600 uppercase tracking-wide mb-2">
-            Simple Avg
+            Current Qty Avg
           </p>
           <p className="text-2xl font-semibold text-purple-900 tracking-tight">
             {formatPrice(pricing.currentAverage)}
           </p>
         </div>
 
-        {/* Current Lowest */}
+        {/* Stock Lowest */}
         <div className="p-4 bg-gradient-to-br from-orange-50 to-orange-100/50 rounded-xl">
           <p className="text-[10px] font-medium text-orange-600 uppercase tracking-wide mb-2">
-            Lowest Listing
+            Lowest
           </p>
           <p className="text-2xl font-semibold text-orange-900 tracking-tight">
             {formatPrice(pricing.currentLowest)}
