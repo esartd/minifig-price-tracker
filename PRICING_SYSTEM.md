@@ -145,13 +145,36 @@ setCollection(data.data);
 setLoading(false);
 
 // Fetch missing prices in background
-itemsNeedingRefresh.forEach(async (item) => {
+// IMPORTANT: Use Promise.all(map(...)) NOT forEach for proper async handling
+const refreshPromises = itemsNeedingRefresh.map(async (item) => {
   const priceResponse = await fetch(`/api/inventory/${item.id}/refresh-pricing`, {
     method: 'POST'
   });
-  // Update state when each price returns
+  const priceData = await priceResponse.json();
+  
+  if (priceData.success && priceData.data) {
+    // Update state with new pricing - triggers re-render
+    setCollection(prev => 
+      prev.map(i => i.id === item.id ? priceData.data : i)
+    );
+  }
 });
+
+// Await all updates (ensures cleanup, doesn't block rendering)
+await Promise.all(refreshPromises);
 ```
+
+**Why Promise.all instead of forEach:**
+- `forEach` does NOT handle async callbacks properly
+- State updates can be missed or batched incorrectly in React 18
+- `Promise.all` ensures all async operations are tracked
+- Guarantees React re-renders as each price arrives
+
+**Bug History (April 2026):**
+- Issue: Prices fetched but UI didn't update without page refresh
+- Cause: `forEach(async ...)` doesn't properly await async operations
+- Fix: Changed to `Promise.all(map(...))` for proper async handling
+- Commit: b4a1e8f "Fix inventory pricing not updating without page refresh"
 
 ## API Endpoints
 
@@ -203,6 +226,44 @@ itemsNeedingRefresh.forEach(async (item) => {
 
 **Check**: Bricklink API response
 **Fix**: Cache $0 for 1 hour (shorter TTL) to retry sooner
+
+### Issue: Prices don't update without page refresh
+
+**Cause**: Using `forEach(async ...)` instead of `Promise.all(map(...))`
+
+**Symptoms**:
+- Prices fetch successfully (check Network tab)
+- Console logs show "Updated state for [item]"
+- But UI doesn't update until page refresh
+
+**Why it happens**:
+- JavaScript's `forEach` doesn't wait for async callbacks
+- React state updates (`setCollection`) are called but may be batched incorrectly
+- In React 18, batching can miss updates from forEach loops
+
+**Check**:
+1. Open browser console on /inventory page
+2. Look for: "Updated state for sw1234"
+3. Check Network tab: refresh-pricing calls succeed
+4. If logs show success but UI doesn't update → this is the issue
+
+**Fix**: Replace `forEach` with `Promise.all`
+```javascript
+// ❌ BAD: forEach doesn't handle async properly
+itemsNeedingRefresh.forEach(async (item) => {
+  const response = await fetch(...);
+  setCollection(prev => ...); // May not trigger re-render!
+});
+
+// ✅ GOOD: Promise.all ensures proper async handling  
+const promises = itemsNeedingRefresh.map(async (item) => {
+  const response = await fetch(...);
+  setCollection(prev => ...); // Guaranteed to re-render
+});
+await Promise.all(promises);
+```
+
+**Code Location**: `app/inventory/page.tsx` line ~99-136
 
 ## Best Practices
 
