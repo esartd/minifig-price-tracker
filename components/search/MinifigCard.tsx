@@ -308,7 +308,7 @@ export default function MinifigCard({
       {/* Action Buttons - Mobile only (below content) */}
       <div className="minifig-card-buttons-mobile" style={{
         display: 'none',
-        flexDirection: 'column',
+        flexDirection: 'row',
         gap: '0',
         borderTop: '1px solid #e5e5e5'
       }}>
@@ -328,8 +328,9 @@ export default function MinifigCard({
             textDecoration: 'none',
             transition: 'all 0.2s',
             border: 'none',
+            borderRight: '1px solid #2563eb',
             cursor: 'pointer',
-            borderBottom: '1px solid #2563eb'
+            flex: 1
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = '#2563eb';
@@ -374,7 +375,8 @@ export default function MinifigCard({
             textDecoration: 'none',
             transition: 'all 0.2s',
             border: 'none',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            flex: 1
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = '#fafafa';
@@ -388,7 +390,7 @@ export default function MinifigCard({
             <circle cx="20" cy="21" r="1"></circle>
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
           </svg>
-          Buy on Amazon
+          Amazon
         </Link>
       </div>
     </div>
