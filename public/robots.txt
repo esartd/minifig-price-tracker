@@ -29,6 +29,8 @@ Disallow: /account/
 Allow: /
 Allow: /search
 Allow: /about
+Allow: /faq
+Allow: /guides
 Allow: /privacy
 Allow: /disclosure
 Allow: /minifigs/

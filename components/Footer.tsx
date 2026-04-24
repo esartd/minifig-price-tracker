@@ -32,6 +32,24 @@ export default function Footer() {
           onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
           onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
           >About</a>
+          <a href="/faq" style={{
+            color: '#525252',
+            textDecoration: 'none',
+            fontWeight: '500',
+            transition: 'color 0.2s'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
+          onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+          >FAQ</a>
+          <a href="/guides" style={{
+            color: '#525252',
+            textDecoration: 'none',
+            fontWeight: '500',
+            transition: 'color 0.2s'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
+          onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+          >Guides</a>
           <a href="mailto:hello@ericksu.com" style={{
             color: '#525252',
             textDecoration: 'none',
@@ -40,16 +58,7 @@ export default function Footer() {
           }}
           onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
           onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >Report a Problem</a>
-          <a href="mailto:hello@ericksu.com" style={{
-            color: '#525252',
-            textDecoration: 'none',
-            fontWeight: '500',
-            transition: 'color 0.2s'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
-          onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >Contact Support</a>
+          >Contact</a>
           <a href="/privacy" style={{
             color: '#525252',
             textDecoration: 'none',
@@ -58,7 +67,7 @@ export default function Footer() {
           }}
           onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
           onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >Privacy Policy</a>
+          >Privacy</a>
           <a href="/disclosure" style={{
             color: '#525252',
             textDecoration: 'none',
@@ -67,7 +76,7 @@ export default function Footer() {
           }}
           onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
           onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >Affiliate Disclosure</a>
+          >Disclosure</a>
         </div>
 
         {/* Divider */}

@@ -244,8 +244,12 @@ export default async function MinifigPage({
     image_url: `https://img.bricklink.com/ItemImage/MN/0/${m.minifigure_no}.png`
   }));
 
+  // Get parent theme for breadcrumbs
+  const parentTheme = minifig.category_name.split(' / ')[0];
+  const themeSlug = parentTheme.toLowerCase().replace(/\s+/g, '-');
+
   // Schema.org structured data for rich search results
-  const jsonLd = {
+  const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: minifig.name,
@@ -267,11 +271,47 @@ export default async function MinifigPage({
     }
   };
 
+  // Breadcrumb schema
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://figtracker.ericksu.com'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Themes',
+        item: 'https://figtracker.ericksu.com/themes'
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: parentTheme,
+        item: `https://figtracker.ericksu.com/themes/${themeSlug}`
+      },
+      {
+        '@type': 'ListItem',
+        position: 4,
+        name: minifig.name,
+        item: `https://figtracker.ericksu.com/minifigs/${minifig.minifigure_no}`
+      }
+    ]
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <MinifigDetailClient minifig={minifigData} variants={variantsData} similarSets={similarSetsData} />
     </>
