@@ -1021,7 +1021,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                         <div>
                           <div style={{
                             fontWeight: '600',
-                            color: '#FF9900',
+                            color: '#171717',
                             fontSize: 'var(--text-sm)'
                           }}>
                             Amazon
