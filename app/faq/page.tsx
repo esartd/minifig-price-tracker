@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { EnvelopeIcon } from '@heroicons/react/24/outline';
 
 export const metadata: Metadata = {
   title: 'FAQ - Frequently Asked Questions | FigTracker',
@@ -131,15 +132,15 @@ export default function FAQPage() {
         <section className="about-section bg-white">
           <div className="about-page-container">
             <div className="max-w-[800px] mx-auto">
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col">
                 {faqs.map((faq, index) => (
                   <details
                     key={index}
-                    className="bg-[#fafafa] border border-[#e5e5e5] rounded-xl p-6"
+                    className="border-b border-[#e5e5e5] py-6"
                   >
                     <summary className="text-[length:var(--text-lg)] font-semibold text-[#171717] cursor-pointer list-none flex justify-between items-center">
                       {faq.question}
-                      <span className="text-[length:var(--text-2xl)] text-[#737373]">+</span>
+                      <span className="text-[length:var(--text-2xl)] text-[#737373] ml-4">+</span>
                     </summary>
                     <p className="mt-4 text-[length:var(--text-base)] text-[#525252] leading-[1.7]">
                       {faq.answer}
@@ -159,7 +160,9 @@ export default function FAQPage() {
               <p className="mb-8">Can&apos;t find the answer you&apos;re looking for? Reach out to our support team.</p>
 
               <div className="bg-[#fafafa] border border-[#e5e5e5] rounded-xl p-8 text-center">
-                <div className="text-5xl mb-4">📧</div>
+                <div className="flex justify-center mb-4">
+                  <EnvelopeIcon className="w-12 h-12 text-[#3b82f6]" />
+                </div>
                 <h3 className="text-[length:var(--text-lg)] font-semibold text-[#171717] mb-2">
                   Contact Support
                 </h3>
