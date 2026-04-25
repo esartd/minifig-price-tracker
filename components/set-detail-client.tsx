@@ -411,6 +411,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
   const availability = getSetAvailability(set.box_no, set.year_released);
   const legoAffiliateUrl = generateLegoSetLink(set.box_no);
   const amazonAffiliateUrl = generateAmazonLegoSetLink(set.box_no, set.name);
+  const brickLinkUrl = generateBrickLinkAffiliateLink(set.box_no, 'SET');
 
   return (
     <div style={{ minHeight: '100vh', background: '#fafafa' }}>
@@ -888,33 +889,90 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                 </>
               )}
 
-              {/* Where to Buy Section - show for available and retiring_soon sets */}
-              {(availability.status === 'available' || availability.status === 'retiring_soon') && (
-                <div style={{
-                  marginTop: '24px',
-                  padding: '20px',
-                  background: '#fafafa',
-                  borderRadius: '12px',
-                  border: '1px solid #e5e5e5'
+              {/* Where to Buy Section - always show, prioritize by availability */}
+              <div style={{
+                marginTop: '24px',
+                padding: '20px',
+                background: '#fafafa',
+                borderRadius: '12px',
+                border: '1px solid #e5e5e5'
+              }}>
+                <h3 style={{
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: '600',
+                  color: '#525252',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  marginTop: 0,
+                  marginBottom: '12px'
                 }}>
-                  <h3 style={{
-                    fontSize: 'var(--text-sm)',
-                    fontWeight: '600',
-                    color: '#525252',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    marginTop: 0,
-                    marginBottom: '12px'
-                  }}>
-                    Where to Buy
-                  </h3>
+                  Where to Buy
+                </h3>
 
-                  <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '8px'
-                  }}>
-                    {/* Amazon Link */}
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px'
+                }}>
+                  {/* BrickLink Link - Always show first for older/retired sets */}
+                  <Link
+                    href={brickLinkUrl}
+                    target="_blank"
+                    rel="noopener noreferrer sponsored"
+                    onClick={() => trackAffiliateClick('bricklink', set.box_no, 'set-detail-page')}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '12px 16px',
+                      background: '#FFF8F0',
+                      border: '2px solid #F26522',
+                      borderRadius: '8px',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s',
+                      cursor: 'pointer'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = '#FFE8D6';
+                      e.currentTarget.style.transform = 'translateY(-1px)';
+                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(242, 101, 34, 0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = '#FFF8F0';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F26522" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                      </svg>
+                      <div>
+                        <div style={{
+                          fontWeight: '600',
+                          color: '#171717',
+                          fontSize: 'var(--text-sm)'
+                        }}>
+                          BrickLink
+                        </div>
+                        <div style={{
+                          fontSize: 'var(--text-xs)',
+                          color: '#737373'
+                        }}>
+                          {availability.status === 'retired' ? 'Best for retired sets' : 'Used & new available'}
+                        </div>
+                      </div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#F26522" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </Link>
+
+                  {/* Amazon Link - Show for available sets */}
+                  {(availability.status === 'available' || availability.status === 'retiring_soon') && (
                     <Link
                       href={amazonAffiliateUrl}
                       target="_blank"
@@ -969,67 +1027,9 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                       </svg>
                     </Link>
-
-                    {/* BrickLink Link */}
-                    <Link
-                      href={generateBrickLinkAffiliateLink('S', set.box_no)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => trackAffiliateClick('bricklink', set.box_no, 'set-detail-page')}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        padding: '12px 16px',
-                        background: 'white',
-                        border: '1px solid #e5e5e5',
-                        borderRadius: '8px',
-                        textDecoration: 'none',
-                        transition: 'all 0.2s',
-                        cursor: 'pointer'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = '#f5f5f5';
-                        e.currentTarget.style.borderColor = '#d4d4d4';
-                        e.currentTarget.style.transform = 'translateY(-1px)';
-                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.06)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'white';
-                        e.currentTarget.style.borderColor = '#e5e5e5';
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = 'none';
-                      }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#525252" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                          <polyline points="15 3 21 3 21 9"></polyline>
-                          <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                        <div>
-                          <div style={{
-                            fontWeight: '600',
-                            color: '#171717',
-                            fontSize: 'var(--text-sm)'
-                          }}>
-                            BrickLink
-                          </div>
-                          <div style={{
-                            fontSize: 'var(--text-xs)',
-                            color: '#737373'
-                          }}>
-                            Largest marketplace
-                          </div>
-                        </div>
-                      </div>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#737373" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                      </svg>
-                    </Link>
-                  </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
