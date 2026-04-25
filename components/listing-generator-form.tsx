@@ -132,7 +132,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
       accessories: '',
       known_flaws: '',
       box_condition: 'sealed',
-      completeness: 'complete',
+      completeness: 'complete_verified',
       building_status: 'unbuilt',
       instructions_included: true,
       minifigures_included: true,
@@ -151,7 +151,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
     known_flaws: '',
     // Set fields
     box_condition: 'sealed',
-    completeness: 'complete',
+    completeness: 'complete_verified',
     building_status: 'unbuilt',
     instructions_included: true,
     minifigures_included: true,
@@ -229,7 +229,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
       accessories: '',
       known_flaws: '',
       box_condition: 'sealed',
-      completeness: 'complete',
+      completeness: 'complete_verified',
       building_status: 'unbuilt',
       instructions_included: true,
       minifigures_included: true,
@@ -802,7 +802,6 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                     background: '#ffffff'
                   }}
                 >
-                  <option value="complete">100% complete (all pieces)</option>
                   <option value="complete_verified">100% complete (verified piece count)</option>
                   <option value="appears_complete">Appears complete (not verified)</option>
                   <option value="missing_minor">Missing minor pieces</option>
