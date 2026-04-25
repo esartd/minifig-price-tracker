@@ -516,109 +516,147 @@ export default async function GuidePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
       />
 
-      <article className="min-h-screen bg-[#fafafa]">
+      <article style={{ minHeight: '100vh', background: 'white' }}>
         {/* Breadcrumbs */}
-        <nav className="max-w-[800px] mx-auto px-6 pt-6 text-[length:var(--text-sm)] text-[#737373]">
-          <Link href="/" className="text-[#3b82f6] no-underline hover:underline">Home</Link>
-          {' > '}
-          <Link href="/guides" className="text-[#3b82f6] no-underline hover:underline">Guides</Link>
-          {' > '}
-          <span className="text-[#171717]">{guide.title}</span>
+        <nav style={{
+          maxWidth: '720px',
+          margin: '0 auto',
+          padding: '24px 24px 0',
+          fontSize: 'var(--text-sm)',
+          color: '#737373'
+        }}>
+          <Link href="/" style={{ color: '#3b82f6', textDecoration: 'none' }}>Home</Link>
+          <span> / </span>
+          <Link href="/guides" style={{ color: '#3b82f6', textDecoration: 'none' }}>Guides</Link>
+          <span> / </span>
+          <span style={{ color: '#171717' }}>{guide.title}</span>
         </nav>
 
         {/* Article Header */}
-        <header className="max-w-[800px] mx-auto px-6 pt-12 pb-8">
-          <div className="text-[length:var(--text-sm)] text-[#3b82f6] font-semibold mb-4 uppercase tracking-wide">
-            Guide
-          </div>
-          <h1 className="text-[length:var(--text-4xl)] font-extrabold text-[#171717] leading-[1.1] mb-6 tracking-tight">
+        <header style={{
+          maxWidth: '720px',
+          margin: '0 auto',
+          padding: '40px 24px 32px'
+        }}>
+          <h1 style={{
+            fontSize: 'var(--text-3xl)',
+            fontWeight: '700',
+            color: '#171717',
+            lineHeight: '1.2',
+            marginBottom: '16px'
+          }}>
             {guide.title}
           </h1>
-          <div className="flex gap-4 text-[length:var(--text-sm)] text-[#737373] pb-6 border-b border-[#e5e5e5]">
+          <div style={{
+            display: 'flex',
+            gap: '12px',
+            fontSize: 'var(--text-sm)',
+            color: '#737373',
+            paddingBottom: '32px',
+            borderBottom: '1px solid #e5e5e5'
+          }}>
             <span>{guide.author}</span>
-            <span>•</span>
+            <span>·</span>
             <span>{new Date(guide.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-            <span>•</span>
+            <span>·</span>
             <span>{guide.readTime}</span>
           </div>
         </header>
 
         {/* Article Content */}
-        <div className="max-w-[800px] mx-auto px-6 pb-20">
+        <div style={{
+          maxWidth: '720px',
+          margin: '0 auto',
+          padding: '32px 24px 80px'
+        }}>
           <style dangerouslySetInnerHTML={{ __html: `
-            .guide-prose {
-              font-size: var(--text-base);
-              line-height: 1.7;
+            .article-content {
+              font-size: 18px;
+              line-height: 1.75;
               color: #171717;
             }
-            .guide-prose h1 {
-              font-size: var(--text-3xl);
+            .article-content > *:first-child {
+              margin-top: 0;
+            }
+            .article-content h1 {
+              font-size: 32px;
               font-weight: 700;
-              margin: 48px 0 24px;
+              margin: 56px 0 24px;
               line-height: 1.2;
               color: #171717;
             }
-            .guide-prose h2 {
-              font-size: var(--text-2xl);
+            .article-content h2 {
+              font-size: 28px;
               font-weight: 700;
-              margin: 40px 0 16px;
+              margin: 48px 0 20px;
               line-height: 1.3;
               color: #171717;
             }
-            .guide-prose h3 {
-              font-size: var(--text-xl);
+            .article-content h3 {
+              font-size: 22px;
               font-weight: 600;
-              margin: 32px 0 12px;
+              margin: 40px 0 16px;
               line-height: 1.4;
               color: #171717;
             }
-            .guide-prose p {
-              margin: 20px 0;
-              color: #525252;
+            .article-content p {
+              margin: 24px 0;
+              color: #3c4043;
             }
-            .guide-prose a {
-              color: #3b82f6;
+            .article-content a {
+              color: #1a73e8;
               text-decoration: none;
-              border-bottom: 1px solid #3b82f6;
             }
-            .guide-prose a:hover {
-              color: #2563eb;
-              border-bottom-color: #2563eb;
+            .article-content a:hover {
+              text-decoration: underline;
             }
-            .guide-prose strong {
+            .article-content strong {
               font-weight: 600;
               color: #171717;
             }
-            .guide-prose ul, .guide-prose ol {
-              margin: 20px 0;
-              padding-left: 32px;
+            .article-content ul, .article-content ol {
+              margin: 24px 0;
+              padding-left: 40px;
             }
-            .guide-prose li {
-              margin: 8px 0;
-              color: #525252;
+            .article-content li {
+              margin: 12px 0;
+              color: #3c4043;
+              line-height: 1.75;
             }
-            .guide-prose table {
+            .article-content table {
               width: 100%;
               border-collapse: collapse;
               margin: 32px 0;
+              font-size: 16px;
             }
-            .guide-prose th, .guide-prose td {
+            .article-content th, .article-content td {
               border: 1px solid #e5e5e5;
-              padding: 12px;
+              padding: 16px;
               text-align: left;
             }
-            .guide-prose th {
-              background: #fafafa;
+            .article-content th {
+              background: #f8f9fa;
               font-weight: 600;
+              color: #171717;
             }
-            .guide-prose hr {
+            .article-content td {
+              color: #3c4043;
+            }
+            .article-content hr {
               border: none;
               border-top: 1px solid #e5e5e5;
-              margin: 48px 0;
+              margin: 56px 0;
+            }
+            .article-content blockquote {
+              border-left: 4px solid #e5e5e5;
+              margin: 24px 0;
+              padding-left: 20px;
+              color: #5f6368;
+              font-style: italic;
             }
           `}} />
           <div
-            className="guide-prose"
+            className="article-content"
             dangerouslySetInnerHTML={{
               __html: marked(guide.content, {
                 breaks: true,
@@ -629,17 +667,44 @@ export default async function GuidePage({
         </div>
 
         {/* CTA Footer */}
-        <section className="bg-white border-t border-[#e5e5e5] py-20 px-6 text-center">
-          <div className="max-w-[600px] mx-auto">
-            <h2 className="text-[length:var(--text-2xl)] font-bold text-[#171717] mb-4">
+        <section style={{
+          background: '#f8f9fa',
+          borderTop: '1px solid #e5e5e5',
+          padding: '64px 24px',
+          textAlign: 'center'
+        }}>
+          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+            <h2 style={{
+              fontSize: 'var(--text-2xl)',
+              fontWeight: '700',
+              color: '#171717',
+              marginBottom: '16px'
+            }}>
               Start Tracking Your Collection
             </h2>
-            <p className="text-[length:var(--text-base)] text-[#737373] mb-8">
+            <p style={{
+              fontSize: 'var(--text-base)',
+              color: '#5f6368',
+              marginBottom: '32px',
+              lineHeight: '1.6'
+            }}>
               Use FigTracker to price your LEGO minifigures accurately with real-time Bricklink data
             </p>
             <Link
               href="/search"
-              className="inline-block px-8 py-4 bg-[#3b82f6] text-white font-semibold rounded-xl no-underline hover:bg-[#2563eb] transition-colors"
+              style={{
+                display: 'inline-block',
+                padding: '14px 32px',
+                background: '#1a73e8',
+                color: 'white',
+                fontWeight: '600',
+                borderRadius: '8px',
+                textDecoration: 'none',
+                fontSize: 'var(--text-base)',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = '#1557b0'}
+              onMouseLeave={(e) => e.currentTarget.style.background = '#1a73e8'}
             >
               Search Minifigures →
             </Link>
