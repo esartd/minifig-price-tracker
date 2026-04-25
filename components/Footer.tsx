@@ -4,8 +4,8 @@ export default function Footer() {
   const popularThemes = [
     { name: 'Star Wars', slug: 'star-wars' },
     { name: 'Harry Potter', slug: 'harry-potter' },
-    { name: 'Marvel', slug: 'marvel-super-heroes' },
-    { name: 'DC', slug: 'dc-comics-super-heroes' },
+    { name: 'Super Heroes', slug: 'super-heroes' },
+    { name: 'DC Comics Super Heroes', slug: 'dc-comics-super-heroes' },
     { name: 'City', slug: 'city' },
     { name: 'Ninjago', slug: 'ninjago' },
   ];
