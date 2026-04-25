@@ -914,62 +914,73 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                   flexDirection: 'column',
                   gap: '8px'
                 }}>
-                  {/* BrickLink Link - Always show first for older/retired sets */}
-                  <Link
-                    href={brickLinkUrl}
-                    target="_blank"
-                    rel="noopener noreferrer sponsored"
-                    onClick={() => trackAffiliateClick('bricklink', set.box_no, 'set-detail-page')}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '12px 16px',
-                      background: '#FFF8F0',
-                      border: '2px solid #F26522',
-                      borderRadius: '8px',
-                      textDecoration: 'none',
-                      transition: 'all 0.2s',
-                      cursor: 'pointer'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = '#FFE8D6';
-                      e.currentTarget.style.transform = 'translateY(-1px)';
-                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(242, 101, 34, 0.15)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = '#FFF8F0';
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = 'none';
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F26522" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="3" y="3" width="7" height="7"></rect>
-                        <rect x="14" y="3" width="7" height="7"></rect>
-                        <rect x="14" y="14" width="7" height="7"></rect>
-                        <rect x="3" y="14" width="7" height="7"></rect>
-                      </svg>
-                      <div>
-                        <div style={{
-                          fontWeight: '600',
-                          color: '#171717',
-                          fontSize: 'var(--text-sm)'
-                        }}>
-                          BrickLink
+                  {/* BrickLink Link - Always show, styled based on context */}
+                  {(() => {
+                    const isOnlyOption = availability.status === 'retired';
+                    const bgColor = isOnlyOption ? '#EFF6FF' : '#FFF8F0';
+                    const bgHoverColor = isOnlyOption ? '#DBEAFE' : '#FFE8D6';
+                    const borderColor = isOnlyOption ? '#3b82f6' : '#F26522';
+                    const iconColor = isOnlyOption ? '#3b82f6' : '#F26522';
+                    const shadowColor = isOnlyOption ? 'rgba(59, 130, 246, 0.15)' : 'rgba(242, 101, 34, 0.15)';
+
+                    return (
+                      <Link
+                        href={brickLinkUrl}
+                        target="_blank"
+                        rel="noopener noreferrer sponsored"
+                        onClick={() => trackAffiliateClick('bricklink', set.box_no, 'set-detail-page')}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          padding: '12px 16px',
+                          background: bgColor,
+                          border: `2px solid ${borderColor}`,
+                          borderRadius: '8px',
+                          textDecoration: 'none',
+                          transition: 'all 0.2s',
+                          cursor: 'pointer'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = bgHoverColor;
+                          e.currentTarget.style.transform = 'translateY(-1px)';
+                          e.currentTarget.style.boxShadow = `0 2px 8px ${shadowColor}`;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = bgColor;
+                          e.currentTarget.style.transform = 'translateY(0)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={iconColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                          </svg>
+                          <div>
+                            <div style={{
+                              fontWeight: '600',
+                              color: '#171717',
+                              fontSize: 'var(--text-sm)'
+                            }}>
+                              BrickLink
+                            </div>
+                            <div style={{
+                              fontSize: 'var(--text-xs)',
+                              color: '#737373'
+                            }}>
+                              {availability.status === 'retired' ? 'Best for retired sets' : 'Used & new available'}
+                            </div>
+                          </div>
                         </div>
-                        <div style={{
-                          fontSize: 'var(--text-xs)',
-                          color: '#737373'
-                        }}>
-                          {availability.status === 'retired' ? 'Best for retired sets' : 'Used & new available'}
-                        </div>
-                      </div>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#F26522" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                    </svg>
-                  </Link>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke={iconColor} style={{ width: '18px', height: '18px', flexShrink: 0 }}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                        </svg>
+                      </Link>
+                    );
+                  })()}
 
                   {/* Amazon Link - Show for available sets */}
                   {(availability.status === 'available' || availability.status === 'retiring_soon') && (
