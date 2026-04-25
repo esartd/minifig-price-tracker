@@ -45,19 +45,17 @@ export function generateAmazonAffiliateLink(asin: string): string {
 
 /**
  * BrickLink catalog link generator - goes directly to stores/sellers tab
- * @param itemType - 'S' for sets, 'M' for minifigs
- * @param itemNo - Item number
+ * NOTE: BrickLink does NOT have an affiliate program (shut down after LEGO acquisition)
+ * This is purely for user convenience - no revenue generated
+ * @param itemNo - Item number (e.g., "75192-1")
+ * @param itemType - 'SET' for sets, 'MINIFIG' for minifigs (default: 'SET')
  */
-export function generateBrickLinkAffiliateLink(itemType: string, itemNo: string): string {
-  const bricklinkId = process.env.BRICKLINK_AFFILIATE_ID || '';
+export function generateBrickLinkAffiliateLink(itemNo: string, itemType: 'SET' | 'MINIFIG' = 'SET'): string {
+  // BrickLink uses short codes: S for sets, M for minifigs
+  const typeCode = itemType === 'SET' ? 'S' : 'M';
 
   // Base URL with item
-  let url = `https://www.bricklink.com/v2/catalog/catalogitem.page?${itemType}=${itemNo}`;
-
-  // Add affiliate ID if available
-  if (bricklinkId) {
-    url += `&affid=${bricklinkId}`;
-  }
+  let url = `https://www.bricklink.com/v2/catalog/catalogitem.page?${typeCode}=${itemNo}`;
 
   // Add hash to go directly to stores/sellers tab (where people buy)
   // T=S = Tab: Stores, O={"iconly":0} = Options: show all sellers
@@ -83,7 +81,7 @@ export function generateAmazonMinifigLink(minifigNo: string, minifigName: string
  * @param minifigNo - Minifig number (e.g., "sw1219")
  */
 export function generateBrickLinkMinifigLink(minifigNo: string): string {
-  return generateBrickLinkAffiliateLink('M', minifigNo);
+  return generateBrickLinkAffiliateLink(minifigNo, 'MINIFIG');
 }
 
 /**
