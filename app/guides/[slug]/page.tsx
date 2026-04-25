@@ -545,13 +545,80 @@ export default async function GuidePage({
 
         {/* Article Content */}
         <div className="max-w-[800px] mx-auto px-6 pb-20">
+          <style dangerouslySetInnerHTML={{ __html: `
+            .guide-prose {
+              font-size: var(--text-base);
+              line-height: 1.7;
+              color: #171717;
+            }
+            .guide-prose h1 {
+              font-size: var(--text-3xl);
+              font-weight: 700;
+              margin: 48px 0 24px;
+              line-height: 1.2;
+              color: #171717;
+            }
+            .guide-prose h2 {
+              font-size: var(--text-2xl);
+              font-weight: 700;
+              margin: 40px 0 16px;
+              line-height: 1.3;
+              color: #171717;
+            }
+            .guide-prose h3 {
+              font-size: var(--text-xl);
+              font-weight: 600;
+              margin: 32px 0 12px;
+              line-height: 1.4;
+              color: #171717;
+            }
+            .guide-prose p {
+              margin: 20px 0;
+              color: #525252;
+            }
+            .guide-prose a {
+              color: #3b82f6;
+              text-decoration: none;
+              border-bottom: 1px solid #3b82f6;
+            }
+            .guide-prose a:hover {
+              color: #2563eb;
+              border-bottom-color: #2563eb;
+            }
+            .guide-prose strong {
+              font-weight: 600;
+              color: #171717;
+            }
+            .guide-prose ul, .guide-prose ol {
+              margin: 20px 0;
+              padding-left: 32px;
+            }
+            .guide-prose li {
+              margin: 8px 0;
+              color: #525252;
+            }
+            .guide-prose table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 32px 0;
+            }
+            .guide-prose th, .guide-prose td {
+              border: 1px solid #e5e5e5;
+              padding: 12px;
+              text-align: left;
+            }
+            .guide-prose th {
+              background: #fafafa;
+              font-weight: 600;
+            }
+            .guide-prose hr {
+              border: none;
+              border-top: 1px solid #e5e5e5;
+              margin: 48px 0;
+            }
+          `}} />
           <div
-            className="prose"
-            style={{
-              fontSize: 'var(--text-base)',
-              lineHeight: '1.7',
-              color: '#171717'
-            }}
+            className="guide-prose"
             dangerouslySetInnerHTML={{
               __html: marked(guide.content, {
                 breaks: true,
@@ -559,73 +626,6 @@ export default async function GuidePage({
               })
             }}
           />
-          <style jsx global>{`
-            .prose h1 {
-              font-size: var(--text-3xl);
-              font-weight: 700;
-              margin: 48px 0 24px;
-              line-height: 1.2;
-              color: #171717;
-            }
-            .prose h2 {
-              font-size: var(--text-2xl);
-              font-weight: 700;
-              margin: 40px 0 16px;
-              line-height: 1.3;
-              color: #171717;
-            }
-            .prose h3 {
-              font-size: var(--text-xl);
-              font-weight: 600;
-              margin: 32px 0 12px;
-              line-height: 1.4;
-              color: #171717;
-            }
-            .prose p {
-              margin: 20px 0;
-              color: #525252;
-            }
-            .prose a {
-              color: #3b82f6;
-              text-decoration: none;
-              border-bottom: 1px solid #3b82f6;
-            }
-            .prose a:hover {
-              color: #2563eb;
-              border-bottom-color: #2563eb;
-            }
-            .prose strong {
-              font-weight: 600;
-              color: #171717;
-            }
-            .prose ul, .prose ol {
-              margin: 20px 0;
-              padding-left: 32px;
-            }
-            .prose li {
-              margin: 8px 0;
-              color: #525252;
-            }
-            .prose table {
-              width: 100%;
-              border-collapse: collapse;
-              margin: 32px 0;
-            }
-            .prose th, .prose td {
-              border: 1px solid #e5e5e5;
-              padding: 12px;
-              text-align: left;
-            }
-            .prose th {
-              background: #fafafa;
-              font-weight: 600;
-            }
-            .prose hr {
-              border: none;
-              border-top: 1px solid #e5e5e5;
-              margin: 48px 0;
-            }
-          `}</style>
         </div>
 
         {/* CTA Footer */}
