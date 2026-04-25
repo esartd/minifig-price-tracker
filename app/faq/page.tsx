@@ -139,10 +139,10 @@ export default function FAQPage() {
                     className="border-b border-[#e5e5e5] py-6 group"
                   >
                     <summary className="text-[length:var(--text-lg)] font-semibold text-[#171717] cursor-pointer list-none flex justify-between items-start gap-4">
-                      <span>{faq.question}</span>
-                      <ChevronDownIcon className="w-6 h-6 text-[#737373] flex-shrink-0 transition-transform group-open:rotate-180" />
+                      <span className="flex-1">{faq.question}</span>
+                      <ChevronDownIcon className="w-5 h-5 text-[#737373] flex-shrink-0 transition-transform group-open:rotate-180" style={{ minWidth: '20px', minHeight: '20px' }} />
                     </summary>
-                    <p className="mt-4 text-[length:var(--text-base)] text-[#525252] leading-[1.7] pr-10">
+                    <p className="mt-4 text-[length:var(--text-base)] text-[#525252] leading-[1.7]">
                       {faq.answer}
                     </p>
                   </details>
