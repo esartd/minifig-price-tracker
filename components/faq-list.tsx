@@ -28,7 +28,9 @@ export default function FAQList({ faqs }: FAQListProps) {
       {faqs.map((faq, index) => (
         <details
           key={index}
-          ref={(el) => (detailsRefs.current[index] = el)}
+          ref={(el) => {
+            detailsRefs.current[index] = el;
+          }}
           className="border-b border-[#e5e5e5] group"
           style={{ paddingTop: '32px', paddingBottom: '32px' }}
           onToggle={() => handleToggle(index)}
