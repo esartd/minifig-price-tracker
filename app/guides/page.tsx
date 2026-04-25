@@ -151,13 +151,14 @@ export default function GuidesPage() {
                         <h3 className="text-[length:var(--text-base)] font-semibold text-[#171717]" style={{ marginBottom: '16px' }}>
                           What you'll learn:
                         </h3>
-                        <ul className="list-none p-0 m-0 flex flex-col" style={{ gap: '12px' }}>
+                        <ul className="list-none p-0 m-0 flex flex-col" style={{ gap: '12px', paddingLeft: '24px' }}>
                           {guide.topics.map((topic, topicIndex) => (
                             <li
                               key={topicIndex}
-                              className="text-[length:var(--text-base)] text-[#525252] pl-6 relative"
+                              className="text-[length:var(--text-base)] text-[#525252] relative"
+                              style={{ paddingLeft: '16px' }}
                             >
-                              <span className="absolute left-0 text-[#3b82f6]">•</span>
+                              <span className="absolute text-[#3b82f6]" style={{ left: '0' }}>•</span>
                               {topic}
                             </li>
                           ))}
@@ -167,8 +168,7 @@ export default function GuidesPage() {
                       {guide.status === 'published' ? (
                         <Link
                           href={`/guides/${guide.slug}`}
-                          className="inline-block px-6 py-3 bg-[#3b82f6] text-white font-semibold rounded-lg no-underline transition-all duration-200 hover:bg-[#2563eb]"
-                          style={{ fontSize: 'var(--text-base)' }}
+                          className="cta-button"
                         >
                           Read Guide →
                         </Link>
