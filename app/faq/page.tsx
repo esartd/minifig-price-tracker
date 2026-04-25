@@ -136,13 +136,14 @@ export default function FAQPage() {
                 {faqs.map((faq, index) => (
                   <details
                     key={index}
-                    className="border-b border-[#e5e5e5] py-6 group"
+                    className="border-b border-[#e5e5e5] group"
+                    style={{ paddingTop: '32px', paddingBottom: '32px' }}
                   >
-                    <summary className="text-[length:var(--text-lg)] font-semibold text-[#171717] cursor-pointer list-none flex justify-between items-start gap-4">
+                    <summary className="text-[length:var(--text-lg)] font-semibold text-[#171717] cursor-pointer list-none flex justify-between items-start" style={{ gap: '24px' }}>
                       <span className="flex-1">{faq.question}</span>
                       <ChevronDownIcon style={{ width: '20px', height: '20px', minWidth: '20px', minHeight: '20px', maxWidth: '20px', maxHeight: '20px', color: '#737373', flexShrink: '0', transition: 'transform 0.2s' }} className="group-open:rotate-180" />
                     </summary>
-                    <p className="mt-4 text-[length:var(--text-base)] text-[#525252] leading-[1.7]">
+                    <p style={{ marginTop: '16px', fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.7' }}>
                       {faq.answer}
                     </p>
                   </details>
