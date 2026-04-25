@@ -962,7 +962,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           <div>
                             <div style={{
                               fontWeight: '600',
-                              color: '#171717',
+                              color: '#3b82f6',
                               fontSize: 'var(--text-sm)'
                             }}>
                               BrickLink
@@ -1021,7 +1021,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                         <div>
                           <div style={{
                             fontWeight: '600',
-                            color: '#171717',
+                            color: '#FF9900',
                             fontSize: 'var(--text-sm)'
                           }}>
                             Amazon
