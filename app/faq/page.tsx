@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { EnvelopeIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import FAQList from '@/components/faq-list';
 
 export const metadata: Metadata = {
   title: 'FAQ - Frequently Asked Questions | FigTracker',
@@ -132,23 +132,7 @@ export default function FAQPage() {
         <section className="about-section bg-white">
           <div className="about-page-container">
             <div className="max-w-[800px] mx-auto">
-              <div className="flex flex-col">
-                {faqs.map((faq, index) => (
-                  <details
-                    key={index}
-                    className="border-b border-[#e5e5e5] group"
-                    style={{ paddingTop: '32px', paddingBottom: '32px' }}
-                  >
-                    <summary className="text-[length:var(--text-lg)] font-semibold text-[#171717] cursor-pointer list-none flex justify-between items-start" style={{ gap: '24px' }}>
-                      <span className="flex-1">{faq.question}</span>
-                      <ChevronDownIcon style={{ width: '20px', height: '20px', minWidth: '20px', minHeight: '20px', maxWidth: '20px', maxHeight: '20px', color: '#737373', flexShrink: '0', transition: 'transform 0.2s' }} className="group-open:rotate-180" />
-                    </summary>
-                    <p style={{ marginTop: '16px', fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.7' }}>
-                      {faq.answer}
-                    </p>
-                  </details>
-                ))}
-              </div>
+              <FAQList faqs={faqs} />
             </div>
           </div>
         </section>
