@@ -157,21 +157,44 @@ export default function FAQPage() {
           <div className="about-page-container">
             <div className="section-content-narrow">
               <h2>Still have questions?</h2>
-              <p className="mb-8">Can&apos;t find the answer you&apos;re looking for? Reach out to our support team.</p>
+              <p style={{ marginBottom: '32px' }}>Can&apos;t find the answer you&apos;re looking for? Reach out to our support team.</p>
 
-              <div className="bg-[#fafafa] border border-[#e5e5e5] rounded-xl p-8 text-center">
-                <div className="flex justify-center mb-4">
-                  <EnvelopeIcon className="w-12 h-12 text-[#3b82f6]" />
-                </div>
-                <h3 className="text-[length:var(--text-lg)] font-semibold text-[#171717] mb-2">
+              <div style={{
+                background: '#fafafa',
+                border: '1px solid #e5e5e5',
+                borderRadius: '12px',
+                padding: '32px',
+                textAlign: 'center'
+              }}>
+                <h3 style={{
+                  fontSize: 'var(--text-lg)',
+                  fontWeight: '600',
+                  color: '#171717',
+                  marginBottom: '8px'
+                }}>
                   Contact Support
                 </h3>
-                <p className="text-[length:var(--text-sm)] text-[#737373] mb-5">
+                <p style={{
+                  fontSize: 'var(--text-sm)',
+                  color: '#737373',
+                  marginBottom: '20px'
+                }}>
                   Email us with any questions or feedback
                 </p>
                 <a
                   href="mailto:hello@ericksu.com"
-                  className="email-button inline-block px-6 py-3 text-[length:var(--text-sm)] font-semibold text-white bg-[#3b82f6] rounded-lg no-underline transition-all duration-200"
+                  style={{
+                    display: 'inline-block',
+                    padding: '12px 24px',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '600',
+                    color: '#ffffff',
+                    background: '#3b82f6',
+                    border: 'none',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s'
+                  }}
                 >
                   hello@ericksu.com
                 </a>
