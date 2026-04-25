@@ -140,7 +140,7 @@ export default function FAQPage() {
                   >
                     <summary className="text-[length:var(--text-lg)] font-semibold text-[#171717] cursor-pointer list-none flex justify-between items-start gap-4">
                       <span className="flex-1">{faq.question}</span>
-                      <ChevronDownIcon className="w-5 h-5 text-[#737373] flex-shrink-0 transition-transform group-open:rotate-180" style={{ minWidth: '20px', minHeight: '20px' }} />
+                      <ChevronDownIcon style={{ width: '20px', height: '20px', minWidth: '20px', minHeight: '20px', maxWidth: '20px', maxHeight: '20px', color: '#737373', flexShrink: '0', transition: 'transform 0.2s' }} className="group-open:rotate-180" />
                     </summary>
                     <p className="mt-4 text-[length:var(--text-base)] text-[#525252] leading-[1.7]">
                       {faq.answer}
