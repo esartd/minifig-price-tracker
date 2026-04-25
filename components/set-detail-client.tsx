@@ -914,14 +914,13 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                   flexDirection: 'column',
                   gap: '8px'
                 }}>
-                  {/* BrickLink Link - Always show, styled based on context */}
+                  {/* BrickLink Link - Always show with blue styling */}
                   {(() => {
-                    const isOnlyOption = availability.status === 'retired';
-                    const bgColor = isOnlyOption ? '#EFF6FF' : '#FFF8F0';
-                    const bgHoverColor = isOnlyOption ? '#DBEAFE' : '#FFE8D6';
-                    const borderColor = isOnlyOption ? '#3b82f6' : '#F26522';
-                    const iconColor = isOnlyOption ? '#3b82f6' : '#F26522';
-                    const shadowColor = isOnlyOption ? 'rgba(59, 130, 246, 0.15)' : 'rgba(242, 101, 34, 0.15)';
+                    const bgColor = '#EFF6FF';
+                    const bgHoverColor = '#DBEAFE';
+                    const borderColor = '#3b82f6';
+                    const iconColor = '#3b82f6';
+                    const shadowColor = 'rgba(59, 130, 246, 0.15)';
 
                     return (
                       <Link
