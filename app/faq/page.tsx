@@ -95,10 +95,30 @@ export default function FAQPage() {
         {/* Hero Section */}
         <header className="hero-section">
           <div className="hero-content">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/15 border border-white/25 rounded-full mb-10 h-11">
-              <span className="text-[length:var(--text-xs)] font-semibold text-white tracking-wider uppercase leading-none whitespace-nowrap">
-                HELP CENTER
-              </span>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '10px',
+              padding: '10px 20px',
+              background: 'rgba(255, 255, 255, 0.15)',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
+              borderRadius: '32px',
+              marginBottom: '40px',
+              lineHeight: '1',
+              height: '44px',
+              minHeight: '44px',
+              maxHeight: '44px',
+              boxSizing: 'border-box'
+            }}>
+              <span style={{
+                fontSize: 'var(--text-xs)',
+                fontWeight: '600',
+                color: '#ffffff',
+                letterSpacing: '0.8px',
+                textTransform: 'uppercase',
+                lineHeight: '1',
+                whiteSpace: 'nowrap'
+              }}>HELP CENTER</span>
             </div>
             <h1>Frequently Asked Questions</h1>
             <p>Everything you need to know about pricing and tracking LEGO minifigures</p>
