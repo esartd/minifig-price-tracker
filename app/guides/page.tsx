@@ -95,10 +95,30 @@ export default function GuidesPage() {
         {/* Hero Section */}
         <header className="hero-section">
           <div className="hero-content">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/15 border border-white/25 rounded-full mb-10 h-11">
-              <span className="text-[length:var(--text-xs)] font-semibold text-white tracking-wider uppercase leading-none whitespace-nowrap">
-                GUIDES & RESOURCES
-              </span>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '10px',
+              padding: '10px 20px',
+              background: 'rgba(255, 255, 255, 0.15)',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
+              borderRadius: '32px',
+              marginBottom: '40px',
+              lineHeight: '1',
+              height: '44px',
+              minHeight: '44px',
+              maxHeight: '44px',
+              boxSizing: 'border-box'
+            }}>
+              <span style={{
+                fontSize: 'var(--text-xs)',
+                fontWeight: '600',
+                color: '#ffffff',
+                letterSpacing: '0.8px',
+                textTransform: 'uppercase',
+                lineHeight: '1',
+                whiteSpace: 'nowrap'
+              }}>GUIDES & RESOURCES</span>
             </div>
             <h1>Master LEGO<br />Minifigure Pricing</h1>
             <p>Expert guides to help you price, sell, and manage your minifigure inventory like a pro</p>
@@ -111,17 +131,17 @@ export default function GuidesPage() {
         <section className="about-section bg-white">
           <div className="about-page-container">
             <div className="max-w-[1000px] mx-auto">
-              <div className="flex flex-col gap-12">
+              <div className="flex flex-col" style={{ gap: '64px' }}>
                 {guides.map((guide, index) => {
                   const Icon = guide.icon;
                   return (
                     <article
                       key={index}
-                      className="bg-[#fafafa] border border-[#e5e5e5] rounded-2xl p-6 md:p-10"
+                      className="border-b border-[#e5e5e5] pb-16 last:border-b-0"
                     >
                       <div className="flex gap-6 items-start flex-wrap">
-                        <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
-                          <Icon className="w-8 h-8 text-[#3b82f6]" />
+                        <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+                          <Icon className="w-6 h-6 text-[#3b82f6]" />
                         </div>
 
                         <div className="flex-1 min-w-[280px]">
@@ -133,8 +153,8 @@ export default function GuidesPage() {
                           </p>
 
                           <div className="mb-6">
-                            <h3 className="text-[length:var(--text-sm)] font-semibold text-[#171717] mb-3 uppercase tracking-wide">
-                              Topics Covered:
+                            <h3 className="text-[length:var(--text-sm)] font-semibold text-[#737373] mb-3 uppercase tracking-wide">
+                              What you'll learn
                             </h3>
                             <ul className="list-none p-0 m-0 flex flex-col gap-2">
                               {guide.topics.map((topic, topicIndex) => (
@@ -142,7 +162,7 @@ export default function GuidesPage() {
                                   key={topicIndex}
                                   className="text-[length:var(--text-sm)] text-[#525252] pl-6 relative"
                                 >
-                                  <span className="absolute left-0 text-[#3b82f6] font-semibold">✓</span>
+                                  <span className="absolute left-0 text-[#3b82f6]">•</span>
                                   {topic}
                                 </li>
                               ))}
@@ -157,8 +177,8 @@ export default function GuidesPage() {
                               Read Guide →
                             </Link>
                           ) : (
-                            <div className="px-6 py-4 bg-[#fff3cd] border border-[#ffd966] rounded-lg text-[length:var(--text-sm)] text-[#856404] font-medium">
-                              📝 Guide coming soon - check back later
+                            <div className="inline-block px-4 py-2 bg-[#fafafa] border border-[#e5e5e5] rounded-lg text-[length:var(--text-sm)] text-[#737373] font-medium">
+                              Coming soon
                             </div>
                           )}
                         </div>
@@ -176,35 +196,32 @@ export default function GuidesPage() {
           <div className="about-page-container">
             <div className="section-content-medium">
               <h2>Quick Pricing Tips</h2>
-              <p className="mb-10">Essential knowledge every LEGO seller should know</p>
+              <p style={{ marginBottom: '48px' }}>Essential knowledge every LEGO seller should know</p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white border border-[#e5e5e5] rounded-xl p-6">
-                  <div className="text-[32px] mb-3">💡</div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+                <div>
                   <h3 className="text-[length:var(--text-lg)] font-semibold text-[#171717] mb-2">
                     Refresh Prices Regularly
                   </h3>
-                  <p className="text-[length:var(--text-sm)] text-[#525252] leading-[1.6]">
+                  <p className="text-[length:var(--text-base)] text-[#525252] leading-[1.7]">
                     Marketplace prices change frequently. Refresh pricing data before listing to ensure competitive pricing.
                   </p>
                 </div>
 
-                <div className="bg-white border border-[#e5e5e5] rounded-xl p-6">
-                  <div className="text-[32px] mb-3">🎯</div>
+                <div>
                   <h3 className="text-[length:var(--text-lg)] font-semibold text-[#171717] mb-2">
                     Condition Matters
                   </h3>
-                  <p className="text-[length:var(--text-sm)] text-[#525252] leading-[1.6]">
+                  <p className="text-[length:var(--text-base)] text-[#525252] leading-[1.7]">
                     New minifigures command 20-50% higher prices than used. Grade condition honestly to build buyer trust.
                   </p>
                 </div>
 
-                <div className="bg-white border border-[#e5e5e5] rounded-xl p-6">
-                  <div className="text-[32px] mb-3">📊</div>
+                <div>
                   <h3 className="text-[length:var(--text-lg)] font-semibold text-[#171717] mb-2">
                     Use Multiple Data Points
                   </h3>
-                  <p className="text-[length:var(--text-sm)] text-[#525252] leading-[1.6]">
+                  <p className="text-[length:var(--text-base)] text-[#525252] leading-[1.7]">
                     Don&apos;t rely on just one metric. FigTracker&apos;s suggested price balances quantity-weighted average, simple average, and lowest price.
                   </p>
                 </div>
