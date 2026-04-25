@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { EnvelopeIcon } from '@heroicons/react/24/outline';
+import { EnvelopeIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
 export const metadata: Metadata = {
   title: 'FAQ - Frequently Asked Questions | FigTracker',
@@ -136,13 +136,13 @@ export default function FAQPage() {
                 {faqs.map((faq, index) => (
                   <details
                     key={index}
-                    className="border-b border-[#e5e5e5] py-6"
+                    className="border-b border-[#e5e5e5] py-6 group"
                   >
-                    <summary className="text-[length:var(--text-lg)] font-semibold text-[#171717] cursor-pointer list-none flex justify-between items-center">
-                      {faq.question}
-                      <span className="text-[length:var(--text-2xl)] text-[#737373] ml-4">+</span>
+                    <summary className="text-[length:var(--text-lg)] font-semibold text-[#171717] cursor-pointer list-none flex justify-between items-start gap-4">
+                      <span>{faq.question}</span>
+                      <ChevronDownIcon className="w-6 h-6 text-[#737373] flex-shrink-0 transition-transform group-open:rotate-180" />
                     </summary>
-                    <p className="mt-4 text-[length:var(--text-base)] text-[#525252] leading-[1.7]">
+                    <p className="mt-4 text-[length:var(--text-base)] text-[#525252] leading-[1.7] pr-10">
                       {faq.answer}
                     </p>
                   </details>
