@@ -137,52 +137,46 @@ export default function GuidesPage() {
                   return (
                     <article
                       key={index}
-                      className="border-b border-[#e5e5e5] pb-16 last:border-b-0"
+                      className="border-b border-[#e5e5e5] last:border-b-0"
+                      style={{ paddingBottom: '64px' }}
                     >
-                      <div className="flex gap-6 items-start flex-wrap">
-                        <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
-                          <Icon className="w-6 h-6 text-[#3b82f6]" />
-                        </div>
+                      <h2 className="text-[length:var(--text-2xl)] font-bold text-[#171717] mb-3">
+                        {guide.title}
+                      </h2>
+                      <p className="text-[length:var(--text-base)] text-[#525252] leading-[1.7]" style={{ marginBottom: '32px' }}>
+                        {guide.description}
+                      </p>
 
-                        <div className="flex-1 min-w-[280px]">
-                          <h2 className="text-[length:var(--text-2xl)] font-bold text-[#171717] mb-3">
-                            {guide.title}
-                          </h2>
-                          <p className="text-[length:var(--text-base)] text-[#525252] leading-[1.7] mb-6">
-                            {guide.description}
-                          </p>
-
-                          <div className="mb-6">
-                            <h3 className="text-[length:var(--text-sm)] font-semibold text-[#737373] mb-3 uppercase tracking-wide">
-                              What you'll learn
-                            </h3>
-                            <ul className="list-none p-0 m-0 flex flex-col gap-2">
-                              {guide.topics.map((topic, topicIndex) => (
-                                <li
-                                  key={topicIndex}
-                                  className="text-[length:var(--text-sm)] text-[#525252] pl-6 relative"
-                                >
-                                  <span className="absolute left-0 text-[#3b82f6]">•</span>
-                                  {topic}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-
-                          {guide.status === 'published' ? (
-                            <Link
-                              href={`/guides/${guide.slug}`}
-                              className="inline-block px-6 py-3 bg-[#3b82f6] text-white font-semibold rounded-lg no-underline transition-all duration-200 hover:bg-[#2563eb]"
+                      <div style={{ marginBottom: '32px' }}>
+                        <h3 className="text-[length:var(--text-base)] font-semibold text-[#171717]" style={{ marginBottom: '16px' }}>
+                          What you'll learn:
+                        </h3>
+                        <ul className="list-none p-0 m-0 flex flex-col" style={{ gap: '12px' }}>
+                          {guide.topics.map((topic, topicIndex) => (
+                            <li
+                              key={topicIndex}
+                              className="text-[length:var(--text-base)] text-[#525252] pl-6 relative"
                             >
-                              Read Guide →
-                            </Link>
-                          ) : (
-                            <div className="inline-block px-4 py-2 bg-[#fafafa] border border-[#e5e5e5] rounded-lg text-[length:var(--text-sm)] text-[#737373] font-medium">
-                              Coming soon
-                            </div>
-                          )}
-                        </div>
+                              <span className="absolute left-0 text-[#3b82f6]">•</span>
+                              {topic}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
+
+                      {guide.status === 'published' ? (
+                        <Link
+                          href={`/guides/${guide.slug}`}
+                          className="inline-block px-6 py-3 bg-[#3b82f6] text-white font-semibold rounded-lg no-underline transition-all duration-200 hover:bg-[#2563eb]"
+                          style={{ fontSize: 'var(--text-base)' }}
+                        >
+                          Read Guide →
+                        </Link>
+                      ) : (
+                        <div className="inline-block px-4 py-2 bg-[#fafafa] border border-[#e5e5e5] rounded-lg text-[length:var(--text-sm)] text-[#737373] font-medium">
+                          Coming soon
+                        </div>
+                      )}
                     </article>
                   );
                 })}
