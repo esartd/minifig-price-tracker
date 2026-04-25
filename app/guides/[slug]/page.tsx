@@ -692,19 +692,7 @@ export default async function GuidePage({
             </p>
             <Link
               href="/search"
-              style={{
-                display: 'inline-block',
-                padding: '14px 32px',
-                background: '#1a73e8',
-                color: 'white',
-                fontWeight: '600',
-                borderRadius: '8px',
-                textDecoration: 'none',
-                fontSize: 'var(--text-base)',
-                transition: 'background 0.2s'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.background = '#1557b0'}
-              onMouseLeave={(e) => e.currentTarget.style.background = '#1a73e8'}
+              className="cta-button"
             >
               Search Minifigures →
             </Link>
