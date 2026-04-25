@@ -518,16 +518,26 @@ export default async function GuidePage({
 
       <article style={{ minHeight: '100vh', background: 'white' }}>
         {/* Breadcrumbs */}
-        <nav style={{
-          maxWidth: '720px',
-          margin: '0 auto',
-          padding: '24px 24px 0',
-          fontSize: 'var(--text-sm)',
-          color: '#737373'
-        }}>
-          <Link href="/" style={{ color: '#3b82f6', textDecoration: 'none' }}>Home</Link>
+        <style dangerouslySetInnerHTML={{ __html: `
+          .breadcrumb-nav {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 24px 24px 0;
+            font-size: var(--text-sm);
+            color: #737373;
+          }
+          .breadcrumb-nav a {
+            color: #3b82f6;
+            text-decoration: none;
+          }
+          .breadcrumb-nav a:hover {
+            text-decoration: underline;
+          }
+        `}} />
+        <nav className="breadcrumb-nav">
+          <Link href="/">Home</Link>
           <span> / </span>
-          <Link href="/guides" style={{ color: '#3b82f6', textDecoration: 'none' }}>Guides</Link>
+          <Link href="/guides">Guides</Link>
           <span> / </span>
           <span style={{ color: '#171717' }}>{guide.title}</span>
         </nav>
