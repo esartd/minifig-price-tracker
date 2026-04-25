@@ -124,7 +124,7 @@ The revival of [Harry Potter](/themes/harry-potter) sets in 2018 created renewed
 Prices: $50-$300 depending on variant and condition
 
 ### Marvel Super Heroes
-MCU popularity drives [Marvel](/themes/marvel-super-heroes) values:
+MCU popularity drives [Marvel](/themes/super-heroes) values:
 - Loki (Avengers era, printed legs)
 - Deadpool (first release)
 - Spider-Man variants (symbiote, Iron Spider)
