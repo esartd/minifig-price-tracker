@@ -407,7 +407,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'DUPLO': '47394pb342',
   'Friends': 'frnd0896',
   'Gabby\'s Dollhouse': 'gdh010',
-  'Harry Potter': 'hp165',
+  'Harry Potter': 'hp300',
   'Holiday & Event': 'hol381',
   'Horizon': 'hrz001',
   'Jurassic World': 'jw100',
