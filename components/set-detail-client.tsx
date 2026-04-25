@@ -961,7 +961,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           <div>
                             <div style={{
                               fontWeight: '600',
-                              color: '#3b82f6',
+                              color: '#171717',
                               fontSize: 'var(--text-sm)'
                             }}>
                               BrickLink
