@@ -188,13 +188,14 @@ export default function GuidesPage() {
         {/* Quick Tips */}
         <section className="about-section about-personas-section">
           <div className="about-page-container">
-            <div className="section-content-medium">
-              <h2>Quick Pricing Tips</h2>
-              <p style={{ marginBottom: '48px' }}>Essential knowledge every LEGO seller should know</p>
+            <div className="max-w-[1000px] mx-auto">
+              <h2 className="text-[length:var(--text-2xl)] font-bold text-[#171717]" style={{ marginBottom: '48px' }}>
+                Quick Pricing Tips
+              </h2>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+              <div className="flex flex-col" style={{ gap: '48px' }}>
                 <div>
-                  <h3 className="text-[length:var(--text-lg)] font-semibold text-[#171717] mb-2">
+                  <h3 className="text-[length:var(--text-lg)] font-semibold text-[#171717]" style={{ marginBottom: '8px' }}>
                     Refresh Prices Regularly
                   </h3>
                   <p className="text-[length:var(--text-base)] text-[#525252] leading-[1.7]">
@@ -203,7 +204,7 @@ export default function GuidesPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-[length:var(--text-lg)] font-semibold text-[#171717] mb-2">
+                  <h3 className="text-[length:var(--text-lg)] font-semibold text-[#171717]" style={{ marginBottom: '8px' }}>
                     Condition Matters
                   </h3>
                   <p className="text-[length:var(--text-base)] text-[#525252] leading-[1.7]">
@@ -212,7 +213,7 @@ export default function GuidesPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-[length:var(--text-lg)] font-semibold text-[#171717] mb-2">
+                  <h3 className="text-[length:var(--text-lg)] font-semibold text-[#171717]" style={{ marginBottom: '8px' }}>
                     Use Multiple Data Points
                   </h3>
                   <p className="text-[length:var(--text-base)] text-[#525252] leading-[1.7]">
