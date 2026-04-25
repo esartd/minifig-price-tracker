@@ -761,6 +761,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                   <option value="opened_mint">Opened - box in mint condition</option>
                   <option value="opened_good">Opened - box in good condition</option>
                   <option value="opened_damaged">Opened - box has wear/damage</option>
+                  <option value="flattened">Flattened box</option>
                   <option value="no_box">No box (set only)</option>
                 </select>
               </div>
