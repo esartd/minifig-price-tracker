@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { marked } from 'marked';
 
 // Guide content database
 const guides = {
@@ -545,36 +546,86 @@ export default async function GuidePage({
         {/* Article Content */}
         <div className="max-w-[800px] mx-auto px-6 pb-20">
           <div
-            className="prose text-[length:var(--text-lg)] leading-[1.8] text-[#171717]"
+            className="prose"
+            style={{
+              fontSize: 'var(--text-base)',
+              lineHeight: '1.7',
+              color: '#171717'
+            }}
             dangerouslySetInnerHTML={{
-              __html: guide.content
-                .split('\n')
-                .map(line => {
-                  // Headers
-                  if (line.startsWith('# ')) return `<h1 style="font-size: var(--text-3xl); font-weight: 700; margin: 48px 0 24px; line-height: 1.2;">${line.slice(2)}</h1>`;
-                  if (line.startsWith('## ')) return `<h2 style="font-size: var(--text-2xl); font-weight: 700; margin: 40px 0 16px; line-height: 1.3;">${line.slice(3)}</h2>`;
-                  if (line.startsWith('### ')) return `<h3 style="font-size: var(--text-xl); font-weight: 600; margin: 32px 0 12px; line-height: 1.4;">${line.slice(4)}</h3>`;
-
-                  // Bold
-                  if (line.includes('**')) {
-                    line = line.replace(/\*\*(.*?)\*\*/g, '<strong style="font-weight: 600; color: #171717;">$1</strong>');
-                  }
-
-                  // Links
-                  if (line.includes('[') && line.includes('](')) {
-                    line = line.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" style="color: #3b82f6; text-decoration: none; border-bottom: 1px solid #3b82f6;">$1</a>');
-                  }
-
-                  // Paragraphs
-                  if (line.trim() && !line.startsWith('<') && !line.startsWith('#')) {
-                    return `<p style="margin: 20px 0; color: #525252;">${line}</p>`;
-                  }
-
-                  return line;
-                })
-                .join('')
+              __html: marked(guide.content, {
+                breaks: true,
+                gfm: true,
+              })
             }}
           />
+          <style jsx global>{`
+            .prose h1 {
+              font-size: var(--text-3xl);
+              font-weight: 700;
+              margin: 48px 0 24px;
+              line-height: 1.2;
+              color: #171717;
+            }
+            .prose h2 {
+              font-size: var(--text-2xl);
+              font-weight: 700;
+              margin: 40px 0 16px;
+              line-height: 1.3;
+              color: #171717;
+            }
+            .prose h3 {
+              font-size: var(--text-xl);
+              font-weight: 600;
+              margin: 32px 0 12px;
+              line-height: 1.4;
+              color: #171717;
+            }
+            .prose p {
+              margin: 20px 0;
+              color: #525252;
+            }
+            .prose a {
+              color: #3b82f6;
+              text-decoration: none;
+              border-bottom: 1px solid #3b82f6;
+            }
+            .prose a:hover {
+              color: #2563eb;
+              border-bottom-color: #2563eb;
+            }
+            .prose strong {
+              font-weight: 600;
+              color: #171717;
+            }
+            .prose ul, .prose ol {
+              margin: 20px 0;
+              padding-left: 32px;
+            }
+            .prose li {
+              margin: 8px 0;
+              color: #525252;
+            }
+            .prose table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 32px 0;
+            }
+            .prose th, .prose td {
+              border: 1px solid #e5e5e5;
+              padding: 12px;
+              text-align: left;
+            }
+            .prose th {
+              background: #fafafa;
+              font-weight: 600;
+            }
+            .prose hr {
+              border: none;
+              border-top: 1px solid #e5e5e5;
+              margin: 48px 0;
+            }
+          `}</style>
         </div>
 
         {/* CTA Footer */}
