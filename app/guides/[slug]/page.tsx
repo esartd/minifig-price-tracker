@@ -130,8 +130,8 @@ MCU popularity drives [Marvel](/themes/marvel-super-heroes) values:
 
 Prices: $40-$200 for sought-after variants
 
-### DC Super Heroes
-Batman variants are plentiful, but rare [DC Super Heroes](/themes/dc-comics-super-heroes) versions command premiums:
+### DC Comics Super Heroes
+Batman variants are plentiful, but rare [DC Comics Super Heroes](/themes/dc-comics-super-heroes) versions command premiums:
 - Comic-Con exclusive Batman figures
 - Early Joker variants
 - Original Superman from 2012
