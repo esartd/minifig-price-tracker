@@ -64,11 +64,14 @@ export async function POST(
       theme = parts[0];
     }
 
+    // Strip -1, -2, -3 suffix from box number for consumer-facing listings
+    const cleanBoxNo = item.box_no.replace(/-\d+$/, '');
+
     // Generate listing using template
     const result = generateListing(platform, {
       // Set-specific fields
       setName: item.set_name,
-      setNo: item.box_no,
+      setNo: cleanBoxNo,
       theme,
       suggestedPrice: item.pricing_suggested_price || 0,
       currentAvg: item.pricing_current_avg || 0,
