@@ -25,6 +25,7 @@ export default function CollectionPage() {
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
   const [dbError, setDbError] = useState<Date | null>(null);
   const [pricesUpdating, setPricesUpdating] = useState(0); // Count of items being updated
+  const [loadingPriceIds, setLoadingPriceIds] = useState<Set<string>>(new Set());
 
   // Pagination state for display only (all items loaded client-side)
   const [currentPage, setCurrentPage] = useState(1);
@@ -100,6 +101,9 @@ export default function CollectionPage() {
           console.log(`🔄 Fetching prices for ${itemsNeedingRefresh.length} items progressively...`);
           setPricesUpdating(itemsNeedingRefresh.length);
 
+          // Mark all items as loading
+          setLoadingPriceIds(new Set(itemsNeedingRefresh.map(item => item.id)));
+
           // Client-side progressive fetch: fetch items one by one to avoid state update race conditions
           let currentIndex = 0;
 
@@ -107,6 +111,7 @@ export default function CollectionPage() {
             if (currentIndex >= itemsNeedingRefresh.length) {
               console.log(`✅ Completed fetching all ${itemsNeedingRefresh.length} items`);
               setPricesUpdating(0);
+              setLoadingPriceIds(new Set());
               return;
             }
 
@@ -135,7 +140,12 @@ export default function CollectionPage() {
               console.error(`  ❌ Error fetching ${item.minifigure_no}:`, err);
             }
 
-            // Decrement updating count
+            // Remove from loading set and decrement count
+            setLoadingPriceIds(prev => {
+              const next = new Set(prev);
+              next.delete(item.id);
+              return next;
+            });
             setPricesUpdating(prev => Math.max(0, prev - 1));
 
             // Fetch next item after a short delay
@@ -740,6 +750,7 @@ export default function CollectionPage() {
               showDecimals={showDecimals}
               onItemMove={handleItemMoved}
               onRefresh={loadCollection}
+              loadingPriceIds={loadingPriceIds}
             />
           )}
 
