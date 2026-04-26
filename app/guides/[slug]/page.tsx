@@ -255,7 +255,7 @@ Bricklink is the world's largest marketplace for LEGO parts, sets, and minifigur
 ❌ Overwhelming for casual users
 ❌ No suggested "fair price" - you do the math
 ❌ Must dig through multiple pages for pricing
-❌ Interface hasn't changed much since 2000
+❌ Dated interface design
 
 ## What is FigTracker?
 
