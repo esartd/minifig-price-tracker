@@ -102,7 +102,7 @@ export default function CollectionPage() {
           setPricesUpdating(itemsNeedingRefresh.length);
 
           // Mark all items as loading
-          setLoadingPriceIds(new Set(itemsNeedingRefresh.map(item => item.id)));
+          setLoadingPriceIds(new Set(itemsNeedingRefresh.map((item: CollectionItem) => item.id)));
 
           // Client-side progressive fetch: fetch items one by one to avoid state update race conditions
           let currentIndex = 0;
