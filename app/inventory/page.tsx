@@ -125,28 +125,33 @@ export default function CollectionPage() {
               const response = await fetch(`/api/inventory/${item.id}/refresh-pricing`, {
                 method: 'POST'
               });
-              const result = await response.json();
 
-              if (result.success && result.data) {
-                // Update the collection with new pricing
-                setCollection(prev => prev.map(i =>
-                  i.id === item.id ? result.data : i
-                ));
-                console.log(`  ✅ Updated ${item.minifigure_no}: $${result.data.pricing?.suggestedPrice || 0}`);
+              if (!response.ok) {
+                console.log(`  ⚠️ API error for ${item.minifigure_no}: ${response.status}`);
               } else {
-                console.log(`  ⚠️ No price for ${item.minifigure_no}`);
+                const result = await response.json();
+
+                if (result.success && result.data) {
+                  // Update the collection with new pricing
+                  setCollection(prev => prev.map(i =>
+                    i.id === item.id ? result.data : i
+                  ));
+                  console.log(`  ✅ Updated ${item.minifigure_no}: $${result.data.pricing?.suggestedPrice || 0}`);
+                } else {
+                  console.log(`  ⚠️ No price for ${item.minifigure_no}`);
+                }
               }
             } catch (err) {
               console.error(`  ❌ Error fetching ${item.minifigure_no}:`, err);
+            } finally {
+              // Always remove from loading set, even if failed
+              setLoadingPriceIds(prev => {
+                const next = new Set(prev);
+                next.delete(item.id);
+                return next;
+              });
+              setPricesUpdating(prev => Math.max(0, prev - 1));
             }
-
-            // Remove from loading set and decrement count
-            setLoadingPriceIds(prev => {
-              const next = new Set(prev);
-              next.delete(item.id);
-              return next;
-            });
-            setPricesUpdating(prev => Math.max(0, prev - 1));
 
             // Fetch next item after a short delay
             setTimeout(fetchNextItem, 500); // 0.5 second delay between client requests
