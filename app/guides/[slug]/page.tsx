@@ -139,8 +139,8 @@ Batman variants are plentiful, but rare [DC Comics Super Heroes](/themes/super-h
 
 ### Pirates & Castle
 Vintage 1980s-1990s themes are hot:
-- [Pirates](/themes/pirates) with unique torso prints
-- [Castle](/themes/castle) knights with rare helmets
+- [Pirates](/sets-themes/Pirates) with unique torso prints
+- [Castle](/sets-themes/Castle) knights with rare helmets
 - Forestmen with complete accessories
 
 Prices: $30-$150 for complete vintage minifigs
