@@ -268,10 +268,10 @@ FigTracker is a free LEGO minifigure price tracker built specifically for seller
 ✅ Inventory tracking with condition management
 ✅ Fast search by ID or name
 ✅ 18,732+ minifigures in database
+✅ 15+ currencies supported (USD, EUR, GBP, CAD, and more)
 
 ### FigTracker Limitations:
 ❌ Doesn't sell anything (links to marketplaces)
-❌ US pricing only (for now)
 ❌ Newer platform (less historical data than Bricklink)
 
 ## The Pricing Problem: Why FigTracker Exists
@@ -311,6 +311,7 @@ FigTracker's algorithm combines all three Bricklink metrics plus condition data 
 | **User Interface** | ⚠️ Dated | ✅ Modern |
 | **Learning Curve** | ⚠️ Steep | ✅ Gentle |
 | **Mobile Experience** | ⚠️ Clunky | ✅ Responsive |
+| **Multi-Currency** | ⚠️ Limited | ✅ 15+ currencies |
 | **Price** | Free | Free |
 | **Best For** | Buying & selling | Quick pricing & tracking |
 
