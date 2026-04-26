@@ -311,7 +311,6 @@ FigTracker's algorithm combines all three Bricklink metrics plus condition data 
 | **User Interface** | ⚠️ Dated | ✅ Modern |
 | **Learning Curve** | ⚠️ Steep | ✅ Gentle |
 | **Mobile Experience** | ⚠️ Clunky | ✅ Responsive |
-| **Multi-Currency** | ⚠️ Limited | ✅ 15+ currencies |
 | **Price** | Free | Free |
 | **Best For** | Buying & selling | Quick pricing & tracking |
 
