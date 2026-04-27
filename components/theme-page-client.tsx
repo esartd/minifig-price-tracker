@@ -201,17 +201,11 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
         { label: theme }
       ]} />
 
-      {/* Theme SEO Description */}
-      <ThemeDescription
-        themeName={theme}
-        description={(themeDescriptions as Record<string, string>)[theme]}
-      />
-
-      {/* Hero Section - Theme level (larger, more prominent than series pages) */}
+      {/* Hero Section - Theme level with integrated description */}
       {themeHeroImage ? (
         <div style={{
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'flex-start',
           gap: '32px',
           marginBottom: '48px',
           padding: '32px',
@@ -268,11 +262,20 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
             </h1>
             <p style={{
               fontSize: 'var(--text-lg)',
-              color: '#737373'
+              color: '#737373',
+              marginBottom: 0
             }}>
               {totalMinifigs.toLocaleString()} minifigure{totalMinifigs !== 1 ? 's' : ''}
               {sortedSubcategories.length > 0 && ` across ${seriesCount} ${seriesCount === 1 ? 'series' : 'series'}`}
             </p>
+
+            {/* SEO Description integrated into hero card */}
+            {(themeDescriptions as Record<string, string>)[theme] && (
+              <ThemeDescription
+                themeName={theme}
+                description={(themeDescriptions as Record<string, string>)[theme]}
+              />
+            )}
           </div>
         </div>
       ) : (

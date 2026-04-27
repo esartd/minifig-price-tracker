@@ -20,7 +20,11 @@ export default function ThemeDescription({ themeName, description }: ThemeDescri
     : description.substring(0, previewLength) + '...';
 
   return (
-    <div>
+    <div style={{
+      marginTop: '16px',
+      paddingTop: '16px',
+      borderTop: '1px solid #e5e5e5'
+    }}>
       <p style={{
         fontSize: '15px',
         lineHeight: '1.7',
