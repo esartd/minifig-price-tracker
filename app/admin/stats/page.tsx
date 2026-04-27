@@ -310,83 +310,129 @@ export default async function AdminStatsPage() {
               }}>
                 Top Clicked Products
               </h3>
-              <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                  <thead>
-                    <tr style={{ borderBottom: '1px solid #e5e5e5' }}>
-                      <th style={{
-                        padding: '12px 8px',
-                        textAlign: 'left',
-                        fontSize: '12px',
-                        fontWeight: '600',
-                        color: '#737373',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em',
-                      }}>
-                        Product
-                      </th>
-                      <th style={{
-                        padding: '12px 8px',
-                        textAlign: 'left',
-                        fontSize: '12px',
-                        fontWeight: '600',
-                        color: '#737373',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em',
-                      }}>
-                        Type
-                      </th>
-                      <th style={{
-                        padding: '12px 8px',
-                        textAlign: 'right',
-                        fontSize: '12px',
-                        fontWeight: '600',
-                        color: '#737373',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em',
-                      }}>
-                        Clicks
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {topClickedProducts.map((product, idx) => (
-                      <tr key={idx} style={{ borderBottom: '1px solid #f5f5f5' }}>
-                        <td style={{ padding: '12px 8px' }}>
-                          <div style={{ fontSize: '14px', fontWeight: '500', color: '#171717', marginBottom: '4px' }}>
-                            {product.productName || product.productId}
-                          </div>
-                          <div style={{ fontSize: '12px', color: '#737373', fontFamily: 'monospace' }}>
-                            {product.productId}
-                          </div>
-                        </td>
-                        <td style={{ padding: '12px 8px' }}>
-                          <span style={{
-                            display: 'inline-block',
-                            padding: '4px 8px',
-                            background: product.platform === 'amazon' ? '#ff990015' : '#3b82f615',
-                            color: product.platform === 'amazon' ? '#ff9900' : '#3b82f6',
-                            borderRadius: '4px',
-                            fontSize: '12px',
-                            fontWeight: '600',
-                          }}>
-                            {product.platform}
-                          </span>
-                        </td>
-                        <td style={{
+              <div>
+                {/* Desktop table */}
+                <div style={{ display: 'none' }} className="desktop-table">
+                  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead>
+                      <tr style={{ borderBottom: '1px solid #e5e5e5' }}>
+                        <th style={{
                           padding: '12px 8px',
-                          fontSize: '14px',
+                          textAlign: 'left',
+                          fontSize: '12px',
                           fontWeight: '600',
-                          color: '#171717',
-                          textAlign: 'right',
+                          color: '#737373',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em',
                         }}>
-                          {product._count.id}
-                        </td>
+                          Product
+                        </th>
+                        <th style={{
+                          padding: '12px 8px',
+                          textAlign: 'left',
+                          fontSize: '12px',
+                          fontWeight: '600',
+                          color: '#737373',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em',
+                        }}>
+                          Type
+                        </th>
+                        <th style={{
+                          padding: '12px 8px',
+                          textAlign: 'right',
+                          fontSize: '12px',
+                          fontWeight: '600',
+                          color: '#737373',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em',
+                        }}>
+                          Clicks
+                        </th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {topClickedProducts.map((product, idx) => (
+                        <tr key={idx} style={{ borderBottom: '1px solid #f5f5f5' }}>
+                          <td style={{ padding: '12px 8px' }}>
+                            <div style={{ fontSize: '14px', fontWeight: '500', color: '#171717', marginBottom: '4px' }}>
+                              {product.productName || product.productId}
+                            </div>
+                            <div style={{ fontSize: '12px', color: '#737373', fontFamily: 'monospace' }}>
+                              {product.productId}
+                            </div>
+                          </td>
+                          <td style={{ padding: '12px 8px' }}>
+                            <span style={{
+                              display: 'inline-block',
+                              padding: '4px 8px',
+                              background: product.platform === 'amazon' ? '#ff990015' : '#3b82f615',
+                              color: product.platform === 'amazon' ? '#ff9900' : '#3b82f6',
+                              borderRadius: '4px',
+                              fontSize: '12px',
+                              fontWeight: '600',
+                            }}>
+                              {product.platform}
+                            </span>
+                          </td>
+                          <td style={{
+                            padding: '12px 8px',
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            color: '#171717',
+                            textAlign: 'right',
+                          }}>
+                            {product._count.id}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Mobile cards */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }} className="mobile-cards">
+                  {topClickedProducts.map((product, idx) => (
+                    <div key={idx} style={{
+                      padding: 'var(--space-3)',
+                      background: '#fafafa',
+                      borderRadius: '8px',
+                      border: '1px solid #e5e5e5',
+                    }}>
+                      <div style={{ marginBottom: 'var(--space-2)' }}>
+                        <div style={{ fontSize: '14px', fontWeight: '500', color: '#171717', marginBottom: '4px' }}>
+                          {product.productName || product.productId}
+                        </div>
+                        <div style={{ fontSize: '12px', color: '#737373', fontFamily: 'monospace' }}>
+                          {product.productId}
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{
+                          display: 'inline-block',
+                          padding: '4px 8px',
+                          background: product.platform === 'amazon' ? '#ff990015' : '#3b82f615',
+                          color: product.platform === 'amazon' ? '#ff9900' : '#3b82f6',
+                          borderRadius: '4px',
+                          fontSize: '12px',
+                          fontWeight: '600',
+                        }}>
+                          {product.platform}
+                        </span>
+                        <div style={{ fontSize: 'var(--text-lg)', fontWeight: '600', color: '#171717' }}>
+                          {product._count.id} clicks
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
+              <style>{`
+                @media (min-width: 768px) {
+                  .desktop-table { display: block !important; }
+                  .mobile-cards { display: none !important; }
+                }
+              `}</style>
             </>
           )}
         </div>
@@ -448,153 +494,50 @@ export default async function AdminStatsPage() {
           }}>
             Recent Signups
           </h2>
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-              <thead>
-                <tr style={{ borderBottom: '1px solid #e5e5e5' }}>
-                  <th style={{
-                    padding: 'var(--space-2)',
-                    textAlign: 'left',
-                    fontSize: 'var(--text-xs)',
-                    fontWeight: '600',
-                    color: '#737373',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                  }}>
-                    User
-                  </th>
-                  <th style={{
-                    padding: 'var(--space-2)',
-                    textAlign: 'left',
-                    fontSize: 'var(--text-xs)',
-                    fontWeight: '600',
-                    color: '#737373',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                  }}>
-                    Joined
-                  </th>
-                  <th style={{
-                    padding: 'var(--space-2)',
-                    textAlign: 'right',
-                    fontSize: 'var(--text-xs)',
-                    fontWeight: '600',
-                    color: '#737373',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                  }}>
-                    Items
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {recentUsers.map((user, idx) => (
-                  <tr key={idx} style={{ borderBottom: '1px solid #f5f5f5' }}>
-                    <td style={{ padding: 'var(--space-2)' }}>
-                      <div style={{
-                        fontSize: 'var(--text-sm)',
-                        fontWeight: '500',
-                        color: '#171717',
-                        marginBottom: 'var(--space-0-5)',
-                      }}>
-                        {user.name || 'Anonymous'}
-                      </div>
-                      <div style={{
-                        fontSize: 'var(--text-xs)',
-                        color: '#737373',
-                      }}>
-                        {user.email}
-                      </div>
-                    </td>
-                    <td style={{
+          <div>
+            {/* Desktop table */}
+            <div style={{ display: 'none' }} className="desktop-table">
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <thead>
+                  <tr style={{ borderBottom: '1px solid #e5e5e5' }}>
+                    <th style={{
                       padding: 'var(--space-2)',
-                      fontSize: 'var(--text-sm)',
-                      color: '#525252',
+                      textAlign: 'left',
+                      fontSize: 'var(--text-xs)',
+                      fontWeight: '600',
+                      color: '#737373',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
                     }}>
-                      {new Date(user.createdAt).toLocaleDateString()}
-                    </td>
-                    <td style={{
+                      User
+                    </th>
+                    <th style={{
                       padding: 'var(--space-2)',
-                      fontSize: 'var(--text-sm)',
-                      color: '#525252',
+                      textAlign: 'left',
+                      fontSize: 'var(--text-xs)',
+                      fontWeight: '600',
+                      color: '#737373',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                    }}>
+                      Joined
+                    </th>
+                    <th style={{
+                      padding: 'var(--space-2)',
                       textAlign: 'right',
+                      fontSize: 'var(--text-xs)',
+                      fontWeight: '600',
+                      color: '#737373',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
                     }}>
-                      {user._count.CollectionItem + user._count.PersonalCollectionItem}
-                    </td>
+                      Items
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* Top Collectors */}
-        <div style={{
-          background: '#ffffff',
-          borderRadius: '12px',
-          border: '1px solid #e5e5e5',
-          padding: 'var(--space-3)',
-        }}>
-          <h2 style={{
-            fontSize: 'var(--text-lg)',
-            fontWeight: '600',
-            color: '#171717',
-            marginBottom: 'var(--space-3)',
-          }}>
-            Top Collectors
-          </h2>
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-              <thead>
-                <tr style={{ borderBottom: '1px solid #e5e5e5' }}>
-                  <th style={{
-                    padding: 'var(--space-2)',
-                    textAlign: 'left',
-                    fontSize: 'var(--text-xs)',
-                    fontWeight: '600',
-                    color: '#737373',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    width: '60px',
-                  }}>
-                    Rank
-                  </th>
-                  <th style={{
-                    padding: 'var(--space-2)',
-                    textAlign: 'left',
-                    fontSize: 'var(--text-xs)',
-                    fontWeight: '600',
-                    color: '#737373',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                  }}>
-                    User
-                  </th>
-                  <th style={{
-                    padding: 'var(--space-2)',
-                    textAlign: 'right',
-                    fontSize: 'var(--text-xs)',
-                    fontWeight: '600',
-                    color: '#737373',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                  }}>
-                    Total Items
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {topCollectors.map((user, idx) => {
-                  return (
+                </thead>
+                <tbody>
+                  {recentUsers.map((user, idx) => (
                     <tr key={idx} style={{ borderBottom: '1px solid #f5f5f5' }}>
-                      <td style={{
-                        padding: 'var(--space-2)',
-                        fontSize: 'var(--text-sm)',
-                        fontWeight: '600',
-                        color: idx === 0 ? '#f59e0b' : idx === 1 ? '#94a3b8' : idx === 2 ? '#cd7f32' : '#525252',
-                      }}>
-                        #{idx + 1}
-                      </td>
                       <td style={{ padding: 'var(--space-2)' }}>
                         <div style={{
                           fontSize: 'var(--text-sm)',
@@ -614,17 +557,208 @@ export default async function AdminStatsPage() {
                       <td style={{
                         padding: 'var(--space-2)',
                         fontSize: 'var(--text-sm)',
-                        fontWeight: '600',
-                        color: '#171717',
+                        color: '#525252',
+                      }}>
+                        {new Date(user.createdAt).toLocaleDateString()}
+                      </td>
+                      <td style={{
+                        padding: 'var(--space-2)',
+                        fontSize: 'var(--text-sm)',
+                        color: '#525252',
                         textAlign: 'right',
                       }}>
-                        {user.totalItems}
+                        {user._count.CollectionItem + user._count.PersonalCollectionItem}
                       </td>
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile cards */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }} className="mobile-cards">
+              {recentUsers.map((user, idx) => (
+                <div key={idx} style={{
+                  padding: 'var(--space-3)',
+                  background: '#fafafa',
+                  borderRadius: '8px',
+                  border: '1px solid #e5e5e5',
+                }}>
+                  <div style={{ marginBottom: 'var(--space-2)' }}>
+                    <div style={{
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: '500',
+                      color: '#171717',
+                      marginBottom: 'var(--space-0-5)',
+                    }}>
+                      {user.name || 'Anonymous'}
+                    </div>
+                    <div style={{
+                      fontSize: 'var(--text-xs)',
+                      color: '#737373',
+                    }}>
+                      {user.email}
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 'var(--text-xs)', color: '#737373' }}>
+                    <span>Joined {new Date(user.createdAt).toLocaleDateString()}</span>
+                    <span style={{ fontWeight: '600', color: '#171717' }}>
+                      {user._count.CollectionItem + user._count.PersonalCollectionItem} items
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Top Collectors */}
+        <div style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          border: '1px solid #e5e5e5',
+          padding: 'var(--space-3)',
+        }}>
+          <h2 style={{
+            fontSize: 'var(--text-lg)',
+            fontWeight: '600',
+            color: '#171717',
+            marginBottom: 'var(--space-3)',
+          }}>
+            Top Collectors
+          </h2>
+          <div>
+            {/* Desktop table */}
+            <div style={{ display: 'none' }} className="desktop-table">
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <thead>
+                  <tr style={{ borderBottom: '1px solid #e5e5e5' }}>
+                    <th style={{
+                      padding: 'var(--space-2)',
+                      textAlign: 'left',
+                      fontSize: 'var(--text-xs)',
+                      fontWeight: '600',
+                      color: '#737373',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                      width: '60px',
+                    }}>
+                      Rank
+                    </th>
+                    <th style={{
+                      padding: 'var(--space-2)',
+                      textAlign: 'left',
+                      fontSize: 'var(--text-xs)',
+                      fontWeight: '600',
+                      color: '#737373',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                    }}>
+                      User
+                    </th>
+                    <th style={{
+                      padding: 'var(--space-2)',
+                      textAlign: 'right',
+                      fontSize: 'var(--text-xs)',
+                      fontWeight: '600',
+                      color: '#737373',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                    }}>
+                      Total Items
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {topCollectors.map((user, idx) => {
+                    return (
+                      <tr key={idx} style={{ borderBottom: '1px solid #f5f5f5' }}>
+                        <td style={{
+                          padding: 'var(--space-2)',
+                          fontSize: 'var(--text-sm)',
+                          fontWeight: '600',
+                          color: idx === 0 ? '#f59e0b' : idx === 1 ? '#94a3b8' : idx === 2 ? '#cd7f32' : '#525252',
+                        }}>
+                          #{idx + 1}
+                        </td>
+                        <td style={{ padding: 'var(--space-2)' }}>
+                          <div style={{
+                            fontSize: 'var(--text-sm)',
+                            fontWeight: '500',
+                            color: '#171717',
+                            marginBottom: 'var(--space-0-5)',
+                          }}>
+                            {user.name || 'Anonymous'}
+                          </div>
+                          <div style={{
+                            fontSize: 'var(--text-xs)',
+                            color: '#737373',
+                          }}>
+                            {user.email}
+                          </div>
+                        </td>
+                        <td style={{
+                          padding: 'var(--space-2)',
+                          fontSize: 'var(--text-sm)',
+                          fontWeight: '600',
+                          color: '#171717',
+                          textAlign: 'right',
+                        }}>
+                          {user.totalItems}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile cards */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }} className="mobile-cards">
+              {topCollectors.map((user, idx) => (
+                <div key={idx} style={{
+                  padding: 'var(--space-3)',
+                  background: '#fafafa',
+                  borderRadius: '8px',
+                  border: '1px solid #e5e5e5',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 'var(--space-3)',
+                }}>
+                  <div style={{
+                    fontSize: 'var(--text-lg)',
+                    fontWeight: '600',
+                    color: idx === 0 ? '#f59e0b' : idx === 1 ? '#94a3b8' : idx === 2 ? '#cd7f32' : '#525252',
+                    minWidth: '32px',
+                  }}>
+                    #{idx + 1}
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: '500',
+                      color: '#171717',
+                      marginBottom: 'var(--space-0-5)',
+                    }}>
+                      {user.name || 'Anonymous'}
+                    </div>
+                    <div style={{
+                      fontSize: 'var(--text-xs)',
+                      color: '#737373',
+                    }}>
+                      {user.email}
+                    </div>
+                  </div>
+                  <div style={{
+                    fontSize: 'var(--text-lg)',
+                    fontWeight: '600',
+                    color: '#171717',
+                  }}>
+                    {user.totalItems}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
