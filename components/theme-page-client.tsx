@@ -47,11 +47,18 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
       // Convert slug back to theme name: "harry-potter" -> "Harry Potter"
       let themeName = decodeURIComponent(p.theme);
 
-      // If it's a slug (lowercase), convert to title case
+      // If it's a slug (lowercase), convert to title case (except common words)
       if (themeName === themeName.toLowerCase()) {
+        const lowerCaseWords = ['the', 'of', 'and', 'in', 'on', 'at', 'to', 'a', 'an'];
         themeName = themeName
           .split('-')
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .map((word, index) => {
+            // Always capitalize first word, otherwise check if it's a common word
+            if (index === 0 || !lowerCaseWords.includes(word)) {
+              return word.charAt(0).toUpperCase() + word.slice(1);
+            }
+            return word;
+          })
           .join(' ');
       }
 

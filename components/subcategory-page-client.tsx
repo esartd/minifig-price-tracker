@@ -43,17 +43,29 @@ export default function SubcategoryPageClient({
       let decodedTheme = decodeURIComponent(p.theme);
       let decodedSubcategory = decodeURIComponent(p.subcategory);
 
-      // Convert slugs to title case if lowercase
+      // Convert slugs to title case if lowercase (except common words)
+      const lowerCaseWords = ['the', 'of', 'and', 'in', 'on', 'at', 'to', 'a', 'an'];
+
       if (decodedTheme === decodedTheme.toLowerCase()) {
         decodedTheme = decodedTheme
           .split('-')
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .map((word, index) => {
+            if (index === 0 || !lowerCaseWords.includes(word)) {
+              return word.charAt(0).toUpperCase() + word.slice(1);
+            }
+            return word;
+          })
           .join(' ');
       }
       if (decodedSubcategory === decodedSubcategory.toLowerCase()) {
         decodedSubcategory = decodedSubcategory
           .split('-')
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .map((word, index) => {
+            if (index === 0 || !lowerCaseWords.includes(word)) {
+              return word.charAt(0).toUpperCase() + word.slice(1);
+            }
+            return word;
+          })
           .join(' ');
       }
 
