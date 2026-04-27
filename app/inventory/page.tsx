@@ -25,7 +25,6 @@ export default function CollectionPage() {
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
   const [dbError, setDbError] = useState<Date | null>(null);
   const [pricesUpdating, setPricesUpdating] = useState(0); // Count of items being updated
-  const [loadingPriceIds, setLoadingPriceIds] = useState<Set<string>>(new Set());
 
   // Pagination state for display only (all items loaded client-side)
   const [currentPage, setCurrentPage] = useState(1);
@@ -101,17 +100,13 @@ export default function CollectionPage() {
           console.log(`🔄 Fetching prices for ${itemsNeedingRefresh.length} items progressively...`);
           setPricesUpdating(itemsNeedingRefresh.length);
 
-          // Mark all items as loading
-          setLoadingPriceIds(new Set(itemsNeedingRefresh.map((item: CollectionItem) => item.id)));
-
-          // Client-side progressive fetch: fetch items one by one to avoid state update race conditions
+          // Client-side progressive fetch: fetch items one by one to avoid serverless timeout
           let currentIndex = 0;
 
           const fetchNextItem = async () => {
             if (currentIndex >= itemsNeedingRefresh.length) {
               console.log(`✅ Completed fetching all ${itemsNeedingRefresh.length} items`);
               setPricesUpdating(0);
-              setLoadingPriceIds(new Set());
               return;
             }
 
@@ -125,33 +120,23 @@ export default function CollectionPage() {
               const response = await fetch(`/api/inventory/${item.id}/refresh-pricing`, {
                 method: 'POST'
               });
+              const result = await response.json();
 
-              if (!response.ok) {
-                console.log(`  ⚠️ API error for ${item.minifigure_no}: ${response.status}`);
+              if (result.success && result.data) {
+                // Update the collection with new pricing
+                setCollection(prev => prev.map(i =>
+                  i.id === item.id ? result.data : i
+                ));
+                console.log(`  ✅ Updated ${item.minifigure_no}: $${result.data.pricing?.suggestedPrice || 0}`);
               } else {
-                const result = await response.json();
-
-                if (result.success && result.data) {
-                  // Update the collection with new pricing
-                  setCollection(prev => prev.map(i =>
-                    i.id === item.id ? result.data : i
-                  ));
-                  console.log(`  ✅ Updated ${item.minifigure_no}: $${result.data.pricing?.suggestedPrice || 0}`);
-                } else {
-                  console.log(`  ⚠️ No price for ${item.minifigure_no}`);
-                }
+                console.log(`  ⚠️ No price for ${item.minifigure_no}`);
               }
             } catch (err) {
               console.error(`  ❌ Error fetching ${item.minifigure_no}:`, err);
-            } finally {
-              // Always remove from loading set, even if failed
-              setLoadingPriceIds(prev => {
-                const next = new Set(prev);
-                next.delete(item.id);
-                return next;
-              });
-              setPricesUpdating(prev => Math.max(0, prev - 1));
             }
+
+            // Decrement updating count
+            setPricesUpdating(prev => Math.max(0, prev - 1));
 
             // Fetch next item after a short delay
             setTimeout(fetchNextItem, 500); // 0.5 second delay between client requests
@@ -755,7 +740,6 @@ export default function CollectionPage() {
               showDecimals={showDecimals}
               onItemMove={handleItemMoved}
               onRefresh={loadCollection}
-              loadingPriceIds={loadingPriceIds}
             />
           )}
 

@@ -16,7 +16,6 @@ interface CollectionListProps {
   showDecimals: boolean;
   onItemMove?: (id: string, quantity: number) => Promise<void>;
   onRefresh?: () => Promise<void>;
-  loadingPriceIds?: Set<string>;
 }
 
 export default function CollectionList({
@@ -26,7 +25,6 @@ export default function CollectionList({
   showDecimals,
   onItemMove,
   onRefresh,
-  loadingPriceIds = new Set(),
 }: CollectionListProps) {
   const router = useRouter();
   const { data: session } = useSession();
@@ -256,7 +254,7 @@ export default function CollectionList({
                 <option value="used">USED</option>
               </select>
             </div>
-            {!item.pricing || loadingPriceIds.has(item.id) ? (
+            {!item.pricing ? (
               <div style={{
                 fontSize: 'var(--text-xs)',
                 color: '#a3a3a3',
