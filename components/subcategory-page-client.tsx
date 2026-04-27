@@ -40,8 +40,23 @@ export default function SubcategoryPageClient({
 
   useEffect(() => {
     params.then(p => {
-      const decodedTheme = decodeURIComponent(p.theme);
-      const decodedSubcategory = decodeURIComponent(p.subcategory);
+      let decodedTheme = decodeURIComponent(p.theme);
+      let decodedSubcategory = decodeURIComponent(p.subcategory);
+
+      // Convert slugs to title case if lowercase
+      if (decodedTheme === decodedTheme.toLowerCase()) {
+        decodedTheme = decodedTheme
+          .split('-')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+      }
+      if (decodedSubcategory === decodedSubcategory.toLowerCase()) {
+        decodedSubcategory = decodedSubcategory
+          .split('-')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+      }
+
       setTheme(decodedTheme);
       setSubcategory(decodedSubcategory);
       fetchMinifigs(decodedTheme, decodedSubcategory);

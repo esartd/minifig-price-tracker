@@ -47,8 +47,8 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
       // Convert slug back to theme name: "harry-potter" -> "Harry Potter"
       let themeName = decodeURIComponent(p.theme);
 
-      // If it's a slug (lowercase with hyphens), convert to title case
-      if (themeName === themeName.toLowerCase() && themeName.includes('-')) {
+      // If it's a slug (lowercase), convert to title case
+      if (themeName === themeName.toLowerCase()) {
         themeName = themeName
           .split('-')
           .map(word => word.charAt(0).toUpperCase() + word.slice(1))
