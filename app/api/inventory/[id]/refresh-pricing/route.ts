@@ -55,10 +55,12 @@ export async function POST(
     console.log(`Got pricing for ${item.minifigure_no}: $${pricing.suggestedPrice}`);
 
     // Return the item with updated pricing (don't update DB, pricing is cached separately)
+    // Omit userId to match CollectionItem type expected by frontend
+    const { userId, ...itemWithoutUserId } = item;
     return NextResponse.json({
       success: true,
       data: {
-        ...item,
+        ...itemWithoutUserId,
         pricing
       }
     });
