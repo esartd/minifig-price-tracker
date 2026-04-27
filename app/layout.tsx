@@ -56,10 +56,6 @@ export const metadata: Metadata = {
     description: 'Free LEGO minifigure price tracker with real-time Bricklink data.',
     images: ['/api/og'],
   },
-  icons: {
-    icon: '/favicon.svg',
-    apple: '/favicon.svg',
-  },
   alternates: {
     canonical: 'https://figtracker.ericksu.com',
   },
