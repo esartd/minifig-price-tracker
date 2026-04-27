@@ -240,7 +240,7 @@ export default function CollectionList({
                   color: item.condition === 'new' ? '#2563eb' : '#525252',
                   background: item.condition === 'new' ? '#d1fae5' : '#f5f5f5',
                   padding: '4px 8px',
-                  paddingRight: '22px',
+                  paddingRight: '20px',
                   borderRadius: '4px',
                   textTransform: 'uppercase',
                   border: 'none',
@@ -249,7 +249,7 @@ export default function CollectionList({
                   marginRight: '12px',
                   appearance: 'none',
                   backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23${item.condition === 'new' ? '2563eb' : '525252'}' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
-                  backgroundPosition: 'right 4px center',
+                  backgroundPosition: 'right 2px center',
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: '16px'
                 }}
