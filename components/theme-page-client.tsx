@@ -331,26 +331,35 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
                 }}
               >
                 {/* Representative Image - Left side */}
-                {subcategory.representativeImage && (
-                  <div style={{
-                    width: '80px',
-                    height: '80px',
-                    flexShrink: 0,
-                    background: '#ffffff',
-                    borderRadius: '8px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  flexShrink: 0,
+                  background: '#fafafa',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  {subcategory.representativeImage ? (
                     <Image
                       src={subcategory.representativeImage}
                       alt={`${subcategory.subTheme} series representative minifigure`}
                       width={80}
                       height={80}
                       style={{ objectFit: 'contain', width: '100%', height: '100%' }}
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        const parent = e.currentTarget.parentElement;
+                        if (parent) {
+                          parent.innerHTML = '<div style="font-size: 32px; opacity: 0.2;">🧱</div>';
+                        }
+                      }}
                     />
-                  </div>
-                )}
+                  ) : (
+                    <div style={{ fontSize: '32px', opacity: 0.2 }}>🧱</div>
+                  )}
+                </div>
 
                 {/* Text Content - Right side */}
                 <div style={{ flex: 1, minWidth: 0 }}>

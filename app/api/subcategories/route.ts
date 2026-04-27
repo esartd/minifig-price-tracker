@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAllMinifigs } from '@/lib/catalog-static';
-import { getMainCharacter } from '@/lib/theme-main-characters';
+import { getMainCharacter, THEME_OVERRIDES } from '@/lib/theme-main-characters';
 
 export const dynamic = 'force-dynamic';
 
@@ -52,9 +52,11 @@ export async function GET(request: NextRequest) {
     const subcategoriesWithImages = subcategories.map(sub => {
       // Try full category name first (e.g., "Castle / Black Knights")
       // Then try just subTheme (e.g., "Black Knights")
-      // Then try parent theme for Uncategorized (e.g., "Castle")
+      // Then try parent theme from THEME_OVERRIDES (e.g., "Castle")
+      // Then try parent theme from THEME_MAIN_CHARACTERS for Uncategorized
       let knownMainCharacter = getMainCharacter(sub.fullName)
         || getMainCharacter(sub.subTheme)
+        || (sub.subTheme === 'Uncategorized' ? THEME_OVERRIDES[theme] : null)
         || (sub.subTheme === 'Uncategorized' ? getMainCharacter(theme) : null);
 
       let representativeMinifig = null;
