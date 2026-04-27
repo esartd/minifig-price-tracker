@@ -121,12 +121,12 @@ export default function AccountPage() {
     // Fetch collection stats from all 4 collections
     const fetchStats = async () => {
       try {
-        // Fetch all 4 collection types in parallel
+        // Fetch all 4 collection types in parallel (with ?all=true to get everything, not paginated)
         const [inventoryResponse, collectionResponse, setInventoryResponse, setCollectionResponse] = await Promise.all([
-          fetch('/api/inventory', { cache: 'no-store' }),
-          fetch('/api/personal-collection', { cache: 'no-store' }),
-          fetch('/api/set-inventory', { cache: 'no-store' }),
-          fetch('/api/set-personal-collection', { cache: 'no-store' })
+          fetch('/api/inventory?all=true', { cache: 'no-store' }),
+          fetch('/api/personal-collection?all=true', { cache: 'no-store' }),
+          fetch('/api/set-inventory?all=true', { cache: 'no-store' }),
+          fetch('/api/set-personal-collection?all=true', { cache: 'no-store' })
         ]);
 
         let totalValue = 0;
