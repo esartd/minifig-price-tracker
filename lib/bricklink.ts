@@ -426,8 +426,8 @@ export class BricklinkAPI {
     const soldPriceGuide = await this.getPriceGuide(itemNo, conditionCode, countryCode, region, currencyCodeValue, 'sold');
     console.log(`[calculatePricingData] Sold API response for ${itemNo}:`, soldPriceGuide ? 'SUCCESS' : 'NULL');
 
-    if (!stockPriceGuide || !soldPriceGuide) {
-      console.log(`No price guide returned for ${itemNo} in ${countryCode} - caching zeros for 1 hour`);
+    if (!stockPriceGuide && !soldPriceGuide) {
+      console.log(`No price guide data at all for ${itemNo} in ${countryCode} - caching zeros for 1 hour`);
       // No data from API - cache zeros for 1 hour to avoid repeated failed API calls
       const expiresAt = new Date();
       expiresAt.setHours(expiresAt.getHours() + 1);
@@ -475,10 +475,12 @@ export class BricklinkAPI {
       };
     }
 
-    // Extract pricing data from both sources
-    const soldQtyAvg = parseFloat(soldPriceGuide.qty_avg_price || '0'); // Sold: Quantity-weighted average of historical sales
-    const stockQtyAvg = parseFloat(stockPriceGuide.qty_avg_price || '0'); // Stock: Quantity-weighted average of current listings
-    const stockLowest = parseFloat(stockPriceGuide.min_price || '0'); // Stock: Lowest current listing
+    // Extract pricing data from both sources (use whichever is available)
+    const soldQtyAvg = soldPriceGuide ? parseFloat(soldPriceGuide.qty_avg_price || '0') : 0; // Sold: Quantity-weighted average of historical sales
+    const stockQtyAvg = stockPriceGuide ? parseFloat(stockPriceGuide.qty_avg_price || '0') : 0; // Stock: Quantity-weighted average of current listings
+    const stockLowest = stockPriceGuide ? parseFloat(stockPriceGuide.min_price || '0') : 0; // Stock: Lowest current listing
+
+    console.log(`[calculatePricingData] Extracted prices - soldQtyAvg: ${soldQtyAvg}, stockQtyAvg: ${stockQtyAvg}, stockLowest: ${stockLowest}`);
 
     // Store individual components for reference
     const sixMonthAverage = soldQtyAvg; // Repurpose to store sold qty avg
@@ -647,8 +649,8 @@ export class BricklinkAPI {
     const soldPriceGuide = await this.getSetPriceGuide(boxNo, conditionCode, countryCode, region, currencyCodeValue, 'sold');
     console.log(`[calculateSetPricing] Sold API response for ${boxNo}:`, soldPriceGuide ? 'SUCCESS' : 'NULL');
 
-    if (!stockPriceGuide || !soldPriceGuide) {
-      console.log(`No price guide returned for set ${boxNo} in ${countryCode} - caching zeros for 1 hour`);
+    if (!stockPriceGuide && !soldPriceGuide) {
+      console.log(`No price guide data at all for set ${boxNo} in ${countryCode} - caching zeros for 1 hour`);
       // No data from API - cache zeros for 1 hour to avoid repeated failed API calls
       const expiresAt = new Date();
       expiresAt.setHours(expiresAt.getHours() + 1);
@@ -696,10 +698,12 @@ export class BricklinkAPI {
       };
     }
 
-    // Extract pricing data from both sources
-    const soldQtyAvg = parseFloat(soldPriceGuide.qty_avg_price || '0'); // Sold: Quantity-weighted average of historical sales
-    const stockQtyAvg = parseFloat(stockPriceGuide.qty_avg_price || '0'); // Stock: Quantity-weighted average of current listings
-    const stockLowest = parseFloat(stockPriceGuide.min_price || '0'); // Stock: Lowest current listing
+    // Extract pricing data from both sources (use whichever is available)
+    const soldQtyAvg = soldPriceGuide ? parseFloat(soldPriceGuide.qty_avg_price || '0') : 0; // Sold: Quantity-weighted average of historical sales
+    const stockQtyAvg = stockPriceGuide ? parseFloat(stockPriceGuide.qty_avg_price || '0') : 0; // Stock: Quantity-weighted average of current listings
+    const stockLowest = stockPriceGuide ? parseFloat(stockPriceGuide.min_price || '0') : 0; // Stock: Lowest current listing
+
+    console.log(`[calculateSetPricing] Extracted prices - soldQtyAvg: ${soldQtyAvg}, stockQtyAvg: ${stockQtyAvg}, stockLowest: ${stockLowest}`);
 
     // Store individual components for reference
     const sixMonthAverage = soldQtyAvg; // Repurpose to store sold qty avg
