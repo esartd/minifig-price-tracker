@@ -6,8 +6,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SetAdCard from '@/components/SetAdCard';
+import ThemeDescription from '@/components/ThemeDescription';
 import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
+import themeDescriptions from '@/lib/theme-descriptions.json';
 
 interface Subcategory {
   id: number;
@@ -198,6 +200,12 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
         { label: 'Themes', href: '/themes' },
         { label: theme }
       ]} />
+
+      {/* Theme SEO Description */}
+      <ThemeDescription
+        themeName={theme}
+        description={(themeDescriptions as Record<string, string>)[theme]}
+      />
 
       {/* Hero Section - Theme level (larger, more prominent than series pages) */}
       {themeHeroImage ? (
