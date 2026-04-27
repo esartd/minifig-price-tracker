@@ -152,11 +152,12 @@ export default async function AdminStatsPage() {
     <div style={{
       minHeight: '100vh',
       background: '#fafafa',
-      padding: 'var(--space-6) var(--space-2)',
+      padding: 'var(--space-4) 0',
     }}>
       <div style={{
         maxWidth: '1200px',
         margin: '0 auto',
+        padding: '0 var(--space-4)',
       }}>
         {/* Header */}
         <div style={{
@@ -261,7 +262,7 @@ export default async function AdminStatsPage() {
         </div>
 
         {/* Affiliate Click Stats */}
-        <div style={{
+        <div className="admin-card" style={{
           background: '#ffffff',
           borderRadius: '12px',
           border: '1px solid #e5e5e5',
@@ -393,7 +394,7 @@ export default async function AdminStatsPage() {
                 {/* Mobile cards */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }} className="mobile-cards">
                   {topClickedProducts.map((product, idx) => (
-                    <div key={idx} style={{
+                    <div key={idx} className="mobile-card-item" style={{
                       padding: 'var(--space-3)',
                       background: '#fafafa',
                       borderRadius: '8px',
@@ -428,6 +429,14 @@ export default async function AdminStatsPage() {
                 </div>
               </div>
               <style>{`
+                @media (max-width: 767px) {
+                  .admin-card {
+                    padding: var(--space-2) !important;
+                  }
+                  .mobile-card-item {
+                    padding: var(--space-2) !important;
+                  }
+                }
                 @media (min-width: 768px) {
                   .desktop-table { display: block !important; }
                   .mobile-cards { display: none !important; }
@@ -441,7 +450,7 @@ export default async function AdminStatsPage() {
         <PopularThemesSection />
 
         {/* Database Info */}
-        <div style={{
+        <div className="admin-card" style={{
           background: '#ffffff',
           borderRadius: '12px',
           border: '1px solid #e5e5e5',
@@ -479,7 +488,7 @@ export default async function AdminStatsPage() {
         </div>
 
         {/* Recent Users */}
-        <div style={{
+        <div className="admin-card" style={{
           background: '#ffffff',
           borderRadius: '12px',
           border: '1px solid #e5e5e5',
@@ -578,7 +587,7 @@ export default async function AdminStatsPage() {
             {/* Mobile cards */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }} className="mobile-cards">
               {recentUsers.map((user, idx) => (
-                <div key={idx} style={{
+                <div key={idx} className="mobile-card-item" style={{
                   padding: 'var(--space-3)',
                   background: '#fafafa',
                   borderRadius: '8px',
@@ -613,7 +622,7 @@ export default async function AdminStatsPage() {
         </div>
 
         {/* Top Collectors */}
-        <div style={{
+        <div className="admin-card" style={{
           background: '#ffffff',
           borderRadius: '12px',
           border: '1px solid #e5e5e5',
@@ -716,7 +725,7 @@ export default async function AdminStatsPage() {
             {/* Mobile cards */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }} className="mobile-cards">
               {topCollectors.map((user, idx) => (
-                <div key={idx} style={{
+                <div key={idx} className="mobile-card-item" style={{
                   padding: 'var(--space-3)',
                   background: '#fafafa',
                   borderRadius: '8px',
