@@ -487,9 +487,17 @@ export class BricklinkAPI {
     const currentAverage = stockQtyAvg; // Repurpose to store stock qty avg
     const currentLowest = stockLowest;
 
-    // Calculate suggested price using new formula
-    // Formula: (sold qty avg + stock qty avg + stock lowest) / 3
-    const suggestedPrice = (soldQtyAvg + stockQtyAvg + stockLowest) / 3;
+    // Calculate suggested price - only average values that exist
+    const priceComponents = [];
+    if (soldQtyAvg > 0) priceComponents.push(soldQtyAvg);
+    if (stockQtyAvg > 0) priceComponents.push(stockQtyAvg);
+    if (stockLowest > 0) priceComponents.push(stockLowest);
+
+    const suggestedPrice = priceComponents.length > 0
+      ? priceComponents.reduce((sum, price) => sum + price, 0) / priceComponents.length
+      : 0;
+
+    console.log(`[calculatePricingData] Suggested price calculated from ${priceComponents.length} components: $${suggestedPrice}`);
 
     const pricingData = {
       sixMonthAverage: parseFloat(sixMonthAverage.toFixed(2)),
@@ -710,9 +718,17 @@ export class BricklinkAPI {
     const currentAverage = stockQtyAvg; // Repurpose to store stock qty avg
     const currentLowest = stockLowest;
 
-    // Calculate suggested price using new formula
-    // Formula: (sold qty avg + stock qty avg + stock lowest) / 3
-    const suggestedPrice = (soldQtyAvg + stockQtyAvg + stockLowest) / 3;
+    // Calculate suggested price - only average values that exist
+    const priceComponents = [];
+    if (soldQtyAvg > 0) priceComponents.push(soldQtyAvg);
+    if (stockQtyAvg > 0) priceComponents.push(stockQtyAvg);
+    if (stockLowest > 0) priceComponents.push(stockLowest);
+
+    const suggestedPrice = priceComponents.length > 0
+      ? priceComponents.reduce((sum, price) => sum + price, 0) / priceComponents.length
+      : 0;
+
+    console.log(`[calculateSetPricing] Suggested price calculated from ${priceComponents.length} components: $${suggestedPrice}`);
 
     const pricingData = {
       sixMonthAverage: parseFloat(sixMonthAverage.toFixed(2)),
