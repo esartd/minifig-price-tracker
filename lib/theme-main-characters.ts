@@ -269,9 +269,6 @@ export const THEME_MAIN_CHARACTERS: { [subTheme: string]: string } = {
   'Western / Cowboys': 'ww012',
   'Western / Indians': 'ww014',
 
-  // Animal Crossing
-  'Animal Crossing': 'ani027',
-
   // NINJAGO subseries (locked permanent images)
   'NINJAGO / (Other)': 'njo0108',
   'NINJAGO / Core': 'njo0715',
@@ -508,6 +505,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
 
   // Additional themes - manually verified representative minifigs
   '4 Juniors': 'cre001',
+  'Animal Crossing': 'ani027',
   'Architecture': 'gen192',
   'Bluey': 'blu007',
   'BrickLink Designer Program': 'bdp309',
