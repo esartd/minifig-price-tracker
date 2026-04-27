@@ -53,6 +53,12 @@ export default function AccountPage() {
   // Currency preference
   const [selectedCurrency, setSelectedCurrency] = useState(session?.user?.preferredCurrency || 'USD');
 
+  // Share collection states
+  const [shareEnabled, setShareEnabled] = useState(false);
+  const [shareToken, setShareToken] = useState<string | null>(null);
+  const [shareUrl, setShareUrl] = useState<string | null>(null);
+  const [copySuccess, setCopySuccess] = useState(false);
+
   useEffect(() => {
     if (session?.user?.name) {
       setName(session.user.name);
@@ -220,6 +226,27 @@ export default function AccountPage() {
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [session]);
+
+  // Fetch share status
+  useEffect(() => {
+    const fetchShareStatus = async () => {
+      try {
+        const response = await fetch('/api/collection/share');
+        const data = await response.json();
+        if (data.success) {
+          setShareEnabled(data.shareEnabled);
+          setShareToken(data.shareToken);
+          setShareUrl(data.shareUrl);
+        }
+      } catch (error) {
+        console.error('Failed to fetch share status:', error);
+      }
+    };
+
+    if (session?.user) {
+      fetchShareStatus();
+    }
   }, [session]);
 
   const showMessage = (type: 'success' | 'error', text: string) => {
@@ -433,6 +460,37 @@ export default function AccountPage() {
       showMessage('error', 'An error occurred. Please try again.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleToggleShare = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('/api/collection/share', {
+        method: 'PATCH',
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        setShareEnabled(data.shareEnabled);
+        setShareToken(data.shareToken);
+        setShareUrl(data.shareUrl);
+        showMessage('success', data.shareEnabled ? 'Collection sharing enabled' : 'Collection sharing disabled');
+      } else {
+        showMessage('error', 'Failed to toggle sharing');
+      }
+    } catch (error) {
+      showMessage('error', 'An error occurred. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCopyShareLink = () => {
+    if (shareUrl) {
+      navigator.clipboard.writeText(shareUrl);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
     }
   };
 
@@ -1157,6 +1215,164 @@ export default function AccountPage() {
               <strong>Note:</strong> Changing your currency will display prices in your selected region's marketplace.
               Prices may differ from other regions due to local supply, demand, and shipping costs.
             </p>
+          </div>
+        </div>
+
+        {/* Share Collection Section */}
+        <div className="account-section" style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          padding: '24px 16px',
+          marginBottom: '32px',
+          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+        }}>
+          <h2 style={{
+            fontSize: 'var(--text-lg)',
+            fontWeight: '600',
+            color: '#171717',
+            marginBottom: '8px',
+            letterSpacing: '-0.01em'
+          }}>
+            Share Collection
+          </h2>
+          <p style={{
+            fontSize: 'var(--text-sm)',
+            color: '#737373',
+            marginBottom: '32px',
+            lineHeight: '1.5'
+          }}>
+            Share your collection with others via a public link (read-only)
+          </p>
+
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px'
+          }}>
+            {/* Toggle Switch */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '16px',
+              background: '#f9fafb',
+              borderRadius: '8px',
+              border: '1px solid #e5e5e5'
+            }}>
+              <div>
+                <div style={{
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: '600',
+                  color: '#171717',
+                  marginBottom: '4px'
+                }}>
+                  Public Sharing
+                </div>
+                <div style={{
+                  fontSize: 'var(--text-xs)',
+                  color: '#737373'
+                }}>
+                  {shareEnabled ? 'Your collection is visible to anyone with the link' : 'Your collection is private'}
+                </div>
+              </div>
+              <button
+                onClick={handleToggleShare}
+                disabled={loading}
+                style={{
+                  position: 'relative',
+                  width: '48px',
+                  height: '28px',
+                  background: shareEnabled ? '#3b82f6' : '#d4d4d4',
+                  borderRadius: '14px',
+                  border: 'none',
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  transition: 'background 0.2s',
+                  opacity: loading ? 0.5 : 1
+                }}
+              >
+                <div style={{
+                  position: 'absolute',
+                  top: '2px',
+                  left: shareEnabled ? '22px' : '2px',
+                  width: '24px',
+                  height: '24px',
+                  background: '#ffffff',
+                  borderRadius: '50%',
+                  transition: 'left 0.2s',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)'
+                }}></div>
+              </button>
+            </div>
+
+            {/* Share Link */}
+            {shareEnabled && shareUrl && (
+              <div style={{
+                padding: '16px',
+                background: '#f0f9ff',
+                borderRadius: '8px',
+                border: '1px solid #bae6fd'
+              }}>
+                <div style={{
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: '600',
+                  color: '#0369a1',
+                  marginBottom: '8px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em'
+                }}>
+                  Share Link
+                </div>
+                <div style={{
+                  display: 'flex',
+                  gap: '8px',
+                  alignItems: 'center'
+                }}>
+                  <input
+                    type="text"
+                    value={shareUrl}
+                    readOnly
+                    style={{
+                      flex: 1,
+                      padding: '10px 12px',
+                      fontSize: 'var(--text-sm)',
+                      color: '#171717',
+                      background: '#ffffff',
+                      border: '1px solid #bae6fd',
+                      borderRadius: '6px',
+                      fontFamily: 'monospace',
+                      outline: 'none'
+                    }}
+                  />
+                  <button
+                    onClick={handleCopyShareLink}
+                    style={{
+                      padding: '10px 16px',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: '600',
+                      color: '#ffffff',
+                      background: '#3b82f6',
+                      border: 'none',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      whiteSpace: 'nowrap',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#2563eb'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = '#3b82f6'}
+                  >
+                    {copySuccess ? '✓ Copied' : 'Copy'}
+                  </button>
+                </div>
+                <p style={{
+                  fontSize: 'var(--text-xs)',
+                  color: '#0369a1',
+                  marginTop: '8px',
+                  lineHeight: '1.5'
+                }}>
+                  Anyone with this link can view your collection and inventory (read-only)
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
