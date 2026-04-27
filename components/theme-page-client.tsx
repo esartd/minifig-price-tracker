@@ -83,7 +83,7 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
 
       // Set hero image
       if (minifigNo) {
-        setThemeHeroImage(`https://img.bricklink.com/ItemImage/MN/0/${minifigNo}.png`);
+        setThemeHeroImage(`/api/images/minifig/${minifigNo}`);
       }
 
       const response = await fetch(`/api/subcategories?theme=${encodeURIComponent(themeName)}`);

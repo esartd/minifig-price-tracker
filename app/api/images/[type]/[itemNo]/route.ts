@@ -23,7 +23,13 @@ async function downloadFromBricklink(type: 'minifig' | 'set', itemNo: string): P
 
   for (const url of urls) {
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+          'Referer': 'https://www.bricklink.com/',
+          'Accept': 'image/avif,image/webp,image/apng,image/png,image/*,*/*;q=0.8',
+        },
+      });
       if (response.ok) {
         return Buffer.from(await response.arrayBuffer());
       }
@@ -40,38 +46,27 @@ export async function GET(
   { params }: { params: Promise<{ type: string; itemNo: string }> }
 ) {
   try {
-    const { type, itemNo } = await params;
+    const { type, itemNo} = await params;
 
     if (type !== 'minifig' && type !== 'set') {
       return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
     }
 
-    const blobPath = `${type}s/${itemNo}.png`;
-
-    // Check if already in Blob storage
-    try {
-      const blobInfo = await head(blobPath);
-      if (blobInfo) {
-        return NextResponse.json({ url: blobInfo.url });
-      }
-    } catch (err) {
-      // Blob doesn't exist, continue to download
-    }
-
-    // Download from Bricklink
+    // Download from Bricklink with proper headers to bypass hotlinking protection
     const imageBuffer = await downloadFromBricklink(type, itemNo);
 
     if (!imageBuffer) {
       return NextResponse.json({ error: 'Image not found' }, { status: 404 });
     }
 
-    // Upload to Vercel Blob
-    const blob = await put(blobPath, imageBuffer, {
-      access: 'public',
-      addRandomSuffix: false,
+    // Return image directly with aggressive caching
+    return new NextResponse(new Uint8Array(imageBuffer), {
+      status: 200,
+      headers: {
+        'Content-Type': 'image/png',
+        'Cache-Control': 'public, max-age=31536000, immutable',
+      },
     });
-
-    return NextResponse.json({ url: blob.url });
 
   } catch (error) {
     console.error('Image proxy error:', error);

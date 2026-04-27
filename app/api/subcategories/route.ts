@@ -75,7 +75,7 @@ export async function GET(request: NextRequest) {
       return {
         ...sub,
         representativeImage: representativeMinifig
-          ? `https://img.bricklink.com/ItemImage/MN/0/${representativeMinifig}.png`
+          ? `/api/images/minifig/${representativeMinifig}`
           : null
       };
     });

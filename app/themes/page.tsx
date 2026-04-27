@@ -127,7 +127,7 @@ async function getThemes(): Promise<Theme[]> {
         ...theme,
         subcategoryCount: theme.subcategories.length, // Explicit count
         representativeImage: minifigNo
-          ? `https://img.bricklink.com/ItemImage/MN/0/${minifigNo}.png`
+          ? `/api/images/minifig/${minifigNo}`
           : null,
         isCurrent: recentThemes.has(theme.parent)
       };

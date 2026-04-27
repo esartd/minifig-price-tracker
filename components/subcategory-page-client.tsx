@@ -69,7 +69,7 @@ export default function SubcategoryPageClient({
         } else if (subcategoryName === 'Uncategorized') {
           const overrideMinifig = THEME_OVERRIDES[themeName];
           if (overrideMinifig) {
-            setCoverImage(`https://img.bricklink.com/ItemImage/MN/0/${overrideMinifig}.png`);
+            setCoverImage(`/api/images/minifig/${overrideMinifig}`);
           }
         }
       }
