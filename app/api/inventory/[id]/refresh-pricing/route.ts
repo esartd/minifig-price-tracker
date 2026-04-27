@@ -38,40 +38,29 @@ export async function POST(
       );
     }
 
-    console.log(`Refreshing pricing for ${item.minifigure_no} (${item.condition})...`);
-
     // Get user's regional preferences
     const countryCode = session.user?.preferredCountryCode || 'US';
-    // Region is now standardized to empty string (we fetch all sellers and use currency conversion)
-    const region = '';
+    const cacheRegion = ''; // Standardized region format
 
-    // Fetch fresh pricing from Bricklink API (cached 24 hours)
+    console.log(`Refreshing pricing for ${item.minifigure_no} (${item.condition}) in ${countryCode}`);
+
+    // Fetch fresh pricing
     const pricing = await bricklinkAPI.calculatePricingData(
       item.minifigure_no,
       item.condition,
       countryCode,
-      region
+      cacheRegion
     );
 
-    // Update the item with new pricing and timestamp
-    const updatedItem = await database.updateItem(id, {
-      pricing,
-      last_updated: new Date().toISOString(),
-    });
+    console.log(`Got pricing for ${item.minifigure_no}: $${pricing.suggestedPrice}`);
 
-    if (!updatedItem) {
-      return NextResponse.json(
-        { success: false, error: 'Failed to update item' },
-        { status: 500 }
-      );
-    }
-
-    console.log(`✓ Updated ${item.minifigure_no}: $${pricing.suggestedPrice}`);
-
+    // Return the item with updated pricing (don't update DB, pricing is cached separately)
     return NextResponse.json({
       success: true,
-      message: `Successfully refreshed pricing for ${item.minifigure_name}`,
-      data: updatedItem,
+      data: {
+        ...item,
+        pricing
+      }
     });
   } catch (error) {
     console.error('Error refreshing item pricing:', error);
