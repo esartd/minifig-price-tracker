@@ -350,11 +350,19 @@ export class BricklinkAPI {
         guide_type: guideType,
         currency_code: data.currency_code,
         min_price: data.min_price,
+        max_price: data.max_price,
         avg_price: data.avg_price,
         qty_avg_price: data.qty_avg_price,
         unit_quantity: data.unit_quantity,
         total_quantity: data.total_quantity
       });
+
+      // Debug: Check if we got empty price data
+      if (!data.min_price && !data.qty_avg_price && !data.avg_price) {
+        console.log(`⚠️  [getPriceGuide] WARNING: All price fields are empty/null for ${itemNo} (${guideType})`);
+        console.log(`   This could mean: no sellers, no sales, or API returned empty data`);
+        console.log(`   Raw data:`, JSON.stringify(data));
+      }
 
       return data;
     } catch (error) {
@@ -427,7 +435,7 @@ export class BricklinkAPI {
     console.log(`[calculatePricingData] Sold API response for ${itemNo}:`, soldPriceGuide ? 'SUCCESS' : 'NULL');
 
     if (!stockPriceGuide && !soldPriceGuide) {
-      console.log(`No price guide data at all for ${itemNo} in ${countryCode} - caching zeros for 1 hour`);
+      console.log(`❌ No price guide data at all for ${itemNo} in ${countryCode} - both API calls returned null`);
       // No data from API - cache zeros for 1 hour to avoid repeated failed API calls
       const expiresAt = new Date();
       expiresAt.setHours(expiresAt.getHours() + 1);
@@ -498,6 +506,12 @@ export class BricklinkAPI {
       : 0;
 
     console.log(`[calculatePricingData] Suggested price calculated from ${priceComponents.length} components: $${suggestedPrice}`);
+
+    // If we got API responses but all fields are empty/zero, this is a genuinely rare item
+    // Cache it as zero so we don't keep retrying
+    if (suggestedPrice === 0) {
+      console.log(`[calculatePricingData] No usable price data for ${itemNo} - caching zeros`);
+    }
 
     const pricingData = {
       sixMonthAverage: parseFloat(sixMonthAverage.toFixed(2)),
