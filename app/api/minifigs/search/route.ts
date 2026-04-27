@@ -35,8 +35,31 @@ export async function GET(request: NextRequest) {
     // Subcategory browsing (by full category_name)
     if (!query && subcategory) {
       const allMinifigs = await getAllMinifigs();
-      const catalogItems = allMinifigs
-        .filter(m => m.category_name === subcategory)
+
+      // Try exact match first
+      let catalogItems = allMinifigs.filter(m => m.category_name === subcategory);
+
+      // SAFEGUARD: If no exact match, try fuzzy match (case-insensitive, ignore special chars)
+      if (catalogItems.length === 0) {
+        console.warn(`⚠️  No exact match for subcategory "${subcategory}", trying fuzzy match...`);
+
+        const normalizeTheme = (str: string) =>
+          str.toLowerCase()
+            .replace(/[^a-z0-9]/g, '');
+
+        const normalizedQuery = normalizeTheme(subcategory);
+
+        catalogItems = allMinifigs.filter(m => {
+          const normalizedCategory = normalizeTheme(m.category_name);
+          return normalizedCategory === normalizedQuery;
+        });
+
+        if (catalogItems.length > 0) {
+          console.log(`✅ Fuzzy match found: "${subcategory}" → "${catalogItems[0].category_name}"`);
+        }
+      }
+
+      catalogItems = catalogItems
         .sort((a, b) => {
           // Parse years - treat invalid/missing as 0 to sort them last
           const aYear = a.year_released && !isNaN(parseInt(a.year_released)) ? parseInt(a.year_released) : 0;

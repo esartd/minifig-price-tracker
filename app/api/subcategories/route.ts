@@ -22,6 +22,7 @@ export async function GET(request: NextRequest) {
     const allMinifigs = await getAllMinifigs();
     const categoryMap = new Map<string, { id: number; count: number }>();
 
+    // First pass: try exact match
     allMinifigs.forEach(m => {
       // Filter: exact match OR "parent / sub-theme" format
       if (m.category_name === theme || m.category_name.startsWith(`${theme} / `)) {
@@ -33,6 +34,39 @@ export async function GET(request: NextRequest) {
         }
       }
     });
+
+    // SAFEGUARD: If no results, try fuzzy match (case-insensitive, ignore special chars)
+    if (categoryMap.size === 0) {
+      console.warn(`⚠️  No exact match for theme "${theme}", trying fuzzy match...`);
+
+      const normalizeTheme = (str: string) =>
+        str.toLowerCase()
+          .replace(/[^a-z0-9]/g, '');
+
+      const normalizedQuery = normalizeTheme(theme);
+
+      allMinifigs.forEach(m => {
+        const parentTheme = m.category_name.split(' / ')[0];
+        const normalizedParent = normalizeTheme(parentTheme);
+
+        // Fuzzy match: normalized strings are equal
+        if (normalizedParent === normalizedQuery || m.category_name.startsWith(`${parentTheme} / `)) {
+          if (normalizedParent === normalizedQuery) {
+            const existing = categoryMap.get(m.category_name);
+            if (existing) {
+              existing.count++;
+            } else {
+              categoryMap.set(m.category_name, { id: m.category_id, count: 1 });
+            }
+          }
+        }
+      });
+
+      if (categoryMap.size > 0) {
+        const foundTheme = Array.from(categoryMap.keys())[0].split(' / ')[0];
+        console.log(`✅ Fuzzy match found: "${theme}" → "${foundTheme}"`);
+      }
+    }
 
     const subcategories = Array.from(categoryMap.entries())
       .map(([categoryName, data]) => {
