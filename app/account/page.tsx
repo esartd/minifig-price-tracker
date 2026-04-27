@@ -118,19 +118,21 @@ export default function AccountPage() {
   };
 
   useEffect(() => {
-    // Fetch collection stats from both inventory and personal collection
+    // Fetch collection stats from all 4 collections
     const fetchStats = async () => {
       try {
-        // Fetch both inventory and collection data in parallel
-        const [inventoryResponse, collectionResponse] = await Promise.all([
+        // Fetch all 4 collection types in parallel
+        const [inventoryResponse, collectionResponse, setInventoryResponse, setCollectionResponse] = await Promise.all([
           fetch('/api/inventory', { cache: 'no-store' }),
-          fetch('/api/personal-collection', { cache: 'no-store' })
+          fetch('/api/personal-collection', { cache: 'no-store' }),
+          fetch('/api/set-inventory', { cache: 'no-store' }),
+          fetch('/api/set-personal-collection', { cache: 'no-store' })
         ]);
 
         let totalValue = 0;
         let totalItems = 0;
 
-        // Process inventory items
+        // Process minifig inventory items (for sale)
         if (inventoryResponse.ok) {
           const inventoryData = await inventoryResponse.json();
           const inventoryItems = inventoryData.success ? inventoryData.data : (Array.isArray(inventoryData) ? inventoryData : []);
@@ -145,13 +147,43 @@ export default function AccountPage() {
           }
         }
 
-        // Process personal collection items
+        // Process minifig personal collection items
         if (collectionResponse.ok) {
           const collectionData = await collectionResponse.json();
           const collectionItems = collectionData.success ? collectionData.data : (Array.isArray(collectionData) ? collectionData : []);
 
           if (Array.isArray(collectionItems)) {
             collectionItems.forEach((item: any) => {
+              const price = item.pricing?.suggestedPrice || item.suggestedPrice || 0;
+              const qty = item.quantity || 1;
+              totalValue += price * qty;
+              totalItems += qty;
+            });
+          }
+        }
+
+        // Process set inventory items (for sale)
+        if (setInventoryResponse.ok) {
+          const setInventoryData = await setInventoryResponse.json();
+          const setInventoryItems = setInventoryData.success ? setInventoryData.data : (Array.isArray(setInventoryData) ? setInventoryData : []);
+
+          if (Array.isArray(setInventoryItems)) {
+            setInventoryItems.forEach((item: any) => {
+              const price = item.pricing?.suggestedPrice || item.suggestedPrice || 0;
+              const qty = item.quantity || 1;
+              totalValue += price * qty;
+              totalItems += qty;
+            });
+          }
+        }
+
+        // Process set personal collection items
+        if (setCollectionResponse.ok) {
+          const setCollectionData = await setCollectionResponse.json();
+          const setCollectionItems = setCollectionData.success ? setCollectionData.data : (Array.isArray(setCollectionData) ? setCollectionData : []);
+
+          if (Array.isArray(setCollectionItems)) {
+            setCollectionItems.forEach((item: any) => {
               const price = item.pricing?.suggestedPrice || item.suggestedPrice || 0;
               const qty = item.quantity || 1;
               totalValue += price * qty;
