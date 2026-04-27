@@ -353,7 +353,7 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
                   width: '80px',
                   height: '80px',
                   flexShrink: 0,
-                  background: '#fafafa',
+                  background: '#ffffff',
                   borderRadius: '8px',
                   display: 'flex',
                   alignItems: 'center',
