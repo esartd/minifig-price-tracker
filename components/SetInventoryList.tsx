@@ -242,15 +242,16 @@ export default function SetInventoryList({
                   fontWeight: '600',
                   color: item.condition === 'new' ? '#2563eb' : '#525252',
                   background: item.condition === 'new' ? '#d1fae5' : '#f5f5f5',
-                  padding: '4px 10px',
-                  paddingRight: '24px',
+                  padding: '4px 8px',
+                  paddingRight: '20px',
                   borderRadius: '4px',
                   textTransform: 'uppercase',
                   letterSpacing: '0.03em',
                   border: 'none',
                   cursor: 'pointer',
                   outline: 'none',
-                  marginRight: '12px'
+                  marginRight: '12px',
+                  minWidth: '68px'
                 }}
               >
                 <option value="new">NEW</option>
