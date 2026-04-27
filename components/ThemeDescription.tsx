@@ -20,17 +20,11 @@ export default function ThemeDescription({ themeName, description }: ThemeDescri
     : description.substring(0, previewLength) + '...';
 
   return (
-    <div style={{
-      margin: '32px 0 48px 0',
-      padding: '24px',
-      background: '#f8f9fa',
-      border: '1px solid #e5e7eb',
-      borderRadius: '12px'
-    }}>
+    <div>
       <p style={{
         fontSize: '15px',
         lineHeight: '1.7',
-        color: '#374151',
+        color: '#525252',
         margin: 0
       }}>
         {displayText}
@@ -41,7 +35,7 @@ export default function ThemeDescription({ themeName, description }: ThemeDescri
           onClick={() => setIsExpanded(!isExpanded)}
           style={{
             marginTop: '12px',
-            padding: '6px 16px',
+            padding: '0',
             fontSize: '14px',
             fontWeight: '600',
             color: '#3b82f6',
