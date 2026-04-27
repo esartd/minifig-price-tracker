@@ -5,10 +5,17 @@
 **Last Updated**: 2026-04-27  
 **Status**: STABLE - Working correctly for all collection types
 
+**🚨 VIOLATING BRICKLINK API RULES CAN GET US BANNED - TAKE THIS SERIOUSLY 🚨**
+
 ## Overview
 FigTracker uses a centralized caching system to minimize Bricklink API calls while keeping prices fresh. All pricing data flows through the `priceCache` table with 6-hour expiration.
 
-**BrickLink API Compliance**: 6-hour cache per BrickLink API Terms of Service
+**BrickLink API Compliance (MANDATORY - NOT OPTIONAL)**:
+- ✅ **3-second minimum delay** between ANY API calls (enforced everywhere)
+- ✅ **6-hour cache** per BrickLink API Terms of Service  
+- ✅ **5,000 calls/day maximum** (hard limit with tracking)
+
+**Violation = API access revoked = site breaks completely**
 
 ## Architecture
 
@@ -339,27 +346,34 @@ return NextResponse.json({
 
 **Why**: Frontend types (`CollectionItem`, `SetInventoryItem`) don't include `userId`. Type mismatch prevents React state updates.
 
-### 4. Always Use Sequential Fetching
+### 4. Always Use Sequential Fetching with 3-Second Delays
 **Files**: All collection/inventory page components
 
-**Rule**: Fetch prices ONE BY ONE with `setTimeout` delay
+**Rule**: Fetch prices ONE BY ONE with **3000ms (3 second)** delay - NO EXCEPTIONS
 
 ```typescript
-// ✅ CORRECT - Sequential with delay
+// ✅ CORRECT - Sequential with 3-second delay
 const fetchNextItem = async () => {
   // ... fetch logic ...
-  setTimeout(fetchNextItem, 500); // Next after delay
+  setTimeout(fetchNextItem, 3000); // BrickLink API requires 3-second minimum
 };
 fetchNextItem();
 
 // ❌ WRONG - Parallel
 await Promise.all(items.map(item => fetch(...)));
+
+// ❌ WRONG - Too fast (will get us banned!)
+setTimeout(fetchNextItem, 500); // NEVER USE LESS THAN 3000ms
+setTimeout(fetchNextItem, 1000); // STILL TOO FAST
+setTimeout(fetchNextItem, 2000); // STILL TOO FAST
 ```
 
-**Why**: 
-- Avoids overwhelming server
-- Respects BrickLink rate limits
-- Allows progressive UI updates (prices appear one-by-one)
+**Why 3 seconds is mandatory**: 
+- BrickLink API Terms of Service requirement
+- Violating this = empty price responses or API ban
+- NOT negotiable, NOT optional, NOT "optimization"
+- April 2026 incident: 500ms delays caused mass $0 prices
+- Slower UX is acceptable, API ban is not
 
 ### 5. Match Working Reference Implementation
 **Rule**: When in doubt, copy from `/app/collection/page.tsx` (minifigs) or `/app/sets-collection/page.tsx` (sets)
