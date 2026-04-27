@@ -5,8 +5,11 @@ import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import ThemeDescription from '@/components/ThemeDescription';
 import { getSetAvailability } from '@/lib/set-availability';
 import { generateAmazonLegoSetLink } from '@/lib/affiliate-links';
+import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
+import themeDescriptions from '@/lib/theme-descriptions.json';
 
 interface LegoBox {
   box_no: string;
@@ -174,8 +177,14 @@ export default function ThemePage() {
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState<'year' | 'name'>('year');
   const [subcategoryFilter, setSubcategoryFilter] = useState<string>('all');
+  const [themeHeroImage, setThemeHeroImage] = useState<string | null>(null);
 
   useEffect(() => {
+    // Set hero image from THEME_OVERRIDES
+    const minifigNo = THEME_OVERRIDES[theme] || null;
+    if (minifigNo) {
+      setThemeHeroImage(`/api/images/minifig/${minifigNo}`);
+    }
     loadSets();
   }, [theme]);
 
@@ -260,7 +269,7 @@ export default function ThemePage() {
         minHeight: '100vh',
         background: '#fafafa'
       }}>
-      {/* Header */}
+      {/* Header with Hero Card */}
       <div style={{
         background: 'white',
         borderBottom: '1px solid #e5e5e5'
@@ -278,31 +287,115 @@ export default function ThemePage() {
             { label: theme }
           ]} />
 
-          <h1 style={{
-            fontSize: 'clamp(28px, 5vw, 36px)',
-            fontWeight: '700',
-            marginBottom: '8px',
-            marginTop: '16px',
-            color: '#171717',
-            lineHeight: '1.2'
-          }}>
-            {theme} Sets
-          </h1>
-          <p style={{
-            fontSize: 'clamp(14px, 2vw, 16px)',
-            color: '#737373',
-            marginBottom: '16px',
-            lineHeight: '1.5'
-          }}>
-            {sets.length.toLocaleString()} sets in this theme
-          </p>
+          {/* Hero Card (if we have theme override) */}
+          {themeHeroImage ? (
+            <div style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '40px',
+              marginTop: '24px',
+              marginBottom: '24px',
+              padding: '48px',
+              borderRadius: '16px',
+              background: 'linear-gradient(135deg, #fafafa 0%, #ffffff 100%)',
+              border: '1px solid #e5e5e5',
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
+            }}>
+              {/* Representative Image */}
+              <div style={{
+                flexShrink: 0,
+                width: '160px',
+                height: '160px',
+                background: '#ffffff',
+                borderRadius: '12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '1px solid #e5e5e5',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)'
+              }}>
+                <Image
+                  src={themeHeroImage}
+                  alt={`${theme} LEGO theme representative`}
+                  width={160}
+                  height={160}
+                  style={{
+                    objectFit: 'contain',
+                    padding: '12px'
+                  }}
+                />
+              </div>
+
+              {/* Text Content */}
+              <div style={{ flex: 1 }}>
+                <div style={{
+                  fontSize: '12px',
+                  fontWeight: '600',
+                  color: '#3b82f6',
+                  marginBottom: '8px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em'
+                }}>
+                  Theme
+                </div>
+                <h1 style={{
+                  fontSize: 'clamp(28px, 5vw, 36px)',
+                  fontWeight: '700',
+                  letterSpacing: '-0.02em',
+                  marginBottom: '12px',
+                  color: '#171717',
+                  lineHeight: '1.2'
+                }}>
+                  {theme} Sets
+                </h1>
+                <p style={{
+                  fontSize: 'clamp(14px, 2vw, 16px)',
+                  color: '#737373',
+                  marginBottom: 0
+                }}>
+                  {sets.length.toLocaleString()} sets in this theme
+                </p>
+
+                {/* Theme Description */}
+                {(themeDescriptions as Record<string, string>)[theme] && (
+                  <ThemeDescription
+                    themeName={theme}
+                    description={(themeDescriptions as Record<string, string>)[theme]}
+                  />
+                )}
+              </div>
+            </div>
+          ) : (
+            // Fallback: simple header (no override found)
+            <>
+              <h1 style={{
+                fontSize: 'clamp(28px, 5vw, 36px)',
+                fontWeight: '700',
+                marginTop: '16px',
+                marginBottom: '8px',
+                color: '#171717',
+                lineHeight: '1.2'
+              }}>
+                {theme} Sets
+              </h1>
+              <p style={{
+                fontSize: 'clamp(14px, 2vw, 16px)',
+                color: '#737373',
+                marginBottom: '16px',
+                lineHeight: '1.5'
+              }}>
+                {sets.length.toLocaleString()} sets in this theme
+              </p>
+            </>
+          )}
 
           {/* Controls */}
           <div style={{
             display: 'flex',
             gap: '12px',
             flexWrap: 'wrap',
-            alignItems: 'stretch'
+            alignItems: 'stretch',
+            marginTop: themeHeroImage ? '0' : '16px'
           }}>
             {/* Subcategory Filter */}
             {subcategories.length > 1 && (
