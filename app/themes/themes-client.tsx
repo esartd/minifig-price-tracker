@@ -122,6 +122,10 @@ export default function ThemesClient({ themes }: ThemesClientProps) {
     theme.parent.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  // Separate current and older themes
+  const currentThemes = filteredThemes.filter(theme => theme.isCurrent);
+  const olderThemes = filteredThemes.filter(theme => !theme.isCurrent);
+
   const totalMinifigs = themes.reduce((sum, theme) => sum + theme.totalCount, 0);
 
   return (
@@ -187,19 +191,6 @@ export default function ThemesClient({ themes }: ThemesClientProps) {
         margin: '0 auto',
         padding: '48px 16px'
       }}>
-        {/* All Themes */}
-        {filteredThemes.length > 0 ? (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-            gap: '24px'
-          }}>
-            {filteredThemes.map(theme => (
-              <ThemeCard key={theme.parent} theme={theme} />
-            ))}
-          </div>
-        ) : null}
-
         {/* Empty State */}
         {filteredThemes.length === 0 && (
           <div style={{
@@ -212,6 +203,52 @@ export default function ThemesClient({ themes }: ThemesClientProps) {
             </div>
             <div style={{ fontSize: 'var(--text-base)' }}>
               Try a different search term
+            </div>
+          </div>
+        )}
+
+        {/* Current Themes */}
+        {currentThemes.length > 0 && (
+          <div style={{ marginBottom: '64px' }}>
+            <h2 style={{
+              fontSize: 'var(--text-xl)',
+              fontWeight: '600',
+              color: '#171717',
+              marginBottom: '24px'
+            }}>
+              Current Themes ({currentThemes.length})
+            </h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+              gap: '24px'
+            }}>
+              {currentThemes.map(theme => (
+                <ThemeCard key={theme.parent} theme={theme} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Older Themes */}
+        {olderThemes.length > 0 && (
+          <div>
+            <h2 style={{
+              fontSize: 'var(--text-xl)',
+              fontWeight: '600',
+              color: '#171717',
+              marginBottom: '24px'
+            }}>
+              Older Themes ({olderThemes.length})
+            </h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+              gap: '24px'
+            }}>
+              {olderThemes.map(theme => (
+                <ThemeCard key={theme.parent} theme={theme} />
+              ))}
             </div>
           </div>
         )}
