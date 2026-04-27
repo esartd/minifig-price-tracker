@@ -29,7 +29,8 @@ export default function ThemeDescription({ themeName, description }: ThemeDescri
         fontSize: '15px',
         lineHeight: '1.7',
         color: '#525252',
-        margin: 0
+        margin: 0,
+        maxWidth: '65ch'
       }}>
         {displayText}
       </p>
