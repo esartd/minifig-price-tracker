@@ -192,7 +192,7 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
     <div style={{
       maxWidth: '1200px',
       margin: '0 auto',
-      padding: '48px 16px'
+      padding: '48px 24px'
     }}>
       {/* Breadcrumb */}
       <Breadcrumbs items={[
@@ -206,9 +206,9 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
         <div style={{
           display: 'flex',
           alignItems: 'flex-start',
-          gap: '32px',
+          gap: '40px',
           marginBottom: '48px',
-          padding: '32px',
+          padding: '48px',
           borderRadius: '16px',
           background: 'linear-gradient(135deg, #fafafa 0%, #ffffff 100%)',
           border: '1px solid #e5e5e5',
