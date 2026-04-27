@@ -598,12 +598,33 @@ If pricing breaks after deployment:
 3. Reference this document to understand what went wrong
 4. Fix issue locally and test before redeploying
 
+## Price Cache Pre-warming (IMPLEMENTED)
+
+**Status**: ✅ Ready for deployment  
+**Documentation**: See [PRICE_CACHE_PREWARMING.md](PRICE_CACHE_PREWARMING.md)
+
+**What it does**:
+- Background cron job runs every 6 hours
+- Pre-fetches prices for all items in any user's collection
+- Makes page loads **instant** (like BrickEconomy)
+- No more waiting 3-5 minutes for prices to appear
+
+**Setup**:
+1. Add `CRON_SECRET` to environment
+2. Configure Hostinger cron: `0 */6 * * *`
+3. Endpoint: `/api/cron/refresh-collection-prices`
+
+**Performance**:
+- Processes up to 1,200 items per run (~1 hour)
+- Stays within BrickLink's 5,000 calls/day limit
+- Scales to thousands of items with prioritization
+
 ## Future Improvements
 
 ### Potential Optimizations
-- [ ] Preload prices for popular items
-- [ ] Batch refresh-pricing endpoint (update multiple at once)
-- [ ] Background job to refresh expiring prices
+- [ ] Smart prioritization (refresh active items more frequently)
+- [ ] Activity-based refresh (only items viewed recently)
+- [ ] Parallel batching (5 items at once, faster but riskier)
 - [ ] WebSocket for real-time price updates
 - [ ] CDN caching for popular items
 
@@ -611,5 +632,5 @@ If pricing breaks after deployment:
 - [ ] Price history tracking
 - [ ] Price alert notifications
 - [ ] Manual price refresh button
+- [ ] Admin dashboard for cron monitoring
 - [ ] Cache warmup on user signup
-- [ ] Smart refresh (only fetch if viewed recently)

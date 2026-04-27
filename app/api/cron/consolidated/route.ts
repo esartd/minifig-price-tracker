@@ -10,8 +10,9 @@ import { NextResponse } from 'next/server';
  * Method: GET
  *
  * Tasks:
- * 1. Price Refresh (every run) - Required every 6 hours per BrickLink API terms
- * 2. Price History (once daily) - Records historical snapshots
+ * 1. Collection Price Pre-warming (every run) - Pre-cache prices for all user collections
+ * 2. Price Refresh (every run) - Required every 6 hours per BrickLink API terms
+ * 3. Price History (once daily) - Records historical snapshots
  */
 export async function GET(request: Request) {
   const results: any = {
@@ -32,7 +33,35 @@ export async function GET(request: Request) {
       );
     }
 
-    // TASK 1: Refresh prices (runs EVERY time - every 6 hours)
+    // TASK 1: Collection Price Pre-warming (runs EVERY time - every 6 hours)
+    // This pre-caches prices for all items in user collections for instant page loads
+    console.log('Starting collection price pre-warming...');
+    try {
+      const collectionPriceResponse = await fetch(`${baseUrl}/api/cron/refresh-collection-prices`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(cronSecret && { 'Authorization': `Bearer ${cronSecret}` })
+        }
+      });
+      const collectionPriceData = await collectionPriceResponse.json();
+
+      results.tasks.push({
+        name: 'collection-price-prewarm',
+        status: collectionPriceData.success ? 'success' : 'failed',
+        data: collectionPriceData
+      });
+      console.log('Collection price pre-warming completed:', collectionPriceData);
+    } catch (error) {
+      console.error('Collection price pre-warming failed:', error);
+      results.tasks.push({
+        name: 'collection-price-prewarm',
+        status: 'error',
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+
+    // TASK 2: Refresh prices (runs EVERY time - every 6 hours)
     console.log('Starting price refresh...');
     try {
       const priceRefreshResponse = await fetch(`${baseUrl}/api/cron/refresh-prices`, {
@@ -58,7 +87,7 @@ export async function GET(request: Request) {
       });
     }
 
-    // TASK 2: Record price history (runs ONCE daily - only at midnight UTC)
+    // TASK 3: Record price history (runs ONCE daily - only at midnight UTC)
     const currentHour = new Date().getUTCHours();
     if (currentHour === 0) { // Runs at 12 AM UTC
       console.log('Starting price history recording (daily task)...');
