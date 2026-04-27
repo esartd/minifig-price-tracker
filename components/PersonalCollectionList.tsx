@@ -241,14 +241,19 @@ export default function PersonalCollectionList({
                   fontWeight: '600',
                   color: item.condition === 'new' ? '#2563eb' : '#525252',
                   background: item.condition === 'new' ? '#d1fae5' : '#f5f5f5',
-                  padding: '4px 24px 4px 8px',
+                  padding: '4px 8px',
+                  paddingRight: '22px',
                   borderRadius: '4px',
                   textTransform: 'uppercase',
-                  letterSpacing: '0.03em',
                   border: 'none',
                   cursor: 'pointer',
                   outline: 'none',
-                  marginRight: '12px'
+                  marginRight: '12px',
+                  appearance: 'none',
+                  backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23${item.condition === 'new' ? '2563eb' : '525252'}' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+                  backgroundPosition: 'right 4px center',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: '16px'
                 }}
               >
                 <option value="new">NEW</option>
