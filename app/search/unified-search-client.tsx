@@ -392,7 +392,7 @@ export default function UnifiedSearchClient() {
                             padding: '20px'
                           }}>
                             <Image
-                              src={`https://img.bricklink.com/ItemImage/MN/0/${minifig.minifigure_no}.png`}
+                              src={`/api/images/minifig/${minifig.minifigure_no}`}
                               alt={minifig.name}
                               width={160}
                               height={160}

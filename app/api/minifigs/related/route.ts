@@ -103,7 +103,7 @@ export async function GET(request: NextRequest) {
         return {
           no: minifig.minifigure_no,
           name: minifig.name,
-          image_url: `https://img.bricklink.com/ItemImage/MN/0/${minifig.minifigure_no}.png`,
+          image_url: `/api/images/minifig/${minifig.minifigure_no}`,
           distance
         };
       })
@@ -114,7 +114,7 @@ export async function GET(request: NextRequest) {
     const variants = variantResults.map(m => ({
       no: m.minifigure_no,
       name: m.name,
-      image_url: `https://img.bricklink.com/ItemImage/MN/0/${m.minifigure_no}.png`
+      image_url: `/api/images/minifig/${m.minifigure_no}`
     }));
 
     return NextResponse.json({

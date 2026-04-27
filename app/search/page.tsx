@@ -318,7 +318,7 @@ function SearchPageContent() {
         {minifigPositions.map((pos, index) => (
           <img
             key={index}
-            src={`https://img.bricklink.com/ItemImage/MN/0/${pos.id}.png`}
+            src={`/api/images/minifig/${pos.id}`}
             alt=""
             loading="lazy"
             className={`${pos.reverse ? 'floating-emoji-reverse' : 'floating-emoji'} ${isSearchActive ? 'hidden' : ''}`}

@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
         category_id: item.category_id,
         category_name: item.category_name,
         year_released: item.year_released,
-        image_url: `https://img.bricklink.com/ItemImage/MN/0/${item.minifigure_no}.png`
+        image_url: `/api/images/minifig/${item.minifigure_no}`
       }));
 
       return NextResponse.json({
@@ -94,7 +94,7 @@ export async function GET(request: NextRequest) {
         category_id: item.category_id,
         category_name: item.category_name,
         year_released: item.year_released,
-        image_url: `https://img.bricklink.com/ItemImage/MN/0/${item.minifigure_no}.png`
+        image_url: `/api/images/minifig/${item.minifigure_no}`
       }));
 
       return NextResponse.json({
