@@ -1,7 +1,14 @@
 # Pricing System Documentation
 
+**⚠️ CRITICAL SYSTEM - DO NOT MODIFY WITHOUT READING THIS ENTIRE DOCUMENT ⚠️**
+
+**Last Updated**: 2026-04-27  
+**Status**: STABLE - Working correctly for all collection types
+
 ## Overview
 FigTracker uses a centralized caching system to minimize Bricklink API calls while keeping prices fresh. All pricing data flows through the `priceCache` table with 6-hour expiration.
+
+**BrickLink API Compliance**: 6-hour cache per BrickLink API Terms of Service
 
 ## Architecture
 
@@ -137,32 +144,71 @@ const itemsNeedingRefresh = data.data.filter((item) =>
 );
 ```
 
-### Progressive Fetch
+### Progressive Fetch (CORRECT IMPLEMENTATION)
+
+**⚠️ THIS IS THE WORKING PATTERN - DO NOT CHANGE ⚠️**
 
 ```javascript
-// Show items immediately with cached prices
+// 1. Show items immediately with cached prices
 setCollection(data.data);
 setLoading(false);
 
-// Fetch missing prices in background
-// IMPORTANT: Use Promise.all(map(...)) NOT forEach for proper async handling
-const refreshPromises = itemsNeedingRefresh.map(async (item) => {
-  const priceResponse = await fetch(`/api/inventory/${item.id}/refresh-pricing`, {
-    method: 'POST'
-  });
-  const priceData = await priceResponse.json();
-  
-  if (priceData.success && priceData.data) {
-    // Update state with new pricing - triggers re-render
-    setCollection(prev => 
-      prev.map(i => i.id === item.id ? priceData.data : i)
-    );
-  }
-});
+// 2. Find items needing refresh
+const itemsNeedingRefresh = data.data.filter((item) =>
+  !item.pricing ||
+  item.pricing.suggestedPrice === 0 ||
+  item.pricing.currencyCode !== userCurrency
+);
 
-// Await all updates (ensures cleanup, doesn't block rendering)
-await Promise.all(refreshPromises);
+// 3. Fetch prices ONE BY ONE with sequential timing
+if (itemsNeedingRefresh.length > 0) {
+  setPricesUpdating(itemsNeedingRefresh.length);
+  
+  let currentIndex = 0;
+  
+  const fetchNextItem = async () => {
+    if (currentIndex >= itemsNeedingRefresh.length) {
+      setPricesUpdating(0);
+      return;
+    }
+    
+    const item = itemsNeedingRefresh[currentIndex];
+    currentIndex++;
+    
+    try {
+      const response = await fetch(`/api/inventory/${item.id}/refresh-pricing`, {
+        method: 'POST'
+      });
+      const result = await response.json();
+      
+      if (result.success && result.data) {
+        // Update state - triggers re-render, price appears immediately
+        setCollection(prev => prev.map(i =>
+          i.id === item.id ? result.data : i
+        ));
+      }
+    } catch (err) {
+      console.error(`Error fetching ${item.minifigure_no}:`, err);
+    }
+    
+    // Decrement counter
+    setPricesUpdating(prev => Math.max(0, prev - 1));
+    
+    // Fetch next item after delay (avoids rate limits)
+    setTimeout(fetchNextItem, 500);
+  };
+  
+  fetchNextItem();
+}
 ```
+
+**Why this pattern works:**
+- Items show immediately with "No sellers available" or existing prices
+- Prices fetch sequentially (avoids overwhelming server/API)
+- Each successful fetch triggers React re-render
+- Prices appear one-by-one progressively
+- Failed fetches don't block remaining items
+- 500ms delay between calls prevents rate limiting
 
 **Why Promise.all instead of forEach:**
 - `forEach` does NOT handle async callbacks properly
@@ -171,10 +217,31 @@ await Promise.all(refreshPromises);
 - Guarantees React re-renders as each price arrives
 
 **Bug History (April 2026):**
-- Issue: Prices fetched but UI didn't update without page refresh
+
+**Issue #1 (April 24)**: Prices fetched but UI didn't update without page refresh
 - Cause: `forEach(async ...)` doesn't properly await async operations
 - Fix: Changed to `Promise.all(map(...))` for proper async handling
 - Commit: b4a1e8f "Fix inventory pricing not updating without page refresh"
+
+**Issue #2 (April 26)**: Inventory page showed "Loading price..." during fetch, not "No sellers available"
+- Cause: Added `loadingPriceIds` Set tracking that collection page didn't use
+- Symptom: Different behavior than working collection page
+- Fix: Removed loadingPriceIds, match collection pattern exactly
+- Commit: c4a2530 "Remove 'Loading price...' state from inventory - match collection behavior"
+
+**Issue #3 (April 27)**: All inventory pricing API calls returned 500 errors
+- Cause: API tried to write pricing to database on every refresh
+- Symptom: `database.updateItem()` hit Hostinger connection limits
+- Fix: Remove database writes, only return data (match collection API)
+- Commit: e3d3aef "Fix inventory refresh-pricing to not write to database"
+
+**Issue #4 (April 27)**: Prices fetched successfully but React state didn't update
+- Cause: API returned `userId` field from database layer, frontend type doesn't include it
+- Symptom: Type mismatch prevented React from detecting state change
+- Fix: Strip `userId` before returning to match `CollectionItem` type
+- Commit: a3c02e6 "Remove userId from inventory API response to match CollectionItem type"
+
+**Current Status**: All 4 collection types working correctly (collection, inventory, set-collection, set-inventory)
 
 ## API Endpoints
 
@@ -188,14 +255,116 @@ await Promise.all(refreshPromises);
 - Pricing attached from priceCache
 - Query param: `?all=true` (fetch all at once)
 
-### POST /api/inventory/[id]/refresh-pricing
-- Fetches fresh price from Bricklink API
-- Saves to priceCache (6-hour expiration)
-- Updates item table columns (backup)
-- Returns updated item with pricing
+### POST /api/inventory/[id]/refresh-pricing (Minifigs)
+- **CRITICAL**: Does NOT write to database item table
+- Fetches fresh price from BrickLink API
+- Saves to priceCache only (6-hour expiration)
+- Returns item with pricing attached in memory
+- Frontend updates React state to display prices
 
-### POST /api/set-inventory/[id]/refresh-pricing
+**Why no database writes?**
+- Writing to Hostinger MySQL hits connection limits
+- Causes 500 errors on every pricing fetch
+- Pricing is cached in priceCache table separately
+- Frontend uses React state updates for progressive display
+
+### POST /api/set-inventory/[id]/refresh-pricing (Sets)
 - Same as above but for sets
+- Also does NOT write to database
+
+## ⚠️ CRITICAL RULES - NEVER VIOLATE THESE ⚠️
+
+### 1. DO NOT Write to Database in refresh-pricing APIs
+**Files**: 
+- `app/api/inventory/[id]/refresh-pricing/route.ts`
+- `app/api/set-inventory/[id]/refresh-pricing/route.ts`
+- `app/api/personal-collection/[id]/refresh-pricing/route.ts`
+- `app/api/set-personal-collection/[id]/refresh-pricing/route.ts`
+
+**Rule**: These endpoints must ONLY:
+```typescript
+// ✅ CORRECT
+const pricing = await bricklinkAPI.calculatePricingData(...);
+const { userId, ...itemWithoutUserId } = item;
+return NextResponse.json({
+  success: true,
+  data: { ...itemWithoutUserId, pricing }
+});
+
+// ❌ WRONG - DO NOT DO THIS
+await database.updateItem(id, { pricing }); // Causes 500 errors!
+```
+
+**Why**: Hostinger MySQL has connection limits. Writing on every pricing fetch causes 500 errors.
+
+### 2. DO NOT Track Loading State Per Item
+**Files**:
+- `app/inventory/page.tsx`
+- `app/sets-inventory/page.tsx`
+
+**Rule**: Do NOT use `loadingPriceIds` Set or similar per-item loading tracking
+
+```typescript
+// ❌ WRONG
+const [loadingPriceIds, setLoadingPriceIds] = useState<Set<string>>(new Set());
+setLoadingPriceIds(new Set(itemsNeedingRefresh.map(item => item.id)));
+
+// ✅ CORRECT - Just update state directly
+setCollection(prev => prev.map(i =>
+  i.id === item.id ? result.data : i
+));
+```
+
+**Why**: Collection page doesn't use it and works perfectly. Adding this complexity breaks the pattern.
+
+### 3. DO NOT Return userId in API Responses
+**Files**: All `refresh-pricing` route handlers
+
+**Rule**: Strip `userId` before returning data to frontend
+
+```typescript
+// ✅ CORRECT
+const { userId, ...itemWithoutUserId } = item;
+return NextResponse.json({
+  success: true,
+  data: { ...itemWithoutUserId, pricing }
+});
+
+// ❌ WRONG
+return NextResponse.json({
+  success: true,
+  data: { ...item, pricing } // item contains userId!
+});
+```
+
+**Why**: Frontend types (`CollectionItem`, `SetInventoryItem`) don't include `userId`. Type mismatch prevents React state updates.
+
+### 4. Always Use Sequential Fetching
+**Files**: All collection/inventory page components
+
+**Rule**: Fetch prices ONE BY ONE with `setTimeout` delay
+
+```typescript
+// ✅ CORRECT - Sequential with delay
+const fetchNextItem = async () => {
+  // ... fetch logic ...
+  setTimeout(fetchNextItem, 500); // Next after delay
+};
+fetchNextItem();
+
+// ❌ WRONG - Parallel
+await Promise.all(items.map(item => fetch(...)));
+```
+
+**Why**: 
+- Avoids overwhelming server
+- Respects BrickLink rate limits
+- Allows progressive UI updates (prices appear one-by-one)
+
+### 5. Match Working Reference Implementation
+**Rule**: When in doubt, copy from `/app/collection/page.tsx` (minifigs) or `/app/sets-collection/page.tsx` (sets)
+
+These pages are the **golden reference** - they work correctly and have been stable.
 
 ## Common Issues & Fixes
 
@@ -265,6 +434,56 @@ await Promise.all(promises);
 
 **Code Location**: `app/inventory/page.tsx` line ~99-136
 
+## BrickLink Pricing Data Explained
+
+### What is "LOWEST" Price?
+
+**Source**: BrickLink API `price_guide` endpoint returns `min_price` field
+
+**What it includes**:
+- The absolute lowest current listing on BrickLink marketplace
+- For SETS: Includes **all listings regardless of completeness**
+  - Incomplete sets (missing minifigs, no box, missing pieces)
+  - Complete sets
+  - Used, New, any condition
+
+**Why prices differ from manual BrickLink search**:
+- **Cache staleness**: Prices cached for 6 hours, BrickLink listings change constantly
+- **Completeness**: API `min_price` includes incomplete sets at $13.49, while you may want complete sets at $27.78
+- **No filtering**: BrickLink API doesn't let you filter by completeness in price guide
+
+**Example**: Darth Vader Transformation (75183-1)
+- FigTracker "LOWEST": $27.78 (cached 6 hours ago, was lowest complete set)
+- BrickLink now: $13.49 (new incomplete listing appeared since cache)
+
+### Pricing Formula
+
+**What we show**:
+```
+6 MO AVG    = BrickLink sold qty_avg_price (last 6 months sales)
+CURRENT AVG = BrickLink stock qty_avg_price (current listings)
+LOWEST      = BrickLink stock min_price (absolute lowest listing)
+SUGGESTED   = (6 MO AVG + CURRENT AVG + LOWEST) / 3
+```
+
+**Code location**: `lib/bricklink.ts` lines 479-490
+
+### Currency Conversion
+
+**How it works**:
+1. User selects preferred country (US, GB, AU, etc.)
+2. API requests: `currency_code=USD` or `currency_code=GBP`
+3. BrickLink converts ALL seller prices to requested currency
+4. Returns aggregated data in that currency
+
+**Example**:
+- User in UK selects GBP
+- BrickLink fetches listings from US, EU, Asia (all sellers worldwide)
+- Converts all prices to GBP using current exchange rates
+- Returns `min_price` in GBP
+
+**Cache key includes country**: Different currencies = different cache entries
+
 ## Best Practices
 
 ### DO ✅
@@ -321,6 +540,63 @@ Filter for "refresh-pricing" to see when prices are being fetched.
 
 ### Console Logs
 Page load shows: "Found N items needing pricing refresh (current currency: USD)"
+
+## Testing Pricing Changes
+
+**⚠️ BEFORE deploying any pricing changes, test ALL 4 collection types:**
+
+### Manual Test Checklist
+
+1. **Collection (Minifigs - Personal)**
+   - Go to `/collection`
+   - Verify prices appear progressively
+   - Check console: "Found X items needing pricing refresh"
+   - Watch Network tab: `refresh-pricing` calls return 200 (not 500)
+   - Confirm prices update without page refresh
+
+2. **Inventory (Minifigs - For Sale)**
+   - Go to `/inventory`
+   - Same checks as above
+   - Verify "No sellers available" shows initially (not "Loading price...")
+   - Prices should appear one-by-one
+
+3. **Set Collection (Sets - Personal)**
+   - Go to `/sets-collection`
+   - Same checks as above
+
+4. **Set Inventory (Sets - For Sale)**
+   - Go to `/sets-inventory`
+   - Same checks as above
+
+### What to Watch For
+
+**Good signs** ✅:
+- Console: "Updated [item]: $XX.XX"
+- Network: 200 status codes
+- Prices appear progressively in UI
+- No page refresh needed
+
+**Bad signs** ❌:
+- Console errors
+- Network: 500 status codes
+- Prices don't appear until page refresh
+- "Loading price..." stuck forever
+- Database connection errors
+
+### Rollback Plan
+
+If pricing breaks after deployment:
+
+1. Check git log for last working commit
+2. Revert pricing-related files:
+   ```bash
+   git checkout <last-working-commit> -- app/api/inventory/[id]/refresh-pricing/route.ts
+   git checkout <last-working-commit> -- app/inventory/page.tsx
+   git commit -m "Rollback pricing to working version"
+   git push
+   ```
+3. Reference this document to understand what went wrong
+4. Fix issue locally and test before redeploying
 
 ## Future Improvements
 
