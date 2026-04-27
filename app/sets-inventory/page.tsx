@@ -127,7 +127,7 @@ export default function SetsInventoryPage() {
             }
 
             setPricesUpdating(prev => Math.max(0, prev - 1));
-            setTimeout(fetchNextItem, 500);
+            setTimeout(fetchNextItem, 3000); // BrickLink API requires 3-second minimum
           };
 
           fetchNextItem();

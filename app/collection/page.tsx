@@ -138,8 +138,8 @@ export default function PersonalCollectionPage() {
             // Decrement updating count
             setPricesUpdating(prev => Math.max(0, prev - 1));
 
-            // Fetch next item after a short delay
-            setTimeout(fetchNextItem, 500); // 0.5 second delay between client requests
+            // Fetch next item after delay (BrickLink API requires 3-second minimum)
+            setTimeout(fetchNextItem, 3000);
           };
 
           // Start fetching
