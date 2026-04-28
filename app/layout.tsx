@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import Header from '@/components/header'
+import Footer from '@/components/Footer'
 import AuthProvider from '@/components/session-provider'
+import ScrollToTop from '@/components/ScrollToTop'
 import CurrencyBanner from '@/components/CurrencyBanner'
 import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
@@ -77,6 +80,7 @@ export default async function RootLayout({
   const host = headersList.get('host');
   const locale = getLocaleFromHost(host);
   const translations = await getTranslations(locale);
+
   const webAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
@@ -139,7 +143,14 @@ export default async function RootLayout({
         <AuthProvider>
           <TranslationProvider locale={locale} translations={translations}>
             <CurrencyBanner />
-            {children}
+            <div className="min-h-screen" style={{ backgroundColor: '#fafafa', display: 'flex', flexDirection: 'column' }}>
+              <Header />
+              <main style={{ flex: 1 }}>
+                {children}
+              </main>
+              <Footer />
+              <ScrollToTop />
+            </div>
           </TranslationProvider>
         </AuthProvider>
         <Analytics />
