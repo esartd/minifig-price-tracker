@@ -402,6 +402,11 @@
     "commission": "Ganamos una comisión por compras que califican.",
     "learnMore": "Más información",
     "buyLego": "Comprar en LEGO.com",
-    "buyAmazon": "Comprar en Amazon"
+    "buyAmazon": "Comprar en Amazon",
+    "dataProvidedBy": "Datos de minifiguras proporcionados por",
+    "bricklinkTrademark": "El término \"BrickLink\" es una marca registrada del Grupo LEGO BrickLink. Esta aplicación utiliza la API de BrickLink pero no está respaldada ni certificada por LEGO BrickLink, Inc.",
+    "legoTrademark": "LEGO® es una marca registrada del Grupo LEGO.",
+    "allRightsReserved": "Todos los derechos reservados.",
+    "createdBy": "Creado por"
   }
 }

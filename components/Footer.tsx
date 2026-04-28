@@ -147,7 +147,7 @@ export default function Footer() {
           color: '#737373'
         }}>
           <p style={{ margin: 0, marginBottom: 'var(--space-1)' }}>
-            Minifigure data provided by <a
+            {t('footer.dataProvidedBy')}<a
               href="https://www.bricklink.com"
               target="_blank"
               rel="noopener noreferrer"
@@ -157,10 +157,10 @@ export default function Footer() {
             </a>
           </p>
           <p style={{ margin: 0 }}>
-            The term "BrickLink" is a trademark of the LEGO Group BrickLink. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.
+            {t('footer.bricklinkTrademark')}
           </p>
           <p style={{ margin: 0, marginTop: 'var(--space-1)' }}>
-            LEGO® is a trademark of the LEGO Group.
+            {t('footer.legoTrademark')}
           </p>
         </div>
 
@@ -171,10 +171,10 @@ export default function Footer() {
           lineHeight: '1.6'
         }}>
           <p style={{ margin: 0, marginBottom: '4px' }}>
-            © {new Date().getFullYear()} FigTracker. All rights reserved.
+            © {new Date().getFullYear()} FigTracker. {t('footer.allRightsReserved')}
           </p>
           <p style={{ margin: 0 }}>
-            Created by <a
+            {t('footer.createdBy')}<a
               href="https://ericksu.com"
               target="_blank"
               rel="noopener noreferrer"

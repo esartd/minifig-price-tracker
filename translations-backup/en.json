@@ -345,6 +345,11 @@
     "commission": "We earn a commission from qualifying purchases.",
     "learnMore": "Learn more",
     "buyLego": "Buy on LEGO.com",
-    "buyAmazon": "Buy on Amazon"
+    "buyAmazon": "Buy on Amazon",
+    "dataProvidedBy": "Minifigure data provided by",
+    "bricklinkTrademark": "The term \"BrickLink\" is a trademark of the LEGO Group BrickLink. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.",
+    "legoTrademark": "LEGO® is a trademark of the LEGO Group.",
+    "allRightsReserved": "All rights reserved.",
+    "createdBy": "Created by"
   }
 }
