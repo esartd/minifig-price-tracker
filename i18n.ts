@@ -16,9 +16,11 @@ export const defaultLocale: Locale = 'en';
 
 export default getRequestConfig(async ({locale}) => {
   // Validate locale
-  if (!locales.includes(locale as Locale)) notFound();
+  const validLocale = locale as Locale;
+  if (!locales.includes(validLocale)) notFound();
 
   return {
-    messages: (await import(`./locales/${locale}.json`)).default
+    locale: validLocale,
+    messages: (await import(`./locales/${validLocale}.json`)).default
   };
 });

@@ -1,5 +1,15 @@
 import { auth } from '@/auth';
 import { NextResponse } from 'next/server';
+import createIntlMiddleware from 'next-intl/middleware';
+import { locales, defaultLocale } from './i18n';
+
+// Create i18n middleware
+const intlMiddleware = createIntlMiddleware({
+  locales,
+  defaultLocale,
+  localePrefix: 'always',
+  localeDetection: true
+});
 
 export default auth((req) => {
   const { pathname } = req.nextUrl;
@@ -10,19 +20,36 @@ export default auth((req) => {
     return NextResponse.next();
   }
 
+  // Apply i18n middleware first (handles locale detection and routing)
+  const intlResponse = intlMiddleware(req);
+  if (intlResponse) {
+    return intlResponse;
+  }
+
+  // Strip locale prefix for path matching
+  const pathnameWithoutLocale = pathname.replace(/^\/(en|de|fr|es)/, '') || '/';
+
   const isAuthPage = pathname.startsWith('/auth');
-  const isPublicPage = pathname === '/' ||
-                       pathname.startsWith('/search') ||
-                       pathname.startsWith('/minifig') ||
-                       pathname.startsWith('/themes') ||
-                       pathname.startsWith('/about') ||
-                       pathname === '/sitemap.xml' ||
-                       pathname === '/robots.txt' ||
-                       pathname.startsWith('/privacy') ||
-                       pathname.startsWith('/disclosure');
-  const isProtectedPage = pathname.startsWith('/inventory') ||
-                          pathname.startsWith('/personal-collection') ||
-                          pathname.startsWith('/account');
+  const isPublicPage = pathnameWithoutLocale === '/' ||
+                       pathnameWithoutLocale.startsWith('/search') ||
+                       pathnameWithoutLocale.startsWith('/minifig') ||
+                       pathnameWithoutLocale.startsWith('/themes') ||
+                       pathnameWithoutLocale === '/sitemap.xml' ||
+                       pathnameWithoutLocale === '/robots.txt' ||
+                       pathnameWithoutLocale.startsWith('/privacy') ||
+                       pathnameWithoutLocale.startsWith('/disclosure') ||
+                       pathnameWithoutLocale.startsWith('/about') ||
+                       pathnameWithoutLocale.startsWith('/faq') ||
+                       pathnameWithoutLocale.startsWith('/guides') ||
+                       pathnameWithoutLocale.startsWith('/sets-themes') ||
+                       pathnameWithoutLocale.startsWith('/sets');
+  const isProtectedPage = pathnameWithoutLocale.startsWith('/inventory') ||
+                          pathnameWithoutLocale.startsWith('/personal-collection') ||
+                          pathnameWithoutLocale.startsWith('/collection') ||
+                          pathnameWithoutLocale.startsWith('/sets-inventory') ||
+                          pathnameWithoutLocale.startsWith('/sets-collection') ||
+                          pathnameWithoutLocale.startsWith('/account') ||
+                          pathnameWithoutLocale.startsWith('/wishlist');
 
   // Allow public access to home, search, minifig detail, and about pages
   if (isPublicPage) {
@@ -41,10 +68,13 @@ export default auth((req) => {
     return NextResponse.redirect(signInUrl);
   }
 
-  // If logged in and on auth page, redirect to search
+  // If logged in and on auth page, redirect to locale home
   if (isLoggedIn && isAuthPage) {
-    const searchUrl = new URL('/search', req.nextUrl.origin);
-    return NextResponse.redirect(searchUrl);
+    // Extract locale from pathname if present
+    const localeMatch = pathname.match(/^\/(en|de|fr|es)/);
+    const locale = localeMatch ? localeMatch[1] : defaultLocale;
+    const homeUrl = new URL(`/${locale}`, req.nextUrl.origin);
+    return NextResponse.redirect(homeUrl);
   }
 
   return NextResponse.next();

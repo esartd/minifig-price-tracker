@@ -35,7 +35,14 @@
     "menu": {
       "minifigsForSale": "Minifigures for Sale",
       "setsToKeep": "Sets to Keep"
-    }
+    },
+    "popularThemes": "Popular Themes",
+    "contact": "Contact",
+    "minifigureThemes": "Minifigure Themes",
+    "setThemes": "Set Themes",
+    "setsInventory": "Sets Inventory",
+    "setsCollection": "Sets Collection",
+    "wishlist": "Wishlist"
   },
   "themes": {
     "browse_title": "Browse LEGO Minifigure Themes",

@@ -1,9 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import Header from '@/components/header'
-import Footer from '@/components/Footer'
 import AuthProvider from '@/components/session-provider'
-import ScrollToTop from '@/components/ScrollToTop'
 import CurrencyBanner from '@/components/CurrencyBanner'
 import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
@@ -106,7 +103,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="antialiased" style={{ margin: 0, padding: 0 }}>
+    <html lang="en" className="antialiased" style={{ margin: 0, padding: 0 }} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
@@ -117,7 +114,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body className="antialiased" style={{ margin: 0, padding: 0 }}>
+      <body className="antialiased" style={{ margin: 0, padding: 0 }} suppressHydrationWarning>
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-PXLF7KRTSB"
@@ -133,14 +130,7 @@ export default function RootLayout({
         </Script>
         <AuthProvider>
           <CurrencyBanner />
-          <div className="min-h-screen" style={{ backgroundColor: '#fafafa', display: 'flex', flexDirection: 'column' }}>
-            <Header />
-            <main style={{ flex: 1 }}>
-              {children}
-            </main>
-            <Footer />
-            <ScrollToTop />
-          </div>
+          {children}
         </AuthProvider>
         <Analytics />
       </body>
