@@ -1,55 +1,40 @@
 import { auth } from '@/auth';
+import createIntlMiddleware from 'next-intl/middleware';
+import { locales, defaultLocale } from './i18n/request';
 import { NextResponse } from 'next/server';
 
+const intlMiddleware = createIntlMiddleware({
+  locales,
+  defaultLocale,
+  localePrefix: 'as-needed'
+});
+
 export default auth((req) => {
-  const { pathname } = req.nextUrl;
-  const isLoggedIn = !!req.auth;
-
-  // Always allow all API routes
-  if (pathname.startsWith('/api')) {
+  // Skip auth pages and API routes
+  if (req.nextUrl.pathname.startsWith('/api') || req.nextUrl.pathname.startsWith('/auth')) {
     return NextResponse.next();
   }
 
-  const isAuthPage = pathname.startsWith('/auth');
-  const isPublicPage = pathname === '/' ||
-                       pathname.startsWith('/search') ||
-                       pathname.startsWith('/minifig') ||
-                       pathname.startsWith('/themes') ||
-                       pathname.startsWith('/about') ||
-                       pathname === '/sitemap.xml' ||
-                       pathname === '/robots.txt' ||
-                       pathname.startsWith('/privacy') ||
-                       pathname.startsWith('/disclosure');
-  const isProtectedPage = pathname.startsWith('/inventory') ||
-                          pathname.startsWith('/personal-collection') ||
-                          pathname.startsWith('/account');
+  // Apply i18n middleware first
+  const intlResponse = intlMiddleware(req);
 
-  // Allow public access to home, search, minifig detail, and about pages
-  if (isPublicPage) {
-    return NextResponse.next();
+  // Check authentication for protected routes
+  const pathname = req.nextUrl.pathname;
+  const pathnameWithoutLocale = pathname.replace(/^\/(de|fr|es)/, '');
+
+  const isProtectedPage =
+    pathnameWithoutLocale.startsWith('/inventory') ||
+    pathnameWithoutLocale.startsWith('/collection') ||
+    pathnameWithoutLocale.startsWith('/account') ||
+    pathnameWithoutLocale.startsWith('/wishlist');
+
+  if (isProtectedPage && !req.auth) {
+    return NextResponse.redirect(new URL('/auth/signin', req.nextUrl.origin));
   }
 
-  // Protected pages require login
-  if (isProtectedPage && !isLoggedIn) {
-    const signInUrl = new URL('/auth/signin', req.nextUrl.origin);
-    return NextResponse.redirect(signInUrl);
-  }
-
-  // If not logged in and not on auth page or public page, redirect to sign-in
-  if (!isLoggedIn && !isAuthPage && !isPublicPage) {
-    const signInUrl = new URL('/auth/signin', req.nextUrl.origin);
-    return NextResponse.redirect(signInUrl);
-  }
-
-  // If logged in and on auth page, redirect to search
-  if (isLoggedIn && isAuthPage) {
-    const searchUrl = new URL('/search', req.nextUrl.origin);
-    return NextResponse.redirect(searchUrl);
-  }
-
-  return NextResponse.next();
+  return intlResponse;
 });
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|avatars|sitemap.xml|robots.txt).*)'],
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
 };
