@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation';
-import { defaultLocale } from '@/i18n';
 
-// Root page redirects to default locale
+// Root page redirects to English with explicit locale
 export default function RootPage() {
-  redirect(`/${defaultLocale}`);
+  redirect('/en');
 }
