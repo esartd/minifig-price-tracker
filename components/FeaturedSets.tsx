@@ -271,7 +271,7 @@ export default function FeaturedSets() {
                   textAlign: 'center',
                   marginTop: '16px'
                 }}>
-                  {set.retailer === 'lego' ? 'Buy on LEGO.com' : 'Buy on Amazon'}
+                  {set.retailer === 'lego' ? t('footer.buyLego') : t('footer.buyAmazon')}
                 </div>
               </a>
               {/* Tracking pixel (LEGO.com only) */}
@@ -299,7 +299,7 @@ export default function FeaturedSets() {
           marginTop: '48px',
           textAlign: 'center'
         }}>
-          We earn a commission from qualifying purchases. <a href="/disclosure" style={{ color: '#737373', textDecoration: 'underline' }}>Learn more</a>
+          {t('footer.commission')} <a href="/disclosure" style={{ color: '#737373', textDecoration: 'underline' }}>{t('footer.learnMore')}</a>
         </p>
       </div>
     </section>

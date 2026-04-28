@@ -392,5 +392,16 @@
   "featured": {
     "title": "Sets, die uns begeistern",
     "subtitle": "Handverlesene Sets, die es wert sind, entdeckt zu werden"
+  },
+  "footer": {
+    "faq": "FAQ",
+    "guides": "Anleitungen",
+    "contact": "Kontakt",
+    "privacy": "Datenschutz",
+    "disclosure": "Offenlegung",
+    "commission": "Wir erhalten eine Provision bei qualifizierten Käufen.",
+    "learnMore": "Mehr erfahren",
+    "buyLego": "Auf LEGO.com kaufen",
+    "buyAmazon": "Auf Amazon kaufen"
   }
 }

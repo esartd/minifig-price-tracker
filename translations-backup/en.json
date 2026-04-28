@@ -335,5 +335,16 @@
   "featured": {
     "title": "Sets We're Excited About",
     "subtitle": "Hand-picked sets worth checking out"
+  },
+  "footer": {
+    "faq": "FAQ",
+    "guides": "Guides",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "disclosure": "Disclosure",
+    "commission": "We earn a commission from qualifying purchases.",
+    "learnMore": "Learn more",
+    "buyLego": "Buy on LEGO.com",
+    "buyAmazon": "Buy on Amazon"
   }
 }

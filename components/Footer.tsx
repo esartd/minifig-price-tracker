@@ -1,6 +1,9 @@
 'use client';
 
+import { useTranslation } from './TranslationProvider';
+
 export default function Footer() {
+  const { t } = useTranslation();
   const popularThemes = [
     { name: 'Star Wars', slug: 'star-wars' },
     { name: 'Harry Potter', slug: 'harry-potter' },
@@ -35,7 +38,7 @@ export default function Footer() {
             color: '#a3a3a3',
             marginBottom: 'var(--space-3)'
           }}>
-            Popular Themes
+            {t('navigation.popularThemes')}
           </div>
           <div style={{
             display: 'flex',
@@ -80,7 +83,7 @@ export default function Footer() {
           }}
           onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
           onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >About</a>
+          >{t('navigation.about')}</a>
           <a href="/faq" style={{
             color: '#525252',
             textDecoration: 'none',
@@ -89,7 +92,7 @@ export default function Footer() {
           }}
           onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
           onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >FAQ</a>
+          >{t('footer.faq')}</a>
           <a href="/guides" style={{
             color: '#525252',
             textDecoration: 'none',
@@ -98,7 +101,7 @@ export default function Footer() {
           }}
           onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
           onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >Guides</a>
+          >{t('footer.guides')}</a>
           <a href="mailto:hello@ericksu.com" style={{
             color: '#525252',
             textDecoration: 'none',
@@ -107,7 +110,7 @@ export default function Footer() {
           }}
           onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
           onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >Contact</a>
+          >{t('footer.contact')}</a>
           <a href="/privacy" style={{
             color: '#525252',
             textDecoration: 'none',
@@ -116,7 +119,7 @@ export default function Footer() {
           }}
           onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
           onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >Privacy</a>
+          >{t('footer.privacy')}</a>
           <a href="/disclosure" style={{
             color: '#525252',
             textDecoration: 'none',
@@ -125,7 +128,7 @@ export default function Footer() {
           }}
           onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
           onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >Disclosure</a>
+          >{t('footer.disclosure')}</a>
         </div>
 
         {/* Divider */}

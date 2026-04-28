@@ -392,5 +392,16 @@
   "featured": {
     "title": "Sets qui nous passionnent",
     "subtitle": "Sets sélectionnés à découvrir"
+  },
+  "footer": {
+    "faq": "FAQ",
+    "guides": "Guides",
+    "contact": "Contact",
+    "privacy": "Confidentialité",
+    "disclosure": "Divulgation",
+    "commission": "Nous gagnons une commission sur les achats éligibles.",
+    "learnMore": "En savoir plus",
+    "buyLego": "Acheter sur LEGO.com",
+    "buyAmazon": "Acheter sur Amazon"
   }
 }
