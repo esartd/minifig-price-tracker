@@ -1,0 +1,171 @@
+/**
+ * Generate translation files for all locales
+ * This script reads English content and generates German, French, and Spanish translations
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+// Read theme descriptions
+const themeDescriptions = require('../lib/theme-descriptions.json');
+
+// Base English translations
+const enTranslations = {
+  common: {
+    search: "Search",
+    add: "Add",
+    delete: "Delete",
+    save: "Save",
+    cancel: "Cancel",
+    loading: "Loading...",
+    error: "An error occurred",
+    close: "Close",
+    edit: "Edit",
+    view: "View",
+    back: "Back",
+    next: "Next",
+    previous: "Previous",
+    submit: "Submit",
+    confirm: "Confirm",
+    yes: "Yes",
+    no: "No"
+  },
+  navigation: {
+    home: "Home",
+    search: "Search",
+    browse: "Browse",
+    yourLego: "Your LEGO",
+    about: "About",
+    signIn: "Sign In",
+    signUp: "Sign Up",
+    signOut: "Sign Out",
+    account: "Account",
+    themes: {
+      minifigures: "Minifigure Themes",
+      sets: "Set Themes"
+    },
+    menu: {
+      minifigsForSale: "Minifigures for Sale",
+      setsToKeep: "Sets to Keep"
+    }
+  },
+  themes: {
+    browse_title: "Browse LEGO Minifigure Themes",
+    browse_sets: "Browse LEGO Set Themes",
+    theme_sets: "{theme} Sets",
+    count: "{count} minifigures",
+    countSets: "{count} sets in this theme",
+    series: "{count} series",
+    allThemes: "All Themes",
+    popularThemes: "Popular Themes",
+    descriptions: themeDescriptions
+  },
+  account: {
+    title: "Account Settings",
+    profile: "Profile",
+    email: "Email",
+    password: "Password",
+    currency: "Currency",
+    language: "Language",
+    languageDescription: "Choose your preferred language",
+    currencyDescription: "Select your preferred currency for pricing",
+    updateSuccess: "Settings updated successfully",
+    updateError: "Failed to update settings",
+    name: "Name",
+    avatar: "Avatar",
+    changePassword: "Change Password",
+    currentPassword: "Current Password",
+    newPassword: "New Password",
+    confirmPassword: "Confirm Password",
+    deleteAccount: "Delete Account"
+  },
+  collection: {
+    title: "My Collection",
+    inventory: "Inventory",
+    addToCollection: "Add to Collection",
+    addToInventory: "Add to Inventory",
+    removeFromCollection: "Remove from Collection",
+    moveToInventory: "Move to Inventory",
+    moveToCollection: "Move to Collection",
+    totalValue: "Total Value",
+    totalItems: "Total Items",
+    emptyState: "Your collection is empty",
+    condition: "Condition",
+    conditions: {
+      new: "New",
+      likeNew: "Like New",
+      good: "Good",
+      fair: "Fair"
+    }
+  },
+  search: {
+    placeholder: "Search for any LEGO minifigure...",
+    placeholderSets: "Search for LEGO sets...",
+    notFound: "Not found. Try different search terms.",
+    results: "{count} results found",
+    searching: "Searching..."
+  },
+  pricing: {
+    sixMonthAvg: "6 Mo Avg",
+    currentAvg: "Current Avg",
+    lowest: "Lowest",
+    highest: "Highest",
+    suggestedPrice: "Suggested Price",
+    priceHistory: "Price History",
+    noPricing: "No pricing data available",
+    refreshPricing: "Refresh Pricing"
+  },
+  errors: {
+    notFound: "Not found",
+    unauthorized: "Unauthorized",
+    serverError: "Server error. Please try again.",
+    networkError: "Network error. Check your connection.",
+    invalidInput: "Invalid input",
+    requiredField: "This field is required"
+  },
+  auth: {
+    signInTitle: "Sign In to Your Account",
+    signUpTitle: "Create Your Account",
+    emailPlaceholder: "Enter your email",
+    passwordPlaceholder: "Enter your password",
+    namePlaceholder: "Enter your name",
+    forgotPassword: "Forgot password?",
+    noAccount: "Don't have an account?",
+    hasAccount: "Already have an account?",
+    signInButton: "Sign In",
+    signUpButton: "Sign Up",
+    signInWithGoogle: "Sign in with Google",
+    resetPassword: "Reset Password",
+    resetPasswordDesc: "Enter your email to receive reset instructions",
+    sendResetLink: "Send Reset Link"
+  },
+  faq: {
+    title: "Frequently Asked Questions",
+    subtitle: "Find answers to common questions about FigTracker"
+  },
+  about: {
+    hero: {
+      title: "Stop Guessing. Start Selling.",
+      subtitle: "Get instant, accurate pricing for your LEGO minifigures"
+    },
+    features: {
+      realTimePricing: "Real-Time Pricing",
+      realTimePricingDesc: "Live BrickLink marketplace data updated daily",
+      inventoryManagement: "Inventory Management",
+      inventoryManagementDesc: "Track your collection and items for sale",
+      priceHistory: "Price History",
+      priceHistoryDesc: "See price trends over time to sell at the right moment"
+    }
+  }
+};
+
+// Write English file
+fs.writeFileSync(
+  path.join(__dirname, '../locales/en.json'),
+  JSON.stringify(enTranslations, null, 2),
+  'utf8'
+);
+
+console.log('✅ Generated: locales/en.json');
+console.log('📝 Note: German, French, and Spanish translations will be generated by Claude in the next step');
+console.log(`📊 Total theme descriptions: ${Object.keys(themeDescriptions).length}`);
