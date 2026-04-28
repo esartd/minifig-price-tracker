@@ -74,6 +74,7 @@ function SetCard({ set }: { set: LegoBox }) {
               width={240}
               height={240}
               style={{ objectFit: 'contain', maxHeight: '220px' }}
+              unoptimized
               onError={handleImageError}
             />
           ) : (
@@ -323,6 +324,7 @@ export default function ThemePage() {
                     objectFit: 'contain',
                     padding: '12px'
                   }}
+                  unoptimized
                 />
               </div>
 
