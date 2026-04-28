@@ -20,12 +20,6 @@ export default auth((req) => {
     return NextResponse.next();
   }
 
-  // Apply i18n middleware first (handles locale detection and routing)
-  const intlResponse = intlMiddleware(req);
-  if (intlResponse) {
-    return intlResponse;
-  }
-
   // Strip locale prefix for path matching
   const pathnameWithoutLocale = pathname.replace(/^\/(en|de|fr|es)/, '') || '/';
 
@@ -75,6 +69,12 @@ export default auth((req) => {
     const locale = localeMatch ? localeMatch[1] : defaultLocale;
     const homeUrl = new URL(`/${locale}`, req.nextUrl.origin);
     return NextResponse.redirect(homeUrl);
+  }
+
+  // Apply i18n middleware last (after auth checks)
+  const intlResponse = intlMiddleware(req);
+  if (intlResponse) {
+    return intlResponse;
   }
 
   return NextResponse.next();
