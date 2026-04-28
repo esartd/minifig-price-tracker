@@ -1009,6 +1009,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
               About
             </Link>
 
+            <LanguageSwitcher />
+
             <div style={{ position: 'relative' }} ref={dropdownRef}>
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
