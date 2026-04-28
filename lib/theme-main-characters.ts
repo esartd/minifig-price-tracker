@@ -502,6 +502,7 @@ export const THEME_OVERRIDES: { [theme: string]: string } = {
   'Universe': 'gen030',
   'Vikings': 'vik040',
   'Western': 'ww018',
+  'Building Event': 'hol298', // Use generic LEGO brand promotional minifig
 
   // Additional themes - manually verified representative minifigs
   '4 Juniors': 'cre001',
