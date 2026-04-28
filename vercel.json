@@ -2,6 +2,12 @@
   "buildCommand": "prisma generate --schema=prisma/schema-hostinger.prisma && next build",
   "installCommand": "npm install",
   "framework": "nextjs",
+  "crons": [
+    {
+      "path": "/api/cron/consolidated",
+      "schedule": "0 */6 * * *"
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
