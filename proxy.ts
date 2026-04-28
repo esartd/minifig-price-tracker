@@ -7,7 +7,7 @@ import { locales, defaultLocale } from './i18n';
 const handleI18nRouting = createIntlMiddleware({
   locales,
   defaultLocale,
-  localePrefix: 'always',
+  localePrefix: 'as-needed', // English has no prefix, only de/fr/es
   localeDetection: true
 });
 
