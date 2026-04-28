@@ -7,6 +7,7 @@ import { signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { UserIcon, CubeIcon, StarIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import LanguageSwitcher from './LanguageSwitcher';
+import { useTranslation } from './TranslationProvider';
 
 interface HeaderClientProps {
   user: {
@@ -17,6 +18,7 @@ interface HeaderClientProps {
 }
 
 export function HeaderClient({ user }: HeaderClientProps) {
+  const { t } = useTranslation();
   const pathname = usePathname();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [browseDropdownOpen, setBrowseDropdownOpen] = useState(false);

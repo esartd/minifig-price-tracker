@@ -6,6 +6,7 @@ import SearchBar from '@/components/SearchBar';
 import { SearchResults } from '@/components/search';
 import { CollectionItem } from '@/types';
 import FeaturedSets from '@/components/FeaturedSets';
+import { useTranslation } from '@/components/TranslationProvider';
 
 // Diverse minifigures from multiple themes (verified to exist in catalog)
 const MINIFIG_POOL = [
@@ -94,6 +95,7 @@ function generateFireworkPositions(count: number) {
 }
 
 function SearchPageContent() {
+  const { t } = useTranslation();
   const searchParams = useSearchParams();
   const router = useRouter();
   const [searchResults, setSearchResults] = useState<any[]>([]);
@@ -374,7 +376,7 @@ function SearchPageContent() {
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text'
               }}>
-                Track Prices. Sell Smarter.
+                {t('about.hero.title')}
               </h1>
               <p className="fun-header-subtitle" style={{
                 fontSize: 'var(--text-lg)',
@@ -383,7 +385,7 @@ function SearchPageContent() {
                 margin: '0 auto',
                 color: '#171717'
               }}>
-                Know what your minifigs are worth
+                {t('about.hero.subtitle')}
               </p>
             </div>
           )}
