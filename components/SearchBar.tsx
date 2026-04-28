@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from './TranslationProvider';
 
 interface SearchBarProps {
   onSearchResults: (results: any[]) => void;
@@ -10,6 +11,7 @@ interface SearchBarProps {
 }
 
 export default function SearchBar({ onSearchResults, onSearchResult, searchQuery, onSearchQueryChange }: SearchBarProps) {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -124,7 +126,7 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
           value={searchQuery}
           onChange={(e) => onSearchQueryChange(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Search for any LEGO minifigure..."
+          placeholder={t('search.placeholder')}
           disabled={loading}
           autoComplete="off"
           style={{

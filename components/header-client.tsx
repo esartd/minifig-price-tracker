@@ -237,7 +237,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   paddingBottom: '2px'
                 }}
               >
-                Search
+                {t('navigation.search')}
               </Link>
 
               {/* Browse Dropdown */}
@@ -258,7 +258,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     padding: 0
                   }}
                 >
-                  Browse
+                  {t('navigation.browse')}
                   <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                   </svg>
@@ -292,7 +292,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                       <UserIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                      <span>Minifigure Themes</span>
+                      <span>{t('navigation.themes.minifigures')}</span>
                     </Link>
                     <Link href="/sets-themes" onClick={() => setBrowseDropdownOpen(false)} style={{
                       display: 'flex',
@@ -307,7 +307,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                       <CubeIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                      <span>Set Themes</span>
+                      <span>{t('navigation.themes.sets')}</span>
                     </Link>
                   </div>
                 )}
@@ -331,7 +331,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     padding: 0
                   }}
                 >
-                  Your LEGO
+                  {t('navigation.yourLego')}
                   <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                   </svg>
@@ -443,7 +443,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   paddingBottom: '2px'
                 }}
               >
-                About
+                {t('navigation.about')}
               </Link>
 
               <div style={{
@@ -463,7 +463,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     transition: 'color 0.2s'
                   }}
                 >
-                  Sign In
+                  {t('navigation.signIn')}
                 </Link>
                 <Link
                   href="/auth/signup"
@@ -478,7 +478,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     transition: 'all 0.2s'
                   }}
                 >
-                  Sign Up
+                  {t('navigation.signUp')}
                 </Link>
               </div>
             </div>
@@ -711,7 +711,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 fontWeight: '600',
                 minHeight: '44px'
               }}>
-                About
+                {t('navigation.about')}
               </Link>
               <Link href="/auth/signin" onClick={() => setMobileMenuOpen(false)} style={{
                 display: 'flex',
@@ -724,7 +724,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 fontWeight: '600',
                 minHeight: '44px'
               }}>
-                Sign In
+                {t('navigation.signIn')}
               </Link>
             </div>
             <Link href="/auth/signup" onClick={() => setMobileMenuOpen(false)} style={{
