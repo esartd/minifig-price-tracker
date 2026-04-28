@@ -1,59 +1,55 @@
 import { auth } from '@/auth';
 import { NextResponse } from 'next/server';
-import createIntlMiddleware from 'next-intl/middleware';
-import { locales, defaultLocale } from './i18n';
-
-// Create i18n middleware
-const handleI18nRouting = createIntlMiddleware({
-  locales,
-  defaultLocale,
-  localePrefix: 'always',
-  localeDetection: true
-});
 
 export default auth((req) => {
   const { pathname } = req.nextUrl;
-
-  // Skip middleware for static files and API routes
-  if (
-    pathname.startsWith('/_next') ||
-    pathname.startsWith('/api') ||
-    pathname.match(/\.(ico|png|jpg|jpeg|svg|gif)$/)
-  ) {
-    return NextResponse.next();
-  }
-
   const isLoggedIn = !!req.auth;
-  const isAuthPage = pathname.startsWith('/auth');
 
-  // For auth pages
-  if (isAuthPage) {
-    if (isLoggedIn) {
-      return NextResponse.redirect(new URL(`/${defaultLocale}`, req.nextUrl.origin));
-    }
+  // Always allow all API routes
+  if (pathname.startsWith('/api')) {
     return NextResponse.next();
   }
 
-  // For all other pages, handle i18n routing
-  const response = handleI18nRouting(req);
+  const isAuthPage = pathname.startsWith('/auth');
+  const isPublicPage = pathname === '/' ||
+                       pathname.startsWith('/search') ||
+                       pathname.startsWith('/minifig') ||
+                       pathname.startsWith('/themes') ||
+                       pathname.startsWith('/about') ||
+                       pathname === '/sitemap.xml' ||
+                       pathname === '/robots.txt' ||
+                       pathname.startsWith('/privacy') ||
+                       pathname.startsWith('/disclosure');
+  const isProtectedPage = pathname.startsWith('/inventory') ||
+                          pathname.startsWith('/personal-collection') ||
+                          pathname.startsWith('/account');
 
-  // Check auth after i18n routing
-  const pathnameWithoutLocale = pathname.replace(/^\/(en|de|fr|es)/, '') || '/';
-  const isProtectedPage =
-    pathnameWithoutLocale.startsWith('/inventory') ||
-    pathnameWithoutLocale.startsWith('/collection') ||
-    pathnameWithoutLocale.startsWith('/sets-inventory') ||
-    pathnameWithoutLocale.startsWith('/sets-collection') ||
-    pathnameWithoutLocale.startsWith('/account') ||
-    pathnameWithoutLocale.startsWith('/wishlist');
-
-  if (isProtectedPage && !isLoggedIn) {
-    return NextResponse.redirect(new URL('/auth/signin', req.nextUrl.origin));
+  // Allow public access to home, search, minifig detail, and about pages
+  if (isPublicPage) {
+    return NextResponse.next();
   }
 
-  return response;
+  // Protected pages require login
+  if (isProtectedPage && !isLoggedIn) {
+    const signInUrl = new URL('/auth/signin', req.nextUrl.origin);
+    return NextResponse.redirect(signInUrl);
+  }
+
+  // If not logged in and not on auth page or public page, redirect to sign-in
+  if (!isLoggedIn && !isAuthPage && !isPublicPage) {
+    const signInUrl = new URL('/auth/signin', req.nextUrl.origin);
+    return NextResponse.redirect(signInUrl);
+  }
+
+  // If logged in and on auth page, redirect to search
+  if (isLoggedIn && isAuthPage) {
+    const searchUrl = new URL('/search', req.nextUrl.origin);
+    return NextResponse.redirect(searchUrl);
+  }
+
+  return NextResponse.next();
 });
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\..*).*)']
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|avatars|sitemap.xml|robots.txt).*)'],
 };

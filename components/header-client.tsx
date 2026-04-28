@@ -6,7 +6,6 @@ import { useState, useEffect, useRef } from 'react';
 import { signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { UserIcon, CubeIcon, StarIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
-import { useTranslations } from 'next-intl';
 
 interface HeaderClientProps {
   user: {
@@ -17,7 +16,6 @@ interface HeaderClientProps {
 }
 
 export function HeaderClient({ user }: HeaderClientProps) {
-  const t = useTranslations('navigation');
   const pathname = usePathname();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [browseDropdownOpen, setBrowseDropdownOpen] = useState(false);
@@ -291,7 +289,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                       <UserIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                      <span>{t("minifigureThemes")}</span>
+                      <span>Minifigure Themes</span>
                     </Link>
                     <Link href="/sets-themes" onClick={() => setBrowseDropdownOpen(false)} style={{
                       display: 'flex',
@@ -306,7 +304,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                       <CubeIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                      <span>{t("setThemes")}</span>
+                      <span>Set Themes</span>
                     </Link>
                   </div>
                 )}
@@ -574,7 +572,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     minHeight: '44px'
                   }}>
                     <UserIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
-                    <span>{t("minifigureThemes")}</span>
+                    <span>Minifigure Themes</span>
                   </Link>
                   <Link href="/sets-themes" onClick={() => setMobileMenuOpen(false)} style={{
                     display: 'flex',
@@ -587,7 +585,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     minHeight: '44px'
                   }}>
                     <CubeIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
-                    <span>{t("setThemes")}</span>
+                    <span>Set Themes</span>
                   </Link>
                 </div>
               )}
@@ -613,7 +611,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   minHeight: '44px'
                 }}
               >
-                <span>{t("yourLego")}</span>
+                <span>Your LEGO</span>
                 <svg
                   style={{
                     width: '20px',
@@ -855,7 +853,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                     <UserIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                    <span>{t("minifigureThemes")}</span>
+                    <span>Minifigure Themes</span>
                   </Link>
                   <Link href="/sets-themes" onClick={() => setBrowseDropdownOpen(false)} style={{
                     display: 'flex',
@@ -870,7 +868,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                     <CubeIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                    <span>{t("setThemes")}</span>
+                    <span>Set Themes</span>
                   </Link>
                 </div>
               )}
@@ -1288,7 +1286,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   minHeight: '44px'
                 }}>
                   <UserIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
-                  <span>{t("minifigureThemes")}</span>
+                  <span>Minifigure Themes</span>
                 </Link>
                 <Link href="/sets-themes" onClick={() => setMobileMenuOpen(false)} style={{
                   display: 'flex',
@@ -1301,7 +1299,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   minHeight: '44px'
                 }}>
                   <CubeIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
-                  <span>{t("setThemes")}</span>
+                  <span>Set Themes</span>
                 </Link>
               </div>
             )}
@@ -1345,7 +1343,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 minHeight: '44px'
               }}
             >
-              <span>{t("yourLego")}</span>
+              <span>Your LEGO</span>
               <svg
                 style={{
                   width: '20px',
