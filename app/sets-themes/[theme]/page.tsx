@@ -8,7 +8,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import ThemeDescription from '@/components/ThemeDescription';
 import { getSetAvailability } from '@/lib/set-availability';
 import { generateAmazonLegoSetLink } from '@/lib/affiliate-links';
-import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
+import { getRepresentativeSet } from '@/lib/theme-set-representatives';
 import themeDescriptions from '@/lib/theme-descriptions.json';
 
 interface LegoBox {
@@ -181,10 +181,11 @@ export default function ThemePage() {
   const [themeHeroImage, setThemeHeroImage] = useState<string | null>(null);
 
   useEffect(() => {
-    // Set hero image from THEME_OVERRIDES
-    const minifigNo = THEME_OVERRIDES[theme] || null;
-    if (minifigNo) {
-      setThemeHeroImage(`/api/images/minifig/${minifigNo}`);
+    // Set hero image from representative set
+    const boxNo = getRepresentativeSet(theme);
+    if (boxNo) {
+      // Use BrickLink image URL directly for sets
+      setThemeHeroImage(`https://img.bricklink.com/ItemImage/ON/0/${boxNo}.png`);
     }
     loadSets();
   }, [theme]);
