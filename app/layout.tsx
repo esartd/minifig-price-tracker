@@ -5,6 +5,9 @@ import CurrencyBanner from '@/components/CurrencyBanner'
 import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
 import '@/lib/startup-checks' // Initialize database safeguards on app startup
+import { TranslationProvider } from '@/components/TranslationProvider'
+import { getLocaleFromHost, getTranslations } from '@/lib/i18n-subdomain'
+import { headers } from 'next/headers'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://figtracker.ericksu.com'),
@@ -64,11 +67,16 @@ export const viewport = {
   maximumScale: 5,
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // Detect locale from subdomain
+  const headersList = await headers();
+  const host = headersList.get('host');
+  const locale = getLocaleFromHost(host);
+  const translations = await getTranslations(locale);
   const webAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
@@ -129,8 +137,10 @@ export default function RootLayout({
           `}
         </Script>
         <AuthProvider>
-          <CurrencyBanner />
-          {children}
+          <TranslationProvider locale={locale} translations={translations}>
+            <CurrencyBanner />
+            {children}
+          </TranslationProvider>
         </AuthProvider>
         <Analytics />
       </body>

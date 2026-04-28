@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from 'react';
 import { signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { UserIcon, CubeIcon, StarIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
+import LanguageSwitcher from './LanguageSwitcher';
 
 interface HeaderClientProps {
   user: {
@@ -448,6 +449,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 alignItems: 'center',
                 gap: '12px'
               }}>
+                <LanguageSwitcher />
                 <Link
                   href="/auth/signin"
                   style={{
