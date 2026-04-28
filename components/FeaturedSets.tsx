@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useTranslation } from './TranslationProvider';
 
 interface FeaturedSet {
   name: string;
@@ -119,6 +120,7 @@ const FEATURED_SETS: FeaturedSet[] = [
 ];
 
 export default function FeaturedSets() {
+  const { t } = useTranslation();
   return (
     <>
       <style jsx>{`
@@ -167,7 +169,7 @@ export default function FeaturedSets() {
           marginBottom: '12px',
           textAlign: 'center'
         }}>
-          Sets We're Excited About
+          {t('featured.title')}
         </h2>
         <p style={{
           fontSize: 'var(--text-base)',
@@ -175,7 +177,7 @@ export default function FeaturedSets() {
           textAlign: 'center',
           marginBottom: '40px'
         }}>
-          Hand-picked sets worth checking out
+          {t('featured.subtitle')}
         </p>
 
         <div className="featured-sets-grid">

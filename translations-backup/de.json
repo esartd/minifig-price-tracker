@@ -388,5 +388,9 @@
       "priceHistory": "Preisverlauf",
       "priceHistoryDesc": "Sehe Preistrends im Zeitverlauf, um zum richtigen Zeitpunkt zu verkaufen"
     }
+  },
+  "featured": {
+    "title": "Sets, die uns begeistern",
+    "subtitle": "Handverlesene Sets, die es wert sind, entdeckt zu werden"
   }
 }

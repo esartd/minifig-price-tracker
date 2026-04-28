@@ -388,5 +388,9 @@
       "priceHistory": "Historique des prix",
       "priceHistoryDesc": "Visualisez les tendances de prix pour vendre au bon moment"
     }
+  },
+  "featured": {
+    "title": "Sets qui nous passionnent",
+    "subtitle": "Sets sélectionnés à découvrir"
   }
 }
