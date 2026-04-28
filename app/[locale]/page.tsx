@@ -1,11 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
 export default function Home() {
   const router = useRouter();
+  const params = useParams();
+  const locale = params.locale as string;
   const { data: session, status } = useSession();
   const [checking, setChecking] = useState(true);
 
@@ -15,7 +17,7 @@ export default function Home() {
 
       // If not authenticated, go to search
       if (status === 'unauthenticated') {
-        router.push('/search');
+        router.push(`/${locale}/search`);
         return;
       }
 
@@ -27,20 +29,20 @@ export default function Home() {
 
           if (data.success && data.data && data.data.length > 0) {
             // User has inventory items, go to inventory
-            router.push('/inventory');
+            router.push(`/${locale}/inventory`);
           } else {
             // User has no inventory items, go to search
-            router.push('/search');
+            router.push(`/${locale}/search`);
           }
         } catch (error) {
           // On error, default to search
-          router.push('/search');
+          router.push(`/${locale}/search`);
         }
       }
     };
 
     checkCollection();
-  }, [status, router]);
+  }, [status, router, locale]);
 
   return (
     <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#fafafa' }}>
