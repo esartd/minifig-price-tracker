@@ -418,7 +418,7 @@ export default function SetsCollectionPage() {
                       color: '#737373',
                       letterSpacing: '0.01em'
                     }}>
-                      Avg Value
+                      {t('collection.avgValue')}
                     </div>
                     {pricesUpdating > 0 && (
                       <div style={{
@@ -540,7 +540,7 @@ export default function SetsCollectionPage() {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    All
+                    {t('collection.filters.all')}
                   </button>
                   <button
                     onClick={() => setConditionFilter('new')}
@@ -557,7 +557,7 @@ export default function SetsCollectionPage() {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    New
+                    {t('collection.filters.new')}
                   </button>
                   <button
                     onClick={() => setConditionFilter('used')}
@@ -574,7 +574,7 @@ export default function SetsCollectionPage() {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    Used
+                    {t('collection.filters.used')}
                   </button>
                 </div>
 

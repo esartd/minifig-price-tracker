@@ -344,7 +344,7 @@ export default function SetsInventoryPage() {
                       color: '#737373',
                       letterSpacing: '0.01em'
                     }}>
-                      Total Value
+                      {t('collection.totalValue')}
                     </div>
                     {pricesUpdating > 0 && (
                       <div style={{
@@ -363,7 +363,7 @@ export default function SetsInventoryPage() {
                           borderRadius: '50%',
                           animation: 'spin 0.8s linear infinite'
                         }} />
-                        Updating
+                        {t('collection.updating')}
                       </div>
                     )}
                   </div>
@@ -394,7 +394,7 @@ export default function SetsInventoryPage() {
                     marginBottom: '4px',
                     letterSpacing: '0.01em'
                   }}>
-                    Total Items
+                    {t('collection.totalItems')}
                   </div>
                   <div className="collection-stat-value" style={{
                     fontSize: 'var(--text-xl)',
@@ -419,7 +419,7 @@ export default function SetsInventoryPage() {
                       color: '#737373',
                       letterSpacing: '0.01em'
                     }}>
-                      Avg Value
+                      {t('collection.avgValue')}
                     </div>
                     {pricesUpdating > 0 && (
                       <div style={{
@@ -541,7 +541,7 @@ export default function SetsInventoryPage() {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    All
+                    {t('collection.filters.all')}
                   </button>
                   <button
                     onClick={() => setConditionFilter('new')}
@@ -558,7 +558,7 @@ export default function SetsInventoryPage() {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    New
+                    {t('collection.filters.new')}
                   </button>
                   <button
                     onClick={() => setConditionFilter('used')}
@@ -575,7 +575,7 @@ export default function SetsInventoryPage() {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    Used
+                    {t('collection.filters.used')}
                   </button>
                 </div>
 
