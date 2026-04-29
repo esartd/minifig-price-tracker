@@ -30,7 +30,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const browseDropdownRef = useRef<HTMLDivElement>(null);
   const legoDropdownRef = useRef<HTMLDivElement>(null);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLElement>(null);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const [useMobileLayout, setUseMobileLayout] = useState(false);
@@ -46,19 +46,21 @@ export function HeaderClient({ user }: HeaderClientProps) {
       if (legoDropdownRef.current && !legoDropdownRef.current.contains(event.target as Node)) {
         setLegoDropdownOpen(false);
       }
-      if (
-        mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(event.target as Node) &&
-        mobileMenuButtonRef.current &&
-        !mobileMenuButtonRef.current.contains(event.target as Node)
-      ) {
-        setMobileMenuOpen(false);
+      // Mobile menu click-outside handler - only run when menu is open
+      if (mobileMenuOpen && mobileMenuRef.current && mobileMenuButtonRef.current) {
+        const clickedMenu = mobileMenuRef.current.contains(event.target as Node);
+        const clickedButton = mobileMenuButtonRef.current.contains(event.target as Node);
+
+        if (!clickedMenu && !clickedButton) {
+          console.log('Clicked outside, closing menu');
+          setMobileMenuOpen(false);
+        }
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  }, [mobileMenuOpen]);
 
   // Listen for wishlist added event
   useEffect(() => {
@@ -78,13 +80,21 @@ export function HeaderClient({ user }: HeaderClientProps) {
       if (!headerRef.current) return;
 
       const header = headerRef.current;
+      const headerWidth = header.offsetWidth;
+
+      // Always use mobile layout below 768px
+      if (headerWidth < 768) {
+        console.log('Mobile layout: screen width < 768px');
+        setUseMobileLayout(true);
+        return;
+      }
+
       const logo = header.querySelector('.header-logo') as HTMLElement;
       const desktopNav = header.querySelector('.desktop-nav') as HTMLElement;
       const authSection = header.querySelector('.desktop-auth') as HTMLElement;
 
       if (!logo || !desktopNav || !authSection) return;
 
-      const headerWidth = header.offsetWidth;
       const logoWidth = logo.offsetWidth;
       const navWidth = desktopNav.offsetWidth;
       const authWidth = authSection.offsetWidth;
@@ -93,7 +103,9 @@ export function HeaderClient({ user }: HeaderClientProps) {
       const totalNeeded = logoWidth + 40 + navWidth + 40 + authWidth;
 
       // Switch to mobile if content doesn't fit with 20px safety margin
-      setUseMobileLayout(totalNeeded + 20 > headerWidth);
+      const shouldUseMobile = totalNeeded + 20 > headerWidth;
+      console.log('Mobile layout check:', { headerWidth, totalNeeded, shouldUseMobile });
+      setUseMobileLayout(shouldUseMobile);
     };
 
     // Check on mount and resize
@@ -520,9 +532,13 @@ export function HeaderClient({ user }: HeaderClientProps) {
             <button
               ref={mobileMenuButtonRef}
               className="mobile-menu-btn"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 console.log('Hamburger clicked, current state:', mobileMenuOpen);
-                setMobileMenuOpen(!mobileMenuOpen);
+                const newState = !mobileMenuOpen;
+                console.log('Setting mobile menu to:', newState);
+                setMobileMenuOpen(newState);
               }}
               style={{
                 display: useMobileLayout ? 'block' : 'none',
@@ -530,7 +546,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 border: 'none',
                 cursor: 'pointer',
                 padding: '8px',
-                color: '#171717'
+                color: '#171717',
+                zIndex: 1001
               }}
             >
               <svg style={{ width: 'var(--icon-lg)', height: 'var(--icon-lg)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -548,7 +565,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
           <nav ref={mobileMenuRef} style={{
             background: '#fff',
             padding: '16px 16px 32px',
-            borderTop: '1px solid #f5f5f5'
+            borderTop: '1px solid #f5f5f5',
+            zIndex: 1000
           }}>
             <Link href="/search" onClick={() => setMobileMenuOpen(false)} style={{
               display: 'flex',

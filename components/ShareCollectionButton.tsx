@@ -189,14 +189,18 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                   position: 'relative',
                   width: '48px',
                   height: '24px',
+                  minHeight: '24px',
+                  maxHeight: '24px',
                   background: shareEnabled ? '#3b82f6' : '#d1d5db',
                   borderRadius: '12px',
                   border: 'none',
                   cursor: 'pointer',
                   transition: 'background 0.2s ease',
                   flexShrink: 0,
-                  padding: 0
-                }}
+                  padding: 0,
+                  margin: 0,
+                  boxSizing: 'border-box'
+                } as React.CSSProperties}
               >
                 <div style={{
                   position: 'absolute',
@@ -238,14 +242,18 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                     position: 'relative',
                     width: '48px',
                     height: '24px',
+                    minHeight: '24px',
+                    maxHeight: '24px',
                     background: sharePricing ? '#3b82f6' : '#d1d5db',
                     borderRadius: '12px',
                     border: 'none',
                     cursor: 'pointer',
                     transition: 'background 0.2s ease',
                     flexShrink: 0,
-                    padding: 0
-                  }}
+                    padding: 0,
+                    margin: 0,
+                    boxSizing: 'border-box'
+                  } as React.CSSProperties}
                 >
                   <div style={{
                     position: 'absolute',

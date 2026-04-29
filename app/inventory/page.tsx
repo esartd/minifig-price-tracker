@@ -297,41 +297,46 @@ export default function CollectionPage() {
         {/* Compact Header with Stats and Action */}
         {collection.length > 0 && (
           <div style={{ marginBottom: '16px' }}>
-            {/* Title */}
-            <div style={{ marginBottom: '12px' }}>
-              <CollectionSwitcher currentPage="inventory" />
-            </div>
-
-            {/* Buttons Row */}
+            {/* Title and Buttons Row */}
             <div style={{
               display: 'flex',
-              gap: '8px',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '12px',
               marginBottom: '16px'
             }}>
-              <Link
-                href="/search"
-                className="collection-add-button"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  justifyContent: 'center',
-                  padding: '10px 20px',
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: '600',
-                  color: 'white',
-                  background: '#3b82f6',
-                  borderRadius: '8px',
-                  textDecoration: 'none',
-                  transition: 'all 0.2s',
-                  border: '1px solid transparent',
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                <PlusIcon style={{ width: '18px', height: '18px' }} />
-                {t('common.add')}
-              </Link>
-              <ShareCollectionButton type="inventory" />
+              <CollectionSwitcher currentPage="inventory" />
+
+              <div style={{
+                display: 'flex',
+                gap: '8px'
+              }}>
+                <Link
+                  href="/search"
+                  className="collection-add-button"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    justifyContent: 'center',
+                    padding: '10px 20px',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '600',
+                    color: 'white',
+                    background: '#3b82f6',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s',
+                    border: '1px solid transparent',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  <PlusIcon style={{ width: '18px', height: '18px' }} />
+                  {t('common.add')}
+                </Link>
+                <ShareCollectionButton type="inventory" />
+              </div>
             </div>
 
             {/* Compact Stats Row */}
