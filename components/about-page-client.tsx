@@ -1,6 +1,6 @@
 'use client';
 
-import { CurrencyDollarIcon, BriefcaseIcon, MagnifyingGlassIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
+import { CurrencyDollarIcon, BriefcaseIcon, MagnifyingGlassIcon, ShieldCheckIcon, BuildingStorefrontIcon, SparklesIcon, UserGroupIcon, LockClosedIcon, BoltIcon, CreditCardIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from '@/components/TranslationProvider';
 
 export default function AboutPageClient({ catalogCountText }: { catalogCountText: string }) {
@@ -121,19 +121,25 @@ export default function AboutPageClient({ catalogCountText }: { catalogCountText
 
             <div className="personas-grid">
               <div className="persona-card">
-                <div className="persona-emoji">🧑‍💼</div>
+                <div className="persona-icon">
+                  <BuildingStorefrontIcon />
+                </div>
                 <h3>{t('about.personas.resellers.title')}</h3>
                 <p>{t('about.personas.resellers.description')}</p>
               </div>
 
               <div className="persona-card">
-                <div className="persona-emoji">⭐</div>
+                <div className="persona-icon">
+                  <SparklesIcon />
+                </div>
                 <h3>{t('about.personas.partTime.title')}</h3>
                 <p>{t('about.personas.partTime.description')}</p>
               </div>
 
               <div className="persona-card">
-                <div className="persona-emoji">🔍</div>
+                <div className="persona-icon">
+                  <UserGroupIcon />
+                </div>
                 <h3>{t('about.personas.casual.title')}</h3>
                 <p>{t('about.personas.casual.description')}</p>
               </div>
@@ -182,15 +188,21 @@ export default function AboutPageClient({ catalogCountText }: { catalogCountText
 
             <div className="trust-features">
               <div className="trust-item">
-                <div className="trust-emoji">🔒</div>
+                <div className="trust-icon">
+                  <LockClosedIcon />
+                </div>
                 <div className="trust-label">{t('about.trust.secure')}</div>
               </div>
               <div className="trust-item">
-                <div className="trust-emoji">⚡</div>
+                <div className="trust-icon">
+                  <BoltIcon />
+                </div>
                 <div className="trust-label">{t('about.trust.fast')}</div>
               </div>
               <div className="trust-item">
-                <div className="trust-emoji">💸</div>
+                <div className="trust-icon">
+                  <CreditCardIcon />
+                </div>
                 <div className="trust-label">{t('about.trust.free')}</div>
               </div>
             </div>
@@ -213,9 +225,18 @@ export default function AboutPageClient({ catalogCountText }: { catalogCountText
               textAlign: 'center'
             }}>
               <div style={{
-                fontSize: '48px',
-                marginBottom: '16px'
-              }}>📧</div>
+                width: '64px',
+                height: '64px',
+                margin: '0 auto 16px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: '#eff6ff',
+                borderRadius: '12px',
+                color: '#3b82f6'
+              }}>
+                <EnvelopeIcon style={{ width: '32px', height: '32px' }} />
+              </div>
               <h3 style={{
                 fontSize: 'var(--text-lg)',
                 fontWeight: '600',

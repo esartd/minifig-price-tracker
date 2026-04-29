@@ -1294,6 +1294,19 @@ input[type="number"] {
   line-height: 1;
 }
 
+.persona-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 24px;
+  color: #3b82f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eff6ff;
+  border-radius: 12px;
+  padding: 12px;
+}
+
 .persona-card h3 {
   font-size: var(--text-lg);
   font-weight: 600;
@@ -1383,6 +1396,13 @@ input[type="number"] {
 .trust-emoji {
   font-size: var(--text-3xl);
   line-height: 1;
+  flex-shrink: 0;
+}
+
+.trust-icon {
+  width: 40px;
+  height: 40px;
+  color: #3b82f6;
   flex-shrink: 0;
 }
 
@@ -1567,6 +1587,12 @@ input[type="number"] {
     margin-bottom: 28px;
   }
 
+  .persona-icon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 28px;
+  }
+
   .persona-card h3 {
     font-size: var(--text-lg);
     margin-bottom: 18px;
@@ -1599,6 +1625,12 @@ input[type="number"] {
 
   .trust-emoji {
     font-size: var(--text-3xl);
+  }
+
+  .trust-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
   }
 
   .trust-label {
