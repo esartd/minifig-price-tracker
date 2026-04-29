@@ -187,26 +187,27 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                 onClick={toggleShare}
                 style={{
                   position: 'relative',
-                  width: '56px',
-                  height: '32px',
-                  background: shareEnabled ? '#3b82f6' : '#e5e5e5',
-                  borderRadius: '32px',
+                  width: '52px',
+                  height: '31px',
+                  background: shareEnabled ? '#3b82f6' : '#d1d5db',
+                  borderRadius: '16px',
                   border: 'none',
                   cursor: 'pointer',
-                  transition: 'background 0.3s',
-                  flexShrink: 0
+                  transition: 'background 0.2s ease',
+                  flexShrink: 0,
+                  padding: 0
                 }}
               >
                 <div style={{
                   position: 'absolute',
-                  top: '4px',
-                  left: shareEnabled ? '28px' : '4px',
-                  width: '24px',
-                  height: '24px',
+                  top: '3px',
+                  left: shareEnabled ? '25px' : '3px',
+                  width: '25px',
+                  height: '25px',
                   background: '#ffffff',
                   borderRadius: '50%',
-                  transition: 'left 0.3s',
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.18)'
+                  transition: 'left 0.2s ease',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.3)'
                 }} />
               </button>
             </div>
@@ -235,26 +236,27 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                   onClick={togglePricing}
                   style={{
                     position: 'relative',
-                    width: '56px',
-                    height: '32px',
-                    background: sharePricing ? '#3b82f6' : '#e5e5e5',
-                    borderRadius: '32px',
+                    width: '52px',
+                    height: '31px',
+                    background: sharePricing ? '#3b82f6' : '#d1d5db',
+                    borderRadius: '16px',
                     border: 'none',
                     cursor: 'pointer',
-                    transition: 'background 0.3s',
-                    flexShrink: 0
+                    transition: 'background 0.2s ease',
+                    flexShrink: 0,
+                    padding: 0
                   }}
                 >
                   <div style={{
                     position: 'absolute',
-                    top: '4px',
-                    left: sharePricing ? '28px' : '4px',
-                    width: '24px',
-                    height: '24px',
+                    top: '3px',
+                    left: sharePricing ? '25px' : '3px',
+                    width: '25px',
+                    height: '25px',
                     background: '#ffffff',
                     borderRadius: '50%',
-                    transition: 'left 0.3s',
-                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.18)'
+                    transition: 'left 0.2s ease',
+                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.3)'
                   }} />
                 </button>
               </div>
