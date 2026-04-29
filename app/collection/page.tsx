@@ -10,7 +10,7 @@ import ShareCollectionButton from '@/components/ShareCollectionButton';
 import DatabaseLimitError from '@/components/DatabaseLimitError';
 import CollectionPagination from '@/components/CollectionPagination';
 import Link from 'next/link';
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
 import { calculateCollectionStats } from '@/lib/collection-stats';
 import AnimatedCounter from '@/components/AnimatedCounter';
@@ -320,28 +320,30 @@ export default function PersonalCollectionPage() {
               gap: '8px',
               marginBottom: '16px'
             }}>
+              <Link
+                href="/search?mode=collection"
+                className="collection-add-button"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  justifyContent: 'center',
+                  padding: '10px 20px',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: '600',
+                  color: 'white',
+                  background: '#3b82f6',
+                  borderRadius: '8px',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s',
+                  border: '1px solid transparent',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                <PlusIcon style={{ width: '18px', height: '18px' }} />
+                {t('common.add')}
+              </Link>
               <ShareCollectionButton type="collection" />
-                <Link
-                  href="/search?mode=collection"
-                  className="collection-add-button"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '10px 20px',
-                    fontSize: 'var(--text-sm)',
-                    fontWeight: '600',
-                    color: 'white',
-                    background: '#3b82f6',
-                    borderRadius: '8px',
-                    textDecoration: 'none',
-                    transition: 'all 0.2s',
-                    border: '1px solid transparent',
-                    whiteSpace: 'nowrap'
-                  }}
-                >
-                  + {t('common.add')}
-                </Link>
             </div>
 
             {/* Compact Stats Row */}
