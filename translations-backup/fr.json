@@ -16,7 +16,9 @@
     "submit": "Soumettre",
     "confirm": "Confirmer",
     "yes": "Oui",
-    "no": "Non"
+    "no": "Non",
+    "adding": "Ajout...",
+    "loadingChart": "Chargement du graphique..."
   },
   "navigation": {
     "home": "Accueil",

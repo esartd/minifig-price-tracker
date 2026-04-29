@@ -16,7 +16,9 @@
     "submit": "Absenden",
     "confirm": "Bestätigen",
     "yes": "Ja",
-    "no": "Nein"
+    "no": "Nein",
+    "adding": "Wird hinzugefügt...",
+    "loadingChart": "Diagramm wird geladen..."
   },
   "navigation": {
     "home": "Startseite",

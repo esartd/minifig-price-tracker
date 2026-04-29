@@ -18,6 +18,7 @@ import { generateAmazonMinifigLink, generateBrickLinkMinifigLink } from '@/lib/a
 import { trackAffiliateClick } from '@/lib/analytics';
 import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
+import { useTranslation } from '@/components/TranslationProvider';
 
 // Lazy load PriceHistoryChart (only loads when in inventory)
 const PriceHistoryChart = dynamic(() => import('@/components/PriceHistoryChart'), {
@@ -42,6 +43,7 @@ interface MinifigDetailClientProps {
 }
 
 export default function MinifigDetailClient({ minifig, variants, similarSets }: MinifigDetailClientProps) {
+  const { t } = useTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
@@ -1732,7 +1734,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                               }
                             }}
                           >
-                            {addToCollectionLoading ? 'Adding...' : '+ Add to Collection'}
+                            {addToCollectionLoading ? t('common.adding') : t('collection.addToCollection')}
                           </button>
 
                           {/* Success message for this section */}
@@ -2181,7 +2183,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                               if (!addToInventoryLoading) e.currentTarget.style.background = '#3b82f6';
                             }}
                           >
-                            {addToInventoryLoading ? 'Adding...' : '+ Add to Inventory'}
+                            {addToInventoryLoading ? t('common.adding') : t('collection.addToInventory')}
                           </button>
 
                           {/* Success message for this section */}

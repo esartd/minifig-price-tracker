@@ -16,7 +16,9 @@
     "submit": "Enviar",
     "confirm": "Confirmar",
     "yes": "Sí",
-    "no": "No"
+    "no": "No",
+    "adding": "Añadiendo...",
+    "loadingChart": "Cargando gráfico..."
   },
   "navigation": {
     "home": "Inicio",

@@ -16,7 +16,9 @@
     "submit": "Submit",
     "confirm": "Confirm",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "adding": "Adding...",
+    "loadingChart": "Loading chart..."
   },
   "navigation": {
     "home": "Home",
