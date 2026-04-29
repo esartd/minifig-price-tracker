@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { ShareIcon, ClipboardIcon, CheckIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from './TranslationProvider';
 
 export default function ShareCollectionButton() {
+  const { t } = useTranslation();
   const [shareEnabled, setShareEnabled] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
   const [loading, setLoading] = useState(true);
@@ -82,8 +84,8 @@ export default function ShareCollectionButton() {
           }
         }}
       >
-        <ShareIcon style={{ width: '16px', height: '16px' }} />
-        {shareEnabled ? 'Sharing Enabled' : 'Share Collection'}
+        <ShareIcon style={{ width: '18px', height: '18px' }} />
+        {t('account.sharing.shareCollection')}
       </button>
 
       {/* Dialog */}

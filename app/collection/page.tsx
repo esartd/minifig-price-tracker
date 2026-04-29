@@ -307,28 +307,30 @@ export default function PersonalCollectionPage() {
               gap: '16px'
             }}>
               <CollectionSwitcher currentPage="collection" />
-              <Link
-                href="/search?mode=collection"
-                className="collection-add-button"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '10px 20px',
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: '600',
-                  color: 'white',
-                  background: '#3b82f6',
-                  borderRadius: '8px',
-                  textDecoration: 'none',
-                  transition: 'all 0.2s',
-                  border: 'none',
-                  whiteSpace: 'nowrap',
-                  flexShrink: 0
-                }}
-              >
-                + {t('common.add')}
-              </Link>
+              <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+                <ShareCollectionButton />
+                <Link
+                  href="/search?mode=collection"
+                  className="collection-add-button"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '10px 20px',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '600',
+                    color: 'white',
+                    background: '#3b82f6',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s',
+                    border: 'none',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  + {t('common.add')}
+                </Link>
+              </div>
             </div>
 
             {/* Compact Stats Row */}
