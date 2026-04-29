@@ -2,9 +2,17 @@
 
 import Link from 'next/link';
 import { useTranslation } from '@/components/TranslationProvider';
+import { BookOpenIcon, CurrencyDollarIcon, ChartBarIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
+
+const iconMap = {
+  BookOpenIcon,
+  ChartBarIcon,
+  CurrencyDollarIcon,
+  ShoppingBagIcon,
+};
 
 interface Guide {
-  icon: any;
+  iconName: string;
   title: string;
   description: string;
   slug: string | null;
@@ -58,7 +66,7 @@ export default function GuidesPageClient({ guides }: { guides: Guide[] }) {
           <div className="max-w-[1000px] mx-auto">
             <div className="flex flex-col" style={{ gap: '64px' }}>
               {guides.map((guide, index) => {
-                const Icon = guide.icon;
+                const Icon = iconMap[guide.iconName as keyof typeof iconMap] || BookOpenIcon;
                 return (
                   <article
                     key={index}

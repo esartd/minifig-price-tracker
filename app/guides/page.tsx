@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { BookOpenIcon, CurrencyDollarIcon, ChartBarIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import GuidesPageClient from '@/components/guides-page-client';
 import { headers } from 'next/headers';
 
@@ -105,7 +104,7 @@ export default async function GuidesPage() {
 
     const guides = fallbackGuidesData.map((guide, index) => ({
       ...guide,
-      icon: [BookOpenIcon, ChartBarIcon, CurrencyDollarIcon, ShoppingBagIcon][index],
+      iconName: ['BookOpenIcon', 'ChartBarIcon', 'CurrencyDollarIcon', 'ShoppingBagIcon'][index],
     }));
 
     const jsonLd = {
@@ -137,7 +136,7 @@ export default async function GuidesPage() {
 
   const guides = guidesData.map((guide, index) => ({
     ...guide,
-    icon: [BookOpenIcon, ChartBarIcon, CurrencyDollarIcon, ShoppingBagIcon][index],
+    iconName: ['BookOpenIcon', 'ChartBarIcon', 'CurrencyDollarIcon', 'ShoppingBagIcon'][index],
   }));
 
   const jsonLd = {
