@@ -524,7 +524,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               fontWeight: '600',
               minHeight: '44px'
             }}>
-              Search
+              {t('navigation.search')}
             </Link>
 
             {/* Browse Dropdown */}
@@ -547,7 +547,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   minHeight: '44px'
                 }}
               >
-                <span>Themes</span>
+                <span>{t('navigation.browse')}</span>
                 <svg
                   style={{
                     width: '20px',
@@ -576,7 +576,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     minHeight: '44px'
                   }}>
                     <UserIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
-                    <span>Minifigure Themes</span>
+                    <span>{t('navigation.themes.minifigures')}</span>
                   </Link>
                   <Link href="/sets-themes" onClick={() => setMobileMenuOpen(false)} style={{
                     display: 'flex',
@@ -589,7 +589,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     minHeight: '44px'
                   }}>
                     <CubeIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
-                    <span>Set Themes</span>
+                    <span>{t('navigation.themes.sets')}</span>
                   </Link>
                 </div>
               )}
@@ -615,7 +615,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   minHeight: '44px'
                 }}
               >
-                <span>Your LEGO</span>
+                <span>{t('navigation.yourLego')}</span>
                 <svg
                   style={{
                     width: '20px',
