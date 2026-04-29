@@ -455,6 +455,74 @@
     "title": "Sets qui nous passionnent",
     "subtitle": "Sets sélectionnés à découvrir"
   },
+  "faq": {
+    "badge": "CENTRE D'AIDE",
+    "title": "Questions fréquemment posées",
+    "subtitle": "Tout ce que vous devez savoir sur la tarification et le suivi des minifigurines LEGO",
+    "stillHaveQuestions": "Vous avez encore des questions ?",
+    "cantFindAnswer": "Vous ne trouvez pas la réponse que vous cherchez ? Contactez notre équipe d'assistance.",
+    "contactSupport": "Contacter le support",
+    "emailUs": "Envoyez-nous un e-mail pour toute question ou commentaire",
+    "cta": {
+      "title": "Prêt à commencer ?",
+      "subtitle": "Commencez à évaluer vos minifigurines LEGO avec de vraies données Bricklink",
+      "button": "Commencer à évaluer maintenant →"
+    },
+    "items": [
+      {
+        "q": "Comment FigTracker calcule-t-il les prix suggérés ?",
+        "a": "FigTracker fait la moyenne de trois points de données Bricklink : moyenne pondérée par quantité des prix vendus (historique de 6 mois), moyenne pondérée par quantité des annonces actuelles et prix actuel le plus bas. La formule est : (moyenne vendue + moyenne stock + plus bas) / 3. Cette approche équilibrée s'adapte plus rapidement aux changements du marché que l'utilisation des seuls prix de vente."
+      },
+      {
+        "q": "FigTracker est-il gratuit ?",
+        "a": "Oui ! FigTracker est complètement gratuit. Recherchez parmi plus de 18 000 minifigurines, parcourez plus de 20 000 sets LEGO, obtenez des prix en temps réel dans plus de 15 devises et suivez votre inventaire sans aucun paiement requis."
+      },
+      {
+        "q": "D'où proviennent les données de tarification ?",
+        "a": "Toutes les données de tarification proviennent directement de l'API officielle Bricklink. Nous récupérons les annonces du marché mondial (historique de 6 mois) et les convertissons dans votre devise préférée en utilisant des taux de change en temps réel. Vous pouvez actualiser les prix à tout moment pour obtenir les dernières données."
+      },
+      {
+        "q": "Quelles devises sont prises en charge ?",
+        "a": "FigTracker prend en charge plus de 15 devises, dont USD, EUR, GBP, CAD, AUD, JPY, MXN et plus encore. Les données de tarification sont récupérées auprès de vendeurs mondiaux et automatiquement converties dans votre devise sélectionnée en utilisant les taux de change actuels."
+      },
+      {
+        "q": "Puis-je parcourir et suivre les sets LEGO ?",
+        "a": "Oui ! FigTracker comprend plus de 20 000 sets LEGO du catalogue complet Bricklink. Parcourez les sets par thème, visualisez les minifigurines incluses et obtenez des liens d'achat directs vers LEGO.com, Amazon et BrickLink pour les sets neufs et retirés."
+      },
+      {
+        "q": "Combien de minifigurines LEGO sont dans la base de données ?",
+        "a": "FigTracker comprend plus de 18 000 minifigurines LEGO du catalogue complet Bricklink, couvrant Star Wars, Harry Potter, Marvel, DC, Ninjago et plus de 50 autres thèmes."
+      },
+      {
+        "q": "Puis-je suivre mon inventaire ?",
+        "a": "Oui ! Créez un compte gratuit pour suivre votre inventaire de minifigurines. Vous pouvez maintenir des collections séparées pour les articles que vous vendez et votre collection personnelle. Suivez les quantités, les conditions (Neuf/Occasion), consultez la valeur totale du portefeuille et actualisez tous les prix en un clic."
+      },
+      {
+        "q": "Comment rechercher des minifigurines ou des sets ?",
+        "a": "Recherchez par numéro d'article Bricklink exact (par ex., \"sw1219\", \"75192-1\") ou par nom. Parcourez visuellement par thème pour voir les minifigurines et les sets. La recherche prend en charge les correspondances partielles et affiche les résultats avec des images et la tarification actuelle."
+      },
+      {
+        "q": "Quels facteurs de condition affectent la tarification ?",
+        "a": "FigTracker affiche les prix pour les conditions Neuf et Occasion. Les minifigurines neuves commandent généralement des prix plus élevés, tandis que les prix en condition Occasion reflètent les valeurs du marché pour les articles précédemment possédés. Vous pouvez basculer entre les conditions sur chaque page de détail."
+      },
+      {
+        "q": "À quelle fréquence les données de tarification sont-elles mises à jour ?",
+        "a": "Les données de tarification sont mises en cache pendant 24 heures pour des raisons de performance. Vous pouvez actualiser manuellement les prix à tout moment en cliquant sur le bouton d'actualisation sur n'importe quelle page de minifigurine ou en utilisant le bouton \"Actualiser tous les prix\" dans votre inventaire pour mettre à jour toute votre collection en une seule fois."
+      },
+      {
+        "q": "Puis-je exporter mon inventaire ?",
+        "a": "Actuellement, les données d'inventaire sont consultables via votre tableau de bord FigTracker. La fonctionnalité d'exportation est prévue pour une mise à jour future."
+      },
+      {
+        "q": "Que faire si je trouve quelque chose qui n'est pas dans la base de données ?",
+        "a": "FigTracker se synchronise avec le catalogue complet Bricklink. Si une minifigurine ou un set existe sur Bricklink, il devrait être dans notre base de données. Contactez-nous si vous trouvez un article Bricklink légitime qui manque."
+      },
+      {
+        "q": "Mes données d'inventaire sont-elles privées ?",
+        "a": "Oui, votre inventaire est complètement privé et visible uniquement par vous lorsque vous êtes connecté. Nous ne partageons ni ne vendons jamais vos données."
+      }
+    ]
+  },
   "footer": {
     "faq": "FAQ",
     "guides": "Guides",

@@ -455,6 +455,74 @@
     "title": "Sets, die uns begeistern",
     "subtitle": "Handverlesene Sets, die es wert sind, entdeckt zu werden"
   },
+  "faq": {
+    "badge": "HILFE-CENTER",
+    "title": "Häufig gestellte Fragen",
+    "subtitle": "Alles, was Sie über die Bewertung und Verfolgung von LEGO-Minifiguren wissen müssen",
+    "stillHaveQuestions": "Haben Sie noch Fragen?",
+    "cantFindAnswer": "Sie finden nicht die Antwort, die Sie suchen? Wenden Sie sich an unser Support-Team.",
+    "contactSupport": "Support kontaktieren",
+    "emailUs": "Senden Sie uns eine E-Mail mit Fragen oder Feedback",
+    "cta": {
+      "title": "Bereit loszulegen?",
+      "subtitle": "Beginnen Sie mit der Bewertung Ihrer LEGO-Minifiguren mit echten Bricklink-Daten",
+      "button": "Jetzt mit der Bewertung beginnen →"
+    },
+    "items": [
+      {
+        "q": "Wie berechnet FigTracker empfohlene Preise?",
+        "a": "FigTracker mittelt drei Bricklink-Datenpunkte: mengengewichteter Durchschnitt der verkauften Preise (6-Monats-Historie), mengengewichteter Durchschnitt der aktuellen Angebote und niedrigster aktueller Preis. Die Formel lautet: (Verkaufsdurchschnitt + Bestandsdurchschnitt + Niedrigster) / 3. Dieser ausgewogene Ansatz passt sich schneller an Marktveränderungen an als die alleinige Verwendung von Verkaufspreisen."
+      },
+      {
+        "q": "Ist FigTracker kostenlos nutzbar?",
+        "a": "Ja! FigTracker ist vollständig kostenlos nutzbar. Durchsuchen Sie über 18.000 Minifiguren, browsen Sie durch 20.000+ LEGO-Sets, erhalten Sie Echtzeitpreise in über 15 Währungen und verfolgen Sie Ihr Inventar ohne Zahlungsanforderung."
+      },
+      {
+        "q": "Woher kommen die Preisdaten?",
+        "a": "Alle Preisdaten stammen direkt von der offiziellen Bricklink-API. Wir rufen globale Marktplatz-Angebote ab (6-Monats-Historie) und konvertieren sie in Ihre bevorzugte Währung unter Verwendung von Echtzeitwechselkursen. Sie können Preise jederzeit aktualisieren, um die neuesten Daten zu erhalten."
+      },
+      {
+        "q": "Welche Währungen werden unterstützt?",
+        "a": "FigTracker unterstützt über 15 Währungen, darunter USD, EUR, GBP, CAD, AUD, JPY, MXN und mehr. Preisdaten werden von globalen Verkäufern abgerufen und automatisch in Ihre ausgewählte Währung unter Verwendung aktueller Wechselkurse konvertiert."
+      },
+      {
+        "q": "Kann ich LEGO-Sets durchsuchen und verfolgen?",
+        "a": "Ja! FigTracker umfasst über 20.000 LEGO-Sets aus dem vollständigen Bricklink-Katalog. Durchsuchen Sie Sets nach Themen, sehen Sie enthaltene Minifiguren und erhalten Sie direkte Kauflinks zu LEGO.com, Amazon und BrickLink für neue und eingestellte Sets."
+      },
+      {
+        "q": "Wie viele LEGO-Minifiguren sind in der Datenbank?",
+        "a": "FigTracker umfasst über 18.000 LEGO-Minifiguren aus dem vollständigen Bricklink-Katalog, darunter Star Wars, Harry Potter, Marvel, DC, Ninjago und über 50 weitere Themen."
+      },
+      {
+        "q": "Kann ich mein Inventar verfolgen?",
+        "a": "Ja! Erstellen Sie ein kostenloses Konto, um Ihr Minifiguren-Inventar zu verfolgen. Sie können separate Sammlungen für Artikel führen, die Sie verkaufen, und Ihre persönliche Sammlung. Verfolgen Sie Mengen, Zustände (Neu/Gebraucht), sehen Sie den gesamten Portfoliowert und aktualisieren Sie alle Preise mit einem Klick."
+      },
+      {
+        "q": "Wie suche ich nach Minifiguren oder Sets?",
+        "a": "Suchen Sie nach exakter Bricklink-Artikelnummer (z.B. \"sw1219\", \"75192-1\") oder nach Name. Durchsuchen Sie visuell nach Themen, um Minifiguren und Sets zu sehen. Die Suche unterstützt Teilübereinstimmungen und zeigt Ergebnisse mit Bildern und aktuellen Preisen."
+      },
+      {
+        "q": "Welche Zustandsfaktoren beeinflussen die Preisgestaltung?",
+        "a": "FigTracker zeigt Preise für sowohl neue als auch gebrauchte Zustände. Neue Minifiguren erzielen in der Regel höhere Preise, während gebrauchte Zustandspreise Marktwerte für zuvor besessene Artikel widerspiegeln. Sie können auf jeder Detailseite zwischen Zuständen umschalten."
+      },
+      {
+        "q": "Wie oft werden Preisdaten aktualisiert?",
+        "a": "Preisdaten werden zur Leistungsoptimierung 24 Stunden lang zwischengespeichert. Sie können Preise jederzeit manuell aktualisieren, indem Sie auf einer beliebigen Minifigur-Seite auf die Aktualisierungsschaltfläche klicken oder die Schaltfläche \"Alle Preise aktualisieren\" in Ihrem Inventar verwenden, um Ihre gesamte Sammlung auf einmal zu aktualisieren."
+      },
+      {
+        "q": "Kann ich mein Inventar exportieren?",
+        "a": "Derzeit sind Inventardaten über Ihr FigTracker-Dashboard einsehbar. Exportfunktionalität ist für ein zukünftiges Update geplant."
+      },
+      {
+        "q": "Was ist, wenn ich etwas finde, das nicht in der Datenbank ist?",
+        "a": "FigTracker synchronisiert mit dem vollständigen Bricklink-Katalog. Wenn eine Minifigur oder ein Set auf Bricklink existiert, sollte es in unserer Datenbank sein. Kontaktieren Sie uns, wenn Sie einen legitimen Bricklink-Artikel finden, der fehlt."
+      },
+      {
+        "q": "Sind meine Inventardaten privat?",
+        "a": "Ja, Ihr Inventar ist vollständig privat und nur für Sie sichtbar, wenn Sie angemeldet sind. Wir teilen oder verkaufen Ihre Daten niemals."
+      }
+    ]
+  },
   "footer": {
     "faq": "FAQ",
     "guides": "Anleitungen",

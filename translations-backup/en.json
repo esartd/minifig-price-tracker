@@ -398,6 +398,74 @@
     "title": "Sets We're Excited About",
     "subtitle": "Hand-picked sets worth checking out"
   },
+  "faq": {
+    "badge": "HELP CENTER",
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know about pricing and tracking LEGO minifigures",
+    "stillHaveQuestions": "Still have questions?",
+    "cantFindAnswer": "Can't find the answer you're looking for? Reach out to our support team.",
+    "contactSupport": "Contact Support",
+    "emailUs": "Email us with any questions or feedback",
+    "cta": {
+      "title": "Ready to get started?",
+      "subtitle": "Start pricing your LEGO minifigures with real Bricklink data",
+      "button": "Start Pricing Now →"
+    },
+    "items": [
+      {
+        "q": "How does FigTracker calculate suggested prices?",
+        "a": "FigTracker averages three Bricklink data points: quantity-weighted average of sold prices (6-month history), quantity-weighted average of current listings, and lowest current price. The formula is: (sold avg + stock avg + lowest) / 3. This balanced approach adapts faster to market changes than using sold prices alone."
+      },
+      {
+        "q": "Is FigTracker free to use?",
+        "a": "Yes! FigTracker is completely free to use. Search 18,000+ minifigures, browse 20,000+ LEGO sets, get real-time pricing in 15+ currencies, and track your inventory without any payment required."
+      },
+      {
+        "q": "Where does the pricing data come from?",
+        "a": "All pricing data comes directly from the official Bricklink API. We fetch global marketplace listings (6-month history) and convert them to your preferred currency using real-time exchange rates. You can refresh prices anytime to get the latest data."
+      },
+      {
+        "q": "What currencies are supported?",
+        "a": "FigTracker supports 15+ currencies including USD, EUR, GBP, CAD, AUD, JPY, MXN, and more. Pricing data is fetched from global sellers and automatically converted to your selected currency using current exchange rates."
+      },
+      {
+        "q": "Can I browse and track LEGO sets?",
+        "a": "Yes! FigTracker includes 20,000+ LEGO sets from the complete Bricklink catalog. Browse sets by theme, view included minifigures, and see direct buy links to LEGO.com, Amazon, and BrickLink for both new and retired sets."
+      },
+      {
+        "q": "How many LEGO minifigures are in the database?",
+        "a": "FigTracker includes over 18,000 LEGO minifigures from the complete Bricklink catalog, covering Star Wars, Harry Potter, Marvel, DC, Ninjago, and 50+ other themes."
+      },
+      {
+        "q": "Can I track my inventory?",
+        "a": "Yes! Create a free account to track your minifigure inventory. You can maintain separate collections for items you're selling and your personal collection. Track quantities, conditions (New/Used), see total portfolio value, and refresh all prices with one click."
+      },
+      {
+        "q": "How do I search for minifigures or sets?",
+        "a": "Search by exact Bricklink item number (e.g., \"sw1219\", \"75192-1\") or by name. Browse visually by theme to see minifigures and sets. Search supports partial matches and shows results with images and current pricing."
+      },
+      {
+        "q": "What condition factors affect pricing?",
+        "a": "FigTracker shows prices for both New and Used conditions. New minifigs typically command higher prices, while Used condition prices reflect market values for previously owned items. You can toggle between conditions on each detail page."
+      },
+      {
+        "q": "How often is pricing data updated?",
+        "a": "Pricing data is cached for 24 hours for performance. You can manually refresh prices anytime by clicking the refresh button on any minifig page or using the \"Refresh All Prices\" button in your inventory to update your entire collection at once."
+      },
+      {
+        "q": "Can I export my inventory?",
+        "a": "Currently, inventory data is viewable through your FigTracker dashboard. Export functionality is planned for a future update."
+      },
+      {
+        "q": "What if I find something that's not in the database?",
+        "a": "FigTracker syncs with the complete Bricklink catalog. If a minifig or set exists on Bricklink, it should be in our database. Contact us if you find a legitimate Bricklink item that's missing."
+      },
+      {
+        "q": "Is my inventory data private?",
+        "a": "Yes, your inventory is completely private and only visible to you when logged in. We never share or sell your data."
+      }
+    ]
+  },
   "footer": {
     "faq": "FAQ",
     "guides": "Guides",
