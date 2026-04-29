@@ -1297,7 +1297,7 @@ input[type="number"] {
 .persona-icon {
   width: 48px;
   height: 48px;
-  margin-bottom: 24px;
+  margin: 0 auto 24px;
   color: #3b82f6;
   display: flex;
   align-items: center;
@@ -1590,7 +1590,7 @@ input[type="number"] {
   .persona-icon {
     width: 56px;
     height: 56px;
-    margin-bottom: 28px;
+    margin: 0 auto 28px;
   }
 
   .persona-card h3 {
