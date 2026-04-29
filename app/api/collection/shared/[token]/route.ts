@@ -174,7 +174,8 @@ export async function GET(
         items: formatItems(items),
         type,
         currency: user.preferredCurrency || 'USD',
-        showDecimals: false
+        showDecimals: false,
+        showPricing: sharePricing
       }
     });
   } catch (error) {

@@ -192,26 +192,27 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                 disabled={loading}
                 style={{
                   position: 'relative',
-                  width: '48px',
-                  height: '28px',
+                  width: '44px',
+                  height: '24px',
                   background: shareEnabled ? '#3b82f6' : '#d1d5db',
-                  borderRadius: '14px',
+                  borderRadius: '12px',
                   border: 'none',
                   cursor: loading ? 'not-allowed' : 'pointer',
                   transition: 'background 0.2s',
-                  opacity: loading ? 0.5 : 1
+                  opacity: loading ? 0.5 : 1,
+                  flexShrink: 0
                 }}
               >
                 <div style={{
                   position: 'absolute',
                   top: '2px',
                   left: shareEnabled ? '22px' : '2px',
-                  width: '24px',
-                  height: '24px',
+                  width: '20px',
+                  height: '20px',
                   background: '#ffffff',
                   borderRadius: '50%',
                   transition: 'left 0.2s',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)'
+                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.25)'
                 }} />
               </button>
             </div>
@@ -239,26 +240,27 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                   disabled={loading}
                   style={{
                     position: 'relative',
-                    width: '48px',
-                    height: '28px',
+                    width: '44px',
+                    height: '24px',
                     background: sharePricing ? '#3b82f6' : '#d1d5db',
-                    borderRadius: '14px',
+                    borderRadius: '12px',
                     border: 'none',
                     cursor: loading ? 'not-allowed' : 'pointer',
                     transition: 'background 0.2s',
-                    opacity: loading ? 0.5 : 1
+                    opacity: loading ? 0.5 : 1,
+                    flexShrink: 0
                   }}
                 >
                   <div style={{
                     position: 'absolute',
                     top: '2px',
                     left: sharePricing ? '22px' : '2px',
-                    width: '24px',
-                    height: '24px',
+                    width: '20px',
+                    height: '20px',
                     background: '#ffffff',
                     borderRadius: '50%',
                     transition: 'left 0.2s',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)'
+                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.25)'
                   }} />
                 </button>
               </div>

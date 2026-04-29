@@ -34,6 +34,7 @@ interface SharedCollection {
   type: 'inventory' | 'collection' | 'sets-inventory' | 'sets-collection';
   currency: string;
   showDecimals: boolean;
+  showPricing: boolean;
 }
 
 export default function SharedCollectionPage({ params }: { params: Promise<{ token: string }> }) {
@@ -190,7 +191,8 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
           color: '#737373',
           marginBottom: '16px'
         }}>
-          {t.itemsCount.replace('{count}', items.length.toString()).replace('{plural}', items.length !== 1 ? 's' : '')} • {t.totalValue.replace('{value}', formatPrice(totalValue, data.currency, data.showDecimals))}
+          {t.itemsCount.replace('{count}', items.length.toString()).replace('{plural}', items.length !== 1 ? 's' : '')}
+          {data.showPricing && ` • ${t.totalValue.replace('{value}', formatPrice(totalValue, data.currency, data.showDecimals))}`}
         </p>
       </div>
 
@@ -293,7 +295,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
                   {item.condition === 'used' ? t.used : t.new} • {t.qty}: {item.quantity}
                 </span>
               </div>
-              {item.pricing?.suggestedPrice > 0 && (
+              {data.showPricing && item.pricing?.suggestedPrice > 0 && (
                 <div style={{
                   marginTop: '8px',
                   fontSize: 'var(--text-base)',
