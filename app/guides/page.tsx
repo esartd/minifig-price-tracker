@@ -30,6 +30,26 @@ export async function generateMetadata(): Promise<Metadata> {
     es: 'https://es.figtracker.ericksu.com',
   };
 
+  // Validate that guides.meta exists
+  if (!t.guides?.meta) {
+    console.error(`Missing guides.meta for locale: ${locale}`);
+    // Fallback to English
+    const fallback = getTranslations('en');
+    return {
+      title: `${fallback.guides.meta.title} | FigTracker`,
+      description: fallback.guides.meta.description,
+      keywords: fallback.guides.meta.keywords,
+      openGraph: {
+        title: `${fallback.guides.meta.ogTitle} | FigTracker`,
+        description: fallback.guides.meta.ogDescription,
+        url: `${domains.en}/guides`,
+      },
+      alternates: {
+        canonical: `${domains[locale as keyof typeof domains]}/guides`,
+      },
+    };
+  }
+
   return {
     title: `${t.guides.meta.title} | FigTracker`,
     description: t.guides.meta.description,
