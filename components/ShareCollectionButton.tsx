@@ -187,10 +187,10 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                 onClick={toggleShare}
                 style={{
                   position: 'relative',
-                  width: '52px',
-                  height: '31px',
+                  width: '48px',
+                  height: '24px',
                   background: shareEnabled ? '#3b82f6' : '#d1d5db',
-                  borderRadius: '16px',
+                  borderRadius: '12px',
                   border: 'none',
                   cursor: 'pointer',
                   transition: 'background 0.2s ease',
@@ -200,10 +200,10 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
               >
                 <div style={{
                   position: 'absolute',
-                  top: '3px',
-                  left: shareEnabled ? '25px' : '3px',
-                  width: '25px',
-                  height: '25px',
+                  top: '2px',
+                  left: shareEnabled ? '26px' : '2px',
+                  width: '20px',
+                  height: '20px',
                   background: '#ffffff',
                   borderRadius: '50%',
                   transition: 'left 0.2s ease',
@@ -236,10 +236,10 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                   onClick={togglePricing}
                   style={{
                     position: 'relative',
-                    width: '52px',
-                    height: '31px',
+                    width: '48px',
+                    height: '24px',
                     background: sharePricing ? '#3b82f6' : '#d1d5db',
-                    borderRadius: '16px',
+                    borderRadius: '12px',
                     border: 'none',
                     cursor: 'pointer',
                     transition: 'background 0.2s ease',
@@ -249,10 +249,10 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                 >
                   <div style={{
                     position: 'absolute',
-                    top: '3px',
-                    left: sharePricing ? '25px' : '3px',
-                    width: '25px',
-                    height: '25px',
+                    top: '2px',
+                    left: sharePricing ? '26px' : '2px',
+                    width: '20px',
+                    height: '20px',
                     background: '#ffffff',
                     borderRadius: '50%',
                     transition: 'left 0.2s ease',
