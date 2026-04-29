@@ -36,6 +36,13 @@ export default async function GuidesPage() {
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
 
   const t = getTranslations(locale);
+
+  // Validate guides structure
+  if (!t.guides || !t.guides.items || !Array.isArray(t.guides.items)) {
+    console.error(`Invalid guides structure for locale: ${locale}`);
+    throw new Error(`Missing guides data for locale: ${locale}`);
+  }
+
   const guidesData = t.guides.items as Array<{
     title: string;
     description: string;
