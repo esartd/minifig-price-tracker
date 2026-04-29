@@ -324,7 +324,7 @@ export default function PersonalCollectionPage() {
                     borderRadius: '8px',
                     textDecoration: 'none',
                     transition: 'all 0.2s',
-                    border: 'none',
+                    border: '1px solid transparent',
                     whiteSpace: 'nowrap'
                   }}
                 >
