@@ -1583,6 +1583,11 @@ input[type="number"] {
 
   .persona-card {
     padding: 56px 40px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
   }
 
   .persona-emoji {
