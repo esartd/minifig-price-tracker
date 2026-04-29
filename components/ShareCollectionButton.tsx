@@ -64,28 +64,26 @@ export default function ShareCollectionButton() {
           gap: '8px',
           padding: '10px 20px',
           fontSize: 'var(--text-sm)',
-          fontWeight: '600',
-          color: shareEnabled ? '#ffffff' : '#171717',
-          background: shareEnabled ? '#3b82f6' : '#ffffff',
-          border: '1px solid',
-          borderColor: shareEnabled ? '#3b82f6' : '#e5e5e5',
+          fontWeight: '500',
+          color: '#525252',
+          background: '#ffffff',
+          border: '1px solid #e5e5e5',
           borderRadius: '8px',
           cursor: 'pointer',
-          transition: 'all 0.2s'
+          transition: 'all 0.2s',
+          whiteSpace: 'nowrap'
         }}
         onMouseEnter={(e) => {
-          if (!shareEnabled) {
-            e.currentTarget.style.background = '#f5f5f5';
-          }
+          e.currentTarget.style.borderColor = '#d4d4d4';
+          e.currentTarget.style.color = '#171717';
         }}
         onMouseLeave={(e) => {
-          if (!shareEnabled) {
-            e.currentTarget.style.background = '#ffffff';
-          }
+          e.currentTarget.style.borderColor = '#e5e5e5';
+          e.currentTarget.style.color = '#525252';
         }}
       >
         <ShareIcon style={{ width: '18px', height: '18px' }} />
-        {t('account.sharing.shareCollection')}
+        {t('common.share')}
       </button>
 
       {/* Dialog */}
