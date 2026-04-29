@@ -262,6 +262,17 @@ export default function PersonalCollectionPage() {
 
   const { totalValue, totalItems, avgValue } = calculateCollectionStats(collection);
 
+  // Debug logging
+  console.log('[Collection Page] Data:', {
+    totalItems: collection.length,
+    totalValue: totalValue,
+    sampleItem: collection[0] ? {
+      name: collection[0].minifigure_name,
+      quantity: collection[0].quantity,
+      price: collection[0].pricing?.suggestedPrice
+    } : null
+  });
+
 
   if (status === 'loading' || loading) {
     return (

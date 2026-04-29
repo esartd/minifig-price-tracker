@@ -146,6 +146,19 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
   const items = data.items;
   const totalValue = data.totalValue;
 
+  // Debug logging
+  console.log('[Share Page] Collection data:', {
+    type: data.type,
+    itemCount: items.length,
+    totalValue: totalValue,
+    showPricing: data.showPricing,
+    sampleItem: items[0] ? {
+      name: items[0].minifigure_name || items[0].set_name,
+      quantity: items[0].quantity,
+      price: items[0].pricing?.suggestedPrice
+    } : null
+  });
+
   // Get collection title based on type
   const getTitle = () => {
     switch (data.type) {
