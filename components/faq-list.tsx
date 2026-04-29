@@ -15,12 +15,17 @@ interface FAQListProps {
 export default function FAQList({ faqs }: FAQListProps) {
   const detailsRefs = useRef<(HTMLDetailsElement | null)[]>([]);
 
-  const handleToggle = (index: number) => {
-    detailsRefs.current.forEach((details, i) => {
-      if (details && i !== index && details.open) {
-        details.open = false;
-      }
-    });
+  const handleToggle = (index: number, event: React.SyntheticEvent<HTMLDetailsElement>) => {
+    const isOpening = event.currentTarget.open;
+
+    // Only close other items if this one is being opened
+    if (isOpening) {
+      detailsRefs.current.forEach((details, i) => {
+        if (details && i !== index && details.open) {
+          details.open = false;
+        }
+      });
+    }
   };
 
   return (
@@ -33,7 +38,7 @@ export default function FAQList({ faqs }: FAQListProps) {
           }}
           className="border-b border-[#e5e5e5] group"
           style={{ paddingTop: '32px', paddingBottom: '32px' }}
-          onToggle={() => handleToggle(index)}
+          onToggle={(e) => handleToggle(index, e)}
         >
           <summary className="text-[length:var(--text-lg)] font-semibold text-[#171717] cursor-pointer list-none flex justify-between items-start" style={{ gap: '24px' }}>
             <span className="flex-1">{faq.question}</span>
