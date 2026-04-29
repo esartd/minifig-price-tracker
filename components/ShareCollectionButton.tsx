@@ -15,7 +15,9 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
   const [shareEnabled, setShareEnabled] = useState(false);
   const [sharePricing, setSharePricing] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [loadingShare, setLoadingShare] = useState(false);
+  const [loadingPricing, setLoadingPricing] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
 
@@ -35,13 +37,13 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
     } catch (error) {
       console.error('Failed to load share status:', error);
     } finally {
-      setLoading(false);
+      setInitialLoading(false);
     }
   };
 
   const toggleShare = async () => {
-    console.log('Toggle share clicked, type:', type, 'loading:', loading);
-    setLoading(true);
+    console.log('Toggle share clicked, type:', type);
+    setLoadingShare(true);
     try {
       const response = await fetch(`/api/collection/share?type=${type}`, {
         method: 'PATCH'
@@ -58,13 +60,13 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
     } catch (error) {
       console.error('Failed to toggle sharing:', error);
     } finally {
-      setLoading(false);
+      setLoadingShare(false);
     }
   };
 
   const togglePricing = async () => {
     console.log('Toggle pricing clicked, current:', sharePricing);
-    setLoading(true);
+    setLoadingPricing(true);
     try {
       const response = await fetch(`/api/collection/share/pricing?type=${type}`, {
         method: 'PATCH',
@@ -81,7 +83,7 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
     } catch (error) {
       console.error('Failed to toggle pricing:', error);
     } finally {
-      setLoading(false);
+      setLoadingPricing(false);
     }
   };
 
@@ -91,7 +93,7 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
     setTimeout(() => setCopied(false), 2000);
   };
 
-  if (loading) return null;
+  if (initialLoading) return null;
 
   return (
     <>
@@ -189,7 +191,7 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
               </span>
               <button
                 onClick={toggleShare}
-                disabled={loading}
+                disabled={loadingShare}
                 style={{
                   position: 'relative',
                   width: '44px',
@@ -197,9 +199,9 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                   background: shareEnabled ? '#3b82f6' : '#d1d5db',
                   borderRadius: '12px',
                   border: 'none',
-                  cursor: loading ? 'not-allowed' : 'pointer',
+                  cursor: loadingShare ? 'not-allowed' : 'pointer',
                   transition: 'background 0.2s',
-                  opacity: loading ? 0.5 : 1,
+                  opacity: loadingShare ? 0.6 : 1,
                   flexShrink: 0
                 }}
               >
@@ -237,7 +239,7 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                 </span>
                 <button
                   onClick={togglePricing}
-                  disabled={loading}
+                  disabled={loadingPricing}
                   style={{
                     position: 'relative',
                     width: '44px',
@@ -245,9 +247,9 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                     background: sharePricing ? '#3b82f6' : '#d1d5db',
                     borderRadius: '12px',
                     border: 'none',
-                    cursor: loading ? 'not-allowed' : 'pointer',
+                    cursor: loadingPricing ? 'not-allowed' : 'pointer',
                     transition: 'background 0.2s',
-                    opacity: loading ? 0.5 : 1,
+                    opacity: loadingPricing ? 0.6 : 1,
                     flexShrink: 0
                   }}
                 >
