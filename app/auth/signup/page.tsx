@@ -8,8 +8,10 @@ import AuthLayout from '@/components/auth/AuthLayout';
 import FormInput from '@/components/auth/FormInput';
 import PasswordInput from '@/components/auth/PasswordInput';
 import MessageAlert from '@/components/auth/MessageAlert';
+import { useTranslation } from '@/components/TranslationProvider';
 
 export default function SignUp() {
+  const { t } = useTranslation();
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,7 +35,7 @@ export default function SignUp() {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || 'Failed to create account');
+        setError(data.error || t('auth.signup.errors.failed'));
         setLoading(false);
         return;
       }
@@ -46,20 +48,20 @@ export default function SignUp() {
       });
 
       if (result?.error) {
-        setError('Account created but sign in failed. Please try signing in.');
+        setError(t('auth.signup.errors.accountCreatedSignInFailed'));
       } else {
         router.push('/');
         router.refresh();
       }
     } catch (error) {
-      setError('An error occurred. Please try again.');
+      setError(t('auth.signup.errors.generic'));
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <AuthLayout footerText="Price your inventory with real-time Bricklink data">
+    <AuthLayout footerText={t('auth.footer')}>
       <div style={{ marginBottom: '48px' }}>
         <h1 style={{
           fontSize: 'var(--text-2xl)',
@@ -69,7 +71,7 @@ export default function SignUp() {
           letterSpacing: '-0.02em',
           lineHeight: '1.2'
         }}>
-          Manage Your Inventory
+          {t('auth.signup.title')}
         </h1>
         <p style={{
           fontSize: 'var(--text-base)',
@@ -77,7 +79,7 @@ export default function SignUp() {
           lineHeight: '1.6',
           marginBottom: '16px'
         }}>
-          Track your minifig inventory with real-time Bricklink pricing to price your items competitively.
+          {t('auth.signup.subtitle')}
         </p>
         <div style={{
           display: 'flex',
@@ -92,19 +94,19 @@ export default function SignUp() {
             <svg style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)', color: '#3b82f6' }} fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            <span style={{ fontSize: 'var(--text-sm)', color: '#525252' }}>Track unlimited items</span>
+            <span style={{ fontSize: 'var(--text-sm)', color: '#525252' }}>{t('auth.signup.features.trackUnlimited')}</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <svg style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)', color: '#3b82f6' }} fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            <span style={{ fontSize: 'var(--text-sm)', color: '#525252' }}>Real-time suggested prices</span>
+            <span style={{ fontSize: 'var(--text-sm)', color: '#525252' }}>{t('auth.signup.features.realtimePrices')}</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <svg style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)', color: '#3b82f6' }} fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            <span style={{ fontSize: 'var(--text-sm)', color: '#525252' }}>Know your total inventory value</span>
+            <span style={{ fontSize: 'var(--text-sm)', color: '#525252' }}>{t('auth.signup.features.totalValue')}</span>
           </div>
         </div>
       </div>
@@ -114,30 +116,30 @@ export default function SignUp() {
 
         <FormInput
           id="name"
-          label="Name"
+          label={t('auth.signup.name')}
           type="text"
           value={name}
           onChange={setName}
-          placeholder="Your name"
+          placeholder={t('auth.signup.placeholders.name')}
           autoComplete="name"
         />
 
         <FormInput
           id="email"
-          label="Email Address"
+          label={t('auth.signup.email')}
           type="email"
           value={email}
           onChange={setEmail}
-          placeholder="your@email.com"
+          placeholder={t('auth.signup.placeholders.email')}
           autoComplete="email"
         />
 
         <PasswordInput
           id="password"
-          label="Password"
+          label={t('auth.signup.password')}
           value={password}
           onChange={setPassword}
-          placeholder="At least 6 characters"
+          placeholder={t('auth.signup.placeholders.password')}
           autoComplete="new-password"
           minLength={6}
         />
@@ -159,7 +161,7 @@ export default function SignUp() {
             transition: 'all 0.2s'
           }}
         >
-          {loading ? 'Creating Account...' : 'Create Account'}
+          {loading ? t('auth.signup.buttonLoading') : t('auth.signup.button')}
         </button>
       </form>
 
@@ -171,7 +173,7 @@ export default function SignUp() {
           fontSize: 'var(--text-sm)',
           color: '#737373'
         }}>
-          Already have an account?{' '}
+          {t('auth.signup.alreadyHaveAccount')}{' '}
           <Link
             href="/auth/signin"
             style={{
@@ -181,7 +183,7 @@ export default function SignUp() {
               transition: 'color 0.2s'
             }}
           >
-            Sign In
+            {t('auth.signup.signInLink')}
           </Link>
         </p>
       </div>

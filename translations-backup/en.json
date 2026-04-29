@@ -18,7 +18,11 @@
     "yes": "Yes",
     "no": "No",
     "adding": "Adding...",
-    "loadingChart": "Loading chart..."
+    "loadingChart": "Loading chart...",
+    "searching": "Searching...",
+    "clearFilter": "Clear filter",
+    "noResultsFor": "No results found for \"{query}\"",
+    "minifigCount": "{count, plural, one {# minifigure} other {# minifigures}}"
   },
   "navigation": {
     "home": "Home",
@@ -30,6 +34,13 @@
     "signUp": "Sign Up",
     "signOut": "Sign Out",
     "account": "Account",
+    "accountSettings": "Account Settings",
+    "adminDashboard": "Admin Dashboard",
+    "wishlist": "Wishlist",
+    "minifigures": "Minifigures",
+    "sets": "Sets",
+    "forSale": "For Sale",
+    "toKeep": "To Keep",
     "themes": {
       "minifigures": "Minifigure Themes",
       "sets": "Set Themes"
@@ -44,7 +55,6 @@
     "setThemes": "Set Themes",
     "setsInventory": "Sets Inventory",
     "setsCollection": "Sets Collection",
-    "wishlist": "Wishlist",
     "browseThemes": "Themes",
     "minifigsForSale": "Minifigures for Sale",
     "minifigsToKeep": "Minifigures to Keep",
@@ -57,6 +67,9 @@
     "theme_sets": "{theme} Sets",
     "count": "{count} minifigs",
     "countSets": "{count} sets in this theme",
+    "setsCount": "{count} sets",
+    "subcategoriesCount": "{count} subcategories",
+    "exploreThemesWithSets": "Explore {themeCount} themes with {setCount} LEGO sets",
     "series": "{count} series",
     "allThemes": "All Themes",
     "popularThemes": "Popular Themes",
@@ -64,10 +77,10 @@
     "moreCount": "+{count} more",
     "searchPlaceholder": "Search themes...",
     "currentThemes": "Current Themes",
-    "currentThemesDesc": "Themes with minifigures released in the last 2 years ({yearRange})",
+    "currentThemesDesc": "Themes with sets released between {yearRange}",
     "olderThemes": "Older Themes",
     "olderThemesDesc": "Themes from previous years",
-    "showMore": "Show More ({count} more themes)",
+    "showMore": "Show {count} More Themes",
     "noThemesFound": "No themes found",
     "tryAdjustSearch": "Try adjusting your search",
     "descriptions": {
@@ -583,6 +596,181 @@
         ]
       }
     ]
+  },
+  "auth": {
+    "signup": {
+      "title": "Manage Your Inventory",
+      "subtitle": "Track your minifig inventory with real-time Bricklink pricing to price your items competitively.",
+      "features": {
+        "trackUnlimited": "Track unlimited items",
+        "realtimePrices": "Real-time suggested prices",
+        "totalValue": "Know your total inventory value"
+      },
+      "name": "Name",
+      "email": "Email Address",
+      "password": "Password",
+      "placeholders": {
+        "name": "Your name",
+        "email": "your@email.com",
+        "password": "At least 6 characters"
+      },
+      "button": "Create Account",
+      "buttonLoading": "Creating Account...",
+      "alreadyHaveAccount": "Already have an account?",
+      "signInLink": "Sign In",
+      "errors": {
+        "failed": "Failed to create account",
+        "accountCreatedSignInFailed": "Account created but sign in failed. Please try signing in.",
+        "generic": "An error occurred. Please try again."
+      }
+    },
+    "signin": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to access your inventory",
+      "email": "Email Address",
+      "password": "Password",
+      "placeholders": {
+        "email": "your@email.com",
+        "password": "Enter your password"
+      },
+      "button": "Sign In",
+      "buttonLoading": "Signing in...",
+      "dontHaveAccount": "Don't have an account?",
+      "signUpLink": "Sign Up",
+      "errors": {
+        "invalid": "Invalid email or password",
+        "generic": "An error occurred. Please try again."
+      }
+    },
+    "forgotPassword": {
+      "title": "Reset Password",
+      "subtitle": "Enter your email and we'll send you a link to reset your password.",
+      "email": "Email Address",
+      "placeholders": {
+        "email": "your@email.com"
+      },
+      "button": "Send Reset Link",
+      "buttonLoading": "Sending...",
+      "backToSignIn": "Back to Sign In",
+      "success": {
+        "title": "Check Your Email",
+        "message": "We've sent a password reset link to",
+        "button": "Back to Sign In"
+      },
+      "errors": {
+        "failed": "Failed to send reset email",
+        "generic": "An error occurred. Please try again."
+      }
+    },
+    "resetPassword": {
+      "placeholders": {
+        "newPassword": "Enter new password",
+        "confirmPassword": "Confirm new password"
+      }
+    },
+    "footer": "Price your inventory with real-time Bricklink data"
+  },
+  "account": {
+    "title": "Account Settings",
+    "subtitle": "Manage your profile, security, and data preferences",
+    "backToCollection": "Back to Collection",
+    "stats": {
+      "totalItems": "Total Items",
+      "collectionValue": "Collection Value",
+      "memberSince": "Member Since"
+    },
+    "profile": {
+      "title": "Profile Information",
+      "avatar": {
+        "change": "Change Avatar",
+        "cancel": "Cancel"
+      },
+      "fullName": "Full Name",
+      "emailAddress": "Email Address",
+      "emailNote": "Email cannot be changed for security reasons",
+      "placeholders": {
+        "name": "Enter your full name"
+      },
+      "save": "Save",
+      "saving": "Saving..."
+    },
+    "security": {
+      "title": "Security",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "placeholders": {
+        "currentPassword": "Enter current password",
+        "newPassword": "Enter new password",
+        "confirmPassword": "Confirm new password"
+      },
+      "changePassword": "Change Password",
+      "changing": "Changing..."
+    },
+    "regional": {
+      "title": "Regional Settings",
+      "subtitle": "Choose your preferred currency for pricing display",
+      "currency": "Currency",
+      "note": "Changing your currency will display prices in your selected region's marketplace. Prices may differ from other regions due to local supply, demand, and shipping costs."
+    },
+    "sharing": {
+      "title": "Share Collection",
+      "subtitle": "Share your collection with others via a public link (read-only)",
+      "publicSharing": "Public Sharing",
+      "enabled": "Your collection is visible to anyone with the link",
+      "disabled": "Your collection is private",
+      "shareLink": "Share Link",
+      "copy": "Copy",
+      "copied": "Copied",
+      "linkNote": "Anyone with this link can view your collection and inventory (read-only)",
+      "enableSuccess": "Collection sharing enabled",
+      "disableSuccess": "Collection sharing disabled",
+      "error": "Failed to toggle sharing"
+    },
+    "dataManagement": {
+      "title": "Data Management",
+      "export": {
+        "title": "Export Collection Data",
+        "subtitle": "Download your entire collection as a JSON file",
+        "button": "Export Data",
+        "success": "Collection data exported successfully",
+        "error": "Failed to export collection data"
+      },
+      "delete": {
+        "title": "Delete Account",
+        "subtitle": "Permanently delete your account and all associated data",
+        "button": "Delete Account",
+        "confirm1": "Are you sure you want to delete your account? This action cannot be undone and will permanently delete all your collection data.",
+        "confirm2": "This is your last chance. Are you absolutely sure you want to delete your account and all data?",
+        "error": "Failed to delete account"
+      }
+    },
+    "messages": {
+      "nameUpdated": "Name updated successfully",
+      "avatarUpdated": "Avatar updated!",
+      "passwordChanged": "Password changed successfully",
+      "passwordMismatch": "New passwords do not match",
+      "passwordTooShort": "Password must be at least 8 characters",
+      "currencyUpdated": "Currency updated to {currencyName} ({currencySymbol})",
+      "updatingPrices": "Updating prices for {itemCount} items in your collection.",
+      "estimatedTime": "Estimated time: {minutes} minute{plural}",
+      "refreshPage": "Refresh the page in a few minutes to see updated prices.",
+      "pricesWillDisplay": "Prices will now display in {currencyCode}.",
+      "genericError": "An error occurred. Please try again."
+    }
+  },
+  "newsletter": {
+    "title": "Get Monthly Market Reports",
+    "subtitle": "Top 10 minifigs that increased in value, market trends, and pricing tips delivered monthly.",
+    "placeholder": "your@email.com",
+    "button": "Subscribe Free",
+    "buttonLoading": "Subscribing...",
+    "success": "Thanks! Check your email to confirm subscription.",
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "network": "Network error. Please try again."
+    },
+    "privacy": "No spam. Unsubscribe anytime. We respect your privacy."
   },
   "collection": {
     "title": "Your Collection",

@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface Theme {
   parent: string;
@@ -23,6 +24,7 @@ interface SetsThemesClientProps {
 }
 
 function ThemeCard({ theme }: { theme: Theme }) {
+  const { t } = useTranslation();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showFallback, setShowFallback] = useState(false);
   const [triedSN, setTriedSN] = useState(false);
@@ -132,7 +134,7 @@ function ThemeCard({ theme }: { theme: Theme }) {
             textTransform: 'uppercase',
             letterSpacing: '0.5px'
           }}>
-            Theme
+            {t('themes.themeLabel')}
           </div>
 
           <h2 style={{
@@ -151,9 +153,9 @@ function ThemeCard({ theme }: { theme: Theme }) {
             marginBottom: '16px',
             lineHeight: '1.5'
           }}>
-            {theme.totalCount.toLocaleString()} sets
+            {t('themes.setsCount', { count: theme.totalCount })}
             {theme.subcategories.length > 0 && (
-              <> • {theme.subcategories.length} subcategories</>
+              <> • {t('themes.subcategoriesCount', { count: theme.subcategories.length })}</>
             )}
           </div>
 
@@ -191,7 +193,7 @@ function ThemeCard({ theme }: { theme: Theme }) {
                   padding: '6px 10px',
                   borderRadius: '6px'
                 }}>
-                  +{theme.subcategories.length - 3} more
+                  {t('themes.moreCount', { count: theme.subcategories.length - 3 })}
                 </div>
               )}
             </div>
@@ -203,6 +205,7 @@ function ThemeCard({ theme }: { theme: Theme }) {
 }
 
 export default function SetsThemesClient({ themes, currentThemes }: SetsThemesClientProps) {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [showAllOlderThemes, setShowAllOlderThemes] = useState(false);
 
@@ -267,7 +270,7 @@ export default function SetsThemesClient({ themes, currentThemes }: SetsThemesCl
             color: '#171717',
             lineHeight: '1.2'
           }}>
-            Browse LEGO Sets by Theme
+            {t('themes.browse_sets')}
           </h1>
           <p style={{
             fontSize: 'clamp(14px, 2vw, 16px)',
@@ -275,7 +278,7 @@ export default function SetsThemesClient({ themes, currentThemes }: SetsThemesCl
             marginBottom: '16px',
             lineHeight: '1.5'
           }}>
-            Explore {themes.length.toLocaleString()} themes with {themes.reduce((sum, t) => sum + t.totalCount, 0).toLocaleString()} LEGO sets
+            {t('themes.exploreThemesWithSets', { themeCount: themes.length, setCount: themes.reduce((sum, t) => sum + t.totalCount, 0) })}
           </p>
 
           {/* Search */}
@@ -310,7 +313,7 @@ export default function SetsThemesClient({ themes, currentThemes }: SetsThemesCl
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search themes..."
+              placeholder={t('themes.searchPlaceholder')}
               autoComplete="off"
               style={{
                 flex: 1,
@@ -376,7 +379,7 @@ export default function SetsThemesClient({ themes, currentThemes }: SetsThemesCl
               alignItems: 'center',
               gap: '8px'
             }}>
-              Current Themes
+              {t('themes.currentThemes')}
               <span style={{
                 fontSize: '16px',
                 fontWeight: '500',
@@ -390,7 +393,7 @@ export default function SetsThemesClient({ themes, currentThemes }: SetsThemesCl
               color: '#737373',
               marginBottom: '24px'
             }}>
-              Themes with sets released in the last 2 years ({yearRange})
+              {t('themes.currentThemesDesc', { yearRange })}
             </p>
             <div style={{
               display: 'grid',
@@ -415,7 +418,7 @@ export default function SetsThemesClient({ themes, currentThemes }: SetsThemesCl
             alignItems: 'center',
             gap: '8px'
           }}>
-            Older Themes
+            {t('themes.olderThemes')}
             <span style={{
               fontSize: '16px',
               fontWeight: '500',
@@ -429,7 +432,7 @@ export default function SetsThemesClient({ themes, currentThemes }: SetsThemesCl
             color: '#737373',
             marginBottom: '24px'
           }}>
-            Themes from previous years
+            {t('themes.olderThemesDesc')}
           </p>
           <div style={{
             display: 'grid',
@@ -468,7 +471,7 @@ export default function SetsThemesClient({ themes, currentThemes }: SetsThemesCl
                   e.currentTarget.style.boxShadow = '0 2px 8px rgba(59, 130, 246, 0.1)';
                 }}
               >
-                Show More ({filteredAllThemes.length - 12} more themes)
+                {t('themes.showMore', { count: filteredAllThemes.length - 12 })}
               </button>
             </div>
           )}
@@ -483,10 +486,10 @@ export default function SetsThemesClient({ themes, currentThemes }: SetsThemesCl
           }}>
             <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
             <div style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>
-              No themes found
+              {t('themes.noThemesFound')}
             </div>
             <div style={{ fontSize: '14px' }}>
-              Try adjusting your search
+              {t('themes.tryAdjustSearch')}
             </div>
           </div>
         )}

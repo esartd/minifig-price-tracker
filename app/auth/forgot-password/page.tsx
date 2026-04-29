@@ -6,8 +6,10 @@ import AuthLayout from '@/components/auth/AuthLayout';
 import FormInput from '@/components/auth/FormInput';
 import MessageAlert from '@/components/auth/MessageAlert';
 import SuccessCard from '@/components/auth/SuccessCard';
+import { useTranslation } from '@/components/TranslationProvider';
 
 export default function ForgotPassword() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -28,14 +30,14 @@ export default function ForgotPassword() {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || 'Failed to send reset email');
+        setError(data.error || t('auth.forgotPassword.errors.failed'));
         setLoading(false);
         return;
       }
 
       setSuccess(true);
     } catch (error) {
-      setError('An error occurred. Please try again.');
+      setError(t('auth.forgotPassword.errors.generic'));
     } finally {
       setLoading(false);
     }
@@ -43,15 +45,15 @@ export default function ForgotPassword() {
 
   if (success) {
     return (
-      <AuthLayout footerText="Price your inventory with real-time Bricklink data">
+      <AuthLayout footerText={t('auth.footer')}>
         <SuccessCard
-          title="Check Your Email"
+          title={t('auth.forgotPassword.success.title')}
           message={
             <>
-              We've sent a password reset link to <strong style={{ color: '#171717' }}>{email}</strong>
+              {t('auth.forgotPassword.success.message')} <strong style={{ color: '#171717' }}>{email}</strong>
             </>
           }
-          actionText="Back to Sign In"
+          actionText={t('auth.forgotPassword.success.button')}
           actionHref="/auth/signin"
         />
       </AuthLayout>
@@ -59,7 +61,7 @@ export default function ForgotPassword() {
   }
 
   return (
-    <AuthLayout footerText="Price your inventory with real-time Bricklink data">
+    <AuthLayout footerText={t('auth.footer')}>
       <div style={{ marginBottom: '48px' }}>
         <h1 style={{
           fontSize: 'var(--text-2xl)',
@@ -69,14 +71,14 @@ export default function ForgotPassword() {
           letterSpacing: '-0.02em',
           lineHeight: '1.2'
         }}>
-          Reset Password
+          {t('auth.forgotPassword.title')}
         </h1>
         <p style={{
           fontSize: 'var(--text-base)',
           color: '#737373',
           lineHeight: '1.6'
         }}>
-          Enter your email and we'll send you a link to reset your password.
+          {t('auth.forgotPassword.subtitle')}
         </p>
       </div>
 
@@ -85,11 +87,11 @@ export default function ForgotPassword() {
 
         <FormInput
           id="email"
-          label="Email Address"
+          label={t('auth.forgotPassword.email')}
           type="email"
           value={email}
           onChange={setEmail}
-          placeholder="your@email.com"
+          placeholder={t('auth.forgotPassword.placeholders.email')}
           autoComplete="email"
         />
 
@@ -111,7 +113,7 @@ export default function ForgotPassword() {
             marginBottom: '0'
           }}
         >
-          {loading ? 'Sending...' : 'Send Reset Link'}
+          {loading ? t('auth.forgotPassword.buttonLoading') : t('auth.forgotPassword.button')}
         </button>
       </form>
 
@@ -129,7 +131,7 @@ export default function ForgotPassword() {
             transition: 'color 0.2s'
           }}
         >
-          ← Back to Sign In
+          ← {t('auth.forgotPassword.backToSignIn')}
         </Link>
       </div>
     </AuthLayout>

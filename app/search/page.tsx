@@ -431,7 +431,7 @@ function SearchPageContent() {
                   fontSize: 'var(--text-sm)',
                   color: '#737373'
                 }}>
-                  {searchResults.length} minifigure{searchResults.length !== 1 ? 's' : ''}
+                  {t('common.minifigCount', { count: searchResults.length })}
                 </p>
               </div>
               <button
@@ -463,7 +463,7 @@ function SearchPageContent() {
                   e.currentTarget.style.borderColor = '#e5e5e5';
                 }}
               >
-                Clear filter
+                {t('common.clearFilter')}
               </button>
             </div>
           )}
@@ -487,7 +487,7 @@ function SearchPageContent() {
                 fontSize: 'var(--text-base)',
                 color: '#737373'
               }}>
-                Searching...
+                {t('common.searching')}
               </p>
             </div>
           )}
@@ -502,7 +502,7 @@ function SearchPageContent() {
                 fontSize: 'var(--text-base)',
                 color: '#737373'
               }}>
-                No results found for "{searchQuery}"
+                {t('common.noResultsFor', { query: searchQuery })}
               </p>
             </div>
           )}

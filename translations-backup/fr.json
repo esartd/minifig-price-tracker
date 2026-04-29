@@ -18,7 +18,11 @@
     "yes": "Oui",
     "no": "Non",
     "adding": "Ajout...",
-    "loadingChart": "Chargement du graphique..."
+    "loadingChart": "Chargement du graphique...",
+    "searching": "Recherche en cours...",
+    "clearFilter": "Effacer le filtre",
+    "noResultsFor": "Aucun résultat pour \"{query}\"",
+    "minifigCount": "{count, plural, one {# minifigurine} other {# minifigurines}}"
   },
   "navigation": {
     "home": "Accueil",
@@ -30,6 +34,13 @@
     "signUp": "S'inscrire",
     "signOut": "Se déconnecter",
     "account": "Compte",
+    "accountSettings": "Paramètres du Compte",
+    "adminDashboard": "Tableau de Bord Admin",
+    "wishlist": "Liste de Souhaits",
+    "minifigures": "Minifigurines",
+    "sets": "Sets",
+    "forSale": "À vendre",
+    "toKeep": "À garder",
     "themes": {
       "minifigures": "Thèmes de minifigurines",
       "sets": "Thèmes de sets"
@@ -44,7 +55,6 @@
     "setThemes": "Thèmes de Sets",
     "setsInventory": "Inventaire de Sets",
     "setsCollection": "Collection de Sets",
-    "wishlist": "Liste de Souhaits",
     "browseThemes": "Thèmes",
     "minifigsForSale": "Minifigurines à Vendre",
     "minifigsToKeep": "Minifigurines à Garder",
@@ -57,6 +67,9 @@
     "theme_sets": "Sets {theme}",
     "count": "{count} minifigurines",
     "countSets": "{count} sets dans ce thème",
+    "setsCount": "{count} sets",
+    "subcategoriesCount": "{count} sous-catégories",
+    "exploreThemesWithSets": "Explorez {themeCount} thèmes avec {setCount} sets LEGO",
     "series": "{count} séries",
     "allThemes": "Tous les thèmes",
     "popularThemes": "Thèmes populaires",
@@ -64,10 +77,10 @@
     "moreCount": "+{count} de plus",
     "searchPlaceholder": "Rechercher des thèmes...",
     "currentThemes": "Thèmes actuels",
-    "currentThemesDesc": "Thèmes avec minifigurines sorties ces 2 dernières années ({yearRange})",
+    "currentThemesDesc": "Thèmes avec sets sortis entre {yearRange}",
     "olderThemes": "Thèmes anciens",
     "olderThemesDesc": "Thèmes des années précédentes",
-    "showMore": "Afficher plus ({count} thèmes supplémentaires)",
+    "showMore": "Afficher {count} thèmes supplémentaires",
     "noThemesFound": "Aucun thème trouvé",
     "tryAdjustSearch": "Essayez d'ajuster votre recherche",
     "descriptions": {
@@ -640,6 +653,181 @@
         ]
       }
     ]
+  },
+  "auth": {
+    "signup": {
+      "title": "Gérez votre inventaire",
+      "subtitle": "Suivez votre inventaire de minifigurines avec les prix Bricklink en temps réel pour évaluer vos articles de manière compétitive.",
+      "features": {
+        "trackUnlimited": "Suivez un nombre illimité d'articles",
+        "realtimePrices": "Prix suggérés en temps réel",
+        "totalValue": "Connaissez la valeur totale de votre inventaire"
+      },
+      "name": "Nom",
+      "email": "Adresse e-mail",
+      "password": "Mot de passe",
+      "placeholders": {
+        "name": "Votre nom",
+        "email": "votre@email.com",
+        "password": "Au moins 6 caractères"
+      },
+      "button": "Créer un compte",
+      "buttonLoading": "Création du compte...",
+      "alreadyHaveAccount": "Vous avez déjà un compte?",
+      "signInLink": "Se connecter",
+      "errors": {
+        "failed": "Échec de la création du compte",
+        "accountCreatedSignInFailed": "Compte créé mais échec de la connexion. Veuillez essayer de vous connecter.",
+        "generic": "Une erreur s'est produite. Veuillez réessayer."
+      }
+    },
+    "signin": {
+      "title": "Bon retour",
+      "subtitle": "Connectez-vous pour accéder à votre inventaire",
+      "email": "Adresse e-mail",
+      "password": "Mot de passe",
+      "placeholders": {
+        "email": "votre@email.com",
+        "password": "Entrez votre mot de passe"
+      },
+      "button": "Se connecter",
+      "buttonLoading": "Connexion en cours...",
+      "dontHaveAccount": "Vous n'avez pas de compte?",
+      "signUpLink": "S'inscrire",
+      "errors": {
+        "invalid": "E-mail ou mot de passe invalide",
+        "generic": "Une erreur s'est produite. Veuillez réessayer."
+      }
+    },
+    "forgotPassword": {
+      "title": "Réinitialiser le mot de passe",
+      "subtitle": "Entrez votre e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+      "email": "Adresse e-mail",
+      "placeholders": {
+        "email": "votre@email.com"
+      },
+      "button": "Envoyer le lien de réinitialisation",
+      "buttonLoading": "Envoi en cours...",
+      "backToSignIn": "Retour à la connexion",
+      "success": {
+        "title": "Vérifiez votre e-mail",
+        "message": "Nous avons envoyé un lien de réinitialisation du mot de passe à",
+        "button": "Retour à la connexion"
+      },
+      "errors": {
+        "failed": "Échec de l'envoi de l'e-mail de réinitialisation",
+        "generic": "Une erreur s'est produite. Veuillez réessayer."
+      }
+    },
+    "resetPassword": {
+      "placeholders": {
+        "newPassword": "Entrez le nouveau mot de passe",
+        "confirmPassword": "Confirmez le nouveau mot de passe"
+      }
+    },
+    "footer": "Évaluez votre inventaire avec les données Bricklink en temps réel"
+  },
+  "account": {
+    "title": "Paramètres du compte",
+    "subtitle": "Gérez votre profil, sécurité et préférences de données",
+    "backToCollection": "Retour à la collection",
+    "stats": {
+      "totalItems": "Total d'articles",
+      "collectionValue": "Valeur de la collection",
+      "memberSince": "Membre depuis"
+    },
+    "profile": {
+      "title": "Informations du profil",
+      "avatar": {
+        "change": "Changer l'avatar",
+        "cancel": "Annuler"
+      },
+      "fullName": "Nom complet",
+      "emailAddress": "Adresse e-mail",
+      "emailNote": "L'e-mail ne peut pas être modifié pour des raisons de sécurité",
+      "placeholders": {
+        "name": "Entrez votre nom complet"
+      },
+      "save": "Enregistrer",
+      "saving": "Enregistrement..."
+    },
+    "security": {
+      "title": "Sécurité",
+      "currentPassword": "Mot de passe actuel",
+      "newPassword": "Nouveau mot de passe",
+      "confirmPassword": "Confirmer le nouveau mot de passe",
+      "placeholders": {
+        "currentPassword": "Entrez le mot de passe actuel",
+        "newPassword": "Entrez le nouveau mot de passe",
+        "confirmPassword": "Confirmez le nouveau mot de passe"
+      },
+      "changePassword": "Changer le mot de passe",
+      "changing": "Modification..."
+    },
+    "regional": {
+      "title": "Paramètres régionaux",
+      "subtitle": "Choisissez votre devise préférée pour l'affichage des prix",
+      "currency": "Devise",
+      "note": "Le changement de devise affichera les prix dans le marché de votre région sélectionnée. Les prix peuvent différer d'une région à l'autre en raison de l'offre locale, de la demande et des frais d'expédition."
+    },
+    "sharing": {
+      "title": "Partager la collection",
+      "subtitle": "Partagez votre collection avec d'autres via un lien public (lecture seule)",
+      "publicSharing": "Partage public",
+      "enabled": "Votre collection est visible par toute personne disposant du lien",
+      "disabled": "Votre collection est privée",
+      "shareLink": "Lien de partage",
+      "copy": "Copier",
+      "copied": "Copié",
+      "linkNote": "Toute personne disposant de ce lien peut consulter votre collection et votre inventaire (lecture seule)",
+      "enableSuccess": "Partage de collection activé",
+      "disableSuccess": "Partage de collection désactivé",
+      "error": "Échec du basculement du partage"
+    },
+    "dataManagement": {
+      "title": "Gestion des données",
+      "export": {
+        "title": "Exporter les données de collection",
+        "subtitle": "Téléchargez l'intégralité de votre collection au format JSON",
+        "button": "Exporter les données",
+        "success": "Données de collection exportées avec succès",
+        "error": "Échec de l'exportation des données de collection"
+      },
+      "delete": {
+        "title": "Supprimer le compte",
+        "subtitle": "Supprimez définitivement votre compte et toutes les données associées",
+        "button": "Supprimer le compte",
+        "confirm1": "Êtes-vous sûr de vouloir supprimer votre compte? Cette action ne peut pas être annulée et supprimera définitivement toutes vos données de collection.",
+        "confirm2": "C'est votre dernière chance. Êtes-vous absolument sûr de vouloir supprimer votre compte et toutes les données?",
+        "error": "Échec de la suppression du compte"
+      }
+    },
+    "messages": {
+      "nameUpdated": "Nom mis à jour avec succès",
+      "avatarUpdated": "Avatar mis à jour!",
+      "passwordChanged": "Mot de passe modifié avec succès",
+      "passwordMismatch": "Les nouveaux mots de passe ne correspondent pas",
+      "passwordTooShort": "Le mot de passe doit contenir au moins 8 caractères",
+      "currencyUpdated": "Devise mise à jour en {currencyName} ({currencySymbol})",
+      "updatingPrices": "Mise à jour des prix pour {itemCount} articles de votre collection.",
+      "estimatedTime": "Temps estimé: {minutes} minute{plural}",
+      "refreshPage": "Actualisez la page dans quelques minutes pour voir les prix mis à jour.",
+      "pricesWillDisplay": "Les prix seront désormais affichés en {currencyCode}.",
+      "genericError": "Une erreur s'est produite. Veuillez réessayer."
+    }
+  },
+  "newsletter": {
+    "title": "Recevez les rapports de marché mensuels",
+    "subtitle": "Top 10 des minifigurines dont la valeur a augmenté, tendances du marché et conseils de prix livrés mensuellement.",
+    "placeholder": "votre@email.com",
+    "button": "S'abonner gratuitement",
+    "buttonLoading": "Abonnement en cours...",
+    "success": "Merci! Vérifiez votre e-mail pour confirmer votre abonnement.",
+    "errors": {
+      "generic": "Quelque chose s'est mal passé. Veuillez réessayer.",
+      "network": "Erreur réseau. Veuillez réessayer."
+    },
+    "privacy": "Pas de spam. Désabonnez-vous à tout moment. Nous respectons votre vie privée."
   },
   "collection": {
     "title": "Votre Collection",

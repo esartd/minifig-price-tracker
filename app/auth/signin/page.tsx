@@ -8,8 +8,10 @@ import AuthLayout from '@/components/auth/AuthLayout';
 import FormInput from '@/components/auth/FormInput';
 import PasswordInput from '@/components/auth/PasswordInput';
 import MessageAlert from '@/components/auth/MessageAlert';
+import { useTranslation } from '@/components/TranslationProvider';
 
 export default function SignIn() {
+  const { t } = useTranslation();
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,13 +31,13 @@ export default function SignIn() {
       });
 
       if (result?.error) {
-        setError('Invalid email or password');
+        setError(t('auth.signin.errors.invalid'));
       } else {
         router.push('/');
         router.refresh();
       }
     } catch (error) {
-      setError('An error occurred. Please try again.');
+      setError(t('auth.signin.errors.generic'));
     } finally {
       setLoading(false);
     }
@@ -52,14 +54,14 @@ export default function SignIn() {
           letterSpacing: '-0.02em',
           lineHeight: '1.2'
         }}>
-          Welcome Back
+          {t('auth.signin.title')}
         </h1>
         <p style={{
           fontSize: 'var(--text-base)',
           color: '#737373',
           lineHeight: '1.6'
         }}>
-          Sign in to access your inventory
+          {t('auth.signin.subtitle')}
         </p>
       </div>
 
@@ -68,20 +70,20 @@ export default function SignIn() {
 
         <FormInput
           id="email"
-          label="Email Address"
+          label={t('auth.signin.email')}
           type="email"
           value={email}
           onChange={setEmail}
-          placeholder="your@email.com"
+          placeholder={t('auth.signin.placeholders.email')}
           autoComplete="email"
         />
 
         <PasswordInput
           id="password"
-          label="Password"
+          label={t('auth.signin.password')}
           value={password}
           onChange={setPassword}
-          placeholder="Enter your password"
+          placeholder={t('auth.signin.placeholders.password')}
           autoComplete="current-password"
           showForgotLink
           onForgotClick={() => router.push('/auth/forgot-password')}
@@ -104,7 +106,7 @@ export default function SignIn() {
             transition: 'all 0.2s'
           }}
         >
-          {loading ? 'Signing in...' : 'Sign In'}
+          {loading ? t('auth.signin.buttonLoading') : t('auth.signin.button')}
         </button>
       </form>
 
@@ -116,7 +118,7 @@ export default function SignIn() {
           fontSize: 'var(--text-sm)',
           color: '#737373'
         }}>
-          Don't have an account?{' '}
+          {t('auth.signin.dontHaveAccount')}{' '}
           <Link
             href="/auth/signup"
             style={{
@@ -126,7 +128,7 @@ export default function SignIn() {
               transition: 'color 0.2s'
             }}
           >
-            Sign Up
+            {t('auth.signin.signUpLink')}
           </Link>
         </p>
       </div>

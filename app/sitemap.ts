@@ -5,74 +5,68 @@ import { getAllMinifigs, getAllCategories } from '@/lib/catalog-static'
 export const dynamic = 'force-dynamic'
 export const revalidate = 86400 // 24 hours
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://figtracker.ericksu.com'
+const locales = ['en', 'de', 'fr', 'es'] as const
+const domains = {
+  en: 'https://figtracker.ericksu.com',
+  de: 'https://de.figtracker.ericksu.com',
+  fr: 'https://fr.figtracker.ericksu.com',
+  es: 'https://es.figtracker.ericksu.com',
+}
 
-  // Static pages
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const lastModified = new Date()
+
+  // Helper function to create multilingual entries
+  const createMultilingualEntry = (path: string, changeFrequency: any, priority: number) => {
+    return locales.flatMap(locale => ({
+      url: `${domains[locale]}${path}`,
+      lastModified,
+      changeFrequency,
+      priority,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map(l => [l, `${domains[l]}${path}`])
+        )
+      }
+    }))
+  }
+
+  // Static pages with all language variants
   const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/search`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/themes`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/faq`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/guides`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/disclosure`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
+    ...createMultilingualEntry('', 'daily', 1), // Homepage
+    ...createMultilingualEntry('/search', 'daily', 0.9),
+    ...createMultilingualEntry('/themes', 'weekly', 0.9),
+    ...createMultilingualEntry('/sets-themes', 'weekly', 0.9),
+    ...createMultilingualEntry('/about', 'monthly', 0.8),
+    ...createMultilingualEntry('/faq', 'monthly', 0.8),
+    ...createMultilingualEntry('/guides', 'weekly', 0.8),
+    ...createMultilingualEntry('/privacy', 'monthly', 0.5),
+    ...createMultilingualEntry('/disclosure', 'monthly', 0.5),
   ]
 
   try {
-    // Get all minifigs for individual pages (18k+ URLs)
+    // Get all minifigs for individual pages (18k+ URLs) - all locales
     const minifigs = await getAllMinifigs()
     const minifigPages: MetadataRoute.Sitemap = minifigs
       .filter(m => m.minifigure_no) // Only include valid IDs
-      .map(minifig => ({
-        url: `${baseUrl}/minifigs/${minifig.minifigure_no}`,
-        lastModified: minifig.updated_at ? new Date(minifig.updated_at) : new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.6,
-      }))
+      .flatMap(minifig => {
+        const path = `/minifigs/${minifig.minifigure_no}`
+        const minifigLastModified = minifig.updated_at ? new Date(minifig.updated_at) : lastModified
 
-    // Get all categories for theme pages
+        return locales.map(locale => ({
+          url: `${domains[locale]}${path}`,
+          lastModified: minifigLastModified,
+          changeFrequency: 'weekly' as const,
+          priority: 0.6,
+          alternates: {
+            languages: Object.fromEntries(
+              locales.map(l => [l, `${domains[l]}${path}`])
+            )
+          }
+        }))
+      })
+
+    // Get all categories for theme pages - all locales
     const categories = await getAllCategories()
     const uniqueThemes = new Set<string>()
 
@@ -82,16 +76,53 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       uniqueThemes.add(parentTheme)
     })
 
-    const themePages: MetadataRoute.Sitemap = Array.from(uniqueThemes).map(theme => ({
-      url: `${baseUrl}/themes/${encodeURIComponent(theme.toLowerCase().replace(/\s+/g, '-'))}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    }))
+    const themePages: MetadataRoute.Sitemap = Array.from(uniqueThemes).flatMap(theme => {
+      const slug = encodeURIComponent(theme.toLowerCase().replace(/\s+/g, '-'))
+      const path = `/themes/${slug}`
 
-    console.log(`[SITEMAP] Generated ${staticPages.length} static + ${minifigPages.length} minifigs + ${themePages.length} themes = ${staticPages.length + minifigPages.length + themePages.length} total URLs`)
+      return locales.map(locale => ({
+        url: `${domains[locale]}${path}`,
+        lastModified,
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map(l => [l, `${domains[l]}${path}`])
+          )
+        }
+      }))
+    })
 
-    return [...staticPages, ...themePages, ...minifigPages]
+    // Sets themes pages - all locales
+    const { loadAllBoxes } = await import('@/lib/boxes-data')
+    const boxes = loadAllBoxes()
+    const setThemes = new Set<string>()
+
+    boxes.forEach(box => {
+      const parent = box.category_name.split(' / ')[0].trim()
+      setThemes.add(parent)
+    })
+
+    const setThemePages: MetadataRoute.Sitemap = Array.from(setThemes).flatMap(theme => {
+      const slug = encodeURIComponent(theme.toLowerCase().replace(/\s+/g, '-'))
+      const path = `/sets-themes/${slug}`
+
+      return locales.map(locale => ({
+        url: `${domains[locale]}${path}`,
+        lastModified,
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map(l => [l, `${domains[l]}${path}`])
+          )
+        }
+      }))
+    })
+
+    console.log(`[SITEMAP] Generated ${staticPages.length} static + ${minifigPages.length} minifigs + ${themePages.length} themes + ${setThemePages.length} set themes = ${staticPages.length + minifigPages.length + themePages.length + setThemePages.length} total URLs`)
+
+    return [...staticPages, ...themePages, ...setThemePages, ...minifigPages]
   } catch (error) {
     console.error('[SITEMAP] Error generating dynamic URLs:', error)
     return staticPages

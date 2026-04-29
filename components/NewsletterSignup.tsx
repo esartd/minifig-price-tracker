@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from './TranslationProvider';
 
 export default function NewsletterSignup() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
@@ -22,25 +24,25 @@ export default function NewsletterSignup() {
 
       if (data.success) {
         setStatus('success');
-        setMessage('Thanks! Check your email to confirm subscription.');
+        setMessage(t('newsletter.success'));
         setEmail('');
       } else {
         setStatus('error');
-        setMessage(data.error || 'Something went wrong. Please try again.');
+        setMessage(data.error || t('newsletter.errors.generic'));
       }
     } catch (error) {
       setStatus('error');
-      setMessage('Network error. Please try again.');
+      setMessage(t('newsletter.errors.network'));
     }
   };
 
   return (
     <div className="bg-gradient-to-br from-[#667eea] to-[#764ba2] rounded-2xl px-6 py-12 md:px-8 text-white text-center my-12">
       <h3 className="text-[length:var(--text-2xl)] font-bold mb-3">
-        Get Monthly Market Reports
+        {t('newsletter.title')}
       </h3>
       <p className="text-[length:var(--text-base)] mb-6 opacity-90">
-        Top 10 minifigs that increased in value, market trends, and pricing tips delivered monthly.
+        {t('newsletter.subtitle')}
       </p>
 
       {status === 'success' ? (
@@ -53,7 +55,7 @@ export default function NewsletterSignup() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="your@email.com"
+            placeholder={t('newsletter.placeholder')}
             required
             disabled={status === 'loading'}
             className="flex-1 min-w-[250px] px-5 py-3.5 rounded-lg border-0 text-[length:var(--text-base)] outline-none text-gray-900"
@@ -63,7 +65,7 @@ export default function NewsletterSignup() {
             disabled={status === 'loading'}
             className="px-8 py-3.5 bg-white text-[#667eea] border-0 rounded-lg text-[length:var(--text-base)] font-semibold cursor-pointer transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed hover:bg-gray-50"
           >
-            {status === 'loading' ? 'Subscribing...' : 'Subscribe Free'}
+            {status === 'loading' ? t('newsletter.buttonLoading') : t('newsletter.button')}
           </button>
         </form>
       )}
@@ -75,7 +77,7 @@ export default function NewsletterSignup() {
       )}
 
       <p className="mt-4 text-[length:var(--text-xs)] opacity-70">
-        No spam. Unsubscribe anytime. We respect your privacy.
+        {t('newsletter.privacy')}
       </p>
     </div>
   );

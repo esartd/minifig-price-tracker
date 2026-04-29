@@ -802,7 +802,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 paddingBottom: '2px'
               }}
             >
-              Search
+              {t('navigation.search')}
             </Link>
 
             {/* Browse Dropdown */}
@@ -823,7 +823,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   padding: 0
                 }}
               >
-                Browse
+                {t('navigation.browse')}
                 <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                 </svg>
@@ -857,7 +857,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                     <UserIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                    <span>Minifigure Themes</span>
+                    <span>{t('navigation.themes.minifigures')}</span>
                   </Link>
                   <Link href="/sets-themes" onClick={() => setBrowseDropdownOpen(false)} style={{
                     display: 'flex',
@@ -872,7 +872,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                     <CubeIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                    <span>Set Themes</span>
+                    <span>{t('navigation.themes.sets')}</span>
                   </Link>
                 </div>
               )}
@@ -896,7 +896,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   padding: 0
                 }}
               >
-                Your LEGO
+                {t('navigation.yourLego')}
                 <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                 </svg>
@@ -918,7 +918,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 }}>
                   {/* Minifigures Section */}
                   <div style={{ padding: '12px 20px 8px', fontSize: '11px', fontWeight: '600', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                    Minifigures
+                    {t('navigation.minifigures')}
                   </div>
                   <Link href="/inventory" onClick={() => setLegoDropdownOpen(false)} style={{
                     display: 'flex',
@@ -934,7 +934,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                     <CurrencyDollarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                    <span>Minifigures for Sale</span>
+                    <span>{t('navigation.minifigsForSale')}</span>
                   </Link>
                   <Link href="/collection" onClick={() => setLegoDropdownOpen(false)} style={{
                     display: 'flex',
@@ -950,12 +950,12 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                     <StarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                    <span>Minifigures to Keep</span>
+                    <span>{t('navigation.minifigsToKeep')}</span>
                   </Link>
 
                   {/* Sets Section */}
                   <div style={{ padding: '12px 20px 8px', fontSize: '11px', fontWeight: '600', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                    Sets
+                    {t('navigation.sets')}
                   </div>
                   <Link href="/sets-inventory" onClick={() => setLegoDropdownOpen(false)} style={{
                     display: 'flex',
@@ -971,7 +971,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                     <CurrencyDollarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                    <span>Sets for Sale</span>
+                    <span>{t('navigation.setsForSale')}</span>
                   </Link>
                   <Link href="/sets-collection" onClick={() => setLegoDropdownOpen(false)} style={{
                     display: 'flex',
@@ -986,7 +986,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                     <StarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                    <span>Sets to Keep</span>
+                    <span>{t('navigation.setsToKeep')}</span>
                   </Link>
                 </div>
               )}
@@ -1008,7 +1008,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 paddingBottom: '2px'
               }}
             >
-              About
+              {t('navigation.about')}
             </Link>
 
             <LanguageSwitcher />
@@ -1092,7 +1092,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    Account Settings
+                    {t('navigation.accountSettings')}
                   </Link>
 
                   <Link
@@ -1129,7 +1129,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     <svg style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)', color: highlightWishlist ? '#ffffff' : '#737373', transition: 'color 0.3s' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
-                    Wishlist
+                    {t('navigation.wishlist')}
                   </Link>
 
                   {user.email === 'erickkosysu@gmail.com' && (
@@ -1155,7 +1155,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                       <svg style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)', color: '#737373' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                       </svg>
-                      Admin Dashboard
+                      {t('navigation.adminDashboard')}
                     </Link>
                   )}
 
@@ -1189,7 +1189,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     <svg style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
-                    Sign Out
+                    {t('navigation.signOut')}
                   </button>
                 </div>
               )}
@@ -1237,7 +1237,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             fontWeight: '600',
             minHeight: '44px'
           }}>
-            Search
+            {t('navigation.search')}
           </Link>
 
           {/* Browse Dropdown */}
@@ -1263,7 +1263,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 minHeight: '44px'
               }}
             >
-              <span>Themes</span>
+              <span>{t('navigation.browse')}</span>
               <svg
                 style={{
                   width: '20px',
@@ -1292,7 +1292,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   minHeight: '44px'
                 }}>
                   <UserIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
-                  <span>Minifigure Themes</span>
+                  <span>{t('navigation.themes.minifigures')}</span>
                 </Link>
                 <Link href="/sets-themes" onClick={() => setMobileMenuOpen(false)} style={{
                   display: 'flex',
@@ -1305,7 +1305,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   minHeight: '44px'
                 }}>
                   <CubeIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
-                  <span>Set Themes</span>
+                  <span>{t('navigation.themes.sets')}</span>
                 </Link>
               </div>
             )}
@@ -1323,7 +1323,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             fontWeight: '600',
             minHeight: '44px'
           }}>
-            About
+            {t('navigation.about')}
           </Link>
 
           {/* Your LEGO Dropdown */}
@@ -1349,7 +1349,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 minHeight: '44px'
               }}
             >
-              <span>Your LEGO</span>
+              <span>{t('navigation.yourLego')}</span>
               <svg
                 style={{
                   width: '20px',
@@ -1376,7 +1376,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   padding: '8px 0 4px',
                   marginTop: '4px'
                 }}>
-                  Minifigures
+                  {t('navigation.minifigures')}
                 </div>
                 <Link href="/inventory" onClick={() => setMobileMenuOpen(false)} style={{
                   display: 'flex',
@@ -1389,7 +1389,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   minHeight: '44px'
                 }}>
                   <CurrencyDollarIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
-                  <span>For Sale</span>
+                  <span>{t('navigation.forSale')}</span>
                 </Link>
                 <Link href="/collection" onClick={() => setMobileMenuOpen(false)} style={{
                   display: 'flex',
@@ -1402,7 +1402,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   minHeight: '44px'
                 }}>
                   <StarIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
-                  <span>To Keep</span>
+                  <span>{t('navigation.toKeep')}</span>
                 </Link>
                 <div style={{
                   fontSize: 'var(--text-xs)',
@@ -1413,7 +1413,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   padding: '8px 0 4px',
                   marginTop: '16px'
                 }}>
-                  Sets
+                  {t('navigation.sets')}
                 </div>
                 <Link href="/sets-inventory" onClick={() => setMobileMenuOpen(false)} style={{
                   display: 'flex',
@@ -1426,7 +1426,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   minHeight: '44px'
                 }}>
                   <CurrencyDollarIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
-                  <span>For Sale</span>
+                  <span>{t('navigation.forSale')}</span>
                 </Link>
                 <Link href="/sets-collection" onClick={() => setMobileMenuOpen(false)} style={{
                   display: 'flex',
@@ -1439,7 +1439,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   minHeight: '44px'
                 }}>
                   <StarIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
-                  <span>To Keep</span>
+                  <span>{t('navigation.toKeep')}</span>
                 </Link>
               </div>
             )}
@@ -1465,7 +1465,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              Account Settings
+              {t('navigation.accountSettings')}
             </Link>
             <Link href="/wishlist" onClick={() => setMobileMenuOpen(false)} style={{
               display: 'flex',
@@ -1482,7 +1482,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               <svg style={{ width: '20px', height: '20px', color: '#737373', flexShrink: 0 }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
-              Wishlist
+              {t('navigation.wishlist')}
             </Link>
             {user?.email === 'erickkosysu@gmail.com' && (
               <Link href="/admin/stats" onClick={() => setMobileMenuOpen(false)} style={{
@@ -1500,7 +1500,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 <svg style={{ width: '20px', height: '20px', color: '#737373', flexShrink: 0 }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
-                Admin Dashboard
+                {t('navigation.adminDashboard')}
               </Link>
             )}
           </div>
@@ -1523,7 +1523,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
-            Sign Out
+            {t('navigation.signOut')}
           </button>
         </nav>
       )}
