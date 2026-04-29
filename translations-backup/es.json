@@ -380,17 +380,75 @@
     "subtitle": "Encuentra respuestas a preguntas comunes sobre FigTracker"
   },
   "about": {
+    "badge": "ACERCA DE FIGTRACKER",
     "hero": {
       "title": "Deja de adivinar. Empieza a vender.",
-      "subtitle": "Obtén precios instantáneos y precisos para tus minifiguras LEGO"
+      "subtitle": "La herramienta de precios creada por vendedores, para vendedores. Rastrea tu inventario de minifiguras LEGO con datos en tiempo real de Bricklink."
+    },
+    "problem": {
+      "title": "Valorar minifiguras no debería sentirse como una tarea",
+      "paragraph1": "Abres Bricklink. Ves el promedio ponderado por cantidad. El promedio simple. El precio más bajo. Tres números diferentes te miran fijamente.",
+      "paragraph2": "Ahora estás haciendo cálculos mentales, tratando de llegar a algo justo. <strong>Cada. Vez. Que. Lo. Haces.</strong>"
+    },
+    "stats": {
+      "pricePoints": "Puntos de precio para comparar",
+      "suggestedPrice": "Precio sugerido",
+      "mentalMath": "Cálculo mental requerido"
     },
     "features": {
-      "realTimePricing": "Precios en tiempo real",
-      "realTimePricingDesc": "Datos en vivo del mercado de BrickLink actualizados diariamente",
-      "inventoryManagement": "Gestión de inventario",
-      "inventoryManagementDesc": "Rastrea tu colección y artículos en venta",
-      "priceHistory": "Historial de precios",
-      "priceHistoryDesc": "Ve las tendencias de precios para vender en el momento adecuado"
+      "title": "Creado por vendedores, para vendedores",
+      "subtitle": "Todo lo que necesitas para valorar y rastrear tu inventario. Nada que no necesites.",
+      "pricing": {
+        "title": "Un precio sugerido",
+        "description": "Calculamos un precio ponderado de las listas actuales del mercado de Bricklink — promedio ponderado por cantidad, promedio simple y precio más bajo. Un número, listo para usar."
+      },
+      "inventory": {
+        "title": "Sistema de inventario dual",
+        "description": "Seguimiento separado para artículos que estás vendiendo y tu colección personal. Rastrea cantidades, condiciones y valor total. Todo tu stock organizado en un panel limpio."
+      },
+      "search": {
+        "title": "Búsqueda y navegación inteligente",
+        "description": "Busca entre {catalogCountText} minifiguras por ID exacto de BrickLink (ej., dis134, sw1219) o nombre. Navega visualmente por tema (Star Wars, Harry Potter, Marvel, etc.) con sets LEGO destacados de cada colección."
+      },
+      "privacy": {
+        "title": "Datos reales de Bricklink",
+        "description": "La integración oficial de la API significa precios de mercado estadounidenses precisos y actuales. Actualiza en cualquier momento para obtener los valores más recientes."
+      }
+    },
+    "personas": {
+      "title": "Para cualquiera que se haya preguntado alguna vez",
+      "subtitle": "\"¿Cuánto vale esta minifigura?\"",
+      "resellers": {
+        "title": "Revendedores",
+        "description": "Valora tu inventario rápidamente y vende con confianza"
+      },
+      "partTime": {
+        "title": "Vendedores a tiempo parcial",
+        "description": "Valora el inventario de tu negocio secundario con confianza"
+      },
+      "casual": {
+        "title": "Vendedores ocasionales",
+        "description": "Valora rápidamente algunas figuras antes de publicarlas en línea"
+      }
+    },
+    "trust": {
+      "badge": "GRATIS PARA USAR",
+      "title": "Gratis para usar. Sin tarifas ocultas.",
+      "description": "Tus datos de inventario son privados y seguros. Actualmente gratis, sin necesidad de pago para rastrear tu colección.",
+      "secure": "Seguro y privado",
+      "fast": "Rápido y confiable",
+      "free": "Sin necesidad de pago"
+    },
+    "support": {
+      "title": "¿Necesitas ayuda?",
+      "subtitle": "¿Encontraste un error o tienes una solicitud de función? Nos encantaría saber de ti.",
+      "contactTitle": "Contactar soporte",
+      "contactDescription": "Envíanos un correo electrónico con cualquier problema, pregunta o comentario"
+    },
+    "cta": {
+      "title": "¿Listo para dejar de adivinar?",
+      "subtitle": "Comienza a valorar tu inventario y obtén valores sugeridos en segundos.",
+      "button": "Comenzar a valorar tu inventario →"
     }
   },
   "featured": {

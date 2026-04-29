@@ -323,17 +323,75 @@
     "subtitle": "Find answers to common questions about FigTracker"
   },
   "about": {
+    "badge": "ABOUT FIGTRACKER",
     "hero": {
       "title": "Stop Guessing. Start Selling.",
-      "subtitle": "Get instant, accurate pricing for your LEGO minifigures"
+      "subtitle": "The pricing tool built by sellers, for sellers. Track your LEGO minifigure inventory with real-time Bricklink data."
+    },
+    "problem": {
+      "title": "Pricing minifigs shouldn't feel like homework",
+      "paragraph1": "You open Bricklink. You see the quantity-weighted average. The simple average. The lowest price. Three different numbers staring back at you.",
+      "paragraph2": "Now you're doing mental math, trying to land on something fair. <strong>Every. Single. Time.</strong>"
+    },
+    "stats": {
+      "pricePoints": "Price points to compare",
+      "suggestedPrice": "Suggested price",
+      "mentalMath": "Mental math required"
     },
     "features": {
-      "realTimePricing": "Real-Time Pricing",
-      "realTimePricingDesc": "Live BrickLink marketplace data updated daily",
-      "inventoryManagement": "Inventory Management",
-      "inventoryManagementDesc": "Track your collection and items for sale",
-      "priceHistory": "Price History",
-      "priceHistoryDesc": "See price trends over time to sell at the right moment"
+      "title": "Built for sellers, by sellers",
+      "subtitle": "Everything you need to price and track your inventory. Nothing you don't.",
+      "pricing": {
+        "title": "One Suggested Price",
+        "description": "We calculate a weighted price from current Bricklink marketplace listings—quantity-weighted average, simple average, and lowest price. One number, ready to use."
+      },
+      "inventory": {
+        "title": "Dual Inventory System",
+        "description": "Separate tracking for items you're selling and your personal collection. Track quantities, conditions, and total value. Your entire stock organized in one clean dashboard."
+      },
+      "search": {
+        "title": "Smart Search & Browse",
+        "description": "Search {catalogCountText} minifigs by exact BrickLink ID (e.g., dis134, sw1219) or name. Browse visually by theme (Star Wars, Harry Potter, Marvel, etc.) with featured LEGO sets from each collection."
+      },
+      "privacy": {
+        "title": "Real Bricklink Data",
+        "description": "Official API integration means accurate, current US marketplace prices. Refresh anytime to get the latest values."
+      }
+    },
+    "personas": {
+      "title": "For anyone who's ever asked",
+      "subtitle": "\"What's this minifig worth?\"",
+      "resellers": {
+        "title": "Resellers",
+        "description": "Price your inventory fast and list with confidence"
+      },
+      "partTime": {
+        "title": "Part-time Sellers",
+        "description": "Price your side hustle inventory with confidence"
+      },
+      "casual": {
+        "title": "Casual Sellers",
+        "description": "Quickly price a few figs before posting them online"
+      }
+    },
+    "trust": {
+      "badge": "FREE TO USE",
+      "title": "Free to use. No hidden fees.",
+      "description": "Your inventory data is private and secure. Currently free with no payment required to track your collection.",
+      "secure": "Secure & Private",
+      "fast": "Fast & Reliable",
+      "free": "No Payment Required"
+    },
+    "support": {
+      "title": "Need Help?",
+      "subtitle": "Found a bug or have a feature request? We'd love to hear from you.",
+      "contactTitle": "Contact Support",
+      "contactDescription": "Email us with any issues, questions, or feedback"
+    },
+    "cta": {
+      "title": "Ready to stop guessing?",
+      "subtitle": "Start pricing your inventory and get suggested values in seconds.",
+      "button": "Start Pricing Your Inventory →"
     }
   },
   "featured": {

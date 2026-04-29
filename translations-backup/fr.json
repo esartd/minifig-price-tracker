@@ -380,17 +380,75 @@
     "subtitle": "Trouvez des réponses aux questions courantes sur FigTracker"
   },
   "about": {
+    "badge": "À PROPOS DE FIGTRACKER",
     "hero": {
       "title": "Arrêtez de deviner. Commencez à vendre.",
-      "subtitle": "Obtenez des prix instantanés et précis pour vos minifigurines LEGO"
+      "subtitle": "L'outil de tarification conçu par des vendeurs, pour des vendeurs. Suivez votre inventaire de minifigurines LEGO avec des données en temps réel de Bricklink."
+    },
+    "problem": {
+      "title": "Évaluer des minifigurines ne devrait pas ressembler à des devoirs",
+      "paragraph1": "Vous ouvrez Bricklink. Vous voyez la moyenne pondérée par quantité. La moyenne simple. Le prix le plus bas. Trois chiffres différents vous regardent fixement.",
+      "paragraph2": "Maintenant vous faites des calculs mentaux, essayant d'arriver à quelque chose de juste. <strong>À. Chaque. Fois.</strong>"
+    },
+    "stats": {
+      "pricePoints": "Points de prix à comparer",
+      "suggestedPrice": "Prix suggéré",
+      "mentalMath": "Calcul mental requis"
     },
     "features": {
-      "realTimePricing": "Prix en temps réel",
-      "realTimePricingDesc": "Données en direct du marché BrickLink mises à jour quotidiennement",
-      "inventoryManagement": "Gestion d'inventaire",
-      "inventoryManagementDesc": "Suivez votre collection et les articles à vendre",
-      "priceHistory": "Historique des prix",
-      "priceHistoryDesc": "Visualisez les tendances de prix pour vendre au bon moment"
+      "title": "Conçu par des vendeurs, pour des vendeurs",
+      "subtitle": "Tout ce dont vous avez besoin pour évaluer et suivre votre inventaire. Rien de superflu.",
+      "pricing": {
+        "title": "Un prix suggéré",
+        "description": "Nous calculons un prix pondéré à partir des annonces actuelles du marché Bricklink — moyenne pondérée par quantité, moyenne simple et prix le plus bas. Un seul chiffre, prêt à utiliser."
+      },
+      "inventory": {
+        "title": "Système d'inventaire double",
+        "description": "Suivi séparé pour les articles que vous vendez et votre collection personnelle. Suivez les quantités, les conditions et la valeur totale. Tout votre stock organisé dans un tableau de bord épuré."
+      },
+      "search": {
+        "title": "Recherche et navigation intelligentes",
+        "description": "Recherchez parmi {catalogCountText} minifigurines par ID BrickLink exact (par ex., dis134, sw1219) ou par nom. Parcourez visuellement par thème (Star Wars, Harry Potter, Marvel, etc.) avec des sets LEGO en vedette de chaque collection."
+      },
+      "privacy": {
+        "title": "Vraies données Bricklink",
+        "description": "L'intégration officielle de l'API signifie des prix de marché américains précis et actuels. Actualisez à tout moment pour obtenir les valeurs les plus récentes."
+      }
+    },
+    "personas": {
+      "title": "Pour tous ceux qui se sont déjà demandé",
+      "subtitle": "\"Combien vaut cette minifigurine ?\"",
+      "resellers": {
+        "title": "Revendeurs",
+        "description": "Évaluez votre inventaire rapidement et vendez en toute confiance"
+      },
+      "partTime": {
+        "title": "Vendeurs à temps partiel",
+        "description": "Évaluez l'inventaire de votre activité secondaire en toute confiance"
+      },
+      "casual": {
+        "title": "Vendeurs occasionnels",
+        "description": "Évaluez rapidement quelques figurines avant de les publier en ligne"
+      }
+    },
+    "trust": {
+      "badge": "GRATUIT À UTILISER",
+      "title": "Gratuit à utiliser. Pas de frais cachés.",
+      "description": "Vos données d'inventaire sont privées et sécurisées. Actuellement gratuit, aucun paiement requis pour suivre votre collection.",
+      "secure": "Sécurisé et privé",
+      "fast": "Rapide et fiable",
+      "free": "Aucun paiement requis"
+    },
+    "support": {
+      "title": "Besoin d'aide ?",
+      "subtitle": "Vous avez trouvé un bug ou avez une suggestion de fonctionnalité ? Nous aimerions avoir de vos nouvelles.",
+      "contactTitle": "Contacter le support",
+      "contactDescription": "Envoyez-nous un e-mail pour tout problème, question ou commentaire"
+    },
+    "cta": {
+      "title": "Prêt à arrêter de deviner ?",
+      "subtitle": "Commencez à évaluer votre inventaire et obtenez des valeurs suggérées en quelques secondes.",
+      "button": "Commencez à évaluer votre inventaire →"
     }
   },
   "featured": {

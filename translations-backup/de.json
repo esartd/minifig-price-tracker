@@ -380,17 +380,75 @@
     "subtitle": "Finde Antworten auf häufige Fragen zu FigTracker"
   },
   "about": {
+    "badge": "ÜBER FIGTRACKER",
     "hero": {
       "title": "Kein Raten mehr. Jetzt verkaufen.",
-      "subtitle": "Erhalte sofortige, genaue Preise für deine LEGO Minifiguren"
+      "subtitle": "Das Preis-Tool von Verkäufern für Verkäufer. Verwalten Sie Ihr LEGO Minifiguren-Inventar mit Echtzeit-Daten von Bricklink."
+    },
+    "problem": {
+      "title": "Minifiguren zu bewerten sollte sich nicht wie Hausaufgaben anfühlen",
+      "paragraph1": "Sie öffnen Bricklink. Sie sehen den mengengewichteten Durchschnitt. Den einfachen Durchschnitt. Den niedrigsten Preis. Drei verschiedene Zahlen starren Sie an.",
+      "paragraph2": "Jetzt rechnen Sie im Kopf und versuchen, etwas Faires zu finden. <strong>Jedes. Einzelne. Mal.</strong>"
+    },
+    "stats": {
+      "pricePoints": "Preispunkte zum Vergleichen",
+      "suggestedPrice": "Empfohlener Preis",
+      "mentalMath": "Kopfrechnen erforderlich"
     },
     "features": {
-      "realTimePricing": "Echtzeit-Preise",
-      "realTimePricingDesc": "Live BrickLink-Marktdaten, täglich aktualisiert",
-      "inventoryManagement": "Inventarverwaltung",
-      "inventoryManagementDesc": "Verfolge deine Sammlung und Artikel zum Verkauf",
-      "priceHistory": "Preisverlauf",
-      "priceHistoryDesc": "Sehe Preistrends im Zeitverlauf, um zum richtigen Zeitpunkt zu verkaufen"
+      "title": "Von Verkäufern für Verkäufer gebaut",
+      "subtitle": "Alles, was Sie brauchen, um Ihr Inventar zu bewerten und zu verfolgen. Nichts, was Sie nicht brauchen.",
+      "pricing": {
+        "title": "Ein empfohlener Preis",
+        "description": "Wir berechnen einen gewichteten Preis aus aktuellen Bricklink-Marktplatz-Angeboten – mengengewichteter Durchschnitt, einfacher Durchschnitt und niedrigster Preis. Eine Zahl, sofort einsatzbereit."
+      },
+      "inventory": {
+        "title": "Duales Inventarsystem",
+        "description": "Getrennte Verfolgung für Artikel, die Sie verkaufen, und Ihre persönliche Sammlung. Verfolgen Sie Mengen, Zustände und Gesamtwert. Ihr gesamter Bestand übersichtlich in einem Dashboard organisiert."
+      },
+      "search": {
+        "title": "Intelligente Suche & Durchsuchen",
+        "description": "Durchsuchen Sie {catalogCountText} Minifiguren nach exakter BrickLink-ID (z.B. dis134, sw1219) oder Name. Durchsuchen Sie visuell nach Thema (Star Wars, Harry Potter, Marvel usw.) mit vorgestellten LEGO-Sets aus jeder Kollektion."
+      },
+      "privacy": {
+        "title": "Echte Bricklink-Daten",
+        "description": "Offizielle API-Integration bedeutet genaue, aktuelle US-Marktpreise. Jederzeit aktualisieren, um die neuesten Werte zu erhalten."
+      }
+    },
+    "personas": {
+      "title": "Für alle, die sich jemals gefragt haben",
+      "subtitle": "\"Was ist diese Minifigur wert?\"",
+      "resellers": {
+        "title": "Wiederverkäufer",
+        "description": "Bewerten Sie Ihr Inventar schnell und listen Sie mit Vertrauen auf"
+      },
+      "partTime": {
+        "title": "Teilzeitverkäufer",
+        "description": "Bewerten Sie Ihr Nebenerwerbs-Inventar mit Vertrauen"
+      },
+      "casual": {
+        "title": "Gelegenheitsverkäufer",
+        "description": "Bewerten Sie schnell ein paar Figuren, bevor Sie sie online stellen"
+      }
+    },
+    "trust": {
+      "badge": "KOSTENLOS ZU NUTZEN",
+      "title": "Kostenlos nutzbar. Keine versteckten Gebühren.",
+      "description": "Ihre Inventardaten sind privat und sicher. Derzeit kostenlos, keine Zahlung erforderlich, um Ihre Sammlung zu verfolgen.",
+      "secure": "Sicher & Privat",
+      "fast": "Schnell & Zuverlässig",
+      "free": "Keine Zahlung erforderlich"
+    },
+    "support": {
+      "title": "Brauchen Sie Hilfe?",
+      "subtitle": "Haben Sie einen Fehler gefunden oder einen Feature-Wunsch? Wir würden gerne von Ihnen hören.",
+      "contactTitle": "Support kontaktieren",
+      "contactDescription": "Senden Sie uns eine E-Mail mit Problemen, Fragen oder Feedback"
+    },
+    "cta": {
+      "title": "Bereit, mit dem Raten aufzuhören?",
+      "subtitle": "Beginnen Sie mit der Bewertung Ihres Inventars und erhalten Sie in Sekunden empfohlene Werte.",
+      "button": "Beginnen Sie mit der Bewertung Ihres Inventars →"
     }
   },
   "featured": {
