@@ -16,8 +16,6 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
   const [sharePricing, setSharePricing] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
   const [initialLoading, setInitialLoading] = useState(true);
-  const [loadingShare, setLoadingShare] = useState(false);
-  const [loadingPricing, setLoadingPricing] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
 
@@ -43,7 +41,6 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
 
   const toggleShare = async () => {
     console.log('Toggle share clicked, type:', type);
-    setLoadingShare(true);
     try {
       const response = await fetch(`/api/collection/share?type=${type}`, {
         method: 'PATCH'
@@ -59,14 +56,11 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
       }
     } catch (error) {
       console.error('Failed to toggle sharing:', error);
-    } finally {
-      setLoadingShare(false);
     }
   };
 
   const togglePricing = async () => {
     console.log('Toggle pricing clicked, current:', sharePricing);
-    setLoadingPricing(true);
     try {
       const response = await fetch(`/api/collection/share/pricing?type=${type}`, {
         method: 'PATCH',
@@ -82,8 +76,6 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
       }
     } catch (error) {
       console.error('Failed to toggle pricing:', error);
-    } finally {
-      setLoadingPricing(false);
     }
   };
 
@@ -191,7 +183,6 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
               </span>
               <button
                 onClick={toggleShare}
-                disabled={loadingShare}
                 style={{
                   position: 'relative',
                   width: '44px',
@@ -199,9 +190,8 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                   background: shareEnabled ? '#3b82f6' : '#d1d5db',
                   borderRadius: '12px',
                   border: 'none',
-                  cursor: loadingShare ? 'not-allowed' : 'pointer',
+                  cursor: 'pointer',
                   transition: 'background 0.2s',
-                  opacity: loadingShare ? 0.6 : 1,
                   flexShrink: 0
                 }}
               >
@@ -239,7 +229,6 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                 </span>
                 <button
                   onClick={togglePricing}
-                  disabled={loadingPricing}
                   style={{
                     position: 'relative',
                     width: '44px',
@@ -247,9 +236,8 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                     background: sharePricing ? '#3b82f6' : '#d1d5db',
                     borderRadius: '12px',
                     border: 'none',
-                    cursor: loadingPricing ? 'not-allowed' : 'pointer',
+                    cursor: 'pointer',
                     transition: 'background 0.2s',
-                    opacity: loadingPricing ? 0.6 : 1,
                     flexShrink: 0
                   }}
                 >
