@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { database } from '@/lib/database';
 
 type CollectionType = 'inventory' | 'collection' | 'sets-inventory' | 'sets-collection';
 
@@ -38,68 +39,6 @@ export async function GET(
         shareTokenSetsCollection: true,
         shareEnabledSetsCollection: true,
         sharePricingSetsCollection: true,
-        CollectionItem: {
-          select: {
-            id: true,
-            minifigure_no: true,
-            minifigure_name: true,
-            quantity: true,
-            condition: true,
-            image_url: true,
-            pricing_six_month_avg: true,
-            pricing_current_avg: true,
-            pricing_current_lowest: true,
-            pricing_suggested_price: true,
-          },
-          orderBy: { minifigure_name: 'asc' }
-        },
-        PersonalCollectionItem: {
-          select: {
-            id: true,
-            minifigure_no: true,
-            minifigure_name: true,
-            quantity: true,
-            condition: true,
-            image_url: true,
-            pricing_six_month_avg: true,
-            pricing_current_avg: true,
-            pricing_current_lowest: true,
-            pricing_suggested_price: true,
-          },
-          orderBy: { minifigure_name: 'asc' }
-        },
-        SetInventoryItem: {
-          select: {
-            id: true,
-            box_no: true,
-            set_name: true,
-            category_name: true,
-            quantity: true,
-            condition: true,
-            image_url: true,
-            pricing_six_month_avg: true,
-            pricing_current_avg: true,
-            pricing_current_lowest: true,
-            pricing_suggested_price: true,
-          },
-          orderBy: { set_name: 'asc' }
-        },
-        SetPersonalCollectionItem: {
-          select: {
-            id: true,
-            box_no: true,
-            set_name: true,
-            category_name: true,
-            quantity: true,
-            condition: true,
-            image_url: true,
-            pricing_six_month_avg: true,
-            pricing_current_avg: true,
-            pricing_current_lowest: true,
-            pricing_suggested_price: true,
-          },
-          orderBy: { set_name: 'asc' }
-        }
       }
     });
 
@@ -116,26 +55,32 @@ export async function GET(
     let items: any[] = [];
     let matchedType: CollectionType | null = null;
 
+    // Get user's currency for fresh pricing
+    const countryCode = user.preferredCurrency === 'USD' ? 'US' : user.preferredCurrency === 'EUR' ? 'DE' : 'US';
+    const cacheRegion = '';
+
     if (user.shareTokenInventory === token) {
       matchedType = 'inventory';
       shareEnabled = user.shareEnabledInventory;
       sharePricing = user.sharePricingInventory;
-      items = user.CollectionItem;
+      // Use database helper to get fresh pricing from priceCache
+      items = await database.getAllItems(user.id, countryCode, cacheRegion);
     } else if (user.shareTokenCollection === token) {
       matchedType = 'collection';
       shareEnabled = user.shareEnabledCollection;
       sharePricing = user.sharePricingCollection;
-      items = user.PersonalCollectionItem;
+      // Use database helper to get fresh pricing from priceCache
+      items = await database.getAllPersonalItems(user.id, countryCode, cacheRegion);
     } else if (user.shareTokenSetsInventory === token) {
       matchedType = 'sets-inventory';
       shareEnabled = user.shareEnabledSetsInventory;
       sharePricing = user.sharePricingSetsInventory;
-      items = user.SetInventoryItem;
+      items = await database.getAllSetInventoryItems(user.id, countryCode, cacheRegion);
     } else if (user.shareTokenSetsCollection === token) {
       matchedType = 'sets-collection';
       shareEnabled = user.shareEnabledSetsCollection;
       sharePricing = user.sharePricingSetsCollection;
-      items = user.SetPersonalCollectionItem;
+      items = await database.getAllSetPersonalCollectionItems(user.id, countryCode, cacheRegion);
     }
 
     // Verify the token matches the requested type
@@ -153,9 +98,9 @@ export async function GET(
       );
     }
 
-    // Calculate total value BEFORE formatting (using raw database values)
+    // Calculate total value using transformed pricing structure
     const totalValue = items.reduce((sum: number, item: any) => {
-      const price = item.pricing_suggested_price || 0;
+      const price = item.pricing?.suggestedPrice || 0;
       return sum + (price * item.quantity);
     }, 0);
 
@@ -165,20 +110,15 @@ export async function GET(
     console.log(`[Share API] Sample item:`, items[0] ? {
       name: items[0].minifigure_name || items[0].set_name,
       quantity: items[0].quantity,
-      price: items[0].pricing_suggested_price
+      price: items[0].pricing?.suggestedPrice
     } : 'no items');
 
     // Format items with pricing (only if pricing is enabled)
     const formatItems = (items: any[]) =>
       items.map((item: any) => ({
         ...item,
-        pricing: sharePricing && item.pricing_suggested_price
-          ? {
-              sixMonthAverage: item.pricing_six_month_avg,
-              currentAverage: item.pricing_current_avg,
-              currentLowest: item.pricing_current_lowest,
-              suggestedPrice: item.pricing_suggested_price,
-            }
+        pricing: sharePricing && item.pricing?.suggestedPrice
+          ? item.pricing
           : null
       }));
 
