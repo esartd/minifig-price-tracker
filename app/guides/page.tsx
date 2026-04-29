@@ -79,10 +79,53 @@ export default async function GuidesPage() {
 
   const t = getTranslations(locale);
 
-  // Validate guides structure
+  // Validate guides structure with detailed logging
+  console.log('[Guides Page] Locale:', locale);
+  console.log('[Guides Page] Has guides:', !!t.guides);
+  console.log('[Guides Page] Has guides.items:', !!t.guides?.items);
+  console.log('[Guides Page] Is array:', Array.isArray(t.guides?.items));
+
   if (!t.guides || !t.guides.items || !Array.isArray(t.guides.items)) {
-    console.error(`Invalid guides structure for locale: ${locale}`);
-    throw new Error(`Missing guides data for locale: ${locale}`);
+    console.error(`[Guides Page] Invalid guides structure for locale: ${locale}`);
+    console.error('[Guides Page] Translation object keys:', Object.keys(t));
+    console.error('[Guides Page] guides value:', t.guides);
+
+    // Fallback to English
+    const fallback = getTranslations('en');
+    if (!fallback.guides?.items || !Array.isArray(fallback.guides.items)) {
+      throw new Error(`Critical: Even English guides data is missing`);
+    }
+
+    const fallbackGuidesData = fallback.guides.items as Array<{
+      title: string;
+      description: string;
+      slug: string | null;
+      status: 'published' | 'coming-soon';
+      topics: string[];
+    }>;
+
+    const guides = fallbackGuidesData.map((guide, index) => ({
+      ...guide,
+      icon: [BookOpenIcon, ChartBarIcon, CurrencyDollarIcon, ShoppingBagIcon][index],
+    }));
+
+    const jsonLd = {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'LEGO Minifigure Pricing Guides',
+      description: 'Expert guides and resources for pricing and selling LEGO minifigures',
+      url: 'https://figtracker.ericksu.com/guides',
+    };
+
+    return (
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <GuidesPageClient guides={guides} />
+      </>
+    );
   }
 
   const guidesData = t.guides.items as Array<{
