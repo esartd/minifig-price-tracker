@@ -8,13 +8,13 @@ type CollectionType = 'inventory' | 'collection' | 'sets-inventory' | 'sets-coll
 const getFieldNames = (type: CollectionType) => {
   switch (type) {
     case 'inventory':
-      return { tokenField: 'shareTokenInventory', enabledField: 'shareEnabledInventory' };
+      return { tokenField: 'shareTokenInventory', enabledField: 'shareEnabledInventory', pricingField: 'sharePricingInventory' };
     case 'collection':
-      return { tokenField: 'shareTokenCollection', enabledField: 'shareEnabledCollection' };
+      return { tokenField: 'shareTokenCollection', enabledField: 'shareEnabledCollection', pricingField: 'sharePricingCollection' };
     case 'sets-inventory':
-      return { tokenField: 'shareTokenSetsInventory', enabledField: 'shareEnabledSetsInventory' };
+      return { tokenField: 'shareTokenSetsInventory', enabledField: 'shareEnabledSetsInventory', pricingField: 'sharePricingSetsInventory' };
     case 'sets-collection':
-      return { tokenField: 'shareTokenSetsCollection', enabledField: 'shareEnabledSetsCollection' };
+      return { tokenField: 'shareTokenSetsCollection', enabledField: 'shareEnabledSetsCollection', pricingField: 'sharePricingSetsCollection' };
   }
 };
 
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
 
     const url = new URL(request.url);
     const type = (url.searchParams.get('type') || 'inventory') as CollectionType;
-    const { tokenField, enabledField } = getFieldNames(type);
+    const { tokenField, enabledField, pricingField } = getFieldNames(type);
 
     // Generate a random token
     const shareToken = randomBytes(16).toString('hex');
@@ -74,7 +74,7 @@ export async function PATCH(request: Request) {
 
     const url = new URL(request.url);
     const type = (url.searchParams.get('type') || 'inventory') as CollectionType;
-    const { tokenField, enabledField } = getFieldNames(type);
+    const { tokenField, enabledField, pricingField } = getFieldNames(type);
 
     // Get current user
     const user = await prisma.user.findUnique({
@@ -83,12 +83,16 @@ export async function PATCH(request: Request) {
         id: true,
         shareTokenInventory: true,
         shareEnabledInventory: true,
+        sharePricingInventory: true,
         shareTokenCollection: true,
         shareEnabledCollection: true,
+        sharePricingCollection: true,
         shareTokenSetsInventory: true,
         shareEnabledSetsInventory: true,
+        sharePricingSetsInventory: true,
         shareTokenSetsCollection: true,
         shareEnabledSetsCollection: true,
+        sharePricingSetsCollection: true,
       }
     });
 
@@ -102,23 +106,28 @@ export async function PATCH(request: Request) {
     // Get current values based on type
     let currentEnabled: boolean;
     let currentToken: string | null;
+    let currentPricing: boolean;
 
     switch (type) {
       case 'inventory':
         currentEnabled = user.shareEnabledInventory;
         currentToken = user.shareTokenInventory;
+        currentPricing = user.sharePricingInventory;
         break;
       case 'collection':
         currentEnabled = user.shareEnabledCollection;
         currentToken = user.shareTokenCollection;
+        currentPricing = user.sharePricingCollection;
         break;
       case 'sets-inventory':
         currentEnabled = user.shareEnabledSetsInventory;
         currentToken = user.shareTokenSetsInventory;
+        currentPricing = user.sharePricingSetsInventory;
         break;
       case 'sets-collection':
         currentEnabled = user.shareEnabledSetsCollection;
         currentToken = user.shareTokenSetsCollection;
+        currentPricing = user.sharePricingSetsCollection;
         break;
     }
 
@@ -147,6 +156,7 @@ export async function PATCH(request: Request) {
     return NextResponse.json({
       success: true,
       shareEnabled: newShareEnabled,
+      sharePricing: currentPricing,
       shareToken,
       shareUrl: shareToken ? `${process.env.NEXT_PUBLIC_BASE_URL}/share/${shareToken}?type=${type}` : null
     });
@@ -180,12 +190,16 @@ export async function GET(request: Request) {
         id: true,
         shareTokenInventory: true,
         shareEnabledInventory: true,
+        sharePricingInventory: true,
         shareTokenCollection: true,
         shareEnabledCollection: true,
+        sharePricingCollection: true,
         shareTokenSetsInventory: true,
         shareEnabledSetsInventory: true,
+        sharePricingSetsInventory: true,
         shareTokenSetsCollection: true,
         shareEnabledSetsCollection: true,
+        sharePricingSetsCollection: true,
       }
     });
 
@@ -198,29 +212,35 @@ export async function GET(request: Request) {
 
     let shareEnabled: boolean;
     let shareToken: string | null;
+    let sharePricing: boolean;
 
     switch (type) {
       case 'inventory':
         shareEnabled = user.shareEnabledInventory;
         shareToken = user.shareTokenInventory;
+        sharePricing = user.sharePricingInventory;
         break;
       case 'collection':
         shareEnabled = user.shareEnabledCollection;
         shareToken = user.shareTokenCollection;
+        sharePricing = user.sharePricingCollection;
         break;
       case 'sets-inventory':
         shareEnabled = user.shareEnabledSetsInventory;
         shareToken = user.shareTokenSetsInventory;
+        sharePricing = user.sharePricingSetsInventory;
         break;
       case 'sets-collection':
         shareEnabled = user.shareEnabledSetsCollection;
         shareToken = user.shareTokenSetsCollection;
+        sharePricing = user.sharePricingSetsCollection;
         break;
     }
 
     return NextResponse.json({
       success: true,
       shareEnabled,
+      sharePricing,
       shareToken,
       shareUrl: shareToken ? `${process.env.NEXT_PUBLIC_BASE_URL}/share/${shareToken}?type=${type}` : null
     });

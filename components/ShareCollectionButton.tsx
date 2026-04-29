@@ -13,6 +13,7 @@ interface ShareCollectionButtonProps {
 export default function ShareCollectionButton({ type }: ShareCollectionButtonProps) {
   const { t } = useTranslation();
   const [shareEnabled, setShareEnabled] = useState(false);
+  const [sharePricing, setSharePricing] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
@@ -28,6 +29,7 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
       const data = await response.json();
       if (data.success) {
         setShareEnabled(data.shareEnabled);
+        setSharePricing(data.sharePricing ?? false);
         setShareUrl(data.shareUrl || '');
       }
     } catch (error) {
@@ -46,10 +48,30 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
       const data = await response.json();
       if (data.success) {
         setShareEnabled(data.shareEnabled);
+        setSharePricing(data.sharePricing ?? false);
         setShareUrl(data.shareUrl || '');
       }
     } catch (error) {
       console.error('Failed to toggle sharing:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const togglePricing = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/collection/share/pricing?type=${type}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sharePricing: !sharePricing })
+      });
+      const data = await response.json();
+      if (data.success) {
+        setSharePricing(data.sharePricing);
+      }
+    } catch (error) {
+      console.error('Failed to toggle pricing:', error);
     } finally {
       setLoading(false);
     }
@@ -185,6 +207,54 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                 }} />
               </button>
             </div>
+
+            {/* Show Pricing Toggle */}
+            {shareEnabled && (
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '16px',
+                background: '#fafafa',
+                borderRadius: '8px',
+                marginBottom: '16px'
+              }}>
+                <span style={{
+                  fontSize: 'var(--text-base)',
+                  fontWeight: '600',
+                  color: '#171717'
+                }}>
+                  Show Pricing
+                </span>
+                <button
+                  onClick={togglePricing}
+                  disabled={loading}
+                  style={{
+                    position: 'relative',
+                    width: '48px',
+                    height: '28px',
+                    background: sharePricing ? '#3b82f6' : '#d1d5db',
+                    borderRadius: '14px',
+                    border: 'none',
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    transition: 'background 0.2s',
+                    opacity: loading ? 0.5 : 1
+                  }}
+                >
+                  <div style={{
+                    position: 'absolute',
+                    top: '2px',
+                    left: sharePricing ? '22px' : '2px',
+                    width: '24px',
+                    height: '24px',
+                    background: '#ffffff',
+                    borderRadius: '50%',
+                    transition: 'left 0.2s',
+                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)'
+                  }} />
+                </button>
+              </div>
+            )}
 
             {/* Share Link */}
             {shareEnabled && shareUrl && (

@@ -28,12 +28,16 @@ export async function GET(
         preferredCurrency: true,
         shareTokenInventory: true,
         shareEnabledInventory: true,
+        sharePricingInventory: true,
         shareTokenCollection: true,
         shareEnabledCollection: true,
+        sharePricingCollection: true,
         shareTokenSetsInventory: true,
         shareEnabledSetsInventory: true,
+        sharePricingSetsInventory: true,
         shareTokenSetsCollection: true,
         shareEnabledSetsCollection: true,
+        sharePricingSetsCollection: true,
         CollectionItem: {
           select: {
             id: true,
@@ -108,24 +112,29 @@ export async function GET(
 
     // Check which token matched and if it corresponds to the requested type
     let shareEnabled = false;
+    let sharePricing = false;
     let items: any[] = [];
     let matchedType: CollectionType | null = null;
 
     if (user.shareTokenInventory === token) {
       matchedType = 'inventory';
       shareEnabled = user.shareEnabledInventory;
+      sharePricing = user.sharePricingInventory;
       items = user.CollectionItem;
     } else if (user.shareTokenCollection === token) {
       matchedType = 'collection';
       shareEnabled = user.shareEnabledCollection;
+      sharePricing = user.sharePricingCollection;
       items = user.PersonalCollectionItem;
     } else if (user.shareTokenSetsInventory === token) {
       matchedType = 'sets-inventory';
       shareEnabled = user.shareEnabledSetsInventory;
+      sharePricing = user.sharePricingSetsInventory;
       items = user.SetInventoryItem;
     } else if (user.shareTokenSetsCollection === token) {
       matchedType = 'sets-collection';
       shareEnabled = user.shareEnabledSetsCollection;
+      sharePricing = user.sharePricingSetsCollection;
       items = user.SetPersonalCollectionItem;
     }
 
@@ -144,11 +153,11 @@ export async function GET(
       );
     }
 
-    // Format items with pricing
+    // Format items with pricing (only if pricing is enabled)
     const formatItems = (items: any[]) =>
       items.map((item: any) => ({
         ...item,
-        pricing: item.pricing_suggested_price
+        pricing: sharePricing && item.pricing_suggested_price
           ? {
               sixMonthAverage: item.pricing_six_month_avg,
               currentAverage: item.pricing_current_avg,
