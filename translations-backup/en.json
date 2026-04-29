@@ -743,8 +743,9 @@
     },
     "regional": {
       "title": "Regional Settings",
-      "subtitle": "Choose your preferred currency for pricing display",
+      "subtitle": "Choose your preferred currency and language",
       "currency": "Currency",
+      "language": "Language",
       "note": "Changing your currency will display prices in your selected region's marketplace. Prices may differ from other regions due to local supply, demand, and shipping costs."
     },
     "sharing": {

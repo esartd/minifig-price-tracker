@@ -9,7 +9,7 @@ import { formatPrice } from '@/lib/format-price';
 import { useTranslation } from '@/components/TranslationProvider';
 
 export default function AccountPage() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const { data: session, update } = useSession();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -1200,6 +1200,57 @@ export default function AccountPage() {
                   ))}
                 </optgroup>
               ))}
+            </select>
+          </div>
+
+          <div style={{ marginBottom: '24px' }}>
+            <label style={{
+              display: 'block',
+              fontSize: 'var(--text-sm)',
+              fontWeight: '500',
+              color: '#171717',
+              marginBottom: '8px'
+            }}>
+              {t('account.regional.language')}
+            </label>
+            <select
+              value={locale}
+              onChange={(e) => {
+                const newLocale = e.target.value as 'en' | 'de' | 'fr' | 'es';
+                const protocol = window.location.protocol;
+                const currentPath = window.location.pathname;
+                const subdomainMap = {
+                  en: 'figtracker.ericksu.com',
+                  de: 'de.figtracker.ericksu.com',
+                  fr: 'fr.figtracker.ericksu.com',
+                  es: 'es.figtracker.ericksu.com'
+                };
+                window.location.href = `${protocol}//${subdomainMap[newLocale]}${currentPath}`;
+              }}
+              disabled={loading}
+              style={{
+                width: '100%',
+                padding: '12px 16px',
+                fontSize: 'var(--text-base)',
+                color: '#171717',
+                background: '#ffffff',
+                border: '1px solid #e5e5e5',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                transition: 'border-color 0.2s',
+                outline: 'none',
+                appearance: 'none',
+                backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+                backgroundPosition: 'right 12px center',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: '20px',
+                paddingRight: '40px'
+              }}
+            >
+              <option value="en">🇺🇸 English</option>
+              <option value="de">🇩🇪 Deutsch</option>
+              <option value="fr">🇫🇷 Français</option>
+              <option value="es">🇪🇸 Español</option>
             </select>
           </div>
 

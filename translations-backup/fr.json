@@ -800,8 +800,9 @@
     },
     "regional": {
       "title": "Paramètres régionaux",
-      "subtitle": "Choisissez votre devise préférée pour l'affichage des prix",
+      "subtitle": "Choisissez votre devise et langue préférées",
       "currency": "Devise",
+      "language": "Langue",
       "note": "Le changement de devise affichera les prix dans le marché de votre région sélectionnée. Les prix peuvent différer d'une région à l'autre en raison de l'offre locale, de la demande et des frais d'expédition."
     },
     "sharing": {

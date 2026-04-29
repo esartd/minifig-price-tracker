@@ -800,8 +800,9 @@
     },
     "regional": {
       "title": "Configuración regional",
-      "subtitle": "Elige tu moneda preferida para la visualización de precios",
+      "subtitle": "Elige tu moneda e idioma preferidos",
       "currency": "Moneda",
+      "language": "Idioma",
       "note": "Cambiar tu moneda mostrará los precios en el mercado de tu región seleccionada. Los precios pueden diferir entre regiones debido a la oferta local, demanda y costos de envío."
     },
     "sharing": {

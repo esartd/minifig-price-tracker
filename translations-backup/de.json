@@ -800,8 +800,9 @@
     },
     "regional": {
       "title": "Regionale Einstellungen",
-      "subtitle": "Wählen Sie Ihre bevorzugte Währung für die Preisanzeige",
+      "subtitle": "Wählen Sie Ihre bevorzugte Währung und Sprache",
       "currency": "Währung",
+      "language": "Sprache",
       "note": "Durch Ändern Ihrer Währung werden Preise im Marktplatz Ihrer ausgewählten Region angezeigt. Preise können aufgrund von lokalem Angebot, Nachfrage und Versandkosten von anderen Regionen abweichen."
     },
     "sharing": {
