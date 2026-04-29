@@ -435,6 +435,7 @@
       "used": "Usado"
     },
     "sort": {
+      "nameAZ": "Nombre (A-Z)",
       "recentlyAdded": "Añadido recientemente",
       "priceHigh": "Precio: Mayor a Menor",
       "priceLow": "Precio: Menor a Mayor",
@@ -442,6 +443,16 @@
     },
     "inventoryTitle": "Tu Inventario",
     "inventorySubtitle": "Minifiguras que estás vendiendo o planeas vender con precios en tiempo real",
-    "startAddingInventory": "Comienza a añadir a tu inventario buscando minifiguras"
+    "startAddingInventory": "Comienza a añadir a tu inventario buscando minifiguras",
+    "setsCollectionTitle": "Tus Sets para Conservar",
+    "setsCollectionSubtitle": "Tu colección personal — sets que guardas, no para vender",
+    "setsInventoryTitle": "Tus Sets en Venta",
+    "setsInventorySubtitle": "Sets que estás vendiendo o planeas vender con precios en tiempo real",
+    "addSets": "Añadir Sets",
+    "noSetsYet": "Aún no hay sets",
+    "startAddingSets": "Comienza a añadir a tu colección personal",
+    "startAddingSetsInventory": "Comienza a añadir a tu inventario explorando sets",
+    "browseSets": "Explorar Sets",
+    "noConditionSets": "No hay sets en condición {condition}"
   }
 }

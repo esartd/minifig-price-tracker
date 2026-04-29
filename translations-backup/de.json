@@ -435,6 +435,7 @@
       "used": "Gebraucht"
     },
     "sort": {
+      "nameAZ": "Name (A-Z)",
       "recentlyAdded": "Kürzlich hinzugefügt",
       "priceHigh": "Preis: Hoch bis Niedrig",
       "priceLow": "Preis: Niedrig bis Hoch",
@@ -442,6 +443,16 @@
     },
     "inventoryTitle": "Ihr Inventar",
     "inventorySubtitle": "Minifiguren, die Sie verkaufen oder verkaufen möchten mit Echtzeit-Preisen",
-    "startAddingInventory": "Beginnen Sie mit dem Hinzufügen zu Ihrem Inventar durch Suchen von Minifiguren"
+    "startAddingInventory": "Beginnen Sie mit dem Hinzufügen zu Ihrem Inventar durch Suchen von Minifiguren",
+    "setsCollectionTitle": "Ihre Sets zum Behalten",
+    "setsCollectionSubtitle": "Ihre persönliche Sammlung — Sets, die Sie behalten, nicht verkaufen",
+    "setsInventoryTitle": "Ihre Sets zum Verkauf",
+    "setsInventorySubtitle": "Sets, die Sie verkaufen oder verkaufen möchten mit Echtzeit-Preisen",
+    "addSets": "Sets hinzufügen",
+    "noSetsYet": "Noch keine Sets",
+    "startAddingSets": "Beginnen Sie mit dem Hinzufügen zu Ihrer persönlichen Sammlung",
+    "startAddingSetsInventory": "Beginnen Sie mit dem Hinzufügen zu Ihrem Inventar durch Durchsuchen von Sets",
+    "browseSets": "Sets durchsuchen",
+    "noConditionSets": "Keine Sets im Zustand {condition}"
   }
 }

@@ -378,6 +378,7 @@
       "used": "Used"
     },
     "sort": {
+      "nameAZ": "Name (A-Z)",
       "recentlyAdded": "Recently Added",
       "priceHigh": "Price: High to Low",
       "priceLow": "Price: Low to High",
@@ -385,6 +386,16 @@
     },
     "inventoryTitle": "Your Inventory",
     "inventorySubtitle": "Minifigs you're selling or planning to sell with real-time pricing",
-    "startAddingInventory": "Start adding to your inventory by searching for minifigs"
+    "startAddingInventory": "Start adding to your inventory by searching for minifigs",
+    "setsCollectionTitle": "Your Sets to Keep",
+    "setsCollectionSubtitle": "Your personal collection — sets you're keeping, not selling",
+    "setsInventoryTitle": "Your Sets for Sale",
+    "setsInventorySubtitle": "Sets you're selling or planning to sell with real-time pricing",
+    "addSets": "Add Sets",
+    "noSetsYet": "No sets yet",
+    "startAddingSets": "Start adding to your personal collection",
+    "startAddingSetsInventory": "Start adding to your inventory by browsing sets",
+    "browseSets": "Browse Sets",
+    "noConditionSets": "No {condition} condition sets"
   }
 }

@@ -12,8 +12,10 @@ import { formatPrice } from '@/lib/format-price';
 import { calculateCollectionStats } from '@/lib/collection-stats';
 import CollectionPagination from '@/components/CollectionPagination';
 import AnimatedCounter from '@/components/AnimatedCounter';
+import { useTranslation } from '@/components/TranslationProvider';
 
 export default function SetsInventoryPage() {
+  const { t } = useTranslation();
   const { data: session, status } = useSession();
   const router = useRouter();
   const [inventory, setInventory] = useState<SetInventoryItem[]>([]);
@@ -458,14 +460,14 @@ export default function SetsInventoryPage() {
                 color: '#171717',
                 marginBottom: '8px'
               }}>
-                Your Sets for Sale
+                {t('collection.setsInventoryTitle')}
               </h1>
               <p className="collection-subtitle" style={{
                 fontSize: 'var(--text-base)',
                 color: '#525252',
                 lineHeight: '1.6'
               }}>
-                Sets you're selling or planning to sell with real-time pricing
+                {t('collection.setsInventorySubtitle')}
               </p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -489,7 +491,7 @@ export default function SetsInventoryPage() {
                   boxSizing: 'border-box'
                 }}
               >
-                + Add Sets
+                + {t('collection.addSets')}
               </Link>
             </div>
           </div>
@@ -602,9 +604,9 @@ export default function SetsInventoryPage() {
                     onMouseEnter={(e) => e.currentTarget.style.background = '#f5f5f5'}
                     onMouseLeave={(e) => e.currentTarget.style.background = '#ffffff'}
                   >
-                    <option value="price-high">Price: High to Low</option>
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="name">Name (A-Z)</option>
+                    <option value="price-high">{t('collection.sort.priceHigh')}</option>
+                    <option value="price-low">{t('collection.sort.priceLow')}</option>
+                    <option value="name">{t('collection.sort.nameAZ')}</option>
                   </select>
                   <ChevronDownIcon style={{
                     position: 'absolute',
@@ -665,7 +667,7 @@ export default function SetsInventoryPage() {
                     color: '#171717',
                     marginBottom: '12px'
                   }}>
-                    No sets yet
+                    {t('collection.noSetsYet')}
                   </h3>
                   <p style={{
                     fontSize: 'var(--text-base)',
@@ -673,7 +675,7 @@ export default function SetsInventoryPage() {
                     marginBottom: '32px',
                     lineHeight: '1.6'
                   }}>
-                    Start adding to your inventory by browsing sets
+                    {t('collection.startAddingSetsInventory')}
                   </p>
                   <Link
                     href="/sets/browse"
@@ -689,7 +691,7 @@ export default function SetsInventoryPage() {
                       transition: 'all 0.2s'
                     }}
                   >
-                    Browse Sets
+                    {t('collection.browseSets')}
                   </Link>
                 </>
               ) : (
@@ -701,14 +703,14 @@ export default function SetsInventoryPage() {
                     color: '#171717',
                     marginBottom: '12px'
                   }}>
-                    No {conditionFilter} condition sets
+                    {t('collection.noConditionSets', { condition: conditionFilter })}
                   </h3>
                   <p style={{
                     fontSize: 'var(--text-base)',
                     color: '#737373',
                     lineHeight: '1.6'
                   }}>
-                    You have {totalItems} item{totalItems !== 1 ? 's' : ''} in other conditions
+                    {t('collection.otherConditions', { count: totalItems })}
                   </p>
                 </>
               )}
