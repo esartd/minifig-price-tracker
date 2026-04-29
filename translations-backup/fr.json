@@ -42,7 +42,8 @@
     "setThemes": "Thèmes de Sets",
     "setsInventory": "Inventaire de Sets",
     "setsCollection": "Collection de Sets",
-    "wishlist": "Liste de Souhaits"
+    "wishlist": "Liste de Souhaits",
+    "browseThemes": "Thèmes"
   },
   "themes": {
     "browse_title": "Parcourir les thèmes de minifigurines LEGO",
@@ -301,7 +302,12 @@
       "Keychains": "LEGO® Keychains: Porte-clés minifigurines! Personnages Star Wars, Super Heroes, NINJAGO sur anneaux. Minifigs portables. Parfait pour sacs!",
       "Magnets": "LEGO® Magnets: Minifigurines magnétiques pour réfrigérateurs! Petits aimants avec personnages populaires. Aimants LEGO décoratifs. Parfait pour frigos!"
     },
-    "exploreCount": "Explorez {themeCount} thèmes avec {minifigCount} minifigurines"
+    "exploreCount": "Explorez {themeCount} thèmes avec {minifigCount} minifigurines",
+    "minifigsCount": "{count} minifigurines",
+    "acrossSeries": "sur {count} séries",
+    "seriesLabel": "Séries",
+    "otherMinifigures": "Autres Minifigurines {theme}",
+    "uncategorizedDesc": "{count} minifigurines qui n'appartiennent pas à une série spécifique"
   },
   "account": {
     "title": "Paramètres du compte",

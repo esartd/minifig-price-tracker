@@ -10,6 +10,7 @@ import ThemeDescription from '@/components/ThemeDescription';
 import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 import themeDescriptions from '@/lib/theme-descriptions.json';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface Subcategory {
   id: number;
@@ -36,6 +37,7 @@ interface LegoSet {
 }
 
 export default function ThemePageClient({ params }: { params: Promise<{ theme: string }> }) {
+  const { t } = useTranslation();
   const router = useRouter();
   const [theme, setTheme] = useState<string>('');
   const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
@@ -196,8 +198,8 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
     }}>
       {/* Breadcrumb */}
       <Breadcrumbs items={[
-        { label: 'Home', href: '/' },
-        { label: 'Themes', href: '/themes' },
+        { label: t('navigation.home'), href: '/' },
+        { label: t('navigation.browseThemes'), href: '/themes' },
         { label: theme }
       ]} />
 
@@ -249,7 +251,7 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
               textTransform: 'uppercase',
               letterSpacing: '0.05em'
             }}>
-              Theme
+              {t('themes.themeLabel')}
             </div>
             <h1 style={{
               fontSize: 'var(--text-3xl)',
@@ -265,8 +267,8 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
               color: '#737373',
               marginBottom: 0
             }}>
-              {totalMinifigs.toLocaleString()} minifigure{totalMinifigs !== 1 ? 's' : ''}
-              {sortedSubcategories.length > 0 && ` across ${seriesCount} ${seriesCount === 1 ? 'series' : 'series'}`}
+              {t('themes.minifigsCount', { count: totalMinifigs.toLocaleString() })}
+              {sortedSubcategories.length > 0 && ` ${t('themes.acrossSeries', { count: seriesCount })}`}
             </p>
 
             {/* SEO Description integrated into hero card */}
@@ -294,8 +296,8 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
             color: '#737373',
             lineHeight: '1.6'
           }}>
-            {totalMinifigs.toLocaleString()} minifigure{totalMinifigs !== 1 ? 's' : ''}
-            {sortedSubcategories.length > 0 && ` across ${seriesCount} ${seriesCount === 1 ? 'series' : 'series'}`}
+            {t('themes.minifigsCount', { count: totalMinifigs.toLocaleString() })}
+            {sortedSubcategories.length > 0 && ` ${t('themes.acrossSeries', { count: seriesCount })}`}
           </p>
         </div>
       )}
@@ -309,7 +311,7 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
             marginBottom: '24px',
             letterSpacing: '-0.02em'
           }}>
-            Series
+            {t('themes.seriesLabel')}
           </h2>
           <div style={{
             display: 'grid',
@@ -394,7 +396,7 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
                     fontSize: 'var(--text-sm)',
                     color: '#737373'
                   }}>
-                    {subcategory.count.toLocaleString()} minifigure{subcategory.count !== 1 ? 's' : ''}
+                    {t('themes.minifigsCount', { count: subcategory.count.toLocaleString() })}
                   </p>
                 </div>
               </Link>
@@ -415,7 +417,7 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
                 marginBottom: '16px',
                 letterSpacing: '-0.02em'
               }}>
-                Other {theme} Minifigures
+                {t('themes.otherMinifigures', { theme })}
               </h2>
               <p style={{
                 fontSize: 'var(--text-sm)',
@@ -423,7 +425,7 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
                 marginBottom: '24px',
                 lineHeight: '1.6'
               }}>
-                {uncategorizedMinifigs.length} minifigure{uncategorizedMinifigs.length !== 1 ? 's' : ''} that {uncategorizedMinifigs.length !== 1 ? "don't" : "doesn't"} belong to a specific series
+                {t('themes.uncategorizedDesc', { count: uncategorizedMinifigs.length })}
               </p>
             </>
           ) : (

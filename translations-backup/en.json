@@ -42,7 +42,8 @@
     "setThemes": "Set Themes",
     "setsInventory": "Sets Inventory",
     "setsCollection": "Sets Collection",
-    "wishlist": "Wishlist"
+    "wishlist": "Wishlist",
+    "browseThemes": "Themes"
   },
   "themes": {
     "browse_title": "Browse LEGO Minifigure Themes",
@@ -244,7 +245,12 @@
       "Znap": "Connect in new ways with LEGO® Znap! This experimental 1990s system featured flexible beam-and-panel construction different from traditional brick building. Znap sets created skeletal structures, vehicles, and creatures using hinged connections. Though unsuccessful commercially, Znap showed LEGO's willingness to explore alternative building systems. Perfect for LEGO historians, collectors of failed experiments, and fans of LEGO's innovative attempts beyond standard bricks.",
       "xtra": "Enhance your worlds with LEGO® xtra! These accessory sets include extra elements, scenery pieces, and details for customizing existing builds. From street signs and plants to furniture and decorations, xtra sets add life and realism to LEGO cities and scenes. Perfect for builders adding detail to displays, city builders seeking realism, and those who love accessorizing their LEGO worlds."
     },
-    "exploreCount": "Explore {themeCount} themes with {minifigCount} minifigures"
+    "exploreCount": "Explore {themeCount} themes with {minifigCount} minifigures",
+    "minifigsCount": "{count} minifigures",
+    "acrossSeries": "across {count} series",
+    "seriesLabel": "Series",
+    "otherMinifigures": "Other {theme} Minifigures",
+    "uncategorizedDesc": "{count} minifigures that don't belong to a specific series"
   },
   "account": {
     "title": "Account Settings",
