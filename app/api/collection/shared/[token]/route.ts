@@ -129,7 +129,7 @@ export async function GET(
         items: formatItems(items),
         type,
         currency: user.preferredCurrency || 'USD',
-        showDecimals: false,
+        showDecimals: true,
         showPricing: sharePricing,
         totalValue: sharePricing ? totalValue : 0
       }
