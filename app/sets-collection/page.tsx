@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { SetPersonalCollectionItem } from '@/types';
 import SetPersonalCollectionList from '@/components/SetPersonalCollectionList';
 import SetCollectionSwitcher from '@/components/SetCollectionSwitcher';
+import ShareCollectionButton from '@/components/ShareCollectionButton';
 import Link from 'next/link';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
@@ -287,28 +288,30 @@ export default function SetsCollectionPage() {
               gap: '16px'
             }}>
               <SetCollectionSwitcher currentPage="sets-collection" />
-              <Link
-                href="/sets/browse"
-                className="collection-add-button"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '10px 20px',
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: '600',
-                  color: 'white',
-                  background: '#3b82f6',
-                  borderRadius: '8px',
-                  textDecoration: 'none',
-                  transition: 'all 0.2s',
-                  border: 'none',
-                  whiteSpace: 'nowrap',
-                  flexShrink: 0
-                }}
-              >
-                + Add
-              </Link>
+              <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+                <ShareCollectionButton />
+                <Link
+                  href="/sets/browse"
+                  className="collection-add-button"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '10px 20px',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '600',
+                    color: 'white',
+                    background: '#3b82f6',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s',
+                    border: 'none',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  + Add
+                </Link>
+              </div>
             </div>
 
             {/* Compact Stats Row */}
