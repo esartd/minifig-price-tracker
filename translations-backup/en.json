@@ -315,21 +315,33 @@
     "invalidInput": "Invalid input",
     "requiredField": "This field is required"
   },
-  "auth": {
-    "signInTitle": "Sign In to Your Account",
-    "signUpTitle": "Create Your Account",
-    "emailPlaceholder": "Enter your email",
-    "passwordPlaceholder": "Enter your password",
-    "namePlaceholder": "Enter your name",
-    "forgotPassword": "Forgot password?",
-    "noAccount": "Don't have an account?",
-    "hasAccount": "Already have an account?",
-    "signInButton": "Sign In",
-    "signUpButton": "Sign Up",
-    "signInWithGoogle": "Sign in with Google",
-    "resetPassword": "Reset Password",
-    "resetPasswordDesc": "Enter your email to receive reset instructions",
-    "sendResetLink": "Send Reset Link"
+  "wishlist": {
+    "title": "My Wishlist",
+    "signInTitle": "Save Your Favorite Minifigures",
+    "signInDescription": "Create a free account to save minifigures to your wishlist, track your collection, and get price updates.",
+    "createAccount": "Create Free Account",
+    "itemsSaved": "{count} minifigure(s) saved",
+    "emptyTitle": "Your wishlist is empty",
+    "emptyDescription": "Browse minifigures and click the heart icon to save them here",
+    "browseButton": "Browse Minifigures",
+    "buyBrickLink": "BrickLink",
+    "buyAmazon": "Amazon"
+  },
+  "sets": {
+    "browse": {
+      "title": "Browse LEGO Sets",
+      "subtitle": "Search and explore LEGO sets from all themes",
+      "searchPlaceholder": "Search by name or set number...",
+      "browseByTheme": "Browse by Theme",
+      "clearFilter": "Clear Theme Filter",
+      "searching": "Searching...",
+      "noSetsFound": "No sets found",
+      "tryAdjusting": "Try adjusting your search or browse by theme",
+      "foundSets": "Found {count} sets",
+      "inTheme": "in {theme}",
+      "year": "Year",
+      "weight": "Weight"
+    }
   },
   "faq": {
     "title": "Frequently Asked Questions",
@@ -670,12 +682,27 @@
       }
     },
     "resetPassword": {
+      "title": "Set New Password",
+      "subtitle": "Enter your new password below.",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "resetButton": "Reset Password",
+      "resetting": "Resetting...",
+      "backToSignIn": "← Back to Sign In",
+      "successTitle": "Password Reset Successful",
+      "successMessage": "Your password has been changed. You can now sign in with your new password.",
+      "invalidToken": "Invalid or missing reset token",
+      "passwordsMismatch": "Passwords do not match",
+      "passwordTooShort": "Password must be at least 8 characters",
+      "resetFailed": "Failed to reset password",
+      "errorOccurred": "An error occurred. Please try again.",
       "placeholders": {
         "newPassword": "Enter new password",
         "confirmPassword": "Confirm new password"
       }
     },
-    "footer": "Price your inventory with real-time Bricklink data"
+    "footer": "Price your inventory with real-time Bricklink data",
+    "footerText": "Price your inventory with real-time Bricklink data"
   },
   "account": {
     "title": "Account Settings",

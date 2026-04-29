@@ -372,21 +372,33 @@
     "invalidInput": "Ungültige Eingabe",
     "requiredField": "Dieses Feld ist erforderlich"
   },
-  "auth": {
-    "signInTitle": "Bei deinem Konto anmelden",
-    "signUpTitle": "Konto erstellen",
-    "emailPlaceholder": "E-Mail eingeben",
-    "passwordPlaceholder": "Passwort eingeben",
-    "namePlaceholder": "Name eingeben",
-    "forgotPassword": "Passwort vergessen?",
-    "noAccount": "Noch kein Konto?",
-    "hasAccount": "Bereits ein Konto?",
-    "signInButton": "Anmelden",
-    "signUpButton": "Registrieren",
-    "signInWithGoogle": "Mit Google anmelden",
-    "resetPassword": "Passwort zurücksetzen",
-    "resetPasswordDesc": "Gib deine E-Mail ein, um Anweisungen zum Zurücksetzen zu erhalten",
-    "sendResetLink": "Link zum Zurücksetzen senden"
+  "wishlist": {
+    "title": "Meine Wunschliste",
+    "signInTitle": "Speichere deine Lieblingsminifiguren",
+    "signInDescription": "Erstelle ein kostenloses Konto, um Minifiguren auf deiner Wunschliste zu speichern, deine Sammlung zu verfolgen und Preisaktualisierungen zu erhalten.",
+    "createAccount": "Kostenloses Konto erstellen",
+    "itemsSaved": "{count} Minifigur(en) gespeichert",
+    "emptyTitle": "Deine Wunschliste ist leer",
+    "emptyDescription": "Durchsuche Minifiguren und klicke auf das Herzsymbol, um sie hier zu speichern",
+    "browseButton": "Minifiguren durchsuchen",
+    "buyBrickLink": "BrickLink",
+    "buyAmazon": "Amazon"
+  },
+  "sets": {
+    "browse": {
+      "title": "LEGO-Sets durchsuchen",
+      "subtitle": "Suchen und erkunden Sie LEGO-Sets aus allen Themen",
+      "searchPlaceholder": "Nach Name oder Set-Nummer suchen...",
+      "browseByTheme": "Nach Thema durchsuchen",
+      "clearFilter": "Themenfilter löschen",
+      "searching": "Suchen...",
+      "noSetsFound": "Keine Sets gefunden",
+      "tryAdjusting": "Versuchen Sie, Ihre Suche anzupassen oder nach Thema zu durchsuchen",
+      "foundSets": "{count} Sets gefunden",
+      "inTheme": "in {theme}",
+      "year": "Jahr",
+      "weight": "Gewicht"
+    }
   },
   "faq": {
     "title": "Häufig gestellte Fragen",
@@ -727,12 +739,27 @@
       }
     },
     "resetPassword": {
+      "title": "Neues Passwort festlegen",
+      "subtitle": "Gib dein neues Passwort unten ein.",
+      "newPassword": "Neues Passwort",
+      "confirmPassword": "Neues Passwort bestätigen",
+      "resetButton": "Passwort zurücksetzen",
+      "resetting": "Wird zurückgesetzt...",
+      "backToSignIn": "← Zurück zur Anmeldung",
+      "successTitle": "Passwort erfolgreich zurückgesetzt",
+      "successMessage": "Dein Passwort wurde geändert. Du kannst dich jetzt mit deinem neuen Passwort anmelden.",
+      "invalidToken": "Ungültiger oder fehlender Reset-Token",
+      "passwordsMismatch": "Passwörter stimmen nicht überein",
+      "passwordTooShort": "Passwort muss mindestens 8 Zeichen lang sein",
+      "resetFailed": "Passwort konnte nicht zurückgesetzt werden",
+      "errorOccurred": "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
       "placeholders": {
         "newPassword": "Neues Passwort eingeben",
         "confirmPassword": "Neues Passwort bestätigen"
       }
     },
-    "footer": "Bewerten Sie Ihr Inventar mit Echtzeit-Bricklink-Daten"
+    "footer": "Bewerten Sie Ihr Inventar mit Echtzeit-Bricklink-Daten",
+    "footerText": "Bewerten Sie Ihr Inventar mit Echtzeit-Bricklink-Daten"
   },
   "account": {
     "title": "Kontoeinstellungen",

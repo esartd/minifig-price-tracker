@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { HeartIcon, TrashIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { generateAmazonMinifigLink, generateBrickLinkMinifigLink } from '@/lib/affiliate-links';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface WishlistItem {
   id: string;
@@ -17,6 +18,7 @@ interface WishlistItem {
 }
 
 export default function WishlistPage() {
+  const { t } = useTranslation();
   const { data: session, status } = useSession();
   const router = useRouter();
   const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
@@ -128,7 +130,7 @@ export default function WishlistPage() {
             color: '#171717',
             marginBottom: '12px'
           }}>
-            Save Your Favorite Minifigures
+            {t('wishlist.signInTitle')}
           </p>
           <p style={{
             fontSize: 'var(--text-base)',
@@ -138,7 +140,7 @@ export default function WishlistPage() {
             maxWidth: '500px',
             margin: '0 auto 32px'
           }}>
-            Create a free account to save minifigures to your wishlist, track your collection, and get price updates.
+            {t('wishlist.signInDescription')}
           </p>
           <div style={{
             display: 'flex',
@@ -167,7 +169,7 @@ export default function WishlistPage() {
                 e.currentTarget.style.background = '#3b82f6';
               }}
             >
-              Sign In
+              {t('navigation.signIn')}
             </Link>
             <Link
               href="/auth/signup"
@@ -192,7 +194,7 @@ export default function WishlistPage() {
                 e.currentTarget.style.borderColor = '#e5e5e5';
               }}
             >
-              Create Free Account
+              {t('wishlist.createAccount')}
             </Link>
           </div>
         </div>
@@ -222,7 +224,7 @@ export default function WishlistPage() {
             color: '#171717',
             letterSpacing: '-0.02em'
           }}>
-            My Wishlist
+            {t('wishlist.title')}
           </h1>
         </div>
         <p style={{
@@ -230,7 +232,7 @@ export default function WishlistPage() {
           color: '#737373',
           lineHeight: '1.6'
         }}>
-          {wishlist.length} minifigure{wishlist.length !== 1 ? 's' : ''} saved
+          {t('wishlist.itemsSaved', { count: wishlist.length })}
         </p>
       </div>
 
@@ -254,7 +256,7 @@ export default function WishlistPage() {
             color: '#171717',
             marginBottom: '8px'
           }}>
-            Your wishlist is empty
+            {t('wishlist.emptyTitle')}
           </p>
           <p style={{
             fontSize: 'var(--text-base)',
@@ -262,7 +264,7 @@ export default function WishlistPage() {
             marginBottom: '24px',
             lineHeight: '1.6'
           }}>
-            Browse minifigures and click the heart icon to save them here
+            {t('wishlist.emptyDescription')}
           </p>
           <Link
             href="/search"
@@ -279,7 +281,7 @@ export default function WishlistPage() {
               transition: 'all 0.2s'
             }}
           >
-            Browse Minifigures
+            {t('wishlist.browseButton')}
           </Link>
         </div>
       ) : (
@@ -408,7 +410,7 @@ export default function WishlistPage() {
                   }}
                 >
                   <ShoppingCartIcon style={{ width: '14px', height: '14px', flexShrink: 0 }} />
-                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>BrickLink</span>
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{t('wishlist.buyBrickLink')}</span>
                 </button>
                 <button
                   onClick={(e) => {
@@ -445,7 +447,7 @@ export default function WishlistPage() {
                   }}
                 >
                   <ShoppingCartIcon style={{ width: '14px', height: '14px', flexShrink: 0 }} />
-                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>Amazon</span>
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{t('wishlist.buyAmazon')}</span>
                 </button>
               </div>
 

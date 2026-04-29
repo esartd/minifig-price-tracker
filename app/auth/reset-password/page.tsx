@@ -7,8 +7,10 @@ import AuthLayout from '@/components/auth/AuthLayout';
 import PasswordInput from '@/components/auth/PasswordInput';
 import MessageAlert from '@/components/auth/MessageAlert';
 import SuccessCard from '@/components/auth/SuccessCard';
+import { useTranslation } from '@/components/TranslationProvider';
 
 function ResetPasswordForm() {
+  const { t } = useTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
@@ -21,26 +23,26 @@ function ResetPasswordForm() {
 
   useEffect(() => {
     if (!token) {
-      setError('Invalid or missing reset token');
+      setError(t('auth.resetPassword.invalidToken'));
     }
-  }, [token]);
+  }, [token, t]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError(t('auth.resetPassword.passwordsMismatch'));
       return;
     }
 
     if (password.length < 8) {
-      setError('Password must be at least 8 characters');
+      setError(t('auth.resetPassword.passwordTooShort'));
       return;
     }
 
     if (!token) {
-      setError('Invalid or missing reset token');
+      setError(t('auth.resetPassword.invalidToken'));
       return;
     }
 
@@ -56,25 +58,25 @@ function ResetPasswordForm() {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || 'Failed to reset password');
+        setError(data.error || t('auth.resetPassword.resetFailed'));
         setLoading(false);
         return;
       }
 
       setSuccess(true);
     } catch (error) {
-      setError('An error occurred. Please try again.');
+      setError(t('auth.resetPassword.errorOccurred'));
       setLoading(false);
     }
   };
 
   if (success) {
     return (
-      <AuthLayout footerText="Price your inventory with real-time Bricklink data">
+      <AuthLayout footerText={t('auth.footerText')}>
         <SuccessCard
-          title="Password Reset Successful"
-          message="Your password has been changed. You can now sign in with your new password."
-          actionText="Sign In"
+          title={t('auth.resetPassword.successTitle')}
+          message={t('auth.resetPassword.successMessage')}
+          actionText={t('navigation.signIn')}
           actionHref="/auth/signin"
         />
       </AuthLayout>
@@ -82,7 +84,7 @@ function ResetPasswordForm() {
   }
 
   return (
-    <AuthLayout footerText="Price your inventory with real-time Bricklink data">
+    <AuthLayout footerText={t('auth.footerText')}>
       <div style={{ marginBottom: '48px' }}>
         <h1 style={{
           fontSize: 'var(--text-2xl)',
@@ -92,14 +94,14 @@ function ResetPasswordForm() {
           letterSpacing: '-0.02em',
           lineHeight: '1.2'
         }}>
-          Set New Password
+          {t('auth.resetPassword.title')}
         </h1>
         <p style={{
           fontSize: 'var(--text-base)',
           color: '#737373',
           lineHeight: '1.6'
         }}>
-          Enter your new password below.
+          {t('auth.resetPassword.subtitle')}
         </p>
       </div>
 
@@ -108,20 +110,20 @@ function ResetPasswordForm() {
 
         <PasswordInput
           id="password"
-          label="New Password"
+          label={t('auth.resetPassword.newPassword')}
           value={password}
           onChange={setPassword}
-          placeholder="Enter new password"
+          placeholder={t('auth.resetPassword.placeholders.newPassword')}
           autoComplete="new-password"
           minLength={8}
         />
 
         <PasswordInput
           id="confirmPassword"
-          label="Confirm New Password"
+          label={t('auth.resetPassword.confirmPassword')}
           value={confirmPassword}
           onChange={setConfirmPassword}
-          placeholder="Confirm new password"
+          placeholder={t('auth.resetPassword.placeholders.confirmPassword')}
           autoComplete="new-password"
           minLength={8}
         />
@@ -144,7 +146,7 @@ function ResetPasswordForm() {
             marginBottom: '0'
           }}
         >
-          {loading ? 'Resetting...' : 'Reset Password'}
+          {loading ? t('auth.resetPassword.resetting') : t('auth.resetPassword.resetButton')}
         </button>
       </form>
 
@@ -162,7 +164,7 @@ function ResetPasswordForm() {
             transition: 'color 0.2s'
           }}
         >
-          ← Back to Sign In
+          {t('auth.resetPassword.backToSignIn')}
         </Link>
       </div>
     </AuthLayout>
@@ -183,6 +185,7 @@ export default function ResetPassword() {
           color: 'white',
           fontSize: 'var(--text-base)'
         }}>
+          {/* Loading text from context not available here */}
           Loading...
         </div>
       </div>

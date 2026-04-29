@@ -372,21 +372,33 @@
     "invalidInput": "Entrada inválida",
     "requiredField": "Este campo es obligatorio"
   },
-  "auth": {
-    "signInTitle": "Inicia sesión en tu cuenta",
-    "signUpTitle": "Crea tu cuenta",
-    "emailPlaceholder": "Ingresa tu correo electrónico",
-    "passwordPlaceholder": "Ingresa tu contraseña",
-    "namePlaceholder": "Ingresa tu nombre",
-    "forgotPassword": "¿Olvidaste tu contraseña?",
-    "noAccount": "¿No tienes una cuenta?",
-    "hasAccount": "¿Ya tienes una cuenta?",
-    "signInButton": "Iniciar sesión",
-    "signUpButton": "Registrarse",
-    "signInWithGoogle": "Iniciar sesión con Google",
-    "resetPassword": "Restablecer contraseña",
-    "resetPasswordDesc": "Ingresa tu correo electrónico para recibir instrucciones de restablecimiento",
-    "sendResetLink": "Enviar enlace de restablecimiento"
+  "wishlist": {
+    "title": "Mi lista de deseos",
+    "signInTitle": "Guarda tus minifiguras favoritas",
+    "signInDescription": "Crea una cuenta gratuita para guardar minifiguras en tu lista de deseos, seguir tu colección y recibir actualizaciones de precios.",
+    "createAccount": "Crear cuenta gratuita",
+    "itemsSaved": "{count} minifigura(s) guardada(s)",
+    "emptyTitle": "Tu lista de deseos está vacía",
+    "emptyDescription": "Explora minifiguras y haz clic en el ícono del corazón para guardarlas aquí",
+    "browseButton": "Explorar minifiguras",
+    "buyBrickLink": "BrickLink",
+    "buyAmazon": "Amazon"
+  },
+  "sets": {
+    "browse": {
+      "title": "Explorar sets de LEGO",
+      "subtitle": "Busca y explora sets de LEGO de todos los temas",
+      "searchPlaceholder": "Buscar por nombre o número de set...",
+      "browseByTheme": "Explorar por tema",
+      "clearFilter": "Limpiar filtro de tema",
+      "searching": "Buscando...",
+      "noSetsFound": "No se encontraron sets",
+      "tryAdjusting": "Intenta ajustar tu búsqueda o explorar por tema",
+      "foundSets": "Se encontraron {count} sets",
+      "inTheme": "en {theme}",
+      "year": "Año",
+      "weight": "Peso"
+    }
   },
   "faq": {
     "title": "Preguntas frecuentes",
@@ -727,12 +739,27 @@
       }
     },
     "resetPassword": {
+      "title": "Establecer nueva contraseña",
+      "subtitle": "Ingresa tu nueva contraseña a continuación.",
+      "newPassword": "Nueva contraseña",
+      "confirmPassword": "Confirmar nueva contraseña",
+      "resetButton": "Restablecer contraseña",
+      "resetting": "Restableciendo...",
+      "backToSignIn": "← Volver a iniciar sesión",
+      "successTitle": "Contraseña restablecida con éxito",
+      "successMessage": "Tu contraseña ha sido cambiada. Ahora puedes iniciar sesión con tu nueva contraseña.",
+      "invalidToken": "Token de restablecimiento inválido o faltante",
+      "passwordsMismatch": "Las contraseñas no coinciden",
+      "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
+      "resetFailed": "Error al restablecer la contraseña",
+      "errorOccurred": "Ocurrió un error. Por favor, inténtalo de nuevo.",
       "placeholders": {
         "newPassword": "Ingresa la nueva contraseña",
         "confirmPassword": "Confirma la nueva contraseña"
       }
     },
-    "footer": "Valora tu inventario con datos de Bricklink en tiempo real"
+    "footer": "Valora tu inventario con datos de Bricklink en tiempo real",
+    "footerText": "Valora tu inventario con datos de Bricklink en tiempo real"
   },
   "account": {
     "title": "Configuración de cuenta",

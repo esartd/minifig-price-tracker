@@ -372,21 +372,33 @@
     "invalidInput": "Entrée invalide",
     "requiredField": "Ce champ est requis"
   },
-  "auth": {
-    "signInTitle": "Connectez-vous à votre compte",
-    "signUpTitle": "Créez votre compte",
-    "emailPlaceholder": "Entrez votre e-mail",
-    "passwordPlaceholder": "Entrez votre mot de passe",
-    "namePlaceholder": "Entrez votre nom",
-    "forgotPassword": "Mot de passe oublié?",
-    "noAccount": "Vous n'avez pas de compte?",
-    "hasAccount": "Vous avez déjà un compte?",
-    "signInButton": "Se connecter",
-    "signUpButton": "S'inscrire",
-    "signInWithGoogle": "Se connecter avec Google",
-    "resetPassword": "Réinitialiser le mot de passe",
-    "resetPasswordDesc": "Entrez votre e-mail pour recevoir les instructions de réinitialisation",
-    "sendResetLink": "Envoyer le lien de réinitialisation"
+  "wishlist": {
+    "title": "Ma liste de souhaits",
+    "signInTitle": "Enregistrez vos figurines préférées",
+    "signInDescription": "Créez un compte gratuit pour enregistrer des figurines dans votre liste de souhaits, suivre votre collection et recevoir des mises à jour de prix.",
+    "createAccount": "Créer un compte gratuit",
+    "itemsSaved": "{count} figurine(s) enregistrée(s)",
+    "emptyTitle": "Votre liste de souhaits est vide",
+    "emptyDescription": "Parcourez les figurines et cliquez sur l'icône cœur pour les enregistrer ici",
+    "browseButton": "Parcourir les figurines",
+    "buyBrickLink": "BrickLink",
+    "buyAmazon": "Amazon"
+  },
+  "sets": {
+    "browse": {
+      "title": "Parcourir les ensembles LEGO",
+      "subtitle": "Recherchez et explorez les ensembles LEGO de tous les thèmes",
+      "searchPlaceholder": "Rechercher par nom ou numéro d'ensemble...",
+      "browseByTheme": "Parcourir par thème",
+      "clearFilter": "Effacer le filtre de thème",
+      "searching": "Recherche...",
+      "noSetsFound": "Aucun ensemble trouvé",
+      "tryAdjusting": "Essayez d'ajuster votre recherche ou de parcourir par thème",
+      "foundSets": "{count} ensembles trouvés",
+      "inTheme": "dans {theme}",
+      "year": "Année",
+      "weight": "Poids"
+    }
   },
   "faq": {
     "title": "Questions fréquemment posées",
@@ -727,12 +739,27 @@
       }
     },
     "resetPassword": {
+      "title": "Définir un nouveau mot de passe",
+      "subtitle": "Entrez votre nouveau mot de passe ci-dessous.",
+      "newPassword": "Nouveau mot de passe",
+      "confirmPassword": "Confirmer le nouveau mot de passe",
+      "resetButton": "Réinitialiser le mot de passe",
+      "resetting": "Réinitialisation...",
+      "backToSignIn": "← Retour à la connexion",
+      "successTitle": "Mot de passe réinitialisé avec succès",
+      "successMessage": "Votre mot de passe a été modifié. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
+      "invalidToken": "Jeton de réinitialisation invalide ou manquant",
+      "passwordsMismatch": "Les mots de passe ne correspondent pas",
+      "passwordTooShort": "Le mot de passe doit contenir au moins 8 caractères",
+      "resetFailed": "Échec de la réinitialisation du mot de passe",
+      "errorOccurred": "Une erreur s'est produite. Veuillez réessayer.",
       "placeholders": {
         "newPassword": "Entrez le nouveau mot de passe",
         "confirmPassword": "Confirmez le nouveau mot de passe"
       }
     },
-    "footer": "Évaluez votre inventaire avec les données Bricklink en temps réel"
+    "footer": "Évaluez votre inventaire avec les données Bricklink en temps réel",
+    "footerText": "Évaluez votre inventaire avec les données Bricklink en temps réel"
   },
   "account": {
     "title": "Paramètres du compte",

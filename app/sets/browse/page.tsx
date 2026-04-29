@@ -5,8 +5,10 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { LegoBox } from '@/types';
+import { useTranslation } from '@/components/TranslationProvider';
 
 function SetCard({ set }: { set: LegoBox }) {
+  const { t } = useTranslation();
   const [currentImageUrl, setCurrentImageUrl] = useState(set.image_url || '');
   const [showFallback, setShowFallback] = useState(!set.image_url);
 
@@ -93,8 +95,8 @@ function SetCard({ set }: { set: LegoBox }) {
             fontSize: '12px',
             color: '#737373'
           }}>
-            {set.year_released && `Year: ${set.year_released}`}
-            {set.weight && ` • Weight: ${set.weight}g`}
+            {set.year_released && `${t('sets.browse.year')}: ${set.year_released}`}
+            {set.weight && ` • ${t('sets.browse.weight')}: ${set.weight}g`}
           </div>
         </div>
       </div>
@@ -103,6 +105,7 @@ function SetCard({ set }: { set: LegoBox }) {
 }
 
 function SetsBrowseContent() {
+  const { t } = useTranslation();
   const searchParams = useSearchParams();
   const router = useRouter();
   const [sets, setSets] = useState<LegoBox[]>([]);
@@ -173,14 +176,14 @@ function SetsBrowseContent() {
               marginBottom: '8px',
               color: '#171717'
             }}>
-              Browse LEGO Sets
+              {t('sets.browse.title')}
             </h1>
             <p style={{
               fontSize: 'clamp(14px, 2vw, 16px)',
               color: '#737373',
               marginBottom: '16px'
             }}>
-              Search and explore LEGO sets from all themes
+              {t('sets.browse.subtitle')}
             </p>
 
             {/* Search Form */}
@@ -189,7 +192,7 @@ function SetsBrowseContent() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by name or set number..."
+                placeholder={t('sets.browse.searchPlaceholder')}
                 style={{
                   width: '100%',
                   padding: '12px 16px',
@@ -219,7 +222,7 @@ function SetsBrowseContent() {
                   alignItems: 'center'
                 }}
               >
-                Browse by Theme
+                {t('sets.browse.browseByTheme')}
               </Link>
               {themeFilter && (
                 <button
@@ -238,7 +241,7 @@ function SetsBrowseContent() {
                     minHeight: '44px'
                   }}
                 >
-                  Clear Theme Filter
+                  {t('sets.browse.clearFilter')}
                 </button>
               )}
             </div>
@@ -250,16 +253,16 @@ function SetsBrowseContent() {
           {loading ? (
             <div style={{ textAlign: 'center', padding: '80px 20px' }}>
               <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
-              <div style={{ fontSize: '18px', color: '#525252' }}>Searching...</div>
+              <div style={{ fontSize: '18px', color: '#525252' }}>{t('sets.browse.searching')}</div>
             </div>
           ) : sets.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '80px 20px', color: '#737373' }}>
               <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
               <div style={{ fontSize: '24px', fontWeight: '600', marginBottom: '8px' }}>
-                No sets found
+                {t('sets.browse.noSetsFound')}
               </div>
               <div style={{ fontSize: '16px' }}>
-                Try adjusting your search or browse by theme
+                {t('sets.browse.tryAdjusting')}
               </div>
             </div>
           ) : (
@@ -270,8 +273,8 @@ function SetsBrowseContent() {
                 marginBottom: '24px',
                 color: '#171717'
               }}>
-                Found {sets.length} sets
-                {themeFilter && ` in ${themeFilter}`}
+                {t('sets.browse.foundSets', { count: sets.length })}
+                {themeFilter && ` ${t('sets.browse.inTheme', { theme: themeFilter })}`}
               </div>
 
               <div style={{
