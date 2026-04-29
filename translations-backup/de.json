@@ -290,7 +290,8 @@
       "Jewelry": "LEGO® Jewelry: LEGO-Schmuck und Accessoires! Halsketten, Ohrringe, Ringe mit Mini-LEGO-Steinen. Wearable LEGO. Perfekt für Schmuck-Fans!",
       "Keychains": "LEGO® Keychains: Minifiguren-Schlüsselanhänger! Star Wars, Super Heroes, NINJAGO-Charaktere an Schlüsselringen. Portable Minifigs. Perfekt für Taschen!",
       "Magnets": "LEGO® Magnets: Magnet-Minifiguren für Kühlschränke! Kleine Magnete mit populären Charakteren. Dekorative LEGO-Magnete. Perfekt für Kühlschränke!"
-    }
+    },
+    "exploreCount": "Erkunde {themeCount} Themen mit {minifigCount} Minifiguren"
   },
   "account": {
     "title": "Kontoeinstellungen",

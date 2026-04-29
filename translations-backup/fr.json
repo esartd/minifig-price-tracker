@@ -290,7 +290,8 @@
       "Jewelry": "LEGO® Jewelry: Bijoux et accessoires LEGO! Colliers, boucles d'oreilles, bagues avec mini-briques LEGO. LEGO portable. Parfait pour fans de bijoux!",
       "Keychains": "LEGO® Keychains: Porte-clés minifigurines! Personnages Star Wars, Super Heroes, NINJAGO sur anneaux. Minifigs portables. Parfait pour sacs!",
       "Magnets": "LEGO® Magnets: Minifigurines magnétiques pour réfrigérateurs! Petits aimants avec personnages populaires. Aimants LEGO décoratifs. Parfait pour frigos!"
-    }
+    },
+    "exploreCount": "Explorez {themeCount} thèmes avec {minifigCount} minifigurines"
   },
   "account": {
     "title": "Paramètres du compte",

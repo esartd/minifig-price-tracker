@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface Theme {
   parent: string;
@@ -173,6 +174,7 @@ function ThemeCard({ theme }: { theme: Theme }) {
 }
 
 export default function ThemesClient({ themes }: ThemesClientProps) {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [showAllOlderThemes, setShowAllOlderThemes] = useState(false);
 
@@ -237,7 +239,7 @@ export default function ThemesClient({ themes }: ThemesClientProps) {
             color: '#171717',
             lineHeight: '1.2'
           }}>
-            Browse Minifigures by Theme
+            {t('themes.browse_title')}
           </h1>
           <p style={{
             fontSize: 'clamp(14px, 2vw, 16px)',
@@ -245,7 +247,7 @@ export default function ThemesClient({ themes }: ThemesClientProps) {
             marginBottom: '16px',
             lineHeight: '1.5'
           }}>
-            Explore {themes.length.toLocaleString()} themes with {totalMinifigs.toLocaleString()} minifigures
+            {t('themes.exploreCount', { themeCount: themes.length.toLocaleString(), minifigCount: totalMinifigs.toLocaleString() })}
           </p>
 
           {/* Search */}

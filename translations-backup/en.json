@@ -233,7 +233,8 @@
       "X-Pod": "Carry building adventures in LEGO® X-Pods! These portable, spherical containers held small themed builds that could be constructed, displayed, and stored in their unique cases. X-Pods combined building with collectible packaging, creating pocket-sized adventures. Though discontinued, X-Pods represented innovative thinking about LEGO packaging and portability. Perfect for collectors of unique LEGO packaging, fans of compact builds, and those who remember this creative early 2000s experiment.",
       "Znap": "Connect in new ways with LEGO® Znap! This experimental 1990s system featured flexible beam-and-panel construction different from traditional brick building. Znap sets created skeletal structures, vehicles, and creatures using hinged connections. Though unsuccessful commercially, Znap showed LEGO's willingness to explore alternative building systems. Perfect for LEGO historians, collectors of failed experiments, and fans of LEGO's innovative attempts beyond standard bricks.",
       "xtra": "Enhance your worlds with LEGO® xtra! These accessory sets include extra elements, scenery pieces, and details for customizing existing builds. From street signs and plants to furniture and decorations, xtra sets add life and realism to LEGO cities and scenes. Perfect for builders adding detail to displays, city builders seeking realism, and those who love accessorizing their LEGO worlds."
-    }
+    },
+    "exploreCount": "Explore {themeCount} themes with {minifigCount} minifigures"
   },
   "account": {
     "title": "Account Settings",
