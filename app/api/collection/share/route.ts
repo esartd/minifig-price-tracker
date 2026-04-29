@@ -3,8 +3,23 @@ import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { randomBytes } from 'crypto';
 
+type CollectionType = 'inventory' | 'collection' | 'sets-inventory' | 'sets-collection';
+
+const getFieldNames = (type: CollectionType) => {
+  switch (type) {
+    case 'inventory':
+      return { tokenField: 'shareTokenInventory', enabledField: 'shareEnabledInventory' };
+    case 'collection':
+      return { tokenField: 'shareTokenCollection', enabledField: 'shareEnabledCollection' };
+    case 'sets-inventory':
+      return { tokenField: 'shareTokenSetsInventory', enabledField: 'shareEnabledSetsInventory' };
+    case 'sets-collection':
+      return { tokenField: 'shareTokenSetsCollection', enabledField: 'shareEnabledSetsCollection' };
+  }
+};
+
 // Generate a unique share token
-export async function POST() {
+export async function POST(request: Request) {
   try {
     const session = await auth();
 
@@ -15,6 +30,10 @@ export async function POST() {
       );
     }
 
+    const url = new URL(request.url);
+    const type = (url.searchParams.get('type') || 'inventory') as CollectionType;
+    const { tokenField, enabledField } = getFieldNames(type);
+
     // Generate a random token
     const shareToken = randomBytes(16).toString('hex');
 
@@ -22,15 +41,15 @@ export async function POST() {
     await prisma.user.update({
       where: { id: session.user.id },
       data: {
-        shareToken,
-        shareEnabled: true
+        [tokenField]: shareToken,
+        [enabledField]: true
       }
     });
 
     return NextResponse.json({
       success: true,
       shareToken,
-      shareUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/share/${shareToken}`
+      shareUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/share/${shareToken}?type=${type}`
     });
   } catch (error) {
     console.error('Error generating share link:', error);
@@ -42,7 +61,7 @@ export async function POST() {
 }
 
 // Toggle sharing on/off
-export async function PATCH() {
+export async function PATCH(request: Request) {
   try {
     const session = await auth();
 
@@ -53,10 +72,24 @@ export async function PATCH() {
       );
     }
 
+    const url = new URL(request.url);
+    const type = (url.searchParams.get('type') || 'inventory') as CollectionType;
+    const { tokenField, enabledField } = getFieldNames(type);
+
     // Get current user
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
-      select: { shareEnabled: true, shareToken: true }
+      select: {
+        id: true,
+        shareTokenInventory: true,
+        shareEnabledInventory: true,
+        shareTokenCollection: true,
+        shareEnabledCollection: true,
+        shareTokenSetsInventory: true,
+        shareEnabledSetsInventory: true,
+        shareTokenSetsCollection: true,
+        shareEnabledSetsCollection: true,
+      }
     });
 
     if (!user) {
@@ -66,28 +99,56 @@ export async function PATCH() {
       );
     }
 
+    // Get current values based on type
+    let currentEnabled: boolean;
+    let currentToken: string | null;
+
+    switch (type) {
+      case 'inventory':
+        currentEnabled = user.shareEnabledInventory;
+        currentToken = user.shareTokenInventory;
+        break;
+      case 'collection':
+        currentEnabled = user.shareEnabledCollection;
+        currentToken = user.shareTokenCollection;
+        break;
+      case 'sets-inventory':
+        currentEnabled = user.shareEnabledSetsInventory;
+        currentToken = user.shareTokenSetsInventory;
+        break;
+      case 'sets-collection':
+        currentEnabled = user.shareEnabledSetsCollection;
+        currentToken = user.shareTokenSetsCollection;
+        break;
+    }
+
     // Toggle sharing
-    const newShareEnabled = !user.shareEnabled;
+    const newShareEnabled = !currentEnabled;
 
     // If enabling and no token exists, generate one
-    let shareToken = user.shareToken;
+    let shareToken = currentToken;
     if (newShareEnabled && !shareToken) {
       shareToken = randomBytes(16).toString('hex');
     }
 
+    // Build update data
+    const updateData: any = {
+      [enabledField]: newShareEnabled,
+    };
+    if (shareToken) {
+      updateData[tokenField] = shareToken;
+    }
+
     await prisma.user.update({
       where: { id: session.user.id },
-      data: {
-        shareEnabled: newShareEnabled,
-        ...(shareToken && { shareToken })
-      }
+      data: updateData
     });
 
     return NextResponse.json({
       success: true,
       shareEnabled: newShareEnabled,
       shareToken,
-      shareUrl: shareToken ? `${process.env.NEXT_PUBLIC_BASE_URL}/share/${shareToken}` : null
+      shareUrl: shareToken ? `${process.env.NEXT_PUBLIC_BASE_URL}/share/${shareToken}?type=${type}` : null
     });
   } catch (error) {
     console.error('Error toggling share:', error);
@@ -99,7 +160,7 @@ export async function PATCH() {
 }
 
 // Get current share status
-export async function GET() {
+export async function GET(request: Request) {
   try {
     const session = await auth();
 
@@ -110,9 +171,22 @@ export async function GET() {
       );
     }
 
+    const url = new URL(request.url);
+    const type = (url.searchParams.get('type') || 'inventory') as CollectionType;
+
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
-      select: { shareEnabled: true, shareToken: true }
+      select: {
+        id: true,
+        shareTokenInventory: true,
+        shareEnabledInventory: true,
+        shareTokenCollection: true,
+        shareEnabledCollection: true,
+        shareTokenSetsInventory: true,
+        shareEnabledSetsInventory: true,
+        shareTokenSetsCollection: true,
+        shareEnabledSetsCollection: true,
+      }
     });
 
     if (!user) {
@@ -122,11 +196,33 @@ export async function GET() {
       );
     }
 
+    let shareEnabled: boolean;
+    let shareToken: string | null;
+
+    switch (type) {
+      case 'inventory':
+        shareEnabled = user.shareEnabledInventory;
+        shareToken = user.shareTokenInventory;
+        break;
+      case 'collection':
+        shareEnabled = user.shareEnabledCollection;
+        shareToken = user.shareTokenCollection;
+        break;
+      case 'sets-inventory':
+        shareEnabled = user.shareEnabledSetsInventory;
+        shareToken = user.shareTokenSetsInventory;
+        break;
+      case 'sets-collection':
+        shareEnabled = user.shareEnabledSetsCollection;
+        shareToken = user.shareTokenSetsCollection;
+        break;
+    }
+
     return NextResponse.json({
       success: true,
-      shareEnabled: user.shareEnabled,
-      shareToken: user.shareToken,
-      shareUrl: user.shareToken ? `${process.env.NEXT_PUBLIC_BASE_URL}/share/${user.shareToken}` : null
+      shareEnabled,
+      shareToken,
+      shareUrl: shareToken ? `${process.env.NEXT_PUBLIC_BASE_URL}/share/${shareToken}?type=${type}` : null
     });
   } catch (error) {
     console.error('Error getting share status:', error);

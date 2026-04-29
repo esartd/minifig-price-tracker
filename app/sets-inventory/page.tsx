@@ -290,7 +290,7 @@ export default function SetsInventoryPage() {
             }}>
               <SetCollectionSwitcher currentPage="sets-inventory" />
               <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
-                <ShareCollectionButton />
+                <ShareCollectionButton type="sets-inventory" />
                 <Link
                   href="/sets/browse"
                   className="collection-add-button"

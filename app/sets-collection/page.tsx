@@ -289,7 +289,7 @@ export default function SetsCollectionPage() {
             }}>
               <SetCollectionSwitcher currentPage="sets-collection" />
               <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
-                <ShareCollectionButton />
+                <ShareCollectionButton type="sets-collection" />
                 <Link
                   href="/sets/browse"
                   className="collection-add-button"

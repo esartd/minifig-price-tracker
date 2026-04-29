@@ -4,7 +4,13 @@ import { useState, useEffect } from 'react';
 import { ShareIcon, ClipboardIcon, CheckIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from './TranslationProvider';
 
-export default function ShareCollectionButton() {
+type CollectionType = 'inventory' | 'collection' | 'sets-inventory' | 'sets-collection';
+
+interface ShareCollectionButtonProps {
+  type: CollectionType;
+}
+
+export default function ShareCollectionButton({ type }: ShareCollectionButtonProps) {
   const { t } = useTranslation();
   const [shareEnabled, setShareEnabled] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
@@ -14,11 +20,11 @@ export default function ShareCollectionButton() {
 
   useEffect(() => {
     loadShareStatus();
-  }, []);
+  }, [type]);
 
   const loadShareStatus = async () => {
     try {
-      const response = await fetch('/api/collection/share');
+      const response = await fetch(`/api/collection/share?type=${type}`);
       const data = await response.json();
       if (data.success) {
         setShareEnabled(data.shareEnabled);
@@ -33,7 +39,7 @@ export default function ShareCollectionButton() {
 
   const toggleShare = async () => {
     try {
-      const response = await fetch('/api/collection/share', {
+      const response = await fetch(`/api/collection/share?type=${type}`, {
         method: 'PATCH'
       });
       const data = await response.json();

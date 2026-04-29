@@ -308,7 +308,7 @@ export default function PersonalCollectionPage() {
             }}>
               <CollectionSwitcher currentPage="collection" />
               <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
-                <ShareCollectionButton />
+                <ShareCollectionButton type="collection" />
                 <Link
                   href="/search?mode=collection"
                   className="collection-add-button"
@@ -514,7 +514,7 @@ export default function PersonalCollectionPage() {
               >
                 + {t('collection.addMinifigs')}
               </Link>
-              <ShareCollectionButton />
+              <ShareCollectionButton type="collection" />
             </div>
           </div>
         )}

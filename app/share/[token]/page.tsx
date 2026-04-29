@@ -30,8 +30,8 @@ function detectLocale(): string {
 
 interface SharedCollection {
   userName: string;
-  collectionItems: any[];
-  inventoryItems: any[];
+  items: any[];
+  type: 'inventory' | 'collection' | 'sets-inventory' | 'sets-collection';
   currency: string;
   showDecimals: boolean;
 }
@@ -41,7 +41,6 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
   const [data, setData] = useState<SharedCollection | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [view, setView] = useState<'collection' | 'inventory'>('collection');
   const [locale, setLocale] = useState('en');
 
   useEffect(() => {
@@ -56,7 +55,11 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
 
   const loadSharedCollection = async () => {
     try {
-      const response = await fetch(`/api/collection/shared/${token}`);
+      // Get type from URL if present
+      const urlParams = new URLSearchParams(window.location.search);
+      const type = urlParams.get('type') || 'inventory';
+
+      const response = await fetch(`/api/collection/shared/${token}?type=${type}`);
       const result = await response.json();
 
       if (result.success) {
@@ -138,11 +141,31 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
     );
   }
 
-  const items = view === 'collection' ? data.collectionItems : data.inventoryItems;
+  const items = data.items;
   const totalValue = items.reduce((sum, item) => {
     const price = item.pricing?.suggestedPrice || 0;
     return sum + (price * item.quantity);
   }, 0);
+
+  // Get collection title based on type
+  const getTitle = () => {
+    switch (data.type) {
+      case 'inventory':
+        return t.forSale;
+      case 'collection':
+        return t.collection;
+      case 'sets-inventory':
+        return 'Sets for Sale';
+      case 'sets-collection':
+        return 'Sets Collection';
+      default:
+        return t.collection;
+    }
+  };
+
+  const isMinifigCollection = data.type === 'inventory' || data.type === 'collection';
+  const itemNoField = isMinifigCollection ? 'minifigure_no' : 'box_no';
+  const itemNameField = isMinifigCollection ? 'minifigure_name' : 'set_name';
 
   return (
     <div style={{
@@ -160,7 +183,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
           letterSpacing: '-0.02em',
           marginBottom: '8px'
         }}>
-          {data.userName}'s {view === 'collection' ? t.collection : t.inventory}
+          {data.userName}'s {getTitle()}
         </h1>
         <p style={{
           fontSize: 'var(--text-base)',
@@ -169,42 +192,6 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
         }}>
           {t.itemsCount.replace('{count}', items.length.toString()).replace('{plural}', items.length !== 1 ? 's' : '')} • {t.totalValue.replace('{value}', formatPrice(totalValue, data.currency, data.showDecimals))}
         </p>
-
-        {/* View Toggle */}
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <button
-            onClick={() => setView('collection')}
-            style={{
-              padding: '10px 20px',
-              fontSize: 'var(--text-sm)',
-              fontWeight: '600',
-              color: view === 'collection' ? '#ffffff' : '#737373',
-              background: view === 'collection' ? '#3b82f6' : '#ffffff',
-              border: '1px solid',
-              borderColor: view === 'collection' ? '#3b82f6' : '#e5e5e5',
-              borderRadius: '8px',
-              cursor: 'pointer'
-            }}
-          >
-            {t.collection} ({data.collectionItems.length})
-          </button>
-          <button
-            onClick={() => setView('inventory')}
-            style={{
-              padding: '10px 20px',
-              fontSize: 'var(--text-sm)',
-              fontWeight: '600',
-              color: view === 'inventory' ? '#ffffff' : '#737373',
-              background: view === 'inventory' ? '#3b82f6' : '#ffffff',
-              border: '1px solid',
-              borderColor: view === 'inventory' ? '#3b82f6' : '#e5e5e5',
-              borderRadius: '8px',
-              cursor: 'pointer'
-            }}
-          >
-            {t.forSale} ({data.inventoryItems.length})
-          </button>
-        </div>
       </div>
 
       {/* Items Grid */}
@@ -216,7 +203,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
           borderRadius: '12px'
         }}>
           <p style={{ fontSize: 'var(--text-base)', color: '#737373' }}>
-            {t.noItemsInCollection.replace('{view}', view === 'collection' ? t.collection.toLowerCase() : t.inventory.toLowerCase())}
+            No items in this collection
           </p>
         </div>
       ) : (
@@ -228,7 +215,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
           {items.map((item: any) => (
             <Link
               key={item.id}
-              href={`/minifigs/${item.minifigure_no}`}
+              href={isMinifigCollection ? `/minifigs/${item[itemNoField]}` : `/sets/${item[itemNoField]}`}
               style={{
                 background: '#ffffff',
                 borderRadius: '12px',
@@ -258,8 +245,8 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
                 borderRadius: '8px'
               }}>
                 <Image
-                  src={`/api/images/minifig/${item.minifigure_no}`}
-                  alt={item.minifigure_name}
+                  src={isMinifigCollection ? `/api/images/minifig/${item[itemNoField]}` : `/api/images/set/${item[itemNoField]}`}
+                  alt={item[itemNameField]}
                   width={140}
                   height={175}
                   style={{
@@ -283,7 +270,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
                 WebkitLineClamp: 2,
                 WebkitBoxOrient: 'vertical'
               }}>
-                {item.minifigure_name}
+                {item[itemNameField]}
               </h3>
               <p style={{
                 fontSize: 'var(--text-xs)',
@@ -291,7 +278,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
                 fontFamily: 'monospace',
                 marginBottom: '8px'
               }}>
-                {item.minifigure_no}
+                {item[itemNoField]}
               </p>
               <div style={{
                 display: 'flex',

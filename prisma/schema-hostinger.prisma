@@ -66,11 +66,11 @@ model Listing {
   userId           String
   collectionItemId String
   title            String
-  description      String @db.Text
+  description      String         @db.Text
   platform         String
-  condition_detail String @db.Text
-  accessories      String? @db.Text
-  known_flaws      String? @db.Text
+  condition_detail String         @db.Text
+  accessories      String?        @db.Text
+  known_flaws      String?        @db.Text
   quantity_to_list Int            @default(1)
   list_price       Float?
   status           String         @default("draft")
@@ -109,7 +109,7 @@ model MinifigCatalog {
   weight_grams  Float?
   search_name   String
   created_at    DateTime @default(now())
-  updated_at    DateTime  @updatedAt
+  updated_at    DateTime @updatedAt
 
   @@index([category_name])
   @@index([search_name])
@@ -251,37 +251,44 @@ model SetPersonalCollectionItem {
   @@index([category_name])
 }
 
-
 model User {
-  id                        String                      @id @default(cuid())
-  name                      String?
-  email                     String                      @unique
-  password                  String?
-  emailVerified             DateTime?
-  image                     String?
-  preferredCurrency         String?                     @default("USD")
-  preferredCountryCode      String?                     @default("US")
-  preferredRegion           String?                     @default("north_america")
-  currencySymbol            String?                     @default("$")
-  locale                    String?                     @default("en-US")
-  createdAt                 DateTime                    @default(now())
-  updatedAt                 DateTime                    @updatedAt
-  scanCredits               Int                         @default(0)
-  stripeCustomerId          String?
-  stripeSubscriptionId      String?
-  subscriptionEndsAt        DateTime?
-  subscriptionPlan          String?
-  subscriptionStatus        String?
-  shareToken                String?                     @unique
-  shareEnabled              Boolean                     @default(false)
-  Account                   Account[]
-  CollectionItem            CollectionItem[]
-  Listing                   Listing[]
-  PersonalCollectionItem    PersonalCollectionItem[]
-  SetInventoryItem          SetInventoryItem[]
-  SetPersonalCollectionItem SetPersonalCollectionItem[]
-  Session                   Session[]
-  WishlistItem              WishlistItem[]
+  id                         String                      @id @default(cuid())
+  name                       String?
+  email                      String                      @unique
+  password                   String?
+  emailVerified              DateTime?
+  image                      String?
+  preferredCurrency          String?                     @default("USD")
+  preferredCountryCode       String?                     @default("US")
+  preferredRegion            String?                     @default("north_america")
+  currencySymbol             String?                     @default("$")
+  locale                     String?                     @default("en-US")
+  createdAt                  DateTime                    @default(now())
+  updatedAt                  DateTime                    @updatedAt
+  scanCredits                Int                         @default(0)
+  stripeCustomerId           String?
+  stripeSubscriptionId       String?
+  subscriptionEndsAt         DateTime?
+  subscriptionPlan           String?
+  subscriptionStatus         String?
+  shareToken                 String?                     @unique
+  shareEnabled               Boolean                     @default(false)
+  shareTokenInventory        String?                     @unique
+  shareEnabledInventory      Boolean                     @default(false)
+  shareTokenCollection       String?                     @unique
+  shareEnabledCollection     Boolean                     @default(false)
+  shareTokenSetsInventory    String?                     @unique
+  shareEnabledSetsInventory  Boolean                     @default(false)
+  shareTokenSetsCollection   String?                     @unique
+  shareEnabledSetsCollection Boolean                     @default(false)
+  Account                    Account[]
+  CollectionItem             CollectionItem[]
+  Listing                    Listing[]
+  PersonalCollectionItem     PersonalCollectionItem[]
+  SetInventoryItem           SetInventoryItem[]
+  SetPersonalCollectionItem  SetPersonalCollectionItem[]
+  Session                    Session[]
+  WishlistItem               WishlistItem[]
 }
 
 model VerificationToken {
@@ -293,13 +300,13 @@ model VerificationToken {
 }
 
 model AffiliateClick {
-  id           String   @id @default(cuid())
-  platform     String   // "amazon" | "bricklink" | "rakuten"
-  productType  String   // "set" | "minifig"
-  productId    String   // set number or minifig number
-  productName  String?
-  clickedAt    DateTime @default(now())
-  userId       String?  // optional - if logged in
+  id          String   @id @default(cuid())
+  platform    String // "amazon" | "bricklink" | "rakuten"
+  productType String // "set" | "minifig"
+  productId   String // set number or minifig number
+  productName String?
+  clickedAt   DateTime @default(now())
+  userId      String? // optional - if logged in
 
   @@index([platform])
   @@index([clickedAt])
