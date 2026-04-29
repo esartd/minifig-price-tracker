@@ -45,7 +45,11 @@
     "setsInventory": "Inventario de Sets",
     "setsCollection": "Colección de Sets",
     "wishlist": "Lista de Deseos",
-    "browseThemes": "Temas"
+    "browseThemes": "Temas",
+    "minifigsForSale": "Minifiguras en Venta",
+    "minifigsToKeep": "Minifiguras para Conservar",
+    "setsForSale": "Sets en Venta",
+    "setsToKeep": "Sets para Conservar"
   },
   "themes": {
     "browse_title": "Explorar temas de minifiguras LEGO",

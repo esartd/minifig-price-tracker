@@ -369,7 +369,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                       <CurrencyDollarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                      <span>Minifigures for Sale</span>
+                      <span>{t('navigation.minifigsForSale')}</span>
                     </Link>
                     <Link href="/auth/signin?callbackUrl=/collection" onClick={() => setLegoDropdownOpen(false)} style={{
                       display: 'flex',
@@ -385,7 +385,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                       <StarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                      <span>Minifigures to Keep</span>
+                      <span>{t('navigation.minifigsToKeep')}</span>
                     </Link>
 
                     {/* Sets Section */}
@@ -406,7 +406,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                       <CurrencyDollarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                      <span>Sets for Sale</span>
+                      <span>{t('navigation.setsForSale')}</span>
                     </Link>
                     <Link href="/auth/signin?callbackUrl=/sets-collection" onClick={() => setLegoDropdownOpen(false)} style={{
                       display: 'flex',
@@ -421,7 +421,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                       <StarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                      <span>Sets to Keep</span>
+                      <span>{t('navigation.setsToKeep')}</span>
                     </Link>
                   </div>
                 )}
