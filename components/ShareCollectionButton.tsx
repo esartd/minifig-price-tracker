@@ -187,13 +187,13 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                 onClick={toggleShare}
                 style={{
                   position: 'relative',
-                  width: '44px',
-                  height: '24px',
-                  background: shareEnabled ? '#3b82f6' : '#d1d5db',
-                  borderRadius: '12px',
+                  width: '51px',
+                  height: '31px',
+                  background: shareEnabled ? '#34c759' : '#e5e5e5',
+                  borderRadius: '15.5px',
                   border: 'none',
                   cursor: 'pointer',
-                  transition: 'background 0.2s',
+                  transition: 'background 0.3s',
                   flexShrink: 0
                 }}
               >
@@ -201,12 +201,12 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                   position: 'absolute',
                   top: '2px',
                   left: shareEnabled ? '22px' : '2px',
-                  width: '20px',
-                  height: '20px',
+                  width: '27px',
+                  height: '27px',
                   background: '#ffffff',
                   borderRadius: '50%',
-                  transition: 'left 0.2s',
-                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.25)'
+                  transition: 'left 0.3s',
+                  boxShadow: '0 3px 8px rgba(0, 0, 0, 0.15), 0 3px 1px rgba(0, 0, 0, 0.06)'
                 }} />
               </button>
             </div>
@@ -235,13 +235,13 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                   onClick={togglePricing}
                   style={{
                     position: 'relative',
-                    width: '44px',
-                    height: '24px',
-                    background: sharePricing ? '#3b82f6' : '#d1d5db',
-                    borderRadius: '12px',
+                    width: '51px',
+                    height: '31px',
+                    background: sharePricing ? '#34c759' : '#e5e5e5',
+                    borderRadius: '15.5px',
                     border: 'none',
                     cursor: 'pointer',
-                    transition: 'background 0.2s',
+                    transition: 'background 0.3s',
                     flexShrink: 0
                   }}
                 >
@@ -249,12 +249,12 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                     position: 'absolute',
                     top: '2px',
                     left: sharePricing ? '22px' : '2px',
-                    width: '20px',
-                    height: '20px',
+                    width: '27px',
+                    height: '27px',
                     background: '#ffffff',
                     borderRadius: '50%',
-                    transition: 'left 0.2s',
-                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.25)'
+                    transition: 'left 0.3s',
+                    boxShadow: '0 3px 8px rgba(0, 0, 0, 0.15), 0 3px 1px rgba(0, 0, 0, 0.06)'
                   }} />
                 </button>
               </div>

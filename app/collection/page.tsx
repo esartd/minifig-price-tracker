@@ -309,17 +309,18 @@ export default function PersonalCollectionPage() {
         {/* Compact Header with Stats and Action */}
         {collection.length > 0 && (
           <div style={{ marginBottom: '16px' }}>
-            {/* Title + Add Button Row */}
+            {/* Title */}
+            <div style={{ marginBottom: '12px' }}>
+              <CollectionSwitcher currentPage="collection" />
+            </div>
+
+            {/* Buttons Row */}
             <div style={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '16px',
-              gap: '16px'
+              gap: '8px',
+              marginBottom: '16px'
             }}>
-              <CollectionSwitcher currentPage="collection" />
-              <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
-                <ShareCollectionButton type="collection" />
+              <ShareCollectionButton type="collection" />
                 <Link
                   href="/search?mode=collection"
                   className="collection-add-button"
@@ -341,7 +342,6 @@ export default function PersonalCollectionPage() {
                 >
                   + {t('common.add')}
                 </Link>
-              </div>
             </div>
 
             {/* Compact Stats Row */}

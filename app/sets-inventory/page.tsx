@@ -280,17 +280,18 @@ export default function SetsInventoryPage() {
         {/* Compact Header with Stats and Action */}
         {inventory.length > 0 && (
           <div style={{ marginBottom: '16px' }}>
-            {/* Title + Add Button Row */}
+            {/* Title */}
+            <div style={{ marginBottom: '12px' }}>
+              <SetCollectionSwitcher currentPage="sets-inventory" />
+            </div>
+
+            {/* Buttons Row */}
             <div style={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '16px',
-              gap: '16px'
+              gap: '8px',
+              marginBottom: '16px'
             }}>
-              <SetCollectionSwitcher currentPage="sets-inventory" />
-              <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
-                <ShareCollectionButton type="sets-inventory" />
+              <ShareCollectionButton type="sets-inventory" />
                 <Link
                   href="/sets/browse"
                   className="collection-add-button"
@@ -312,7 +313,6 @@ export default function SetsInventoryPage() {
                 >
                   + Add
                 </Link>
-              </div>
             </div>
 
             {/* Compact Stats Row */}
