@@ -1130,5 +1130,144 @@
       "home": "Startseite",
       "setThemes": "Set-Themen"
     }
+  },
+  "sharedCollection": {
+    "collectionNotAvailable": "Sammlung nicht verfügbar",
+    "browseMinifigures": "Minifiguren durchsuchen",
+    "collection": "Sammlung",
+    "inventory": "Inventar",
+    "itemsCount": "{count} Artikel{plural}",
+    "totalValue": "Gesamtwert: {value}",
+    "forSale": "Zu verkaufen",
+    "noItemsInCollection": "Keine Artikel in {view}",
+    "qty": "Mge",
+    "used": "gebraucht",
+    "new": "neu",
+    "trackYourCollection": "Verfolgen Sie Ihre LEGO Minifiguren-Sammlung mit FigTracker",
+    "startYourCollection": "Starten Sie Ihre Sammlung"
+  },
+  "guidePage": {
+    "breadcrumbs": {
+      "home": "Startseite",
+      "guides": "Anleitungen"
+    },
+    "startTracking": "Beginnen Sie mit der Verfolgung Ihrer Sammlung",
+    "startTrackingDesc": "Verwenden Sie FigTracker, um Ihre LEGO Minifiguren präzise mit Echtzeit-Bricklink-Daten zu bewerten",
+    "searchMinifigures": "Minifiguren suchen →"
+  },
+  "adminStats": {
+    "title": "Admin-Dashboard",
+    "subtitle": "Übersicht über Ihre FigTracker-Plattform",
+    "emailAllUsers": "E-Mail an alle Benutzer ({count})",
+    "totalUsers": "Gesamtbenutzer",
+    "userCollections": "Benutzersammlungen",
+    "userCollectionsSubtitle": "{selling} verkaufen, {personal} persönlich",
+    "catalogItems": "Katalogartikel",
+    "catalogSubtitle": "Statisches JSON",
+    "totalAdClicks": "Gesamt-Anzeigenklicks",
+    "totalAdClicksSubtitle": "{today} heute, {thisWeek} diese Woche",
+    "affiliateClickPerformance": "Affiliate-Klick-Leistung",
+    "last24Hours": "Letzte 24 Stunden",
+    "last7Days": "Letzte 7 Tage",
+    "last30Days": "Letzte 30 Tage",
+    "allTime": "Alle Zeit",
+    "topClickedProducts": "Meistgeklickte Produkte",
+    "product": "Produkt",
+    "type": "Typ",
+    "clicks": "Klicks",
+    "clicksCount": "{count} Klicks",
+    "popularThemes": "Beliebte Themen",
+    "databaseOverview": "Datenbankübersicht",
+    "unlimitedBandwidth": "Unbegrenzte Bandbreite",
+    "active": "Aktiv",
+    "users": "Benutzer: {count}",
+    "collectionItems": "Sammlungsartikel: {count}",
+    "personalItems": "Persönliche Artikel: {count}",
+    "priceCache": "Preis-Cache: {count} Einträge",
+    "affiliateClicks": "Affiliate-Klicks: {count}",
+    "catalog": "Katalog: {count} Artikel",
+    "recentSignups": "Neueste Anmeldungen",
+    "user": "Benutzer",
+    "joined": "Beigetreten",
+    "items": "Artikel",
+    "anonymous": "Anonym",
+    "topCollectors": "Top-Sammler",
+    "rank": "Rang",
+    "totalItems": "Gesamt-Artikel"
+  },
+  "bannerCompare": {
+    "title": "Banner-Positionsvergleich",
+    "aboveNavigation": "Banner über Navigation (Am häufigsten)",
+    "belowNavigation": "Banner unter Navigation",
+    "currencyBanner": "Wir haben erkannt, dass Sie in Schweden sind. Preise in SEK anzeigen?",
+    "yesSEK": "Ja, SEK verwenden",
+    "keepUSD": "USD beibehalten",
+    "logoText": "FigTracker",
+    "navSearch": "Suchen",
+    "navCollection": "Sammlung",
+    "navInventory": "Inventar",
+    "navAccount": "Konto",
+    "usedBy": "Verwendet von:",
+    "usedByAbove": "GitHub, Stripe, Amazon, die meisten Cookie-Einwilligungsbanner",
+    "usedByBelow": "Einige Werbe-Banner, Verkaufsankündigungen",
+    "pros": "Vorteile:",
+    "prosAbove": [
+      "Sofort sichtbar - kann nicht übersehen werden",
+      "Standardmäßiges Webmuster, das Benutzer erwarten",
+      "Zeigt, dass das Banner wichtig/seitenweit ist",
+      "Stört nicht die Navigationsklicks"
+    ],
+    "prosBelow": [
+      "Logo/Branding bleibt ganz oben",
+      "Fühlt sich weniger aufdringlich an"
+    ],
+    "cons": "Nachteile:",
+    "consAbove": [
+      "Drückt Inhalt leicht nach unten"
+    ],
+    "consBelow": [
+      "Weniger standardisiertes Muster",
+      "Könnte mit Seiteninhalt verwechselt werden",
+      "Einfacher vorbeizuscrollen, ohne es zu bemerken"
+    ],
+    "recommendation": "Empfehlung:",
+    "recommendationText": "Wählen Sie \"Über Navigation\" - es ist der Industriestandard für wichtige seitenweite Benachrichtigungen wie Währungserkennung. Benutzer erwarten und erkennen dieses Muster."
+  },
+  "testBanner": {
+    "showBannerAgain": "Banner erneut anzeigen",
+    "title": "Währungs-Banner-Vorschau",
+    "subtitle": "Das ist, was neue Benutzer sehen werden, wenn sie FigTracker zum ersten Mal aus einem Nicht-US-Land besuchen.",
+    "featuresTitle": "Funktionen:",
+    "features": [
+      "Erkennt automatisch das Land aus dem Browser-Gebietsschema",
+      "Zeigt nur für Nicht-USD-Währungen",
+      "Schließbar - wird nach der Auswahl nie wieder angezeigt",
+      "Speichert in localStorage (anonym) oder Datenbank (angemeldet)",
+      "Glatte Einblendanimation",
+      "Lila Farbverlauf-Design passt zum FigTracker-Branding"
+    ],
+    "userFlowTitle": "Benutzerfluss:",
+    "userFlow": [
+      "Erster Besuch aus Schweden → Banner erscheint",
+      "Klick auf \"Ja, SEK verwenden\" → Währung auf SEK gesetzt, Seite lädt neu, alle Preise in SEK abgerufen",
+      "Klick auf \"USD beibehalten\" → Banner für immer geschlossen, verwendet USD",
+      "Zukünftige Besuche → Banner wird nie wieder angezeigt (Präferenz gespeichert)"
+    ]
+  },
+  "setsDemo": {
+    "loadingText": "Sets-Katalog wird geladen...",
+    "title": "LEGO Sets Katalog Demo",
+    "subtitle": "Testen der neuen Sets-Implementierung - durchsuchen Sie {count} LEGO-Sets",
+    "totalSets": "Gesamt-Sets",
+    "recentSets": "Aktuelle Sets (2024-2026)",
+    "uniqueThemes": "Einzigartige Themen",
+    "searchPlaceholder": "Sets nach Name oder Nummer suchen (z.B. 'Star Wars', '75192-1', 'Hogwarts')...",
+    "searchResults": "Suchergebnisse ({count})",
+    "searching": "Suche läuft...",
+    "year": "Jahr",
+    "weight": "Gewicht",
+    "popularThemesTitle": "Beliebte Themen",
+    "backendComplete": "Backend vollständig - Bereit für vollständige Implementierung",
+    "backendStatus": "Datenbankschema ✓ • Typdefinitionen ✓ • Katalog-Service ✓ • Datenbank-Service ✓"
   }
 }

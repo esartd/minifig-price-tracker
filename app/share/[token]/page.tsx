@@ -5,6 +5,28 @@ import { use } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { formatPrice } from '@/lib/format-price';
+import translations from '@/translations-backup/en.json';
+import translationsDe from '@/translations-backup/de.json';
+import translationsFr from '@/translations-backup/fr.json';
+import translationsEs from '@/translations-backup/es.json';
+
+function getTranslations(locale: string) {
+  switch (locale) {
+    case 'de': return translationsDe;
+    case 'fr': return translationsFr;
+    case 'es': return translationsEs;
+    default: return translations;
+  }
+}
+
+function detectLocale(): string {
+  if (typeof window === 'undefined') return 'en';
+  const host = window.location.hostname;
+  if (host.startsWith('de.')) return 'de';
+  if (host.startsWith('fr.')) return 'fr';
+  if (host.startsWith('es.')) return 'es';
+  return 'en';
+}
 
 interface SharedCollection {
   userName: string;
@@ -20,10 +42,17 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [view, setView] = useState<'collection' | 'inventory'>('collection');
+  const [locale, setLocale] = useState('en');
+
+  useEffect(() => {
+    setLocale(detectLocale());
+  }, []);
 
   useEffect(() => {
     loadSharedCollection();
   }, [token]);
+
+  const t = getTranslations(locale).sharedCollection;
 
   const loadSharedCollection = async () => {
     try {
@@ -33,10 +62,10 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
       if (result.success) {
         setData(result.data);
       } else {
-        setError(result.error || 'Collection not found or sharing is disabled');
+        setError(result.error || t.collectionNotAvailable);
       }
     } catch (err) {
-      setError('Failed to load shared collection');
+      setError(t.collectionNotAvailable);
     } finally {
       setLoading(false);
     }
@@ -81,7 +110,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
             color: '#171717',
             marginBottom: '12px'
           }}>
-            Collection Not Available
+            {t.collectionNotAvailable}
           </p>
           <p style={{
             fontSize: 'var(--text-base)',
@@ -102,7 +131,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
               fontWeight: '600'
             }}
           >
-            Browse Minifigures
+            {t.browseMinifigures}
           </Link>
         </div>
       </div>
@@ -131,14 +160,14 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
           letterSpacing: '-0.02em',
           marginBottom: '8px'
         }}>
-          {data.userName}'s {view === 'collection' ? 'Collection' : 'Inventory'}
+          {data.userName}'s {view === 'collection' ? t.collection : t.inventory}
         </h1>
         <p style={{
           fontSize: 'var(--text-base)',
           color: '#737373',
           marginBottom: '16px'
         }}>
-          {items.length} item{items.length !== 1 ? 's' : ''} • Total value: {formatPrice(totalValue, data.currency, data.showDecimals)}
+          {t.itemsCount.replace('{count}', items.length.toString()).replace('{plural}', items.length !== 1 ? 's' : '')} • {t.totalValue.replace('{value}', formatPrice(totalValue, data.currency, data.showDecimals))}
         </p>
 
         {/* View Toggle */}
@@ -157,7 +186,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
               cursor: 'pointer'
             }}
           >
-            Collection ({data.collectionItems.length})
+            {t.collection} ({data.collectionItems.length})
           </button>
           <button
             onClick={() => setView('inventory')}
@@ -173,7 +202,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
               cursor: 'pointer'
             }}
           >
-            For Sale ({data.inventoryItems.length})
+            {t.forSale} ({data.inventoryItems.length})
           </button>
         </div>
       </div>
@@ -187,7 +216,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
           borderRadius: '12px'
         }}>
           <p style={{ fontSize: 'var(--text-base)', color: '#737373' }}>
-            No items in {view}
+            {t.noItemsInCollection.replace('{view}', view === 'collection' ? t.collection.toLowerCase() : t.inventory.toLowerCase())}
           </p>
         </div>
       ) : (
@@ -277,7 +306,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
                   color: '#737373',
                   textTransform: 'capitalize'
                 }}>
-                  {item.condition} • Qty: {item.quantity}
+                  {item.condition === 'used' ? t.used : t.new} • {t.qty}: {item.quantity}
                 </span>
               </div>
               {item.pricing?.suggestedPrice > 0 && (
@@ -308,7 +337,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
           color: '#737373',
           marginBottom: '16px'
         }}>
-          Track your LEGO minifigure collection with FigTracker
+          {t.trackYourCollection}
         </p>
         <Link
           href="/search"
@@ -322,7 +351,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
             fontWeight: '600'
           }}
         >
-          Start Your Collection
+          {t.startYourCollection}
         </Link>
       </div>
     </div>

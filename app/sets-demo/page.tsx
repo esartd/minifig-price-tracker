@@ -2,6 +2,28 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import translations from '@/translations-backup/en.json';
+import translationsDe from '@/translations-backup/de.json';
+import translationsFr from '@/translations-backup/fr.json';
+import translationsEs from '@/translations-backup/es.json';
+
+function getTranslations(locale: string) {
+  switch (locale) {
+    case 'de': return translationsDe;
+    case 'fr': return translationsFr;
+    case 'es': return translationsEs;
+    default: return translations;
+  }
+}
+
+function detectLocale(): string {
+  if (typeof window === 'undefined') return 'en';
+  const host = window.location.hostname;
+  if (host.startsWith('de.')) return 'de';
+  if (host.startsWith('fr.')) return 'fr';
+  if (host.startsWith('es.')) return 'es';
+  return 'en';
+}
 
 interface LegoBox {
   box_no: string;
@@ -22,6 +44,13 @@ export default function SetsDemoPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<LegoBox[]>([]);
   const [searching, setSearching] = useState(false);
+  const [locale, setLocale] = useState('en');
+
+  useEffect(() => {
+    setLocale(detectLocale());
+  }, []);
+
+  const t = getTranslations(locale).setsDemo;
 
   useEffect(() => {
     loadStats();
@@ -73,7 +102,7 @@ export default function SetsDemoPage() {
       }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: '48px', marginBottom: '16px' }}>🧱</div>
-          <div style={{ fontSize: '18px', color: '#525252' }}>Loading sets catalog...</div>
+          <div style={{ fontSize: '18px', color: '#525252' }}>{t.loadingText}</div>
         </div>
       </div>
     );
@@ -100,10 +129,10 @@ export default function SetsDemoPage() {
             marginBottom: '16px',
             color: '#171717'
           }}>
-            🧱 LEGO Sets Catalog Demo
+            🧱 {t.title}
           </h1>
           <p style={{ fontSize: '16px', color: '#737373', marginBottom: '32px' }}>
-            Testing the new sets implementation - browse {stats.totalSets.toLocaleString()} LEGO sets
+            {t.subtitle.replace('{count}', stats.totalSets.toLocaleString())}
           </p>
 
           {/* Stats Cards */}
@@ -122,7 +151,7 @@ export default function SetsDemoPage() {
               <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px' }}>
                 {stats.totalSets.toLocaleString()}
               </div>
-              <div style={{ fontSize: '14px', opacity: 0.9 }}>Total Sets</div>
+              <div style={{ fontSize: '14px', opacity: 0.9 }}>{t.totalSets}</div>
             </div>
 
             <div style={{
@@ -134,7 +163,7 @@ export default function SetsDemoPage() {
               <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px' }}>
                 {stats.recentSets.toLocaleString()}
               </div>
-              <div style={{ fontSize: '14px', opacity: 0.9 }}>Recent Sets (2024-2026)</div>
+              <div style={{ fontSize: '14px', opacity: 0.9 }}>{t.recentSets}</div>
             </div>
 
             <div style={{
@@ -146,7 +175,7 @@ export default function SetsDemoPage() {
               <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px' }}>
                 {stats.themes.length}
               </div>
-              <div style={{ fontSize: '14px', opacity: 0.9 }}>Unique Themes</div>
+              <div style={{ fontSize: '14px', opacity: 0.9 }}>{t.uniqueThemes}</div>
             </div>
           </div>
 
@@ -156,7 +185,7 @@ export default function SetsDemoPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
-              placeholder="Search sets by name or number (e.g., 'Star Wars', '75192-1', 'Hogwarts')..."
+              placeholder={t.searchPlaceholder}
               style={{
                 width: '100%',
                 padding: '16px 20px',
@@ -187,7 +216,7 @@ export default function SetsDemoPage() {
               marginBottom: '24px',
               color: '#171717'
             }}>
-              Search Results ({searchResults.length})
+              {t.searchResults.replace('{count}', searchResults.length.toString())}
             </h2>
             <div style={{
               display: 'grid',
@@ -262,7 +291,7 @@ export default function SetsDemoPage() {
                     color: '#737373',
                     marginTop: '8px'
                   }}>
-                    Year: {box.year_released} • Weight: {box.weight}g
+                    {t.year}: {box.year_released} • {t.weight}: {box.weight}g
                   </div>
                 </div>
               ))}
@@ -272,7 +301,7 @@ export default function SetsDemoPage() {
 
         {searching && (
           <div style={{ textAlign: 'center', padding: '40px' }}>
-            <div style={{ fontSize: '18px', color: '#737373' }}>Searching...</div>
+            <div style={{ fontSize: '18px', color: '#737373' }}>{t.searching}</div>
           </div>
         )}
 
@@ -289,7 +318,7 @@ export default function SetsDemoPage() {
             marginBottom: '24px',
             color: '#171717'
           }}>
-            🏆 Popular Themes
+            🏆 {t.popularThemesTitle}
           </h2>
           <div style={{
             display: 'grid',
@@ -343,10 +372,10 @@ export default function SetsDemoPage() {
           textAlign: 'center'
         }}>
           <div style={{ fontSize: '16px', color: '#166534', fontWeight: '600', marginBottom: '8px' }}>
-            ✅ Backend Complete - Ready for Full Implementation
+            ✅ {t.backendComplete}
           </div>
           <div style={{ fontSize: '14px', color: '#2563eb' }}>
-            Database schema ✓ • Type definitions ✓ • Catalog service ✓ • Database service ✓
+            {t.backendStatus}
           </div>
         </div>
       </div>

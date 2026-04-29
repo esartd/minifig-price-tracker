@@ -1,9 +1,38 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import translations from '@/translations-backup/en.json';
+import translationsDe from '@/translations-backup/de.json';
+import translationsFr from '@/translations-backup/fr.json';
+import translationsEs from '@/translations-backup/es.json';
+
+function getTranslations(locale: string) {
+  switch (locale) {
+    case 'de': return translationsDe;
+    case 'fr': return translationsFr;
+    case 'es': return translationsEs;
+    default: return translations;
+  }
+}
+
+function detectLocale(): string {
+  if (typeof window === 'undefined') return 'en';
+  const host = window.location.hostname;
+  if (host.startsWith('de.')) return 'de';
+  if (host.startsWith('fr.')) return 'fr';
+  if (host.startsWith('es.')) return 'es';
+  return 'en';
+}
 
 export default function BannerCompare() {
   const [option, setOption] = useState<'above' | 'below'>('above');
+  const [locale, setLocale] = useState('en');
+
+  useEffect(() => {
+    setLocale(detectLocale());
+  }, []);
+
+  const t = getTranslations(locale).bannerCompare;
 
   const Banner = ({ style }: { style: React.CSSProperties }) => (
     <div style={{
@@ -28,7 +57,7 @@ export default function BannerCompare() {
             fontWeight: '500',
             margin: 0
           }}>
-            🌍 We detected you're in Sweden. Show prices in SEK?
+            🌍 {t.currencyBanner}
           </p>
         </div>
         <div style={{
@@ -49,7 +78,7 @@ export default function BannerCompare() {
               whiteSpace: 'nowrap'
             }}
           >
-            Yes, use SEK
+            {t.yesSEK}
           </button>
           <button
             style={{
@@ -64,7 +93,7 @@ export default function BannerCompare() {
               whiteSpace: 'nowrap'
             }}
           >
-            Keep USD
+            {t.keepUSD}
           </button>
         </div>
       </div>
@@ -89,7 +118,7 @@ export default function BannerCompare() {
           fontWeight: '700',
           color: '#171717'
         }}>
-          🧱 FigTracker
+          🧱 {t.logoText}
         </div>
         <nav style={{
           display: 'flex',
@@ -97,10 +126,10 @@ export default function BannerCompare() {
           fontSize: '15px',
           color: '#525252'
         }}>
-          <span>Search</span>
-          <span>Collection</span>
-          <span>Inventory</span>
-          <span>Account</span>
+          <span>{t.navSearch}</span>
+          <span>{t.navCollection}</span>
+          <span>{t.navInventory}</span>
+          <span>{t.navAccount}</span>
         </nav>
       </div>
     </header>
@@ -136,7 +165,7 @@ export default function BannerCompare() {
             transition: 'all 0.2s'
           }}
         >
-          Banner Above Navigation
+          {t.aboveNavigation}
         </button>
         <button
           onClick={() => setOption('below')}
@@ -152,7 +181,7 @@ export default function BannerCompare() {
             transition: 'all 0.2s'
           }}
         >
-          Banner Below Navigation
+          {t.belowNavigation}
         </button>
       </div>
 
@@ -176,54 +205,48 @@ export default function BannerCompare() {
       <div style={{ paddingTop: option === 'above' ? '130px' : '130px', padding: '40px 20px' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <h1 style={{ fontSize: '32px', fontWeight: '700', marginBottom: '16px' }}>
-            Banner Position Comparison
+            {t.title}
           </h1>
 
           <div style={{ background: 'white', padding: '24px', borderRadius: '12px', marginBottom: '24px' }}>
             <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '16px' }}>
-              {option === 'above' ? '✅ Banner Above Navigation (Most Common)' : '✅ Banner Below Navigation'}
+              {option === 'above' ? `✅ ${t.aboveNavigation}` : `✅ ${t.belowNavigation}`}
             </h2>
 
             {option === 'above' ? (
               <>
                 <p style={{ marginBottom: '12px', lineHeight: '1.6' }}>
-                  <strong>Used by:</strong> GitHub, Stripe, Amazon, most cookie consent banners
+                  <strong>{t.usedBy}</strong> {t.usedByAbove}
                 </p>
                 <p style={{ marginBottom: '12px', lineHeight: '1.6' }}>
-                  <strong>Pros:</strong>
+                  <strong>{t.pros}</strong>
                 </p>
                 <ul style={{ paddingLeft: '20px', lineHeight: '1.8', marginBottom: '12px' }}>
-                  <li>Immediately visible - can't be missed</li>
-                  <li>Standard web pattern users expect</li>
-                  <li>Shows the banner is important/site-wide</li>
-                  <li>Doesn't interfere with navigation clicks</li>
+                  {t.prosAbove.map((item: string, i: number) => <li key={i}>{item}</li>)}
                 </ul>
                 <p style={{ marginBottom: '12px', lineHeight: '1.6' }}>
-                  <strong>Cons:</strong>
+                  <strong>{t.cons}</strong>
                 </p>
                 <ul style={{ paddingLeft: '20px', lineHeight: '1.8' }}>
-                  <li>Pushes content down slightly</li>
+                  {t.consAbove.map((item: string, i: number) => <li key={i}>{item}</li>)}
                 </ul>
               </>
             ) : (
               <>
                 <p style={{ marginBottom: '12px', lineHeight: '1.6' }}>
-                  <strong>Used by:</strong> Some promotional banners, sale announcements
+                  <strong>{t.usedBy}</strong> {t.usedByBelow}
                 </p>
                 <p style={{ marginBottom: '12px', lineHeight: '1.6' }}>
-                  <strong>Pros:</strong>
+                  <strong>{t.pros}</strong>
                 </p>
                 <ul style={{ paddingLeft: '20px', lineHeight: '1.8', marginBottom: '12px' }}>
-                  <li>Logo/branding stays at very top</li>
-                  <li>Feels less intrusive</li>
+                  {t.prosBelow.map((item: string, i: number) => <li key={i}>{item}</li>)}
                 </ul>
                 <p style={{ marginBottom: '12px', lineHeight: '1.6' }}>
-                  <strong>Cons:</strong>
+                  <strong>{t.cons}</strong>
                 </p>
                 <ul style={{ paddingLeft: '20px', lineHeight: '1.8' }}>
-                  <li>Less standard pattern</li>
-                  <li>Could be confused with page content</li>
-                  <li>Easier to scroll past without noticing</li>
+                  {t.consBelow.map((item: string, i: number) => <li key={i}>{item}</li>)}
                 </ul>
               </>
             )}
@@ -231,7 +254,7 @@ export default function BannerCompare() {
 
           <div style={{ background: '#fff7ed', border: '2px solid #fdba74', padding: '20px', borderRadius: '12px' }}>
             <p style={{ fontSize: '15px', lineHeight: '1.6', margin: 0 }}>
-              <strong>💡 Recommendation:</strong> Go with "Above Navigation" - it's the industry standard for important site-wide notifications like currency detection. Users expect and recognize this pattern.
+              <strong>💡 {t.recommendation}</strong> {t.recommendationText}
             </p>
           </div>
         </div>

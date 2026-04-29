@@ -1073,5 +1073,144 @@
       "home": "Home",
       "setThemes": "Set Themes"
     }
+  },
+  "sharedCollection": {
+    "collectionNotAvailable": "Collection Not Available",
+    "browseMinifigures": "Browse Minifigures",
+    "collection": "Collection",
+    "inventory": "Inventory",
+    "itemsCount": "{count} item{plural}",
+    "totalValue": "Total value: {value}",
+    "forSale": "For Sale",
+    "noItemsInCollection": "No items in {view}",
+    "qty": "Qty",
+    "used": "used",
+    "new": "new",
+    "trackYourCollection": "Track your LEGO minifigure collection with FigTracker",
+    "startYourCollection": "Start Your Collection"
+  },
+  "guidePage": {
+    "breadcrumbs": {
+      "home": "Home",
+      "guides": "Guides"
+    },
+    "startTracking": "Start Tracking Your Collection",
+    "startTrackingDesc": "Use FigTracker to price your LEGO minifigures accurately with real-time Bricklink data",
+    "searchMinifigures": "Search Minifigures →"
+  },
+  "adminStats": {
+    "title": "Admin Dashboard",
+    "subtitle": "Overview of your FigTracker platform",
+    "emailAllUsers": "Email All Users ({count})",
+    "totalUsers": "Total Users",
+    "userCollections": "User Collections",
+    "userCollectionsSubtitle": "{selling} selling, {personal} personal",
+    "catalogItems": "Catalog Items",
+    "catalogSubtitle": "Static JSON",
+    "totalAdClicks": "Total Ad Clicks",
+    "totalAdClicksSubtitle": "{today} today, {thisWeek} this week",
+    "affiliateClickPerformance": "Affiliate Click Performance",
+    "last24Hours": "Last 24 Hours",
+    "last7Days": "Last 7 Days",
+    "last30Days": "Last 30 Days",
+    "allTime": "All Time",
+    "topClickedProducts": "Top Clicked Products",
+    "product": "Product",
+    "type": "Type",
+    "clicks": "Clicks",
+    "clicksCount": "{count} clicks",
+    "popularThemes": "Popular Themes",
+    "databaseOverview": "Database Overview",
+    "unlimitedBandwidth": "Unlimited bandwidth",
+    "active": "Active",
+    "users": "Users: {count}",
+    "collectionItems": "Collection Items: {count}",
+    "personalItems": "Personal Items: {count}",
+    "priceCache": "Price Cache: {count} entries",
+    "affiliateClicks": "Affiliate Clicks: {count}",
+    "catalog": "Catalog: {count} items",
+    "recentSignups": "Recent Signups",
+    "user": "User",
+    "joined": "Joined",
+    "items": "Items",
+    "anonymous": "Anonymous",
+    "topCollectors": "Top Collectors",
+    "rank": "Rank",
+    "totalItems": "Total Items"
+  },
+  "bannerCompare": {
+    "title": "Banner Position Comparison",
+    "aboveNavigation": "Banner Above Navigation (Most Common)",
+    "belowNavigation": "Banner Below Navigation",
+    "currencyBanner": "We detected you're in Sweden. Show prices in SEK?",
+    "yesSEK": "Yes, use SEK",
+    "keepUSD": "Keep USD",
+    "logoText": "FigTracker",
+    "navSearch": "Search",
+    "navCollection": "Collection",
+    "navInventory": "Inventory",
+    "navAccount": "Account",
+    "usedBy": "Used by:",
+    "usedByAbove": "GitHub, Stripe, Amazon, most cookie consent banners",
+    "usedByBelow": "Some promotional banners, sale announcements",
+    "pros": "Pros:",
+    "prosAbove": [
+      "Immediately visible - can't be missed",
+      "Standard web pattern users expect",
+      "Shows the banner is important/site-wide",
+      "Doesn't interfere with navigation clicks"
+    ],
+    "prosBelow": [
+      "Logo/branding stays at very top",
+      "Feels less intrusive"
+    ],
+    "cons": "Cons:",
+    "consAbove": [
+      "Pushes content down slightly"
+    ],
+    "consBelow": [
+      "Less standard pattern",
+      "Could be confused with page content",
+      "Easier to scroll past without noticing"
+    ],
+    "recommendation": "Recommendation:",
+    "recommendationText": "Go with \"Above Navigation\" - it's the industry standard for important site-wide notifications like currency detection. Users expect and recognize this pattern."
+  },
+  "testBanner": {
+    "showBannerAgain": "Show Banner Again",
+    "title": "Currency Banner Preview",
+    "subtitle": "This is what new users will see when they first visit FigTracker from a non-US country.",
+    "featuresTitle": "Features:",
+    "features": [
+      "Auto-detects country from browser locale",
+      "Shows only for non-USD currencies",
+      "Dismissible - never shows again after choice",
+      "Saves to localStorage (anonymous) or database (logged in)",
+      "Smooth slide-down animation",
+      "Purple gradient design matches FigTracker branding"
+    ],
+    "userFlowTitle": "User Flow:",
+    "userFlow": [
+      "First visit from Sweden → Banner appears",
+      "Click \"Yes, use SEK\" → Currency set to SEK, page reloads, all prices fetched in SEK",
+      "Click \"Keep USD\" → Banner dismissed forever, uses USD",
+      "Future visits → Banner never shows again (preference remembered)"
+    ]
+  },
+  "setsDemo": {
+    "loadingText": "Loading sets catalog...",
+    "title": "LEGO Sets Catalog Demo",
+    "subtitle": "Testing the new sets implementation - browse {count} LEGO sets",
+    "totalSets": "Total Sets",
+    "recentSets": "Recent Sets (2024-2026)",
+    "uniqueThemes": "Unique Themes",
+    "searchPlaceholder": "Search sets by name or number (e.g., 'Star Wars', '75192-1', 'Hogwarts')...",
+    "searchResults": "Search Results ({count})",
+    "searching": "Searching...",
+    "year": "Year",
+    "weight": "Weight",
+    "popularThemesTitle": "Popular Themes",
+    "backendComplete": "Backend Complete - Ready for Full Implementation",
+    "backendStatus": "Database schema ✓ • Type definitions ✓ • Catalog service ✓ • Database service ✓"
   }
 }

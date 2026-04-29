@@ -3,6 +3,20 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { marked } from 'marked';
+import { headers } from 'next/headers';
+import translations from '@/translations-backup/en.json';
+import translationsDe from '@/translations-backup/de.json';
+import translationsFr from '@/translations-backup/fr.json';
+import translationsEs from '@/translations-backup/es.json';
+
+function getTranslations(locale: string) {
+  switch (locale) {
+    case 'de': return translationsDe;
+    case 'fr': return translationsFr;
+    case 'es': return translationsEs;
+    default: return translations;
+  }
+}
 
 // Guide content database
 const guides = {
@@ -482,6 +496,11 @@ export default async function GuidePage({
     notFound();
   }
 
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+  const t = getTranslations(locale).guidePage;
+
   // Schema.org BlogPosting markup
   const blogSchema = {
     '@context': 'https://schema.org',
@@ -535,9 +554,9 @@ export default async function GuidePage({
           }
         `}} />
         <nav className="breadcrumb-nav">
-          <Link href="/">Home</Link>
+          <Link href="/">{t.breadcrumbs.home}</Link>
           <span> / </span>
-          <Link href="/guides">Guides</Link>
+          <Link href="/guides">{t.breadcrumbs.guides}</Link>
           <span> / </span>
           <span style={{ color: '#171717' }}>{guide.title}</span>
         </nav>
@@ -690,7 +709,7 @@ export default async function GuidePage({
               color: '#171717',
               marginBottom: '16px'
             }}>
-              Start Tracking Your Collection
+              {t.startTracking}
             </h2>
             <p style={{
               fontSize: 'var(--text-base)',
@@ -698,13 +717,13 @@ export default async function GuidePage({
               marginBottom: '32px',
               lineHeight: '1.6'
             }}>
-              Use FigTracker to price your LEGO minifigures accurately with real-time Bricklink data
+              {t.startTrackingDesc}
             </p>
             <Link
               href="/search"
               className="cta-button"
             >
-              Search Minifigures →
+              {t.searchMinifigures}
             </Link>
           </div>
         </section>

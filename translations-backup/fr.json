@@ -1130,5 +1130,144 @@
       "home": "Accueil",
       "setThemes": "Thèmes des sets"
     }
+  },
+  "sharedCollection": {
+    "collectionNotAvailable": "Collection non disponible",
+    "browseMinifigures": "Parcourir les figurines",
+    "collection": "Collection",
+    "inventory": "Inventaire",
+    "itemsCount": "{count} article{plural}",
+    "totalValue": "Valeur totale : {value}",
+    "forSale": "À vendre",
+    "noItemsInCollection": "Aucun article dans {view}",
+    "qty": "Qté",
+    "used": "usagé",
+    "new": "neuf",
+    "trackYourCollection": "Suivez votre collection de figurines LEGO avec FigTracker",
+    "startYourCollection": "Commencez votre collection"
+  },
+  "guidePage": {
+    "breadcrumbs": {
+      "home": "Accueil",
+      "guides": "Guides"
+    },
+    "startTracking": "Commencez à suivre votre collection",
+    "startTrackingDesc": "Utilisez FigTracker pour évaluer vos figurines LEGO avec précision grâce aux données Bricklink en temps réel",
+    "searchMinifigures": "Rechercher des figurines →"
+  },
+  "adminStats": {
+    "title": "Tableau de bord administrateur",
+    "subtitle": "Aperçu de votre plateforme FigTracker",
+    "emailAllUsers": "Envoyer un e-mail à tous les utilisateurs ({count})",
+    "totalUsers": "Total des utilisateurs",
+    "userCollections": "Collections d'utilisateurs",
+    "userCollectionsSubtitle": "{selling} en vente, {personal} personnelles",
+    "catalogItems": "Articles du catalogue",
+    "catalogSubtitle": "JSON statique",
+    "totalAdClicks": "Total des clics publicitaires",
+    "totalAdClicksSubtitle": "{today} aujourd'hui, {thisWeek} cette semaine",
+    "affiliateClickPerformance": "Performance des clics d'affiliation",
+    "last24Hours": "Dernières 24 heures",
+    "last7Days": "7 derniers jours",
+    "last30Days": "30 derniers jours",
+    "allTime": "Tout le temps",
+    "topClickedProducts": "Produits les plus cliqués",
+    "product": "Produit",
+    "type": "Type",
+    "clicks": "Clics",
+    "clicksCount": "{count} clics",
+    "popularThemes": "Thèmes populaires",
+    "databaseOverview": "Aperçu de la base de données",
+    "unlimitedBandwidth": "Bande passante illimitée",
+    "active": "Actif",
+    "users": "Utilisateurs : {count}",
+    "collectionItems": "Articles de collection : {count}",
+    "personalItems": "Articles personnels : {count}",
+    "priceCache": "Cache de prix : {count} entrées",
+    "affiliateClicks": "Clics d'affiliation : {count}",
+    "catalog": "Catalogue : {count} articles",
+    "recentSignups": "Inscriptions récentes",
+    "user": "Utilisateur",
+    "joined": "Inscrit",
+    "items": "Articles",
+    "anonymous": "Anonyme",
+    "topCollectors": "Meilleurs collectionneurs",
+    "rank": "Rang",
+    "totalItems": "Total des articles"
+  },
+  "bannerCompare": {
+    "title": "Comparaison de position de bannière",
+    "aboveNavigation": "Bannière au-dessus de la navigation (le plus courant)",
+    "belowNavigation": "Bannière sous la navigation",
+    "currencyBanner": "Nous avons détecté que vous êtes en Suède. Afficher les prix en SEK ?",
+    "yesSEK": "Oui, utiliser SEK",
+    "keepUSD": "Garder USD",
+    "logoText": "FigTracker",
+    "navSearch": "Rechercher",
+    "navCollection": "Collection",
+    "navInventory": "Inventaire",
+    "navAccount": "Compte",
+    "usedBy": "Utilisé par :",
+    "usedByAbove": "GitHub, Stripe, Amazon, la plupart des bannières de consentement aux cookies",
+    "usedByBelow": "Certaines bannières promotionnelles, annonces de vente",
+    "pros": "Avantages :",
+    "prosAbove": [
+      "Immédiatement visible - impossible de manquer",
+      "Modèle web standard que les utilisateurs attendent",
+      "Montre que la bannière est importante/à l'échelle du site",
+      "N'interfère pas avec les clics de navigation"
+    ],
+    "prosBelow": [
+      "Le logo/la marque reste tout en haut",
+      "Semble moins intrusif"
+    ],
+    "cons": "Inconvénients :",
+    "consAbove": [
+      "Pousse légèrement le contenu vers le bas"
+    ],
+    "consBelow": [
+      "Modèle moins standard",
+      "Pourrait être confondu avec le contenu de la page",
+      "Plus facile de défiler sans remarquer"
+    ],
+    "recommendation": "Recommandation :",
+    "recommendationText": "Optez pour \"Au-dessus de la navigation\" - c'est la norme de l'industrie pour les notifications importantes à l'échelle du site comme la détection de devise. Les utilisateurs s'attendent et reconnaissent ce modèle."
+  },
+  "testBanner": {
+    "showBannerAgain": "Afficher à nouveau la bannière",
+    "title": "Aperçu de la bannière de devise",
+    "subtitle": "C'est ce que les nouveaux utilisateurs verront lorsqu'ils visiteront FigTracker pour la première fois depuis un pays non américain.",
+    "featuresTitle": "Fonctionnalités :",
+    "features": [
+      "Détecte automatiquement le pays à partir des paramètres régionaux du navigateur",
+      "S'affiche uniquement pour les devises non USD",
+      "Refermable - ne s'affiche plus jamais après le choix",
+      "Enregistre dans localStorage (anonyme) ou base de données (connecté)",
+      "Animation de glissement en douceur",
+      "Design en dégradé violet correspondant à la marque FigTracker"
+    ],
+    "userFlowTitle": "Flux utilisateur :",
+    "userFlow": [
+      "Première visite depuis la Suède → La bannière apparaît",
+      "Clic sur \"Oui, utiliser SEK\" → Devise réglée sur SEK, page rechargée, tous les prix récupérés en SEK",
+      "Clic sur \"Garder USD\" → Bannière fermée pour toujours, utilise USD",
+      "Visites futures → La bannière ne s'affiche plus jamais (préférence mémorisée)"
+    ]
+  },
+  "setsDemo": {
+    "loadingText": "Chargement du catalogue de sets...",
+    "title": "Démo du catalogue de sets LEGO",
+    "subtitle": "Test de la nouvelle implémentation de sets - parcourez {count} sets LEGO",
+    "totalSets": "Total des sets",
+    "recentSets": "Sets récents (2024-2026)",
+    "uniqueThemes": "Thèmes uniques",
+    "searchPlaceholder": "Rechercher des sets par nom ou numéro (par ex. 'Star Wars', '75192-1', 'Hogwarts')...",
+    "searchResults": "Résultats de recherche ({count})",
+    "searching": "Recherche en cours...",
+    "year": "Année",
+    "weight": "Poids",
+    "popularThemesTitle": "Thèmes populaires",
+    "backendComplete": "Backend complet - Prêt pour l'implémentation complète",
+    "backendStatus": "Schéma de base de données ✓ • Définitions de types ✓ • Service de catalogue ✓ • Service de base de données ✓"
   }
 }

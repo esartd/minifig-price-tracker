@@ -3,6 +3,20 @@ import { auth } from '@/auth';
 import { prisma, prismaPublic } from '@/lib/prisma';
 import PopularThemesSection from './stats-client';
 import { getAllMinifigs } from '@/lib/catalog-static';
+import { headers } from 'next/headers';
+import translations from '@/translations-backup/en.json';
+import translationsDe from '@/translations-backup/de.json';
+import translationsFr from '@/translations-backup/fr.json';
+import translationsEs from '@/translations-backup/es.json';
+
+function getTranslations(locale: string) {
+  switch (locale) {
+    case 'de': return translationsDe;
+    case 'fr': return translationsFr;
+    case 'es': return translationsEs;
+    default: return translations;
+  }
+}
 
 // Admin email - only this user can access
 const ADMIN_EMAIL = 'erickkosysu@gmail.com';
@@ -14,6 +28,11 @@ export default async function AdminStatsPage() {
   if (!session || session.user?.email !== ADMIN_EMAIL) {
     redirect('/');
   }
+
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+  const t = getTranslations(locale).adminStats;
 
   // Date ranges for click stats
   const now = new Date();
@@ -176,13 +195,13 @@ export default async function AdminStatsPage() {
               marginBottom: 'var(--space-1)',
               letterSpacing: '-0.02em',
             }}>
-              Admin Dashboard
+              {t.title}
             </h1>
             <p style={{
               fontSize: 'var(--text-sm)',
               color: '#737373',
             }}>
-              Overview of your FigTracker platform
+              {t.subtitle}
             </p>
           </div>
           <a
@@ -205,7 +224,7 @@ export default async function AdminStatsPage() {
             <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            Email All Users ({totalUsers})
+            {t.emailAllUsers.replace('{count}', totalUsers.toString())}
           </a>
         </div>
 
@@ -217,7 +236,7 @@ export default async function AdminStatsPage() {
           marginBottom: 'var(--space-6)',
         }}>
           <StatCard
-            label="Total Users"
+            label={t.totalUsers}
             value={totalUsers}
             icon={
               <svg style={{ width: '24px', height: '24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -227,9 +246,9 @@ export default async function AdminStatsPage() {
             color="#3b82f6"
           />
           <StatCard
-            label="User Collections"
+            label={t.userCollections}
             value={totalUserItems}
-            subtitle={`${totalCollectionItems} selling, ${totalPersonalItems} personal`}
+            subtitle={t.userCollectionsSubtitle.replace('{selling}', totalCollectionItems.toString()).replace('{personal}', totalPersonalItems.toString())}
             icon={
               <svg style={{ width: '24px', height: '24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
@@ -238,9 +257,9 @@ export default async function AdminStatsPage() {
             color="#10b981"
           />
           <StatCard
-            label="Catalog Items"
+            label={t.catalogItems}
             value={catalogCount.toLocaleString()}
-            subtitle="Static JSON"
+            subtitle={t.catalogSubtitle}
             icon={
               <svg style={{ width: '24px', height: '24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -249,9 +268,9 @@ export default async function AdminStatsPage() {
             color="#8b5cf6"
           />
           <StatCard
-            label="Total Ad Clicks"
+            label={t.totalAdClicks}
             value={totalClicks}
-            subtitle={`${clicks24h} today, ${clicks7d} this week`}
+            subtitle={t.totalAdClicksSubtitle.replace('{today}', clicks24h.toString()).replace('{thisWeek}', clicks7d.toString())}
             icon={
               <svg style={{ width: '24px', height: '24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
@@ -275,7 +294,7 @@ export default async function AdminStatsPage() {
             color: '#171717',
             marginBottom: 'var(--space-3)',
           }}>
-            Affiliate Click Performance
+            {t.affiliateClickPerformance}
           </h2>
           <div style={{
             display: 'grid',
@@ -283,19 +302,19 @@ export default async function AdminStatsPage() {
             gap: 'var(--space-3)',
           }}>
             <div>
-              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '8px' }}>Last 24 Hours</div>
+              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '8px' }}>{t.last24Hours}</div>
               <div style={{ fontSize: 'var(--text-2xl)', fontWeight: '600', color: '#171717' }}>{clicks24h}</div>
             </div>
             <div>
-              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '8px' }}>Last 7 Days</div>
+              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '8px' }}>{t.last7Days}</div>
               <div style={{ fontSize: 'var(--text-2xl)', fontWeight: '600', color: '#171717' }}>{clicks7d}</div>
             </div>
             <div>
-              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '8px' }}>Last 30 Days</div>
+              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '8px' }}>{t.last30Days}</div>
               <div style={{ fontSize: 'var(--text-2xl)', fontWeight: '600', color: '#171717' }}>{clicks30d}</div>
             </div>
             <div>
-              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '8px' }}>All Time</div>
+              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '8px' }}>{t.allTime}</div>
               <div style={{ fontSize: 'var(--text-2xl)', fontWeight: '600', color: '#171717' }}>{totalClicks}</div>
             </div>
           </div>
@@ -309,7 +328,7 @@ export default async function AdminStatsPage() {
                 color: '#171717',
                 marginBottom: 'var(--space-2)',
               }}>
-                Top Clicked Products
+                {t.topClickedProducts}
               </h3>
               <div>
                 {/* Desktop table */}
@@ -326,7 +345,7 @@ export default async function AdminStatsPage() {
                           textTransform: 'uppercase',
                           letterSpacing: '0.05em',
                         }}>
-                          Product
+                          {t.product}
                         </th>
                         <th style={{
                           padding: '12px 8px',
@@ -337,7 +356,7 @@ export default async function AdminStatsPage() {
                           textTransform: 'uppercase',
                           letterSpacing: '0.05em',
                         }}>
-                          Type
+                          {t.type}
                         </th>
                         <th style={{
                           padding: '12px 8px',
@@ -348,7 +367,7 @@ export default async function AdminStatsPage() {
                           textTransform: 'uppercase',
                           letterSpacing: '0.05em',
                         }}>
-                          Clicks
+                          {t.clicks}
                         </th>
                       </tr>
                     </thead>
@@ -421,7 +440,7 @@ export default async function AdminStatsPage() {
                           {product.platform}
                         </span>
                         <div style={{ fontSize: 'var(--text-lg)', fontWeight: '600', color: '#171717' }}>
-                          {product._count.id} clicks
+                          {t.clicksCount.replace('{count}', product._count.id.toString())}
                         </div>
                       </div>
                     </div>
@@ -463,7 +482,7 @@ export default async function AdminStatsPage() {
             color: '#171717',
             marginBottom: 'var(--space-3)',
           }}>
-            Database Overview
+            {t.databaseOverview}
           </h2>
           <div style={{
             display: 'grid',
@@ -472,16 +491,16 @@ export default async function AdminStatsPage() {
           }}>
             <DatabaseInfo
               title="Hostinger MySQL"
-              bandwidth="Unlimited bandwidth"
-              status="Active"
+              bandwidth={t.unlimitedBandwidth}
+              status={t.active}
               statusColor="#10b981"
               items={[
-                `Users: ${totalUsers}`,
-                `Collection Items: ${totalCollectionItems}`,
-                `Personal Items: ${totalPersonalItems}`,
-                `Price Cache: ${totalPriceCache.toLocaleString()} entries`,
-                `Affiliate Clicks: ${totalClicks}`,
-                `Catalog: ${catalogCount.toLocaleString()} items`,
+                t.users.replace('{count}', totalUsers.toString()),
+                t.collectionItems.replace('{count}', totalCollectionItems.toString()),
+                t.personalItems.replace('{count}', totalPersonalItems.toString()),
+                t.priceCache.replace('{count}', totalPriceCache.toLocaleString()),
+                t.affiliateClicks.replace('{count}', totalClicks.toString()),
+                t.catalog.replace('{count}', catalogCount.toLocaleString()),
               ]}
             />
           </div>
@@ -501,7 +520,7 @@ export default async function AdminStatsPage() {
             color: '#171717',
             marginBottom: 'var(--space-3)',
           }}>
-            Recent Signups
+            {t.recentSignups}
           </h2>
           <div>
             {/* Desktop table */}
@@ -518,7 +537,7 @@ export default async function AdminStatsPage() {
                       textTransform: 'uppercase',
                       letterSpacing: '0.05em',
                     }}>
-                      User
+                      {t.user}
                     </th>
                     <th style={{
                       padding: 'var(--space-2)',
@@ -529,7 +548,7 @@ export default async function AdminStatsPage() {
                       textTransform: 'uppercase',
                       letterSpacing: '0.05em',
                     }}>
-                      Joined
+                      {t.joined}
                     </th>
                     <th style={{
                       padding: 'var(--space-2)',
@@ -540,7 +559,7 @@ export default async function AdminStatsPage() {
                       textTransform: 'uppercase',
                       letterSpacing: '0.05em',
                     }}>
-                      Items
+                      {t.items}
                     </th>
                   </tr>
                 </thead>
@@ -554,7 +573,7 @@ export default async function AdminStatsPage() {
                           color: '#171717',
                           marginBottom: 'var(--space-0-5)',
                         }}>
-                          {user.name || 'Anonymous'}
+                          {user.name || t.anonymous}
                         </div>
                         <div style={{
                           fontSize: 'var(--text-xs)',
@@ -610,9 +629,9 @@ export default async function AdminStatsPage() {
                     </div>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 'var(--text-xs)', color: '#737373' }}>
-                    <span>Joined {new Date(user.createdAt).toLocaleDateString()}</span>
+                    <span>{t.joined} {new Date(user.createdAt).toLocaleDateString()}</span>
                     <span style={{ fontWeight: '600', color: '#171717' }}>
-                      {user._count.CollectionItem + user._count.PersonalCollectionItem} items
+                      {user._count.CollectionItem + user._count.PersonalCollectionItem} {t.items.toLowerCase()}
                     </span>
                   </div>
                 </div>
@@ -634,7 +653,7 @@ export default async function AdminStatsPage() {
             color: '#171717',
             marginBottom: 'var(--space-3)',
           }}>
-            Top Collectors
+            {t.topCollectors}
           </h2>
           <div>
             {/* Desktop table */}
@@ -652,7 +671,7 @@ export default async function AdminStatsPage() {
                       letterSpacing: '0.05em',
                       width: '60px',
                     }}>
-                      Rank
+                      {t.rank}
                     </th>
                     <th style={{
                       padding: 'var(--space-2)',
@@ -663,7 +682,7 @@ export default async function AdminStatsPage() {
                       textTransform: 'uppercase',
                       letterSpacing: '0.05em',
                     }}>
-                      User
+                      {t.user}
                     </th>
                     <th style={{
                       padding: 'var(--space-2)',
@@ -674,7 +693,7 @@ export default async function AdminStatsPage() {
                       textTransform: 'uppercase',
                       letterSpacing: '0.05em',
                     }}>
-                      Total Items
+                      {t.totalItems}
                     </th>
                   </tr>
                 </thead>
@@ -697,7 +716,7 @@ export default async function AdminStatsPage() {
                             color: '#171717',
                             marginBottom: 'var(--space-0-5)',
                           }}>
-                            {user.name || 'Anonymous'}
+                            {user.name || t.anonymous}
                           </div>
                           <div style={{
                             fontSize: 'var(--text-xs)',
