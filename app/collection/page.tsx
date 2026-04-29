@@ -14,8 +14,10 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
 import { calculateCollectionStats } from '@/lib/collection-stats';
 import AnimatedCounter from '@/components/AnimatedCounter';
+import { useTranslation } from '@/components/TranslationProvider';
 
 export default function PersonalCollectionPage() {
+  const { t } = useTranslation();
   const { data: session, status } = useSession();
   const router = useRouter();
   const [collection, setCollection] = useState<PersonalCollectionItem[]>([]);
@@ -325,7 +327,7 @@ export default function PersonalCollectionPage() {
                   flexShrink: 0
                 }}
               >
-                + Add
+                + {t('common.add')}
               </Link>
             </div>
 
@@ -361,7 +363,7 @@ export default function PersonalCollectionPage() {
                       color: '#737373',
                       letterSpacing: '0.01em'
                     }}>
-                      Total Value
+                      {t('collection.totalValue')}
                     </div>
                     {pricesUpdating > 0 && (
                       <div style={{
@@ -380,7 +382,7 @@ export default function PersonalCollectionPage() {
                           borderRadius: '50%',
                           animation: 'spin 0.8s linear infinite'
                         }} />
-                        Updating
+                        {t('collection.updating')}
                       </div>
                     )}
                   </div>
@@ -411,7 +413,7 @@ export default function PersonalCollectionPage() {
                     marginBottom: '4px',
                     letterSpacing: '0.01em'
                   }}>
-                    Total Items
+                    {t('collection.totalItems')}
                   </div>
                   <div className="collection-stat-value" style={{
                     fontSize: 'var(--text-xl)',
@@ -436,7 +438,7 @@ export default function PersonalCollectionPage() {
                       color: '#737373',
                       letterSpacing: '0.01em'
                     }}>
-                      Avg Value
+                      {t('collection.avgValue')}
                     </div>
                     {pricesUpdating > 0 && (
                       <div style={{
@@ -477,14 +479,14 @@ export default function PersonalCollectionPage() {
                 color: '#171717',
                 marginBottom: '8px'
               }}>
-                Your Collection
+                {t('collection.title')}
               </h1>
               <p className="collection-subtitle" style={{
                 fontSize: 'var(--text-base)',
                 color: '#525252',
                 lineHeight: '1.6'
               }}>
-                Your personal collection — minifigs you're keeping, not selling
+                {t('collection.subtitle')}
               </p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -508,7 +510,7 @@ export default function PersonalCollectionPage() {
                   boxSizing: 'border-box'
                 }}
               >
-                + Add Minifigs
+                + {t('collection.addMinifigs')}
               </Link>
               <ShareCollectionButton />
             </div>
@@ -534,7 +536,7 @@ export default function PersonalCollectionPage() {
               color: '#171717',
               letterSpacing: '-0.01em'
             }}>
-              Items
+              {t('collection.items')}
             </h2>
             {collection.length > 0 && (
               <>
@@ -559,7 +561,7 @@ export default function PersonalCollectionPage() {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    All
+                    {t('collection.filters.all')}
                   </button>
                   <button
                     onClick={() => setConditionFilter('new')}
@@ -576,7 +578,7 @@ export default function PersonalCollectionPage() {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    New
+                    {t('collection.filters.new')}
                   </button>
                   <button
                     onClick={() => setConditionFilter('used')}
@@ -593,7 +595,7 @@ export default function PersonalCollectionPage() {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    Used
+                    {t('collection.filters.used')}
                   </button>
                 </div>
 
@@ -622,10 +624,10 @@ export default function PersonalCollectionPage() {
                     onMouseEnter={(e) => e.currentTarget.style.background = '#f5f5f5'}
                     onMouseLeave={(e) => e.currentTarget.style.background = '#ffffff'}
                   >
-                    <option value="default">Recently Added</option>
-                    <option value="price-high">Price: High to Low</option>
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="id">Bricklink ID</option>
+                    <option value="default">{t('collection.sort.recentlyAdded')}</option>
+                    <option value="price-high">{t('collection.sort.priceHigh')}</option>
+                    <option value="price-low">{t('collection.sort.priceLow')}</option>
+                    <option value="id">{t('collection.sort.bricklinkId')}</option>
                   </select>
                   <ChevronDownIcon style={{
                     position: 'absolute',
@@ -684,7 +686,7 @@ export default function PersonalCollectionPage() {
                     color: '#171717',
                     marginBottom: '12px'
                   }}>
-                    No minifigs yet
+                    {t('collection.noMinifigsYet')}
                   </h3>
                   <p style={{
                     fontSize: 'var(--text-base)',
@@ -692,7 +694,7 @@ export default function PersonalCollectionPage() {
                     marginBottom: '32px',
                     lineHeight: '1.6'
                   }}>
-                    Start adding to your personal collection
+                    {t('collection.startAdding')}
                   </p>
                   <Link
                     href="/search?mode=collection"
@@ -708,7 +710,7 @@ export default function PersonalCollectionPage() {
                       transition: 'all 0.2s'
                     }}
                   >
-                    Search Minifigs
+                    {t('collection.searchMinifigs')}
                   </Link>
                 </>
               ) : (
@@ -720,14 +722,14 @@ export default function PersonalCollectionPage() {
                     color: '#171717',
                     marginBottom: '12px'
                   }}>
-                    No {conditionFilter} condition minifigs
+                    {t('collection.noConditionMinifigs', { condition: conditionFilter })}
                   </h3>
                   <p style={{
                     fontSize: 'var(--text-base)',
                     color: '#737373',
                     lineHeight: '1.6'
                   }}>
-                    You have {totalItems} item{totalItems !== 1 ? 's' : ''} in other conditions
+                    {t('collection.otherConditions', { count: totalItems })}
                   </p>
                 </>
               )}

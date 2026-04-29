@@ -53,6 +53,16 @@
     "series": "{count} series",
     "allThemes": "Todos los temas",
     "popularThemes": "Temas populares",
+    "themeLabel": "Tema",
+    "moreCount": "+{count} más",
+    "searchPlaceholder": "Buscar temas...",
+    "currentThemes": "Temas actuales",
+    "currentThemesDesc": "Temas con minifiguras lanzadas en los últimos 2 años ({yearRange})",
+    "olderThemes": "Temas antiguos",
+    "olderThemesDesc": "Temas de años anteriores",
+    "showMore": "Mostrar más ({count} temas adicionales)",
+    "noThemesFound": "No se encontraron temas",
+    "tryAdjustSearch": "Intenta ajustar tu búsqueda",
     "descriptions": {
       "(Other)": "Discover unique LEGO® sets that don't fit traditional categories! This diverse collection includes experimental designs, limited releases, and special projects that showcase LEGO's creativity beyond mainstream themes. From promotional builds to one-off collaborations, these sets represent the innovative spirit of LEGO building. Perfect for collectors seeking unique additions to their collection and builders who love discovering hidden gems.",
       "4 Juniors": "Designed for young builders transitioning from DUPLO, LEGO® 4 Juniors minifigures offer simplified building experiences with recognizable characters and themes. These sets feature easy-to-build models with larger pieces and pre-decorated elements, making construction accessible for children ages 4-7. Collect minifigures from popular themes like Batman, Spider-Man, Frozen, Toy Story, and Jurassic World, all adapted for younger hands. 4 Juniors bridges the gap between toddler building and standard LEGO sets, maintaining the creativity and play value while reducing complexity. Each minifigure comes with themed accessories and vehicles that snap together quickly, building confidence in young constructors. Perfect for preschoolers and early elementary students ready to graduate from DUPLO and begin their LEGO journey with beloved characters.",
@@ -312,25 +322,6 @@
     "confirmPassword": "Confirmar contraseña",
     "deleteAccount": "Eliminar cuenta"
   },
-  "collection": {
-    "title": "Mi colección",
-    "inventory": "Inventario",
-    "addToCollection": "Añadir a la colección",
-    "addToInventory": "Añadir al inventario",
-    "removeFromCollection": "Quitar de la colección",
-    "moveToInventory": "Mover al inventario",
-    "moveToCollection": "Mover a la colección",
-    "totalValue": "Valor total",
-    "totalItems": "Total de artículos",
-    "emptyState": "Tu colección está vacía",
-    "condition": "Estado",
-    "conditions": {
-      "new": "Nuevo",
-      "likeNew": "Como nuevo",
-      "good": "Bueno",
-      "fair": "Aceptable"
-    }
-  },
   "search": {
     "placeholder": "Buscar minifiguras LEGO...",
     "placeholderSets": "Buscar sets LEGO...",
@@ -409,5 +400,45 @@
     "legoTrademark": "LEGO® es una marca registrada del Grupo LEGO.",
     "allRightsReserved": "Todos los derechos reservados.",
     "createdBy": "Creado por"
+  },
+  "collection": {
+    "title": "Tu Colección",
+    "subtitle": "Tu colección personal — minifiguras que guardas, no para vender",
+    "inventory": "Inventario",
+    "addToCollection": "Añadir a la colección",
+    "addToInventory": "Añadir al inventario",
+    "addMinifigs": "Añadir Minifiguras",
+    "removeFromCollection": "Eliminar de la colección",
+    "moveToInventory": "Mover al inventario",
+    "moveToCollection": "Mover a la colección",
+    "totalValue": "Valor total",
+    "totalItems": "Artículos totales",
+    "avgValue": "Valor promedio",
+    "updating": "Actualizando",
+    "items": "Artículos",
+    "emptyState": "Tu colección está vacía",
+    "noMinifigsYet": "Aún no hay minifiguras",
+    "startAdding": "Comienza a añadir a tu colección personal",
+    "searchMinifigs": "Buscar Minifiguras",
+    "noConditionMinifigs": "No hay minifiguras en condición {condition}",
+    "otherConditions": "Tienes {count} artículos en otras condiciones",
+    "condition": "Condición",
+    "conditions": {
+      "new": "Nuevo",
+      "likeNew": "Como nuevo",
+      "good": "Bueno",
+      "fair": "Aceptable"
+    },
+    "filters": {
+      "all": "Todos",
+      "new": "Nuevo",
+      "used": "Usado"
+    },
+    "sort": {
+      "recentlyAdded": "Añadido recientemente",
+      "priceHigh": "Precio: Mayor a Menor",
+      "priceLow": "Precio: Menor a Mayor",
+      "bricklinkId": "ID Bricklink"
+    }
   }
 }

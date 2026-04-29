@@ -53,6 +53,16 @@
     "series": "{count} séries",
     "allThemes": "Tous les thèmes",
     "popularThemes": "Thèmes populaires",
+    "themeLabel": "Thème",
+    "moreCount": "+{count} de plus",
+    "searchPlaceholder": "Rechercher des thèmes...",
+    "currentThemes": "Thèmes actuels",
+    "currentThemesDesc": "Thèmes avec minifigurines sorties ces 2 dernières années ({yearRange})",
+    "olderThemes": "Thèmes anciens",
+    "olderThemesDesc": "Thèmes des années précédentes",
+    "showMore": "Afficher plus ({count} thèmes supplémentaires)",
+    "noThemesFound": "Aucun thème trouvé",
+    "tryAdjustSearch": "Essayez d'ajuster votre recherche",
     "descriptions": {
       "(Other)": "Discover unique LEGO® sets that don't fit traditional categories! This diverse collection includes experimental designs, limited releases, and special projects that showcase LEGO's creativity beyond mainstream themes. From promotional builds to one-off collaborations, these sets represent the innovative spirit of LEGO building. Perfect for collectors seeking unique additions to their collection and builders who love discovering hidden gems.",
       "4 Juniors": "Designed for young builders transitioning from DUPLO, LEGO® 4 Juniors minifigures offer simplified building experiences with recognizable characters and themes. These sets feature easy-to-build models with larger pieces and pre-decorated elements, making construction accessible for children ages 4-7. Collect minifigures from popular themes like Batman, Spider-Man, Frozen, Toy Story, and Jurassic World, all adapted for younger hands. 4 Juniors bridges the gap between toddler building and standard LEGO sets, maintaining the creativity and play value while reducing complexity. Each minifigure comes with themed accessories and vehicles that snap together quickly, building confidence in young constructors. Perfect for preschoolers and early elementary students ready to graduate from DUPLO and begin their LEGO journey with beloved characters.",
@@ -312,25 +322,6 @@
     "confirmPassword": "Confirmer le mot de passe",
     "deleteAccount": "Supprimer le compte"
   },
-  "collection": {
-    "title": "Ma collection",
-    "inventory": "Inventaire",
-    "addToCollection": "Ajouter à la collection",
-    "addToInventory": "Ajouter à l'inventaire",
-    "removeFromCollection": "Retirer de la collection",
-    "moveToInventory": "Déplacer vers l'inventaire",
-    "moveToCollection": "Déplacer vers la collection",
-    "totalValue": "Valeur totale",
-    "totalItems": "Total d'articles",
-    "emptyState": "Votre collection est vide",
-    "condition": "État",
-    "conditions": {
-      "new": "Neuf",
-      "likeNew": "Comme neuf",
-      "good": "Bon",
-      "fair": "Acceptable"
-    }
-  },
   "search": {
     "placeholder": "Rechercher une minifigurine LEGO...",
     "placeholderSets": "Rechercher des sets LEGO...",
@@ -409,5 +400,45 @@
     "legoTrademark": "LEGO® est une marque commerciale du Groupe LEGO.",
     "allRightsReserved": "Tous droits réservés.",
     "createdBy": "Créé par"
+  },
+  "collection": {
+    "title": "Votre Collection",
+    "subtitle": "Votre collection personnelle — les minifigurines que vous gardez, pas à vendre",
+    "inventory": "Inventaire",
+    "addToCollection": "Ajouter à la collection",
+    "addToInventory": "Ajouter à l'inventaire",
+    "addMinifigs": "Ajouter des Minifigurines",
+    "removeFromCollection": "Retirer de la collection",
+    "moveToInventory": "Déplacer vers l'inventaire",
+    "moveToCollection": "Déplacer vers la collection",
+    "totalValue": "Valeur totale",
+    "totalItems": "Articles totaux",
+    "avgValue": "Valeur moyenne",
+    "updating": "Mise à jour",
+    "items": "Articles",
+    "emptyState": "Votre collection est vide",
+    "noMinifigsYet": "Pas encore de minifigurines",
+    "startAdding": "Commencez à ajouter à votre collection personnelle",
+    "searchMinifigs": "Rechercher des Minifigurines",
+    "noConditionMinifigs": "Aucune minifigurine en état {condition}",
+    "otherConditions": "Vous avez {count} articles dans d'autres états",
+    "condition": "État",
+    "conditions": {
+      "new": "Neuf",
+      "likeNew": "Comme neuf",
+      "good": "Bon",
+      "fair": "Acceptable"
+    },
+    "filters": {
+      "all": "Tous",
+      "new": "Neuf",
+      "used": "Utilisé"
+    },
+    "sort": {
+      "recentlyAdded": "Récemment ajouté",
+      "priceHigh": "Prix : Élevé à Faible",
+      "priceLow": "Prix : Faible à Élevé",
+      "bricklinkId": "ID Bricklink"
+    }
   }
 }

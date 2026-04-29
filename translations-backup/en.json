@@ -48,11 +48,21 @@
     "browse_title": "Browse LEGO Minifigure Themes",
     "browse_sets": "Browse LEGO Set Themes",
     "theme_sets": "{theme} Sets",
-    "count": "{count} minifigures",
+    "count": "{count} minifigs",
     "countSets": "{count} sets in this theme",
     "series": "{count} series",
     "allThemes": "All Themes",
     "popularThemes": "Popular Themes",
+    "themeLabel": "Theme",
+    "moreCount": "+{count} more",
+    "searchPlaceholder": "Search themes...",
+    "currentThemes": "Current Themes",
+    "currentThemesDesc": "Themes with minifigures released in the last 2 years ({yearRange})",
+    "olderThemes": "Older Themes",
+    "olderThemesDesc": "Themes from previous years",
+    "showMore": "Show More ({count} more themes)",
+    "noThemesFound": "No themes found",
+    "tryAdjustSearch": "Try adjusting your search",
     "descriptions": {
       "(Other)": "Discover unique LEGO® sets that don't fit traditional categories! This diverse collection includes experimental designs, limited releases, and special projects that showcase LEGO's creativity beyond mainstream themes. From promotional builds to one-off collaborations, these sets represent the innovative spirit of LEGO building. Perfect for collectors seeking unique additions to their collection and builders who love discovering hidden gems.",
       "4 Juniors": "Designed for young builders transitioning from DUPLO, LEGO® 4 Juniors minifigures offer simplified building experiences with recognizable characters and themes. These sets feature easy-to-build models with larger pieces and pre-decorated elements, making construction accessible for children ages 4-7. Collect minifigures from popular themes like Batman, Spider-Man, Frozen, Toy Story, and Jurassic World, all adapted for younger hands. 4 Juniors bridges the gap between toddler building and standard LEGO sets, maintaining the creativity and play value while reducing complexity. Each minifigure comes with themed accessories and vehicles that snap together quickly, building confidence in young constructors. Perfect for preschoolers and early elementary students ready to graduate from DUPLO and begin their LEGO journey with beloved characters.",
@@ -255,25 +265,6 @@
     "confirmPassword": "Confirm Password",
     "deleteAccount": "Delete Account"
   },
-  "collection": {
-    "title": "My Collection",
-    "inventory": "Inventory",
-    "addToCollection": "Add to Collection",
-    "addToInventory": "Add to Inventory",
-    "removeFromCollection": "Remove from Collection",
-    "moveToInventory": "Move to Inventory",
-    "moveToCollection": "Move to Collection",
-    "totalValue": "Total Value",
-    "totalItems": "Total Items",
-    "emptyState": "Your collection is empty",
-    "condition": "Condition",
-    "conditions": {
-      "new": "New",
-      "likeNew": "Like New",
-      "good": "Good",
-      "fair": "Fair"
-    }
-  },
   "search": {
     "placeholder": "Search for any LEGO minifigure...",
     "placeholderSets": "Search for LEGO sets...",
@@ -352,5 +343,45 @@
     "legoTrademark": "LEGO® is a trademark of the LEGO Group.",
     "allRightsReserved": "All rights reserved.",
     "createdBy": "Created by"
+  },
+  "collection": {
+    "title": "Your Collection",
+    "subtitle": "Your personal collection — minifigs you're keeping, not selling",
+    "inventory": "Inventory",
+    "addToCollection": "Add to Collection",
+    "addToInventory": "Add to Inventory",
+    "addMinifigs": "Add Minifigs",
+    "removeFromCollection": "Remove from Collection",
+    "moveToInventory": "Move to Inventory",
+    "moveToCollection": "Move to Collection",
+    "totalValue": "Total Value",
+    "totalItems": "Total Items",
+    "avgValue": "Avg Value",
+    "updating": "Updating",
+    "items": "Items",
+    "emptyState": "Your collection is empty",
+    "noMinifigsYet": "No minifigs yet",
+    "startAdding": "Start adding to your personal collection",
+    "searchMinifigs": "Search Minifigs",
+    "noConditionMinifigs": "No {condition} condition minifigs",
+    "otherConditions": "You have {count} items in other conditions",
+    "condition": "Condition",
+    "conditions": {
+      "new": "New",
+      "likeNew": "Like New",
+      "good": "Good",
+      "fair": "Fair"
+    },
+    "filters": {
+      "all": "All",
+      "new": "New",
+      "used": "Used"
+    },
+    "sort": {
+      "recentlyAdded": "Recently Added",
+      "priceHigh": "Price: High to Low",
+      "priceLow": "Price: Low to High",
+      "bricklinkId": "Bricklink ID"
+    }
   }
 }
