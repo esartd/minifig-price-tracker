@@ -2,17 +2,16 @@ import type { Metadata } from 'next';
 import { BookOpenIcon, CurrencyDollarIcon, ChartBarIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import GuidesPageClient from '@/components/guides-page-client';
 import { headers } from 'next/headers';
-import translations from '@/translations-backup/en.json';
-import translationsDe from '@/translations-backup/de.json';
-import translationsFr from '@/translations-backup/fr.json';
-import translationsEs from '@/translations-backup/es.json';
 
-function getTranslations(locale: string) {
-  switch (locale) {
-    case 'de': return translationsDe;
-    case 'fr': return translationsFr;
-    case 'es': return translationsEs;
-    default: return translations;
+async function getTranslations(locale: string) {
+  try {
+    const translations = await import(`@/translations-backup/${locale}.json`);
+    return translations.default || translations;
+  } catch (error) {
+    console.error(`Failed to load translations for ${locale}:`, error);
+    // Fallback to English
+    const fallback = await import('@/translations-backup/en.json');
+    return fallback.default || fallback;
   }
 }
 
@@ -21,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const host = headersList.get('host') || '';
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
 
-  const t = getTranslations(locale);
+  const t = await getTranslations(locale);
 
   const domains = {
     en: 'https://figtracker.ericksu.com',
@@ -34,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
   if (!t.guides?.meta) {
     console.error(`Missing guides.meta for locale: ${locale}`);
     // Fallback to English
-    const fallback = getTranslations('en');
+    const fallback = await getTranslations('en');
     return {
       title: `${fallback.guides.meta.title} | FigTracker`,
       description: fallback.guides.meta.description,
@@ -77,7 +76,7 @@ export default async function GuidesPage() {
   const host = headersList.get('host') || '';
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
 
-  const t = getTranslations(locale);
+  const t = await getTranslations(locale);
 
   // Validate guides structure with detailed logging
   console.log('[Guides Page] Locale:', locale);
@@ -91,7 +90,7 @@ export default async function GuidesPage() {
     console.error('[Guides Page] guides value:', t.guides);
 
     // Fallback to English
-    const fallback = getTranslations('en');
+    const fallback = await getTranslations('en');
     if (!fallback.guides?.items || !Array.isArray(fallback.guides.items)) {
       throw new Error(`Critical: Even English guides data is missing`);
     }
