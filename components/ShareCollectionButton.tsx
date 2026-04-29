@@ -40,16 +40,20 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
   };
 
   const toggleShare = async () => {
+    console.log('Toggle share clicked, type:', type, 'loading:', loading);
     setLoading(true);
     try {
       const response = await fetch(`/api/collection/share?type=${type}`, {
         method: 'PATCH'
       });
       const data = await response.json();
+      console.log('Toggle share response:', data);
       if (data.success) {
         setShareEnabled(data.shareEnabled);
         setSharePricing(data.sharePricing ?? false);
         setShareUrl(data.shareUrl || '');
+      } else {
+        console.error('Toggle failed:', data.error);
       }
     } catch (error) {
       console.error('Failed to toggle sharing:', error);
@@ -59,6 +63,7 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
   };
 
   const togglePricing = async () => {
+    console.log('Toggle pricing clicked, current:', sharePricing);
     setLoading(true);
     try {
       const response = await fetch(`/api/collection/share/pricing?type=${type}`, {
@@ -67,8 +72,11 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
         body: JSON.stringify({ sharePricing: !sharePricing })
       });
       const data = await response.json();
+      console.log('Toggle pricing response:', data);
       if (data.success) {
         setSharePricing(data.sharePricing);
+      } else {
+        console.error('Pricing toggle failed:', data.error);
       }
     } catch (error) {
       console.error('Failed to toggle pricing:', error);

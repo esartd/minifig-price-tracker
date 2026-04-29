@@ -32,19 +32,49 @@ export async function POST(request: Request) {
 
     const url = new URL(request.url);
     const type = (url.searchParams.get('type') || 'inventory') as CollectionType;
-    const { tokenField, enabledField, pricingField } = getFieldNames(type);
 
     // Generate a random token
     const shareToken = randomBytes(16).toString('hex');
 
     // Update user with share token and enable sharing
-    await prisma.user.update({
-      where: { id: session.user.id },
-      data: {
-        [tokenField]: shareToken,
-        [enabledField]: true
-      }
-    });
+    switch (type) {
+      case 'inventory':
+        await prisma.user.update({
+          where: { id: session.user.id },
+          data: {
+            shareTokenInventory: shareToken,
+            shareEnabledInventory: true
+          }
+        });
+        break;
+      case 'collection':
+        await prisma.user.update({
+          where: { id: session.user.id },
+          data: {
+            shareTokenCollection: shareToken,
+            shareEnabledCollection: true
+          }
+        });
+        break;
+      case 'sets-inventory':
+        await prisma.user.update({
+          where: { id: session.user.id },
+          data: {
+            shareTokenSetsInventory: shareToken,
+            shareEnabledSetsInventory: true
+          }
+        });
+        break;
+      case 'sets-collection':
+        await prisma.user.update({
+          where: { id: session.user.id },
+          data: {
+            shareTokenSetsCollection: shareToken,
+            shareEnabledSetsCollection: true
+          }
+        });
+        break;
+    }
 
     return NextResponse.json({
       success: true,
@@ -140,18 +170,45 @@ export async function PATCH(request: Request) {
       shareToken = randomBytes(16).toString('hex');
     }
 
-    // Build update data
-    const updateData: any = {
-      [enabledField]: newShareEnabled,
-    };
-    if (shareToken) {
-      updateData[tokenField] = shareToken;
+    // Update database with explicit conditionals
+    switch (type) {
+      case 'inventory':
+        await prisma.user.update({
+          where: { id: session.user.id },
+          data: {
+            shareEnabledInventory: newShareEnabled,
+            ...(shareToken && { shareTokenInventory: shareToken })
+          }
+        });
+        break;
+      case 'collection':
+        await prisma.user.update({
+          where: { id: session.user.id },
+          data: {
+            shareEnabledCollection: newShareEnabled,
+            ...(shareToken && { shareTokenCollection: shareToken })
+          }
+        });
+        break;
+      case 'sets-inventory':
+        await prisma.user.update({
+          where: { id: session.user.id },
+          data: {
+            shareEnabledSetsInventory: newShareEnabled,
+            ...(shareToken && { shareTokenSetsInventory: shareToken })
+          }
+        });
+        break;
+      case 'sets-collection':
+        await prisma.user.update({
+          where: { id: session.user.id },
+          data: {
+            shareEnabledSetsCollection: newShareEnabled,
+            ...(shareToken && { shareTokenSetsCollection: shareToken })
+          }
+        });
+        break;
     }
-
-    await prisma.user.update({
-      where: { id: session.user.id },
-      data: updateData
-    });
 
     return NextResponse.json({
       success: true,
