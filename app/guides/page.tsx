@@ -21,6 +21,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const host = headersList.get('host') || '';
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
 
+  const t = getTranslations(locale);
+
   const domains = {
     en: 'https://figtracker.ericksu.com',
     de: 'https://de.figtracker.ericksu.com',
@@ -29,12 +31,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 
   return {
-    title: 'LEGO Minifigure Pricing Guides & Tips | FigTracker',
-    description: 'Expert guides on pricing LEGO minifigures, selling on Bricklink, inventory management, and maximizing resale value. Free resources for sellers and collectors.',
-    keywords: ['LEGO pricing guide', 'how to price minifigures', 'Bricklink selling tips', 'LEGO resale guide', 'minifigure value guide'],
+    title: `${t.guides.meta.title} | FigTracker`,
+    description: t.guides.meta.description,
+    keywords: t.guides.meta.keywords,
     openGraph: {
-      title: 'LEGO Pricing Guides & Tips | FigTracker',
-      description: 'Learn how to price, sell, and manage your LEGO minifigure inventory effectively',
+      title: `${t.guides.meta.ogTitle} | FigTracker`,
+      description: t.guides.meta.ogDescription,
       url: `${domains[locale as keyof typeof domains]}/guides`,
     },
     alternates: {

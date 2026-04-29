@@ -514,6 +514,13 @@
     }
   },
   "guides": {
+    "meta": {
+      "title": "LEGO Minifigure Pricing Guides & Tips",
+      "description": "Expert guides on pricing LEGO minifigures, selling on Bricklink, inventory management, and maximizing resale value. Free resources for sellers and collectors.",
+      "keywords": ["LEGO pricing guide", "how to price minifigures", "Bricklink selling tips", "LEGO resale guide", "minifigure value guide"],
+      "ogTitle": "LEGO Pricing Guides & Tips",
+      "ogDescription": "Learn how to price, sell, and manage your LEGO minifigure inventory effectively"
+    },
     "badge": "GUIDES & RESOURCES",
     "hero": {
       "title": "Master LEGO Minifigure Pricing",
@@ -825,5 +832,119 @@
     "startAddingSetsInventory": "Start adding to your inventory by browsing sets",
     "browseSets": "Browse Sets",
     "noConditionSets": "No {condition} condition sets"
+  },
+  "privacyPolicy": {
+    "meta": {
+      "title": "Privacy Policy",
+      "description": "Learn how FigTracker collects, uses, and protects your personal information and inventory data.",
+      "ogDescription": "Learn how we protect your privacy and handle your data."
+    },
+    "title": "Privacy Policy",
+    "lastUpdated": "Last Updated: {date}",
+    "introduction": {
+      "title": "Introduction",
+      "content": "FigTracker (\"we,\" \"our,\" or \"us\") is operated by ES Art & D LLC. This Privacy Policy explains how we collect, use, and protect your information when you use our LEGO minifigure price tracking and inventory management service."
+    },
+    "informationWeCollect": {
+      "title": "Information We Collect",
+      "accountInformation": {
+        "title": "Account Information",
+        "intro": "When you create an account, we collect:",
+        "items": [
+          "Email address",
+          "Password (encrypted)",
+          "Optional profile information (name, avatar)"
+        ]
+      },
+      "inventoryData": {
+        "title": "Inventory Data",
+        "intro": "Your inventory data includes:",
+        "items": [
+          "LEGO minifigure IDs you track",
+          "Quantities and conditions",
+          "Custom notes",
+          "Timestamps of additions/modifications"
+        ]
+      },
+      "usageAnalytics": {
+        "title": "Usage Analytics",
+        "intro": "We use Google Analytics to understand how users interact with FigTracker:",
+        "items": [
+          "Pages visited",
+          "Search queries (minifigure searches only)",
+          "Device type and browser",
+          "General location (country/region)"
+        ]
+      }
+    },
+    "howWeUse": {
+      "title": "How We Use Your Information",
+      "intro": "We use collected information to:",
+      "items": [
+        "Provide inventory tracking and pricing features",
+        "Fetch real-time Bricklink marketplace data",
+        "Improve our service through usage analytics",
+        "Send essential account notifications (password resets, etc.)",
+        "Build a searchable minifigure catalog based on user searches"
+      ]
+    },
+    "dataStorage": {
+      "title": "Data Storage and Security",
+      "intro": "Your data is stored securely:",
+      "items": [
+        "Passwords are encrypted using industry-standard bcrypt hashing",
+        "Data is stored in secure, encrypted databases",
+        "All connections use HTTPS encryption",
+        "We implement access controls to protect your data"
+      ]
+    },
+    "thirdPartyServices": {
+      "title": "Third-Party Services",
+      "bricklink": {
+        "title": "Bricklink API",
+        "content": "We use the official Bricklink API to fetch minifigure pricing data. When you search for or add minifigures, we send minifigure IDs to Bricklink to retrieve current marketplace prices. No personal information is shared with Bricklink."
+      },
+      "googleAnalytics": {
+        "title": "Google Analytics",
+        "content": "We use Google Analytics to understand site usage. Google Analytics may use cookies to track your activity. For more information, see",
+        "linkText": "Google's Privacy Policy"
+      },
+      "amazonAssociates": {
+        "title": "Amazon Associates",
+        "content": "We participate in the Amazon Associates Program. When you click affiliate links, Amazon may track your activity. See our",
+        "linkText": "Affiliate Disclosure",
+        "contentEnd": "for details."
+      }
+    },
+    "yourRights": {
+      "title": "Your Rights",
+      "intro": "You have the right to:",
+      "items": [
+        "Access your personal data and inventory",
+        "Update or correct your information",
+        "Delete your account and all associated data",
+        "Export your inventory data",
+        "Opt out of analytics tracking (via browser settings)"
+      ],
+      "footer": "To exercise these rights, contact us through the information below or use the account settings in your dashboard."
+    },
+    "dataRetention": {
+      "title": "Data Retention",
+      "content": "We retain your data as long as your account is active. If you delete your account, we will permanently delete your personal information and inventory data within 30 days, except where we are required by law to retain certain information."
+    },
+    "childrensPrivacy": {
+      "title": "Children's Privacy",
+      "content": "FigTracker is not intended for children under 13. We do not knowingly collect personal information from children under 13. If you believe we have collected information from a child under 13, please contact us immediately."
+    },
+    "changesToPolicy": {
+      "title": "Changes to This Policy",
+      "content": "We may update this Privacy Policy from time to time. We will notify you of significant changes by posting a notice on FigTracker or sending you an email. Your continued use of FigTracker after changes indicates acceptance of the updated policy."
+    },
+    "contactUs": {
+      "title": "Contact Us",
+      "intro": "If you have questions about this Privacy Policy or how we handle your data, please contact:",
+      "emailLabel": "Email:",
+      "websiteLabel": "Website:"
+    }
   }
 }

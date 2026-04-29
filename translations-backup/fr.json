@@ -571,6 +571,13 @@
     }
   },
   "guides": {
+    "meta": {
+      "title": "Guides de tarification et conseils pour minifigurines LEGO",
+      "description": "Guides d'experts sur la tarification des minifigurines LEGO, la vente sur Bricklink, la gestion d'inventaire et la maximisation de la valeur de revente. Ressources gratuites pour vendeurs et collectionneurs.",
+      "keywords": ["guide de prix LEGO", "comment évaluer les minifigurines", "conseils de vente Bricklink", "guide de revente LEGO", "guide de valeur des minifigurines"],
+      "ogTitle": "Guides de tarification et conseils LEGO",
+      "ogDescription": "Apprenez à évaluer, vendre et gérer efficacement votre inventaire de minifigurines LEGO"
+    },
     "badge": "GUIDES & RESSOURCES",
     "hero": {
       "title": "Maîtrisez la tarification des minifigurines LEGO",
@@ -882,5 +889,119 @@
     "startAddingSetsInventory": "Commencez à ajouter à votre inventaire en parcourant les sets",
     "browseSets": "Parcourir les Sets",
     "noConditionSets": "Aucun set en état {condition}"
+  },
+  "privacyPolicy": {
+    "meta": {
+      "title": "Politique de confidentialité",
+      "description": "Découvrez comment FigTracker collecte, utilise et protège vos informations personnelles et données d'inventaire.",
+      "ogDescription": "Découvrez comment nous protégeons votre vie privée et gérons vos données."
+    },
+    "title": "Politique de confidentialité",
+    "lastUpdated": "Dernière mise à jour : {date}",
+    "introduction": {
+      "title": "Introduction",
+      "content": "FigTracker (\"nous\", \"notre\" ou \"nos\") est exploité par ES Art & D LLC. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations lorsque vous utilisez notre service de suivi des prix et de gestion d'inventaire de figurines LEGO."
+    },
+    "informationWeCollect": {
+      "title": "Informations que nous collectons",
+      "accountInformation": {
+        "title": "Informations de compte",
+        "intro": "Lorsque vous créez un compte, nous collectons :",
+        "items": [
+          "Adresse e-mail",
+          "Mot de passe (chiffré)",
+          "Informations de profil optionnelles (nom, avatar)"
+        ]
+      },
+      "inventoryData": {
+        "title": "Données d'inventaire",
+        "intro": "Vos données d'inventaire comprennent :",
+        "items": [
+          "Les ID de figurines LEGO que vous suivez",
+          "Quantités et états",
+          "Notes personnalisées",
+          "Horodatages des ajouts/modifications"
+        ]
+      },
+      "usageAnalytics": {
+        "title": "Analyses d'utilisation",
+        "intro": "Nous utilisons Google Analytics pour comprendre comment les utilisateurs interagissent avec FigTracker :",
+        "items": [
+          "Pages visitées",
+          "Requêtes de recherche (recherches de figurines uniquement)",
+          "Type d'appareil et navigateur",
+          "Localisation générale (pays/région)"
+        ]
+      }
+    },
+    "howWeUse": {
+      "title": "Comment nous utilisons vos informations",
+      "intro": "Nous utilisons les informations collectées pour :",
+      "items": [
+        "Fournir des fonctionnalités de suivi d'inventaire et de tarification",
+        "Récupérer les données du marché Bricklink en temps réel",
+        "Améliorer notre service grâce aux analyses d'utilisation",
+        "Envoyer des notifications de compte essentielles (réinitialisations de mot de passe, etc.)",
+        "Créer un catalogue de figurines interrogeable basé sur les recherches des utilisateurs"
+      ]
+    },
+    "dataStorage": {
+      "title": "Stockage et sécurité des données",
+      "intro": "Vos données sont stockées en toute sécurité :",
+      "items": [
+        "Les mots de passe sont chiffrés à l'aide du hachage bcrypt standard de l'industrie",
+        "Les données sont stockées dans des bases de données sécurisées et chiffrées",
+        "Toutes les connexions utilisent le chiffrement HTTPS",
+        "Nous mettons en place des contrôles d'accès pour protéger vos données"
+      ]
+    },
+    "thirdPartyServices": {
+      "title": "Services tiers",
+      "bricklink": {
+        "title": "API Bricklink",
+        "content": "Nous utilisons l'API officielle Bricklink pour récupérer les données de prix des figurines. Lorsque vous recherchez ou ajoutez des figurines, nous envoyons les ID de figurines à Bricklink pour récupérer les prix actuels du marché. Aucune information personnelle n'est partagée avec Bricklink."
+      },
+      "googleAnalytics": {
+        "title": "Google Analytics",
+        "content": "Nous utilisons Google Analytics pour comprendre l'utilisation du site. Google Analytics peut utiliser des cookies pour suivre votre activité. Pour plus d'informations, consultez la",
+        "linkText": "Politique de confidentialité de Google"
+      },
+      "amazonAssociates": {
+        "title": "Amazon Associates",
+        "content": "Nous participons au programme Amazon Associates. Lorsque vous cliquez sur des liens d'affiliation, Amazon peut suivre votre activité. Consultez notre",
+        "linkText": "Divulgation d'affiliation",
+        "contentEnd": "pour plus de détails."
+      }
+    },
+    "yourRights": {
+      "title": "Vos droits",
+      "intro": "Vous avez le droit de :",
+      "items": [
+        "Accéder à vos données personnelles et à votre inventaire",
+        "Mettre à jour ou corriger vos informations",
+        "Supprimer votre compte et toutes les données associées",
+        "Exporter vos données d'inventaire",
+        "Refuser le suivi analytique (via les paramètres du navigateur)"
+      ],
+      "footer": "Pour exercer ces droits, contactez-nous via les informations ci-dessous ou utilisez les paramètres de compte dans votre tableau de bord."
+    },
+    "dataRetention": {
+      "title": "Conservation des données",
+      "content": "Nous conservons vos données tant que votre compte est actif. Si vous supprimez votre compte, nous supprimerons définitivement vos informations personnelles et vos données d'inventaire dans les 30 jours, sauf si nous sommes tenus par la loi de conserver certaines informations."
+    },
+    "childrensPrivacy": {
+      "title": "Confidentialité des enfants",
+      "content": "FigTracker n'est pas destiné aux enfants de moins de 13 ans. Nous ne collectons pas sciemment d'informations personnelles auprès d'enfants de moins de 13 ans. Si vous pensez que nous avons collecté des informations auprès d'un enfant de moins de 13 ans, veuillez nous contacter immédiatement."
+    },
+    "changesToPolicy": {
+      "title": "Modifications de cette politique",
+      "content": "Nous pouvons mettre à jour cette politique de confidentialité de temps en temps. Nous vous informerons des modifications importantes en publiant un avis sur FigTracker ou en vous envoyant un e-mail. Votre utilisation continue de FigTracker après les modifications indique l'acceptation de la politique mise à jour."
+    },
+    "contactUs": {
+      "title": "Nous contacter",
+      "intro": "Si vous avez des questions sur cette politique de confidentialité ou sur la façon dont nous traitons vos données, veuillez contacter :",
+      "emailLabel": "E-mail :",
+      "websiteLabel": "Site web :"
+    }
   }
 }

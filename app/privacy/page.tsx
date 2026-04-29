@@ -1,20 +1,62 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
+import translations from '@/translations-backup/en.json';
+import translationsDe from '@/translations-backup/de.json';
+import translationsFr from '@/translations-backup/fr.json';
+import translationsEs from '@/translations-backup/es.json';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy - FigTracker',
-  description: 'Learn how FigTracker collects, uses, and protects your personal information and inventory data.',
-  openGraph: {
-    title: 'Privacy Policy - FigTracker',
-    description: 'Learn how we protect your privacy and handle your data.',
-    url: 'https://figtracker.ericksu.com/privacy',
-  },
-  alternates: {
-    canonical: 'https://figtracker.ericksu.com/privacy',
-  },
-};
+function getTranslations(locale: string) {
+  switch (locale) {
+    case 'de': return translationsDe;
+    case 'fr': return translationsFr;
+    case 'es': return translationsEs;
+    default: return translations;
+  }
+}
 
-export default function PrivacyPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const t = getTranslations(locale);
+
+  const domains = {
+    en: 'https://figtracker.ericksu.com',
+    de: 'https://de.figtracker.ericksu.com',
+    fr: 'https://fr.figtracker.ericksu.com',
+    es: 'https://es.figtracker.ericksu.com',
+  };
+
+  return {
+    title: `${t.privacyPolicy.meta.title} - FigTracker`,
+    description: t.privacyPolicy.meta.description,
+    openGraph: {
+      title: `${t.privacyPolicy.meta.title} - FigTracker`,
+      description: t.privacyPolicy.meta.ogDescription,
+      url: `${domains[locale as keyof typeof domains]}/privacy`,
+    },
+    alternates: {
+      canonical: `${domains[locale as keyof typeof domains]}/privacy`,
+      languages: {
+        'en': `${domains.en}/privacy`,
+        'de': `${domains.de}/privacy`,
+        'fr': `${domains.fr}/privacy`,
+        'es': `${domains.es}/privacy`,
+        'x-default': `${domains.en}/privacy`,
+      },
+    },
+  };
+}
+
+export default async function PrivacyPage() {
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const t = getTranslations(locale);
+  const p = t.privacyPolicy;
   return (
     <article className="min-h-screen" style={{ backgroundColor: '#fafafa' }}>
       <div style={{
@@ -29,7 +71,7 @@ export default function PrivacyPage() {
           letterSpacing: '-0.02em',
           marginBottom: 'var(--space-2)'
         }}>
-          Privacy Policy
+          {p.title}
         </h1>
 
         <div style={{
@@ -37,7 +79,7 @@ export default function PrivacyPage() {
           color: '#525252',
           marginBottom: 'var(--space-4)'
         }}>
-          Last Updated: April 16, 2026
+          {p.lastUpdated.replace('{date}', 'April 16, 2026')}
         </div>
 
         <div style={{
@@ -55,10 +97,10 @@ export default function PrivacyPage() {
               color: '#171717',
               marginBottom: 'var(--space-2)'
             }}>
-              Introduction
+              {p.introduction.title}
             </h2>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              FigTracker ("we," "our," or "us") is operated by ES Art & D LLC. This Privacy Policy explains how we collect, use, and protect your information when you use our LEGO minifigure price tracking and inventory management service.
+              {p.introduction.content}
             </p>
           </section>
 
@@ -69,7 +111,7 @@ export default function PrivacyPage() {
               color: '#171717',
               marginBottom: 'var(--space-2)'
             }}>
-              Information We Collect
+              {p.informationWeCollect.title}
             </h2>
 
             <h3 style={{
@@ -79,19 +121,19 @@ export default function PrivacyPage() {
               marginBottom: '12px',
               marginTop: 'var(--space-2)'
             }}>
-              Account Information
+              {p.informationWeCollect.accountInformation.title}
             </h3>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              When you create an account, we collect:
+              {p.informationWeCollect.accountInformation.intro}
             </p>
             <ul style={{
               marginLeft: '20px',
               marginBottom: 'var(--space-2)',
               listStyleType: 'disc'
             }}>
-              <li style={{ marginBottom: '8px' }}>Email address</li>
-              <li style={{ marginBottom: '8px' }}>Password (encrypted)</li>
-              <li style={{ marginBottom: '8px' }}>Optional profile information (name, avatar)</li>
+              {p.informationWeCollect.accountInformation.items.map((item: string, i: number) => (
+                <li key={i} style={{ marginBottom: '8px' }}>{item}</li>
+              ))}
             </ul>
 
             <h3 style={{
@@ -101,20 +143,19 @@ export default function PrivacyPage() {
               marginBottom: '12px',
               marginTop: 'var(--space-2)'
             }}>
-              Inventory Data
+              {p.informationWeCollect.inventoryData.title}
             </h3>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              Your inventory data includes:
+              {p.informationWeCollect.inventoryData.intro}
             </p>
             <ul style={{
               marginLeft: '20px',
               marginBottom: 'var(--space-2)',
               listStyleType: 'disc'
             }}>
-              <li style={{ marginBottom: '8px' }}>LEGO minifigure IDs you track</li>
-              <li style={{ marginBottom: '8px' }}>Quantities and conditions</li>
-              <li style={{ marginBottom: '8px' }}>Custom notes</li>
-              <li style={{ marginBottom: '8px' }}>Timestamps of additions/modifications</li>
+              {p.informationWeCollect.inventoryData.items.map((item: string, i: number) => (
+                <li key={i} style={{ marginBottom: '8px' }}>{item}</li>
+              ))}
             </ul>
 
             <h3 style={{
@@ -124,20 +165,19 @@ export default function PrivacyPage() {
               marginBottom: '12px',
               marginTop: 'var(--space-2)'
             }}>
-              Usage Analytics
+              {p.informationWeCollect.usageAnalytics.title}
             </h3>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              We use Google Analytics to understand how users interact with FigTracker:
+              {p.informationWeCollect.usageAnalytics.intro}
             </p>
             <ul style={{
               marginLeft: '20px',
               marginBottom: 'var(--space-2)',
               listStyleType: 'disc'
             }}>
-              <li style={{ marginBottom: '8px' }}>Pages visited</li>
-              <li style={{ marginBottom: '8px' }}>Search queries (minifigure searches only)</li>
-              <li style={{ marginBottom: '8px' }}>Device type and browser</li>
-              <li style={{ marginBottom: '8px' }}>General location (country/region)</li>
+              {p.informationWeCollect.usageAnalytics.items.map((item: string, i: number) => (
+                <li key={i} style={{ marginBottom: '8px' }}>{item}</li>
+              ))}
             </ul>
           </section>
 
@@ -148,31 +188,19 @@ export default function PrivacyPage() {
               color: '#171717',
               marginBottom: 'var(--space-2)'
             }}>
-              How We Use Your Information
+              {p.howWeUse.title}
             </h2>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              We use collected information to:
+              {p.howWeUse.intro}
             </p>
             <ul style={{
               marginLeft: '20px',
               marginBottom: 'var(--space-2)',
               listStyleType: 'disc'
             }}>
-              <li style={{ marginBottom: '8px' }}>
-                Provide inventory tracking and pricing features
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                Fetch real-time Bricklink marketplace data
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                Improve our service through usage analytics
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                Send essential account notifications (password resets, etc.)
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                Build a searchable minifigure catalog based on user searches
-              </li>
+              {p.howWeUse.items.map((item: string, i: number) => (
+                <li key={i} style={{ marginBottom: '8px' }}>{item}</li>
+              ))}
             </ul>
           </section>
 
@@ -183,28 +211,19 @@ export default function PrivacyPage() {
               color: '#171717',
               marginBottom: 'var(--space-2)'
             }}>
-              Data Storage and Security
+              {p.dataStorage.title}
             </h2>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              Your data is stored securely:
+              {p.dataStorage.intro}
             </p>
             <ul style={{
               marginLeft: '20px',
               marginBottom: 'var(--space-2)',
               listStyleType: 'disc'
             }}>
-              <li style={{ marginBottom: '8px' }}>
-                Passwords are encrypted using industry-standard bcrypt hashing
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                Data is stored in secure, encrypted databases
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                All connections use HTTPS encryption
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                We implement access controls to protect your data
-              </li>
+              {p.dataStorage.items.map((item: string, i: number) => (
+                <li key={i} style={{ marginBottom: '8px' }}>{item}</li>
+              ))}
             </ul>
           </section>
 
@@ -215,7 +234,7 @@ export default function PrivacyPage() {
               color: '#171717',
               marginBottom: 'var(--space-2)'
             }}>
-              Third-Party Services
+              {p.thirdPartyServices.title}
             </h2>
 
             <h3 style={{
@@ -225,10 +244,10 @@ export default function PrivacyPage() {
               marginBottom: '12px',
               marginTop: 'var(--space-2)'
             }}>
-              Bricklink API
+              {p.thirdPartyServices.bricklink.title}
             </h3>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              We use the official Bricklink API to fetch minifigure pricing data. When you search for or add minifigures, we send minifigure IDs to Bricklink to retrieve current marketplace prices. No personal information is shared with Bricklink.
+              {p.thirdPartyServices.bricklink.content}
             </p>
 
             <h3 style={{
@@ -238,10 +257,10 @@ export default function PrivacyPage() {
               marginBottom: '12px',
               marginTop: 'var(--space-2)'
             }}>
-              Google Analytics
+              {p.thirdPartyServices.googleAnalytics.title}
             </h3>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              We use Google Analytics to understand site usage. Google Analytics may use cookies to track your activity. For more information, see <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style={{ color: '#3b82f6', textDecoration: 'none' }}>Google's Privacy Policy</a>.
+              {p.thirdPartyServices.googleAnalytics.content} <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style={{ color: '#3b82f6', textDecoration: 'none' }}>{p.thirdPartyServices.googleAnalytics.linkText}</a>.
             </p>
 
             <h3 style={{
@@ -251,10 +270,10 @@ export default function PrivacyPage() {
               marginBottom: '12px',
               marginTop: 'var(--space-2)'
             }}>
-              Amazon Associates
+              {p.thirdPartyServices.amazonAssociates.title}
             </h3>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              We participate in the Amazon Associates Program. When you click affiliate links, Amazon may track your activity. See our <Link href="/disclosure" style={{ color: '#3b82f6', textDecoration: 'none' }}>Affiliate Disclosure</Link> for details.
+              {p.thirdPartyServices.amazonAssociates.content} <Link href="/disclosure" style={{ color: '#3b82f6', textDecoration: 'none' }}>{p.thirdPartyServices.amazonAssociates.linkText}</Link> {p.thirdPartyServices.amazonAssociates.contentEnd}
             </p>
           </section>
 
@@ -265,34 +284,22 @@ export default function PrivacyPage() {
               color: '#171717',
               marginBottom: 'var(--space-2)'
             }}>
-              Your Rights
+              {p.yourRights.title}
             </h2>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              You have the right to:
+              {p.yourRights.intro}
             </p>
             <ul style={{
               marginLeft: '20px',
               marginBottom: 'var(--space-2)',
               listStyleType: 'disc'
             }}>
-              <li style={{ marginBottom: '8px' }}>
-                Access your personal data and inventory
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                Update or correct your information
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                Delete your account and all associated data
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                Export your inventory data
-              </li>
-              <li style={{ marginBottom: '8px' }}>
-                Opt out of analytics tracking (via browser settings)
-              </li>
+              {p.yourRights.items.map((item: string, i: number) => (
+                <li key={i} style={{ marginBottom: '8px' }}>{item}</li>
+              ))}
             </ul>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              To exercise these rights, contact us through the information below or use the account settings in your dashboard.
+              {p.yourRights.footer}
             </p>
           </section>
 
@@ -303,10 +310,10 @@ export default function PrivacyPage() {
               color: '#171717',
               marginBottom: 'var(--space-2)'
             }}>
-              Data Retention
+              {p.dataRetention.title}
             </h2>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              We retain your data as long as your account is active. If you delete your account, we will permanently delete your personal information and inventory data within 30 days, except where we are required by law to retain certain information.
+              {p.dataRetention.content}
             </p>
           </section>
 
@@ -317,10 +324,10 @@ export default function PrivacyPage() {
               color: '#171717',
               marginBottom: 'var(--space-2)'
             }}>
-              Children's Privacy
+              {p.childrensPrivacy.title}
             </h2>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              FigTracker is not intended for children under 13. We do not knowingly collect personal information from children under 13. If you believe we have collected information from a child under 13, please contact us immediately.
+              {p.childrensPrivacy.content}
             </p>
           </section>
 
@@ -331,10 +338,10 @@ export default function PrivacyPage() {
               color: '#171717',
               marginBottom: 'var(--space-2)'
             }}>
-              Changes to This Policy
+              {p.changesToPolicy.title}
             </h2>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              We may update this Privacy Policy from time to time. We will notify you of significant changes by posting a notice on FigTracker or sending you an email. Your continued use of FigTracker after changes indicates acceptance of the updated policy.
+              {p.changesToPolicy.content}
             </p>
           </section>
 
@@ -345,19 +352,19 @@ export default function PrivacyPage() {
               color: '#171717',
               marginBottom: 'var(--space-2)'
             }}>
-              Contact Us
+              {p.contactUs.title}
             </h2>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              If you have questions about this Privacy Policy or how we handle your data, please contact:
+              {p.contactUs.intro}
             </p>
             <p style={{ marginBottom: '8px' }}>
               <strong>ES Art & D LLC</strong>
             </p>
             <p style={{ marginBottom: '8px' }}>
-              Email: <a href="mailto:hello@ericksu.com" style={{ color: '#3b82f6', textDecoration: 'none' }}>hello@ericksu.com</a>
+              {p.contactUs.emailLabel} <a href="mailto:hello@ericksu.com" style={{ color: '#3b82f6', textDecoration: 'none' }}>hello@ericksu.com</a>
             </p>
             <p style={{ marginBottom: 'var(--space-2)' }}>
-              Website: <a href="https://ericksu.com" target="_blank" rel="noopener noreferrer" style={{ color: '#3b82f6', textDecoration: 'none' }}>ericksu.com</a>
+              {p.contactUs.websiteLabel} <a href="https://ericksu.com" target="_blank" rel="noopener noreferrer" style={{ color: '#3b82f6', textDecoration: 'none' }}>ericksu.com</a>
             </p>
           </section>
         </div>

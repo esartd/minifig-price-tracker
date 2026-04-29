@@ -571,6 +571,13 @@
     }
   },
   "guides": {
+    "meta": {
+      "title": "LEGO Minifiguren-Preis-Anleitungen & Tipps",
+      "description": "Expertenanleitungen zur Preisgestaltung von LEGO Minifiguren, Verkauf auf Bricklink, Inventarverwaltung und Maximierung des Wiederverkaufswerts. Kostenlose Ressourcen für Verkäufer und Sammler.",
+      "keywords": ["LEGO Preisführer", "Minifiguren bewerten", "Bricklink Verkaufstipps", "LEGO Wiederverkaufsanleitung", "Minifiguren Wertführer"],
+      "ogTitle": "LEGO Preis-Anleitungen & Tipps",
+      "ogDescription": "Lernen Sie, wie Sie Ihr LEGO Minifiguren-Inventar effektiv bewerten, verkaufen und verwalten"
+    },
     "badge": "ANLEITUNGEN & RESSOURCEN",
     "hero": {
       "title": "Meistern Sie die LEGO Minifiguren-Bewertung",
@@ -882,5 +889,119 @@
     "startAddingSetsInventory": "Beginnen Sie mit dem Hinzufügen zu Ihrem Inventar durch Durchsuchen von Sets",
     "browseSets": "Sets durchsuchen",
     "noConditionSets": "Keine Sets im Zustand {condition}"
+  },
+  "privacyPolicy": {
+    "meta": {
+      "title": "Datenschutzerklärung",
+      "description": "Erfahren Sie, wie FigTracker Ihre persönlichen Daten und Inventardaten sammelt, verwendet und schützt.",
+      "ogDescription": "Erfahren Sie, wie wir Ihre Privatsphäre schützen und Ihre Daten verwalten."
+    },
+    "title": "Datenschutzerklärung",
+    "lastUpdated": "Zuletzt aktualisiert: {date}",
+    "introduction": {
+      "title": "Einleitung",
+      "content": "FigTracker (\"wir\", \"unser\" oder \"uns\") wird von ES Art & D LLC betrieben. Diese Datenschutzerklärung erläutert, wie wir Ihre Informationen sammeln, verwenden und schützen, wenn Sie unseren LEGO Minifiguren-Preisverfolgung und Inventarverwaltungsservice nutzen."
+    },
+    "informationWeCollect": {
+      "title": "Welche Informationen wir sammeln",
+      "accountInformation": {
+        "title": "Kontoinformationen",
+        "intro": "Wenn Sie ein Konto erstellen, sammeln wir:",
+        "items": [
+          "E-Mail-Adresse",
+          "Passwort (verschlüsselt)",
+          "Optionale Profilinformationen (Name, Avatar)"
+        ]
+      },
+      "inventoryData": {
+        "title": "Inventardaten",
+        "intro": "Ihre Inventardaten umfassen:",
+        "items": [
+          "LEGO Minifiguren-IDs, die Sie verfolgen",
+          "Mengen und Zustände",
+          "Individuelle Notizen",
+          "Zeitstempel von Hinzufügungen/Änderungen"
+        ]
+      },
+      "usageAnalytics": {
+        "title": "Nutzungsanalyse",
+        "intro": "Wir verwenden Google Analytics, um zu verstehen, wie Nutzer mit FigTracker interagieren:",
+        "items": [
+          "Besuchte Seiten",
+          "Suchanfragen (nur Minifiguren-Suchen)",
+          "Gerätetyp und Browser",
+          "Allgemeiner Standort (Land/Region)"
+        ]
+      }
+    },
+    "howWeUse": {
+      "title": "Wie wir Ihre Informationen verwenden",
+      "intro": "Wir verwenden gesammelte Informationen, um:",
+      "items": [
+        "Inventarverfolgung und Preisfunktionen bereitzustellen",
+        "Echtzeit-Bricklink-Marktdaten abzurufen",
+        "Unseren Service durch Nutzungsanalysen zu verbessern",
+        "Wichtige Kontobenachrichtigungen zu senden (Passwortzurücksetzungen usw.)",
+        "Einen durchsuchbaren Minifiguren-Katalog auf Basis von Nutzersuchen aufzubauen"
+      ]
+    },
+    "dataStorage": {
+      "title": "Datenspeicherung und Sicherheit",
+      "intro": "Ihre Daten werden sicher gespeichert:",
+      "items": [
+        "Passwörter werden mit branchenüblichem bcrypt-Hashing verschlüsselt",
+        "Daten werden in sicheren, verschlüsselten Datenbanken gespeichert",
+        "Alle Verbindungen verwenden HTTPS-Verschlüsselung",
+        "Wir implementieren Zugriffskontrollen zum Schutz Ihrer Daten"
+      ]
+    },
+    "thirdPartyServices": {
+      "title": "Drittanbieter-Dienste",
+      "bricklink": {
+        "title": "Bricklink API",
+        "content": "Wir verwenden die offizielle Bricklink API, um Minifiguren-Preisdaten abzurufen. Wenn Sie nach Minifiguren suchen oder diese hinzufügen, senden wir Minifiguren-IDs an Bricklink, um aktuelle Marktpreise abzurufen. Keine persönlichen Informationen werden mit Bricklink geteilt."
+      },
+      "googleAnalytics": {
+        "title": "Google Analytics",
+        "content": "Wir verwenden Google Analytics, um die Website-Nutzung zu verstehen. Google Analytics kann Cookies verwenden, um Ihre Aktivität zu verfolgen. Weitere Informationen finden Sie in",
+        "linkText": "Googles Datenschutzerklärung"
+      },
+      "amazonAssociates": {
+        "title": "Amazon Associates",
+        "content": "Wir nehmen am Amazon Associates Programm teil. Wenn Sie auf Affiliate-Links klicken, kann Amazon Ihre Aktivität verfolgen. Siehe unsere",
+        "linkText": "Affiliate-Offenlegung",
+        "contentEnd": "für Details."
+      }
+    },
+    "yourRights": {
+      "title": "Ihre Rechte",
+      "intro": "Sie haben das Recht:",
+      "items": [
+        "Auf Ihre persönlichen Daten und Ihr Inventar zuzugreifen",
+        "Ihre Informationen zu aktualisieren oder zu korrigieren",
+        "Ihr Konto und alle zugehörigen Daten zu löschen",
+        "Ihre Inventardaten zu exportieren",
+        "Die Analytics-Verfolgung zu deaktivieren (über Browser-Einstellungen)"
+      ],
+      "footer": "Um diese Rechte auszuüben, kontaktieren Sie uns über die unten stehenden Informationen oder nutzen Sie die Kontoeinstellungen in Ihrem Dashboard."
+    },
+    "dataRetention": {
+      "title": "Datenspeicherung",
+      "content": "Wir speichern Ihre Daten, solange Ihr Konto aktiv ist. Wenn Sie Ihr Konto löschen, werden wir Ihre persönlichen Informationen und Inventardaten innerhalb von 30 Tagen dauerhaft löschen, außer wenn wir gesetzlich verpflichtet sind, bestimmte Informationen zu speichern."
+    },
+    "childrensPrivacy": {
+      "title": "Datenschutz für Kinder",
+      "content": "FigTracker ist nicht für Kinder unter 13 Jahren bestimmt. Wir sammeln nicht wissentlich persönliche Informationen von Kindern unter 13 Jahren. Wenn Sie glauben, dass wir Informationen von einem Kind unter 13 Jahren gesammelt haben, kontaktieren Sie uns bitte umgehend."
+    },
+    "changesToPolicy": {
+      "title": "Änderungen an dieser Erklärung",
+      "content": "Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Wir werden Sie über wesentliche Änderungen durch eine Mitteilung auf FigTracker oder per E-Mail informieren. Ihre fortgesetzte Nutzung von FigTracker nach Änderungen zeigt die Akzeptanz der aktualisierten Erklärung an."
+    },
+    "contactUs": {
+      "title": "Kontaktieren Sie uns",
+      "intro": "Wenn Sie Fragen zu dieser Datenschutzerklärung oder zur Handhabung Ihrer Daten haben, kontaktieren Sie bitte:",
+      "emailLabel": "E-Mail:",
+      "websiteLabel": "Website:"
+    }
   }
 }
