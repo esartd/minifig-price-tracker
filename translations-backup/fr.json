@@ -557,6 +557,90 @@
       "aboutPage": "page À propos"
     }
   },
+  "guides": {
+    "badge": "GUIDES & RESSOURCES",
+    "hero": {
+      "title": "Maîtrisez la tarification des minifigurines LEGO",
+      "subtitle": "Guides d'experts pour vous aider à évaluer, vendre et gérer votre inventaire de minifigurines comme un pro"
+    },
+    "whatYoullLearn": "Ce que vous apprendrez :",
+    "readGuide": "Lire le guide →",
+    "comingSoon": "Bientôt disponible",
+    "quickTips": {
+      "title": "Conseils rapides de tarification",
+      "tip1": {
+        "title": "Actualisez régulièrement les prix",
+        "description": "Les prix du marché changent fréquemment. Actualisez les données de prix avant de lister pour assurer une tarification compétitive."
+      },
+      "tip2": {
+        "title": "L'état compte",
+        "description": "Les minifigurines neuves obtiennent des prix 20-50% plus élevés que celles d'occasion. Évaluez l'état honnêtement pour établir la confiance des acheteurs."
+      },
+      "tip3": {
+        "title": "Utilisez plusieurs points de données",
+        "description": "Ne comptez pas sur une seule métrique. Le prix suggéré de FigTracker équilibre la moyenne pondérée par quantité, la moyenne simple et le prix le plus bas."
+      }
+    },
+    "cta": {
+      "title": "Prêt à évaluer comme un pro ?",
+      "subtitle": "Commencez à utiliser les outils de tarification de FigTracker avec de vraies données Bricklink",
+      "button": "Commencer à évaluer maintenant →"
+    },
+    "items": [
+      {
+        "title": "Minifigurines LEGO les plus précieuses en 2026",
+        "description": "Découvrez quelles minifigurines LEGO obtiennent les prix les plus élevés. Apprenez ce qui rend certaines minifigurines précieuses et comment identifier les trésors cachés.",
+        "slug": "most-valuable-lego-minifigures-2026",
+        "status": "published",
+        "topics": [
+          "Top 50 des minifigurines les plus précieuses analysées",
+          "Raretés Star Wars, Harry Potter, Marvel",
+          "Potentiel d'investissement et taux d'appréciation",
+          "Authentification et évaluation de l'état",
+          "Où acheter et vendre des pièces précieuses"
+        ]
+      },
+      {
+        "title": "FigTracker vs Bricklink : Lequel utiliser ?",
+        "description": "Comparez FigTracker et Bricklink pour la tarification LEGO. Apprenez quand utiliser chaque plateforme et comment elles se complètent.",
+        "slug": "figtracker-vs-bricklink",
+        "status": "published",
+        "topics": [
+          "Comparaison côte à côte des fonctionnalités",
+          "Quand utiliser chaque plateforme",
+          "Différences de philosophie de tarification",
+          "Meilleur workflow : utiliser les deux ensemble",
+          "Stratégies pour gagner du temps pour les vendeurs"
+        ]
+      },
+      {
+        "title": "Comment évaluer les minifigurines LEGO",
+        "description": "Apprenez les fondamentaux de l'évaluation des minifigurines LEGO en utilisant les données du marché Bricklink. Comprenez les moyennes pondérées par quantité, les moyennes simples et comment prendre en compte l'état.",
+        "slug": null,
+        "status": "coming-soon",
+        "topics": [
+          "Comprendre les métriques de tarification Bricklink",
+          "Tarification Neuf vs Occasion",
+          "Tenir compte de la rareté et de la demande",
+          "Quand fixer un prix au-dessus ou en-dessous de la moyenne du marché",
+          "Tendances de prix saisonnières"
+        ]
+      },
+      {
+        "title": "Vendre des LEGO sur Bricklink",
+        "description": "Guide complet pour devenir un vendeur Bricklink réussi. De la création de votre boutique aux meilleures pratiques d'expédition et conseils de service client.",
+        "slug": null,
+        "status": "coming-soon",
+        "topics": [
+          "Configuration de votre boutique Bricklink",
+          "Stratégies de tarification compétitives",
+          "Rédiger des descriptions d'articles efficaces",
+          "Emballer et expédier les minifigurines en toute sécurité",
+          "Construire une réputation de vendeur"
+        ]
+      }
+    ]
+  },
   "collection": {
     "title": "Votre Collection",
     "subtitle": "Votre collection personnelle — les minifigurines que vous gardez, pas à vendre",
