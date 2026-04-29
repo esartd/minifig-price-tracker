@@ -106,22 +106,35 @@ export async function GET(
       );
     }
 
-    // Check which token matched and if sharing is enabled
+    // Check which token matched and if it corresponds to the requested type
     let shareEnabled = false;
     let items: any[] = [];
+    let matchedType: CollectionType | null = null;
 
     if (user.shareTokenInventory === token) {
+      matchedType = 'inventory';
       shareEnabled = user.shareEnabledInventory;
       items = user.CollectionItem;
     } else if (user.shareTokenCollection === token) {
+      matchedType = 'collection';
       shareEnabled = user.shareEnabledCollection;
       items = user.PersonalCollectionItem;
     } else if (user.shareTokenSetsInventory === token) {
+      matchedType = 'sets-inventory';
       shareEnabled = user.shareEnabledSetsInventory;
       items = user.SetInventoryItem;
     } else if (user.shareTokenSetsCollection === token) {
+      matchedType = 'sets-collection';
       shareEnabled = user.shareEnabledSetsCollection;
       items = user.SetPersonalCollectionItem;
+    }
+
+    // Verify the token matches the requested type
+    if (matchedType !== type) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid share link for this collection type' },
+        { status: 403 }
+      );
     }
 
     if (!shareEnabled) {
