@@ -32,6 +32,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
   const legoDropdownRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const [useMobileLayout, setUseMobileLayout] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -70,19 +72,51 @@ export function HeaderClient({ user }: HeaderClientProps) {
     return () => window.removeEventListener('wishlistAdded', handleWishlistAdded);
   }, []);
 
-  // Close mobile menu when resizing to desktop
+  // Dynamic layout switching based on navigation width
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768 && mobileMenuOpen) {
-        setMobileMenuOpen(false);
-        setMobileBrowseOpen(false);
-        setMobileLegoOpen(false);
-      }
+    const checkNavigationFit = () => {
+      if (!headerRef.current) return;
+
+      const header = headerRef.current;
+      const logo = header.querySelector('.header-logo') as HTMLElement;
+      const desktopNav = header.querySelector('.desktop-nav') as HTMLElement;
+      const authSection = header.querySelector('.desktop-auth') as HTMLElement;
+
+      if (!logo || !desktopNav || !authSection) return;
+
+      const headerWidth = header.offsetWidth;
+      const logoWidth = logo.offsetWidth;
+      const navWidth = desktopNav.offsetWidth;
+      const authWidth = authSection.offsetWidth;
+
+      // Calculate total width needed with 40px gap between logo and nav
+      const totalNeeded = logoWidth + 40 + navWidth + 40 + authWidth;
+
+      // Switch to mobile if content doesn't fit with 20px safety margin
+      setUseMobileLayout(totalNeeded + 20 > headerWidth);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [mobileMenuOpen]);
+    // Check on mount and resize
+    checkNavigationFit();
+    window.addEventListener('resize', checkNavigationFit);
+
+    // Recheck when translations load (language-specific text lengths)
+    const timeout = setTimeout(checkNavigationFit, 100);
+
+    return () => {
+      window.removeEventListener('resize', checkNavigationFit);
+      clearTimeout(timeout);
+    };
+  }, [t]);
+
+  // Close mobile menu when switching to desktop layout
+  useEffect(() => {
+    if (!useMobileLayout && mobileMenuOpen) {
+      setMobileMenuOpen(false);
+      setMobileBrowseOpen(false);
+      setMobileLegoOpen(false);
+    }
+  }, [useMobileLayout, mobileMenuOpen]);
 
   const getInitials = (name?: string | null, email?: string | null) => {
     if (name) {
@@ -183,7 +217,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
 
   if (!user) {
     return (
-      <header style={{
+      <header ref={headerRef} style={{
         position: 'sticky',
         top: 0,
         zIndex: 10000,
@@ -203,7 +237,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             justifyContent: 'space-between',
             height: '72px'
           }}>
-            <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', height: '36px' }}>
+            <Link href="/" className="header-logo" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', height: '36px' }}>
               <div style={{
                 fontSize: 'var(--text-lg)',
                 fontWeight: '600',
@@ -217,7 +251,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             </Link>
 
             <div className="desktop-nav" style={{
-              display: 'flex',
+              display: useMobileLayout ? 'none' : 'flex',
               alignItems: 'center',
               gap: '32px'
             }}>
@@ -446,7 +480,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 {t('navigation.about')}
               </Link>
 
-              <div style={{
+              <div className="desktop-auth" style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px'
@@ -488,7 +522,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               className="mobile-menu-btn"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               style={{
-                display: 'none',
+                display: useMobileLayout ? 'block' : 'none',
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
@@ -748,7 +782,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
   }
 
   return (
-    <header style={{
+    <header ref={headerRef} style={{
       position: 'sticky',
       top: 0,
       zIndex: 10000,
@@ -768,7 +802,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
           justifyContent: 'space-between',
           height: '72px'
         }}>
-          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', height: '36px' }}>
+          <Link href="/" className="header-logo" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', height: '36px' }}>
             <div style={{
               fontSize: 'var(--text-lg)',
               fontWeight: '600',
@@ -782,7 +816,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
           </Link>
 
           <div className="desktop-nav" style={{
-            display: 'flex',
+            display: useMobileLayout ? 'none' : 'flex',
             alignItems: 'center',
             gap: '32px'
           }}>
@@ -1011,23 +1045,28 @@ export function HeaderClient({ user }: HeaderClientProps) {
               {t('navigation.about')}
             </Link>
 
-            <LanguageSwitcher />
+            <div className="desktop-auth" style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px'
+            }}>
+              <LanguageSwitcher />
 
-            <div style={{ position: 'relative' }} ref={dropdownRef}>
-              <button
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: 0,
-                  outline: 'none'
-                }}
-              >
-                {renderAvatar(user.image, 36)}
-              </button>
+              <div style={{ position: 'relative' }} ref={dropdownRef}>
+                <button
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    padding: 0,
+                    outline: 'none'
+                  }}
+                >
+                  {renderAvatar(user.image, 36)}
+                </button>
 
               {dropdownOpen && (
                 <div style={{
@@ -1193,6 +1232,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   </button>
                 </div>
               )}
+              </div>
             </div>
           </div>
 
@@ -1201,7 +1241,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             className="mobile-menu-btn"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             style={{
-              display: 'none',
+              display: useMobileLayout ? 'block' : 'none',
               background: 'none',
               border: 'none',
               cursor: 'pointer',

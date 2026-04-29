@@ -552,14 +552,7 @@ input[type="number"] {
     left: 3% !important;
   }
 
-  /* Show desktop nav on tablets */
-  .desktop-nav {
-    display: flex !important;
-  }
-
-  .mobile-menu-btn {
-    display: none !important;
-  }
+  /* Show desktop nav on tablets - now starts at 960px */
 
   /* Adjust header for tablet */
   header > div {
@@ -576,7 +569,9 @@ input[type="number"] {
   }
 }
 
-/* Desktop (1024px+) */
+/* Desktop layout is now controlled dynamically via JavaScript based on content width */
+
+/* Large Desktop (1024px+) */
 @media (min-width: 1024px) {
   .floating-emoji,
   .floating-emoji-reverse {
@@ -586,14 +581,6 @@ input[type="number"] {
   }
 
   /* Desktop positioning - natural edge distribution (uses default from JS) */
-
-  .desktop-nav {
-    display: flex !important;
-  }
-
-  .mobile-menu-btn {
-    display: none !important;
-  }
 }
 
 /* Landscape phone adjustments */
