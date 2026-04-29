@@ -141,7 +141,7 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
             style={{
               background: '#ffffff',
               borderRadius: '12px',
-              padding: '32px',
+              padding: '24px',
               maxWidth: '500px',
               width: '100%'
             }}
@@ -172,12 +172,14 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
               padding: '16px',
               background: '#fafafa',
               borderRadius: '8px',
-              marginBottom: '16px'
+              marginBottom: '16px',
+              gap: '12px'
             }}>
               <span style={{
                 fontSize: 'var(--text-base)',
                 fontWeight: '600',
-                color: '#171717'
+                color: '#171717',
+                flex: 1
               }}>
                 Enable Sharing
               </span>
@@ -218,12 +220,14 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                 padding: '16px',
                 background: '#fafafa',
                 borderRadius: '8px',
-                marginBottom: '16px'
+                marginBottom: '16px',
+                gap: '12px'
               }}>
                 <span style={{
                   fontSize: 'var(--text-base)',
                   fontWeight: '600',
-                  color: '#171717'
+                  color: '#171717',
+                  flex: 1
                 }}>
                   Show Pricing
                 </span>
