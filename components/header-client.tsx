@@ -520,7 +520,10 @@ export function HeaderClient({ user }: HeaderClientProps) {
             <button
               ref={mobileMenuButtonRef}
               className="mobile-menu-btn"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={() => {
+                console.log('Hamburger clicked, current state:', mobileMenuOpen);
+                setMobileMenuOpen(!mobileMenuOpen);
+              }}
               style={{
                 display: useMobileLayout ? 'block' : 'none',
                 background: 'none',
