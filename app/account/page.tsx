@@ -6,8 +6,10 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getCurrenciesByContinent, SUPPORTED_CURRENCIES } from '@/lib/currency-config';
 import { formatPrice } from '@/lib/format-price';
+import { useTranslation } from '@/components/TranslationProvider';
 
 export default function AccountPage() {
+  const { t } = useTranslation();
   const { data: session, update } = useSession();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -269,13 +271,13 @@ export default function AccountPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        showMessage('error', data.error || 'Failed to update name');
+        showMessage('error', data.error || t('account.messages.genericError'));
       } else {
-        showMessage('success', 'Name updated successfully');
+        showMessage('success', t('account.messages.nameUpdated'));
         router.refresh();
       }
     } catch (error) {
-      showMessage('error', 'An error occurred. Please try again.');
+      showMessage('error', t('account.messages.genericError'));
     } finally {
       setLoading(false);
     }
@@ -294,7 +296,7 @@ export default function AccountPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        showMessage('error', data.error || 'Failed to update avatar');
+        showMessage('error', data.error || t('account.messages.genericError'));
         setLoading(false);
         return;
       }
@@ -307,12 +309,12 @@ export default function AccountPage() {
       await update({ image: avatar });
       router.refresh(); // Refresh server components to show new avatar in header
 
-      showMessage('success', 'Avatar updated!');
+      showMessage('success', t('account.messages.avatarUpdated'));
       setLoading(false);
 
     } catch (error) {
       console.error('Avatar update error:', error);
-      showMessage('error', 'Failed to update avatar');
+      showMessage('error', t('account.messages.genericError'));
       setLoading(false);
     }
   };
@@ -321,12 +323,12 @@ export default function AccountPage() {
     e.preventDefault();
 
     if (newPassword !== confirmPassword) {
-      showMessage('error', 'New passwords do not match');
+      showMessage('error', t('account.messages.passwordMismatch'));
       return;
     }
 
     if (newPassword.length < 8) {
-      showMessage('error', 'Password must be at least 8 characters');
+      showMessage('error', t('account.messages.passwordTooShort'));
       return;
     }
 
@@ -341,15 +343,15 @@ export default function AccountPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        showMessage('error', data.error || 'Failed to change password');
+        showMessage('error', data.error || t('account.messages.genericError'));
       } else {
-        showMessage('success', 'Password changed successfully');
+        showMessage('success', t('account.messages.passwordChanged'));
         setCurrentPassword('');
         setNewPassword('');
         setConfirmPassword('');
       }
     } catch (error) {
-      showMessage('error', 'An error occurred. Please try again.');
+      showMessage('error', t('account.messages.genericError'));
     } finally {
       setLoading(false);
     }
@@ -371,21 +373,21 @@ export default function AccountPage() {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
 
-      showMessage('success', 'Collection data exported successfully');
+      showMessage('success', t('account.dataManagement.export.success'));
     } catch (error) {
-      showMessage('error', 'Failed to export collection data');
+      showMessage('error', t('account.dataManagement.export.error'));
     }
   };
 
   const handleDeleteAccount = async () => {
     const confirmed = window.confirm(
-      'Are you sure you want to delete your account? This action cannot be undone and will permanently delete all your collection data.'
+      t('account.dataManagement.delete.confirm1')
     );
 
     if (!confirmed) return;
 
     const doubleConfirm = window.confirm(
-      'This is your last chance. Are you absolutely sure you want to delete your account and all data?'
+      t('account.dataManagement.delete.confirm2')
     );
 
     if (!doubleConfirm) return;
@@ -397,14 +399,14 @@ export default function AccountPage() {
       });
 
       if (!response.ok) {
-        showMessage('error', 'Failed to delete account');
+        showMessage('error', t('account.dataManagement.delete.error'));
         setLoading(false);
         return;
       }
 
       window.location.href = '/auth/signin';
     } catch (error) {
-      showMessage('error', 'An error occurred. Please try again.');
+      showMessage('error', t('account.messages.genericError'));
       setLoading(false);
     }
   };
@@ -430,7 +432,7 @@ export default function AccountPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        showMessage('error', data.error || 'Failed to update currency');
+        showMessage('error', data.error || t('account.messages.genericError'));
       } else {
         setSelectedCurrency(currency.code);
         await update({
@@ -443,21 +445,21 @@ export default function AccountPage() {
 
         // Show notification with time estimate
         const { itemCount, estimatedMinutes } = data.priceUpdate || { itemCount: 0, estimatedMinutes: 0 };
-        let message = `✓ Currency updated to ${currency.name} (${currency.symbol})`;
+        let message = `✓ ${t('account.messages.currencyUpdated', { currencyName: currency.name, currencySymbol: currency.symbol })}`;
 
         if (itemCount > 0) {
-          message += `\n\n⏱️ Updating prices for ${itemCount} items in your collection.`;
-          message += `\nEstimated time: ${estimatedMinutes} minute${estimatedMinutes > 1 ? 's' : ''}`;
-          message += `\n\nRefresh the page in a few minutes to see updated prices.`;
+          message += `\n\n⏱️ ${t('account.messages.updatingPrices', { itemCount: itemCount.toString() })}`;
+          message += `\n${t('account.messages.estimatedTime', { minutes: estimatedMinutes.toString(), plural: estimatedMinutes > 1 ? 's' : '' })}`;
+          message += `\n\n${t('account.messages.refreshPage')}`;
         } else {
-          message += `\n\nPrices will now display in ${currency.code}.`;
+          message += `\n\n${t('account.messages.pricesWillDisplay', { currencyCode: currency.code })}`;
         }
 
         alert(message);
         router.refresh();
       }
     } catch (error) {
-      showMessage('error', 'An error occurred. Please try again.');
+      showMessage('error', t('account.messages.genericError'));
     } finally {
       setLoading(false);
     }
@@ -475,12 +477,12 @@ export default function AccountPage() {
         setShareEnabled(data.shareEnabled);
         setShareToken(data.shareToken);
         setShareUrl(data.shareUrl);
-        showMessage('success', data.shareEnabled ? 'Collection sharing enabled' : 'Collection sharing disabled');
+        showMessage('success', data.shareEnabled ? t('account.sharing.enableSuccess') : t('account.sharing.disableSuccess'));
       } else {
-        showMessage('error', 'Failed to toggle sharing');
+        showMessage('error', t('account.sharing.error'));
       }
     } catch (error) {
-      showMessage('error', 'An error occurred. Please try again.');
+      showMessage('error', t('account.messages.genericError'));
     } finally {
       setLoading(false);
     }
@@ -531,7 +533,7 @@ export default function AccountPage() {
           <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)">
             <path strokeLinecap="round" strokeLinejoin="round" d="M10 12L6 8l4-4" />
           </svg>
-          Back to Collection
+          {t('account.backToCollection')}
         </Link>
 
         {/* Header */}
@@ -544,14 +546,14 @@ export default function AccountPage() {
             color: '#171717',
             marginBottom: '12px'
           }}>
-            Account Settings
+            {t('account.title')}
           </h1>
           <p style={{
             fontSize: 'var(--text-base)',
             color: '#525252',
             lineHeight: '1.6'
           }}>
-            Manage your profile, security, and data preferences
+            {t('account.subtitle')}
           </p>
         </div>
 
@@ -607,7 +609,7 @@ export default function AccountPage() {
               marginBottom: '8px',
               letterSpacing: '0.01em'
             }}>
-              Total Items
+              {t('account.stats.totalItems')}
             </p>
             <p style={{
               fontSize: 'var(--text-xl)',
@@ -632,7 +634,7 @@ export default function AccountPage() {
               marginBottom: '8px',
               letterSpacing: '0.01em'
             }}>
-              Collection Value
+              {t('account.stats.collectionValue')}
             </p>
             <p style={{
               fontSize: 'var(--text-xl)',
@@ -657,7 +659,7 @@ export default function AccountPage() {
               marginBottom: '8px',
               letterSpacing: '0.01em'
             }}>
-              Member Since
+              {t('account.stats.memberSince')}
             </p>
             <p style={{
               fontSize: 'var(--text-xl)',
@@ -686,7 +688,7 @@ export default function AccountPage() {
             marginBottom: '32px',
             letterSpacing: '-0.01em'
           }}>
-            Profile Information
+            {t('account.profile.title')}
           </h2>
 
           <div className="account-profile-content" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
@@ -713,7 +715,7 @@ export default function AccountPage() {
                   marginBottom: '16px'
                 }}
               >
-                {showAvatarPicker ? 'Cancel' : 'Change Avatar'}
+                {showAvatarPicker ? t('account.profile.avatar.cancel') : t('account.profile.avatar.change')}
               </button>
 
               {/* Avatar options grid */}
@@ -771,7 +773,7 @@ export default function AccountPage() {
                   color: '#525252',
                   letterSpacing: '0.01em'
                 }}>
-                  Full Name
+                  {t('account.profile.fullName')}
                 </label>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <input
@@ -792,7 +794,7 @@ export default function AccountPage() {
                       transition: 'border-color 0.2s, box-shadow 0.2s',
                       boxSizing: 'border-box'
                     }}
-                    placeholder="Enter your full name"
+                    placeholder={t('account.profile.placeholders.name')}
                     onFocus={(e) => {
                       e.currentTarget.style.borderColor = '#3b82f6';
                       e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
@@ -821,7 +823,7 @@ export default function AccountPage() {
                       boxSizing: 'border-box'
                     }}
                   >
-                    {loading ? 'Saving...' : 'Save'}
+                    {loading ? t('account.profile.saving') : t('account.profile.save')}
                   </button>
                 </div>
               </form>
@@ -835,7 +837,7 @@ export default function AccountPage() {
                   color: '#525252',
                   letterSpacing: '0.01em'
                 }}>
-                  Email Address
+                  {t('account.profile.emailAddress')}
                 </label>
                 <div style={{
                   padding: '14px 16px',
@@ -854,7 +856,7 @@ export default function AccountPage() {
                   marginTop: '8px',
                   lineHeight: '1.5'
                 }}>
-                  Email cannot be changed for security reasons
+                  {t('account.profile.emailNote')}
                 </p>
               </div>
             </div>
@@ -876,7 +878,7 @@ export default function AccountPage() {
             marginBottom: '32px',
             letterSpacing: '-0.01em'
           }}>
-            Security
+            {t('account.security.title')}
           </h2>
 
           <form onSubmit={handlePasswordChange}>
@@ -895,7 +897,7 @@ export default function AccountPage() {
                   color: '#525252',
                   letterSpacing: '0.01em'
                 }}>
-                  Current Password
+                  {t('account.security.currentPassword')}
                 </label>
                 <div style={{ position: 'relative' }}>
                   <input
@@ -916,7 +918,7 @@ export default function AccountPage() {
                       transition: 'border-color 0.2s, box-shadow 0.2s',
                       boxSizing: 'border-box'
                     }}
-                    placeholder="Enter current password"
+                    placeholder={t('account.security.placeholders.currentPassword')}
                     onFocus={(e) => {
                       e.currentTarget.style.borderColor = '#3b82f6';
                       e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
@@ -968,7 +970,7 @@ export default function AccountPage() {
                   color: '#525252',
                   letterSpacing: '0.01em'
                 }}>
-                  New Password
+                  {t('account.security.newPassword')}
                 </label>
                 <div style={{ position: 'relative' }}>
                   <input
@@ -989,7 +991,7 @@ export default function AccountPage() {
                       transition: 'border-color 0.2s, box-shadow 0.2s',
                       boxSizing: 'border-box'
                     }}
-                    placeholder="Enter new password"
+                    placeholder={t('account.security.placeholders.newPassword')}
                     onFocus={(e) => {
                       e.currentTarget.style.borderColor = '#3b82f6';
                       e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
@@ -1041,7 +1043,7 @@ export default function AccountPage() {
                   color: '#525252',
                   letterSpacing: '0.01em'
                 }}>
-                  Confirm New Password
+                  {t('account.security.confirmPassword')}
                 </label>
                 <div style={{ position: 'relative' }}>
                   <input
@@ -1062,7 +1064,7 @@ export default function AccountPage() {
                       transition: 'border-color 0.2s, box-shadow 0.2s',
                       boxSizing: 'border-box'
                     }}
-                    placeholder="Confirm new password"
+                    placeholder={t('account.security.placeholders.confirmPassword')}
                     onFocus={(e) => {
                       e.currentTarget.style.borderColor = '#3b82f6';
                       e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
@@ -1125,7 +1127,7 @@ export default function AccountPage() {
                 boxSizing: 'border-box'
               }}
             >
-              {loading ? 'Changing...' : 'Change Password'}
+              {loading ? t('account.security.changing') : t('account.security.changePassword')}
             </button>
           </form>
         </div>
@@ -1145,7 +1147,7 @@ export default function AccountPage() {
             marginBottom: '8px',
             letterSpacing: '-0.01em'
           }}>
-            Regional Settings
+            {t('account.regional.title')}
           </h2>
           <p style={{
             fontSize: 'var(--text-sm)',
@@ -1153,7 +1155,7 @@ export default function AccountPage() {
             marginBottom: '32px',
             lineHeight: '1.5'
           }}>
-            Choose your preferred currency for pricing display
+            {t('account.regional.subtitle')}
           </p>
 
           <div style={{ marginBottom: '24px' }}>
@@ -1164,7 +1166,7 @@ export default function AccountPage() {
               color: '#171717',
               marginBottom: '8px'
             }}>
-              Currency
+              {t('account.regional.currency')}
             </label>
             <select
               value={selectedCurrency}
@@ -1212,8 +1214,7 @@ export default function AccountPage() {
               color: '#525252',
               lineHeight: '1.6'
             }}>
-              <strong>Note:</strong> Changing your currency will display prices in your selected region's marketplace.
-              Prices may differ from other regions due to local supply, demand, and shipping costs.
+              <strong>Note:</strong> {t('account.regional.note')}
             </p>
           </div>
         </div>
@@ -1233,7 +1234,7 @@ export default function AccountPage() {
             marginBottom: '8px',
             letterSpacing: '-0.01em'
           }}>
-            Share Collection
+            {t('account.sharing.title')}
           </h2>
           <p style={{
             fontSize: 'var(--text-sm)',
@@ -1241,7 +1242,7 @@ export default function AccountPage() {
             marginBottom: '32px',
             lineHeight: '1.5'
           }}>
-            Share your collection with others via a public link (read-only)
+            {t('account.sharing.subtitle')}
           </p>
 
           <div style={{
@@ -1266,13 +1267,13 @@ export default function AccountPage() {
                   color: '#171717',
                   marginBottom: '4px'
                 }}>
-                  Public Sharing
+                  {t('account.sharing.publicSharing')}
                 </div>
                 <div style={{
                   fontSize: 'var(--text-xs)',
                   color: '#737373'
                 }}>
-                  {shareEnabled ? 'Your collection is visible to anyone with the link' : 'Your collection is private'}
+                  {shareEnabled ? t('account.sharing.enabled') : t('account.sharing.disabled')}
                 </div>
               </div>
               <button
@@ -1320,7 +1321,7 @@ export default function AccountPage() {
                   textTransform: 'uppercase',
                   letterSpacing: '0.05em'
                 }}>
-                  Share Link
+                  {t('account.sharing.shareLink')}
                 </div>
                 <div style={{
                   display: 'flex',
@@ -1360,7 +1361,7 @@ export default function AccountPage() {
                     onMouseEnter={(e) => e.currentTarget.style.background = '#2563eb'}
                     onMouseLeave={(e) => e.currentTarget.style.background = '#3b82f6'}
                   >
-                    {copySuccess ? '✓ Copied' : 'Copy'}
+                    {copySuccess ? `✓ ${t('account.sharing.copied')}` : t('account.sharing.copy')}
                   </button>
                 </div>
                 <p style={{
@@ -1369,7 +1370,7 @@ export default function AccountPage() {
                   marginTop: '8px',
                   lineHeight: '1.5'
                 }}>
-                  Anyone with this link can view your collection and inventory (read-only)
+                  {t('account.sharing.linkNote')}
                 </p>
               </div>
             )}
@@ -1390,7 +1391,7 @@ export default function AccountPage() {
             marginBottom: '32px',
             letterSpacing: '-0.01em'
           }}>
-            Data Management
+            {t('account.dataManagement.title')}
           </h2>
 
           <div>
@@ -1408,14 +1409,14 @@ export default function AccountPage() {
                   color: '#171717',
                   marginBottom: '6px'
                 }}>
-                  Export Collection Data
+                  {t('account.dataManagement.export.title')}
                 </h3>
                 <p style={{
                   fontSize: 'var(--text-sm)',
                   color: '#737373',
                   lineHeight: '1.6'
                 }}>
-                  Download your entire collection as a JSON file
+                  {t('account.dataManagement.export.subtitle')}
                 </p>
               </div>
               <button
@@ -1435,7 +1436,7 @@ export default function AccountPage() {
                   boxSizing: 'border-box'
                 }}
               >
-                Export Data
+                {t('account.dataManagement.export.button')}
               </button>
             </div>
 
@@ -1450,14 +1451,14 @@ export default function AccountPage() {
                   color: '#dc2626',
                   marginBottom: '6px'
                 }}>
-                  Delete Account
+                  {t('account.dataManagement.delete.title')}
                 </h3>
                 <p style={{
                   fontSize: 'var(--text-sm)',
                   color: '#737373',
                   lineHeight: '1.6'
                 }}>
-                  Permanently delete your account and all associated data
+                  {t('account.dataManagement.delete.subtitle')}
                 </p>
               </div>
               <button
@@ -1479,7 +1480,7 @@ export default function AccountPage() {
                   boxSizing: 'border-box'
                 }}
               >
-                Delete Account
+                {t('account.dataManagement.delete.button')}
               </button>
             </div>
           </div>
