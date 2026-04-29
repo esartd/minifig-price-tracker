@@ -153,6 +153,12 @@ export async function GET(
       );
     }
 
+    // Calculate total value BEFORE formatting (using raw database values)
+    const totalValue = items.reduce((sum: number, item: any) => {
+      const price = item.pricing_suggested_price || 0;
+      return sum + (price * item.quantity);
+    }, 0);
+
     // Format items with pricing (only if pricing is enabled)
     const formatItems = (items: any[]) =>
       items.map((item: any) => ({
@@ -175,7 +181,8 @@ export async function GET(
         type,
         currency: user.preferredCurrency || 'USD',
         showDecimals: false,
-        showPricing: sharePricing
+        showPricing: sharePricing,
+        totalValue: sharePricing ? totalValue : 0
       }
     });
   } catch (error) {

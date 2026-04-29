@@ -35,6 +35,7 @@ interface SharedCollection {
   currency: string;
   showDecimals: boolean;
   showPricing: boolean;
+  totalValue: number;
 }
 
 export default function SharedCollectionPage({ params }: { params: Promise<{ token: string }> }) {
@@ -143,10 +144,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
   }
 
   const items = data.items;
-  const totalValue = items.reduce((sum, item) => {
-    const price = item.pricing?.suggestedPrice || 0;
-    return sum + (price * item.quantity);
-  }, 0);
+  const totalValue = data.totalValue;
 
   // Get collection title based on type
   const getTitle = () => {
