@@ -2,15 +2,17 @@
 
 import { useRouter } from 'next/navigation';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from './TranslationProvider';
 
 interface CollectionSwitcherProps {
   currentPage: 'inventory' | 'collection';
 }
 
 export default function CollectionSwitcher({ currentPage }: CollectionSwitcherProps) {
+  const { t } = useTranslation();
   const router = useRouter();
 
-  const displayName = currentPage === 'inventory' ? 'Minifigures for Sale' : 'Minifigures to Keep';
+  const displayName = currentPage === 'inventory' ? t('navigation.minifigsForSale') : t('navigation.minifigsToKeep');
   const targetPage = currentPage === 'inventory' ? '/collection' : '/inventory';
 
   const handleClick = () => {

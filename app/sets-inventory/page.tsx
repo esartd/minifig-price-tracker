@@ -516,7 +516,7 @@ export default function SetsInventoryPage() {
               color: '#171717',
               letterSpacing: '-0.01em'
             }}>
-              Items
+              {t('collection.items')}
             </h2>
             {inventory.length > 0 && (
               <>

@@ -515,7 +515,7 @@ export default function SetsCollectionPage() {
               color: '#171717',
               letterSpacing: '-0.01em'
             }}>
-              Items
+              {t('collection.items')}
             </h2>
             {collection.length > 0 && (
               <>

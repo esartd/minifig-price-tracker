@@ -2,15 +2,17 @@
 
 import { useRouter } from 'next/navigation';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from './TranslationProvider';
 
 interface SetCollectionSwitcherProps {
   currentPage: 'sets-inventory' | 'sets-collection';
 }
 
 export default function SetCollectionSwitcher({ currentPage }: SetCollectionSwitcherProps) {
+  const { t } = useTranslation();
   const router = useRouter();
 
-  const displayName = currentPage === 'sets-inventory' ? 'Sets for Sale' : 'Sets to Keep';
+  const displayName = currentPage === 'sets-inventory' ? t('navigation.setsForSale') : t('navigation.setsToKeep');
   const targetPage = currentPage === 'sets-inventory' ? '/sets-collection' : '/sets-inventory';
 
   const handleClick = () => {
