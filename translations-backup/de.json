@@ -539,6 +539,24 @@
     "allRightsReserved": "Alle Rechte vorbehalten.",
     "createdBy": "Erstellt von"
   },
+  "disclosure": {
+    "title": "Affiliate-Offenlegung",
+    "lastUpdated": "Zuletzt aktualisiert",
+    "affiliatePrograms": {
+      "title": "Affiliate-Programme",
+      "paragraph1": "FigTracker nimmt am LEGO.com-Partnerprogramm und am Amazon Associates-Programm teil. Wenn Sie auf vorgestellte Produktlinks klicken und einen Kauf tätigen, erhalten wir möglicherweise eine kleine Provision ohne zusätzliche Kosten für Sie.",
+      "paragraph2": "Diese Affiliate-Partnerschaften helfen, die Entwicklung und Wartung von FigTracker zu unterstützen und das Tool kostenlos zu halten."
+    },
+    "trademark": {
+      "title": "LEGO® Markenhinweis",
+      "text": "LEGO® ist eine Marke der LEGO Gruppe, die diese Website nicht sponsert, autorisiert oder unterstützt."
+    },
+    "questions": {
+      "title": "Fragen?",
+      "text": "Wenn Sie Fragen zu unseren Affiliate-Beziehungen haben, kontaktieren Sie uns bitte über unsere",
+      "aboutPage": "Über uns-Seite"
+    }
+  },
   "collection": {
     "title": "Ihre Sammlung",
     "subtitle": "Ihre persönliche Sammlung – Minifiguren, die Sie behalten, nicht verkaufen",

@@ -482,6 +482,24 @@
     "allRightsReserved": "All rights reserved.",
     "createdBy": "Created by"
   },
+  "disclosure": {
+    "title": "Affiliate Disclosure",
+    "lastUpdated": "Last Updated",
+    "affiliatePrograms": {
+      "title": "Affiliate Programs",
+      "paragraph1": "FigTracker participates in the LEGO.com Affiliate Program and Amazon Associates Program. When you click on featured product links and make a purchase, we may earn a small commission at no additional cost to you.",
+      "paragraph2": "These affiliate partnerships help support FigTracker's development and maintenance while keeping the tool free to use."
+    },
+    "trademark": {
+      "title": "LEGO® Trademark Notice",
+      "text": "LEGO® is a trademark of the LEGO Group which does not sponsor, authorize, or endorse this site."
+    },
+    "questions": {
+      "title": "Questions?",
+      "text": "If you have questions about our affiliate relationships, please contact us through our",
+      "aboutPage": "About page"
+    }
+  },
   "collection": {
     "title": "Your Collection",
     "subtitle": "Your personal collection — minifigs you're keeping, not selling",
