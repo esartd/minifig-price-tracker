@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useTranslation } from '@/components/TranslationProvider';
 import Link from 'next/link';
 import Image from 'next/image';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -31,7 +31,7 @@ export default function SubcategoryPageClient({
 }: {
   params: Promise<{ theme: string; subcategory: string }>
 }) {
-  const t = useTranslations('subcategoryPage');
+  const { t } = useTranslation();
   const router = useRouter();
   const [theme, setTheme] = useState<string>('');
   const [subcategory, setSubcategory] = useState<string>('');
@@ -157,8 +157,8 @@ export default function SubcategoryPageClient({
   }
 
   const breadcrumbItems: Array<{ label: string; href?: string }> = [
-    { label: t('breadcrumbs.home'), href: '/' },
-    { label: t('breadcrumbs.themes'), href: '/themes' }
+    { label: t('subcategoryPage.breadcrumbs.home'), href: '/' },
+    { label: t('subcategoryPage.breadcrumbs.themes'), href: '/themes' }
   ];
 
   if (subcategory === 'Uncategorized') {
@@ -236,7 +236,7 @@ export default function SubcategoryPageClient({
               fontSize: 'var(--text-base)',
               color: '#737373'
             }}>
-              {minifigs.length === 1 ? t('minifigureCount', { count: minifigs.length }) : t('minifigureCountPlural', { count: minifigs.length })}
+              {minifigs.length === 1 ? t('subcategoryPage.minifigureCount', { count: minifigs.length }) : t('subcategoryPage.minifigureCountPlural', { count: minifigs.length })}
             </p>
           </div>
         </div>
@@ -258,7 +258,7 @@ export default function SubcategoryPageClient({
             color: '#737373',
             lineHeight: '1.6'
           }}>
-            {minifigs.length === 1 ? t('minifigureCount', { count: minifigs.length }) : t('minifigureCountPlural', { count: minifigs.length })}{subcategory !== 'Uncategorized' && ` · ${theme}`}
+            {minifigs.length === 1 ? t('subcategoryPage.minifigureCount', { count: minifigs.length }) : t('subcategoryPage.minifigureCountPlural', { count: minifigs.length })}{subcategory !== 'Uncategorized' && ` · ${theme}`}
           </p>
         </div>
       )}
@@ -269,7 +269,7 @@ export default function SubcategoryPageClient({
           padding: '64px 16px',
           color: '#737373'
         }}>
-          <p>{t('noMinifigsFound')}</p>
+          <p>{t('subcategoryPage.noMinifigsFound')}</p>
         </div>
       ) : (
         <div style={{
