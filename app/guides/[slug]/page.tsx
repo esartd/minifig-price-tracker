@@ -65,6 +65,20 @@ export async function generateMetadata({
     };
   }
 
+  const domains = {
+    en: 'https://figtracker.ericksu.com',
+    de: 'https://de.figtracker.ericksu.com',
+    fr: 'https://fr.figtracker.ericksu.com',
+    es: 'https://es.figtracker.ericksu.com',
+  };
+
+  const localeMap = {
+    en: 'en_US',
+    de: 'de_DE',
+    fr: 'fr_FR',
+    es: 'es_ES',
+  };
+
   return {
     title: `${guide.title} | FigTracker`,
     description: guide.description,
@@ -76,9 +90,19 @@ export async function generateMetadata({
       type: 'article',
       publishedTime: guide.date,
       authors: [guide.author],
+      url: `${domains[locale as keyof typeof domains]}/guides/${slug}`,
+      locale: localeMap[locale as keyof typeof localeMap],
+      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
     },
     alternates: {
-      canonical: `https://figtracker.ericksu.com/guides/${slug}`,
+      canonical: `${domains[locale as keyof typeof domains]}/guides/${slug}`,
+      languages: {
+        'en': `${domains.en}/guides/${slug}`,
+        'de': `${domains.de}/guides/${slug}`,
+        'fr': `${domains.fr}/guides/${slug}`,
+        'es': `${domains.es}/guides/${slug}`,
+        'x-default': `${domains.en}/guides/${slug}`,
+      },
     },
   };
 }

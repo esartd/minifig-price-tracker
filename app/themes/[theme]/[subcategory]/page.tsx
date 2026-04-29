@@ -11,8 +11,27 @@ export async function generateMetadata({
   const decodedTheme = decodeURIComponent(theme);
   const decodedSubcategory = decodeURIComponent(subcategory);
 
+  const { headers } = await import('next/headers');
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const domains = {
+    en: 'https://figtracker.ericksu.com',
+    de: 'https://de.figtracker.ericksu.com',
+    fr: 'https://fr.figtracker.ericksu.com',
+    es: 'https://es.figtracker.ericksu.com',
+  };
+
+  const localeMap = {
+    en: 'en_US',
+    de: 'de_DE',
+    fr: 'fr_FR',
+    es: 'es_ES',
+  };
+
   // Fetch minifigs count
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://figtracker.ericksu.com';
+  const baseUrl = domains[locale as keyof typeof domains];
   let minifigCount = 0;
 
   try {
@@ -58,7 +77,9 @@ export async function generateMetadata({
     openGraph: {
       title: `${displayName} LEGO Minifigures | FigTracker`,
       description,
-      url: `https://figtracker.ericksu.com/themes/${theme}/${subcategory}`,
+      url: `${baseUrl}/themes/${theme}/${subcategory}`,
+      locale: localeMap[locale as keyof typeof localeMap],
+      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
       images: [
         {
           url: '/og-image.png',
@@ -74,7 +95,14 @@ export async function generateMetadata({
       description,
     },
     alternates: {
-      canonical: `https://figtracker.ericksu.com/themes/${theme}/${subcategory}`,
+      canonical: `${baseUrl}/themes/${theme}/${subcategory}`,
+      languages: {
+        'en': `${domains.en}/themes/${theme}/${subcategory}`,
+        'de': `${domains.de}/themes/${theme}/${subcategory}`,
+        'fr': `${domains.fr}/themes/${theme}/${subcategory}`,
+        'es': `${domains.es}/themes/${theme}/${subcategory}`,
+        'x-default': `${domains.en}/themes/${theme}/${subcategory}`,
+      },
     },
   };
 }

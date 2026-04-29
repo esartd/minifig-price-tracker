@@ -20,6 +20,25 @@ export async function generateMetadata({
   const { theme: slug } = await params;
   const themeName = decodeURIComponent(slug);
 
+  const { headers } = await import('next/headers');
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const domains = {
+    en: 'https://figtracker.ericksu.com',
+    de: 'https://de.figtracker.ericksu.com',
+    fr: 'https://fr.figtracker.ericksu.com',
+    es: 'https://es.figtracker.ericksu.com',
+  };
+
+  const localeMap = {
+    en: 'en_US',
+    de: 'de_DE',
+    fr: 'fr_FR',
+    es: 'es_ES',
+  };
+
   // Get categories to find exact theme name
   const categories = await getAllCategories();
   const uniqueThemes = new Set<string>();
@@ -62,12 +81,22 @@ export async function generateMetadata({
     openGraph: {
       title: `${exactThemeName} LEGO Minifigures - ${count} Minifigs`,
       description: `Browse and price ${count} ${exactThemeName} LEGO minifigures with real-time Bricklink marketplace data`,
+      url: `${domains[locale as keyof typeof domains]}/themes/${encodeURIComponent(themeName)}`,
+      locale: localeMap[locale as keyof typeof localeMap],
+      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
       images: THEME_OVERRIDES[exactThemeName]
         ? [`https://img.bricklink.com/ItemImage/MN/0/${THEME_OVERRIDES[exactThemeName]}.png`]
         : [],
     },
     alternates: {
-      canonical: `https://figtracker.ericksu.com/themes/${encodeURIComponent(themeName)}`,
+      canonical: `${domains[locale as keyof typeof domains]}/themes/${encodeURIComponent(themeName)}`,
+      languages: {
+        'en': `${domains.en}/themes/${encodeURIComponent(themeName)}`,
+        'de': `${domains.de}/themes/${encodeURIComponent(themeName)}`,
+        'fr': `${domains.fr}/themes/${encodeURIComponent(themeName)}`,
+        'es': `${domains.es}/themes/${encodeURIComponent(themeName)}`,
+        'x-default': `${domains.en}/themes/${encodeURIComponent(themeName)}`,
+      },
     },
   };
 }

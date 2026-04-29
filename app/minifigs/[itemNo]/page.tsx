@@ -27,6 +27,25 @@ export async function generateMetadata({
     };
   }
 
+  const { headers } = await import('next/headers');
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const domains = {
+    en: 'https://figtracker.ericksu.com',
+    de: 'https://de.figtracker.ericksu.com',
+    fr: 'https://fr.figtracker.ericksu.com',
+    es: 'https://es.figtracker.ericksu.com',
+  };
+
+  const localeMap = {
+    en: 'en_US',
+    de: 'de_DE',
+    fr: 'fr_FR',
+    es: 'es_ES',
+  };
+
   // Use full BrickLink name for SEO (better keyword matching)
   const fullName = minifig.name;
 
@@ -47,6 +66,9 @@ export async function generateMetadata({
     openGraph: {
       title: `${fullName} - ${minifig.category_name}`,
       description: `LEGO Minifigure ${minifig.minifigure_no} - Price tracking and inventory management`,
+      url: `${domains[locale as keyof typeof domains]}/minifigs/${itemNo}`,
+      locale: localeMap[locale as keyof typeof localeMap],
+      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
       images: [`https://img.bricklink.com/ItemImage/MN/0/${minifig.minifigure_no}.png`],
     },
     twitter: {
@@ -54,6 +76,16 @@ export async function generateMetadata({
       title: `${fullName}`,
       description: `${minifig.category_name} minifigure price guide`,
       images: [`https://img.bricklink.com/ItemImage/MN/0/${minifig.minifigure_no}.png`],
+    },
+    alternates: {
+      canonical: `${domains[locale as keyof typeof domains]}/minifigs/${itemNo}`,
+      languages: {
+        'en': `${domains.en}/minifigs/${itemNo}`,
+        'de': `${domains.de}/minifigs/${itemNo}`,
+        'fr': `${domains.fr}/minifigs/${itemNo}`,
+        'es': `${domains.es}/minifigs/${itemNo}`,
+        'x-default': `${domains.en}/minifigs/${itemNo}`,
+      },
     },
   };
 }
@@ -248,6 +280,28 @@ export default async function MinifigPage({
   const parentTheme = minifig.category_name.split(' / ')[0];
   const themeSlug = parentTheme.toLowerCase().replace(/\s+/g, '-');
 
+  // Get locale for structured data
+  const { headers } = await import('next/headers');
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const domains = {
+    en: 'https://figtracker.ericksu.com',
+    de: 'https://de.figtracker.ericksu.com',
+    fr: 'https://fr.figtracker.ericksu.com',
+    es: 'https://es.figtracker.ericksu.com',
+  };
+
+  const localeMap = {
+    en: 'en-US',
+    de: 'de-DE',
+    fr: 'fr-FR',
+    es: 'es-ES',
+  };
+
+  const baseUrl = domains[locale as keyof typeof domains];
+
   // Schema.org structured data for rich search results
   const productSchema = {
     '@context': 'https://schema.org',
@@ -261,6 +315,7 @@ export default async function MinifigPage({
     },
     category: minifig.category_name,
     identifier: minifig.minifigure_no,
+    inLanguage: localeMap[locale as keyof typeof localeMap],
     ...(minifig.year_released && {
       releaseDate: minifig.year_released
     }),
@@ -280,25 +335,25 @@ export default async function MinifigPage({
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://figtracker.ericksu.com'
+        item: baseUrl
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Themes',
-        item: 'https://figtracker.ericksu.com/themes'
+        item: `${baseUrl}/themes`
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: parentTheme,
-        item: `https://figtracker.ericksu.com/themes/${themeSlug}`
+        item: `${baseUrl}/themes/${themeSlug}`
       },
       {
         '@type': 'ListItem',
         position: 4,
         name: minifig.name,
-        item: `https://figtracker.ericksu.com/minifigs/${minifig.minifigure_no}`
+        item: `${baseUrl}/minifigs/${minifig.minifigure_no}`
       }
     ]
   };

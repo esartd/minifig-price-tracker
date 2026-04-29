@@ -27,6 +27,25 @@ export async function generateMetadata({
     };
   }
 
+  const { headers } = await import('next/headers');
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const domains = {
+    en: 'https://figtracker.ericksu.com',
+    de: 'https://de.figtracker.ericksu.com',
+    fr: 'https://fr.figtracker.ericksu.com',
+    es: 'https://es.figtracker.ericksu.com',
+  };
+
+  const localeMap = {
+    en: 'en_US',
+    de: 'de_DE',
+    fr: 'fr_FR',
+    es: 'es_ES',
+  };
+
   return {
     title: `${set.name} (${set.box_no}) - LEGO Set Price Guide`,
     description: `${set.category_name} - ${set.name}. Track current BrickLink prices and manage your LEGO set inventory. Released ${set.year_released || 'date unknown'}. Weight: ${set.weight}g.`,
@@ -44,6 +63,9 @@ export async function generateMetadata({
     openGraph: {
       title: `${set.name} - ${set.category_name}`,
       description: `LEGO Set ${set.box_no} - Price tracking and inventory management`,
+      url: `${domains[locale as keyof typeof domains]}/sets/${boxNo}`,
+      locale: localeMap[locale as keyof typeof localeMap],
+      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
       images: [set.image_url],
     },
     twitter: {
@@ -51,6 +73,16 @@ export async function generateMetadata({
       title: `${set.name}`,
       description: `${set.category_name} set price guide`,
       images: [set.image_url],
+    },
+    alternates: {
+      canonical: `${domains[locale as keyof typeof domains]}/sets/${boxNo}`,
+      languages: {
+        'en': `${domains.en}/sets/${boxNo}`,
+        'de': `${domains.de}/sets/${boxNo}`,
+        'fr': `${domains.fr}/sets/${boxNo}`,
+        'es': `${domains.es}/sets/${boxNo}`,
+        'x-default': `${domains.en}/sets/${boxNo}`,
+      },
     },
   };
 }

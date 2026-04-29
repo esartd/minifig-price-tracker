@@ -24,9 +24,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency,
       priority,
       alternates: {
-        languages: Object.fromEntries(
-          locales.map(l => [l, `${domains[l]}${path}`])
-        )
+        languages: {
+          ...Object.fromEntries(
+            locales.map(l => [l, `${domains[l]}${path}`])
+          ),
+          'x-default': `${domains.en}${path}`
+        }
       }
     }))
   }
@@ -59,9 +62,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           changeFrequency: 'weekly' as const,
           priority: 0.6,
           alternates: {
-            languages: Object.fromEntries(
-              locales.map(l => [l, `${domains[l]}${path}`])
-            )
+            languages: {
+              ...Object.fromEntries(
+                locales.map(l => [l, `${domains[l]}${path}`])
+              ),
+              'x-default': `${domains.en}${path}`
+            }
           }
         }))
       })
@@ -86,9 +92,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: 'weekly' as const,
         priority: 0.8,
         alternates: {
-          languages: Object.fromEntries(
-            locales.map(l => [l, `${domains[l]}${path}`])
-          )
+          languages: {
+            ...Object.fromEntries(
+              locales.map(l => [l, `${domains[l]}${path}`])
+            ),
+            'x-default': `${domains.en}${path}`
+          }
         }
       }))
     })
@@ -113,9 +122,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: 'weekly' as const,
         priority: 0.8,
         alternates: {
-          languages: Object.fromEntries(
-            locales.map(l => [l, `${domains[l]}${path}`])
-          )
+          languages: {
+            ...Object.fromEntries(
+              locales.map(l => [l, `${domains[l]}${path}`])
+            ),
+            'x-default': `${domains.en}${path}`
+          }
         }
       }))
     })

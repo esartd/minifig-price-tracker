@@ -3,19 +3,49 @@ import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
 import { getAllCategories, getRecentMinifigs, getAllMinifigs } from '@/lib/catalog-static';
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Browse LEGO Minifigures by Theme - Star Wars, Harry Potter & More',
-  description: 'Explore LEGO minifigures organized by theme. Browse Star Wars, Harry Potter, Marvel, DC, Ninjago, and 50+ other themes. Get pricing data and track your collection.',
-  keywords: ['LEGO themes', 'Star Wars minifigures', 'Harry Potter LEGO', 'Marvel LEGO', 'DC LEGO', 'Ninjago minifigs', 'LEGO catalog by theme'],
-  openGraph: {
-    title: 'Browse LEGO Minifigures by Theme | FigTracker',
-    description: 'Explore minifigures from Star Wars, Harry Potter, Marvel, and 50+ other LEGO themes with real-time pricing.',
-    url: 'https://figtracker.ericksu.com/themes',
-  },
-  alternates: {
-    canonical: 'https://figtracker.ericksu.com/themes',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { headers } = await import('next/headers');
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const domains = {
+    en: 'https://figtracker.ericksu.com',
+    de: 'https://de.figtracker.ericksu.com',
+    fr: 'https://fr.figtracker.ericksu.com',
+    es: 'https://es.figtracker.ericksu.com',
+  };
+
+  const localeMap = {
+    en: 'en_US',
+    de: 'de_DE',
+    fr: 'fr_FR',
+    es: 'es_ES',
+  };
+
+  return {
+    title: 'Browse LEGO Minifigures by Theme - Star Wars, Harry Potter & More',
+    description: 'Explore LEGO minifigures organized by theme. Browse Star Wars, Harry Potter, Marvel, DC, Ninjago, and 50+ other themes. Get pricing data and track your collection.',
+    keywords: ['LEGO themes', 'Star Wars minifigures', 'Harry Potter LEGO', 'Marvel LEGO', 'DC LEGO', 'Ninjago minifigs', 'LEGO catalog by theme'],
+    openGraph: {
+      title: 'Browse LEGO Minifigures by Theme | FigTracker',
+      description: 'Explore minifigures from Star Wars, Harry Potter, Marvel, and 50+ other LEGO themes with real-time pricing.',
+      url: `${domains[locale as keyof typeof domains]}/themes`,
+      locale: localeMap[locale as keyof typeof localeMap],
+      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
+    },
+    alternates: {
+      canonical: `${domains[locale as keyof typeof domains]}/themes`,
+      languages: {
+        'en': `${domains.en}/themes`,
+        'de': `${domains.de}/themes`,
+        'fr': `${domains.fr}/themes`,
+        'es': `${domains.es}/themes`,
+        'x-default': `${domains.en}/themes`,
+      },
+    },
+  };
+}
 
 interface Theme {
   parent: string;

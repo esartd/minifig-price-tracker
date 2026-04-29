@@ -139,12 +139,27 @@ export default async function GuidesPage() {
     iconName: ['BookOpenIcon', 'ChartBarIcon', 'CurrencyDollarIcon', 'ShoppingBagIcon'][index],
   }));
 
+  const domains = {
+    en: 'https://figtracker.ericksu.com',
+    de: 'https://de.figtracker.ericksu.com',
+    fr: 'https://fr.figtracker.ericksu.com',
+    es: 'https://es.figtracker.ericksu.com',
+  };
+
+  const localeCodeMap = {
+    en: 'en-US',
+    de: 'de-DE',
+    fr: 'fr-FR',
+    es: 'es-ES',
+  };
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: 'LEGO Minifigure Pricing Guides',
     description: 'Expert guides and resources for pricing and selling LEGO minifigures',
-    url: 'https://figtracker.ericksu.com/guides',
+    url: `${domains[locale as keyof typeof domains]}/guides`,
+    inLanguage: localeCodeMap[locale as keyof typeof localeCodeMap],
   };
 
   return (

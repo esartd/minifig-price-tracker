@@ -6,19 +6,48 @@ import translationsDe from '@/translations-backup/de.json';
 import translationsFr from '@/translations-backup/fr.json';
 import translationsEs from '@/translations-backup/es.json';
 
-export const metadata: Metadata = {
-  title: 'FAQ - Frequently Asked Questions | FigTracker',
-  description: 'Common questions about FigTracker LEGO minifigure and set price tracker. Learn how to price items, track inventory in 15+ currencies, and use Bricklink data effectively.',
-  keywords: ['LEGO pricing FAQ', 'Bricklink help', 'minifigure pricing guide', 'FigTracker help', 'how to price LEGO', 'LEGO set tracker'],
-  openGraph: {
-    title: 'Frequently Asked Questions | FigTracker',
-    description: 'Get answers about pricing LEGO minifigures and sets with FigTracker. 15+ currencies, 18,000+ minifigs, 20,000+ sets.',
-    url: 'https://figtracker.ericksu.com/faq',
-  },
-  alternates: {
-    canonical: 'https://figtracker.ericksu.com/faq',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const domains = {
+    en: 'https://figtracker.ericksu.com',
+    de: 'https://de.figtracker.ericksu.com',
+    fr: 'https://fr.figtracker.ericksu.com',
+    es: 'https://es.figtracker.ericksu.com',
+  };
+
+  const localeMap = {
+    en: 'en_US',
+    de: 'de_DE',
+    fr: 'fr_FR',
+    es: 'es_ES',
+  };
+
+  return {
+    title: 'FAQ - Frequently Asked Questions | FigTracker',
+    description: 'Common questions about FigTracker LEGO minifigure and set price tracker. Learn how to price items, track inventory in 15+ currencies, and use Bricklink data effectively.',
+    keywords: ['LEGO pricing FAQ', 'Bricklink help', 'minifigure pricing guide', 'FigTracker help', 'how to price LEGO', 'LEGO set tracker'],
+    openGraph: {
+      title: 'Frequently Asked Questions | FigTracker',
+      description: 'Get answers about pricing LEGO minifigures and sets with FigTracker. 15+ currencies, 18,000+ minifigs, 20,000+ sets.',
+      url: `${domains[locale as keyof typeof domains]}/faq`,
+      locale: localeMap[locale as keyof typeof localeMap],
+      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
+    },
+    alternates: {
+      canonical: `${domains[locale as keyof typeof domains]}/faq`,
+      languages: {
+        'en': `${domains.en}/faq`,
+        'de': `${domains.de}/faq`,
+        'fr': `${domains.fr}/faq`,
+        'es': `${domains.es}/faq`,
+        'x-default': `${domains.en}/faq`,
+      },
+    },
+  };
+}
 
 function getTranslations(locale: string) {
   switch (locale) {

@@ -59,6 +59,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       type: 'website',
       locale: localeMap[locale as keyof typeof localeMap],
+      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
       url: domains[locale as keyof typeof domains],
       siteName: 'FigTracker',
       title: 'FigTracker - LEGO Minifigure Price Tracker & Inventory Management',
@@ -108,12 +109,29 @@ export default async function RootLayout({
   const locale = getLocaleFromHost(host);
   const translations = await getTranslations(locale);
 
+  const domains = {
+    en: 'https://figtracker.ericksu.com',
+    de: 'https://de.figtracker.ericksu.com',
+    fr: 'https://fr.figtracker.ericksu.com',
+    es: 'https://es.figtracker.ericksu.com',
+  };
+
+  const localeCodeMap = {
+    en: 'en-US',
+    de: 'de-DE',
+    fr: 'fr-FR',
+    es: 'es-ES',
+  };
+
+  const baseUrl = domains[locale as keyof typeof domains];
+
   const webAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'FigTracker',
     description: 'Free LEGO minifigure price tracker with real-time Bricklink marketplace data',
-    url: 'https://figtracker.ericksu.com',
+    url: baseUrl,
+    inLanguage: localeCodeMap[locale as keyof typeof localeCodeMap],
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Any',
     offers: {
@@ -142,7 +160,7 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang="en" className="antialiased" style={{ margin: 0, padding: 0 }}>
+    <html lang={locale} className="antialiased" style={{ margin: 0, padding: 0 }}>
       <head>
         <script
           type="application/ld+json"
