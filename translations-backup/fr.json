@@ -1030,5 +1030,105 @@
       "emailLabel": "E-mail :",
       "websiteLabel": "Site web :"
     }
+  },
+  "setDetail": {
+    "condition": {
+      "new": "Neuf",
+      "used": "Usagé"
+    },
+    "pricing": {
+      "loadingPricing": "Chargement des prix...",
+      "sixMonthAvg": "Moy. 6 mois",
+      "currentAvg": "Moy. actuelle",
+      "lowest": "Le plus bas",
+      "suggested": "Suggéré",
+      "noSellersAvailable": "Aucun vendeur disponible dans votre région"
+    },
+    "collection": {
+      "checkingCollections": "Vérification des collections...",
+      "addThisSet": "Ajouter ce set",
+      "quantity": "Quantité",
+      "inYourInventory": "Dans votre inventaire",
+      "inYourCollection": "Dans votre collection",
+      "addToYourCollection": "Ajouter à votre collection ?",
+      "addToYourInventory": "Ajouter à votre inventaire ?"
+    },
+    "whereToBuy": {
+      "title": "Où acheter",
+      "brickLink": "BrickLink",
+      "brickLinkDescRetired": "Idéal pour les sets retirés",
+      "brickLinkDescAvailable": "Usagé et neuf disponible",
+      "amazon": "Amazon",
+      "amazonDesc": "Livraison rapide"
+    },
+    "relatedSets": {
+      "moreFrom": "Plus de {theme}",
+      "featured": "Sets en vedette {theme}"
+    },
+    "messages": {
+      "addedToInventory": "Ajouté {quantity} {condition} à l'inventaire !",
+      "addedToCollection": "Ajouté {quantity} {condition} à votre collection !",
+      "movedToCollection": "Déplacé vers la collection ! Cliquez n'importe où pour fermer.",
+      "movedToInventory": "Déplacé vers l'inventaire ! Cliquez n'importe où pour fermer."
+    },
+    "errors": {
+      "failedToAdd": "Échec de l'ajout du set",
+      "failedToAddToInventory": "Échec de l'ajout à l'inventaire",
+      "failedToAddToCollection": "Échec de l'ajout à la collection personnelle",
+      "failedToUpdate": "Échec de la mise à jour de la quantité",
+      "failedToRemoveInventory": "Échec de la suppression de l'inventaire",
+      "failedToRemoveCollection": "Échec de la suppression de la collection",
+      "failedToMove": "Échec du déplacement de l'article"
+    },
+    "delete": {
+      "titleInventory": "Supprimer de l'inventaire ?",
+      "titleCollection": "Supprimer de la collection ?",
+      "messageInventory": "Cela supprimera définitivement ce set de votre inventaire.",
+      "messageCollection": "Cela supprimera définitivement ce set de votre collection.",
+      "cancel": "Annuler",
+      "confirm": "Supprimer"
+    },
+    "buttons": {
+      "addInventory": "+ Inventaire",
+      "addCollection": "+ Collection",
+      "addToCollection": "+ Ajouter à la collection",
+      "adding": "Ajout...",
+      "addToInventory": "Ajouter à l'inventaire"
+    },
+    "breadcrumbs": {
+      "home": "Accueil",
+      "setThemes": "Thèmes des sets"
+    },
+    "meta": {
+      "yearUnknown": "Année inconnue",
+      "year": "Année",
+      "weight": "Poids"
+    }
+  },
+  "subcategoryPage": {
+    "minifigureCount": "{count} figurine",
+    "minifigureCountPlural": "{count} figurines",
+    "noMinifigsFound": "Aucune figurine trouvée dans cette catégorie.",
+    "breadcrumbs": {
+      "home": "Accueil",
+      "themes": "Thèmes"
+    }
+  },
+  "setsThemePage": {
+    "loadingText": "Chargement des sets {theme}...",
+    "themeLabel": "Thème",
+    "setsInTheme": "{count} sets dans ce thème",
+    "subcategoryAll": "Toutes les sous-catégories ({count})",
+    "sortByYear": "Trier par année (plus récent d'abord)",
+    "sortByName": "Trier par nom (A-Z)",
+    "noSetsFound": "Aucun set trouvé",
+    "tryAdjustFilters": "Essayez d'ajuster vos filtres",
+    "yearLabel": "Année",
+    "weightLabel": "Poids",
+    "findOnAmazon": "Trouver sur Amazon",
+    "breadcrumbs": {
+      "home": "Accueil",
+      "setThemes": "Thèmes des sets"
+    }
   }
 }

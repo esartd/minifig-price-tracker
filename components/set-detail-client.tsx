@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -32,6 +33,8 @@ interface SetDetailClientProps {
 }
 
 export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDetailClientProps) {
+  const t = useTranslations('setDetail');
+  const tCommon = useTranslations('common');
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
@@ -231,13 +234,13 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
       const data = await response.json();
       if (data.success) {
         await refreshCollections();
-        setSuccessMessage(`Added ${qty} ${condition} to Inventory!`);
+        setSuccessMessage(t('addedToInventory', { quantity: qty, condition: t(`condition.${condition}`) }));
         setQuantity(1);
       } else {
-        setError(data.error || 'Failed to add set');
+        setError(data.error || t('errors.failedToAdd'));
       }
     } catch (err) {
-      setError('Failed to add to inventory');
+      setError(t('errors.failedToAddToInventory'));
     } finally {
       setAddLoading(false);
     }
@@ -260,13 +263,13 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
       const data = await response.json();
       if (data.success) {
         await refreshCollections();
-        setSuccessMessage(`Added ${qty} ${condition} to Your Collection!`);
+        setSuccessMessage(t('messages.addedToCollection', { quantity: qty, condition: t(`condition.${condition}`) }));
         setQuantity(1);
       } else {
-        setError(data.error || 'Failed to add set');
+        setError(data.error || t('errors.failedToAdd'));
       }
     } catch (err) {
-      setError('Failed to add to personal collection');
+      setError(t('errors.failedToAddToCollection'));
     } finally {
       setAddPersonalLoading(false);
     }
@@ -295,7 +298,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
         setError(data.error || 'Failed to add');
       }
     } catch (err) {
-      setError('Failed to add to personal collection');
+      setError(t('errors.failedToAddToCollection'));
     } finally {
       setAddToCollectionLoading(false);
     }
@@ -324,7 +327,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
         setError(data.error || 'Failed to add');
       }
     } catch (err) {
-      setError('Failed to add to inventory');
+      setError(t('errors.failedToAddToInventory'));
     } finally {
       setAddToInventoryLoading(false);
     }
@@ -345,7 +348,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
       const data = await response.json();
       if (!data.success) {
         await refreshCollections();
-        setError('Failed to update quantity');
+        setError(t('errors.failedToUpdate'));
       }
     } catch (err) {
       await refreshCollections();
@@ -368,7 +371,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
       const data = await response.json();
       if (!data.success) {
         await refreshCollections();
-        setError('Failed to update quantity');
+        setError(t('errors.failedToUpdate'));
       }
     } catch (err) {
       await refreshCollections();
@@ -386,7 +389,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
         setDeleteTarget(null);
       }
     } catch (err) {
-      setError('Failed to remove from inventory');
+      setError(t('errors.failedToRemoveInventory'));
     }
   };
 
@@ -400,7 +403,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
         setDeleteTarget(null);
       }
     } catch (err) {
-      setError('Failed to remove from collection');
+      setError(t('errors.failedToRemoveCollection'));
     }
   };
 
@@ -677,7 +680,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                                 setTimeout(() => { setMoveSuccess(false); setLastMovedItem(null); }, 10000);
                               }
                             } catch (err) {
-                              setError('Failed to move item');
+                              setError(t('errors.failedToMove'));
                             }
                           } else {
                             setShowMoveDialog(true);
@@ -815,7 +818,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                                 setTimeout(() => { setMoveSuccess(false); setLastMovedItem(null); }, 10000);
                               }
                             } catch (err) {
-                              setError('Failed to move item');
+                              setError(t('errors.failedToMove'));
                             }
                           } else {
                             setShowMoveToInventoryDialog(true);

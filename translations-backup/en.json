@@ -973,5 +973,105 @@
       "emailLabel": "Email:",
       "websiteLabel": "Website:"
     }
+  },
+  "setDetail": {
+    "condition": {
+      "new": "New",
+      "used": "Used"
+    },
+    "pricing": {
+      "loadingPricing": "Loading pricing...",
+      "sixMonthAvg": "6 Mo Avg",
+      "currentAvg": "Current Avg",
+      "lowest": "Lowest",
+      "suggested": "Suggested",
+      "noSellersAvailable": "No sellers available in your region"
+    },
+    "collection": {
+      "checkingCollections": "Checking collections...",
+      "addThisSet": "Add This Set",
+      "quantity": "Quantity",
+      "inYourInventory": "In Your Inventory",
+      "inYourCollection": "In Your Collection",
+      "addToYourCollection": "Add to Your Collection?",
+      "addToYourInventory": "Add to Your Inventory?"
+    },
+    "whereToBuy": {
+      "title": "Where to Buy",
+      "brickLink": "BrickLink",
+      "brickLinkDescRetired": "Best for retired sets",
+      "brickLinkDescAvailable": "Used & new available",
+      "amazon": "Amazon",
+      "amazonDesc": "Fast shipping"
+    },
+    "relatedSets": {
+      "moreFrom": "More from {theme}",
+      "featured": "Featured {theme} Sets"
+    },
+    "messages": {
+      "addedToInventory": "Added {quantity} {condition} to Inventory!",
+      "addedToCollection": "Added {quantity} {condition} to Your Collection!",
+      "movedToCollection": "Moved to Collection! Click anywhere to dismiss.",
+      "movedToInventory": "Moved to Inventory! Click anywhere to dismiss."
+    },
+    "errors": {
+      "failedToAdd": "Failed to add set",
+      "failedToAddToInventory": "Failed to add to inventory",
+      "failedToAddToCollection": "Failed to add to personal collection",
+      "failedToUpdate": "Failed to update quantity",
+      "failedToRemoveInventory": "Failed to remove from inventory",
+      "failedToRemoveCollection": "Failed to remove from collection",
+      "failedToMove": "Failed to move item"
+    },
+    "delete": {
+      "titleInventory": "Remove from Inventory?",
+      "titleCollection": "Remove from Collection?",
+      "messageInventory": "This will permanently remove this set from your inventory.",
+      "messageCollection": "This will permanently remove this set from your collection.",
+      "cancel": "Cancel",
+      "confirm": "Remove"
+    },
+    "buttons": {
+      "addInventory": "+ Inventory",
+      "addCollection": "+ Collection",
+      "addToCollection": "+ Add to Collection",
+      "adding": "Adding...",
+      "addToInventory": "Add to Inventory"
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "setThemes": "Set Themes"
+    },
+    "meta": {
+      "yearUnknown": "Year Unknown",
+      "year": "Year",
+      "weight": "Weight"
+    }
+  },
+  "subcategoryPage": {
+    "minifigureCount": "{count} minifigure",
+    "minifigureCountPlural": "{count} minifigures",
+    "noMinifigsFound": "No minifigures found in this category.",
+    "breadcrumbs": {
+      "home": "Home",
+      "themes": "Themes"
+    }
+  },
+  "setsThemePage": {
+    "loadingText": "Loading {theme} sets...",
+    "themeLabel": "Theme",
+    "setsInTheme": "{count} sets in this theme",
+    "subcategoryAll": "All Subcategories ({count})",
+    "sortByYear": "Sort by Year (Newest First)",
+    "sortByName": "Sort by Name (A-Z)",
+    "noSetsFound": "No sets found",
+    "tryAdjustFilters": "Try adjusting your filters",
+    "yearLabel": "Year",
+    "weightLabel": "Weight",
+    "findOnAmazon": "Find on Amazon",
+    "breadcrumbs": {
+      "home": "Home",
+      "setThemes": "Set Themes"
+    }
   }
 }

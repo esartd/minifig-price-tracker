@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -21,6 +22,7 @@ interface LegoBox {
 }
 
 function SetCard({ set }: { set: LegoBox }) {
+  const t = useTranslations('setsThemePage');
   const availability = getSetAvailability(set.box_no, set.year_released);
   const amazonUrl = generateAmazonLegoSetLink(set.box_no, set.name);
   const showAmazonLink = availability.status === 'available' || availability.status === 'retiring_soon';
@@ -128,7 +130,7 @@ function SetCard({ set }: { set: LegoBox }) {
             color: '#737373',
             marginTop: '8px'
           }}>
-            Year: {set.year_released} • Weight: {set.weight}g
+            {t('yearLabel')}: {set.year_released} • {t('weightLabel')}: {set.weight}g
           </div>
 
           {/* Amazon Button */}
@@ -161,7 +163,7 @@ function SetCard({ set }: { set: LegoBox }) {
                 e.currentTarget.style.borderColor = '#e5e5e5';
               }}
             >
-              Find on Amazon
+              {t('findOnAmazon')}
             </a>
           )}
         </div>
@@ -171,6 +173,7 @@ function SetCard({ set }: { set: LegoBox }) {
 }
 
 export default function ThemePage() {
+  const t = useTranslations('setsThemePage');
   const params = useParams();
   const theme = decodeURIComponent(params.theme as string);
 
@@ -241,7 +244,7 @@ export default function ThemePage() {
       }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: '48px', marginBottom: '16px' }}>🧱</div>
-          <div style={{ fontSize: '18px', color: '#525252' }}>Loading {theme} sets...</div>
+          <div style={{ fontSize: '18px', color: '#525252' }}>{t('loadingText', { theme })}</div>
         </div>
       </div>
     );
@@ -284,8 +287,8 @@ export default function ThemePage() {
         className="responsive-container">
           {/* Breadcrumbs */}
           <Breadcrumbs items={[
-            { label: 'Home', href: '/' },
-            { label: 'Set Themes', href: '/sets-themes' },
+            { label: t('breadcrumbs.home'), href: '/' },
+            { label: t('breadcrumbs.setThemes'), href: '/sets-themes' },
             { label: theme }
           ]} />
 
@@ -339,7 +342,7 @@ export default function ThemePage() {
                   textTransform: 'uppercase',
                   letterSpacing: '0.05em'
                 }}>
-                  Theme
+                  {t('themeLabel')}
                 </div>
                 <h1 style={{
                   fontSize: 'clamp(28px, 5vw, 36px)',
@@ -356,7 +359,7 @@ export default function ThemePage() {
                   color: '#737373',
                   marginBottom: 0
                 }}>
-                  {sets.length.toLocaleString()} sets in this theme
+                  {t('setsInTheme', { count: sets.length })}
                 </p>
 
                 {/* Theme Description */}
@@ -423,7 +426,7 @@ export default function ThemePage() {
                   minHeight: '44px'
                 }}
               >
-                <option value="all">All Subcategories ({sets.length})</option>
+                <option value="all">{t('subcategoryAll', { count: sets.length })}</option>
                 {subcategories.map(sub => (
                   <option key={sub} value={sub}>
                     {sub} ({sets.filter(s => {
@@ -458,8 +461,8 @@ export default function ThemePage() {
                 minHeight: '44px'
               }}
             >
-              <option value="year">Sort by Year (Newest First)</option>
-              <option value="name">Sort by Name (A-Z)</option>
+              <option value="year">{t('sortByYear')}</option>
+              <option value="name">{t('sortByName')}</option>
             </select>
           </div>
         </div>
@@ -491,10 +494,10 @@ export default function ThemePage() {
           }}>
             <div style={{ fontSize: '48px', marginBottom: '16px' }}>📦</div>
             <div style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>
-              No sets found
+              {t('noSetsFound')}
             </div>
             <div style={{ fontSize: '14px' }}>
-              Try adjusting your filters
+              {t('tryAdjustFilters')}
             </div>
           </div>
         )}

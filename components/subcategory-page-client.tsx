@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -30,6 +31,7 @@ export default function SubcategoryPageClient({
 }: {
   params: Promise<{ theme: string; subcategory: string }>
 }) {
+  const t = useTranslations('subcategoryPage');
   const router = useRouter();
   const [theme, setTheme] = useState<string>('');
   const [subcategory, setSubcategory] = useState<string>('');
@@ -155,8 +157,8 @@ export default function SubcategoryPageClient({
   }
 
   const breadcrumbItems: Array<{ label: string; href?: string }> = [
-    { label: 'Home', href: '/' },
-    { label: 'Themes', href: '/themes' }
+    { label: t('breadcrumbs.home'), href: '/' },
+    { label: t('breadcrumbs.themes'), href: '/themes' }
   ];
 
   if (subcategory === 'Uncategorized') {
@@ -234,7 +236,7 @@ export default function SubcategoryPageClient({
               fontSize: 'var(--text-base)',
               color: '#737373'
             }}>
-              {minifigs.length.toLocaleString()} minifigure{minifigs.length !== 1 ? 's' : ''}
+              {minifigs.length === 1 ? t('minifigureCount', { count: minifigs.length }) : t('minifigureCountPlural', { count: minifigs.length })}
             </p>
           </div>
         </div>
@@ -256,7 +258,7 @@ export default function SubcategoryPageClient({
             color: '#737373',
             lineHeight: '1.6'
           }}>
-            {minifigs.length.toLocaleString()} minifigure{minifigs.length !== 1 ? 's' : ''}{subcategory !== 'Uncategorized' && ` · ${theme}`}
+            {minifigs.length === 1 ? t('minifigureCount', { count: minifigs.length }) : t('minifigureCountPlural', { count: minifigs.length })}{subcategory !== 'Uncategorized' && ` · ${theme}`}
           </p>
         </div>
       )}
@@ -267,7 +269,7 @@ export default function SubcategoryPageClient({
           padding: '64px 16px',
           color: '#737373'
         }}>
-          <p>No minifigures found in this category.</p>
+          <p>{t('noMinifigsFound')}</p>
         </div>
       ) : (
         <div style={{
