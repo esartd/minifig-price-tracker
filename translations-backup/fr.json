@@ -439,6 +439,9 @@
       "priceHigh": "Prix : Élevé à Faible",
       "priceLow": "Prix : Faible à Élevé",
       "bricklinkId": "ID Bricklink"
-    }
+    },
+    "inventoryTitle": "Votre Inventaire",
+    "inventorySubtitle": "Minifigurines que vous vendez ou prévoyez de vendre avec tarification en temps réel",
+    "startAddingInventory": "Commencez à ajouter à votre inventaire en recherchant des minifigurines"
   }
 }

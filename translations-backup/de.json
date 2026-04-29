@@ -439,6 +439,9 @@
       "priceHigh": "Preis: Hoch bis Niedrig",
       "priceLow": "Preis: Niedrig bis Hoch",
       "bricklinkId": "Bricklink-ID"
-    }
+    },
+    "inventoryTitle": "Ihr Inventar",
+    "inventorySubtitle": "Minifiguren, die Sie verkaufen oder verkaufen möchten mit Echtzeit-Preisen",
+    "startAddingInventory": "Beginnen Sie mit dem Hinzufügen zu Ihrem Inventar durch Suchen von Minifiguren"
   }
 }

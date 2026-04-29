@@ -382,6 +382,9 @@
       "priceHigh": "Price: High to Low",
       "priceLow": "Price: Low to High",
       "bricklinkId": "Bricklink ID"
-    }
+    },
+    "inventoryTitle": "Your Inventory",
+    "inventorySubtitle": "Minifigs you're selling or planning to sell with real-time pricing",
+    "startAddingInventory": "Start adding to your inventory by searching for minifigs"
   }
 }
