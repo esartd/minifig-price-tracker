@@ -159,6 +159,15 @@ export async function GET(
       return sum + (price * item.quantity);
     }, 0);
 
+    console.log(`[Share API] Collection type: ${type}`);
+    console.log(`[Share API] Total items: ${items.length}`);
+    console.log(`[Share API] Total value: $${totalValue}`);
+    console.log(`[Share API] Sample item:`, items[0] ? {
+      name: items[0].minifigure_name || items[0].set_name,
+      quantity: items[0].quantity,
+      price: items[0].pricing_suggested_price
+    } : 'no items');
+
     // Format items with pricing (only if pricing is enabled)
     const formatItems = (items: any[]) =>
       items.map((item: any) => ({
