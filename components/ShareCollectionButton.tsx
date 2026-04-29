@@ -38,6 +38,7 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
   };
 
   const toggleShare = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`/api/collection/share?type=${type}`, {
         method: 'PATCH'
@@ -49,6 +50,8 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
       }
     } catch (error) {
       console.error('Failed to toggle sharing:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -156,6 +159,7 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
               </span>
               <button
                 onClick={toggleShare}
+                disabled={loading}
                 style={{
                   position: 'relative',
                   width: '48px',
@@ -163,8 +167,9 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                   background: shareEnabled ? '#3b82f6' : '#d1d5db',
                   borderRadius: '14px',
                   border: 'none',
-                  cursor: 'pointer',
-                  transition: 'background 0.2s'
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  transition: 'background 0.2s',
+                  opacity: loading ? 0.5 : 1
                 }}
               >
                 <div style={{
@@ -175,7 +180,8 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                   height: '24px',
                   background: '#ffffff',
                   borderRadius: '50%',
-                  transition: 'left 0.2s'
+                  transition: 'left 0.2s',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)'
                 }} />
               </button>
             </div>
