@@ -389,7 +389,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
       if (data.success) {
         await refreshCollections();
-        setSuccessMessage(`Added ${quantity} ${condition} to Inventory!`);
+        const itemText = quantity === 1 ? 'item' : 'items';
+        setSuccessMessage(`Added ${quantity} ${itemText} to sell`);
         setQuantity(1);
       } else {
         if (response.status === 401) {
@@ -2691,7 +2692,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
                 setCollectionItem(updatedInv || null);
                 setPersonalCollectionItem(updatedCol || null);
-                setSuccessMessage(`Moved ${quantity} to Your Collection!`);
+                const itemText = quantity === 1 ? 'item' : 'items';
+                setSuccessMessage(`Moved ${quantity} ${itemText} to keep`);
               }
             } catch (err) {
               setError('Failed to move item');
@@ -2720,7 +2722,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
               });
               if (response.ok) {
                 await refreshCollections();
-                setSuccessMessage(`Moved ${quantity} to Inventory!`);
+                const itemText = quantity === 1 ? 'item' : 'items';
+                setSuccessMessage(`Moved ${quantity} ${itemText} to sell`);
               }
             } catch (err) {
               setError('Failed to move item');
