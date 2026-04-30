@@ -329,22 +329,19 @@ export default function WishlistPage() {
                   background: '#ffffff',
                   borderRadius: '8px'
                 }}>
-                  {item.image_url ? (
-                    <Image
-                      src={item.image_url}
-                      alt={item.minifigure_name}
-                      width={140}
-                      height={175}
-                      style={{
-                        width: 'auto',
-                        height: '160px',
-                        maxWidth: '100%',
-                        objectFit: 'contain'
-                      }}
-                    />
-                  ) : (
-                    <span style={{ fontSize: '48px' }}>🧱</span>
-                  )}
+                  <Image
+                    src={`/api/images/minifig/${item.minifigure_no}`}
+                    alt={item.minifigure_name}
+                    width={140}
+                    height={175}
+                    style={{
+                      width: 'auto',
+                      height: '160px',
+                      maxWidth: '100%',
+                      objectFit: 'contain'
+                    }}
+                    unoptimized
+                  />
                 </div>
                 <h3 style={{
                   fontSize: 'var(--text-sm)',
