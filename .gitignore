@@ -54,3 +54,9 @@ Parts.txt
 Books.txt
 Original Boxes.txt
 categories.txt
+
+# AI Scanner (localhost development only - DO NOT COMMIT)
+app/scanner/
+app/api/scanner/
+components/CameraScanner.tsx
+scripts/add-scanner-tables.js
