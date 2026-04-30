@@ -434,9 +434,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
       if (data.success) {
         await refreshCollections();
+        const count = data.quantityAdded || quantity;
+        const itemText = count === 1 ? 'item' : 'items';
         const message = data.quantityAdded
-          ? `Added ${data.quantityAdded} more ${condition} to Your Collection!`
-          : `Added ${quantity} ${condition} to Your Collection!`;
+          ? `Added ${data.quantityAdded} more ${itemText} to keep`
+          : `Added ${quantity} ${itemText} to keep`;
         setSuccessMessage(message);
         setQuantity(1);
       } else {
@@ -578,9 +580,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
       if (data.success) {
         await refreshCollections();
+        const count = data.quantityAdded || addToCollectionQty;
+        const itemText = count === 1 ? 'item' : 'items';
         const message = data.quantityAdded
-          ? `Added ${data.quantityAdded} more ${condition} to Your Collection!`
-          : `Added ${addToCollectionQty} ${condition} to Your Collection!`;
+          ? `Added ${data.quantityAdded} more ${itemText} to keep`
+          : `Added ${addToCollectionQty} ${itemText} to keep`;
         setSuccessMessage(message);
         setAddToCollectionQty(1); // Reset
       } else {
@@ -628,9 +632,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
       if (data.success) {
         await refreshCollections();
+        const count = data.quantityAdded || addToInventoryQty;
+        const itemText = count === 1 ? 'item' : 'items';
         const message = data.quantityAdded
-          ? `Added ${data.quantityAdded} more ${condition} to Your Inventory!`
-          : `Added ${addToInventoryQty} ${condition} to Your Inventory!`;
+          ? `Added ${data.quantityAdded} more ${itemText} for sale`
+          : `Added ${addToInventoryQty} ${itemText} for sale`;
         setSuccessMessage(message);
         setAddToInventoryQty(1); // Reset
       } else {
@@ -1332,7 +1338,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                             color: '#171717',
                             marginBottom: '16px'
                           }}>
-                            In Your Inventory
+                            Items for Sale
                           </h2>
 
                       <div className="inventory-actions-container">
@@ -1596,7 +1602,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                             marginBottom: '16px',
                             marginTop: '0'
                           }}>
-                            {personalCollectionItem ? 'In Your Collection' : 'Add to Your Collection?'}
+                            {personalCollectionItem ? 'Items to Keep' : 'Add to keep?'}
                           </h2>
 
                           <div style={{ marginBottom: '16px' }}>
@@ -1799,7 +1805,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                             marginTop: collectionItem ? '32px' : '0',
                             marginBottom: '16px'
                           }}>
-                            In Your Collection
+                            Items to Keep
                           </h2>
 
                           <div className="inventory-actions-container">
@@ -2049,7 +2055,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                             marginBottom: '16px',
                             marginTop: '0'
                           }}>
-                            Add to Your Inventory?
+                            Add for sale?
                           </h2>
 
                           <div style={{ marginBottom: '16px' }}>
@@ -2767,7 +2773,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
               marginBottom: '8px',
               color: '#171717'
             }}>
-              Delete from {deleteTarget === 'inventory' ? 'Inventory' : 'Collection'}?
+              Delete from {deleteTarget === 'inventory' ? 'items for sale' : 'items to keep'}?
             </h2>
             <p style={{
               fontSize: 'var(--text-sm)',

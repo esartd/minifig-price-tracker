@@ -291,7 +291,8 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
       const data = await response.json();
       if (data.success) {
         await refreshCollections();
-        setSuccessMessage(`Added ${addToCollectionQty} ${condition} to Your Collection!`);
+        const itemText = addToCollectionQty === 1 ? 'item' : 'items';
+        setSuccessMessage(`Added ${addToCollectionQty} ${itemText} to keep`);
         setAddToCollectionQty(1);
       } else {
         setError(data.error || 'Failed to add');
@@ -320,7 +321,8 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
       const data = await response.json();
       if (data.success) {
         await refreshCollections();
-        setSuccessMessage(`Added ${addToInventoryQty} ${condition} to Your Inventory!`);
+        const itemText = addToInventoryQty === 1 ? 'item' : 'items';
+        setSuccessMessage(`Added ${addToInventoryQty} ${itemText} for sale`);
         setAddToInventoryQty(1);
       } else {
         setError(data.error || 'Failed to add');
@@ -633,7 +635,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                   {inventoryItem && (
                     <>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
-                        marginBottom: '16px' }}>In Your Inventory</h2>
+                        marginBottom: '16px' }}>Items for Sale</h2>
                       <div className="inventory-actions-container">
                         <div className="quantity-stepper">
                           <button type="button"
@@ -723,7 +725,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                     <div style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid #e5e5e5',
                       padding: '20px', marginTop: '24px' }}>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
-                        marginBottom: '16px', marginTop: '0' }}>Add to Your Collection?</h2>
+                        marginBottom: '16px', marginTop: '0' }}>Add to keep?</h2>
                       <div style={{ marginBottom: '16px' }}>
                         <label style={{ display: 'block', fontSize: 'var(--text-sm)', fontWeight: '500',
                           color: '#525252', marginBottom: '8px' }}>Quantity</label>
@@ -763,7 +765,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
                           cursor: addToCollectionLoading ? 'not-allowed' : 'pointer',
                           transition: 'all 0.2s' }}>
-                        {addToCollectionLoading ? 'Adding...' : '+ Add to Collection'}
+                        {addToCollectionLoading ? 'Adding...' : '+ Add to keep'}
                       </button>
                     </div>
                   )}
@@ -771,7 +773,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                   {personalCollectionItem && (
                     <>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
-                        marginBottom: '16px', marginTop: inventoryItem ? '24px' : '0' }}>In Your Collection</h2>
+                        marginBottom: '16px', marginTop: inventoryItem ? '24px' : '0' }}>Items to Keep</h2>
                       <div className="inventory-actions-container">
                         <div className="quantity-stepper">
                           <button type="button"
@@ -847,7 +849,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                     <div style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid #e5e5e5',
                       padding: '20px', marginTop: '24px' }}>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
-                        marginBottom: '16px', marginTop: '0' }}>Add to Your Inventory?</h2>
+                        marginBottom: '16px', marginTop: '0' }}>Add for sale?</h2>
                       <div style={{ marginBottom: '16px' }}>
                         <label style={{ display: 'block', fontSize: 'var(--text-sm)', fontWeight: '500',
                           color: '#525252', marginBottom: '8px' }}>Quantity</label>
@@ -884,7 +886,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           color: '#ffffff', border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)',
                           fontWeight: '600', cursor: addToInventoryLoading ? 'not-allowed' : 'pointer',
                           transition: 'all 0.2s' }}>
-                        {addToInventoryLoading ? 'Adding...' : 'Add to Inventory'}
+                        {addToInventoryLoading ? 'Adding...' : 'Add for sale'}
                       </button>
                     </div>
                   )}
@@ -1136,10 +1138,10 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
             width: '100%', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}
             onClick={(e) => e.stopPropagation()}>
             <h3 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '12px', color: '#171717' }}>
-              Remove from {deleteTarget === 'inventory' ? 'Inventory' : 'Collection'}?
+              Delete from {deleteTarget === 'inventory' ? 'items for sale' : 'items to keep'}?
             </h3>
             <p style={{ fontSize: '14px', color: '#737373', marginBottom: '24px', lineHeight: '1.5' }}>
-              This will permanently remove this set from your {deleteTarget === 'inventory' ? 'inventory' : 'collection'}.
+              This will permanently remove this set from your {deleteTarget === 'inventory' ? 'items for sale' : 'items to keep'}.
             </p>
             <div style={{ display: 'flex', gap: '12px' }}>
               <button onClick={() => { setShowDeleteDialog(false); setDeleteTarget(null); }}
