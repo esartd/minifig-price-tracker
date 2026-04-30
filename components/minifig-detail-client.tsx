@@ -1295,7 +1295,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                 if (!addLoading) e.currentTarget.style.background = '#3b82f6';
                               }}
                             >
-                              + Inventory
+                              + For sale
                             </button>
 
                             <button
@@ -1323,7 +1323,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                 if (!addPersonalLoading) e.currentTarget.style.background = '#3b82f6';
                               }}
                             >
-                              + Collection
+                              + To keep
                             </button>
                           </div>
                         </div>

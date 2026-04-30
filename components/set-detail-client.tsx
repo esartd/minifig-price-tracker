@@ -619,14 +619,14 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                             gap: '8px', background: addLoading ? '#a3a3a3' : '#3b82f6', color: '#ffffff',
                             border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
                             cursor: addLoading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
-                          + Inventory
+                          + For sale
                         </button>
                         <button onClick={() => handleAddToPersonalCollection(quantity)} disabled={addPersonalLoading}
                           style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
                             gap: '8px', background: addPersonalLoading ? '#a3a3a3' : '#3b82f6', color: '#ffffff',
                             border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
                             cursor: addPersonalLoading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
-                          + Collection
+                          + To keep
                         </button>
                       </div>
                     </div>
