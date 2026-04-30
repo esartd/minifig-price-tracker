@@ -8,6 +8,7 @@ import translations from '@/translations-backup/en.json';
 import translationsDe from '@/translations-backup/de.json';
 import translationsFr from '@/translations-backup/fr.json';
 import translationsEs from '@/translations-backup/es.json';
+import { formatCompactNumberSmart } from '@/lib/format-number';
 
 function getTranslations(locale: string) {
   switch (locale) {
@@ -258,7 +259,7 @@ export default async function AdminStatsPage() {
           />
           <StatCard
             label={t.catalogItems}
-            value={catalogCount.toLocaleString()}
+            value={formatCompactNumberSmart(catalogCount)}
             subtitle={t.catalogSubtitle}
             icon={
               <svg style={{ width: '24px', height: '24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -495,12 +496,12 @@ export default async function AdminStatsPage() {
               status={t.active}
               statusColor="#10b981"
               items={[
-                t.users.replace('{count}', totalUsers.toString()),
-                t.collectionItems.replace('{count}', totalCollectionItems.toString()),
-                t.personalItems.replace('{count}', totalPersonalItems.toString()),
-                t.priceCache.replace('{count}', totalPriceCache.toLocaleString()),
-                t.affiliateClicks.replace('{count}', totalClicks.toString()),
-                t.catalog.replace('{count}', catalogCount.toLocaleString()),
+                t.users.replace('{count}', formatCompactNumberSmart(totalUsers)),
+                t.collectionItems.replace('{count}', formatCompactNumberSmart(totalCollectionItems)),
+                t.personalItems.replace('{count}', formatCompactNumberSmart(totalPersonalItems)),
+                t.priceCache.replace('{count}', formatCompactNumberSmart(totalPriceCache)),
+                t.affiliateClicks.replace('{count}', formatCompactNumberSmart(totalClicks)),
+                t.catalog.replace('{count}', formatCompactNumberSmart(catalogCount)),
               ]}
             />
           </div>

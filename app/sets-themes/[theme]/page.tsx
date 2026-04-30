@@ -11,6 +11,7 @@ import { getSetAvailability } from '@/lib/set-availability';
 import { generateAmazonLegoSetLink } from '@/lib/affiliate-links';
 import { getRepresentativeSet } from '@/lib/theme-set-representatives';
 import themeDescriptions from '@/lib/theme-descriptions.json';
+import { formatCompactNumberSmart } from '@/lib/format-number';
 
 interface LegoBox {
   box_no: string;
@@ -390,7 +391,7 @@ export default function ThemePage() {
                 marginBottom: '16px',
                 lineHeight: '1.5'
               }}>
-                {sets.length.toLocaleString()} sets in this theme
+                {formatCompactNumberSmart(sets.length)} sets in this theme
               </p>
             </>
           )}

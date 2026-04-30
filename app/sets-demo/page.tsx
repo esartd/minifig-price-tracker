@@ -6,6 +6,7 @@ import translations from '@/translations-backup/en.json';
 import translationsDe from '@/translations-backup/de.json';
 import translationsFr from '@/translations-backup/fr.json';
 import translationsEs from '@/translations-backup/es.json';
+import { formatCompactNumberSmart } from '@/lib/format-number';
 
 function getTranslations(locale: string) {
   switch (locale) {
@@ -132,7 +133,7 @@ export default function SetsDemoPage() {
             🧱 {t.title}
           </h1>
           <p style={{ fontSize: '16px', color: '#737373', marginBottom: '32px' }}>
-            {t.subtitle.replace('{count}', stats.totalSets.toLocaleString())}
+            {t.subtitle.replace('{count}', formatCompactNumberSmart(stats.totalSets))}
           </p>
 
           {/* Stats Cards */}
@@ -149,7 +150,7 @@ export default function SetsDemoPage() {
               color: 'white'
             }}>
               <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px' }}>
-                {stats.totalSets.toLocaleString()}
+                {formatCompactNumberSmart(stats.totalSets)}
               </div>
               <div style={{ fontSize: '14px', opacity: 0.9 }}>{t.totalSets}</div>
             </div>
@@ -161,7 +162,7 @@ export default function SetsDemoPage() {
               color: 'white'
             }}>
               <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px' }}>
-                {stats.recentSets.toLocaleString()}
+                {formatCompactNumberSmart(stats.recentSets)}
               </div>
               <div style={{ fontSize: '14px', opacity: 0.9 }}>{t.recentSets}</div>
             </div>
