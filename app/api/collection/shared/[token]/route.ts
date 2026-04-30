@@ -13,14 +13,18 @@ export async function GET(
     const url = new URL(request.url);
     const type = (url.searchParams.get('type') || 'inventory') as CollectionType;
 
-    // Find user by checking all share tokens
+    // Find user by checking all share tokens (public and private)
     const user = await prisma.user.findFirst({
       where: {
         OR: [
           { shareTokenInventory: token },
+          { shareTokenInventoryPrivate: token },
           { shareTokenCollection: token },
+          { shareTokenCollectionPrivate: token },
           { shareTokenSetsInventory: token },
-          { shareTokenSetsCollection: token }
+          { shareTokenSetsInventoryPrivate: token },
+          { shareTokenSetsCollection: token },
+          { shareTokenSetsCollectionPrivate: token }
         ]
       },
       select: {
@@ -29,16 +33,20 @@ export async function GET(
         preferredCurrency: true,
         shareTokenInventory: true,
         shareEnabledInventory: true,
-        sharePricingInventory: true,
+        shareTokenInventoryPrivate: true,
+        shareEnabledInventoryPrivate: true,
         shareTokenCollection: true,
         shareEnabledCollection: true,
-        sharePricingCollection: true,
+        shareTokenCollectionPrivate: true,
+        shareEnabledCollectionPrivate: true,
         shareTokenSetsInventory: true,
         shareEnabledSetsInventory: true,
-        sharePricingSetsInventory: true,
+        shareTokenSetsInventoryPrivate: true,
+        shareEnabledSetsInventoryPrivate: true,
         shareTokenSetsCollection: true,
         shareEnabledSetsCollection: true,
-        sharePricingSetsCollection: true,
+        shareTokenSetsCollectionPrivate: true,
+        shareEnabledSetsCollectionPrivate: true,
       }
     });
 
@@ -51,7 +59,7 @@ export async function GET(
 
     // Check which token matched and if it corresponds to the requested type
     let shareEnabled = false;
-    let sharePricing = false;
+    let sharePricing = false; // Public links show pricing, private links don't
     let items: any[] = [];
     let matchedType: CollectionType | null = null;
 
@@ -59,27 +67,46 @@ export async function GET(
     const countryCode = user.preferredCurrency === 'USD' ? 'US' : user.preferredCurrency === 'EUR' ? 'DE' : 'US';
     const cacheRegion = '';
 
+    // Check public tokens (with pricing)
     if (user.shareTokenInventory === token) {
       matchedType = 'inventory';
       shareEnabled = user.shareEnabledInventory;
-      sharePricing = user.sharePricingInventory;
-      // Use database helper to get fresh pricing from priceCache
+      sharePricing = true; // Public link always shows pricing
+      items = await database.getAllItems(user.id, countryCode, cacheRegion);
+    } else if (user.shareTokenInventoryPrivate === token) {
+      matchedType = 'inventory';
+      shareEnabled = user.shareEnabledInventoryPrivate;
+      sharePricing = false; // Private link never shows pricing
       items = await database.getAllItems(user.id, countryCode, cacheRegion);
     } else if (user.shareTokenCollection === token) {
       matchedType = 'collection';
       shareEnabled = user.shareEnabledCollection;
-      sharePricing = user.sharePricingCollection;
-      // Use database helper to get fresh pricing from priceCache
+      sharePricing = true;
+      items = await database.getAllPersonalItems(user.id, countryCode, cacheRegion);
+    } else if (user.shareTokenCollectionPrivate === token) {
+      matchedType = 'collection';
+      shareEnabled = user.shareEnabledCollectionPrivate;
+      sharePricing = false;
       items = await database.getAllPersonalItems(user.id, countryCode, cacheRegion);
     } else if (user.shareTokenSetsInventory === token) {
       matchedType = 'sets-inventory';
       shareEnabled = user.shareEnabledSetsInventory;
-      sharePricing = user.sharePricingSetsInventory;
+      sharePricing = true;
+      items = await database.getAllSetInventoryItems(user.id, countryCode, cacheRegion);
+    } else if (user.shareTokenSetsInventoryPrivate === token) {
+      matchedType = 'sets-inventory';
+      shareEnabled = user.shareEnabledSetsInventoryPrivate;
+      sharePricing = false;
       items = await database.getAllSetInventoryItems(user.id, countryCode, cacheRegion);
     } else if (user.shareTokenSetsCollection === token) {
       matchedType = 'sets-collection';
       shareEnabled = user.shareEnabledSetsCollection;
-      sharePricing = user.sharePricingSetsCollection;
+      sharePricing = true;
+      items = await database.getAllSetPersonalCollectionItems(user.id, countryCode, cacheRegion);
+    } else if (user.shareTokenSetsCollectionPrivate === token) {
+      matchedType = 'sets-collection';
+      shareEnabled = user.shareEnabledSetsCollectionPrivate;
+      sharePricing = false;
       items = await database.getAllSetPersonalCollectionItems(user.id, countryCode, cacheRegion);
     }
 

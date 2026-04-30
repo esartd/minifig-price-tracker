@@ -12,11 +12,13 @@ interface ShareCollectionButtonProps {
 
 export default function ShareCollectionButton({ type }: ShareCollectionButtonProps) {
   const { t } = useTranslation();
-  const [shareEnabled, setShareEnabled] = useState(false);
-  const [sharePricing, setSharePricing] = useState(false);
-  const [shareUrl, setShareUrl] = useState('');
+  const [shareEnabledPublic, setShareEnabledPublic] = useState(false);
+  const [shareUrlPublic, setShareUrlPublic] = useState('');
+  const [shareEnabledPrivate, setShareEnabledPrivate] = useState(false);
+  const [shareUrlPrivate, setShareUrlPrivate] = useState('');
   const [initialLoading, setInitialLoading] = useState(true);
-  const [copied, setCopied] = useState(false);
+  const [copiedPublic, setCopiedPublic] = useState(false);
+  const [copiedPrivate, setCopiedPrivate] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
 
   useEffect(() => {
@@ -28,9 +30,10 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
       const response = await fetch(`/api/collection/share?type=${type}`);
       const data = await response.json();
       if (data.success) {
-        setShareEnabled(data.shareEnabled);
-        setSharePricing(data.sharePricing ?? false);
-        setShareUrl(data.shareUrl || '');
+        setShareEnabledPublic(data.shareEnabledPublic || false);
+        setShareUrlPublic(data.shareUrlPublic || '');
+        setShareEnabledPrivate(data.shareEnabledPrivate || false);
+        setShareUrlPrivate(data.shareUrlPrivate || '');
       }
     } catch (error) {
       console.error('Failed to load share status:', error);
@@ -39,50 +42,45 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
     }
   };
 
-  const toggleShare = async () => {
-    console.log('Toggle share clicked, type:', type);
+  const togglePublicShare = async () => {
     try {
-      const response = await fetch(`/api/collection/share?type=${type}`, {
+      const response = await fetch(`/api/collection/share?type=${type}&mode=public`, {
         method: 'PATCH'
       });
       const data = await response.json();
-      console.log('Toggle share response:', data);
       if (data.success) {
-        setShareEnabled(data.shareEnabled);
-        setSharePricing(data.sharePricing ?? false);
-        setShareUrl(data.shareUrl || '');
-      } else {
-        console.error('Toggle failed:', data.error);
+        setShareEnabledPublic(data.shareEnabled);
+        setShareUrlPublic(data.shareUrl || '');
       }
     } catch (error) {
-      console.error('Failed to toggle sharing:', error);
+      console.error('Failed to toggle public sharing:', error);
     }
   };
 
-  const togglePricing = async () => {
-    console.log('Toggle pricing clicked, current:', sharePricing);
+  const togglePrivateShare = async () => {
     try {
-      const response = await fetch(`/api/collection/share/pricing?type=${type}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sharePricing: !sharePricing })
+      const response = await fetch(`/api/collection/share?type=${type}&mode=private`, {
+        method: 'PATCH'
       });
       const data = await response.json();
-      console.log('Toggle pricing response:', data);
       if (data.success) {
-        setSharePricing(data.sharePricing);
-      } else {
-        console.error('Pricing toggle failed:', data.error);
+        setShareEnabledPrivate(data.shareEnabled);
+        setShareUrlPrivate(data.shareUrl || '');
       }
     } catch (error) {
-      console.error('Failed to toggle pricing:', error);
+      console.error('Failed to toggle private sharing:', error);
     }
   };
 
-  const copyLink = () => {
-    navigator.clipboard.writeText(shareUrl);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const copyLink = (url: string, isPublic: boolean) => {
+    navigator.clipboard.writeText(url);
+    if (isPublic) {
+      setCopiedPublic(true);
+      setTimeout(() => setCopiedPublic(false), 2000);
+    } else {
+      setCopiedPrivate(true);
+      setTimeout(() => setCopiedPrivate(false), 2000);
+    }
   };
 
   if (initialLoading) return null;
@@ -161,10 +159,10 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
               marginBottom: '24px',
               lineHeight: '1.6'
             }}>
-              Generate a public link to share your collection and inventory with potential buyers. They'll see a read-only view with no access to edit.
+              Create two types of shareable links: Public (with pricing to flex your collection value) and Private (without pricing for buyers).
             </p>
 
-            {/* Toggle */}
+            {/* Public Share Toggle */}
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -175,23 +173,31 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
               marginBottom: '16px',
               gap: '12px'
             }}>
-              <span style={{
-                fontSize: 'var(--text-base)',
-                fontWeight: '600',
-                color: '#171717',
-                flex: 1
-              }}>
-                Enable Sharing
-              </span>
+              <div style={{ flex: 1 }}>
+                <div style={{
+                  fontSize: 'var(--text-base)',
+                  fontWeight: '600',
+                  color: '#171717',
+                  marginBottom: '4px'
+                }}>
+                  Public Link (with pricing)
+                </div>
+                <div style={{
+                  fontSize: 'var(--text-sm)',
+                  color: '#737373'
+                }}>
+                  Showcase your collection value
+                </div>
+              </div>
               <button
-                onClick={toggleShare}
+                onClick={togglePublicShare}
                 style={{
                   position: 'relative',
                   width: '48px',
                   height: '24px',
                   minHeight: '24px',
                   maxHeight: '24px',
-                  background: shareEnabled ? '#3b82f6' : '#d1d5db',
+                  background: shareEnabledPublic ? '#3b82f6' : '#d1d5db',
                   borderRadius: '12px',
                   border: 'none',
                   cursor: 'pointer',
@@ -205,7 +211,7 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                 <div style={{
                   position: 'absolute',
                   top: '2px',
-                  left: shareEnabled ? '26px' : '2px',
+                  left: shareEnabledPublic ? '26px' : '2px',
                   width: '20px',
                   height: '20px',
                   background: '#ffffff',
@@ -216,65 +222,9 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
               </button>
             </div>
 
-            {/* Show Pricing Toggle */}
-            {shareEnabled && (
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '16px',
-                background: '#fafafa',
-                borderRadius: '8px',
-                marginBottom: '16px',
-                gap: '12px'
-              }}>
-                <span style={{
-                  fontSize: 'var(--text-base)',
-                  fontWeight: '600',
-                  color: '#171717',
-                  flex: 1
-                }}>
-                  Show Pricing
-                </span>
-                <button
-                  onClick={togglePricing}
-                  style={{
-                    position: 'relative',
-                    width: '48px',
-                    height: '24px',
-                    minHeight: '24px',
-                    maxHeight: '24px',
-                    background: sharePricing ? '#3b82f6' : '#d1d5db',
-                    borderRadius: '12px',
-                    border: 'none',
-                    cursor: 'pointer',
-                    transition: 'background 0.2s ease',
-                    flexShrink: 0,
-                    padding: 0,
-                    margin: 0,
-                    boxSizing: 'border-box'
-                  } as React.CSSProperties}
-                >
-                  <div style={{
-                    position: 'absolute',
-                    top: '2px',
-                    left: sharePricing ? '26px' : '2px',
-                    width: '20px',
-                    height: '20px',
-                    background: '#ffffff',
-                    borderRadius: '50%',
-                    transition: 'left 0.2s ease',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.3)'
-                  }} />
-                </button>
-              </div>
-            )}
-
-            {/* Share Link */}
-            {shareEnabled && shareUrl && (
-              <div style={{
-                marginBottom: '24px'
-              }}>
+            {/* Public Share Link */}
+            {shareEnabledPublic && shareUrlPublic && (
+              <div style={{ marginBottom: '16px' }}>
                 <label style={{
                   display: 'block',
                   fontSize: 'var(--text-sm)',
@@ -282,15 +232,12 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                   color: '#171717',
                   marginBottom: '8px'
                 }}>
-                  Share Link
+                  Public Link
                 </label>
-                <div style={{
-                  display: 'flex',
-                  gap: '8px'
-                }}>
+                <div style={{ display: 'flex', gap: '8px' }}>
                   <input
                     type="text"
-                    value={shareUrl}
+                    value={shareUrlPublic}
                     readOnly
                     style={{
                       flex: 1,
@@ -303,15 +250,15 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                     }}
                   />
                   <button
-                    onClick={copyLink}
+                    onClick={() => copyLink(shareUrlPublic, true)}
                     style={{
                       padding: '12px 16px',
                       fontSize: 'var(--text-sm)',
                       fontWeight: '600',
-                      color: copied ? '#3b82f6' : '#171717',
+                      color: copiedPublic ? '#3b82f6' : '#171717',
                       background: '#ffffff',
                       border: '1px solid',
-                      borderColor: copied ? '#3b82f6' : '#e5e5e5',
+                      borderColor: copiedPublic ? '#3b82f6' : '#e5e5e5',
                       borderRadius: '8px',
                       cursor: 'pointer',
                       display: 'flex',
@@ -319,7 +266,127 @@ export default function ShareCollectionButton({ type }: ShareCollectionButtonPro
                       gap: '6px'
                     }}
                   >
-                    {copied ? (
+                    {copiedPublic ? (
+                      <>
+                        <CheckIcon style={{ width: '16px', height: '16px' }} />
+                        Copied
+                      </>
+                    ) : (
+                      <>
+                        <ClipboardIcon style={{ width: '16px', height: '16px' }} />
+                        Copy
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Private Share Toggle */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '16px',
+              background: '#fafafa',
+              borderRadius: '8px',
+              marginBottom: '16px',
+              gap: '12px'
+            }}>
+              <div style={{ flex: 1 }}>
+                <div style={{
+                  fontSize: 'var(--text-base)',
+                  fontWeight: '600',
+                  color: '#171717',
+                  marginBottom: '4px'
+                }}>
+                  Private Link (no pricing)
+                </div>
+                <div style={{
+                  fontSize: 'var(--text-sm)',
+                  color: '#737373'
+                }}>
+                  Share with buyers without revealing prices
+                </div>
+              </div>
+              <button
+                onClick={togglePrivateShare}
+                style={{
+                  position: 'relative',
+                  width: '48px',
+                  height: '24px',
+                  minHeight: '24px',
+                  maxHeight: '24px',
+                  background: shareEnabledPrivate ? '#3b82f6' : '#d1d5db',
+                  borderRadius: '12px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'background 0.2s ease',
+                  flexShrink: 0,
+                  padding: 0,
+                  margin: 0,
+                  boxSizing: 'border-box'
+                } as React.CSSProperties}
+              >
+                <div style={{
+                  position: 'absolute',
+                  top: '2px',
+                  left: shareEnabledPrivate ? '26px' : '2px',
+                  width: '20px',
+                  height: '20px',
+                  background: '#ffffff',
+                  borderRadius: '50%',
+                  transition: 'left 0.2s ease',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.3)'
+                }} />
+              </button>
+            </div>
+
+            {/* Private Share Link */}
+            {shareEnabledPrivate && shareUrlPrivate && (
+              <div style={{ marginBottom: '24px' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: '600',
+                  color: '#171717',
+                  marginBottom: '8px'
+                }}>
+                  Private Link
+                </label>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <input
+                    type="text"
+                    value={shareUrlPrivate}
+                    readOnly
+                    style={{
+                      flex: 1,
+                      padding: '12px',
+                      fontSize: 'var(--text-sm)',
+                      color: '#171717',
+                      background: '#f5f5f5',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px'
+                    }}
+                  />
+                  <button
+                    onClick={() => copyLink(shareUrlPrivate, false)}
+                    style={{
+                      padding: '12px 16px',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: '600',
+                      color: copiedPrivate ? '#3b82f6' : '#171717',
+                      background: '#ffffff',
+                      border: '1px solid',
+                      borderColor: copiedPrivate ? '#3b82f6' : '#e5e5e5',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px'
+                    }}
+                  >
+                    {copiedPrivate ? (
                       <>
                         <CheckIcon style={{ width: '16px', height: '16px' }} />
                         Copied

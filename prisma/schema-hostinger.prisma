@@ -275,16 +275,20 @@ model User {
   shareEnabled               Boolean                     @default(false)
   shareTokenInventory        String?                     @unique
   shareEnabledInventory      Boolean                     @default(false)
-  sharePricingInventory      Boolean                     @default(true)
+  shareTokenInventoryPrivate String?                     @unique
+  shareEnabledInventoryPrivate Boolean                   @default(false)
   shareTokenCollection       String?                     @unique
   shareEnabledCollection     Boolean                     @default(false)
-  sharePricingCollection     Boolean                     @default(false)
+  shareTokenCollectionPrivate String?                    @unique
+  shareEnabledCollectionPrivate Boolean                  @default(false)
   shareTokenSetsInventory    String?                     @unique
   shareEnabledSetsInventory  Boolean                     @default(false)
-  sharePricingSetsInventory  Boolean                     @default(true)
+  shareTokenSetsInventoryPrivate String?                 @unique
+  shareEnabledSetsInventoryPrivate Boolean               @default(false)
   shareTokenSetsCollection   String?                     @unique
   shareEnabledSetsCollection Boolean                     @default(false)
-  sharePricingSetsCollection Boolean                     @default(false)
+  shareTokenSetsCollectionPrivate String?                @unique
+  shareEnabledSetsCollectionPrivate Boolean              @default(false)
   Account                    Account[]
   CollectionItem             CollectionItem[]
   Listing                    Listing[]

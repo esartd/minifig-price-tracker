@@ -4,91 +4,34 @@ import { prisma } from '@/lib/prisma';
 import { randomBytes } from 'crypto';
 
 type CollectionType = 'inventory' | 'collection' | 'sets-inventory' | 'sets-collection';
+type ShareMode = 'public' | 'private';
 
-const getFieldNames = (type: CollectionType) => {
+const getFieldNames = (type: CollectionType, mode: ShareMode) => {
+  const suffix = mode === 'public' ? '' : 'Private';
+
   switch (type) {
     case 'inventory':
-      return { tokenField: 'shareTokenInventory', enabledField: 'shareEnabledInventory', pricingField: 'sharePricingInventory' };
+      return {
+        tokenField: `shareTokenInventory${suffix}` as const,
+        enabledField: `shareEnabledInventory${suffix}` as const
+      };
     case 'collection':
-      return { tokenField: 'shareTokenCollection', enabledField: 'shareEnabledCollection', pricingField: 'sharePricingCollection' };
+      return {
+        tokenField: `shareTokenCollection${suffix}` as const,
+        enabledField: `shareEnabledCollection${suffix}` as const
+      };
     case 'sets-inventory':
-      return { tokenField: 'shareTokenSetsInventory', enabledField: 'shareEnabledSetsInventory', pricingField: 'sharePricingSetsInventory' };
+      return {
+        tokenField: `shareTokenSetsInventory${suffix}` as const,
+        enabledField: `shareEnabledSetsInventory${suffix}` as const
+      };
     case 'sets-collection':
-      return { tokenField: 'shareTokenSetsCollection', enabledField: 'shareEnabledSetsCollection', pricingField: 'sharePricingSetsCollection' };
+      return {
+        tokenField: `shareTokenSetsCollection${suffix}` as const,
+        enabledField: `shareEnabledSetsCollection${suffix}` as const
+      };
   }
 };
-
-// Generate a unique share token
-export async function POST(request: Request) {
-  try {
-    const session = await auth();
-
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
-        { status: 401 }
-      );
-    }
-
-    const url = new URL(request.url);
-    const type = (url.searchParams.get('type') || 'inventory') as CollectionType;
-
-    // Generate a random token
-    const shareToken = randomBytes(16).toString('hex');
-
-    // Update user with share token and enable sharing
-    switch (type) {
-      case 'inventory':
-        await prisma.user.update({
-          where: { id: session.user.id },
-          data: {
-            shareTokenInventory: shareToken,
-            shareEnabledInventory: true
-          }
-        });
-        break;
-      case 'collection':
-        await prisma.user.update({
-          where: { id: session.user.id },
-          data: {
-            shareTokenCollection: shareToken,
-            shareEnabledCollection: true
-          }
-        });
-        break;
-      case 'sets-inventory':
-        await prisma.user.update({
-          where: { id: session.user.id },
-          data: {
-            shareTokenSetsInventory: shareToken,
-            shareEnabledSetsInventory: true
-          }
-        });
-        break;
-      case 'sets-collection':
-        await prisma.user.update({
-          where: { id: session.user.id },
-          data: {
-            shareTokenSetsCollection: shareToken,
-            shareEnabledSetsCollection: true
-          }
-        });
-        break;
-    }
-
-    return NextResponse.json({
-      success: true,
-      shareToken,
-      shareUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/share/${shareToken}?type=${type}`
-    });
-  } catch (error) {
-    console.error('Error generating share link:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to generate share link' },
-      { status: 500 }
-    );
-  }
-}
 
 // Toggle sharing on/off
 export async function PATCH(request: Request) {
@@ -104,7 +47,8 @@ export async function PATCH(request: Request) {
 
     const url = new URL(request.url);
     const type = (url.searchParams.get('type') || 'inventory') as CollectionType;
-    const { tokenField, enabledField, pricingField } = getFieldNames(type);
+    const mode = (url.searchParams.get('mode') || 'public') as ShareMode;
+    const { tokenField, enabledField } = getFieldNames(type, mode);
 
     // Get current user
     const user = await prisma.user.findUnique({
@@ -113,16 +57,20 @@ export async function PATCH(request: Request) {
         id: true,
         shareTokenInventory: true,
         shareEnabledInventory: true,
-        sharePricingInventory: true,
+        shareTokenInventoryPrivate: true,
+        shareEnabledInventoryPrivate: true,
         shareTokenCollection: true,
         shareEnabledCollection: true,
-        sharePricingCollection: true,
+        shareTokenCollectionPrivate: true,
+        shareEnabledCollectionPrivate: true,
         shareTokenSetsInventory: true,
         shareEnabledSetsInventory: true,
-        sharePricingSetsInventory: true,
+        shareTokenSetsInventoryPrivate: true,
+        shareEnabledSetsInventoryPrivate: true,
         shareTokenSetsCollection: true,
         shareEnabledSetsCollection: true,
-        sharePricingSetsCollection: true,
+        shareTokenSetsCollectionPrivate: true,
+        shareEnabledSetsCollectionPrivate: true,
       }
     });
 
@@ -133,33 +81,10 @@ export async function PATCH(request: Request) {
       );
     }
 
-    // Get current values based on type
-    let currentEnabled: boolean;
-    let currentToken: string | null;
-    let currentPricing: boolean;
-
-    switch (type) {
-      case 'inventory':
-        currentEnabled = user.shareEnabledInventory;
-        currentToken = user.shareTokenInventory;
-        currentPricing = user.sharePricingInventory;
-        break;
-      case 'collection':
-        currentEnabled = user.shareEnabledCollection;
-        currentToken = user.shareTokenCollection;
-        currentPricing = user.sharePricingCollection;
-        break;
-      case 'sets-inventory':
-        currentEnabled = user.shareEnabledSetsInventory;
-        currentToken = user.shareTokenSetsInventory;
-        currentPricing = user.sharePricingSetsInventory;
-        break;
-      case 'sets-collection':
-        currentEnabled = user.shareEnabledSetsCollection;
-        currentToken = user.shareTokenSetsCollection;
-        currentPricing = user.sharePricingSetsCollection;
-        break;
-    }
+    // @ts-ignore - Dynamic field access
+    const currentEnabled = user[enabledField] as boolean;
+    // @ts-ignore - Dynamic field access
+    const currentToken = user[tokenField] as string | null;
 
     // Toggle sharing
     const newShareEnabled = !currentEnabled;
@@ -170,50 +95,18 @@ export async function PATCH(request: Request) {
       shareToken = randomBytes(16).toString('hex');
     }
 
-    // Update database with explicit conditionals
-    switch (type) {
-      case 'inventory':
-        await prisma.user.update({
-          where: { id: session.user.id },
-          data: {
-            shareEnabledInventory: newShareEnabled,
-            ...(shareToken && { shareTokenInventory: shareToken })
-          }
-        });
-        break;
-      case 'collection':
-        await prisma.user.update({
-          where: { id: session.user.id },
-          data: {
-            shareEnabledCollection: newShareEnabled,
-            ...(shareToken && { shareTokenCollection: shareToken })
-          }
-        });
-        break;
-      case 'sets-inventory':
-        await prisma.user.update({
-          where: { id: session.user.id },
-          data: {
-            shareEnabledSetsInventory: newShareEnabled,
-            ...(shareToken && { shareTokenSetsInventory: shareToken })
-          }
-        });
-        break;
-      case 'sets-collection':
-        await prisma.user.update({
-          where: { id: session.user.id },
-          data: {
-            shareEnabledSetsCollection: newShareEnabled,
-            ...(shareToken && { shareTokenSetsCollection: shareToken })
-          }
-        });
-        break;
-    }
+    // Update database
+    await prisma.user.update({
+      where: { id: session.user.id },
+      data: {
+        [enabledField]: newShareEnabled,
+        ...(shareToken && { [tokenField]: shareToken })
+      }
+    });
 
     return NextResponse.json({
       success: true,
       shareEnabled: newShareEnabled,
-      sharePricing: currentPricing,
       shareToken,
       shareUrl: shareToken ? `${process.env.NEXT_PUBLIC_BASE_URL}/share/${shareToken}?type=${type}` : null
     });
@@ -247,16 +140,20 @@ export async function GET(request: Request) {
         id: true,
         shareTokenInventory: true,
         shareEnabledInventory: true,
-        sharePricingInventory: true,
+        shareTokenInventoryPrivate: true,
+        shareEnabledInventoryPrivate: true,
         shareTokenCollection: true,
         shareEnabledCollection: true,
-        sharePricingCollection: true,
+        shareTokenCollectionPrivate: true,
+        shareEnabledCollectionPrivate: true,
         shareTokenSetsInventory: true,
         shareEnabledSetsInventory: true,
-        sharePricingSetsInventory: true,
+        shareTokenSetsInventoryPrivate: true,
+        shareEnabledSetsInventoryPrivate: true,
         shareTokenSetsCollection: true,
         shareEnabledSetsCollection: true,
-        sharePricingSetsCollection: true,
+        shareTokenSetsCollectionPrivate: true,
+        shareEnabledSetsCollectionPrivate: true,
       }
     });
 
@@ -267,39 +164,44 @@ export async function GET(request: Request) {
       );
     }
 
-    let shareEnabled: boolean;
-    let shareToken: string | null;
-    let sharePricing: boolean;
+    let shareEnabledPublic: boolean;
+    let shareTokenPublic: string | null;
+    let shareEnabledPrivate: boolean;
+    let shareTokenPrivate: string | null;
 
     switch (type) {
       case 'inventory':
-        shareEnabled = user.shareEnabledInventory;
-        shareToken = user.shareTokenInventory;
-        sharePricing = user.sharePricingInventory;
+        shareEnabledPublic = user.shareEnabledInventory;
+        shareTokenPublic = user.shareTokenInventory;
+        shareEnabledPrivate = user.shareEnabledInventoryPrivate;
+        shareTokenPrivate = user.shareTokenInventoryPrivate;
         break;
       case 'collection':
-        shareEnabled = user.shareEnabledCollection;
-        shareToken = user.shareTokenCollection;
-        sharePricing = user.sharePricingCollection;
+        shareEnabledPublic = user.shareEnabledCollection;
+        shareTokenPublic = user.shareTokenCollection;
+        shareEnabledPrivate = user.shareEnabledCollectionPrivate;
+        shareTokenPrivate = user.shareTokenCollectionPrivate;
         break;
       case 'sets-inventory':
-        shareEnabled = user.shareEnabledSetsInventory;
-        shareToken = user.shareTokenSetsInventory;
-        sharePricing = user.sharePricingSetsInventory;
+        shareEnabledPublic = user.shareEnabledSetsInventory;
+        shareTokenPublic = user.shareTokenSetsInventory;
+        shareEnabledPrivate = user.shareEnabledSetsInventoryPrivate;
+        shareTokenPrivate = user.shareTokenSetsInventoryPrivate;
         break;
       case 'sets-collection':
-        shareEnabled = user.shareEnabledSetsCollection;
-        shareToken = user.shareTokenSetsCollection;
-        sharePricing = user.sharePricingSetsCollection;
+        shareEnabledPublic = user.shareEnabledSetsCollection;
+        shareTokenPublic = user.shareTokenSetsCollection;
+        shareEnabledPrivate = user.shareEnabledSetsCollectionPrivate;
+        shareTokenPrivate = user.shareTokenSetsCollectionPrivate;
         break;
     }
 
     return NextResponse.json({
       success: true,
-      shareEnabled,
-      sharePricing,
-      shareToken,
-      shareUrl: shareToken ? `${process.env.NEXT_PUBLIC_BASE_URL}/share/${shareToken}?type=${type}` : null
+      shareEnabledPublic,
+      shareUrlPublic: shareTokenPublic ? `${process.env.NEXT_PUBLIC_BASE_URL}/share/${shareTokenPublic}?type=${type}` : null,
+      shareEnabledPrivate,
+      shareUrlPrivate: shareTokenPrivate ? `${process.env.NEXT_PUBLIC_BASE_URL}/share/${shareTokenPrivate}?type=${type}` : null,
     });
   } catch (error) {
     console.error('Error getting share status:', error);
