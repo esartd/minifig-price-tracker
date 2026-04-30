@@ -1521,7 +1521,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       </div>
 
                         {/* Success message for inventory actions */}
-                        {successMessage && successMessage.includes('Inventory') && (
+                        {successMessage && successMessage.includes('to sell') && (
                           <div style={{
                             marginTop: '16px',
                             padding: '12px 16px',
@@ -1744,7 +1744,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           </button>
 
                           {/* Success message for this section */}
-                          {successMessage && successMessage.includes('Collection') && (
+                          {successMessage && successMessage.includes('to keep') && (
                             <div style={{
                               background: '#dbeafe',
                               border: '1px solid #93c5fd',
