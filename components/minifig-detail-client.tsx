@@ -635,8 +635,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
         const count = data.quantityAdded || addToInventoryQty;
         const itemText = count === 1 ? 'item' : 'items';
         const message = data.quantityAdded
-          ? `Added ${data.quantityAdded} more ${itemText} for sale`
-          : `Added ${addToInventoryQty} ${itemText} for sale`;
+          ? `Added ${data.quantityAdded} more ${itemText} to sell`
+          : `Added ${addToInventoryQty} ${itemText} to sell`;
         setSuccessMessage(message);
         setAddToInventoryQty(1); // Reset
       } else {
@@ -1295,7 +1295,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                                 if (!addLoading) e.currentTarget.style.background = '#3b82f6';
                               }}
                             >
-                              + For sale
+                              + To sell
                             </button>
 
                             <button
@@ -1338,7 +1338,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                             color: '#171717',
                             marginBottom: '16px'
                           }}>
-                            Items for Sale
+                            Items to Sell
                           </h2>
 
                       <div className="inventory-actions-container">
@@ -2055,7 +2055,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                             marginBottom: '16px',
                             marginTop: '0'
                           }}>
-                            Add for sale?
+                            Add to sell?
                           </h2>
 
                           <div style={{ marginBottom: '16px' }}>
@@ -2773,7 +2773,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
               marginBottom: '8px',
               color: '#171717'
             }}>
-              Delete from {deleteTarget === 'inventory' ? 'items for sale' : 'items to keep'}?
+              Delete from {deleteTarget === 'inventory' ? 'items to sell' : 'items to keep'}?
             </h2>
             <p style={{
               fontSize: 'var(--text-sm)',

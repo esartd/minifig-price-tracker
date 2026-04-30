@@ -322,7 +322,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
       if (data.success) {
         await refreshCollections();
         const itemText = addToInventoryQty === 1 ? 'item' : 'items';
-        setSuccessMessage(`Added ${addToInventoryQty} ${itemText} for sale`);
+        setSuccessMessage(`Added ${addToInventoryQty} ${itemText} to sell`);
         setAddToInventoryQty(1);
       } else {
         setError(data.error || 'Failed to add');
@@ -619,7 +619,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                             gap: '8px', background: addLoading ? '#a3a3a3' : '#3b82f6', color: '#ffffff',
                             border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
                             cursor: addLoading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
-                          + For sale
+                          + To sell
                         </button>
                         <button onClick={() => handleAddToPersonalCollection(quantity)} disabled={addPersonalLoading}
                           style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -635,7 +635,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                   {inventoryItem && (
                     <>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
-                        marginBottom: '16px' }}>Items for Sale</h2>
+                        marginBottom: '16px' }}>Items to Sell</h2>
                       <div className="inventory-actions-container">
                         <div className="quantity-stepper">
                           <button type="button"
@@ -849,7 +849,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                     <div style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid #e5e5e5',
                       padding: '20px', marginTop: '24px' }}>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
-                        marginBottom: '16px', marginTop: '0' }}>Add for sale?</h2>
+                        marginBottom: '16px', marginTop: '0' }}>Add to sell?</h2>
                       <div style={{ marginBottom: '16px' }}>
                         <label style={{ display: 'block', fontSize: 'var(--text-sm)', fontWeight: '500',
                           color: '#525252', marginBottom: '8px' }}>Quantity</label>
@@ -886,7 +886,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           color: '#ffffff', border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)',
                           fontWeight: '600', cursor: addToInventoryLoading ? 'not-allowed' : 'pointer',
                           transition: 'all 0.2s' }}>
-                        {addToInventoryLoading ? 'Adding...' : 'Add for sale'}
+                        {addToInventoryLoading ? 'Adding...' : 'Add to sell'}
                       </button>
                     </div>
                   )}
@@ -1138,10 +1138,10 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
             width: '100%', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}
             onClick={(e) => e.stopPropagation()}>
             <h3 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '12px', color: '#171717' }}>
-              Delete from {deleteTarget === 'inventory' ? 'items for sale' : 'items to keep'}?
+              Delete from {deleteTarget === 'inventory' ? 'items to sell' : 'items to keep'}?
             </h3>
             <p style={{ fontSize: '14px', color: '#737373', marginBottom: '24px', lineHeight: '1.5' }}>
-              This will permanently remove this set from your {deleteTarget === 'inventory' ? 'items for sale' : 'items to keep'}.
+              This will permanently remove this set from your {deleteTarget === 'inventory' ? 'items to sell' : 'items to keep'}.
             </p>
             <div style={{ display: 'flex', gap: '12px' }}>
               <button onClick={() => { setShowDeleteDialog(false); setDeleteTarget(null); }}

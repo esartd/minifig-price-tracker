@@ -188,7 +188,7 @@ export default function AddToCollectionForm({ onAdd, loading, session }: AddToCo
             if (!loading) e.currentTarget.style.background = '#3b82f6';
           }}
         >
-          {loading ? 'Adding...' : session ? 'Add for sale' : 'Sign In to Add'}
+          {loading ? 'Adding...' : session ? 'Add to sell' : 'Sign In to Add'}
         </button>
       </div>
     </div>
