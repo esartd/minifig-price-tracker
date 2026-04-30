@@ -632,6 +632,39 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                     </div>
                   )}
 
+                  {/* Success message */}
+                  {successMessage && (
+                    <div style={{
+                      marginTop: '16px',
+                      padding: '12px 16px',
+                      background: '#d1fae5',
+                      border: '1px solid #6ee7b7',
+                      borderRadius: '8px',
+                      fontSize: 'var(--text-sm)',
+                      color: '#065f46',
+                      fontWeight: '500',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '12px'
+                    }}>
+                      <span>✓ {successMessage}</span>
+                      <button
+                        onClick={() => setSuccessMessage('')}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: '#065f46',
+                          cursor: 'pointer',
+                          padding: '4px',
+                          fontSize: '20px',
+                          lineHeight: 1
+                        }}>
+                        ×
+                      </button>
+                    </div>
+                  )}
+
                   {inventoryItem && (
                     <>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
