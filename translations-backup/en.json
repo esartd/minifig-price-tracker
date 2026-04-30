@@ -811,9 +811,9 @@
   "collection": {
     "title": "Your Collection",
     "subtitle": "Your personal collection — minifigs you're keeping, not selling",
-    "inventory": "Inventory",
-    "addToCollection": "Add to Collection",
-    "addToInventory": "Add to Inventory",
+    "inventory": "Items to Sell",
+    "addToCollection": "Add to keep",
+    "addToInventory": "Add to sell",
     "addMinifigs": "Add Minifigs",
     "removeFromCollection": "Remove from Collection",
     "moveToInventory": "Move to Inventory",
@@ -1011,10 +1011,10 @@
       "featured": "Featured {theme} Sets"
     },
     "messages": {
-      "addedToInventory": "Added {quantity} {condition} to Inventory!",
-      "addedToCollection": "Added {quantity} {condition} to Your Collection!",
-      "movedToCollection": "Moved to Collection! Click anywhere to dismiss.",
-      "movedToInventory": "Moved to Inventory! Click anywhere to dismiss."
+      "addedToInventory": "Added {quantity} item to sell",
+      "addedToCollection": "Added {quantity} item to keep",
+      "movedToCollection": "Moved to keep! Click anywhere to dismiss.",
+      "movedToInventory": "Moved to sell! Click anywhere to dismiss."
     },
     "errors": {
       "failedToAdd": "Failed to add set",
@@ -1034,11 +1034,11 @@
       "confirm": "Remove"
     },
     "buttons": {
-      "addInventory": "+ Inventory",
-      "addCollection": "+ Collection",
-      "addToCollection": "+ Add to Collection",
+      "addInventory": "+ To sell",
+      "addCollection": "+ To keep",
+      "addToCollection": "+ Add to keep",
       "adding": "Adding...",
-      "addToInventory": "Add to Inventory"
+      "addToInventory": "Add to sell"
     },
     "breadcrumbs": {
       "home": "Home",
