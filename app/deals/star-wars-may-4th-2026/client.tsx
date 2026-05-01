@@ -32,7 +32,7 @@ const DEAL_SETS: DealSet[] = [
     name: 'TIE Interceptor',
     price: 229.99,
     tier: 'A',
-    imageUrl: 'https://cdn.rebrickable.com/media/sets/75382.jpg',
+    imageUrl: 'https://cdn.rebrickable.com/media/sets/75382-1.jpg',
     affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392315432448651422365399&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2ftie-interceptor-75382',
   },
   {
@@ -40,7 +40,7 @@ const DEAL_SETS: DealSet[] = [
     name: 'The Razor Crest',
     price: 149.99,
     tier: 'B',
-    imageUrl: 'https://cdn.rebrickable.com/media/sets/75447.jpg',
+    imageUrl: 'https://cdn.rebrickable.com/media/sets/75447-1.jpg',
     affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392318298979089533984024&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fthe-razor-crest-75447',
   },
   {
@@ -48,7 +48,7 @@ const DEAL_SETS: DealSet[] = [
     name: 'AT-RT Attack',
     price: 44.99,
     tier: 'B',
-    imageUrl: 'https://cdn.rebrickable.com/media/sets/75444.jpg',
+    imageUrl: 'https://cdn.rebrickable.com/media/sets/75444-1.jpg',
     affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392315189149030117995046&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fat-rt-attack-75444',
   },
   {
@@ -56,7 +56,7 @@ const DEAL_SETS: DealSet[] = [
     name: 'Siege of Mandalore Battle Pack',
     price: 22.99,
     tier: 'D',
-    imageUrl: 'https://cdn.rebrickable.com/media/sets/75449.jpg',
+    imageUrl: 'https://cdn.rebrickable.com/media/sets/75449-1.jpg',
     affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.139239665792440630903595&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fsiege-of-mandalore-battle-pack-75449',
   },
   {
@@ -64,7 +64,7 @@ const DEAL_SETS: DealSet[] = [
     name: 'Captain Rex Y-Wing Microfighter',
     price: 12.99,
     tier: 'D',
-    imageUrl: 'https://cdn.rebrickable.com/media/sets/75391.jpg',
+    imageUrl: 'https://cdn.rebrickable.com/media/sets/75391-1.jpg',
     affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392313918199668343810360&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fcaptain-rex-y-wing-microfighter-75391',
   },
   {
@@ -72,7 +72,7 @@ const DEAL_SETS: DealSet[] = [
     name: 'The Mandalorian & Grogu\'s Speeder Bike',
     price: 9.99,
     tier: 'D',
-    imageUrl: 'https://cdn.rebrickable.com/media/sets/75436.jpg',
+    imageUrl: 'https://cdn.rebrickable.com/media/sets/75436-1.jpg',
     affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.139231408361465689096246&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fthe-mandalorian-grogus-speeder-bike-75436',
   },
 ];
