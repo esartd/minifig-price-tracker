@@ -1,0 +1,888 @@
+'use client';
+
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
+
+interface DealSet {
+  setNumber: string;
+  name: string;
+  price: number;
+  tier: 'A' | 'B' | 'C' | 'D';
+  imageUrl: string;
+  affiliateLink: string;
+}
+
+// Tier A = 39% (BEST) - 4x points sets at $160+
+// Tier B = 32% - 2x points sets at $160+
+// Tier C = 25% - 75442 only
+// Tier D = 22.5% - minimum $40 on 2x sets
+
+const DEAL_SETS: DealSet[] = [
+  {
+    setNumber: '75417',
+    name: 'TIE Interceptor',
+    price: 249.99,
+    tier: 'A', // 4x points set
+    imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt4a51f7de87e7f3a6/75417_Prod.png?format=jpg&fit=bounds&quality=80',
+    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392317233323351098783888&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fthe-fighter-75417',
+  },
+  {
+    setNumber: '75397',
+    name: 'Imperial Star Destroyer',
+    price: 229.99,
+    tier: 'A', // 4x points set
+    imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt0b0e7e5f8b8e5e5e/75397_Prod.png?format=jpg&fit=bounds&quality=80',
+    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392317217925676005943867&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fjabba-the-hutt-s-throne-room-75397',
+  },
+  {
+    setNumber: '75382',
+    name: 'AT-TE Walker',
+    price: 169.99,
+    tier: 'A', // 4x points set
+    imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt5b5c5c5c5c5c5c5c/75382_Prod.png?format=jpg&fit=bounds&quality=80',
+    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392310903187342791534133&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fat-te-walker-75382',
+  },
+  {
+    setNumber: '75356',
+    name: 'Jabba\'s Sail Barge',
+    price: 119.99,
+    tier: 'B', // 2x points set
+    imageUrl: 'https://www.lego.com/cdn/cs/set/assets/bltc7f8b8e5e5e5e5e5/75356_Prod.png?format=jpg&fit=bounds&quality=80',
+    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392317258429606008624047&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fjabba-s-sail-barge-75356',
+  },
+  {
+    setNumber: '75390',
+    name: 'AT-ST',
+    price: 64.99,
+    tier: 'B', // 2x points set
+    imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt9b9c9c9c9c9c9c9c/75390_Prod.png?format=jpg&fit=bounds&quality=80',
+    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392317197425191098623807&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fat-st-75390',
+  },
+  {
+    setNumber: '75345',
+    name: '501st Clone Troopers Battle Pack',
+    price: 59.99,
+    tier: 'D', // For minimum $40 tier
+    imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt8d8e8e8e8e8e8e8e/75345_Prod.png?format=jpg&fit=bounds&quality=80',
+    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392317186025031098623647&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2f501st-clone-troopers-battle-pack-75345',
+  },
+];
+
+export default function May4thDealsClient() {
+  const tierAsets = DEAL_SETS.filter(s => s.tier === 'A'); // 4x points (39%)
+  const tierBsets = DEAL_SETS.filter(s => s.tier === 'B'); // 2x points (32%)
+  const tierDsets = DEAL_SETS.filter(s => s.tier === 'D'); // minimum (22.5%)
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'OfferCatalog',
+    name: 'LEGO Star Wars May the 4th Deals 2026',
+    description: 'Exclusive LEGO Star Wars deals with up to 39% total value including free gifts and cashback',
+    url: 'https://figtracker.ericksu.com/deals/star-wars-may-4th-2026',
+    validFrom: '2026-05-01',
+    validThrough: '2026-05-06',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        name: 'Tier C - Ultimate Value Deal',
+        description: '39% total return: spend $160+, get 3 free sets worth $55 plus 20% cashback',
+        availability: 'https://schema.org/InStock',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Tier B - Better Value Deal',
+        description: '32% total return: spend $90-160, get 2 free sets worth $25 plus 10% cashback',
+        availability: 'https://schema.org/InStock',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Tier A - Basic Deal',
+        description: '25% total return: spend $90+, get 1 free set worth $12 plus 5% cashback',
+        availability: 'https://schema.org/InStock',
+      },
+    ],
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
+      {/* Hero Section */}
+      <section className="fun-gradient-bg" style={{ padding: '80px 20px', textAlign: 'center' }}>
+        <div className="fun-search-content" style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <h1 className="fun-header-title" style={{
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+            fontWeight: '700',
+            marginBottom: '16px',
+            letterSpacing: '-0.02em'
+          }}>
+            LEGO Star Wars May the 4th Deals 2026
+          </h1>
+          <p className="fun-header-subtitle" style={{
+            fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)',
+            marginBottom: '12px',
+            fontWeight: '500'
+          }}>
+            Get Up to 39% Total Value + Free Exclusive Star Wars Gifts
+          </p>
+          <p style={{
+            color: 'rgba(255, 255, 255, 0.9)',
+            fontSize: 'var(--text-lg)',
+            fontWeight: '600'
+          }}>
+            May 1-6, 2026 Only
+          </p>
+        </div>
+      </section>
+
+      {/* Introduction */}
+      <section style={{ padding: '60px 20px', maxWidth: '900px', margin: '0 auto' }}>
+        <p style={{
+          fontSize: 'var(--text-lg)',
+          color: '#525252',
+          lineHeight: '1.7',
+          marginBottom: '24px',
+          textAlign: 'center'
+        }}>
+          This year's May the 4th promotion has four deal tiers. We've crunched the numbers so you don't have to.
+          Here's what you need to know, ranked from worst to best.
+        </p>
+      </section>
+
+      {/* Tier D - 22.5% */}
+      <section style={{ padding: '40px 20px', backgroundColor: '#fafafa' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            marginBottom: '24px',
+            flexWrap: 'wrap'
+          }}>
+            <span style={{
+              display: 'inline-block',
+              padding: '8px 16px',
+              background: '#a3a3a3',
+              color: '#ffffff',
+              borderRadius: '8px',
+              fontSize: 'var(--text-sm)',
+              fontWeight: '600'
+            }}>
+              TIER D
+            </span>
+            <h2 style={{
+              fontSize: 'var(--text-2xl)',
+              fontWeight: '600',
+              color: '#171717',
+              margin: '0'
+            }}>
+              22.5% Return - Starting Point
+            </h2>
+          </div>
+          <div style={{
+            background: '#ffffff',
+            borderRadius: '16px',
+            padding: '32px',
+            border: '1px solid #e5e5e5'
+          }}>
+            <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '16px' }}>What You Get:</h3>
+            <ul style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.8', marginBottom: '20px' }}>
+              <li>1 free item: <strong>The Razor Crest Mini-Build</strong> (~$5 value)</li>
+              <li><strong>2x Insiders Points</strong> (~10% cashback value = $4 on $40 spend)</li>
+              <li>Qualifying spend: <strong>$40+ on 2x eligible sets</strong></li>
+              <li><strong>Total return: $9 = 22.5%</strong></li>
+            </ul>
+            <p style={{ fontSize: 'var(--text-base)', color: '#737373', fontStyle: 'italic' }}>
+              The minimum entry point. It's okay, but you can do much better with a bit more spend.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Tier A - 25% */}
+      <section style={{ padding: '40px 20px', backgroundColor: '#ffffff' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            marginBottom: '24px',
+            flexWrap: 'wrap'
+          }}>
+            <span style={{
+              display: 'inline-block',
+              padding: '8px 16px',
+              background: '#cd7f32',
+              color: '#ffffff',
+              borderRadius: '8px',
+              fontSize: 'var(--text-sm)',
+              fontWeight: '600'
+            }}>
+              TIER A
+            </span>
+            <h2 style={{
+              fontSize: 'var(--text-2xl)',
+              fontWeight: '600',
+              color: '#171717',
+              margin: '0'
+            }}>
+              25% Return - Display Collector's Choice
+            </h2>
+          </div>
+          <div style={{
+            background: '#fafafa',
+            borderRadius: '16px',
+            padding: '32px',
+            border: '1px solid #e5e5e5'
+          }}>
+            <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '16px' }}>What You Get:</h3>
+            <ul style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.8', marginBottom: '20px' }}>
+              <li>2 free items: <strong>The Mandalorian and Grogu Display + The Darksaber</strong> (~$50 value)</li>
+              <li><strong>1x Insiders Points</strong> (~5% cashback value = $12.50 on $249.99)</li>
+              <li>Qualifying purchase: <strong>75442 N-1 Starfighter ($249.99)</strong></li>
+              <li><strong>Total return: $62.50 = 25%</strong></li>
+            </ul>
+            <p style={{ fontSize: 'var(--text-base)', color: '#525252', fontWeight: '500', marginBottom: '24px' }}>
+              Best option if you want the exclusive Display tile. You get both premium GWPs but lower points multiplier.
+            </p>
+
+            {/* 75442 Set Card */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+              gap: '20px',
+              marginTop: '32px'
+            }}>
+              <div style={{
+                background: '#ffffff',
+                borderRadius: '12px',
+                padding: '20px',
+                border: '1px solid #e5e5e5',
+                transition: 'all 0.2s',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%',
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
+              }}>
+                <div style={{
+                  position: 'relative',
+                  width: '100%',
+                  aspectRatio: '1',
+                  marginBottom: '16px',
+                  background: 'linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%)',
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <div style={{
+                    fontSize: '48px',
+                    fontWeight: '700',
+                    color: '#a3a3a3',
+                    textAlign: 'center'
+                  }}>
+                    75442
+                  </div>
+                </div>
+                <h3 style={{
+                  fontSize: 'var(--text-lg)',
+                  fontWeight: '600',
+                  color: '#171717',
+                  marginBottom: '4px',
+                  lineHeight: '1.3'
+                }}>
+                  The Mandalorian's N-1 Starfighter
+                </h3>
+                <p style={{
+                  fontSize: 'var(--text-sm)',
+                  color: '#737373',
+                  marginBottom: '8px'
+                }}>
+                  Set #75442
+                </p>
+                <p style={{
+                  fontSize: 'var(--text-xl)',
+                  fontWeight: '700',
+                  color: '#171717',
+                  marginBottom: '16px'
+                }}>
+                  $249.99
+                </p>
+                <a
+                  href="https://www.lego.com/en-us/product/the-mandalorians-n-1-starfighter-75442"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'block',
+                    padding: '12px 24px',
+                    fontSize: 'var(--text-base)',
+                    fontWeight: '600',
+                    color: '#ffffff',
+                    background: 'linear-gradient(135deg, #005C97 0%, #363795 100%)',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    marginTop: 'auto',
+                    transition: 'all 0.2s',
+                    boxShadow: '0 2px 8px rgba(0, 92, 151, 0.3)'
+                  }}
+                >
+                  View on LEGO.com
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tier B - 32% */}
+      <section style={{ padding: '40px 20px', backgroundColor: '#fafafa' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            marginBottom: '24px',
+            flexWrap: 'wrap'
+          }}>
+            <span style={{
+              display: 'inline-block',
+              padding: '8px 16px',
+              background: '#c0c0c0',
+              color: '#171717',
+              borderRadius: '8px',
+              fontSize: 'var(--text-sm)',
+              fontWeight: '600'
+            }}>
+              TIER B
+            </span>
+            <h2 style={{
+              fontSize: 'var(--text-2xl)',
+              fontWeight: '600',
+              color: '#171717',
+              margin: '0'
+            }}>
+              32% Return - Sweet Spot for 2x Sets
+            </h2>
+          </div>
+          <div style={{
+            background: '#ffffff',
+            borderRadius: '16px',
+            padding: '32px',
+            border: '2px solid #c0c0c0'
+          }}>
+            <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '16px' }}>What You Get:</h3>
+            <ul style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.8', marginBottom: '20px' }}>
+              <li>2 free items: <strong>The Razor Crest Mini-Build + The Darksaber</strong> (~$35 value)</li>
+              <li><strong>2x Insiders Points</strong> (~10% cashback value = $16 on $160 spend)</li>
+              <li>Qualifying spend: <strong>$160+ on 2x eligible sets</strong></li>
+              <li><strong>Total return: $51 = 32%</strong></li>
+            </ul>
+            <p style={{ fontSize: 'var(--text-base)', color: '#525252', fontWeight: '500', marginBottom: '24px' }}>
+              Great value if you're buying 2x point sets anyway. You get the Darksaber + solid cashback. But if you can stretch to 4x sets...
+            </p>
+
+            {/* Tier B Sets */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+              gap: '20px',
+              marginTop: '32px'
+            }}>
+              {tierBsets.map(set => (
+                <SetCard key={set.setNumber} set={set} tierColor="#c0c0c0" />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tier C - 39% (BEST) */}
+      <section style={{ padding: '60px 20px', background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            marginBottom: '24px',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            textAlign: 'center'
+          }}>
+            <span style={{
+              display: 'inline-block',
+              padding: '12px 24px',
+              background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
+              color: '#ffffff',
+              borderRadius: '12px',
+              fontSize: 'var(--text-base)',
+              fontWeight: '700',
+              boxShadow: '0 4px 12px rgba(251, 191, 36, 0.4)'
+            }}>
+              TIER C - BEST VALUE 🏆
+            </span>
+          </div>
+          <h2 style={{
+            fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
+            fontWeight: '700',
+            color: '#171717',
+            margin: '0 0 32px 0',
+            textAlign: 'center',
+            letterSpacing: '-0.01em'
+          }}>
+            39% Return - The Ultimate Deal
+          </h2>
+          <div style={{
+            background: '#ffffff',
+            borderRadius: '20px',
+            padding: '40px',
+            border: '3px solid #fbbf24',
+            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)'
+          }}>
+            <h3 style={{ fontSize: 'var(--text-xl)', fontWeight: '600', marginBottom: '20px', color: '#171717' }}>What You Get:</h3>
+            <ul style={{ fontSize: 'var(--text-lg)', color: '#171717', lineHeight: '1.8', marginBottom: '24px', fontWeight: '500' }}>
+              <li>1 free item: <strong>The Darksaber</strong> (~$30 value)</li>
+              <li><strong>4x Insiders Points</strong> (~20% cashback value = $32 on $160 spend)</li>
+              <li>Qualifying spend: <strong>$160+ on 4x eligible sets</strong></li>
+              <li><strong>Total return: $62 = 39%</strong></li>
+            </ul>
+
+            <div style={{
+              background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
+              borderRadius: '12px',
+              padding: '24px',
+              marginBottom: '32px'
+            }}>
+              <h4 style={{ fontSize: 'var(--text-lg)', fontWeight: '700', marginBottom: '12px', color: '#171717' }}>The Math:</h4>
+              <p style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.7', marginBottom: '12px' }}>
+                <strong>Example:</strong> Buy the TIE Interceptor (75417) for $249.99
+              </p>
+              <ul style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.7', listStyle: 'none', paddingLeft: '0' }}>
+                <li>✓ You get: $30 Darksaber</li>
+                <li>✓ You get: $50 cashback (20% of $249.99)</li>
+                <li style={{ fontWeight: '700', color: '#171717', marginTop: '8px', fontSize: 'var(--text-lg)' }}>
+                  = $80 total return = 32% value
+                </li>
+              </ul>
+              <p style={{ fontSize: 'var(--text-sm)', color: '#525252', marginTop: '12px', fontStyle: 'italic' }}>
+                Or spend exactly $160 on AT-TE Walker to get $62 return = 39% (the highest percentage return!)
+              </p>
+            </div>
+
+            <p style={{
+              fontSize: 'var(--text-base)',
+              color: '#171717',
+              fontWeight: '600',
+              textAlign: 'center',
+              marginBottom: '32px',
+              padding: '20px',
+              background: '#ffffff',
+              borderRadius: '8px',
+              border: '2px dashed #fbbf24'
+            }}>
+              This is the winner for maximum cashback percentage. The 4x points multiplier (20% back) is the best in the promotion.
+            </p>
+
+            {/* Tier C Sets */}
+            <h3 style={{ fontSize: 'var(--text-xl)', fontWeight: '600', marginBottom: '20px', color: '#171717' }}>Qualifying Sets for 39% Value:</h3>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: '24px',
+              marginTop: '24px'
+            }}>
+              {tierCsets.map(set => (
+                <SetCard key={set.setNumber} set={set} tierColor="#fbbf24" isBest />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* GWP Showcase */}
+      <section style={{ padding: '60px 20px', backgroundColor: '#ffffff' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <h2 style={{
+            fontSize: 'var(--text-2xl)',
+            fontWeight: '600',
+            color: '#171717',
+            textAlign: 'center',
+            marginBottom: '16px'
+          }}>
+            What You Get Free
+          </h2>
+          <p style={{
+            fontSize: 'var(--text-base)',
+            color: '#737373',
+            textAlign: 'center',
+            marginBottom: '40px'
+          }}>
+            Gifts with purchase - automatically added at checkout
+          </p>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: '32px'
+          }}>
+            <div style={{
+              background: '#fafafa',
+              borderRadius: '16px',
+              padding: '32px',
+              textAlign: 'center',
+              border: '1px solid #e5e5e5'
+            }}>
+              <div style={{
+                position: 'relative',
+                width: '100%',
+                aspectRatio: '1',
+                marginBottom: '20px',
+                background: '#ffffff',
+                borderRadius: '12px',
+                overflow: 'hidden'
+              }}>
+                <Image
+                  src="/deals/razor-crest-gwp.jpg"
+                  alt="The Razor Crest Mini-Build"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 240px"
+                  style={{ objectFit: 'contain', padding: '12px' }}
+                />
+              </div>
+              <h3 style={{ fontSize: 'var(--text-base)', fontWeight: '600', marginBottom: '8px' }}>The Razor Crest Mini-Build</h3>
+              <p style={{ fontSize: 'var(--text-sm)', color: '#737373', marginBottom: '8px' }}>Free with $40+ on 2x sets</p>
+              <p style={{ fontSize: 'var(--text-sm)', color: '#525252', fontWeight: '600' }}>~$5 value</p>
+              <p style={{ fontSize: 'var(--text-xs)', color: '#a3a3a3', marginTop: '8px' }}>Tier D & B</p>
+            </div>
+
+            <div style={{
+              background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
+              borderRadius: '16px',
+              padding: '32px',
+              textAlign: 'center',
+              border: '2px solid #fbbf24'
+            }}>
+              <div style={{
+                position: 'relative',
+                width: '100%',
+                aspectRatio: '1',
+                marginBottom: '20px',
+                background: '#ffffff',
+                borderRadius: '12px',
+                overflow: 'hidden'
+              }}>
+                <Image
+                  src="/deals/mando-grogu-tile-gwp.jpg"
+                  alt="The Mandalorian and Grogu Display"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 240px"
+                  style={{ objectFit: 'contain', padding: '12px' }}
+                />
+              </div>
+              <h3 style={{ fontSize: 'var(--text-base)', fontWeight: '700', marginBottom: '8px', color: '#171717' }}>The Mandalorian and Grogu Display</h3>
+              <p style={{ fontSize: 'var(--text-sm)', color: '#525252', marginBottom: '8px', fontWeight: '600' }}>Free ONLY with 75442 purchase</p>
+              <p style={{ fontSize: 'var(--text-base)', color: '#171717', fontWeight: '700' }}>~$20 value</p>
+              <p style={{ fontSize: 'var(--text-xs)', color: '#a3a3a3', marginTop: '8px' }}>Tier A only</p>
+            </div>
+
+            <div style={{
+              background: '#fafafa',
+              borderRadius: '16px',
+              padding: '32px',
+              textAlign: 'center',
+              border: '1px solid #e5e5e5'
+            }}>
+              <div style={{
+                position: 'relative',
+                width: '100%',
+                aspectRatio: '1',
+                marginBottom: '20px',
+                background: '#ffffff',
+                borderRadius: '12px',
+                overflow: 'hidden'
+              }}>
+                <Image
+                  src="/deals/darksaber-gwp.jpg"
+                  alt="The Darksaber"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 240px"
+                  style={{ objectFit: 'contain', padding: '12px' }}
+                />
+              </div>
+              <h3 style={{ fontSize: 'var(--text-base)', fontWeight: '600', marginBottom: '8px' }}>The Darksaber</h3>
+              <p style={{ fontSize: 'var(--text-sm)', color: '#737373', marginBottom: '8px' }}>Free with $160+ spend</p>
+              <p style={{ fontSize: 'var(--text-sm)', color: '#525252', fontWeight: '600' }}>~$30 value</p>
+              <p style={{ fontSize: 'var(--text-xs)', color: '#a3a3a3', marginTop: '8px' }}>Tier A, B & C</p>
+            </div>
+          </div>
+
+          <p style={{
+            fontSize: 'var(--text-sm)',
+            color: '#737373',
+            textAlign: 'center',
+            marginTop: '32px',
+            fontStyle: 'italic'
+          }}>
+            Note: GWP items don't count toward spend thresholds. They're added automatically at checkout.
+          </p>
+        </div>
+      </section>
+
+      {/* Value Comparison Table */}
+      <section style={{ padding: '60px 20px', backgroundColor: '#fafafa' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <h2 style={{
+            fontSize: 'var(--text-2xl)',
+            fontWeight: '600',
+            color: '#171717',
+            textAlign: 'center',
+            marginBottom: '40px'
+          }}>
+            Deal Comparison at a Glance
+          </h2>
+
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{
+              width: '100%',
+              borderCollapse: 'collapse',
+              background: '#ffffff',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)'
+            }}>
+              <thead>
+                <tr style={{ background: '#171717', color: '#ffffff' }}>
+                  <th style={{ padding: '16px', textAlign: 'left', fontSize: 'var(--text-base)', fontWeight: '600' }}>Tier</th>
+                  <th style={{ padding: '16px', textAlign: 'left', fontSize: 'var(--text-base)', fontWeight: '600' }}>Spend</th>
+                  <th style={{ padding: '16px', textAlign: 'left', fontSize: 'var(--text-base)', fontWeight: '600' }}>Freebies Value</th>
+                  <th style={{ padding: '16px', textAlign: 'left', fontSize: 'var(--text-base)', fontWeight: '600' }}>Cashback</th>
+                  <th style={{ padding: '16px', textAlign: 'left', fontSize: 'var(--text-base)', fontWeight: '600' }}>Total Return</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style={{ borderBottom: '1px solid #e5e5e5' }}>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)' }}>D</td>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)' }}>$90+</td>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)' }}>$12</td>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)' }}>2.5%</td>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)', color: '#737373' }}>22.5%</td>
+                </tr>
+                <tr style={{ borderBottom: '1px solid #e5e5e5' }}>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)' }}>A</td>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)' }}>$90+</td>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)' }}>$12</td>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)' }}>5%</td>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)', color: '#737373' }}>25%</td>
+                </tr>
+                <tr style={{ borderBottom: '1px solid #e5e5e5' }}>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)' }}>B</td>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)' }}>$90-160</td>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)' }}>$25</td>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)' }}>10%</td>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)', fontWeight: '600' }}>32%</td>
+                </tr>
+                <tr style={{ background: '#fef3c7' }}>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)', fontWeight: '700' }}>C 🏆</td>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)', fontWeight: '600' }}>$160+</td>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)', fontWeight: '600' }}>$55</td>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-base)', fontWeight: '600' }}>20%</td>
+                  <td style={{ padding: '16px', fontSize: 'var(--text-lg)', fontWeight: '700', color: '#f59e0b' }}>39%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* FigTracker Promotion */}
+      <section style={{ padding: '80px 20px', background: 'linear-gradient(135deg, #005C97 0%, #363795 100%)' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={{
+            fontSize: 'var(--text-2xl)',
+            fontWeight: '700',
+            color: '#ffffff',
+            marginBottom: '16px'
+          }}>
+            Track Your LEGO Collection Value
+          </h2>
+          <p style={{
+            fontSize: 'var(--text-lg)',
+            color: 'rgba(255, 255, 255, 0.95)',
+            marginBottom: '32px',
+            lineHeight: '1.6'
+          }}>
+            Once you've grabbed these deals, use FigTracker to monitor your minifigure and set values in real-time
+          </p>
+
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.1)',
+            borderRadius: '16px',
+            padding: '32px',
+            marginBottom: '32px',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)'
+          }}>
+            <ul style={{
+              listStyle: 'none',
+              padding: '0',
+              margin: '0',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gap: '20px',
+              fontSize: 'var(--text-base)',
+              color: '#ffffff',
+              textAlign: 'left'
+            }}>
+              <li>✓ 18,000+ minifigures tracked</li>
+              <li>✓ 20,000+ sets tracked</li>
+              <li>✓ Real-time BrickLink data</li>
+              <li>✓ 15+ currency support</li>
+            </ul>
+          </div>
+
+          <Link
+            href="/"
+            style={{
+              display: 'inline-block',
+              padding: '16px 40px',
+              fontSize: 'var(--text-lg)',
+              fontWeight: '600',
+              color: '#005C97',
+              background: '#ffffff',
+              borderRadius: '12px',
+              textDecoration: 'none',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+              transition: 'all 0.2s'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.2)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+            }}
+          >
+            Start Tracking Free
+          </Link>
+        </div>
+      </section>
+
+      {/* Affiliate Disclosure */}
+      <section style={{ padding: '40px 20px', backgroundColor: '#fafafa' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+          <p style={{ fontSize: 'var(--text-sm)', color: '#737373', lineHeight: '1.6' }}>
+            FigTracker earns commission on qualifying purchases through our affiliate links. This helps us keep the site running and provide free price tracking for collectors. Prices and promotions are accurate as of publication and subject to change by LEGO. Promotion valid May 1-6, 2026. <Link href="/disclosure" style={{ color: '#737373', textDecoration: 'underline' }}>Learn more</Link>
+          </p>
+        </div>
+      </section>
+    </>
+  );
+}
+
+interface SetCardProps {
+  set: DealSet;
+  tierColor: string;
+  isBest?: boolean;
+}
+
+function SetCard({ set, tierColor, isBest }: SetCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div
+      style={{
+        background: '#ffffff',
+        borderRadius: '12px',
+        padding: '20px',
+        border: isBest ? `2px solid ${tierColor}` : '1px solid #e5e5e5',
+        transition: 'all 0.2s',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        boxShadow: isHovered
+          ? '0 8px 20px rgba(0, 0, 0, 0.12)'
+          : isBest ? '0 4px 12px rgba(251, 191, 36, 0.2)' : '0 1px 3px rgba(0, 0, 0, 0.05)',
+        transform: isHovered ? 'translateY(-4px)' : 'translateY(0)'
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div style={{
+        position: 'relative',
+        width: '100%',
+        aspectRatio: '1',
+        marginBottom: '16px',
+        background: 'linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%)',
+        borderRadius: '8px',
+        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <div style={{
+          fontSize: '48px',
+          fontWeight: '700',
+          color: '#a3a3a3',
+          textAlign: 'center'
+        }}>
+          {set.setNumber}
+        </div>
+      </div>
+
+      <h3 style={{
+        fontSize: 'var(--text-lg)',
+        fontWeight: '600',
+        color: '#171717',
+        marginBottom: '4px',
+        lineHeight: '1.3'
+      }}>
+        {set.name}
+      </h3>
+      <p style={{
+        fontSize: 'var(--text-sm)',
+        color: '#737373',
+        marginBottom: '8px'
+      }}>
+        Set #{set.setNumber}
+      </p>
+      <p style={{
+        fontSize: 'var(--text-xl)',
+        fontWeight: '700',
+        color: '#171717',
+        marginBottom: '16px'
+      }}>
+        ${set.price.toFixed(2)}
+      </p>
+
+      <a
+        href={set.affiliateLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          display: 'block',
+          padding: '12px 24px',
+          fontSize: 'var(--text-base)',
+          fontWeight: '600',
+          color: '#ffffff',
+          background: isBest
+            ? 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)'
+            : 'linear-gradient(135deg, #005C97 0%, #363795 100%)',
+          borderRadius: '8px',
+          textAlign: 'center',
+          textDecoration: 'none',
+          marginTop: 'auto',
+          transition: 'all 0.2s',
+          boxShadow: isBest ? '0 2px 8px rgba(251, 191, 36, 0.3)' : '0 2px 8px rgba(0, 92, 151, 0.3)'
+        }}
+      >
+        Shop on LEGO.com
+      </a>
+    </div>
+  );
+}
