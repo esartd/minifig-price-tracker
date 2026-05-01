@@ -593,6 +593,7 @@ export default function May4thDealsClient() {
                   fill
                   sizes="(max-width: 768px) 100vw, 240px"
                   style={{ objectFit: 'contain', padding: '12px' }}
+                  unoptimized
                 />
               </div>
               <h3 style={{ fontSize: 'var(--text-base)', fontWeight: '600', marginBottom: '8px' }}>The Razor Crest Mini-Build</h3>
@@ -623,6 +624,7 @@ export default function May4thDealsClient() {
                   fill
                   sizes="(max-width: 768px) 100vw, 240px"
                   style={{ objectFit: 'contain', padding: '12px' }}
+                  unoptimized
                 />
               </div>
               <h3 style={{ fontSize: 'var(--text-base)', fontWeight: '700', marginBottom: '8px', color: '#171717' }}>The Mandalorian and Grogu Display</h3>
@@ -653,6 +655,7 @@ export default function May4thDealsClient() {
                   fill
                   sizes="(max-width: 768px) 100vw, 240px"
                   style={{ objectFit: 'contain', padding: '12px' }}
+                  unoptimized
                 />
               </div>
               <h3 style={{ fontSize: 'var(--text-base)', fontWeight: '600', marginBottom: '8px' }}>The Darksaber</h3>
