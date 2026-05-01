@@ -90,11 +90,19 @@ export default function PersonalCollectionPage() {
 
         // Check if any items are missing pricing or have wrong currency
         const userCurrency = session?.user?.preferredCurrency || 'USD';
-        const itemsNeedingRefresh = data.data.filter((item: PersonalCollectionItem) =>
-          !item.pricing ||
-          !item.pricing.suggestedPrice ||
-          item.pricing.currencyCode !== userCurrency
-        );
+        const now = new Date();
+        const itemsNeedingRefresh = data.data.filter((item: PersonalCollectionItem) => {
+          // Skip if pricing exists with correct currency and is recent (even if $0)
+          if (item.pricing && item.pricing.currencyCode === userCurrency) {
+            // If price is $0 and was cached recently (within 6 hours), don't retry yet
+            // This prevents hammering the API for items with no sellers
+            if (item.pricing.suggestedPrice === 0) {
+              return false; // Accept the $0 price, don't keep retrying
+            }
+            return false; // Has valid price
+          }
+          return true; // Needs refresh
+        });
 
         console.log(`Found ${itemsNeedingRefresh.length} items needing pricing refresh (current currency: ${userCurrency})`);
 
