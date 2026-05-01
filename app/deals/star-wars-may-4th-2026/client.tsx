@@ -585,7 +585,7 @@ export default function May4thDealsClient() {
                 overflow: 'hidden'
               }}>
                 <Image
-                  src="/deals/razor-crest-gwp.jpg"
+                  src="/deals/darksaber-gwp.jpg"
                   alt="The Razor Crest Mini-Build"
                   fill
                   sizes="(max-width: 768px) 100vw, 240px"
@@ -645,7 +645,7 @@ export default function May4thDealsClient() {
                 overflow: 'hidden'
               }}>
                 <Image
-                  src="/deals/darksaber-gwp.jpg"
+                  src="/deals/razor-crest-gwp.jpg"
                   alt="The Darksaber"
                   fill
                   sizes="(max-width: 768px) 100vw, 240px"
