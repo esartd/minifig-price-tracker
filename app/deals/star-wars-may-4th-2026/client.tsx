@@ -296,16 +296,19 @@ export default function May4thDealsClient() {
                   marginBottom: '16px',
                   background: '#fafafa',
                   borderRadius: '8px',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}>
-                  <div style={{
-                    fontSize: '32px',
-                    fontWeight: '600',
-                    color: '#d4d4d4',
-                    textAlign: 'center'
-                  }}>
-                    75442
-                  </div>
+                  <Image
+                    src="https://cdn.rebrickable.com/media/sets/75442-1.jpg"
+                    alt="The Mandalorian's N-1 Starfighter"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 280px"
+                    style={{ objectFit: 'contain', padding: '12px' }}
+                    unoptimized
+                  />
                 </div>
                 <h3 style={{
                   fontSize: 'var(--text-lg)',
