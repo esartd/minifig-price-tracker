@@ -24,7 +24,7 @@ const DEAL_SETS: DealSet[] = [
     name: 'AT-ST Walker',
     price: 199.99,
     tier: 'A',
-    imageUrl: '/placeholder-75417.jpg',
+    imageUrl: '',
     affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.139237143524730166147003&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fat-st-walker-75417',
   },
   {
@@ -298,14 +298,14 @@ export default function May4thDealsClient() {
                   borderRadius: '8px',
                   overflow: 'hidden'
                 }}>
-                  <Image
-                    src="https://images.brickset.com/sets/large/75442.jpg"
-                    alt="The Mandalorian's N-1 Starfighter"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 280px"
-                    style={{ objectFit: 'contain', padding: '12px' }}
-                    unoptimized
-                  />
+                  <div style={{
+                    fontSize: '32px',
+                    fontWeight: '600',
+                    color: '#d4d4d4',
+                    textAlign: 'center'
+                  }}>
+                    75442
+                  </div>
                 </div>
                 <h3 style={{
                   fontSize: 'var(--text-lg)',
