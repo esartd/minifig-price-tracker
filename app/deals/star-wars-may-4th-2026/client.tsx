@@ -24,7 +24,7 @@ const DEAL_SETS: DealSet[] = [
     name: 'AT-ST Walker',
     price: 199.99,
     tier: 'A',
-    imageUrl: 'https://images.brickset.com/sets/large/75417.jpg',
+    imageUrl: '/placeholder-75417.jpg',
     affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.139237143524730166147003&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fat-st-walker-75417',
   },
   {
@@ -32,7 +32,7 @@ const DEAL_SETS: DealSet[] = [
     name: 'TIE Interceptor',
     price: 229.99,
     tier: 'A',
-    imageUrl: 'https://images.brickset.com/sets/large/75382.jpg',
+    imageUrl: '/placeholder-75382.jpg',
     affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392315432448651422365399&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2ftie-interceptor-75382',
   },
   {
@@ -40,7 +40,7 @@ const DEAL_SETS: DealSet[] = [
     name: 'The Razor Crest',
     price: 149.99,
     tier: 'B',
-    imageUrl: 'https://images.brickset.com/sets/large/75447.jpg',
+    imageUrl: '/placeholder-75447.jpg',
     affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392318298979089533984024&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fthe-razor-crest-75447',
   },
   {
@@ -48,7 +48,7 @@ const DEAL_SETS: DealSet[] = [
     name: 'AT-RT Attack',
     price: 44.99,
     tier: 'B',
-    imageUrl: 'https://images.brickset.com/sets/large/75444.jpg',
+    imageUrl: '/placeholder-75444.jpg',
     affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392315189149030117995046&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fat-rt-attack-75444',
   },
   {
@@ -56,7 +56,7 @@ const DEAL_SETS: DealSet[] = [
     name: 'Siege of Mandalore Battle Pack',
     price: 22.99,
     tier: 'D',
-    imageUrl: 'https://images.brickset.com/sets/large/75449.jpg',
+    imageUrl: '/placeholder-75449.jpg',
     affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.139239665792440630903595&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fsiege-of-mandalore-battle-pack-75449',
   },
   {
@@ -64,7 +64,7 @@ const DEAL_SETS: DealSet[] = [
     name: 'Captain Rex Y-Wing Microfighter',
     price: 12.99,
     tier: 'D',
-    imageUrl: 'https://images.brickset.com/sets/large/75391.jpg',
+    imageUrl: '/placeholder-75391.jpg',
     affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392313918199668343810360&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fcaptain-rex-y-wing-microfighter-75391',
   },
   {
@@ -72,7 +72,7 @@ const DEAL_SETS: DealSet[] = [
     name: 'The Mandalorian & Grogu\'s Speeder Bike',
     price: 9.99,
     tier: 'D',
-    imageUrl: 'https://images.brickset.com/sets/large/75436.jpg',
+    imageUrl: '/placeholder-75436.jpg',
     affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.139231408361465689096246&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fthe-mandalorian-grogus-speeder-bike-75436',
   },
 ];
@@ -86,7 +86,7 @@ export default function May4thDealsClient() {
     '@context': 'https://schema.org',
     '@type': 'OfferCatalog',
     name: 'LEGO Star Wars May the 4th Deals 2026',
-    description: 'Exclusive LEGO Star Wars deals with up to 39% total value including free gifts and cashback',
+    description: 'Exclusive LEGO Star Wars deals with up to 35% total value including free gifts and cashback',
     url: 'https://figtracker.ericksu.com/deals/star-wars-may-4th-2026',
     validFrom: '2026-05-01',
     validThrough: '2026-05-06',
@@ -94,7 +94,7 @@ export default function May4thDealsClient() {
       {
         '@type': 'Offer',
         name: 'Tier A - Ultimate Value Deal',
-        description: '39% total return: spend $160+ on 4x point sets, get Darksaber plus 20% cashback',
+        description: 'Up to 35% total return: spend $160+ on 4x point sets, get Darksaber plus 20% cashback',
         availability: 'https://schema.org/InStock',
       },
       {
@@ -136,7 +136,7 @@ export default function May4thDealsClient() {
             fontWeight: '500',
             lineHeight: '1.4'
           }}>
-            Up to 39% Back + Free Gifts • May 1-6 Only<br/>
+            Up to 35% Back + Free Gifts • May 1-6 Only<br/>
             <span style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', fontWeight: '400', opacity: '0.95' }}>
               Four tiers analyzed. Find your best deal below.
             </span>
