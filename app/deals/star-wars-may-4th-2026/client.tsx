@@ -136,7 +136,7 @@ export default function May4thDealsClient() {
             fontWeight: '500',
             lineHeight: '1.4'
           }}>
-            Up to 35% Back + Free Gifts • May 1-6 Only<br/>
+            Up to 35% Total Value • May 1-6 Only<br/>
             <span style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', fontWeight: '400', opacity: '0.95' }}>
               Four tiers analyzed. Find your best deal below.
             </span>
