@@ -49,11 +49,8 @@ export default function LeaderboardsSection() {
       });
   }, []);
 
-  // Don't render if all leaderboards are empty
+  // Don't render while loading
   if (loading) return null;
-  if (minifigCollectors.length === 0 && setCollectors.length === 0 && topDonors.length === 0) {
-    return null;
-  }
 
   return (
     <section
@@ -79,24 +76,24 @@ export default function LeaderboardsSection() {
         </h2>
         <p
           style={{
-            fontSize: 'var(--text-sm)',
+            fontSize: 'var(--text-base)',
             color: '#737373',
             textAlign: 'center',
-            marginBottom: '8px',
+            marginBottom: '4px',
+            fontWeight: '600',
           }}
         >
-          Top collectors and supporters this quarter ({season})
+          Items Added This Quarter Only
         </p>
         <p
           style={{
-            fontSize: 'var(--text-xs)',
+            fontSize: 'var(--text-sm)',
             color: '#a3a3a3',
             textAlign: 'center',
             marginBottom: '40px',
-            fontWeight: '500',
           }}
         >
-          {dateRange} • Resets quarterly
+          {dateRange} ({season}) • Resets quarterly
         </p>
 
         {/* 3-Column Grid */}
@@ -125,17 +122,127 @@ export default function LeaderboardsSection() {
             />
           )}
 
-          {/* Donors */}
-          {topDonors.length > 0 && (
-            <LeaderboardColumn
-              title="💙 Top Supporters"
-              items={topDonors}
-              type="donor"
-            />
-          )}
+          {/* Donors - Always show */}
+          <DonorsColumn items={topDonors} />
         </div>
       </div>
     </section>
+  );
+}
+
+// Donors Column - Always shows with empty placeholders
+function DonorsColumn({ items }: { items: Donor[] }) {
+  // Pad with empty slots to always show 5
+  const paddedItems = [...items];
+  while (paddedItems.length < 5) {
+    paddedItems.push({
+      displayName: '',
+      totalAmount: 0,
+      rank: paddedItems.length + 1,
+    });
+  }
+
+  const isEmpty = items.length === 0;
+
+  return (
+    <div>
+      <h3
+        style={{
+          fontSize: 'var(--text-lg)',
+          fontWeight: '700',
+          color: '#171717',
+          marginBottom: '20px',
+          textAlign: 'center',
+        }}
+      >
+        💙 Top Supporters
+      </h3>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {paddedItems.map((item) => (
+          item.displayName ? (
+            <LeaderboardCard
+              key={item.rank}
+              item={item}
+              type="donor"
+            />
+          ) : (
+            <EmptyDonorSlot key={item.rank} rank={item.rank} />
+          )
+        ))}
+
+        {/* Donate Button */}
+        <a
+          href="/support"
+          style={{
+            display: 'block',
+            marginTop: '12px',
+            padding: '14px 24px',
+            background: 'linear-gradient(135deg, #1488cc 0%, #2b32b2 100%)',
+            color: '#ffffff',
+            fontSize: 'var(--text-sm)',
+            fontWeight: '600',
+            textAlign: 'center',
+            borderRadius: '8px',
+            textDecoration: 'none',
+            transition: 'transform 0.2s, box-shadow 0.2s',
+            boxShadow: '0 2px 8px rgba(20, 136, 204, 0.3)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(20, 136, 204, 0.4)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 2px 8px rgba(20, 136, 204, 0.3)';
+          }}
+        >
+          {isEmpty ? 'Be the First to Donate!' : 'Support FigTracker'}
+        </a>
+      </div>
+    </div>
+  );
+}
+
+// Empty donor slot placeholder
+function EmptyDonorSlot({ rank }: { rank: number }) {
+  return (
+    <div
+      style={{
+        background: '#fafafa',
+        borderRadius: '12px',
+        padding: '16px',
+        border: '1px dashed #d4d4d4',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        opacity: 0.6,
+      }}
+    >
+      <div
+        style={{
+          fontSize: '14px',
+          fontWeight: '600',
+          color: '#a3a3a3',
+          minWidth: '32px',
+          textAlign: 'center',
+        }}
+      >
+        #{rank}
+      </div>
+      <div style={{ flex: 1 }}>
+        <div
+          style={{
+            fontSize: 'var(--text-sm)',
+            fontWeight: '500',
+            color: '#a3a3a3',
+            fontStyle: 'italic',
+          }}
+        >
+          No supporter yet
+        </div>
+      </div>
+    </div>
   );
 }
 
