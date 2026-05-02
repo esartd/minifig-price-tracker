@@ -72,12 +72,12 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
         e.currentTarget.style.transform = 'translateY(0)';
       }}
     >
-      {/* Featured Set Badge */}
+      {/* Sponsored Badge */}
       <div style={{
         position: 'absolute',
         top: '12px',
         left: '12px',
-        background: 'rgba(59, 130, 246, 0.95)',
+        background: 'rgba(0, 0, 0, 0.75)',
         color: '#ffffff',
         fontSize: '10px',
         fontWeight: '600',
@@ -88,7 +88,7 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
         zIndex: 1,
         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
       }}>
-        Featured Set
+        Sponsored
       </div>
 
       {/* Set Image - Match minifig card structure */}
