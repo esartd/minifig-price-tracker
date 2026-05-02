@@ -97,24 +97,14 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
 
       {/* Set Info */}
       <div style={{ marginBottom: '16px' }}>
-        {/* Sponsored Label */}
-        <p style={{
-          fontSize: 'var(--text-xs)',
-          color: '#737373',
-          fontWeight: '500',
-          marginBottom: '4px'
-        }}>
-          Sponsored
-        </p>
-
-        {/* Set Number */}
+        {/* Sponsored + Set Number */}
         <p style={{
           fontSize: 'var(--text-xs)',
           color: '#737373',
           fontFamily: 'monospace',
           marginBottom: '4px'
         }}>
-          {setNumber}
+          Sponsored · {setNumber}
         </p>
 
         {/* Set Name */}

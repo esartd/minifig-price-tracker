@@ -238,14 +238,6 @@ export default function FeaturedSets() {
 
                 {/* Text Content */}
                 <div>
-                  <p style={{
-                    fontSize: 'var(--text-xs)',
-                    color: '#737373',
-                    marginBottom: '4px',
-                    fontWeight: '500'
-                  }}>
-                    Sponsored
-                  </p>
                   <h3 style={{
                     fontSize: 'var(--text-lg)',
                     fontWeight: '600',
@@ -260,7 +252,7 @@ export default function FeaturedSets() {
                     color: '#737373',
                     marginBottom: '0'
                   }}>
-                    Set #{set.setNumber}
+                    Sponsored · Set #{set.setNumber}
                   </p>
                 </div>
 
