@@ -223,23 +223,6 @@ export default function FeaturedSets() {
                   borderRadius: '8px',
                   overflow: 'hidden'
                 }}>
-                  {/* Sponsored Badge */}
-                  <div style={{
-                    position: 'absolute',
-                    top: '8px',
-                    left: '8px',
-                    padding: '3px 6px',
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    color: 'rgba(255, 255, 255, 0.9)',
-                    fontSize: '9px',
-                    fontWeight: '500',
-                    borderRadius: '3px',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.3px',
-                    zIndex: 10
-                  }}>
-                    Sponsored
-                  </div>
                   <Image
                     src={set.imageUrl}
                     alt={set.name}
@@ -255,6 +238,14 @@ export default function FeaturedSets() {
 
                 {/* Text Content */}
                 <div>
+                  <p style={{
+                    fontSize: 'var(--text-xs)',
+                    color: '#737373',
+                    marginBottom: '4px',
+                    fontWeight: '500'
+                  }}>
+                    Sponsored
+                  </p>
                   <h3 style={{
                     fontSize: 'var(--text-lg)',
                     fontWeight: '600',

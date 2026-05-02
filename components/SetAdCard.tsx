@@ -72,24 +72,6 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
         e.currentTarget.style.transform = 'translateY(0)';
       }}
     >
-      {/* Sponsored Badge */}
-      <div style={{
-        position: 'absolute',
-        top: '12px',
-        left: '12px',
-        background: 'rgba(0, 0, 0, 0.5)',
-        color: 'rgba(255, 255, 255, 0.9)',
-        fontSize: '9px',
-        fontWeight: '500',
-        textTransform: 'uppercase',
-        letterSpacing: '0.3px',
-        padding: '3px 6px',
-        borderRadius: '3px',
-        zIndex: 1
-      }}>
-        Sponsored
-      </div>
-
       {/* Set Image - Match minifig card structure */}
       <div style={{
         position: 'relative',
@@ -115,6 +97,16 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
 
       {/* Set Info */}
       <div style={{ marginBottom: '16px' }}>
+        {/* Sponsored Label */}
+        <p style={{
+          fontSize: 'var(--text-xs)',
+          color: '#737373',
+          fontWeight: '500',
+          marginBottom: '4px'
+        }}>
+          Sponsored
+        </p>
+
         {/* Set Number */}
         <p style={{
           fontSize: 'var(--text-xs)',
