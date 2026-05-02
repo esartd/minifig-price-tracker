@@ -1,59 +1,65 @@
-# INSTRUCTIONS:
-# 1. Go to: https://github.com/settings/tokens
-# 2. Generate new token with "workflow" scope enabled
-# 3. Add repository secret: CATALOG_UPDATE_TOKEN (Settings → Secrets and variables → Actions)
-# 4. Move this file to: .github/workflows/catalog-update.yml
-# 5. Commit and push
-
-name: Auto Catalog Update
+name: Catalog Update Reminder
 
 on:
   schedule:
-    # Run every 2 weeks on 1st and 15th of month at 2 AM UTC
-    - cron: '0 2 1,15 * *'
+    # Run every 2 weeks on 1st and 15th of month at 9 AM PST (5 PM UTC)
+    - cron: '0 17 1,15 * *'
   workflow_dispatch: # Allow manual trigger
 
 jobs:
-  update-catalog:
+  create-reminder:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Create reminder issue
+        uses: actions/github-script@v7
         with:
-          node-version: '20'
-          cache: 'npm'
+          script: |
+            const date = new Date().toISOString().split('T')[0];
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🔔 Catalog Update Reminder - ${date}`,
+              body: `## Time to update BrickLink catalogs!
 
-      - name: Install dependencies
-        run: npm ci
+            ### Steps:
 
-      - name: Run catalog update script
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: npx ts-node scripts/auto-catalog-update.ts
+            1. **Download catalogs from BrickLink:**
+               - Go to: https://www.bricklink.com/catalogDownload.asp
+               - Download **Minifigures** → Save as \`Minifigures.txt\`
+               - Download **Sets** → Save as \`Sets.txt\`
 
-      - name: Commit updated catalog
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add public/catalog/minifigs.json
-          git diff --staged --quiet || git commit -m "chore: auto-update BrickLink catalog
+            2. **Place files in project:**
+               \`\`\`bash
+               # Put downloaded files here:
+               public/catalog/updates/Minifigures.txt
+               public/catalog/updates/Sets.txt
+               \`\`\`
 
-          - Downloaded latest catalog from BrickLink
-          - Detected and migrated item number changes
-          - Updated minifigs.json with $(date +'%Y-%m-%d')
+            3. **Run update script:**
+               \`\`\`bash
+               npm run update-catalog
+               \`\`\`
 
-          Co-Authored-By: GitHub Actions <actions@github.com>"
+            4. **Review and commit:**
+               - Check that minifigs.json and sets.json were updated
+               - Review any item number migrations in console output
+               - Commit and push changes
 
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.CATALOG_UPDATE_TOKEN }}
-          branch: ${{ github.ref }}
+            5. **Close this issue** when complete
 
-      - name: Notify on failure
-        if: failure()
-        run: echo "::error::Catalog update failed - check logs"
+            ---
+
+            ### What the script does:
+            - ✅ Converts TXT files to JSON
+            - ✅ Detects item number changes (e.g., sw1234 → sw1234a)
+            - ✅ Migrates your database automatically
+            - ✅ Updates user collections with new IDs
+
+            ### Notes:
+            - If no new sets/minifigs were released, you can skip this update
+            - Check LEGO/BrickLink news to see if item numbers changed recently
+            - Next reminder: 2 weeks from today`,
+              labels: ['reminder', 'catalog-update']
+            });
+            console.log(\`Created reminder issue #\${issue.data.number}\`);

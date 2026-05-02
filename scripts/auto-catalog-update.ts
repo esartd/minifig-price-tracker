@@ -26,46 +26,39 @@ interface ItemNumberChange {
 }
 
 /**
- * Step 1: Download latest catalog TXT files from BrickLink
+ * Step 1: Load catalog TXT files from local directory
  */
-async function downloadCatalog(): Promise<string> {
-  console.log('📥 Downloading latest catalog from BrickLink...');
+async function loadCatalogFiles(): Promise<string> {
+  console.log('📂 Loading catalog files from public/catalog/updates/...');
 
-  const downloadUrl = 'https://www.bricklink.com/catalogDownload.asp';
+  const updatesDir = path.join(process.cwd(), 'public', 'catalog', 'updates');
 
-  // BrickLink catalog download requires form submission
-  // Filter: Item Type = Minifigures
-  const formData = new URLSearchParams({
-    'itemType': 'M', // Minifigures
-    'downloadType': 'TSV' // Tab-separated values
-  });
-
-  const response = await fetch(downloadUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'User-Agent': 'FigTracker-CatalogBot/1.0'
-    },
-    body: formData
-  });
-
-  if (!response.ok) {
-    throw new Error(`Failed to download catalog: ${response.status}`);
+  if (!fs.existsSync(updatesDir)) {
+    throw new Error(`Updates directory not found: ${updatesDir}\n\nPlease create the directory and place your downloaded TXT files there.`);
   }
 
-  const txtContent = await response.text();
+  const minifigsPath = path.join(updatesDir, 'Minifigures.txt');
+  const setsPath = path.join(updatesDir, 'Sets.txt');
 
-  // Save to temporary location
-  const tempDir = path.join(process.cwd(), 'temp-catalog');
-  if (!fs.existsSync(tempDir)) {
-    fs.mkdirSync(tempDir, { recursive: true });
+  if (!fs.existsSync(minifigsPath) && !fs.existsSync(setsPath)) {
+    throw new Error(`No catalog files found in ${updatesDir}\n\nPlease download:\n- Minifigures.txt from BrickLink\n- Sets.txt from BrickLink\n\nAnd place them in: ${updatesDir}`);
   }
 
-  const txtPath = path.join(tempDir, 'Minifigures.txt');
-  fs.writeFileSync(txtPath, txtContent);
+  if (fs.existsSync(minifigsPath)) {
+    const size = fs.statSync(minifigsPath).size;
+    console.log(`✅ Found Minifigures.txt (${(size / 1024 / 1024).toFixed(2)} MB)`);
+  } else {
+    console.log('⚠️  Minifigures.txt not found - skipping minifigs update');
+  }
 
-  console.log(`✅ Downloaded catalog (${txtContent.length} bytes)`);
-  return tempDir;
+  if (fs.existsSync(setsPath)) {
+    const size = fs.statSync(setsPath).size;
+    console.log(`✅ Found Sets.txt (${(size / 1024 / 1024).toFixed(2)} MB)`);
+  } else {
+    console.log('⚠️  Sets.txt not found - skipping sets update');
+  }
+
+  return updatesDir;
 }
 
 /**
@@ -186,36 +179,66 @@ async function migrateUserData(changes: ItemNumberChange[]): Promise<void> {
 async function convertToJSON(catalogDir: string): Promise<void> {
   console.log('📄 Converting TXT to JSON...');
 
-  const txtPath = path.join(catalogDir, 'Minifigures.txt');
-  const content = fs.readFileSync(txtPath, 'utf-8');
-  const lines = content.split('\n');
-  const dataLines = lines.slice(1).filter(line => line.trim());
-
-  const minifigs = dataLines.map(line => {
-    const parts = line.split('\t');
-    return {
-      minifigure_no: parts[2]?.trim() || '',
-      name: parts[3]?.trim() || '',
-      category_id: parseInt(parts[0]?.trim() || '0'),
-      category_name: parts[1]?.trim() || '',
-      year_released: parts[4]?.trim() || null,
-      weight: parts[5]?.trim() || null,
-      size: null,
-      image_url: parts[2]?.trim() ? `https://img.bricklink.com/ItemImage/MN/0/${parts[2].trim()}.png` : null,
-      thumbnail_url: parts[2]?.trim() ? `https://img.bricklink.com/ItemImage/TN/0/${parts[2].trim()}.png` : null,
-      updated_at: new Date().toISOString()
-    };
-  }).filter(m => m.minifigure_no);
-
   const outputDir = path.join(process.cwd(), 'public', 'catalog');
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
 
-  const outputPath = path.join(outputDir, 'minifigs.json');
-  fs.writeFileSync(outputPath, JSON.stringify(minifigs, null, 2));
+  // Process Minifigures
+  const minifigsPath = path.join(catalogDir, 'Minifigures.txt');
+  if (fs.existsSync(minifigsPath)) {
+    const content = fs.readFileSync(minifigsPath, 'utf-8');
+    const lines = content.split('\n');
+    const dataLines = lines.slice(1).filter(line => line.trim());
 
-  console.log(`✅ Converted ${minifigs.length} minifigs to JSON`);
+    const minifigs = dataLines.map(line => {
+      const parts = line.split('\t');
+      return {
+        minifigure_no: parts[2]?.trim() || '',
+        name: parts[3]?.trim() || '',
+        category_id: parseInt(parts[0]?.trim() || '0'),
+        category_name: parts[1]?.trim() || '',
+        year_released: parts[4]?.trim() || null,
+        weight: parts[5]?.trim() || null,
+        size: null,
+        image_url: parts[2]?.trim() ? `https://img.bricklink.com/ItemImage/MN/0/${parts[2].trim()}.png` : null,
+        thumbnail_url: parts[2]?.trim() ? `https://img.bricklink.com/ItemImage/TN/0/${parts[2].trim()}.png` : null,
+        updated_at: new Date().toISOString()
+      };
+    }).filter(m => m.minifigure_no);
+
+    const minifigsOutput = path.join(outputDir, 'minifigs.json');
+    fs.writeFileSync(minifigsOutput, JSON.stringify(minifigs, null, 2));
+    console.log(`✅ Converted ${minifigs.length} minifigs to JSON`);
+  }
+
+  // Process Sets
+  const setsPath = path.join(catalogDir, 'Sets.txt');
+  if (fs.existsSync(setsPath)) {
+    const content = fs.readFileSync(setsPath, 'utf-8');
+    const lines = content.split('\n');
+    const dataLines = lines.slice(1).filter(line => line.trim());
+
+    const sets = dataLines.map(line => {
+      const parts = line.split('\t');
+      return {
+        box_no: parts[2]?.trim() || '',
+        name: parts[3]?.trim() || '',
+        category_id: parseInt(parts[0]?.trim() || '0'),
+        category_name: parts[1]?.trim() || '',
+        year_released: parts[4]?.trim() || null,
+        weight: parts[5]?.trim() || null,
+        size: null,
+        image_url: parts[2]?.trim() ? `https://img.bricklink.com/ItemImage/SN/0/${parts[2].trim()}.png` : null,
+        thumbnail_url: parts[2]?.trim() ? `https://img.bricklink.com/ItemImage/TN/0/${parts[2].trim()}.png` : null,
+        updated_at: new Date().toISOString()
+      };
+    }).filter(s => s.box_no);
+
+    const setsOutput = path.join(outputDir, 'sets.json');
+    fs.writeFileSync(setsOutput, JSON.stringify(sets, null, 2));
+    console.log(`✅ Converted ${sets.length} sets to JSON`);
+  }
 }
 
 /**
@@ -234,11 +257,11 @@ async function uploadToCDN(): Promise<void> {
  * Main execution
  */
 async function main() {
-  console.log('🤖 AUTO CATALOG UPDATE STARTED\n');
+  console.log('🤖 CATALOG UPDATE STARTED\n');
 
   try {
-    // Step 1: Download catalog
-    const catalogDir = await downloadCatalog();
+    // Step 1: Load catalog files
+    const catalogDir = await loadCatalogFiles();
 
     // Step 2: Detect item number changes
     const changes = await detectItemNumberChanges();
@@ -249,18 +272,20 @@ async function main() {
     // Step 4: Convert to JSON
     await convertToJSON(catalogDir);
 
-    // Step 5: Upload to CDN
+    // Step 5: Deploy via Vercel
     await uploadToCDN();
 
-    // Cleanup temp files
-    fs.rmSync(catalogDir, { recursive: true, force: true });
-
-    console.log('\n✅ AUTO CATALOG UPDATE COMPLETE');
-    console.log(`   Changes detected: ${changes.length}`);
-    console.log(`   Next run: In 2 weeks`);
+    console.log('\n✅ CATALOG UPDATE COMPLETE');
+    console.log(`   Item number changes detected: ${changes.length}`);
+    console.log(`   Files updated: public/catalog/minifigs.json, public/catalog/sets.json`);
+    console.log('\n📝 Next steps:');
+    console.log('   1. Review the changes above');
+    console.log('   2. git add public/catalog/');
+    console.log('   3. git commit -m "chore: update BrickLink catalogs"');
+    console.log('   4. git push');
 
   } catch (error) {
-    console.error('❌ AUTO CATALOG UPDATE FAILED');
+    console.error('\n❌ CATALOG UPDATE FAILED');
     console.error(error);
     process.exit(1);
   } finally {
