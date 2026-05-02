@@ -11,6 +11,7 @@ import { LegoBox } from '@/types';
 let cachedBoxes: LegoBox[] | null = null;
 let cacheTimestamp: number = 0;
 const CACHE_TTL = 15 * 60 * 1000; // 15 minutes - matches minifigs cache
+const CACHE_VERSION = '2026-05-02'; // Increment to bust cache after catalog updates
 
 /**
  * Load all boxes from boxes.json (cached with 15min TTL)
