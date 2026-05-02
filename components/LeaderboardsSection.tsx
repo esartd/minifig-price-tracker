@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { TrophyIcon, CubeIcon, HeartIcon } from '@heroicons/react/24/solid';
 
 interface Collector {
   displayName: string;
@@ -107,7 +108,8 @@ export default function LeaderboardsSection() {
           {/* Minifig Collectors */}
           {minifigCollectors.length > 0 && (
             <LeaderboardColumn
-              title="🏆 Top Minifig Collectors"
+              title="Top Minifig Collectors"
+              icon={<TrophyIcon style={{ width: '20px', height: '20px', color: '#f59e0b' }} />}
               items={minifigCollectors}
               type="collector"
             />
@@ -116,7 +118,8 @@ export default function LeaderboardsSection() {
           {/* Set Collectors */}
           {setCollectors.length > 0 && (
             <LeaderboardColumn
-              title="📦 Top Set Collectors"
+              title="Top Set Collectors"
+              icon={<CubeIcon style={{ width: '20px', height: '20px', color: '#3b82f6' }} />}
               items={setCollectors}
               type="collector"
             />
@@ -153,9 +156,14 @@ function DonorsColumn({ items }: { items: Donor[] }) {
           color: '#171717',
           marginBottom: '20px',
           textAlign: 'center',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '8px',
         }}
       >
-        💙 Top Supporters
+        <HeartIcon style={{ width: '20px', height: '20px', color: '#ef4444' }} />
+        Top Supporters
       </h3>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -249,10 +257,12 @@ function EmptyDonorSlot({ rank }: { rank: number }) {
 // Individual Leaderboard Column
 function LeaderboardColumn({
   title,
+  icon,
   items,
   type,
 }: {
   title: string;
+  icon: React.ReactNode;
   items: (Collector | Donor)[];
   type: 'collector' | 'donor';
 }) {
@@ -265,8 +275,13 @@ function LeaderboardColumn({
           color: '#171717',
           marginBottom: '20px',
           textAlign: 'center',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '8px',
         }}
       >
+        {icon}
         {title}
       </h3>
 
@@ -293,21 +308,21 @@ function LeaderboardCard({
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Get trophy icon for top 3
-  const getTrophyIcon = (rank: number) => {
+  // Get trophy color for top 3
+  const getTrophyColor = (rank: number) => {
     switch (rank) {
       case 1:
-        return '🥇';
+        return '#fbbf24'; // Gold
       case 2:
-        return '🥈';
+        return '#9ca3af'; // Silver
       case 3:
-        return '🥉';
+        return '#d97706'; // Bronze
       default:
         return null;
     }
   };
 
-  const trophy = getTrophyIcon(item.rank);
+  const trophyColor = getTrophyColor(item.rank);
 
   return (
     <div
@@ -331,14 +346,19 @@ function LeaderboardCard({
       {/* Trophy or Rank */}
       <div
         style={{
-          fontSize: trophy ? '24px' : '14px',
-          fontWeight: trophy ? 'normal' : '600',
-          color: trophy ? 'inherit' : '#737373',
           minWidth: '32px',
-          textAlign: 'center',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
-        {trophy || `#${item.rank}`}
+        {trophyColor ? (
+          <TrophyIcon style={{ width: '24px', height: '24px', color: trophyColor }} />
+        ) : (
+          <span style={{ fontSize: '14px', fontWeight: '600', color: '#737373' }}>
+            #{item.rank}
+          </span>
+        )}
       </div>
 
       {/* Info */}
