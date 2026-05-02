@@ -61,7 +61,7 @@ export default function LeaderboardsSection() {
         borderTop: '1px solid #e5e5e5',
       }}
     >
-      <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         {/* Section Title */}
         <h2
           style={{
