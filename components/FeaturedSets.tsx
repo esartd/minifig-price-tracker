@@ -119,6 +119,38 @@ const FEATURED_SETS: FeaturedSet[] = [
     trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.1392315235359109392213990&type=2&subid=0',
     retailer: 'lego'
   },
+  {
+    name: 'Grogu - Mandalorian Apprentice',
+    setNumber: '75446',
+    imageUrl: 'https://www.lego.com/cdn/cs/set/assets/bltb65ce1284755d194/blta8d62a90e62e020c-75446_Prod_en-gb.png?format=jpg&fit=bounds&quality=80',
+    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.13923682082932578975043&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fgrogu-mandalorian-apprentice-75446',
+    trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.13923682082932578975043&type=2&subid=0',
+    retailer: 'lego'
+  },
+  {
+    name: 'The Going Merry - Pirate Ship',
+    setNumber: '75639',
+    imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt25bc5b8dc7d77c0b/75639_Prod_en-gb.png?format=jpg&fit=bounds&quality=80',
+    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392314543714868965050780&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fthe-going-merry-pirate-ship-75639',
+    trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.1392314543714868965050780&type=2&subid=0',
+    retailer: 'lego'
+  },
+  {
+    name: 'Captain Jack Sparrow\'s Pirate Ship',
+    setNumber: '10365',
+    imageUrl: 'https://www.lego.com/cdn/cs/set/assets/bltcf20096d15e25f4c/10365_Prod_en-gb.png?format=jpg&fit=bounds&quality=80',
+    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392314769212009641990674&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fcaptain-jack-sparrows-pirate-ship-10365',
+    trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.1392314769212009641990674&type=2&subid=0',
+    retailer: 'lego'
+  },
+  {
+    name: 'Stranger Things: The Creel House',
+    setNumber: '11370',
+    imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt8170cb2935ea6596/11370_Prod_en-gb.png?format=jpg&fit=bounds&quality=80',
+    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.139238765665825680929120&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fstranger-things-the-creel-house-11370',
+    trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.139238765665825680929120&type=2&subid=0',
+    retailer: 'lego'
+  },
 ];
 
 export default function FeaturedSets() {
