@@ -448,7 +448,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
           <div className="minifig-image-container">
             <div className="minifig-sticky-wrapper" style={{
               width: '100%',
-              maxWidth: '500px',
+              maxWidth: '700px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -458,10 +458,10 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                 <Image
                   src={imageUrl}
                   alt={set.name}
-                  width={600}
-                  height={600}
+                  width={700}
+                  height={700}
                   quality={100}
-                  style={{ width: '100%', maxWidth: '500px', height: 'auto', objectFit: 'contain' }}
+                  style={{ width: '100%', maxWidth: '700px', height: 'auto', objectFit: 'contain' }}
                   unoptimized
                   priority
                   onError={(e) => {
