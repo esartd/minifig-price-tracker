@@ -139,15 +139,15 @@ export default function Footer() {
           margin: '0 auto var(--space-5) auto'
         }} />
 
-        {/* BrickLink Attribution (Required) */}
+        {/* Legal & Attribution - Center Aligned */}
         <div style={{
-          marginBottom: 'var(--space-4)',
-          lineHeight: '1.7',
+          textAlign: 'center',
           fontSize: 'var(--text-xs)',
-          color: '#737373'
+          color: '#737373',
+          lineHeight: '1.7'
         }}>
-          <p style={{ margin: 0, marginBottom: 'var(--space-1)' }}>
-            {t('footer.dataProvidedBy')}{' '}
+          <p style={{ margin: 0, marginBottom: 'var(--space-4)' }}>
+            Minifigure data provided by{' '}
             <a
               href="https://www.bricklink.com"
               target="_blank"
@@ -156,26 +156,10 @@ export default function Footer() {
             >
               BrickLink.com
             </a>
+            . The term "BrickLink" is a trademark of the LEGO Group BrickLink. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc. LEGO® is a trademark of the LEGO Group.
           </p>
-          <p style={{ margin: 0 }}>
-            {t('footer.bricklinkTrademark')}
-          </p>
-          <p style={{ margin: 0, marginTop: 'var(--space-1)' }}>
-            {t('footer.legoTrademark')}
-          </p>
-        </div>
-
-        {/* Copyright & Credit */}
-        <div style={{
-          fontSize: 'var(--text-xs)',
-          color: '#a3a3a3',
-          lineHeight: '1.6'
-        }}>
-          <p style={{ margin: 0, marginBottom: '4px' }}>
-            © {new Date().getFullYear()} FigTracker. {t('footer.allRightsReserved')}
-          </p>
-          <p style={{ margin: 0 }}>
-            {t('footer.createdBy')}{' '}
+          <p style={{ margin: 0, color: '#a3a3a3' }}>
+            © {new Date().getFullYear()} FigTracker. All rights reserved. Created by{' '}
             <a
               href="https://ericksu.com"
               target="_blank"
