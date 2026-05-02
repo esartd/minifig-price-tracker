@@ -100,7 +100,7 @@ export default function GuidesPageClient({ guides }: { guides: Guide[] }) {
 
                     {guide.status === 'published' ? (
                       <Link
-                        href={`/guides/${guide.slug}`}
+                        href={guide.slug?.startsWith('/') ? guide.slug : `/guides/${guide.slug}`}
                         className="cta-button"
                       >
                         {t('guides.readGuide')}
