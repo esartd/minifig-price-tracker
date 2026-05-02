@@ -235,9 +235,9 @@ async function convertToJSON(catalogDir: string): Promise<void> {
       };
     }).filter(s => s.box_no);
 
-    const setsOutput = path.join(outputDir, 'sets.json');
+    const setsOutput = path.join(outputDir, 'boxes.json');
     fs.writeFileSync(setsOutput, JSON.stringify(sets, null, 2));
-    console.log(`✅ Converted ${sets.length} sets to JSON`);
+    console.log(`✅ Converted ${sets.length} sets to boxes.json`);
   }
 }
 
@@ -277,7 +277,7 @@ async function main() {
 
     console.log('\n✅ CATALOG UPDATE COMPLETE');
     console.log(`   Item number changes detected: ${changes.length}`);
-    console.log(`   Files updated: public/catalog/minifigs.json, public/catalog/sets.json`);
+    console.log(`   Files updated: public/catalog/minifigs.json, public/catalog/boxes.json`);
     console.log('\n📝 Next steps:');
     console.log('   1. Review the changes above');
     console.log('   2. git add public/catalog/');
