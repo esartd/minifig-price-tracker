@@ -252,7 +252,7 @@ export default function FeaturedSets() {
                     color: '#737373',
                     marginBottom: '0'
                   }}>
-                    Sponsored · {set.setNumber}
+                    Sponsored • {set.setNumber}
                   </p>
                 </div>
 

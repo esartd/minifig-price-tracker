@@ -104,7 +104,7 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
           fontFamily: 'monospace',
           marginBottom: '4px'
         }}>
-          Sponsored · {setNumber}
+          Sponsored • {setNumber}
         </p>
 
         {/* Set Name */}
