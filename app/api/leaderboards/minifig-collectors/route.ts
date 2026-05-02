@@ -6,7 +6,9 @@ import { generateDefaultDisplayName } from '@/lib/leaderboards';
 /**
  * GET /api/leaderboards/minifig-collectors
  * Returns top 5 minifig collectors for current quarter
- * Counts unique minifigs ADDED this quarter (CollectionItem.date_added)
+ * Counts TOTAL quantity of minifigs ADDED this quarter from BOTH collections:
+ * - CollectionItem (For Sale / Inventory)
+ * - PersonalCollectionItem (To Keep / Personal Collection)
  */
 export async function GET() {
   try {
@@ -30,23 +32,36 @@ export async function GET() {
             },
           },
           select: {
-            minifigure_no: true,
+            quantity: true,
+          },
+        },
+        PersonalCollectionItem: {
+          where: {
+            date_added: {
+              gte: start,
+              lte: end,
+            },
+          },
+          select: {
+            quantity: true,
           },
         },
       },
     });
 
-    // Calculate unique minifig count for each user
+    // Calculate total quantity for each user (both collections combined)
     const collectorsWithCounts = users.map((user) => {
-      // Count unique minifigure_no (same fig in different conditions counts as 1)
-      const uniqueMinifigs = new Set(user.CollectionItem.map(item => item.minifigure_no));
+      // Sum quantities from both collections
+      const inventoryTotal = user.CollectionItem.reduce((sum, item) => sum + item.quantity, 0);
+      const personalTotal = user.PersonalCollectionItem.reduce((sum, item) => sum + item.quantity, 0);
+      const totalQuantity = inventoryTotal + personalTotal;
 
       // Use custom display name, or generate default from user's name
       const displayName = user.leaderboardDisplayName || generateDefaultDisplayName(user.name);
 
       return {
         displayName,
-        count: uniqueMinifigs.size,
+        count: totalQuantity,
         userId: user.id,
       };
     });

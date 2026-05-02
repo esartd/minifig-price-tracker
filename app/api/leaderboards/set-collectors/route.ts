@@ -6,7 +6,9 @@ import { generateDefaultDisplayName } from '@/lib/leaderboards';
 /**
  * GET /api/leaderboards/set-collectors
  * Returns top 5 set collectors for current quarter
- * Counts unique sets ADDED this quarter (SetPersonalCollectionItem.date_added)
+ * Counts TOTAL quantity of sets ADDED this quarter from BOTH collections:
+ * - SetInventoryItem (For Sale / Inventory)
+ * - SetPersonalCollectionItem (To Keep / Personal Collection)
  */
 export async function GET() {
   try {
@@ -22,6 +24,17 @@ export async function GET() {
         id: true,
         name: true,
         leaderboardDisplayName: true,
+        SetInventoryItem: {
+          where: {
+            date_added: {
+              gte: start,
+              lte: end,
+            },
+          },
+          select: {
+            quantity: true,
+          },
+        },
         SetPersonalCollectionItem: {
           where: {
             date_added: {
@@ -30,23 +43,25 @@ export async function GET() {
             },
           },
           select: {
-            box_no: true,
+            quantity: true,
           },
         },
       },
     });
 
-    // Calculate unique set count for each user
+    // Calculate total quantity for each user (both collections combined)
     const collectorsWithCounts = users.map((user) => {
-      // Count unique box_no (same set in different conditions counts as 1)
-      const uniqueSets = new Set(user.SetPersonalCollectionItem.map(item => item.box_no));
+      // Sum quantities from both collections
+      const inventoryTotal = user.SetInventoryItem.reduce((sum, item) => sum + item.quantity, 0);
+      const personalTotal = user.SetPersonalCollectionItem.reduce((sum, item) => sum + item.quantity, 0);
+      const totalQuantity = inventoryTotal + personalTotal;
 
       // Use custom display name, or generate default from user's name
       const displayName = user.leaderboardDisplayName || generateDefaultDisplayName(user.name);
 
       return {
         displayName,
-        count: uniqueSets.size,
+        count: totalQuantity,
         userId: user.id,
       };
     });
