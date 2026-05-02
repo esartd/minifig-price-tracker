@@ -389,3 +389,21 @@ model NewsletterSubscriber {
   @@index([email])
   @@index([confirmed])
 }
+
+model Donation {
+  id                String   @id @default(cuid())
+  paypalTxnId       String   @unique
+  amount            Float
+  currency          String   @default("USD")
+  donorEmail        String
+  donorName         String?
+  displayName       String?
+  showOnLeaderboard Boolean  @default(false)
+  season            String
+  status            String   @default("completed")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([season])
+  @@index([showOnLeaderboard, season])
+}
