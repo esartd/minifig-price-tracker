@@ -308,21 +308,21 @@ function LeaderboardCard({
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Get trophy color for top 3
-  const getTrophyColor = (rank: number) => {
+  // Get trophy emoji for top 3
+  const getTrophyEmoji = (rank: number) => {
     switch (rank) {
       case 1:
-        return '#fbbf24'; // Gold
+        return '🥇';
       case 2:
-        return '#9ca3af'; // Silver
+        return '🥈';
       case 3:
-        return '#d97706'; // Bronze
+        return '🥉';
       default:
         return null;
     }
   };
 
-  const trophyColor = getTrophyColor(item.rank);
+  const trophy = getTrophyEmoji(item.rank);
 
   return (
     <div
@@ -346,19 +346,14 @@ function LeaderboardCard({
       {/* Trophy or Rank */}
       <div
         style={{
+          fontSize: trophy ? '24px' : '14px',
+          fontWeight: trophy ? 'normal' : '600',
+          color: trophy ? 'inherit' : '#737373',
           minWidth: '32px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          textAlign: 'center',
         }}
       >
-        {trophyColor ? (
-          <TrophyIcon style={{ width: '24px', height: '24px', color: trophyColor }} />
-        ) : (
-          <span style={{ fontSize: '14px', fontWeight: '600', color: '#737373' }}>
-            #{item.rank}
-          </span>
-        )}
+        {trophy || `#${item.rank}`}
       </div>
 
       {/* Info */}
