@@ -169,7 +169,7 @@ export default function FeaturedSets() {
           marginBottom: '12px',
           textAlign: 'center'
         }}>
-          {t('featured.title')}
+          Sponsored Sets
         </h2>
         <p style={{
           fontSize: 'var(--text-base)',
@@ -223,6 +223,23 @@ export default function FeaturedSets() {
                   borderRadius: '8px',
                   overflow: 'hidden'
                 }}>
+                  {/* Sponsored Badge */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '8px',
+                    left: '8px',
+                    padding: '4px 8px',
+                    background: 'rgba(0, 0, 0, 0.75)',
+                    color: '#ffffff',
+                    fontSize: '11px',
+                    fontWeight: '600',
+                    borderRadius: '4px',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    zIndex: 10
+                  }}>
+                    Sponsored
+                  </div>
                   <Image
                     src={set.imageUrl}
                     alt={set.name}
