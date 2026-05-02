@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslation } from './TranslationProvider';
 
@@ -121,6 +122,14 @@ const FEATURED_SETS: FeaturedSet[] = [
 
 export default function FeaturedSets() {
   const { t } = useTranslation();
+  const [displayedSets, setDisplayedSets] = useState<FeaturedSet[]>([]);
+
+  useEffect(() => {
+    // Shuffle and pick 8 random sets on client mount
+    const shuffled = [...FEATURED_SETS].sort(() => Math.random() - 0.5);
+    setDisplayedSets(shuffled.slice(0, 8));
+  }, []);
+
   return (
     <>
       <style jsx>{`
@@ -181,7 +190,7 @@ export default function FeaturedSets() {
         </p>
 
         <div className="featured-sets-grid">
-          {FEATURED_SETS.map((set) => (
+          {displayedSets.map((set) => (
             <div key={set.setNumber} style={{
               background: '#ffffff',
               borderRadius: '12px',
