@@ -443,41 +443,45 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 16px' }}>
         <div className="minifig-detail-grid" style={{
-          display: 'flex', flexDirection: 'column', background: '#ffffff',
-          marginTop: '24px', borderRadius: '16px', overflow: 'hidden',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+          marginTop: '24px'
         }}>
-          <div className="minifig-image-container" style={{
-            padding: '32px', background: '#ffffff', display: 'flex',
-            alignItems: 'center', justifyContent: 'center'
-          }}>
-            {!imageError ? (
-              <Image
-                src={imageUrl}
-                alt={set.name}
-                width={600}
-                height={600}
-                quality={100}
-                style={{ width: '100%', maxWidth: '500px', height: 'auto', objectFit: 'contain' }}
-                unoptimized
-                priority
-                onError={(e) => {
-                  if (imageUrl.includes('/ON/')) {
-                    const snUrl = imageUrl.replace('/ON/', '/SN/');
-                    if (e.currentTarget.src !== snUrl) {
-                      setImageUrl(snUrl);
-                      return;
+          <div className="minifig-image-container">
+            <div className="minifig-sticky-wrapper" style={{
+              width: '100%',
+              maxWidth: '500px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto'
+            }}>
+              {!imageError ? (
+                <Image
+                  src={imageUrl}
+                  alt={set.name}
+                  width={600}
+                  height={600}
+                  quality={100}
+                  style={{ width: '100%', maxWidth: '500px', height: 'auto', objectFit: 'contain' }}
+                  unoptimized
+                  priority
+                  onError={(e) => {
+                    if (imageUrl.includes('/ON/')) {
+                      const snUrl = imageUrl.replace('/ON/', '/SN/');
+                      if (e.currentTarget.src !== snUrl) {
+                        setImageUrl(snUrl);
+                        return;
+                      }
                     }
-                  }
-                  setImageError(true);
-                }}
-              />
-            ) : (
-              <div style={{ fontSize: '72px', opacity: 0.3 }}>📦</div>
-            )}
+                    setImageError(true);
+                  }}
+                />
+              ) : (
+                <div style={{ fontSize: '72px', opacity: 0.3 }}>📦</div>
+              )}
+            </div>
           </div>
 
-          <div className="minifig-details-section" style={{ padding: '32px' }}>
+          <div className="minifig-details-section">
             {/* Year Badge */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
               gap: '8px', marginBottom: '8px', marginTop: 0, flexWrap: 'wrap' }}>
