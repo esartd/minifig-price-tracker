@@ -120,7 +120,7 @@ export default function SupportPageClient() {
               Or support us directly:
             </p>
             <a
-              href="https://www.paypal.com/donate/?business=W2LZ3TNF2X88C&no_recurring=0&currency_code=USD"
+              href="https://www.paypal.com/donate/?business=W2LZ3TNF2X88C&no_recurring=0&currency_code=USD&return=https://figtracker.ericksu.com/claim-donation"
               target="_blank"
               rel="noopener noreferrer"
               style={{

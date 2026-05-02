@@ -6,6 +6,7 @@ import SearchBar from '@/components/SearchBar';
 import { SearchResults } from '@/components/search';
 import { CollectionItem } from '@/types';
 import FeaturedSets from '@/components/FeaturedSets';
+import DonationLeaderboard from '@/components/DonationLeaderboard';
 import { useTranslation } from '@/components/TranslationProvider';
 
 // Diverse minifigures from multiple themes (verified to exist in catalog)
@@ -527,7 +528,10 @@ function SearchPageContent() {
 
       {/* Featured Sets - Only show when not actively searching */}
       {!isSearchActive && (
-        <FeaturedSets />
+        <>
+          <FeaturedSets />
+          <DonationLeaderboard />
+        </>
       )}
     </div>
   );
