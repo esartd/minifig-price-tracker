@@ -57,7 +57,9 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^16.2.3",
     "@types/bcryptjs": "^2.4.6",
+    "@types/cheerio": "^0.22.35",
     "canvas": "^3.2.3",
+    "cheerio": "^1.2.0",
     "prisma": "^5.19.0",
     "tsx": "^4.21.0"
   }
