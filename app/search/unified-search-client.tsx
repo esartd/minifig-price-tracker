@@ -493,25 +493,22 @@ export default function UnifiedSearchClient() {
                           e.currentTarget.style.boxShadow = 'none';
                         }}>
                           <div style={{
-                            aspectRatio: '4/3',
+                            aspectRatio: '1',
                             background: '#ffffff',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            padding: '16px',
-                            position: 'relative'
+                            padding: '20px'
                           }}>
                             <Image
                               src={set.image_url}
                               alt={set.name}
                               width={200}
-                              height={150}
+                              height={200}
                               style={{
                                 objectFit: 'contain',
                                 width: '100%',
-                                height: '100%',
-                                maxWidth: '100%',
-                                maxHeight: '100%'
+                                height: '100%'
                               }}
                             />
                           </div>
