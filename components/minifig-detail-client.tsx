@@ -2408,20 +2408,18 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
             </div>
           </div>
 
-          {/* Price History Section */}
-          {collectionItem && (
-            <div style={{ marginTop: '32px' }}>
-              <div style={{
-                background: '#ffffff',
-                borderRadius: '12px',
-                border: '1px solid #e5e5e5',
-                padding: '24px',
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
-              }}>
-                <PriceHistoryChart minifigure_no={minifig.no} condition="new" />
-              </div>
+          {/* Price History Section - Always show for all users */}
+          <div style={{ marginTop: '32px' }}>
+            <div style={{
+              background: '#ffffff',
+              borderRadius: '12px',
+              border: '1px solid #e5e5e5',
+              padding: '24px',
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
+            }}>
+              <PriceHistoryChart minifigure_no={minifig.no} condition={condition} />
             </div>
-          )}
+          </div>
 
           {/* From Similar Sets Section */}
           {similarSets.length > 0 && (
