@@ -111,13 +111,14 @@ const FEATURED_SETS: FeaturedSet[] = [
     affiliateLink: 'https://amzn.to/4sNYGRc',
     retailer: 'amazon'
   },
-  // {
-  //   name: 'Set Name',
-  //   setNumber: '12345',
-  //   imageUrl: 'https://www.lego.com/...',
-  //   affiliateLink: 'https://click.linksynergy.com/...',
-  //   trackingPixel: 'https://ad.linksynergy.com/...'
-  // },
+  {
+    name: 'The Mandalorian\'s N-1 Starfighter',
+    setNumber: '75442',
+    imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt99c6a9bf2e0c2d9a/blt2f8fb720e38f6e09-75442_Prod_en-gb.png?format=jpg&fit=bounds&quality=80',
+    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392315235359109392213990&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fthe-mandalorians-n-1-starfighter-75442',
+    trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.1392315235359109392213990&type=2&subid=0',
+    retailer: 'lego'
+  },
 ];
 
 export default function FeaturedSets() {

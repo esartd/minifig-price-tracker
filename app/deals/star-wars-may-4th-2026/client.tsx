@@ -302,7 +302,7 @@ export default function May4thDealsClient() {
                   justifyContent: 'center'
                 }}>
                   <Image
-                    src="https://cdn.rebrickable.com/media/sets/75442-1.jpg"
+                    src="https://www.lego.com/cdn/cs/set/assets/blt99c6a9bf2e0c2d9a/blt2f8fb720e38f6e09-75442_Prod_en-gb.png?format=jpg&fit=bounds&quality=80"
                     alt="The Mandalorian's N-1 Starfighter"
                     fill
                     sizes="(max-width: 768px) 100vw, 280px"
@@ -335,9 +335,9 @@ export default function May4thDealsClient() {
                   $249.99
                 </p>
                 <a
-                  href="https://www.lego.com/en-us/product/the-mandalorians-n-1-starfighter-75442"
+                  href="https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392315235359109392213990&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fthe-mandalorians-n-1-starfighter-75442"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer sponsored"
                   style={{
                     display: 'block',
                     padding: '12px 24px',
