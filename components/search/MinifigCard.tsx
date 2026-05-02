@@ -111,9 +111,9 @@ export default function MinifigCard({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          width: '100px',
+          width: isSet ? '160px' : '100px',
           minHeight: '140px',
-          padding: '8px 0',
+          padding: isSet ? '16px' : '8px 0',
           backgroundColor: '#ffffff',
           borderTopLeftRadius: '10px',
           borderBottomLeftRadius: '10px',
@@ -125,12 +125,12 @@ export default function MinifigCard({
             className="minifig-card-image"
             src={imageUrl}
             alt={minifig.name}
-            width={100}
+            width={isSet ? 160 : 100}
             height={140}
             style={{
               height: '140px',
-              width: 'auto',
-              maxWidth: 'none',
+              width: isSet ? '100%' : 'auto',
+              maxWidth: '100%',
               objectFit: 'contain',
               ...getSensitiveImageStyles(minifig.minifigure_no || minifig.no, minifig.name)
             }}
