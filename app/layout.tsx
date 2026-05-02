@@ -34,11 +34,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(domains[locale as keyof typeof domains]),
     title: {
-      default: 'FigTracker - LEGO Minifigure Price Tracker & Inventory Management',
+      default: 'FigTracker - LEGO Minifigure & Set Price Tracker with Real-Time Bricklink Data',
       template: '%s | FigTracker'
     },
-    description: 'Free LEGO minifigure price tracker with real-time Bricklink marketplace data. Get instant suggested prices, track your inventory, and manage your collection with 8,000+ minifigs.',
-    keywords: ['LEGO minifigure prices', 'Bricklink price tracker', 'LEGO inventory', 'minifig value', 'LEGO reseller tool', 'Bricklink marketplace', 'LEGO price guide', 'minifigure collection tracker'],
+    description: 'Free LEGO price tracker for 18,000+ minifigures and 20,000+ sets with real-time Bricklink marketplace data. Track inventory value, manage collections, compete on leaderboards, and discover great deals.',
+    keywords: ['LEGO minifigure prices', 'LEGO set prices', 'Bricklink price tracker', 'LEGO inventory management', 'minifig value tracker', 'LEGO reseller tool', 'Bricklink marketplace data', 'LEGO price guide', 'minifigure collection tracker', 'LEGO set tracker', 'LEGO deals', 'LEGO Star Wars prices'],
     authors: [{ name: 'FigTracker', url: 'https://figtracker.ericksu.com' }],
     creator: 'FigTracker',
     publisher: 'FigTracker',
@@ -62,8 +62,8 @@ export async function generateMetadata(): Promise<Metadata> {
       alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
       url: domains[locale as keyof typeof domains],
       siteName: 'FigTracker',
-      title: 'FigTracker - LEGO Minifigure Price Tracker & Inventory Management',
-      description: 'Free LEGO minifigure price tracker with real-time Bricklink data. Get instant suggested prices and manage your collection.',
+      title: 'FigTracker - LEGO Minifigure & Set Price Tracker with Real-Time Bricklink Data',
+      description: 'Free LEGO price tracker for 18,000+ minifigures and 20,000+ sets. Real-time Bricklink data, inventory management, collection tracking, and community leaderboards.',
       images: [
         {
           url: '/api/og',
@@ -75,8 +75,8 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'FigTracker - LEGO Minifigure Price Tracker',
-      description: 'Free LEGO minifigure price tracker with real-time Bricklink data.',
+      title: 'FigTracker - LEGO Minifigure & Set Price Tracker',
+      description: 'Free LEGO price tracker for 18,000+ minifigures and 20,000+ sets with real-time Bricklink marketplace data.',
       images: ['/api/og'],
     },
     alternates: {
