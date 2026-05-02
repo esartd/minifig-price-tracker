@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslation } from './TranslationProvider';
-import { HeartIcon } from '@heroicons/react/24/solid';
+import { HeartIcon } from '@heroicons/react/24/outline';
 
 export default function SupportPageClient() {
   const { t } = useTranslation();
