@@ -133,10 +133,10 @@ export default function SetInventoryList({
           onClick={() => router.push(`/sets/${item.box_no}?condition=${item.condition}`)}
           style={{
             display: 'grid',
-            gridTemplateColumns: '80px 1fr auto',
+            gridTemplateColumns: '140px 1fr auto',
             gridTemplateRows: 'auto',
             padding: '16px',
-            gap: '12px',
+            gap: '16px',
             background: '#ffffff',
             borderRadius: '12px',
             border: '1px solid #e5e5e5',
@@ -159,18 +159,24 @@ export default function SetInventoryList({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '80px',
-            height: '100px',
+            width: '140px',
+            height: '120px',
             borderRadius: '8px',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            padding: '8px',
+            backgroundColor: '#ffffff'
           }}>
             {item.image_url ? (
               <Image
                 src={item.image_url}
                 alt={item.set_name}
-                width={80}
-                height={100}
-                style={{ height: '100px', width: 'auto', maxWidth: 'none', objectFit: 'contain' }}
+                width={140}
+                height={120}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain'
+                }}
                 loading="lazy"
                 unoptimized
               />
