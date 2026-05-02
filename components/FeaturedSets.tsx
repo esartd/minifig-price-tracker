@@ -169,7 +169,7 @@ export default function FeaturedSets() {
           marginBottom: '12px',
           textAlign: 'center'
         }}>
-          Sponsored Sets
+          {t('featured.title')}
         </h2>
         <p style={{
           fontSize: 'var(--text-base)',
@@ -228,14 +228,14 @@ export default function FeaturedSets() {
                     position: 'absolute',
                     top: '8px',
                     left: '8px',
-                    padding: '4px 8px',
-                    background: 'rgba(0, 0, 0, 0.75)',
-                    color: '#ffffff',
-                    fontSize: '11px',
-                    fontWeight: '600',
-                    borderRadius: '4px',
+                    padding: '3px 6px',
+                    background: 'rgba(0, 0, 0, 0.5)',
+                    color: 'rgba(255, 255, 255, 0.9)',
+                    fontSize: '9px',
+                    fontWeight: '500',
+                    borderRadius: '3px',
                     textTransform: 'uppercase',
-                    letterSpacing: '0.5px',
+                    letterSpacing: '0.3px',
                     zIndex: 10
                   }}>
                     Sponsored

@@ -77,16 +77,15 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
         position: 'absolute',
         top: '12px',
         left: '12px',
-        background: 'rgba(0, 0, 0, 0.75)',
-        color: '#ffffff',
-        fontSize: '10px',
-        fontWeight: '600',
+        background: 'rgba(0, 0, 0, 0.5)',
+        color: 'rgba(255, 255, 255, 0.9)',
+        fontSize: '9px',
+        fontWeight: '500',
         textTransform: 'uppercase',
-        letterSpacing: '0.05em',
-        padding: '4px 8px',
-        borderRadius: '4px',
-        zIndex: 1,
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+        letterSpacing: '0.3px',
+        padding: '3px 6px',
+        borderRadius: '3px',
+        zIndex: 1
       }}>
         Sponsored
       </div>
