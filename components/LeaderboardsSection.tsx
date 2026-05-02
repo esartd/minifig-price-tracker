@@ -16,6 +16,7 @@ interface Donor {
 }
 
 export default function LeaderboardsSection() {
+  const [activeTab, setActiveTab] = useState<'quarterly' | 'alltime'>('quarterly');
   const [minifigCollectors, setMinifigCollectors] = useState<Collector[]>([]);
   const [setCollectors, setSetCollectors] = useState<Collector[]>([]);
   const [topDonors, setTopDonors] = useState<Donor[]>([]);
@@ -24,10 +25,12 @@ export default function LeaderboardsSection() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const period = activeTab === 'quarterly' ? 'quarterly' : 'alltime';
+
     // Fetch all three leaderboards in parallel
     Promise.all([
-      fetch('/api/leaderboards/minifig-collectors').then(res => res.json()),
-      fetch('/api/leaderboards/set-collectors').then(res => res.json()),
+      fetch(`/api/leaderboards/minifig-collectors?period=${period}`).then(res => res.json()),
+      fetch(`/api/leaderboards/set-collectors?period=${period}`).then(res => res.json()),
       fetch('/api/donations/leaderboard').then(res => res.json()),
     ])
       .then(([minifigData, setData, donorData]) => {
@@ -48,7 +51,7 @@ export default function LeaderboardsSection() {
         console.error('Failed to fetch leaderboards:', error);
         setLoading(false);
       });
-  }, []);
+  }, [activeTab]);
 
   // Don't render while loading
   if (loading) return null;
@@ -69,32 +72,93 @@ export default function LeaderboardsSection() {
             fontWeight: '700',
             color: '#171717',
             textAlign: 'center',
-            marginBottom: '12px',
+            marginBottom: '24px',
             letterSpacing: '-0.01em',
           }}
         >
           Community Leaderboards
         </h2>
-        <p
+
+        {/* Tabs */}
+        <div
           style={{
-            fontSize: 'var(--text-base)',
-            color: '#737373',
-            textAlign: 'center',
-            marginBottom: '4px',
-            fontWeight: '600',
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '8px',
+            marginBottom: '32px',
           }}
         >
-          Items Added This Quarter Only
-        </p>
+          <button
+            onClick={() => setActiveTab('quarterly')}
+            style={{
+              padding: '10px 24px',
+              fontSize: 'var(--text-sm)',
+              fontWeight: '600',
+              color: activeTab === 'quarterly' ? '#3b82f6' : '#737373',
+              background: activeTab === 'quarterly' ? '#eff6ff' : 'transparent',
+              border: activeTab === 'quarterly' ? '1px solid #3b82f6' : '1px solid #e5e5e5',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+            }}
+            onMouseEnter={(e) => {
+              if (activeTab !== 'quarterly') {
+                e.currentTarget.style.borderColor = '#d4d4d4';
+                e.currentTarget.style.background = '#fafafa';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (activeTab !== 'quarterly') {
+                e.currentTarget.style.borderColor = '#e5e5e5';
+                e.currentTarget.style.background = 'transparent';
+              }
+            }}
+          >
+            This Quarter
+          </button>
+          <button
+            onClick={() => setActiveTab('alltime')}
+            style={{
+              padding: '10px 24px',
+              fontSize: 'var(--text-sm)',
+              fontWeight: '600',
+              color: activeTab === 'alltime' ? '#3b82f6' : '#737373',
+              background: activeTab === 'alltime' ? '#eff6ff' : 'transparent',
+              border: activeTab === 'alltime' ? '1px solid #3b82f6' : '1px solid #e5e5e5',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+            }}
+            onMouseEnter={(e) => {
+              if (activeTab !== 'alltime') {
+                e.currentTarget.style.borderColor = '#d4d4d4';
+                e.currentTarget.style.background = '#fafafa';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (activeTab !== 'alltime') {
+                e.currentTarget.style.borderColor = '#e5e5e5';
+                e.currentTarget.style.background = 'transparent';
+              }
+            }}
+          >
+            All-Time
+          </button>
+        </div>
+
+        {/* Period Info */}
         <p
           style={{
             fontSize: 'var(--text-sm)',
-            color: '#a3a3a3',
+            color: '#737373',
             textAlign: 'center',
             marginBottom: '40px',
           }}
         >
-          {dateRange} ({season}) • Resets quarterly
+          {activeTab === 'quarterly'
+            ? `${dateRange} (${season}) • Resets quarterly`
+            : 'Total items added since joining FigTracker'
+          }
         </p>
 
         {/* 3-Column Grid */}
