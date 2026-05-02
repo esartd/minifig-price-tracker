@@ -488,7 +488,7 @@
       },
       {
         "q": "Is my inventory data private?",
-        "a": "Yes, your inventory is completely private and only visible to you when logged in. We never share or sell your data."
+        "a": "Yes, your inventory is private by default and only visible to you when logged in. You can optionally generate a public share link in your Account settings to let others view your collection. You control sharing and can disable it anytime. We never share or sell your data to third parties."
       },
       {
         "q": "What are the community leaderboards?",
