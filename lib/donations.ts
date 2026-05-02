@@ -64,6 +64,25 @@ export function getCurrentSeasonDateRange(): { start: Date; end: Date } {
 }
 
 /**
+ * Format date range for display
+ * Example: "Apr 1 - Jun 30, 2026"
+ */
+export function formatSeasonDateRange(): string {
+  const { start, end } = getCurrentSeasonDateRange();
+
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  const startMonth = monthNames[start.getMonth()];
+  const startDay = start.getDate();
+
+  const endMonth = monthNames[end.getMonth()];
+  const endDay = end.getDate();
+  const endYear = end.getFullYear();
+
+  return `${startMonth} ${startDay} - ${endMonth} ${endDay}, ${endYear}`;
+}
+
+/**
  * Format currency amount for display
  */
 export function formatDonationAmount(amount: number, currency: string = 'USD'): string {

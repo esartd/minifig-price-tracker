@@ -19,6 +19,7 @@ export default function LeaderboardsSection() {
   const [setCollectors, setSetCollectors] = useState<Collector[]>([]);
   const [topDonors, setTopDonors] = useState<Donor[]>([]);
   const [season, setSeason] = useState<string>('');
+  const [dateRange, setDateRange] = useState<string>('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,6 +33,7 @@ export default function LeaderboardsSection() {
         if (minifigData.success) {
           setMinifigCollectors(minifigData.data.topCollectors);
           setSeason(minifigData.data.season);
+          setDateRange(minifigData.data.dateRange);
         }
         if (setData.success) {
           setSetCollectors(setData.data.topCollectors);
@@ -80,10 +82,21 @@ export default function LeaderboardsSection() {
             fontSize: 'var(--text-sm)',
             color: '#737373',
             textAlign: 'center',
-            marginBottom: '40px',
+            marginBottom: '8px',
           }}
         >
           Top collectors and supporters this quarter ({season})
+        </p>
+        <p
+          style={{
+            fontSize: 'var(--text-xs)',
+            color: '#a3a3a3',
+            textAlign: 'center',
+            marginBottom: '40px',
+            fontWeight: '500',
+          }}
+        >
+          {dateRange} • Resets quarterly
         </p>
 
         {/* 3-Column Grid */}

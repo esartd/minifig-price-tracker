@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getCurrentSeason } from '@/lib/donations';
+import { getCurrentSeason, formatSeasonDateRange } from '@/lib/donations';
 
 /**
  * GET /api/donations/leaderboard
@@ -53,6 +53,7 @@ export async function GET() {
       success: true,
       data: {
         season,
+        dateRange: formatSeasonDateRange(),
         topDonors,
       },
     });
