@@ -324,7 +324,7 @@ export default function May4thDealsClient() {
                   color: '#737373',
                   marginBottom: '8px'
                 }}>
-                  Set #75442
+                  75442
                 </p>
                 <p style={{
                   fontSize: 'var(--text-xl)',
@@ -907,7 +907,7 @@ function SetCard({ set, tierColor, isBest }: SetCardProps) {
         color: '#737373',
         marginBottom: '8px'
       }}>
-        Set #{set.setNumber}
+        Sponsored • {set.setNumber}
       </p>
       <p style={{
         fontSize: 'var(--text-xl)',
