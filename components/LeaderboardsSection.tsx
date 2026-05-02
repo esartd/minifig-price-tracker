@@ -243,6 +243,7 @@ function DonorsColumn({ items, t }: { items: Donor[]; t: any }) {
               key={item.rank}
               item={item}
               type="donor"
+              t={t}
             />
           ) : (
             <EmptyDonorSlot key={item.rank} rank={item.rank} t={t} />
