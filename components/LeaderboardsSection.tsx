@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { TrophyIcon, CubeIcon, HeartIcon } from '@heroicons/react/24/outline';
+import { UserIcon, CubeIcon, HeartIcon } from '@heroicons/react/24/outline';
 
 interface Collector {
   displayName: string;
@@ -109,7 +109,7 @@ export default function LeaderboardsSection() {
           {minifigCollectors.length > 0 && (
             <LeaderboardColumn
               title="Top Minifig Collectors"
-              icon={<TrophyIcon style={{ width: '20px', height: '20px', color: '#f59e0b' }} />}
+              icon={<UserIcon style={{ width: '20px', height: '20px', color: '#f59e0b' }} />}
               items={minifigCollectors}
               type="collector"
             />
