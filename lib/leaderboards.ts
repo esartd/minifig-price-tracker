@@ -24,3 +24,27 @@ export function needsNewSnapshot(lastSnapshotSeason: string | null): boolean {
   const currentSeason = getCurrentSeason();
   return lastSnapshotSeason !== currentSeason;
 }
+
+/**
+ * Generate default display name from user's full name
+ * Format: "FirstName L." (first name + last initial)
+ * If no name, returns "Anonymous Collector"
+ */
+export function generateDefaultDisplayName(fullName: string | null | undefined): string {
+  if (!fullName || !fullName.trim()) {
+    return 'Anonymous Collector';
+  }
+
+  const parts = fullName.trim().split(' ');
+
+  if (parts.length === 1) {
+    // Only first name
+    return parts[0];
+  }
+
+  // First name + last initial
+  const firstName = parts[0];
+  const lastInitial = parts[parts.length - 1].charAt(0).toUpperCase();
+
+  return `${firstName} ${lastInitial}.`;
+}

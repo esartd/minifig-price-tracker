@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getCurrentSeason } from '@/lib/donations';
+import { generateDefaultDisplayName } from '@/lib/leaderboards';
 
 /**
  * GET /api/leaderboards/minifig-collectors
@@ -18,6 +19,7 @@ export async function GET() {
       },
       select: {
         id: true,
+        name: true,
         leaderboardDisplayName: true,
         CollectionItem: {
           select: {
@@ -32,8 +34,11 @@ export async function GET() {
       // Count unique minifigure_no (same fig in different conditions counts as 1)
       const uniqueMinifigs = new Set(user.CollectionItem.map(item => item.minifigure_no));
 
+      // Use custom display name, or generate default from user's name
+      const displayName = user.leaderboardDisplayName || generateDefaultDisplayName(user.name);
+
       return {
-        displayName: user.leaderboardDisplayName || 'Anonymous Collector',
+        displayName,
         count: uniqueMinifigs.size,
         userId: user.id,
       };

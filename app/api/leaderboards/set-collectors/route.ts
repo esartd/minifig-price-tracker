@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getCurrentSeason } from '@/lib/donations';
+import { generateDefaultDisplayName } from '@/lib/leaderboards';
 
 /**
  * GET /api/leaderboards/set-collectors
@@ -18,6 +19,7 @@ export async function GET() {
       },
       select: {
         id: true,
+        name: true,
         leaderboardDisplayName: true,
         SetPersonalCollectionItem: {
           select: {
@@ -32,8 +34,11 @@ export async function GET() {
       // Count unique box_no (same set in different conditions counts as 1)
       const uniqueSets = new Set(user.SetPersonalCollectionItem.map(item => item.box_no));
 
+      // Use custom display name, or generate default from user's name
+      const displayName = user.leaderboardDisplayName || generateDefaultDisplayName(user.name);
+
       return {
-        displayName: user.leaderboardDisplayName || 'Anonymous Collector',
+        displayName,
         count: uniqueSets.size,
         userId: user.id,
       };
