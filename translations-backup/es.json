@@ -560,7 +560,19 @@
       },
       {
         "q": "¿Son privados mis datos de inventario?",
-        "a": "Sí, tu inventario es completamente privado y solo visible para ti cuando estás conectado. Nunca compartimos ni vendemos tus datos."
+        "a": "Sí, tu inventario es privado por defecto y solo visible para ti cuando estás conectado. Opcionalmente puedes generar un enlace de compartir público en la configuración de tu cuenta para permitir que otros vean tu colección. Tú controlas qué se comparte y puedes desactivarlo en cualquier momento. Nunca compartimos ni vendemos tus datos a terceros."
+      },
+      {
+        "q": "¿Qué son las clasificaciones de la comunidad?",
+        "a": "FigTracker presenta clasificaciones trimestrales que muestran los mejores coleccionistas de minifiguras, sets y patrocinadores. Las clasificaciones se reinician cada 3 meses (T1, T2, T3, T4) y solo cuentan los artículos agregados durante ese trimestre. Puedes optar por participar o no en cualquier momento en la configuración de tu cuenta."
+      },
+      {
+        "q": "¿Cómo aparezco en las clasificaciones?",
+        "a": "Ve a la configuración de la cuenta y marca las casillas para aparecer en las clasificaciones de coleccionistas de minifiguras o coleccionistas de sets. Puedes personalizar tu nombre de visualización o dejarlo en blanco para usar tu nombre y la inicial de tu apellido. Solo los artículos que agregues durante el trimestre actual cuentan para tu clasificación."
+      },
+      {
+        "q": "¿Puedo compartir mi colección públicamente?",
+        "a": "¡Sí! Puedes generar un enlace de compartir público para tus colecciones en la configuración de tu cuenta. Esto permite que otros vean tus minifiguras y sets sin necesidad de iniciar sesión. Tú controlas qué se comparte y puedes desactivar el compartir en cualquier momento."
       }
     ]
   },

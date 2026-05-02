@@ -560,7 +560,19 @@
       },
       {
         "q": "Sind meine Inventardaten privat?",
-        "a": "Ja, Ihr Inventar ist vollständig privat und nur für Sie sichtbar, wenn Sie angemeldet sind. Wir teilen oder verkaufen Ihre Daten niemals."
+        "a": "Ja, Ihr Inventar ist standardmäßig privat und nur für Sie sichtbar, wenn Sie angemeldet sind. Sie können optional einen öffentlichen Freigabelink in Ihren Kontoeinstellungen generieren, um anderen zu erlauben, Ihre Sammlung anzusehen. Sie kontrollieren die Freigabe und können sie jederzeit deaktivieren. Wir teilen oder verkaufen Ihre Daten niemals an Dritte."
+      },
+      {
+        "q": "Was sind die Community-Bestenlisten?",
+        "a": "FigTracker bietet vierteljährliche Bestenlisten, die die besten Sammler von Minifiguren, Sets und Unterstützer zeigen. Die Bestenlisten werden alle 3 Monate (Q1, Q2, Q3, Q4) zurückgesetzt und zählen nur Artikel, die während dieses Quartals hinzugefügt wurden. Sie können sich jederzeit in Ihren Kontoeinstellungen an- oder abmelden."
+      },
+      {
+        "q": "Wie erscheine ich auf den Bestenlisten?",
+        "a": "Gehen Sie zu den Kontoeinstellungen und aktivieren Sie die Kontrollkästchen, um auf den Bestenlisten der Minifiguren-Sammler oder Set-Sammler angezeigt zu werden. Sie können Ihren Anzeigenamen anpassen oder leer lassen, um Ihren Vornamen und die Initiale Ihres Nachnamens zu verwenden. Nur Artikel, die Sie während des aktuellen Quartals hinzufügen, zählen für Ihren Rang."
+      },
+      {
+        "q": "Kann ich meine Sammlung öffentlich teilen?",
+        "a": "Ja! Sie können in Ihren Kontoeinstellungen einen öffentlichen Freigabelink für Ihre Sammlungen generieren. Dadurch können andere Ihre Minifiguren und Sets ansehen, ohne sich anmelden zu müssen. Sie kontrollieren, was geteilt wird, und können die Freigabe jederzeit deaktivieren."
       }
     ]
   },
