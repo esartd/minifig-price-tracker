@@ -481,6 +481,21 @@
     "title": "Sets qui nous passionnent",
     "subtitle": "Sets sélectionnés à découvrir"
   },
+  "leaderboards": {
+    "title": "Classements de la communauté",
+    "tabQuarterly": "Ce trimestre",
+    "tabAllTime": "Tous les temps",
+    "quarterlyDescription": "{dateRange} ({season}) • Réinitialisé tous les trimestres",
+    "alltimeDescription": "Total des articles ajoutés depuis l'inscription à FigTracker",
+    "topMinifigCollectors": "Meilleurs collectionneurs de minifigurines",
+    "topSetCollectors": "Meilleurs collectionneurs de sets",
+    "topSupporters": "Meilleurs supporteurs",
+    "minifigs": "minifigurines",
+    "sets": "sets",
+    "supportFigTracker": "Soutenir FigTracker",
+    "beFirstToDonate": "Soyez le premier à faire un don !",
+    "noSupporterYet": "Pas encore de supporteur"
+  },
   "faq": {
     "badge": "CENTRE D'AIDE",
     "title": "Questions fréquemment posées",

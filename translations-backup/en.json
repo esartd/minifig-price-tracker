@@ -424,6 +424,21 @@
     "title": "Sets We're Excited About",
     "subtitle": "Hand-picked sets worth checking out"
   },
+  "leaderboards": {
+    "title": "Community Leaderboards",
+    "tabQuarterly": "This Quarter",
+    "tabAllTime": "All-Time",
+    "quarterlyDescription": "{dateRange} ({season}) • Resets quarterly",
+    "alltimeDescription": "Total items added since joining FigTracker",
+    "topMinifigCollectors": "Top Minifig Collectors",
+    "topSetCollectors": "Top Set Collectors",
+    "topSupporters": "Top Supporters",
+    "minifigs": "minifigs",
+    "sets": "sets",
+    "supportFigTracker": "Support FigTracker",
+    "beFirstToDonate": "Be the First to Donate!",
+    "noSupporterYet": "No supporter yet"
+  },
   "faq": {
     "badge": "HELP CENTER",
     "title": "Frequently Asked Questions",

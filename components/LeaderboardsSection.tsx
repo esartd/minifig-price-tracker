@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { UserIcon, CubeIcon, HeartIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from './TranslationProvider';
 
 interface Collector {
   displayName: string;
@@ -16,6 +17,7 @@ interface Donor {
 }
 
 export default function LeaderboardsSection() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'quarterly' | 'alltime'>('quarterly');
   const [minifigCollectors, setMinifigCollectors] = useState<Collector[]>([]);
   const [setCollectors, setSetCollectors] = useState<Collector[]>([]);
@@ -76,7 +78,7 @@ export default function LeaderboardsSection() {
             letterSpacing: '-0.01em',
           }}
         >
-          Community Leaderboards
+          {t('leaderboards.title')}
         </h2>
 
         {/* Tabs */}
@@ -114,7 +116,7 @@ export default function LeaderboardsSection() {
               }
             }}
           >
-            This Quarter
+            {t('leaderboards.tabQuarterly')}
           </button>
           <button
             onClick={() => setActiveTab('alltime')}
@@ -142,7 +144,7 @@ export default function LeaderboardsSection() {
               }
             }}
           >
-            All-Time
+            {t('leaderboards.tabAllTime')}
           </button>
         </div>
 
@@ -156,8 +158,8 @@ export default function LeaderboardsSection() {
           }}
         >
           {activeTab === 'quarterly'
-            ? `${dateRange} (${season}) • Resets quarterly`
-            : 'Total items added since joining FigTracker'
+            ? t('leaderboards.quarterlyDescription', { dateRange, season })
+            : t('leaderboards.alltimeDescription')
           }
         </p>
 
@@ -172,27 +174,29 @@ export default function LeaderboardsSection() {
           {/* Minifig Collectors */}
           {minifigCollectors.length > 0 && (
             <LeaderboardColumn
-              title="Top Minifig Collectors"
+              title={t('leaderboards.topMinifigCollectors')}
               icon={<UserIcon style={{ width: '20px', height: '20px', color: '#f59e0b' }} />}
               items={minifigCollectors}
               type="collector"
               itemType="minifigs"
+              t={t}
             />
           )}
 
           {/* Set Collectors */}
           {setCollectors.length > 0 && (
             <LeaderboardColumn
-              title="Top Set Collectors"
+              title={t('leaderboards.topSetCollectors')}
               icon={<CubeIcon style={{ width: '20px', height: '20px', color: '#3b82f6' }} />}
               items={setCollectors}
               type="collector"
               itemType="sets"
+              t={t}
             />
           )}
 
           {/* Donors - Always show */}
-          <DonorsColumn items={topDonors} />
+          <DonorsColumn items={topDonors} t={t} />
         </div>
       </div>
     </section>
@@ -200,7 +204,7 @@ export default function LeaderboardsSection() {
 }
 
 // Donors Column - Always shows with empty placeholders
-function DonorsColumn({ items }: { items: Donor[] }) {
+function DonorsColumn({ items, t }: { items: Donor[]; t: any }) {
   // Pad with empty slots to always show 5
   const paddedItems = [...items];
   while (paddedItems.length < 5) {
@@ -229,7 +233,7 @@ function DonorsColumn({ items }: { items: Donor[] }) {
         }}
       >
         <HeartIcon style={{ width: '20px', height: '20px', color: '#ef4444' }} />
-        Top Supporters
+        {t('leaderboards.topSupporters')}
       </h3>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -241,7 +245,7 @@ function DonorsColumn({ items }: { items: Donor[] }) {
               type="donor"
             />
           ) : (
-            <EmptyDonorSlot key={item.rank} rank={item.rank} />
+            <EmptyDonorSlot key={item.rank} rank={item.rank} t={t} />
           )
         ))}
 
@@ -271,7 +275,7 @@ function DonorsColumn({ items }: { items: Donor[] }) {
             e.currentTarget.style.boxShadow = '0 2px 8px rgba(20, 136, 204, 0.3)';
           }}
         >
-          {isEmpty ? 'Be the First to Donate!' : 'Support FigTracker'}
+          {isEmpty ? t('leaderboards.beFirstToDonate') : t('leaderboards.supportFigTracker')}
         </a>
       </div>
     </div>
@@ -279,7 +283,7 @@ function DonorsColumn({ items }: { items: Donor[] }) {
 }
 
 // Empty donor slot placeholder
-function EmptyDonorSlot({ rank }: { rank: number }) {
+function EmptyDonorSlot({ rank, t }: { rank: number; t: any }) {
   return (
     <div
       style={{
@@ -313,7 +317,7 @@ function EmptyDonorSlot({ rank }: { rank: number }) {
             fontStyle: 'italic',
           }}
         >
-          No supporter yet
+          {t('leaderboards.noSupporterYet')}
         </div>
       </div>
     </div>
@@ -327,12 +331,14 @@ function LeaderboardColumn({
   items,
   type,
   itemType,
+  t,
 }: {
   title: string;
   icon: React.ReactNode;
   items: (Collector | Donor)[];
   type: 'collector' | 'donor';
   itemType?: 'minifigs' | 'sets';
+  t: any;
 }) {
   return (
     <div>
@@ -360,6 +366,7 @@ function LeaderboardColumn({
             item={item}
             type={type}
             itemType={itemType}
+            t={t}
           />
         ))}
       </div>
@@ -372,10 +379,12 @@ function LeaderboardCard({
   item,
   type,
   itemType,
+  t,
 }: {
   item: Collector | Donor;
   type: 'collector' | 'donor';
   itemType?: 'minifigs' | 'sets';
+  t: any;
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -394,6 +403,13 @@ function LeaderboardCard({
   };
 
   const trophy = getTrophyEmoji(item.rank);
+
+  // Get translated item type label
+  const getItemTypeLabel = () => {
+    if (itemType === 'minifigs') return t('leaderboards.minifigs');
+    if (itemType === 'sets') return t('leaderboards.sets');
+    return 'items';
+  };
 
   return (
     <div
@@ -447,7 +463,7 @@ function LeaderboardCard({
           }}
         >
           {type === 'collector'
-            ? `${(item as Collector).count} ${itemType || 'items'}`
+            ? `${(item as Collector).count} ${getItemTypeLabel()}`
             : `$${(item as Donor).totalAmount.toFixed(2)}`
           }
         </div>
