@@ -151,6 +151,14 @@ const FEATURED_SETS: FeaturedSet[] = [
     trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.139238765665825680929120&type=2&subid=0',
     retailer: 'lego'
   },
+  {
+    name: 'AT-AT',
+    setNumber: '75440',
+    imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt26f813f1a1f499c6/75440_Prod_en-gb.png?format=jpg&fit=bounds&quality=80',
+    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.139236745907642443041870&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fat-at-75440',
+    trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.139236745907642443041870&type=2&subid=0',
+    retailer: 'lego'
+  },
 ];
 
 export default function FeaturedSets() {
