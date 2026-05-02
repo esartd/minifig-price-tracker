@@ -61,6 +61,14 @@ export default function AccountPage() {
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [copySuccess, setCopySuccess] = useState(false);
 
+  // Leaderboard settings states
+  const [leaderboardSettings, setLeaderboardSettings] = useState({
+    showOnMinifigLeaderboard: true,
+    showOnSetLeaderboard: true,
+    leaderboardDisplayName: '',
+  });
+  const [loadingLeaderboard, setLoadingLeaderboard] = useState(true);
+
   useEffect(() => {
     if (session?.user?.name) {
       setName(session.user.name);
@@ -248,6 +256,31 @@ export default function AccountPage() {
 
     if (session?.user) {
       fetchShareStatus();
+    }
+  }, [session]);
+
+  // Fetch leaderboard settings
+  useEffect(() => {
+    const fetchLeaderboardSettings = async () => {
+      try {
+        const response = await fetch('/api/user/settings');
+        const data = await response.json();
+        if (data.success) {
+          setLeaderboardSettings({
+            showOnMinifigLeaderboard: data.data.showOnMinifigLeaderboard ?? true,
+            showOnSetLeaderboard: data.data.showOnSetLeaderboard ?? true,
+            leaderboardDisplayName: data.data.leaderboardDisplayName || '',
+          });
+        }
+      } catch (error) {
+        console.error('Failed to fetch leaderboard settings:', error);
+      } finally {
+        setLoadingLeaderboard(false);
+      }
+    };
+
+    if (session?.user) {
+      fetchLeaderboardSettings();
     }
   }, [session]);
 
@@ -493,6 +526,31 @@ export default function AccountPage() {
       navigator.clipboard.writeText(shareUrl);
       setCopySuccess(true);
       setTimeout(() => setCopySuccess(false), 2000);
+    }
+  };
+
+  const handleLeaderboardUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/user/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leaderboardSettings),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        showMessage('success', 'Leaderboard settings updated successfully!');
+      } else {
+        showMessage('error', data.error || 'Failed to update settings');
+      }
+    } catch (error) {
+      showMessage('error', 'Network error. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -861,6 +919,192 @@ export default function AccountPage() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Leaderboard Settings Section */}
+        <div className="account-section" style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          padding: '24px 16px',
+          marginBottom: '32px',
+          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+        }}>
+          <h2 style={{
+            fontSize: 'var(--text-lg)',
+            fontWeight: '600',
+            color: '#171717',
+            marginBottom: '8px',
+            letterSpacing: '-0.01em'
+          }}>
+            Community Leaderboards
+          </h2>
+          <p style={{
+            fontSize: 'var(--text-sm)',
+            color: '#737373',
+            marginBottom: '32px',
+            lineHeight: '1.5'
+          }}>
+            Control your visibility on the FigTracker homepage leaderboards
+          </p>
+
+          {!loadingLeaderboard && (
+            <form onSubmit={handleLeaderboardUpdate}>
+              {/* Display Name */}
+              <div style={{ marginBottom: '24px' }}>
+                <label htmlFor="leaderboardDisplayName" style={{
+                  display: 'block',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: '500',
+                  marginBottom: '12px',
+                  color: '#525252',
+                  letterSpacing: '0.01em'
+                }}>
+                  Display Name
+                </label>
+                <input
+                  id="leaderboardDisplayName"
+                  type="text"
+                  value={leaderboardSettings.leaderboardDisplayName}
+                  onChange={(e) => setLeaderboardSettings({ ...leaderboardSettings, leaderboardDisplayName: e.target.value })}
+                  placeholder="e.g., LEGO Master"
+                  minLength={3}
+                  maxLength={30}
+                  style={{
+                    width: '100%',
+                    padding: '14px 16px',
+                    fontSize: 'var(--text-sm)',
+                    borderRadius: '8px',
+                    border: '1px solid #e5e5e5',
+                    color: '#171717',
+                    background: 'white',
+                    outline: 'none',
+                    transition: 'border-color 0.2s, box-shadow 0.2s',
+                    boxSizing: 'border-box'
+                  }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.borderColor = '#3b82f6';
+                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.borderColor = '#e5e5e5';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                />
+                <p style={{
+                  fontSize: 'var(--text-xs)',
+                  color: '#a3a3a3',
+                  marginTop: '8px',
+                  lineHeight: '1.5'
+                }}>
+                  Leave blank to use "{session?.user?.name?.split(' ')[0]} {session?.user?.name?.split(' ')[1]?.[0]}." (3-30 characters)
+                </p>
+              </div>
+
+              {/* Minifig Leaderboard Opt-in */}
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  cursor: 'pointer',
+                  gap: '12px'
+                }}>
+                  <input
+                    type="checkbox"
+                    checked={leaderboardSettings.showOnMinifigLeaderboard}
+                    onChange={(e) => setLeaderboardSettings({ ...leaderboardSettings, showOnMinifigLeaderboard: e.target.checked })}
+                    style={{
+                      width: '18px',
+                      height: '18px',
+                      marginTop: '2px',
+                      cursor: 'pointer',
+                      flexShrink: 0
+                    }}
+                  />
+                  <div>
+                    <span style={{
+                      display: 'block',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: '600',
+                      color: '#171717',
+                      marginBottom: '4px'
+                    }}>
+                      Show me on Top Minifig Collectors leaderboard
+                    </span>
+                    <span style={{
+                      fontSize: 'var(--text-xs)',
+                      color: '#737373',
+                      lineHeight: '1.5'
+                    }}>
+                      Your minifig collection count will be publicly visible
+                    </span>
+                  </div>
+                </label>
+              </div>
+
+              {/* Set Leaderboard Opt-in */}
+              <div style={{ marginBottom: '32px' }}>
+                <label style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  cursor: 'pointer',
+                  gap: '12px'
+                }}>
+                  <input
+                    type="checkbox"
+                    checked={leaderboardSettings.showOnSetLeaderboard}
+                    onChange={(e) => setLeaderboardSettings({ ...leaderboardSettings, showOnSetLeaderboard: e.target.checked })}
+                    style={{
+                      width: '18px',
+                      height: '18px',
+                      marginTop: '2px',
+                      cursor: 'pointer',
+                      flexShrink: 0
+                    }}
+                  />
+                  <div>
+                    <span style={{
+                      display: 'block',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: '600',
+                      color: '#171717',
+                      marginBottom: '4px'
+                    }}>
+                      Show me on Top Set Collectors leaderboard
+                    </span>
+                    <span style={{
+                      fontSize: 'var(--text-xs)',
+                      color: '#737373',
+                      lineHeight: '1.5'
+                    }}>
+                      Your set collection count will be publicly visible
+                    </span>
+                  </div>
+                </label>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                style={{
+                  padding: '14px 24px',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: '600',
+                  color: '#ffffff',
+                  background: loading ? '#a3a3a3' : '#3b82f6',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  opacity: loading ? 0.5 : 1,
+                  transition: 'all 0.2s',
+                  outline: 'none',
+                  width: '100%',
+                  boxSizing: 'border-box'
+                }}
+              >
+                {loading ? 'Saving...' : 'Save Leaderboard Settings'}
+              </button>
+            </form>
+          )}
         </div>
 
         {/* Security Section */}
