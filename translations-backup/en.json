@@ -480,7 +480,7 @@
       },
       {
         "q": "Can I export my inventory?",
-        "a": "Currently, inventory data is viewable through your FigTracker dashboard. Export functionality is planned for a future update."
+        "a": "Yes! Go to your Account settings and click \"Export Your Data\" under Data Management. This downloads your complete minifig inventory as a JSON file that you can import into spreadsheets or other tools."
       },
       {
         "q": "What if I find something that's not in the database?",
