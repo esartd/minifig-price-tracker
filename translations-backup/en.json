@@ -424,6 +424,18 @@
     "title": "Sets We're Excited About",
     "subtitle": "Hand-picked sets worth checking out"
   },
+  "supportPage": {
+    "title": "Support FigTracker",
+    "subtitle": "Keep our LEGO price tracker free for the community",
+    "intro": "FigTracker provides free LEGO price tracking for 18,000+ minifigures and 20,000+ sets with real-time BrickLink data. We cover costs through affiliate commissions when you shop through our links. Here's how you can help:",
+    "shopLinksTitle": "Shop Through Our Links",
+    "shopLinksDescription": "When you're ready to buy LEGO sets, use the \"Buy on Amazon\" buttons on our featured sets and deal pages (marked \"Sponsored\").",
+    "shopLinksNote": "You pay the same price — we earn a small commission to keep the site running.",
+    "donateLabel": "Or support us directly:",
+    "donateLeaderboard": "Donors appear on the Top Supporters leaderboard on our homepage",
+    "donateButton": "Donate via PayPal",
+    "thankYou": "Thank you for supporting FigTracker!"
+  },
   "leaderboards": {
     "title": "Community Leaderboards",
     "tabQuarterly": "This Quarter",

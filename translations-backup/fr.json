@@ -481,6 +481,18 @@
     "title": "Sets qui nous passionnent",
     "subtitle": "Sets sélectionnés à découvrir"
   },
+  "supportPage": {
+    "title": "Soutenir FigTracker",
+    "subtitle": "Gardez notre tracker de prix LEGO gratuit pour la communauté",
+    "intro": "FigTracker fournit un suivi gratuit des prix LEGO pour plus de 18 000 minifigurines et 20 000 sets avec des données BrickLink en temps réel. Nous couvrons les coûts grâce aux commissions d'affiliation lorsque vous achetez via nos liens. Voici comment vous pouvez aider :",
+    "shopLinksTitle": "Achetez via nos liens",
+    "shopLinksDescription": "Lorsque vous êtes prêt à acheter des sets LEGO, utilisez les boutons \"Acheter sur Amazon\" sur nos sets en vedette et nos pages de promotions (marqués \"Sponsorisé\").",
+    "shopLinksNote": "Vous payez le même prix — nous gagnons une petite commission pour maintenir le site.",
+    "donateLabel": "Ou soutenez-nous directement :",
+    "donateLeaderboard": "Les donateurs apparaissent sur le classement des meilleurs supporters sur notre page d'accueil",
+    "donateButton": "Faire un don via PayPal",
+    "thankYou": "Merci de soutenir FigTracker !"
+  },
   "leaderboards": {
     "title": "Classements de la communauté",
     "tabQuarterly": "Ce trimestre",

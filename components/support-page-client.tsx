@@ -26,7 +26,7 @@ export default function SupportPageClient() {
           marginBottom: '24px',
           lineHeight: '1.2'
         }}>
-          Support FigTracker
+          {t('supportPage.title')}
         </h1>
         <p style={{
           fontSize: 'clamp(18px, 3vw, 22px)',
@@ -34,7 +34,7 @@ export default function SupportPageClient() {
           lineHeight: '1.6',
           marginBottom: '0'
         }}>
-          Keep our LEGO price tracker free for the community
+          {t('supportPage.subtitle')}
         </p>
       </div>
 
@@ -58,7 +58,7 @@ export default function SupportPageClient() {
             marginBottom: '40px',
             textAlign: 'center'
           }}>
-            FigTracker provides free LEGO price tracking for 18,000+ minifigures and 20,000+ sets with real-time BrickLink data. We cover costs through affiliate commissions when you shop through our links. Here's how you can help:
+            {t('supportPage.intro')}
           </p>
 
           {/* Primary CTA - Shop Links */}
@@ -84,7 +84,7 @@ export default function SupportPageClient() {
                 color: '#171717',
                 margin: 0
               }}>
-                Shop Through Our Links
+                {t('supportPage.shopLinksTitle')}
               </h3>
             </div>
             <p style={{
@@ -93,7 +93,7 @@ export default function SupportPageClient() {
               color: '#525252',
               marginBottom: '12px'
             }}>
-              When you're ready to buy LEGO sets, use the "Buy on Amazon" buttons on our featured sets and deal pages (marked "Sponsored").
+              {t('supportPage.shopLinksDescription')}
             </p>
             <p style={{
               fontSize: '17px',
@@ -102,7 +102,7 @@ export default function SupportPageClient() {
               marginBottom: '0',
               fontWeight: '600'
             }}>
-              You pay the same price — we earn a small commission to keep the site running.
+              {t('supportPage.shopLinksNote')}
             </p>
           </div>
 
@@ -117,7 +117,7 @@ export default function SupportPageClient() {
               color: '#737373',
               marginBottom: '8px'
             }}>
-              Or support us directly:
+              {t('supportPage.donateLabel')}
             </p>
             <p style={{
               fontSize: '14px',
@@ -125,7 +125,7 @@ export default function SupportPageClient() {
               marginBottom: '16px',
               fontStyle: 'italic'
             }}>
-              Donors appear on the Top Supporters leaderboard on our homepage
+              {t('supportPage.donateLeaderboard')}
             </p>
             <a
               href="https://www.paypal.com/donate/?business=W2LZ3TNF2X88C&no_recurring=0&currency_code=USD&return=https://figtracker.ericksu.com/claim-donation"
@@ -155,7 +155,7 @@ export default function SupportPageClient() {
                 e.currentTarget.style.boxShadow = '0 2px 4px rgba(59, 130, 246, 0.2)';
               }}
             >
-              Donate via PayPal
+              {t('supportPage.donateButton')}
             </a>
           </div>
         </div>
@@ -171,7 +171,7 @@ export default function SupportPageClient() {
             color: 'rgba(255, 255, 255, 0.95)',
             marginBottom: '0'
           }}>
-            Thank you for supporting FigTracker!
+            {t('supportPage.thankYou')}
           </p>
         </div>
       </div>
