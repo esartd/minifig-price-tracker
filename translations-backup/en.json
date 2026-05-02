@@ -440,7 +440,7 @@
     "items": [
       {
         "q": "How does FigTracker calculate suggested prices?",
-        "a": "FigTracker averages three Bricklink data points: quantity-weighted average of sold prices (6-month history), quantity-weighted average of current listings, and lowest current price. The formula is: (sold avg + stock avg + lowest) / 3. This balanced approach adapts faster to market changes than using sold prices alone."
+        "a": "FigTracker looks at three things to suggest a fair price: (1) What people actually paid in the last 6 months, (2) What sellers are asking right now, and (3) The cheapest price currently available. We average these three numbers to give you a realistic price that reflects both recent sales and current market conditions."
       },
       {
         "q": "Is FigTracker free to use?",
@@ -489,6 +489,18 @@
       {
         "q": "Is my inventory data private?",
         "a": "Yes, your inventory is completely private and only visible to you when logged in. We never share or sell your data."
+      },
+      {
+        "q": "What are the community leaderboards?",
+        "a": "FigTracker features quarterly leaderboards showing top collectors for minifigures, sets, and supporters. Leaderboards reset every 3 months (Q1, Q2, Q3, Q4) and only count items added during that quarter. You can opt-in or opt-out anytime in your Account settings."
+      },
+      {
+        "q": "How do I appear on the leaderboards?",
+        "a": "Go to Account settings and check the boxes to show on the Minifig Collectors or Set Collectors leaderboards. You can customize your display name or leave it blank to use your first name and last initial. Only items you add during the current quarter count toward your rank."
+      },
+      {
+        "q": "Can I share my collection publicly?",
+        "a": "Yes! You can generate a public share link for your collections in your Account settings. This allows others to view your minifigures and sets without needing to log in. You control what's shared and can disable sharing anytime."
       }
     ]
   },
