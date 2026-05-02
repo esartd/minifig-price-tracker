@@ -1,20 +1,29 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getCurrentSeason, formatSeasonDateRange } from '@/lib/donations';
 
 /**
- * GET /api/donations/leaderboard
- * Returns top 5 donors for the current season
+ * GET /api/donations/leaderboard?period=quarterly|alltime
+ * Returns top 5 donors
  * Public endpoint - no authentication required
+ *
+ * Query params:
+ * - period: 'quarterly' (default) or 'alltime'
  */
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const searchParams = request.nextUrl.searchParams;
+    const period = searchParams.get('period') || 'quarterly';
+
     const season = getCurrentSeason();
 
-    // Get all donations for current season that opted-in to leaderboard
+    // Build season filter based on period
+    const seasonFilter = period === 'alltime' ? {} : { season };
+
+    // Get all donations that opted-in to leaderboard
     const donations = await prisma.donation.findMany({
       where: {
-        season,
+        ...seasonFilter,
         showOnLeaderboard: true,
         status: 'completed',
       },
@@ -53,7 +62,8 @@ export async function GET() {
       success: true,
       data: {
         season,
-        dateRange: formatSeasonDateRange(),
+        dateRange: period === 'quarterly' ? formatSeasonDateRange() : 'All-Time',
+        period,
         topDonors,
       },
     });

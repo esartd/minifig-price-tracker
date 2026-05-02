@@ -31,7 +31,7 @@ export default function LeaderboardsSection() {
     Promise.all([
       fetch(`/api/leaderboards/minifig-collectors?period=${period}`).then(res => res.json()),
       fetch(`/api/leaderboards/set-collectors?period=${period}`).then(res => res.json()),
-      fetch('/api/donations/leaderboard').then(res => res.json()),
+      fetch(`/api/donations/leaderboard?period=${period}`).then(res => res.json()),
     ])
       .then(([minifigData, setData, donorData]) => {
         if (minifigData.success) {
