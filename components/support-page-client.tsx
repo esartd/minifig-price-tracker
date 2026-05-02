@@ -115,9 +115,17 @@ export default function SupportPageClient() {
             <p style={{
               fontSize: '15px',
               color: '#737373',
-              marginBottom: '16px'
+              marginBottom: '8px'
             }}>
               Or support us directly:
+            </p>
+            <p style={{
+              fontSize: '14px',
+              color: '#737373',
+              marginBottom: '16px',
+              fontStyle: 'italic'
+            }}>
+              Donors appear on the Top Supporters leaderboard on our homepage
             </p>
             <a
               href="https://www.paypal.com/donate/?business=W2LZ3TNF2X88C&no_recurring=0&currency_code=USD&return=https://figtracker.ericksu.com/claim-donation"
