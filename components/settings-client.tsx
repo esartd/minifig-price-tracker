@@ -6,8 +6,8 @@ import { useSession } from 'next-auth/react';
 export default function SettingsClient() {
   const { data: session } = useSession();
   const [formData, setFormData] = useState({
-    showOnMinifigLeaderboard: false,
-    showOnSetLeaderboard: false,
+    showOnMinifigLeaderboard: true,
+    showOnSetLeaderboard: true,
     leaderboardDisplayName: '',
   });
   const [loading, setLoading] = useState(true);
@@ -21,8 +21,8 @@ export default function SettingsClient() {
       .then(data => {
         if (data.success) {
           setFormData({
-            showOnMinifigLeaderboard: data.data.showOnMinifigLeaderboard || false,
-            showOnSetLeaderboard: data.data.showOnSetLeaderboard || false,
+            showOnMinifigLeaderboard: data.data.showOnMinifigLeaderboard ?? true,
+            showOnSetLeaderboard: data.data.showOnSetLeaderboard ?? true,
             leaderboardDisplayName: data.data.leaderboardDisplayName || '',
           });
         }
