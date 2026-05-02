@@ -448,7 +448,7 @@
       },
       {
         "q": "Where does the pricing data come from?",
-        "a": "All pricing data comes directly from the official Bricklink API. We fetch prices from ALL global sellers and Bricklink automatically converts them to your selected currency. This gives you accurate worldwide pricing regardless of which currency you use."
+        "a": "All pricing data comes directly from the official Bricklink API. We fetch prices from ALL worldwide sellers (not filtered by country) and Bricklink converts them to your selected currency. This ensures you see prices even for rare items that may not have local sellers. Note: This shows global market pricing, which may differ from your specific local market conditions."
       },
       {
         "q": "What currencies are supported?",
