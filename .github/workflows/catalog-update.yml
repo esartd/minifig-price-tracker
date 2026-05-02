@@ -1,0 +1,59 @@
+# INSTRUCTIONS:
+# 1. Go to: https://github.com/settings/tokens
+# 2. Generate new token with "workflow" scope enabled
+# 3. Add repository secret: CATALOG_UPDATE_TOKEN (Settings → Secrets and variables → Actions)
+# 4. Move this file to: .github/workflows/catalog-update.yml
+# 5. Commit and push
+
+name: Auto Catalog Update
+
+on:
+  schedule:
+    # Run every 2 weeks on 1st and 15th of month at 2 AM UTC
+    - cron: '0 2 1,15 * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-catalog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run catalog update script
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: npx ts-node scripts/auto-catalog-update.ts
+
+      - name: Commit updated catalog
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add public/catalog/minifigs.json
+          git diff --staged --quiet || git commit -m "chore: auto-update BrickLink catalog
+
+          - Downloaded latest catalog from BrickLink
+          - Detected and migrated item number changes
+          - Updated minifigs.json with $(date +'%Y-%m-%d')
+
+          Co-Authored-By: GitHub Actions <actions@github.com>"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.CATALOG_UPDATE_TOKEN }}
+          branch: ${{ github.ref }}
+
+      - name: Notify on failure
+        if: failure()
+        run: echo "::error::Catalog update failed - check logs"
