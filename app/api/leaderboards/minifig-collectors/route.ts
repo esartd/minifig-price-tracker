@@ -1,16 +1,17 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getCurrentSeason } from '@/lib/donations';
+import { getCurrentSeason, getCurrentSeasonDateRange } from '@/lib/donations';
 import { generateDefaultDisplayName } from '@/lib/leaderboards';
 
 /**
  * GET /api/leaderboards/minifig-collectors
  * Returns top 5 minifig collectors for current quarter
- * Counts total unique minifigs in collection (CollectionItem)
+ * Counts unique minifigs ADDED this quarter (CollectionItem.date_added)
  */
 export async function GET() {
   try {
     const season = getCurrentSeason();
+    const { start, end } = getCurrentSeasonDateRange();
 
     // Get all users who opted-in to minifig leaderboard
     const users = await prisma.user.findMany({
@@ -22,6 +23,12 @@ export async function GET() {
         name: true,
         leaderboardDisplayName: true,
         CollectionItem: {
+          where: {
+            date_added: {
+              gte: start,
+              lte: end,
+            },
+          },
           select: {
             minifigure_no: true,
           },

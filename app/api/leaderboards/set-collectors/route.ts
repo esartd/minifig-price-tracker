@@ -1,16 +1,17 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getCurrentSeason } from '@/lib/donations';
+import { getCurrentSeason, getCurrentSeasonDateRange } from '@/lib/donations';
 import { generateDefaultDisplayName } from '@/lib/leaderboards';
 
 /**
  * GET /api/leaderboards/set-collectors
  * Returns top 5 set collectors for current quarter
- * Counts total unique sets in collection (SetPersonalCollectionItem)
+ * Counts unique sets ADDED this quarter (SetPersonalCollectionItem.date_added)
  */
 export async function GET() {
   try {
     const season = getCurrentSeason();
+    const { start, end } = getCurrentSeasonDateRange();
 
     // Get all users who opted-in to set leaderboard
     const users = await prisma.user.findMany({
@@ -22,6 +23,12 @@ export async function GET() {
         name: true,
         leaderboardDisplayName: true,
         SetPersonalCollectionItem: {
+          where: {
+            date_added: {
+              gte: start,
+              lte: end,
+            },
+          },
           select: {
             box_no: true,
           },

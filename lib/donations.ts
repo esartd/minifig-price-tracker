@@ -43,6 +43,27 @@ export function validateDisplayName(name: string): { valid: boolean; error?: str
 }
 
 /**
+ * Get start and end dates for the current quarter
+ * Returns { start: Date, end: Date } for filtering date_added fields
+ */
+export function getCurrentSeasonDateRange(): { start: Date; end: Date } {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth(); // 0-11
+  const quarter = Math.floor(month / 3); // 0-3
+
+  // Calculate start of quarter
+  const startMonth = quarter * 3;
+  const start = new Date(year, startMonth, 1, 0, 0, 0, 0);
+
+  // Calculate end of quarter (last millisecond of last day)
+  const endMonth = startMonth + 3;
+  const end = new Date(year, endMonth, 0, 23, 59, 59, 999);
+
+  return { start, end };
+}
+
+/**
  * Format currency amount for display
  */
 export function formatDonationAmount(amount: number, currency: string = 'USD'): string {
