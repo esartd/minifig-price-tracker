@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { TrophyIcon, CubeIcon, HeartIcon } from '@heroicons/react/24/solid';
+import { TrophyIcon, CubeIcon, HeartIcon } from '@heroicons/react/24/outline';
 
 interface Collector {
   displayName: string;
