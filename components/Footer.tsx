@@ -102,6 +102,15 @@ export default function Footer() {
           onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
           onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
           >{t('footer.guides')}</a>
+          <a href="/support" style={{
+            color: '#525252',
+            textDecoration: 'none',
+            fontWeight: '500',
+            transition: 'color 0.2s'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
+          onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+          >Support Us</a>
           <a href="mailto:hello@ericksu.com" style={{
             color: '#525252',
             textDecoration: 'none',
