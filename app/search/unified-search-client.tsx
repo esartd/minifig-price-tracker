@@ -358,8 +358,8 @@ export default function UnifiedSearchClient() {
 
                   <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                    gap: '24px'
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+                    gap: '20px'
                   }}>
                     {minifigsToShow.map(minifig => (
                       <Link
@@ -467,8 +467,8 @@ export default function UnifiedSearchClient() {
 
                   <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                    gap: '24px'
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+                    gap: '20px'
                   }}>
                     {setsToShow.map(set => (
                       <Link
@@ -493,29 +493,53 @@ export default function UnifiedSearchClient() {
                           e.currentTarget.style.boxShadow = 'none';
                         }}>
                           <div style={{
-                            height: '200px',
+                            aspectRatio: '4/3',
                             background: '#ffffff',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            padding: '20px'
+                            padding: '16px',
+                            position: 'relative'
                           }}>
                             <Image
                               src={set.image_url}
                               alt={set.name}
-                              width={160}
-                              height={160}
-                              style={{ objectFit: 'contain', maxHeight: '160px' }}
+                              width={200}
+                              height={150}
+                              style={{
+                                objectFit: 'contain',
+                                width: '100%',
+                                height: '100%',
+                                maxWidth: '100%',
+                                maxHeight: '100%'
+                              }}
                             />
                           </div>
                           <div style={{ padding: '16px' }}>
                             <div style={{
-                              fontSize: '11px',
-                              color: '#10b981',
-                              fontWeight: '600',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
                               marginBottom: '4px'
                             }}>
-                              {set.box_no}
+                              <div style={{
+                                fontSize: '11px',
+                                color: '#10b981',
+                                fontWeight: '600'
+                              }}>
+                                {set.box_no}
+                              </div>
+                              {set.year_released && (
+                                <div style={{
+                                  fontSize: '10px',
+                                  color: '#737373',
+                                  background: '#f5f5f5',
+                                  padding: '2px 8px',
+                                  borderRadius: '4px'
+                                }}>
+                                  {set.year_released}
+                                </div>
+                              )}
                             </div>
                             <div style={{
                               fontSize: '14px',
