@@ -1099,7 +1099,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                             fontSize: 'var(--text-xs)',
                             color: '#737373'
                           }}>
-                            Fast shipping
+                            Fast shipping • Sponsored
                           </div>
                         </div>
                       </div>

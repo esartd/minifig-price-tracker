@@ -2336,7 +2336,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                             fontSize: 'var(--text-xs)',
                             color: '#737373'
                           }}>
-                            Fast shipping
+                            Fast shipping • Sponsored
                           </div>
                         </div>
                       </div>
