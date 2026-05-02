@@ -112,6 +112,7 @@ export default function LeaderboardsSection() {
               icon={<UserIcon style={{ width: '20px', height: '20px', color: '#f59e0b' }} />}
               items={minifigCollectors}
               type="collector"
+              itemType="minifigs"
             />
           )}
 
@@ -122,6 +123,7 @@ export default function LeaderboardsSection() {
               icon={<CubeIcon style={{ width: '20px', height: '20px', color: '#3b82f6' }} />}
               items={setCollectors}
               type="collector"
+              itemType="sets"
             />
           )}
 
@@ -260,11 +262,13 @@ function LeaderboardColumn({
   icon,
   items,
   type,
+  itemType,
 }: {
   title: string;
   icon: React.ReactNode;
   items: (Collector | Donor)[];
   type: 'collector' | 'donor';
+  itemType?: 'minifigs' | 'sets';
 }) {
   return (
     <div>
@@ -291,6 +295,7 @@ function LeaderboardColumn({
             key={item.rank}
             item={item}
             type={type}
+            itemType={itemType}
           />
         ))}
       </div>
@@ -302,9 +307,11 @@ function LeaderboardColumn({
 function LeaderboardCard({
   item,
   type,
+  itemType,
 }: {
   item: Collector | Donor;
   type: 'collector' | 'donor';
+  itemType?: 'minifigs' | 'sets';
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -376,7 +383,7 @@ function LeaderboardCard({
           }}
         >
           {type === 'collector'
-            ? `${(item as Collector).count} items`
+            ? `${(item as Collector).count} ${itemType || 'items'}`
             : `$${(item as Donor).totalAmount.toFixed(2)}`
           }
         </div>
