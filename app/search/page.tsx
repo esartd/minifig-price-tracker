@@ -6,7 +6,7 @@ import SearchBar from '@/components/SearchBar';
 import { SearchResults } from '@/components/search';
 import { CollectionItem } from '@/types';
 import FeaturedSets from '@/components/FeaturedSets';
-import DonationLeaderboard from '@/components/DonationLeaderboard';
+import LeaderboardsSection from '@/components/LeaderboardsSection';
 import { useTranslation } from '@/components/TranslationProvider';
 
 // Diverse minifigures from multiple themes (verified to exist in catalog)
@@ -530,7 +530,7 @@ function SearchPageContent() {
       {!isSearchActive && (
         <>
           <FeaturedSets />
-          <DonationLeaderboard />
+          <LeaderboardsSection />
         </>
       )}
     </div>

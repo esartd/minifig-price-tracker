@@ -214,6 +214,9 @@ model User {
   subscriptionEndsAt        DateTime?
   subscriptionPlan          String?
   subscriptionStatus        String?
+  showOnMinifigLeaderboard  Boolean?                     @default(false)
+  showOnSetLeaderboard      Boolean?                     @default(false)
+  leaderboardDisplayName    String?
   Account                   Account[]
   CollectionItem            CollectionItem[]
   Listing                   Listing[]
