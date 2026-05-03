@@ -47,10 +47,45 @@ function generateFireworkPositions(count: number) {
   const shuffledPool = [...MINIFIG_POOL].sort(() => Math.random() - 0.5);
 
   const positions: any[] = [];
-  const edgeDepth = 18; // How far from edge (18% = stay in outer band)
+
+  // Responsive exclusion zone based on viewport width
+  // This matches how the text and search bar scale
+  const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1200;
+
+  let edgeDepth, centerExclusionWidth, centerExclusionHeight;
+
+  if (viewportWidth < 480) {
+    // Mobile: text wraps more, takes more vertical space
+    edgeDepth = 22; // Deeper edge band on mobile
+    centerExclusionWidth = 70; // Wider exclusion (text wraps)
+    centerExclusionHeight = 55; // Taller exclusion (more vertical space)
+  } else if (viewportWidth < 768) {
+    // Small tablet
+    edgeDepth = 20;
+    centerExclusionWidth = 65;
+    centerExclusionHeight = 50;
+  } else if (viewportWidth < 1024) {
+    // Tablet
+    edgeDepth = 18;
+    centerExclusionWidth = 60;
+    centerExclusionHeight = 45;
+  } else {
+    // Desktop: text more compact
+    edgeDepth = 16;
+    centerExclusionWidth = 55;
+    centerExclusionHeight = 40;
+  }
 
   // Distribute evenly across 4 edges
   const perEdge = Math.ceil(count / 4);
+
+  // Calculate safe zones (avoid center where text is)
+  const centerX = 50;
+  const centerY = 50;
+  const safeLeft = (100 - centerExclusionWidth) / 2;
+  const safeRight = safeLeft + centerExclusionWidth;
+  const safeTop = (100 - centerExclusionHeight) / 2;
+  const safeBottom = safeTop + centerExclusionHeight;
 
   for (let i = 0; i < count; i++) {
     const edge = Math.floor(i / perEdge); // 0=top, 1=right, 2=bottom, 3=left
@@ -60,22 +95,49 @@ function generateFireworkPositions(count: number) {
     let x, y;
 
     switch (edge) {
-      case 0: // Top edge
-        x = 10 + progressAlongEdge * 80; // Spread across 10% to 90%
-        y = 5 + Math.random() * edgeDepth; // Top band
+      case 0: // Top edge - avoid center horizontally
+        if (progressAlongEdge < 0.4) {
+          // Left side of top
+          x = 5 + progressAlongEdge * (safeLeft / 0.4);
+        } else if (progressAlongEdge > 0.6) {
+          // Right side of top
+          x = safeRight + (progressAlongEdge - 0.6) * ((95 - safeRight) / 0.4);
+        } else {
+          // Skip center, place at edge sides
+          x = progressAlongEdge < 0.5 ? safeLeft : safeRight;
+        }
+        y = 5 + Math.random() * edgeDepth;
         break;
-      case 1: // Right edge
-        x = (100 - edgeDepth) + Math.random() * edgeDepth; // Right band
-        y = 10 + progressAlongEdge * 80; // Spread across 10% to 90%
+      case 1: // Right edge - avoid center vertically
+        x = (100 - edgeDepth) + Math.random() * edgeDepth;
+        if (progressAlongEdge < 0.4) {
+          y = 5 + progressAlongEdge * (safeTop / 0.4);
+        } else if (progressAlongEdge > 0.6) {
+          y = safeBottom + (progressAlongEdge - 0.6) * ((95 - safeBottom) / 0.4);
+        } else {
+          y = progressAlongEdge < 0.5 ? safeTop : safeBottom;
+        }
         break;
-      case 2: // Bottom edge
-        x = 10 + progressAlongEdge * 80; // Spread across 10% to 90%
-        y = (100 - edgeDepth) + Math.random() * edgeDepth; // Bottom band
+      case 2: // Bottom edge - avoid center horizontally
+        if (progressAlongEdge < 0.4) {
+          x = 5 + progressAlongEdge * (safeLeft / 0.4);
+        } else if (progressAlongEdge > 0.6) {
+          x = safeRight + (progressAlongEdge - 0.6) * ((95 - safeRight) / 0.4);
+        } else {
+          x = progressAlongEdge < 0.5 ? safeLeft : safeRight;
+        }
+        y = (100 - edgeDepth) + Math.random() * edgeDepth;
         break;
-      case 3: // Left edge
+      case 3: // Left edge - avoid center vertically
       default:
-        x = 5 + Math.random() * edgeDepth; // Left band
-        y = 10 + progressAlongEdge * 80; // Spread across 10% to 90%
+        x = 5 + Math.random() * edgeDepth;
+        if (progressAlongEdge < 0.4) {
+          y = 5 + progressAlongEdge * (safeTop / 0.4);
+        } else if (progressAlongEdge > 0.6) {
+          y = safeBottom + (progressAlongEdge - 0.6) * ((95 - safeBottom) / 0.4);
+        } else {
+          y = progressAlongEdge < 0.5 ? safeTop : safeBottom;
+        }
         break;
     }
 
@@ -123,6 +185,14 @@ function SearchPageContent() {
   useEffect(() => {
     // Generate positions only on client to avoid hydration mismatch
     setMinifigPositions(generateFireworkPositions(12));
+
+    // Regenerate positions on window resize to adapt to responsive layout
+    const handleResize = () => {
+      setMinifigPositions(generateFireworkPositions(12));
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Load category/subcategory browsing on mount
