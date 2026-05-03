@@ -90,9 +90,9 @@ export async function GET(request: Request) {
       });
     }
 
-    // TASK 3: Record price history (runs ONCE daily - only at midnight UTC)
+    // TASK 3: Record price history (runs ONCE daily - only at 11 PM UTC)
     const currentHour = new Date().getUTCHours();
-    if (currentHour === 0) { // Runs at 12 AM UTC
+    if (currentHour === 23) { // Runs at 11 PM UTC (matches vercel.json schedule)
       console.log('Starting price history recording (daily task)...');
       try {
         const priceHistoryResponse = await fetch(`${baseUrl}/api/price-history/record`, {
@@ -119,7 +119,7 @@ export async function GET(request: Request) {
       results.tasks.push({
         name: 'price-history',
         status: 'skipped',
-        reason: `Only runs at midnight UTC (current hour: ${currentHour})`
+        reason: `Only runs at 11 PM UTC (current hour: ${currentHour})`
       });
     }
 
