@@ -29,23 +29,22 @@ export default function LeaderboardsSection() {
   useEffect(() => {
     const period = activeTab === 'quarterly' ? 'quarterly' : 'alltime';
 
-    // Fetch all three leaderboards in parallel
-    Promise.all([
-      fetch(`/api/leaderboards/minifig-collectors?period=${period}`).then(res => res.json()),
-      fetch(`/api/leaderboards/set-collectors?period=${period}`).then(res => res.json()),
-      fetch(`/api/donations/leaderboard?period=${period}`).then(res => res.json()),
-    ])
-      .then(([minifigData, setData, donorData]) => {
-        if (minifigData.success) {
-          setMinifigCollectors(minifigData.data.topCollectors);
-          setSeason(minifigData.data.season);
-          setDateRange(minifigData.data.dateRange);
-        }
-        if (setData.success) {
-          setSetCollectors(setData.data.topCollectors);
-        }
-        if (donorData.success) {
-          setTopDonors(donorData.data.topDonors);
+    // Reset loading state when tab changes to prevent flash of old data
+    setLoading(true);
+
+    // Fetch all leaderboards in a SINGLE API call to reduce database connections
+    // Previously: 3 parallel calls = 3 DB connections
+    // Now: 1 call = 1 DB connection (with batched queries)
+    fetch(`/api/leaderboards/all?period=${period}`)
+      .then(res => res.json())
+      .then((response) => {
+        if (response.success) {
+          const data = response.data;
+          setMinifigCollectors(data.minifigCollectors);
+          setSetCollectors(data.setCollectors);
+          setTopDonors(data.topDonors);
+          setSeason(data.season);
+          setDateRange(data.dateRange);
         }
         setLoading(false);
       })
