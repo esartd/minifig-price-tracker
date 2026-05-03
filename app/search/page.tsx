@@ -89,11 +89,12 @@ function generateFireworkPositions(count: number) {
     const distanceFromCenter = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
 
     // Max distance is roughly 70 (corner to center)
-    // Normalize to 0-1 range, then invert so closer = more faded
+    // Normalize to 0-1 range
     const normalizedDistance = Math.min(distanceFromCenter / 70, 1);
 
-    // Opacity: 0.1 (very faded) at center, 0.35 (more visible) at edges
-    const opacity = 0.1 + (normalizedDistance * 0.25);
+    // Opacity: 0.15 (very faded) at center, 1.0 (fully visible) at edges
+    // Farther from center = more visible
+    const opacity = 0.15 + (normalizedDistance * 0.85);
 
     return {
       id: shuffledPool[index % shuffledPool.length],
