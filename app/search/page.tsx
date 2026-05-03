@@ -41,55 +41,51 @@ const MINIFIG_POOL = [
   'mar0066'   // Super Mario
 ];
 
-// Generate evenly distributed positions, avoiding center text/search area with responsive exclusion zone
+// Generate positions along all 4 edges, evenly distributed to avoid white space
 function generateFireworkPositions(count: number) {
   // Shuffle the pool to get random selection each time
   const shuffledPool = [...MINIFIG_POOL].sort(() => Math.random() - 0.5);
 
   const positions: any[] = [];
-  const maxAttempts = 100;
+  const edgeDepth = 18; // How far from edge (18% = stay in outer band)
 
-  // Define exclusion zone (ellipse around center text)
-  // Responsive: larger on desktop, smaller on mobile
-  const centerX = 50;
-  const centerY = 45; // Slightly higher to account for text position
-  const exclusionRadiusX = 25; // Horizontal radius (50% width)
-  const exclusionRadiusY = 20; // Vertical radius (40% height)
+  // Distribute evenly across 4 edges
+  const perEdge = Math.ceil(count / 4);
 
-  // Helper: check if point is inside exclusion ellipse
-  const isInExclusionZone = (x: number, y: number) => {
-    const dx = (x - centerX) / exclusionRadiusX;
-    const dy = (y - centerY) / exclusionRadiusY;
-    return (dx * dx + dy * dy) < 1; // Inside ellipse if < 1
-  };
-
-  // Generate positions that avoid exclusion zone
   for (let i = 0; i < count; i++) {
-    let x, y, attempts = 0;
+    const edge = Math.floor(i / perEdge); // 0=top, 1=right, 2=bottom, 3=left
+    const indexOnEdge = i % perEdge;
+    const progressAlongEdge = (indexOnEdge + Math.random() * 0.5) / perEdge; // Even spacing with slight randomness
 
-    do {
-      // Generate random position across entire viewport
-      x = 5 + Math.random() * 90; // 5% to 95%
-      y = 5 + Math.random() * 90; // 5% to 95%
-      attempts++;
-    } while (isInExclusionZone(x, y) && attempts < maxAttempts);
+    let x, y;
 
-    // If we couldn't find a good spot, place at edge
-    if (attempts >= maxAttempts) {
-      const edge = Math.floor(Math.random() * 4);
-      switch (edge) {
-        case 0: x = 5 + Math.random() * 15; y = 5 + Math.random() * 15; break; // Top-left
-        case 1: x = 80 + Math.random() * 15; y = 5 + Math.random() * 15; break; // Top-right
-        case 2: x = 5 + Math.random() * 15; y = 80 + Math.random() * 15; break; // Bottom-left
-        case 3: x = 80 + Math.random() * 15; y = 80 + Math.random() * 15; break; // Bottom-right
-      }
+    switch (edge) {
+      case 0: // Top edge
+        x = 10 + progressAlongEdge * 80; // Spread across 10% to 90%
+        y = 5 + Math.random() * edgeDepth; // Top band
+        break;
+      case 1: // Right edge
+        x = (100 - edgeDepth) + Math.random() * edgeDepth; // Right band
+        y = 10 + progressAlongEdge * 80; // Spread across 10% to 90%
+        break;
+      case 2: // Bottom edge
+        x = 10 + progressAlongEdge * 80; // Spread across 10% to 90%
+        y = (100 - edgeDepth) + Math.random() * edgeDepth; // Bottom band
+        break;
+      case 3: // Left edge
+      default:
+        x = 5 + Math.random() * edgeDepth; // Left band
+        y = 10 + progressAlongEdge * 80; // Spread across 10% to 90%
+        break;
     }
 
     // Calculate distance from center for opacity
+    const centerX = 50;
+    const centerY = 50;
     const distanceFromCenter = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
     const normalizedDistance = Math.min(distanceFromCenter / 70, 1);
 
-    // Opacity: 0.05 (almost invisible) at center, 1.0 (fully visible) at edges
+    // Opacity: edges are fully visible, center fades (but we're staying at edges anyway)
     const opacity = 0.05 + (normalizedDistance * 0.95);
 
     positions.push({
