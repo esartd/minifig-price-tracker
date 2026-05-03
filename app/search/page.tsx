@@ -41,66 +41,68 @@ const MINIFIG_POOL = [
   'mar0066'   // Super Mario
 ];
 
-// Generate positions ONLY in corners and far edges - never near center text
+// Generate positions responsively - desktop: sides+bottom, mobile: top+bottom
 function generateFireworkPositions(count: number) {
   // Shuffle the pool to get random selection each time
   const shuffledPool = [...MINIFIG_POOL].sort(() => Math.random() - 0.5);
 
   const positions: any[] = [];
 
-  // Define safe zones - ONLY extreme corners and far edges
-  // These zones are guaranteed to never overlap with center text
-  const safeZones = [
-    // Top-left corner
-    { xMin: 2, xMax: 18, yMin: 2, yMax: 18 },
-    // Top-right corner
-    { xMin: 82, xMax: 98, yMin: 2, yMax: 18 },
-    // Bottom-left corner
-    { xMin: 2, xMax: 18, yMin: 82, yMax: 98 },
-    // Bottom-right corner
-    { xMin: 82, xMax: 98, yMin: 82, yMax: 98 },
-    // Far left edge (middle)
-    { xMin: 2, xMax: 12, yMin: 30, yMax: 70 },
-    // Far right edge (middle)
-    { xMin: 88, xMax: 98, yMin: 30, yMax: 70 },
-    // Top edge (far left)
-    { xMin: 18, xMax: 30, yMin: 2, yMax: 12 },
-    // Top edge (far right)
-    { xMin: 70, xMax: 82, yMin: 2, yMax: 12 },
-    // Bottom edge (far left)
-    { xMin: 18, xMax: 30, yMin: 88, yMax: 98 },
-    // Bottom edge (far right)
-    { xMin: 70, xMax: 82, yMin: 88, yMax: 98 },
-    // Additional mid-left zones
-    { xMin: 2, xMax: 15, yMin: 20, yMax: 30 },
-    { xMin: 2, xMax: 15, yMin: 70, yMax: 80 },
-  ];
+  // Detect viewport size
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
+  let surroundingZones;
+
+  if (isMobile) {
+    // Mobile: Extreme top and bottom only - far from text
+    surroundingZones = [
+      // Extreme top strip - very narrow
+      { xMin: 5, xMax: 20, yMin: 1, yMax: 6 },
+      { xMin: 25, xMax: 40, yMin: 1, yMax: 6 },
+      { xMin: 45, xMax: 55, yMin: 1, yMax: 6 },
+      { xMin: 60, xMax: 75, yMin: 1, yMax: 6 },
+      { xMin: 80, xMax: 95, yMin: 1, yMax: 6 },
+      // Extreme bottom strip - very narrow
+      { xMin: 5, xMax: 20, yMin: 90, yMax: 97 },
+      { xMin: 25, xMax: 40, yMin: 90, yMax: 97 },
+      { xMin: 45, xMax: 55, yMin: 90, yMax: 97 },
+      { xMin: 60, xMax: 75, yMin: 90, yMax: 97 },
+      { xMin: 80, xMax: 95, yMin: 90, yMax: 97 },
+    ];
+  } else {
+    // Desktop: Sides and bottom only (no top)
+    surroundingZones = [
+      // Left side
+      { xMin: 2, xMax: 14, yMin: 15, yMax: 32 },
+      { xMin: 2, xMax: 14, yMin: 35, yMax: 52 },
+      { xMin: 2, xMax: 14, yMin: 55, yMax: 72 },
+      { xMin: 2, xMax: 14, yMin: 75, yMax: 85 },
+      // Right side (mirrors)
+      { xMin: 86, xMax: 98, yMin: 15, yMax: 32 },
+      { xMin: 86, xMax: 98, yMin: 35, yMax: 52 },
+      { xMin: 86, xMax: 98, yMin: 55, yMax: 72 },
+      { xMin: 86, xMax: 98, yMin: 75, yMax: 85 },
+      // Bottom strip
+      { xMin: 5, xMax: 25, yMin: 88, yMax: 96 },
+      { xMin: 38, xMax: 62, yMin: 88, yMax: 96 },
+      { xMin: 75, xMax: 95, yMin: 88, yMax: 96 },
+    ];
+  }
+
+  // Generate all positions
   for (let i = 0; i < count; i++) {
-    // Pick a random safe zone
-    const zone = safeZones[i % safeZones.length];
-
-    // Random position within that zone
+    const zone = surroundingZones[i % surroundingZones.length];
     const x = zone.xMin + Math.random() * (zone.xMax - zone.xMin);
     const y = zone.yMin + Math.random() * (zone.yMax - zone.yMin);
 
-    // Calculate distance from center for opacity
-    const centerX = 50;
-    const centerY = 50;
-    const distanceFromCenter = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
-    const normalizedDistance = Math.min(distanceFromCenter / 70, 1);
-
-    // Opacity: edges are fully visible, center fades (but we're staying at edges anyway)
-    const opacity = 0.05 + (normalizedDistance * 0.95);
-
     positions.push({
       id: shuffledPool[i % shuffledPool.length],
-      x: Math.max(1, Math.min(99, x)),
-      y: Math.max(1, Math.min(99, y)),
+      x,
+      y,
       size: 70 + Math.random() * 30,
       delay: Math.random() * 4,
       reverse: Math.random() > 0.5,
-      opacity: opacity
+      opacity: 0.35 + Math.random() * 0.35  // 0.35 to 0.7 opacity
     });
   }
 
@@ -331,39 +333,42 @@ function SearchPageContent() {
       <div style={{
         position: 'relative',
         overflow: 'hidden',
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        minHeight: isSearchActive ? 'calc(100vh - 72px)' : 'min(calc(100vh - 200px), 600px)'
       }}>
         {/* Floating Background Minifigures - Only in hero section */}
-        <div style={{
-          position: 'absolute',
-          top: '0',
-          left: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: 0,
-          pointerEvents: 'none',
-          overflow: 'hidden'
-        }}>
-          {minifigPositions.map((pos, index) => (
-            <img
-              key={index}
-              src={`/api/images/minifig/${pos.id}`}
-              alt=""
-              loading="lazy"
-              className={`${pos.reverse ? 'floating-emoji-reverse' : 'floating-emoji'} ${isSearchActive ? 'hidden' : ''}`}
-              style={{
-                position: 'absolute',
-                top: `${pos.y}%`,
-                left: `${pos.x}%`,
-                animationDelay: `${pos.delay}s`,
-                width: `${pos.size}px`,
-                height: `${pos.size * 1.25}px`,
-                objectFit: 'contain',
-                opacity: pos.opacity // Dynamic opacity based on distance from center
-              }}
-            />
-          ))}
-        </div>
+        {!isSearchActive && (
+          <div style={{
+            position: 'absolute',
+            top: '0',
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 0,
+            pointerEvents: 'none',
+            overflow: 'hidden'
+          }}>
+            {minifigPositions.map((pos, index) => (
+              <img
+                key={index}
+                src={`/api/images/minifig/${pos.id}`}
+                alt=""
+                loading="lazy"
+                className={pos.reverse ? 'floating-emoji-reverse' : 'floating-emoji'}
+                style={{
+                  position: 'absolute',
+                  top: `${pos.y}%`,
+                  left: `${pos.x}%`,
+                  animationDelay: `${pos.delay}s`,
+                  width: `${pos.size}px`,
+                  height: `${pos.size * 1.25}px`,
+                  objectFit: 'contain',
+                  opacity: pos.opacity // Dynamic opacity based on distance from center
+                }}
+              />
+            ))}
+          </div>
+        )}
 
         <section className="fun-search-content"
         style={{
