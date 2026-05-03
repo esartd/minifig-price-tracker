@@ -262,7 +262,7 @@ input[type="number"] {
   .floating-emoji-reverse {
     width: 38px !important;
     height: 48px !important;
-    opacity: 0.12 !important;
+    /* opacity set dynamically based on distance from center */
   }
 
   /* Mobile-specific positioning - stick to extreme edges */
@@ -372,7 +372,7 @@ input[type="number"] {
   .floating-emoji-reverse {
     width: 48px !important;
     height: 60px !important;
-    opacity: 0.15 !important;
+    /* opacity set dynamically based on distance from center */
   }
 
   /* Standard phone positioning - stick to edges */
@@ -476,7 +476,7 @@ input[type="number"] {
   .floating-emoji-reverse {
     width: 65px !important;
     height: 81px !important;
-    opacity: 0.18 !important;
+    /* opacity set dynamically based on distance from center */
   }
 
   /* Tablet positioning - balanced edge distribution */
@@ -577,7 +577,7 @@ input[type="number"] {
   .floating-emoji-reverse {
     width: 75px !important;
     height: 94px !important;
-    opacity: 0.2 !important;
+    /* opacity set dynamically based on distance from center */
   }
 
   /* Desktop positioning - natural edge distribution (uses default from JS) */
