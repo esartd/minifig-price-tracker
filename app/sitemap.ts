@@ -132,9 +132,32 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }))
     })
 
-    console.log(`[SITEMAP] Generated ${staticPages.length} static + ${minifigPages.length} minifigs + ${themePages.length} themes + ${setThemePages.length} set themes = ${staticPages.length + minifigPages.length + themePages.length + setThemePages.length} total URLs`)
+    // Individual set pages - all locales (20k+ URLs)
+    const setPages: MetadataRoute.Sitemap = boxes
+      .filter(box => box.box_no) // Only include valid IDs
+      .flatMap(box => {
+        const path = `/sets/${box.box_no}`
+        const boxLastModified = lastModified // Can add updated_at field later
 
-    return [...staticPages, ...themePages, ...setThemePages, ...minifigPages]
+        return locales.map(locale => ({
+          url: `${domains[locale]}${path}`,
+          lastModified: boxLastModified,
+          changeFrequency: 'weekly' as const,
+          priority: 0.6,
+          alternates: {
+            languages: {
+              ...Object.fromEntries(
+                locales.map(l => [l, `${domains[l]}${path}`])
+              ),
+              'x-default': `${domains.en}${path}`
+            }
+          }
+        }))
+      })
+
+    console.log(`[SITEMAP] Generated ${staticPages.length} static + ${minifigPages.length} minifigs + ${themePages.length} themes + ${setThemePages.length} set themes + ${setPages.length} sets = ${staticPages.length + minifigPages.length + themePages.length + setThemePages.length + setPages.length} total URLs`)
+
+    return [...staticPages, ...themePages, ...setThemePages, ...minifigPages, ...setPages]
   } catch (error) {
     console.error('[SITEMAP] Error generating dynamic URLs:', error)
     return staticPages

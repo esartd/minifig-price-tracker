@@ -38,5 +38,8 @@ Allow: /themes/
 Allow: /auth/signin
 Allow: /auth/signup
 
-# Sitemap location
+# Sitemap locations (all language variants)
 Sitemap: https://figtracker.ericksu.com/sitemap.xml
+Sitemap: https://de.figtracker.ericksu.com/sitemap.xml
+Sitemap: https://fr.figtracker.ericksu.com/sitemap.xml
+Sitemap: https://es.figtracker.ericksu.com/sitemap.xml

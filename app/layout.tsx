@@ -159,9 +159,35 @@ export default async function RootLayout({
     sameAs: [],
   };
 
+  // WebSite schema with sitelinks search box for Google
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'FigTracker',
+    alternateName: 'LEGO Minifigure Price Tracker',
+    url: baseUrl,
+    inLanguage: localeCodeMap[locale as keyof typeof localeCodeMap],
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${baseUrl}/search?q={search_term_string}`
+      },
+      'query-input': 'required name=search_term_string'
+    }
+  };
+
   return (
     <html lang={locale} className="antialiased" style={{ margin: 0, padding: 0 }}>
       <head>
+        {/* Preconnect to external domains for faster loading */}
+        <link rel="preconnect" href="https://img.bricklink.com" />
+        <link rel="preconnect" href="https://www.lego.com" />
+        <link rel="preconnect" href="https://cdn.rebrickable.com" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://img.bricklink.com" />
+        <link rel="dns-prefetch" href="https://www.lego.com" />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
@@ -169,6 +195,10 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
       <body className="antialiased" style={{ margin: 0, padding: 0 }}>
