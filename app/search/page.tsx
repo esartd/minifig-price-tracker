@@ -41,71 +41,67 @@ const MINIFIG_POOL = [
   'mar0066'   // Super Mario
 ];
 
-// Generate evenly distributed positions around all edges, avoiding center text/search area
+// Generate evenly distributed positions, avoiding center text/search area with responsive exclusion zone
 function generateFireworkPositions(count: number) {
   // Shuffle the pool to get random selection each time
   const shuffledPool = [...MINIFIG_POOL].sort(() => Math.random() - 0.5);
 
-  // Define fixed edge zones (all around perimeter, avoiding center)
-  const edgeZones = [
-    // Top left corner
-    { x: 5, y: 5, randomX: 10, randomY: 10 },
-    // Top edge (left of center)
-    { x: 25, y: 3, randomX: 10, randomY: 8 },
-    // Top edge (right of center)
-    { x: 65, y: 3, randomX: 10, randomY: 8 },
-    // Top right corner
-    { x: 88, y: 5, randomX: 10, randomY: 10 },
+  const positions: any[] = [];
+  const maxAttempts = 100;
 
-    // Right edge (upper)
-    { x: 90, y: 25, randomX: 6, randomY: 10 },
-    // Right edge (lower)
-    { x: 90, y: 60, randomX: 6, randomY: 10 },
+  // Define exclusion zone (ellipse around center text)
+  // Responsive: larger on desktop, smaller on mobile
+  const centerX = 50;
+  const centerY = 45; // Slightly higher to account for text position
+  const exclusionRadiusX = 25; // Horizontal radius (50% width)
+  const exclusionRadiusY = 20; // Vertical radius (40% height)
 
-    // Bottom right corner
-    { x: 88, y: 78, randomX: 10, randomY: 8 },
-    // Bottom edge (right of center)
-    { x: 65, y: 80, randomX: 10, randomY: 6 },
-    // Bottom edge (left of center)
-    { x: 25, y: 80, randomX: 10, randomY: 6 },
-    // Bottom left corner
-    { x: 5, y: 78, randomX: 10, randomY: 8 },
+  // Helper: check if point is inside exclusion ellipse
+  const isInExclusionZone = (x: number, y: number) => {
+    const dx = (x - centerX) / exclusionRadiusX;
+    const dy = (y - centerY) / exclusionRadiusY;
+    return (dx * dx + dy * dy) < 1; // Inside ellipse if < 1
+  };
 
-    // Left edge (lower)
-    { x: 4, y: 60, randomX: 6, randomY: 10 },
-    // Left edge (upper)
-    { x: 4, y: 25, randomX: 6, randomY: 10 },
-  ];
+  // Generate positions that avoid exclusion zone
+  for (let i = 0; i < count; i++) {
+    let x, y, attempts = 0;
 
-  const positions = edgeZones.slice(0, count).map((zone, index) => {
-    // Add slight randomness within each zone for natural feel
-    const x = zone.x + (Math.random() * zone.randomX - zone.randomX / 2);
-    const y = zone.y + (Math.random() * zone.randomY - zone.randomY / 2);
+    do {
+      // Generate random position across entire viewport
+      x = 5 + Math.random() * 90; // 5% to 95%
+      y = 5 + Math.random() * 90; // 5% to 95%
+      attempts++;
+    } while (isInExclusionZone(x, y) && attempts < maxAttempts);
 
-    // Calculate distance from center (50, 50) for opacity
-    // Center area is around (50, 50) where text/search bar is
-    const centerX = 50;
-    const centerY = 50;
+    // If we couldn't find a good spot, place at edge
+    if (attempts >= maxAttempts) {
+      const edge = Math.floor(Math.random() * 4);
+      switch (edge) {
+        case 0: x = 5 + Math.random() * 15; y = 5 + Math.random() * 15; break; // Top-left
+        case 1: x = 80 + Math.random() * 15; y = 5 + Math.random() * 15; break; // Top-right
+        case 2: x = 5 + Math.random() * 15; y = 80 + Math.random() * 15; break; // Bottom-left
+        case 3: x = 80 + Math.random() * 15; y = 80 + Math.random() * 15; break; // Bottom-right
+      }
+    }
+
+    // Calculate distance from center for opacity
     const distanceFromCenter = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
-
-    // Max distance is roughly 70 (corner to center)
-    // Normalize to 0-1 range
     const normalizedDistance = Math.min(distanceFromCenter / 70, 1);
 
     // Opacity: 0.05 (almost invisible) at center, 1.0 (fully visible) at edges
-    // Dramatic gradient - farther from center = much more visible
     const opacity = 0.05 + (normalizedDistance * 0.95);
 
-    return {
-      id: shuffledPool[index % shuffledPool.length],
-      x: Math.max(1, Math.min(99, x)), // Clamp to edges
+    positions.push({
+      id: shuffledPool[i % shuffledPool.length],
+      x: Math.max(1, Math.min(99, x)),
       y: Math.max(1, Math.min(99, y)),
-      size: 70 + Math.random() * 30, // 70-100px
-      delay: Math.random() * 4, // 0-4s animation delay
-      reverse: Math.random() > 0.5, // Random animation direction
-      opacity: opacity // Dynamic opacity based on distance from center
-    };
-  });
+      size: 70 + Math.random() * 30,
+      delay: Math.random() * 4,
+      reverse: Math.random() > 0.5,
+      opacity: opacity
+    });
+  }
 
   return positions;
 }
