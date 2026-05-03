@@ -313,7 +313,7 @@ function SearchPageContent() {
         top: '72px',
         left: 0,
         right: 0,
-        height: 'calc(100vh - 272px)',
+        height: 'min(calc(100vh - 272px), 600px)', // Limit height on mobile
         zIndex: 0,
         pointerEvents: 'none',
         overflow: 'hidden'
@@ -343,7 +343,7 @@ function SearchPageContent() {
           position: 'relative',
           zIndex: 1,
           overflow: 'hidden',
-          minHeight: isSearchActive ? 'calc(100vh - 72px)' : 'calc(100vh - 200px)',
+          minHeight: isSearchActive ? 'calc(100vh - 72px)' : 'min(calc(100vh - 200px), 600px)', // Limit height on mobile
           display: 'flex',
           alignItems: isSearchActive ? 'flex-start' : 'center',
           paddingTop: isSearchActive ? '60px' : '0px',
