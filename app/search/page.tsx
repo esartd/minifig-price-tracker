@@ -307,38 +307,44 @@ function SearchPageContent() {
       background: '#ffffff',
       transition: 'background 0.4s ease-out'
     }}>
-      {/* Floating Background Minifigures - Only in hero section */}
+      {/* Hero Section with Floating Background - Contained */}
       <div style={{
-        position: 'absolute',
-        top: '72px',
-        left: 0,
-        right: 0,
-        height: 'min(calc(100vh - 272px), 600px)', // Limit height on mobile
-        zIndex: 0,
-        pointerEvents: 'none',
-        overflow: 'hidden'
+        position: 'relative',
+        overflow: 'hidden',
+        backgroundColor: '#ffffff'
       }}>
-        {minifigPositions.map((pos, index) => (
-          <img
-            key={index}
-            src={`/api/images/minifig/${pos.id}`}
-            alt=""
-            loading="lazy"
-            className={`${pos.reverse ? 'floating-emoji-reverse' : 'floating-emoji'} ${isSearchActive ? 'hidden' : ''}`}
-            style={{
-              position: 'absolute',
-              top: `${pos.y}%`,
-              left: `${pos.x}%`,
-              animationDelay: `${pos.delay}s`,
-              width: `${pos.size}px`,
-              height: `${pos.size * 1.25}px`,
-              objectFit: 'contain'
-            }}
-          />
-        ))}
-      </div>
+        {/* Floating Background Minifigures - Only in hero section */}
+        <div style={{
+          position: 'absolute',
+          top: '0',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 0,
+          pointerEvents: 'none',
+          overflow: 'hidden'
+        }}>
+          {minifigPositions.map((pos, index) => (
+            <img
+              key={index}
+              src={`/api/images/minifig/${pos.id}`}
+              alt=""
+              loading="lazy"
+              className={`${pos.reverse ? 'floating-emoji-reverse' : 'floating-emoji'} ${isSearchActive ? 'hidden' : ''}`}
+              style={{
+                position: 'absolute',
+                top: `${pos.y}%`,
+                left: `${pos.x}%`,
+                animationDelay: `${pos.delay}s`,
+                width: `${pos.size}px`,
+                height: `${pos.size * 1.25}px`,
+                objectFit: 'contain'
+              }}
+            />
+          ))}
+        </div>
 
-      <section className="fun-search-content"
+        <section className="fun-search-content"
         style={{
           position: 'relative',
           zIndex: 1,
@@ -525,6 +531,8 @@ function SearchPageContent() {
           )}
         </div>
       </section>
+      </div>
+      {/* End Hero Section Container */}
 
       {/* Featured Sets - Only show when not actively searching */}
       {!isSearchActive && (
