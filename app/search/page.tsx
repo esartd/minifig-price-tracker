@@ -82,13 +82,27 @@ function generateFireworkPositions(count: number) {
     const x = zone.x + (Math.random() * zone.randomX - zone.randomX / 2);
     const y = zone.y + (Math.random() * zone.randomY - zone.randomY / 2);
 
+    // Calculate distance from center (50, 50) for opacity
+    // Center area is around (50, 50) where text/search bar is
+    const centerX = 50;
+    const centerY = 50;
+    const distanceFromCenter = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
+
+    // Max distance is roughly 70 (corner to center)
+    // Normalize to 0-1 range, then invert so closer = more faded
+    const normalizedDistance = Math.min(distanceFromCenter / 70, 1);
+
+    // Opacity: 0.1 (very faded) at center, 0.35 (more visible) at edges
+    const opacity = 0.1 + (normalizedDistance * 0.25);
+
     return {
       id: shuffledPool[index % shuffledPool.length],
       x: Math.max(1, Math.min(99, x)), // Clamp to edges
       y: Math.max(1, Math.min(99, y)),
       size: 70 + Math.random() * 30, // 70-100px
       delay: Math.random() * 4, // 0-4s animation delay
-      reverse: Math.random() > 0.5 // Random animation direction
+      reverse: Math.random() > 0.5, // Random animation direction
+      opacity: opacity // Dynamic opacity based on distance from center
     };
   });
 
@@ -338,7 +352,8 @@ function SearchPageContent() {
                 animationDelay: `${pos.delay}s`,
                 width: `${pos.size}px`,
                 height: `${pos.size * 1.25}px`,
-                objectFit: 'contain'
+                objectFit: 'contain',
+                opacity: pos.opacity // Dynamic opacity based on distance from center
               }}
             />
           ))}

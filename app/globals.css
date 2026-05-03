@@ -184,7 +184,7 @@ input[type="number"] {
   position: absolute;
   animation: float 20s ease-in-out infinite;
   pointer-events: none;
-  opacity: 0.2;
+  /* opacity set dynamically based on distance from center */
   transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
@@ -192,7 +192,7 @@ input[type="number"] {
   position: absolute;
   animation: floatReverse 20s ease-in-out infinite;
   pointer-events: none;
-  opacity: 0.2;
+  /* opacity set dynamically based on distance from center */
   transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
