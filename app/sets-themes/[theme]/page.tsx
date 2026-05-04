@@ -297,16 +297,18 @@ export default function ThemePage() {
           {themeHeroImage ? (
             <div style={{
               display: 'flex',
+              flexDirection: 'column', // Stack vertically on mobile
               alignItems: 'flex-start',
-              gap: '40px',
+              gap: '24px',
               marginTop: '24px',
               marginBottom: '24px',
-              padding: '48px',
+              padding: '24px',
               borderRadius: '16px',
               background: 'linear-gradient(135deg, #fafafa 0%, #ffffff 100%)',
               border: '1px solid #e5e5e5',
               boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
-            }}>
+            }}
+            className="theme-hero">
               {/* Representative Image */}
               <div style={{
                 flexShrink: 0,
@@ -334,7 +336,7 @@ export default function ThemePage() {
               </div>
 
               {/* Text Content */}
-              <div style={{ flex: 1 }}>
+              <div style={{ flex: 1, width: '100%', maxWidth: '100%' }} className="theme-hero-content">
                 <div style={{
                   fontSize: '12px',
                   fontWeight: '600',
