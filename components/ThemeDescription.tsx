@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from './TranslationProvider';
 
 interface ThemeDescriptionProps {
   themeName: string;
@@ -8,16 +9,20 @@ interface ThemeDescriptionProps {
 }
 
 export default function ThemeDescription({ themeName, description }: ThemeDescriptionProps) {
+  const { t, translations } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
 
-  if (!description) return null;
+  // Try to get translated description from translations
+  const translatedDescription = translations.themeDescriptions?.[themeName] || description;
+
+  if (!translatedDescription) return null;
 
   // Show first ~180 characters when collapsed
   const previewLength = 180;
-  const shouldTruncate = description.length > previewLength;
+  const shouldTruncate = translatedDescription.length > previewLength;
   const displayText = isExpanded || !shouldTruncate
-    ? description
-    : description.substring(0, previewLength) + '...';
+    ? translatedDescription
+    : translatedDescription.substring(0, previewLength) + '...';
 
   return (
     <div style={{
@@ -59,7 +64,7 @@ export default function ThemeDescription({ themeName, description }: ThemeDescri
             e.currentTarget.style.color = '#3b82f6';
           }}
         >
-          {isExpanded ? 'Show Less' : 'Read More'}
+          {isExpanded ? t('themes.showLess') : t('themes.readMore')}
           <svg
             style={{
               width: '16px',
