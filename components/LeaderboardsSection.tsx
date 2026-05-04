@@ -32,7 +32,6 @@ export default function LeaderboardsSection() {
     // Fetch all leaderboards in a SINGLE API call to reduce database connections
     // Previously: 3 parallel calls = 3 DB connections
     // Now: 1 call = 1 DB connection (with batched queries)
-    // Note: Don't set loading=true here to prevent section disappearing on tab switch
     fetch(`/api/leaderboards/all?period=${period}`)
       .then(res => res.json())
       .then((response) => {
@@ -52,8 +51,7 @@ export default function LeaderboardsSection() {
       });
   }, [activeTab]);
 
-  // Only hide on initial load, not when switching tabs
-  if (loading && minifigCollectors.length === 0) return null;
+  // Always render - never hide the section
 
   return (
     <section
