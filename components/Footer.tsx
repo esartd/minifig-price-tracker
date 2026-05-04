@@ -156,7 +156,7 @@ export default function Footer() {
           lineHeight: '1.7'
         }}>
           <p style={{ margin: 0, marginBottom: 'var(--space-4)' }}>
-            Minifigure data provided by{' '}
+            {t('footer.dataProvidedBy')}{' '}
             <a
               href="https://www.bricklink.com"
               target="_blank"
@@ -165,10 +165,10 @@ export default function Footer() {
             >
               BrickLink.com
             </a>
-            . The term "BrickLink" is a trademark of the LEGO Group BrickLink. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc. LEGO® is a trademark of the LEGO Group.
+            . {t('footer.bricklinkTrademark')} {t('footer.legoTrademark')}
           </p>
           <p style={{ margin: 0, color: '#a3a3a3' }}>
-            © {new Date().getFullYear()} FigTracker. All rights reserved. Created by{' '}
+            © {new Date().getFullYear()} FigTracker. {t('footer.allRightsReserved')} {t('footer.createdBy')}{' '}
             <a
               href="https://ericksu.com"
               target="_blank"
