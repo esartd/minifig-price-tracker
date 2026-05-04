@@ -6,7 +6,6 @@ import SearchBar from '@/components/SearchBar';
 import { SearchResults } from '@/components/search';
 import { CollectionItem } from '@/types';
 import FeaturedSets from '@/components/FeaturedSets';
-import LeaderboardsSection from '@/components/LeaderboardsSection';
 import { useTranslation } from '@/components/TranslationProvider';
 
 // Diverse minifigures from multiple themes (verified to exist in catalog)
@@ -41,70 +40,56 @@ const MINIFIG_POOL = [
   'mar0066'   // Super Mario
 ];
 
-// Generate positions responsively - desktop: sides+bottom, mobile: top+bottom
+// Generate evenly distributed positions around all edges, avoiding center text/search area
 function generateFireworkPositions(count: number) {
   // Shuffle the pool to get random selection each time
   const shuffledPool = [...MINIFIG_POOL].sort(() => Math.random() - 0.5);
 
-  const positions: any[] = [];
+  // Define fixed edge zones (all around perimeter, avoiding center)
+  const edgeZones = [
+    // Top left corner
+    { x: 5, y: 5, randomX: 10, randomY: 10 },
+    // Top edge (left of center)
+    { x: 25, y: 3, randomX: 10, randomY: 8 },
+    // Top edge (right of center)
+    { x: 65, y: 3, randomX: 10, randomY: 8 },
+    // Top right corner
+    { x: 88, y: 5, randomX: 10, randomY: 10 },
 
-  // Detect viewport size
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    // Right edge (upper)
+    { x: 90, y: 25, randomX: 6, randomY: 10 },
+    // Right edge (lower)
+    { x: 90, y: 60, randomX: 6, randomY: 10 },
 
-  let surroundingZones;
+    // Bottom right corner
+    { x: 88, y: 78, randomX: 10, randomY: 8 },
+    // Bottom edge (right of center)
+    { x: 65, y: 80, randomX: 10, randomY: 6 },
+    // Bottom edge (left of center)
+    { x: 25, y: 80, randomX: 10, randomY: 6 },
+    // Bottom left corner
+    { x: 5, y: 78, randomX: 10, randomY: 8 },
 
-  if (isMobile) {
-    // Mobile: Extreme top and bottom only - far from text
-    surroundingZones = [
-      // Extreme top strip - very narrow
-      { xMin: 5, xMax: 20, yMin: 1, yMax: 6 },
-      { xMin: 25, xMax: 40, yMin: 1, yMax: 6 },
-      { xMin: 45, xMax: 55, yMin: 1, yMax: 6 },
-      { xMin: 60, xMax: 75, yMin: 1, yMax: 6 },
-      { xMin: 80, xMax: 95, yMin: 1, yMax: 6 },
-      // Extreme bottom strip - very narrow
-      { xMin: 5, xMax: 20, yMin: 90, yMax: 97 },
-      { xMin: 25, xMax: 40, yMin: 90, yMax: 97 },
-      { xMin: 45, xMax: 55, yMin: 90, yMax: 97 },
-      { xMin: 60, xMax: 75, yMin: 90, yMax: 97 },
-      { xMin: 80, xMax: 95, yMin: 90, yMax: 97 },
-    ];
-  } else {
-    // Desktop: Sides and bottom only (no top)
-    surroundingZones = [
-      // Left side
-      { xMin: 2, xMax: 14, yMin: 15, yMax: 32 },
-      { xMin: 2, xMax: 14, yMin: 35, yMax: 52 },
-      { xMin: 2, xMax: 14, yMin: 55, yMax: 72 },
-      { xMin: 2, xMax: 14, yMin: 75, yMax: 85 },
-      // Right side (mirrors)
-      { xMin: 86, xMax: 98, yMin: 15, yMax: 32 },
-      { xMin: 86, xMax: 98, yMin: 35, yMax: 52 },
-      { xMin: 86, xMax: 98, yMin: 55, yMax: 72 },
-      { xMin: 86, xMax: 98, yMin: 75, yMax: 85 },
-      // Bottom strip
-      { xMin: 5, xMax: 25, yMin: 88, yMax: 96 },
-      { xMin: 38, xMax: 62, yMin: 88, yMax: 96 },
-      { xMin: 75, xMax: 95, yMin: 88, yMax: 96 },
-    ];
-  }
+    // Left edge (lower)
+    { x: 4, y: 60, randomX: 6, randomY: 10 },
+    // Left edge (upper)
+    { x: 4, y: 25, randomX: 6, randomY: 10 },
+  ];
 
-  // Generate all positions
-  for (let i = 0; i < count; i++) {
-    const zone = surroundingZones[i % surroundingZones.length];
-    const x = zone.xMin + Math.random() * (zone.xMax - zone.xMin);
-    const y = zone.yMin + Math.random() * (zone.yMax - zone.yMin);
+  const positions = edgeZones.slice(0, count).map((zone, index) => {
+    // Add slight randomness within each zone for natural feel
+    const x = zone.x + (Math.random() * zone.randomX - zone.randomX / 2);
+    const y = zone.y + (Math.random() * zone.randomY - zone.randomY / 2);
 
-    positions.push({
-      id: shuffledPool[i % shuffledPool.length],
-      x,
-      y,
-      size: 70 + Math.random() * 30,
-      delay: Math.random() * 4,
-      reverse: Math.random() > 0.5,
-      opacity: 0.35 + Math.random() * 0.35  // 0.35 to 0.7 opacity
-    });
-  }
+    return {
+      id: shuffledPool[index % shuffledPool.length],
+      x: Math.max(1, Math.min(99, x)), // Clamp to edges
+      y: Math.max(1, Math.min(99, y)),
+      size: 70 + Math.random() * 30, // 70-100px
+      delay: Math.random() * 4, // 0-4s animation delay
+      reverse: Math.random() > 0.5 // Random animation direction
+    };
+  });
 
   return positions;
 }
@@ -130,14 +115,6 @@ function SearchPageContent() {
   useEffect(() => {
     // Generate positions only on client to avoid hydration mismatch
     setMinifigPositions(generateFireworkPositions(12));
-
-    // Regenerate positions on window resize to adapt to responsive layout
-    const handleResize = () => {
-      setMinifigPositions(generateFireworkPositions(12));
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Load category/subcategory browsing on mount
@@ -329,53 +306,43 @@ function SearchPageContent() {
       background: '#ffffff',
       transition: 'background 0.4s ease-out'
     }}>
-      {/* Hero Section with Floating Background - Contained */}
+      {/* Floating Background Minifigures - Only in hero section */}
       <div style={{
-        position: 'relative',
-        overflow: 'hidden',
-        backgroundColor: '#ffffff',
-        minHeight: isSearchActive ? 'calc(100vh - 72px)' : 'min(calc(100vh - 200px), 600px)'
+        position: 'absolute',
+        top: '72px',
+        left: 0,
+        right: 0,
+        height: 'calc(100vh - 272px)',
+        zIndex: 0,
+        pointerEvents: 'none',
+        overflow: 'hidden'
       }}>
-        {/* Floating Background Minifigures - Only in hero section */}
-        {!isSearchActive && (
-          <div style={{
-            position: 'absolute',
-            top: '0',
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 0,
-            pointerEvents: 'none',
-            overflow: 'hidden'
-          }}>
-            {minifigPositions.map((pos, index) => (
-              <img
-                key={index}
-                src={`/api/images/minifig/${pos.id}`}
-                alt=""
-                loading="lazy"
-                className={pos.reverse ? 'floating-emoji-reverse' : 'floating-emoji'}
-                style={{
-                  position: 'absolute',
-                  top: `${pos.y}%`,
-                  left: `${pos.x}%`,
-                  animationDelay: `${pos.delay}s`,
-                  width: `${pos.size}px`,
-                  height: `${pos.size * 1.25}px`,
-                  objectFit: 'contain',
-                  opacity: pos.opacity // Dynamic opacity based on distance from center
-                }}
-              />
-            ))}
-          </div>
-        )}
+        {minifigPositions.map((pos, index) => (
+          <img
+            key={index}
+            src={`/api/images/minifig/${pos.id}`}
+            alt=""
+            loading="lazy"
+            className={`${pos.reverse ? 'floating-emoji-reverse' : 'floating-emoji'} ${isSearchActive ? 'hidden' : ''}`}
+            style={{
+              position: 'absolute',
+              top: `${pos.y}%`,
+              left: `${pos.x}%`,
+              animationDelay: `${pos.delay}s`,
+              width: `${pos.size}px`,
+              height: `${pos.size * 1.25}px`,
+              objectFit: 'contain'
+            }}
+          />
+        ))}
+      </div>
 
-        <section className="fun-search-content"
+      <section className="fun-search-content"
         style={{
           position: 'relative',
           zIndex: 1,
           overflow: 'hidden',
-          minHeight: isSearchActive ? 'calc(100vh - 72px)' : 'min(calc(100vh - 200px), 600px)', // Limit height on mobile
+          minHeight: isSearchActive ? 'calc(100vh - 72px)' : 'calc(100vh - 200px)',
           display: 'flex',
           alignItems: isSearchActive ? 'flex-start' : 'center',
           paddingTop: isSearchActive ? '60px' : '0px',
@@ -557,15 +524,10 @@ function SearchPageContent() {
           )}
         </div>
       </section>
-      </div>
-      {/* End Hero Section Container */}
 
       {/* Featured Sets - Only show when not actively searching */}
       {!isSearchActive && (
-        <>
-          <FeaturedSets />
-          <LeaderboardsSection />
-        </>
+        <FeaturedSets />
       )}
     </div>
   );
