@@ -205,19 +205,13 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
 
       {/* Hero Section - Theme level with integrated description */}
       {themeHeroImage ? (
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column', // Stack vertically on mobile
-          alignItems: 'flex-start',
-          gap: '24px',
+        <div className="theme-hero" style={{
           marginBottom: '48px',
-          padding: '24px',
           borderRadius: '16px',
           background: 'linear-gradient(135deg, #fafafa 0%, #ffffff 100%)',
           border: '1px solid #e5e5e5',
           boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
-        }}
-        className="theme-hero">
+        }}>
           {/* Minifig Image - Larger for theme level */}
           <div style={{
             flexShrink: 0,
@@ -244,7 +238,7 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
           </div>
 
           {/* Text Content */}
-          <div style={{ flex: 1, width: '100%', maxWidth: '100%' }} className="theme-hero-content">
+          <div className="theme-hero-content" style={{ flex: 1 }}>
             <div style={{
               fontSize: 'var(--text-sm)',
               fontWeight: '600',

@@ -2181,12 +2181,13 @@ select.custom-dropdown.condition-used {
 }
 
 /* Theme hero responsive layout */
-/* Mobile: stack vertically with centered image */
+/* Mobile: stack vertically with left-aligned content */
 .theme-hero {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 24px;
 }
 
 /* Tablet and up (≥768px): horizontal layout */
@@ -2194,8 +2195,12 @@ select.custom-dropdown.condition-used {
   .theme-hero {
     flex-direction: row;
     align-items: flex-start;
-    text-align: left;
     gap: 40px;
     padding: 48px;
   }
+}
+
+/* Make sure text content takes full width on mobile */
+.theme-hero-content {
+  width: 100%;
 }
