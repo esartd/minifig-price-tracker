@@ -1,19 +1,43 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import May4thDealsClient from './client';
+import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
 
 export async function generateMetadata(): Promise<Metadata> {
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const t = await getTranslations(locale as Locale);
+
+  const domains = {
+    en: 'https://figtracker.ericksu.com',
+    de: 'https://de.figtracker.ericksu.com',
+    fr: 'https://fr.figtracker.ericksu.com',
+    es: 'https://es.figtracker.ericksu.com',
+  };
+
+  const baseUrl = domains[locale as keyof typeof domains];
+  const path = '/deals/star-wars-may-4th-2026';
+
   return {
-    title: 'LEGO Star Wars May the 4th Deals 2026 - Up to 39% Back | FigTracker',
-    description: 'Exclusive LEGO Star Wars May the 4th deals guide. Get up to 39% total value with free minifigures and 4x Insiders Points. Analysis of all deal tiers May 1-6, 2026.',
-    keywords: ['LEGO Star Wars May the 4th 2026', 'LEGO May 4th deals', 'LEGO Star Wars GWP', 'LEGO Insiders Points', 'best LEGO deals 2026', 'LEGO Star Wars freebies'],
+    title: `${t.may4thDeals.meta.title} | FigTracker`,
+    description: t.may4thDeals.meta.description,
+    keywords: t.may4thDeals.meta.keywords.split(', '),
     openGraph: {
-      title: 'LEGO Star Wars May the 4th Deals Guide 2026 - Up to 39% Back',
-      description: 'Get up to 39% total value. Free Star Wars minifigs + 20% cashback with 4x points. May 1-6 only.',
-      url: 'https://figtracker.ericksu.com/deals/star-wars-may-4th-2026',
+      title: t.may4thDeals.meta.title,
+      description: t.may4thDeals.meta.description,
+      url: `${baseUrl}${path}`,
       type: 'article',
     },
     alternates: {
-      canonical: 'https://figtracker.ericksu.com/deals/star-wars-may-4th-2026',
+      canonical: `${baseUrl}${path}`,
+      languages: {
+        en: `${domains.en}${path}`,
+        es: `${domains.es}${path}`,
+        de: `${domains.de}${path}`,
+        fr: `${domains.fr}${path}`,
+      },
     },
     robots: {
       index: true,

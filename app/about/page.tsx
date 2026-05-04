@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { prisma, prismaPublic } from '@/lib/prisma';
 import AboutPageClient from '@/components/about-page-client';
+import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
+import { headers } from 'next/headers';
 
 // Force dynamic rendering to show current searchable catalog count
 export const dynamic = 'force-dynamic';
@@ -35,10 +37,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const catalogCount = await getSearchableCatalogCount();
   const catalogCountText = formatCatalogCount(catalogCount);
 
-  const { headers } = await import('next/headers');
   const headersList = await headers();
   const host = headersList.get('host') || '';
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const t = await getTranslations(locale as Locale);
 
   const domains = {
     en: 'https://figtracker.ericksu.com',
@@ -55,11 +58,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 
   return {
-    title: 'About FigTracker - Free LEGO Minifigure Price Tracker',
-    description: `Learn how FigTracker helps LEGO resellers and collectors price minifigures accurately with real-time Bricklink marketplace data. Search ${catalogCountText} minifigs. Free to use.`,
+    title: t.about.meta.title,
+    description: t.about.meta.description,
+    keywords: t.about.meta.keywords,
     openGraph: {
-      title: 'About FigTracker - Free LEGO Minifigure Price Tracker',
-      description: `Built by sellers, for sellers. Price your LEGO minifigures with confidence using real Bricklink data. ${catalogCountText} minifigs searchable.`,
+      title: t.about.meta.title,
+      description: t.about.meta.description,
       url: `${domains[locale as keyof typeof domains]}/about`,
       locale: localeMap[locale as keyof typeof localeMap],
       alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),

@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
 import DisclosurePageClient from '@/components/disclosure-page-client';
+import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
 import { headers } from 'next/headers';
 
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const host = headersList.get('host') || '';
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const t = await getTranslations(locale as Locale);
 
   const domains = {
     en: 'https://figtracker.ericksu.com',
@@ -22,11 +25,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 
   return {
-    title: 'Affiliate Disclosure - FigTracker',
-    description: 'FigTracker participates in the LEGO.com Affiliate Program and Amazon Associates Program. Learn about our affiliate partnerships and how we earn commissions.',
+    title: t.disclosure.meta.title,
+    description: t.disclosure.meta.description,
+    keywords: t.disclosure.meta.keywords,
     openGraph: {
-      title: 'Affiliate Disclosure - FigTracker',
-      description: 'Learn about our affiliate partnerships and advertising practices.',
+      title: t.disclosure.meta.title,
+      description: t.disclosure.meta.description,
       url: `${domains[locale as keyof typeof domains]}/disclosure`,
       locale: localeMap[locale as keyof typeof localeMap],
       alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),

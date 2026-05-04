@@ -10,7 +10,7 @@ interface FeaturedSet {
   imageUrl: string;
   affiliateLink: string;
   trackingPixel?: string;
-  retailer: 'lego' | 'amazon';
+  retailer: 'amazon' | 'lego';
 }
 
 const FEATURED_SETS: FeaturedSet[] = [
@@ -19,9 +19,8 @@ const FEATURED_SETS: FeaturedSet[] = [
     name: 'Death Star',
     setNumber: '75419',
     imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt725a94446f56dbe2/75419_Prod.png?format=jpg&fit=bounds&quality=80',
-    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392316690332535869762939&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fdeath-star-75419',
-    trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.1392316690332535869762939&type=2&subid=0',
-    retailer: 'lego'
+    affiliateLink: 'https://amzn.to/4tymklj',
+    retailer: 'amazon'
   },
   {
     name: 'Venusaur, Charizard and Blastoise',
@@ -59,18 +58,16 @@ const FEATURED_SETS: FeaturedSet[] = [
     name: 'Eevee',
     setNumber: '72151',
     imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt278340680c8d7955/72151_Prod.png?format=jpg&fit=bounds&quality=80',
-    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392314824195809996297094&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2feevee-72151',
-    trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.1392314824195809996297094&type=2&subid=0',
-    retailer: 'lego'
+    affiliateLink: 'https://amzn.to/3PlnjHh',
+    retailer: 'amazon'
   },
   // Row 3: Fun variety - Winnie, Mandalorian, Minecraft
   {
     name: 'Winnie the Pooh',
     setNumber: '43300',
     imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt90ec9b36934c6763/blt1bf4465602ddf9aa-43300_Prod_en-gb.png?format=jpg&fit=bounds&quality=80',
-    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392311628564234059934635&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fwinnie-the-pooh-43300',
-    trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.1392311628564234059934635&type=2&subid=0',
-    retailer: 'lego'
+    affiliateLink: 'https://amzn.to/4n908fC',
+    retailer: 'amazon'
   },
   {
     name: 'Anzellan Starship',
@@ -83,26 +80,23 @@ const FEATURED_SETS: FeaturedSet[] = [
     name: 'The Enderman Tower',
     setNumber: '21279',
     imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt69e0c9637cf8c1e8/21279_Prod_en-gb.png?format=jpg&fit=bounds&quality=80',
-    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.139239676002968405250455&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fthe-enderman-tower-21279',
-    trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.139239676002968405250455&type=2&subid=0',
-    retailer: 'lego'
+    affiliateLink: 'https://amzn.to/4n89XdT',
+    retailer: 'amazon'
   },
   // Row 4: Final row - Speeder, Gingerbread, [one more spot]
   {
     name: 'Cobb Vanth\'s Speeder',
     setNumber: '75437',
     imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt74204d585275936e/75437_Prod_en-gb.png?format=jpg&fit=bounds&quality=80',
-    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392316649727683231473773&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fcobb-vanths-speeder-75437',
-    trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.1392316649727683231473773&type=2&subid=0',
-    retailer: 'lego'
+    affiliateLink: 'https://amzn.to/4w55ahD',
+    retailer: 'amazon'
   },
   {
     name: 'Gingerbread AT-AT Walker',
     setNumber: '40806',
     imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt6d4c85ec676b3157/40806_Prod.png?format=jpg&fit=bounds&quality=80',
-    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.139239742528138961320669&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fgingerbread-at-at-walker-40806',
-    trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.139239742528138961320669&type=2&subid=0',
-    retailer: 'lego'
+    affiliateLink: 'https://amzn.to/3RkIJ7V',
+    retailer: 'amazon'
   },
   {
     name: 'Lionel Messi Collector\'s Set',
@@ -123,25 +117,22 @@ const FEATURED_SETS: FeaturedSet[] = [
     name: 'Grogu - Mandalorian Apprentice',
     setNumber: '75446',
     imageUrl: 'https://www.lego.com/cdn/cs/set/assets/bltb65ce1284755d194/blta8d62a90e62e020c-75446_Prod_en-gb.png?format=jpg&fit=bounds&quality=80',
-    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.13923682082932578975043&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fgrogu-mandalorian-apprentice-75446',
-    trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.13923682082932578975043&type=2&subid=0',
-    retailer: 'lego'
+    affiliateLink: 'https://amzn.to/4esp0Nf',
+    retailer: 'amazon'
   },
   {
     name: 'The Going Merry - Pirate Ship',
     setNumber: '75639',
     imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt25bc5b8dc7d77c0b/75639_Prod_en-gb.png?format=jpg&fit=bounds&quality=80',
-    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392314543714868965050780&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fthe-going-merry-pirate-ship-75639',
-    trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.1392314543714868965050780&type=2&subid=0',
-    retailer: 'lego'
+    affiliateLink: 'https://amzn.to/4w9YlLu',
+    retailer: 'amazon'
   },
   {
     name: 'Captain Jack Sparrow\'s Pirate Ship',
     setNumber: '10365',
     imageUrl: 'https://www.lego.com/cdn/cs/set/assets/bltcf20096d15e25f4c/10365_Prod_en-gb.png?format=jpg&fit=bounds&quality=80',
-    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392314769212009641990674&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fcaptain-jack-sparrows-pirate-ship-10365',
-    trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.1392314769212009641990674&type=2&subid=0',
-    retailer: 'lego'
+    affiliateLink: 'https://amzn.to/4n9DnZf',
+    retailer: 'amazon'
   },
   {
     name: 'Stranger Things: The Creel House',
@@ -155,9 +146,8 @@ const FEATURED_SETS: FeaturedSet[] = [
     name: 'AT-AT',
     setNumber: '75440',
     imageUrl: 'https://www.lego.com/cdn/cs/set/assets/blt26f813f1a1f499c6/75440_Prod_en-gb.png?format=jpg&fit=bounds&quality=80',
-    affiliateLink: 'https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.139236745907642443041870&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fat-at-75440',
-    trackingPixel: 'https://ad.linksynergy.com/fs-bin/show?id=g%2aDYfXR3HYU&bids=1606623.139236745907642443041870&type=2&subid=0',
-    retailer: 'lego'
+    affiliateLink: 'https://amzn.to/4tdcgxA',
+    retailer: 'amazon'
   },
 ];
 

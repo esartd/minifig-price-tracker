@@ -1,6 +1,7 @@
 import ThemesClient from './themes-client';
 import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
 import { getAllCategories, getRecentMinifigs, getAllMinifigs } from '@/lib/catalog-static';
+import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
 import type { Metadata } from 'next';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -8,6 +9,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const host = headersList.get('host') || '';
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const t = await getTranslations(locale as Locale);
 
   const domains = {
     en: 'https://figtracker.ericksu.com',
@@ -24,12 +27,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 
   return {
-    title: 'Browse LEGO Minifigures by Theme - Star Wars, Harry Potter & More',
-    description: 'Explore LEGO minifigures organized by theme. Browse Star Wars, Harry Potter, Marvel, DC, Ninjago, and 50+ other themes. Get pricing data and track your collection.',
-    keywords: ['LEGO themes', 'Star Wars minifigures', 'Harry Potter LEGO', 'Marvel LEGO', 'DC LEGO', 'Ninjago minifigs', 'LEGO catalog by theme'],
+    title: t.themes.meta.title,
+    description: t.themes.meta.description,
+    keywords: t.themes.meta.keywords,
     openGraph: {
-      title: 'Browse LEGO Minifigures by Theme | FigTracker',
-      description: 'Explore minifigures from Star Wars, Harry Potter, Marvel, and 50+ other LEGO themes with real-time pricing.',
+      title: t.themes.meta.ogTitle,
+      description: t.themes.meta.ogDescription,
       url: `${domains[locale as keyof typeof domains]}/themes`,
       locale: localeMap[locale as keyof typeof localeMap],
       alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),

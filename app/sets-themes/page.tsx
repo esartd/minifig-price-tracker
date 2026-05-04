@@ -1,11 +1,14 @@
 import SetsThemesClient from './sets-themes-client';
 import type { Metadata } from 'next';
+import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
 import { headers } from 'next/headers';
 
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const host = headersList.get('host') || '';
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const t = await getTranslations(locale as Locale);
 
   const domains = {
     en: 'https://figtracker.ericksu.com',
@@ -22,11 +25,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 
   return {
-    title: 'Browse LEGO Sets by Theme',
-    description: 'Explore LEGO sets organized by theme. Browse Star Wars, Harry Potter, Friends, and 170+ other themes.',
+    title: t.setsThemePage.meta.title,
+    description: t.setsThemePage.meta.description,
+    keywords: t.setsThemePage.meta.keywords,
     openGraph: {
-      title: 'Browse LEGO Sets by Theme | FigTracker',
-      description: 'Explore LEGO sets organized by theme. Browse Star Wars, Harry Potter, Friends, and 170+ other themes.',
+      title: t.setsThemePage.meta.ogTitle,
+      description: t.setsThemePage.meta.ogDescription,
       url: `${domains[locale as keyof typeof domains]}/sets-themes`,
       locale: localeMap[locale as keyof typeof localeMap],
       alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),

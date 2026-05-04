@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface DealSet {
   setNumber: string;
@@ -78,6 +79,7 @@ const DEAL_SETS: DealSet[] = [
 ];
 
 export default function May4thDealsClient() {
+  const { t } = useTranslation();
   const tierAsets = DEAL_SETS.filter(s => s.tier === 'A'); // 4x points (39%)
   const tierBsets = DEAL_SETS.filter(s => s.tier === 'B'); // 2x points (32%)
   const tierDsets = DEAL_SETS.filter(s => s.tier === 'D'); // minimum (22.5%)
@@ -128,7 +130,7 @@ export default function May4thDealsClient() {
             marginBottom: '16px',
             letterSpacing: '-0.02em'
           }}>
-            LEGO Star Wars May the 4th Deals 2026
+            {t('may4thDeals.hero.title')}
           </h1>
           <p className="fun-header-subtitle" style={{
             fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)',
@@ -136,9 +138,9 @@ export default function May4thDealsClient() {
             fontWeight: '500',
             lineHeight: '1.4'
           }}>
-            Up to 35% Total Value • May 1-6 Only<br/>
+            {t('may4thDeals.hero.subtitle')}<br/>
             <span style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', fontWeight: '400', opacity: '0.95' }}>
-              Four tiers analyzed. Find your best deal below.
+              {t('may4thDeals.hero.description')}
             </span>
           </p>
         </div>
@@ -163,7 +165,7 @@ export default function May4thDealsClient() {
               fontSize: 'var(--text-sm)',
               fontWeight: '600'
             }}>
-              TIER D
+              {t('may4thDeals.tierD.badge')}
             </span>
             <h2 style={{
               fontSize: 'var(--text-2xl)',
@@ -171,7 +173,7 @@ export default function May4thDealsClient() {
               color: '#171717',
               margin: '0'
             }}>
-              ~20-23% Return - Starting Point
+              {t('may4thDeals.tierD.title')}
             </h2>
           </div>
           <div style={{
@@ -180,14 +182,14 @@ export default function May4thDealsClient() {
             padding: '32px',
             border: '1px solid #e5e5e5'
           }}>
-            <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '16px' }}>What You Get:</h3>
+            <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '16px' }}>{t('may4thDeals.tierD.whatYouGet')}</h3>
             <ul style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.8', marginBottom: '20px' }}>
-              <li>1 free item: <strong>The Razor Crest Mini-Build</strong> (~$5 value)</li>
-              <li><strong>2x Insiders Points</strong> (~10% cashback value)</li>
-              <li>Qualifying spend: <strong>$39.99+ on 2x eligible sets (before tax)</strong></li>
+              <li>{t('may4thDeals.tierD.item1')}</li>
+              <li>{t('may4thDeals.tierD.item2')}</li>
+              <li>{t('may4thDeals.tierD.item3')}</li>
             </ul>
             <p style={{ fontSize: 'var(--text-base)', color: '#525252', fontWeight: '600', marginBottom: '16px' }}>
-              The minimum entry point. Here's an example combo that works:
+              {t('may4thDeals.tierD.description')}
             </p>
             <div style={{
               background: 'linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%)',
@@ -197,17 +199,17 @@ export default function May4thDealsClient() {
               border: '1px solid #e0e0e0'
             }}>
               <p style={{ fontSize: 'var(--text-base)', color: '#171717', fontWeight: '600', marginBottom: '12px' }}>
-                Example: Buy All 3 Sets Below
+                {t('may4thDeals.tierD.example.title')}
               </p>
               <ul style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.8', listStyle: 'none', paddingLeft: '0' }}>
-                <li>• Siege of Mandalore Battle Pack: <strong>$22.99</strong></li>
-                <li>• Captain Rex Y-Wing Microfighter: <strong>$12.99</strong></li>
-                <li>• Mandalorian & Grogu Speeder Bike: <strong>$9.99</strong></li>
+                <li>{t('may4thDeals.tierD.example.set1')}</li>
+                <li>{t('may4thDeals.tierD.example.set2')}</li>
+                <li>{t('may4thDeals.tierD.example.set3')}</li>
                 <li style={{ fontWeight: '700', color: '#171717', marginTop: '8px', paddingTop: '8px', borderTop: '1px solid #d4d4d4' }}>
-                  Total: $45.97 ✓ Qualifies!
+                  {t('may4thDeals.tierD.example.totals')}
                 </li>
                 <li style={{ fontSize: 'var(--text-sm)', color: '#525252', marginTop: '8px', fontStyle: 'italic' }}>
-                  Return: $5 (Razor Crest) + $4.60 (2x points) = $9.60 = 21% back
+                  {t('may4thDeals.tierD.example.returns')}
                 </li>
               </ul>
             </div>
@@ -219,7 +221,7 @@ export default function May4thDealsClient() {
               marginTop: '32px'
             }}>
               {tierDsets.map(set => (
-                <SetCard key={set.setNumber} set={set} tierColor="#a3a3a3" />
+                <SetCard key={set.setNumber} set={set} tierColor="#a3a3a3" t={t} />
               ))}
             </div>
           </div>
@@ -245,7 +247,7 @@ export default function May4thDealsClient() {
               fontSize: 'var(--text-sm)',
               fontWeight: '600'
             }}>
-              TIER C
+              {t('may4thDeals.tierC.badge')}
             </span>
             <h2 style={{
               fontSize: 'var(--text-2xl)',
@@ -253,7 +255,7 @@ export default function May4thDealsClient() {
               color: '#171717',
               margin: '0'
             }}>
-              25% Return - Display Collector's Choice
+              {t('may4thDeals.tierC.title')}
             </h2>
           </div>
           <div style={{
@@ -262,15 +264,15 @@ export default function May4thDealsClient() {
             padding: '32px',
             border: '1px solid #e5e5e5'
           }}>
-            <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '16px' }}>What You Get:</h3>
+            <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '16px' }}>{t('may4thDeals.tierC.whatYouGet')}</h3>
             <ul style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.8', marginBottom: '20px' }}>
-              <li>2 free items: <strong>The Mandalorian and Grogu Display + The Darksaber</strong> (~$50 value)</li>
-              <li><strong>1x Insiders Points</strong> (~5% cashback = $12.50 on $249.99)</li>
-              <li>Qualifying purchase: <strong>75442 N-1 Starfighter ($249.99)</strong></li>
-              <li><strong>Total return: $62.50 = 25%</strong></li>
+              <li>{t('may4thDeals.tierC.item1')}</li>
+              <li>{t('may4thDeals.tierC.item2')}</li>
+              <li>{t('may4thDeals.tierC.item3')}</li>
+              <li>{t('may4thDeals.tierC.item4')}</li>
             </ul>
             <p style={{ fontSize: 'var(--text-base)', color: '#525252', fontWeight: '500', marginBottom: '24px' }}>
-              Best option if you want the exclusive Display tile. You get both premium GWPs but lower points multiplier.
+              {t('may4thDeals.tierC.description')}
             </p>
 
             <div style={{
@@ -352,7 +354,7 @@ export default function May4thDealsClient() {
                     boxShadow: '0 2px 8px rgba(0, 92, 151, 0.3)'
                   }}
                 >
-                  View on LEGO.com
+                  {t('may4thDeals.common.buyOnLego')}
                 </a>
               </div>
             </div>
@@ -379,7 +381,7 @@ export default function May4thDealsClient() {
               fontSize: 'var(--text-sm)',
               fontWeight: '600'
             }}>
-              TIER B
+              {t('may4thDeals.tierB.badge')}
             </span>
             <h2 style={{
               fontSize: 'var(--text-2xl)',
@@ -387,7 +389,7 @@ export default function May4thDealsClient() {
               color: '#171717',
               margin: '0'
             }}>
-              ~25-30% Return - Sweet Spot for 2x Sets
+              {t('may4thDeals.tierB.title')}
             </h2>
           </div>
           <div style={{
@@ -396,14 +398,14 @@ export default function May4thDealsClient() {
             padding: '32px',
             border: '2px solid #c0c0c0'
           }}>
-            <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '16px' }}>What You Get:</h3>
+            <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '16px' }}>{t('may4thDeals.tierB.whatYouGet')}</h3>
             <ul style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.8', marginBottom: '20px' }}>
-              <li>2 free items: <strong>The Razor Crest Mini-Build + The Darksaber</strong> (~$35 value)</li>
-              <li><strong>2x Insiders Points</strong> (~10% cashback)</li>
-              <li>Qualifying spend: <strong>$160+ on 2x eligible sets</strong></li>
+              <li>{t('may4thDeals.tierB.item1')}</li>
+              <li>{t('may4thDeals.tierB.item2')}</li>
+              <li>{t('may4thDeals.tierB.item3')}</li>
             </ul>
             <p style={{ fontSize: 'var(--text-base)', color: '#525252', fontWeight: '600', marginBottom: '16px' }}>
-              Great value if you're buying 2x point sets. Here's an example combo:
+              {t('may4thDeals.tierB.description')}
             </p>
             <div style={{
               background: 'linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%)',
@@ -413,21 +415,21 @@ export default function May4thDealsClient() {
               border: '1px solid #e0e0e0'
             }}>
               <p style={{ fontSize: 'var(--text-base)', color: '#171717', fontWeight: '600', marginBottom: '12px' }}>
-                Example: Buy Both Sets Below
+                {t('may4thDeals.tierB.example.title')}
               </p>
               <ul style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.8', listStyle: 'none', paddingLeft: '0' }}>
-                <li>• The Razor Crest: <strong>$149.99</strong></li>
-                <li>• AT-RT Attack: <strong>$44.99</strong></li>
+                <li>{t('may4thDeals.tierB.example.set1')}</li>
+                <li>{t('may4thDeals.tierB.example.set2')}</li>
                 <li style={{ fontWeight: '700', color: '#171717', marginTop: '8px', paddingTop: '8px', borderTop: '1px solid #d4d4d4' }}>
-                  Total: $194.98 ✓ Qualifies!
+                  {t('may4thDeals.tierB.example.totals')}
                 </li>
                 <li style={{ fontSize: 'var(--text-sm)', color: '#525252', marginTop: '8px', fontStyle: 'italic' }}>
-                  Return: $35 (freebies) + $19.50 (2x points) = $54.50 = 28% back
+                  {t('may4thDeals.tierB.example.returns')}
                 </li>
               </ul>
             </div>
             <p style={{ fontSize: 'var(--text-base)', color: '#737373', fontStyle: 'italic' }}>
-              But if you can stretch to 4x sets, read on for even better value...
+              {t('may4thDeals.tierB.note')}
             </p>
 
             <div style={{
@@ -437,7 +439,7 @@ export default function May4thDealsClient() {
               marginTop: '32px'
             }}>
               {tierBsets.map(set => (
-                <SetCard key={set.setNumber} set={set} tierColor="#c0c0c0" />
+                <SetCard key={set.setNumber} set={set} tierColor="#c0c0c0" t={t} />
               ))}
             </div>
           </div>
@@ -466,7 +468,7 @@ export default function May4thDealsClient() {
               fontWeight: '700',
               boxShadow: '0 4px 12px rgba(251, 191, 36, 0.4)'
             }}>
-              TIER A - BEST VALUE 🏆
+              {t('may4thDeals.tierA.badge')}
             </span>
           </div>
           <h2 style={{
@@ -477,7 +479,7 @@ export default function May4thDealsClient() {
             textAlign: 'center',
             letterSpacing: '-0.01em'
           }}>
-            Up to 35% Return - The Ultimate Deal
+            {t('may4thDeals.tierA.title')}
           </h2>
           <div style={{
             background: '#ffffff',
@@ -486,12 +488,12 @@ export default function May4thDealsClient() {
             border: '3px solid #fbbf24',
             boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)'
           }}>
-            <h3 style={{ fontSize: 'var(--text-xl)', fontWeight: '600', marginBottom: '20px', color: '#171717' }}>What You Get:</h3>
+            <h3 style={{ fontSize: 'var(--text-xl)', fontWeight: '600', marginBottom: '20px', color: '#171717' }}>{t('may4thDeals.tierA.whatYouGet')}</h3>
             <ul style={{ fontSize: 'var(--text-lg)', color: '#171717', lineHeight: '1.8', marginBottom: '24px', fontWeight: '500' }}>
-              <li>1 free item: <strong>The Darksaber</strong> (~$30 value)</li>
-              <li><strong>4x Insiders Points</strong> (~20% cashback = $32 on $160 spend)</li>
-              <li>Qualifying spend: <strong>$160+ on 4x eligible sets</strong></li>
-              <li><strong>Total return: $62 = 39%</strong></li>
+              <li>{t('may4thDeals.tierA.item1')}</li>
+              <li>{t('may4thDeals.tierA.item2')}</li>
+              <li>{t('may4thDeals.tierA.item3')}</li>
+              <li>{t('may4thDeals.tierA.item4')}</li>
             </ul>
 
             <div style={{
@@ -500,19 +502,19 @@ export default function May4thDealsClient() {
               padding: '24px',
               marginBottom: '32px'
             }}>
-              <h4 style={{ fontSize: 'var(--text-lg)', fontWeight: '700', marginBottom: '12px', color: '#171717' }}>The Math:</h4>
+              <h4 style={{ fontSize: 'var(--text-lg)', fontWeight: '700', marginBottom: '12px', color: '#171717' }}>{t('may4thDeals.tierA.example.mathTitle')}</h4>
               <p style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.7', marginBottom: '12px' }}>
-                <strong>Example:</strong> Buy the AT-ST Walker (75417) for $199.99
+                {t('may4thDeals.tierA.example.description')}
               </p>
               <ul style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.7', listStyle: 'none', paddingLeft: '0' }}>
-                <li>✓ You get: $30 Darksaber</li>
-                <li>✓ You get: $40 cashback (20% of $199.99)</li>
+                <li>{t('may4thDeals.tierA.example.item1')}</li>
+                <li>{t('may4thDeals.tierA.example.item2')}</li>
                 <li style={{ fontWeight: '700', color: '#171717', marginTop: '8px', fontSize: 'var(--text-lg)' }}>
-                  = $70 total return = 35% value
+                  {t('may4thDeals.tierA.example.total')}
                 </li>
               </ul>
               <p style={{ fontSize: 'var(--text-sm)', color: '#525252', marginTop: '12px', fontStyle: 'italic' }}>
-                TIE Interceptor ($229.99) gives $76 return = 33% value
+                {t('may4thDeals.tierA.example.alternateSet')}
               </p>
             </div>
 
@@ -527,10 +529,10 @@ export default function May4thDealsClient() {
               borderRadius: '8px',
               border: '2px dashed #fbbf24'
             }}>
-              This is the winner. The 4x points multiplier (20% back) is the best in the entire promotion.
+              {t('may4thDeals.tierA.winner')}
             </p>
 
-            <h3 style={{ fontSize: 'var(--text-xl)', fontWeight: '600', marginBottom: '20px', color: '#171717' }}>Qualifying 4x Points Sets:</h3>
+            <h3 style={{ fontSize: 'var(--text-xl)', fontWeight: '600', marginBottom: '20px', color: '#171717' }}>{t('may4thDeals.tierA.setsTitle')}</h3>
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
@@ -538,7 +540,7 @@ export default function May4thDealsClient() {
               marginTop: '24px'
             }}>
               {tierAsets.map(set => (
-                <SetCard key={set.setNumber} set={set} tierColor="#fbbf24" isBest />
+                <SetCard key={set.setNumber} set={set} tierColor="#fbbf24" isBest t={t} />
               ))}
             </div>
           </div>
@@ -555,7 +557,7 @@ export default function May4thDealsClient() {
             textAlign: 'center',
             marginBottom: '16px'
           }}>
-            What You Get Free
+            {t('may4thDeals.gwpSection.title')}
           </h2>
           <p style={{
             fontSize: 'var(--text-base)',
@@ -563,7 +565,7 @@ export default function May4thDealsClient() {
             textAlign: 'center',
             marginBottom: '40px'
           }}>
-            Gifts with purchase - automatically added at checkout
+            {t('may4thDeals.gwpSection.subtitle')}
           </p>
 
           <div style={{
@@ -596,10 +598,10 @@ export default function May4thDealsClient() {
                   unoptimized
                 />
               </div>
-              <h3 style={{ fontSize: 'var(--text-base)', fontWeight: '600', marginBottom: '8px' }}>The Razor Crest Mini-Build</h3>
-              <p style={{ fontSize: 'var(--text-sm)', color: '#737373', marginBottom: '8px' }}>Free with $40+ on 2x sets</p>
-              <p style={{ fontSize: 'var(--text-sm)', color: '#525252', fontWeight: '600' }}>~$5 value</p>
-              <p style={{ fontSize: 'var(--text-xs)', color: '#a3a3a3', marginTop: '8px' }}>Tier D & B</p>
+              <h3 style={{ fontSize: 'var(--text-base)', fontWeight: '600', marginBottom: '8px' }}>{t('may4thDeals.gwpSection.razorCrest.title')}</h3>
+              <p style={{ fontSize: 'var(--text-sm)', color: '#737373', marginBottom: '8px' }}>{t('may4thDeals.gwpSection.razorCrest.subtitle')}</p>
+              <p style={{ fontSize: 'var(--text-sm)', color: '#525252', fontWeight: '600' }}>{t('may4thDeals.gwpSection.razorCrest.price')}</p>
+              <p style={{ fontSize: 'var(--text-xs)', color: '#a3a3a3', marginTop: '8px' }}>{t('may4thDeals.gwpSection.razorCrest.requirement')}</p>
             </div>
 
             <div style={{
@@ -627,10 +629,10 @@ export default function May4thDealsClient() {
                   unoptimized
                 />
               </div>
-              <h3 style={{ fontSize: 'var(--text-base)', fontWeight: '700', marginBottom: '8px', color: '#171717' }}>The Mandalorian and Grogu Display</h3>
-              <p style={{ fontSize: 'var(--text-sm)', color: '#525252', marginBottom: '8px', fontWeight: '600' }}>Free ONLY with 75442 purchase</p>
-              <p style={{ fontSize: 'var(--text-base)', color: '#171717', fontWeight: '700' }}>~$20 value</p>
-              <p style={{ fontSize: 'var(--text-xs)', color: '#a3a3a3', marginTop: '8px' }}>Tier C only</p>
+              <h3 style={{ fontSize: 'var(--text-base)', fontWeight: '700', marginBottom: '8px', color: '#171717' }}>{t('may4thDeals.gwpSection.display.title')}</h3>
+              <p style={{ fontSize: 'var(--text-sm)', color: '#525252', marginBottom: '8px', fontWeight: '600' }}>{t('may4thDeals.gwpSection.display.subtitle')}</p>
+              <p style={{ fontSize: 'var(--text-base)', color: '#171717', fontWeight: '700' }}>{t('may4thDeals.gwpSection.display.price')}</p>
+              <p style={{ fontSize: 'var(--text-xs)', color: '#a3a3a3', marginTop: '8px' }}>{t('may4thDeals.gwpSection.display.requirement')}</p>
             </div>
 
             <div style={{
@@ -658,10 +660,10 @@ export default function May4thDealsClient() {
                   unoptimized
                 />
               </div>
-              <h3 style={{ fontSize: 'var(--text-base)', fontWeight: '600', marginBottom: '8px' }}>The Darksaber</h3>
-              <p style={{ fontSize: 'var(--text-sm)', color: '#737373', marginBottom: '8px' }}>Free with $160+ spend</p>
-              <p style={{ fontSize: 'var(--text-sm)', color: '#525252', fontWeight: '600' }}>~$30 value</p>
-              <p style={{ fontSize: 'var(--text-xs)', color: '#a3a3a3', marginTop: '8px' }}>Tier A, B & C</p>
+              <h3 style={{ fontSize: 'var(--text-base)', fontWeight: '600', marginBottom: '8px' }}>{t('may4thDeals.gwpSection.darksaber.title')}</h3>
+              <p style={{ fontSize: 'var(--text-sm)', color: '#737373', marginBottom: '8px' }}>{t('may4thDeals.gwpSection.darksaber.subtitle')}</p>
+              <p style={{ fontSize: 'var(--text-sm)', color: '#525252', fontWeight: '600' }}>{t('may4thDeals.gwpSection.darksaber.price')}</p>
+              <p style={{ fontSize: 'var(--text-xs)', color: '#a3a3a3', marginTop: '8px' }}>{t('may4thDeals.gwpSection.darksaber.requirement')}</p>
             </div>
           </div>
 
@@ -672,7 +674,7 @@ export default function May4thDealsClient() {
             marginTop: '32px',
             fontStyle: 'italic'
           }}>
-            Note: GWP items don't count toward spend thresholds. They're added automatically at checkout.
+            {t('may4thDeals.gwpSection.note')}
           </p>
         </div>
       </section>
@@ -687,7 +689,7 @@ export default function May4thDealsClient() {
             textAlign: 'center',
             marginBottom: '40px'
           }}>
-            Deal Comparison at a Glance
+            {t('may4thDeals.whichTier.title')}
           </h2>
 
           <div style={{ overflowX: 'auto' }}>
@@ -740,6 +742,159 @@ export default function May4thDealsClient() {
               </tbody>
             </table>
           </div>
+
+          {/* Decision Guide */}
+          <div style={{ marginTop: '60px' }}>
+            <h3 style={{
+              fontSize: 'var(--text-xl)',
+              fontWeight: '600',
+              color: '#171717',
+              textAlign: 'center',
+              marginBottom: '32px'
+            }}>
+              Which Tier Should You Buy?
+            </h3>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '24px'
+            }}>
+              <div style={{
+                background: '#fef3c7',
+                border: '2px solid #fbbf24',
+                borderRadius: '12px',
+                padding: '24px'
+              }}>
+                <h4 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '12px' }}>{t('may4thDeals.whichTier.tierA.title')}</h4>
+                <ul style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.7' }}>
+                  <li>{t('may4thDeals.whichTier.tierA.item1')}</li>
+                  <li>{t('may4thDeals.whichTier.tierA.item2')}</li>
+                  <li>{t('may4thDeals.whichTier.tierA.item3')}</li>
+                </ul>
+              </div>
+              <div style={{
+                background: '#ffffff',
+                border: '2px solid #c0c0c0',
+                borderRadius: '12px',
+                padding: '24px'
+              }}>
+                <h4 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '12px' }}>{t('may4thDeals.whichTier.tierB.title')}</h4>
+                <ul style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.7' }}>
+                  <li>{t('may4thDeals.whichTier.tierB.item1')}</li>
+                  <li>{t('may4thDeals.whichTier.tierB.item2')}</li>
+                  <li>{t('may4thDeals.whichTier.tierB.item3')}</li>
+                </ul>
+              </div>
+              <div style={{
+                background: '#ffffff',
+                border: '2px solid #cd7f32',
+                borderRadius: '12px',
+                padding: '24px'
+              }}>
+                <h4 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '12px' }}>{t('may4thDeals.whichTier.tierC.title')}</h4>
+                <ul style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.7' }}>
+                  <li>{t('may4thDeals.whichTier.tierC.item1')}</li>
+                  <li>{t('may4thDeals.whichTier.tierC.item2')}</li>
+                  <li>{t('may4thDeals.whichTier.tierC.item3')}</li>
+                </ul>
+              </div>
+              <div style={{
+                background: '#ffffff',
+                border: '1px solid #e5e5e5',
+                borderRadius: '12px',
+                padding: '24px'
+              }}>
+                <h4 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '12px' }}>{t('may4thDeals.whichTier.tierD.title')}</h4>
+                <ul style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.7' }}>
+                  <li>{t('may4thDeals.whichTier.tierD.item1')}</li>
+                  <li>{t('may4thDeals.whichTier.tierD.item2')}</li>
+                  <li>{t('may4thDeals.whichTier.tierD.item3')}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section style={{ padding: '60px 20px', backgroundColor: '#ffffff' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <h2 style={{
+            fontSize: 'var(--text-2xl)',
+            fontWeight: '600',
+            color: '#171717',
+            textAlign: 'center',
+            marginBottom: '40px'
+          }}>
+            {t('may4thDeals.faq.title')}
+          </h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div style={{
+              background: '#fafafa',
+              borderRadius: '12px',
+              padding: '24px',
+              border: '1px solid #e5e5e5'
+            }}>
+              <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '8px', color: '#171717' }}>
+                {t('may4thDeals.faq.q1.question')}
+              </h3>
+              <p style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.7' }}>
+                {t('may4thDeals.faq.q1.answer')}
+              </p>
+            </div>
+            <div style={{
+              background: '#fafafa',
+              borderRadius: '12px',
+              padding: '24px',
+              border: '1px solid #e5e5e5'
+            }}>
+              <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '8px', color: '#171717' }}>
+                {t('may4thDeals.faq.q2.question')}
+              </h3>
+              <p style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.7' }}>
+                {t('may4thDeals.faq.q2.answer')}
+              </p>
+            </div>
+            <div style={{
+              background: '#fafafa',
+              borderRadius: '12px',
+              padding: '24px',
+              border: '1px solid #e5e5e5'
+            }}>
+              <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '8px', color: '#171717' }}>
+                {t('may4thDeals.faq.q3.question')}
+              </h3>
+              <p style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.7' }}>
+                {t('may4thDeals.faq.q3.answer')}
+              </p>
+            </div>
+            <div style={{
+              background: '#fafafa',
+              borderRadius: '12px',
+              padding: '24px',
+              border: '1px solid #e5e5e5'
+            }}>
+              <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '8px', color: '#171717' }}>
+                {t('may4thDeals.faq.q4.question')}
+              </h3>
+              <p style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.7' }}>
+                {t('may4thDeals.faq.q4.answer')}
+              </p>
+            </div>
+            <div style={{
+              background: '#fafafa',
+              borderRadius: '12px',
+              padding: '24px',
+              border: '1px solid #e5e5e5'
+            }}>
+              <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', marginBottom: '8px', color: '#171717' }}>
+                {t('may4thDeals.faq.q5.question')}
+              </h3>
+              <p style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.7' }}>
+                {t('may4thDeals.faq.q5.answer')}
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -752,7 +907,7 @@ export default function May4thDealsClient() {
             color: '#ffffff',
             marginBottom: '16px'
           }}>
-            Track Your LEGO Collection Value
+            {t('may4thDeals.cta.title')}
           </h2>
           <p style={{
             fontSize: 'var(--text-lg)',
@@ -760,7 +915,7 @@ export default function May4thDealsClient() {
             marginBottom: '32px',
             lineHeight: '1.6'
           }}>
-            Once you've grabbed these deals, use FigTracker to monitor your minifigure and set values in real-time
+            {t('may4thDeals.cta.description')}
           </p>
 
           <div style={{
@@ -812,7 +967,7 @@ export default function May4thDealsClient() {
               e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
             }}
           >
-            Start Tracking Free
+            {t('may4thDeals.cta.button')}
           </Link>
         </div>
       </section>
@@ -821,7 +976,7 @@ export default function May4thDealsClient() {
       <section style={{ padding: '40px 20px', backgroundColor: '#fafafa' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
           <p style={{ fontSize: 'var(--text-sm)', color: '#737373', lineHeight: '1.6' }}>
-            FigTracker earns commission on qualifying purchases through our affiliate links. This helps us keep the site running and provide free price tracking for collectors. Prices and promotions are accurate as of publication and subject to change by LEGO. Promotion valid May 1-6, 2026. <Link href="/disclosure" style={{ color: '#737373', textDecoration: 'underline' }}>Learn more</Link>
+            {t('may4thDeals.cta.disclaimer')} <Link href="/disclosure" style={{ color: '#737373', textDecoration: 'underline' }}>{t('footer.disclosure')}</Link>
           </p>
         </div>
       </section>
@@ -833,9 +988,10 @@ interface SetCardProps {
   set: DealSet;
   tierColor: string;
   isBest?: boolean;
+  t: (key: string) => string;
 }
 
-function SetCard({ set, tierColor, isBest }: SetCardProps) {
+function SetCard({ set, tierColor, isBest, t }: SetCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [imageError, setImageError] = useState(false);
 
@@ -907,7 +1063,7 @@ function SetCard({ set, tierColor, isBest }: SetCardProps) {
         color: '#737373',
         marginBottom: '8px'
       }}>
-        Sponsored • {set.setNumber}
+        Sponsored • {t('may4thDeals.common.setNumber')}: {set.setNumber}
       </p>
       <p style={{
         fontSize: 'var(--text-xl)',
@@ -915,7 +1071,7 @@ function SetCard({ set, tierColor, isBest }: SetCardProps) {
         color: '#171717',
         marginBottom: '16px'
       }}>
-        ${set.price.toFixed(2)}
+        {t('may4thDeals.common.price')}: ${set.price.toFixed(2)}
       </p>
 
       <a
@@ -939,7 +1095,7 @@ function SetCard({ set, tierColor, isBest }: SetCardProps) {
           boxShadow: isBest ? '0 2px 8px rgba(251, 191, 36, 0.3)' : '0 2px 8px rgba(0, 92, 151, 0.3)'
         }}
       >
-        Shop on LEGO.com
+        {t('may4thDeals.common.buyOnLego')}
       </a>
     </div>
   );

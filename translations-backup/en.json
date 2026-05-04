@@ -272,7 +272,14 @@
     "otherMinifigures": "Other {theme} Minifigures",
     "uncategorizedDesc": "{count} minifigures that don't belong to a specific series",
     "showLess": "Show Less",
-    "readMore": "Read More"
+    "readMore": "Read More",
+    "meta": {
+      "title": "Browse LEGO Minifigures by Theme - Star Wars, Harry Potter & More",
+      "description": "Explore LEGO minifigures organized by theme. Browse Star Wars, Harry Potter, Marvel, DC, Ninjago, and 50+ other themes. Get pricing data and track your collection.",
+      "keywords": "LEGO themes, Star Wars minifigures, Harry Potter LEGO, Marvel LEGO, DC LEGO, Ninjago minifigs, LEGO catalog by theme",
+      "ogTitle": "Browse LEGO Minifigures by Theme | FigTracker",
+      "ogDescription": "Explore minifigures from Star Wars, Harry Potter, Marvel, and 50+ other LEGO themes with real-time pricing."
+    }
   },
   "account": {
     "title": "Account Settings",
@@ -495,7 +502,14 @@
         "q": "Can I share my collection publicly?",
         "a": "Yes! You can generate a public share link for your collections in your Account settings. This allows others to view your minifigures and sets without needing to log in. You control what's shared and can disable sharing anytime."
       }
-    ]
+    ],
+    "meta": {
+      "title": "FAQ - Frequently Asked Questions | FigTracker",
+      "description": "Common questions about FigTracker LEGO minifigure and set price tracker. Learn how to price items, track inventory in 15+ currencies, and use Bricklink data effectively.",
+      "keywords": "LEGO pricing FAQ, Bricklink help, minifigure pricing guide, FigTracker help, how to price LEGO, LEGO set tracker",
+      "ogTitle": "Frequently Asked Questions | FigTracker",
+      "ogDescription": "Get answers about pricing LEGO minifigures and sets with FigTracker. 15+ currencies, 18,000+ minifigs, 20,000+ sets."
+    }
   },
   "about": {
     "badge": "ABOUT FIGTRACKER",
@@ -567,6 +581,11 @@
       "title": "Ready to stop guessing?",
       "subtitle": "Start pricing your inventory and get suggested values in seconds.",
       "button": "Start Pricing Your Inventory →"
+    },
+    "meta": {
+      "title": "About FigTracker - Free LEGO Minifigure Price Tracker",
+      "description": "Learn how FigTracker helps LEGO resellers and collectors price minifigures accurately with real-time Bricklink marketplace data. Search over 18,000 minifigs. Free to use.",
+      "keywords": "about FigTracker, LEGO price tracker, Bricklink API tool, minifigure pricing, LEGO inventory tracker, free LEGO pricing"
     }
   },
   "featured": {
@@ -583,7 +602,12 @@
     "donateLabel": "Or support us directly:",
     "donateLeaderboard": "Donors appear on the Top Supporters leaderboard on our homepage",
     "donateButton": "Donate via PayPal",
-    "thankYou": "Thank you for supporting FigTracker!"
+    "thankYou": "Thank you for supporting FigTracker!",
+    "meta": {
+      "title": "Support FigTracker - Keep Our LEGO Price Tracker Free",
+      "description": "Learn how FigTracker stays free and how you can help support the site through affiliate purchases and sharing with other LEGO collectors.",
+      "keywords": "support FigTracker, LEGO affiliate links, help FigTracker, support LEGO price tracker, donate to FigTracker"
+    }
   },
   "leaderboards": {
     "title": "Community Leaderboards",
@@ -632,6 +656,11 @@
       "title": "Questions?",
       "text": "If you have questions about our affiliate relationships, please contact us through our",
       "aboutPage": "About page"
+    },
+    "meta": {
+      "title": "Affiliate Disclosure - FigTracker",
+      "description": "FigTracker participates in the LEGO.com Affiliate Program and Amazon Associates Program. Learn about our affiliate partnerships and how we earn commissions.",
+      "keywords": "FigTracker affiliate disclosure, LEGO affiliate program, Amazon Associates, affiliate links disclaimer"
     }
   },
   "guides": {
@@ -1111,6 +1140,13 @@
     "breadcrumbs": {
       "home": "Home",
       "setThemes": "Set Themes"
+    },
+    "meta": {
+      "title": "Browse LEGO Sets by Theme - Star Wars, Harry Potter & More",
+      "description": "Explore LEGO sets organized by theme. Browse Star Wars, Harry Potter, Friends, and 170+ other themes. Get pricing data and track your collection.",
+      "keywords": "LEGO set themes, Star Wars sets, Harry Potter LEGO sets, Marvel LEGO sets, DC LEGO sets, Friends sets, LEGO sets catalog",
+      "ogTitle": "Browse LEGO Sets by Theme | FigTracker",
+      "ogDescription": "Explore LEGO sets from Star Wars, Harry Potter, Friends, and 170+ other themes with real-time pricing."
     }
   },
   "sharedCollection": {
@@ -1448,5 +1484,152 @@
     "X-Pod": "Carry building adventures in LEGO® X-Pods! These portable, spherical containers held small themed builds that could be constructed, displayed, and stored in their unique cases. X-Pods combined building with collectible packaging, creating pocket-sized adventures. Though discontinued, X-Pods represented innovative thinking about LEGO packaging and portability. Perfect for collectors of unique LEGO packaging, fans of compact builds, and those who remember this creative early 2000s experiment.",
     "Znap": "Connect in new ways with LEGO® Znap! This experimental 1990s system featured flexible beam-and-panel construction different from traditional brick building. Znap sets created skeletal structures, vehicles, and creatures using hinged connections. Though unsuccessful commercially, Znap showed LEGO's willingness to explore alternative building systems. Perfect for LEGO historians, collectors of failed experiments, and fans of LEGO's innovative attempts beyond standard bricks.",
     "xtra": "Enhance your worlds with LEGO® xtra! These accessory sets include extra elements, scenery pieces, and details for customizing existing builds. From street signs and plants to furniture and decorations, xtra sets add life and realism to LEGO cities and scenes. Perfect for builders adding detail to displays, city builders seeking realism, and those who love accessorizing their LEGO worlds."
+  },
+  "may4thDeals": {
+    "meta": {
+      "title": "LEGO Star Wars May the 4th Deals 2026 - Up to 39% Back",
+      "description": "Exclusive LEGO Star Wars May the 4th deals guide. Get up to 39% total value with free minifigures and 4x Insiders Points. Analysis of all deal tiers May 1-6, 2026.",
+      "keywords": "LEGO Star Wars May the 4th 2026, LEGO May 4th deals, LEGO Star Wars GWP, LEGO Insiders Points, best LEGO deals 2026, LEGO Star Wars freebies"
+    },
+    "hero": {
+      "title": "LEGO Star Wars May the 4th Deals 2026",
+      "subtitle": "Up to 35% Total Value • May 1-6 Only",
+      "description": "Four tiers analyzed. Find your best deal below."
+    },
+    "tierD": {
+      "badge": "TIER D",
+      "title": "~20-23% Return - Starting Point",
+      "whatYouGet": "What You Get:",
+      "item1": "1 free item: The Razor Crest Mini-Build (~$5 value)",
+      "item2": "2x Insiders Points (~10% cashback value)",
+      "item3": "Qualifying spend: $39.99+ on 2x eligible sets (before tax)",
+      "description": "The minimum entry point. Here's an example combo that works:",
+      "exampleTitle": "Example: Buy All 3 Sets Below",
+      "exampleSet1": "Siege of Mandalore Battle Pack: $22.99",
+      "exampleSet2": "Captain Rex Y-Wing Microfighter: $12.99",
+      "exampleSet3": "Mandalorian & Grogu Speeder Bike: $9.99",
+      "exampleTotal": "Total: $45.97 ✓ Qualifies!",
+      "exampleReturn": "Return: $5 (Razor Crest) + $4.60 (2x points) = $9.60 = 21% back"
+    },
+    "tierC": {
+      "badge": "TIER C",
+      "title": "25% Return - Display Collector's Choice",
+      "whatYouGet": "What You Get:",
+      "item1": "2 free items: The Mandalorian and Grogu Display + The Darksaber (~$50 value)",
+      "item2": "1x Insiders Points (~5% cashback = $12.50 on $249.99)",
+      "item3": "Qualifying purchase: 75442 N-1 Starfighter ($249.99)",
+      "item4": "Total return: $62.50 = 25%",
+      "description": "Best option if you want the exclusive Display tile. You get both premium GWPs but lower points multiplier."
+    },
+    "tierB": {
+      "badge": "TIER B",
+      "title": "~26-32% Return - Better Value",
+      "whatYouGet": "What You Get:",
+      "item1": "2 free items: The Darksaber + The Razor Crest Mini-Build (~$50 value)",
+      "item2": "2x Insiders Points (~10% cashback value)",
+      "item3": "Qualifying spend: $160+ on 2x eligible sets (before tax)",
+      "description": "Great value without breaking $200. Here's an example:",
+      "exampleTitle": "Example: Buy Both Sets Below",
+      "exampleSet1": "The Razor Crest: $149.99",
+      "exampleSet2": "AT-RT Attack: $44.99",
+      "exampleTotal": "Total: $194.98 ✓ Qualifies!",
+      "exampleReturn": "Return: $50 (GWP) + $19.50 (2x points) = $69.50 = 36% back"
+    },
+    "tierA": {
+      "badge": "TIER A - BEST VALUE 🏆",
+      "title": "39% Return - Ultimate Deal",
+      "whatYouGet": "What You Get:",
+      "item1": "2 free items: The Darksaber + The Razor Crest Mini-Build (~$50 value)",
+      "item2": "4x Insiders Points (~20% cashback value)",
+      "item3": "Qualifying spend: $160+ on 4x eligible sets (before tax)",
+      "item4": "Total return: $62 = 39%",
+      "description": "Maximum value. Get both freebies + 4x points multiplier.",
+      "exampleTitle": "Example: Buy the AT-ST Walker (75417) for $199.99",
+      "exampleReturn": "Return: $50 (GWP) + $40 (4x points) = $90 = 45% back"
+    },
+    "gwpSection": {
+      "title": "What You Get Free",
+      "subtitle": "Stack multiple GWPs depending on your spend tier",
+      "darksaber": {
+        "title": "The Darksaber",
+        "subtitle": "Legendary Mandalorian weapon",
+        "price": "~$45 value",
+        "requirement": "Spend $160+ on Star Wars"
+      },
+      "razorCrest": {
+        "title": "The Razor Crest Mini-Build",
+        "subtitle": "Mando's iconic ship",
+        "price": "~$5 value",
+        "requirement": "Spend $40+ on 2x sets"
+      },
+      "display": {
+        "title": "Mandalorian & Grogu Display",
+        "subtitle": "Exclusive display tile",
+        "price": "~$5 value",
+        "requirement": "Buy 75442 N-1 Starfighter"
+      }
+    },
+    "whichTier": {
+      "title": "Which Tier Should You Buy?",
+      "tierA": {
+        "title": "Choose Tier A if...",
+        "item1": "You want maximum value (39% back)",
+        "item2": "You're buying AT-ST or TIE Interceptor anyway",
+        "item3": "4x points matter to you for future purchases"
+      },
+      "tierB": {
+        "title": "Choose Tier B if...",
+        "item1": "You want solid value without spending $200+",
+        "item2": "The Razor Crest set interests you",
+        "item3": "You prefer flexibility with 2x sets"
+      },
+      "tierC": {
+        "title": "Choose Tier C if...",
+        "item1": "You specifically want the Display tile",
+        "item2": "You're buying the N-1 Starfighter anyway",
+        "item3": "GWPs matter more than points to you"
+      },
+      "tierD": {
+        "title": "Choose Tier D if...",
+        "item1": "You're on a tight budget (~$40-50)",
+        "item2": "You just want the Razor Crest mini-build",
+        "item3": "You prefer small impulse purchases"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": {
+        "question": "When does this promotion run?",
+        "answer": "May 1-6, 2026. Available while supplies last."
+      },
+      "q2": {
+        "question": "Can I combine tiers?",
+        "answer": "No. You qualify for ONE tier based on your purchase. Choose wisely."
+      },
+      "q3": {
+        "question": "Do I need to be a LEGO Insiders member?",
+        "answer": "Yes. Free to join at LEGO.com. Required for points."
+      },
+      "q4": {
+        "question": "When do I receive my Insiders Points?",
+        "answer": "Points post to your account 60 days after purchase."
+      },
+      "q5": {
+        "question": "Can I return items and keep the GWP?",
+        "answer": "No. LEGO requires you to return free gifts if you return the qualifying purchase."
+      }
+    },
+    "cta": {
+      "title": "Ready to Maximize Your Value?",
+      "description": "Choose your tier and shop now. Promotion ends May 6, 2026.",
+      "button": "Shop LEGO.com",
+      "disclaimer": "We earn a commission from qualifying purchases. Prices accurate as of May 2, 2026."
+    },
+    "common": {
+      "buyOnLego": "Buy on LEGO.com",
+      "price": "Price",
+      "setNumber": "Set",
+      "eligibleFor": "Eligible for"
+    }
   }
 }

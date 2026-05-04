@@ -329,7 +329,14 @@
     "otherMinifigures": "Otras Minifiguras de {theme}",
     "uncategorizedDesc": "{count} minifiguras que no pertenecen a ninguna serie específica",
     "showLess": "Mostrar menos",
-    "readMore": "Leer más"
+    "readMore": "Leer más",
+    "meta": {
+      "title": "Explorar Minifiguras LEGO por Tema - Star Wars, Harry Potter y Más",
+      "description": "Explora minifiguras LEGO organizadas por tema. Navega Star Wars, Harry Potter, Marvel, DC, Ninjago y más de 50 otros temas. Obtén datos de precios y rastrea tu colección.",
+      "keywords": "temas LEGO, minifiguras Star Wars, Harry Potter LEGO, Marvel LEGO, DC LEGO, minifiguras Ninjago, catálogo LEGO por tema",
+      "ogTitle": "Explorar Minifiguras LEGO por Tema | FigTracker",
+      "ogDescription": "Explora minifiguras de Star Wars, Harry Potter, Marvel y más de 50 otros temas LEGO con precios en tiempo real."
+    }
   },
   "account": {
     "title": "Configuración de cuenta",
@@ -552,7 +559,14 @@
         "q": "¿Puedo compartir mi colección públicamente?",
         "a": "¡Sí! Puedes generar un enlace de compartir público para tus colecciones en la configuración de tu cuenta. Esto permite que otros vean tus minifiguras y sets sin necesidad de iniciar sesión. Tú controlas qué se comparte y puedes desactivar el compartir en cualquier momento."
       }
-    ]
+    ],
+    "meta": {
+      "title": "Preguntas Frecuentes | FigTracker",
+      "description": "Preguntas comunes sobre el rastreador de precios de minifiguras y sets LEGO de FigTracker. Aprende a poner precio a artículos, rastrear inventario en más de 15 monedas y usar datos de Bricklink eficazmente.",
+      "keywords": "FAQ precios LEGO, ayuda Bricklink, guía precios minifiguras, ayuda FigTracker, cómo poner precio LEGO, rastreador sets LEGO",
+      "ogTitle": "Preguntas Frecuentes | FigTracker",
+      "ogDescription": "Obtén respuestas sobre precios de minifiguras y sets LEGO con FigTracker. Más de 15 monedas, 18,000+ minifiguras, 20,000+ sets."
+    }
   },
   "about": {
     "badge": "ACERCA DE FIGTRACKER",
@@ -624,6 +638,11 @@
       "title": "¿Listo para dejar de adivinar?",
       "subtitle": "Comienza a valorar tu inventario y obtén valores sugeridos en segundos.",
       "button": "Comenzar a valorar tu inventario →"
+    },
+    "meta": {
+      "title": "Acerca de FigTracker - Rastreador Gratuito de Precios de Minifiguras LEGO",
+      "description": "Descubre cómo FigTracker ayuda a revendedores y coleccionistas de LEGO a poner precio a minifiguras con precisión usando datos del mercado de Bricklink en tiempo real. Busca más de 18,000 minifiguras. Gratis.",
+      "keywords": "acerca de FigTracker, rastreador de precios LEGO, herramienta API Bricklink, precio de minifiguras, rastreador inventario LEGO, precio LEGO gratis"
     }
   },
   "featured": {
@@ -640,7 +659,12 @@
     "donateLabel": "O apóyanos directamente:",
     "donateLeaderboard": "Los donantes aparecen en la clasificación de principales patrocinadores en nuestra página de inicio",
     "donateButton": "Donar vía PayPal",
-    "thankYou": "¡Gracias por apoyar FigTracker!"
+    "thankYou": "¡Gracias por apoyar FigTracker!",
+    "meta": {
+      "title": "Apoyar FigTracker - Mantén Nuestro Rastreador de Precios LEGO Gratis",
+      "description": "Descubre cómo FigTracker se mantiene gratuito y cómo puedes ayudar a apoyar el sitio mediante compras de afiliados y compartiéndolo con otros coleccionistas de LEGO.",
+      "keywords": "apoyar FigTracker, enlaces afiliados LEGO, ayudar FigTracker, apoyar rastreador precios LEGO, donar a FigTracker"
+    }
   },
   "leaderboards": {
     "title": "Clasificaciones de la comunidad",
@@ -689,6 +713,11 @@
       "title": "¿Preguntas?",
       "text": "Si tienes preguntas sobre nuestras relaciones de afiliados, contáctanos a través de nuestra",
       "aboutPage": "página Acerca de"
+    },
+    "meta": {
+      "title": "Divulgación de Afiliados - FigTracker",
+      "description": "FigTracker participa en el Programa de Afiliados de LEGO.com y Amazon Associates. Conoce nuestras asociaciones de afiliados y cómo ganamos comisiones.",
+      "keywords": "divulgación afiliados FigTracker, programa afiliados LEGO, Amazon Associates, descargo enlaces afiliados"
     }
   },
   "guides": {
@@ -1168,6 +1197,13 @@
     "breadcrumbs": {
       "home": "Inicio",
       "setThemes": "Temas de sets"
+    },
+    "meta": {
+      "title": "Explorar Sets LEGO por Tema - Star Wars, Harry Potter y Más",
+      "description": "Explora sets LEGO organizados por tema. Navega Star Wars, Harry Potter, Friends y más de 170 otros temas. Obtén datos de precios y rastrea tu colección.",
+      "keywords": "temas sets LEGO, sets Star Wars, sets Harry Potter LEGO, sets Marvel LEGO, sets DC LEGO, sets Friends, catálogo sets LEGO",
+      "ogTitle": "Explorar Sets LEGO por Tema | FigTracker",
+      "ogDescription": "Explora sets LEGO de Star Wars, Harry Potter, Friends y más de 170 otros temas con precios en tiempo real."
     }
   },
   "sharedCollection": {
@@ -1505,5 +1541,152 @@
     "X-Pod": "¡Lleva aventuras de construcción en LEGO® X-Pods! Estos contenedores esféricos portátiles contenían pequeñas construcciones temáticas que podían ser construidas, exhibidas y almacenadas en sus cajas únicas. Los X-Pods combinaron construcción con empaque coleccionable, creando aventuras de tamaño de bolsillo. Aunque descontinuados, los X-Pods representaron pensamiento innovador sobre empaque y portabilidad de LEGO. Perfecto para coleccionistas de empaque único de LEGO, fanáticos de construcciones compactas y aquellos que recuerdan este experimento creativo de principios de los 2000.",
     "Znap": "¡Conecta de nuevas formas con LEGO® Znap! Este sistema experimental de los años 90 presentó construcción flexible de vigas y paneles diferente de la construcción tradicional de ladrillos. Los sets Znap crearon estructuras esqueléticas, vehículos y criaturas usando conexiones con bisagras. Aunque comercialmente sin éxito, Znap mostró la voluntad de LEGO de explorar sistemas de construcción alternativos. Perfecto para historiadores de LEGO, coleccionistas de experimentos fallidos y fanáticos de los intentos innovadores de LEGO más allá de ladrillos estándar.",
     "xtra": "¡Mejora tus mundos con LEGO® xtra! Estos sets de accesorios incluyen elementos extra, piezas de escenario y detalles para personalizar construcciones existentes. Desde señales de calle y plantas hasta muebles y decoraciones, los sets xtra agregan vida y realismo a ciudades y escenas LEGO. Perfecto para constructores agregando detalle a exhibiciones, constructores de ciudades buscando realismo y aquellos que aman accesorizar sus mundos LEGO."
+  },
+  "may4thDeals": {
+    "meta": {
+      "title": "Ofertas LEGO Star Wars May the 4th 2026 - Hasta 39% de Retorno",
+      "description": "Guía exclusiva de ofertas LEGO Star Wars May the 4th. Obtén hasta 39% de valor total con minifiguras gratis y 4x Puntos Insiders. Análisis de todos los niveles del 1-6 de mayo, 2026.",
+      "keywords": "LEGO Star Wars May the 4th 2026, ofertas LEGO mayo 4, LEGO Star Wars GWP, LEGO Puntos Insiders, mejores ofertas LEGO 2026, regalos LEGO Star Wars"
+    },
+    "hero": {
+      "title": "Ofertas LEGO Star Wars May the 4th 2026",
+      "subtitle": "Hasta 35% de Valor Total • Solo del 1-6 de Mayo",
+      "description": "Cuatro niveles analizados. Encuentra tu mejor oferta abajo."
+    },
+    "tierD": {
+      "badge": "NIVEL D",
+      "title": "~20-23% de Retorno - Punto de Inicio",
+      "whatYouGet": "Lo Que Obtienes:",
+      "item1": "1 artículo gratis: Mini-Construcción Razor Crest (~$5 de valor)",
+      "item2": "2x Puntos Insiders (~10% valor de reembolso)",
+      "item3": "Gasto calificado: $39.99+ en sets elegibles 2x (antes de impuestos)",
+      "description": "El punto de entrada mínimo. Aquí hay un combo de ejemplo que funciona:",
+      "exampleTitle": "Ejemplo: Compra los 3 Sets Abajo",
+      "exampleSet1": "Paquete de Batalla Sitio de Mandalore: $22.99",
+      "exampleSet2": "Microfighter Y-Wing del Capitán Rex: $12.99",
+      "exampleSet3": "Speeder Bike de Mandalorian y Grogu: $9.99",
+      "exampleTotal": "Total: $45.97 ✓ ¡Califica!",
+      "exampleReturn": "Retorno: $5 (Razor Crest) + $4.60 (puntos 2x) = $9.60 = 21% de vuelta"
+    },
+    "tierC": {
+      "badge": "NIVEL C",
+      "title": "25% de Retorno - Elección del Coleccionista de Display",
+      "whatYouGet": "Lo Que Obtienes:",
+      "item1": "2 artículos gratis: Display de Mandalorian y Grogu + El Sable Oscuro (~$50 de valor)",
+      "item2": "1x Puntos Insiders (~5% reembolso = $12.50 en $249.99)",
+      "item3": "Compra calificada: 75442 N-1 Starfighter ($249.99)",
+      "item4": "Retorno total: $62.50 = 25%",
+      "description": "Mejor opción si quieres el Display exclusivo. Obtienes ambos GWP premium pero menor multiplicador de puntos."
+    },
+    "tierB": {
+      "badge": "NIVEL B",
+      "title": "~26-32% de Retorno - Mejor Valor",
+      "whatYouGet": "Lo Que Obtienes:",
+      "item1": "2 artículos gratis: El Sable Oscuro + Mini-Construcción Razor Crest (~$50 de valor)",
+      "item2": "2x Puntos Insiders (~10% valor de reembolso)",
+      "item3": "Gasto calificado: $160+ en sets elegibles 2x (antes de impuestos)",
+      "description": "Gran valor sin romper $200. Aquí hay un ejemplo:",
+      "exampleTitle": "Ejemplo: Compra Ambos Sets Abajo",
+      "exampleSet1": "The Razor Crest: $149.99",
+      "exampleSet2": "Ataque AT-RT: $44.99",
+      "exampleTotal": "Total: $194.98 ✓ ¡Califica!",
+      "exampleReturn": "Retorno: $50 (GWP) + $19.50 (puntos 2x) = $69.50 = 36% de vuelta"
+    },
+    "tierA": {
+      "badge": "NIVEL A - MEJOR VALOR 🏆",
+      "title": "39% de Retorno - Oferta Definitiva",
+      "whatYouGet": "Lo Que Obtienes:",
+      "item1": "2 artículos gratis: El Sable Oscuro + Mini-Construcción Razor Crest (~$50 de valor)",
+      "item2": "4x Puntos Insiders (~20% valor de reembolso)",
+      "item3": "Gasto calificado: $160+ en sets elegibles 4x (antes de impuestos)",
+      "item4": "Retorno total: $62 = 39%",
+      "description": "Valor máximo. Obtén ambos regalos + multiplicador de puntos 4x.",
+      "exampleTitle": "Ejemplo: Compra el AT-ST Walker (75417) por $199.99",
+      "exampleReturn": "Retorno: $50 (GWP) + $40 (puntos 4x) = $90 = 45% de vuelta"
+    },
+    "gwpSection": {
+      "title": "Lo Que Obtienes Gratis",
+      "subtitle": "Acumula múltiples GWP dependiendo de tu nivel de gasto",
+      "darksaber": {
+        "title": "El Sable Oscuro",
+        "subtitle": "Arma legendaria de Mandalorian",
+        "price": "~$45 de valor",
+        "requirement": "Gasta $160+ en Star Wars"
+      },
+      "razorCrest": {
+        "title": "Mini-Construcción Razor Crest",
+        "subtitle": "La nave icónica de Mando",
+        "price": "~$5 de valor",
+        "requirement": "Gasta $40+ en sets 2x"
+      },
+      "display": {
+        "title": "Display de Mandalorian y Grogu",
+        "subtitle": "Baldosa de display exclusiva",
+        "price": "~$5 de valor",
+        "requirement": "Compra 75442 N-1 Starfighter"
+      }
+    },
+    "whichTier": {
+      "title": "¿Qué Nivel Deberías Comprar?",
+      "tierA": {
+        "title": "Elige Nivel A si...",
+        "item1": "Quieres valor máximo (39% de vuelta)",
+        "item2": "De todos modos comprarás AT-ST o TIE Interceptor",
+        "item3": "Los puntos 4x te importan para compras futuras"
+      },
+      "tierB": {
+        "title": "Elige Nivel B si...",
+        "item1": "Quieres buen valor sin gastar $200+",
+        "item2": "Te interesa el set Razor Crest",
+        "item3": "Prefieres flexibilidad con sets 2x"
+      },
+      "tierC": {
+        "title": "Elige Nivel C si...",
+        "item1": "Específicamente quieres la baldosa Display",
+        "item2": "De todos modos comprarás el N-1 Starfighter",
+        "item3": "Los GWP te importan más que los puntos"
+      },
+      "tierD": {
+        "title": "Elige Nivel D si...",
+        "item1": "Tienes un presupuesto ajustado (~$40-50)",
+        "item2": "Solo quieres la mini-construcción Razor Crest",
+        "item3": "Prefieres compras impulsivas pequeñas"
+      }
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "q1": {
+        "question": "¿Cuándo se ejecuta esta promoción?",
+        "answer": "Del 1-6 de mayo de 2026. Disponible mientras duren las existencias."
+      },
+      "q2": {
+        "question": "¿Puedo combinar niveles?",
+        "answer": "No. Calificas para UN nivel basado en tu compra. Elige sabiamente."
+      },
+      "q3": {
+        "question": "¿Necesito ser miembro de LEGO Insiders?",
+        "answer": "Sí. Gratis unirse en LEGO.com. Requerido para puntos."
+      },
+      "q4": {
+        "question": "¿Cuándo recibo mis Puntos Insiders?",
+        "answer": "Los puntos se publican en tu cuenta 60 días después de la compra."
+      },
+      "q5": {
+        "question": "¿Puedo devolver artículos y quedarme con el GWP?",
+        "answer": "No. LEGO requiere que devuelvas los regalos gratis si devuelves la compra calificada."
+      }
+    },
+    "cta": {
+      "title": "¿Listo para Maximizar tu Valor?",
+      "description": "Elige tu nivel y compra ahora. La promoción termina el 6 de mayo de 2026.",
+      "button": "Comprar en LEGO.com",
+      "disclaimer": "Ganamos una comisión de compras calificadas. Precios precisos al 2 de mayo de 2026."
+    },
+    "common": {
+      "buyOnLego": "Comprar en LEGO.com",
+      "price": "Precio",
+      "setNumber": "Set",
+      "eligibleFor": "Elegible para"
+    }
   }
 }
