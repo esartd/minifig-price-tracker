@@ -459,6 +459,9 @@ export default function WishlistPage() {
                   right: '12px',
                   width: '32px',
                   height: '32px',
+                  minWidth: '32px',
+                  minHeight: '32px',
+                  padding: '0',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -467,7 +470,8 @@ export default function WishlistPage() {
                   borderRadius: '50%',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
-                  color: '#737373'
+                  color: '#737373',
+                  flexShrink: 0
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = '#fef2f2';
