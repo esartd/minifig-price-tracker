@@ -405,7 +405,7 @@ export async function sendUnsubscribeConfirmationEmail(email: string) {
     await client.emails.send({
       from: process.env.EMAIL_FROM || 'FigTracker <hello@figtracker.ericksu.com>',
       to: email,
-      subject: 'You've Been Unsubscribed from FigTracker',
+      subject: 'You have been unsubscribed from FigTracker',
       html: `
         <!DOCTYPE html>
         <html>
