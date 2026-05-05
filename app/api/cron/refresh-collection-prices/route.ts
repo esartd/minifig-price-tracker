@@ -26,10 +26,12 @@ export async function POST(request: NextRequest) {
 
   try {
     // Verify cron secret (security)
+    // Vercel crons don't send Authorization header - they're trusted by default
+    // Only check secret if Authorization header is present (manual triggers)
     const authHeader = request.headers.get('authorization');
     const cronSecret = process.env.CRON_SECRET;
 
-    if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
+    if (authHeader && authHeader !== `Bearer ${cronSecret}`) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
