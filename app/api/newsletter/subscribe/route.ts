@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { sendNewsletterConfirmationEmail } from '@/lib/email';
+import { randomBytes } from 'crypto';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,37 +25,45 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // TODO: Integrate with email service (Resend, SendGrid, etc.)
-    // For now, just store in database
-
     // Check if already subscribed
     const existing = await prisma.newsletterSubscriber.findUnique({
       where: { email: email.toLowerCase() },
     });
 
     if (existing) {
-      return NextResponse.json(
-        { success: false, error: 'Email already subscribed' },
-        { status: 400 }
-      );
+      // If already confirmed, return error
+      if (existing.confirmed) {
+        return NextResponse.json(
+          { success: false, error: 'Email already subscribed' },
+          { status: 400 }
+        );
+      }
+
+      // If not confirmed, resend confirmation email
+      if (existing.confirmationToken) {
+        await sendNewsletterConfirmationEmail(existing.email, existing.confirmationToken);
+        return NextResponse.json({
+          success: true,
+          message: 'Confirmation email resent. Please check your inbox.',
+        });
+      }
     }
 
+    // Generate confirmation token
+    const confirmationToken = randomBytes(32).toString('hex');
+
     // Create subscriber
-    await prisma.newsletterSubscriber.create({
+    const subscriber = await prisma.newsletterSubscriber.create({
       data: {
         email: email.toLowerCase(),
         subscribedAt: new Date(),
-        confirmed: false, // TODO: Send confirmation email
+        confirmed: false,
+        confirmationToken,
       },
     });
 
-    // TODO: Send confirmation email via Resend
-    // await resend.emails.send({
-    //   from: 'FigTracker <hello@figtracker.ericksu.com>',
-    //   to: email,
-    //   subject: 'Confirm your FigTracker newsletter subscription',
-    //   html: '...',
-    // });
+    // Send confirmation email
+    await sendNewsletterConfirmationEmail(subscriber.email, confirmationToken);
 
     return NextResponse.json({
       success: true,
