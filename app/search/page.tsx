@@ -118,42 +118,6 @@ function SearchPageContent() {
     setMinifigPositions(generateFireworkPositions(12));
   }, []);
 
-  // Silent pre-fetch: Load user's collections in background for instant navigation
-  useEffect(() => {
-    const preFetchCollections = async () => {
-      try {
-        // Pre-fetch all user collections (uses cached prices, no BrickLink API calls)
-        // This makes navigation to collection pages feel instant
-        const endpoints = [
-          '/api/personal-collection?all=true',  // Minifigs: Collection
-          '/api/inventory?all=true',            // Minifigs: Inventory
-          '/api/sets-collection?all=true',      // Sets: Collection
-          '/api/sets-inventory?all=true'        // Sets: Inventory
-        ];
-
-        // Fetch all in parallel
-        const results = await Promise.allSettled(
-          endpoints.map(url => fetch(url).then(res => res.ok ? res.json() : null))
-        );
-
-        // Log success (helps debug)
-        results.forEach((result, i) => {
-          if (result.status === 'fulfilled' && result.value) {
-            const endpoint = endpoints[i].split('?')[0].split('/').pop();
-            console.log(`✅ Pre-fetched ${result.value.length} items from ${endpoint}`);
-          }
-        });
-      } catch (error) {
-        // Silent fail - user not logged in or error occurred
-        // No UI impact, just means collections won't be pre-loaded
-      }
-    };
-
-    // Pre-fetch after a short delay to not interfere with initial page load
-    const timer = setTimeout(preFetchCollections, 500);
-    return () => clearTimeout(timer);
-  }, []);
-
   // Load category/subcategory browsing on mount
   useEffect(() => {
     const category = searchParams.get('category');
