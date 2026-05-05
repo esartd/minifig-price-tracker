@@ -183,6 +183,7 @@ export default function ThemePage() {
   const [sortBy, setSortBy] = useState<'year' | 'name'>('year');
   const [subcategoryFilter, setSubcategoryFilter] = useState<string>('all');
   const [themeHeroImage, setThemeHeroImage] = useState<string | null>(null);
+  const [heroImageError, setHeroImageError] = useState(false);
 
   useEffect(() => {
     // Set hero image from representative set
@@ -190,9 +191,19 @@ export default function ThemePage() {
     if (boxNo) {
       // Use BrickLink image URL directly for sets
       setThemeHeroImage(`https://img.bricklink.com/ItemImage/ON/0/${boxNo}.png`);
+      setHeroImageError(false);
     }
     loadSets();
   }, [theme]);
+
+  const handleHeroImageError = () => {
+    // If hero image fails to load, try fallback or hide it
+    if (themeHeroImage && themeHeroImage.includes('/ON/')) {
+      setThemeHeroImage(themeHeroImage.replace('/ON/', '/SN/'));
+    } else {
+      setHeroImageError(true);
+    }
+  };
 
   const loadSets = async () => {
     try {
@@ -293,8 +304,8 @@ export default function ThemePage() {
             { label: theme }
           ]} />
 
-          {/* Hero Card (if we have theme override) */}
-          {themeHeroImage ? (
+          {/* Hero Card (if we have theme override and image loads successfully) */}
+          {themeHeroImage && !heroImageError ? (
             <div className="theme-hero" style={{
               marginTop: '24px',
               marginBottom: '24px',
@@ -326,6 +337,7 @@ export default function ThemePage() {
                     padding: '12px'
                   }}
                   unoptimized
+                  onError={handleHeroImageError}
                 />
               </div>
 
@@ -398,7 +410,7 @@ export default function ThemePage() {
             gap: '12px',
             flexWrap: 'wrap',
             alignItems: 'stretch',
-            marginTop: themeHeroImage ? '0' : '16px'
+            marginTop: (themeHeroImage && !heroImageError) ? '0' : '16px'
           }}>
             {/* Subcategory Filter */}
             {subcategories.length > 1 && (
