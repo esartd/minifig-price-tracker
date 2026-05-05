@@ -2,6 +2,48 @@
 
 **READ THIS FIRST BEFORE ANY CODE CHANGES**
 
+## 🚨 CRITICAL: Database Schema Changes 🚨
+
+**NEVER MODIFY PRISMA SCHEMA ON MAIN BRANCH**
+
+### Mandatory Workflow for Schema Changes:
+
+1. **Create a feature branch FIRST**
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+2. **Make schema changes on feature branch**
+   - Modify `prisma/schema.prisma` or other schema files
+   - Run migrations locally: `npx prisma migrate dev`
+   - Test thoroughly with local database
+
+3. **Test before merging**
+   - Verify all features work with new schema
+   - Check that migrations run cleanly
+   - Ensure no breaking changes
+
+4. **Merge only after confirmation**
+   - Get user approval
+   - Merge feature branch to main
+   - Deploy to production
+
+### Why This Matters:
+
+**May 5, 2026**: Modified schema directly on main branch
+- Result: 500 errors across entire production site
+- Cause: Code referenced database tables that didn't exist yet
+- Duration: 30 minutes of downtime
+- Lesson: **Schema changes break production instantly if not migrated first**
+
+### Protection:
+
+- Git hook prevents schema commits on main (run `.githooks/install.sh`)
+- Hook forces feature branch workflow
+- Cannot be bypassed without `--no-verify` (don't use it)
+
+---
+
 ## 🚨 CRITICAL: BrickLink API Compliance 🚨
 
 **VIOLATING THESE RULES WILL GET THE API ACCESS BANNED AND BREAK THE ENTIRE SITE**
