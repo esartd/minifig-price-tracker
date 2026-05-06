@@ -213,6 +213,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
         // Find current condition item
         const found = allItems.find((item: any) => item.condition === condition);
         setCollectionItem(found || null);
+      } else {
+        console.log('Inventory fetch failed or returned no data:', inventoryData);
       }
 
       // Check personal collection (fetch ALL items to find this minifig)
@@ -231,6 +233,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
         const found = allItems.find((item: any) => item.condition === condition);
         setPersonalCollectionItem(found || null);
         console.log('Personal collection item for condition', condition, ':', found);
+      } else {
+        console.log('Personal collection fetch failed or returned no data:', personalData);
       }
     } catch (err) {
       console.error('Error checking collections:', err);
@@ -256,10 +260,13 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
             item.minifigure_no === minifig.no
           );
           setAllInventoryItems(allItems);
+          console.log('Pre-fetched', allItems.length, 'items from inventory');
 
           // Find current condition item
           const found = allItems.find((item: any) => item.condition === condition);
           setCollectionItem(found || null);
+        } else {
+          console.log('Pre-fetched undefined items from inventory');
         }
 
         // Check personal collection (fetch ALL items to find this minifig)
@@ -272,10 +279,13 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
             item.minifigure_no === minifig.no
           );
           setAllCollectionItems(allItems);
+          console.log('Pre-fetched', allItems.length, 'items from personal-collection');
 
           // Find current condition item
           const found = allItems.find((item: any) => item.condition === condition);
           setPersonalCollectionItem(found || null);
+        } else {
+          console.log('Pre-fetched undefined items from personal-collection');
         }
       } catch (err) {
         console.error('Error checking collections:', err);
