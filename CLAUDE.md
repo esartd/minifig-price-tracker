@@ -223,17 +223,10 @@ Review principles in `/Users/erickkosysu/Code Projects/_Design-System-Principles
    - Ensures graceful degradation if translation missing
    - Example: `{t.guides?.cta?.title || 'Start tracking your collection'}`
 
-4. **Supported Languages:**
-   - English (en) - default
-   - German (de)
-   - French (fr)
-   - Spanish (es)
-
-5. **Translation Files:**
-   - `translations-backup/en.json`
-   - `translations-backup/de.json`
-   - `translations-backup/fr.json`
-   - `translations-backup/es.json`
+4. **Check translation files for all supported languages**
+   - Add translation keys to ALL language files in the project
+   - Ensure consistency across all translations
+   - Never leave a language file incomplete
 
 ### Where to Add Translations:
 
@@ -254,17 +247,17 @@ const t = await getTranslations(locale);
 **May 6, 2026**: Articles page launched with hardcoded English text
 - Result: Non-English users saw English instead of their language
 - Cause: Forgot to use translation keys in new design
-- Impact: Poor UX for 30% of user base (DE, FR, ES visitors)
+- Impact: Poor UX for non-English visitors
 - Fix: Retroactively added translation support
 - Lesson: **Always build with i18n from day 1, never add it later**
 
 ### Testing Translations:
 
 **Before deploying UI changes:**
-1. Test all 4 languages: EN, DE, FR, ES
-2. Visit subdomains: figtracker.ericksu.com, de.figtracker.ericksu.com, fr.figtracker.ericksu.com, es.figtracker.ericksu.com
-3. Verify no English text shows on non-English sites
-4. Check translation files have all needed keys
+1. Test all supported languages in the project
+2. Visit all language-specific URLs/subdomains
+3. Verify no hardcoded text shows in non-default language sites
+4. Check all translation files have the needed keys
 5. Ensure fallback strings work if translation missing
 
 **If you forget:** User will notice and ask "Is this translated?" - do it right the first time.
