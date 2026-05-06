@@ -539,28 +539,28 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
               <div className="minifig-pricing-row" style={{
                 display: 'flex', width: '100%', marginBottom: '24px', alignItems: 'stretch'
               }}>
-                <div className="pricing-item" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <div className="pricing-item pricing-item-1" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                   <p style={{ fontSize: 'clamp(9px, 2vw, 10px)', fontWeight: '500', color: '#737373',
                     textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>6 Mo Avg</p>
                   <p style={{ fontSize: 'clamp(16px, 3.5vw, 18px)', fontWeight: '700', color: '#171717' }}>
                     {formatPrice(pricing.sixMonthAverage, pricing.currencyCode, true)}</p>
                 </div>
                 <div className="pricing-divider" style={{ width: '1px', background: '#e5e5e5' }}></div>
-                <div className="pricing-item" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <div className="pricing-item pricing-item-2" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                   <p style={{ fontSize: 'clamp(9px, 2vw, 10px)', fontWeight: '500', color: '#737373',
                     textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>Current Avg</p>
                   <p style={{ fontSize: 'clamp(16px, 3.5vw, 18px)', fontWeight: '700', color: '#171717' }}>
                     {formatPrice(pricing.currentAverage, pricing.currencyCode, true)}</p>
                 </div>
                 <div className="pricing-divider" style={{ width: '1px', background: '#e5e5e5' }}></div>
-                <div className="pricing-item" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <div className="pricing-item pricing-item-3" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                   <p style={{ fontSize: 'clamp(9px, 2vw, 10px)', fontWeight: '500', color: '#737373',
                     textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>Lowest</p>
                   <p style={{ fontSize: 'clamp(16px, 3.5vw, 18px)', fontWeight: '700', color: '#171717' }}>
                     {formatPrice(pricing.currentLowest, pricing.currencyCode, true)}</p>
                 </div>
                 <div className="pricing-divider" style={{ width: '1px', background: '#e5e5e5' }}></div>
-                <div className="pricing-item" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <div className="pricing-item pricing-item-4" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                   <p style={{ fontSize: 'clamp(9px, 2vw, 10px)', fontWeight: '500', color: '#737373',
                     textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>Suggested</p>
                   <p style={{ fontSize: 'clamp(18px, 4vw, 20px)', fontWeight: '700', color: '#3b82f6' }}>
