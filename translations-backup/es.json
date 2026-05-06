@@ -1688,5 +1688,30 @@
       "setNumber": "Set",
       "eligibleFor": "Elegible para"
     }
+  },
+  "legoSale": {
+    "pageTitle": "Oferta LEGO®",
+    "subtitle": "Mejores Ofertas de Amazon en Sets LEGO",
+    "tier50": "Ofertas Excelentes - 50%+ de Descuento",
+    "tier40": "Grandes Ofertas - 40%+ de Descuento",
+    "tier30": "Buenas Ofertas - 30%+ de Descuento",
+    "tier20": "Ofertas - 20%+ de Descuento",
+    "filterByTheme": "Filtrar por Tema",
+    "priceRange": "Rango de Precio",
+    "sortBy": "Ordenar Por",
+    "sortDiscount": "Mayor Descuento",
+    "sortPrice": "Precio Más Bajo",
+    "sortName": "Nombre (A-Z)",
+    "buyOnAmazon": "Comprar en Amazon",
+    "primeEligible": "Patrocinado",
+    "noDealsinTier": "No se encontraron ofertas en esta categoría",
+    "lastUpdated": "Precios actualizados",
+    "allThemes": "Todos los Temas",
+    "priceUnder25": "Menos de $25",
+    "price25to50": "$25 - $50",
+    "price50to100": "$50 - $100",
+    "price100to200": "$100 - $200",
+    "priceOver200": "$200+",
+    "seoDescription": "Descubre las mejores ofertas de LEGO® en Amazon con descuentos de hasta el 50%. Rastreamos precios en miles de sets y actualizamos cada 6 horas para traerte los mayores ahorros. Todas las ofertas son elegibles para envío gratis con Amazon Prime. Ya sea que busques Star Wars, City, Creator o cualquier otro tema, encuentra tu próximo set LEGO a un precio inmejorable."
   }
 }

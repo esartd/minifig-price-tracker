@@ -12,8 +12,10 @@ import { NextResponse } from 'next/server';
  * Tasks:
  * 1. Collection Price Pre-warming (every run) - Pre-cache prices for all user collections
  *
- * Note: Price history recording is now opportunistic (records when pricing is fetched)
- * and doesn't need a scheduled cron job.
+ * Note: Amazon deals and price history are now handled opportunistically:
+ * - Amazon deals: Refreshed automatically when /lego-sale page is visited (if data > 6 hours old)
+ * - Price history: Recorded automatically when fresh pricing is fetched
+ * This eliminates timeout issues and spreads API load across user activity.
  */
 export async function GET(request: Request) {
   const results: any = {
@@ -65,7 +67,7 @@ export async function GET(request: Request) {
       });
     }
 
-    // Price refresh and price history are now handled opportunistically:
+    // Amazon deals and price refresh are now handled opportunistically:
     // - Price refresh: Happens when users view collections (progressive loading)
     // - Price history: Recorded automatically when fresh pricing is fetched
     // This eliminates timeout issues and makes the site more responsive.

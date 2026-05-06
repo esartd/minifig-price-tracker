@@ -333,3 +333,23 @@ model Donation {
   @@index([season])
   @@index([showOnLeaderboard, season])
 }
+
+model AmazonDeal {
+  id              String   @id @default(cuid())
+  boxNo           String   @unique // LEGO set number (e.g., "75192-1")
+  asin            String // Amazon ASIN
+  title           String
+  currentPrice    Float
+  listPrice       Float
+  discountPercent Int // Rounded percentage
+  isPrime         Boolean  @default(false)
+  isAvailable     Boolean  @default(true)
+  currency        String   @default("USD")
+  productUrl      String
+  imageUrl        String?
+  lastUpdated     DateTime @default(now())
+
+  @@index([discountPercent])
+  @@index([lastUpdated])
+  @@index([boxNo])
+}
