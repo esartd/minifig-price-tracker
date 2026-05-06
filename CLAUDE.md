@@ -44,6 +44,73 @@
 
 ---
 
+## 🚨 CRITICAL: eBay Partner Network (EPN) Affiliate Links 🚨
+
+**DO NOT MODIFY WITHOUT UNDERSTANDING EPN REQUIREMENTS**
+
+### Current Implementation (VERIFIED WORKING):
+
+**Files:**
+- `lib/ebay-affiliate-links.ts` - Link generation functions
+- `components/minifig-detail-client.tsx` - eBay button on minifig pages
+- `components/set-detail-client.tsx` - eBay button on set pages
+- `app/layout.tsx` - EPN Smart Tools script
+
+**Campaign ID:** `5339150379`
+**Environment Variable:** `NEXT_PUBLIC_EBAY_CAMPAIGN_ID`
+
+### EPN Link Requirements (Per Official Docs):
+
+Required parameters in this exact format:
+```
+{target}&mkevt=1&mkcid=1&mkrid={rotation_id}&campid={campaign_id}&toolid={tool_id}
+```
+
+- `target` - eBay URL (search or product page)
+- `mkevt=1` - Tracking event type (1 = Click)
+- `mkcid=1` - Channel ID (1 = EPN)
+- `mkrid` - Rotation ID per marketplace (e.g., 711-53200-19255-0 for US)
+- `campid` - Campaign ID (5339150379)
+- `toolid` - Tool ID (10001 = default)
+- `customid` - Optional sub-tracking ID
+
+**Official Documentation:** https://developer.ebay.com/api-docs/buy/static/ref-epn-link.html
+
+### What NOT to Change:
+
+1. **DO NOT** remove any of the 6 required parameters
+2. **DO NOT** change parameter order (some systems are order-sensitive)
+3. **DO NOT** remove the EPN Smart Tools script from layout.tsx
+4. **DO NOT** change rotation IDs (mkrid) - they're marketplace-specific
+5. **DO NOT** change Campaign ID without user approval
+
+### Button Order (DO NOT CHANGE):
+
+**Minifig pages:** eBay (blue) → BrickLink (grey) → Amazon (grey)
+**Set pages:** eBay (blue) → Amazon (grey) → BrickLink (grey)
+
+Only the top button is colored to avoid visual competition.
+
+### Testing After Changes:
+
+1. Build succeeds: `npm run build`
+2. Visit `/minifigs/sw0001` and `/sets/75192-1`
+3. Click eBay button
+4. Verify URL contains all 6 required parameters
+5. Verify `campid=5339150379` is in URL
+6. Test on different browsers/devices
+
+### Commission Tracking:
+
+- Links are validated against official eBay EPN documentation
+- Smart Tools script provides backup tracking
+- Any changes could break commission attribution
+- Lost commissions = lost revenue
+
+**If you need to modify:** Read the official docs first, test thoroughly, get user approval.
+
+---
+
 ## 🚨 CRITICAL: BrickLink API Compliance 🚨
 
 **VIOLATING THESE RULES WILL GET THE API ACCESS BANNED AND BREAK THE ENTIRE SITE**
