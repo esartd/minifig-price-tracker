@@ -39,7 +39,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
             letterSpacing: '-0.03em',
             lineHeight: '1.1',
           }}>
-            Articles
+            {t.navigation.guides || 'Articles'}
           </h1>
           <p style={{
             fontSize: '21px',
@@ -47,7 +47,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
             lineHeight: '1.5',
             maxWidth: '640px',
           }}>
-            Expert guides and insights for LEGO collectors and sellers.
+            {t.guides?.hero?.subtitle || 'Expert guides and insights for LEGO collectors and sellers.'}
           </p>
         </div>
       </div>
@@ -232,7 +232,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
 
                   {article.status === 'published' ? (
                     <div style={{ fontSize: '15px', color: '#3b82f6', fontWeight: '500' }}>
-                      Read article →
+                      {t.guides?.readGuide || 'Read article'} →
                     </div>
                   ) : (
                     <div style={{
@@ -244,7 +244,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
                       display: 'inline-block',
                       fontWeight: '500',
                     }}>
-                      Coming soon
+                      {t.guides?.comingSoon || 'Coming soon'}
                     </div>
                   )}
                 </div>
@@ -272,7 +272,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
             marginBottom: '16px',
             letterSpacing: '-0.02em',
           }}>
-            Start tracking your collection
+            {t.guides?.cta?.title || 'Start tracking your collection'}
           </h2>
           <p style={{
             fontSize: '19px',
@@ -281,7 +281,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
             maxWidth: '600px',
             margin: '0 auto 32px',
           }}>
-            Get instant price data for 18,000+ LEGO minifigures and sets.
+            {t.guides?.cta?.subtitle || 'Get instant price data for 18,000+ LEGO minifigures and sets.'}
           </p>
           <Link
             href="/search"
@@ -301,7 +301,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
             onMouseEnter={(e) => e.currentTarget.style.background = '#2563eb'}
             onMouseLeave={(e) => e.currentTarget.style.background = '#3b82f6'}
           >
-            Get Started
+            {t.guides?.cta?.button || 'Get Started'}
           </Link>
         </div>
       </div>
