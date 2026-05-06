@@ -180,7 +180,7 @@ export default async function GuidePage({
         <nav className="breadcrumb-nav">
           <Link href="/">{t.breadcrumbs.home}</Link>
           <span> / </span>
-          <Link href="/articles">{t.breadcrumbs.guides}</Link>
+          <Link href="/articles">Articles</Link>
           <span> / </span>
           <span style={{ color: '#171717' }}>{guide.title}</span>
         </nav>
