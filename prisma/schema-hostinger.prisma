@@ -410,3 +410,23 @@ model Donation {
   @@index([season])
   @@index([showOnLeaderboard, season])
 }
+
+model AmazonDeal {
+  id              String   @id @default(cuid())
+  boxNo           String   @unique
+  asin            String
+  title           String   @db.Text
+  currentPrice    Float
+  listPrice       Float
+  discountPercent Int
+  isPrime         Boolean  @default(false)
+  isAvailable     Boolean  @default(true)
+  currency        String   @default("USD")
+  productUrl      String   @db.Text
+  imageUrl        String?  @db.Text
+  lastUpdated     DateTime @default(now())
+
+  @@index([discountPercent])
+  @@index([lastUpdated])
+  @@index([boxNo])
+}
