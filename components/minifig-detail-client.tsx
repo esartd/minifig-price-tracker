@@ -200,8 +200,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
     try {
       // Check inventory (fetch ALL items to find this minifig)
-      const inventoryResponse = await fetch('/api/inventory?all=true');
+      const inventoryResponse = await fetch('/api/inventory?all=true', {
+        credentials: 'include'
+      });
       const inventoryData = await inventoryResponse.json();
+      console.log('Inventory API response:', inventoryData);
 
       if (inventoryData.success && inventoryData.data) {
         // Store all items for this minifig (both conditions)
@@ -218,7 +221,9 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
       }
 
       // Check personal collection (fetch ALL items to find this minifig)
-      const personalResponse = await fetch('/api/personal-collection?all=true');
+      const personalResponse = await fetch('/api/personal-collection?all=true', {
+        credentials: 'include'
+      });
       const personalData = await personalResponse.json();
 
       if (personalData.success && personalData.data) {
@@ -270,8 +275,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
         }
 
         // Check personal collection (fetch ALL items to find this minifig)
-        const personalResponse = await fetch('/api/personal-collection?all=true');
+        const personalResponse = await fetch('/api/personal-collection?all=true', {
+          credentials: 'include'
+        });
         const personalData = await personalResponse.json();
+        console.log('Personal collection API response:', personalData);
 
         if (personalData.success && personalData.data) {
           // Store all items for this minifig (both conditions)
