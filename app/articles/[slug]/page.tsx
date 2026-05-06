@@ -56,8 +56,8 @@ export async function generateMetadata({
   const headersList = await headers();
   const host = headersList.get('host') || '';
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
-  const guides = getGuides(locale);
-  const guide = guides[slug as GuideSlug];
+  const articles = getGuides(locale);
+  const guide = articles[slug as GuideSlug];
 
   if (!guide) {
     return {
@@ -90,18 +90,18 @@ export async function generateMetadata({
       type: 'article',
       publishedTime: guide.date,
       authors: [guide.author],
-      url: `${domains[locale as keyof typeof domains]}/guides/${slug}`,
+      url: `${domains[locale as keyof typeof domains]}/articles/${slug}`,
       locale: localeMap[locale as keyof typeof localeMap],
       alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
     },
     alternates: {
-      canonical: `${domains[locale as keyof typeof domains]}/guides/${slug}`,
+      canonical: `${domains[locale as keyof typeof domains]}/articles/${slug}`,
       languages: {
-        'en': `${domains.en}/guides/${slug}`,
-        'de': `${domains.de}/guides/${slug}`,
-        'fr': `${domains.fr}/guides/${slug}`,
-        'es': `${domains.es}/guides/${slug}`,
-        'x-default': `${domains.en}/guides/${slug}`,
+        'en': `${domains.en}/articles/${slug}`,
+        'de': `${domains.de}/articles/${slug}`,
+        'fr': `${domains.fr}/articles/${slug}`,
+        'es': `${domains.es}/articles/${slug}`,
+        'x-default': `${domains.en}/articles/${slug}`,
       },
     },
   };
@@ -116,8 +116,8 @@ export default async function GuidePage({
   const headersList = await headers();
   const host = headersList.get('host') || '';
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
-  const guides = getGuides(locale);
-  const guide = guides[slug as GuideSlug];
+  const articles = getGuides(locale);
+  const guide = articles[slug as GuideSlug];
 
   if (!guide) {
     notFound();
@@ -147,7 +147,7 @@ export default async function GuidePage({
     dateModified: guide.date,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://figtracker.ericksu.com/guides/${slug}`
+      '@id': `https://figtracker.ericksu.com/articles/${slug}`
     },
     image: 'https://figtracker.ericksu.com/og-image.png',
   };
@@ -180,7 +180,7 @@ export default async function GuidePage({
         <nav className="breadcrumb-nav">
           <Link href="/">{t.breadcrumbs.home}</Link>
           <span> / </span>
-          <Link href="/guides">{t.breadcrumbs.guides}</Link>
+          <Link href="/articles">{t.breadcrumbs.guides}</Link>
           <span> / </span>
           <span style={{ color: '#171717' }}>{guide.title}</span>
         </nav>
@@ -356,11 +356,11 @@ export default async function GuidePage({
   );
 }
 
-// Generate static params for known guides
+// Generate static params for known articles
 export async function generateStaticParams() {
   // Use English version to get all guide slugs
-  const guides = getGuides('en');
-  return Object.keys(guides).map((slug) => ({
+  const articles = getGuides('en');
+  return Object.keys(articles).map((slug) => ({
     slug,
   }));
 }

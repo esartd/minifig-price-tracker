@@ -93,7 +93,7 @@ export default function Footer() {
           onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
           onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
           >{t('footer.faq')}</a>
-          <a href="/guides" style={{
+          <a href="/articles" style={{
             color: '#525252',
             textDecoration: 'none',
             fontWeight: '500',

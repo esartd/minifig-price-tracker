@@ -219,11 +219,22 @@ export default async function RootLayout({
 
         {/* eBay Partner Network Smart Tools */}
         <Script id="ebay-epn-config" strategy="afterInteractive">
-          {`window._epn = {campaign: 5339150379};`}
+          {`
+            window._epn = {campaign: 5339150379};
+            // Error handling for EPN script
+            window.addEventListener('error', function(e) {
+              if (e.filename && e.filename.includes('epn-smart-tools')) {
+                console.warn('EPN Smart Tools failed to load:', e.message);
+              }
+            }, true);
+          `}
         </Script>
         <Script
           src="https://epnt.ebay.com/static/epn-smart-tools.js"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
+          onError={(e) => {
+            console.warn('EPN script failed to load');
+          }}
         />
         <AuthProvider>
           <TranslationProvider locale={locale} translations={translations}>
