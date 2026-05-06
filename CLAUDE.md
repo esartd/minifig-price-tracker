@@ -196,6 +196,79 @@ Review principles in `/Users/erickkosysu/Code Projects/_Design-System-Principles
 - Follow 8px spacing grid
 - Mobile-first responsive design
 
+## 🚨 CRITICAL: Internationalization (i18n) 🚨
+
+**NEVER HARDCODE TEXT - ALWAYS USE TRANSLATIONS**
+
+### Mandatory i18n Rules:
+
+1. **All user-facing text MUST use translation keys**
+   - No hardcoded English strings in components
+   - No exceptions for "temporary" features
+   - No "I'll add translations later"
+
+2. **Translation Pattern:**
+   ```typescript
+   // ✅ CORRECT
+   import { useTranslation } from '@/components/TranslationProvider';
+   const { t } = useTranslation();
+   <h1>{t.navigation.guides || 'Articles'}</h1>
+   
+   // ❌ WRONG
+   <h1>Articles</h1>
+   ```
+
+3. **Always include fallback strings**
+   - Use `||` operator with English fallback
+   - Ensures graceful degradation if translation missing
+   - Example: `{t.guides?.cta?.title || 'Start tracking your collection'}`
+
+4. **Supported Languages:**
+   - English (en) - default
+   - German (de)
+   - French (fr)
+   - Spanish (es)
+
+5. **Translation Files:**
+   - `translations-backup/en.json`
+   - `translations-backup/de.json`
+   - `translations-backup/fr.json`
+   - `translations-backup/es.json`
+
+### Where to Add Translations:
+
+**Client Components:**
+```typescript
+import { useTranslation } from '@/components/TranslationProvider';
+const { t } = useTranslation();
+```
+
+**Server Components:**
+```typescript
+import { getTranslations } from '@/lib/i18n-subdomain';
+const t = await getTranslations(locale);
+```
+
+### Incident History:
+
+**May 6, 2026**: Articles page launched with hardcoded English text
+- Result: Non-English users saw English instead of their language
+- Cause: Forgot to use translation keys in new design
+- Impact: Poor UX for 30% of user base (DE, FR, ES visitors)
+- Fix: Retroactively added translation support
+- Lesson: **Always build with i18n from day 1, never add it later**
+
+### Testing Translations:
+
+**Before deploying UI changes:**
+1. Test all 4 languages: EN, DE, FR, ES
+2. Visit subdomains: figtracker.ericksu.com, de.figtracker.ericksu.com, fr.figtracker.ericksu.com, es.figtracker.ericksu.com
+3. Verify no English text shows on non-English sites
+4. Check translation files have all needed keys
+5. Ensure fallback strings work if translation missing
+
+**If you forget:** User will notice and ask "Is this translated?" - do it right the first time.
+
 ## Git Workflow
 
 **Commit messages:**
