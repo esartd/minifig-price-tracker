@@ -110,7 +110,7 @@ export default function Footer() {
           }}
           onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
           onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >Support Us</a>
+          >{t('footer.supportUs')}</a>
           <a href="mailto:hello@ericksu.com" style={{
             color: '#525252',
             textDecoration: 'none',
