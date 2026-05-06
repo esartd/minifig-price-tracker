@@ -272,7 +272,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
             marginBottom: '16px',
             letterSpacing: '-0.02em',
           }}>
-            {t.guides?.cta?.title || 'Start tracking your collection'}
+            {t.guides.cta.title}
           </h2>
           <p style={{
             fontSize: '19px',
@@ -281,7 +281,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
             maxWidth: '600px',
             margin: '0 auto 32px',
           }}>
-            {t.guides?.cta?.subtitle || 'Get instant price data for 18,000+ LEGO minifigures and sets.'}
+            {t.guides.cta.subtitle}
           </p>
           <Link
             href="/search"
@@ -301,7 +301,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
             onMouseEnter={(e) => e.currentTarget.style.background = '#2563eb'}
             onMouseLeave={(e) => e.currentTarget.style.background = '#3b82f6'}
           >
-            {t.guides?.cta?.button || 'Get Started'}
+            {t.guides.cta.button}
           </Link>
         </div>
       </div>

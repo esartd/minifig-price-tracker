@@ -17,6 +17,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const host = headersList.get('host') || '';
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
 
+  const t = await getTranslations(locale);
+
   const domains = {
     en: 'https://figtracker.ericksu.com',
     de: 'https://de.figtracker.ericksu.com',
@@ -25,12 +27,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 
   return {
-    title: 'Articles | FigTracker',
-    description: 'Expert guides and insights for LEGO collectors, investors, and sellers. Learn how to price, sell, and invest in LEGO.',
-    keywords: ['LEGO guides', 'LEGO pricing', 'LEGO investing', 'LEGO selling tips', 'minifigure values'],
+    title: `${t.navigation?.guides || 'Articles'} | FigTracker`,
+    description: t.guides?.hero?.subtitle || 'Expert guides and insights for LEGO collectors and sellers.',
+    keywords: t.guides?.meta?.keywords || ['LEGO guides', 'LEGO pricing', 'LEGO investing', 'LEGO selling tips', 'minifigure values'],
     openGraph: {
-      title: 'LEGO Articles & Guides | FigTracker',
-      description: 'Expert guides for LEGO collectors and sellers',
+      title: t.guides?.meta?.ogTitle || 'LEGO Articles & Guides | FigTracker',
+      description: t.guides?.meta?.ogDescription || 'Expert guides for LEGO collectors and sellers',
       url: `${domains[locale as keyof typeof domains]}/articles`,
     },
     alternates: {
@@ -75,8 +77,8 @@ export default async function ArticlesPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: 'LEGO Articles & Guides',
-    description: 'Expert articles and guides for LEGO collectors and sellers',
+    name: t.guides?.meta?.ogTitle || 'LEGO Articles & Guides',
+    description: t.guides?.meta?.ogDescription || 'Expert articles and guides for LEGO collectors and sellers',
     url: `${domains[locale as keyof typeof domains]}/articles`,
   };
 
