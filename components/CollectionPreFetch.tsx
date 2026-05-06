@@ -31,27 +31,31 @@ export default function CollectionPreFetch() {
         // Pre-fetch all user collections (uses cached prices, no BrickLink API calls)
         // This makes navigation to collection pages feel instant
         const endpoints = [
-          '/api/personal-collection?all=true',  // Minifigs: Collection
-          '/api/inventory?all=true',            // Minifigs: Inventory
-          '/api/sets-collection?all=true',      // Sets: Collection
-          '/api/sets-inventory?all=true'        // Sets: Inventory
+          '/api/personal-collection?all=true',      // Minifigs: Collection
+          '/api/inventory?all=true',                // Minifigs: Inventory
+          '/api/set-personal-collection?all=true',  // Sets: Collection
+          '/api/set-inventory?all=true'             // Sets: Inventory
         ];
 
-        // Fetch all in parallel for speed
+        // Fetch all in parallel for speed (include credentials for auth)
         const results = await Promise.allSettled(
           endpoints.map(url =>
-            fetch(url).then(res => res.ok ? res.json() : null)
+            fetch(url, { credentials: 'include' }).then(res => res.ok ? res.json() : null)
           )
         );
 
         // Log success (helps debug, can be removed in production)
         let totalItems = 0;
         results.forEach((result, i) => {
-          if (result.status === 'fulfilled' && result.value) {
+          if (result.status === 'fulfilled' && result.value?.data) {
             const endpoint = endpoints[i].split('?')[0].split('/').pop();
-            const itemCount = result.value.length;
+            const itemCount = result.value.data.length;
             totalItems += itemCount;
             console.log(`✅ Pre-fetched ${itemCount} items from ${endpoint}`);
+          } else if (result.status === 'fulfilled' && !result.value) {
+            console.log(`⚠️  Pre-fetched undefined items from ${endpoints[i].split('?')[0].split('/').pop()}`);
+          } else if (result.status === 'rejected') {
+            console.log(`❌ Failed to pre-fetch ${endpoints[i].split('?')[0].split('/').pop()}:`, result.reason);
           }
         });
 
