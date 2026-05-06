@@ -645,7 +645,7 @@
     "lastUpdated": "Last Updated",
     "affiliatePrograms": {
       "title": "Affiliate Programs",
-      "paragraph1": "FigTracker participates in the LEGO.com Affiliate Program and Amazon Associates Program. When you click on featured product links and make a purchase, we may earn a small commission at no additional cost to you.",
+      "paragraph1": "FigTracker participates in the LEGO.com Affiliate Program, Amazon Associates Program, and eBay Partner Network. When you click on featured product links and make a purchase, we may earn a small commission at no additional cost to you.",
       "paragraph2": "These affiliate partnerships help support FigTracker's development and maintenance while keeping the tool free to use."
     },
     "trademark": {
@@ -659,8 +659,8 @@
     },
     "meta": {
       "title": "Affiliate Disclosure - FigTracker",
-      "description": "FigTracker participates in the LEGO.com Affiliate Program and Amazon Associates Program. Learn about our affiliate partnerships and how we earn commissions.",
-      "keywords": "FigTracker affiliate disclosure, LEGO affiliate program, Amazon Associates, affiliate links disclaimer"
+      "description": "FigTracker participates in the LEGO.com Affiliate Program, Amazon Associates Program, and eBay Partner Network. Learn about our affiliate partnerships and how we earn commissions.",
+      "keywords": "FigTracker affiliate disclosure, LEGO affiliate program, Amazon Associates, eBay Partner Network, affiliate links disclaimer"
     }
   },
   "guides": {
