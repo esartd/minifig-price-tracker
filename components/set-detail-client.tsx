@@ -1037,7 +1037,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           fontSize: 'var(--text-xs)',
                           color: '#737373'
                         }}>
-                          New & used listings
+                          New & used listings • Sponsored
                         </div>
                       </div>
                     </div>
@@ -1058,26 +1058,28 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         padding: '12px 16px',
-                        background: '#FFF9F0',
-                        border: '2px solid #FF9900',
+                        background: 'white',
+                        border: '1px solid #e5e5e5',
                         borderRadius: '8px',
                         textDecoration: 'none',
                         transition: 'all 0.2s',
                         cursor: 'pointer'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = '#FFE4B3';
+                        e.currentTarget.style.background = '#f5f5f5';
+                        e.currentTarget.style.borderColor = '#d4d4d4';
                         e.currentTarget.style.transform = 'translateY(-1px)';
-                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(255, 153, 0, 0.15)';
+                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.06)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = '#FFF9F0';
+                        e.currentTarget.style.background = 'white';
+                        e.currentTarget.style.borderColor = '#e5e5e5';
                         e.currentTarget.style.transform = 'translateY(0)';
                         e.currentTarget.style.boxShadow = 'none';
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#737373" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <circle cx="9" cy="21" r="1"></circle>
                           <circle cx="20" cy="21" r="1"></circle>
                           <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
@@ -1098,19 +1100,20 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           </div>
                         </div>
                       </div>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#FF9900" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#737373" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                       </svg>
                     </Link>
                   )}
 
-                  {/* BrickLink Link - Always show with blue styling */}
+                  {/* BrickLink Link - Always show with grey styling */}
                   {(() => {
-                    const bgColor = '#EFF6FF';
-                    const bgHoverColor = '#DBEAFE';
-                    const borderColor = '#3b82f6';
-                    const iconColor = '#3b82f6';
-                    const shadowColor = 'rgba(59, 130, 246, 0.15)';
+                    const bgColor = 'white';
+                    const bgHoverColor = '#f5f5f5';
+                    const borderColor = '#e5e5e5';
+                    const borderHoverColor = '#d4d4d4';
+                    const iconColor = '#737373';
+                    const shadowColor = 'rgba(0, 0, 0, 0.06)';
 
                     return (
                       <Link
@@ -1124,7 +1127,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           justifyContent: 'space-between',
                           padding: '12px 16px',
                           background: bgColor,
-                          border: `2px solid ${borderColor}`,
+                          border: `1px solid ${borderColor}`,
                           borderRadius: '8px',
                           textDecoration: 'none',
                           transition: 'all 0.2s',
@@ -1132,11 +1135,13 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                         }}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.background = bgHoverColor;
+                          e.currentTarget.style.borderColor = borderHoverColor;
                           e.currentTarget.style.transform = 'translateY(-1px)';
                           e.currentTarget.style.boxShadow = `0 2px 8px ${shadowColor}`;
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.background = bgColor;
+                          e.currentTarget.style.borderColor = borderColor;
                           e.currentTarget.style.transform = 'translateY(0)';
                           e.currentTarget.style.boxShadow = 'none';
                         }}
