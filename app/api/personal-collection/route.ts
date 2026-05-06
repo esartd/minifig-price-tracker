@@ -3,6 +3,9 @@ import { database } from '@/lib/database';
 import { bricklinkAPI } from '@/lib/bricklink';
 import { auth } from '@/auth';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 // GET all personal collection items for authenticated user (with pagination)
 export async function GET(request: NextRequest) {
   try {
