@@ -225,10 +225,12 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
           item.minifigure_no === minifig.no
         );
         setAllCollectionItems(allItems);
+        console.log('Personal collection items for', minifig.no, ':', allItems);
 
         // Find current condition item
         const found = allItems.find((item: any) => item.condition === condition);
         setPersonalCollectionItem(found || null);
+        console.log('Personal collection item for condition', condition, ':', found);
       }
     } catch (err) {
       console.error('Error checking collections:', err);
@@ -580,7 +582,10 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
       const data = await response.json();
 
       if (data.success) {
+        // Small delay to ensure database commit
+        await new Promise(resolve => setTimeout(resolve, 100));
         await refreshCollections();
+        console.log('Collections refreshed after adding to personal collection');
         const count = data.quantityAdded || addToCollectionQty;
         const itemText = count === 1 ? 'item' : 'items';
         const message = data.quantityAdded
