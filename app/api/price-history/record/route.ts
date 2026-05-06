@@ -3,14 +3,31 @@ import { prisma, prismaPublic } from '@/lib/prisma';
 
 export async function POST() {
   try {
-    // Get all unique minifig + condition combinations from users' collections
-    const uniqueMinifigs = await prisma.collectionItem.findMany({
-      select: {
-        minifigure_no: true,
-        condition: true,
-      },
-      distinct: ['minifigure_no', 'condition'],
+    // Get all unique minifig + condition combinations from BOTH collections
+    const [inventoryItems, personalItems] = await Promise.all([
+      prisma.collectionItem.findMany({
+        select: {
+          minifigure_no: true,
+          condition: true,
+        },
+        distinct: ['minifigure_no', 'condition'],
+      }),
+      prisma.personalCollectionItem.findMany({
+        select: {
+          minifigure_no: true,
+          condition: true,
+        },
+        distinct: ['minifigure_no', 'condition'],
+      }),
+    ]);
+
+    // Combine and deduplicate
+    const uniqueMinifigsMap = new Map<string, { minifigure_no: string; condition: string }>();
+    [...inventoryItems, ...personalItems].forEach(item => {
+      const key = `${item.minifigure_no}-${item.condition}`;
+      uniqueMinifigsMap.set(key, item);
     });
+    const uniqueMinifigs = Array.from(uniqueMinifigsMap.values());
 
     let recordedCount = 0;
     let skippedCount = 0;
