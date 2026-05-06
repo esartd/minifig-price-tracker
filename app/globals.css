@@ -816,6 +816,11 @@ input[type="number"] {
   justify-content: center !important;
 }
 
+.minifig-details-section {
+  background: #ffffff !important;
+  padding: 16px !important;
+}
+
 .minifig-sticky-wrapper {
   display: flex !important;
   align-items: center !important;
