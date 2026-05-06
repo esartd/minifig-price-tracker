@@ -216,6 +216,15 @@ export default async function RootLayout({
             gtag('config', 'G-PXLF7KRTSB');
           `}
         </Script>
+
+        {/* eBay Partner Network Smart Tools */}
+        <Script id="ebay-epn-config" strategy="afterInteractive">
+          {`window._epn = {campaign: 5339150379};`}
+        </Script>
+        <Script
+          src="https://epnt.ebay.com/static/epn-smart-tools.js"
+          strategy="afterInteractive"
+        />
         <AuthProvider>
           <TranslationProvider locale={locale} translations={translations}>
             <CollectionPreFetch />
