@@ -565,7 +565,61 @@ export class BricklinkAPI {
       }
     });
 
+    // Record price history opportunistically (limit 1 per day per item)
+    // This builds up history naturally as people use the site, no cron needed
+    if (pricingData.suggestedPrice > 0) {
+      await this.recordPriceHistory(itemNo, condition, pricingData);
+    }
+
     return pricingData;
+  }
+
+  /**
+   * Record price history snapshot (max 1 per day per item+condition)
+   * Called automatically when fresh pricing data is fetched
+   */
+  private async recordPriceHistory(
+    itemNo: string,
+    condition: 'new' | 'used',
+    pricing: PricingData
+  ): Promise<void> {
+    try {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Start of day
+
+      // Check if we already recorded today
+      const existingToday = await prisma.priceHistory.findFirst({
+        where: {
+          minifigure_no: itemNo,
+          condition: condition,
+          recorded_at: {
+            gte: today
+          }
+        }
+      });
+
+      if (existingToday) {
+        // Already recorded today, skip
+        return;
+      }
+
+      // Record new snapshot
+      await prisma.priceHistory.create({
+        data: {
+          minifigure_no: itemNo,
+          condition: condition,
+          six_month_avg: pricing.sixMonthAverage,
+          current_avg: pricing.currentAverage,
+          current_lowest: pricing.currentLowest,
+          suggested_price: pricing.suggestedPrice,
+        }
+      });
+
+      console.log(`📊 Recorded price history for ${itemNo} (${condition}): $${pricing.suggestedPrice}`);
+    } catch (error) {
+      // Don't fail pricing fetch if history recording fails
+      console.error(`Failed to record price history for ${itemNo}:`, error);
+    }
   }
 
   async getSetPriceGuide(
