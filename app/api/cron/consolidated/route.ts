@@ -11,8 +11,9 @@ import { NextResponse } from 'next/server';
  *
  * Tasks:
  * 1. Collection Price Pre-warming (every run) - Pre-cache prices for all user collections
- * 2. Price Refresh (every run) - Required every 6 hours per BrickLink API terms
- * 3. Price History (once daily) - Records historical snapshots
+ *
+ * Note: Price history recording is now opportunistic (records when pricing is fetched)
+ * and doesn't need a scheduled cron job.
  */
 export async function GET(request: Request) {
   const results: any = {
@@ -64,64 +65,10 @@ export async function GET(request: Request) {
       });
     }
 
-    // TASK 2: Refresh prices (runs EVERY time - every 6 hours)
-    console.log('Starting price refresh...');
-    try {
-      const priceRefreshResponse = await fetch(`${baseUrl}/api/cron/refresh-prices`, {
-        headers: {
-          'Content-Type': 'application/json',
-          ...(cronSecret && { 'Authorization': `Bearer ${cronSecret}` })
-        }
-      });
-      const priceRefreshData = await priceRefreshResponse.json();
-
-      results.tasks.push({
-        name: 'price-refresh',
-        status: priceRefreshData.success ? 'success' : 'failed',
-        data: priceRefreshData
-      });
-      console.log('Price refresh completed:', priceRefreshData);
-    } catch (error) {
-      console.error('Price refresh failed:', error);
-      results.tasks.push({
-        name: 'price-refresh',
-        status: 'error',
-        error: error instanceof Error ? error.message : 'Unknown error'
-      });
-    }
-
-    // TASK 3: Record price history (runs ONCE daily - only at 11 PM UTC)
-    const currentHour = new Date().getUTCHours();
-    if (currentHour === 23) { // Runs at 11 PM UTC (matches vercel.json schedule)
-      console.log('Starting price history recording (daily task)...');
-      try {
-        const priceHistoryResponse = await fetch(`${baseUrl}/api/price-history/record`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' }
-        });
-        const priceHistoryData = await priceHistoryResponse.json();
-
-        results.tasks.push({
-          name: 'price-history',
-          status: priceHistoryData.success ? 'success' : 'failed',
-          data: priceHistoryData
-        });
-        console.log('Price history recording completed:', priceHistoryData);
-      } catch (error) {
-        console.error('Price history recording failed:', error);
-        results.tasks.push({
-          name: 'price-history',
-          status: 'error',
-          error: error instanceof Error ? error.message : 'Unknown error'
-        });
-      }
-    } else {
-      results.tasks.push({
-        name: 'price-history',
-        status: 'skipped',
-        reason: `Only runs at 11 PM UTC (current hour: ${currentHour})`
-      });
-    }
+    // Price refresh and price history are now handled opportunistically:
+    // - Price refresh: Happens when users view collections (progressive loading)
+    // - Price history: Recorded automatically when fresh pricing is fetched
+    // This eliminates timeout issues and makes the site more responsive.
 
     return NextResponse.json({
       success: true,

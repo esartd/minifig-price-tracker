@@ -3,22 +3,28 @@ import { prisma } from '@/lib/prisma';
 import { bricklinkAPI } from '@/lib/bricklink';
 
 /**
- * Cron job to pre-warm price cache for all items in collections/inventory
+ * Cron job to pre-warm price cache for high-value items in collections
  *
  * Schedule: Every 6 hours (matches BrickLink cache requirement)
- * Purpose: Fetch prices in background so page loads are instant
+ * Purpose: Pre-cache high-value items for instant page loads
+ *
+ * STRATEGY:
+ * - Focuses on top 300 highest-value items per run
+ * - Other items refresh opportunistically when users view them
+ * - Eliminates timeout issues by keeping runs short (~15 minutes)
  *
  * HOW IT WORKS:
  * 1. Find all unique (item_no, condition, currency) from all users' collections
  * 2. Check which need refresh (cache expired or missing)
- * 3. Fetch prices from BrickLink API
- * 4. Save to priceCache (automatic via bricklinkAPI)
+ * 3. Sort by value (highest first)
+ * 4. Fetch top 300 items from BrickLink API
+ * 5. Save to priceCache (automatic via bricklinkAPI)
  *
  * RATE LIMITS:
  * - BrickLink: 5,000 calls/day
- * - Budget per 6-hour run: ~1,250 calls
+ * - Budget per 6-hour run: 300 calls
  * - 3-second delay between calls (safety + compliance)
- * - Total time: ~1 hour to process 1,200 items
+ * - Total time: ~15 minutes per run
  */
 
 export async function POST(request: NextRequest) {
@@ -203,12 +209,38 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // 4. Safety check: Don't exceed daily limit
-    const MAX_CALLS_PER_RUN = 1200; // Budget for 6-hour window
-    const itemsToProcess = itemsNeedingRefresh.slice(0, MAX_CALLS_PER_RUN);
+    // 4. Safety check: Don't exceed rate limits
+    // Since users' collections will refresh opportunistically when they view them,
+    // we only need to pre-warm the most important items here.
+    // Prioritize high-value items to maximize cache hit rate.
+    const itemsWithValue = await Promise.all(
+      itemsNeedingRefresh.map(async item => {
+        const cached = await prisma.priceCache.findUnique({
+          where: {
+            item_no_item_type_condition_country_code_region: {
+              item_no: item.itemNo,
+              item_type: item.itemType,
+              condition: item.condition,
+              country_code: item.countryCode,
+              region: '',
+            }
+          }
+        });
+        return {
+          ...item,
+          value: cached?.suggested_price || 0
+        };
+      })
+    );
+
+    // Sort by value descending (high-value items first)
+    itemsWithValue.sort((a, b) => b.value - a.value);
+
+    const MAX_CALLS_PER_RUN = 300; // Reduced: focus on top items only
+    const itemsToProcess = itemsWithValue.slice(0, MAX_CALLS_PER_RUN);
 
     if (itemsNeedingRefresh.length > MAX_CALLS_PER_RUN) {
-      console.log(`⚠️  Limiting to ${MAX_CALLS_PER_RUN} items to stay within rate limits`);
+      console.log(`⚠️  Limiting to ${MAX_CALLS_PER_RUN} high-value items (${itemsNeedingRefresh.length - MAX_CALLS_PER_RUN} will refresh when viewed)`);
     }
 
     // 5. Fetch prices with rate limiting
