@@ -14,6 +14,7 @@ import SetCardImage from '@/components/SetCard';
 import { formatPrice } from '@/lib/format-price';
 import { getSetAvailability } from '@/lib/set-availability';
 import { generateLegoSetLink, generateAmazonLegoSetLink, generateBrickLinkAffiliateLink } from '@/lib/affiliate-links';
+import { generateEbaySetLink } from '@/lib/ebay-affiliate-links';
 import { trackAffiliateClick } from '@/lib/analytics';
 
 interface SetData {
@@ -413,6 +414,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
 
   // Get availability status (only current year sets marked as available)
   const availability = getSetAvailability(set.box_no, set.year_released);
+  const ebayAffiliateUrl = generateEbaySetLink(set.box_no, set.name);
   const legoAffiliateUrl = generateLegoSetLink(set.box_no);
   const amazonAffiliateUrl = generateAmazonLegoSetLink(set.box_no, set.name);
   const brickLinkUrl = generateBrickLinkAffiliateLink(set.box_no, 'SET');
@@ -988,6 +990,62 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                   flexDirection: 'column',
                   gap: '8px'
                 }}>
+                  {/* eBay Link - Always show */}
+                  <Link
+                    href={ebayAffiliateUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackAffiliateClick('ebay', set.box_no, 'set-detail-page')}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '12px 16px',
+                      background: '#E5EFFF',
+                      border: '2px solid #3665f3',
+                      borderRadius: '8px',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s',
+                      cursor: 'pointer'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = '#D4E4FF';
+                      e.currentTarget.style.transform = 'translateY(-1px)';
+                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(54, 101, 243, 0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = '#E5EFFF';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3665f3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                      </svg>
+                      <div>
+                        <div style={{
+                          fontWeight: '600',
+                          color: '#171717',
+                          fontSize: 'var(--text-sm)'
+                        }}>
+                          eBay
+                        </div>
+                        <div style={{
+                          fontSize: 'var(--text-xs)',
+                          color: '#737373'
+                        }}>
+                          New & used listings
+                        </div>
+                      </div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#3665f3" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </Link>
+
                   {/* Amazon Link - Show for available sets */}
                   {(availability.status === 'available' || availability.status === 'retiring_soon') && (
                     <Link

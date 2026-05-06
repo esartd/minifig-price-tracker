@@ -1,14 +1,10 @@
 /**
  * eBay Partner Network (EPN) Affiliate Link Generator
  *
- * STATUS: NOT YET INTEGRATED - Waiting for Publisher ID from EPN
+ * STATUS: READY TO USE
+ * Campaign ID: 5339150379
  *
- * To activate:
- * 1. Get Publisher ID from https://epn.ebay.com/
- * 2. Add to .env:
- *    EBAY_CAMPAIGN_ID=5339150379
- *    EBAY_PUBLISHER_ID=5338xxxxxx (your publisher ID)
- * 3. Import and use these functions in minifig/set pages
+ * Uses eBay's modern API format with mkcid/mkrid parameters
  *
  * Button Order:
  * - Minifigures: eBay → BrickLink → Amazon
@@ -41,7 +37,6 @@ export function generateEbayMinifigLink(
   locale: string = 'en'
 ): string {
   const campaignId = process.env.NEXT_PUBLIC_EBAY_CAMPAIGN_ID || '5339150379';
-  const publisherId = process.env.NEXT_PUBLIC_EBAY_PUBLISHER_ID || 'PUBLISHER_ID_NEEDED';
 
   // Determine eBay site based on locale
   const ebaySite = EBAY_SITES[locale as Locale] || EBAY_SITES['en'];
@@ -51,24 +46,26 @@ export function generateEbayMinifigLink(
   const searchQuery = `LEGO ${minifigNumber} ${minifigName}`;
   const encodedQuery = encodeURIComponent(searchQuery);
 
-  // eBay Partner Network URL structure
-  // Format: https://rover.ebay.com/rover/1/711-53200-19255-0/1
-  //         ?mpre=https%3A%2F%2Fwww.ebay.com%2Fsch%2Fi.html%3F_nkw%3D[query]
-  //         &campid=[campaign_id]
+  // Get marketing routing ID for this eBay site
+  const mkrid = getMarketingRoutingId(ebaySite);
+
+  // eBay Partner Network URL structure (modern API format)
+  // Format: https://www.ebay.com/sch/i.html?_nkw=[query]
+  //         &mkcid=1
+  //         &mkrid=711-53200-19255-0
+  //         &siteid=0
+  //         &campid=5339150379
   //         &toolid=10001
-  //         &customid=[custom_tracking]
+  //         &mkevt=1
 
-  const ebaySearchUrl = `https://www.${ebaySite}/sch/i.html?_nkw=${encodedQuery}`;
-  const encodedEbayUrl = encodeURIComponent(ebaySearchUrl);
-
-  // eBay Rover link (affiliate link wrapper)
-  const roverDomain = getRoverDomain(ebaySite);
   const affiliateUrl =
-    `https://rover.ebay.com/rover/1/${roverDomain}/1` +
-    `?mpre=${encodedEbayUrl}` +
+    `https://www.${ebaySite}/sch/i.html?_nkw=${encodedQuery}` +
+    `&mkcid=1` +
+    `&mkrid=${mkrid}` +
+    `&siteid=0` +
     `&campid=${campaignId}` +
     `&toolid=10001` +
-    `&customid=minifig_${minifigNumber}`;
+    `&mkevt=1`;
 
   return affiliateUrl;
 }
@@ -87,7 +84,6 @@ export function generateEbaySetLink(
   locale: string = 'en'
 ): string {
   const campaignId = process.env.NEXT_PUBLIC_EBAY_CAMPAIGN_ID || '5339150379';
-  const publisherId = process.env.NEXT_PUBLIC_EBAY_PUBLISHER_ID || 'PUBLISHER_ID_NEEDED';
 
   // Determine eBay site based on locale
   const ebaySite = EBAY_SITES[locale as Locale] || EBAY_SITES['en'];
@@ -98,26 +94,27 @@ export function generateEbaySetLink(
   const searchQuery = `LEGO ${cleanSetNumber} ${setName}`;
   const encodedQuery = encodeURIComponent(searchQuery);
 
-  const ebaySearchUrl = `https://www.${ebaySite}/sch/i.html?_nkw=${encodedQuery}`;
-  const encodedEbayUrl = encodeURIComponent(ebaySearchUrl);
+  // Get marketing routing ID for this eBay site
+  const mkrid = getMarketingRoutingId(ebaySite);
 
-  const roverDomain = getRoverDomain(ebaySite);
   const affiliateUrl =
-    `https://rover.ebay.com/rover/1/${roverDomain}/1` +
-    `?mpre=${encodedEbayUrl}` +
+    `https://www.${ebaySite}/sch/i.html?_nkw=${encodedQuery}` +
+    `&mkcid=1` +
+    `&mkrid=${mkrid}` +
+    `&siteid=0` +
     `&campid=${campaignId}` +
     `&toolid=10001` +
-    `&customid=set_${cleanSetNumber}`;
+    `&mkevt=1`;
 
   return affiliateUrl;
 }
 
 /**
- * Get the correct eBay Rover domain ID for each eBay site
- * Different eBay sites use different rover domain codes
+ * Get the marketing routing ID (mkrid) for each eBay site
+ * These IDs are used in the modern eBay Partner Network API
  */
-function getRoverDomain(ebaySite: string): string {
-  const roverMap: Record<string, string> = {
+function getMarketingRoutingId(ebaySite: string): string {
+  const mkridMap: Record<string, string> = {
     'ebay.com': '711-53200-19255-0',      // US
     'ebay.de': '707-53477-19255-0',       // Germany
     'ebay.fr': '709-53476-19255-0',       // France
@@ -126,15 +123,15 @@ function getRoverDomain(ebaySite: string): string {
     'ebay.it': '724-53478-19255-0',       // Italy
   };
 
-  return roverMap[ebaySite] || roverMap['ebay.com'];
+  return mkridMap[ebaySite] || mkridMap['ebay.com'];
 }
 
 /**
  * Check if eBay affiliate is properly configured
  */
 export function isEbayAffiliateConfigured(): boolean {
-  const publisherId = process.env.NEXT_PUBLIC_EBAY_PUBLISHER_ID;
-  return !!publisherId && publisherId !== 'PUBLISHER_ID_NEEDED';
+  const campaignId = process.env.NEXT_PUBLIC_EBAY_CAMPAIGN_ID;
+  return !!campaignId;
 }
 
 /**
