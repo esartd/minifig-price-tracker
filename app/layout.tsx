@@ -232,9 +232,6 @@ export default async function RootLayout({
         <Script
           src="https://epnt.ebay.com/static/epn-smart-tools.js"
           strategy="lazyOnload"
-          onError={(e) => {
-            console.warn('EPN script failed to load');
-          }}
         />
         <AuthProvider>
           <TranslationProvider locale={locale} translations={translations}>
