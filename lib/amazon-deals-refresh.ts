@@ -48,7 +48,7 @@ export async function refreshDealsBatch(): Promise<{
   errors: number;
   hasMore: boolean;
 }> {
-  const recentSets = getRecentBoxes({ yearsBack: 3, includeCurrentYear: true });
+  const recentSets = getRecentBoxes({ yearMin: new Date().getFullYear() - 3 });
 
   // Get sets that haven't been checked recently (or never checked)
   const existingDeals = await prisma.amazonDeal.findMany({

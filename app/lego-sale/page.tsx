@@ -1,4 +1,4 @@
-import { Metadata } from 'next/headers';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import LegoSaleClient from './client';
 import { triggerRefreshIfStale } from '@/lib/amazon-deals-refresh';
