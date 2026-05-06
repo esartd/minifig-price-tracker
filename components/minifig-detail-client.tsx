@@ -199,8 +199,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
     if (!session) return;
 
     try {
-      // Check inventory
-      const inventoryResponse = await fetch('/api/inventory');
+      // Check inventory (fetch ALL items to find this minifig)
+      const inventoryResponse = await fetch('/api/inventory?all=true');
       const inventoryData = await inventoryResponse.json();
 
       if (inventoryData.success && inventoryData.data) {
@@ -215,8 +215,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
         setCollectionItem(found || null);
       }
 
-      // Check personal collection
-      const personalResponse = await fetch('/api/personal-collection');
+      // Check personal collection (fetch ALL items to find this minifig)
+      const personalResponse = await fetch('/api/personal-collection?all=true');
       const personalData = await personalResponse.json();
 
       if (personalData.success && personalData.data) {
@@ -246,8 +246,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
     const checkCollections = async () => {
       try {
-        // Check inventory
-        const inventoryResponse = await fetch('/api/inventory');
+        // Check inventory (fetch ALL items to find this minifig)
+        const inventoryResponse = await fetch('/api/inventory?all=true');
         const inventoryData = await inventoryResponse.json();
 
         if (inventoryData.success && inventoryData.data) {
@@ -262,8 +262,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
           setCollectionItem(found || null);
         }
 
-        // Check personal collection
-        const personalResponse = await fetch('/api/personal-collection');
+        // Check personal collection (fetch ALL items to find this minifig)
+        const personalResponse = await fetch('/api/personal-collection?all=true');
         const personalData = await personalResponse.json();
 
         if (personalData.success && personalData.data) {
@@ -2682,16 +2682,16 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                 body: JSON.stringify({ quantity })
               });
               if (response.ok) {
-                // Refresh both collections
+                // Refresh both collections (fetch ALL items)
                 const [invRes, colRes] = await Promise.all([
-                  fetch('/api/inventory'),
-                  fetch('/api/personal-collection')
+                  fetch('/api/inventory?all=true'),
+                  fetch('/api/personal-collection?all=true')
                 ]);
                 const invData = await invRes.json();
                 const colData = await colRes.json();
 
-                const updatedInv = invData.data?.find((item: any) => item.minifigure_no === minifig.no);
-                const updatedCol = colData.data?.find((item: any) => item.minifigure_no === minifig.no);
+                const updatedInv = invData.data?.find((item: any) => item.minifigure_no === minifig.no && item.condition === condition);
+                const updatedCol = colData.data?.find((item: any) => item.minifigure_no === minifig.no && item.condition === condition);
 
                 setCollectionItem(updatedInv || null);
                 setPersonalCollectionItem(updatedCol || null);
@@ -2906,7 +2906,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   }
                 } else {
                   // Item was moved from Collection to Inventory, need to move it back
-                  const inventoryResponse = await fetch('/api/inventory');
+                  const inventoryResponse = await fetch('/api/inventory?all=true');
                   const inventoryData = await inventoryResponse.json();
 
                   if (inventoryData.success) {
