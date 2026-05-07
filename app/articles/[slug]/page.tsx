@@ -93,7 +93,7 @@ export default async function ArticlePage({
           fontSize: 'var(--text-sm)',
           color: '#737373',
         }}>
-          <Link href="/" style={{ color: '#3b82f6', textDecoration: 'none' }}>{t.breadcrumbs?.home || 'Home'}</Link>
+          <Link href="/" style={{ color: '#3b82f6', textDecoration: 'none' }}>Home</Link>
           <span> / </span>
           <Link href="/articles" style={{ color: '#3b82f6', textDecoration: 'none' }}>Articles</Link>
           <span> / </span>

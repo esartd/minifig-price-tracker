@@ -237,7 +237,10 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
                       }}
                     />
                   ) : (
-                    <div style={{ fontSize: '72px', opacity: 0.3 }}>📦</div>
+                    <svg width="200" height="200" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 10 H15 V12 H11 V14 H14 V16 H11 V22 H9 V10Z" fill="white"/>
+                      <path d="M17 10 H24 V12 H22 V22 H20 V12 H17 V10Z" fill="white"/>
+                    </svg>
                   )}
                 </div>
 
@@ -376,7 +379,10 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
                       }}
                     />
                   ) : (
-                    <div style={{ fontSize: '48px', opacity: 0.3 }}>📦</div>
+                    <svg width="120" height="120" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 10 H15 V12 H11 V14 H14 V16 H11 V22 H9 V10Z" fill="white"/>
+                      <path d="M17 10 H24 V12 H22 V22 H20 V12 H17 V10Z" fill="white"/>
+                    </svg>
                   )}
                 </div>
 
