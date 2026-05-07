@@ -125,7 +125,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={t('guides.search.placeholder') || 'Search articles...'}
+              placeholder="Search articles..."
               style={{
                 width: '100%',
                 padding: '14px 20px',
@@ -165,7 +165,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
                     transition: 'all 0.2s',
                   }}
                 >
-                  {t('guides.filter.all') || 'All'}
+                  All
                 </button>
                 {categories.map(category => (
                   <button
@@ -308,8 +308,8 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
             marginBottom: '24px',
           }}>
             {filteredArticles.length === articles.length
-              ? `${t('guides.search.showing') || 'Showing all'} ${articles.length} ${t('guides.search.articles') || 'articles'}`
-              : `${t('guides.search.found') || 'Found'} ${filteredArticles.length} ${t('guides.search.of') || 'of'} ${articles.length} ${t('guides.search.articles') || 'articles'}`}
+              ? `Showing all ${articles.length} articles`
+              : `Found ${filteredArticles.length} of ${articles.length} articles`}
           </div>
         )}
 
@@ -320,10 +320,10 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
             color: '#737373',
           }}>
             <p style={{ fontSize: '18px', marginBottom: '8px' }}>
-              {t('guides.search.noResults') || 'No articles found'}
+              No articles found
             </p>
             <p style={{ fontSize: '14px' }}>
-              {t('guides.search.tryAgain') || 'Try adjusting your search or filters'}
+              Try adjusting your search or filters
             </p>
           </div>
         ) : (
