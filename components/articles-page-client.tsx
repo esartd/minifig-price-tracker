@@ -43,8 +43,9 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
     });
   }, [articles, searchQuery, selectedCategory]);
 
-  const featuredArticle = filteredArticles.find(a => a.status === 'published');
-  const otherArticles = filteredArticles.filter(a => a !== featuredArticle);
+  // Show the first article as featured, then all articles (including featured) in the grid
+  const featuredArticle = filteredArticles[0];
+  const otherArticles = filteredArticles; // Show all articles in grid in chronological order
 
   return (
     <div style={{ minHeight: '100vh', background: '#fafafa' }}>
