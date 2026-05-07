@@ -1,4 +1,4 @@
-import { PrismaClient } from '../node_modules/.prisma/client-hostinger';
+import { PrismaClient } from '@prisma/client-hostinger';
 import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient({

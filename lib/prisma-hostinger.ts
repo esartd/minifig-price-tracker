@@ -1,4 +1,4 @@
-import { PrismaClient } from '../node_modules/.prisma/client-hostinger'
+import { PrismaClient } from '@prisma/client-hostinger'
 
 const globalForPrisma = globalThis as unknown as {
   prismaHostinger: PrismaClient | undefined

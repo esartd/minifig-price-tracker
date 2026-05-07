@@ -1,4 +1,4 @@
-import { PrismaClient } from '../node_modules/.prisma/client-hostinger/index.js';
+import { PrismaClient } from '@prisma/client-hostinger';
 
 const prisma = new PrismaClient({
   datasourceUrl: 'mysql://u493602047_figtracker_use:Legocatelogstuff12345!@srv1777.hstgr.io:3306/u493602047_figtracker'
