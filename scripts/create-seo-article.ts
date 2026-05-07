@@ -1,5 +1,10 @@
 import { PrismaClient } from '@prisma/client-hostinger';
-import { ArticleBlock } from '../types/article';
+
+interface ArticleBlock {
+  id: string;
+  type: string;
+  [key: string]: any;
+}
 
 const prisma = new PrismaClient({
   datasourceUrl: process.env.DATABASE_URL || 'mysql://u493602047_figtracker_use:Legocatelogstuff12345!@srv1.hstgr.io:3306/u493602047_figtracker'
@@ -178,12 +183,12 @@ const articleBlocks: ArticleBlock[] = [
     id: 'block-30',
     type: 'heading',
     level: 3,
-    text: 'Completely Free',
+    text: 'Free to Use',
   },
   {
     id: 'block-31',
     type: 'paragraph',
-    text: 'BrickEconomy requires a subscription to access full features. FigTracker is **100% free**. No paywalls, no premium tiers, no hidden pricing data. Just honest, transparent LEGO pricing for everyone.',
+    text: 'FigTracker is currently free to use with no subscription required. While BrickEconomy requires a paid subscription to access full features, FigTracker provides honest, transparent LEGO pricing data without paywalls.',
   },
   {
     id: 'block-32',
@@ -223,7 +228,7 @@ const articleBlocks: ArticleBlock[] = [
         icon: '🚀',
         pros: [
           'Uses real BrickLink sold data',
-          'Free - no subscription required',
+          'Currently free to use',
           'Clean, modern mobile interface',
           'One suggested price - no confusion',
           'Honest pricing - no inflated values',
@@ -248,7 +253,7 @@ const articleBlocks: ArticleBlock[] = [
         ],
         cons: [
           'Relies on listing prices (inflated values)',
-          'Subscription required for full features',
+          'Paid subscription required for full features',
           'Unrealistic appreciation predictions',
           'Poor mobile experience',
           'Data scraping glitches reported',
@@ -276,7 +281,7 @@ const articleBlocks: ArticleBlock[] = [
       'You want **real sold data**, not optimistic listing prices',
       'You\'re tired of tools that make everything look like a great investment',
       'You need a **mobile-friendly** experience for pricing on the go',
-      'You want a **free tool** without subscription paywalls',
+      'You want a tool **without subscription paywalls**',
       'You value **transparency** and honest market data',
     ],
   },
@@ -338,12 +343,12 @@ const articleBlocks: ArticleBlock[] = [
     id: 'block-49',
     type: 'heading',
     level: 3,
-    text: 'Is FigTracker really free?',
+    text: 'Is FigTracker free to use?',
   },
   {
     id: 'block-50',
     type: 'paragraph',
-    text: 'Yes! FigTracker is 100% free with no subscription required. We believe accurate LEGO pricing should be accessible to everyone.',
+    text: 'Yes! FigTracker is currently free to use with no subscription required. We believe accurate LEGO pricing should be accessible to everyone.',
   },
   {
     id: 'block-51',
