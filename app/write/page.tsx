@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { ArticleEditor } from '@/components/admin/ArticleEditor';
 import { ArticlePreview } from '@/components/admin/ArticlePreview';
 import { ArticleBlock } from '@/types/article';
+import pako from 'pako';
 
 const DEFAULT_TEMPLATE: ArticleBlock[] = [
   {
@@ -170,20 +171,43 @@ export default function WriteArticlePage() {
         category: 'Guide',
       };
 
+      const jsonString = JSON.stringify(payload);
+      const uncompressedSize = jsonString.length;
+      console.log(`Uncompressed payload: ${(uncompressedSize / 1024).toFixed(2)} KB`);
+
+      // Compress payload with gzip
+      const compressed = pako.gzip(jsonString);
+      const compressedSize = compressed.length;
+      const compressionRatio = Math.round((1 - compressedSize / uncompressedSize) * 100);
+      console.log(`Compressed payload: ${(compressedSize / 1024).toFixed(2)} KB (${compressionRatio}% reduction)`);
+
+      // Check if still over Vercel's 4.5MB limit
+      if (compressedSize > 4.5 * 1024 * 1024) {
+        alert('Article is too large to save. Please reduce content or split into multiple articles.');
+        setSaving(false);
+        return;
+      }
+
       let response;
       if (articleId) {
         // Update existing article
         response = await fetch(`/api/admin/articles/${articleId}`, {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
+          headers: {
+            'Content-Type': 'application/gzip',
+            'Content-Encoding': 'gzip',
+          },
+          body: compressed,
         });
       } else {
         // Create new article
         response = await fetch('/api/admin/articles', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
+          headers: {
+            'Content-Type': 'application/gzip',
+            'Content-Encoding': 'gzip',
+          },
+          body: compressed,
         });
       }
 

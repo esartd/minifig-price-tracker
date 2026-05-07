@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/admin-auth';
 import { prisma } from '@/lib/prisma';
 import { ArticleData } from '@/types/article';
+import { gunzipSync } from 'zlib';
+
+// Increase payload size limit for large articles
+export const maxDuration = 30;
 
 export async function POST(request: NextRequest) {
   const auth = await requireAdmin();
@@ -11,7 +15,20 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const data: ArticleData = await request.json();
+    let data: ArticleData;
+
+    // Check if request is gzipped
+    const contentEncoding = request.headers.get('content-encoding');
+    if (contentEncoding === 'gzip') {
+      // Decompress gzipped payload
+      const arrayBuffer = await request.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const decompressed = gunzipSync(buffer);
+      data = JSON.parse(decompressed.toString('utf-8'));
+    } else {
+      // Standard JSON
+      data = await request.json();
+    }
 
     const article = await prisma.article.create({
       data: {

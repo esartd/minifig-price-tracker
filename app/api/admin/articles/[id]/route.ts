@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/admin-auth';
 import { prisma } from '@/lib/prisma';
 import { ArticleData } from '@/types/article';
+import { gunzipSync } from 'zlib';
 
 export async function PUT(
   request: NextRequest,
@@ -15,7 +16,17 @@ export async function PUT(
 
   try {
     const { id } = await params;
-    const data: ArticleData = await request.json();
+
+    let data: ArticleData;
+    const contentEncoding = request.headers.get('content-encoding');
+    if (contentEncoding === 'gzip') {
+      const arrayBuffer = await request.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const decompressed = gunzipSync(buffer);
+      data = JSON.parse(decompressed.toString('utf-8'));
+    } else {
+      data = await request.json();
+    }
 
     const article = await prisma.article.update({
       where: { id },
