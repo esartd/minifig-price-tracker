@@ -105,14 +105,14 @@ export default async function ArticlePage({
         <header style={{
           maxWidth: '720px',
           margin: '0 auto',
-          padding: '40px 24px 32px'
+          padding: '40px 24px 0'
         }}>
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'flex-start',
             gap: '16px',
-            marginBottom: '20px',
+            marginBottom: '16px',
           }}>
             <h1 style={{
               fontSize: 'var(--text-3xl)',
@@ -120,6 +120,7 @@ export default async function ArticlePage({
               color: '#171717',
               lineHeight: '1.2',
               margin: 0,
+              marginBottom: '20px',
             }}>
               {translation.title}
             </h1>
@@ -153,31 +154,30 @@ export default async function ArticlePage({
           <div style={{
             fontSize: 'var(--text-sm)',
             color: '#737373',
+            paddingBottom: '24px',
+            borderBottom: '1px solid #e5e5e5',
             marginBottom: '24px'
           }}>
-            <span>FigTracker Team</span>
-            <span> · </span>
-            <span>{new Date(dbArticle.publishedAt || dbArticle.createdAt).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-            <span> · </span>
-            <span>{dbArticle.readTimeMinutes} min read</span>
-          </div>
+            <div style={{ marginBottom: '12px' }}>
+              <span>FigTracker Team</span>
+              <span> · </span>
+              <span>{new Date(dbArticle.publishedAt || dbArticle.createdAt).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+              <span> · </span>
+              <span>{dbArticle.readTimeMinutes} min read</span>
+            </div>
 
-          {/* Social Share Buttons */}
-          <div style={{ marginBottom: '24px' }}>
+            {/* Social Share Buttons */}
             <SocialShare
               title={translation.title}
               url={`/articles/${slug}`}
             />
           </div>
-
-          <div style={{
-            borderBottom: '1px solid #e5e5e5',
-            marginBottom: '24px'
-          }} />
         </header>
 
         {/* Article Content */}
-        <ArticleRenderer blocks={contentBlocks} />
+        <div style={{ marginTop: '16px' }}>
+          <ArticleRenderer blocks={contentBlocks} />
+        </div>
 
       </article>
     );
