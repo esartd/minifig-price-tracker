@@ -13,6 +13,7 @@ interface Article {
   category: string;
   date: string;
   readTime: string;
+  coverImage?: string | null;
 }
 
 export default function ArticlesPageClient({ articles }: { articles: Article[] }) {
@@ -219,12 +220,25 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
                 <div style={{
                   width: '100%',
                   height: '480px',
-                  background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+                  background: featuredArticle.coverImage ? '#f5f5f5' : 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  overflow: 'hidden',
                 }}>
-                  <div style={{ fontSize: '72px', opacity: 0.3 }}>📦</div>
+                  {featuredArticle.coverImage ? (
+                    <img
+                      src={featuredArticle.coverImage}
+                      alt={featuredArticle.title}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  ) : (
+                    <div style={{ fontSize: '72px', opacity: 0.3 }}>📦</div>
+                  )}
                 </div>
 
                 <div style={{ padding: '40px' }}>
@@ -345,12 +359,25 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
                 <div style={{
                   width: '100%',
                   height: '220px',
-                  background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+                  background: article.coverImage ? '#f5f5f5' : 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  overflow: 'hidden',
                 }}>
-                  <div style={{ fontSize: '48px', opacity: 0.3 }}>📦</div>
+                  {article.coverImage ? (
+                    <img
+                      src={article.coverImage}
+                      alt={article.title}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  ) : (
+                    <div style={{ fontSize: '48px', opacity: 0.3 }}>📦</div>
+                  )}
                 </div>
 
                 <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>

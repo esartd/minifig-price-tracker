@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import ArticlesPageClient from '@/components/articles-page-client';
 import { headers } from 'next/headers';
+import { prisma } from '@/lib/prisma';
 
 async function getTranslations(locale: string) {
   try {
@@ -55,17 +56,50 @@ export default async function ArticlesPage() {
 
   const t = await getTranslations(locale);
 
-  // Convert guides data to articles format
+  // Fetch articles from database
+  const dbArticles = await prisma.article.findMany({
+    where: { status: 'published' },
+    orderBy: { publishedAt: 'desc' },
+  });
+
+  // Convert database articles to display format
+  const articles = dbArticles.map(article => {
+    const translations = JSON.parse(article.translations as string);
+    const translation = translations.find((t: any) => t.locale === locale) || translations[0];
+    const contentBlocks = JSON.parse(article.contentBlocks as string);
+
+    // Find first image block for cover photo
+    const firstImageBlock = contentBlocks.find((block: any) => block.type === 'image');
+    const coverImage = firstImageBlock?.images?.[0]?.imageUrl || null;
+
+    return {
+      title: translation.title,
+      description: translation.description,
+      slug: article.slug,
+      status: 'published' as const,
+      category: article.category || 'Guide',
+      date: new Date(article.publishedAt || article.createdAt).toLocaleDateString(locale, { year: 'numeric', month: 'long' }),
+      readTime: `${article.readTimeMinutes} min read`,
+      coverImage,
+    };
+  });
+
+  // Merge with any legacy articles from translations (if needed)
   const guidesData = t.guides?.items || [];
-  const articles = guidesData.map((guide: any) => ({
-    title: guide.title,
-    description: guide.description,
-    slug: guide.slug,
-    status: guide.status,
-    category: t.guides?.category || 'Guide',
-    date: 'May 2026',
-    readTime: t.guides?.readTime || '5 min read',
-  }));
+  const legacyArticles = guidesData
+    .filter((guide: any) => !articles.some(a => a.slug === guide.slug))
+    .map((guide: any) => ({
+      title: guide.title,
+      description: guide.description,
+      slug: guide.slug,
+      status: guide.status,
+      category: t.guides?.category || 'Guide',
+      date: 'May 2026',
+      readTime: t.guides?.readTime || '5 min read',
+      coverImage: null,
+    }));
+
+  const allArticles = [...articles, ...legacyArticles];
 
   const domains = {
     en: 'https://figtracker.ericksu.com',
@@ -88,7 +122,7 @@ export default async function ArticlesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ArticlesPageClient articles={articles} />
+      <ArticlesPageClient articles={allArticles} />
     </>
   );
 }

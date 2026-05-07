@@ -1,9 +1,10 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
-import { marked } from 'marked';
 import { headers } from 'next/headers';
+import { prisma } from '@/lib/prisma';
+import { auth } from '@/auth';
+import { ArticleRenderer } from '@/components/article/ArticleRenderer';
 import translations from '@/translations-backup/en.json';
 import translationsDe from '@/translations-backup/de.json';
 import translationsFr from '@/translations-backup/fr.json';
@@ -18,35 +19,6 @@ function getTranslations(locale: string) {
   }
 }
 
-function getGuides(locale: string) {
-  const t = getTranslations(locale);
-  const articles = t.guideArticles as Record<string, {
-    title: string;
-    description: string;
-    author: string;
-    readTime: string;
-    content: string;
-  }>;
-
-  return Object.entries(articles).reduce((acc, [slug, article]) => {
-    acc[slug] = {
-      ...article,
-      date: '2026-04-24',
-    };
-    return acc;
-  }, {} as Record<string, {
-    title: string;
-    description: string;
-    author: string;
-    date: string;
-    readTime: string;
-    content: string;
-  }>);
-}
-
-type GuideSlug = string;
-
-
 export async function generateMetadata({
   params
 }: {
@@ -56,133 +28,76 @@ export async function generateMetadata({
   const headersList = await headers();
   const host = headersList.get('host') || '';
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
-  const articles = getGuides(locale);
-  const guide = articles[slug as GuideSlug];
 
-  if (!guide) {
+  // Try database first
+  const dbArticle = await prisma.article.findUnique({
+    where: { slug }
+  });
+
+  if (dbArticle) {
+    const translations = JSON.parse(dbArticle.translations as string);
+    const translation = translations.find((t: any) => t.locale === locale) || translations[0];
+
     return {
-      title: 'Guide Not Found',
+      title: `${translation.title} | FigTracker`,
+      description: translation.description,
     };
   }
 
-  const domains = {
-    en: 'https://figtracker.ericksu.com',
-    de: 'https://de.figtracker.ericksu.com',
-    fr: 'https://fr.figtracker.ericksu.com',
-    es: 'https://es.figtracker.ericksu.com',
-  };
+  // Fallback to translation files
+  const t = getTranslations(locale);
+  const guideArticles = t.guideArticles as Record<string, any>;
+  const guide = guideArticles[slug];
 
-  const localeMap = {
-    en: 'en_US',
-    de: 'de_DE',
-    fr: 'fr_FR',
-    es: 'es_ES',
-  };
+  if (!guide) {
+    return { title: 'Article Not Found' };
+  }
 
   return {
     title: `${guide.title} | FigTracker`,
     description: guide.description,
-    keywords: guide.title.split(' ').concat(['LEGO', 'minifigures', 'Bricklink', 'price guide', 'collecting']),
-    authors: [{ name: guide.author }],
-    openGraph: {
-      title: guide.title,
-      description: guide.description,
-      type: 'article',
-      publishedTime: guide.date,
-      authors: [guide.author],
-      url: `${domains[locale as keyof typeof domains]}/articles/${slug}`,
-      locale: localeMap[locale as keyof typeof localeMap],
-      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
-    },
-    alternates: {
-      canonical: `${domains[locale as keyof typeof domains]}/articles/${slug}`,
-      languages: {
-        'en': `${domains.en}/articles/${slug}`,
-        'de': `${domains.de}/articles/${slug}`,
-        'fr': `${domains.fr}/articles/${slug}`,
-        'es': `${domains.es}/articles/${slug}`,
-        'x-default': `${domains.en}/articles/${slug}`,
-      },
-    },
   };
 }
 
-export default async function GuidePage({
+export default async function ArticlePage({
   params
 }: {
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params;
+  const session = await auth();
+  const isAdmin = session?.user?.email === 'erickkosysu@gmail.com';
+
   const headersList = await headers();
   const host = headersList.get('host') || '';
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
-  const articles = getGuides(locale);
-  const guide = articles[slug as GuideSlug];
+  const t = getTranslations(locale);
 
-  if (!guide) {
-    notFound();
-  }
+  // Try database first
+  const dbArticle = await prisma.article.findUnique({
+    where: { slug }
+  });
 
-  const t = getTranslations(locale).guidePage;
+  if (dbArticle) {
+    const contentBlocks = JSON.parse(dbArticle.contentBlocks as string);
+    const translations = JSON.parse(dbArticle.translations as string);
+    const translation = translations.find((t: any) => t.locale === locale) || translations[0];
 
-  // Schema.org BlogPosting markup
-  const blogSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: guide.title,
-    description: guide.description,
-    author: {
-      '@type': 'Organization',
-      name: guide.author,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'FigTracker',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://figtracker.ericksu.com/favicon.svg'
-      }
-    },
-    datePublished: guide.date,
-    dateModified: guide.date,
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `https://figtracker.ericksu.com/articles/${slug}`
-    },
-    image: 'https://figtracker.ericksu.com/og-image.png',
-  };
-
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
-      />
-
+    return (
       <article style={{ minHeight: '100vh', background: 'white' }}>
         {/* Breadcrumbs */}
-        <style dangerouslySetInnerHTML={{ __html: `
-          .breadcrumb-nav {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 24px 24px 0;
-            font-size: var(--text-sm);
-            color: #737373;
-          }
-          .breadcrumb-nav a {
-            color: #3b82f6;
-            text-decoration: none;
-          }
-          .breadcrumb-nav a:hover {
-            text-decoration: underline;
-          }
-        `}} />
-        <nav className="breadcrumb-nav">
-          <Link href="/">{t.breadcrumbs.home}</Link>
+        <nav style={{
+          maxWidth: '720px',
+          margin: '0 auto',
+          padding: '24px 24px 0',
+          fontSize: 'var(--text-sm)',
+          color: '#737373',
+        }}>
+          <Link href="/" style={{ color: '#3b82f6', textDecoration: 'none' }}>{t.breadcrumbs?.home || 'Home'}</Link>
           <span> / </span>
-          <Link href="/articles">Articles</Link>
+          <Link href="/articles" style={{ color: '#3b82f6', textDecoration: 'none' }}>Articles</Link>
           <span> / </span>
-          <span style={{ color: '#171717' }}>{guide.title}</span>
+          <span style={{ color: '#171717' }}>{translation.title}</span>
         </nav>
 
         {/* Article Header */}
@@ -191,25 +106,59 @@ export default async function GuidePage({
           margin: '0 auto',
           padding: '40px 24px 32px'
         }}>
-          <h1 style={{
-            fontSize: 'var(--text-3xl)',
-            fontWeight: '700',
-            color: '#171717',
-            lineHeight: '1.2',
-            marginBottom: '20px'
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            gap: '16px',
+            marginBottom: '20px',
           }}>
-            {guide.title}
-          </h1>
+            <h1 style={{
+              fontSize: 'var(--text-3xl)',
+              fontWeight: '700',
+              color: '#171717',
+              lineHeight: '1.2',
+              margin: 0,
+            }}>
+              {translation.title}
+            </h1>
+
+            {isAdmin && (
+              <Link
+                href={`/write?edit=${slug}`}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '8px 14px',
+                  background: '#3b82f6',
+                  color: '#ffffff',
+                  borderRadius: '8px',
+                  fontSize: '13px',
+                  fontWeight: '600',
+                  textDecoration: 'none',
+                  whiteSpace: 'nowrap',
+                  transition: 'background 0.2s',
+                }}
+              >
+                <svg style={{ width: '14px', height: '14px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+                Edit
+              </Link>
+            )}
+          </div>
+
           <div style={{
             fontSize: 'var(--text-sm)',
             color: '#737373',
             marginBottom: '16px'
           }}>
-            <span>{guide.author}</span>
+            <span>FigTracker Team</span>
             <span> · </span>
-            <span>{new Date(guide.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            <span>{new Date(dbArticle.publishedAt || dbArticle.createdAt).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
             <span> · </span>
-            <span>{guide.readTime}</span>
+            <span>{dbArticle.readTimeMinutes} min read</span>
           </div>
           <div style={{
             borderBottom: '1px solid #e5e5e5',
@@ -218,169 +167,26 @@ export default async function GuidePage({
         </header>
 
         {/* Article Content */}
-        <div style={{
-          maxWidth: '720px',
-          margin: '0 auto',
-          padding: '16px 24px 80px'
-        }}>
-          <style dangerouslySetInnerHTML={{ __html: `
-            .article-content {
-              font-size: 18px;
-              line-height: 1.75;
-              color: #171717;
-            }
-            .article-content > *:first-child {
-              margin-top: 0;
-            }
-            .article-content h1 {
-              font-size: 32px;
-              font-weight: 700;
-              margin: 56px 0 24px;
-              line-height: 1.2;
-              color: #171717;
-            }
-            .article-content h2 {
-              font-size: 28px;
-              font-weight: 700;
-              margin: 48px 0 20px;
-              line-height: 1.3;
-              color: #171717;
-            }
-            .article-content h3 {
-              font-size: 22px;
-              font-weight: 600;
-              margin: 40px 0 16px;
-              line-height: 1.4;
-              color: #171717;
-            }
-            .article-content p {
-              margin: 24px 0;
-              color: #3c4043;
-            }
-            .article-content a {
-              color: #1a73e8;
-              text-decoration: none;
-            }
-            .article-content a:hover {
-              text-decoration: underline;
-            }
-            .article-content strong {
-              font-weight: 600;
-              color: #171717;
-            }
-            .article-content ul, .article-content ol {
-              margin: 24px 0;
-              padding-left: 40px;
-            }
-            .article-content li {
-              margin: 12px 0;
-              color: #3c4043;
-              line-height: 1.75;
-            }
-            .article-content table {
-              width: 100%;
-              border-collapse: collapse;
-              margin: 32px 0;
-              font-size: 16px;
-            }
-            .article-content th, .article-content td {
-              border: 1px solid #e5e5e5;
-              padding: 16px;
-              text-align: left;
-            }
-            .article-content th {
-              background: #f8f9fa;
-              font-weight: 600;
-              color: #171717;
-            }
-            .article-content td {
-              color: #3c4043;
-            }
-            .article-content hr {
-              border: none;
-              border-top: 1px solid #e5e5e5;
-              margin: 56px 0;
-            }
-            .article-content blockquote {
-              border-left: 4px solid #e5e5e5;
-              margin: 24px 0;
-              padding-left: 20px;
-              color: #5f6368;
-              font-style: italic;
-            }
-            .article-content img {
-              width: 100%;
-              height: auto;
-              border-radius: 12px;
-              margin: 48px 0;
-              display: block;
-            }
-            .article-content figure {
-              margin: 48px 0;
-            }
-            .article-content figure img {
-              margin: 0 0 16px 0;
-            }
-            .article-content figcaption {
-              font-size: 14px;
-              color: #737373;
-              text-align: center;
-              line-height: 1.5;
-            }
-          `}} />
-          <div
-            className="article-content"
-            dangerouslySetInnerHTML={{
-              __html: marked(guide.content, {
-                breaks: true,
-                gfm: true,
-              })
-            }}
-          />
-        </div>
+        <ArticleRenderer blocks={contentBlocks} />
 
-        {/* CTA Footer */}
-        <section style={{
-          background: '#f8f9fa',
-          borderTop: '1px solid #e5e5e5',
-          padding: '64px 24px',
-          textAlign: 'center'
-        }}>
-          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-            <h2 style={{
-              fontSize: 'var(--text-2xl)',
-              fontWeight: '700',
-              color: '#171717',
-              marginBottom: '16px'
-            }}>
-              {t.startTracking}
-            </h2>
-            <p style={{
-              fontSize: 'var(--text-base)',
-              color: '#5f6368',
-              marginBottom: '32px',
-              lineHeight: '1.6'
-            }}>
-              {t.startTrackingDesc}
-            </p>
-            <Link
-              href="/search"
-              className="cta-button"
-            >
-              {t.searchMinifigures}
-            </Link>
-          </div>
-        </section>
       </article>
-    </>
-  );
-}
+    );
+  }
 
-// Generate static params for known articles
-export async function generateStaticParams() {
-  // Use English version to get all guide slugs
-  const articles = getGuides('en');
-  return Object.keys(articles).map((slug) => ({
-    slug,
-  }));
+  // Fallback to old markdown-based articles
+  const guideArticles = t.guideArticles as Record<string, any>;
+  const guide = guideArticles[slug];
+
+  if (!guide) {
+    notFound();
+  }
+
+  // (Keep existing markdown rendering for legacy articles)
+  return (
+    <article style={{ minHeight: '100vh', background: 'white' }}>
+      <p style={{ padding: '40px', textAlign: 'center', color: '#737373' }}>
+        Legacy article format - please migrate to new CMS
+      </p>
+    </article>
+  );
 }

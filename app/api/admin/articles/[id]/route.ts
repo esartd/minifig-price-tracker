@@ -3,7 +3,10 @@ import { requireAdmin } from '@/lib/admin-auth';
 import { prisma } from '@/lib/prisma';
 import { ArticleData } from '@/types/article';
 
-export async function POST(request: NextRequest) {
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   const auth = await requireAdmin();
 
   if (!auth.authorized) {
@@ -11,9 +14,11 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    const { id } = await params;
     const data: ArticleData = await request.json();
 
-    const article = await prisma.article.create({
+    const article = await prisma.article.update({
+      where: { id },
       data: {
         slug: data.slug,
         status: data.status,
@@ -32,15 +37,18 @@ export async function POST(request: NextRequest) {
       translations: JSON.parse(article.translations as string),
     });
   } catch (error: any) {
-    console.error('Article creation error:', error);
+    console.error('Article update error:', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to create article' },
+      { error: error.message || 'Failed to update article' },
       { status: 500 }
     );
   }
 }
 
-export async function GET(request: NextRequest) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   const auth = await requireAdmin();
 
   if (!auth.authorized) {
@@ -48,36 +56,17 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const { searchParams } = new URL(request.url);
-    const status = searchParams.get('status');
-    const locale = searchParams.get('locale');
-    const slug = searchParams.get('slug');
+    const { id } = await params;
 
-    const articles = await prisma.article.findMany({
-      where: {
-        ...(status && { status }),
-        ...(slug && { slug }),
-      },
-      orderBy: {
-        updatedAt: 'desc',
-      },
+    await prisma.article.delete({
+      where: { id },
     });
 
-    // Parse JSON fields and filter by locale if specified
-    const parsed = articles.map(article => ({
-      ...article,
-      contentBlocks: JSON.parse(article.contentBlocks as string),
-      translations: JSON.parse(article.translations as string),
-    })).filter(article => {
-      if (!locale) return true;
-      return article.translations.some((t: any) => t.locale === locale);
-    });
-
-    return NextResponse.json({ articles: parsed });
+    return NextResponse.json({ success: true });
   } catch (error: any) {
-    console.error('Articles fetch error:', error);
+    console.error('Article delete error:', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to fetch articles' },
+      { error: error.message || 'Failed to delete article' },
       { status: 500 }
     );
   }
