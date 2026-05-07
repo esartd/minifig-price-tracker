@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/admin-auth';
-import { PrismaClient } from '../../../../../node_modules/.prisma/client-hostinger/index.js';
+import { prisma } from '@/lib/prisma';
 import { ArticleData } from '@/types/article';
-
-const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
   const auth = await requireAdmin();
