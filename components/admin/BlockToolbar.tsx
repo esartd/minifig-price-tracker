@@ -14,6 +14,7 @@ export function BlockToolbar({ onAddBlock }: BlockToolbarProps) {
     { type: 'heading', icon: 'H', label: 'Heading' },
     { type: 'paragraph', icon: '¶', label: 'Paragraph' },
     { type: 'image', icon: '🖼', label: 'Image (1-3)' },
+    { type: 'cta-button', icon: '🔘', label: 'CTA Button' },
     { type: 'amazon-products', icon: '🛒', label: 'Amazon Products (1-3)' },
     { type: 'list', icon: '•', label: 'List' },
     { type: 'code', icon: '💻', label: 'Code' },

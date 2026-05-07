@@ -8,7 +8,8 @@ export type ArticleBlockType =
   | 'list'
   | 'divider'
   | 'code'
-  | 'video';
+  | 'video'
+  | 'cta-button';
 
 export interface BaseBlock {
   id: string;
@@ -94,6 +95,15 @@ export interface VideoBlock extends BaseBlock {
   caption?: string;
 }
 
+export interface CTAButtonBlock extends BaseBlock {
+  type: 'cta-button';
+  text: string;
+  url: string;
+  style?: 'primary' | 'secondary';
+  size?: 'small' | 'medium' | 'large';
+  alignment?: 'left' | 'center' | 'right';
+}
+
 export type ArticleBlock =
   | HeadingBlock
   | ParagraphBlock
@@ -104,7 +114,8 @@ export type ArticleBlock =
   | ListBlock
   | DividerBlock
   | CodeBlock
-  | VideoBlock;
+  | VideoBlock
+  | CTAButtonBlock;
 
 export interface ArticleData {
   id?: string;

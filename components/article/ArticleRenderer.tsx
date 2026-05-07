@@ -139,6 +139,60 @@ export function ArticleRenderer({ blocks }: ArticleRendererProps) {
           />
         );
 
+      case 'cta-button':
+        const alignment = block.alignment || 'center';
+        const style = block.style || 'primary';
+        const size = block.size || 'large';
+
+        const sizeStyles = {
+          small: { padding: '10px 20px', fontSize: '14px' },
+          medium: { padding: '12px 28px', fontSize: '15px' },
+          large: { padding: '16px 40px', fontSize: '17px' },
+        };
+
+        const styleColors = {
+          primary: { background: '#3b82f6', color: '#ffffff', hoverBg: '#2563eb' },
+          secondary: { background: '#f3f4f6', color: '#171717', hoverBg: '#e5e7eb' },
+        };
+
+        return (
+          <div
+            key={block.id}
+            style={{
+              display: 'flex',
+              justifyContent: alignment === 'left' ? 'flex-start' : alignment === 'right' ? 'flex-end' : 'center',
+              margin: '32px 0',
+            }}
+          >
+            <a
+              href={block.url}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                ...sizeStyles[size],
+                background: styleColors[style].background,
+                color: styleColors[style].color,
+                borderRadius: '12px',
+                fontWeight: '600',
+                textDecoration: 'none',
+                transition: 'all 0.2s',
+                border: 'none',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = styleColors[style].hoverBg;
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = styleColors[style].background;
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              {block.text}
+            </a>
+          </div>
+        );
+
       case 'amazon-products':
         return (
           <div

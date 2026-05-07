@@ -12,6 +12,7 @@ import { ListBlockEditor } from './blocks/ListBlockEditor';
 import { DividerBlockEditor } from './blocks/DividerBlockEditor';
 import { CodeBlockEditor } from './blocks/CodeBlockEditor';
 import { VideoBlockEditor } from './blocks/VideoBlockEditor';
+import { CTAButtonBlockEditor } from './blocks/CTAButtonBlockEditor';
 import { BlockToolbar } from './BlockToolbar';
 
 interface ArticleEditorProps {
@@ -63,6 +64,7 @@ export function ArticleEditor({ initialBlocks, onChange }: ArticleEditorProps) {
       ...(type === 'list' && { ordered: false, items: [''] }),
       ...(type === 'code' && { language: 'javascript', code: '' }),
       ...(type === 'video' && { platform: 'youtube' as const, videoUrl: '', videoId: '' }),
+      ...(type === 'cta-button' && { text: '', url: '', style: 'primary' as const, size: 'large' as const, alignment: 'center' as const }),
     } as ArticleBlock;
 
     if (afterId) {
@@ -101,6 +103,8 @@ export function ArticleEditor({ initialBlocks, onChange }: ArticleEditorProps) {
         return <CodeBlockEditor key={block.id} block={block} onChange={onChange} />;
       case 'video':
         return <VideoBlockEditor key={block.id} block={block} onChange={onChange} />;
+      case 'cta-button':
+        return <CTAButtonBlockEditor key={block.id} block={block} onChange={onChange} />;
       default:
         return null;
     }
