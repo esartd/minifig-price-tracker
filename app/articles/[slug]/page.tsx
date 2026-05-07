@@ -154,29 +154,47 @@ export default async function ArticlePage({
           <div style={{
             fontSize: 'var(--text-sm)',
             color: '#737373',
-            paddingBottom: '24px',
-            borderBottom: '1px solid #e5e5e5',
-            marginBottom: '24px'
+            marginBottom: '12px'
           }}>
-            <div style={{ marginBottom: '12px' }}>
-              <span>FigTracker Team</span>
-              <span> · </span>
-              <span>{new Date(dbArticle.publishedAt || dbArticle.createdAt).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-              <span> · </span>
-              <span>{dbArticle.readTimeMinutes} min read</span>
-            </div>
+            <span>FigTracker Team</span>
+            <span> · </span>
+            <span>{new Date(dbArticle.publishedAt || dbArticle.createdAt).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            <span> · </span>
+            <span>{dbArticle.readTimeMinutes} min read</span>
+          </div>
 
-            {/* Social Share Buttons */}
+          {/* Social Share Buttons - Top */}
+          <div style={{ marginBottom: '24px' }}>
             <SocialShare
               title={translation.title}
               url={`/articles/${slug}`}
+              position="top"
             />
           </div>
+
+          <div style={{
+            borderBottom: '1px solid #e5e5e5',
+            paddingBottom: '24px',
+            marginBottom: '24px'
+          }} />
         </header>
 
         {/* Article Content */}
         <div style={{ marginTop: '16px' }}>
           <ArticleRenderer blocks={contentBlocks} />
+        </div>
+
+        {/* Social Share Buttons - Bottom */}
+        <div style={{
+          maxWidth: '720px',
+          margin: '0 auto',
+          padding: '0 24px 80px',
+        }}>
+          <SocialShare
+            title={translation.title}
+            url={`/articles/${slug}`}
+            position="bottom"
+          />
         </div>
 
       </article>
