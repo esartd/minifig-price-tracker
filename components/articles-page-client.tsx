@@ -43,9 +43,9 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
     });
   }, [articles, searchQuery, selectedCategory]);
 
-  // Show the first article as featured, then all articles (including featured) in the grid
+  // Show the first article as featured, then remaining articles in the grid
   const featuredArticle = filteredArticles[0];
-  const otherArticles = filteredArticles; // Show all articles in grid in chronological order
+  const otherArticles = filteredArticles.slice(1); // Skip the featured article in grid
 
   return (
     <div style={{ minHeight: '100vh', background: '#fafafa' }}>
