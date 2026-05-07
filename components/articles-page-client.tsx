@@ -39,7 +39,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
             letterSpacing: '-0.03em',
             lineHeight: '1.1',
           }}>
-            Articles
+            {translations.guides.pageTitle}
           </h1>
           <p style={{
             fontSize: '21px',
