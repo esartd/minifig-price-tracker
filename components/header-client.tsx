@@ -82,9 +82,9 @@ export function HeaderClient({ user }: HeaderClientProps) {
       const header = headerRef.current;
       const headerWidth = header.offsetWidth;
 
-      // Always use mobile layout below 768px
-      if (headerWidth < 768) {
-        console.log('Mobile layout: screen width < 768px');
+      // Always use mobile layout below 1000px to prevent text wrapping
+      if (headerWidth < 1000) {
+        console.log('Mobile layout: screen width < 1000px');
         setUseMobileLayout(true);
         return;
       }
@@ -265,12 +265,12 @@ export function HeaderClient({ user }: HeaderClientProps) {
             <div className="desktop-nav" style={{
               display: useMobileLayout ? 'none' : 'flex',
               alignItems: 'center',
-              gap: '32px'
+              gap: '24px'
             }}>
               <Link
                 href="/search"
                 style={{
-                  fontSize: 'var(--text-sm)',
+                  fontSize: 'var(--text-xs)',
                   fontWeight: pathname === '/search' ? '600' : '500',
                   color: pathname === '/search' ? '#171717' : '#525252',
                   textDecoration: 'none',
@@ -280,7 +280,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   alignItems: 'center',
                   height: '36px',
                   borderBottom: pathname === '/search' ? '2px solid #3b82f6' : 'none',
-                  paddingBottom: '2px'
+                  paddingBottom: '2px',
+                  whiteSpace: 'nowrap'
                 }}
               >
                 {t('navigation.search')}
@@ -291,7 +292,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 <button
                   onClick={() => setBrowseDropdownOpen(!browseDropdownOpen)}
                   style={{
-                    fontSize: 'var(--text-sm)',
+                    fontSize: 'var(--text-xs)',
                     fontWeight: '500',
                     color: '#525252',
                     background: 'none',
@@ -301,7 +302,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     alignItems: 'center',
                     gap: '4px',
                     height: '36px',
-                    padding: 0
+                    padding: 0,
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   {t('navigation.browse')}
@@ -364,7 +366,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 <button
                   onClick={() => setLegoDropdownOpen(!legoDropdownOpen)}
                   style={{
-                    fontSize: 'var(--text-sm)',
+                    fontSize: 'var(--text-xs)',
                     fontWeight: '500',
                     color: '#525252',
                     background: 'none',
@@ -374,7 +376,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     alignItems: 'center',
                     gap: '4px',
                     height: '36px',
-                    padding: 0
+                    padding: 0,
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   {t('navigation.yourLego')}
@@ -476,7 +479,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               <Link
                 href="/about"
                 style={{
-                  fontSize: 'var(--text-sm)',
+                  fontSize: 'var(--text-xs)',
                   fontWeight: pathname === '/about' ? '600' : '500',
                   color: pathname === '/about' ? '#171717' : '#525252',
                   textDecoration: 'none',
@@ -486,7 +489,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   alignItems: 'center',
                   height: '36px',
                   borderBottom: pathname === '/about' ? '2px solid #3b82f6' : 'none',
-                  paddingBottom: '2px'
+                  paddingBottom: '2px',
+                  whiteSpace: 'nowrap'
                 }}
               >
                 {t('navigation.about')}
@@ -501,12 +505,13 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 <Link
                   href="/auth/signin"
                   style={{
-                    padding: '10px 20px',
-                    fontSize: 'var(--text-sm)',
+                    padding: '10px 16px',
+                    fontSize: 'var(--text-xs)',
                     fontWeight: '500',
                     color: '#525252',
                     textDecoration: 'none',
-                    transition: 'color 0.2s'
+                    transition: 'color 0.2s',
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   {t('navigation.signIn')}
@@ -514,14 +519,15 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 <Link
                   href="/auth/signup"
                   style={{
-                    padding: '10px 20px',
-                    fontSize: 'var(--text-sm)',
+                    padding: '10px 16px',
+                    fontSize: 'var(--text-xs)',
                     fontWeight: '600',
                     color: '#ffffff',
                     background: '#3b82f6',
                     borderRadius: '8px',
                     textDecoration: 'none',
-                    transition: 'all 0.2s'
+                    transition: 'all 0.2s',
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   {t('navigation.signUp')}
@@ -839,12 +845,12 @@ export function HeaderClient({ user }: HeaderClientProps) {
           <div className="desktop-nav" style={{
             display: useMobileLayout ? 'none' : 'flex',
             alignItems: 'center',
-            gap: '32px'
+            gap: '24px'
           }}>
             <Link
               href="/search"
               style={{
-                fontSize: 'var(--text-sm)',
+                fontSize: 'var(--text-xs)',
                 fontWeight: pathname === '/search' ? '600' : '500',
                 color: pathname === '/search' ? '#171717' : '#525252',
                 textDecoration: 'none',
@@ -854,7 +860,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 alignItems: 'center',
                 height: '36px',
                 borderBottom: pathname === '/search' ? '2px solid #3b82f6' : 'none',
-                paddingBottom: '2px'
+                paddingBottom: '2px',
+                whiteSpace: 'nowrap'
               }}
             >
               {t('navigation.search')}
@@ -865,7 +872,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               <button
                 onClick={() => setBrowseDropdownOpen(!browseDropdownOpen)}
                 style={{
-                  fontSize: 'var(--text-sm)',
+                  fontSize: 'var(--text-xs)',
                   fontWeight: '500',
                   color: '#525252',
                   background: 'none',
@@ -875,7 +882,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   alignItems: 'center',
                   gap: '4px',
                   height: '36px',
-                  padding: 0
+                  padding: 0,
+                  whiteSpace: 'nowrap'
                 }}
               >
                 {t('navigation.browse')}
@@ -938,7 +946,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               <button
                 onClick={() => setLegoDropdownOpen(!legoDropdownOpen)}
                 style={{
-                  fontSize: 'var(--text-sm)',
+                  fontSize: 'var(--text-xs)',
                   fontWeight: '500',
                   color: '#525252',
                   background: 'none',
@@ -948,7 +956,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   alignItems: 'center',
                   gap: '4px',
                   height: '36px',
-                  padding: 0
+                  padding: 0,
+                  whiteSpace: 'nowrap'
                 }}
               >
                 {t('navigation.yourLego')}
@@ -1050,7 +1059,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             <Link
               href="/about"
               style={{
-                fontSize: 'var(--text-sm)',
+                fontSize: 'var(--text-xs)',
                 fontWeight: pathname === '/about' ? '600' : '500',
                 color: pathname === '/about' ? '#171717' : '#525252',
                 textDecoration: 'none',
@@ -1060,7 +1069,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 alignItems: 'center',
                 height: '36px',
                 borderBottom: pathname === '/about' ? '2px solid #3b82f6' : 'none',
-                paddingBottom: '2px'
+                paddingBottom: '2px',
+                whiteSpace: 'nowrap'
               }}
             >
               {t('navigation.about')}
