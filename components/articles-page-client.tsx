@@ -232,7 +232,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
 
                   {article.status === 'published' ? (
                     <div style={{ fontSize: '15px', color: '#3b82f6', fontWeight: '500' }}>
-                      {translations.guides.readGuide} →
+                      {translations.guides.readGuide}
                     </div>
                   ) : (
                     <div style={{
