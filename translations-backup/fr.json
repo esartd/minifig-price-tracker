@@ -684,6 +684,7 @@
   "footer": {
     "faq": "FAQ",
     "guides": "Guides",
+    "articles": "Articles",
     "supportUs": "Soutenez-nous",
     "contact": "Contact",
     "privacy": "Confidentialité",
@@ -1228,7 +1229,8 @@
   "guidePage": {
     "breadcrumbs": {
       "home": "Accueil",
-      "guides": "Guides"
+      "guides": "Guides",
+    "articles": "Articles"
     },
     "startTracking": "Commencez à suivre votre collection",
     "startTrackingDesc": "Utilisez FigTracker pour évaluer vos figurines LEGO avec précision grâce aux données Bricklink en temps réel",

@@ -684,6 +684,7 @@
   "footer": {
     "faq": "Preguntas frecuentes",
     "guides": "Guías",
+    "articles": "Artículos",
     "supportUs": "Apóyanos",
     "contact": "Contacto",
     "privacy": "Privacidad",
@@ -1228,7 +1229,8 @@
   "guidePage": {
     "breadcrumbs": {
       "home": "Inicio",
-      "guides": "Guías"
+      "guides": "Guías",
+    "articles": "Artículos"
     },
     "startTracking": "Comienza a rastrear tu colección",
     "startTrackingDesc": "Usa FigTracker para valorar tus minifiguras LEGO con precisión con datos de Bricklink en tiempo real",

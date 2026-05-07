@@ -627,6 +627,7 @@
   "footer": {
     "faq": "FAQ",
     "guides": "Guides",
+    "articles": "Articles",
     "supportUs": "Support Us",
     "contact": "Contact",
     "privacy": "Privacy",
@@ -1171,7 +1172,8 @@
   "guidePage": {
     "breadcrumbs": {
       "home": "Home",
-      "guides": "Guides"
+      "guides": "Guides",
+    "articles": "Articles"
     },
     "startTracking": "Start Tracking Your Collection",
     "startTrackingDesc": "Use FigTracker to price your LEGO minifigures accurately with real-time Bricklink data",
