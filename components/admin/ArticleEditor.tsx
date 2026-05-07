@@ -30,7 +30,7 @@ export function ArticleEditor({ initialBlocks, onChange }: ArticleEditorProps) {
 
   const updateBlock = (id: string, updates: Partial<ArticleBlock>) => {
     updateBlocks(
-      blocks.map(block => block.id === id ? { ...block, ...updates } : block)
+      blocks.map(block => block.id === id ? { ...block, ...updates } as ArticleBlock : block)
     );
   };
 

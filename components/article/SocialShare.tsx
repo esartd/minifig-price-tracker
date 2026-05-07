@@ -79,8 +79,6 @@ export function SocialShare({ title, url, position = 'bottom' }: SocialShareProp
             flexShrink: 0,
             margin: 0,
             padding: 0,
-            margin: 0,
-            padding: 0,
             background: '#ffffff',
             border: '1px solid #e5e5e5',
             borderRadius: '50%',

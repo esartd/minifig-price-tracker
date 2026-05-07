@@ -207,7 +207,7 @@ export default async function GuidePage({
           }}>
             <span>{guide.author}</span>
             <span> · </span>
-            <span>{new Date(guide.date).toLocaleDateFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            <span>{new Date(guide.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
             <span> · </span>
             <span>{guide.readTime}</span>
           </div>

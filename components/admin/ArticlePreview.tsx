@@ -16,7 +16,7 @@ export function ArticlePreview({ blocks, title, author }: ArticlePreviewProps) {
   const renderBlock = (block: ArticleBlock) => {
     switch (block.type) {
       case 'heading':
-        const HeadingTag = `h${block.level}` as keyof JSX.IntrinsicElements;
+        const HeadingTag = `h${block.level}` as 'h1' | 'h2' | 'h3';
         return (
           <HeadingTag
             key={block.id}

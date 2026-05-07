@@ -8,28 +8,15 @@ export async function requireAdmin() {
     return { authorized: false, error: 'Unauthorized', userId: null };
   }
 
-  // Check if user is admin by email (for now) or role field (after migration)
-  const isAdminEmail = session.user.email === 'erickk osysu@gmail.com';
+  // Check if user is admin by email
+  const isAdminEmail = session.user.email === 'erickkosysu@gmail.com';
 
-  // Try to check role field if it exists
-  try {
+  if (isAdminEmail) {
     const user = await prisma.user.findUnique({
       where: { email: session.user.email },
-      select: { id: true, role: true }
+      select: { id: true }
     });
-
-    if (user?.role === 'admin' || isAdminEmail) {
-      return { authorized: true, userId: user.id, error: null };
-    }
-  } catch (error) {
-    // Role field might not exist yet, fall back to email check
-    if (isAdminEmail) {
-      const user = await prisma.user.findUnique({
-        where: { email: session.user.email },
-        select: { id: true }
-      });
-      return { authorized: true, userId: user?.id || null, error: null };
-    }
+    return { authorized: true, userId: user?.id || null, error: null };
   }
 
   return { authorized: false, error: 'Forbidden - Admin access required', userId: null };
