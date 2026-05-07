@@ -1,7 +1,9 @@
 'use client';
 
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { useTranslation } from '@/components/TranslationProvider';
+import { useSession } from 'next-auth/react';
 
 interface Article {
   title: string;
@@ -15,9 +17,33 @@ interface Article {
 
 export default function ArticlesPageClient({ articles }: { articles: Article[] }) {
   const { t, translations } = useTranslation();
+  const { data: session } = useSession();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  const featuredArticle = articles.find(a => a.status === 'published');
-  const otherArticles = articles.filter(a => a !== featuredArticle);
+  const isAdmin = session?.user?.email === 'erickkosysu@gmail.com';
+
+  // Extract unique categories
+  const categories = useMemo(() => {
+    const cats = Array.from(new Set(articles.map(a => a.category)));
+    return cats.filter(Boolean);
+  }, [articles]);
+
+  // Filter articles by search and category
+  const filteredArticles = useMemo(() => {
+    return articles.filter(article => {
+      const matchesSearch = searchQuery === '' ||
+        article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.description.toLowerCase().includes(searchQuery.toLowerCase());
+
+      const matchesCategory = selectedCategory === 'all' || article.category === selectedCategory;
+
+      return matchesSearch && matchesCategory;
+    });
+  }, [articles, searchQuery, selectedCategory]);
+
+  const featuredArticle = filteredArticles.find(a => a.status === 'published');
+  const otherArticles = filteredArticles.filter(a => a !== featuredArticle);
 
   return (
     <div style={{ minHeight: '100vh', background: '#fafafa' }}>
@@ -31,24 +57,137 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
           margin: '0 auto',
           padding: '80px 24px 64px'
         }}>
-          <h1 style={{
-            fontSize: '56px',
-            fontWeight: '700',
-            color: '#171717',
+          <div style={{
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'space-between',
+            gap: '24px',
             marginBottom: '16px',
-            letterSpacing: '-0.03em',
-            lineHeight: '1.1',
           }}>
-            {translations.guides.pageTitle}
-          </h1>
+            <div style={{ flex: 1 }}>
+              <h1 style={{
+                fontSize: '56px',
+                fontWeight: '700',
+                color: '#171717',
+                marginBottom: '0',
+                letterSpacing: '-0.03em',
+                lineHeight: '1.1',
+              }}>
+                {translations.guides.pageTitle}
+              </h1>
+            </div>
+            {isAdmin && (
+              <Link
+                href="/write"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '12px 20px',
+                  background: '#3b82f6',
+                  color: '#ffffff',
+                  borderRadius: '10px',
+                  fontSize: '15px',
+                  fontWeight: '600',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s',
+                  whiteSpace: 'nowrap',
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = '#2563eb'}
+                onMouseLeave={(e) => e.currentTarget.style.background = '#3b82f6'}
+              >
+                <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+                Write Article
+              </Link>
+            )}
+          </div>
           <p style={{
             fontSize: '21px',
             color: '#525252',
             lineHeight: '1.5',
             maxWidth: '640px',
+            marginBottom: '32px',
           }}>
             {t('guides.hero.subtitle') || 'Expert guides and insights for LEGO collectors and sellers.'}
           </p>
+
+          {/* Search and Filter */}
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            maxWidth: '640px',
+          }}>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={t('guides.search.placeholder') || 'Search articles...'}
+              style={{
+                width: '100%',
+                padding: '14px 20px',
+                fontSize: '16px',
+                border: '1px solid #e5e5e5',
+                borderRadius: '12px',
+                background: '#fafafa',
+                outline: 'none',
+              }}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = '#3b82f6';
+                e.currentTarget.style.background = '#ffffff';
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = '#e5e5e5';
+                e.currentTarget.style.background = '#fafafa';
+              }}
+            />
+
+            {categories.length > 0 && (
+              <div style={{
+                display: 'flex',
+                gap: '12px',
+                flexWrap: 'wrap',
+              }}>
+                <button
+                  onClick={() => setSelectedCategory('all')}
+                  style={{
+                    padding: '8px 16px',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    border: selectedCategory === 'all' ? '2px solid #3b82f6' : '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    background: selectedCategory === 'all' ? '#eff6ff' : '#ffffff',
+                    color: selectedCategory === 'all' ? '#3b82f6' : '#737373',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  {t('guides.filter.all') || 'All'}
+                </button>
+                {categories.map(category => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    style={{
+                      padding: '8px 16px',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      border: selectedCategory === category ? '2px solid #3b82f6' : '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      background: selectedCategory === category ? '#eff6ff' : '#ffffff',
+                      color: selectedCategory === category ? '#3b82f6' : '#737373',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                    }}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -145,12 +284,39 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
         margin: '0 auto',
         padding: '64px 24px'
       }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
-          gap: '32px',
-        }}>
-          {otherArticles.map((article, index) => (
+        {/* Results count */}
+        {(searchQuery || selectedCategory !== 'all') && (
+          <div style={{
+            fontSize: '15px',
+            color: '#737373',
+            marginBottom: '24px',
+          }}>
+            {filteredArticles.length === articles.length
+              ? `${t('guides.search.showing') || 'Showing all'} ${articles.length} ${t('guides.search.articles') || 'articles'}`
+              : `${t('guides.search.found') || 'Found'} ${filteredArticles.length} ${t('guides.search.of') || 'of'} ${articles.length} ${t('guides.search.articles') || 'articles'}`}
+          </div>
+        )}
+
+        {otherArticles.length === 0 && !featuredArticle ? (
+          <div style={{
+            textAlign: 'center',
+            padding: '80px 24px',
+            color: '#737373',
+          }}>
+            <p style={{ fontSize: '18px', marginBottom: '8px' }}>
+              {t('guides.search.noResults') || 'No articles found'}
+            </p>
+            <p style={{ fontSize: '14px' }}>
+              {t('guides.search.tryAgain') || 'Try adjusting your search or filters'}
+            </p>
+          </div>
+        ) : (
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
+            gap: '32px',
+          }}>
+            {otherArticles.map((article, index) => (
             <Link
               key={index}
               href={article.slug?.startsWith('/') ? article.slug : `/articles/${article.slug}`}
@@ -250,8 +416,9 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
                 </div>
               </article>
             </Link>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* CTA */}
