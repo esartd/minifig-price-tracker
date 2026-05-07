@@ -237,9 +237,8 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
                       }}
                     />
                   ) : (
-                    <svg width="200" height="200" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9 10 H15 V12 H11 V14 H14 V16 H11 V22 H9 V10Z" fill="white"/>
-                      <path d="M17 10 H24 V12 H22 V22 H20 V12 H17 V10Z" fill="white"/>
+                    <svg width="280" height="80" viewBox="0 0 280 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <text x="140" y="50" fontFamily="system-ui, -apple-system, sans-serif" fontSize="32" fontWeight="600" fill="white" textAnchor="middle" letterSpacing="-0.32">FigTracker</text>
                     </svg>
                   )}
                 </div>
@@ -379,9 +378,8 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
                       }}
                     />
                   ) : (
-                    <svg width="120" height="120" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9 10 H15 V12 H11 V14 H14 V16 H11 V22 H9 V10Z" fill="white"/>
-                      <path d="M17 10 H24 V12 H22 V22 H20 V12 H17 V10Z" fill="white"/>
+                    <svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <text x="100" y="38" fontFamily="system-ui, -apple-system, sans-serif" fontSize="24" fontWeight="600" fill="white" textAnchor="middle" letterSpacing="-0.24">FigTracker</text>
                     </svg>
                   )}
                 </div>
