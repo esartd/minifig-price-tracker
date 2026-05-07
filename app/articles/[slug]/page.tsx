@@ -153,7 +153,7 @@ export default async function ArticlePage({
           <div style={{
             fontSize: 'var(--text-sm)',
             color: '#737373',
-            marginBottom: '16px'
+            marginBottom: '24px'
           }}>
             <span>FigTracker Team</span>
             <span> · </span>
@@ -161,6 +161,15 @@ export default async function ArticlePage({
             <span> · </span>
             <span>{dbArticle.readTimeMinutes} min read</span>
           </div>
+
+          {/* Social Share Buttons */}
+          <div style={{ marginBottom: '24px' }}>
+            <SocialShare
+              title={translation.title}
+              url={`/articles/${slug}`}
+            />
+          </div>
+
           <div style={{
             borderBottom: '1px solid #e5e5e5',
             marginBottom: '24px'
@@ -169,18 +178,6 @@ export default async function ArticlePage({
 
         {/* Article Content */}
         <ArticleRenderer blocks={contentBlocks} />
-
-        {/* Social Share Buttons */}
-        <div style={{
-          maxWidth: '720px',
-          margin: '48px auto 0',
-          padding: '0 24px 80px',
-        }}>
-          <SocialShare
-            title={translation.title}
-            url={`/articles/${slug}`}
-          />
-        </div>
 
       </article>
     );
