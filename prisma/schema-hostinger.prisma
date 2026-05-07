@@ -430,3 +430,25 @@ model AmazonDeal {
   @@index([lastUpdated])
   @@index([boxNo])
 }
+
+model Article {
+  id               String   @id @default(cuid())
+  slug             String   @unique
+  status           String   @default("draft") // draft, published, archived
+  featured         Boolean  @default(false)
+  contentBlocks    String   @db.LongText // JSON stringified ArticleBlock[]
+  readTimeMinutes  Int?
+  category         String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  publishedAt      DateTime?
+
+  // Translations stored as JSON array
+  translations     String   @db.Text // JSON stringified translation objects
+
+  @@index([slug])
+  @@index([status])
+  @@index([featured])
+  @@index([publishedAt])
+  @@index([category])
+}

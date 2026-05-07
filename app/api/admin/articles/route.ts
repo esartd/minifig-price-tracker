@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/admin-auth';
-import { prisma } from '@/lib/prisma';
+import { PrismaClient } from '../../../../../node_modules/.prisma/client-hostinger/index.js';
+import { ArticleData } from '@/types/article';
+
+const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
   const auth = await requireAdmin();
@@ -10,58 +13,25 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const body = await request.json();
-    const { slug, category, featured, status, contentBlocks, translations } = body;
+    const data: ArticleData = await request.json();
 
-    // Validate required fields
-    if (!slug || !translations || translations.length === 0) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
-    }
-
-    // Check if slug already exists
-    const existing = await prisma.article.findUnique({
-      where: { slug },
-    });
-
-    if (existing) {
-      return NextResponse.json(
-        { error: 'An article with this slug already exists' },
-        { status: 400 }
-      );
-    }
-
-    // Create article with translations
     const article = await prisma.article.create({
       data: {
-        slug,
-        category,
-        featured: featured || false,
-        status: status || 'draft',
-        contentBlocks: contentBlocks || [],
-        authorId: auth.userId!,
-        publishedAt: status === 'published' ? new Date() : null,
-        translations: {
-          create: translations.map((t: any) => ({
-            locale: t.locale,
-            title: t.title,
-            description: t.description,
-            metaTitle: t.metaTitle,
-            metaDescription: t.metaDescription,
-            metaKeywords: t.metaKeywords || [],
-          })),
-        },
-      },
-      include: {
-        translations: true,
+        slug: data.slug,
+        status: data.status,
+        featured: data.featured,
+        contentBlocks: JSON.stringify(data.contentBlocks),
+        translations: JSON.stringify(data.translations),
+        readTimeMinutes: data.readTimeMinutes,
+        category: data.category,
+        publishedAt: data.status === 'published' ? new Date() : null,
       },
     });
 
     return NextResponse.json({
-      success: true,
-      article,
+      ...article,
+      contentBlocks: JSON.parse(article.contentBlocks as string),
+      translations: JSON.parse(article.translations as string),
     });
   } catch (error: any) {
     console.error('Article creation error:', error);
@@ -80,30 +50,34 @@ export async function GET(request: NextRequest) {
   }
 
   try {
+    const { searchParams } = new URL(request.url);
+    const status = searchParams.get('status');
+    const locale = searchParams.get('locale');
+
     const articles = await prisma.article.findMany({
-      include: {
-        author: {
-          select: {
-            name: true,
-            email: true,
-          },
-        },
-        translations: {
-          where: { locale: 'en' },
-          select: {
-            title: true,
-            description: true,
-          },
-        },
+      where: {
+        ...(status && { status }),
       },
-      orderBy: { updatedAt: 'desc' },
+      orderBy: {
+        updatedAt: 'desc',
+      },
     });
 
-    return NextResponse.json({ articles });
-  } catch (error) {
+    // Parse JSON fields and filter by locale if specified
+    const parsed = articles.map(article => ({
+      ...article,
+      contentBlocks: JSON.parse(article.contentBlocks as string),
+      translations: JSON.parse(article.translations as string),
+    })).filter(article => {
+      if (!locale) return true;
+      return article.translations.some((t: any) => t.locale === locale);
+    });
+
+    return NextResponse.json({ articles: parsed });
+  } catch (error: any) {
     console.error('Articles fetch error:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch articles' },
+      { error: error.message || 'Failed to fetch articles' },
       { status: 500 }
     );
   }

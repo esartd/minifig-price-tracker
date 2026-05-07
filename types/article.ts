@@ -2,10 +2,13 @@ export type ArticleBlockType =
   | 'heading'
   | 'paragraph'
   | 'image'
+  | 'amazon-products'
   | 'callout'
   | 'comparison'
   | 'list'
-  | 'divider';
+  | 'divider'
+  | 'code'
+  | 'video';
 
 export interface BaseBlock {
   id: string;
@@ -25,10 +28,26 @@ export interface ParagraphBlock extends BaseBlock {
 
 export interface ImageBlock extends BaseBlock {
   type: 'image';
-  imageId: string;
-  imageUrl: string;
-  alt: string;
-  caption?: string;
+  images: {
+    imageId: string;
+    imageUrl: string;
+    alt: string;
+    caption?: string;
+    height?: number; // Height in pixels (crops from center)
+    objectPosition?: string; // CSS object-position (e.g., 'center', 'top', '50% 30%')
+  }[];
+  columns: 1 | 2 | 3; // Number of columns (1 = single image)
+}
+
+export interface AmazonProductsBlock extends BaseBlock {
+  type: 'amazon-products';
+  products: {
+    asin: string;
+    title: string;
+    imageUrl: string;
+    price?: string;
+  }[];
+  columns: 1 | 2 | 3; // Number of columns
 }
 
 export interface CalloutBlock extends BaseBlock {
@@ -41,7 +60,7 @@ export interface ComparisonItem {
   title: string;
   pros: string[];
   cons: string[];
-  icon?: string;
+  icon?: string; // Heroicon component name (e.g., 'RocketLaunchIcon')
 }
 
 export interface ComparisonBlock extends BaseBlock {
@@ -59,14 +78,33 @@ export interface DividerBlock extends BaseBlock {
   type: 'divider';
 }
 
+export interface CodeBlock extends BaseBlock {
+  type: 'code';
+  language: string;
+  code: string;
+  caption?: string;
+  showLineNumbers?: boolean;
+}
+
+export interface VideoBlock extends BaseBlock {
+  type: 'video';
+  platform: 'youtube' | 'vimeo' | 'other';
+  videoUrl: string;
+  videoId: string;
+  caption?: string;
+}
+
 export type ArticleBlock =
   | HeadingBlock
   | ParagraphBlock
   | ImageBlock
+  | AmazonProductsBlock
   | CalloutBlock
   | ComparisonBlock
   | ListBlock
-  | DividerBlock;
+  | DividerBlock
+  | CodeBlock
+  | VideoBlock;
 
 export interface ArticleData {
   id?: string;

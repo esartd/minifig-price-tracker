@@ -13,8 +13,11 @@ export function BlockToolbar({ onAddBlock }: BlockToolbarProps) {
   const blockTypes: { type: ArticleBlockType; icon: string; label: string }[] = [
     { type: 'heading', icon: 'H', label: 'Heading' },
     { type: 'paragraph', icon: '¶', label: 'Paragraph' },
-    { type: 'image', icon: '🖼', label: 'Image' },
+    { type: 'image', icon: '🖼', label: 'Image (1-3)' },
+    { type: 'amazon-products', icon: '🛒', label: 'Amazon Products (1-3)' },
     { type: 'list', icon: '•', label: 'List' },
+    { type: 'code', icon: '💻', label: 'Code' },
+    { type: 'video', icon: '🎥', label: 'Video' },
     { type: 'callout', icon: '💡', label: 'Callout' },
     { type: 'comparison', icon: '⚖️', label: 'Comparison' },
     { type: 'divider', icon: '—', label: 'Divider' },

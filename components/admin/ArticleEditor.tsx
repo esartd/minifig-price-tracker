@@ -5,10 +5,13 @@ import { ArticleBlock, ArticleBlockType } from '@/types/article';
 import { HeadingBlockEditor } from './blocks/HeadingBlockEditor';
 import { ParagraphBlockEditor } from './blocks/ParagraphBlockEditor';
 import { ImageBlockEditor } from './blocks/ImageBlockEditor';
+import { AmazonProductsBlockEditor } from './blocks/AmazonProductsBlockEditor';
 import { CalloutBlockEditor } from './blocks/CalloutBlockEditor';
 import { ComparisonBlockEditor } from './blocks/ComparisonBlockEditor';
 import { ListBlockEditor } from './blocks/ListBlockEditor';
 import { DividerBlockEditor } from './blocks/DividerBlockEditor';
+import { CodeBlockEditor } from './blocks/CodeBlockEditor';
+import { VideoBlockEditor } from './blocks/VideoBlockEditor';
 import { BlockToolbar } from './BlockToolbar';
 
 interface ArticleEditorProps {
@@ -53,10 +56,13 @@ export function ArticleEditor({ initialBlocks, onChange }: ArticleEditorProps) {
       type,
       ...(type === 'heading' && { level: 2 as const, text: '' }),
       ...(type === 'paragraph' && { text: '' }),
-      ...(type === 'image' && { imageId: '', imageUrl: '', alt: '' }),
+      ...(type === 'image' && { images: [{ imageId: '', imageUrl: '', alt: '' }], columns: 1 as const }),
+      ...(type === 'amazon-products' && { products: [{ asin: '', title: '', imageUrl: '' }], columns: 1 as const }),
       ...(type === 'callout' && { calloutType: 'info' as const, content: '' }),
       ...(type === 'comparison' && { items: [] }),
       ...(type === 'list' && { ordered: false, items: [''] }),
+      ...(type === 'code' && { language: 'javascript', code: '' }),
+      ...(type === 'video' && { platform: 'youtube' as const, videoUrl: '', videoId: '' }),
     } as ArticleBlock;
 
     if (afterId) {
@@ -72,27 +78,29 @@ export function ArticleEditor({ initialBlocks, onChange }: ArticleEditorProps) {
   };
 
   const renderBlock = (block: ArticleBlock) => {
-    const commonProps = {
-      key: block.id,
-      block,
-      onChange: (updates: Partial<ArticleBlock>) => updateBlock(block.id, updates),
-    };
+    const onChange = (updates: Partial<ArticleBlock>) => updateBlock(block.id, updates);
 
     switch (block.type) {
       case 'heading':
-        return <HeadingBlockEditor {...commonProps} block={block} />;
+        return <HeadingBlockEditor key={block.id} block={block} onChange={onChange} />;
       case 'paragraph':
-        return <ParagraphBlockEditor {...commonProps} block={block} />;
+        return <ParagraphBlockEditor key={block.id} block={block} onChange={onChange} />;
       case 'image':
-        return <ImageBlockEditor {...commonProps} block={block} />;
+        return <ImageBlockEditor key={block.id} block={block} onChange={onChange} />;
+      case 'amazon-products':
+        return <AmazonProductsBlockEditor key={block.id} block={block} onChange={onChange} />;
       case 'callout':
-        return <CalloutBlockEditor {...commonProps} block={block} />;
+        return <CalloutBlockEditor key={block.id} block={block} onChange={onChange} />;
       case 'comparison':
-        return <ComparisonBlockEditor {...commonProps} block={block} />;
+        return <ComparisonBlockEditor key={block.id} block={block} onChange={onChange} />;
       case 'list':
-        return <ListBlockEditor {...commonProps} block={block} />;
+        return <ListBlockEditor key={block.id} block={block} onChange={onChange} />;
       case 'divider':
-        return <DividerBlockEditor {...commonProps} block={block} />;
+        return <DividerBlockEditor key={block.id} block={block} onChange={onChange} />;
+      case 'code':
+        return <CodeBlockEditor key={block.id} block={block} onChange={onChange} />;
+      case 'video':
+        return <VideoBlockEditor key={block.id} block={block} onChange={onChange} />;
       default:
         return null;
     }

@@ -1,15 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { put } from '@vercel/blob';
-import { requireAdmin } from '@/lib/admin-auth';
 import sharp from 'sharp';
 
 export async function POST(request: NextRequest) {
-  const auth = await requireAdmin();
-
-  if (!auth.authorized) {
-    return NextResponse.json({ error: auth.error }, { status: 403 });
-  }
-
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File;
@@ -27,10 +19,10 @@ export async function POST(request: NextRequest) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    // Compress and optimize image
+    // Compress and optimize image for article pages
     // - Max width: 1200px (article content width)
-    // - WebP format (better compression)
-    // - Quality: 85 (good balance)
+    // - WebP format (better compression than JPEG/PNG)
+    // - Quality: 85 (good balance between size and quality)
     const optimizedBuffer = await sharp(buffer)
       .resize(1200, null, {
         withoutEnlargement: true, // Don't upscale smaller images
@@ -39,35 +31,16 @@ export async function POST(request: NextRequest) {
       .webp({ quality: 85 })
       .toBuffer();
 
-    // Generate filename with .webp extension
-    const originalName = file.name.replace(/\.[^/.]+$/, ''); // Remove original extension
-    const filename = `${originalName}.webp`;
-
-    // Upload optimized image to Vercel Blob
-    const blob = await put(`articles/${Date.now()}-${filename}`, optimizedBuffer, {
-      access: 'public',
-      addRandomSuffix: true,
-      contentType: 'image/webp',
-    });
-
-    // TODO: Uncomment once Article models are added to database
-    // Save metadata to database
-    // const image = await prisma.articleImage.create({
-    //   data: {
-    //     filename: filename,
-    //     blobUrl: blob.url,
-    //     uploadedBy: auth.userId!,
-    //     originalSize: file.size,
-    //     optimizedSize: optimizedBuffer.length,
-    //   },
-    // });
+    // Convert optimized image to base64 data URL for demo
+    const base64 = optimizedBuffer.toString('base64');
+    const dataUrl = `data:image/webp;base64,${base64}`;
 
     return NextResponse.json({
       success: true,
       image: {
-        id: `temp-${Date.now()}`, // Temporary ID until database is ready
-        url: blob.url,
-        filename: filename,
+        id: `demo-${Date.now()}`,
+        url: dataUrl,
+        filename: file.name.replace(/\.[^/.]+$/, '.webp'), // Change extension to .webp
       },
       optimization: {
         originalSize: file.size,

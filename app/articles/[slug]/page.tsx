@@ -196,27 +196,24 @@ export default async function GuidePage({
             fontWeight: '700',
             color: '#171717',
             lineHeight: '1.2',
-            marginBottom: '24px'
+            marginBottom: '20px'
           }}>
             {guide.title}
           </h1>
           <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
             fontSize: 'var(--text-sm)',
             color: '#737373',
-            marginBottom: '24px'
+            marginBottom: '16px'
           }}>
             <span>{guide.author}</span>
-            <span>·</span>
-            <span>{new Date(guide.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-            <span>·</span>
+            <span> · </span>
+            <span>{new Date(guide.date).toLocaleDateFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            <span> · </span>
             <span>{guide.readTime}</span>
           </div>
           <div style={{
             borderBottom: '1px solid #e5e5e5',
-            marginBottom: '40px'
+            marginBottom: '24px'
           }} />
         </header>
 
