@@ -196,17 +196,17 @@ export default async function GuidePage({
             fontWeight: '700',
             color: '#171717',
             lineHeight: '1.2',
-            marginBottom: '16px'
+            marginBottom: '24px'
           }}>
             {guide.title}
           </h1>
           <div style={{
             display: 'flex',
+            alignItems: 'center',
             gap: '12px',
             fontSize: 'var(--text-sm)',
             color: '#737373',
-            paddingBottom: '32px',
-            borderBottom: '1px solid #e5e5e5'
+            marginBottom: '24px'
           }}>
             <span>{guide.author}</span>
             <span>·</span>
@@ -214,13 +214,17 @@ export default async function GuidePage({
             <span>·</span>
             <span>{guide.readTime}</span>
           </div>
+          <div style={{
+            borderBottom: '1px solid #e5e5e5',
+            marginBottom: '40px'
+          }} />
         </header>
 
         {/* Article Content */}
         <div style={{
           maxWidth: '720px',
           margin: '0 auto',
-          padding: '32px 24px 80px'
+          padding: '16px 24px 80px'
         }}>
           <style dangerouslySetInnerHTML={{ __html: `
             .article-content {
@@ -306,6 +310,25 @@ export default async function GuidePage({
               padding-left: 20px;
               color: #5f6368;
               font-style: italic;
+            }
+            .article-content img {
+              width: 100%;
+              height: auto;
+              border-radius: 12px;
+              margin: 48px 0;
+              display: block;
+            }
+            .article-content figure {
+              margin: 48px 0;
+            }
+            .article-content figure img {
+              margin: 0 0 16px 0;
+            }
+            .article-content figcaption {
+              font-size: 14px;
+              color: #737373;
+              text-align: center;
+              line-height: 1.5;
             }
           `}} />
           <div
