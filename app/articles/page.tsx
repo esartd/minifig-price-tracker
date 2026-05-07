@@ -62,9 +62,9 @@ export default async function ArticlesPage() {
     description: guide.description,
     slug: guide.slug,
     status: guide.status,
-    category: 'Guide',
+    category: t.guides?.category || 'Guide',
     date: 'May 2026',
-    readTime: '5 min read',
+    readTime: t.guides?.readTime || '5 min read',
   }));
 
   const domains = {
