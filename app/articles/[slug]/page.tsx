@@ -5,6 +5,7 @@ import { headers } from 'next/headers';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
 import { ArticleRenderer } from '@/components/article/ArticleRenderer';
+import { SocialShare } from '@/components/article/SocialShare';
 import translations from '@/translations-backup/en.json';
 import translationsDe from '@/translations-backup/de.json';
 import translationsFr from '@/translations-backup/fr.json';
@@ -168,6 +169,18 @@ export default async function ArticlePage({
 
         {/* Article Content */}
         <ArticleRenderer blocks={contentBlocks} />
+
+        {/* Social Share Buttons */}
+        <div style={{
+          maxWidth: '720px',
+          margin: '48px auto 0',
+          padding: '0 24px 80px',
+        }}>
+          <SocialShare
+            title={translation.title}
+            url={`/articles/${slug}`}
+          />
+        </div>
 
       </article>
     );
