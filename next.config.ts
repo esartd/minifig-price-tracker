@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
     unoptimized: false,
     loader: 'default',
   },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb',
+    },
+  },
   async headers() {
     return [
       {

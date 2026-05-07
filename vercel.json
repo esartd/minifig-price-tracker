@@ -23,6 +23,14 @@
     },
     "app/api/admin/test-browser-download/route.ts": {
       "maxDuration": 60
+    },
+    "app/api/admin/articles/**": {
+      "maxDuration": 30,
+      "memory": 1024
+    },
+    "app/api/cron/**": {
+      "maxDuration": 300,
+      "memory": 1024
     }
   }
 }
