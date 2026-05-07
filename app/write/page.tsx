@@ -13,14 +13,62 @@ export default function WriteArticlePage() {
   const [contentBlocks, setContentBlocks] = useState<ArticleBlock[]>([
     {
       id: 'block-1',
-      type: 'heading',
-      level: 2,
-      text: 'Your Article Title Here',
+      type: 'paragraph',
+      text: 'Start with a compelling introduction that explains what readers will learn...',
     },
     {
       id: 'block-2',
+      type: 'heading',
+      level: 2,
+      text: 'Why This Matters',
+    },
+    {
+      id: 'block-3',
       type: 'paragraph',
-      text: 'Start writing your article content here...',
+      text: 'Explain the importance or context of this topic...',
+    },
+    {
+      id: 'block-4',
+      type: 'callout',
+      calloutType: 'tip',
+      content: '**Pro Tip:** Add helpful insights or quick takeaways in callout boxes',
+    },
+    {
+      id: 'block-5',
+      type: 'heading',
+      level: 2,
+      text: 'Key Points',
+    },
+    {
+      id: 'block-6',
+      type: 'list',
+      ordered: false,
+      items: [
+        'First important point',
+        'Second key takeaway',
+        'Third essential detail',
+      ],
+    },
+    {
+      id: 'block-7',
+      type: 'heading',
+      level: 2,
+      text: 'Getting Started',
+    },
+    {
+      id: 'block-8',
+      type: 'paragraph',
+      text: 'Provide step-by-step guidance or detailed explanation...',
+    },
+    {
+      id: 'block-9',
+      type: 'divider',
+    },
+    {
+      id: 'block-10',
+      type: 'callout',
+      calloutType: 'info',
+      content: '**Remember:** Delete these template blocks and replace with your own content! Use "+ Add Block" to add images, comparisons, Amazon products, and more.',
     },
   ]);
   const [showPreview, setShowPreview] = useState(false);
