@@ -91,6 +91,12 @@ export async function POST(request: NextRequest) {
     for (let i = 0; i < contentBlocks.length; i++) {
       const block = contentBlocks[i];
 
+      // Skip existing Adobe Stock images to avoid duplicates
+      if (block.type === 'image' && block.images?.[0]?.imageUrl?.includes('uploads/articles/')) {
+        console.log('Removing old image:', block.images[0].imageUrl);
+        continue;
+      }
+
       // Add LEGO sorting hero after introduction (after block 2)
       if (i === 2) {
         const nextBlock = contentBlocks[i + 1];
