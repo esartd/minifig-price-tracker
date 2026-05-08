@@ -108,12 +108,22 @@ model MinifigCatalog {
   year_released String?
   weight_grams  Float?
   search_name   String
+
+  // SEO description fields (all 4 languages)
+  description_en           String?   @db.Text
+  description_de           String?   @db.Text
+  description_fr           String?   @db.Text
+  description_es           String?   @db.Text
+  description_generated_at DateTime?
+  description_status       String?   @default("pending")
+
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
 
   @@index([category_name])
   @@index([search_name])
   @@index([year_released])
+  @@index([description_status])
 }
 
 model PersonalCollectionItem {

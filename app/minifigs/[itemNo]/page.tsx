@@ -49,9 +49,31 @@ export async function generateMetadata({
   // Use full BrickLink name for SEO (better keyword matching)
   const fullName = minifig.name;
 
+  // Load description for meta tags
+  const { prisma } = await import('@/lib/prisma');
+  const minifigDescription = await prisma.minifigCatalog.findUnique({
+    where: { minifigure_no: itemNo },
+    select: {
+      description_en: true,
+      description_de: true,
+      description_fr: true,
+      description_es: true,
+    }
+  });
+
+  const descriptionKey = `description_${locale}` as keyof typeof minifigDescription;
+  const description = minifigDescription?.[descriptionKey] ||
+                      minifigDescription?.description_en ||
+                      null;
+
+  // Use first 2 sentences of description for meta description
+  const metaDescription = description
+    ? description.split('. ').slice(0, 2).join('. ') + '.'
+    : `${minifig.category_name} - ${fullName}. Track current BrickLink prices, view historical trends, and manage your LEGO minifigure inventory. Released ${minifig.year_released || 'date unknown'}.`;
+
   return {
     title: `${fullName} (${minifig.minifigure_no}) - LEGO Minifigure Price Guide`,
-    description: `${minifig.category_name} - ${fullName}. Track current BrickLink prices, view historical trends, and manage your LEGO minifigure inventory. Released ${minifig.year_released || 'date unknown'}.`,
+    description: metaDescription,
     keywords: [
       'LEGO minifigure',
       fullName,
@@ -104,6 +126,29 @@ export default async function MinifigPage({
     notFound();
   }
 
+  // Load description from database for current locale
+  const { headers } = await import('next/headers');
+  const { prisma } = await import('@/lib/prisma');
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const minifigDescription = await prisma.minifigCatalog.findUnique({
+    where: { minifigure_no: itemNo },
+    select: {
+      description_en: true,
+      description_de: true,
+      description_fr: true,
+      description_es: true,
+    }
+  });
+
+  // Select description based on locale (with fallback to English)
+  const descriptionKey = `description_${locale}` as keyof typeof minifigDescription;
+  const description = minifigDescription?.[descriptionKey] ||
+                      minifigDescription?.description_en ||
+                      null;
+
   // Transform to expected format
   const minifigData = {
     no: minifig.minifigure_no,
@@ -112,7 +157,8 @@ export default async function MinifigPage({
     category_name: minifig.category_name,
     year_released: minifig.year_released,
     image_url: `https://img.bricklink.com/ItemImage/MN/0/${minifig.minifigure_no}.png`,
-    weight_grams: null
+    weight_grams: null,
+    description: description // NEW FIELD (localized)
   };
 
   // Fetch character variants (same character, different variations)

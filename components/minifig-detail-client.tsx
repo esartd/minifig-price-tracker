@@ -12,6 +12,7 @@ import ListingGeneratorForm from '@/components/listing-generator-form';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SetAdCard from '@/components/SetAdCard';
 import MoveDialog from '@/components/MoveDialog';
+import MinifigDescription from '@/components/MinifigDescription';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 import { formatPrice } from '@/lib/format-price';
 import { generateAmazonMinifigLink, generateBrickLinkMinifigLink } from '@/lib/affiliate-links';
@@ -35,6 +36,7 @@ interface MinifigData {
   year_released: string | null;
   image_url: string;
   weight_grams: number | null;
+  description?: string | null; // NEW FIELD (localized)
 }
 
 interface MinifigDetailClientProps {
@@ -932,6 +934,14 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       </div>
                     )}
                   </div>
+
+                  {/* Character Description for SEO */}
+                  {minifig.description && (
+                    <MinifigDescription
+                      description={minifig.description}
+                      minifigName={minifig.name}
+                    />
+                  )}
 
                   {/* Condition Toggle */}
                   <div style={{
