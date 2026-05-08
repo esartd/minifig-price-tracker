@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ImageBlock } from '@/types/article';
+import imageCompression from 'browser-image-compression';
 
 interface ImageBlockEditorProps {
   block: ImageBlock;
@@ -23,8 +24,21 @@ export function ImageBlockEditor({ block, onChange }: ImageBlockEditorProps) {
     setUploadingIndex(index);
 
     try {
+      // Compress image on client side to avoid 413 errors
+      console.log(`Original file size: ${(file.size / 1024 / 1024).toFixed(2)} MB`);
+
+      const options = {
+        maxSizeMB: 3, // Max 3MB (well under Vercel's 4.5MB limit)
+        maxWidthOrHeight: 1920, // Max dimension
+        useWebWorker: true,
+        fileType: 'image/webp', // Convert to WebP for better compression
+      };
+
+      const compressedFile = await imageCompression(file, options);
+      console.log(`Compressed file size: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`);
+
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', compressedFile);
 
       const isDemo = typeof window !== 'undefined' && window.location.pathname.includes('/cms-demo');
       const endpoint = isDemo ? '/api/demo/upload-image' : '/api/admin/articles/images';
