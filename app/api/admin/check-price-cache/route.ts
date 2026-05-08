@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prismaHostinger } from '@/lib/prisma-hostinger';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   try {
     const { secret, itemNo, itemType } = await request.json();
