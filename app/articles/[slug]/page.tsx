@@ -6,6 +6,7 @@ import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
 import { ArticleRenderer } from '@/components/article/ArticleRenderer';
 import { SocialShare } from '@/components/article/SocialShare';
+import { RelatedArticles } from '@/components/article/RelatedArticles';
 import translations from '@/translations-backup/en.json';
 import translationsDe from '@/translations-backup/de.json';
 import translationsFr from '@/translations-backup/fr.json';
@@ -79,13 +80,122 @@ export default async function ArticlePage({
     where: { slug }
   });
 
+  // Get all articles for related articles section
+  const allArticles = await prisma.article.findMany({
+    where: { status: 'published' },
+    select: {
+      slug: true,
+      category: true,
+      readTimeMinutes: true,
+      translations: true,
+      contentBlocks: true,
+    },
+  });
+
   if (dbArticle) {
     const contentBlocks = JSON.parse(dbArticle.contentBlocks as string);
     const translations = JSON.parse(dbArticle.translations as string);
     const translation = translations.find((t: any) => t.locale === locale) || translations[0];
 
+    // Prepare related articles
+    const relatedArticles = allArticles.map(article => {
+      const articleTranslations = JSON.parse(article.translations as string);
+      const articleTranslation = articleTranslations.find((t: any) => t.locale === locale) || articleTranslations[0];
+      const articleContentBlocks = JSON.parse(article.contentBlocks as string);
+      const firstImageBlock = articleContentBlocks.find((block: any) => block.type === 'image');
+      const coverImage = firstImageBlock?.images?.[0]?.imageUrl || null;
+
+      return {
+        title: articleTranslation.title,
+        description: articleTranslation.description,
+        slug: article.slug,
+        category: article.category || 'Guide',
+        readTime: `${article.readTimeMinutes} min read`,
+        coverImage,
+      };
+    });
+
+    // Find first image for schema
+    const firstImageBlock = contentBlocks.find((block: any) => block.type === 'image');
+    const imageUrl = firstImageBlock?.images?.[0]?.imageUrl || null;
+
+    const domains = {
+      en: 'https://figtracker.ericksu.com',
+      de: 'https://de.figtracker.ericksu.com',
+      fr: 'https://fr.figtracker.ericksu.com',
+      es: 'https://es.figtracker.ericksu.com',
+    };
+    const baseUrl = domains[locale as keyof typeof domains] || domains.en;
+
+    // Breadcrumb Schema (JSON-LD)
+    const breadcrumbSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: baseUrl,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Articles',
+          item: `${baseUrl}/articles`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: translation.title,
+          item: `${baseUrl}/articles/${slug}`,
+        },
+      ],
+    };
+
+    // Article Schema (JSON-LD)
+    const articleSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: translation.title,
+      description: translation.description,
+      image: imageUrl || `${baseUrl}/og-image.png`,
+      datePublished: dbArticle.publishedAt?.toISOString() || dbArticle.createdAt.toISOString(),
+      dateModified: dbArticle.updatedAt.toISOString(),
+      author: {
+        '@type': 'Organization',
+        name: 'FigTracker',
+        url: baseUrl,
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'FigTracker',
+        url: baseUrl,
+        logo: {
+          '@type': 'ImageObject',
+          url: `${baseUrl}/logo.png`,
+        },
+      },
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': `${baseUrl}/articles/${slug}`,
+      },
+      keywords: translation.metaKeywords?.join(', ') || '',
+      articleSection: dbArticle.category || 'Guide',
+      inLanguage: locale,
+    };
+
     return (
-      <article style={{ minHeight: '100vh', background: 'white' }}>
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        />
+        <article style={{ minHeight: '100vh', background: 'white' }}>
         {/* Breadcrumbs */}
         <nav style={{
           maxWidth: '720px',
@@ -188,7 +298,7 @@ export default async function ArticlePage({
         <div style={{
           maxWidth: '720px',
           margin: '0 auto',
-          padding: '0 24px 80px',
+          padding: '0 24px 48px',
         }}>
           <SocialShare
             title={translation.title}
@@ -197,7 +307,11 @@ export default async function ArticlePage({
           />
         </div>
 
+        {/* Related Articles */}
+        <RelatedArticles articles={relatedArticles} currentSlug={slug} />
+
       </article>
+      </>
     );
   }
 

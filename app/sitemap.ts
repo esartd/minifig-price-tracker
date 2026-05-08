@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { getAllMinifigs, getAllCategories } from '@/lib/catalog-static'
+import { prisma } from '@/lib/prisma'
 
 // Generate sitemap dynamically at runtime to avoid build-time database queries
 export const dynamic = 'force-dynamic'
@@ -40,6 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...createMultilingualEntry('/search', 'daily', 0.9),
     ...createMultilingualEntry('/themes', 'weekly', 0.9),
     ...createMultilingualEntry('/sets-themes', 'weekly', 0.9),
+    ...createMultilingualEntry('/articles', 'weekly', 0.9),
     ...createMultilingualEntry('/about', 'monthly', 0.8),
     ...createMultilingualEntry('/faq', 'monthly', 0.8),
     ...createMultilingualEntry('/guides', 'weekly', 0.8),
@@ -48,6 +50,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]
 
   try {
+    // Get all published articles - all locales
+    const articles = await prisma.article.findMany({
+      where: { status: 'published' },
+      select: { slug: true, updatedAt: true },
+    })
+
+    const articlePages: MetadataRoute.Sitemap = articles.flatMap(article => {
+      const path = `/articles/${article.slug}`
+      return locales.map(locale => ({
+        url: `${domains[locale]}${path}`,
+        lastModified: article.updatedAt,
+        changeFrequency: 'weekly' as const,
+        priority: 0.9,
+        alternates: {
+          languages: {
+            ...Object.fromEntries(
+              locales.map(l => [l, `${domains[l]}${path}`])
+            ),
+            'x-default': `${domains.en}${path}`
+          }
+        }
+      }))
+    })
+
     // Get all minifigs for individual pages (18k+ URLs) - all locales
     const minifigs = await getAllMinifigs()
     const minifigPages: MetadataRoute.Sitemap = minifigs
@@ -155,9 +181,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }))
       })
 
-    console.log(`[SITEMAP] Generated ${staticPages.length} static + ${minifigPages.length} minifigs + ${themePages.length} themes + ${setThemePages.length} set themes + ${setPages.length} sets = ${staticPages.length + minifigPages.length + themePages.length + setThemePages.length + setPages.length} total URLs`)
+    console.log(`[SITEMAP] Generated ${staticPages.length} static + ${articlePages.length} articles + ${minifigPages.length} minifigs + ${themePages.length} themes + ${setThemePages.length} set themes + ${setPages.length} sets = ${staticPages.length + articlePages.length + minifigPages.length + themePages.length + setThemePages.length + setPages.length} total URLs`)
 
-    return [...staticPages, ...themePages, ...setThemePages, ...minifigPages, ...setPages]
+    return [...staticPages, ...articlePages, ...themePages, ...setThemePages, ...minifigPages, ...setPages]
   } catch (error) {
     console.error('[SITEMAP] Error generating dynamic URLs:', error)
     return staticPages
