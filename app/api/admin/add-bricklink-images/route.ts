@@ -101,32 +101,32 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      // Add mobile happy before "FigTracker's Advantages"
-      if (block.type === 'heading' && block.text?.includes('FigTracker') && block.text?.includes('Advantages')) {
+      // Add mobile happy before "What is FigTracker?"
+      if (block.type === 'heading' && block.text?.includes('What is FigTracker')) {
         updatedBlocks.push(images[1]);
         addedCount++;
-        addedPositions.push('Happy mobile user before FigTracker advantages');
+        addedPositions.push('Happy mobile user before FigTracker section');
       }
 
-      // Add desktop before "BrickLink's Strengths"
-      if (block.type === 'heading' && block.text?.includes('BrickLink') && block.text?.includes('Strengths')) {
+      // Add desktop before "What is Bricklink?"
+      if (block.type === 'heading' && block.text?.includes('What is Bricklink')) {
         updatedBlocks.push(images[2]);
         addedCount++;
-        addedPositions.push('Desktop BrickLink user before strengths section');
+        addedPositions.push('Desktop BrickLink user before Bricklink section');
       }
 
-      // Add decision before "Which Should You Use?"
-      if (block.type === 'heading' && (block.text?.includes('Which Should You Use') || block.text?.includes('Bottom Line'))) {
+      // Add decision before "Side-by-Side Comparison"
+      if (block.type === 'heading' && block.text?.includes('Side-by-Side Comparison')) {
         updatedBlocks.push(images[3]);
         addedCount++;
-        addedPositions.push('Decision making before conclusion');
+        addedPositions.push('Decision making before comparison');
       }
 
-      // Add mobile kitchen before FAQ if exists
-      if (block.type === 'heading' && block.text?.includes('Frequently Asked')) {
+      // Add mobile kitchen before "When to Use Bricklink"
+      if (block.type === 'heading' && block.text?.includes('When to Use Bricklink')) {
         updatedBlocks.push(images[4]);
         addedCount++;
-        addedPositions.push('Casual mobile usage before FAQ');
+        addedPositions.push('Casual mobile usage before use cases');
       }
 
       updatedBlocks.push(block);
