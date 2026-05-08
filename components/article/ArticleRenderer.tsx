@@ -93,7 +93,7 @@ export function ArticleRenderer({ blocks }: ArticleRendererProps) {
             }}
           >
             {block.items.map((item, idx) => (
-              <li key={idx} style={{ marginBottom: '8px' }}>{item}</li>
+              <li key={idx} style={{ marginBottom: '8px' }} dangerouslySetInnerHTML={{ __html: marked(item) }} />
             ))}
           </ListTag>
         );
