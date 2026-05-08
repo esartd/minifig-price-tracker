@@ -191,6 +191,12 @@ const contentBlocksEN: ArticleBlock[] = [
     ],
   },
   {
+    id: 'block-30a',
+    type: 'callout',
+    calloutType: 'info',
+    content: '**Time-saver:** This manual process takes 3-5 minutes per minifigure. [FigTracker](/search) does all this analysis instantly, pulling real-time Bricklink data and giving you a suggested price in seconds.',
+  },
+  {
     id: 'block-31',
     type: 'heading',
     level: 3,
@@ -387,6 +393,11 @@ const contentBlocksEN: ArticleBlock[] = [
     ],
   },
   {
+    id: 'block-59a',
+    type: 'paragraph',
+    text: 'Looking to buy sets during off-peak times? [Amazon often has deep discounts](https://www.amazon.com/s?k=LEGO&tag=figtracker-20) on LEGO during January clearance and back-to-school sales—perfect for sourcing inventory to resell.',
+  },
+  {
     id: 'block-60',
     type: 'heading',
     level: 2,
@@ -473,10 +484,32 @@ const contentBlocksEN: ArticleBlock[] = [
     id: 'block-72',
     type: 'heading',
     level: 3,
-    text: 'Facebook Marketplace / Local',
+    text: 'Amazon',
+  },
+  {
+    id: 'block-72a',
+    type: 'list',
+    listType: 'unordered',
+    items: [
+      'Massive buyer base, less LEGO-specific than Bricklink',
+      'Best for sealed sets, not individual minifigs',
+      'Fulfillment by Amazon (FBA) handles shipping but takes higher fees',
+      'Price competitively against other Amazon sellers',
+    ],
+  },
+  {
+    id: 'block-72b',
+    type: 'paragraph',
+    text: 'If you\'re buying sets to part out, [Amazon\'s LEGO deals](https://www.amazon.com/s?k=LEGO&tag=figtracker-20) during sales events can be a great source of inventory at below-retail prices.',
   },
   {
     id: 'block-73',
+    type: 'heading',
+    level: 3,
+    text: 'Facebook Marketplace / Local',
+  },
+  {
+    id: 'block-73a',
     type: 'list',
     listType: 'unordered',
     items: [
@@ -597,19 +630,14 @@ const translations = [
 async function createArticle() {
   console.log('Creating "How to Price LEGO Minifigures" article...\n');
 
-  // Get admin user
-  const adminUser = await prisma.user.findFirst({
-    where: {
-      OR: [
-        { email: 'ericksu0c@gmail.com' },
-        { email: { contains: 'admin' } }
-      ]
-    }
-  });
+  // Get any user as author
+  const adminUser = await prisma.user.findFirst();
 
   if (!adminUser) {
-    throw new Error('Admin user not found');
+    throw new Error('No users found in database');
   }
+
+  console.log('Using author:', adminUser.email || adminUser.id);
 
   // Check if article already exists
   const existing = await prisma.article.findUnique({
@@ -623,37 +651,21 @@ async function createArticle() {
     process.exit(1);
   }
 
-  // Create article
+  // Create article (with translations as JSON string for backward compatibility)
   const article = await prisma.article.create({
     data: {
       slug,
       status: 'published',
       featured: true,
-      authorId: adminUser.id,
       publishedAt: new Date(),
       contentBlocks: JSON.stringify(contentBlocksEN),
+      translations: JSON.stringify(translations),
       readTimeMinutes: 12,
       category: 'Guide',
     },
   });
 
   console.log('✅ Article created:', article.id);
-
-  // Create translations
-  for (const translation of translations) {
-    await prisma.articleTranslation.create({
-      data: {
-        articleId: article.id,
-        locale: translation.locale,
-        title: translation.title,
-        description: translation.description,
-        metaTitle: translation.metaTitle,
-        metaDescription: translation.metaDescription,
-        metaKeywords: translation.metaKeywords,
-      },
-    });
-    console.log(`✅ Translation created: ${translation.locale}`);
-  }
 
   console.log('\n✅ Article "How to Price LEGO Minifigures" created successfully!');
   console.log(`📝 View at: https://figtracker.ericksu.com/articles/${slug}`);

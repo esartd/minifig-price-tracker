@@ -236,8 +236,13 @@ const contentBlocksEN: ArticleBlock[] = [
       '**Competitive pricing:** If 20 sellers have the same item, price at or below average to move inventory.',
       '**Scarcity:** If you\'re one of only 3 sellers globally, you can charge a premium.',
       '**Bundle strategy:** Some sellers price individual items slightly high but offer bulk discounts.',
-      '**Quick pricing:** Use FigTracker to get instant Bricklink-based suggested prices instead of manually checking each item.',
     ],
+  },
+  {
+    id: 'block-34a',
+    type: 'callout',
+    calloutType: 'info',
+    content: '**Speed up pricing:** Instead of manually checking Bricklink\'s price guide for every item (2-3 minutes each), [use FigTracker](/search) to get instant Bricklink-based suggested prices in seconds. Essential when listing large inventories.',
   },
   {
     id: 'block-35',
@@ -562,7 +567,13 @@ const contentBlocksEN: ArticleBlock[] = [
       'Buy bulk lots on eBay, Facebook Marketplace, garage sales',
       'Part out LEGO sets (buy retired sets, sell individual pieces for profit)',
       'Source from clearance sales (Target, Walmart end-of-season)',
+      '[Amazon clearance and Lightning Deals](https://www.amazon.com/s?k=LEGO&tag=figtracker-20) - watch for price drops on retired sets',
     ],
+  },
+  {
+    id: 'block-84a',
+    type: 'paragraph',
+    text: 'Want to know which minifigures are worth sourcing? Check out our guide on [the most valuable LEGO minifigures](/articles/most-valuable-lego-minifigures-2026) to identify high-profit pieces.',
   },
   {
     id: 'block-85',
@@ -756,19 +767,14 @@ const translations = [
 async function createArticle() {
   console.log('Creating "Selling LEGO on Bricklink" article...\n');
 
-  // Get admin user
-  const adminUser = await prisma.user.findFirst({
-    where: {
-      OR: [
-        { email: 'ericksu0c@gmail.com' },
-        { email: { contains: 'admin' } }
-      ]
-    }
-  });
+  // Get any user as author
+  const adminUser = await prisma.user.findFirst();
 
   if (!adminUser) {
-    throw new Error('Admin user not found');
+    throw new Error('No users found in database');
   }
+
+  console.log('Using author:', adminUser.email || adminUser.id);
 
   // Check if article already exists
   const existing = await prisma.article.findUnique({
@@ -782,37 +788,21 @@ async function createArticle() {
     process.exit(1);
   }
 
-  // Create article
+  // Create article (with translations as JSON string for backward compatibility)
   const article = await prisma.article.create({
     data: {
       slug,
       status: 'published',
       featured: true,
-      authorId: adminUser.id,
       publishedAt: new Date(),
       contentBlocks: JSON.stringify(contentBlocksEN),
+      translations: JSON.stringify(translations),
       readTimeMinutes: 15,
       category: 'Guide',
     },
   });
 
   console.log('✅ Article created:', article.id);
-
-  // Create translations
-  for (const translation of translations) {
-    await prisma.articleTranslation.create({
-      data: {
-        articleId: article.id,
-        locale: translation.locale,
-        title: translation.title,
-        description: translation.description,
-        metaTitle: translation.metaTitle,
-        metaDescription: translation.metaDescription,
-        metaKeywords: translation.metaKeywords,
-      },
-    });
-    console.log(`✅ Translation created: ${translation.locale}`);
-  }
 
   console.log('\n✅ Article "Selling LEGO on Bricklink" created successfully!');
   console.log(`📝 View at: https://figtracker.ericksu.com/articles/${slug}`);
