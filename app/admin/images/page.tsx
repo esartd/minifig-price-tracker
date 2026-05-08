@@ -26,9 +26,10 @@ export default function AdminImagesPage() {
 
   return (
     <div style={{ padding: '40px', maxWidth: '800px', margin: '0 auto' }}>
-      <h1 style={{ marginBottom: '32px' }}>Admin Image Tools</h1>
+      <h1 style={{ marginBottom: '32px' }}>Admin Tools</h1>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px' }}>
+      <h2 style={{ marginBottom: '16px', fontSize: '20px' }}>Image Management</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '40px' }}>
         <button
           onClick={() => triggerEndpoint('/api/admin/add-adobe-images')}
           disabled={loading}
@@ -60,6 +61,19 @@ export default function AdminImagesPage() {
         >
           Add Images to BrickLink Article
         </button>
+      </div>
+
+      <h2 style={{ marginBottom: '16px', fontSize: '20px' }}>SEO Articles</h2>
+      <div style={{ marginBottom: '16px', padding: '16px', background: '#f9fafb', borderRadius: '8px' }}>
+        <p style={{ margin: 0, fontSize: '14px', color: '#6b7280' }}>
+          Run these scripts manually in your terminal with DATABASE_URL set:
+        </p>
+        <code style={{ display: 'block', marginTop: '8px', fontSize: '13px', color: '#374151' }}>
+          npx tsx scripts/create-pricing-guide.ts
+        </code>
+        <code style={{ display: 'block', marginTop: '4px', fontSize: '13px', color: '#374151' }}>
+          npx tsx scripts/create-selling-guide.ts
+        </code>
       </div>
 
       {loading && (
