@@ -127,11 +127,11 @@ export default async function MinifigPage({
   }
 
   // Load description from database for current locale
-  const { headers } = await import('next/headers');
+  const { headers: getHeaders } = await import('next/headers');
   const { prisma } = await import('@/lib/prisma');
-  const headersList = await headers();
-  const host = headersList.get('host') || '';
-  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+  const requestHeaders = await getHeaders();
+  const requestHost = requestHeaders.get('host') || '';
+  const currentLocale = requestHost.startsWith('de.') ? 'de' : requestHost.startsWith('fr.') ? 'fr' : requestHost.startsWith('es.') ? 'es' : 'en';
 
   const minifigDescription = await prisma.minifigCatalog.findUnique({
     where: { minifigure_no: itemNo },
@@ -144,7 +144,7 @@ export default async function MinifigPage({
   });
 
   // Select description based on locale (with fallback to English)
-  const descriptionKey = `description_${locale}` as keyof typeof minifigDescription;
+  const descriptionKey = `description_${currentLocale}` as keyof typeof minifigDescription;
   const description = minifigDescription?.[descriptionKey] ||
                       minifigDescription?.description_en ||
                       null;
