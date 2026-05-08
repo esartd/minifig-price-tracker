@@ -22,9 +22,8 @@ export function ArticleRenderer({ blocks }: ArticleRendererProps) {
               lineHeight: block.level === 1 ? '1.2' : block.level === 2 ? '1.3' : '1.4',
               color: '#171717',
             }}
-          >
-            {block.text}
-          </HeadingTag>
+            dangerouslySetInnerHTML={{ __html: marked.parseInline(block.text) }}
+          />
         );
 
       case 'paragraph':
