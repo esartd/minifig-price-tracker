@@ -43,6 +43,8 @@ dev.db
 
 # user uploads
 public/uploads/
+# Allow article images (curated content)
+!public/uploads/articles/
 
 # Bricklink catalog download (large file, auto-downloaded by cron)
 Minifigures.txt
