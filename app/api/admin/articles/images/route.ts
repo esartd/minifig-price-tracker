@@ -47,7 +47,9 @@ export async function POST(request: NextRequest) {
     let storageMethod: string;
 
     // Check if we're in production with Blob storage
-    const hasBlobToken = !!process.env.BLOB_READ_WRITE_TOKEN;
+    // Support both token names (Vercel generates different names)
+    const blobToken = process.env.BLOB_READ_WRITE_TOKEN_2_READ_WRITE_TOKEN || process.env.BLOB_READ_WRITE_TOKEN;
+    const hasBlobToken = !!blobToken;
     const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1';
 
     if (!hasBlobToken && isProduction) {
@@ -73,6 +75,7 @@ export async function POST(request: NextRequest) {
         access: 'public',
         addRandomSuffix: true,
         contentType: 'image/webp',
+        token: blobToken,
       });
       imageUrl = blob.url;
       storageMethod = 'vercel-blob';
