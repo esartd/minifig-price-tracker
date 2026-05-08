@@ -85,9 +85,10 @@ export default async function ArticlesPage() {
   });
 
   // Merge with any legacy articles from translations (if needed)
+  // Filter out "coming-soon" articles since we now have real articles published
   const guidesData = t.guides?.items || [];
   const legacyArticles = guidesData
-    .filter((guide: any) => !articles.some(a => a.slug === guide.slug))
+    .filter((guide: any) => guide.status !== 'coming-soon' && !articles.some(a => a.slug === guide.slug))
     .map((guide: any) => ({
       title: guide.title,
       description: guide.description,
