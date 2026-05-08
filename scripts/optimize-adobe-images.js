@@ -8,7 +8,12 @@ async function optimizeImages() {
     'lego-builder-hero.jpg',
     'mobile-pricing-woman.jpg',
     'laptop-data-man.jpg',
-    'mobile-couch-woman.jpg'
+    'mobile-couch-woman.jpg',
+    'happy-mobile-user.jpg',
+    'decision-making-woman.jpg',
+    'mobile-kitchen-woman.jpg',
+    'bricklink-desktop-user.jpg',
+    'lego-sorting-hero.jpg'
   ];
 
   console.log('🖼️  Optimizing Adobe Stock images for web...\n');
