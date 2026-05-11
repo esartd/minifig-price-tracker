@@ -12,9 +12,7 @@ const nextConfig: NextConfig = {
         hostname: 'img.bricklink.com',
       },
     ],
-    formats: ['image/avif', 'image/webp'],
-    unoptimized: false,
-    loader: 'default',
+    unoptimized: true, // Disable optimization to avoid Vercel free tier limits (5k transformations/month exceeded)
   },
   experimental: {
     serverActions: {
