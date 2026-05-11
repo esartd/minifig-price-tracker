@@ -1,0 +1,85 @@
+import { PrismaClient } from '@prisma/client-hostinger';
+
+const prisma = new PrismaClient({
+  datasourceUrl: 'mysql://u493602047_figtracker_use:Legocatelogstuff12345!@srv1777.hstgr.io:3306/u493602047_figtracker'
+});
+
+const batch6 = [
+  {
+    minifigure_no: 'sw0022',
+    name: 'Stormtrooper',
+    description_en: 'The classic LEGO Stormtrooper is an absolute icon in the Star Wars universe and one of the most recognizable minifigures ever produced. This variant features the characteristic white armor with black accents, the distinctive helmet design, and a blaster rifle. First released in 1999, Stormtroopers have appeared in dozens of sets and are essential army builders for any Imperial force. Collectors constantly seek these troopers to populate their Imperial bases and Star Destroyers. The simple yet effective design captures the intimidating look of the Empire\'s elite soldiers, making them endlessly collectible despite their common appearance in sets.',
+    description_de: 'Der klassische LEGO Sturmtruppler ist eine absolute Ikone im Star Wars Universum und eine der bekanntesten Minifiguren, die jemals produziert wurden. Diese Variante zeigt die charakteristische weiße Rüstung mit schwarzen Akzenten, das markante Helmdesign und ein Blastergewehr. Erstmals 1999 veröffentlicht, sind Sturmtruppler in Dutzenden von Sets erschienen und unverzichtbare Armeeaufbauer für jede imperiale Streitmacht. Sammler suchen ständig nach diesen Truppern, um ihre imperialen Basen und Sternenzerstörer zu bevölkern. Das einfache, aber effektive Design erfasst den einschüchternden Look der Elitesoldaten des Imperiums und macht sie trotz ihres häufigen Auftretens in Sets endlos sammelbar.',
+    description_fr: 'Le Stormtrooper LEGO classique est une icône absolue dans l\'univers Star Wars et l\'une des minifigurines les plus reconnaissables jamais produites. Cette variante présente l\'armure blanche caractéristique avec des accents noirs, le design de casque distinctif et un fusil blaster. Sortie pour la première fois en 1999, les Stormtroopers sont apparus dans des dizaines de sets et sont essentiels pour construire une armée pour toute force impériale. Les collectionneurs recherchent constamment ces soldats pour peupler leurs bases impériales et leurs Destroyers Stellaires. Le design simple mais efficace capture l\'apparence intimidante des soldats d\'élite de l\'Empire, les rendant infiniment collectionnables malgré leur apparition fréquente dans les sets.',
+    description_es: 'El Stormtrooper clásico de LEGO es un icono absoluto en el universo Star Wars y una de las minifiguras más reconocibles jamás producidas. Esta variante presenta la característica armadura blanca con acentos negros, el distintivo diseño de casco y un rifle bláster. Lanzado por primera vez en 1999, los Stormtroopers han aparecido en docenas de sets y son esenciales para construir ejércitos de cualquier fuerza Imperial. Los coleccionistas buscan constantemente estos soldados para poblar sus bases imperiales y Destructores Estelares. El diseño simple pero efectivo captura la apariencia intimidante de los soldados de élite del Imperio, haciéndolos infinitamente coleccionables a pesar de su aparición frecuente en los sets.'
+  },
+  {
+    minifigure_no: 'sw0023',
+    name: 'TIE Fighter Pilot',
+    description_en: 'The TIE Fighter Pilot represents the Empire\'s elite starfighter corps with its distinctive all-black flight suit and specialized helmet. This minifigure features detailed printing showing the life support systems and armor plating essential for piloting TIE fighters through the vacuum of space. Released in 2001, this design captures the menacing appearance of Imperial pilots as seen in the original trilogy. The black uniform with silver chest panel printing makes this minifigure instantly recognizable and highly valued by collectors. TIE Fighter Pilots are essential for displaying alongside TIE fighter models and add authenticity to any Imperial fleet display.',
+    description_de: 'Der TIE-Jägerpilot repräsentiert das Elite-Sternenjägerkorps des Imperiums mit seinem charakteristischen schwarzen Fluganzug und Spezialhelm. Diese Minifigur zeigt detaillierten Druck der Lebenserhaltungssysteme und Panzerung, die für das Fliegen von TIE-Jägern durch das Vakuum des Weltraums unerlässlich sind. 2001 veröffentlicht, erfasst dieses Design das bedrohliche Aussehen der imperialen Piloten aus der Originaltrilogie. Die schwarze Uniform mit silbernem Brustpaneel-Druck macht diese Minifigur sofort erkennbar und bei Sammlern sehr geschätzt. TIE-Jägerpiloten sind unverzichtbar für die Präsentation neben TIE-Jäger-Modellen und verleihen jeder imperialen Flottenpräsentation Authentizität.',
+    description_fr: 'Le Pilote de TIE Fighter représente le corps d\'élite des chasseurs stellaires de l\'Empire avec sa combinaison de vol noire distinctive et son casque spécialisé. Cette minifigurine présente des impressions détaillées montrant les systèmes de survie et le blindage essentiels pour piloter les TIE fighters dans le vide spatial. Sortie en 2001, ce design capture l\'apparence menaçante des pilotes impériaux vus dans la trilogie originale. L\'uniforme noir avec l\'impression du panneau de poitrine argenté rend cette minifigurine instantanément reconnaissable et très appréciée des collectionneurs. Les Pilotes de TIE Fighter sont essentiels pour l\'exposition aux côtés des modèles de TIE fighter et ajoutent de l\'authenticité à toute exposition de flotte impériale.',
+    description_es: 'El Piloto de Caza TIE representa el cuerpo de élite de cazas estelares del Imperio con su distintivo traje de vuelo totalmente negro y casco especializado. Esta minifigura presenta impresiones detalladas que muestran los sistemas de soporte vital y blindaje esenciales para pilotar cazas TIE a través del vacío del espacio. Lanzado en 2001, este diseño captura la apariencia amenazante de los pilotos imperiales vistos en la trilogía original. El uniforme negro con impresión de panel plateado en el pecho hace que esta minifigura sea instantáneamente reconocible y muy valorada por los coleccionistas. Los Pilotos de Caza TIE son esenciales para exhibir junto a modelos de cazas TIE y añaden autenticidad a cualquier exposición de flota Imperial.'
+  },
+  {
+    minifigure_no: 'sw0024',
+    name: 'X-Wing Pilot',
+    description_en: 'The X-Wing Pilot in orange flight suit epitomizes the brave Rebel Alliance starfighter corps that challenged the Galactic Empire. This minifigure features the iconic orange jumpsuit with detailed printing showing life support equipment, the white helmet with orange striping, and a blaster pistol. First appearing in 2000 LEGO sets, this design captures the heroic pilots who flew alongside Luke Skywalker in the assault on the Death Star. Collectors value these pilots for army building their Rebel squadrons and displaying them with X-Wing starfighter models. The orange flight suit has become synonymous with Rebel heroism and hope throughout the galaxy.',
+    description_de: 'Der X-Flügelpilot im orangefarbenen Fluganzug verkörpert das tapfere Sternenjägerkorps der Rebellenallianz, das das Galaktische Imperium herausforderte. Diese Minifigur zeigt den ikonischen orangefarbenen Overall mit detailliertem Druck der Lebenserhaltungsausrüstung, den weißen Helm mit orangefarbenen Streifen und eine Blasterpistole. Erstmals in LEGO Sets von 2000 erschienen, erfasst dieses Design die heroischen Piloten, die neben Luke Skywalker beim Angriff auf den Todesstern flogen. Sammler schätzen diese Piloten für den Aufbau ihrer Rebellenstaffeln und die Präsentation mit X-Flügel-Sternenjägermodellen. Der orangefarbene Fluganzug ist zum Synonym für rebellischen Heldenmut und Hoffnung in der gesamten Galaxis geworden.',
+    description_fr: 'Le Pilote de X-Wing en combinaison de vol orange incarne le courageux corps de chasseurs stellaires de l\'Alliance Rebelle qui a défié l\'Empire Galactique. Cette minifigurine présente la combinaison orange emblématique avec des impressions détaillées montrant l\'équipement de survie, le casque blanc avec des rayures orange et un pistolet blaster. Apparaissant pour la première fois dans les sets LEGO de 2000, ce design capture les pilotes héroïques qui volaient aux côtés de Luke Skywalker lors de l\'assaut sur l\'Étoile de la Mort. Les collectionneurs apprécient ces pilotes pour construire leurs escadrons rebelles et les exposer avec des modèles de chasseurs stellaires X-Wing. La combinaison de vol orange est devenue synonyme d\'héroïsme rebelle et d\'espoir dans toute la galaxie.',
+    description_es: 'El Piloto de Ala-X con traje de vuelo naranja personifica al valiente cuerpo de cazas estelares de la Alianza Rebelde que desafió al Imperio Galáctico. Esta minifigura presenta el icónico mono naranja con impresiones detalladas que muestran equipo de soporte vital, el casco blanco con franjas naranjas y una pistola bláster. Apareciendo por primera vez en los sets LEGO de 2000, este diseño captura a los pilotos heroicos que volaron junto a Luke Skywalker en el asalto a la Estrella de la Muerte. Los coleccionistas valoran a estos pilotos para construir sus escuadrones rebeldes y exhibirlos con modelos de cazas estelares Ala-X. El traje de vuelo naranja se ha convertido en sinónimo de heroísmo rebelde y esperanza en toda la galaxia.'
+  },
+  {
+    minifigure_no: 'sw0025',
+    name: 'Yoda',
+    description_en: 'Yoda, the ancient and wise Jedi Grand Master, stands as one of the most beloved and iconic LEGO Star Wars minifigures. This early version features Yoda\'s distinctive green head with large ears, wrinkled face, and wise expression, along with his brown Jedi robes. Released in 2002, this minifigure captures the legendary character\'s diminutive stature and powerful Force presence. Collectors treasure Yoda figures for their representation of wisdom and mastery of the Force. Despite his small size, Yoda\'s importance in the Star Wars saga makes him an essential addition to any LEGO collection, particularly for recreating Dagobah training scenes or Jedi Council chambers.',
+    description_de: 'Yoda, der uralte und weise Großmeister der Jedi, ist eine der beliebtesten und ikonischsten LEGO Star Wars Minifiguren. Diese frühe Version zeigt Yodas charakteristischen grünen Kopf mit großen Ohren, faltigem Gesicht und weisem Ausdruck, zusammen mit seinen braunen Jedi-Roben. 2002 veröffentlicht, erfasst diese Minifigur die kleine Statur und mächtige Macht-Präsenz des legendären Charakters. Sammler schätzen Yoda-Figuren für ihre Darstellung von Weisheit und Beherrschung der Macht. Trotz seiner geringen Größe macht Yodas Bedeutung in der Star Wars-Saga ihn zu einer unverzichtbaren Ergänzung für jede LEGO Sammlung, besonders für die Nachstellung von Dagobah-Trainingsszenen oder Jedi-Ratskammern.',
+    description_fr: 'Yoda, l\'ancien et sage Grand Maître Jedi, est l\'une des minifigurines LEGO Star Wars les plus aimées et emblématiques. Cette version précoce présente la tête verte distinctive de Yoda avec de grandes oreilles, un visage ridé et une expression sage, ainsi que ses robes Jedi brunes. Sortie en 2002, cette minifigurine capture la petite stature et la puissante présence de la Force du personnage légendaire. Les collectionneurs apprécient les figurines Yoda pour leur représentation de la sagesse et de la maîtrise de la Force. Malgré sa petite taille, l\'importance de Yoda dans la saga Star Wars en fait un ajout essentiel à toute collection LEGO, en particulier pour recréer des scènes d\'entraînement sur Dagobah ou des chambres du Conseil Jedi.',
+    description_es: 'Yoda, el antiguo y sabio Gran Maestro Jedi, es una de las minifiguras LEGO Star Wars más queridas e icónicas. Esta versión temprana presenta la distintiva cabeza verde de Yoda con grandes orejas, rostro arrugado y expresión sabia, junto con sus túnicas Jedi marrones. Lanzado en 2002, esta minifigura captura la estatura diminuta y poderosa presencia de la Fuerza del legendario personaje. Los coleccionistas atesoran las figuras de Yoda por su representación de sabiduría y maestría de la Fuerza. A pesar de su pequeño tamaño, la importancia de Yoda en la saga Star Wars lo convierte en una adición esencial a cualquier colección LEGO, particularmente para recrear escenas de entrenamiento en Dagobah o cámaras del Consejo Jedi.'
+  },
+  {
+    minifigure_no: 'sw0026',
+    name: 'Battle Droid',
+    description_en: 'The Battle Droid represents the Separatist Alliance\'s massive droid army that threatened the Republic during the Clone Wars. This minifigure features the distinctive tan-colored body with skeletal appearance, thin limbs, and the characteristic elongated head design. First released in 1999, Battle Droids have become essential army builders for prequel trilogy fans. The simple, expendable design of these droids reflects their role as cheap, mass-produced soldiers. Collectors amass large quantities of Battle Droids to recreate epic Clone Wars battle scenes. Their comedic incompetence in the films has made them endearing despite being antagonists, and their affordability makes army building practical for fans of all ages.',
+    description_de: 'Der Kampfdroide repräsentiert die massive Droidenarmee der Separatistenallianz, die während der Klonkriege die Republik bedrohte. Diese Minifigur zeigt den charakteristischen beigefarbenen Körper mit skeletthaftem Aussehen, dünnen Gliedmaßen und dem charakteristischen länglichen Kopfdesign. Erstmals 1999 veröffentlicht, sind Kampfdroiden unverzichtbare Armeeaufbauer für Fans der Prequel-Trilogie. Das einfache, entbehrliche Design dieser Droiden spiegelt ihre Rolle als billige, massenproduzierten Soldaten wider. Sammler häufen große Mengen von Kampfdroiden an, um epische Klonkriegs-Kampfszenen nachzustellen. Ihre komische Inkompetenz in den Filmen hat sie trotz ihrer Rolle als Antagonisten liebenswert gemacht, und ihre Erschwinglichkeit macht Armeeaufbau für Fans jeden Alters praktikabel.',
+    description_fr: 'Le Droïde de Combat représente la massive armée de droïdes de l\'Alliance Séparatiste qui menaçait la République pendant la Guerre des Clones. Cette minifigurine présente le corps beige distinctif avec une apparence squelettique, des membres minces et le design de tête allongée caractéristique. Sortie pour la première fois en 1999, les Droïdes de Combat sont devenus essentiels pour construire des armées pour les fans de la trilogie des préquelles. Le design simple et jetable de ces droïdes reflète leur rôle de soldats bon marché produits en masse. Les collectionneurs accumulent de grandes quantités de Droïdes de Combat pour recréer des scènes de bataille épiques de la Guerre des Clones. Leur incompétence comique dans les films les a rendus attachants malgré leur rôle d\'antagonistes, et leur prix abordable rend la construction d\'armée pratique pour les fans de tous âges.',
+    description_es: 'El Droide de Batalla representa el masivo ejército de droides de la Alianza Separatista que amenazó a la República durante las Guerras Clon. Esta minifigura presenta el distintivo cuerpo de color beige con apariencia esquelética, extremidades delgadas y el característico diseño de cabeza alargada. Lanzado por primera vez en 1999, los Droides de Batalla se han convertido en esenciales para construir ejércitos para los fans de la trilogía de precuelas. El diseño simple y prescindible de estos droides refleja su papel como soldados baratos producidos en masa. Los coleccionistas acumulan grandes cantidades de Droides de Batalla para recrear épicas escenas de batalla de las Guerras Clon. Su incompetencia cómica en las películas los ha hecho entrañables a pesar de ser antagonistas, y su asequibilidad hace que la construcción de ejércitos sea práctica para fans de todas las edades.'
+  }
+];
+
+async function saveBatch() {
+  console.log('💾 Saving batch 6 (sw0022-sw0026)...\n');
+  
+  for (const minifig of batch6) {
+    await prisma.minifigCatalog.upsert({
+      where: { minifigure_no: minifig.minifigure_no },
+      update: {
+        description_en: minifig.description_en,
+        description_de: minifig.description_de,
+        description_fr: minifig.description_fr,
+        description_es: minifig.description_es,
+        description_generated_at: new Date(),
+        description_status: 'generated'
+      },
+      create: {
+        minifigure_no: minifig.minifigure_no,
+        name: minifig.name,
+        category_id: 1,
+        category_name: 'Star Wars',
+        search_name: minifig.name.toLowerCase(),
+        description_en: minifig.description_en,
+        description_de: minifig.description_de,
+        description_fr: minifig.description_fr,
+        description_es: minifig.description_es,
+        description_generated_at: new Date(),
+        description_status: 'generated'
+      }
+    });
+    console.log(`  ✅ ${minifig.minifigure_no}: ${minifig.name}`);
+  }
+  
+  console.log('\n✨ Batch 6 complete! Total: 25 minifigs (100 descriptions)\n');
+  await prisma.$disconnect();
+}
+
+saveBatch().catch(console.error);

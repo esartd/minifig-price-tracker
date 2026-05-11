@@ -1,0 +1,85 @@
+import { PrismaClient } from '@prisma/client-hostinger';
+
+const prisma = new PrismaClient({
+  datasourceUrl: 'mysql://u493602047_figtracker_use:Legocatelogstuff12345!@srv1777.hstgr.io:3306/u493602047_figtracker'
+});
+
+const batch5 = [
+  {
+    minifigure_no: 'sw0017',
+    name: 'Luke Skywalker (Jedi Knight)',
+    description_en: 'Luke Skywalker in his iconic black Jedi robes represents one of the most pivotal moments in Star Wars history—the return of the Jedi. This minifigure captures Luke at the height of his powers during Return of the Jedi, featuring his all-black outfit with detailed printing and his green lightsaber. First released in 2000, this classic design has become highly sought-after by collectors for its historical significance as one of the earliest detailed Star Wars minifigures. The black Jedi robes symbolize Luke\'s maturity and mastery of the Force, making this an essential piece for any Star Wars LEGO collection.',
+    description_de: 'Luke Skywalker in seiner ikonischen schwarzen Jedi-Robe repräsentiert einen der entscheidendsten Momente in der Star Wars-Geschichte—die Rückkehr der Jedi. Diese Minifigur zeigt Luke auf dem Höhepunkt seiner Macht während Die Rückkehr der Jedi-Ritter, mit seinem schwarzen Outfit mit detailliertem Druck und seinem grünen Lichtschwert. Erstmals 2000 veröffentlicht, ist dieses klassische Design bei Sammlern wegen seiner historischen Bedeutung als eine der ersten detaillierten Star Wars Minifiguren sehr begehrt. Die schwarze Jedi-Robe symbolisiert Lukes Reife und Beherrschung der Macht und macht diese Figur zu einem unverzichtbaren Stück für jede Star Wars LEGO Sammlung.',
+    description_fr: 'Luke Skywalker dans sa robe Jedi noire emblématique représente l\'un des moments les plus décisifs de l\'histoire de Star Wars—le retour du Jedi. Cette minifigurine capture Luke au sommet de ses pouvoirs pendant Le Retour du Jedi, avec sa tenue noire entièrement détaillée et son sabre laser vert. Sortie pour la première fois en 2000, ce design classique est devenu très recherché par les collectionneurs pour son importance historique en tant que l\'une des premières minifigurines Star Wars détaillées. La robe Jedi noire symbolise la maturité de Luke et sa maîtrise de la Force, faisant de cette pièce un élément essentiel pour toute collection LEGO Star Wars.',
+    description_es: 'Luke Skywalker con su icónica túnica Jedi negra representa uno de los momentos más decisivos en la historia de Star Wars—el regreso del Jedi. Esta minifigura captura a Luke en la cima de sus poderes durante El Retorno del Jedi, con su atuendo negro totalmente detallado y su sable de luz verde. Lanzado por primera vez en 2000, este diseño clásico se ha vuelto muy codiciado por los coleccionistas por su importancia histórica como una de las primeras minifiguras detalladas de Star Wars. La túnica Jedi negra simboliza la madurez de Luke y su dominio de la Fuerza, haciendo de esta pieza un elemento esencial para cualquier colección LEGO Star Wars.'
+  },
+  {
+    minifigure_no: 'sw0018',
+    name: 'Luke Skywalker (Tatooine)',
+    description_en: 'Luke Skywalker in his Tatooine farm boy outfit captures the humble beginnings of the galaxy\'s greatest hero. This minifigure features Luke\'s simple tan tunic and pants, representing his life as a moisture farmer before his epic journey began. Released in the early 2000s, this design showcases Luke\'s innocent youth on the desert planet, complete with his blond hair piece. Collectors prize this version for its nostalgic connection to A New Hope\'s opening scenes, where Luke dreamed of adventure beyond the twin suns. This Tatooine variant is essential for recreating the Lars homestead and Luke\'s early encounters with Obi-Wan Kenobi and R2-D2.',
+    description_de: 'Luke Skywalker in seiner Tatooine-Farmjungen-Kleidung zeigt die bescheidenen Anfänge des größten Helden der Galaxis. Diese Minifigur präsentiert Lukes einfache beige Tunika und Hose, die sein Leben als Feuchtigkeitsfarmer darstellen, bevor seine epische Reise begann. In den frühen 2000er Jahren veröffentlicht, zeigt dieses Design Lukes unschuldige Jugend auf dem Wüstenplaneten, komplett mit seinem blonden Haarteil. Sammler schätzen diese Version für ihre nostalgische Verbindung zu den Eröffnungsszenen von Eine neue Hoffnung, in denen Luke von Abenteuern jenseits der Doppelsonnen träumte. Diese Tatooine-Variante ist unverzichtbar für die Nachbildung der Lars-Siedlung und Lukes frühe Begegnungen mit Obi-Wan Kenobi und R2-D2.',
+    description_fr: 'Luke Skywalker dans sa tenue de fermier de Tatooine capture les humbles débuts du plus grand héros de la galaxie. Cette minifigurine présente la simple tunique beige et le pantalon de Luke, représentant sa vie de fermier d\'humidité avant que son voyage épique ne commence. Sortie au début des années 2000, ce design montre la jeunesse innocente de Luke sur la planète désertique, avec sa pièce de cheveux blonds. Les collectionneurs apprécient cette version pour son lien nostalgique avec les scènes d\'ouverture d\'Un nouvel espoir, où Luke rêvait d\'aventure au-delà des soleils jumeaux. Cette variante Tatooine est essentielle pour recréer la ferme Lars et les premières rencontres de Luke avec Obi-Wan Kenobi et R2-D2.',
+    description_es: 'Luke Skywalker con su atuendo de granjero de Tatooine captura los humildes comienzos del mayor héroe de la galaxia. Esta minifigura presenta la simple túnica beige y pantalones de Luke, representando su vida como granjero de humedad antes de que comenzara su viaje épico. Lanzado a principios de la década de 2000, este diseño muestra la juventud inocente de Luke en el planeta desértico, con su pieza de cabello rubio. Los coleccionistas valoran esta versión por su conexión nostálgica con las escenas iniciales de Una Nueva Esperanza, donde Luke soñaba con aventuras más allá de los soles gemelos. Esta variante de Tatooine es esencial para recrear la granja Lars y los primeros encuentros de Luke con Obi-Wan Kenobi y R2-D2.'
+  },
+  {
+    minifigure_no: 'sw0019',
+    name: 'Obi-Wan Kenobi (Old, Light Gray)',
+    description_en: 'Old Ben Kenobi in his hermit robes represents the wise Jedi Master hiding on Tatooine, waiting to guide young Luke Skywalker. This minifigure features Obi-Wan\'s light gray robes with detailed printing, his aged face with a white beard, and his iconic blue lightsaber. Released in 2000, this is one of the earliest LEGO Star Wars minifigures and captures Alec Guinness\'s portrayal from A New Hope perfectly. Collectors highly value this version for its classic design and historical significance in the LEGO Star Wars line. The light gray variant distinguishes it from later versions, making it particularly desirable for completist collections and nostalgia-driven fans.',
+    description_de: 'Der alte Ben Kenobi in seiner Einsiedler-Robe repräsentiert den weisen Jedi-Meister, der sich auf Tatooine versteckt und darauf wartet, den jungen Luke Skywalker zu führen. Diese Minifigur zeigt Obi-Wans hellgraue Robe mit detailliertem Druck, sein gealtertes Gesicht mit weißem Bart und sein ikonisches blaues Lichtschwert. 2000 veröffentlicht, ist dies eine der frühesten LEGO Star Wars Minifiguren und erfasst Alec Guinness\' Darstellung aus Eine neue Hoffnung perfekt. Sammler schätzen diese Version sehr für ihr klassisches Design und ihre historische Bedeutung in der LEGO Star Wars Reihe. Die hellgraue Variante unterscheidet sie von späteren Versionen und macht sie besonders begehrenswert für Vollständigkeitssammler und nostalgiegetriebene Fans.',
+    description_fr: 'Le vieux Ben Kenobi dans sa robe d\'ermite représente le sage Maître Jedi se cachant sur Tatooine, attendant de guider le jeune Luke Skywalker. Cette minifigurine présente la robe gris clair d\'Obi-Wan avec des impressions détaillées, son visage vieilli avec une barbe blanche et son sabre laser bleu emblématique. Sortie en 2000, c\'est l\'une des premières minifigurines LEGO Star Wars et capture parfaitement l\'interprétation d\'Alec Guinness dans Un nouvel espoir. Les collectionneurs apprécient grandement cette version pour son design classique et son importance historique dans la gamme LEGO Star Wars. La variante gris clair la distingue des versions ultérieures, la rendant particulièrement désirable pour les collections complètes et les fans nostalgiques.',
+    description_es: 'El viejo Ben Kenobi con su túnica de ermitaño representa al sabio Maestro Jedi escondido en Tatooine, esperando para guiar al joven Luke Skywalker. Esta minifigura presenta la túnica gris claro de Obi-Wan con impresiones detalladas, su rostro envejecido con barba blanca y su icónico sable de luz azul. Lanzado en 2000, esta es una de las primeras minifiguras LEGO Star Wars y captura perfectamente la interpretación de Alec Guinness en Una Nueva Esperanza. Los coleccionistas valoran mucho esta versión por su diseño clásico y su importancia histórica en la línea LEGO Star Wars. La variante gris claro la distingue de versiones posteriores, haciéndola particularmente deseable para colecciones completas y fans nostálgicos.'
+  },
+  {
+    minifigure_no: 'sw0020',
+    name: 'Princess Leia (Hoth)',
+    description_en: 'Princess Leia in her Hoth combat gear showcases the Rebel leader ready for battle on the frozen planet. This minifigure features Leia\'s white winter jacket with detailed printing, brown pants, and her distinctive side-braided hairstyle from The Empire Strikes Back. First released in 2003 with set 4500 Rebel Snowspeeder, this version captures Leia\'s transformation from diplomat to military commander. Collectors appreciate this variant for representing one of Leia\'s most action-oriented appearances, leading the Rebel evacuation from Echo Base. The Hoth outfit with its practical design and military accessories makes this an essential piece for recreating the iconic Battle of Hoth scenes.',
+    description_de: 'Prinzessin Leia in ihrer Hoth-Kampfausrüstung zeigt die Rebellenführerin bereit für den Kampf auf dem gefrorenen Planeten. Diese Minifigur präsentiert Leias weiße Winterjacke mit detailliertem Druck, braune Hose und ihre charakteristische seitlich geflochtene Frisur aus Das Imperium schlägt zurück. Erstmals 2003 mit Set 4500 Rebel Snowspeeder veröffentlicht, erfasst diese Version Leias Verwandlung von der Diplomatin zur militärischen Befehlshaberin. Sammler schätzen diese Variante dafür, dass sie eines von Leias actionorientiertesten Auftreten repräsentiert, während sie die Rebellenevakuierung von Echo-Basis leitet. Das Hoth-Outfit mit seinem praktischen Design und militärischen Zubehör macht diese Figur zu einem unverzichtbaren Stück für die Nachstellung der ikonischen Schlacht-um-Hoth-Szenen.',
+    description_fr: 'La Princesse Leia dans son équipement de combat Hoth montre la leader rebelle prête pour la bataille sur la planète gelée. Cette minifigurine présente la veste d\'hiver blanche de Leia avec des impressions détaillées, un pantalon marron et sa coiffure distinctive avec tresses latérales de L\'Empire contre-attaque. Sortie pour la première fois en 2003 avec le set 4500 Rebel Snowspeeder, cette version capture la transformation de Leia de diplomate en commandant militaire. Les collectionneurs apprécient cette variante pour représenter l\'une des apparitions les plus orientées vers l\'action de Leia, dirigeant l\'évacuation rebelle de la Base Echo. La tenue Hoth avec son design pratique et ses accessoires militaires fait de cette pièce un élément essentiel pour recréer les scènes emblématiques de la Bataille de Hoth.',
+    description_es: 'La Princesa Leia con su equipo de combate de Hoth muestra a la líder rebelde lista para la batalla en el planeta helado. Esta minifigura presenta la chaqueta blanca de invierno de Leia con impresiones detalladas, pantalones marrones y su distintivo peinado con trenzas laterales de El Imperio Contraataca. Lanzado por primera vez en 2003 con el set 4500 Rebel Snowspeeder, esta versión captura la transformación de Leia de diplomática a comandante militar. Los coleccionistas aprecian esta variante por representar una de las apariciones más orientadas a la acción de Leia, liderando la evacuación rebelde de la Base Echo. El atuendo de Hoth con su diseño práctico y accesorios militares hace de esta pieza un elemento esencial para recrear las escenas icónicas de la Batalla de Hoth.'
+  },
+  {
+    minifigure_no: 'sw0021',
+    name: 'R2-D2 (Flat Silver Head)',
+    description_en: 'R2-D2 with a flat silver head represents one of the earliest LEGO versions of everyone\'s favorite astromech droid. This variant features a simplified flat silver dome instead of the later rounded versions, making it instantly recognizable to early LEGO Star Wars collectors. Released in 1999-2002 sets, this R2-D2 showcases the characteristic blue and white body panels with printed computer interface details. The flat silver head design has become a highly collectible piece due to its limited production window before LEGO refined the droid\'s design. As Luke Skywalker\'s faithful companion and the keeper of the Death Star plans, R2-D2 is essential for any Star Wars collection, and this early variant holds special nostalgic value.',
+    description_de: 'R2-D2 mit einem flachen silbernen Kopf repräsentiert eine der frühesten LEGO Versionen des Lieblings-Astromech-Droiden aller. Diese Variante zeigt eine vereinfachte flache silberne Kuppel statt der späteren abgerundeten Versionen, was sie für frühe LEGO Star Wars Sammler sofort erkennbar macht. In Sets von 1999-2002 veröffentlicht, zeigt dieser R2-D2 die charakteristischen blauen und weißen Körperplatten mit gedruckten Computerinterface-Details. Das flache silberne Kopfdesign ist aufgrund seines begrenzten Produktionsfensters zu einem hochgradig sammelbaren Stück geworden, bevor LEGO das Design des Droiden verfeinerte. Als Luke Skywalkers treuer Begleiter und Hüter der Todesstern-Pläne ist R2-D2 unverzichtbar für jede Star Wars Sammlung, und diese frühe Variante hat einen besonderen nostalgischen Wert.',
+    description_fr: 'R2-D2 avec une tête argentée plate représente l\'une des premières versions LEGO du droïde astromécano préféré de tous. Cette variante présente un dôme argenté plat simplifié au lieu des versions arrondies ultérieures, la rendant instantanément reconnaissable pour les premiers collectionneurs LEGO Star Wars. Sortie dans les sets de 1999-2002, ce R2-D2 présente les panneaux de corps bleus et blancs caractéristiques avec des détails d\'interface informatique imprimés. Le design de tête argentée plate est devenu une pièce hautement collectionnable en raison de sa fenêtre de production limitée avant que LEGO ne raffine le design du droïde. En tant que fidèle compagnon de Luke Skywalker et gardien des plans de l\'Étoile de la Mort, R2-D2 est essentiel pour toute collection Star Wars, et cette variante précoce a une valeur nostalgique spéciale.',
+    description_es: 'R2-D2 con cabeza plateada plana representa una de las primeras versiones LEGO del droide astromecánico favorito de todos. Esta variante presenta una cúpula plateada plana simplificada en lugar de las versiones redondeadas posteriores, haciéndola instantáneamente reconocible para los primeros coleccionistas LEGO Star Wars. Lanzado en sets de 1999-2002, este R2-D2 muestra los paneles corporales azules y blancos característicos con detalles de interfaz de computadora impresos. El diseño de cabeza plateada plana se ha convertido en una pieza altamente coleccionable debido a su ventana de producción limitada antes de que LEGO refinara el diseño del droide. Como fiel compañero de Luke Skywalker y guardián de los planos de la Estrella de la Muerte, R2-D2 es esencial para cualquier colección Star Wars, y esta variante temprana tiene un valor nostálgico especial.'
+  }
+];
+
+async function saveBatch() {
+  console.log('💾 Saving batch 5 (sw0017-sw0021)...\n');
+  
+  for (const minifig of batch5) {
+    await prisma.minifigCatalog.upsert({
+      where: { minifigure_no: minifig.minifigure_no },
+      update: {
+        description_en: minifig.description_en,
+        description_de: minifig.description_de,
+        description_fr: minifig.description_fr,
+        description_es: minifig.description_es,
+        description_generated_at: new Date(),
+        description_status: 'generated'
+      },
+      create: {
+        minifigure_no: minifig.minifigure_no,
+        name: minifig.name,
+        category_id: 1,
+        category_name: 'Star Wars',
+        search_name: minifig.name.toLowerCase(),
+        description_en: minifig.description_en,
+        description_de: minifig.description_de,
+        description_fr: minifig.description_fr,
+        description_es: minifig.description_es,
+        description_generated_at: new Date(),
+        description_status: 'generated'
+      }
+    });
+    console.log(`  ✅ ${minifig.minifigure_no}: ${minifig.name}`);
+  }
+  
+  console.log('\n✨ Batch 5 complete! Total: 20 minifigs (80 descriptions)\n');
+  await prisma.$disconnect();
+}
+
+saveBatch().catch(console.error);
