@@ -16,6 +16,7 @@ interface CollectionListProps {
   showDecimals: boolean;
   onItemMove?: (id: string, quantity: number) => Promise<void>;
   onRefresh?: () => Promise<void>;
+  pricesFetching?: boolean; // Indicates if pricing is actively loading
 }
 
 export default function CollectionList({
@@ -25,6 +26,7 @@ export default function CollectionList({
   showDecimals,
   onItemMove,
   onRefresh,
+  pricesFetching = false,
 }: CollectionListProps) {
   const router = useRouter();
   const { data: session } = useSession();
@@ -288,6 +290,14 @@ export default function CollectionList({
                     {formatPrice(item.pricing.suggestedPrice, item.pricing.currencyCode || 'USD', showDecimals)}
                   </div>
                 )}
+              </div>
+            ) : pricesFetching && item.pricing?.suggestedPrice === 0 ? (
+              <div style={{
+                fontSize: 'var(--text-xs)',
+                color: '#737373',
+                fontStyle: 'italic'
+              }}>
+                Loading price...
               </div>
             ) : (
               <div style={{

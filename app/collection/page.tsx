@@ -27,6 +27,7 @@ export default function PersonalCollectionPage() {
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
   const [dbError, setDbError] = useState<Date | null>(null);
   const [pricesUpdating, setPricesUpdating] = useState(0);
+  const [pricesFetching, setPricesFetching] = useState(false); // Track if pricing is actively loading
 
   // Pagination state for display only (all items loaded client-side)
   const [currentPage, setCurrentPage] = useState(1);
@@ -109,6 +110,7 @@ export default function PersonalCollectionPage() {
         if (itemsNeedingRefresh.length > 0) {
           console.log(`🔄 Fetching prices for ${itemsNeedingRefresh.length} items progressively...`);
           setPricesUpdating(itemsNeedingRefresh.length);
+          setPricesFetching(true); // Indicate pricing is in progress
 
           // Client-side progressive fetch: fetch items one by one to avoid serverless timeout
           let currentIndex = 0;
@@ -117,6 +119,7 @@ export default function PersonalCollectionPage() {
             if (currentIndex >= itemsNeedingRefresh.length) {
               console.log(`✅ Completed fetching all ${itemsNeedingRefresh.length} items`);
               setPricesUpdating(0);
+              setPricesFetching(false); // Pricing complete
               return;
             }
 
@@ -770,6 +773,7 @@ export default function PersonalCollectionPage() {
               showDecimals={showDecimals}
               onItemMove={handleItemMoved}
               onRefresh={loadCollection}
+              pricesFetching={pricesFetching}
             />
           )}
         </div>

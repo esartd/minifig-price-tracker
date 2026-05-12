@@ -16,6 +16,7 @@ interface SetPersonalCollectionListProps {
   showDecimals: boolean;
   onItemMove?: (id: string, quantity: number) => Promise<void>;
   onRefresh?: () => Promise<void>;
+  pricesFetching?: boolean; // Indicates if pricing is actively loading
 }
 
 export default function SetPersonalCollectionList({
@@ -25,6 +26,7 @@ export default function SetPersonalCollectionList({
   showDecimals,
   onItemMove,
   onRefresh,
+  pricesFetching = false,
 }: SetPersonalCollectionListProps) {
   const router = useRouter();
   const { data: session } = useSession();
@@ -296,6 +298,14 @@ export default function SetPersonalCollectionList({
                     {formatPrice(item.pricing.suggestedPrice, currency, showDecimals)}
                   </div>
                 )}
+              </div>
+            ) : pricesFetching && item.pricing?.suggestedPrice === 0 ? (
+              <div style={{
+                fontSize: 'var(--text-xs)',
+                color: '#737373',
+                fontStyle: 'italic'
+              }}>
+                Loading price...
               </div>
             ) : (
               <div style={{
