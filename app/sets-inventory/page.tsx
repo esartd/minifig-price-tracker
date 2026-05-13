@@ -26,6 +26,7 @@ export default function SetsInventoryPage() {
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
   const [pricesUpdating, setPricesUpdating] = useState(0);
   const [pricesFetching, setPricesFetching] = useState(false); // Track if pricing is actively loading
+  const [itemsUpdating, setItemsUpdating] = useState<Set<string>>(new Set()); // Track which item IDs are currently updating
 
   // Pagination state for display only (all items loaded client-side)
   const [currentPage, setCurrentPage] = useState(1);
@@ -112,6 +113,9 @@ export default function SetsInventoryPage() {
             const item = itemsNeedingRefresh[currentIndex];
             currentIndex++;
 
+            // Mark this item as updating
+            setItemsUpdating(prev => new Set(prev).add(item.id));
+
             try {
               console.log(`[${currentIndex}/${itemsNeedingRefresh.length}] Fetching price for ${item.box_no}...`);
 
@@ -131,6 +135,13 @@ export default function SetsInventoryPage() {
             } catch (err) {
               console.error(`  ❌ Error fetching ${item.box_no}:`, err);
             }
+
+            // Remove this item from updating set
+            setItemsUpdating(prev => {
+              const next = new Set(prev);
+              next.delete(item.id);
+              return next;
+            });
 
             setPricesUpdating(prev => Math.max(0, prev - 1));
             setTimeout(fetchNextItem, 3000); // BrickLink API requires 3-second minimum
@@ -523,14 +534,36 @@ export default function SetsInventoryPage() {
             gap: '20px',
             marginBottom: '32px'
           }}>
-            <h2 style={{
-              fontSize: 'var(--text-lg)',
-              fontWeight: '600',
-              color: '#171717',
-              letterSpacing: '-0.01em'
-            }}>
-              {t('collection.items')}
-            </h2>
+            <div>
+              <h2 style={{
+                fontSize: 'var(--text-lg)',
+                fontWeight: '600',
+                color: '#171717',
+                letterSpacing: '-0.01em',
+                marginBottom: '8px'
+              }}>
+                {t('collection.items')}
+              </h2>
+
+              {/* Price Update Legend */}
+              {pricesUpdating > 0 && (
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontSize: 'var(--text-sm)',
+                  color: '#737373'
+                }}>
+                  <div style={{
+                    width: '8px',
+                    height: '8px',
+                    background: '#3b82f6',
+                    borderRadius: '50%'
+                  }} />
+                  <span>Updating price ({pricesUpdating} remaining)</span>
+                </div>
+              )}
+            </div>
             {inventory.length > 0 && (
               <>
                 {/* Condition Filter Tabs */}
@@ -737,6 +770,7 @@ export default function SetsInventoryPage() {
               onItemMove={handleItemMoved}
               onRefresh={loadInventory}
               pricesFetching={pricesFetching}
+              itemsUpdating={itemsUpdating}
             />
           )}
 

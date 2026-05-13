@@ -17,6 +17,7 @@ interface PersonalCollectionListProps {
   onItemMove?: (id: string, quantity: number) => Promise<void>;
   onRefresh?: () => Promise<void>;
   pricesFetching?: boolean; // Indicates if pricing is actively loading
+  itemsUpdating?: Set<string>; // Set of item IDs currently being updated
 }
 
 export default function PersonalCollectionList({
@@ -27,6 +28,7 @@ export default function PersonalCollectionList({
   onItemMove,
   onRefresh,
   pricesFetching = false,
+  itemsUpdating = new Set(),
 }: PersonalCollectionListProps) {
   const router = useRouter();
   const { data: session } = useSession();
@@ -263,43 +265,68 @@ export default function PersonalCollectionList({
               </select>
             </div>
             {item.pricing && item.pricing.suggestedPrice > 0 ? (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                {item.quantity > 1 ? (
-                  <>
-                    <div style={{
-                      fontSize: 'var(--text-xs)',
-                      color: '#737373',
-                      fontWeight: '500'
-                    }}>
-                      {formatPrice(item.pricing.suggestedPrice, currency, showDecimals)} ea
-                    </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                {/* Blue dot if this item is updating */}
+                {itemsUpdating.has(item.id) && (
+                  <div style={{
+                    width: '8px',
+                    height: '8px',
+                    background: '#3b82f6',
+                    borderRadius: '50%',
+                    flexShrink: 0
+                  }} />
+                )}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  {item.quantity > 1 ? (
+                    <>
+                      <div style={{
+                        fontSize: 'var(--text-xs)',
+                        color: '#737373',
+                        fontWeight: '500'
+                      }}>
+                        {formatPrice(item.pricing.suggestedPrice, currency, showDecimals)} ea
+                      </div>
+                      <div style={{
+                        fontSize: 'var(--text-lg)',
+                        fontWeight: '700',
+                        color: '#3b82f6',
+                        letterSpacing: '-0.01em'
+                      }}>
+                        {formatPrice(item.pricing.suggestedPrice * item.quantity, currency, showDecimals)} <span style={{ fontSize: 'var(--text-xs)', fontWeight: '500', color: '#737373' }}>total</span>
+                      </div>
+                    </>
+                  ) : (
                     <div style={{
                       fontSize: 'var(--text-lg)',
                       fontWeight: '700',
                       color: '#3b82f6',
                       letterSpacing: '-0.01em'
                     }}>
-                      {formatPrice(item.pricing.suggestedPrice * item.quantity, currency, showDecimals)} <span style={{ fontSize: 'var(--text-xs)', fontWeight: '500', color: '#737373' }}>total</span>
+                      {formatPrice(item.pricing.suggestedPrice, currency, showDecimals)}
                     </div>
-                  </>
-                ) : (
-                  <div style={{
-                    fontSize: 'var(--text-lg)',
-                    fontWeight: '700',
-                    color: '#3b82f6',
-                    letterSpacing: '-0.01em'
-                  }}>
-                    {formatPrice(item.pricing.suggestedPrice, currency, showDecimals)}
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
-            ) : pricesFetching && item.pricing?.suggestedPrice === 0 ? (
+            ) : itemsUpdating.has(item.id) ? (
               <div style={{
-                fontSize: 'var(--text-xs)',
-                color: '#737373',
-                fontStyle: 'italic'
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
               }}>
-                Loading price...
+                <div style={{
+                  width: '8px',
+                  height: '8px',
+                  background: '#3b82f6',
+                  borderRadius: '50%',
+                  flexShrink: 0
+                }} />
+                <div style={{
+                  fontSize: 'var(--text-xs)',
+                  color: '#737373',
+                  fontStyle: 'italic'
+                }}>
+                  Updating...
+                </div>
               </div>
             ) : (
               <div style={{
