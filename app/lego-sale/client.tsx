@@ -314,7 +314,7 @@ export default function LegoSaleClient() {
       }}>
         <strong>Price Disclaimer:</strong> Product prices and availability are accurate as of the date/time indicated and are subject to change.
         Prices shown are from Amazon at the time of last refresh (updated every 6 hours). Any price and availability information displayed on Amazon
-        at the time of purchase will apply to the purchase of this product. As an Amazon Associate, FigTracker earns from qualifying purchases.
+        at the time of purchase will apply to the purchase of this product. As an Amazon Associate, LEGO Affiliate, and eBay Partner, FigTracker earns from qualifying purchases.
       </div>
 
       {/* Deals Content */}
