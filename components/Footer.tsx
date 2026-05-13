@@ -148,6 +148,24 @@ export default function Footer() {
           margin: '0 auto var(--space-5) auto'
         }} />
 
+        {/* Affiliate Disclosure - Prominent */}
+        <div style={{
+          background: '#eff6ff',
+          border: '1px solid #dbeafe',
+          borderRadius: '8px',
+          padding: 'var(--space-3)',
+          marginBottom: 'var(--space-5)',
+          textAlign: 'center',
+          fontSize: 'var(--text-xs)',
+          color: '#1e40af',
+          lineHeight: '1.6'
+        }}>
+          <strong>Affiliate Disclosure:</strong> As an Amazon Associate and BrickLink/eBay Partner, FigTracker earns from qualifying purchases.{' '}
+          <a href="/disclosure" style={{ color: '#2563eb', textDecoration: 'underline', fontWeight: '500' }}>
+            Learn more
+          </a>
+        </div>
+
         {/* Legal & Attribution - Center Aligned */}
         <div style={{
           textAlign: 'center',

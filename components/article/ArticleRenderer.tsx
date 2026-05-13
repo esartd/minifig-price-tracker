@@ -206,7 +206,7 @@ export function ArticleRenderer({ blocks }: ArticleRendererProps) {
             {block.products.map((product, idx) => (
               <a
                 key={idx}
-                href={`https://www.amazon.com/dp/${product.asin}?tag=YOUR_AFFILIATE_TAG`}
+                href={`https://www.amazon.com/dp/${product.asin}?tag=ericksu0c-20`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

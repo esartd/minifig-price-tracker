@@ -300,6 +300,23 @@ export default function LegoSaleClient() {
         </div>
       </div>
 
+      {/* Amazon Associates Required Disclosure */}
+      <div style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '16px',
+        background: '#fffbeb',
+        border: '1px solid #fef3c7',
+        borderRadius: '8px',
+        fontSize: '13px',
+        color: '#92400e',
+        lineHeight: '1.6'
+      }}>
+        <strong>Price Disclaimer:</strong> Product prices and availability are accurate as of the date/time indicated and are subject to change.
+        Prices shown are from Amazon at the time of last refresh (updated every 6 hours). Any price and availability information displayed on Amazon
+        at the time of purchase will apply to the purchase of this product. As an Amazon Associate, FigTracker earns from qualifying purchases.
+      </div>
+
       {/* Deals Content */}
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '48px 16px' }}>
         {loading ? (

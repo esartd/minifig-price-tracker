@@ -111,7 +111,7 @@ export function ArticlePreview({ blocks, title, author }: ArticlePreviewProps) {
             {block.products.map((product, i) => (
               <a
                 key={i}
-                href={`https://www.amazon.com/dp/${product.asin}?tag=YOUR_AFFILIATE_TAG`}
+                href={`https://www.amazon.com/dp/${product.asin}?tag=ericksu0c-20`}
                 target="_blank"
                 rel="noopener noreferrer sponsored"
                 style={{
