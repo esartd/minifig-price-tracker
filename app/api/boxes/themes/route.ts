@@ -3,7 +3,8 @@ import { loadAllBoxes } from '@/lib/boxes-data';
 import fs from 'fs';
 import path from 'path';
 
-export const dynamic = 'force-dynamic';
+// Cache for 30 minutes (no BrickLink pricing data)
+export const revalidate = 1800;
 
 // Load cached theme images
 let themeImagesCache: any = null;

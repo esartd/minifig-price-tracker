@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { getAllCategories, getRecentMinifigs } from '@/lib/catalog-static';
 import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
 
+// Cache for 1 hour (no BrickLink pricing data)
+export const revalidate = 3600;
+
 export async function GET() {
   try {
     // Get all unique categories with counts from static catalog

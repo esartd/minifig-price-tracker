@@ -25,6 +25,7 @@
     "test-catalog-download": "curl https://figtracker.ericksu.com/api/admin/test-catalog-download -H 'Authorization: Bearer $ADMIN_SECRET'"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.96.0",
     "@auth/prisma-adapter": "^2.11.1",
     "@heroicons/react": "^2.2.0",
     "@prisma/client": "^5.19.0",
