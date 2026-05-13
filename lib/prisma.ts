@@ -6,11 +6,16 @@ const globalForPrisma = globalThis as unknown as {
 
 // Hostinger MySQL Database - All user data (accounts, collections, listings, price cache)
 // Migrated from Neon PostgreSQL - April 2026
-// Connection pooling configured via DATABASE_URL query params to prevent exhausting Hostinger's limits
+// Connection pooling: limit=5 to prevent exhausting Hostinger's 500 connections/hour limit
+const connectionUrl = process.env.DATABASE_URL || 'mysql://user:pass@localhost:3306/db';
+const pooledUrl = connectionUrl.includes('?')
+  ? `${connectionUrl}&connection_limit=5&pool_timeout=20`
+  : `${connectionUrl}?connection_limit=5&pool_timeout=20`;
+
 export const prisma: PrismaClient = globalForPrisma.prisma ?? new PrismaClient({
   datasources: {
     db: {
-      url: process.env.DATABASE_URL || 'mysql://user:pass@localhost:3306/db'
+      url: pooledUrl
     }
   },
   log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
