@@ -148,24 +148,6 @@ export default function Footer() {
           margin: '0 auto var(--space-5) auto'
         }} />
 
-        {/* Affiliate Disclosure - Prominent */}
-        <div style={{
-          background: '#eff6ff',
-          border: '1px solid #dbeafe',
-          borderRadius: '8px',
-          padding: 'var(--space-3)',
-          marginBottom: 'var(--space-5)',
-          textAlign: 'center',
-          fontSize: 'var(--text-xs)',
-          color: '#1e40af',
-          lineHeight: '1.6'
-        }}>
-          <strong>Affiliate Disclosure:</strong> As an Amazon Associate and BrickLink/eBay Partner, FigTracker earns from qualifying purchases.{' '}
-          <a href="/disclosure" style={{ color: '#2563eb', textDecoration: 'underline', fontWeight: '500' }}>
-            Learn more
-          </a>
-        </div>
-
         {/* Legal & Attribution - Center Aligned */}
         <div style={{
           textAlign: 'center',
@@ -174,7 +156,12 @@ export default function Footer() {
           lineHeight: '1.7'
         }}>
           <p style={{ margin: 0, marginBottom: 'var(--space-4)' }}>
-            {t('footer.dataProvidedBy')}{' '}
+            <strong>Affiliate Disclosure:</strong> As an Amazon Associate and BrickLink/eBay Partner, FigTracker earns from qualifying purchases.{' '}
+            <a href="/disclosure" style={{ color: '#3b82f6', textDecoration: 'underline', fontWeight: '500' }}>
+              Learn more
+            </a>
+            <br />
+            Minifigure data provided by{' '}
             <a
               href="https://www.bricklink.com"
               target="_blank"
@@ -183,7 +170,7 @@ export default function Footer() {
             >
               BrickLink.com
             </a>
-            . {t('footer.bricklinkTrademark')} {t('footer.legoTrademark')}
+            . The term "BrickLink" is a trademark of the LEGO Group BrickLink. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc. LEGO® is a trademark of the LEGO Group.
           </p>
           <p style={{ margin: 0, color: '#a3a3a3' }}>
             © {new Date().getFullYear()} FigTracker. {t('footer.allRightsReserved')} {t('footer.createdBy')}{' '}
