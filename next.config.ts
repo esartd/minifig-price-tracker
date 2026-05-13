@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
         hostname: 'img.bricklink.com',
       },
     ],
-    unoptimized: true, // Disable optimization to avoid Vercel free tier limits (5k transformations/month exceeded)
+    unoptimized: true, // Disable optimization to avoid transformation limits
   },
   experimental: {
     serverActions: {
