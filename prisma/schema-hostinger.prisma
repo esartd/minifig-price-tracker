@@ -9,6 +9,9 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  // Limit connections to prevent hitting Hostinger's 500/hour limit
+  // Lower limit = better connection reuse = fewer connections per hour
+  connectionLimit = 10
 }
 
 model Account {
