@@ -317,6 +317,112 @@ export class BricklinkAPI {
     }
   }
 
+  /**
+   * Track persistent price fetch failures for monitoring
+   */
+  private async trackPriceFetchFailure(
+    itemNo: string,
+    itemType: string,
+    condition: string,
+    countryCode: string,
+    errorMessage: string,
+    errorType: string
+  ): Promise<void> {
+    try {
+      const existing = await prisma.priceFetchFailure.findUnique({
+        where: {
+          item_no_item_type_condition_country_code: {
+            item_no: itemNo,
+            item_type: itemType,
+            condition: condition,
+            country_code: countryCode
+          }
+        }
+      });
+
+      if (existing) {
+        // Update existing failure record
+        await prisma.priceFetchFailure.update({
+          where: {
+            item_no_item_type_condition_country_code: {
+              item_no: itemNo,
+              item_type: itemType,
+              condition: condition,
+              country_code: countryCode
+            }
+          },
+          data: {
+            attempt_count: existing.attempt_count + 1,
+            last_attempt: new Date(),
+            error_message: errorMessage,
+            error_type: errorType
+          }
+        });
+        console.log(`📊 [Failure Tracking] Updated failure count to ${existing.attempt_count + 1} for ${itemNo}`);
+      } else {
+        // Create new failure record
+        await prisma.priceFetchFailure.create({
+          data: {
+            item_no: itemNo,
+            item_type: itemType,
+            condition: condition,
+            country_code: countryCode,
+            error_message: errorMessage,
+            error_type: errorType,
+            attempt_count: 1
+          }
+        });
+        console.log(`📊 [Failure Tracking] Recorded first failure for ${itemNo}`);
+      }
+    } catch (error) {
+      // Don't let failure tracking break the main flow
+      console.error(`⚠️  [Failure Tracking] Error tracking failure for ${itemNo}:`, error);
+    }
+  }
+
+  /**
+   * Retry wrapper with exponential backoff
+   * Attempts: 1st = immediate, 2nd = 10s delay, 3rd = 30s delay
+   */
+  private async retryWithBackoff<T>(
+    fn: () => Promise<T>,
+    itemNo: string,
+    maxRetries: number = 3
+  ): Promise<T | null> {
+    const delays = [0, 10000, 30000]; // 0s, 10s, 30s
+    let lastError: any;
+
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        if (attempt > 1) {
+          const delay = delays[attempt - 1];
+          console.log(`[Retry] Attempt ${attempt}/${maxRetries} for ${itemNo} after ${delay}ms delay...`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+        }
+
+        const result = await fn();
+
+        if (attempt > 1) {
+          console.log(`✅ [Retry] Success on attempt ${attempt} for ${itemNo}`);
+        }
+
+        return result;
+      } catch (error: any) {
+        lastError = error;
+        console.error(`❌ [Retry] Attempt ${attempt}/${maxRetries} failed for ${itemNo}:`, error.message);
+
+        // Don't retry on rate limit errors - respect the limit
+        if (error.message?.includes('daily limit reached')) {
+          throw error;
+        }
+      }
+    }
+
+    // All retries failed - log persistent failure
+    console.error(`🚫 [Retry] All ${maxRetries} attempts failed for ${itemNo}`);
+    return null;
+  }
+
   async getPriceGuide(
     itemNo: string,
     condition: 'N' | 'U' = 'N',
@@ -325,7 +431,8 @@ export class BricklinkAPI {
     currencyCode?: string,
     guideType: 'stock' | 'sold' = 'stock'
   ): Promise<PriceGuide | null> {
-    try {
+    // Wrap the actual fetch in retry logic
+    return this.retryWithBackoff(async () => {
       // BrickLink API parameters:
       // - country_code: FILTERS sellers to only that country (very restrictive)
       // - currency_code: CONVERTS prices to that currency (all sellers, just different display)
@@ -343,7 +450,7 @@ export class BricklinkAPI {
 
       if (!data) {
         console.log(`[getPriceGuide] No data returned for ${itemNo} in ${countryCode}`);
-        return null;
+        throw new Error('NO_DATA');
       }
 
       console.log(`[getPriceGuide] Response for ${itemNo}:`, {
@@ -365,10 +472,7 @@ export class BricklinkAPI {
       }
 
       return data;
-    } catch (error) {
-      console.error(`[getPriceGuide] Error fetching ${itemNo} in ${countryCode}:`, error);
-      return null;
-    }
+    }, itemNo);
   }
 
   async getSetsContainingMinifig(itemNo: string): Promise<SetInfo[]> {
@@ -436,7 +540,38 @@ export class BricklinkAPI {
 
     if (!stockPriceGuide && !soldPriceGuide) {
       console.log(`❌ No price guide data at all for ${itemNo} in ${countryCode} - both API calls returned null`);
-      // No data from API - cache zeros for 1 hour to avoid repeated failed API calls
+
+      // Track persistent failures
+      await this.trackPriceFetchFailure(
+        itemNo,
+        'MINIFIG',
+        condition,
+        countryCode,
+        'Both stock and sold API calls returned no data',
+        'NO_DATA'
+      );
+
+      // If we have OLD cached data (even if expired), check if it's < 6 hours old
+      // BrickLink Terms: Cannot display data more than 6 hours old
+      if (cached && cached.suggested_price > 0) {
+        const cacheAgeHours = (Date.now() - cached.cached_at.getTime()) / (1000 * 60 * 60);
+
+        if (cacheAgeHours < 6) {
+          console.log(`✅ [calculatePricingData] API failed but returning cached data for ${itemNo}: $${cached.suggested_price} (age: ${cacheAgeHours.toFixed(1)}h - compliant)`);
+          return {
+            sixMonthAverage: cached.six_month_avg,
+            currentAverage: cached.current_avg,
+            currentLowest: cached.current_lowest,
+            suggestedPrice: cached.suggested_price,
+            currencyCode: cached.currency_code,
+          };
+        } else {
+          console.log(`❌ [calculatePricingData] Cache is ${cacheAgeHours.toFixed(1)}h old (> 6h) - cannot display per BrickLink terms`);
+          // Fall through to return $0 - frontend will show "Price unavailable"
+        }
+      }
+
+      // No data from API and no old data - cache zeros for 1 hour to avoid repeated failed API calls
       const expiresAt = new Date();
       expiresAt.setHours(expiresAt.getHours() + 1);
 

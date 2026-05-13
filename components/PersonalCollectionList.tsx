@@ -334,7 +334,7 @@ export default function PersonalCollectionList({
                 color: '#a3a3a3',
                 fontStyle: 'italic'
               }}>
-                No sellers available
+                Price unavailable
               </div>
             )}
           </div>

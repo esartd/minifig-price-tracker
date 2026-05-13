@@ -462,3 +462,24 @@ model Article {
   @@index([publishedAt])
   @@index([category])
 }
+
+model PriceFetchFailure {
+  id            String   @id @default(cuid())
+  item_no       String
+  item_type     String   @default("MINIFIG") // MINIFIG or SET
+  condition     String   // new or used
+  country_code  String
+  error_message String   @db.Text
+  error_type    String   // NETWORK_ERROR, API_ERROR, NO_DATA, RATE_LIMIT
+  attempt_count Int      @default(1)
+  last_attempt  DateTime @default(now())
+  first_failed  DateTime @default(now())
+  resolved      Boolean  @default(false)
+  resolved_at   DateTime?
+
+  @@unique([item_no, item_type, condition, country_code])
+  @@index([item_no])
+  @@index([last_attempt])
+  @@index([resolved])
+  @@index([error_type])
+}
