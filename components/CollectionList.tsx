@@ -168,7 +168,7 @@ export default function CollectionList({
             {item.image_url ? (
               <Image
                 src={item.image_url}
-                alt={item.minifigure_name}
+                alt={`LEGO ${item.minifigure_name} Minifigure ${item.minifigure_no}`}
                 width={80}
                 height={100}
                 style={{ height: '100px', width: 'auto', maxWidth: 'none', objectFit: 'contain' }}

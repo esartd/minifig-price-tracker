@@ -698,19 +698,30 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
   const productSchema = pricing.suggestedPrice > 0 ? {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: minifig.name,
-    description: `LEGO Minifigure ${minifig.name} (${minifig.no})`,
-    image: minifig.image_url,
+    name: `LEGO ${minifig.name} Minifigure`,
+    description: minifig.description || `LEGO ${minifig.name} Minifigure ${minifig.no} from ${minifig.category_name} theme. Track current BrickLink prices and manage your LEGO collection.`,
+    image: [minifig.image_url],
     sku: minifig.no,
-    brand: { '@type': 'Brand', name: 'LEGO' },
+    mpn: minifig.no,
+    brand: {
+      '@type': 'Brand',
+      name: 'LEGO'
+    },
+    category: minifig.category_name,
+    ...(minifig.year_released && { releaseDate: `${minifig.year_released}-01-01` }),
     offers: {
       '@type': 'AggregateOffer',
       priceCurrency: 'USD',
       lowPrice: pricing.currentLowest.toFixed(2),
       highPrice: pricing.sixMonthAverage.toFixed(2),
-      offerCount: '1',
+      offerCount: 1,
       availability: 'https://schema.org/InStock',
+      priceValidUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
       url: `https://figtracker.ericksu.com/minifigs/${minifig.no}`,
+      seller: {
+        '@type': 'Organization',
+        name: 'BrickLink Marketplace'
+      }
     },
   } : null;
 
@@ -785,7 +796,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                 }}>
                   <Image
                     src={minifig.image_url}
-                    alt={minifig.name}
+                    alt={`LEGO ${minifig.name} Minifigure ${minifig.no} - ${minifig.category_name}`}
                     className="minifig-main-image"
                     width={200}
                     height={250}
@@ -2549,7 +2560,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       <div className="minifig-variant-image">
                         <Image
                           src={related.image_url}
-                          alt={related.name}
+                          alt={`LEGO ${related.name} Minifigure ${related.no}`}
                           width={120}
                           height={150}
                           style={{
@@ -2624,7 +2635,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       <div className="minifig-variant-image">
                         <Image
                           src={variant.image_url}
-                          alt={variant.name}
+                          alt={`LEGO ${variant.name} Minifigure ${variant.no}`}
                           width={120}
                           height={150}
                           style={{
