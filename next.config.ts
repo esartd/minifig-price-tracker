@@ -12,7 +12,9 @@ const nextConfig: NextConfig = {
         hostname: 'img.bricklink.com',
       },
     ],
-    unoptimized: true, // Disable optimization to avoid transformation limits
+    unoptimized: false, // Pro has unlimited transforms
+    formats: ['image/avif', 'image/webp'], // Modern formats = 50% smaller
+    minimumCacheTTL: 2592000, // Cache for 30 days
   },
   experimental: {
     serverActions: {
