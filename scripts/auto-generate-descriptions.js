@@ -21,17 +21,17 @@ function generateDescription(box, lang = 'en') {
 
   // Only update sets with generic template descriptions
   const hasGeneric = box.description_en && box.description_en.includes('high-quality LEGO bricks');
-  if (!hasGeneric || pieces < 800) return null;
+  if (!hasGeneric) return null; // Remove piece count restriction - update ALL generic templates
 
   const templates = {
     en: {
       intro: `${name} features ${pieces.toLocaleString()} pieces`,
       category: category ? ` from the ${category} theme` : '',
       year: year ? `, released in ${year}` : '',
-      features: '. This detailed LEGO set offers authentic building experience with intricate design elements',
-      scale: pieces > 5000 ? ' and massive scale construction' : pieces > 3000 ? ' and large-scale display model' : pieces > 1500 ? ' and impressive size' : '',
+      features: pieces > 500 ? '. This detailed LEGO set offers authentic building experience with intricate design elements' : '. Compact LEGO set with quality construction',
+      scale: pieces > 5000 ? ' and massive scale construction' : pieces > 3000 ? ' and large-scale display model' : pieces > 1500 ? ' and impressive size' : pieces > 500 ? '' : '',
       quality: '. Features high-quality LEGO bricks with precise fit and durability',
-      display: pieces > 2000 ? '. Perfect centerpiece display model' : '. Makes excellent display piece',
+      display: pieces > 2000 ? '. Perfect centerpiece display model' : pieces > 500 ? '. Makes excellent display piece' : '. Great for play and collecting',
       value: ` for collectors and builders. Represents premium craftsmanship within the ${category || 'LEGO'} collection.`
     },
     de: {
