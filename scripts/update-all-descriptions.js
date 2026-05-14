@@ -10,6 +10,9 @@ const path = require('path');
 const starWarsUCS = require('./descriptions-star-wars-ucs');
 const starWarsPopular = require('./descriptions-star-wars-popular');
 const harryPotter = require('./descriptions-harry-potter');
+const marvelDC = require('./descriptions-marvel-dc');
+const architectureIcons = require('./descriptions-architecture-icons');
+const creatorExpert = require('./descriptions-creator-expert');
 
 // Combine all descriptions
 const allDescriptions = {
@@ -40,7 +43,10 @@ const allDescriptions = {
   },
   ...starWarsUCS,
   ...starWarsPopular,
-  ...harryPotter
+  ...harryPotter,
+  ...marvelDC,
+  ...architectureIcons,
+  ...creatorExpert
 };
 
 const boxesPath = path.join(process.cwd(), 'public', 'catalog', 'boxes.json');
@@ -75,4 +81,7 @@ console.log(`\nThemes updated:`);
 console.log(`  - Star Wars UCS: 5 sets`);
 console.log(`  - Star Wars Popular: 5 sets`);
 console.log(`  - Harry Potter: 5 sets`);
+console.log(`  - Marvel/DC: 5 sets`);
+console.log(`  - Architecture/Icons: 5 sets`);
+console.log(`  - Creator Expert: 5 sets`);
 console.log(`  - Total: ${updatedCount} sets`);
