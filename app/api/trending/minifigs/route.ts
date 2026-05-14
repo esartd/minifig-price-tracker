@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
+// Cache for 24 hours to reduce database load
+export const revalidate = 86400; // 24 hours
+
 // Get trending minifigs based on recent activity
 // This is a simplified version - in production you'd track actual page views
 export async function GET() {
@@ -50,6 +53,10 @@ export async function GET() {
     return NextResponse.json({
       success: true,
       data: result
+    }, {
+      headers: {
+        'Cache-Control': 'public, max-age=86400, s-maxage=86400, stale-while-revalidate=172800'
+      }
     });
   } catch (error) {
     console.error('[TRENDING API] Error:', error);

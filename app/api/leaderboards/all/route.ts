@@ -13,10 +13,13 @@ import { generateDefaultDisplayName } from '@/lib/leaderboards';
  * This endpoint combines 3 separate queries into 1 to prevent connection exhaustion
  */
 
-// Cache results for 5 minutes to reduce database load
+// Cache results for 24 hours to reduce database load
 let cachedData: any = null;
 let cacheTime = 0;
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+
+// Revalidate every 24 hours
+export const revalidate = 86400;
 
 export async function GET(request: NextRequest) {
   try {
@@ -176,6 +179,10 @@ export async function GET(request: NextRequest) {
       success: true,
       data: result,
       cached: false,
+    }, {
+      headers: {
+        'Cache-Control': 'public, max-age=86400, s-maxage=86400, stale-while-revalidate=172800'
+      }
     });
   } catch (error: any) {
     console.error('[All Leaderboards API] Error:', error);

@@ -18,7 +18,7 @@ export interface MinifigCatalogItem {
 
 let catalogCache: MinifigCatalogItem[] | null = null;
 let cacheTimestamp: number = 0;
-const CACHE_TTL = 15 * 60 * 1000; // 15 minutes - matches typical Vercel lambda lifetime
+const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours - catalog rarely changes
 let categoriesCache: Map<number, { name: string; count: number }> | null = null;
 
 /**
