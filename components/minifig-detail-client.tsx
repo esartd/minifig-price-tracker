@@ -3061,8 +3061,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
         minifigName={minifig.name}
         categoryName={minifig.category_name}
         yearReleased={minifig.year_released}
-        suggestedPrice={currentPricing?.suggestedPrice || 0}
-        currencyCode={currentPricing?.currencyCode || 'USD'}
+        suggestedPrice={pricing?.suggestedPrice || 0}
+        currencyCode={pricing?.currencyCode || 'USD'}
       />
     </div>
   );
