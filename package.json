@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "node scripts/validate-schema.js && prisma generate --schema=prisma/schema-hostinger.prisma && next build",
-    "build:cloudflare": "node scripts/validate-schema.js && prisma generate --schema=prisma/schema-hostinger.prisma && next build && npx @cloudflare/next-on-pages@cli",
+    "build:cloudflare": "node scripts/validate-schema.js && prisma generate --schema=prisma/schema-hostinger.prisma && next build && npx @cloudflare/next-on-pages",
     "preview:cloudflare": "npm run build:cloudflare && wrangler pages dev .vercel/output/static",
     "deploy:cloudflare": "npm run build:cloudflare && wrangler pages deploy .vercel/output/static",
     "analyze": "ANALYZE=true npm run build",
