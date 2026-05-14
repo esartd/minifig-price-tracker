@@ -248,6 +248,27 @@ export default function FeaturedSets() {
                 href={set.affiliateLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  // Track the click
+                  try {
+                    await fetch('/api/track-click', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        platform: set.retailer,
+                        productType: 'set',
+                        productId: set.setNumber,
+                        productName: set.name,
+                        redirectUrl: set.affiliateLink,
+                      }),
+                    });
+                  } catch (error) {
+                    console.error('Failed to track click:', error);
+                  }
+                  // Open link
+                  window.open(set.affiliateLink, '_blank', 'noopener,noreferrer');
+                }}
                 style={{
                   textDecoration: 'none',
                   display: 'contents'
