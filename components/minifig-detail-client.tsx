@@ -13,6 +13,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import SetAdCard from '@/components/SetAdCard';
 import MoveDialog from '@/components/MoveDialog';
 import MinifigDescription from '@/components/MinifigDescription';
+import MinifigFAQ from '@/components/MinifigFAQ';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 import { formatPrice } from '@/lib/format-price';
 import { generateAmazonMinifigLink, generateBrickLinkMinifigLink } from '@/lib/affiliate-links';
@@ -3053,6 +3054,16 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
           </button>
         </div>
       )}
+
+      {/* FAQ Section for SEO */}
+      <MinifigFAQ
+        minifigNo={minifig.no}
+        minifigName={minifig.name}
+        categoryName={minifig.category_name}
+        yearReleased={minifig.year_released}
+        suggestedPrice={currentPricing?.suggestedPrice || 0}
+        currencyCode={currentPricing?.currencyCode || 'USD'}
+      />
     </div>
   );
 }

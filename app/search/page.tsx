@@ -7,6 +7,7 @@ import { SearchResults } from '@/components/search';
 import { CollectionItem } from '@/types';
 import FeaturedSets from '@/components/FeaturedSets';
 import LeaderboardsSection from '@/components/LeaderboardsSection';
+import TrendingMinifigs from '@/components/TrendingMinifigs';
 import { useTranslation } from '@/components/TranslationProvider';
 
 // Diverse minifigures from multiple themes (verified to exist in catalog)
@@ -529,6 +530,7 @@ function SearchPageContent() {
       {/* Featured Sets - Only show when not actively searching */}
       {!isSearchActive && (
         <>
+          <TrendingMinifigs />
           <FeaturedSets />
           <LeaderboardsSection />
         </>
