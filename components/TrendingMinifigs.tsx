@@ -46,29 +46,30 @@ export default function TrendingMinifigs() {
   }
 
   return (
-    <div style={{
-      marginTop: '64px',
-      padding: '32px 24px',
-      backgroundColor: '#ffffff',
-      borderRadius: '16px',
-      boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-    }}>
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-        marginBottom: '8px'
-      }}>
-        <FireIcon style={{ width: '28px', height: '28px', color: '#f59e0b' }} />
-        <h2 style={{
-          fontSize: 'var(--text-2xl)',
-          fontWeight: 700,
-          color: '#171717',
-          margin: 0
+    <section
+      style={{
+        padding: '60px 20px 80px',
+        backgroundColor: '#ffffff',
+        borderTop: '1px solid #e5e5e5',
+      }}
+    >
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          marginBottom: '8px'
         }}>
-          Trending This Week
-        </h2>
-      </div>
+          <FireIcon style={{ width: '28px', height: '28px', color: '#f59e0b' }} />
+          <h2 style={{
+            fontSize: 'var(--text-2xl)',
+            fontWeight: 700,
+            color: '#171717',
+            margin: 0
+          }}>
+            Trending This Week
+          </h2>
+        </div>
       <p style={{
         fontSize: 'var(--text-base)',
         color: '#737373',
@@ -166,6 +167,7 @@ export default function TrendingMinifigs() {
           </Link>
         ))}
       </div>
-    </div>
+      </div>
+    </section>
   );
 }
