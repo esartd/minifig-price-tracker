@@ -16,6 +16,7 @@ import { getSetAvailability } from '@/lib/set-availability';
 import { generateLegoSetLink, generateAmazonLegoSetLink, generateBrickLinkAffiliateLink } from '@/lib/affiliate-links';
 import { generateEbaySetLink } from '@/lib/ebay-affiliate-links';
 import { trackAffiliateClick } from '@/lib/analytics';
+import SetDescription from '@/components/SetDescription';
 
 interface SetData {
   box_no: string;
@@ -25,6 +26,7 @@ interface SetData {
   year_released: string | null;
   weight: string;
   image_url: string;
+  description?: string;
 }
 
 interface SetDetailClientProps {
@@ -496,6 +498,13 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
             <h1 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', color: '#171717', marginBottom: '8px' }}>
               {set.name}
             </h1>
+
+            {set.description && (
+              <SetDescription
+                description={set.description}
+                setName={set.name}
+              />
+            )}
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
               <p style={{ fontSize: 'var(--text-sm)', color: '#737373', margin: 0 }}>

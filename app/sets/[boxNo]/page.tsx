@@ -46,9 +46,18 @@ export async function generateMetadata({
     es: 'es_ES',
   };
 
+  // Use localized description from boxes.json (generated SEO content)
+  const descriptionKey = `description_${locale}` as 'description_en' | 'description_de' | 'description_fr' | 'description_es';
+  const description = (set as any)[descriptionKey] ||
+                      (set as any).description_en ||
+                      `${set.category_name} - ${set.name}. Track current BrickLink prices and manage your LEGO set inventory. Released ${set.year_released || 'date unknown'}.`;
+
+  // Use first 2 sentences for meta description (Google truncates at ~155 chars)
+  const metaDescription = description.split('. ').slice(0, 2).join('. ') + '.';
+
   return {
     title: `${set.name} (${set.box_no}) - LEGO Set Price Guide`,
-    description: `${set.category_name} - ${set.name}. Track current BrickLink prices and manage your LEGO set inventory. Released ${set.year_released || 'date unknown'}. Weight: ${set.weight}g.`,
+    description: metaDescription,
     keywords: [
       'LEGO set',
       set.name,
@@ -101,6 +110,16 @@ export default async function SetPage({
     notFound();
   }
 
+  // Get user's locale for description
+  const { headers } = await import('next/headers');
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  // Get localized description
+  const descriptionKey = `description_${locale}` as 'description_en' | 'description_de' | 'description_fr' | 'description_es';
+  const localizedDescription = (set as any)[descriptionKey] || (set as any).description_en || '';
+
   // Transform to expected format
   const setData = {
     box_no: set.box_no,
@@ -109,7 +128,8 @@ export default async function SetPage({
     category_name: set.category_name,
     year_released: set.year_released,
     weight: set.weight,
-    image_url: set.image_url
+    image_url: set.image_url,
+    description: localizedDescription
   };
 
   // Fetch sets from the same theme
