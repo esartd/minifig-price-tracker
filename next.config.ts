@@ -30,9 +30,12 @@ const nextConfig: NextConfig = {
     }
     return config;
   },
-  // Ensure output includes Prisma engine
+  // Ensure output includes Prisma engine and catalog files
   outputFileTracingIncludes: {
-    '/api/**/*': ['./node_modules/@prisma/client-hostinger/**/*'],
+    '/api/**/*': [
+      './node_modules/@prisma/client-hostinger/**/*',
+      './public/catalog/**/*',
+    ],
   },
   async headers() {
     return [
