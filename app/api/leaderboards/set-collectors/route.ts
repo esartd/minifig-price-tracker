@@ -3,6 +3,9 @@ import { prisma } from '@/lib/prisma';
 import { getCurrentSeason, getCurrentSeasonDateRange, formatSeasonDateRange } from '@/lib/donations';
 import { generateDefaultDisplayName } from '@/lib/leaderboards';
 
+export const runtime = 'edge';
+
+
 /**
  * GET /api/leaderboards/set-collectors?period=quarterly|alltime
  * Returns top 5 set collectors

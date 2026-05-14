@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 
+export const runtime = 'edge';
+
+
 /**
  * Consolidated cron endpoint - runs all scheduled tasks
  * Hostinger only allows 1 cron job, so this handles everything

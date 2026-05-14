@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { downloadAllCatalogs } from '@/lib/bricklink-download-manager';
 import { saveCatalogFile } from '@/lib/storage/blob-storage';
 
+export const runtime = 'edge';
+
+
 /**
  * Cron job to download all BrickLink catalog files
  * Runs twice monthly (1st and 15th at 2:30 AM)

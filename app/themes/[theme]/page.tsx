@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import ThemePageClient from '@/components/theme-page-client';
 
+export const runtime = 'edge';
+
+
 // Generate metadata for SEO
 export async function generateMetadata({
   params

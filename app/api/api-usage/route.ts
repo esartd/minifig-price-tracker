@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { prisma, prismaPublic } from '@/lib/prisma';
 import { auth } from '@/auth';
 
+export const runtime = 'edge';
+
+
 // GET - Check current API usage for today
 export async function GET() {
   try {

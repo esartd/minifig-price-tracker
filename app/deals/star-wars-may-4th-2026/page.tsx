@@ -3,6 +3,9 @@ import { headers } from 'next/headers';
 import May4thDealsClient from './client';
 import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
 
+export const runtime = 'edge';
+
+
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const host = headersList.get('host') || '';

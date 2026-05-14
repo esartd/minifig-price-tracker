@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getCurrentSeason, formatSeasonDateRange } from '@/lib/donations';
 
+export const runtime = 'edge';
+
+
 /**
  * GET /api/donations/leaderboard?period=quarterly|alltime
  * Returns top 5 donors

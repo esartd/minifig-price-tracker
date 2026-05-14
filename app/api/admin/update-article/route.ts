@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 
+export const runtime = 'edge';
+
+
 export async function POST(request: NextRequest) {
   try {
     console.log('🔧 Article update triggered by:', request.headers.get('user-agent'));

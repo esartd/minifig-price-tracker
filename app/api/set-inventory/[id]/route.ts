@@ -3,6 +3,9 @@ import { database } from '@/lib/database';
 import { bricklinkAPI } from '@/lib/bricklink';
 import { auth } from '@/auth';
 
+export const runtime = 'edge';
+
+
 // GET a single set inventory item
 export async function GET(
   request: NextRequest,

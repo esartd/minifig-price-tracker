@@ -3,6 +3,9 @@ import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { generateListing } from '@/lib/listing-templates';
 
+export const runtime = 'edge';
+
+
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }

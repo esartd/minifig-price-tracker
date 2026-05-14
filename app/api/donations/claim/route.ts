@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { validateDisplayName } from '@/lib/donations';
 
+export const runtime = 'edge';
+
+
 /**
  * POST /api/donations/claim
  * Allows donors to claim their donation and set leaderboard preferences

@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { database } from '@/lib/database';
 import { auth } from '@/auth';
 
+export const runtime = 'edge';
+
+
 // POST move set from inventory to personal collection
 export async function POST(
   request: NextRequest,

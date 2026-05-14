@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { fetchAmazonPrice, isAmazonPricingConfigured, formatPrice } from '@/lib/amazon-pricing';
 
+export const runtime = 'edge';
+
+
 /**
  * Test endpoint for Amazon PA-API integration
  * GET /api/test-amazon-pricing?asin=B0XXXXXX

@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+export const runtime = 'edge';
+
+
 /**
  * ADMIN ENDPOINT: Manual Catalog Upload - DEPRECATED
  *

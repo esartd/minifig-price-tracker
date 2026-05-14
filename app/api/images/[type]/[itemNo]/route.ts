@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { put, head } from '@vercel/blob';
 
+export const runtime = 'edge';
+
+
 /**
  * Image proxy API that:
  * 1. Checks if image exists in Vercel Blob

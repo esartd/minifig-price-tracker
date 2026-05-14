@@ -5,6 +5,9 @@ import path from 'path';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 
+export const runtime = 'edge';
+
+
 const execAsync = promisify(exec);
 
 // Verify cron secret to prevent unauthorized backups

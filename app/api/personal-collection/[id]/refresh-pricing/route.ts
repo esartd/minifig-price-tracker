@@ -3,6 +3,9 @@ import { database } from '@/lib/database';
 import { bricklinkAPI } from '@/lib/bricklink';
 import { auth } from '@/auth';
 
+export const runtime = 'edge';
+
+
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }

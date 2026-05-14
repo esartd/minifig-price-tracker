@@ -3,6 +3,9 @@ import { notFound } from 'next/navigation';
 import { getBoxByNumber, loadAllBoxes } from '@/lib/boxes-data';
 import SetDetailClient from '@/components/set-detail-client';
 
+export const runtime = 'edge';
+
+
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
 

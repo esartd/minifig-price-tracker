@@ -5,6 +5,9 @@ import sharp from 'sharp';
 import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 
+export const runtime = 'edge';
+
+
 export async function POST(request: NextRequest) {
   const auth = await requireAdmin();
 

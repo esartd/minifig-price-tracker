@@ -11,6 +11,9 @@ import translationsEs from '@/translations-backup/es.json';
 import { formatCompactNumberSmart } from '@/lib/format-number';
 import AffiliateDashboardButtons from '@/components/AffiliateDashboardButtons';
 
+export const runtime = 'edge';
+
+
 function getTranslations(locale: string) {
   switch (locale) {
     case 'de': return translationsDe;

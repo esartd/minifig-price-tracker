@@ -3,6 +3,9 @@ import SupportPageClient from '@/components/support-page-client';
 import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
 import { headers } from 'next/headers';
 
+export const runtime = 'edge';
+
+
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const host = headersList.get('host') || '';

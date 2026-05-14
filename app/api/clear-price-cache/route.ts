@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 
+export const runtime = 'edge';
+
+
 // GET - Clear price cache for user's current currency (same as POST)
 export async function GET(request: NextRequest) {
   return clearCache();

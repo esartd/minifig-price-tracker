@@ -3,6 +3,9 @@ import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 
+export const runtime = 'edge';
+
+
 export async function POST(request: Request) {
   try {
     const session = await auth();

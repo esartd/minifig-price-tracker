@@ -3,6 +3,9 @@ import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { bricklinkAPI } from '@/lib/bricklink';
 
+export const runtime = 'edge';
+
+
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }

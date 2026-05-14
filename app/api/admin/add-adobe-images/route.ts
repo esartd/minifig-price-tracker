@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/admin-auth';
 import { prisma } from '@/lib/prisma';
 
+export const runtime = 'edge';
+
+
 export async function POST(request: NextRequest) {
   const auth = await requireAdmin();
 

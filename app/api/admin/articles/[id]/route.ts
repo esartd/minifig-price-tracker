@@ -4,6 +4,9 @@ import { prisma } from '@/lib/prisma';
 import { ArticleData } from '@/types/article';
 import { gunzipSync } from 'zlib';
 
+export const runtime = 'edge';
+
+
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }

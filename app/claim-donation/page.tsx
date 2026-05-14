@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import ClaimDonationClient from '@/components/claim-donation-client';
 
+export const runtime = 'edge';
+
+
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Claim Your Donation - FigTracker',

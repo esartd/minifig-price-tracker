@@ -3,6 +3,9 @@ import { database } from '@/lib/database';
 import { bricklinkAPI } from '@/lib/bricklink';
 import { auth } from '@/auth';
 
+export const runtime = 'edge';
+
+
 // POST - Refresh pricing for a single collection item
 export async function POST(
   request: NextRequest,

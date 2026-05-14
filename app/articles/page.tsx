@@ -3,6 +3,9 @@ import ArticlesPageClient from '@/components/articles-page-client';
 import { headers } from 'next/headers';
 import { prisma } from '@/lib/prisma';
 
+export const runtime = 'edge';
+
+
 async function getTranslations(locale: string) {
   try {
     const translations = await import(`@/translations-backup/${locale}.json`);

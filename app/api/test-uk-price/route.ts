@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { bricklinkAPI } from '@/lib/bricklink';
 import { auth } from '@/auth';
 
+export const runtime = 'edge';
+
+
 // GET - Test UK pricing for a specific item
 export async function GET(request: NextRequest) {
   try {

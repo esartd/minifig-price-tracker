@@ -3,6 +3,9 @@ import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { SUPPORTED_CURRENCIES } from '@/lib/currency-config';
 
+export const runtime = 'edge';
+
+
 export async function POST(request: NextRequest) {
   try {
     const session = await auth();

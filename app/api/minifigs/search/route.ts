@@ -3,6 +3,9 @@ import { bricklinkAPI } from '@/lib/bricklink';
 import { prismaPublic } from '@/lib/prisma';
 import { getAllMinifigs, findMinifigByNumber } from '@/lib/catalog-static';
 
+export const runtime = 'edge';
+
+
 /**
  * SEARCH IMPLEMENTATION
  *

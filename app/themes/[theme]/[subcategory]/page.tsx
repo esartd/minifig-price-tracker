@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import SubcategoryPageClient from '@/components/subcategory-page-client';
 
+export const runtime = 'edge';
+
+
 // Generate metadata for SEO
 export async function generateMetadata({
   params

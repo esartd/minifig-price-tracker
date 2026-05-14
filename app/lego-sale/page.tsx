@@ -3,6 +3,9 @@ import { notFound } from 'next/navigation';
 import LegoSaleClient from './client';
 import { triggerRefreshIfStale } from '@/lib/amazon-deals-refresh';
 
+export const runtime = 'edge';
+
+
 // Feature flag check
 const ENABLED = process.env.ENABLE_LEGO_SALE === 'true';
 

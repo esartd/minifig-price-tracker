@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { findMinifigByNumber, getMinifigsByCategoryId } from '@/lib/catalog-static';
 import { getCharacterName, getCharacterVariations } from '@/lib/character-aliases';
 
+export const runtime = 'edge';
+
+
 /**
  * COMPLIANT RELATED MINIFIGS
  *

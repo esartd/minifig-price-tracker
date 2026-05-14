@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { bricklinkAPI } from '@/lib/bricklink';
 import { auth } from '@/auth';
 
+export const runtime = 'edge';
+
+
 // GET /api/collection/temp-pricing?itemNo=sw0001&condition=new
 export async function GET(request: NextRequest) {
   try {

@@ -3,6 +3,9 @@ import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { randomBytes } from 'crypto';
 
+export const runtime = 'edge';
+
+
 type CollectionType = 'inventory' | 'collection' | 'sets-inventory' | 'sets-collection';
 type ShareMode = 'public' | 'private';
 

@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getBoxByNumber } from '@/lib/boxes-data';
 
+export const runtime = 'edge';
+
+
 // Feature flag check
 const ENABLED = process.env.ENABLE_LEGO_SALE === 'true';
 

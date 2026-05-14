@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { bricklinkAPI } from '@/lib/bricklink';
 import { prisma, prismaPublic } from '@/lib/prisma';
 
+export const runtime = 'edge';
+
+
 /**
  * ADMIN ENDPOINT: Check Catalog Changes
  *

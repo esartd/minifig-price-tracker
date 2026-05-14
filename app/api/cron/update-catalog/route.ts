@@ -3,6 +3,9 @@ import { prismaPublic } from '@/lib/prisma';
 import { downloadBricklinkCatalog, parseCatalogData, importCatalogItems } from '@/lib/bricklink-catalog';
 import { downloadAllBricklinkFiles } from '@/lib/bricklink-files';
 
+export const runtime = 'edge';
+
+
 /**
  * CRON JOB: Update Bricklink Catalogs
  *
