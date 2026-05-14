@@ -15,9 +15,9 @@ export default function SetDescription({
 
   if (!description) return null;
 
-  // Split into sentences for 2-line preview
-  const sentences = description.split('. ').filter(s => s.length > 0);
-  const preview = sentences.slice(0, 2).join('. ') + (sentences.length > 2 ? '...' : '.');
+  // Show "Show more" button if description is long enough to be truncated
+  // Approximate: 2 lines at 14px font with line-height 1.7 ≈ 150 characters on mobile
+  const isLongDescription = description.length > 150;
 
   return (
     <div style={{
@@ -32,12 +32,12 @@ export default function SetDescription({
         display: expanded ? 'block' : '-webkit-box',
         WebkitLineClamp: expanded ? 'unset' : 2,
         WebkitBoxOrient: 'vertical',
-        marginBottom: expanded || sentences.length <= 2 ? '0' : '8px',
+        marginBottom: expanded || !isLongDescription ? '0' : '8px',
       }}>
-        {expanded ? description : preview}
+        {description}
       </div>
 
-      {sentences.length > 2 && (
+      {isLongDescription && (
         <button
           onClick={() => setExpanded(!expanded)}
           aria-label={expanded ? 'Show less description' : 'Show more description'}
