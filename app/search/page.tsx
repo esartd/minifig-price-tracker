@@ -133,10 +133,11 @@ function SearchPageContent() {
     }
   }, []);
 
-  // Track if search is active (has query or results)
+  // Track if search is active (has query or is showing results from a search)
+  // Only hide sections if user is actively searching (has typed something)
   useEffect(() => {
-    setIsSearchActive(searchQuery.length > 0 || searchResults.length > 0 || !!searchResult);
-  }, [searchQuery, searchResults, searchResult]);
+    setIsSearchActive(searchQuery.length > 0);
+  }, [searchQuery]);
 
   // Execute search as user types (instant)
   useEffect(() => {
