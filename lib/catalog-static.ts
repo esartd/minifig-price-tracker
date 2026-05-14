@@ -22,8 +22,8 @@ const CACHE_TTL = 15 * 60 * 1000; // 15 minutes - matches typical Vercel lambda 
 let categoriesCache: Map<number, { name: string; count: number }> | null = null;
 
 /**
- * Load catalog from database (production) or JSON file (local dev)
- * Vercel has issues with large files in serverless functions
+ * Load catalog from HTTP (production) or filesystem (local dev)
+ * Vercel serverless functions can't handle 8MB files in fs.readFileSync
  */
 async function loadCatalog(): Promise<MinifigCatalogItem[]> {
   const now = Date.now();
@@ -52,44 +52,30 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
         return catalogCache!;
       }
     } catch (fsError) {
-      console.log('[CATALOG] Filesystem unavailable (Vercel), falling back to database');
+      console.log('[CATALOG] Filesystem unavailable, trying HTTP fallback');
     }
 
-    // Fallback to database (production/Vercel)
+    // Fallback: Load via HTTP from public URL (Vercel serves public/ folder via CDN)
     try {
-      const { prisma } = await import('./prisma');
-      const minifigs = await prisma.minifigCatalog.findMany({
-        select: {
-          minifigure_no: true,
-          name: true,
-          category_id: true,
-          category_name: true,
-          year_released: true,
-          updated_at: true,
-        },
-        orderBy: {
-          minifigure_no: 'asc'
-        }
-      });
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : 'https://figtracker.ericksu.com';
 
-      catalogCache = minifigs.map(m => ({
-        minifigure_no: m.minifigure_no,
-        name: m.name,
-        category_id: m.category_id,
-        category_name: m.category_name,
-        year_released: m.year_released,
-        weight: null,
-        size: null,
-        image_url: `https://img.bricklink.com/ItemImage/MN/0/${m.minifigure_no}.png`,
-        thumbnail_url: `https://img.bricklink.com/ItemImage/TN/0/${m.minifigure_no}.png`,
-        updated_at: m.updated_at.toISOString()
-      }));
+      const url = `${baseUrl}/catalog/minifigs.json`;
+      console.log('[CATALOG] Attempting HTTP load from:', url);
 
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      catalogCache = data;
       cacheTimestamp = now;
-      console.log('[CATALOG] ✅ Database load successful:', catalogCache?.length || 0, 'minifigs');
+      console.log('[CATALOG] ✅ HTTP load successful:', catalogCache?.length || 0, 'minifigs');
       return catalogCache!;
-    } catch (dbError) {
-      console.error('[CATALOG] ❌ Database error:', dbError);
+    } catch (httpError) {
+      console.error('[CATALOG] ❌ HTTP load failed:', httpError);
       return [];
     }
   }
