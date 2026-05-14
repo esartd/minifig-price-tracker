@@ -242,3 +242,4 @@ Questions or issues? Open an issue on GitHub.
 ---
 
 Built with ❤️ for LEGO minifig collectors and sellers
+# Force rebuild
