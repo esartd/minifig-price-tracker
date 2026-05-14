@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAllMinifigs } from '@/lib/catalog-static';
 import { getMainCharacter, THEME_OVERRIDES } from '@/lib/theme-main-characters';
 
+// Force dynamic rendering since we use searchParams
+export const dynamic = 'force-dynamic';
 // Cache for 30 minutes (no BrickLink pricing data)
 export const revalidate = 1800;
 
