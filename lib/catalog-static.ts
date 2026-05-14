@@ -22,8 +22,8 @@ const CACHE_TTL = 15 * 60 * 1000; // 15 minutes - matches typical Vercel lambda 
 let categoriesCache: Map<number, { name: string; count: number }> | null = null;
 
 /**
- * Load catalog from JSON file (works both server and client side)
- * ONLY loads on server-side from filesystem - client uses direct API calls
+ * Load catalog from database (production) or JSON file (local dev)
+ * Vercel has issues with large files in serverless functions
  */
 async function loadCatalog(): Promise<MinifigCatalogItem[]> {
   const now = Date.now();
@@ -33,32 +33,63 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
     return catalogCache;
   }
 
-  // Server-side ONLY - load from filesystem
+  // Server-side ONLY
   if (typeof window === 'undefined') {
+    // Try filesystem first (local dev)
     try {
       const fs = await import('fs');
       const path = await import('path');
       const filePath = path.join(process.cwd(), 'public', 'catalog', 'minifigs.json');
 
-      console.log('[CATALOG] Attempting to load from:', filePath);
-      console.log('[CATALOG] File exists?', fs.existsSync(filePath));
-
       if (fs.existsSync(filePath)) {
         const stats = fs.statSync(filePath);
-        console.log('[CATALOG] File size:', (stats.size / 1024 / 1024).toFixed(2), 'MB');
+        console.log('[CATALOG] Loading from filesystem:', (stats.size / 1024 / 1024).toFixed(2), 'MB');
 
         const content = fs.readFileSync(filePath, 'utf-8');
         catalogCache = JSON.parse(content);
         cacheTimestamp = now;
-        console.log('[CATALOG] ✅ Loaded successfully:', catalogCache?.length || 0, 'minifigs');
+        console.log('[CATALOG] ✅ Filesystem load successful:', catalogCache?.length || 0, 'minifigs');
         return catalogCache!;
-      } else {
-        console.error('[CATALOG] ❌ File not found:', filePath);
-        console.error('[CATALOG] Directory contents:', fs.readdirSync(path.join(process.cwd(), 'public', 'catalog')));
-        return [];
       }
     } catch (fsError) {
-      console.error('[CATALOG] ❌ Filesystem error:', fsError);
+      console.log('[CATALOG] Filesystem unavailable (Vercel), falling back to database');
+    }
+
+    // Fallback to database (production/Vercel)
+    try {
+      const { prisma } = await import('./prisma');
+      const minifigs = await prisma.minifigCatalog.findMany({
+        select: {
+          minifigure_no: true,
+          name: true,
+          category_id: true,
+          category_name: true,
+          year_released: true,
+          updated_at: true,
+        },
+        orderBy: {
+          minifigure_no: 'asc'
+        }
+      });
+
+      catalogCache = minifigs.map(m => ({
+        minifigure_no: m.minifigure_no,
+        name: m.name,
+        category_id: m.category_id,
+        category_name: m.category_name,
+        year_released: m.year_released,
+        weight: null,
+        size: null,
+        image_url: `https://img.bricklink.com/ItemImage/MN/0/${m.minifigure_no}.png`,
+        thumbnail_url: `https://img.bricklink.com/ItemImage/TN/0/${m.minifigure_no}.png`,
+        updated_at: m.updated_at.toISOString()
+      }));
+
+      cacheTimestamp = now;
+      console.log('[CATALOG] ✅ Database load successful:', catalogCache?.length || 0, 'minifigs');
+      return catalogCache!;
+    } catch (dbError) {
+      console.error('[CATALOG] ❌ Database error:', dbError);
       return [];
     }
   }
