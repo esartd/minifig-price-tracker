@@ -10,6 +10,7 @@ const path = require('path');
 const starWarsUCS = require('./descriptions-star-wars-ucs');
 const starWarsPopular = require('./descriptions-star-wars-popular');
 const starWarsRecent = require('./descriptions-star-wars-recent');
+const starWarsVehicles = require('./descriptions-star-wars-vehicles');
 const harryPotter = require('./descriptions-harry-potter');
 const marvelDC = require('./descriptions-marvel-dc');
 const architectureIcons = require('./descriptions-architecture-icons');
@@ -21,6 +22,11 @@ const friends = require('./descriptions-friends');
 const disney = require('./descriptions-disney');
 const lordOfTheRings = require('./descriptions-lord-of-the-rings');
 const jurassicWorld = require('./descriptions-jurassic-world');
+const minecraft = require('./descriptions-minecraft');
+const speedChampions = require('./descriptions-speed-champions');
+const superMario = require('./descriptions-super-mario');
+const monkieKid = require('./descriptions-monkie-kid');
+const batman = require('./descriptions-batman');
 
 // Combine all descriptions
 const allDescriptions = {
@@ -52,6 +58,7 @@ const allDescriptions = {
   ...starWarsUCS,
   ...starWarsPopular,
   ...starWarsRecent,
+  ...starWarsVehicles,
   ...harryPotter,
   ...marvelDC,
   ...architectureIcons,
@@ -62,7 +69,12 @@ const allDescriptions = {
   ...friends,
   ...disney,
   ...lordOfTheRings,
-  ...jurassicWorld
+  ...jurassicWorld,
+  ...minecraft,
+  ...speedChampions,
+  ...superMario,
+  ...monkieKid,
+  ...batman
 };
 
 const boxesPath = path.join(process.cwd(), 'public', 'catalog', 'boxes.json');
@@ -97,6 +109,7 @@ console.log(`\nThemes updated:`);
 console.log(`  - Star Wars UCS: 5 sets`);
 console.log(`  - Star Wars Popular: 5 sets`);
 console.log(`  - Star Wars Recent: 5 sets`);
+console.log(`  - Star Wars Vehicles: 14 sets`);
 console.log(`  - Harry Potter: 5 sets`);
 console.log(`  - Marvel/DC: 5 sets`);
 console.log(`  - Architecture/Icons: 5 sets`);
@@ -108,4 +121,9 @@ console.log(`  - Friends: 5 sets`);
 console.log(`  - Disney: 5 sets`);
 console.log(`  - Lord of the Rings: 5 sets`);
 console.log(`  - Jurassic World: 5 sets`);
+console.log(`  - Minecraft: 10 sets`);
+console.log(`  - Speed Champions: 10 sets`);
+console.log(`  - Super Mario: 10 sets`);
+console.log(`  - Monkie Kid: 10 sets`);
+console.log(`  - Batman: 10 sets`);
 console.log(`  - Total: ${updatedCount} sets`);
