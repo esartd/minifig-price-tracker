@@ -20,6 +20,40 @@ export async function GET() {
       take: 12
     });
 
+    // If no trending data (no users have collections yet), return popular defaults
+    if (trending.length === 0) {
+      const fallbackMinifigs = [
+        'sw0107', 'sw0218', 'sw0315', 'sw0547', 'sw0275', 'sw0450',
+        'hp395', 'col425', 'sh678', 'lor093', 'njo721', 'cty1234'
+      ];
+
+      const minifigs = await prisma.minifigCatalog.findMany({
+        where: {
+          minifigure_no: { in: fallbackMinifigs }
+        },
+        select: {
+          minifigure_no: true,
+          name: true,
+          category_name: true,
+          year_released: true
+        }
+      });
+
+      const result = minifigs.map(m => ({
+        no: m.minifigure_no,
+        name: m.name,
+        categoryName: m.category_name,
+        yearReleased: m.year_released || null,
+        imageUrl: `https://img.bricklink.com/ItemImage/MN/0/${m.minifigure_no}.png`,
+        userCount: 0
+      }));
+
+      return NextResponse.json({
+        success: true,
+        data: result
+      });
+    }
+
     // Get minifig details for each trending item
     const minifigNos = trending.map(t => t.minifigure_no);
     const minifigs = await prisma.minifigCatalog.findMany({

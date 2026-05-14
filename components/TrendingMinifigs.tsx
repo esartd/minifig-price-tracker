@@ -20,16 +20,23 @@ export default function TrendingMinifigs() {
 
   useEffect(() => {
     fetch('/api/trending/minifigs')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+        return res.json();
+      })
       .then(data => {
-        if (data.success) {
+        if (data.success && data.data) {
           setTrending(data.data);
         }
         setLoading(false);
       })
       .catch(err => {
         console.error('Failed to load trending:', err);
+        // Silently fail - don't show section if API is down
         setLoading(false);
+        setTrending([]);
       });
   }, []);
 
