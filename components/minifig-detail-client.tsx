@@ -921,37 +921,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     />
                   )}
 
-                  {/* Show what user owns - moved above condition toggle */}
-                  {session && (allInventoryItems.length > 0 || allCollectionItems.length > 0) && (
-                    <div style={{
-                      fontSize: 'var(--text-xs)',
-                      color: '#3b82f6',
-                      fontWeight: '500',
-                      marginBottom: '8px',
-                      display: 'flex',
-                      flexWrap: 'wrap',
-                      gap: '8px'
-                    }}>
-                      {allInventoryItems.length > 0 && (
-                        <span>
-                          Inventory: {allInventoryItems
-                            .sort((a, b) => a.condition === 'new' ? -1 : 1)
-                            .map((item: any) => `${item.quantity}x ${item.condition === 'new' ? 'New' : 'Used'}`)
-                            .join(', ')}
-                        </span>
-                      )}
-                      {allCollectionItems.length > 0 && (
-                        <span>
-                          Collection: {allCollectionItems
-                            .sort((a, b) => a.condition === 'new' ? -1 : 1)
-                            .map((item: any) => `${item.quantity}x ${item.condition === 'new' ? 'New' : 'Used'}`)
-                            .join(', ')}
-                        </span>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Condition Toggle */}
+                  {/* Condition Toggle with counts */}
                   <div style={{
                     display: 'flex',
                     gap: '8px',
@@ -961,40 +931,49 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     borderRadius: '8px',
                     width: 'fit-content'
                   }}>
-                    <button
-                      onClick={() => setCondition('new')}
-                      style={{
-                        padding: '8px 16px',
-                        fontSize: 'var(--text-sm)',
-                        fontWeight: '600',
-                        color: condition === 'new' ? '#ffffff' : '#525252',
-                        background: condition === 'new' ? '#3b82f6' : 'transparent',
-                        border: 'none',
-                        borderRadius: '6px',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s',
-                        whiteSpace: 'nowrap'
-                      }}
-                    >
-                      New
-                    </button>
-                    <button
-                      onClick={() => setCondition('used')}
-                      style={{
-                        padding: '8px 16px',
-                        fontSize: 'var(--text-sm)',
-                        fontWeight: '600',
-                        color: condition === 'used' ? '#ffffff' : '#525252',
-                        background: condition === 'used' ? '#3b82f6' : 'transparent',
-                        border: 'none',
-                        borderRadius: '6px',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s',
-                        whiteSpace: 'nowrap'
-                      }}
-                    >
-                      Used
-                    </button>
+                    {(() => {
+                      const newCount = session ? [...allInventoryItems, ...allCollectionItems].filter(item => item.condition === 'new').reduce((sum, item) => sum + item.quantity, 0) : 0;
+                      const usedCount = session ? [...allInventoryItems, ...allCollectionItems].filter(item => item.condition === 'used').reduce((sum, item) => sum + item.quantity, 0) : 0;
+
+                      return (
+                        <>
+                          <button
+                            onClick={() => setCondition('new')}
+                            style={{
+                              padding: '8px 16px',
+                              fontSize: 'var(--text-sm)',
+                              fontWeight: '600',
+                              color: condition === 'new' ? '#ffffff' : '#525252',
+                              background: condition === 'new' ? '#3b82f6' : 'transparent',
+                              border: 'none',
+                              borderRadius: '6px',
+                              cursor: 'pointer',
+                              transition: 'all 0.2s',
+                              whiteSpace: 'nowrap'
+                            }}
+                          >
+                            New{newCount > 0 ? ` (${newCount})` : ''}
+                          </button>
+                          <button
+                            onClick={() => setCondition('used')}
+                            style={{
+                              padding: '8px 16px',
+                              fontSize: 'var(--text-sm)',
+                              fontWeight: '600',
+                              color: condition === 'used' ? '#ffffff' : '#525252',
+                              background: condition === 'used' ? '#3b82f6' : 'transparent',
+                              border: 'none',
+                              borderRadius: '6px',
+                              cursor: 'pointer',
+                              transition: 'all 0.2s',
+                              whiteSpace: 'nowrap'
+                            }}
+                          >
+                            Used{usedCount > 0 ? ` (${usedCount})` : ''}
+                          </button>
+                        </>
+                      );
+                    })()}
                   </div>
 
                   {/* Pricing Row */}
