@@ -486,12 +486,16 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
           </div>
 
           <div className="minifig-details-section">
-            {/* Year Badge */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              gap: '8px', marginBottom: '8px', marginTop: 0, flexWrap: 'wrap' }}>
-              <span style={{ fontSize: 'var(--text-xs)', fontWeight: '500', color: '#3b82f6',
-                textTransform: 'uppercase', letterSpacing: '0.05em', flex: '0 1 auto', minWidth: 0 }}>
+            {/* Year and Set Number */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', marginTop: 0,
+              fontSize: 'var(--text-xs)', fontWeight: '500', color: '#3b82f6',
+              textTransform: 'uppercase', letterSpacing: '0.05em', flexWrap: 'wrap' }}>
+              <span>
                 {set.year_released && set.year_released !== '?' ? set.year_released : 'Year Unknown'}
+              </span>
+              <span style={{ opacity: 0.4 }}>•</span>
+              <span>
+                {set.box_no}
               </span>
             </div>
 
@@ -506,40 +510,36 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
               />
             )}
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-              <p style={{ fontSize: 'var(--text-sm)', color: '#737373', margin: 0 }}>
-                {set.box_no}
-              </p>
-              {session && (allInventoryItems.length > 0 || allCollectionItems.length > 0) && (
-                <div style={{ fontSize: 'var(--text-xs)', color: '#737373', display: 'flex', gap: '8px' }}>
-                  {allInventoryItems.length > 0 && (
-                    <span>Inventory: {allInventoryItems.sort((a, b) => a.condition === 'new' ? -1 : 1)
-                      .map((item: any) => `${item.quantity}x ${item.condition === 'new' ? 'New' : 'Used'}`).join(', ')}</span>
-                  )}
-                  {allCollectionItems.length > 0 && (
-                    <span>Collection: {allCollectionItems.sort((a, b) => a.condition === 'new' ? -1 : 1)
-                      .map((item: any) => `${item.quantity}x ${item.condition === 'new' ? 'New' : 'Used'}`).join(', ')}</span>
-                  )}
-                </div>
-              )}
-            </div>
-
+            {/* Condition Toggle with counts */}
             <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', padding: '4px',
               background: '#f5f5f5', borderRadius: '8px', width: 'fit-content' }}>
-              <button onClick={() => setCondition('new')} style={{
-                padding: '8px 16px', fontSize: 'var(--text-sm)', fontWeight: '600',
-                color: condition === 'new' ? '#ffffff' : '#525252',
-                background: condition === 'new' ? '#3b82f6' : 'transparent',
-                border: 'none', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.2s',
-                whiteSpace: 'nowrap'
-              }}>New</button>
-              <button onClick={() => setCondition('used')} style={{
-                padding: '8px 16px', fontSize: 'var(--text-sm)', fontWeight: '600',
-                color: condition === 'used' ? '#ffffff' : '#525252',
-                background: condition === 'used' ? '#3b82f6' : 'transparent',
-                border: 'none', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.2s',
-                whiteSpace: 'nowrap'
-              }}>Used</button>
+              {(() => {
+                const newCount = session ? [...allInventoryItems, ...allCollectionItems].filter(item => item.condition === 'new').reduce((sum, item) => sum + item.quantity, 0) : 0;
+                const usedCount = session ? [...allInventoryItems, ...allCollectionItems].filter(item => item.condition === 'used').reduce((sum, item) => sum + item.quantity, 0) : 0;
+
+                return (
+                  <>
+                    <button onClick={() => setCondition('new')} style={{
+                      padding: '8px 16px', fontSize: 'var(--text-sm)', fontWeight: '600',
+                      color: condition === 'new' ? '#ffffff' : '#525252',
+                      background: condition === 'new' ? '#3b82f6' : 'transparent',
+                      border: 'none', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.2s',
+                      whiteSpace: 'nowrap'
+                    }}>
+                      New{newCount > 0 ? ` (${newCount})` : ''}
+                    </button>
+                    <button onClick={() => setCondition('used')} style={{
+                      padding: '8px 16px', fontSize: 'var(--text-sm)', fontWeight: '600',
+                      color: condition === 'used' ? '#ffffff' : '#525252',
+                      background: condition === 'used' ? '#3b82f6' : 'transparent',
+                      border: 'none', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.2s',
+                      whiteSpace: 'nowrap'
+                    }}>
+                      Used{usedCount > 0 ? ` (${usedCount})` : ''}
+                    </button>
+                  </>
+                );
+              })()}
             </div>
 
             {pricing.loading ? (
