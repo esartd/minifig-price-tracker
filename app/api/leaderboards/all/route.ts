@@ -177,10 +177,17 @@ export async function GET(request: NextRequest) {
       data: result,
       cached: false,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('[All Leaderboards API] Error:', error);
+    console.error('[All Leaderboards API] Error message:', error?.message);
+    console.error('[All Leaderboards API] Error name:', error?.name);
     return NextResponse.json(
-      { success: false, error: 'Failed to fetch leaderboards' },
+      {
+        success: false,
+        error: 'Failed to fetch leaderboards',
+        details: error?.message || String(error),
+        errorName: error?.name
+      },
       { status: 500 }
     );
   }
