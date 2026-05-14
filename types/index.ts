@@ -39,6 +39,7 @@ export interface PricingData {
   currentLowest: number; // Lowest current listing price
   suggestedPrice: number; // Calculated suggested selling price
   currencyCode?: string; // Currency code the prices are in (e.g., 'USD', 'KRW', 'EUR')
+  cached_at?: string; // ISO timestamp of when this price was cached
 }
 
 export interface CollectionItem {
