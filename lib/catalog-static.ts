@@ -30,45 +30,71 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
 
   // Check if cache is still valid
   if (catalogCache && (now - cacheTimestamp) < CACHE_TTL) {
+    console.log('[CATALOG] Using cached data:', catalogCache.length, 'minifigs');
     return catalogCache;
   }
 
-  // Server-side ONLY - load from filesystem OR HTTP fallback
+  // Server-side ONLY - load from filesystem OR database fallback
   if (typeof window === 'undefined') {
+    console.log('[CATALOG] Server-side loading started...');
     try {
       const fs = await import('fs');
       const path = await import('path');
-      const filePath = path.join(process.cwd(), 'public', 'catalog', 'minifigs.json');
 
-      if (fs.existsSync(filePath)) {
-        const content = fs.readFileSync(filePath, 'utf-8');
-        catalogCache = JSON.parse(content);
-        cacheTimestamp = now;
-        console.log('[CATALOG] Loaded from filesystem:', catalogCache ? 'cache expired' : 'first load', catalogCache?.length || 0, 'minifigs');
-        return catalogCache!;
-      } else {
-        console.warn('[CATALOG] File not found on filesystem, trying HTTP fallback...');
+      // Try multiple possible paths where the file might be
+      const possiblePaths = [
+        path.join(process.cwd(), 'public', 'catalog', 'minifigs.json'),
+        path.join(process.cwd(), '.next', 'static', 'catalog', 'minifigs.json'),
+        '/var/task/public/catalog/minifigs.json', // Vercel Lambda path
+        path.join(__dirname, '..', 'public', 'catalog', 'minifigs.json'),
+      ];
 
-        // Vercel deployment might not have file in filesystem - fetch from public URL
-        try {
-          const response = await fetch('https://figtracker.ericksu.com/catalog/minifigs.json');
-          if (response.ok) {
-            const data = await response.json();
-            catalogCache = data;
-            cacheTimestamp = now;
-            console.log('[CATALOG] Loaded from HTTP fallback:', catalogCache?.length || 0, 'minifigs');
-            return catalogCache!;
-          } else {
-            console.error('[CATALOG] HTTP fallback failed:', response.status);
-            return [];
-          }
-        } catch (httpError) {
-          console.error('[CATALOG] HTTP fallback error:', httpError);
-          return [];
+      for (const filePath of possiblePaths) {
+        if (fs.existsSync(filePath)) {
+          console.log('[CATALOG] Found file at:', filePath);
+          const content = fs.readFileSync(filePath, 'utf-8');
+          catalogCache = JSON.parse(content);
+          cacheTimestamp = now;
+          console.log('[CATALOG] Loaded from filesystem:', catalogCache?.length || 0, 'minifigs');
+          return catalogCache!;
         }
       }
-    } catch (fsError) {
-      console.error('[CATALOG] Filesystem error:', fsError);
+
+      // File not found in any location - fall back to database
+      console.warn('[CATALOG] File not found in any location, falling back to database...');
+      const { prismaPublic } = await import('./prisma');
+      const minifigs = await prismaPublic.minifigCatalog.findMany({
+        select: {
+          minifigure_no: true,
+          name: true,
+          category_id: true,
+          category_name: true,
+          year_released: true,
+          weight_grams: true,
+          updated_at: true,
+        }
+      });
+
+      // Transform to match expected format
+      catalogCache = minifigs.map(m => ({
+        minifigure_no: m.minifigure_no,
+        name: m.name,
+        category_id: m.category_id,
+        category_name: m.category_name,
+        year_released: m.year_released,
+        weight: m.weight_grams?.toString() || null,
+        size: null,
+        image_url: `/api/images/minifig/${m.minifigure_no}`,
+        thumbnail_url: `/api/images/minifig/${m.minifigure_no}`,
+        updated_at: m.updated_at.toISOString(),
+      }));
+
+      cacheTimestamp = now;
+      console.log('[CATALOG] Loaded from database fallback:', catalogCache.length, 'minifigs');
+      return catalogCache;
+
+    } catch (error) {
+      console.error('[CATALOG] Fatal error loading catalog:', error);
       return [];
     }
   }
