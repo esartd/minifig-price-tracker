@@ -29,6 +29,7 @@ export default function CollectionPage() {
   const [pricesUpdating, setPricesUpdating] = useState(0); // Count of items being updated
   const [pricesFetching, setPricesFetching] = useState(false); // Track if pricing is actively loading
   const [itemsUpdating, setItemsUpdating] = useState<Set<string>>(new Set()); // Track which item IDs are currently updating
+  const [staleItems, setStaleItems] = useState<Set<string>>(new Set()); // Track which item IDs have stale prices (>6 hours old)
 
   // Pagination state for display only (all items loaded client-side)
   const [currentPage, setCurrentPage] = useState(1);
@@ -118,6 +119,10 @@ export default function CollectionPage() {
           setPricesUpdating(itemsNeedingRefresh.length);
           setPricesFetching(true); // Indicate pricing is in progress
 
+          // Mark ALL stale items with blue dots
+          const staleItemIds = new Set<string>(itemsNeedingRefresh.map((item: CollectionItem) => item.id));
+          setStaleItems(staleItemIds);
+
           // Client-side progressive fetch: fetch items one by one to avoid serverless timeout
           let currentIndex = 0;
 
@@ -159,6 +164,13 @@ export default function CollectionPage() {
 
             // Remove this item from updating set
             setItemsUpdating(prev => {
+              const next = new Set(prev);
+              next.delete(item.id);
+              return next;
+            });
+
+            // Remove from stale items (blue dot disappears)
+            setStaleItems(prev => {
               const next = new Set(prev);
               next.delete(item.id);
               return next;
@@ -577,7 +589,7 @@ export default function CollectionPage() {
               </h2>
 
               {/* Price Update Legend */}
-              {pricesUpdating > 0 && (
+              {staleItems.size > 0 && (
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -591,7 +603,7 @@ export default function CollectionPage() {
                     background: '#3b82f6',
                     borderRadius: '50%'
                   }} />
-                  <span>Updating price ({pricesUpdating} remaining)</span>
+                  <span>Prices older than 6 hours • Refreshing now ({pricesUpdating} remaining)</span>
                 </div>
               )}
             </div>
@@ -802,6 +814,7 @@ export default function CollectionPage() {
               onRefresh={loadCollection}
               pricesFetching={pricesFetching}
               itemsUpdating={itemsUpdating}
+              staleItems={staleItems}
             />
           )}
 

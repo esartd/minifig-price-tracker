@@ -19,6 +19,7 @@ interface SetInventoryListProps {
   onRefresh?: () => Promise<void>;
   pricesFetching?: boolean; // Indicates if pricing is actively loading
   itemsUpdating?: Set<string>; // Set of item IDs currently being updated
+  staleItems?: Set<string>; // Set of item IDs with stale prices (>6 hours old)
 }
 
 export default function SetInventoryList({
@@ -30,6 +31,7 @@ export default function SetInventoryList({
   onRefresh,
   pricesFetching = false,
   itemsUpdating = new Set(),
+  staleItems = new Set(),
 }: SetInventoryListProps) {
   const router = useRouter();
   const { data: session } = useSession();
@@ -281,8 +283,8 @@ export default function SetInventoryList({
               </div>
             ) : item.pricing.suggestedPrice > 0 ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                {/* Blue dot if this item is updating */}
-                {itemsUpdating.has(item.id) && (
+                {/* Blue dot if this item has stale pricing (>6 hours old) */}
+                {staleItems.has(item.id) && (
                   <div style={{
                     width: '8px',
                     height: '8px',

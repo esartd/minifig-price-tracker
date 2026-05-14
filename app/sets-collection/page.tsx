@@ -27,6 +27,7 @@ export default function SetsCollectionPage() {
   const [pricesUpdating, setPricesUpdating] = useState(0);
   const [pricesFetching, setPricesFetching] = useState(false); // Track if pricing is actively loading
   const [itemsUpdating, setItemsUpdating] = useState<Set<string>>(new Set()); // Track which item IDs are currently updating
+  const [staleItems, setStaleItems] = useState<Set<string>>(new Set()); // Track which item IDs have stale prices (>6 hours old)
 
   // Pagination state for display only (all items loaded client-side)
   const [currentPage, setCurrentPage] = useState(1);
@@ -85,13 +86,26 @@ export default function SetsCollectionPage() {
         setCollection(data.data);
         setLoading(false);
 
-        // Client-side progressive pricing refresh for items without prices or wrong currency
+        // Check which items need pricing refresh (expired cache or wrong currency)
+        // Note: Items now show stale prices immediately, we just refresh in background
         const userCurrency = session?.user?.preferredCurrency || 'USD';
-        const itemsNeedingRefresh = data.data.filter((item: any) =>
-          !item.pricing ||
-          item.pricing.suggestedPrice === 0 ||
-          item.pricing.currencyCode !== userCurrency
-        );
+        const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
+
+        const itemsNeedingRefresh = data.data.filter((item: any) => {
+          // Refresh if no pricing at all
+          if (!item.pricing || item.pricing.suggestedPrice === 0) return true;
+
+          // Refresh if wrong currency
+          if (item.pricing.currencyCode !== userCurrency) return true;
+
+          // Refresh if cache is older than 6 hours (stale)
+          if (item.pricing.cached_at) {
+            const cacheAge = Date.now() - new Date(item.pricing.cached_at).getTime();
+            if (cacheAge > SIX_HOURS_MS) return true;
+          }
+
+          return false;
+        });
 
         console.log(`Found ${itemsNeedingRefresh.length} set items needing pricing refresh (current currency: ${userCurrency})`);
 
@@ -99,6 +113,10 @@ export default function SetsCollectionPage() {
           console.log(`🔄 Fetching prices for ${itemsNeedingRefresh.length} set items progressively...`);
           setPricesUpdating(itemsNeedingRefresh.length);
           setPricesFetching(true); // Indicate pricing is in progress
+
+          // Mark ALL stale items with blue dots
+          const staleItemIds = new Set<string>(itemsNeedingRefresh.map((item: any) => item.id));
+          setStaleItems(staleItemIds);
 
           let currentIndex = 0;
           const fetchNextItem = async () => {
@@ -137,6 +155,13 @@ export default function SetsCollectionPage() {
 
             // Remove this item from updating set
             setItemsUpdating(prev => {
+              const next = new Set(prev);
+              next.delete(item.id);
+              return next;
+            });
+
+            // Remove from stale items (blue dot disappears)
+            setStaleItems(prev => {
               const next = new Set(prev);
               next.delete(item.id);
               return next;
@@ -545,7 +570,7 @@ export default function SetsCollectionPage() {
               </h2>
 
               {/* Price Update Legend */}
-              {pricesUpdating > 0 && (
+              {staleItems.size > 0 && (
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -559,7 +584,7 @@ export default function SetsCollectionPage() {
                     background: '#3b82f6',
                     borderRadius: '50%'
                   }} />
-                  <span>Updating price ({pricesUpdating} remaining)</span>
+                  <span>Prices older than 6 hours • Refreshing now ({pricesUpdating} remaining)</span>
                 </div>
               )}
             </div>
@@ -769,6 +794,7 @@ export default function SetsCollectionPage() {
               onRefresh={loadCollection}
               pricesFetching={pricesFetching}
               itemsUpdating={itemsUpdating}
+              staleItems={staleItems}
             />
           )}
 

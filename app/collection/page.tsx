@@ -29,6 +29,7 @@ export default function PersonalCollectionPage() {
   const [pricesUpdating, setPricesUpdating] = useState(0);
   const [pricesFetching, setPricesFetching] = useState(false); // Track if pricing is actively loading
   const [itemsUpdating, setItemsUpdating] = useState<Set<string>>(new Set()); // Track which item IDs are currently updating
+  const [staleItems, setStaleItems] = useState<Set<string>>(new Set()); // Track which item IDs have stale prices (>6 hours old)
 
   // Pagination state for display only (all items loaded client-side)
   const [currentPage, setCurrentPage] = useState(1);
@@ -90,20 +91,25 @@ export default function PersonalCollectionPage() {
         setCollection(data.data);
         setLoading(false); // Show items immediately
 
-        // Check if any items are missing pricing or have wrong currency
+        // Check which items need pricing refresh (expired cache or wrong currency)
+        // Note: Items now show stale prices immediately, we just refresh in background
         const userCurrency = session?.user?.preferredCurrency || 'USD';
-        const now = new Date();
+        const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
+
         const itemsNeedingRefresh = data.data.filter((item: PersonalCollectionItem) => {
-          // Skip if pricing exists with correct currency and is recent (even if $0)
-          if (item.pricing && item.pricing.currencyCode === userCurrency) {
-            // If price is $0 and was cached recently (within 6 hours), don't retry yet
-            // This prevents hammering the API for items with no sellers
-            if (item.pricing.suggestedPrice === 0) {
-              return false; // Accept the $0 price, don't keep retrying
-            }
-            return false; // Has valid price
+          // Refresh if no pricing at all
+          if (!item.pricing || item.pricing.suggestedPrice === 0) return true;
+
+          // Refresh if wrong currency
+          if (item.pricing.currencyCode !== userCurrency) return true;
+
+          // Refresh if cache is older than 6 hours (stale)
+          if (item.pricing.cached_at) {
+            const cacheAge = Date.now() - new Date(item.pricing.cached_at).getTime();
+            if (cacheAge > SIX_HOURS_MS) return true;
           }
-          return true; // Needs refresh
+
+          return false;
         });
 
         console.log(`Found ${itemsNeedingRefresh.length} items needing pricing refresh (current currency: ${userCurrency})`);
@@ -112,6 +118,10 @@ export default function PersonalCollectionPage() {
           console.log(`🔄 Fetching prices for ${itemsNeedingRefresh.length} items progressively...`);
           setPricesUpdating(itemsNeedingRefresh.length);
           setPricesFetching(true); // Indicate pricing is in progress
+
+          // Mark ALL stale items with blue dots
+          const staleItemIds = new Set<string>(itemsNeedingRefresh.map((item: PersonalCollectionItem) => item.id));
+          setStaleItems(staleItemIds);
 
           // Client-side progressive fetch: fetch items one by one to avoid serverless timeout
           let currentIndex = 0;
@@ -154,6 +164,13 @@ export default function PersonalCollectionPage() {
 
             // Remove this item from updating set
             setItemsUpdating(prev => {
+              const next = new Set(prev);
+              next.delete(item.id);
+              return next;
+            });
+
+            // Remove from stale items (blue dot disappears)
+            setStaleItems(prev => {
               const next = new Set(prev);
               next.delete(item.id);
               return next;
@@ -582,7 +599,7 @@ export default function PersonalCollectionPage() {
               </h2>
 
               {/* Price Update Legend */}
-              {pricesUpdating > 0 && (
+              {staleItems.size > 0 && (
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -596,7 +613,7 @@ export default function PersonalCollectionPage() {
                     background: '#3b82f6',
                     borderRadius: '50%'
                   }} />
-                  <span>Updating price ({pricesUpdating} remaining)</span>
+                  <span>Prices older than 6 hours • Refreshing now ({pricesUpdating} remaining)</span>
                 </div>
               )}
             </div>
@@ -806,6 +823,7 @@ export default function PersonalCollectionPage() {
               onRefresh={loadCollection}
               pricesFetching={pricesFetching}
               itemsUpdating={itemsUpdating}
+              staleItems={staleItems}
             />
           )}
         </div>

@@ -18,6 +18,7 @@ interface PersonalCollectionListProps {
   onRefresh?: () => Promise<void>;
   pricesFetching?: boolean; // Indicates if pricing is actively loading
   itemsUpdating?: Set<string>; // Set of item IDs currently being updated
+  staleItems?: Set<string>; // Set of item IDs with stale prices (>6 hours old)
 }
 
 export default function PersonalCollectionList({
@@ -29,6 +30,7 @@ export default function PersonalCollectionList({
   onRefresh,
   pricesFetching = false,
   itemsUpdating = new Set(),
+  staleItems = new Set(),
 }: PersonalCollectionListProps) {
   const router = useRouter();
   const { data: session } = useSession();
@@ -266,8 +268,8 @@ export default function PersonalCollectionList({
             </div>
             {item.pricing && item.pricing.suggestedPrice > 0 ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                {/* Blue dot if this item is updating */}
-                {itemsUpdating.has(item.id) && (
+                {/* Blue dot if this item has stale pricing (>6 hours old) */}
+                {staleItems.has(item.id) && (
                   <div style={{
                     width: '8px',
                     height: '8px',
