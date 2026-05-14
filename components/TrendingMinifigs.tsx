@@ -91,7 +91,7 @@ export default function TrendingMinifigs() {
               display: 'flex',
               flexDirection: 'column',
               padding: '16px',
-              backgroundColor: '#fafafa',
+              backgroundColor: '#ffffff',
               borderRadius: '12px',
               textDecoration: 'none',
               transition: 'all 0.2s',
