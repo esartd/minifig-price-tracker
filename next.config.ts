@@ -21,6 +21,19 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '10mb',
     },
   },
+  // Bundle Prisma client properly for Vercel
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.externals.push({
+        '@prisma/client-hostinger': 'commonjs @prisma/client-hostinger',
+      });
+    }
+    return config;
+  },
+  // Ensure output includes Prisma engine
+  outputFileTracingIncludes: {
+    '/api/**/*': ['./node_modules/@prisma/client-hostinger/**/*'],
+  },
   async headers() {
     return [
       {

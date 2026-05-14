@@ -30,17 +30,10 @@ try {
   });
   console.log('✅ [postinstall] Prisma client generated successfully');
 
-  // Verify no rhel binary exists
+  // Log generated binaries (rhel is correct for Vercel)
   const engines = fs.readdirSync(clientPath).filter(f => f.endsWith('.node'));
   console.log('📦 [postinstall] Generated engine binaries:', engines);
-
-  const hasRhel = engines.some(e => e.includes('rhel'));
-  if (hasRhel) {
-    console.error('❌ [postinstall] ERROR: rhel binary still present!');
-    process.exit(1);
-  } else {
-    console.log('✅ [postinstall] No rhel binaries - client is clean!');
-  }
+  console.log('✅ [postinstall] Prisma client ready for deployment!');
 } catch (error) {
   console.error('❌ [postinstall] Failed to generate Prisma client:', error.message);
   process.exit(1);
