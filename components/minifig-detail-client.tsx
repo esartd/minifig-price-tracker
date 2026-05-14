@@ -839,7 +839,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       flexWrap: 'wrap',
                       fontSize: 'var(--text-xs)',
                       fontWeight: '500',
-                      color: '#737373',
+                      color: '#3b82f6',
                       textTransform: 'uppercase',
                       letterSpacing: '0.05em'
                     }}>
@@ -925,7 +925,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   {session && (allInventoryItems.length > 0 || allCollectionItems.length > 0) && (
                     <div style={{
                       fontSize: 'var(--text-xs)',
-                      color: '#737373',
+                      color: '#3b82f6',
+                      fontWeight: '500',
                       marginBottom: '8px',
                       display: 'flex',
                       flexWrap: 'wrap',
