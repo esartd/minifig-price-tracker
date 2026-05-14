@@ -40,18 +40,25 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
       const path = await import('path');
       const filePath = path.join(process.cwd(), 'public', 'catalog', 'minifigs.json');
 
+      console.log('[CATALOG] Attempting to load from:', filePath);
+      console.log('[CATALOG] File exists?', fs.existsSync(filePath));
+
       if (fs.existsSync(filePath)) {
+        const stats = fs.statSync(filePath);
+        console.log('[CATALOG] File size:', (stats.size / 1024 / 1024).toFixed(2), 'MB');
+
         const content = fs.readFileSync(filePath, 'utf-8');
         catalogCache = JSON.parse(content);
         cacheTimestamp = now;
-        console.log('[CATALOG] Loaded from filesystem:', catalogCache ? 'cache expired' : 'first load', catalogCache?.length || 0, 'minifigs');
+        console.log('[CATALOG] ✅ Loaded successfully:', catalogCache?.length || 0, 'minifigs');
         return catalogCache!;
       } else {
-        console.error('[CATALOG] File not found:', filePath);
+        console.error('[CATALOG] ❌ File not found:', filePath);
+        console.error('[CATALOG] Directory contents:', fs.readdirSync(path.join(process.cwd(), 'public', 'catalog')));
         return [];
       }
     } catch (fsError) {
-      console.error('[CATALOG] Filesystem error:', fsError);
+      console.error('[CATALOG] ❌ Filesystem error:', fsError);
       return [];
     }
   }
