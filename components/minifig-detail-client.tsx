@@ -823,7 +823,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
               }}>
                 {/* Header */}
                 <div style={{ marginBottom: '24px', marginTop: 0 }}>
-                  {/* Year Badge and Heart Button */}
+                  {/* Year, BrickLink ID, and Heart Button */}
                   <div style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -832,17 +832,28 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     marginBottom: '8px',
                     marginTop: 0
                   }}>
-                    <span style={{
-                      fontSize: 'var(--text-xs)',
-                      fontWeight: '500',
-                      color: '#3b82f6',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.05em',
-                      flex: '0 1 auto',
-                      minWidth: 0
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      flexWrap: 'wrap'
                     }}>
-                      {minifig.year_released && minifig.year_released !== '?' ? minifig.year_released : 'Year Unknown'}
-                    </span>
+                      <span style={{
+                        fontSize: 'var(--text-xs)',
+                        fontWeight: '500',
+                        color: '#3b82f6',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em'
+                      }}>
+                        {minifig.year_released && minifig.year_released !== '?' ? minifig.year_released : 'Year Unknown'}
+                      </span>
+                      <span style={{
+                        fontSize: 'var(--text-sm)',
+                        color: '#737373'
+                      }}>
+                        {minifig.no}
+                      </span>
+                    </div>
                     <button
                       onClick={handleToggleWishlist}
                       disabled={wishlistLoading}
@@ -904,48 +915,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       {displayName.subtitle}
                     </p>
                   )}
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    marginBottom: '16px'
-                  }}>
-                    <p style={{
-                      fontSize: 'var(--text-sm)',
-                      color: '#737373',
-                      fontFamily: 'inherit',
-                      margin: 0
-                    }}>
-                      {minifig.no}
-                    </p>
-
-                    {/* Show what user owns */}
-                    {session && (allInventoryItems.length > 0 || allCollectionItems.length > 0) && (
-                      <div style={{
-                        fontSize: 'var(--text-xs)',
-                        color: '#737373',
-                        display: 'flex',
-                        gap: '8px'
-                      }}>
-                        {allInventoryItems.length > 0 && (
-                          <span>
-                            Inventory: {allInventoryItems
-                              .sort((a, b) => a.condition === 'new' ? -1 : 1)
-                              .map((item: any) => `${item.quantity}x ${item.condition === 'new' ? 'New' : 'Used'}`)
-                              .join(', ')}
-                          </span>
-                        )}
-                        {allCollectionItems.length > 0 && (
-                          <span>
-                            Collection: {allCollectionItems
-                              .sort((a, b) => a.condition === 'new' ? -1 : 1)
-                              .map((item: any) => `${item.quantity}x ${item.condition === 'new' ? 'New' : 'Used'}`)
-                              .join(', ')}
-                          </span>
-                        )}
-                      </div>
-                    )}
-                  </div>
 
                   {/* Character Description for SEO */}
                   {minifig.description && (
@@ -953,6 +922,35 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       description={minifig.description}
                       minifigName={minifig.name}
                     />
+                  )}
+
+                  {/* Show what user owns - moved above condition toggle */}
+                  {session && (allInventoryItems.length > 0 || allCollectionItems.length > 0) && (
+                    <div style={{
+                      fontSize: 'var(--text-xs)',
+                      color: '#737373',
+                      marginBottom: '8px',
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      gap: '8px'
+                    }}>
+                      {allInventoryItems.length > 0 && (
+                        <span>
+                          Inventory: {allInventoryItems
+                            .sort((a, b) => a.condition === 'new' ? -1 : 1)
+                            .map((item: any) => `${item.quantity}x ${item.condition === 'new' ? 'New' : 'Used'}`)
+                            .join(', ')}
+                        </span>
+                      )}
+                      {allCollectionItems.length > 0 && (
+                        <span>
+                          Collection: {allCollectionItems
+                            .sort((a, b) => a.condition === 'new' ? -1 : 1)
+                            .map((item: any) => `${item.quantity}x ${item.condition === 'new' ? 'New' : 'Used'}`)
+                            .join(', ')}
+                        </span>
+                      )}
+                    </div>
                   )}
 
                   {/* Condition Toggle */}
