@@ -527,12 +527,12 @@ function SearchPageContent() {
         </div>
       </section>
 
-      {/* Featured Sets - Only show when not actively searching */}
+      {/* Homepage sections - Only show when not actively searching */}
       {!isSearchActive && (
         <>
+          <LeaderboardsSection />
           <TrendingMinifigs />
           <FeaturedSets />
-          <LeaderboardsSection />
         </>
       )}
     </div>
