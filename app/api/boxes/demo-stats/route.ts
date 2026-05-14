@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server';
 import { loadAllBoxes, getRecentBoxes, getPopularThemes } from '@/lib/boxes-data';
 
-export const runtime = 'edge';
-
-
 export const dynamic = 'force-dynamic';
 
 export async function GET() {

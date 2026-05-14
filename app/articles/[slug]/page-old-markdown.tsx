@@ -45,8 +45,6 @@ function getGuides(locale: string) {
 }
 
 type GuideSlug = string;
-
-
 export async function generateMetadata({
   params
 }: {

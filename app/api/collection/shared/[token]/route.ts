@@ -2,9 +2,6 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { database } from '@/lib/database';
 
-export const runtime = 'edge';
-
-
 type CollectionType = 'inventory' | 'collection' | 'sets-inventory' | 'sets-collection';
 
 export async function GET(

@@ -7,9 +7,6 @@ import translationsDe from '@/translations-backup/de.json';
 import translationsFr from '@/translations-backup/fr.json';
 import translationsEs from '@/translations-backup/es.json';
 
-export const runtime = 'edge';
-
-
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const host = headersList.get('host') || '';

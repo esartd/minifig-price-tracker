@@ -2,9 +2,6 @@ import { NextResponse } from 'next/server';
 import { auth, signOut } from '@/auth';
 import { prisma } from '@/lib/prisma';
 
-export const runtime = 'edge';
-
-
 export async function DELETE(request: Request) {
   try {
     const session = await auth();

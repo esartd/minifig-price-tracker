@@ -1,9 +1,6 @@
 import { redirect } from 'next/navigation';
 import { requireAdmin } from '@/lib/admin-auth';
 
-export const runtime = 'edge';
-
-
 export default async function AdminArticlesPage() {
   const auth = await requireAdmin();
 

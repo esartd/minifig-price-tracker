@@ -2,9 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getCatalogType } from '@/lib/bricklink-download-manager';
 import { setupBrowser, navigateToDownloadPage, selectCatalogType, enableAllCheckboxes } from '@/lib/bricklink-automation';
 
-export const runtime = 'edge';
-
-
 /**
  * Test endpoint for debugging browser automation
  * GET /api/admin/test-browser-download?type=minifigures

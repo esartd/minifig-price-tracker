@@ -2,9 +2,6 @@ import { NextResponse } from 'next/server';
 import { getAllCategories, getRecentMinifigs } from '@/lib/catalog-static';
 import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
 
-export const runtime = 'edge';
-
-
 // Cache for 1 hour (no BrickLink pricing data)
 export const revalidate = 3600;
 

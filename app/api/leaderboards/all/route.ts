@@ -3,9 +3,6 @@ import { prisma } from '@/lib/prisma';
 import { getCurrentSeason, getCurrentSeasonDateRange, formatSeasonDateRange } from '@/lib/donations';
 import { generateDefaultDisplayName } from '@/lib/leaderboards';
 
-export const runtime = 'edge';
-
-
 /**
  * GET /api/leaderboards/all?period=quarterly|alltime
  * Returns ALL leaderboards in a single query to reduce database connections

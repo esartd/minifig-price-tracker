@@ -2,9 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { downloadCatalogFile, getCatalogType } from '@/lib/bricklink-download-manager';
 import { saveCatalogFile } from '@/lib/storage/blob-storage';
 
-export const runtime = 'edge';
-
-
 /**
  * Individual catalog download endpoint
  * GET /api/download-catalog/[type]

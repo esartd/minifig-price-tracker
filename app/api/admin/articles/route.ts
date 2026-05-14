@@ -4,9 +4,6 @@ import { prisma } from '@/lib/prisma';
 import { ArticleData } from '@/types/article';
 import { gunzipSync } from 'zlib';
 
-export const runtime = 'edge';
-
-
 // Increase payload size limit for large articles
 export const maxDuration = 30;
 

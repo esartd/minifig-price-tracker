@@ -4,9 +4,6 @@ import { bricklinkAPI } from '@/lib/bricklink';
 import { auth } from '@/auth';
 import { prisma, prismaPublic } from '@/lib/prisma';
 
-export const runtime = 'edge';
-
-
 // POST - Smart refresh: only refreshes items with expired cache (7 day TTL)
 export async function POST() {
   try {

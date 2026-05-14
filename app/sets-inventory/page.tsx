@@ -32,8 +32,6 @@ export default function SetsInventoryPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsToShow, setItemsToShow] = useState(50); // For mobile "load more"
   const itemsPerPage = 50;
-
-
   // Load saved preferences on mount
   useEffect(() => {
     const savedSortOrder = localStorage.getItem('setInventorySortOrder');

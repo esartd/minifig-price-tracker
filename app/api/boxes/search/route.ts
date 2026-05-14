@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { searchBoxes, getRecentBoxes, loadAllBoxes } from '@/lib/boxes-data';
 
-export const runtime = 'edge';
-
-
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {

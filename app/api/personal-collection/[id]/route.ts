@@ -3,9 +3,6 @@ import { database } from '@/lib/database';
 import { bricklinkAPI } from '@/lib/bricklink';
 import { auth } from '@/auth';
 
-export const runtime = 'edge';
-
-
 // GET a single personal collection item
 export async function GET(
   request: NextRequest,

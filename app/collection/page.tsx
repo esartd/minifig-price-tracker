@@ -294,8 +294,6 @@ export default function PersonalCollectionPage() {
       price: collection[0].pricing?.suggestedPrice
     } : null
   });
-
-
   if (status === 'loading' || loading) {
     return (
       <div style={{

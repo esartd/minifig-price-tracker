@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export const runtime = 'edge';
-
-
 /**
  * Cron job to check BrickLink catalog changes
  * Runs twice monthly (1st and 15th at 2:00 AM)

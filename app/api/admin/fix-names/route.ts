@@ -3,9 +3,6 @@ import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
 import { findMinifigByNumber } from '@/lib/catalog-static';
 
-export const runtime = 'edge';
-
-
 /**
  * Admin endpoint to fix minifigure names in inventory
  *

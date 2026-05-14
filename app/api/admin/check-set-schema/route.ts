@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prismaHostinger } from '@/lib/prisma-hostinger';
 
-export const runtime = 'edge';
-
-
 export async function POST(request: NextRequest) {
   try {
     const { secret } = await request.json();

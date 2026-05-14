@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { downloadBricklinkCatalog } from '@/lib/bricklink-catalog';
 
-export const runtime = 'edge';
-
-
 /**
  * ADMIN ENDPOINT: Test Catalog Download
  *

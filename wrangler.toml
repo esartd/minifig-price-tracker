@@ -2,13 +2,9 @@ name = "figtracker"
 compatibility_date = "2024-01-01"
 
 # Cloudflare Pages configuration
-pages_build_output_dir = ".vercel/output/static"
+pages_build_output_dir = ".open-next/cloudflare"
 
 [vars]
 NEXT_PUBLIC_BASE_URL = "https://figtracker.pages.dev"
 
-# Note: Add sensitive environment variables as secrets via Cloudflare dashboard:
-# wrangler pages secret put DATABASE_URL
-# wrangler pages secret put NEXTAUTH_SECRET
-# wrangler pages secret put BRICKLINK_CONSUMER_KEY
-# etc.
+# Note: Environment variables are configured in Cloudflare dashboard

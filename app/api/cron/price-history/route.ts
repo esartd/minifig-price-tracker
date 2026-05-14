@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server';
 
-export const runtime = 'edge';
-
-
 export async function GET(request: Request) {
   try {
     // Verify this is a Vercel Cron request

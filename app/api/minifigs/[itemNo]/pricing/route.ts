@@ -2,9 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { bricklinkAPI } from '@/lib/bricklink';
 import { auth } from '@/auth';
 
-export const runtime = 'edge';
-
-
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ itemNo: string }> }

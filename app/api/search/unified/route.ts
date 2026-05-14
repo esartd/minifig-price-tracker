@@ -2,9 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { searchMinifigs } from '@/lib/catalog-static';
 import { searchBoxes } from '@/lib/boxes-data';
 
-export const runtime = 'edge';
-
-
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;

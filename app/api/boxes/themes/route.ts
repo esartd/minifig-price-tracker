@@ -3,9 +3,6 @@ import { loadAllBoxes } from '@/lib/boxes-data';
 import fs from 'fs';
 import path from 'path';
 
-export const runtime = 'edge';
-
-
 // Cache for 30 minutes (no BrickLink pricing data)
 export const revalidate = 1800;
 

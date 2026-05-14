@@ -3,9 +3,6 @@ import { database } from '@/lib/database';
 import { bricklinkAPI } from '@/lib/bricklink';
 import { auth } from '@/auth';
 
-export const runtime = 'edge';
-
-
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 

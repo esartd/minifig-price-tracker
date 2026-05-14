@@ -6,9 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "node scripts/validate-schema.js && prisma generate --schema=prisma/schema-hostinger.prisma && next build",
-    "build:cloudflare": "node scripts/validate-schema.js && prisma generate --schema=prisma/schema-hostinger.prisma && next build && npx @cloudflare/next-on-pages",
-    "preview:cloudflare": "npm run build:cloudflare && wrangler pages dev .vercel/output/static",
-    "deploy:cloudflare": "npm run build:cloudflare && wrangler pages deploy .vercel/output/static",
+    "build:cloudflare": "node scripts/validate-schema.js && prisma generate --schema=prisma/schema-hostinger.prisma && open-next build",
     "analyze": "ANALYZE=true npm run build",
     "validate-schema": "node scripts/validate-schema.js",
     "deploy": "bash scripts/deploy.sh",
@@ -65,14 +63,14 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.13.16",
     "@next/bundle-analyzer": "^16.2.3",
+    "@opennextjs/cloudflare": "^1.19.9",
     "@types/bcryptjs": "^2.4.6",
     "@types/cheerio": "^0.22.35",
     "canvas": "^3.2.3",
     "cheerio": "^1.2.0",
+    "open-next": "^3.1.3",
     "prisma": "^5.19.0",
-    "tsx": "^4.21.0",
-    "wrangler": "^4.90.1"
+    "tsx": "^4.21.0"
   }
 }

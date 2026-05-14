@@ -2,9 +2,6 @@ import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma, prismaPublic } from '@/lib/prisma';
 
-export const runtime = 'edge';
-
-
 const ADMIN_EMAIL = 'erickkosysu@gmail.com';
 
 export async function GET() {

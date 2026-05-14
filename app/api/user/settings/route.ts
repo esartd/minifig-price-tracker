@@ -3,9 +3,6 @@ import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { validateDisplayName } from '@/lib/donations';
 
-export const runtime = 'edge';
-
-
 /**
  * GET /api/user/settings
  * Returns current user settings

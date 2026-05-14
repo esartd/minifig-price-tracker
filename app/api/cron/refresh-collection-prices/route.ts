@@ -2,9 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { bricklinkAPI } from '@/lib/bricklink';
 
-export const runtime = 'edge';
-
-
 /**
  * Cron job to pre-warm price cache for high-value items in collections
  *

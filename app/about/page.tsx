@@ -4,9 +4,6 @@ import AboutPageClient from '@/components/about-page-client';
 import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
 import { headers } from 'next/headers';
 
-export const runtime = 'edge';
-
-
 // Force dynamic rendering to show current searchable catalog count
 export const dynamic = 'force-dynamic';
 

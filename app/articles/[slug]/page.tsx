@@ -12,9 +12,6 @@ import translationsDe from '@/translations-backup/de.json';
 import translationsFr from '@/translations-backup/fr.json';
 import translationsEs from '@/translations-backup/es.json';
 
-export const runtime = 'edge';
-
-
 function getTranslations(locale: string) {
   switch (locale) {
     case 'de': return translationsDe;

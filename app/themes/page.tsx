@@ -4,9 +4,6 @@ import { getAllCategories, getRecentMinifigs, getAllMinifigs } from '@/lib/catal
 import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
 import type { Metadata } from 'next';
 
-export const runtime = 'edge';
-
-
 export async function generateMetadata(): Promise<Metadata> {
   const { headers } = await import('next/headers');
   const headersList = await headers();

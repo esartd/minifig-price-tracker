@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prismaHostinger } from '@/lib/prisma-hostinger';
 
-export const runtime = 'edge';
-
-
 const hostingerPrisma = prismaHostinger;
 
 export async function POST(request: NextRequest) {

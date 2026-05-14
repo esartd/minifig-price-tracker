@@ -3,9 +3,6 @@ import { prisma } from '@/lib/prisma';
 import { verifyPayPalWebhook } from '@/lib/paypal';
 import { getCurrentSeason } from '@/lib/donations';
 
-export const runtime = 'edge';
-
-
 /**
  * PayPal Webhooks API Handler (Modern approach)
  * Receives and processes donation notifications from PayPal

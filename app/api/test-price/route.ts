@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 
-export const runtime = 'edge';
-
-
 function encodeRFC3986(value: string): string {
   return encodeURIComponent(value).replace(
     /[!'()*]/g,

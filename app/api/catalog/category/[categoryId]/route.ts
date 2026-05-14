@@ -2,9 +2,6 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-export const runtime = 'edge';
-
-
 export const dynamic = 'force-static';
 export const revalidate = 86400; // Cache for 24 hours
 

@@ -2,9 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getRandomCurrentSetsFromTheme, getSetImageUrl } from '@/lib/sets-data';
 import { getRandomFeaturedSets } from '@/lib/featured-sets';
 
-export const runtime = 'edge';
-
-
 // Force dynamic rendering (searchParams requires dynamic)
 export const dynamic = 'force-dynamic';
 

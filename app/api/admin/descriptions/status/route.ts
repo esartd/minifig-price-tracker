@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-export const runtime = 'edge';
-
-
 export async function GET(request: NextRequest) {
   try {
     const stats = await prisma.minifigCatalog.groupBy({

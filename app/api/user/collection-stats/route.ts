@@ -2,9 +2,6 @@ import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 
-export const runtime = 'edge';
-
-
 /**
  * GET /api/user/collection-stats
  * Returns aggregated collection statistics for the logged-in user

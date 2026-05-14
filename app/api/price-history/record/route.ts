@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma, prismaPublic } from '@/lib/prisma';
 
-export const runtime = 'edge';
-
-
 export async function POST() {
   try {
     // Get all unique minifig + condition combinations from BOTH collections

@@ -2,9 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 
-export const runtime = 'edge';
-
-
 /**
  * Clear SET price cache entries
  * This is needed after the fix to use full set numbers with variant suffixes
