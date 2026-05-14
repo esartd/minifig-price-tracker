@@ -66,19 +66,33 @@ export async function GET(request: NextRequest) {
       }
     });
   } catch (error: any) {
-    console.error('Error fetching collection:', error);
+    console.error('[Inventory API] Full error:', error);
+    console.error('[Inventory API] Error message:', error?.message);
+    console.error('[Inventory API] Error name:', error?.name);
+    console.error('[Inventory API] Error stack:', error?.stack);
 
     // Check if it's a database connection limit error
     const errorMessage = error?.message || String(error);
     if (errorMessage.includes('max_connections_per_hour')) {
       return NextResponse.json(
-        { success: false, error: errorMessage },
+        {
+          success: false,
+          error: errorMessage,
+          details: error?.message,
+          errorName: error?.name
+        },
         { status: 500 }
       );
     }
 
     return NextResponse.json(
-      { success: false, error: 'Failed to fetch collection' },
+      {
+        success: false,
+        error: 'Failed to fetch collection',
+        details: error?.message || String(error),
+        errorName: error?.name,
+        errorCode: error?.code
+      },
       { status: 500 }
     );
   }
