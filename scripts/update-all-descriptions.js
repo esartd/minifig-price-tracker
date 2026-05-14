@@ -9,10 +9,18 @@ const path = require('path');
 // Load all description batches
 const starWarsUCS = require('./descriptions-star-wars-ucs');
 const starWarsPopular = require('./descriptions-star-wars-popular');
+const starWarsRecent = require('./descriptions-star-wars-recent');
 const harryPotter = require('./descriptions-harry-potter');
 const marvelDC = require('./descriptions-marvel-dc');
 const architectureIcons = require('./descriptions-architecture-icons');
 const creatorExpert = require('./descriptions-creator-expert');
+const technic = require('./descriptions-technic');
+const cityModular = require('./descriptions-city-modular');
+const ninjagoCity = require('./descriptions-ninjago-city');
+const friends = require('./descriptions-friends');
+const disney = require('./descriptions-disney');
+const lordOfTheRings = require('./descriptions-lord-of-the-rings');
+const jurassicWorld = require('./descriptions-jurassic-world');
 
 // Combine all descriptions
 const allDescriptions = {
@@ -43,10 +51,18 @@ const allDescriptions = {
   },
   ...starWarsUCS,
   ...starWarsPopular,
+  ...starWarsRecent,
   ...harryPotter,
   ...marvelDC,
   ...architectureIcons,
-  ...creatorExpert
+  ...creatorExpert,
+  ...technic,
+  ...cityModular,
+  ...ninjagoCity,
+  ...friends,
+  ...disney,
+  ...lordOfTheRings,
+  ...jurassicWorld
 };
 
 const boxesPath = path.join(process.cwd(), 'public', 'catalog', 'boxes.json');
@@ -80,8 +96,16 @@ console.log(`💾 Saved to ${boxesPath}`);
 console.log(`\nThemes updated:`);
 console.log(`  - Star Wars UCS: 5 sets`);
 console.log(`  - Star Wars Popular: 5 sets`);
+console.log(`  - Star Wars Recent: 5 sets`);
 console.log(`  - Harry Potter: 5 sets`);
 console.log(`  - Marvel/DC: 5 sets`);
 console.log(`  - Architecture/Icons: 5 sets`);
 console.log(`  - Creator Expert: 5 sets`);
+console.log(`  - Technic: 5 sets`);
+console.log(`  - City Modular: 5 sets`);
+console.log(`  - Ninjago City: 5 sets`);
+console.log(`  - Friends: 5 sets`);
+console.log(`  - Disney: 5 sets`);
+console.log(`  - Lord of the Rings: 5 sets`);
+console.log(`  - Jurassic World: 5 sets`);
 console.log(`  - Total: ${updatedCount} sets`);
