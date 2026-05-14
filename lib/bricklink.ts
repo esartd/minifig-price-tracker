@@ -571,43 +571,9 @@ export class BricklinkAPI {
         }
       }
 
-      // No data from API and no old data - cache zeros for 1 hour to avoid repeated failed API calls
-      const expiresAt = new Date();
-      expiresAt.setHours(expiresAt.getHours() + 1);
-
-      await prisma.priceCache.upsert({
-        where: {
-          item_no_item_type_condition_country_code_region: {
-            item_no: itemNo,
-            item_type: 'MINIFIG',
-            condition: condition,
-            country_code: countryCode,
-            region: cacheRegion
-          }
-        },
-        update: {
-          six_month_avg: 0,
-          current_avg: 0,
-          current_lowest: 0,
-          suggested_price: 0,
-          cached_at: new Date(),
-          expires_at: expiresAt,
-          currency_code: currencyCodeValue,
-        },
-        create: {
-          item_no: itemNo,
-          item_type: 'MINIFIG',
-          condition: condition,
-          country_code: countryCode,
-          region: cacheRegion,
-          currency_code: currencyCodeValue,
-          six_month_avg: 0,
-          current_avg: 0,
-          current_lowest: 0,
-          suggested_price: 0,
-          expires_at: expiresAt,
-        }
-      });
+      // No data from API and no valid cache - DO NOT cache $0 to avoid polluting price history
+      // Instead, return $0 for this request and let next request retry the API
+      console.log(`⚠️ [calculatePricingData] No price data for ${itemNo} - returning $0 WITHOUT caching to preserve price history integrity`);
 
       return {
         sixMonthAverage: 0,
@@ -861,44 +827,9 @@ export class BricklinkAPI {
     console.log(`[calculateSetPricing] Sold API response for ${boxNo}:`, soldPriceGuide ? 'SUCCESS' : 'NULL');
 
     if (!stockPriceGuide && !soldPriceGuide) {
-      console.log(`No price guide data at all for set ${boxNo} in ${countryCode} - caching zeros for 1 hour`);
-      // No data from API - cache zeros for 1 hour to avoid repeated failed API calls
-      const expiresAt = new Date();
-      expiresAt.setHours(expiresAt.getHours() + 1);
-
-      await prisma.priceCache.upsert({
-        where: {
-          item_no_item_type_condition_country_code_region: {
-            item_no: boxNo,
-            item_type: 'SET',
-            condition: condition,
-            country_code: countryCode,
-            region: cacheRegion
-          }
-        },
-        update: {
-          six_month_avg: 0,
-          current_avg: 0,
-          current_lowest: 0,
-          suggested_price: 0,
-          cached_at: new Date(),
-          expires_at: expiresAt,
-          currency_code: currencyCodeValue,
-        },
-        create: {
-          item_no: boxNo,
-          item_type: 'SET',
-          condition: condition,
-          country_code: countryCode,
-          region: cacheRegion,
-          currency_code: currencyCodeValue,
-          six_month_avg: 0,
-          current_avg: 0,
-          current_lowest: 0,
-          suggested_price: 0,
-          expires_at: expiresAt,
-        }
-      });
+      console.log(`⚠️ [calculateSetPricing] No price data for set ${boxNo} - returning $0 WITHOUT caching to preserve price history integrity`);
+      // No data from API - DO NOT cache $0 to avoid polluting price history
+      // Next request will retry the API
 
       return {
         sixMonthAverage: 0,
