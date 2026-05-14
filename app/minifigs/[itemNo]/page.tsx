@@ -3,9 +3,6 @@ import { notFound } from 'next/navigation';
 import { findMinifigByNumber, getMinifigsByCategoryId } from '@/lib/catalog-static';
 import MinifigDetailClient from '@/components/minifig-detail-client';
 
-export const runtime = 'edge';
-
-
 // Force dynamic rendering - required for filesystem access and database queries
 export const dynamic = 'force-dynamic';
 
