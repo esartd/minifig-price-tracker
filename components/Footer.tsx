@@ -157,7 +157,7 @@ export default function Footer() {
         }}>
           <p style={{ margin: 0, marginBottom: 'var(--space-4)' }}>
             <strong>Affiliate Disclosure:</strong> As an Amazon Associate, LEGO Affiliate, and eBay Partner, FigTracker earns from qualifying purchases.{' '}
-            <a href="/disclosure" style={{ color: '#3b82f6', textDecoration: 'underline', fontWeight: '500' }}>
+            <a href="/disclosure" style={{ color: '#3b82f6', textDecoration: 'none', fontWeight: '500' }}>
               Learn more
             </a>
             <br />
