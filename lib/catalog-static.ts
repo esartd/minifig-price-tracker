@@ -33,7 +33,7 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
     return catalogCache;
   }
 
-  // Server-side ONLY - load from filesystem
+  // Server-side ONLY - load from filesystem OR HTTP fallback
   if (typeof window === 'undefined') {
     try {
       const fs = await import('fs');
@@ -47,8 +47,25 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
         console.log('[CATALOG] Loaded from filesystem:', catalogCache ? 'cache expired' : 'first load', catalogCache?.length || 0, 'minifigs');
         return catalogCache!;
       } else {
-        console.error('[CATALOG] File not found:', filePath);
-        return [];
+        console.warn('[CATALOG] File not found on filesystem, trying HTTP fallback...');
+
+        // Vercel deployment might not have file in filesystem - fetch from public URL
+        try {
+          const response = await fetch('https://figtracker.ericksu.com/catalog/minifigs.json');
+          if (response.ok) {
+            const data = await response.json();
+            catalogCache = data;
+            cacheTimestamp = now;
+            console.log('[CATALOG] Loaded from HTTP fallback:', catalogCache?.length || 0, 'minifigs');
+            return catalogCache!;
+          } else {
+            console.error('[CATALOG] HTTP fallback failed:', response.status);
+            return [];
+          }
+        } catch (httpError) {
+          console.error('[CATALOG] HTTP fallback error:', httpError);
+          return [];
+        }
       }
     } catch (fsError) {
       console.error('[CATALOG] Filesystem error:', fsError);
