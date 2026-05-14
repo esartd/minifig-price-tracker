@@ -138,33 +138,68 @@ export async function searchMinifigs(query: string, limit = 50): Promise<Minifig
   const catalog = await loadCatalog();
   const lowerQuery = query.toLowerCase();
 
+  console.log(`[searchMinifigs] Query: "${query}", Catalog size: ${catalog.length}`);
+
   const matches = catalog.filter(m => {
     // Only include minifigs with valid IDs
     if (!m.minifigure_no) return false;
 
-    return (
+    const matchesQuery = (
       m.minifigure_no.toLowerCase().includes(lowerQuery) ||
       m.name.toLowerCase().includes(lowerQuery) ||
       m.category_name.toLowerCase().includes(lowerQuery)
     );
+
+    return matchesQuery;
   });
 
-  // Sort by year (newest first), then by ID (highest first) BEFORE limiting
+  console.log(`[searchMinifigs] Found ${matches.length} matches for "${query}"`);
+
+  // Sort by RELEVANCE first, then by year
   matches.sort((a, b) => {
-    // Parse years, treating invalid values as 0 to sort them last
+    const aId = a.minifigure_no.toLowerCase();
+    const aName = a.name.toLowerCase();
+    const aCat = a.category_name.toLowerCase();
+    const bId = b.minifigure_no.toLowerCase();
+    const bName = b.name.toLowerCase();
+    const bCat = b.category_name.toLowerCase();
+
+    // Exact ID match gets highest priority
+    const aExactId = aId === lowerQuery;
+    const bExactId = bId === lowerQuery;
+    if (aExactId && !bExactId) return -1;
+    if (!aExactId && bExactId) return 1;
+
+    // ID starts with query (high priority)
+    const aIdStarts = aId.startsWith(lowerQuery);
+    const bIdStarts = bId.startsWith(lowerQuery);
+    if (aIdStarts && !bIdStarts) return -1;
+    if (!aIdStarts && bIdStarts) return 1;
+
+    // Name starts with query (medium-high priority)
+    const aNameStarts = aName.startsWith(lowerQuery);
+    const bNameStarts = bName.startsWith(lowerQuery);
+    if (aNameStarts && !bNameStarts) return -1;
+    if (!aNameStarts && bNameStarts) return 1;
+
+    // Name contains query as whole word (medium priority)
+    const aNameWord = new RegExp(`\\b${lowerQuery}\\b`).test(aName);
+    const bNameWord = new RegExp(`\\b${lowerQuery}\\b`).test(bName);
+    if (aNameWord && !bNameWord) return -1;
+    if (!aNameWord && bNameWord) return 1;
+
+    // If relevance is equal, sort by year (newest first), then by ID
     const yearA = !a.year_released || isNaN(parseInt(a.year_released)) ? 0 : parseInt(a.year_released);
     const yearB = !b.year_released || isNaN(parseInt(b.year_released)) ? 0 : parseInt(b.year_released);
 
-    // Primary sort: year descending (newest first, unknown last)
     if (yearB !== yearA) return yearB - yearA;
 
-    // Secondary sort: minifigure ID descending (higher IDs are usually newer)
     return b.minifigure_no.localeCompare(a.minifigure_no);
   });
 
-  // Debug: Log first 3 results after sort
+  // Debug: Log first 3 results after relevance sort
   if (matches.length > 0) {
-    console.log(`[searchMinifigs] Query: "${query}", Top 3 after sort:`);
+    console.log(`[searchMinifigs] Query: "${query}", Top 3 after relevance sort:`);
     matches.slice(0, 3).forEach((m, i) => {
       console.log(`  ${i + 1}. ${m.year_released} | ${m.minifigure_no} | ${m.name.substring(0, 40)}`);
     });

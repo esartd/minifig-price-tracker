@@ -71,10 +71,12 @@ class DatabaseService {
       region: cacheRegion
     }));
 
+    // Fetch ALL prices (including expired) so we can show stale data immediately
+    // Frontend will refresh expired prices in the background
     const allPrices = await prisma.priceCache.findMany({
       where: {
-        OR: priceCacheKeys,
-        expires_at: { gt: new Date() } // Only non-expired
+        OR: priceCacheKeys
+        // No expires_at filter - show stale prices immediately
       }
     });
 
@@ -222,10 +224,12 @@ class DatabaseService {
       region: cacheRegion
     }));
 
+    // Fetch ALL prices (including expired) so we can show stale data immediately
+    // Frontend will refresh expired prices in the background
     const allPrices = await prisma.priceCache.findMany({
       where: {
-        OR: priceCacheKeys,
-        expires_at: { gt: new Date() } // Only non-expired
+        OR: priceCacheKeys
+        // No expires_at filter - show stale prices immediately
       }
     });
 

@@ -90,13 +90,26 @@ export default function CollectionPage() {
         setCollection(data.data);
         setLoading(false); // Show items immediately
 
-        // For each item missing pricing OR with wrong currency, fetch individually
+        // Check which items need pricing refresh (expired cache or wrong currency)
+        // Note: Items now show stale prices immediately, we just refresh in background
         const userCurrency = session?.user?.preferredCurrency || 'USD';
-        const itemsNeedingRefresh = data.data.filter((item: CollectionItem) =>
-          !item.pricing ||
-          item.pricing.suggestedPrice === 0 ||
-          item.pricing.currencyCode !== userCurrency
-        );
+        const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
+
+        const itemsNeedingRefresh = data.data.filter((item: CollectionItem) => {
+          // Refresh if no pricing at all
+          if (!item.pricing || item.pricing.suggestedPrice === 0) return true;
+
+          // Refresh if wrong currency
+          if (item.pricing.currencyCode !== userCurrency) return true;
+
+          // Refresh if cache is older than 6 hours (stale)
+          if (item.pricing.cached_at) {
+            const cacheAge = Date.now() - new Date(item.pricing.cached_at).getTime();
+            if (cacheAge > SIX_HOURS_MS) return true;
+          }
+
+          return false;
+        });
 
         console.log(`Found ${itemsNeedingRefresh.length} items needing pricing refresh (current currency: ${userCurrency})`);
 
