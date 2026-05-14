@@ -55,25 +55,34 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
       console.log('[CATALOG] Filesystem unavailable, trying HTTP fallback');
     }
 
-    // Fallback: Load via HTTP from public URL (Vercel serves public/ folder via CDN)
+    // Fallback: Load via HTTP from CDN (works on Vercel)
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : 'https://figtracker.ericksu.com';
-
-      const url = `${baseUrl}/catalog/minifigs.json`;
+      // Use absolute URL - Vercel serves public/ folder
+      const url = 'https://figtracker.ericksu.com/catalog/minifigs.json';
       console.log('[CATALOG] Attempting HTTP load from:', url);
 
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
       if (!response.ok) {
+        console.error('[CATALOG] HTTP failed:', response.status, response.statusText);
         throw new Error(`HTTP ${response.status}`);
       }
 
       const data = await response.json();
+
+      if (!Array.isArray(data) || data.length === 0) {
+        console.error('[CATALOG] Invalid data from HTTP:', typeof data, Array.isArray(data) ? `length: ${data.length}` : '');
+        return [];
+      }
+
       catalogCache = data;
       cacheTimestamp = now;
-      console.log('[CATALOG] ✅ HTTP load successful:', catalogCache?.length || 0, 'minifigs');
-      return catalogCache!;
+      console.log('[CATALOG] ✅ HTTP load successful:', catalogCache.length, 'minifigs');
+      return catalogCache;
     } catch (httpError) {
       console.error('[CATALOG] ❌ HTTP load failed:', httpError);
       return [];
