@@ -836,21 +836,18 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       display: 'flex',
                       alignItems: 'center',
                       gap: '8px',
-                      flexWrap: 'wrap'
+                      flexWrap: 'wrap',
+                      fontSize: 'var(--text-xs)',
+                      fontWeight: '500',
+                      color: '#737373',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em'
                     }}>
-                      <span style={{
-                        fontSize: 'var(--text-xs)',
-                        fontWeight: '500',
-                        color: '#3b82f6',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em'
-                      }}>
+                      <span>
                         {minifig.year_released && minifig.year_released !== '?' ? minifig.year_released : 'Year Unknown'}
                       </span>
-                      <span style={{
-                        fontSize: 'var(--text-sm)',
-                        color: '#737373'
-                      }}>
+                      <span style={{ opacity: 0.4 }}>•</span>
+                      <span>
                         {minifig.no}
                       </span>
                     </div>
