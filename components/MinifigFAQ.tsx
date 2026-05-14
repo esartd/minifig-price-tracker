@@ -37,8 +37,8 @@ export default function MinifigFAQ({
     {
       question: `Is ${minifigNo} rare?`,
       answer: yearReleased
-        ? `${minifigName} was released in ${yearReleased} as part of the ${categoryName} theme. Rarity depends on original production numbers, set inclusion, and collector demand. Check the "From These Sets" section above to see which LEGO sets included this minifigure. Fewer sets = usually rarer.`
-        : `${minifigName} is from the ${categoryName} theme. Rarity depends on original production numbers and collector demand. Check the "From These Sets" section to see which sets included this minifigure.`
+        ? `${minifigName} was released in ${yearReleased} as part of the ${categoryName} theme. Rarity depends on original production numbers, how many LEGO sets included this minifigure, and current collector demand. Generally, older minifigs (pre-2010) and those from exclusive or limited edition sets are more valuable.`
+        : `${minifigName} is from the ${categoryName} theme. Rarity depends on original production numbers, how many LEGO sets included this minifigure, and current collector demand. Check BrickLink to see which sets originally included this minifigure.`
     },
     {
       question: `How do I track ${minifigNo} price changes?`,
