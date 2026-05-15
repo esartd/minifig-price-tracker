@@ -2330,20 +2330,22 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         padding: '12px 16px',
-                        background: '#FFE8E9',
-                        border: '2px solid #E53238',
+                        background: '#ffffff',
+                        border: '1px solid #e5e5e5',
                         borderRadius: '8px',
                         textDecoration: 'none',
                         transition: 'all 0.2s',
                         cursor: 'pointer'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = '#FFD4D6';
+                        e.currentTarget.style.background = '#fafafa';
+                        e.currentTarget.style.borderColor = '#d4d4d4';
                         e.currentTarget.style.transform = 'translateY(-1px)';
-                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(229, 50, 56, 0.15)';
+                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.06)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = '#FFE8E9';
+                        e.currentTarget.style.background = '#ffffff';
+                        e.currentTarget.style.borderColor = '#e5e5e5';
                         e.currentTarget.style.transform = 'translateY(0)';
                         e.currentTarget.style.boxShadow = 'none';
                       }}
@@ -2386,20 +2388,22 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         padding: '12px 16px',
-                        background: '#E6F2FF',
-                        border: '2px solid #0057A6',
+                        background: '#ffffff',
+                        border: '1px solid #e5e5e5',
                         borderRadius: '8px',
                         textDecoration: 'none',
                         transition: 'all 0.2s',
                         cursor: 'pointer'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = '#CCE5FF';
+                        e.currentTarget.style.background = '#fafafa';
+                        e.currentTarget.style.borderColor = '#d4d4d4';
                         e.currentTarget.style.transform = 'translateY(-1px)';
-                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 87, 166, 0.15)';
+                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.06)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = '#E6F2FF';
+                        e.currentTarget.style.background = '#ffffff';
+                        e.currentTarget.style.borderColor = '#e5e5e5';
                         e.currentTarget.style.transform = 'translateY(0)';
                         e.currentTarget.style.boxShadow = 'none';
                       }}
@@ -2443,20 +2447,22 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         padding: '12px 16px',
-                        background: '#FFF4E6',
-                        border: '2px solid #FF9900',
+                        background: '#ffffff',
+                        border: '1px solid #e5e5e5',
                         borderRadius: '8px',
                         textDecoration: 'none',
                         transition: 'all 0.2s',
                         cursor: 'pointer'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = '#FFE8CC';
+                        e.currentTarget.style.background = '#fafafa';
+                        e.currentTarget.style.borderColor = '#d4d4d4';
                         e.currentTarget.style.transform = 'translateY(-1px)';
-                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(255, 153, 0, 0.15)';
+                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.06)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = '#FFF4E6';
+                        e.currentTarget.style.background = '#ffffff';
+                        e.currentTarget.style.borderColor = '#e5e5e5';
                         e.currentTarget.style.transform = 'translateY(0)';
                         e.currentTarget.style.boxShadow = 'none';
                       }}
