@@ -53,15 +53,17 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
       rel="noopener noreferrer sponsored"
       style={{
         background: 'linear-gradient(135deg, #ffffff 0%, #f9fafb 100%)',
-        border: '1px solid #e5e5e5',
+        border: '2px solid #3b82f6',
         borderRadius: '12px',
         padding: '16px',
         overflow: 'hidden',
         transition: 'all 0.2s',
-        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+        boxShadow: '0 2px 8px rgba(59, 130, 246, 0.1)',
         position: 'relative',
-        display: 'grid',
-        gridTemplateRows: 'auto auto 1fr auto', // Badge, Image, Info, Buttons
+        display: 'flex',
+        flexDirection: 'row',
+        gap: '16px',
+        alignItems: 'center',
         height: '100%',
         textDecoration: 'none',
         cursor: 'pointer'
@@ -77,12 +79,12 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
         e.currentTarget.style.transform = 'translateY(0)';
       }}
     >
-      {/* Set Image - Match minifig card structure */}
+      {/* Set Image - Square on left side */}
       <div style={{
         position: 'relative',
-        width: '100%',
-        paddingBottom: '100%', // Creates 1:1 aspect ratio like minifig cards
-        marginBottom: '12px',
+        width: '140px',
+        height: '140px',
+        flexShrink: 0,
         background: '#ffffff',
         borderRadius: '8px',
         overflow: 'hidden'
@@ -91,7 +93,7 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
           src={imageUrl}
           alt={setName}
           fill
-          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 180px"
+          sizes="140px"
           style={{
             objectFit: 'contain',
             padding: '8px'
@@ -100,44 +102,60 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
         />
       </div>
 
-      {/* Set Info */}
-      <div style={{ marginBottom: '16px' }}>
-        {/* Sponsored + Set Number */}
-        <p style={{
-          fontSize: 'var(--text-xs)',
-          color: '#737373',
-          fontFamily: 'monospace',
-          marginBottom: '4px'
-        }}>
-          Sponsored • {setNumber}
-        </p>
+      {/* Set Info - Flex column on right */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '140px' }}>
+        <div>
+          {/* Sponsored Badge */}
+          <div style={{
+            display: 'inline-block',
+            fontSize: '10px',
+            fontWeight: '600',
+            color: '#3b82f6',
+            background: '#eff6ff',
+            padding: '4px 8px',
+            borderRadius: '4px',
+            marginBottom: '8px',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px'
+          }}>
+            Sponsored
+          </div>
 
-        {/* Set Name */}
-        <h3 style={{
-          fontSize: 'var(--text-sm)',
-          fontWeight: '600',
-          color: '#171717',
-          lineHeight: '1.4',
-          marginBottom: '0',
-          overflow: 'hidden',
-          display: '-webkit-box',
-          WebkitLineClamp: 2,
-          WebkitBoxOrient: 'vertical'
-        }}>
-          {setName}
-        </h3>
-      </div>
+          {/* Set Name */}
+          <h3 style={{
+            fontSize: 'var(--text-base)',
+            fontWeight: '700',
+            color: '#171717',
+            lineHeight: '1.3',
+            marginBottom: '4px',
+            overflow: 'hidden',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical'
+          }}>
+            {setName}
+          </h3>
 
-      {/* Buy Button - Visual indicator (entire card is clickable) */}
-      <div style={{
-        alignSelf: 'end'
-      }}>
+          {/* Set Number */}
+          <p style={{
+            fontSize: 'var(--text-xs)',
+            color: '#737373',
+            fontFamily: 'monospace',
+            marginBottom: '0'
+          }}>
+            {setNumber}
+          </p>
+        </div>
+
+        {/* Buy Button - Visual indicator (entire card is clickable) */}
+        <div>
           <div
             style={{
-              display: 'block',
-              width: '100%',
-              padding: '12px 16px',
-              fontSize: 'var(--text-xs)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '10px 20px',
+              fontSize: 'var(--text-sm)',
               fontWeight: '600',
               color: '#ffffff',
               background: '#3b82f6',
@@ -150,9 +168,15 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
               pointerEvents: 'none' // Entire card is clickable, button is just visual
             }}
           >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
             Buy on Amazon
           </div>
         </div>
+      </div>
     </a>
   );
 }
