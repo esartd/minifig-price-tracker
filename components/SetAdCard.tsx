@@ -47,7 +47,10 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
   };
 
   return (
-    <div
+    <a
+      href={amazonLink}
+      onClick={handleClick}
+      rel="noopener noreferrer sponsored"
       style={{
         background: 'linear-gradient(135deg, #ffffff 0%, #f9fafb 100%)',
         border: '1px solid #e5e5e5',
@@ -59,7 +62,9 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
         position: 'relative',
         display: 'grid',
         gridTemplateRows: 'auto auto 1fr auto', // Badge, Image, Info, Buttons
-        height: '100%'
+        height: '100%',
+        textDecoration: 'none',
+        cursor: 'pointer'
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = '#3b82f6';
@@ -123,14 +128,11 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
         </h3>
       </div>
 
-      {/* Buy Button - Amazon only (no LEGO.com affiliate program) */}
+      {/* Buy Button - Visual indicator (entire card is clickable) */}
       <div style={{
         alignSelf: 'end'
       }}>
-          <a
-            href={amazonLink}
-            onClick={handleClick}
-            rel="noopener noreferrer sponsored"
+          <div
             style={{
               display: 'block',
               width: '100%',
@@ -144,21 +146,13 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
               textAlign: 'center',
               textDecoration: 'none',
               transition: 'all 0.2s',
-              cursor: 'pointer',
-              whiteSpace: 'nowrap'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#2563eb';
-              e.currentTarget.style.transform = 'scale(1.02)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#3b82f6';
-              e.currentTarget.style.transform = 'scale(1)';
+              whiteSpace: 'nowrap',
+              pointerEvents: 'none' // Entire card is clickable, button is just visual
             }}
           >
             Buy on Amazon
-          </a>
+          </div>
         </div>
-    </div>
+    </a>
   );
 }
