@@ -8,196 +8,167 @@ export default function Footer() {
     { name: 'Star Wars', slug: 'star-wars' },
     { name: 'Harry Potter', slug: 'harry-potter' },
     { name: 'Super Heroes', slug: 'super-heroes' },
-    { name: 'DC Comics Super Heroes', slug: 'dc-comics-super-heroes' },
     { name: 'City', slug: 'city' },
     { name: 'Ninjago', slug: 'ninjago' },
+    { name: 'Friends', slug: 'friends' },
   ];
 
   return (
     <footer style={{
-      padding: 'var(--space-6) var(--space-4)',
-      fontSize: 'var(--text-sm)',
-      color: '#737373',
-      borderTop: '1px solid #e5e5e5',
-      background: '#ffffff'
+      background: '#f5f5f5',
+      borderTop: '1px solid #d4d4d4',
+      padding: '40px 24px'
     }}>
-      <div style={{
-        maxWidth: '1000px',
-        margin: '0 auto'
-      }}>
-        {/* Popular Themes - New Section */}
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+
+        {/* Main Navigation Grid */}
         <div style={{
-          marginBottom: 'var(--space-6)',
-          textAlign: 'center'
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gap: '40px',
+          marginBottom: '40px'
         }}>
-          <div style={{
-            fontSize: 'var(--text-xs)',
-            fontWeight: '600',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-            color: '#a3a3a3',
-            marginBottom: 'var(--space-3)'
-          }}>
-            {t('navigation.popularThemes')}
+
+          {/* Browse */}
+          <div>
+            <h3 style={{
+              fontSize: '12px',
+              fontWeight: '700',
+              color: '#171717',
+              marginBottom: '12px',
+              letterSpacing: '0.5px',
+              textTransform: 'uppercase'
+            }}>
+              Browse
+            </h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {popularThemes.map((theme) => (
+                <a
+                  key={theme.slug}
+                  href={`/themes/${theme.slug}`}
+                  style={{
+                    color: '#525252',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    transition: 'color 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+                >
+                  {theme.name}
+                </a>
+              ))}
+            </div>
           </div>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: 'var(--space-4)',
-            flexWrap: 'wrap'
-          }}>
-            {popularThemes.map((theme) => (
-              <a
-                key={theme.slug}
-                href={`/themes/${theme.slug}`}
-                style={{
-                  color: '#525252',
-                  textDecoration: 'none',
-                  fontSize: 'var(--text-sm)',
-                  transition: 'color 0.2s'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
+
+          {/* Resources */}
+          <div>
+            <h3 style={{
+              fontSize: '12px',
+              fontWeight: '700',
+              color: '#171717',
+              marginBottom: '12px',
+              letterSpacing: '0.5px',
+              textTransform: 'uppercase'
+            }}>
+              Resources
+            </h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <a href="/about" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
                 onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-              >
-                {theme.name}
-              </a>
-            ))}
+              >{t('navigation.about')}</a>
+              <a href="/faq" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+              >{t('footer.faq')}</a>
+              <a href="/articles" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+              >{t('footer.articles') || t('footer.guides')}</a>
+              <a href="/support" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+              >{t('footer.supportUs')}</a>
+            </div>
           </div>
+
+          {/* Account & Legal */}
+          <div>
+            <h3 style={{
+              fontSize: '12px',
+              fontWeight: '700',
+              color: '#171717',
+              marginBottom: '12px',
+              letterSpacing: '0.5px',
+              textTransform: 'uppercase'
+            }}>
+              Account & Legal
+            </h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <a href="mailto:hello@ericksu.com" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+              >{t('footer.contact')}</a>
+              <a href="/privacy" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+              >{t('footer.privacy')}</a>
+              <a href="/disclosure" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+              >{t('footer.disclosure')}</a>
+            </div>
+          </div>
+
+          {/* About */}
+          <div>
+            <h3 style={{
+              fontSize: '12px',
+              fontWeight: '700',
+              color: '#171717',
+              marginBottom: '12px',
+              letterSpacing: '0.5px',
+              textTransform: 'uppercase'
+            }}>
+              About FigTracker
+            </h3>
+            <p style={{
+              fontSize: '14px',
+              color: '#525252',
+              lineHeight: '1.5',
+              margin: 0
+            }}>
+              Track LEGO prices with real-time BrickLink data. Manage your collection and join leaderboards.
+            </p>
+          </div>
+
         </div>
 
-        {/* Navigation Links */}
+        {/* Bottom Legal Section */}
         <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: 'var(--space-4)',
-          marginBottom: 'var(--space-5)',
-          fontSize: 'var(--text-sm)',
-          flexWrap: 'wrap',
-          textAlign: 'center'
+          paddingTop: '32px',
+          borderTop: '1px solid #d4d4d4'
         }}>
-          <a href="/about" style={{
-            color: '#525252',
-            textDecoration: 'none',
-            fontWeight: '500',
-            transition: 'color 0.2s'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
-          onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >{t('navigation.about')}</a>
-          <a href="/faq" style={{
-            color: '#525252',
-            textDecoration: 'none',
-            fontWeight: '500',
-            transition: 'color 0.2s'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
-          onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >{t('footer.faq')}</a>
-          <a href="/articles" style={{
-            color: '#525252',
-            textDecoration: 'none',
-            fontWeight: '500',
-            transition: 'color 0.2s'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
-          onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >{t('footer.articles') || t('footer.guides')}</a>
-          <a href="/support" style={{
-            color: '#525252',
-            textDecoration: 'none',
-            fontWeight: '500',
-            transition: 'color 0.2s'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
-          onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >{t('footer.supportUs')}</a>
-          <a href="mailto:hello@ericksu.com" style={{
-            color: '#525252',
-            textDecoration: 'none',
-            fontWeight: '500',
-            transition: 'color 0.2s'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
-          onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >{t('footer.contact')}</a>
-          <a href="/privacy" style={{
-            color: '#525252',
-            textDecoration: 'none',
-            fontWeight: '500',
-            transition: 'color 0.2s'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
-          onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >{t('footer.privacy')}</a>
-          <a href="/disclosure" style={{
-            color: '#525252',
-            textDecoration: 'none',
-            fontWeight: '500',
-            transition: 'color 0.2s'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
-          onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
-          >{t('footer.disclosure')}</a>
-        </div>
-
-        {/* Divider */}
-        <div style={{
-          width: '60px',
-          height: '1px',
-          background: '#e5e5e5',
-          margin: '0 auto var(--space-5) auto'
-        }} />
-
-        {/* About FigTracker */}
-        <div style={{
-          textAlign: 'center',
-          maxWidth: '700px',
-          margin: '0 auto var(--space-6)',
-          fontSize: 'var(--text-sm)',
-          color: '#525252',
-          lineHeight: '1.7'
-        }}>
-          <p style={{ margin: 0 }}>
-            FigTracker helps LEGO collectors and sellers track minifigure and set prices with real-time BrickLink marketplace data. Manage your collection, organize items to sell and keep, see current market values, and join collector leaderboards. Over 18,000 minifigures and 20,000 sets. Free to use.
-          </p>
-        </div>
-
-        {/* Legal & Attribution - Center Aligned */}
-        <div style={{
-          textAlign: 'center',
-          fontSize: 'var(--text-xs)',
-          color: '#737373',
-          lineHeight: '1.7'
-        }}>
-          <p style={{ margin: 0, marginBottom: 'var(--space-4)' }}>
-            <strong>Affiliate Disclosure:</strong> As an Amazon Associate, LEGO Affiliate, and eBay Partner, FigTracker earns from qualifying purchases.{' '}
-            <a href="/disclosure" style={{ color: '#3b82f6', textDecoration: 'none', fontWeight: '500' }}>
-              Learn more
-            </a>
-            <br />
-            Minifigure data provided by{' '}
-            <a
-              href="https://www.bricklink.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: '#3b82f6', textDecoration: 'none', fontWeight: '500' }}
-            >
-              BrickLink.com
-            </a>
-            . The term "BrickLink" is a trademark of the LEGO Group BrickLink. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc. LEGO® is a trademark of the LEGO Group.
-          </p>
-          <p style={{ margin: 0, color: '#a3a3a3' }}>
-            © {new Date().getFullYear()} FigTracker. {t('footer.allRightsReserved')} {t('footer.createdBy')}{' '}
-            <a
-              href="https://ericksu.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: '#a3a3a3', textDecoration: 'none', borderBottom: '1px solid transparent', transition: 'border-color 0.2s' }}
-              onMouseEnter={(e) => e.currentTarget.style.borderBottomColor = '#a3a3a3'}
-              onMouseLeave={(e) => e.currentTarget.style.borderBottomColor = 'transparent'}
-            >
-              ES Art & D LLC
-            </a>
+          <div style={{
+            fontSize: '11px',
+            color: '#737373',
+            lineHeight: '1.6',
+            marginBottom: '16px'
+          }}>
+            <p style={{ margin: '0 0 8px 0' }}>
+              As an Amazon Associate, LEGO Affiliate, and eBay Partner, FigTracker earns from qualifying purchases.
+            </p>
+            <p style={{ margin: 0 }}>
+              Minifigure data provided by BrickLink.com. The term "BrickLink" is a trademark of the LEGO Group. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.
+            </p>
+          </div>
+          <p style={{
+            margin: 0,
+            fontSize: '11px',
+            color: '#a3a3a3'
+          }}>
+            © {new Date().getFullYear()} FigTracker. All rights reserved.
           </p>
         </div>
       </div>
