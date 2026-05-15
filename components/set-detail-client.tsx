@@ -982,17 +982,26 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                 borderRadius: '12px',
                 border: '1px solid #e5e5e5'
               }}>
-                <h3 style={{
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: '600',
-                  color: '#525252',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em',
-                  marginTop: 0,
-                  marginBottom: '12px'
-                }}>
-                  Where to Buy
-                </h3>
+                <div style={{ marginBottom: '12px' }}>
+                  <h3 style={{
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '600',
+                    color: '#525252',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    marginTop: 0,
+                    marginBottom: '4px'
+                  }}>
+                    Where to Buy
+                  </h3>
+                  <p style={{
+                    fontSize: 'var(--text-xs)',
+                    color: '#737373',
+                    margin: 0
+                  }}>
+                    Sponsored affiliate links
+                  </p>
+                </div>
 
                 <div style={{
                   display: 'flex',
@@ -1046,7 +1055,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           fontSize: 'var(--text-xs)',
                           color: '#737373'
                         }}>
-                          {t('buyButtons.ebay.description') || 'Rare finds & collector deals'} • {t('buyButtons.ebay.sponsored') || 'Sponsored'}
+                          {t('buyButtons.ebay.description') || 'Rare finds & collector deals'}
                         </div>
                       </div>
                     </div>
@@ -1102,7 +1111,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           fontSize: 'var(--text-xs)',
                           color: '#737373'
                         }}>
-                          {t('buyButtons.amazon.description') || 'Fast shipping & easy returns'} • {t('buyButtons.amazon.sponsored') || 'Sponsored'}
+                          {t('buyButtons.amazon.description') || 'Fast shipping & easy returns'}
                         </div>
                       </div>
                     </div>
