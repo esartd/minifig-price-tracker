@@ -441,12 +441,13 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
             gap: '16px'
           }}>
             {(() => {
-              // Scattered grid pattern for theme pages - place ads at even positions to avoid gaps
+              // Scattered grid pattern - place ads at positions divisible by 6 to minimize gaps
               const items: Array<{ type: 'minifig' | 'set'; data: Minifig | LegoSet; key: string }> = [];
 
-              // Place first ad after 12 items, then every 16 items (to align with typical grid layouts)
-              const firstAdPosition = 12;
-              const spacing = 16;
+              // Place ads at positions divisible by 6 (row boundaries in 6-column grid)
+              // Start after 18 items, then every 24 items
+              const firstAdPosition = 18;
+              const spacing = 24;
               const adPositions: number[] = [];
 
               // Calculate ad positions based on available sets
@@ -475,14 +476,15 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
                 if (item.type === 'set') {
                   const set = item.data as LegoSet;
                   return (
-                    <SetAdCard
-                      key={item.key}
-                      setNumber={set.setNumber}
-                      setName={set.name}
-                      imageUrl={set.imageUrl}
-                      year={set.year}
-                      amazonUrl={set.amazonUrl}
-                    />
+                    <div key={item.key} style={{ gridColumn: 'span 2', minWidth: 0 }}>
+                      <SetAdCard
+                        setNumber={set.setNumber}
+                        setName={set.name}
+                        imageUrl={set.imageUrl}
+                        year={set.year}
+                        amazonUrl={set.amazonUrl}
+                      />
+                    </div>
                   );
                 }
 
