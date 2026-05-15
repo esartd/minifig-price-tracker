@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,14 +12,47 @@ interface MinifigCardProps {
   minifig: any;
 }
 
+interface AmazonPrice {
+  currentPrice: number;
+  listPrice: number;
+  discountPercent: number;
+  isPrime: boolean;
+}
+
 export default function MinifigCard({
   minifig
 }: MinifigCardProps) {
   const router = useRouter();
   const [imageError, setImageError] = useState(false);
+  const [amazonPrice, setAmazonPrice] = useState<AmazonPrice | null>(null);
+  const [loadingPrice, setLoadingPrice] = useState(false);
 
   // Detect if this is a set or minifig
   const isSet = minifig.resultType === 'set' || minifig.box_no;
+
+  // Fetch Amazon price for sets
+  useEffect(() => {
+    if (!isSet) return; // Only fetch for sets
+
+    const fetchPrice = async () => {
+      setLoadingPrice(true);
+      try {
+        const boxNo = minifig.box_no;
+        const response = await fetch(`/api/amazon/set-price/${boxNo}`);
+        const data = await response.json();
+
+        if (data.success && data.data) {
+          setAmazonPrice(data.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch Amazon price:', error);
+      } finally {
+        setLoadingPrice(false);
+      }
+    };
+
+    fetchPrice();
+  }, [isSet, minifig.box_no]);
 
   // Display full minifig name from BrickLink (no modifications)
   const getDisplayName = (fullName: string): string => {
@@ -273,10 +306,11 @@ export default function MinifigCard({
               }}
               style={{
                 display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '8px 14px',
-                background: 'white',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                gap: '2px',
+                padding: amazonPrice ? '6px 14px' : '8px 14px',
+                background: amazonPrice?.discountPercent ? '#FFF7ED' : 'white',
                 color: '#525252',
                 borderRadius: '6px',
                 fontSize: 'var(--text-sm)',
@@ -284,24 +318,68 @@ export default function MinifigCard({
                 textDecoration: 'none',
                 whiteSpace: 'nowrap',
                 transition: 'all 0.2s',
-                border: '1px solid #e5e5e5',
-                cursor: 'pointer'
+                border: amazonPrice?.discountPercent ? '1px solid #fb923c' : '1px solid #e5e5e5',
+                cursor: 'pointer',
+                minWidth: amazonPrice ? '120px' : 'auto'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#fafafa';
-                e.currentTarget.style.borderColor = '#d4d4d4';
+                if (amazonPrice?.discountPercent) {
+                  e.currentTarget.style.background = '#FFEDD5';
+                  e.currentTarget.style.borderColor = '#f97316';
+                } else {
+                  e.currentTarget.style.background = '#fafafa';
+                  e.currentTarget.style.borderColor = '#d4d4d4';
+                }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'white';
-                e.currentTarget.style.borderColor = '#e5e5e5';
+                if (amazonPrice?.discountPercent) {
+                  e.currentTarget.style.background = '#FFF7ED';
+                  e.currentTarget.style.borderColor = '#fb923c';
+                } else {
+                  e.currentTarget.style.background = 'white';
+                  e.currentTarget.style.borderColor = '#e5e5e5';
+                }
               }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="9" cy="21" r="1"></circle>
-                <circle cx="20" cy="21" r="1"></circle>
-                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-              </svg>
-              Buy on Amazon
+              {loadingPrice && isSet ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <div style={{ width: '12px', height: '12px', border: '2px solid #e5e5e5', borderTop: '2px solid #525252', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
+                  <span>Amazon</span>
+                </div>
+              ) : amazonPrice ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', width: '100%' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: 'var(--text-xs)', color: '#737373' }}>Amazon</span>
+                    {amazonPrice.isPrime && (
+                      <span style={{ fontSize: '10px', fontWeight: '600', color: '#00a8e1', background: '#e6f7ff', padding: '1px 4px', borderRadius: '3px' }}>Prime</span>
+                    )}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
+                    <span style={{ fontSize: 'var(--text-base)', fontWeight: '700', color: '#171717' }}>
+                      ${amazonPrice.currentPrice.toFixed(2)}
+                    </span>
+                    {amazonPrice.discountPercent > 0 && (
+                      <>
+                        <span style={{ fontSize: 'var(--text-xs)', color: '#737373', textDecoration: 'line-through' }}>
+                          ${amazonPrice.listPrice.toFixed(2)}
+                        </span>
+                        <span style={{ fontSize: 'var(--text-xs)', fontWeight: '600', color: '#f97316' }}>
+                          -{amazonPrice.discountPercent}%
+                        </span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                  </svg>
+                  <span>Buy on Amazon</span>
+                </div>
+              )}
             </Link>
           </div>
         </div>
@@ -366,33 +444,63 @@ export default function MinifigCard({
           }}
           style={{
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '6px',
+            gap: amazonPrice ? '2px' : '6px',
             padding: '12px 16px',
-            background: 'white',
+            background: amazonPrice?.discountPercent ? '#FFF7ED' : 'white',
             color: '#525252',
             fontSize: 'var(--text-sm)',
             fontWeight: '500',
             textDecoration: 'none',
             transition: 'all 0.2s',
             border: 'none',
+            borderLeft: amazonPrice?.discountPercent ? '1px solid #fb923c' : 'none',
             cursor: 'pointer',
             flex: 1
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#fafafa';
+            if (amazonPrice?.discountPercent) {
+              e.currentTarget.style.background = '#FFEDD5';
+            } else {
+              e.currentTarget.style.background = '#fafafa';
+            }
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'white';
+            if (amazonPrice?.discountPercent) {
+              e.currentTarget.style.background = '#FFF7ED';
+            } else {
+              e.currentTarget.style.background = 'white';
+            }
           }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-          </svg>
-          Amazon
+          {amazonPrice ? (
+            <>
+              <span style={{ fontSize: 'var(--text-xs)', color: '#737373' }}>
+                Amazon {amazonPrice.isPrime && '⚡'}
+              </span>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
+                <span style={{ fontSize: 'var(--text-base)', fontWeight: '700', color: '#171717' }}>
+                  ${amazonPrice.currentPrice.toFixed(2)}
+                </span>
+                {amazonPrice.discountPercent > 0 && (
+                  <span style={{ fontSize: 'var(--text-xs)', fontWeight: '600', color: '#f97316' }}>
+                    -{amazonPrice.discountPercent}%
+                  </span>
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              Amazon
+            </>
+          )}
         </Link>
       </div>
     </div>
