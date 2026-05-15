@@ -1040,13 +1040,13 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           color: '#171717',
                           fontSize: 'var(--text-sm)'
                         }}>
-                          eBay
+                          {t('buyButtons.ebay.name') || 'eBay'}
                         </div>
                         <div style={{
                           fontSize: 'var(--text-xs)',
                           color: '#737373'
                         }}>
-                          Rare finds & collector deals • Sponsored
+                          {t('buyButtons.ebay.description') || 'Rare finds & collector deals'} • {t('buyButtons.ebay.sponsored') || 'Sponsored'}
                         </div>
                       </div>
                     </div>
@@ -1096,13 +1096,13 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           color: '#171717',
                           fontSize: 'var(--text-sm)'
                         }}>
-                          Amazon
+                          {t('buyButtons.amazon.name') || 'Amazon'}
                         </div>
                         <div style={{
                           fontSize: 'var(--text-xs)',
                           color: '#737373'
                         }}>
-                          Fast shipping & easy returns • Sponsored
+                          {t('buyButtons.amazon.description') || 'Fast shipping & easy returns'} • {t('buyButtons.amazon.sponsored') || 'Sponsored'}
                         </div>
                       </div>
                     </div>
@@ -1153,13 +1153,13 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           color: '#171717',
                           fontSize: 'var(--text-sm)'
                         }}>
-                          BrickLink
+                          {t('buyButtons.bricklink.name') || 'BrickLink'}
                         </div>
                         <div style={{
                           fontSize: 'var(--text-xs)',
                           color: '#737373'
                         }}>
-                          Largest LEGO marketplace
+                          {t('buyButtons.bricklink.description') || 'Largest LEGO marketplace'}
                         </div>
                       </div>
                     </div>

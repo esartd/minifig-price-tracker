@@ -435,6 +435,22 @@
     "results": "{count} résultats trouvés",
     "searching": "Recherche..."
   },
+  "buyButtons": {
+    "ebay": {
+      "name": "eBay",
+      "description": "Trouvailles rares & offres collectionneurs",
+      "sponsored": "Sponsorisé"
+    },
+    "amazon": {
+      "name": "Amazon",
+      "description": "Livraison rapide & retours faciles",
+      "sponsored": "Sponsorisé"
+    },
+    "bricklink": {
+      "name": "BrickLink",
+      "description": "Plus grand marché LEGO"
+    }
+  },
   "pricing": {
     "sixMonthAvg": "Moy. 6 mois",
     "currentAvg": "Moy. actuelle",

@@ -378,6 +378,22 @@
     "results": "{count} results found",
     "searching": "Searching..."
   },
+  "buyButtons": {
+    "ebay": {
+      "name": "eBay",
+      "description": "Rare finds & collector deals",
+      "sponsored": "Sponsored"
+    },
+    "amazon": {
+      "name": "Amazon",
+      "description": "Fast shipping & easy returns",
+      "sponsored": "Sponsored"
+    },
+    "bricklink": {
+      "name": "BrickLink",
+      "description": "Largest LEGO marketplace"
+    }
+  },
   "pricing": {
     "sixMonthAvg": "6 Mo Avg",
     "currentAvg": "Current Avg",
