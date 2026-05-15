@@ -55,16 +55,15 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
         background: 'linear-gradient(135deg, #ffffff 0%, #f9fafb 100%)',
         border: '2px solid #3b82f6',
         borderRadius: '12px',
-        padding: '16px',
-        overflow: 'hidden',
+        padding: '24px',
         transition: 'all 0.2s',
         boxShadow: '0 2px 8px rgba(59, 130, 246, 0.1)',
         position: 'relative',
         display: 'flex',
         flexDirection: 'row',
-        gap: '16px',
+        gap: '24px',
         alignItems: 'center',
-        height: '100%',
+        minHeight: '300px',
         textDecoration: 'none',
         cursor: 'pointer'
       }}
@@ -82,8 +81,8 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
       {/* Set Image - Large square on left side */}
       <div style={{
         position: 'relative',
-        width: '300px',
-        height: '300px',
+        width: '240px',
+        height: '240px',
         flexShrink: 0,
         background: '#ffffff',
         borderRadius: '8px',
@@ -93,7 +92,7 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
           src={imageUrl}
           alt={setName}
           fill
-          sizes="300px"
+          sizes="240px"
           style={{
             objectFit: 'contain',
             padding: '16px'
@@ -103,7 +102,7 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
       </div>
 
       {/* Set Info - Flex column on right */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '300px', paddingLeft: '8px' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '240px' }}>
         <div>
           {/* Sponsored Badge */}
           <div style={{
