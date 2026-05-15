@@ -37,8 +37,8 @@ export async function generateMetadata(): Promise<Metadata> {
       default: 'FigTracker - LEGO Minifigure & Set Price Tracker with Real-Time Bricklink Data',
       template: '%s | FigTracker'
     },
-    description: 'Free LEGO price tracker for 18,000+ minifigures and 20,000+ sets with real-time Bricklink marketplace data. Track inventory value, manage collections, compete on leaderboards, and discover great deals.',
-    keywords: ['LEGO minifigure prices', 'LEGO set prices', 'Bricklink price tracker', 'LEGO inventory management', 'minifig value tracker', 'LEGO reseller tool', 'Bricklink marketplace data', 'LEGO price guide', 'minifigure collection tracker', 'LEGO set tracker', 'LEGO deals', 'LEGO Star Wars prices'],
+    description: 'Track LEGO minifigure and set prices with real-time BrickLink data. Manage your collection, organize items to sell and keep, see current market values, and join collector leaderboards. Free for LEGO collectors and sellers.',
+    keywords: ['LEGO minifigure prices', 'LEGO set prices', 'BrickLink price tracker', 'LEGO collection manager', 'minifig value tracker', 'LEGO seller tool', 'BrickLink marketplace data', 'LEGO price guide', 'minifigure collection tracker', 'LEGO set tracker', 'LEGO collector leaderboard', 'track LEGO prices', 'organize LEGO collection', 'real-time LEGO pricing'],
     authors: [{ name: 'FigTracker', url: 'https://figtracker.ericksu.com' }],
     creator: 'FigTracker',
     publisher: 'FigTracker',
@@ -63,7 +63,7 @@ export async function generateMetadata(): Promise<Metadata> {
       url: domains[locale as keyof typeof domains],
       siteName: 'FigTracker',
       title: 'FigTracker - LEGO Minifigure & Set Price Tracker with Real-Time Bricklink Data',
-      description: 'Free LEGO price tracker for 18,000+ minifigures and 20,000+ sets. Real-time Bricklink data, inventory management, collection tracking, and community leaderboards.',
+      description: 'Track LEGO minifigure and set prices with real-time BrickLink data. Manage your collection, organize items to sell and keep, see current market values, and join collector leaderboards.',
       images: [
         {
           url: '/api/og',
@@ -76,7 +76,7 @@ export async function generateMetadata(): Promise<Metadata> {
     twitter: {
       card: 'summary_large_image',
       title: 'FigTracker - LEGO Minifigure & Set Price Tracker',
-      description: 'Free LEGO price tracker for 18,000+ minifigures and 20,000+ sets with real-time Bricklink marketplace data.',
+      description: 'Track LEGO minifigure and set prices with real-time BrickLink data. Manage your collection and see current market values.',
       images: ['/api/og'],
     },
     alternates: {

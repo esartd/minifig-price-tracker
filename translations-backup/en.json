@@ -599,9 +599,9 @@
       "button": "Start Pricing Your Inventory →"
     },
     "meta": {
-      "title": "About FigTracker - Free LEGO Minifigure Price Tracker",
-      "description": "Learn how FigTracker helps LEGO resellers and collectors price minifigures accurately with real-time Bricklink marketplace data. Search over 18,000 minifigs. Free to use.",
-      "keywords": "about FigTracker, LEGO price tracker, Bricklink API tool, minifigure pricing, LEGO inventory tracker, free LEGO pricing"
+      "title": "About FigTracker - Free LEGO Minifigure & Set Price Tracker",
+      "description": "FigTracker helps LEGO collectors and sellers track minifigure and set prices with real-time BrickLink data. Manage your collection, organize items to sell and keep, and see current market values. Over 18,000 minifigs and 20,000 sets. Free to use.",
+      "keywords": "about FigTracker, LEGO price tracker, BrickLink API tool, minifigure pricing, LEGO set pricing, LEGO collection manager, LEGO inventory tracker, free LEGO pricing, LEGO seller tool"
     }
   },
   "featured": {
