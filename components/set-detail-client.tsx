@@ -1046,7 +1046,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           fontSize: 'var(--text-xs)',
                           color: '#737373'
                         }}>
-                          New & used listings • Sponsored
+                          Rare finds & collector deals • Sponsored
                         </div>
                       </div>
                     </div>
@@ -1102,7 +1102,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           fontSize: 'var(--text-xs)',
                           color: '#737373'
                         }}>
-                          Fast shipping • Sponsored
+                          Fast shipping & easy returns • Sponsored
                         </div>
                       </div>
                     </div>
@@ -1159,7 +1159,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                           fontSize: 'var(--text-xs)',
                           color: '#737373'
                         }}>
-                          {availability.status === 'retired' ? 'Best for retired sets' : 'Used & new available'}
+                          Largest LEGO marketplace
                         </div>
                       </div>
                     </div>
