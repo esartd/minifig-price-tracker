@@ -409,87 +409,6 @@ function SearchPageContent() {
             />
           </div>
 
-          {/* Features Section - Only show when not searching */}
-          {!isSearchActive && (
-            <div style={{
-              maxWidth: '900px',
-              margin: '0 auto 64px',
-              padding: '0 16px'
-            }}>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '24px',
-                textAlign: 'center'
-              }}>
-                <div>
-                  <div style={{
-                    fontSize: 'var(--text-2xl)',
-                    fontWeight: '700',
-                    color: '#171717',
-                    marginBottom: '8px'
-                  }}>
-                    18,000+
-                  </div>
-                  <div style={{
-                    fontSize: 'var(--text-sm)',
-                    color: '#737373'
-                  }}>
-                    Minifigures tracked
-                  </div>
-                </div>
-                <div>
-                  <div style={{
-                    fontSize: 'var(--text-2xl)',
-                    fontWeight: '700',
-                    color: '#171717',
-                    marginBottom: '8px'
-                  }}>
-                    20,000+
-                  </div>
-                  <div style={{
-                    fontSize: 'var(--text-sm)',
-                    color: '#737373'
-                  }}>
-                    Sets in catalog
-                  </div>
-                </div>
-                <div>
-                  <div style={{
-                    fontSize: 'var(--text-2xl)',
-                    fontWeight: '700',
-                    color: '#171717',
-                    marginBottom: '8px'
-                  }}>
-                    Real-time
-                  </div>
-                  <div style={{
-                    fontSize: 'var(--text-sm)',
-                    color: '#737373'
-                  }}>
-                    BrickLink pricing
-                  </div>
-                </div>
-                <div>
-                  <div style={{
-                    fontSize: 'var(--text-2xl)',
-                    fontWeight: '700',
-                    color: '#171717',
-                    marginBottom: '8px'
-                  }}>
-                    Free
-                  </div>
-                  <div style={{
-                    fontSize: 'var(--text-sm)',
-                    color: '#737373'
-                  }}>
-                    For collectors & sellers
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
           {/* Category/Subcategory Browsing Header */}
           {(categoryId || subcategory) && categoryName && !searchQuery && (
             <div style={{
@@ -607,6 +526,92 @@ function SearchPageContent() {
           )}
         </div>
       </section>
+
+      {/* Features Section - Outside hero, only show when not searching */}
+      {!isSearchActive && (
+        <div style={{
+          maxWidth: '1000px',
+          margin: '-32px auto 48px',
+          padding: '0 16px'
+        }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+            gap: '16px',
+            textAlign: 'center',
+            background: '#ffffff',
+            border: '1px solid #e5e5e5',
+            borderRadius: '12px',
+            padding: '24px 16px',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)'
+          }}>
+            <div>
+              <div style={{
+                fontSize: 'var(--text-xl)',
+                fontWeight: '700',
+                color: '#171717',
+                marginBottom: '4px'
+              }}>
+                18,000+
+              </div>
+              <div style={{
+                fontSize: 'var(--text-xs)',
+                color: '#737373'
+              }}>
+                Minifigures tracked
+              </div>
+            </div>
+            <div>
+              <div style={{
+                fontSize: 'var(--text-xl)',
+                fontWeight: '700',
+                color: '#171717',
+                marginBottom: '4px'
+              }}>
+                20,000+
+              </div>
+              <div style={{
+                fontSize: 'var(--text-xs)',
+                color: '#737373'
+              }}>
+                Sets in catalog
+              </div>
+            </div>
+            <div>
+              <div style={{
+                fontSize: 'var(--text-xl)',
+                fontWeight: '700',
+                color: '#171717',
+                marginBottom: '4px'
+              }}>
+                Real-time
+              </div>
+              <div style={{
+                fontSize: 'var(--text-xs)',
+                color: '#737373'
+              }}>
+                BrickLink pricing
+              </div>
+            </div>
+            <div>
+              <div style={{
+                fontSize: 'var(--text-xl)',
+                fontWeight: '700',
+                color: '#171717',
+                marginBottom: '4px'
+              }}>
+                Free
+              </div>
+              <div style={{
+                fontSize: 'var(--text-xs)',
+                color: '#737373'
+              }}>
+                For collectors & sellers
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Homepage sections - Only show when not actively searching */}
       {!isSearchActive && (
