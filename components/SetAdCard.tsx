@@ -93,11 +93,11 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
         Sponsored
       </div>
 
-      {/* Set Image - Large centered */}
+      {/* Set Image - Landscape ratio for shorter height */}
       <div style={{
         position: 'relative',
         width: '100%',
-        paddingBottom: '100%',
+        paddingBottom: '60%',
         marginBottom: '12px',
         background: '#ffffff',
         borderRadius: '8px',
@@ -110,7 +110,7 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
           sizes="(max-width: 768px) 50vw, 400px"
           style={{
             objectFit: 'contain',
-            padding: '16px'
+            padding: '12px'
           }}
           unoptimized
         />
