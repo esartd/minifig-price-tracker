@@ -308,7 +308,7 @@ export default function SubcategoryPageClient({
               if (item.type === 'set') {
                 const set = item.data as LegoSet;
                 return (
-                  <div key={item.key} style={{ gridColumn: 'span 2' }}>
+                  <div key={item.key} style={{ gridColumn: 'span 2', minWidth: 0 }}>
                     <SetAdCard
                       setNumber={set.setNumber}
                       setName={set.name}

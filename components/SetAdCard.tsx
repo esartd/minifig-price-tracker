@@ -79,11 +79,11 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
         e.currentTarget.style.transform = 'translateY(0)';
       }}
     >
-      {/* Set Image - Square on left side */}
+      {/* Set Image - Large square on left side */}
       <div style={{
         position: 'relative',
-        width: '140px',
-        height: '140px',
+        width: '300px',
+        height: '300px',
         flexShrink: 0,
         background: '#ffffff',
         borderRadius: '8px',
@@ -93,17 +93,17 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
           src={imageUrl}
           alt={setName}
           fill
-          sizes="140px"
+          sizes="300px"
           style={{
             objectFit: 'contain',
-            padding: '8px'
+            padding: '16px'
           }}
           unoptimized
         />
       </div>
 
       {/* Set Info - Flex column on right */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '140px' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '300px', paddingLeft: '8px' }}>
         <div>
           {/* Sponsored Badge */}
           <div style={{
