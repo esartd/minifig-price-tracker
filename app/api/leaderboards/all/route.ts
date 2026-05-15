@@ -14,8 +14,8 @@ import { generateDefaultDisplayName } from '@/lib/leaderboards';
  */
 
 // Cache results for 24 hours to reduce database load
-let cachedData: any = null;
-let cacheTime = 0;
+// Use separate caches for quarterly and all-time to prevent data mixing
+const cache = new Map<string, { data: any; timestamp: number }>();
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 
 // Revalidate every 24 hours
@@ -29,10 +29,12 @@ export async function GET(request: NextRequest) {
     // Check cache
     const now = Date.now();
     const cacheKey = `leaderboards-${period}`;
-    if (cachedData && cachedData.key === cacheKey && (now - cacheTime) < CACHE_DURATION) {
+    const cachedEntry = cache.get(cacheKey);
+
+    if (cachedEntry && (now - cachedEntry.timestamp) < CACHE_DURATION) {
       return NextResponse.json({
         success: true,
-        data: cachedData.data,
+        data: cachedEntry.data,
         cached: true,
       });
     }
@@ -171,9 +173,11 @@ export async function GET(request: NextRequest) {
       topDonors,
     };
 
-    // Update cache
-    cachedData = { key: cacheKey, data: result };
-    cacheTime = now;
+    // Update cache with separate entries for quarterly and all-time
+    cache.set(cacheKey, {
+      data: result,
+      timestamp: now,
+    });
 
     return NextResponse.json({
       success: true,
