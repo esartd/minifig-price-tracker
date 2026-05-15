@@ -895,7 +895,7 @@ input[type="number"] {
   .minifig-image-container {
     position: sticky !important;
     top: 88px !important;
-    width: 480px !important;
+    width: 600px !important;
     height: fit-content !important;
     flex-shrink: 0 !important;
     padding: 48px 24px !important;
@@ -913,7 +913,7 @@ input[type="number"] {
   }
 
   .minifig-sticky-wrapper {
-    max-width: 228px !important;
+    max-width: 400px !important;
   }
 
   .minifig-main-image {
