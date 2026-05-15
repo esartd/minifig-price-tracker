@@ -279,7 +279,7 @@ export default function AboutPageClient({ catalogCountText }: { catalogCountText
           <div className="section-content-narrow">
             <h2>{t('about.cta.title')}</h2>
             <p>{t('about.cta.subtitle')}</p>
-            <a href="/search" className="cta-button">
+            <a href="/" className="cta-button">
               {t('about.cta.button')}
             </a>
           </div>

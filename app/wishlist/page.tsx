@@ -267,7 +267,7 @@ export default function WishlistPage() {
             {t('wishlist.emptyDescription')}
           </p>
           <Link
-            href="/search"
+            href="/"
             style={{
               display: 'inline-block',
               padding: '12px 24px',

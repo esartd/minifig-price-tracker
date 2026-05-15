@@ -362,7 +362,7 @@ export default function PersonalCollectionPage() {
                 gap: '8px'
               }}>
                 <Link
-                  href="/search?mode=collection"
+                  href="/?mode=collection"
                   className="collection-add-button"
                   style={{
                     display: 'inline-flex',
@@ -548,7 +548,7 @@ export default function PersonalCollectionPage() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <Link
-                href="/search?mode=collection"
+                href="/?mode=collection"
                 className="collection-add-button"
                 style={{
                   display: 'inline-flex',
@@ -776,7 +776,7 @@ export default function PersonalCollectionPage() {
                     {t('collection.startAdding')}
                   </p>
                   <Link
-                    href="/search?mode=collection"
+                    href="/?mode=collection"
                     style={{
                       display: 'inline-block',
                       padding: '16px 32px',

@@ -483,7 +483,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
             {translations.guides.cta.subtitle}
           </p>
           <Link
-            href="/search"
+            href="/"
             style={{
               display: 'inline-flex',
               alignItems: 'center',

@@ -41,7 +41,7 @@ export default function NotFound() {
         flexWrap: 'wrap'
       }}>
         <Link
-          href="/search"
+          href="/"
           style={{
             padding: '12px 24px',
             fontSize: 'var(--text-base)',

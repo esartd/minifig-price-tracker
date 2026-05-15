@@ -155,7 +155,7 @@ export default function ExampleArticle() {
 
       <ArticleCallout type="info">
         <strong>Ready to get started?</strong> Visit our{' '}
-        <a href="/search" style={{ color: '#1a73e8', textDecoration: 'underline' }}>
+        <a href="/" style={{ color: '#1a73e8', textDecoration: 'underline' }}>
           search page
         </a>{' '}
         to begin tracking your collection.

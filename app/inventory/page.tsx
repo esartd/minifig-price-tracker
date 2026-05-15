@@ -352,7 +352,7 @@ export default function CollectionPage() {
                 gap: '8px'
               }}>
                 <Link
-                  href="/search"
+                  href="/"
                   className="collection-add-button"
                   style={{
                     display: 'inline-flex',
@@ -538,7 +538,7 @@ export default function CollectionPage() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <Link
-                href="/search"
+                href="/"
                 className="collection-add-button"
                 style={{
                   display: 'inline-flex',
@@ -767,7 +767,7 @@ export default function CollectionPage() {
                     {t('collection.startAddingInventory')}
                   </p>
                   <Link
-                    href="/search"
+                    href="/"
                     style={{
                       display: 'inline-block',
                       padding: '16px 32px',

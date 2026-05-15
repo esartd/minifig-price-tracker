@@ -110,7 +110,7 @@ export default function FAQPageClient({ faqs }: { faqs: Array<{ question: string
           <div className="section-content-narrow">
             <h2>{t('faq.cta.title')}</h2>
             <p>{t('faq.cta.subtitle')}</p>
-            <Link href="/search" className="cta-button">
+            <Link href="/" className="cta-button">
               {t('faq.cta.button')}
             </Link>
           </div>

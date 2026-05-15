@@ -125,7 +125,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
             {error}
           </p>
           <Link
-            href="/search"
+            href="/"
             style={{
               display: 'inline-block',
               padding: '12px 24px',
@@ -337,7 +337,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
           {t.trackYourCollection}
         </p>
         <Link
-          href="/search"
+          href="/"
           style={{
             display: 'inline-block',
             padding: '12px 24px',

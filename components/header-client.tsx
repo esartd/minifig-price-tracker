@@ -268,7 +268,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               gap: '24px'
             }}>
               <Link
-                href="/search"
+                href="/"
                 style={{
                   fontSize: 'var(--text-xs)',
                   fontWeight: pathname === '/search' ? '600' : '500',
@@ -574,7 +574,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             borderTop: '1px solid #f5f5f5',
             zIndex: 1000
           }}>
-            <Link href="/search" onClick={() => setMobileMenuOpen(false)} style={{
+            <Link href="/" onClick={() => setMobileMenuOpen(false)} style={{
               display: 'flex',
               alignItems: 'center',
               padding: '16px 0',
@@ -848,7 +848,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             gap: '24px'
           }}>
             <Link
-              href="/search"
+              href="/"
               style={{
                 fontSize: 'var(--text-xs)',
                 fontWeight: pathname === '/search' ? '600' : '500',
@@ -1297,7 +1297,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
           padding: '16px 16px 32px',
           borderTop: '1px solid #f5f5f5'
         }}>
-          <Link href="/search" onClick={() => setMobileMenuOpen(false)} style={{
+          <Link href="/" onClick={() => setMobileMenuOpen(false)} style={{
             display: 'flex',
             alignItems: 'center',
             padding: '16px 0',

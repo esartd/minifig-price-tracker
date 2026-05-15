@@ -70,7 +70,7 @@ export default function Error({
         </button>
 
         <a
-          href="/search"
+          href="/"
           style={{
             padding: '12px 24px',
             fontSize: 'var(--text-base)',
