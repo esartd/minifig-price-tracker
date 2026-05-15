@@ -136,7 +136,8 @@ export function getNewestCurrentSetsFromTheme(themeName: string, count: number =
     'speed champions': ['speed champions'],
     'minecraft': ['minecraft'],
     'despicable me': ['despicable me and minions', 'despicable me', 'minions'],
-    'minions': ['despicable me and minions', 'despicable me', 'minions']
+    'minions': ['despicable me and minions', 'despicable me', 'minions'],
+    'art': ['art /'] // Only match "Art /" to avoid matching "Mario" or "Martial Arts" etc
   };
 
   // Find matching theme variations
@@ -199,7 +200,8 @@ export function getRandomCurrentSetsFromTheme(themeName: string, count: number =
     'speed champions': ['speed champions'],
     'minecraft': ['minecraft'],
     'despicable me': ['despicable me and minions', 'despicable me', 'minions'],
-    'minions': ['despicable me and minions', 'despicable me', 'minions']
+    'minions': ['despicable me and minions', 'despicable me', 'minions'],
+    'art': ['art /'] // Only match "Art /" to avoid matching "Mario" or "Martial Arts" etc
   };
 
   // Find matching theme variations
