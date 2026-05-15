@@ -266,9 +266,32 @@ export default function PersonalCollectionList({
                 <option value="used">USED</option>
               </select>
             </div>
-            {item.pricing && item.pricing.suggestedPrice > 0 ? (
+            {itemsUpdating.has(item.id) || (staleItems.has(item.id) && (!item.pricing || item.pricing.suggestedPrice === 0)) ? (
+              // Show "Updating..." for items currently being fetched OR items queued for update with no price
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}>
+                <div style={{
+                  width: '8px',
+                  height: '8px',
+                  background: '#3b82f6',
+                  borderRadius: '50%',
+                  flexShrink: 0,
+                  animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                }} />
+                <div style={{
+                  fontSize: 'var(--text-xs)',
+                  color: '#737373',
+                  fontStyle: 'italic'
+                }}>
+                  Updating...
+                </div>
+              </div>
+            ) : item.pricing && item.pricing.suggestedPrice > 0 ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                {/* Blue dot if this item has stale pricing (>6 hours old) */}
+                {/* Blue dot if this item has stale pricing (>6 hours old) but has a price */}
                 {staleItems.has(item.id) && (
                   <div style={{
                     width: '8px',
@@ -307,27 +330,6 @@ export default function PersonalCollectionList({
                       {formatPrice(item.pricing.suggestedPrice, currency, showDecimals)}
                     </div>
                   )}
-                </div>
-              </div>
-            ) : itemsUpdating.has(item.id) ? (
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}>
-                <div style={{
-                  width: '8px',
-                  height: '8px',
-                  background: '#3b82f6',
-                  borderRadius: '50%',
-                  flexShrink: 0
-                }} />
-                <div style={{
-                  fontSize: 'var(--text-xs)',
-                  color: '#737373',
-                  fontStyle: 'italic'
-                }}>
-                  Updating...
                 </div>
               </div>
             ) : (
