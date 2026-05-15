@@ -429,7 +429,7 @@
     }
   },
   "search": {
-    "placeholder": "Rechercher une minifigurine LEGO...",
+    "placeholder": "Rechercher une minifigurine ou un set LEGO...",
     "placeholderSets": "Rechercher des sets LEGO...",
     "notFound": "Non trouvé. Essayez d'autres termes de recherche.",
     "results": "{count} résultats trouvés",

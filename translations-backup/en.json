@@ -372,7 +372,7 @@
     }
   },
   "search": {
-    "placeholder": "Search for any LEGO minifigure...",
+    "placeholder": "Search for any LEGO minifigure or set...",
     "placeholderSets": "Search for LEGO sets...",
     "notFound": "Not found. Try different search terms.",
     "results": "{count} results found",
