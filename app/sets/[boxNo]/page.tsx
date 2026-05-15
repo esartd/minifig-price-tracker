@@ -67,11 +67,12 @@ export async function generateMetadata({
       'set price guide',
       'LEGO price tracker',
       'collectible sets',
-      'LEGO inventory'
+      'LEGO collection manager',
+      'track set value'
     ],
     openGraph: {
       title: `${set.name} - ${set.category_name}`,
-      description: `LEGO Set ${set.box_no} - Price tracking and inventory management`,
+      description: `LEGO Set ${set.box_no} - Track BrickLink prices, see current market value, and manage your collection`,
       url: `${domains[locale as keyof typeof domains]}/sets/${boxNo}`,
       locale: localeMap[locale as keyof typeof localeMap],
       alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),

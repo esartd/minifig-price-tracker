@@ -353,15 +353,6 @@ export default function FeaturedSets() {
           ))}
         </div>
 
-        {/* Affiliate Disclosure */}
-        <p style={{
-          fontSize: 'var(--text-sm)',
-          color: '#737373',
-          marginTop: '48px',
-          textAlign: 'center'
-        }}>
-          {t('footer.commission')} <a href="/disclosure" style={{ color: '#737373', textDecoration: 'underline' }}>{t('footer.learnMore')}</a>
-        </p>
       </div>
     </section>
     </>

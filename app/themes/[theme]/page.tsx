@@ -49,23 +49,25 @@ export async function generateMetadata({
     console.error('Failed to fetch metadata for theme:', error);
   }
 
-  const title = `Browse ${decodedTheme} LEGO Minifigures${totalMinifigs > 0 ? ` (${totalMinifigs.toLocaleString()} minifigs)` : ''} | FigTracker`;
-  const description = `Explore ${totalMinifigs > 0 ? totalMinifigs.toLocaleString() : 'all'} ${decodedTheme} LEGO minifigures with real-time BrickLink pricing. Track prices, manage your collection, and discover rare figures${seriesCount > 0 ? ` across ${seriesCount} series` : ''}.`;
+  const title = `Browse ${decodedTheme} LEGO Minifigures & Sets${totalMinifigs > 0 ? ` (${totalMinifigs.toLocaleString()} minifigs)` : ''} | FigTracker`;
+  const description = `Explore ${totalMinifigs > 0 ? totalMinifigs.toLocaleString() : 'all'} ${decodedTheme} LEGO minifigures and sets with real-time BrickLink pricing. Track current market values, manage your collection, and organize items to sell and keep${seriesCount > 0 ? ` across ${seriesCount} series` : ''}.`;
 
   return {
     title,
     description,
     keywords: [
       `${decodedTheme} LEGO minifigures`,
-      `${decodedTheme} LEGO`,
+      `${decodedTheme} LEGO sets`,
       `${decodedTheme} minifig price`,
+      `${decodedTheme} set price`,
       `${decodedTheme} price tracker`,
-      `${decodedTheme} collection`,
+      `${decodedTheme} collection manager`,
       'BrickLink prices',
-      'LEGO price guide'
+      'LEGO price guide',
+      'track LEGO prices'
     ],
     openGraph: {
-      title: `${decodedTheme} LEGO Minifigures | FigTracker`,
+      title: `${decodedTheme} LEGO Minifigures & Sets | FigTracker`,
       description,
       url: `${domains[locale as keyof typeof domains]}/themes/${theme}`,
       locale: localeMap[locale as keyof typeof localeMap],

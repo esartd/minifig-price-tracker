@@ -69,7 +69,7 @@ export async function generateMetadata({
   // Use first 2 sentences of description for meta description
   const metaDescription = description
     ? description.split('. ').slice(0, 2).join('. ') + '.'
-    : `${minifig.category_name} - ${fullName}. Track current BrickLink prices, view historical trends, and manage your LEGO minifigure inventory. Released ${minifig.year_released || 'date unknown'}.`;
+    : `${minifig.category_name} - ${fullName}. Track current BrickLink prices, see market value, and manage your collection. Add to sell or keep. Released ${minifig.year_released || 'date unknown'}.`;
 
   return {
     title: `${fullName} (${minifig.minifigure_no}) - LEGO Minifigure Price Guide`,
@@ -83,11 +83,12 @@ export async function generateMetadata({
       'minifigure price guide',
       'LEGO price tracker',
       'collectible minifigures',
-      'LEGO inventory'
+      'LEGO collection manager',
+      'track minifig value'
     ],
     openGraph: {
       title: `${fullName} - ${minifig.category_name}`,
-      description: `LEGO Minifigure ${minifig.minifigure_no} - Price tracking and inventory management`,
+      description: `LEGO Minifigure ${minifig.minifigure_no} - Track BrickLink prices, see current market value, and manage your collection`,
       url: `${domains[locale as keyof typeof domains]}/minifigs/${itemNo}`,
       locale: localeMap[locale as keyof typeof localeMap],
       alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),

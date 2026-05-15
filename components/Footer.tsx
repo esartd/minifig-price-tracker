@@ -148,6 +148,20 @@ export default function Footer() {
           margin: '0 auto var(--space-5) auto'
         }} />
 
+        {/* About FigTracker */}
+        <div style={{
+          textAlign: 'center',
+          maxWidth: '700px',
+          margin: '0 auto var(--space-6)',
+          fontSize: 'var(--text-sm)',
+          color: '#525252',
+          lineHeight: '1.7'
+        }}>
+          <p style={{ margin: 0 }}>
+            FigTracker helps LEGO collectors and sellers track minifigure and set prices with real-time BrickLink marketplace data. Manage your collection, organize items to sell and keep, see current market values, and join collector leaderboards. Over 18,000 minifigures and 20,000 sets. Free to use.
+          </p>
+        </div>
+
         {/* Legal & Attribution - Center Aligned */}
         <div style={{
           textAlign: 'center',
