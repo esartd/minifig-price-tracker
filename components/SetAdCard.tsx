@@ -52,12 +52,12 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
       onClick={handleClick}
       rel="noopener noreferrer sponsored"
       style={{
-        background: 'linear-gradient(135deg, #ffffff 0%, #f9fafb 100%)',
-        border: '2px solid #3b82f6',
+        background: '#ffffff',
+        border: '1px solid #e5e5e5',
         borderRadius: '12px',
         padding: '16px',
         transition: 'all 0.2s',
-        boxShadow: '0 2px 8px rgba(59, 130, 246, 0.1)',
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
@@ -66,9 +66,9 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
         cursor: 'pointer'
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = '#3b82f6';
-        e.currentTarget.style.boxShadow = '0 8px 16px rgba(59, 130, 246, 0.12)';
-        e.currentTarget.style.transform = 'translateY(-4px)';
+        e.currentTarget.style.borderColor = '#d4d4d4';
+        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+        e.currentTarget.style.transform = 'translateY(-2px)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = '#e5e5e5';
