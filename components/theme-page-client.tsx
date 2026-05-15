@@ -475,15 +475,14 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
                 if (item.type === 'set') {
                   const set = item.data as LegoSet;
                   return (
-                    <div key={item.key} style={{ gridColumn: 'span 2', minWidth: 0 }}>
-                      <SetAdCard
-                        setNumber={set.setNumber}
-                        setName={set.name}
-                        imageUrl={set.imageUrl}
-                        year={set.year}
-                        amazonUrl={set.amazonUrl}
-                      />
-                    </div>
+                    <SetAdCard
+                      key={item.key}
+                      setNumber={set.setNumber}
+                      setName={set.name}
+                      imageUrl={set.imageUrl}
+                      year={set.year}
+                      amazonUrl={set.amazonUrl}
+                    />
                   );
                 }
 
