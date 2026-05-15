@@ -2209,3 +2209,79 @@ select.custom-dropdown.condition-used {
 .theme-hero-content {
   width: 100%;
 }
+
+/* ============================================ */
+/* Where to Buy Section - Responsive */
+/* ============================================ */
+
+/* Mobile: compact spacing and smaller text */
+@media (max-width: 767px) {
+  .where-to-buy-section {
+    padding: 16px !important;
+  }
+
+  .where-to-buy-title {
+    font-size: 11px !important;
+  }
+
+  .where-to-buy-subtitle {
+    font-size: 10px !important;
+  }
+
+  .where-to-buy-buttons {
+    gap: 6px !important;
+  }
+
+  .where-to-buy-buttons a {
+    padding: 10px 12px !important;
+  }
+
+  .where-to-buy-buttons svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .where-to-buy-buttons .button-text {
+    font-size: 13px !important;
+  }
+
+  .where-to-buy-buttons .button-description {
+    font-size: 11px !important;
+  }
+}
+
+/* Desktop: larger spacing and text */
+@media (min-width: 768px) {
+  .where-to-buy-section {
+    padding: 20px !important;
+  }
+
+  .where-to-buy-title {
+    font-size: var(--text-sm) !important;
+  }
+
+  .where-to-buy-subtitle {
+    font-size: var(--text-xs) !important;
+  }
+
+  .where-to-buy-buttons {
+    gap: 8px !important;
+  }
+
+  .where-to-buy-buttons a {
+    padding: 12px 16px !important;
+  }
+
+  .where-to-buy-buttons svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .where-to-buy-buttons .button-text {
+    font-size: var(--text-sm) !important;
+  }
+
+  .where-to-buy-buttons .button-description {
+    font-size: var(--text-xs) !important;
+  }
+}

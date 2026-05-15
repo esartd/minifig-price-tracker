@@ -977,28 +977,28 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
               {/* Where to Buy Section - always show, prioritize by availability */}
               <div style={{
                 marginTop: '24px',
-                padding: '20px',
+                padding: '16px',
                 background: '#fafafa',
                 borderRadius: '12px',
                 border: '1px solid #e5e5e5'
-              }}>
-                <div style={{ marginBottom: '12px' }}>
+              }} className="where-to-buy-section">
+                <div style={{ marginBottom: '10px' }}>
                   <h3 style={{
-                    fontSize: 'var(--text-sm)',
+                    fontSize: '11px',
                     fontWeight: '600',
                     color: '#525252',
                     textTransform: 'uppercase',
                     letterSpacing: '0.05em',
                     marginTop: 0,
                     marginBottom: '4px'
-                  }}>
+                  }} className="where-to-buy-title">
                     Where to Buy
                   </h3>
                   <p style={{
-                    fontSize: 'var(--text-xs)',
+                    fontSize: '10px',
                     color: '#737373',
                     margin: 0
-                  }}>
+                  }} className="where-to-buy-subtitle">
                     Sponsored affiliate links
                   </p>
                 </div>
@@ -1006,8 +1006,8 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                 <div style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '8px'
-                }}>
+                  gap: '6px'
+                }} className="where-to-buy-buttons">
                   {/* eBay Link - Always show */}
                   <Link
                     href={ebayAffiliateUrl}

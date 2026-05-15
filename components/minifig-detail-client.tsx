@@ -2288,14 +2288,14 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                 {/* Where to Buy Section */}
                 <div style={{
                   marginTop: '24px',
-                  padding: '20px',
+                  padding: isMobile ? '16px' : '20px',
                   background: '#fafafa',
                   borderRadius: '12px',
                   border: '1px solid #e5e5e5'
                 }}>
-                  <div style={{ marginBottom: '12px' }}>
+                  <div style={{ marginBottom: isMobile ? '8px' : '12px' }}>
                     <h3 style={{
-                      fontSize: 'var(--text-sm)',
+                      fontSize: isMobile ? '11px' : 'var(--text-sm)',
                       fontWeight: '600',
                       color: '#525252',
                       textTransform: 'uppercase',
@@ -2306,7 +2306,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       Where to Buy
                     </h3>
                     <p style={{
-                      fontSize: 'var(--text-xs)',
+                      fontSize: isMobile ? '10px' : 'var(--text-xs)',
                       color: '#737373',
                       margin: 0
                     }}>
@@ -2317,7 +2317,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                   <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '8px'
+                    gap: isMobile ? '6px' : '8px'
                   }}>
                     {/* eBay Link */}
                     <Link
@@ -2329,7 +2329,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        padding: '12px 16px',
+                        padding: isMobile ? '10px 12px' : '12px 16px',
                         background: '#ffffff',
                         border: '1px solid #e5e5e5',
                         borderRadius: '8px',
@@ -2350,8 +2350,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         e.currentTarget.style.boxShadow = 'none';
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E53238" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '8px' : '10px' }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width={isMobile ? "16" : "18"} height={isMobile ? "16" : "18"} viewBox="0 0 24 24" fill="none" stroke="#E53238" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <circle cx="9" cy="21" r="1"></circle>
                           <circle cx="20" cy="21" r="1"></circle>
                           <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
@@ -2360,19 +2360,19 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           <div style={{
                             fontWeight: '600',
                             color: '#171717',
-                            fontSize: 'var(--text-sm)'
+                            fontSize: isMobile ? '13px' : 'var(--text-sm)'
                           }}>
                             {t('buyButtons.ebay.name') || 'eBay'}
                           </div>
                           <div style={{
-                            fontSize: 'var(--text-xs)',
+                            fontSize: isMobile ? '11px' : 'var(--text-xs)',
                             color: '#737373'
                           }}>
                             {t('buyButtons.ebay.description') || 'Rare finds & collector deals'}
                           </div>
                         </div>
                       </div>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#E53238" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#E53238" style={{ width: isMobile ? '16px' : '18px', height: isMobile ? '16px' : '18px', flexShrink: 0 }}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                       </svg>
                     </Link>
@@ -2387,7 +2387,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        padding: '12px 16px',
+                        padding: isMobile ? '10px 12px' : '12px 16px',
                         background: '#ffffff',
                         border: '1px solid #e5e5e5',
                         borderRadius: '8px',
@@ -2408,8 +2408,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         e.currentTarget.style.boxShadow = 'none';
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0057A6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '8px' : '10px' }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width={isMobile ? "16" : "18"} height={isMobile ? "16" : "18"} viewBox="0 0 24 24" fill="none" stroke="#0057A6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <rect x="3" y="3" width="7" height="7"></rect>
                           <rect x="14" y="3" width="7" height="7"></rect>
                           <rect x="14" y="14" width="7" height="7"></rect>
@@ -2419,19 +2419,19 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           <div style={{
                             fontWeight: '600',
                             color: '#171717',
-                            fontSize: 'var(--text-sm)'
+                            fontSize: isMobile ? '13px' : 'var(--text-sm)'
                           }}>
                             {t('buyButtons.bricklink.name') || 'BrickLink'}
                           </div>
                           <div style={{
-                            fontSize: 'var(--text-xs)',
+                            fontSize: isMobile ? '11px' : 'var(--text-xs)',
                             color: '#737373'
                           }}>
                             {t('buyButtons.bricklink.description') || 'Largest LEGO marketplace'}
                           </div>
                         </div>
                       </div>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#0057A6" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#0057A6" style={{ width: isMobile ? '16px' : '18px', height: isMobile ? '16px' : '18px', flexShrink: 0 }}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                       </svg>
                     </Link>
@@ -2446,7 +2446,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        padding: '12px 16px',
+                        padding: isMobile ? '10px 12px' : '12px 16px',
                         background: '#ffffff',
                         border: '1px solid #e5e5e5',
                         borderRadius: '8px',
@@ -2467,8 +2467,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                         e.currentTarget.style.boxShadow = 'none';
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '8px' : '10px' }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width={isMobile ? "16" : "18"} height={isMobile ? "16" : "18"} viewBox="0 0 24 24" fill="none" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <circle cx="9" cy="21" r="1"></circle>
                           <circle cx="20" cy="21" r="1"></circle>
                           <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
@@ -2477,19 +2477,19 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           <div style={{
                             fontWeight: '600',
                             color: '#171717',
-                            fontSize: 'var(--text-sm)'
+                            fontSize: isMobile ? '13px' : 'var(--text-sm)'
                           }}>
                             {t('buyButtons.amazon.name') || 'Amazon'}
                           </div>
                           <div style={{
-                            fontSize: 'var(--text-xs)',
+                            fontSize: isMobile ? '11px' : 'var(--text-xs)',
                             color: '#737373'
                           }}>
                             {t('buyButtons.amazon.description') || 'Fast shipping & easy returns'}
                           </div>
                         </div>
                       </div>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#FF9900" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#FF9900" style={{ width: isMobile ? '16px' : '18px', height: isMobile ? '16px' : '18px', flexShrink: 0 }}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                       </svg>
                     </Link>
