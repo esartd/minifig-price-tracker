@@ -172,7 +172,7 @@ function SearchPageContent() {
     if (subcategory) params.set('subcategory', subcategory);
 
     const queryString = params.toString();
-    router.push(`/search${queryString ? '?' + queryString : ''}`, { scroll: false });
+    router.push(`/${queryString ? '?' + queryString : ''}`, { scroll: false });
   }, [searchQuery, categoryId, subcategory]);
 
   const performSearch = async (term: string, category: string | null = null, sub: string | null = null) => {
@@ -293,7 +293,7 @@ function SearchPageContent() {
     setSearchResult(null);
     setSearchResults([]);
     setSearchQuery('');
-    router.push('/search');
+    router.push('/');
   };
 
   const handleItemAdded = (newItem: CollectionItem) => {
@@ -442,7 +442,7 @@ function SearchPageContent() {
                   setSubcategory(null);
                   setCategoryName('');
                   setSearchResults([]);
-                  router.push('/search');
+                  router.push('/');
                 }}
                 style={{
                   padding: '8px 16px',
