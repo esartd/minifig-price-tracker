@@ -1010,26 +1010,26 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       padding: '12px 16px',
-                      background: '#E5EFFF',
-                      border: '2px solid #3665f3',
+                      background: '#FFE8E9',
+                      border: '2px solid #E53238',
                       borderRadius: '8px',
                       textDecoration: 'none',
                       transition: 'all 0.2s',
                       cursor: 'pointer'
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = '#D4E4FF';
+                      e.currentTarget.style.background = '#FFD4D6';
                       e.currentTarget.style.transform = 'translateY(-1px)';
-                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(54, 101, 243, 0.15)';
+                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(229, 50, 56, 0.15)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = '#E5EFFF';
+                      e.currentTarget.style.background = '#FFE8E9';
                       e.currentTarget.style.transform = 'translateY(0)';
                       e.currentTarget.style.boxShadow = 'none';
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3665f3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E53238" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <circle cx="9" cy="21" r="1"></circle>
                         <circle cx="20" cy="21" r="1"></circle>
                         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
@@ -1050,7 +1050,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                         </div>
                       </div>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#3665f3" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#E53238" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
                   </Link>
@@ -1066,28 +1066,26 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       padding: '12px 16px',
-                      background: 'white',
-                      border: '1px solid #e5e5e5',
+                      background: '#FFF4E6',
+                      border: '2px solid #FF9900',
                       borderRadius: '8px',
                       textDecoration: 'none',
                       transition: 'all 0.2s',
                       cursor: 'pointer'
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = '#f5f5f5';
-                      e.currentTarget.style.borderColor = '#d4d4d4';
+                      e.currentTarget.style.background = '#FFE8CC';
                       e.currentTarget.style.transform = 'translateY(-1px)';
-                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.06)';
+                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(255, 153, 0, 0.15)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'white';
-                      e.currentTarget.style.borderColor = '#e5e5e5';
+                      e.currentTarget.style.background = '#FFF4E6';
                       e.currentTarget.style.transform = 'translateY(0)';
                       e.currentTarget.style.boxShadow = 'none';
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#737373" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <circle cx="9" cy="21" r="1"></circle>
                         <circle cx="20" cy="21" r="1"></circle>
                         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
@@ -1108,80 +1106,67 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
                         </div>
                       </div>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#737373" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#FF9900" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
                   </Link>
 
-                  {/* BrickLink Link - Always show with grey styling */}
-                  {(() => {
-                    const bgColor = 'white';
-                    const bgHoverColor = '#f5f5f5';
-                    const borderColor = '#e5e5e5';
-                    const borderHoverColor = '#d4d4d4';
-                    const iconColor = '#737373';
-                    const shadowColor = 'rgba(0, 0, 0, 0.06)';
-
-                    return (
-                      <Link
-                        href={brickLinkUrl}
-                        target="_blank"
-                        rel="noopener noreferrer sponsored"
-                        onClick={() => trackAffiliateClick('bricklink', set.box_no, 'set-detail-page')}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          padding: '12px 16px',
-                          background: bgColor,
-                          border: `1px solid ${borderColor}`,
-                          borderRadius: '8px',
-                          textDecoration: 'none',
-                          transition: 'all 0.2s',
-                          cursor: 'pointer'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = bgHoverColor;
-                          e.currentTarget.style.borderColor = borderHoverColor;
-                          e.currentTarget.style.transform = 'translateY(-1px)';
-                          e.currentTarget.style.boxShadow = `0 2px 8px ${shadowColor}`;
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = bgColor;
-                          e.currentTarget.style.borderColor = borderColor;
-                          e.currentTarget.style.transform = 'translateY(0)';
-                          e.currentTarget.style.boxShadow = 'none';
-                        }}
-                      >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={iconColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <rect x="3" y="3" width="7" height="7"></rect>
-                            <rect x="14" y="3" width="7" height="7"></rect>
-                            <rect x="14" y="14" width="7" height="7"></rect>
-                            <rect x="3" y="14" width="7" height="7"></rect>
-                          </svg>
-                          <div>
-                            <div style={{
-                              fontWeight: '600',
-                              color: '#171717',
-                              fontSize: 'var(--text-sm)'
-                            }}>
-                              BrickLink
-                            </div>
-                            <div style={{
-                              fontSize: 'var(--text-xs)',
-                              color: '#737373'
-                            }}>
-                              {availability.status === 'retired' ? 'Best for retired sets' : 'Used & new available'}
-                            </div>
-                          </div>
+                  {/* BrickLink Link - Always show */}
+                  <Link
+                    href={brickLinkUrl}
+                    target="_blank"
+                    rel="noopener noreferrer sponsored"
+                    onClick={() => trackAffiliateClick('bricklink', set.box_no, 'set-detail-page')}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '12px 16px',
+                      background: '#E6F2FF',
+                      border: '2px solid #0057A6',
+                      borderRadius: '8px',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s',
+                      cursor: 'pointer'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = '#CCE5FF';
+                      e.currentTarget.style.transform = 'translateY(-1px)';
+                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 87, 166, 0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = '#E6F2FF';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0057A6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                      </svg>
+                      <div>
+                        <div style={{
+                          fontWeight: '600',
+                          color: '#171717',
+                          fontSize: 'var(--text-sm)'
+                        }}>
+                          BrickLink
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke={iconColor} style={{ width: '18px', height: '18px', flexShrink: 0 }}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                        </svg>
-                      </Link>
-                    );
-                  })()}
+                        <div style={{
+                          fontSize: 'var(--text-xs)',
+                          color: '#737373'
+                        }}>
+                          {availability.status === 'retired' ? 'Best for retired sets' : 'Used & new available'}
+                        </div>
+                      </div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#0057A6" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </Link>
                 </div>
               </div>
             </div>
