@@ -37,8 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Static pages with all language variants
   const staticPages: MetadataRoute.Sitemap = [
-    ...createMultilingualEntry('', 'daily', 1), // Homepage
-    ...createMultilingualEntry('/search', 'daily', 0.9),
+    ...createMultilingualEntry('', 'daily', 1), // Homepage (search page)
     ...createMultilingualEntry('/themes', 'weekly', 0.9),
     ...createMultilingualEntry('/sets-themes', 'weekly', 0.9),
     ...createMultilingualEntry('/articles', 'weekly', 0.9),
