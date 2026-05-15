@@ -441,11 +441,12 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
             gap: '16px'
           }}>
             {(() => {
-              // Scattered grid pattern for theme pages
+              // Scattered grid pattern for theme pages - place ads at even positions to avoid gaps
               const items: Array<{ type: 'minifig' | 'set'; data: Minifig | LegoSet; key: string }> = [];
 
-              const firstAdPosition = 10;
-              const spacing = 15;
+              // Place first ad after 12 items, then every 16 items (to align with typical grid layouts)
+              const firstAdPosition = 12;
+              const spacing = 16;
               const adPositions: number[] = [];
 
               // Calculate ad positions based on available sets

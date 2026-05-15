@@ -280,8 +280,9 @@ export default function SubcategoryPageClient({
           {(() => {
             const items: Array<{ type: 'minifig' | 'set'; data: Minifig | LegoSet; key: string }> = [];
 
-            const firstAdPosition = 10;
-            const spacing = 15;
+            // Place first ad after 12 items, then every 16 items (to align with typical grid layouts)
+            const firstAdPosition = 12;
+            const spacing = 16;
             const adPositions: number[] = [];
 
             for (let i = 0; i < featuredSets.length; i++) {
