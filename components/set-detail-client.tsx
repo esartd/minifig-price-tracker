@@ -1196,16 +1196,16 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '24px' }}>
               {closeRangeSets.map(s => (
-                <Link key={s.box_no} href={`/sets/${s.box_no}`} style={{ textDecoration: 'none' }}>
+                <Link key={s.box_no} href={`/sets/${s.box_no}`} style={{ textDecoration: 'none', display: 'flex' }}>
                   <div style={{ background: 'white', borderRadius: '12px', overflow: 'hidden', border: '1px solid #e5e5e5',
-                    transition: 'transform 0.2s', cursor: 'pointer' }}>
+                    transition: 'transform 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column', width: '100%' }}>
                     <div style={{ padding: '16px', height: '180px', display: 'flex', alignItems: 'center',
                       justifyContent: 'center', background: '#ffffff' }}>
                       <SetCardImage imageUrl={s.image_url} setName={s.name} width={160} height={160} maxHeight="160px" />
                     </div>
-                    <div style={{ padding: '16px', borderTop: '1px solid #e5e5e5' }}>
-                      <div style={{ fontSize: '14px', fontWeight: '600', color: '#171717', marginBottom: '4px' }}>{s.name}</div>
-                      <div style={{ fontSize: '12px', color: '#737373' }}>{s.box_no}</div>
+                    <div style={{ padding: '16px', borderTop: '1px solid #e5e5e5', minHeight: '80px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
+                      <div style={{ fontSize: '14px', fontWeight: '600', color: '#171717', marginBottom: '4px', lineHeight: '1.4' }}>{s.name}</div>
+                      <div style={{ fontSize: '12px', color: '#737373', marginTop: 'auto' }}>{s.box_no}</div>
                     </div>
                   </div>
                 </Link>
@@ -1221,35 +1221,19 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '24px' }}>
               {themeSets.map(s => (
-                <Link key={s.box_no} href={`/sets/${s.box_no}`} style={{ textDecoration: 'none' }}>
+                <Link key={s.box_no} href={`/sets/${s.box_no}`} style={{ textDecoration: 'none', display: 'flex' }}>
                   <div style={{ background: 'white', borderRadius: '12px', overflow: 'hidden', border: '1px solid #e5e5e5',
-                    transition: 'transform 0.2s', cursor: 'pointer' }}>
+                    transition: 'transform 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column', width: '100%' }}>
                     <div style={{ padding: '16px', height: '180px', display: 'flex', alignItems: 'center',
                       justifyContent: 'center', background: '#ffffff' }}>
                       <SetCardImage imageUrl={s.image_url} setName={s.name} width={160} height={160} maxHeight="160px" />
                     </div>
-                    <div style={{ padding: '16px', borderTop: '1px solid #e5e5e5' }}>
-                      <div style={{ fontSize: '14px', fontWeight: '600', color: '#171717', marginBottom: '4px' }}>{s.name}</div>
-                      <div style={{ fontSize: '12px', color: '#737373' }}>{s.box_no}</div>
+                    <div style={{ padding: '16px', borderTop: '1px solid #e5e5e5', minHeight: '80px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
+                      <div style={{ fontSize: '14px', fontWeight: '600', color: '#171717', marginBottom: '4px', lineHeight: '1.4' }}>{s.name}</div>
+                      <div style={{ fontSize: '12px', color: '#737373', marginTop: 'auto' }}>{s.box_no}</div>
                     </div>
                   </div>
                 </Link>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {featuredSets.length > 0 && (
-          <div style={{ marginTop: '48px', marginBottom: '48px' }}>
-            <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: '24px', color: '#171717' }}>
-              Featured {parentTheme} Sets
-            </h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
-              {featuredSets.map((setAd) => (
-                <SetAdCard key={setAd.setNumber || setAd.box_no} setNumber={setAd.setNumber || setAd.box_no}
-                  setName={setAd.name} imageUrl={setAd.imageUrl || setAd.image_url}
-                  year={setAd.year || (setAd.year_released ? parseInt(setAd.year_released) : undefined)}
-                  amazonUrl={setAd.amazonUrl} />
               ))}
             </div>
           </div>

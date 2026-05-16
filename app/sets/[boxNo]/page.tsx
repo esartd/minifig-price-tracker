@@ -137,15 +137,15 @@ export default async function SetPage({
   const allBoxes = loadAllBoxes();
   const parentTheme = set.category_name.split(' / ')[0].trim();
 
-  // Fetch similar sets (nearby set numbers: 4 before, 4 after)
+  // Fetch similar sets (nearby set numbers: 5 before, 5 after)
   // Extract number from box_no (e.g., "75319-1" → 75319)
   const boxMatch = boxNo.match(/^(\d+)/);
   let closeRangeSets: any[] = [];
 
   if (boxMatch) {
     const currentSetNum = parseInt(boxMatch[1]);
-    const minNum = Math.max(1, currentSetNum - 4);
-    const maxNum = currentSetNum + 4;
+    const minNum = Math.max(1, currentSetNum - 5);
+    const maxNum = currentSetNum + 5;
 
     // Find sets with numbers in this range
     const targetNumbers: number[] = [];
