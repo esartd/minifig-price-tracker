@@ -140,6 +140,39 @@ Only the top button is colored to avoid visual competition.
 
 ---
 
+## 🚨 CRITICAL: Pricing Refresh System (Blue Dots) 🚨
+
+**DO NOT MODIFY WITHOUT READING [PRICING_REFRESH_SYSTEM.md](PRICING_REFRESH_SYSTEM.md)**
+
+### Key Points:
+
+1. **Backend MUST return `cached_at` with all pricing data**
+   - File: `lib/bricklink.ts`
+   - Function: `calculatePricingData()`
+   - All return statements must include: `cached_at: cached.cached_at.toISOString()`
+
+2. **Frontend MUST check for missing `cached_at` FIRST**
+   - Files: All 4 collection pages (inventory, collection, sets-inventory, sets-collection)
+   - Logic: `if (!item.pricing.cached_at) return true;` before checking age
+   - Missing cached_at = needs refresh
+
+3. **Progressive fetch MUST use 3-second delays**
+   - All 4 collection pages: `setTimeout(fetchNextItem, 3000)`
+   - Never reduce below 3000ms
+   - Never fetch multiple items in parallel
+
+### Why This Matters:
+
+**May 16, 2026**: Blue dots not appearing for 2 days
+- Cause: `calculatePricingData()` didn't return `cached_at`
+- Result: Frontend couldn't check cache age, no refresh triggered
+- Fix: Added `cached_at` to all pricing return statements
+- Lesson: **All pricing data MUST include cached_at or system breaks**
+
+**See complete documentation:** [PRICING_REFRESH_SYSTEM.md](PRICING_REFRESH_SYSTEM.md)
+
+---
+
 ## 🚨 CRITICAL: BrickLink API Compliance 🚨
 
 **VIOLATING THESE RULES WILL GET THE API ACCESS BANNED AND BREAK THE ENTIRE SITE**
