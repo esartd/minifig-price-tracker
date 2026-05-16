@@ -169,7 +169,7 @@ export default async function SetPage({
         const bNum = parseInt(b.box_no.match(/^(\d+)/)?.[1] || '0');
         return aNum - bNum;
       })
-      .slice(0, 8);
+      .slice(0, 10);
   }
 
   const themeSets = allBoxes
@@ -183,7 +183,7 @@ export default async function SetPage({
       const yearB = parseInt(b.year_released) || 0;
       return yearB - yearA;
     })
-    .slice(0, 12);
+    .slice(0, 10);
 
   const themeSetsData = themeSets.map(b => ({
     box_no: b.box_no,

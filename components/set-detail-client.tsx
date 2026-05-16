@@ -1192,7 +1192,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
         {closeRangeSets && closeRangeSets.length > 0 && (
           <div style={{ marginTop: '48px', marginBottom: '48px' }}>
             <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: '24px', color: '#171717' }}>
-              Sets with Close Set Numbers
+              Related Sets
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '24px' }}>
               {closeRangeSets.map(s => (
@@ -1217,7 +1217,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
         {themeSets.length > 0 && (
           <div style={{ marginTop: '48px', marginBottom: '48px' }}>
             <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: '24px', color: '#171717' }}>
-              More from {parentTheme}
+              Newest Sets from {parentTheme}
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '24px' }}>
               {themeSets.map(s => (
