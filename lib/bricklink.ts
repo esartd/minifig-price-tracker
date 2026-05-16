@@ -993,7 +993,10 @@ export class BricklinkAPI {
       }
     });
 
-    return pricingData;
+    return {
+      ...pricingData,
+      cached_at: new Date().toISOString()
+    };
   }
 }
 
