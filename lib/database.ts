@@ -17,7 +17,8 @@ class DatabaseService {
         currentAverage: item.pricing_current_avg,
         currentLowest: item.pricing_current_lowest,
         suggestedPrice: item.pricing_suggested_price,
-        currencyCode: item.pricing_currency_code
+        currencyCode: item.pricing_currency_code,
+        cached_at: item.pricing_cached_at ? item.pricing_cached_at.toISOString() : undefined
       } : undefined,
       date_added: item.date_added.toISOString(),
       last_updated: item.last_updated.toISOString()
@@ -100,7 +101,8 @@ class DatabaseService {
           pricing_current_avg: freshPrice.current_avg,
           pricing_current_lowest: freshPrice.current_lowest,
           pricing_suggested_price: freshPrice.suggested_price,
-          pricing_currency_code: freshPrice.currency_code
+          pricing_currency_code: freshPrice.currency_code,
+          pricing_cached_at: freshPrice.cached_at
         };
       }
 
@@ -253,7 +255,8 @@ class DatabaseService {
           pricing_current_avg: freshPrice.current_avg,
           pricing_current_lowest: freshPrice.current_lowest,
           pricing_suggested_price: freshPrice.suggested_price,
-          pricing_currency_code: freshPrice.currency_code
+          pricing_currency_code: freshPrice.currency_code,
+          pricing_cached_at: freshPrice.cached_at
         };
       }
 
@@ -530,7 +533,8 @@ class DatabaseService {
         currentAverage: item.pricing_current_avg,
         currentLowest: item.pricing_current_lowest,
         suggestedPrice: item.pricing_suggested_price,
-        currencyCode: item.pricing_currency_code
+        currencyCode: item.pricing_currency_code,
+        cached_at: item.pricing_cached_at ? item.pricing_cached_at.toISOString() : undefined
       } : undefined,
       date_added: item.date_added.toISOString(),
       last_updated: item.last_updated.toISOString()
@@ -611,7 +615,8 @@ class DatabaseService {
           pricing_current_avg: freshPrice.current_avg,
           pricing_current_lowest: freshPrice.current_lowest,
           pricing_suggested_price: freshPrice.suggested_price,
-          pricing_currency_code: freshPrice.currency_code
+          pricing_currency_code: freshPrice.currency_code,
+          pricing_cached_at: freshPrice.cached_at
         };
       }
 
@@ -732,7 +737,8 @@ class DatabaseService {
           pricing_current_avg: freshPrice.current_avg,
           pricing_current_lowest: freshPrice.current_lowest,
           pricing_suggested_price: freshPrice.suggested_price,
-          pricing_currency_code: freshPrice.currency_code
+          pricing_currency_code: freshPrice.currency_code,
+          pricing_cached_at: freshPrice.cached_at
         };
       }
 
