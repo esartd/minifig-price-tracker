@@ -97,15 +97,39 @@ model MinifigCache {
 }
 
 model MinifigCatalog {
-  minifigure_no String   @id
-  name          String
-  category_id   Int
-  category_name String
-  year_released String?
-  weight_grams  Float?
-  search_name   String
-  created_at    DateTime @default(now())
-  updated_at    DateTime  @updatedAt
+  minifigure_no  String   @id
+  name           String
+  category_id    Int
+  category_name  String
+  year_released  String?
+  weight_grams   Float?
+  search_name    String
+  description_en String?
+  description_de String?
+  description_fr String?
+  description_es String?
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  @@index([category_name])
+  @@index([search_name])
+  @@index([year_released])
+}
+
+model SetsCatalog {
+  box_no         String   @id
+  name           String
+  category_id    Int
+  category_name  String
+  year_released  String?
+  weight         String?
+  search_name    String
+  description_en String?
+  description_de String?
+  description_fr String?
+  description_es String?
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
 
   @@index([category_name])
   @@index([search_name])
@@ -224,6 +248,7 @@ model User {
   PersonalCollectionItem    PersonalCollectionItem[]
   Session                   Session[]
   WishlistItem              WishlistItem[]
+  SetWishlistItem           SetWishlistItem[]
   SetInventoryItem          SetInventoryItem[]
   SetPersonalCollectionItem SetPersonalCollectionItem[]
   Article                   Article[]
@@ -264,6 +289,20 @@ model WishlistItem {
   @@unique([userId, minifigure_no])
   @@index([userId])
   @@index([minifigure_no])
+}
+
+model SetWishlistItem {
+  id         String   @id @default(cuid())
+  userId     String
+  box_no     String
+  set_name   String
+  image_url  String?
+  date_added DateTime @default(now())
+  User       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, box_no])
+  @@index([userId])
+  @@index([box_no])
 }
 
 model SetInventoryItem {

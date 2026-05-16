@@ -17,6 +17,8 @@ import { generateLegoSetLink, generateAmazonLegoSetLink, generateBrickLinkAffili
 import { generateEbaySetLink } from '@/lib/ebay-affiliate-links';
 import { trackAffiliateClick } from '@/lib/analytics';
 import SetDescription from '@/components/SetDescription';
+import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline';
+import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
 
 interface SetData {
   box_no: string;
@@ -85,6 +87,10 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
   const [featuredSets, setFeaturedSets] = useState<any[]>([]);
   const [imageError, setImageError] = useState(false);
   const [imageUrl, setImageUrl] = useState(set.image_url);
+
+  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [wishlistLoading, setWishlistLoading] = useState(false);
+  const [wishlistItemId, setWishlistItemId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!moveSuccess) return;
@@ -177,6 +183,79 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
     };
     fetchFeaturedSets();
   }, [set.category_name]);
+
+  // Check if set is in wishlist
+  useEffect(() => {
+    const checkWishlist = async () => {
+      if (!session?.user?.id) {
+        setIsInWishlist(false);
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/set-wishlist');
+        const data = await response.json();
+
+        if (data.success && data.data) {
+          const wishlistItem = data.data.find((item: any) => item.box_no === set.box_no);
+          if (wishlistItem) {
+            setIsInWishlist(true);
+            setWishlistItemId(wishlistItem.id);
+          } else {
+            setIsInWishlist(false);
+            setWishlistItemId(null);
+          }
+        }
+      } catch (error) {
+        console.error('Error checking wishlist:', error);
+      }
+    };
+
+    checkWishlist();
+  }, [session, set.box_no]);
+
+  const handleToggleWishlist = async () => {
+    if (!session?.user?.id) {
+      router.push('/auth/signin');
+      return;
+    }
+
+    setWishlistLoading(true);
+    try {
+      if (isInWishlist && wishlistItemId) {
+        // Remove from wishlist
+        const response = await fetch(`/api/set-wishlist/${wishlistItemId}`, {
+          method: 'DELETE'
+        });
+
+        if (response.ok) {
+          setIsInWishlist(false);
+          setWishlistItemId(null);
+        }
+      } else {
+        // Add to wishlist
+        const response = await fetch('/api/set-wishlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            box_no: set.box_no,
+            set_name: set.name,
+            image_url: set.image_url
+          })
+        });
+
+        const data = await response.json();
+        if (data.success && data.data) {
+          setIsInWishlist(true);
+          setWishlistItemId(data.data.id);
+        }
+      }
+    } catch (error) {
+      console.error('Error toggling wishlist:', error);
+    } finally {
+      setWishlistLoading(false);
+    }
+  };
 
   const refreshCollections = useCallback(async () => {
     if (!session) return;
@@ -487,17 +566,58 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
           </div>
 
           <div className="minifig-details-section">
-            {/* Year and Set Number */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', marginTop: 0,
-              fontSize: 'var(--text-xs)', fontWeight: '500', color: '#3b82f6',
-              textTransform: 'uppercase', letterSpacing: '0.05em', flexWrap: 'wrap' }}>
-              <span>
-                {set.year_released && set.year_released !== '?' ? set.year_released : 'Year Unknown'}
-              </span>
-              <span style={{ opacity: 0.4 }}>•</span>
-              <span>
-                {set.box_no}
-              </span>
+            {/* Year and Set Number with Wishlist */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px', marginTop: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px',
+                fontSize: 'var(--text-xs)', fontWeight: '500', color: '#3b82f6',
+                textTransform: 'uppercase', letterSpacing: '0.05em', flexWrap: 'wrap' }}>
+                <span>
+                  {set.year_released && set.year_released !== '?' ? set.year_released : 'Year Unknown'}
+                </span>
+                <span style={{ opacity: 0.4 }}>•</span>
+                <span>
+                  {set.box_no}
+                </span>
+              </div>
+              <button
+                onClick={handleToggleWishlist}
+                disabled={wishlistLoading}
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  minWidth: '32px',
+                  minHeight: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: isInWishlist ? '#f5f5f5' : '#ffffff',
+                  border: `2px solid ${isInWishlist ? '#171717' : '#e5e5e5'}`,
+                  borderRadius: '50%',
+                  cursor: wishlistLoading ? 'default' : 'pointer',
+                  transition: 'all 0.2s',
+                  flexShrink: 0,
+                  opacity: wishlistLoading ? 0.6 : 1,
+                  padding: 0
+                }}
+                onMouseEnter={(e) => {
+                  if (!wishlistLoading) {
+                    e.currentTarget.style.transform = 'scale(1.1)';
+                    e.currentTarget.style.borderColor = '#171717';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  if (!isInWishlist) {
+                    e.currentTarget.style.borderColor = '#e5e5e5';
+                  }
+                }}
+              >
+                {isInWishlist ? (
+                  <HeartSolid style={{ width: '18px', height: '18px', color: '#171717' }} />
+                ) : (
+                  <HeartOutline style={{ width: '18px', height: '18px', color: '#737373' }} />
+                )}
+              </button>
             </div>
 
             <h1 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', color: '#171717', marginBottom: '8px' }}>
