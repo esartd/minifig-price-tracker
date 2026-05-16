@@ -103,11 +103,11 @@ export default function CollectionPage() {
           // Refresh if wrong currency
           if (item.pricing.currencyCode !== userCurrency) return true;
 
-          // Refresh if cache is older than 6 hours (stale)
-          if (item.pricing.cached_at) {
-            const cacheAge = Date.now() - new Date(item.pricing.cached_at).getTime();
-            if (cacheAge > SIX_HOURS_MS) return true;
-          }
+          // Refresh if no cached_at (old data from before fix) OR cache is older than 6 hours
+          if (!item.pricing.cached_at) return true; // Missing cached_at = needs refresh
+
+          const cacheAge = Date.now() - new Date(item.pricing.cached_at).getTime();
+          if (cacheAge > SIX_HOURS_MS) return true;
 
           return false;
         });
