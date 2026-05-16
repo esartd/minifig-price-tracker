@@ -137,6 +137,41 @@ export default async function SetPage({
   const allBoxes = loadAllBoxes();
   const parentTheme = set.category_name.split(' / ')[0].trim();
 
+  // Fetch similar sets (nearby set numbers: 4 before, 4 after)
+  // Extract number from box_no (e.g., "75319-1" → 75319)
+  const boxMatch = boxNo.match(/^(\d+)/);
+  let closeRangeSets: any[] = [];
+
+  if (boxMatch) {
+    const currentSetNum = parseInt(boxMatch[1]);
+    const minNum = Math.max(1, currentSetNum - 4);
+    const maxNum = currentSetNum + 4;
+
+    // Find sets with numbers in this range
+    const targetNumbers: number[] = [];
+    for (let i = minNum; i <= maxNum; i++) {
+      if (i !== currentSetNum) {
+        targetNumbers.push(i);
+      }
+    }
+
+    // Get sets from same theme with nearby numbers
+    closeRangeSets = allBoxes
+      .filter(b => {
+        const bMatch = b.box_no.match(/^(\d+)/);
+        if (!bMatch) return false;
+        const bNum = parseInt(bMatch[1]);
+        return targetNumbers.includes(bNum) &&
+               b.category_name.split(' / ')[0].trim() === parentTheme;
+      })
+      .sort((a, b) => {
+        const aNum = parseInt(a.box_no.match(/^(\d+)/)?.[1] || '0');
+        const bNum = parseInt(b.box_no.match(/^(\d+)/)?.[1] || '0');
+        return aNum - bNum;
+      })
+      .slice(0, 8);
+  }
+
   const themeSets = allBoxes
     .filter(b =>
       b.box_no !== boxNo &&
@@ -151,6 +186,12 @@ export default async function SetPage({
     .slice(0, 12);
 
   const themeSetsData = themeSets.map(b => ({
+    box_no: b.box_no,
+    name: b.name,
+    image_url: b.image_url
+  }));
+
+  const closeRangeSetsData = closeRangeSets.map(b => ({
     box_no: b.box_no,
     name: b.name,
     image_url: b.image_url
@@ -246,6 +287,7 @@ export default async function SetPage({
         set={setData}
         themeSets={themeSetsData}
         sameYearSets={sameYearData}
+        closeRangeSets={closeRangeSetsData}
       />
     </>
   );

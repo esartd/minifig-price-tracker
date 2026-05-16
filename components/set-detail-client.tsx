@@ -33,9 +33,10 @@ interface SetDetailClientProps {
   set: SetData;
   themeSets: Array<{ box_no: string; name: string; image_url: string }>;
   sameYearSets: Array<{ box_no: string; name: string; image_url: string }>;
+  closeRangeSets?: Array<{ box_no: string; name: string; image_url: string }>;
 }
 
-export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDetailClientProps) {
+export default function SetDetailClient({ set, themeSets, sameYearSets, closeRangeSets = [] }: SetDetailClientProps) {
   const { t } = useTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -1187,6 +1188,31 @@ export default function SetDetailClient({ set, themeSets, sameYearSets }: SetDet
             </div>
           </div>
         </div>
+
+        {closeRangeSets && closeRangeSets.length > 0 && (
+          <div style={{ marginTop: '48px', marginBottom: '48px' }}>
+            <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: '24px', color: '#171717' }}>
+              Sets with Close Set Numbers
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '24px' }}>
+              {closeRangeSets.map(s => (
+                <Link key={s.box_no} href={`/sets/${s.box_no}`} style={{ textDecoration: 'none' }}>
+                  <div style={{ background: 'white', borderRadius: '12px', overflow: 'hidden', border: '1px solid #e5e5e5',
+                    transition: 'transform 0.2s', cursor: 'pointer' }}>
+                    <div style={{ padding: '16px', height: '180px', display: 'flex', alignItems: 'center',
+                      justifyContent: 'center', background: '#ffffff' }}>
+                      <SetCardImage imageUrl={s.image_url} setName={s.name} width={160} height={160} maxHeight="160px" />
+                    </div>
+                    <div style={{ padding: '16px', borderTop: '1px solid #e5e5e5' }}>
+                      <div style={{ fontSize: '14px', fontWeight: '600', color: '#171717', marginBottom: '4px' }}>{s.name}</div>
+                      <div style={{ fontSize: '12px', color: '#737373' }}>{s.box_no}</div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
         {themeSets.length > 0 && (
           <div style={{ marginTop: '48px', marginBottom: '48px' }}>
