@@ -582,7 +582,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
             ) : (
               <div style={{ padding: '24px', textAlign: 'center', background: '#fafafa',
                 borderRadius: '8px', color: '#737373', fontSize: 'var(--text-sm)', marginBottom: '24px' }}>
-                No sellers available in your region
+                No sellers available
               </div>
             )}
 

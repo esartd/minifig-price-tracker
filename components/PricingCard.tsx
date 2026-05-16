@@ -32,7 +32,7 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
       <div className="apple-card">
         <h3 className="text-lg font-semibold mb-4 text-gray-900 tracking-tight">{item.minifigure_name}</h3>
         <p className="text-xs text-gray-400 mb-2">{item.minifigure_no}</p>
-        <p className="text-gray-500 text-sm">No sellers available in your region</p>
+        <p className="text-gray-500 text-sm">No sellers available</p>
       </div>
     );
   }
