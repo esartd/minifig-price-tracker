@@ -47,7 +47,88 @@ return {
 - No blue dots = no refresh triggered
 - Result: Stale prices never update
 
-### 2. Frontend: Cache Age Check (Collection Pages)
+### 2. Database Layer: Pass cached_at Through (`lib/database.ts`)
+
+**CRITICAL:** Database functions MUST include `cached_at` when mapping from priceCache
+
+**Functions that fetch prices from cache:**
+- `getAllItems()` - Minifig inventory
+- `getAllPersonalCollectionItems()` - Minifig collection
+- `getAllSetInventoryItems()` - Sets inventory
+- `getAllSetPersonalCollectionItems()` - Sets collection
+
+**Step 1: Copy cached_at from priceCache (4 locations, ~lines 200, 310, 607, 725):**
+
+```typescript
+// ✅ CORRECT - includes cached_at
+if (freshPrice) {
+  return {
+    ...item,
+    pricing_six_month_avg: freshPrice.six_month_avg,
+    pricing_current_avg: freshPrice.current_avg,
+    pricing_current_lowest: freshPrice.current_lowest,
+    pricing_suggested_price: freshPrice.suggested_price,
+    pricing_currency_code: freshPrice.currency_code,
+    pricing_cached_at: freshPrice.cached_at  // ← REQUIRED
+  };
+}
+
+// ❌ WRONG - missing cached_at
+if (freshPrice) {
+  return {
+    ...item,
+    pricing_six_month_avg: freshPrice.six_month_avg,
+    // ... other fields without pricing_cached_at
+  };
+}
+```
+
+**Step 2: Include cached_at in transform functions (4 functions):**
+
+```typescript
+// ✅ CORRECT - transformFromDB() and others
+pricing: item.pricing_six_month_avg !== undefined && item.pricing_six_month_avg !== null ? {
+  sixMonthAverage: item.pricing_six_month_avg,
+  currentAverage: item.pricing_current_avg,
+  currentLowest: item.pricing_current_lowest,
+  suggestedPrice: item.pricing_suggested_price,
+  currencyCode: item.pricing_currency_code,
+  cached_at: item.pricing_cached_at ? item.pricing_cached_at.toISOString() : undefined  // ← REQUIRED
+} : undefined,
+
+// ❌ WRONG - missing cached_at
+pricing: item.pricing_six_month_avg !== undefined && item.pricing_six_month_avg !== null ? {
+  sixMonthAverage: item.pricing_six_month_avg,
+  // ... other fields without cached_at
+} : undefined,
+```
+
+**Transform functions that MUST include cached_at:**
+- `transformFromDB()` - Converts DB row to CollectionItem
+- `transformPersonalFromDB()` - Converts DB row to PersonalCollectionItem
+- `transformSetInventoryFromDB()` - Converts DB row to SetInventoryItem
+- `transformSetPersonalFromDB()` - Converts DB row to SetPersonalCollectionItem
+
+**Why this matters:**
+- PriceCache table HAS `cached_at`
+- But if database layer doesn't pass it through, it's lost
+- Frontend receives pricing object WITHOUT `cached_at`
+- Same symptoms as backend not returning it
+
+**Data flow:**
+```
+priceCache table (HAS cached_at)
+  ↓
+getAllItems() copies fields → pricing_cached_at
+  ↓
+transformFromDB() builds pricing object → cached_at
+  ↓
+API returns to frontend → item.pricing.cached_at
+  ↓
+Frontend checks cache age → blue dots work
+```
+
+### 3. Frontend: Cache Age Check (Collection Pages)
 
 **Files:**
 - `app/inventory/page.tsx`
@@ -335,6 +416,43 @@ WHERE id = 'some-id';
 
 **Lesson:** Always handle missing data gracefully - check for absence before checking value
 
+### May 16, 2026: Sets showing no prices even after backend fix
+
+**Problem:**
+- Backend (`bricklink.ts`) fixed to return `cached_at` ✅
+- Frontend (collection pages) fixed to check for `cached_at` ✅
+- But sets collections still showed no prices
+- Console showed "Found X items needing pricing refresh" but items had prices in database
+
+**Root Cause:**
+- `priceCache` table HAD `cached_at` timestamps
+- `database.ts` functions fetched from priceCache
+- But mapping functions **didn't copy `cached_at` field**
+- Transform functions built `pricing` object **without `cached_at`**
+- Frontend received pricing WITHOUT `cached_at`
+- Frontend treated it as stale and triggered refresh
+
+**Affected Functions (4 total):**
+- `getAllItems()` - line ~200
+- `getAllPersonalCollectionItems()` - line ~310
+- `getAllSetInventoryItems()` - line ~607
+- `getAllSetPersonalCollectionItems()` - line ~725
+
+**Affected Transform Functions (4 total):**
+- `transformFromDB()`
+- `transformPersonalFromDB()`
+- `transformSetInventoryFromDB()`
+- `transformSetPersonalFromDB()`
+
+**Fix:**
+1. Added `pricing_cached_at: freshPrice.cached_at` when copying from priceCache
+2. Added `cached_at: item.pricing_cached_at?.toISOString()` in transform functions
+
+**Lesson:** 
+- **Data must flow through ALL layers:** Backend → Database → API → Frontend
+- Missing `cached_at` at ANY layer breaks the entire system
+- Test the complete data flow, not just individual functions
+
 ## Related Documentation
 
 - [BRICKLINK_API_COMPLIANCE.md](BRICKLINK_API_COMPLIANCE.md) - API rate limits and rules
@@ -343,15 +461,25 @@ WHERE id = 'some-id';
 
 ## Summary
 
-**The pricing refresh system has 3 critical requirements:**
+**The pricing refresh system has 4 critical requirements:**
 
 1. **Backend MUST return `cached_at` with every pricing object**
-   - Location: `lib/bricklink.ts` - all return statements in `calculatePricingData()`
+   - Location: `lib/bricklink.ts` - all return statements in `calculatePricingData()` and `calculateSetPricing()`
 
-2. **Frontend MUST check for missing `cached_at` FIRST, then check cache age**
+2. **Database layer MUST pass `cached_at` through from priceCache to frontend**
+   - Location: `lib/database.ts` - 4 fetch functions (add `pricing_cached_at`)
+   - Location: `lib/database.ts` - 4 transform functions (add `cached_at` to pricing object)
+
+3. **Frontend MUST check for missing `cached_at` FIRST, then check cache age**
    - Location: All 4 collection page.tsx files (~line 107)
 
-3. **Progressive fetch MUST use 3-second delays between requests**
+4. **Progressive fetch MUST use 3-second delays between requests**
    - Location: All 4 collection page.tsx files (~line 192)
 
 **Break any of these = blue dots don't work = prices never refresh**
+
+**Data flow chain (ALL must include cached_at):**
+```
+bricklink.ts → priceCache table → database.ts → API → Frontend
+     ✅              ✅              ✅          ✅      ✅
+```
