@@ -517,6 +517,7 @@ export class BricklinkAPI {
         currentLowest: cached.current_lowest,
         suggestedPrice: cached.suggested_price,
         currencyCode: cached.currency_code,
+        cached_at: cached.cached_at.toISOString(),
       };
     }
 
@@ -564,6 +565,7 @@ export class BricklinkAPI {
             currentLowest: cached.current_lowest,
             suggestedPrice: cached.suggested_price,
             currencyCode: cached.currency_code,
+            cached_at: cached.cached_at.toISOString(),
           };
         } else {
           console.log(`❌ [calculatePricingData] Cache is ${cacheAgeHours.toFixed(1)}h old (> 6h) - cannot display per BrickLink terms`);
@@ -615,6 +617,7 @@ export class BricklinkAPI {
         currentLowest: 0,
         suggestedPrice: 0,
         currencyCode: currencyCodeValue,
+        cached_at: new Date().toISOString(),
       };
     }
 
@@ -706,7 +709,10 @@ export class BricklinkAPI {
       await this.recordPriceHistory(itemNo, condition, pricingData);
     }
 
-    return pricingData;
+    return {
+      ...pricingData,
+      cached_at: new Date().toISOString()
+    };
   }
 
   /**
@@ -841,6 +847,7 @@ export class BricklinkAPI {
         currentLowest: cached.current_lowest,
         suggestedPrice: cached.suggested_price,
         currencyCode: cached.currency_code,
+        cached_at: cached.cached_at.toISOString(),
       };
     }
 
@@ -906,6 +913,7 @@ export class BricklinkAPI {
         currentLowest: 0,
         suggestedPrice: 0,
         currencyCode: currencyCodeValue,
+        cached_at: new Date().toISOString(),
       };
     }
 
