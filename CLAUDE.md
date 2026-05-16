@@ -44,6 +44,35 @@
 
 ---
 
+## 🚨 CRITICAL: Catalog Descriptions Storage 🚨
+
+**DESCRIPTIONS ARE STORED IN DATABASE, NOT JSON FILES**
+
+### Key Points:
+
+1. **Minifig descriptions:** Stored in `MinifigCatalog` database table
+2. **Set descriptions:** Stored in `SetsCatalog` database table
+3. **JSON files (`minifigs.json`, `boxes.json`):** Updated twice/month from BrickLink - contain NO descriptions
+4. **Database tables:** NEVER modified by catalog updates - descriptions are safe
+
+### Why This Matters:
+
+**May 16, 2026**: Almost stored descriptions in JSON files
+- Problem: Catalog JSON files are overwritten twice/month from BrickLink exports
+- Result would be: All descriptions deleted on every catalog update
+- Solution: Separate database tables that catalog updates never touch
+
+### When Updating Catalogs:
+
+Running `scripts/update-catalogs-simple.ts` will:
+- ✅ Update item names, categories, years, weights
+- ✅ Add new items from BrickLink
+- ❌ NOT affect descriptions (they're in database)
+
+**See [CATALOG_DESCRIPTIONS_SYSTEM.md](CATALOG_DESCRIPTIONS_SYSTEM.md) for complete documentation**
+
+---
+
 ## 🚨 CRITICAL: eBay Partner Network (EPN) Affiliate Links 🚨
 
 **DO NOT MODIFY WITHOUT UNDERSTANDING EPN REQUIREMENTS**

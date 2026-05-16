@@ -74,11 +74,11 @@ function convertMinifigures(sourceDir: string) {
 }
 
 function convertSets(sourceDir: string) {
-  console.log('\n📦 Converting Catalogs.txt (Sets)...');
+  console.log('\n📦 Converting Sets.txt (LEGO Sets)...');
 
-  const txtPath = path.join(sourceDir, 'Catalogs.txt');
+  const txtPath = path.join(sourceDir, 'Sets.txt');
   if (!fs.existsSync(txtPath)) {
-    console.log('⚠️  Catalogs.txt not found, skipping...');
+    console.log('⚠️  Sets.txt not found, skipping...');
     return 0;
   }
 
@@ -95,7 +95,7 @@ function convertSets(sourceDir: string) {
       category_name: parts[1]?.trim() || '',
       year_released: parts[4]?.trim() || null,
       weight: parts[5]?.trim() || null,
-      image_url: parts[2]?.trim() ? `https://img.bricklink.com/ItemImage/ON/0/${parts[2].trim()}.png` : null,
+      image_url: parts[2]?.trim() ? `https://img.bricklink.com/ItemImage/SN/0/${parts[2].trim()}.png` : null,
       thumbnail_url: parts[2]?.trim() ? `https://img.bricklink.com/ItemImage/TN/0/${parts[2].trim()}.png` : null,
       updated_at: new Date().toISOString()
     };

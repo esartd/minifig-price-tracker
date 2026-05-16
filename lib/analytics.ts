@@ -9,13 +9,21 @@ export async function trackAffiliateClick(
   userId?: string
 ): Promise<void> {
   try {
+    // Determine product type based on item number format
+    const productType = itemNo.includes('-') ? 'set' : 'minifig';
+
+    // Get the actual redirect URL (would be set by calling component, but we don't need it for tracking)
+    const redirectUrl = '#'; // Placeholder - actual redirect happens via Link component
+
     await fetch('/api/track-click', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        provider,
-        itemNo,
-        source,
+        platform: provider,
+        productType,
+        productId: itemNo,
+        productName: '', // Optional field
+        redirectUrl,
         userId,
         timestamp: new Date().toISOString()
       })
