@@ -137,39 +137,36 @@ export default async function SetPage({
   const allBoxes = loadAllBoxes();
   const parentTheme = set.category_name.split(' / ')[0].trim();
 
-  // Fetch similar sets (nearby set numbers: 5 before, 5 after)
+  // Fetch similar sets (nearby set numbers) - expand range until we find 10 sets
   // Extract number from box_no (e.g., "75319-1" → 75319)
   const boxMatch = boxNo.match(/^(\d+)/);
   let closeRangeSets: any[] = [];
 
   if (boxMatch) {
     const currentSetNum = parseInt(boxMatch[1]);
-    const minNum = Math.max(1, currentSetNum - 5);
-    const maxNum = currentSetNum + 5;
 
-    // Find sets with numbers in this range
-    const targetNumbers: number[] = [];
-    for (let i = minNum; i <= maxNum; i++) {
-      if (i !== currentSetNum) {
-        targetNumbers.push(i);
-      }
-    }
-
-    // Get sets from same theme with nearby numbers
-    closeRangeSets = allBoxes
+    // Get all sets from same theme with set numbers
+    const sameThemeSets = allBoxes
       .filter(b => {
         const bMatch = b.box_no.match(/^(\d+)/);
         if (!bMatch) return false;
         const bNum = parseInt(bMatch[1]);
-        return targetNumbers.includes(bNum) &&
+        return bNum !== currentSetNum &&
                b.category_name.split(' / ')[0].trim() === parentTheme;
       })
+      .map(b => ({
+        ...b,
+        setNum: parseInt(b.box_no.match(/^(\d+)/)?.[1] || '0'),
+        distance: Math.abs(parseInt(b.box_no.match(/^(\d+)/)?.[1] || '0') - currentSetNum)
+      }))
       .sort((a, b) => {
-        const aNum = parseInt(a.box_no.match(/^(\d+)/)?.[1] || '0');
-        const bNum = parseInt(b.box_no.match(/^(\d+)/)?.[1] || '0');
-        return aNum - bNum;
+        // Sort by distance first, then by set number
+        if (a.distance !== b.distance) return a.distance - b.distance;
+        return a.setNum - b.setNum;
       })
       .slice(0, 10);
+
+    closeRangeSets = sameThemeSets;
   }
 
   const themeSets = allBoxes
