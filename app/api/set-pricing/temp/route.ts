@@ -1,0 +1,48 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { bricklinkAPI } from '@/lib/bricklink';
+import { rateLimitResponse } from '@/lib/rate-limit';
+
+export async function GET(request: NextRequest) {
+  // Apply rate limiting and bot blocking
+  const rateLimitResult = rateLimitResponse(request);
+  if (rateLimitResult) return rateLimitResult;
+
+  try {
+    const searchParams = request.nextUrl.searchParams;
+    const boxNo = searchParams.get('boxNo');
+    const condition = searchParams.get('condition') || 'new';
+    const countryCode = searchParams.get('countryCode') || 'US';
+    const region = searchParams.get('region') || 'north_america';
+
+    console.log(`[Set Pricing API] boxNo=${boxNo}, condition=${condition}, countryCode=${countryCode}, region=${region}`);
+
+    if (!boxNo) {
+      return NextResponse.json(
+        { success: false, error: 'Missing boxNo parameter' },
+        { status: 400 }
+      );
+    }
+
+    // Keep the full box number including variant suffix (e.g., "75411-1")
+    // BrickLink API requires this for price guide requests
+    const pricing = await bricklinkAPI.calculateSetPricing(
+      boxNo,
+      condition as 'new' | 'used',
+      countryCode,
+      region
+    );
+
+    console.log(`[Set Pricing API] Result for ${boxNo}: ${JSON.stringify(pricing)}`);
+
+    return NextResponse.json({
+      success: true,
+      pricing
+    });
+  } catch (error) {
+    console.error('Error fetching set pricing:', error);
+    return NextResponse.json(
+      { success: false, error: 'Failed to fetch pricing' },
+      { status: 500 }
+    );
+  }
+}

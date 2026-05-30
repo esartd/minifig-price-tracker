@@ -1,0 +1,25 @@
+# FigTracker VPS Deployment Configuration
+# This file documents the automated deployment setup
+
+# VPS Details
+VPS_HOST=187.77.202.14
+VPS_USER=root
+VPS_PATH=/var/www/figtracker
+
+# SSH Authentication
+# Uses key-based authentication (more secure than passwords)
+# SSH Key: ~/.ssh/figtracker_vps (automatically used via ~/.ssh/config)
+
+# Deployment Process
+# 1. Code is pushed to GitHub
+# 2. VPS pulls from GitHub and rebuilds
+# 3. PM2 restarts the application
+
+# To deploy manually:
+# ssh root@187.77.202.14
+# cd /var/www/figtracker
+# git pull && npm install && npm run build && pm2 restart figtracker
+
+# Automated deployment:
+# The deploy.sh script in this repo handles everything automatically
+# It uses the SSH key at ~/.ssh/figtracker_vps for authentication

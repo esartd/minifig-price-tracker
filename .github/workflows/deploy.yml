@@ -1,0 +1,86 @@
+name: Build and Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma Client (MySQL)
+        run: npx prisma generate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Build Next.js application
+        run: npm run build
+        env:
+          NODE_ENV: production
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SKIP_ENV_VALIDATION: true
+
+      - name: Create deployment package
+        run: |
+          mkdir -p deploy-package
+          cp -r .next deploy-package/
+          cp package.json package-lock.json deploy-package/
+          cp -r node_modules/@prisma deploy-package/prisma-client/
+          cp -r prisma deploy-package/prisma-schema/
+          cp -r public deploy-package/ 2>/dev/null || true
+          tar -czf deploy.tar.gz -C deploy-package .
+
+      - name: Deploy to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "deploy.tar.gz"
+          target: "/tmp/"
+
+      - name: Extract and restart on VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /var/www/figtracker
+            pm2 stop figtracker
+
+            # Backup current deployment
+            tar -czf /root/vps-backup-$(date +%Y%m%d-%H%M%S).tar.gz .next 2>/dev/null || true
+
+            # Extract new build
+            rm -rf .next
+            tar -xzf /tmp/deploy.tar.gz
+
+            # Restore Prisma client to correct location
+            mkdir -p node_modules/@prisma
+            cp -r prisma-client/* node_modules/@prisma/ 2>/dev/null || true
+
+            # Restart application
+            pm2 start figtracker
+
+            # Cleanup
+            rm /tmp/deploy.tar.gz
+
+            # Verify deployment
+            sleep 5
+            curl -f http://localhost:3000 || echo "WARNING: Health check failed"

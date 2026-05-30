@@ -1,0 +1,182 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { database } from '@/lib/database';
+import { bricklinkAPI } from '@/lib/bricklink';
+import { auth } from '@/auth';
+import { prismaPublic } from '@/lib/prisma';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+// GET all collection items for authenticated user (with pagination)
+export async function GET(request: NextRequest) {
+  try {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    // Get pagination parameters
+    const searchParams = request.nextUrl.searchParams;
+    const fetchAll = searchParams.get('all') === 'true';
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '50');
+    const offset = (page - 1) * limit;
+
+    // Get user's regional preferences
+    const countryCode = session.user?.preferredCountryCode || 'US';
+    const region = session.user?.preferredRegion || 'north_america';
+
+    // Use empty string for region in cache operations (standardized format)
+    const cacheRegion = '';
+
+    // Get all items first to calculate total
+    const allItems = await database.getAllItems(session.user.id, countryCode, cacheRegion);
+    const totalItems = allItems.length;
+    const totalPages = Math.ceil(totalItems / limit);
+
+    // Return all items if requested, otherwise slice for current page
+    const items = fetchAll ? allItems : allItems.slice(offset, offset + limit);
+
+    // Enrich with year_released from MinifigCatalog for sorting
+    const minifigNos = items.map(item => item.minifigure_no);
+    const catalogData = await prismaPublic.minifigCatalog.findMany({
+      where: { minifigure_no: { in: minifigNos } },
+      select: { minifigure_no: true, year_released: true }
+    });
+    const yearMap = new Map(catalogData.map(c => [c.minifigure_no, c.year_released]));
+    const itemsWithYear = items.map(item => ({
+      ...item,
+      year_released: yearMap.get(item.minifigure_no) || null
+    }));
+
+    // Start background pricing fetch for items with no cache (don't await - progressive loading)
+    const itemsNeedingPricing = items.filter(item => !item.pricing || item.pricing.suggestedPrice === 0);
+    if (itemsNeedingPricing.length > 0) {
+      // Fetch pricing in background - prices will appear progressively as they're cached
+      Promise.all(
+        itemsNeedingPricing.map(item =>
+          bricklinkAPI.calculatePricingData(item.minifigure_no, item.condition, countryCode, cacheRegion)
+            .catch(err => {
+              console.error(`Pricing fetch error for ${item.minifigure_no}:`, err);
+              return null; // Continue even if one fails
+            })
+        )
+      ).catch(err => console.error('Background pricing fetch error:', err));
+    }
+
+    return NextResponse.json({
+      success: true,
+      data: itemsWithYear,
+      pagination: {
+        page,
+        limit,
+        totalItems,
+        totalPages
+      }
+    });
+  } catch (error: any) {
+    console.error('[Inventory API] Full error:', error);
+    console.error('[Inventory API] Error message:', error?.message);
+    console.error('[Inventory API] Error name:', error?.name);
+    console.error('[Inventory API] Error stack:', error?.stack);
+
+    // Check if it's a database connection limit error
+    const errorMessage = error?.message || String(error);
+    if (errorMessage.includes('max_connections_per_hour')) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: errorMessage,
+          details: error?.message,
+          errorName: error?.name
+        },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        success: false,
+        error: 'Failed to fetch collection',
+        details: error?.message || String(error),
+        errorName: error?.name,
+        errorCode: error?.code
+      },
+      { status: 500 }
+    );
+  }
+}
+
+// POST a new item to the collection
+export async function POST(request: NextRequest) {
+  try {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    const body = await request.json();
+    const { minifigure_no, minifigure_name, quantity, image_url, condition } = body;
+    const itemCondition = (condition === 'used' ? 'used' : 'new') as 'new' | 'used';
+
+    // Validate required fields
+    if (!minifigure_no || !minifigure_name || !quantity) {
+      return NextResponse.json(
+        { success: false, error: 'Missing required fields' },
+        { status: 400 }
+      );
+    }
+
+    // Check if item already exists for this user with this condition
+    const existingItem = await database.getItemByMinifigNumberAndCondition(
+      session.user.id,
+      minifigure_no,
+      itemCondition
+    );
+
+    if (existingItem) {
+      const updatedItem = await database.updateItem(existingItem.id, {
+        quantity: existingItem.quantity + quantity
+      });
+      return NextResponse.json({ success: true, data: updatedItem, quantityAdded: quantity }, { status: 200 });
+    }
+
+    // Get user's regional preferences (with safe fallbacks)
+    const countryCode = session.user?.preferredCountryCode || 'US';
+    const region = session.user?.preferredRegion || 'north_america';
+
+    // Use empty string for region in cache operations (standardized format)
+    const cacheRegion = '';
+
+    // Add item to database immediately without waiting for pricing
+    const newItem = await database.addItem({
+      userId: session.user.id,
+      minifigure_no,
+      minifigure_name,
+      quantity,
+      condition: itemCondition,
+      image_url,
+      pricing: undefined, // No pricing yet - will be fetched in background
+    });
+
+    // Fetch pricing in background (don't await - user doesn't need to wait)
+    bricklinkAPI.calculatePricingData(minifigure_no, itemCondition, countryCode, cacheRegion)
+      .catch(err => console.error(`Background pricing fetch error for ${minifigure_no}:`, err));
+
+    return NextResponse.json({ success: true, data: newItem }, { status: 201 });
+  } catch (error) {
+    console.error('Error adding item to collection:', error);
+    return NextResponse.json(
+      { success: false, error: 'Failed to add item to collection' },
+      { status: 500 }
+    );
+  }
+}

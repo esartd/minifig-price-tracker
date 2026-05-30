@@ -1,0 +1,10 @@
+name = "figtracker"
+compatibility_date = "2024-01-01"
+
+# Cloudflare Pages configuration
+pages_build_output_dir = ".open-next/cloudflare"
+
+[vars]
+NEXT_PUBLIC_BASE_URL = "https://figtracker.pages.dev"
+
+# Note: Environment variables are configured in Cloudflare dashboard

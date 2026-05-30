@@ -1,0 +1,13 @@
+{
+  "tasks": [
+    {
+      "id": "33216784",
+      "cron": "7 9 1 9 *",
+      "prompt": "Reminder: Rakuten/LinkSynergy LEGO affiliate program expires September 12, 2026. Check if it needs renewal or all LEGO.com affiliate links will stop earning commission. Update FeaturedSets component and other LEGO affiliate links if the program is not renewed.",
+      "createdAt": 1777730832380,
+      "createdBySessionId": "69efd3d4-f740-4584-9acb-41c30853ae87",
+      "createdByPid": 40149,
+      "createdByProcStart": "Sat May  2 13:27:57 2026"
+    }
+  ]
+}

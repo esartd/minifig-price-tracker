@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-04-18T14-14-19",
+  "backup_date": "2026-04-18T14:14:22.266Z",
+  "database_url": "Neon (confirmed)",
+  "tables": {
+    "users": 13,
+    "accounts": 0,
+    "sessions": 0,
+    "collectionItems": 31,
+    "personalItems": 358,
+    "listings": 0,
+    "catalog": 18732,
+    "minifigCache": 38,
+    "priceCache": 1902,
+    "apiTracker": 9
+  },
+  "total_user_items": 389
+}
