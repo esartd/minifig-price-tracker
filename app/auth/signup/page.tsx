@@ -9,6 +9,7 @@ import FormInput from '@/components/auth/FormInput';
 import PasswordInput from '@/components/auth/PasswordInput';
 import MessageAlert from '@/components/auth/MessageAlert';
 import { useTranslation } from '@/components/TranslationProvider';
+import { getSafeCallbackUrl } from '@/lib/auth-utils';
 
 export default function SignUp() {
   const { t } = useTranslation();
@@ -23,6 +24,9 @@ export default function SignUp() {
     e.preventDefault();
     setError('');
     setLoading(true);
+
+    // Get validated callbackUrl from URL params (must be before any early returns)
+    const callbackUrl = getSafeCallbackUrl();
 
     try {
       // Create account
@@ -76,7 +80,8 @@ export default function SignUp() {
           }
         }
 
-        router.push('/');
+        // Redirect to callbackUrl (validated) or home
+        router.push(callbackUrl);
         router.refresh();
       }
     } catch (error) {

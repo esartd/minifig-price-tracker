@@ -9,6 +9,7 @@ import FormInput from '@/components/auth/FormInput';
 import PasswordInput from '@/components/auth/PasswordInput';
 import MessageAlert from '@/components/auth/MessageAlert';
 import { useTranslation } from '@/components/TranslationProvider';
+import { getSafeCallbackUrl } from '@/lib/auth-utils';
 
 export default function SignIn() {
   const { t } = useTranslation();
@@ -24,6 +25,9 @@ export default function SignIn() {
     setLoading(true);
 
     try {
+      // Get validated callbackUrl from URL params
+      const callbackUrl = getSafeCallbackUrl();
+
       const result = await signIn('credentials', {
         email,
         password,
@@ -33,7 +37,8 @@ export default function SignIn() {
       if (result?.error) {
         setError(t('auth.signin.errors.invalid'));
       } else {
-        router.push('/');
+        // Redirect to callbackUrl (validated) or home
+        router.push(callbackUrl);
         router.refresh();
       }
     } catch (error) {
