@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     // Process each item from guest collection
     for (const item of items) {
       try {
-        const { itemNo, itemType, action, quantity, condition, price } = item;
+        const { itemNo, itemType, action, quantity, condition, price, name, imageUrl } = item;
 
         if (itemType === 'minifig') {
           // Add to minifig collection
@@ -33,20 +33,24 @@ export async function POST(request: Request) {
             // Add to inventory (to sell)
             await prisma.collectionItem.create({
               data: {
-                user_id: userId,
+                userId: userId,
                 minifigure_no: itemNo,
+                minifigure_name: name || '',
                 quantity: quantity || 1,
                 condition: condition || 'new',
+                image_url: imageUrl || null,
               },
             });
           } else {
             // Add to personal collection (to keep)
             await prisma.personalCollectionItem.create({
               data: {
-                user_id: userId,
+                userId: userId,
                 minifigure_no: itemNo,
+                minifigure_name: name || '',
                 quantity: quantity || 1,
                 condition: condition || 'new',
+                image_url: imageUrl || null,
               },
             });
           }
@@ -54,22 +58,26 @@ export async function POST(request: Request) {
           // Add to set collection
           if (action === 'sell') {
             // Add to set inventory (to sell)
-            await prisma.setsInventoryItem.create({
+            await prisma.setInventoryItem.create({
               data: {
-                user_id: userId,
+                userId: userId,
                 box_no: itemNo,
+                set_name: name || '',
                 quantity: quantity || 1,
                 condition: condition || 'new',
+                image_url: imageUrl || null,
               },
             });
           } else {
             // Add to set personal collection (to keep)
-            await prisma.setsCollectionItem.create({
+            await prisma.setCollectionItem.create({
               data: {
-                user_id: userId,
+                userId: userId,
                 box_no: itemNo,
+                set_name: name || '',
                 quantity: quantity || 1,
                 condition: condition || 'new',
+                image_url: imageUrl || null,
               },
             });
           }
