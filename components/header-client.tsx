@@ -26,6 +26,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileBrowseOpen, setMobileBrowseOpen] = useState(false);
   const [mobileLegoOpen, setMobileLegoOpen] = useState(false);
+  const [mobileLanguageOpen, setMobileLanguageOpen] = useState(false);
   const [highlightWishlist, setHighlightWishlist] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const browseDropdownRef = useRef<HTMLDivElement>(null);
@@ -130,6 +131,18 @@ export function HeaderClient({ user }: HeaderClientProps) {
     }
   }, [useMobileLayout, mobileMenuOpen]);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   const getInitials = (name?: string | null, email?: string | null) => {
     if (name) {
       const names = name.split(' ');
@@ -233,7 +246,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
         position: 'sticky',
         top: 0,
         zIndex: 10000,
-        background: 'rgba(255, 255, 255, 0.8)',
+        background: mobileMenuOpen ? '#ffffff' : 'rgba(255, 255, 255, 0.8)',
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
         borderBottom: '1px solid #e5e5e5'
@@ -569,10 +582,19 @@ export function HeaderClient({ user }: HeaderClientProps) {
 
         {mobileMenuOpen && (
           <nav ref={mobileMenuRef} style={{
-            background: '#fff',
+            position: 'fixed',
+            top: '73px',
+            left: '0px',
+            right: '0px',
+            bottom: '0px',
+            width: '100%',
+            height: 'calc(100vh - 73px)',
+            background: '#ffffff',
             padding: '16px 16px 32px',
             borderTop: '1px solid #f5f5f5',
-            zIndex: 1000
+            zIndex: 10000,
+            overflowY: 'auto',
+            WebkitOverflowScrolling: 'touch'
           }}>
             <Link href="/" onClick={() => setMobileMenuOpen(false)} style={{
               display: 'flex',
@@ -787,6 +809,85 @@ export function HeaderClient({ user }: HeaderClientProps) {
               }}>
                 {t('navigation.signIn')}
               </Link>
+
+              {/* Language Dropdown */}
+              <div>
+                <button
+                  onClick={() => setMobileLanguageOpen(!mobileLanguageOpen)}
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '16px 0',
+                    background: 'none',
+                    border: 'none',
+                    borderBottom: '1px solid #f5f5f5',
+                    fontSize: 'var(--text-base)',
+                    fontWeight: '600',
+                    color: '#171717',
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    minHeight: '44px'
+                  }}
+                >
+                  Language
+                  <svg
+                    style={{
+                      width: '20px',
+                      height: '20px',
+                      transform: mobileLanguageOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                      transition: 'transform 0.2s'
+                    }}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {mobileLanguageOpen && (
+                  <div style={{ paddingLeft: '16px', paddingBottom: '16px' }}>
+                    {[
+                      { code: 'en', name: 'English' },
+                      { code: 'es', name: 'Español' },
+                      { code: 'fr', name: 'Français' },
+                      { code: 'de', name: 'Deutsch' },
+                      { code: 'it', name: 'Italiano' },
+                      { code: 'pt', name: 'Português' },
+                      { code: 'pl', name: 'Polski' },
+                      { code: 'nl', name: 'Nederlands' },
+                      { code: 'sv', name: 'Svenska' },
+                      { code: 'ja', name: '日本語' }
+                    ].map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => {
+                          const pathname = window.location.pathname;
+                          const newUrl = `https://${lang.code === 'en' ? '' : `${lang.code}.`}figtracker.com${pathname}`;
+                          window.location.href = newUrl;
+                        }}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '12px',
+                          padding: '8px 0',
+                          color: '#525252',
+                          background: 'none',
+                          border: 'none',
+                          fontSize: 'var(--text-base)',
+                          cursor: 'pointer',
+                          textAlign: 'left',
+                          minHeight: '44px',
+                          width: '100%'
+                        }}
+                      >
+                        <span>{lang.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
             <Link href="/auth/signup" onClick={() => setMobileMenuOpen(false)} style={{
               display: 'block',
@@ -813,7 +914,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
       position: 'sticky',
       top: 0,
       zIndex: 10000,
-      background: 'rgba(255, 255, 255, 0.8)',
+      background: mobileMenuOpen ? '#ffffff' : 'rgba(255, 255, 255, 0.8)',
       backdropFilter: 'blur(12px)',
       WebkitBackdropFilter: 'blur(12px)',
       borderBottom: '1px solid #e5e5e5'
@@ -1293,9 +1394,19 @@ export function HeaderClient({ user }: HeaderClientProps) {
 
       {mobileMenuOpen && (
         <nav ref={mobileMenuRef} style={{
-          background: '#fff',
+          position: 'fixed',
+          top: '73px',
+          left: '0px',
+          right: '0px',
+          bottom: '0px',
+          width: '100%',
+          height: 'calc(100vh - 73px)',
+          background: '#ffffff',
           padding: '16px 16px 32px',
-          borderTop: '1px solid #f5f5f5'
+          borderTop: '1px solid #f5f5f5',
+          zIndex: 10000,
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch'
         }}>
           <Link href="/" onClick={() => setMobileMenuOpen(false)} style={{
             display: 'flex',
