@@ -70,7 +70,7 @@ export async function POST(request: Request) {
             });
           } else {
             // Add to set personal collection (to keep)
-            await prisma.setCollectionItem.create({
+            await prisma.setPersonalCollectionItem.create({
               data: {
                 userId: userId,
                 box_no: itemNo,
