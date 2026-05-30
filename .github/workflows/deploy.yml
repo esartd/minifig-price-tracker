@@ -40,8 +40,9 @@ jobs:
           mkdir -p deploy-package
           cp -r .next deploy-package/
           cp package.json package-lock.json deploy-package/
-          cp -r node_modules/@prisma deploy-package/prisma-client/
-          cp -r prisma deploy-package/prisma-schema/
+          cp -r node_modules/@prisma deploy-package/node_modules/@prisma/
+          cp -r node_modules/.prisma deploy-package/node_modules/.prisma/
+          cp -r prisma deploy-package/prisma/
           cp -r public deploy-package/ 2>/dev/null || true
           tar -czf deploy.tar.gz -C deploy-package .
 
@@ -68,12 +69,8 @@ jobs:
             tar -czf /root/vps-backup-$(date +%Y%m%d-%H%M%S).tar.gz .next 2>/dev/null || true
 
             # Extract new build
-            rm -rf .next
+            rm -rf .next node_modules/@prisma node_modules/.prisma
             tar -xzf /tmp/deploy.tar.gz
-
-            # Restore Prisma client to correct location
-            mkdir -p node_modules/@prisma
-            cp -r prisma-client/* node_modules/@prisma/ 2>/dev/null || true
 
             # Restart application
             pm2 start figtracker
