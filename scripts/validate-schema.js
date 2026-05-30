@@ -28,19 +28,19 @@ console.log(`   Provider: ${provider}`);
 
 // Production checks
 if (isProduction) {
-  if (provider !== 'postgresql') {
+  // Allow both PostgreSQL and MySQL in production
+  if (provider !== 'postgresql' && provider !== 'mysql') {
     console.error('\n❌ SCHEMA VALIDATION FAILED!');
-    console.error('   Production builds MUST use PostgreSQL provider.');
+    console.error('   Production builds MUST use PostgreSQL or MySQL provider.');
     console.error('   Current provider:', provider);
     console.error('\n   To fix:');
-    console.error('   1. Run: git restore prisma/schema.prisma');
-    console.error('   2. Verify provider is "postgresql"');
-    console.error('   3. Try building again\n');
+    console.error('   1. Set provider to "postgresql" or "mysql" in prisma/schema.prisma');
+    console.error('   2. Try building again\n');
     process.exit(1);
   }
 
   // Check for @db.Text on description field (required for PostgreSQL)
-  if (!schema.includes('description          String   @db.Text')) {
+  if (provider === 'postgresql' && !schema.includes('description          String   @db.Text')) {
     console.error('\n⚠️  WARNING: Missing @db.Text on description field');
     console.error('   PostgreSQL should use @db.Text for long text fields.');
     console.error('   Current schema may cause issues.\n');
