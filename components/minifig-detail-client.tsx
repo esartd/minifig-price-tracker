@@ -15,6 +15,7 @@ import MoveDialog from '@/components/MoveDialog';
 import MinifigDescription from '@/components/MinifigDescription';
 import MinifigFAQ from '@/components/MinifigFAQ';
 import AuthRequiredModal from '@/components/AuthRequiredModal';
+import SaveCollectionModal from '@/components/SaveCollectionModal';
 import { useGuestCollection } from '@/hooks/useGuestCollection';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 import { formatPrice } from '@/lib/format-price';
@@ -53,7 +54,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
-  const { addItem: addToGuestCollection } = useGuestCollection();
+  const { addItem: addToGuestCollection, count: guestCollectionCount, total: guestCollectionTotal } = useGuestCollection();
   const [addLoading, setAddLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -86,6 +87,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
   const [moveSuccess, setMoveSuccess] = useState(false);
   const [lastMovedItem, setLastMovedItem] = useState<{ id: string; direction: 'to-collection' | 'to-inventory' } | null>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showSaveCollectionModal, setShowSaveCollectionModal] = useState(false);
 
   // Independent quantity controls for "Add to Collection/Inventory" sections
   const [addToCollectionQty, setAddToCollectionQty] = useState(1);
@@ -407,6 +409,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
       if (added) {
         setSuccessMessage(`Added ${quantity} ${quantity === 1 ? 'item' : 'items'} to your collection!`);
         setTimeout(() => setSuccessMessage(''), 3000);
+
+        // Show save collection modal after 3+ items
+        if (guestCollectionCount >= 3) {
+          setTimeout(() => setShowSaveCollectionModal(true), 1000);
+        }
       }
       return;
     }
@@ -468,6 +475,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
       if (added) {
         setSuccessMessage(`Added ${quantity} ${quantity === 1 ? 'item' : 'items'} to your collection!`);
         setTimeout(() => setSuccessMessage(''), 3000);
+
+        // Show save collection modal after 3+ items
+        if (guestCollectionCount >= 3) {
+          setTimeout(() => setShowSaveCollectionModal(true), 1000);
+        }
       }
       return;
     }
@@ -629,6 +641,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
       if (added) {
         setSuccessMessage(`Added ${addToCollectionQty} ${addToCollectionQty === 1 ? 'item' : 'items'} to your collection!`);
         setTimeout(() => setSuccessMessage(''), 3000);
+
+        // Show save collection modal after 3+ items
+        if (guestCollectionCount >= 3) {
+          setTimeout(() => setShowSaveCollectionModal(true), 1000);
+        }
       }
       return;
     }
@@ -695,6 +712,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
       if (added) {
         setSuccessMessage(`Added ${addToInventoryQty} ${addToInventoryQty === 1 ? 'item' : 'items'} to your collection!`);
         setTimeout(() => setSuccessMessage(''), 3000);
+
+        // Show save collection modal after 3+ items
+        if (guestCollectionCount >= 3) {
+          setTimeout(() => setShowSaveCollectionModal(true), 1000);
+        }
       }
       return;
     }
@@ -3122,6 +3144,15 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
         onClose={() => setShowAuthModal(false)}
         itemName={minifig.name}
         itemType="minifig"
+      />
+
+      {/* Save Collection Modal */}
+      <SaveCollectionModal
+        isOpen={showSaveCollectionModal}
+        onClose={() => setShowSaveCollectionModal(false)}
+        itemCount={guestCollectionCount}
+        totalValue={guestCollectionTotal}
+        currencyCode={pricing.currencyCode}
       />
     </div>
   );

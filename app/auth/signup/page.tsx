@@ -50,6 +50,32 @@ export default function SignUp() {
       if (result?.error) {
         setError(t('auth.signup.errors.accountCreatedSignInFailed'));
       } else {
+        // Check if user flagged guest collection migration
+        const shouldMigrate = localStorage.getItem('figtracker_migrate_guest_collection');
+        if (shouldMigrate === 'true') {
+          try {
+            // Get guest collection from localStorage
+            const guestCollectionStr = localStorage.getItem('figtracker_guest_collection');
+            if (guestCollectionStr) {
+              const guestCollection = JSON.parse(guestCollectionStr);
+
+              // Call migration API
+              await fetch('/api/migrate-guest-collection', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ items: guestCollection }),
+              });
+
+              // Clear guest collection from localStorage
+              localStorage.removeItem('figtracker_guest_collection');
+              localStorage.removeItem('figtracker_migrate_guest_collection');
+            }
+          } catch (migrationError) {
+            console.error('Failed to migrate guest collection:', migrationError);
+            // Don't block user flow if migration fails
+          }
+        }
+
         router.push('/');
         router.refresh();
       }

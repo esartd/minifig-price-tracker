@@ -12,6 +12,7 @@ import MoveDialog from '@/components/MoveDialog';
 import ListingGeneratorForm from '@/components/listing-generator-form';
 import SetCardImage from '@/components/SetCard';
 import AuthRequiredModal from '@/components/AuthRequiredModal';
+import SaveCollectionModal from '@/components/SaveCollectionModal';
 import { useGuestCollection } from '@/hooks/useGuestCollection';
 import { formatPrice } from '@/lib/format-price';
 import { getSetAvailability } from '@/lib/set-availability';
@@ -45,7 +46,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
-  const { addItem: addToGuestCollection } = useGuestCollection();
+  const { addItem: addToGuestCollection, count: guestCollectionCount, total: guestCollectionTotal } = useGuestCollection();
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [pricing, setPricing] = useState<{
@@ -85,6 +86,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
   const [moveSuccess, setMoveSuccess] = useState(false);
   const [lastMovedItem, setLastMovedItem] = useState<{ id: string; direction: 'to-collection' | 'to-inventory' } | null>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showSaveCollectionModal, setShowSaveCollectionModal] = useState(false);
 
   const [condition, setCondition] = useState<'new' | 'used'>('new');
 
@@ -320,6 +322,11 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       if (added) {
         setSuccessMessage(`Added ${qty} ${qty === 1 ? 'set' : 'sets'} to your collection!`);
         setTimeout(() => setSuccessMessage(''), 3000);
+
+        // Show save collection modal after 3+ items
+        if (guestCollectionCount >= 3) {
+          setTimeout(() => setShowSaveCollectionModal(true), 1000);
+        }
       }
       return;
     }
@@ -364,6 +371,11 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       if (added) {
         setSuccessMessage(`Added ${qty} ${qty === 1 ? 'set' : 'sets'} to your collection!`);
         setTimeout(() => setSuccessMessage(''), 3000);
+
+        // Show save collection modal after 3+ items
+        if (guestCollectionCount >= 3) {
+          setTimeout(() => setShowSaveCollectionModal(true), 1000);
+        }
       }
       return;
     }
@@ -408,6 +420,11 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       if (added) {
         setSuccessMessage(`Added ${addToCollectionQty} ${addToCollectionQty === 1 ? 'set' : 'sets'} to your collection!`);
         setTimeout(() => setSuccessMessage(''), 3000);
+
+        // Show save collection modal after 3+ items
+        if (guestCollectionCount >= 3) {
+          setTimeout(() => setShowSaveCollectionModal(true), 1000);
+        }
       }
       return;
     }
@@ -453,6 +470,11 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       if (added) {
         setSuccessMessage(`Added ${addToInventoryQty} ${addToInventoryQty === 1 ? 'set' : 'sets'} to your collection!`);
         setTimeout(() => setSuccessMessage(''), 3000);
+
+        // Show save collection modal after 3+ items
+        if (guestCollectionCount >= 3) {
+          setTimeout(() => setShowSaveCollectionModal(true), 1000);
+        }
       }
       return;
     }
@@ -1499,6 +1521,15 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
         onClose={() => setShowAuthModal(false)}
         itemName={set.name}
         itemType="set"
+      />
+
+      {/* Save Collection Modal */}
+      <SaveCollectionModal
+        isOpen={showSaveCollectionModal}
+        onClose={() => setShowSaveCollectionModal(false)}
+        itemCount={guestCollectionCount}
+        totalValue={guestCollectionTotal}
+        currencyCode={pricing.currencyCode}
       />
     </div>
   );
