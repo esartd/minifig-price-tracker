@@ -695,7 +695,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               {mobileLegoOpen && (
                 <div style={{ paddingLeft: '16px', paddingBottom: '16px' }}>
                   <div style={{ padding: '8px 0 4px', fontSize: '11px', fontWeight: '600', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                    Minifigures
+                    {t('navigation.minifigures')}
                   </div>
                   <Link href="/auth/signin?callbackUrl=/inventory" onClick={() => setMobileMenuOpen(false)} style={{
                     display: 'flex',
@@ -708,7 +708,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     minHeight: '44px'
                   }}>
                     <CurrencyDollarIcon style={{ width: '20px', height: '20px', flexShrink: 0, color: '#737373' }} />
-                    <span>Minifigures for Sale</span>
+                    <span>{t('navigation.minifigsForSale')}</span>
                   </Link>
                   <Link href="/auth/signin?callbackUrl=/collection" onClick={() => setMobileMenuOpen(false)} style={{
                     display: 'flex',
@@ -721,11 +721,11 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     minHeight: '44px'
                   }}>
                     <StarIcon style={{ width: '20px', height: '20px', flexShrink: 0, color: '#737373' }} />
-                    <span>Minifigures to Keep</span>
+                    <span>{t('navigation.minifigsToKeep')}</span>
                   </Link>
 
                   <div style={{ padding: '12px 0 4px', fontSize: '11px', fontWeight: '600', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                    Sets
+                    {t('navigation.sets')}
                   </div>
                   <Link href="/auth/signin?callbackUrl=/sets-inventory" onClick={() => setMobileMenuOpen(false)} style={{
                     display: 'flex',
@@ -738,7 +738,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     minHeight: '44px'
                   }}>
                     <CurrencyDollarIcon style={{ width: '20px', height: '20px', flexShrink: 0, color: '#737373' }} />
-                    <span>Sets for Sale</span>
+                    <span>{t('navigation.setsForSale')}</span>
                   </Link>
                   <Link href="/auth/signin?callbackUrl=/sets-collection" onClick={() => setMobileMenuOpen(false)} style={{
                     display: 'flex',
@@ -751,7 +751,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     minHeight: '44px'
                   }}>
                     <StarIcon style={{ width: '20px', height: '20px', flexShrink: 0, color: '#737373' }} />
-                    <span>Sets to Keep</span>
+                    <span>{t('navigation.setsToKeep')}</span>
                   </Link>
                 </div>
               )}
