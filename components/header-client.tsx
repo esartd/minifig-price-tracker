@@ -496,6 +496,29 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 {t('navigation.about')}
               </Link>
 
+              {/* Articles Link */}
+              <Link
+                href="/articles"
+                style={{
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: pathname === '/articles' || pathname.startsWith('/articles/') ? '600' : '500',
+                  color: pathname === '/articles' || pathname.startsWith('/articles/') ? '#171717' : '#525252',
+                  textDecoration: 'none',
+                  transition: 'color 0.2s',
+                  lineHeight: '1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  height: '36px',
+                  borderBottom: pathname === '/articles' || pathname.startsWith('/articles/') ? '2px solid #3b82f6' : 'none',
+                  paddingBottom: '2px',
+                  whiteSpace: 'nowrap'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                onMouseLeave={(e) => e.currentTarget.style.color = (pathname === '/articles' || pathname.startsWith('/articles/')) ? '#171717' : '#525252'}
+              >
+                {t('navigation.articles') || 'Articles'}
+              </Link>
+
               <div className="desktop-auth" style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -774,6 +797,22 @@ export function HeaderClient({ user }: HeaderClientProps) {
               }}>
                 {t('navigation.about')}
               </Link>
+
+              {/* Articles Link */}
+              <Link href="/articles" onClick={() => setMobileMenuOpen(false)} style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '16px 0',
+                borderBottom: '1px solid #f5f5f5',
+                color: '#171717',
+                textDecoration: 'none',
+                fontSize: 'var(--text-base)',
+                fontWeight: '500',
+                minHeight: '44px'
+              }}>
+                {t('navigation.articles') || 'Articles'}
+              </Link>
+
               <Link href="/auth/signin" onClick={() => setMobileMenuOpen(false)} style={{
                 display: 'flex',
                 alignItems: 'center',
