@@ -2,22 +2,31 @@
 
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import AuthLayout from '@/components/auth/AuthLayout';
 import FormInput from '@/components/auth/FormInput';
 import PasswordInput from '@/components/auth/PasswordInput';
 import MessageAlert from '@/components/auth/MessageAlert';
+import { GoogleButton } from '@/components/auth/GoogleButton';
+import { DividerOr } from '@/components/auth/DividerOr';
+import { getFriendlyAuthError } from '@/lib/auth/urlError';
 import { useTranslation } from '@/components/TranslationProvider';
 import { getSafeCallbackUrl } from '@/lib/auth-utils';
 
 export default function SignIn() {
   const { t } = useTranslation();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Check for OAuth errors from URL
+  const urlError = searchParams.get('error');
+  const friendlyError = getFriendlyAuthError(urlError);
+  const callbackUrl = getSafeCallbackUrl();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,9 +34,6 @@ export default function SignIn() {
     setLoading(true);
 
     try {
-      // Get validated callbackUrl from URL params
-      const callbackUrl = getSafeCallbackUrl();
-
       const result = await signIn('credentials', {
         email,
         password,
@@ -69,6 +75,19 @@ export default function SignIn() {
           {t('auth.signin.subtitle')}
         </p>
       </div>
+
+      {/* Show OAuth errors */}
+      {friendlyError && <MessageAlert type="error" message={friendlyError} />}
+
+      {/* Google Sign-In Button */}
+      <div style={{ marginBottom: '8px' }}>
+        <GoogleButton
+          text={t('auth.signin.continueWithGoogle') || 'Continue with Google'}
+          callbackUrl={callbackUrl}
+        />
+      </div>
+
+      <DividerOr />
 
       <form onSubmit={handleSubmit}>
         {error && <MessageAlert type="error" message={error} />}

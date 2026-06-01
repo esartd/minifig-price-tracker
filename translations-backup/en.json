@@ -839,6 +839,8 @@
         "realtimePrices": "Real-time suggested prices",
         "totalValue": "Know your total inventory value"
       },
+      "continueWithGoogle": "Sign up with Google",
+      "signupWithEmail": "Sign up with Email",
       "name": "Name",
       "email": "Email Address",
       "password": "Password",
@@ -860,6 +862,8 @@
     "signin": {
       "title": "Welcome Back",
       "subtitle": "Sign in to access your inventory",
+      "continueWithGoogle": "Continue with Google",
+      "continueWithEmail": "Continue with Email",
       "email": "Email Address",
       "password": "Password",
       "placeholders": {

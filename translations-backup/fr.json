@@ -879,7 +879,9 @@
         "failed": "Échec de la création du compte",
         "accountCreatedSignInFailed": "Compte créé mais échec de la connexion. Veuillez essayer de vous connecter.",
         "generic": "Une erreur s'est produite. Veuillez réessayer."
-      }
+      },
+      "continueWithGoogle": "S'inscrire avec Google",
+      "signupWithEmail": "S'inscrire avec e-mail"
     },
     "signin": {
       "title": "Bon retour",
@@ -897,7 +899,9 @@
       "errors": {
         "invalid": "E-mail ou mot de passe invalide",
         "generic": "Une erreur s'est produite. Veuillez réessayer."
-      }
+      },
+      "continueWithGoogle": "Continuer avec Google",
+      "continueWithEmail": "Continuer avec e-mail"
     },
     "forgotPassword": {
       "title": "Réinitialiser le mot de passe",
@@ -1262,7 +1266,7 @@
     "breadcrumbs": {
       "home": "Accueil",
       "guides": "Guides",
-    "articles": "Articles"
+      "articles": "Articles"
     },
     "startTracking": "Commencez à suivre votre collection",
     "startTrackingDesc": "Utilisez FigTracker pour évaluer vos figurines LEGO avec précision grâce aux données Bricklink en temps réel",

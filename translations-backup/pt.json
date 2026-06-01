@@ -854,7 +854,9 @@
         "failed": "Failed to create account",
         "accountCreatedSignInFailed": "Account created but sign in failed. Please try signing in.",
         "generic": "An error occurred. Please try again."
-      }
+      },
+      "continueWithGoogle": "Cadastrar com Google",
+      "signupWithEmail": "Cadastrar com e-mail"
     },
     "signin": {
       "title": "Welcome Back",
@@ -872,7 +874,9 @@
       "errors": {
         "invalid": "Invalid email or password",
         "generic": "An error occurred. Please try again."
-      }
+      },
+      "continueWithGoogle": "Continuar com Google",
+      "continueWithEmail": "Continuar com e-mail"
     },
     "forgotPassword": {
       "title": "Reset Password",

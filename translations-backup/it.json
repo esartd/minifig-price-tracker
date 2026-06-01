@@ -854,7 +854,9 @@
         "failed": "Failed to create Account",
         "accountCreatedSignInFailed": "Account created but Accedi failed. Please try signing in.",
         "generic": "Si è verificato un errore. Please try again."
-      }
+      },
+      "continueWithGoogle": "Registrati con Google",
+      "signupWithEmail": "Registrati con email"
     },
     "signin": {
       "title": "Welcome Indietro",
@@ -872,7 +874,9 @@
       "errors": {
         "invalid": "Invalid email or password",
         "generic": "Si è verificato un errore. Please try again."
-      }
+      },
+      "continueWithGoogle": "Continua con Google",
+      "continueWithEmail": "Continua con email"
     },
     "forgotPassword": {
       "title": "Reset Password",

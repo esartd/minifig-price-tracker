@@ -11,6 +11,7 @@ import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
 import '@/lib/startup-checks' // Initialize database safeguards on app startup
 import { TranslationProvider } from '@/components/TranslationProvider'
+import { AccountLinkedToast } from '@/components/auth/AccountLinkedToast'
 import { getLocaleFromHost, getTranslations } from '@/lib/i18n-subdomain'
 import { headers } from 'next/headers'
 
@@ -266,6 +267,7 @@ export default async function RootLayout({
         />
         <AuthProvider>
           <TranslationProvider locale={locale} translations={translations}>
+            <AccountLinkedToast />
             <CurrencyBanner />
             <GuestCollectionMigrator />
             <div className="min-h-screen" style={{ backgroundColor: '#fafafa', display: 'flex', flexDirection: 'column' }}>

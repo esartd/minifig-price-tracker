@@ -854,7 +854,9 @@
         "failed": "Failed to create konto",
         "accountCreatedSignInFailed": "Konto created but sign in failed. Please try signing in.",
         "generic": "An fel occurred. Please try again."
-      }
+      },
+      "continueWithGoogle": "Registrera dig med Google",
+      "signupWithEmail": "Registrera dig med e-post"
     },
     "signin": {
       "title": "Welcome Tillbaka",
@@ -872,7 +874,9 @@
       "errors": {
         "invalid": "Invalid email or password",
         "generic": "An fel occurred. Please try again."
-      }
+      },
+      "continueWithGoogle": "Fortsätt med Google",
+      "continueWithEmail": "Fortsätt med e-post"
     },
     "forgotPassword": {
       "title": "Reset Password",

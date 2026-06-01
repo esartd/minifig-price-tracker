@@ -879,7 +879,9 @@
         "failed": "Error al crear la cuenta",
         "accountCreatedSignInFailed": "Cuenta creada pero error al iniciar sesión. Por favor, intenta iniciar sesión.",
         "generic": "Ocurrió un error. Por favor, inténtalo de nuevo."
-      }
+      },
+      "continueWithGoogle": "Registrarse con Google",
+      "signupWithEmail": "Registrarse con correo"
     },
     "signin": {
       "title": "Bienvenido de nuevo",
@@ -897,7 +899,9 @@
       "errors": {
         "invalid": "Correo electrónico o contraseña inválidos",
         "generic": "Ocurrió un error. Por favor, inténtalo de nuevo."
-      }
+      },
+      "continueWithGoogle": "Continuar con Google",
+      "continueWithEmail": "Continuar con correo"
     },
     "forgotPassword": {
       "title": "Restablecer contraseña",
@@ -1262,7 +1266,7 @@
     "breadcrumbs": {
       "home": "Inicio",
       "guides": "Guías",
-    "articles": "Artículos"
+      "articles": "Artículos"
     },
     "startTracking": "Comienza a rastrear tu colección",
     "startTrackingDesc": "Usa FigTracker para valorar tus minifiguras LEGO con precisión con datos de Bricklink en tiempo real",

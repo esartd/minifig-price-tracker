@@ -854,7 +854,9 @@
         "failed": "Failed to create Konto",
         "accountCreatedSignInFailed": "Konto created but sign in failed. Please try signing in.",
         "generic": "An Błąd occurred. Please try again."
-      }
+      },
+      "continueWithGoogle": "Zarejestruj się przez Google",
+      "signupWithEmail": "Zarejestruj się przez e-mail"
     },
     "signin": {
       "title": "Witamy ponownie",
@@ -872,7 +874,9 @@
       "errors": {
         "invalid": "Invalid E-mail or Hasło",
         "generic": "An Błąd occurred. Please try again."
-      }
+      },
+      "continueWithGoogle": "Kontynuuj z Google",
+      "continueWithEmail": "Kontynuuj z e-mailem"
     },
     "forgotPassword": {
       "title": "Resetuj hasło",

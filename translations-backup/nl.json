@@ -855,7 +855,9 @@
         "failed": "Failed to create account",
         "accountCreatedSignInFailed": "Account created but sign in failed. Please try signing in.",
         "generic": "An error occurred. Please try again."
-      }
+      },
+      "continueWithGoogle": "Aanmelden met Google",
+      "signupWithEmail": "Aanmelden met e-mail"
     },
     "signin": {
       "title": "Welcome Back",
@@ -873,7 +875,9 @@
       "errors": {
         "invalid": "Invalid email or password",
         "generic": "An error occurred. Please try again."
-      }
+      },
+      "continueWithGoogle": "Doorgaan met Google",
+      "continueWithEmail": "Doorgaan met e-mail"
     },
     "forgotPassword": {
       "title": "Reset Password",

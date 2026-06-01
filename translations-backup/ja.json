@@ -854,7 +854,9 @@
         "failed": "Failed to create account",
         "accountCreatedSignInFailed": "アカウント created but sign in failed. Please try signing in.",
         "generic": "An error occurred. Please try again."
-      }
+      },
+      "continueWithGoogle": "Googleで登録",
+      "signupWithEmail": "メールで登録"
     },
     "signin": {
       "title": "Welcome 戻る",
@@ -872,7 +874,9 @@
       "errors": {
         "invalid": "Invalid email or password",
         "generic": "An error occurred. Please try again."
-      }
+      },
+      "continueWithGoogle": "Googleで続ける",
+      "continueWithEmail": "メールで続ける"
     },
     "forgotPassword": {
       "title": "Reset Password",
