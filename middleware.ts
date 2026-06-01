@@ -36,10 +36,20 @@ const BLOCKED_USER_AGENTS = [
   'puppeteer',
   'playwright',
   'phantom',
+  'ahrefsbot',        // SEO crawler
+  'semrushbot',       // SEO crawler
+  'mj12bot',          // Majestic SEO
+  'dotbot',           // Moz
+  'petalbot',         // Huawei search
+  'bytespider',       // TikTok/ByteDance
+  'claudebot',        // Anthropic
+  'gptbot',           // OpenAI
+  'chatgpt',          // OpenAI
   // Block generic patterns only if they don't match allowed bots
   'crawler',
   'spider',
   'scraper',
+  'bot',              // Generic bot pattern (will be checked AFTER legitimate bots)
 ]
 
 export function middleware(request: NextRequest) {
@@ -56,6 +66,11 @@ export function middleware(request: NextRequest) {
   if (pathname === '/robots.txt') {
     const response = NextResponse.next()
     return response
+  }
+
+  // Block requests with no user agent (common bot behavior)
+  if (!userAgent || userAgent.trim() === '') {
+    return new NextResponse('Forbidden', { status: 403 })
   }
 
   // ALWAYS allow legitimate search engines (check first, highest priority)
