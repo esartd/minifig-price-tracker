@@ -254,5 +254,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return session
     },
+    // Preserve subdomain during OAuth redirect
+    async redirect({ url, baseUrl }) {
+      // If url is relative, preserve it
+      if (url.startsWith('/')) return url
+
+      // If url is on our domain (any subdomain), allow it
+      try {
+        const urlObj = new URL(url)
+        const allowedDomain = 'figtracker.ericksu.com'
+
+        if (urlObj.hostname === allowedDomain || urlObj.hostname.endsWith(`.${allowedDomain}`)) {
+          return url
+        }
+      } catch {
+        // Invalid URL, fall back to baseUrl
+      }
+
+      // Default: redirect to baseUrl (but this shouldn't happen with our setup)
+      return baseUrl
+    },
   },
 })
