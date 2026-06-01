@@ -73,6 +73,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: {
     strategy: "jwt"
   },
+  useSecureCookies: true,
   cookies: {
     sessionToken: {
       name: `__Secure-next-auth.session-token`,
@@ -81,9 +82,57 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         sameSite: 'lax',
         path: '/',
         secure: true,
-        domain: '.figtracker.ericksu.com' // Share cookies across all subdomains
+        domain: '.figtracker.ericksu.com'
       }
     },
+    callbackUrl: {
+      name: `__Secure-next-auth.callback-url`,
+      options: {
+        sameSite: 'lax',
+        path: '/',
+        secure: true,
+        domain: '.figtracker.ericksu.com'
+      }
+    },
+    csrfToken: {
+      name: `__Host-next-auth.csrf-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: true,
+      }
+    },
+    pkceCodeVerifier: {
+      name: `__Secure-next-auth.pkce.code_verifier`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: true,
+        domain: '.figtracker.ericksu.com'
+      }
+    },
+    state: {
+      name: `__Secure-next-auth.state`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: true,
+        domain: '.figtracker.ericksu.com'
+      }
+    },
+    nonce: {
+      name: `__Secure-next-auth.nonce`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: true,
+        domain: '.figtracker.ericksu.com'
+      }
+    }
   },
   callbacks: {
     // CRITICAL: Verify Google email and enable automatic account linking
