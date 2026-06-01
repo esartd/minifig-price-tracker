@@ -45,16 +45,29 @@ export function isValidCallbackUrl(url: string): boolean {
 /**
  * Safely extracts and validates callback URL from window location
  *
- * @param fallback - Fallback URL if invalid or missing (default: '/')
+ * @param fallback - Fallback URL if invalid or missing (default: current origin)
  * @returns Validated callback URL
  */
-export function getSafeCallbackUrl(fallback: string = '/'): string {
-  if (typeof window === 'undefined') return fallback;
+export function getSafeCallbackUrl(fallback?: string): string {
+  if (typeof window === 'undefined') return fallback || '/';
 
   const searchParams = new URLSearchParams(window.location.search);
   const rawUrl = searchParams.get('callbackUrl');
 
-  if (!rawUrl) return fallback;
+  // If no callback specified, return current origin to preserve subdomain
+  if (!rawUrl) {
+    return fallback || window.location.origin;
+  }
 
-  return isValidCallbackUrl(rawUrl) ? rawUrl : fallback;
+  // Validate the provided callback URL
+  if (!isValidCallbackUrl(rawUrl)) {
+    return fallback || window.location.origin;
+  }
+
+  // If valid but relative, make it absolute to preserve subdomain
+  if (rawUrl.startsWith('/')) {
+    return window.location.origin + rawUrl;
+  }
+
+  return rawUrl;
 }
