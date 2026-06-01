@@ -73,6 +73,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: {
     strategy: "jwt"
   },
+  cookies: {
+    sessionToken: {
+      name: `__Secure-next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: true,
+        domain: '.figtracker.ericksu.com' // Share cookies across all subdomains
+      }
+    },
+  },
   callbacks: {
     // CRITICAL: Verify Google email and enable automatic account linking
     async signIn({ account, profile, user }) {
