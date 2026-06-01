@@ -1,11 +1,12 @@
 'use client';
 
-import { useTranslation } from './TranslationProvider';
-import { HeartIcon } from '@heroicons/react/24/outline';
+import { ShoppingCartIcon, HeartIcon } from '@heroicons/react/24/outline';
 
-export default function SupportPageClient() {
-  const { t } = useTranslation();
+interface SupportPageClientProps {
+  totalPricingViews: number | null;
+}
 
+export default function SupportPageClient({ totalPricingViews }: SupportPageClientProps) {
   return (
     <div style={{
       minHeight: '100vh',
@@ -26,21 +27,32 @@ export default function SupportPageClient() {
           marginBottom: '24px',
           lineHeight: '1.2'
         }}>
-          {t('supportPage.title')}
+          Support Quick, Accurate Pricing
         </h1>
-        <p style={{
-          fontSize: 'clamp(18px, 3vw, 22px)',
-          color: 'rgba(255, 255, 255, 0.95)',
-          lineHeight: '1.6',
-          marginBottom: '0'
-        }}>
-          {t('supportPage.subtitle')}
-        </p>
+        {totalPricingViews !== null && totalPricingViews > 0 ? (
+          <p style={{
+            fontSize: 'clamp(18px, 3vw, 22px)',
+            color: 'rgba(255, 255, 255, 0.95)',
+            lineHeight: '1.6',
+            marginBottom: '0'
+          }}>
+            You've checked <strong>{totalPricingViews.toLocaleString()} prices</strong> — every check saved you time
+          </p>
+        ) : (
+          <p style={{
+            fontSize: 'clamp(18px, 3vw, 22px)',
+            color: 'rgba(255, 255, 255, 0.95)',
+            lineHeight: '1.6',
+            marginBottom: '0'
+          }}>
+            Built by one LEGO fan in Utah. Help keep it running.
+          </p>
+        )}
       </div>
 
       {/* Content Card */}
       <div style={{
-        maxWidth: '800px',
+        maxWidth: '900px',
         margin: '0 auto 80px',
         padding: '0 24px'
       }}>
@@ -50,128 +62,120 @@ export default function SupportPageClient() {
           padding: '48px',
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)'
         }}>
-          {/* Intro */}
-          <p style={{
-            fontSize: '18px',
-            lineHeight: '1.7',
-            color: '#525252',
-            marginBottom: '40px',
-            textAlign: 'center'
-          }}>
-            {t('supportPage.intro')}
-          </p>
-
-          {/* Primary CTA - Shop Links */}
+          {/* Side-by-side CTAs */}
           <div style={{
-            background: 'linear-gradient(135deg, #1488cc15 0%, #2b32b215 100%)',
-            border: '2px solid #1488cc',
-            borderRadius: '12px',
-            padding: '32px',
-            marginBottom: '24px',
-            textAlign: 'center'
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '24px',
+            marginBottom: '32px'
           }}>
+            {/* Shop Through Links */}
             <div style={{
+              background: 'linear-gradient(135deg, #1488cc15 0%, #2b32b215 100%)',
+              border: '2px solid #1488cc',
+              borderRadius: '12px',
+              padding: '32px',
+              textAlign: 'center',
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px',
-              marginBottom: '16px'
+              flexDirection: 'column',
+              alignItems: 'center'
             }}>
-              <HeartIcon style={{ width: '28px', height: '28px', color: '#1488cc' }} />
+              <ShoppingCartIcon style={{
+                width: '48px',
+                height: '48px',
+                color: '#1488cc',
+                marginBottom: '16px'
+              }} />
               <h3 style={{
-                fontSize: '24px',
+                fontSize: '20px',
                 fontWeight: '700',
                 color: '#171717',
-                margin: 0
+                marginTop: '0',
+                marginBottom: '16px'
               }}>
-                {t('supportPage.shopLinksTitle')}
+                Shop Through Our Links
               </h3>
-            </div>
-            <p style={{
-              fontSize: '17px',
-              lineHeight: '1.7',
-              color: '#525252',
-              marginBottom: '12px'
-            }}>
-              {t('supportPage.shopLinksDescription')}
-            </p>
-            <p style={{
-              fontSize: '17px',
-              lineHeight: '1.7',
-              color: '#171717',
-              marginBottom: '0',
-              fontWeight: '600'
-            }}>
-              {t('supportPage.shopLinksNote')}
-            </p>
-          </div>
-
-          {/* Secondary CTA - Donation */}
-          <div style={{
-            textAlign: 'center',
-            paddingTop: '16px',
-            paddingBottom: '16px'
-          }}>
-            <p style={{
-              fontSize: '15px',
-              color: '#737373',
-              marginBottom: '8px'
-            }}>
-              {t('supportPage.donateLabel')}
-            </p>
-            <p style={{
-              fontSize: '14px',
-              color: '#737373',
-              marginBottom: '16px',
-              fontStyle: 'italic'
-            }}>
-              {t('supportPage.donateLeaderboard')}
-            </p>
-            <a
-              href="https://www.paypal.com/donate/?business=W2LZ3TNF2X88C&no_recurring=0&currency_code=USD&return=https://figtracker.ericksu.com/claim-donation"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-block',
-                padding: '12px 28px',
+              <p style={{
                 fontSize: '15px',
-                fontWeight: '600',
-                color: '#ffffff',
-                background: '#3b82f6',
-                border: 'none',
-                borderRadius: '8px',
-                textDecoration: 'none',
-                transition: 'all 0.2s',
-                boxShadow: '0 2px 4px rgba(59, 130, 246, 0.2)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#2563eb';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 4px 8px rgba(59, 130, 246, 0.3)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#3b82f6';
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 2px 4px rgba(59, 130, 246, 0.2)';
-              }}
-            >
-              {t('supportPage.donateButton')}
-            </a>
-          </div>
-        </div>
+                lineHeight: '1.6',
+                color: '#525252',
+                marginBottom: '0'
+              }}>
+                We earn a small commission when you buy through our eBay, Amazon, or LEGO links. No extra cost to you.
+              </p>
+            </div>
 
-        {/* Thank You */}
-        <div style={{
-          textAlign: 'center',
-          marginTop: '48px',
-          paddingBottom: '80px'
-        }}>
+            {/* Donate Directly */}
+            <div style={{
+              background: 'linear-gradient(135deg, #f9731615 0%, #dc262615 100%)',
+              border: '2px solid #f97316',
+              borderRadius: '12px',
+              padding: '32px',
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
+            }}>
+              <HeartIcon style={{
+                width: '48px',
+                height: '48px',
+                color: '#f97316',
+                marginBottom: '16px'
+              }} />
+              <h3 style={{
+                fontSize: '20px',
+                fontWeight: '700',
+                color: '#171717',
+                marginTop: '0',
+                marginBottom: '16px'
+              }}>
+                Donate Directly
+              </h3>
+              <p style={{
+                fontSize: '15px',
+                lineHeight: '1.6',
+                color: '#525252',
+                marginBottom: '16px'
+              }}>
+                Every dollar covers server costs and keeps this tool running.
+              </p>
+              <form action="https://www.paypal.com/donate" method="post" target="_blank">
+                <input type="hidden" name="business" value="W2LZ3TNF2X88C" />
+                <input type="hidden" name="no_recurring" value="0" />
+                <input type="hidden" name="currency_code" value="USD" />
+                <input type="hidden" name="return" value="https://figtracker.ericksu.com/claim-donation" />
+                <button
+                  type="submit"
+                  style={{
+                    background: '#0070ba',
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: '8px',
+                    padding: '12px 24px',
+                    fontSize: '15px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    boxShadow: '0 4px 12px rgba(0, 112, 186, 0.3)'
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.background = '#005ea6'}
+                  onMouseOut={(e) => e.currentTarget.style.background = '#0070ba'}
+                >
+                  Donate via PayPal
+                </button>
+              </form>
+            </div>
+          </div>
+
+          {/* Footer note */}
           <p style={{
-            fontSize: '18px',
-            color: 'rgba(255, 255, 255, 0.95)',
-            marginBottom: '0'
+            fontSize: '14px',
+            color: '#737373',
+            textAlign: 'center',
+            marginBottom: '0',
+            lineHeight: '1.6'
           }}>
-            {t('supportPage.thankYou')}
+            Top donors are recognized on the homepage leaderboard (optional).
           </p>
         </div>
       </div>

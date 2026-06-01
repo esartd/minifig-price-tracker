@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import SupportPageClient from '@/components/support-page-client';
 import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
 import { headers } from 'next/headers';
+import { auth } from '@/auth';
+import { prisma } from '@/lib/prisma';
 
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
@@ -49,6 +51,19 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function SupportPage() {
-  return <SupportPageClient />;
+export default async function SupportPage() {
+  // Fetch user data if logged in
+  const session = await auth();
+  let userData = null;
+
+  if (session?.user?.email) {
+    userData = await prisma.user.findUnique({
+      where: { email: session.user.email },
+      select: {
+        totalPricingViews: true,
+      },
+    });
+  }
+
+  return <SupportPageClient totalPricingViews={userData?.totalPricingViews || null} />;
 }

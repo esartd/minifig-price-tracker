@@ -1229,6 +1229,44 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       {t('collection.pricing.noSellersAvailable')}
                     </div>
                   )}
+
+                  {/* Support Link - Subtle, always visible */}
+                  {!pricing.loading && pricing.suggestedPrice > 0 && (
+                    <div style={{
+                      marginTop: '16px',
+                      textAlign: 'left'
+                    }}>
+                      <a
+                        href="/support"
+                        onClick={async (e) => {
+                          e.preventDefault();
+                          try {
+                            await fetch('/api/track-event', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({
+                                eventType: 'inline_link_clicked',
+                                metadata: { item_no: minifig.no, item_name: minifig.name }
+                              })
+                            });
+                          } catch (err) {
+                            console.error('Failed to track click:', err);
+                          }
+                          window.location.href = '/support';
+                        }}
+                        style={{
+                          fontSize: '11px',
+                          color: '#a3a3a3',
+                          textDecoration: 'none',
+                          transition: 'color 0.2s'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.color = '#737373'}
+                        onMouseLeave={(e) => e.currentTarget.style.color = '#a3a3a3'}
+                      >
+                        Saved you some time? Support quick, accurate pricing →
+                      </a>
+                    </div>
+                  )}
                 </div>
 
                 {/* Divider */}

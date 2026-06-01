@@ -123,7 +123,7 @@ export default function ClaimDonationClient() {
                   marginBottom: '16px',
                 }}
               >
-                Thank You!
+                Thank you for helping keep LEGO pricing free for everyone
               </h2>
               <p
                 style={{

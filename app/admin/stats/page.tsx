@@ -160,6 +160,57 @@ export default async function AdminStatsPage() {
 
   const totalUserItems = totalCollectionItems + totalPersonalItems;
 
+  // Conversion Funnel Metrics
+  // Note: These queries assume MonetizationEvent table exists
+  // If table doesn't exist, metrics will show 0
+  let donationFunnelMetrics = {
+    pricing_viewed: 0,
+    inline_link_clicked: 0,
+    nav_support_clicked: 0,
+    support_page_viewed: 0,
+    donated: 0,
+  };
+
+  let affiliateFunnelMetrics = {
+    pricing_viewed: 0,
+    affiliate_clicked: 0,
+  };
+
+  try {
+    // Donation funnel
+    const donationFunnelData = await prisma.$queryRawUnsafe<Array<{ eventType: string; count: bigint }>>(`
+      SELECT eventType, COUNT(*) as count
+      FROM MonetizationEvent
+      WHERE eventType IN ('pricing_viewed', 'inline_link_clicked', 'nav_support_clicked', 'support_page_viewed', 'donated')
+      AND userId != ?
+      GROUP BY eventType
+    `, ADMIN_EMAIL);
+
+    donationFunnelData.forEach((row: { eventType: string; count: bigint }) => {
+      if (row.eventType in donationFunnelMetrics) {
+        donationFunnelMetrics[row.eventType as keyof typeof donationFunnelMetrics] = Number(row.count);
+      }
+    });
+
+    // Affiliate funnel
+    const affiliateFunnelData = await prisma.$queryRawUnsafe<Array<{ eventType: string; count: bigint }>>(`
+      SELECT eventType, COUNT(*) as count
+      FROM MonetizationEvent
+      WHERE eventType IN ('pricing_viewed', 'affiliate_clicked')
+      AND userId != ?
+      GROUP BY eventType
+    `, ADMIN_EMAIL);
+
+    affiliateFunnelData.forEach((row: { eventType: string; count: bigint }) => {
+      if (row.eventType in affiliateFunnelMetrics) {
+        affiliateFunnelMetrics[row.eventType as keyof typeof affiliateFunnelMetrics] = Number(row.count);
+      }
+    });
+  } catch (error) {
+    // Table doesn't exist or query failed - use default zeros
+    console.log('[Admin Stats] MonetizationEvent table not available:', error);
+  }
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -528,6 +579,115 @@ export default async function AdminStatsPage() {
               `}</style>
             </>
           )}
+        </div>
+
+        {/* Conversion Funnels */}
+        <div className="admin-card" style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          border: '1px solid #e5e5e5',
+          padding: 'var(--space-3)',
+          marginBottom: 'var(--space-6)',
+        }}>
+          <h2 style={{
+            fontSize: 'var(--text-lg)',
+            fontWeight: '600',
+            color: '#171717',
+            marginBottom: 'var(--space-3)',
+          }}>
+            Conversion Funnels
+          </h2>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: 'var(--space-4)',
+          }}>
+            {/* Donation Funnel */}
+            <div>
+              <h3 style={{
+                fontSize: 'var(--text-base)',
+                fontWeight: '600',
+                color: '#171717',
+                marginBottom: 'var(--space-3)',
+              }}>
+                Donation Funnel
+              </h3>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--space-2)',
+              }}>
+                <FunnelStep
+                  label="Pricing Viewed"
+                  count={donationFunnelMetrics.pricing_viewed}
+                  percentage={100}
+                  isFirst
+                />
+                <FunnelStep
+                  label="Inline Link Clicked"
+                  count={donationFunnelMetrics.inline_link_clicked}
+                  percentage={donationFunnelMetrics.pricing_viewed > 0
+                    ? (donationFunnelMetrics.inline_link_clicked / donationFunnelMetrics.pricing_viewed) * 100
+                    : 0}
+                />
+                <FunnelStep
+                  label="Nav Support Clicked"
+                  count={donationFunnelMetrics.nav_support_clicked}
+                  percentage={donationFunnelMetrics.pricing_viewed > 0
+                    ? (donationFunnelMetrics.nav_support_clicked / donationFunnelMetrics.pricing_viewed) * 100
+                    : 0}
+                />
+                <FunnelStep
+                  label="Support Page Viewed"
+                  count={donationFunnelMetrics.support_page_viewed}
+                  percentage={donationFunnelMetrics.pricing_viewed > 0
+                    ? (donationFunnelMetrics.support_page_viewed / donationFunnelMetrics.pricing_viewed) * 100
+                    : 0}
+                />
+                <FunnelStep
+                  label="Donated"
+                  count={donationFunnelMetrics.donated}
+                  percentage={donationFunnelMetrics.pricing_viewed > 0
+                    ? (donationFunnelMetrics.donated / donationFunnelMetrics.pricing_viewed) * 100
+                    : 0}
+                  isLast
+                />
+              </div>
+            </div>
+
+            {/* Affiliate Funnel */}
+            <div>
+              <h3 style={{
+                fontSize: 'var(--text-base)',
+                fontWeight: '600',
+                color: '#171717',
+                marginBottom: 'var(--space-3)',
+              }}>
+                Affiliate Funnel
+              </h3>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--space-2)',
+              }}>
+                <FunnelStep
+                  label="Pricing Viewed"
+                  count={affiliateFunnelMetrics.pricing_viewed}
+                  percentage={100}
+                  isFirst
+                />
+                <FunnelStep
+                  label="Affiliate Clicked"
+                  count={affiliateFunnelMetrics.affiliate_clicked}
+                  percentage={affiliateFunnelMetrics.pricing_viewed > 0
+                    ? (affiliateFunnelMetrics.affiliate_clicked / affiliateFunnelMetrics.pricing_viewed) * 100
+                    : 0}
+                  isLast
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Popular Themes - loaded client-side */}
@@ -990,6 +1150,82 @@ function DatabaseInfo({
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+function FunnelStep({
+  label,
+  count,
+  percentage,
+  isFirst = false,
+  isLast = false,
+}: {
+  label: string;
+  count: number;
+  percentage: number;
+  isFirst?: boolean;
+  isLast?: boolean;
+}) {
+  const color = isLast ? '#10b981' : isFirst ? '#3b82f6' : '#737373';
+  const bgColor = isLast ? '#10b98115' : isFirst ? '#3b82f615' : '#f5f5f5';
+
+  return (
+    <div style={{
+      position: 'relative',
+      paddingLeft: 'var(--space-3)',
+    }}>
+      {!isFirst && (
+        <div style={{
+          position: 'absolute',
+          left: '6px',
+          top: '-12px',
+          width: '2px',
+          height: '12px',
+          background: '#e5e5e5',
+        }} />
+      )}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 'var(--space-2)',
+        padding: 'var(--space-2)',
+        background: bgColor,
+        borderRadius: '8px',
+        border: `1px solid ${isFirst || isLast ? color + '30' : '#e5e5e5'}`,
+      }}>
+        <div style={{
+          width: '12px',
+          height: '12px',
+          borderRadius: '50%',
+          background: color,
+          flexShrink: 0,
+        }} />
+        <div style={{ flex: 1 }}>
+          <div style={{
+            fontSize: 'var(--text-sm)',
+            fontWeight: '500',
+            color: '#171717',
+            marginBottom: '2px',
+          }}>
+            {label}
+          </div>
+          <div style={{
+            fontSize: 'var(--text-xs)',
+            color: '#737373',
+          }}>
+            {count.toLocaleString()} events
+            {!isFirst && ` (${percentage.toFixed(1)}%)`}
+          </div>
+        </div>
+        <div style={{
+          fontSize: 'var(--text-lg)',
+          fontWeight: '600',
+          color: color,
+        }}>
+          {count}
+        </div>
+      </div>
     </div>
   );
 }

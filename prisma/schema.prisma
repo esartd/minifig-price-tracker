@@ -333,6 +333,7 @@ model User {
   shareEnabledSetsCollection Boolean                     @default(false)
   shareTokenSetsCollectionPrivate String?                @unique
   shareEnabledSetsCollectionPrivate Boolean              @default(false)
+  totalPricingViews          Int                         @default(0)
   Account                    Account[]
   CollectionItem             CollectionItem[]
   Listing                    Listing[]
@@ -528,4 +529,17 @@ model PriceFetchFailure {
   @@index([last_attempt])
   @@index([resolved])
   @@index([error_type])
+}
+
+model MonetizationEvent {
+  id        String   @id @default(cuid())
+  eventType String   // "pricing_view", "donation_cta_shown", "donation_cta_clicked", "donation_completed"
+  userId    String?  // optional - can track anonymous events
+  metadata  String?  @db.Text // JSON stringified metadata (amount, page, itemNo, etc)
+  createdAt DateTime @default(now())
+
+  @@index([eventType])
+  @@index([userId])
+  @@index([createdAt])
+  @@index([userId, eventType])
 }

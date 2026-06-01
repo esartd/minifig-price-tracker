@@ -39,6 +39,30 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
     );
   }
 
+  const handleSupportClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+
+    // Track the click event
+    try {
+      await fetch('/api/track-event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event: 'pricing_card_support_click',
+          properties: {
+            item_no: item.minifigure_no,
+            item_name: item.minifigure_name,
+          }
+        })
+      });
+    } catch (error) {
+      console.error('Failed to track support click:', error);
+    }
+
+    // Navigate to support page
+    window.location.href = '/support';
+  };
+
   return (
     <div className="apple-card sticky top-24">
       <h3 className="text-lg font-semibold mb-1 text-gray-900 tracking-tight">{item.minifigure_name}</h3>
@@ -84,6 +108,17 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
             {formatPrice(pricing.suggestedPrice)}
           </p>
         </div>
+      </div>
+
+      {/* Support Link */}
+      <div className="mt-4 text-center">
+        <a
+          href="/support"
+          onClick={handleSupportClick}
+          className="text-xs text-gray-400 hover:text-gray-600 transition-colors duration-200"
+        >
+          Saved you some time? Support free pricing →
+        </a>
       </div>
     </div>
   );

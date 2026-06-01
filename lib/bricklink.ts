@@ -427,7 +427,8 @@ export class BricklinkAPI {
     itemNo: string,
     condition: 'new' | 'used',
     countryCode: string = 'US',
-    region: string = 'north_america'
+    region: string = 'north_america',
+    userId?: string
   ): Promise<PricingData> {
     console.log(`[calculatePricingData] START: ${itemNo}, condition=${condition}, country=${countryCode}`);
     const conditionCode = condition === 'new' ? 'N' : 'U';
@@ -650,6 +651,16 @@ export class BricklinkAPI {
       await this.recordPriceHistory(itemNo, condition, pricingData);
     }
 
+    // Track pricing view (fire-and-forget pattern - don't fail pricing if tracking fails)
+    if (userId && pricingData.suggestedPrice > 0) {
+      prisma.user.update({
+        where: { id: userId },
+        data: { totalPricingViews: { increment: 1 } }
+      }).catch(err => {
+        console.error(`Failed to track pricing view for user ${userId}:`, err);
+      });
+    }
+
     return {
       ...pricingData,
       cached_at: new Date().toISOString()
@@ -760,7 +771,8 @@ export class BricklinkAPI {
     boxNo: string,
     condition: 'new' | 'used',
     countryCode: string = 'US',
-    region: string = 'north_america'
+    region: string = 'north_america',
+    userId?: string
   ): Promise<PricingData> {
     const conditionCode = condition === 'new' ? 'N' : 'U';
 
@@ -933,6 +945,16 @@ export class BricklinkAPI {
         expires_at: expiresAt,
       }
     });
+
+    // Track pricing view (fire-and-forget pattern - don't fail pricing if tracking fails)
+    if (userId && pricingData.suggestedPrice > 0) {
+      prisma.user.update({
+        where: { id: userId },
+        data: { totalPricingViews: { increment: 1 } }
+      }).catch(err => {
+        console.error(`Failed to track pricing view for user ${userId}:`, err);
+      });
+    }
 
     return {
       ...pricingData,
