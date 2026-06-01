@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { getLocaleFromHost } from '@/lib/i18n-subdomain'
+import { rateLimit } from '@/lib/rate-limit'
 
 // Legitimate search engine bots that should ALWAYS be allowed
 const ALLOWED_BOTS = [
@@ -83,6 +84,16 @@ export function middleware(request: NextRequest) {
     const response = NextResponse.next()
     response.headers.set('x-locale', getLocaleFromHost(hostname))
     return response
+  }
+
+  // Rate limiting (before bot check to catch aggressive scrapers)
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0] ||
+              request.headers.get('x-real-ip') ||
+              'unknown';
+  const { allowed } = rateLimit(ip, 100, 60 * 1000); // 100 requests per minute
+
+  if (!allowed) {
+    return new NextResponse('Too Many Requests', { status: 429 });
   }
 
   // Block requests with suspicious user agents (only if not a legitimate bot)
