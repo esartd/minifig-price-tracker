@@ -62,4 +62,4 @@ jobs:
             - Next reminder: 2 weeks from today`,
               labels: ['reminder', 'catalog-update']
             });
-            console.log(\`Created reminder issue #\${issue.data.number}\`);
+            console.log(`Created reminder issue #${issue.data.number}`);
