@@ -20,13 +20,22 @@ export function isValidCallbackUrl(url: string): boolean {
       return true;
     }
 
-    // For absolute URLs, verify same origin
+    // For absolute URLs, verify same origin or same domain (allow subdomains)
     const parsedUrl = new URL(url);
     const currentOrigin = typeof window !== 'undefined'
       ? window.location.origin
       : process.env.NEXT_PUBLIC_BASE_URL || '';
 
-    return parsedUrl.origin === currentOrigin;
+    // Allow exact origin match
+    if (parsedUrl.origin === currentOrigin) return true;
+
+    // Allow all figtracker.ericksu.com subdomains (for language sites)
+    const allowedDomain = 'figtracker.ericksu.com';
+    if (parsedUrl.hostname === allowedDomain || parsedUrl.hostname.endsWith(`.${allowedDomain}`)) {
+      return parsedUrl.protocol === 'https:';
+    }
+
+    return false;
   } catch {
     // Invalid URL format
     return false;
