@@ -7,7 +7,6 @@ import ScrollToTop from '@/components/ScrollToTop'
 import CurrencyBanner from '@/components/CurrencyBanner'
 import GuestCollectionProvider from '@/components/GuestCollectionProvider'
 import GuestCollectionMigrator from '@/components/GuestCollectionMigrator'
-import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
 import '@/lib/startup-checks' // Initialize database safeguards on app startup
 import { TranslationProvider } from '@/components/TranslationProvider'
@@ -285,7 +284,6 @@ export default async function RootLayout({
             </div>
           </TranslationProvider>
         </AuthProvider>
-        <Analytics />
       </body>
     </html>
   )
