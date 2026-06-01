@@ -1343,7 +1343,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
               onMouseLeave={(e) => e.currentTarget.style.color = pathname === '/support' ? '#171717' : '#525252'}
             >
-              {t('navigation.support') || 'Support'}
+              Support
             </Link>
 
             <div className="desktop-auth" style={{
