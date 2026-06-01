@@ -1,14 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { bricklinkAPI } from '@/lib/bricklink';
 import { auth } from '@/auth';
-import { rateLimitResponse } from '@/lib/rate-limit';
 
 // GET /api/collection/temp-pricing?itemNo=sw0001&condition=new
 export async function GET(request: NextRequest) {
-  // Apply rate limiting and bot blocking
-  const rateLimitResult = rateLimitResponse(request);
-  if (rateLimitResult) return rateLimitResult;
-
   try {
 
     const searchParams = request.nextUrl.searchParams;
