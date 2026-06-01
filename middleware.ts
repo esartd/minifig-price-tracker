@@ -46,6 +46,12 @@ export function middleware(request: NextRequest) {
   const { hostname, pathname } = request.nextUrl
   const userAgent = request.headers.get('user-agent')?.toLowerCase() || ''
 
+  // Always allow health check endpoint (for deployment monitoring)
+  if (pathname === '/api/health') {
+    const response = NextResponse.next()
+    return response
+  }
+
   // Always allow robots.txt (bots need to read it to know they're blocked)
   if (pathname === '/robots.txt') {
     const response = NextResponse.next()
