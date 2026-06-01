@@ -1238,8 +1238,10 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     }}>
                       <a
                         href="/support"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         onClick={async (e) => {
-                          e.preventDefault();
+                          // Track the click (fire-and-forget)
                           try {
                             await fetch('/api/track-event', {
                               method: 'POST',
@@ -1252,7 +1254,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                           } catch (err) {
                             console.error('Failed to track click:', err);
                           }
-                          window.location.href = '/support';
                         }}
                         style={{
                           fontSize: '11px',
