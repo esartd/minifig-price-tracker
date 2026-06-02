@@ -28,11 +28,61 @@ export default function AlertsPage() {
   const [editPrice, setEditPrice] = useState('');
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  // Add styles for responsive delete button text
+  // Add responsive styles
   useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
-      @media (min-width: 640px) {
+      .alert-card-container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .alert-card-header {
+        display: flex;
+        gap: 12px;
+      }
+
+      .alert-card-content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .alert-card-actions {
+        display: flex;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .alert-action-button {
+        flex: 1;
+      }
+
+      .alert-delete-button {
+        flex-shrink: 0;
+      }
+
+      @media (min-width: 768px) {
+        .alert-card-container {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: start;
+        }
+
+        .alert-card-header {
+          flex: 1;
+          min-width: 0;
+        }
+
+        .alert-card-actions {
+          width: auto;
+          align-items: center;
+        }
+
+        .alert-action-button {
+          flex: 0 0 auto;
+        }
+
         .delete-button-text {
           display: inline !important;
         }
@@ -475,263 +525,256 @@ function AlertCard({
       background: '#ffffff',
       borderRadius: '12px',
       boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
-      padding: '16px',
+      padding: '20px',
       border: '1px solid #f5f5f5'
     }}>
-      {/* Header with image and title */}
-      <div style={{
-        display: 'flex',
-        gap: '12px',
-        marginBottom: '16px'
-      }}>
-        {/* Image */}
-        <Link href={itemUrl} style={{
-          flexShrink: 0,
-          width: '64px',
-          height: '64px',
-          borderRadius: '8px',
-          overflow: 'hidden',
-          background: '#fafafa',
-          border: '1px solid #e5e5e5',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          <img
-            src={imageUrl}
-            alt={alert.item_name}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain',
-              padding: '4px'
-            }}
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-            }}
-          />
-        </Link>
-
-        {/* Title and details */}
-        <div style={{ flex: 1, minWidth: 0 }}>
+      <div className="alert-card-container">
+        {/* Header section */}
+        <div className="alert-card-header">
+          {/* Image */}
           <Link href={itemUrl} style={{
-            fontSize: '15px',
-            fontWeight: '600',
-            color: '#171717',
-            textDecoration: 'none',
-            display: 'block',
-            marginBottom: '6px',
-            transition: 'color 0.2s',
-            lineHeight: '1.3'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
-          onMouseLeave={(e) => e.currentTarget.style.color = '#171717'}
-          >
-            {alert.item_name}
-          </Link>
-          <div style={{
-            fontSize: '13px',
-            color: '#737373',
-            lineHeight: '1.4'
-          }}>
-            {alert.item_no} • {alert.condition === 'new' ? 'New' : 'Used'} • {alert.item_type === 'MINIFIG' ? 'Minifigure' : 'Set'}
-          </div>
-        </div>
-      </div>
-
-      {/* Target Price */}
-      <div style={{ marginBottom: '12px' }}>
-        {isEditing ? (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: '13px', color: '#737373' }}>Target:</span>
-            <input
-              type="number"
-              step="0.01"
-              value={editPrice}
-              onChange={(e) => setEditPrice(e.target.value)}
-              style={{
-                width: '100px',
-                padding: '6px 10px',
-                fontSize: '13px',
-                border: '1px solid #e5e5e5',
-                borderRadius: '6px',
-                outline: 'none'
-              }}
-              onFocus={(e) => {
-                e.currentTarget.style.borderColor = '#3b82f6';
-                e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
-              }}
-              onBlur={(e) => {
-                e.currentTarget.style.borderColor = '#e5e5e5';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
-            />
-            <button
-              onClick={() => onSave(alert)}
-              style={{
-                padding: '6px',
-                color: '#10b981',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                borderRadius: '4px',
-                display: 'flex',
-                alignItems: 'center',
-                transition: 'background 0.2s'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.background = '#f0fdf4'}
-              onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M20 6L9 17l-5-5" />
-              </svg>
-            </button>
-            <button
-              onClick={onCancel}
-              style={{
-                padding: '6px',
-                color: '#737373',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                borderRadius: '4px',
-                display: 'flex',
-                alignItems: 'center',
-                transition: 'background 0.2s'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.background = '#fafafa'}
-              onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M18 6L6 18M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-        ) : (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: '13px', color: '#737373' }}>Target:</span>
-            <span style={{ fontSize: '15px', fontWeight: '600', color: '#171717' }}>
-              {getCurrencySymbol(alert.currency_code)}{alert.target_price.toFixed(2)}
-            </span>
-            <button
-              onClick={() => onEdit(alert)}
-              style={{
-                padding: '4px',
-                color: '#a3a3a3',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                borderRadius: '4px',
-                display: 'flex',
-                alignItems: 'center',
-                transition: 'all 0.2s'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#fafafa';
-                e.currentTarget.style.color = '#525252';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'none';
-                e.currentTarget.style.color = '#a3a3a3';
-              }}
-              title="Edit target price"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-              </svg>
-            </button>
-          </div>
-        )}
-      </div>
-
-      {/* Status */}
-      <div style={{ fontSize: '12px', color: '#a3a3a3', marginBottom: '16px' }}>
-        {alert.triggered_at ? (
-          <span style={{ color: '#10b981', fontWeight: '500' }}>
-            Triggered on {formatDate(alert.triggered_at)}
-          </span>
-        ) : alert.last_checked ? (
-          <span>Last checked: {formatDate(alert.last_checked)}</span>
-        ) : (
-          <span>Created: {formatDate(alert.created_at)}</span>
-        )}
-      </div>
-
-      {/* Actions - Full width buttons on mobile */}
-      <div style={{ display: 'flex', gap: '8px' }}>
-        {alert.triggered_at ? (
-          <button
-            onClick={() => onToggleActive(alert.id, alert.active)}
-            style={{
-              flex: 1,
-              padding: '10px 16px',
-              fontSize: '13px',
-              fontWeight: '500',
-              color: '#3b82f6',
-              background: '#eff6ff',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              transition: 'background 0.2s'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.background = '#dbeafe'}
-            onMouseLeave={(e) => e.currentTarget.style.background = '#eff6ff'}
-          >
-            Reactivate
-          </button>
-        ) : (
-          <button
-            onClick={() => onToggleActive(alert.id, alert.active)}
-            style={{
-              flex: 1,
-              padding: '10px 16px',
-              fontSize: '13px',
-              fontWeight: '500',
-              color: alert.active ? '#737373' : '#3b82f6',
-              background: alert.active ? '#fafafa' : '#eff6ff',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              transition: 'background 0.2s'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = alert.active ? '#f5f5f5' : '#dbeafe';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = alert.active ? '#fafafa' : '#eff6ff';
-            }}
-          >
-            {alert.active ? 'Pause' : 'Activate'}
-          </button>
-        )}
-        <button
-          onClick={() => onDelete(alert.id)}
-          style={{
-            padding: '10px 16px',
-            color: '#ef4444',
-            background: '#fef2f2',
-            border: 'none',
-            cursor: 'pointer',
+            flexShrink: 0,
+            width: '64px',
+            height: '64px',
             borderRadius: '8px',
+            overflow: 'hidden',
+            background: '#fafafa',
+            border: '1px solid #e5e5e5',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            gap: '6px',
-            fontSize: '13px',
-            fontWeight: '500',
-            transition: 'background 0.2s',
-            flexShrink: 0
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.background = '#fee2e2'}
-          onMouseLeave={(e) => e.currentTarget.style.background = '#fef2f2'}
-          title="Delete alert"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-          </svg>
-          <span className="delete-button-text" style={{ display: 'none' }}>Delete</span>
-        </button>
+            justifyContent: 'center'
+          }}>
+            <img
+              src={imageUrl}
+              alt={alert.item_name}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                padding: '4px'
+              }}
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          </Link>
+
+          <div className="alert-card-content">
+            <Link href={itemUrl} style={{
+              fontSize: '15px',
+              fontWeight: '600',
+              color: '#171717',
+              textDecoration: 'none',
+              display: 'block',
+              marginBottom: '6px',
+              transition: 'color 0.2s'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#171717'}
+            >
+              {alert.item_name}
+            </Link>
+            <div style={{
+              fontSize: '13px',
+              color: '#737373',
+              marginBottom: '12px'
+            }}>
+              {alert.item_no} • {alert.condition === 'new' ? 'New' : 'Used'} • {alert.item_type === 'MINIFIG' ? 'Minifigure' : 'Set'}
+            </div>
+
+            {/* Target Price */}
+            <div style={{ marginBottom: '8px' }}>
+              {isEditing ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontSize: '13px', color: '#737373' }}>Target:</span>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={editPrice}
+                    onChange={(e) => setEditPrice(e.target.value)}
+                    style={{
+                      width: '100px',
+                      padding: '6px 10px',
+                      fontSize: '13px',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '6px',
+                      outline: 'none'
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = '#3b82f6';
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = '#e5e5e5';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  />
+                  <button
+                    onClick={() => onSave(alert)}
+                    style={{
+                      padding: '6px',
+                      color: '#10b981',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      borderRadius: '4px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f0fdf4'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={onCancel}
+                    style={{
+                      padding: '6px',
+                      color: '#737373',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      borderRadius: '4px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#fafafa'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontSize: '13px', color: '#737373' }}>Target:</span>
+                  <span style={{ fontSize: '15px', fontWeight: '600', color: '#171717' }}>
+                    {getCurrencySymbol(alert.currency_code)}{alert.target_price.toFixed(2)}
+                  </span>
+                  <button
+                    onClick={() => onEdit(alert)}
+                    style={{
+                      padding: '4px',
+                      color: '#a3a3a3',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      borderRadius: '4px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      transition: 'all 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = '#fafafa';
+                      e.currentTarget.style.color = '#525252';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'none';
+                      e.currentTarget.style.color = '#a3a3a3';
+                    }}
+                    title="Edit target price"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                    </svg>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Status */}
+            <div style={{ fontSize: '12px', color: '#a3a3a3' }}>
+              {alert.triggered_at ? (
+                <span style={{ color: '#10b981', fontWeight: '500' }}>
+                  Triggered on {formatDate(alert.triggered_at)}
+                </span>
+              ) : alert.last_checked ? (
+                <span>Last checked: {formatDate(alert.last_checked)}</span>
+              ) : (
+                <span>Created: {formatDate(alert.created_at)}</span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="alert-card-actions">
+          {alert.triggered_at ? (
+            <button
+              onClick={() => onToggleActive(alert.id, alert.active)}
+              className="alert-action-button"
+              style={{
+                padding: '8px 14px',
+                fontSize: '13px',
+                fontWeight: '500',
+                color: '#3b82f6',
+                background: '#eff6ff',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = '#dbeafe'}
+              onMouseLeave={(e) => e.currentTarget.style.background = '#eff6ff'}
+            >
+              Reactivate
+            </button>
+          ) : (
+            <button
+              onClick={() => onToggleActive(alert.id, alert.active)}
+              className="alert-action-button"
+              style={{
+                padding: '8px 14px',
+                fontSize: '13px',
+                fontWeight: '500',
+                color: alert.active ? '#737373' : '#3b82f6',
+                background: alert.active ? '#fafafa' : '#eff6ff',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = alert.active ? '#f5f5f5' : '#dbeafe';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = alert.active ? '#fafafa' : '#eff6ff';
+              }}
+            >
+              {alert.active ? 'Pause' : 'Activate'}
+            </button>
+          )}
+          <button
+            onClick={() => onDelete(alert.id)}
+            className="alert-delete-button"
+            style={{
+              padding: '8px',
+              color: '#ef4444',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              borderRadius: '6px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              transition: 'background 0.2s'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = '#fef2f2'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
+            title="Delete alert"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+            </svg>
+            <span className="delete-button-text" style={{ display: 'none' }}>Delete</span>
+          </button>
+        </div>
       </div>
     </div>
   );
