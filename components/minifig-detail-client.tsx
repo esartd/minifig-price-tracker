@@ -1025,7 +1025,10 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       return (
                         <>
                           <button
-                            onClick={() => setCondition('new')}
+                            onClick={() => {
+                              setCondition('new');
+                              router.push(`/minifigs/${minifig.no}?condition=new`, { scroll: false });
+                            }}
                             style={{
                               padding: '8px 16px',
                               fontSize: 'var(--text-sm)',
@@ -1042,7 +1045,10 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                             New{newCount > 0 ? ` (${newCount})` : ''}
                           </button>
                           <button
-                            onClick={() => setCondition('used')}
+                            onClick={() => {
+                              setCondition('used');
+                              router.push(`/minifigs/${minifig.no}?condition=used`, { scroll: false });
+                            }}
                             style={{
                               padding: '8px 16px',
                               fontSize: 'var(--text-sm)',
