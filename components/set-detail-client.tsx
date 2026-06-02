@@ -1186,9 +1186,9 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
               {pricing && pricing.suggestedPrice > 0 && (
                 <div style={{ marginTop: '16px', marginBottom: '8px' }}>
                   <PriceAlertButton
-                    itemNo={setData.box_no}
+                    itemNo={set.box_no}
                     itemType="SET"
-                    itemName={setData.name}
+                    itemName={set.name}
                     condition={condition}
                     currentPrice={pricing.suggestedPrice}
                     currencyCode={pricing.currencyCode || 'USD'}
