@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client-hostinger';
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient({datasourceUrl: 'mysql://u493602047_figtracker_use:Legocatelogstuff12345!@srv1777.hstgr.io:3306/u493602047_figtracker'});
 
 const batch = [

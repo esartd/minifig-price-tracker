@@ -3,7 +3,7 @@
  * Run with: npx tsx scripts/create-price-fetch-failure-table.ts
  */
 
-import { PrismaClient } from '@prisma/client-hostinger';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient({
   datasources: {

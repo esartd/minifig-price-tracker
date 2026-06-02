@@ -3,7 +3,7 @@
  * FAST import - uses batch inserts instead of one-by-one
  */
 
-import { PrismaClient } from '@prisma/client-hostinger';
+import { PrismaClient } from '@prisma/client';
 import * as fs from 'fs';
 
 const prisma = new PrismaClient({

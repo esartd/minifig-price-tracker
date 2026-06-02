@@ -14,7 +14,7 @@
  * Estimated time: 1,114 minifigs in ~3-4 hours
  */
 
-import { PrismaClient as PrismaClientHostinger } from '@prisma/client-hostinger';
+import { PrismaClient as PrismaClientHostinger } from '@prisma/client';
 import * as fs from 'fs';
 import * as path from 'path';
 

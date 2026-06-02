@@ -38,6 +38,15 @@ export async function POST(
       );
     }
 
+    // Validate item has minifigure_no
+    if (!item.minifigure_no) {
+      console.error(`Item ${item.id} has no minifigure_no!`);
+      return NextResponse.json(
+        { success: false, error: 'Item has no minifigure number' },
+        { status: 400 }
+      );
+    }
+
     // Get user's regional preferences
     const countryCode = session.user?.preferredCountryCode || 'US';
     const cacheRegion = ''; // Standardized region format

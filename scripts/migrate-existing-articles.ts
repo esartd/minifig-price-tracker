@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client-hostinger';
+import { PrismaClient } from '@prisma/client';
 import translationsEn from '../translations-backup/en.json';
 import translationsDe from '../translations-backup/de.json';
 import translationsFr from '../translations-backup/fr.json';

@@ -5,7 +5,7 @@
  * Prioritize by category popularity
  */
 
-import { PrismaClient } from '@prisma/client-hostinger';
+import { PrismaClient } from '@prisma/client';
 import Anthropic from '@anthropic-ai/sdk';
 
 const prisma = new PrismaClient({

@@ -4,7 +4,7 @@
  * Recovers ~21,000 set descriptions that were lost during catalog update
  */
 
-import { PrismaClient } from '@prisma/client-hostinger';
+import { PrismaClient } from '@prisma/client';
 import * as fs from 'fs';
 
 const prisma = new PrismaClient({

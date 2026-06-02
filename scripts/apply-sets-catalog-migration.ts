@@ -4,7 +4,7 @@
  * Run this ONCE to create the table
  */
 
-import { PrismaClient } from '@prisma/client-hostinger';
+import { PrismaClient } from '@prisma/client';
 import * as fs from 'fs';
 import * as path from 'path';
 

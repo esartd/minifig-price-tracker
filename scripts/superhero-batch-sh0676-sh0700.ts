@@ -1,4 +1,4 @@
-import { PrismaClient as PrismaClientHostinger } from '@prisma/client-hostinger';
+import { PrismaClient as PrismaClientHostinger } from '@prisma/client';
 
 const prisma = new PrismaClientHostinger({
   datasources: {

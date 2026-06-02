@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client-hostinger';
+import { PrismaClient } from '@prisma/client';
 import { ArticleBlock } from '../types/article';
 
 const prisma = new PrismaClient({

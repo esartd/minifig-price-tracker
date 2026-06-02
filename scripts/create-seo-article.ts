@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client-hostinger';
+import { PrismaClient } from '@prisma/client';
 
 interface ArticleBlock {
   id: string;

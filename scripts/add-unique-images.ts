@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client-hostinger';
+import { PrismaClient } from '@prisma/client';
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';

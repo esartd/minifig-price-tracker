@@ -1,5 +1,5 @@
 #!/usr/bin/env ts-node
-import { PrismaClient } from '@prisma/client-hostinger';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient({
   datasourceUrl: process.env.DATABASE_URL
