@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { BellIcon, BellAlertIcon } from '@heroicons/react/24/outline';
 
 interface PriceAlertButtonProps {
   itemNo: string;
@@ -111,51 +110,178 @@ export default function PriceAlertButton({
 
   if (status === 'loading') return null;
   if (!session) return null;
-  if (currentPrice <= 0) return null; // Don't show for unavailable prices
+  if (currentPrice <= 0) return null;
 
   return (
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '10px 14px',
+          fontSize: '13px',
+          fontWeight: '500',
+          color: hasAlert ? '#2563eb' : '#525252',
+          background: '#ffffff',
+          border: '1px solid #e5e5e5',
+          borderRadius: '8px',
+          cursor: 'pointer',
+          transition: 'all 0.2s',
+          outline: 'none'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = '#fafafa';
+          e.currentTarget.style.borderColor = '#d4d4d4';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = '#ffffff';
+          e.currentTarget.style.borderColor = '#e5e5e5';
+        }}
         title="Set price alert"
       >
-        {hasAlert ? (
-          <BellAlertIcon className="w-5 h-5 text-blue-600" />
-        ) : (
-          <BellIcon className="w-5 h-5" />
-        )}
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill={hasAlert ? "currentColor" : "none"}
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+        </svg>
         <span>Price Alert</span>
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900">Set Price Alert</h3>
-                <p className="text-sm text-gray-500 mt-1">{itemName}</p>
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '16px',
+            background: 'rgba(0, 0, 0, 0.4)',
+            backdropFilter: 'blur(2px)'
+          }}
+          onClick={() => setIsOpen(false)}
+        >
+          <div
+            style={{
+              background: '#ffffff',
+              borderRadius: '12px',
+              boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
+              maxWidth: '400px',
+              width: '100%',
+              padding: '24px',
+              position: 'relative'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div style={{ marginBottom: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
+                <div>
+                  <h3 style={{
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: '#171717',
+                    margin: '0 0 4px 0',
+                    letterSpacing: '-0.01em'
+                  }}>
+                    Set Price Alert
+                  </h3>
+                  <p style={{
+                    fontSize: '13px',
+                    color: '#737373',
+                    margin: 0
+                  }}>
+                    {itemName}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  style={{
+                    padding: '4px',
+                    color: '#a3a3a3',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    borderRadius: '4px',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#f5f5f5';
+                    e.currentTarget.style.color = '#525252';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'none';
+                    e.currentTarget.style.color = '#a3a3a3';
+                  }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                  </svg>
+                </button>
               </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-gray-500"
-              >
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
             </div>
 
             <form onSubmit={handleSetAlert}>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Current Price: {currencySymbol}{currentPrice.toFixed(2)}
-                </label>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+              {/* Current Price */}
+              <div style={{ marginBottom: '16px' }}>
+                <div style={{
+                  padding: '12px',
+                  background: '#fafafa',
+                  borderRadius: '8px',
+                  border: '1px solid #e5e5e5'
+                }}>
+                  <div style={{
+                    fontSize: '11px',
+                    fontWeight: '500',
+                    color: '#737373',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    marginBottom: '4px'
+                  }}>
+                    Current Price
+                  </div>
+                  <div style={{
+                    fontSize: '20px',
+                    fontWeight: '600',
+                    color: '#171717'
+                  }}>
+                    {currencySymbol}{currentPrice.toFixed(2)}
+                  </div>
+                </div>
+              </div>
+
+              {/* Target Price Input */}
+              <div style={{ marginBottom: '16px' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '13px',
+                  fontWeight: '500',
+                  color: '#525252',
+                  marginBottom: '8px'
+                }}>
                   Notify me when price drops to:
                 </label>
-                <div className="relative">
-                  <span className="absolute left-3 top-2.5 text-gray-500">{currencySymbol}</span>
+                <div style={{ position: 'relative' }}>
+                  <span style={{
+                    position: 'absolute',
+                    left: '12px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    fontSize: '14px',
+                    color: '#737373',
+                    pointerEvents: 'none'
+                  }}>
+                    {currencySymbol}
+                  </span>
                   <input
                     type="number"
                     step="0.01"
@@ -163,40 +289,117 @@ export default function PriceAlertButton({
                     value={targetPrice}
                     onChange={(e) => setTargetPrice(e.target.value)}
                     placeholder="0.00"
-                    className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    style={{
+                      width: '100%',
+                      paddingLeft: '32px',
+                      paddingRight: '12px',
+                      paddingTop: '10px',
+                      paddingBottom: '10px',
+                      fontSize: '14px',
+                      color: '#171717',
+                      background: '#ffffff',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      outline: 'none',
+                      transition: 'all 0.2s',
+                      boxSizing: 'border-box'
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = '#3b82f6';
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = '#e5e5e5';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
                     required
                   />
                 </div>
-                <p className="text-xs text-gray-500 mt-1">
+                <p style={{
+                  fontSize: '11px',
+                  color: '#a3a3a3',
+                  margin: '6px 0 0 0'
+                }}>
                   Set a target price below the current price
                 </p>
               </div>
 
+              {/* Message */}
               {message && (
-                <div className={`mb-4 p-3 rounded-lg text-sm ${message.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
+                <div style={{
+                  marginBottom: '16px',
+                  padding: '12px',
+                  borderRadius: '8px',
+                  fontSize: '13px',
+                  background: message.type === 'success' ? '#dcfce7' : '#fee2e2',
+                  color: message.type === 'success' ? '#166534' : '#991b1b',
+                  border: '1px solid',
+                  borderColor: message.type === 'success' ? '#86efac' : '#fca5a5'
+                }}>
                   {message.text}
                 </div>
               )}
 
-              <div className="flex gap-3">
+              {/* Buttons */}
+              <div style={{ display: 'flex', gap: '8px' }}>
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+                  style={{
+                    flex: 1,
+                    padding: '10px 16px',
+                    fontSize: '13px',
+                    fontWeight: '500',
+                    color: '#525252',
+                    background: '#ffffff',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#fafafa';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#ffffff';
+                  }}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="flex-1 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  style={{
+                    flex: 1,
+                    padding: '10px 16px',
+                    fontSize: '13px',
+                    fontWeight: '500',
+                    color: '#ffffff',
+                    background: isLoading ? '#93c5fd' : '#3b82f6',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: isLoading ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isLoading) e.currentTarget.style.background = '#2563eb';
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isLoading) e.currentTarget.style.background = '#3b82f6';
+                  }}
                 >
                   {isLoading ? 'Setting...' : 'Set Alert'}
                 </button>
               </div>
             </form>
 
-            <p className="text-xs text-gray-500 mt-4">
+            {/* Footer Note */}
+            <p style={{
+              fontSize: '11px',
+              color: '#a3a3a3',
+              margin: '16px 0 0 0',
+              lineHeight: '1.5'
+            }}>
               You'll receive an email when the price drops to or below your target. The alert will be automatically deactivated after triggering.
             </p>
           </div>
