@@ -26,6 +26,7 @@ export default function PriceAlertButton({
   const [hasAlert, setHasAlert] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [isEditingPrice, setIsEditingPrice] = useState(false);
 
   const currencySymbol = currencyCode === 'USD' ? '$' : currencyCode === 'EUR' ? '€' : currencyCode === 'GBP' ? '£' : currencyCode;
 
@@ -218,50 +219,22 @@ export default function PriceAlertButton({
           >
             {/* Header */}
             <div style={{ marginBottom: '20px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
-                <div>
-                  <h3 style={{
-                    fontSize: '18px',
-                    fontWeight: '600',
-                    color: '#171717',
-                    margin: '0 0 4px 0',
-                    letterSpacing: '-0.01em'
-                  }}>
-                    Set Price Alert
-                  </h3>
-                  <p style={{
-                    fontSize: '13px',
-                    color: '#737373',
-                    margin: 0
-                  }}>
-                    {itemName}
-                  </p>
-                </div>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  style={{
-                    padding: '4px',
-                    color: '#a3a3a3',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    borderRadius: '4px',
-                    transition: 'all 0.2s'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#f5f5f5';
-                    e.currentTarget.style.color = '#525252';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'none';
-                    e.currentTarget.style.color = '#a3a3a3';
-                  }}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M18 6L6 18M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
+              <h3 style={{
+                fontSize: '18px',
+                fontWeight: '600',
+                color: '#171717',
+                margin: '0 0 4px 0',
+                letterSpacing: '-0.01em'
+              }}>
+                Set Price Alert
+              </h3>
+              <p style={{
+                fontSize: '13px',
+                color: '#737373',
+                margin: 0
+              }}>
+                {itemName}
+              </p>
             </div>
 
             {!hasAlert ? (
@@ -471,77 +444,177 @@ export default function PriceAlertButton({
             ) : (
               /* MANAGE MODE - Alert already exists */
               <div>
-                {/* Current Alert Status */}
-                <div style={{
-                  padding: '16px',
-                  background: '#dbeafe',
-                  borderRadius: '8px',
-                  border: '1px solid #93c5fd',
-                  marginBottom: '16px'
-                }}>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    marginBottom: '12px'
-                  }}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#2563eb" stroke="none">
-                      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-                    </svg>
+                {!isEditingPrice ? (
+                  <>
+                    {/* Current Alert Status */}
                     <div style={{
-                      fontSize: '13px',
-                      fontWeight: '600',
-                      color: '#1e40af'
+                      padding: '16px',
+                      background: '#dbeafe',
+                      borderRadius: '8px',
+                      border: '1px solid #93c5fd',
+                      marginBottom: '16px'
                     }}>
-                      Alert Active
-                    </div>
-                  </div>
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
-                    gap: '12px'
-                  }}>
-                    <div>
                       <div style={{
-                        fontSize: '11px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        marginBottom: '12px'
+                      }}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#2563eb" stroke="none">
+                          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                        </svg>
+                        <div style={{
+                          fontSize: '13px',
+                          fontWeight: '600',
+                          color: '#1e40af'
+                        }}>
+                          Alert Active
+                        </div>
+                      </div>
+                      <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 1fr',
+                        gap: '12px'
+                      }}>
+                        <div>
+                          <div style={{
+                            fontSize: '11px',
+                            fontWeight: '500',
+                            color: '#64748b',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.05em',
+                            marginBottom: '4px'
+                          }}>
+                            Current Price
+                          </div>
+                          <div style={{
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            color: '#1e40af'
+                          }}>
+                            {currencySymbol}{currentPrice.toFixed(2)}
+                          </div>
+                        </div>
+                        <div>
+                          <div style={{
+                            fontSize: '11px',
+                            fontWeight: '500',
+                            color: '#64748b',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.05em',
+                            marginBottom: '4px'
+                          }}>
+                            Alert Target
+                          </div>
+                          <div style={{
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            color: '#1e40af'
+                          }}>
+                            {currencySymbol}{parseFloat(targetPrice).toFixed(2)}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  /* EDIT MODE */
+                  <form onSubmit={handleSetAlert}>
+                    {/* Current Price */}
+                    <div style={{ marginBottom: '16px' }}>
+                      <div style={{
+                        padding: '12px',
+                        background: '#fafafa',
+                        borderRadius: '8px',
+                        border: '1px solid #e5e5e5'
+                      }}>
+                        <div style={{
+                          fontSize: '11px',
+                          fontWeight: '500',
+                          color: '#737373',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em',
+                          marginBottom: '4px'
+                        }}>
+                          Current Price
+                        </div>
+                        <div style={{
+                          fontSize: '20px',
+                          fontWeight: '600',
+                          color: '#171717'
+                        }}>
+                          {currencySymbol}{currentPrice.toFixed(2)}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Target Price Input */}
+                    <div style={{ marginBottom: '16px' }}>
+                      <label style={{
+                        display: 'block',
+                        fontSize: '13px',
                         fontWeight: '500',
-                        color: '#64748b',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em',
-                        marginBottom: '4px'
+                        color: '#525252',
+                        marginBottom: '8px'
                       }}>
-                        Current Price
+                        Notify me when price drops to:
+                      </label>
+                      <div style={{ position: 'relative' }}>
+                        <span style={{
+                          position: 'absolute',
+                          left: '12px',
+                          top: '50%',
+                          transform: 'translateY(-50%)',
+                          fontSize: '14px',
+                          color: '#737373',
+                          pointerEvents: 'none'
+                        }}>
+                          {currencySymbol}
+                        </span>
+                        <input
+                          type="number"
+                          step="0.01"
+                          min="0.01"
+                          value={targetPrice}
+                          onChange={(e) => setTargetPrice(e.target.value)}
+                          placeholder="0.00"
+                          style={{
+                            width: '100%',
+                            paddingLeft: '32px',
+                            paddingRight: '12px',
+                            paddingTop: '10px',
+                            paddingBottom: '10px',
+                            fontSize: '14px',
+                            color: '#171717',
+                            background: '#ffffff',
+                            border: '1px solid #e5e5e5',
+                            borderRadius: '8px',
+                            outline: 'none',
+                            transition: 'all 0.2s',
+                            boxSizing: 'border-box'
+                          }}
+                          onFocus={(e) => {
+                            e.currentTarget.style.borderColor = '#3b82f6';
+                            e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.borderColor = '#e5e5e5';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
+                          required
+                        />
                       </div>
-                      <div style={{
-                        fontSize: '16px',
-                        fontWeight: '600',
-                        color: '#1e40af'
-                      }}>
-                        {currencySymbol}{currentPrice.toFixed(2)}
-                      </div>
-                    </div>
-                    <div>
-                      <div style={{
+                      <p style={{
                         fontSize: '11px',
-                        fontWeight: '500',
-                        color: '#64748b',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em',
-                        marginBottom: '4px'
+                        color: '#a3a3a3',
+                        margin: '6px 0 0 0'
                       }}>
-                        Alert Target
-                      </div>
-                      <div style={{
-                        fontSize: '16px',
-                        fontWeight: '600',
-                        color: '#1e40af'
-                      }}>
-                        {currencySymbol}{parseFloat(targetPrice).toFixed(2)}
-                      </div>
+                        Set a target price below the current price
+                      </p>
                     </div>
-                  </div>
-                </div>
+                  </form>
+                )}
 
                 {/* Message */}
                 {message && (
@@ -561,66 +634,136 @@ export default function PriceAlertButton({
 
                 {/* Action Buttons */}
                 <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
-                  <button
-                    onClick={handleDeleteAlert}
-                    disabled={isLoading}
-                    style={{
-                      flex: 1,
-                      padding: '10px 16px',
-                      fontSize: '13px',
-                      fontWeight: '500',
-                      color: '#dc2626',
-                      background: '#ffffff',
-                      border: '1px solid #fca5a5',
-                      borderRadius: '8px',
-                      cursor: isLoading ? 'not-allowed' : 'pointer',
-                      transition: 'all 0.2s',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '6px'
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isLoading) {
-                        e.currentTarget.style.background = '#fee2e2';
-                        e.currentTarget.style.borderColor = '#ef4444';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isLoading) {
-                        e.currentTarget.style.background = '#ffffff';
-                        e.currentTarget.style.borderColor = '#fca5a5';
-                      }
-                    }}
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                    </svg>
-                    {isLoading ? 'Deleting...' : 'Delete Alert'}
-                  </button>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    style={{
-                      flex: 1,
-                      padding: '10px 16px',
-                      fontSize: '13px',
-                      fontWeight: '500',
-                      color: '#ffffff',
-                      background: '#3b82f6',
-                      border: 'none',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = '#2563eb';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = '#3b82f6';
-                    }}
-                  >
-                    Close
-                  </button>
+                  {!isEditingPrice ? (
+                    <>
+                      <button
+                        onClick={handleDeleteAlert}
+                        disabled={isLoading}
+                        style={{
+                          flex: 1,
+                          padding: '10px 16px',
+                          fontSize: '13px',
+                          fontWeight: '500',
+                          color: '#dc2626',
+                          background: '#ffffff',
+                          border: '1px solid #fca5a5',
+                          borderRadius: '8px',
+                          cursor: isLoading ? 'not-allowed' : 'pointer',
+                          transition: 'all 0.2s',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '6px'
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!isLoading) {
+                            e.currentTarget.style.background = '#fee2e2';
+                            e.currentTarget.style.borderColor = '#ef4444';
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!isLoading) {
+                            e.currentTarget.style.background = '#ffffff';
+                            e.currentTarget.style.borderColor = '#fca5a5';
+                          }
+                        }}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                        </svg>
+                        {isLoading ? 'Deleting...' : 'Delete Alert'}
+                      </button>
+                      <button
+                        onClick={() => setIsEditingPrice(true)}
+                        style={{
+                          flex: 1,
+                          padding: '10px 16px',
+                          fontSize: '13px',
+                          fontWeight: '500',
+                          color: '#ffffff',
+                          background: '#3b82f6',
+                          border: 'none',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '6px'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = '#2563eb';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = '#3b82f6';
+                        }}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                        </svg>
+                        Edit Target
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsEditingPrice(false);
+                          checkExistingAlert(); // Reset to original price
+                        }}
+                        style={{
+                          flex: 1,
+                          padding: '10px 16px',
+                          fontSize: '13px',
+                          fontWeight: '500',
+                          color: '#525252',
+                          background: '#ffffff',
+                          border: '1px solid #e5e5e5',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = '#fafafa';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = '#ffffff';
+                        }}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={async (e) => {
+                          e.preventDefault();
+                          await handleSetAlert(e as any);
+                          setIsEditingPrice(false);
+                        }}
+                        disabled={isLoading}
+                        style={{
+                          flex: 1,
+                          padding: '10px 16px',
+                          fontSize: '13px',
+                          fontWeight: '500',
+                          color: '#ffffff',
+                          background: isLoading ? '#93c5fd' : '#3b82f6',
+                          border: 'none',
+                          borderRadius: '8px',
+                          cursor: isLoading ? 'not-allowed' : 'pointer',
+                          transition: 'all 0.2s'
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!isLoading) e.currentTarget.style.background = '#2563eb';
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!isLoading) e.currentTarget.style.background = '#3b82f6';
+                        }}
+                      >
+                        {isLoading ? 'Saving...' : 'Save'}
+                      </button>
+                    </>
+                  )}
                 </div>
 
                 {/* View All Alerts Link */}
