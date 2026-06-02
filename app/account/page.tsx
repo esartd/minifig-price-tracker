@@ -674,6 +674,74 @@ export default function AccountPage() {
         </div>
         </div>
 
+        {/* Quick Links Section */}
+        <div className="quick-links-section" style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          padding: '24px 16px',
+          marginBottom: '32px',
+          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+        }}>
+          <h2 style={{
+            fontSize: 'var(--text-lg)',
+            fontWeight: '600',
+            color: '#171717',
+            marginBottom: '20px',
+            letterSpacing: '-0.01em'
+          }}>
+            Quick Links
+          </h2>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '12px'
+          }}>
+            <Link
+              href="/account/alerts"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                padding: '16px',
+                background: '#fafafa',
+                borderRadius: '8px',
+                border: '1px solid #e5e5e5',
+                textDecoration: 'none',
+                transition: 'all 0.2s',
+                color: '#171717'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#f5f5f5';
+                e.currentTarget.style.borderColor = '#3b82f6';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#fafafa';
+                e.currentTarget.style.borderColor = '#e5e5e5';
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+              </svg>
+              <div>
+                <div style={{
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: '600',
+                  marginBottom: '2px'
+                }}>
+                  Price Alerts
+                </div>
+                <div style={{
+                  fontSize: 'var(--text-xs)',
+                  color: '#737373'
+                }}>
+                  Manage price notifications
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
+
         {/* Profile Section */}
         <div className="account-section" style={{
           background: '#ffffff',
