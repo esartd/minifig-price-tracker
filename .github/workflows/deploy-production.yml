@@ -1,10 +1,13 @@
 name: Deploy to Production (Zero-Downtime)
 
+# GitHub Actions deployment is currently disabled due to Hostinger blocking GitHub IPs
+# Use manual deployment via ./deploy.sh instead
+# See DEPLOYMENT.md for details
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:  # Only allow manual trigger
 
 jobs:
   build-and-deploy-production:
