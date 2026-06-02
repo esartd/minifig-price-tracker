@@ -512,8 +512,8 @@ function AlertCard({
   formatDate,
 }: AlertCardProps) {
   const itemUrl = alert.item_type === 'MINIFIG'
-    ? `/minifigs/${alert.item_no}`
-    : `/sets/${alert.item_no}`;
+    ? `/minifigs/${alert.item_no}?condition=${alert.condition}`
+    : `/sets/${alert.item_no}?condition=${alert.condition}`;
 
   // Construct image URL directly without API call
   const imageUrl = alert.item_type === 'MINIFIG'
