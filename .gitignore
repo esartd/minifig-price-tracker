@@ -1,3 +1,6 @@
+# IMPORTANT: backups/ folder contains INTENTIONAL code backups - DO NOT DELETE
+# These are user-requested safety archives, NOT temporary files
+
 # dependencies
 /node_modules
 /.pnp
