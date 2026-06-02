@@ -449,6 +449,11 @@ function AlertCard({
     ? `/minifigs/${alert.item_no}`
     : `/sets/${alert.item_no}`;
 
+  // Construct image URL directly without API call
+  const imageUrl = alert.item_type === 'MINIFIG'
+    ? `https://img.bricklink.com/ItemImage/MN/0/${alert.item_no}.png`
+    : `https://img.bricklink.com/ItemImage/SN/0/${alert.item_no}.png`;
+
   return (
     <div style={{
       background: '#ffffff',
@@ -463,6 +468,35 @@ function AlertCard({
         alignItems: 'start',
         gap: '16px'
       }}>
+        {/* Image */}
+        <Link href={itemUrl} style={{
+          flexShrink: 0,
+          width: '64px',
+          height: '64px',
+          borderRadius: '8px',
+          overflow: 'hidden',
+          background: '#fafafa',
+          border: '1px solid #e5e5e5',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <img
+            src={imageUrl}
+            alt={alert.item_name}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              padding: '4px'
+            }}
+            onError={(e) => {
+              // Fallback to a placeholder if image fails to load
+              e.currentTarget.style.display = 'none';
+            }}
+          />
+        </Link>
+
         <div style={{ flex: 1, minWidth: 0 }}>
           <Link href={itemUrl} style={{
             fontSize: '15px',
