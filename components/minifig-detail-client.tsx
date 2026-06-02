@@ -102,12 +102,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
 
   // Initialize condition from URL query parameter
   const [condition, setCondition] = useState<'new' | 'used'>(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const conditionParam = params.get('condition');
-      return conditionParam === 'used' ? 'used' : 'new';
-    }
-    return 'new';
+    const conditionParam = searchParams.get('condition');
+    return conditionParam === 'used' ? 'used' : 'new';
   });
 
   // Wishlist state
