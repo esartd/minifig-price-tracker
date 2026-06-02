@@ -47,21 +47,18 @@ jobs:
           cp -r public deploy-package/ 2>/dev/null || true
           tar -czf deploy-production.tar.gz -C deploy-package .
 
-      - name: Install sshpass
-        run: sudo apt-get update && sudo apt-get install -y sshpass
-
-      - name: Setup SSH with proper key format
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
-
-      - name: Test SSH connection
-        run: ssh -i ~/.ssh/id_ed25519 ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "echo 'SSH working'"
-
-      - name: Transfer via SCP
-        run: scp -i ~/.ssh/id_ed25519 deploy-production.tar.gz ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:/tmp/
+      - name: Transfer deployment package
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: 22
+          source: "deploy-production.tar.gz"
+          target: "/tmp/"
+          timeout: 60s
+          command_timeout: 60s
+          overwrite: true
 
       - name: Zero-downtime deployment on VPS
         uses: appleboy/ssh-action@v1.0.3
