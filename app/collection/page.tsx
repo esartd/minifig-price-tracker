@@ -115,6 +115,12 @@ export default function PersonalCollectionPage() {
         if (process.env.NODE_ENV === 'development') console.log(`Found ${itemsNeedingRefresh.length} items needing pricing refresh (current currency: ${userCurrency})`);
 
         if (itemsNeedingRefresh.length > 0) {
+          // Skip progressive fetch on localhost (BrickLink API is blocked anyway)
+          if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+            if (process.env.NODE_ENV === 'development') console.log(`⏭️ Skipping price refresh on localhost (BrickLink API blocked)`);
+            return;
+          }
+
           if (process.env.NODE_ENV === 'development') console.log(`🔄 Fetching prices for ${itemsNeedingRefresh.length} items progressively...`);
 
           // Show count of ALL items being refreshed (both stale and missing prices)
