@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { BellIcon, BellAlertIcon, TrashIcon, PencilIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 interface PriceAlert {
   id: string;
@@ -153,9 +152,15 @@ export default function AlertsPage() {
 
   if (status === 'loading' || isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 py-8">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="text-center py-12">Loading...</div>
+      <div style={{
+        minHeight: '100vh',
+        background: '#fafafa',
+        padding: '32px 16px'
+      }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', padding: '48px 0', color: '#737373' }}>
+            Loading...
+          </div>
         </div>
       </div>
     );
@@ -166,39 +171,127 @@ export default function AlertsPage() {
   const pausedAlerts = alerts.filter(a => !a.active && !a.triggered_at);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-4xl mx-auto px-4">
+    <div style={{
+      minHeight: '100vh',
+      background: '#fafafa',
+      padding: '32px 16px'
+    }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
-            <Link href="/account" className="hover:text-gray-900">Account</Link>
+        <div style={{ marginBottom: '40px' }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            fontSize: '13px',
+            color: '#737373',
+            marginBottom: '16px'
+          }}>
+            <Link href="/account" style={{
+              color: '#737373',
+              textDecoration: 'none',
+              transition: 'color 0.2s'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#737373'}
+            >
+              Account
+            </Link>
             <span>/</span>
-            <span className="text-gray-900">Price Alerts</span>
+            <span style={{ color: '#171717' }}>Price Alerts</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">Price Alerts</h1>
-          <p className="text-gray-600 mt-2">
+          <h1 style={{
+            fontSize: 'var(--text-2xl)',
+            fontWeight: '700',
+            lineHeight: '1.2',
+            letterSpacing: '-0.02em',
+            color: '#171717',
+            marginBottom: '12px'
+          }}>
+            Price Alerts
+          </h1>
+          <p style={{
+            fontSize: 'var(--text-base)',
+            color: '#525252',
+            lineHeight: '1.6'
+          }}>
             Manage your price drop notifications
           </p>
         </div>
 
         {/* Message */}
         {message && (
-          <div className={`mb-6 p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
-            {message.text}
+          <div style={{
+            marginBottom: '32px',
+            padding: '16px 20px',
+            borderRadius: '12px',
+            background: message.type === 'success' ? '#dcfce7' : '#fee2e2',
+            border: '1px solid',
+            borderColor: message.type === 'success' ? '#86efac' : '#fca5a5'
+          }}>
+            <p style={{
+              fontSize: 'var(--text-sm)',
+              fontWeight: '500',
+              color: message.type === 'success' ? '#166534' : '#991b1b',
+              margin: 0
+            }}>
+              {message.text}
+            </p>
           </div>
         )}
 
         {/* Empty State */}
         {alerts.length === 0 && (
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
-            <BellIcon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No price alerts yet</h3>
-            <p className="text-gray-600 mb-6">
+          <div style={{
+            background: '#ffffff',
+            borderRadius: '12px',
+            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+            padding: '64px 32px',
+            textAlign: 'center'
+          }}>
+            <svg
+              width="64"
+              height="64"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#d4d4d4"
+              strokeWidth="1.5"
+              style={{ margin: '0 auto 24px' }}
+            >
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </svg>
+            <h3 style={{
+              fontSize: '18px',
+              fontWeight: '600',
+              color: '#171717',
+              marginBottom: '8px'
+            }}>
+              No price alerts yet
+            </h3>
+            <p style={{
+              fontSize: '14px',
+              color: '#737373',
+              marginBottom: '24px'
+            }}>
               Set price alerts on any minifig or set to get notified when prices drop.
             </p>
             <Link
               href="/search"
-              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              style={{
+                display: 'inline-block',
+                padding: '10px 20px',
+                fontSize: '13px',
+                fontWeight: '500',
+                color: '#ffffff',
+                background: '#3b82f6',
+                border: 'none',
+                borderRadius: '8px',
+                textDecoration: 'none',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = '#2563eb'}
+              onMouseLeave={(e) => e.currentTarget.style.background = '#3b82f6'}
             >
               Browse Items
             </Link>
@@ -207,12 +300,23 @@ export default function AlertsPage() {
 
         {/* Active Alerts */}
         {activeAlerts.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <BellAlertIcon className="w-5 h-5 text-blue-600" />
+          <div style={{ marginBottom: '32px' }}>
+            <h2 style={{
+              fontSize: '16px',
+              fontWeight: '600',
+              color: '#171717',
+              marginBottom: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{ color: '#3b82f6' }}>
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+              </svg>
               Active Alerts ({activeAlerts.length})
             </h2>
-            <div className="space-y-3">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {activeAlerts.map(alert => (
                 <AlertCard
                   key={alert.id}
@@ -235,12 +339,22 @@ export default function AlertsPage() {
 
         {/* Triggered Alerts */}
         {triggeredAlerts.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <CheckIcon className="w-5 h-5 text-green-600" />
+          <div style={{ marginBottom: '32px' }}>
+            <h2 style={{
+              fontSize: '16px',
+              fontWeight: '600',
+              color: '#171717',
+              marginBottom: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#10b981' }}>
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
               Triggered Alerts ({triggeredAlerts.length})
             </h2>
-            <div className="space-y-3">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {triggeredAlerts.map(alert => (
                 <AlertCard
                   key={alert.id}
@@ -263,12 +377,23 @@ export default function AlertsPage() {
 
         {/* Paused Alerts */}
         {pausedAlerts.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <BellIcon className="w-5 h-5 text-gray-400" />
+          <div style={{ marginBottom: '32px' }}>
+            <h2 style={{
+              fontSize: '16px',
+              fontWeight: '600',
+              color: '#171717',
+              marginBottom: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#a3a3a3' }}>
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+              </svg>
               Paused Alerts ({pausedAlerts.length})
             </h2>
-            <div className="space-y-3">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {pausedAlerts.map(alert => (
                 <AlertCard
                   key={alert.id}
@@ -325,60 +450,152 @@ function AlertCard({
     : `/sets/${alert.item_no}`;
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1">
-          <Link href={itemUrl} className="text-base font-semibold text-gray-900 hover:text-blue-600">
+    <div style={{
+      background: '#ffffff',
+      borderRadius: '12px',
+      boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+      padding: '20px',
+      border: '1px solid #f5f5f5'
+    }}>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'start',
+        gap: '16px'
+      }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <Link href={itemUrl} style={{
+            fontSize: '15px',
+            fontWeight: '600',
+            color: '#171717',
+            textDecoration: 'none',
+            display: 'block',
+            marginBottom: '6px',
+            transition: 'color 0.2s'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.color = '#3b82f6'}
+          onMouseLeave={(e) => e.currentTarget.style.color = '#171717'}
+          >
             {alert.item_name}
           </Link>
-          <div className="text-sm text-gray-500 mt-1">
+          <div style={{
+            fontSize: '13px',
+            color: '#737373',
+            marginBottom: '12px'
+          }}>
             {alert.item_no} • {alert.condition === 'new' ? 'New' : 'Used'} • {alert.item_type === 'MINIFIG' ? 'Minifigure' : 'Set'}
           </div>
-          <div className="flex items-center gap-4 mt-3">
+
+          {/* Target Price */}
+          <div style={{ marginBottom: '8px' }}>
             {isEditing ? (
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-600">Target:</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontSize: '13px', color: '#737373' }}>Target:</span>
                 <input
                   type="number"
                   step="0.01"
                   value={editPrice}
                   onChange={(e) => setEditPrice(e.target.value)}
-                  className="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
+                  style={{
+                    width: '100px',
+                    padding: '6px 10px',
+                    fontSize: '13px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '6px',
+                    outline: 'none'
+                  }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.borderColor = '#3b82f6';
+                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.borderColor = '#e5e5e5';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
                 />
                 <button
                   onClick={() => onSave(alert)}
-                  className="p-1 text-green-600 hover:bg-green-50 rounded"
+                  style={{
+                    padding: '6px',
+                    color: '#10b981',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    borderRadius: '4px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f0fdf4'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
                 >
-                  <CheckIcon className="w-5 h-5" />
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
                 </button>
                 <button
                   onClick={onCancel}
-                  className="p-1 text-gray-600 hover:bg-gray-50 rounded"
+                  style={{
+                    padding: '6px',
+                    color: '#737373',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    borderRadius: '4px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#fafafa'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
                 >
-                  <XMarkIcon className="w-5 h-5" />
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                  </svg>
                 </button>
               </div>
             ) : (
-              <>
-                <div className="text-sm">
-                  <span className="text-gray-600">Target: </span>
-                  <span className="font-semibold text-gray-900">
-                    {getCurrencySymbol(alert.currency_code)}{alert.target_price.toFixed(2)}
-                  </span>
-                </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontSize: '13px', color: '#737373' }}>Target:</span>
+                <span style={{ fontSize: '15px', fontWeight: '600', color: '#171717' }}>
+                  {getCurrencySymbol(alert.currency_code)}{alert.target_price.toFixed(2)}
+                </span>
                 <button
                   onClick={() => onEdit(alert)}
-                  className="p-1 text-gray-400 hover:text-gray-600"
+                  style={{
+                    padding: '4px',
+                    color: '#a3a3a3',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    borderRadius: '4px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#fafafa';
+                    e.currentTarget.style.color = '#525252';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'none';
+                    e.currentTarget.style.color = '#a3a3a3';
+                  }}
                   title="Edit target price"
                 >
-                  <PencilIcon className="w-4 h-4" />
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                  </svg>
                 </button>
-              </>
+              </div>
             )}
           </div>
-          <div className="text-xs text-gray-500 mt-2">
+
+          {/* Status */}
+          <div style={{ fontSize: '12px', color: '#a3a3a3' }}>
             {alert.triggered_at ? (
-              <span className="text-green-600 font-medium">
+              <span style={{ color: '#10b981', fontWeight: '500' }}>
                 Triggered on {formatDate(alert.triggered_at)}
               </span>
             ) : alert.last_checked ? (
@@ -389,32 +606,71 @@ function AlertCard({
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        {/* Actions */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           {alert.triggered_at ? (
             <button
               onClick={() => onToggleActive(alert.id, alert.active)}
-              className="px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 rounded hover:bg-blue-100"
+              style={{
+                padding: '8px 14px',
+                fontSize: '13px',
+                fontWeight: '500',
+                color: '#3b82f6',
+                background: '#eff6ff',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = '#dbeafe'}
+              onMouseLeave={(e) => e.currentTarget.style.background = '#eff6ff'}
             >
               Reactivate
             </button>
           ) : (
             <button
               onClick={() => onToggleActive(alert.id, alert.active)}
-              className={`px-3 py-1.5 text-sm font-medium rounded ${
-                alert.active
-                  ? 'text-gray-600 bg-gray-100 hover:bg-gray-200'
-                  : 'text-blue-600 bg-blue-50 hover:bg-blue-100'
-              }`}
+              style={{
+                padding: '8px 14px',
+                fontSize: '13px',
+                fontWeight: '500',
+                color: alert.active ? '#737373' : '#3b82f6',
+                background: alert.active ? '#fafafa' : '#eff6ff',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = alert.active ? '#f5f5f5' : '#dbeafe';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = alert.active ? '#fafafa' : '#eff6ff';
+              }}
             >
               {alert.active ? 'Pause' : 'Activate'}
             </button>
           )}
           <button
             onClick={() => onDelete(alert.id)}
-            className="p-2 text-red-600 hover:bg-red-50 rounded"
+            style={{
+              padding: '8px',
+              color: '#ef4444',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              borderRadius: '6px',
+              display: 'flex',
+              alignItems: 'center',
+              transition: 'background 0.2s'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = '#fef2f2'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
             title="Delete alert"
           >
-            <TrashIcon className="w-5 h-5" />
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+            </svg>
           </button>
         </div>
       </div>
