@@ -115,7 +115,6 @@ export function middleware(request: NextRequest) {
   // Get IP address for geographic blocking
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
               request.headers.get('x-real-ip') ||
-              request.ip ||
               'unknown';
 
   // Block Singapore traffic (before user-agent checks)
