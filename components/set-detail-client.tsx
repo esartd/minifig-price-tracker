@@ -1190,7 +1190,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                     itemType="SET"
                     itemName={set.name}
                     condition={condition}
-                    currentPrice={pricing.suggestedPrice}
+                    currentPrice={pricing.currentLowest}
                     currencyCode={pricing.currencyCode || 'USD'}
                   />
                 </div>

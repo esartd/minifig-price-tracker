@@ -72,14 +72,14 @@ export async function POST(request: NextRequest) {
         }
 
         // Skip if price is $0 (unavailable)
-        if (pricing.suggested_price <= 0) {
+        if (pricing.current_lowest <= 0) {
           console.log(`[check-alerts] Price unavailable for ${alert.item_no}, skipping`);
           continue;
         }
 
-        // Check if current price is at or below target
-        if (pricing.suggested_price <= alert.target_price) {
-          console.log(`[check-alerts] ✅ Alert triggered for ${alert.item_no}: ${pricing.suggested_price} <= ${alert.target_price}`);
+        // Check if current lowest price is at or below target
+        if (pricing.current_lowest <= alert.target_price) {
+          console.log(`[check-alerts] ✅ Alert triggered for ${alert.item_no}: ${pricing.current_lowest} <= ${alert.target_price}`);
 
           // Generate URLs
           const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://figtracker.ericksu.com';
@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
           await resend.emails.send({
             from: EMAIL_FROM,
             to: alert.User.email,
-            subject: `🎯 Price Alert: ${alert.item_name} - Now ${pricing.currency_code === 'USD' ? '$' : pricing.currency_code}${pricing.suggested_price.toFixed(2)}`,
+            subject: `🎯 Price Alert: ${alert.item_name} - Now ${pricing.currency_code === 'USD' ? '$' : pricing.currency_code}${pricing.current_lowest.toFixed(2)}`,
             react: PriceAlertEmail({
               userName: alert.User.name || 'Collector',
               itemName: alert.item_name,
@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
               itemType: alert.item_type as 'MINIFIG' | 'SET',
               condition: alert.condition as 'new' | 'used',
               targetPrice: alert.target_price,
-              currentPrice: pricing.suggested_price,
+              currentPrice: pricing.current_lowest,
               currencyCode: pricing.currency_code,
               itemUrl,
               ebayUrl,

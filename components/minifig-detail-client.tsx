@@ -2421,7 +2421,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                       itemType="MINIFIG"
                       itemName={minifig.name}
                       condition={condition}
-                      currentPrice={pricing.suggestedPrice}
+                      currentPrice={pricing.currentLowest}
                       currencyCode={pricing.currencyCode || 'USD'}
                     />
                   </div>
