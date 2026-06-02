@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
         hostname: 'img.bricklink.com',
       },
     ],
-    unoptimized: false, // Pro has unlimited transforms
+    unoptimized: true, // Disabled for self-hosted VPS - avoids 400 errors when images don't exist
     formats: ['image/avif', 'image/webp'], // Modern formats = 50% smaller
     minimumCacheTTL: 2592000, // Cache for 30 days
   },
@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
   webpack: (config, { isServer }) => {
     if (isServer) {
       config.externals.push({
-        '@prisma/client-hostinger': 'commonjs @prisma/client-hostinger',
+        '@prisma/client': 'commonjs @prisma/client',
       });
     }
     return config;
@@ -34,7 +34,7 @@ const nextConfig: NextConfig = {
   // Ensure output includes Prisma engine and catalog files
   outputFileTracingIncludes: {
     '/api/**/*': [
-      './node_modules/@prisma/client-hostinger/**/*',
+      './node_modules/@prisma/client/**/*',
       './public/catalog/**/*',
     ],
   },

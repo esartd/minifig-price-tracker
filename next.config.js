@@ -24,6 +24,7 @@ const nextConfig = {
         hostname: 'www.lego.com',
       },
     ],
+    unoptimized: true, // Disabled for self-hosted VPS - avoids 400 errors when images don't exist
   },
   // Add cache headers for static catalog files
   // BrickLink API Terms: "Display item Content or product information...
