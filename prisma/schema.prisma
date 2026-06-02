@@ -343,6 +343,7 @@ model User {
   Session                    Session[]
   WishlistItem               WishlistItem[]
   SetWishlistItem            SetWishlistItem[]
+  PriceAlert                 PriceAlert[]
 }
 
 model Sponsor {
@@ -542,4 +543,25 @@ model MonetizationEvent {
   @@index([userId])
   @@index([createdAt])
   @@index([userId, eventType])
+}
+
+model PriceAlert {
+  id            String   @id @default(cuid())
+  userId        String
+  item_no       String
+  item_type     String   // "MINIFIG" | "SET"
+  item_name     String
+  condition     String   // "new" | "used"
+  target_price  Float
+  currency_code String   @default("USD")
+  active        Boolean  @default(true)
+  created_at    DateTime @default(now())
+  triggered_at  DateTime?
+  last_checked  DateTime?
+  User          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, item_no, item_type, condition])
+  @@index([active, last_checked])
+  @@index([userId])
+  @@index([item_no, item_type])
 }

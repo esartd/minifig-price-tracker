@@ -25,6 +25,7 @@ import { trackAffiliateClick } from '@/lib/analytics';
 import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
 import { useTranslation } from '@/components/TranslationProvider';
+import PriceAlertButton from '@/components/PriceAlertButton';
 
 // Lazy load PriceHistoryChart (only loads when in inventory)
 const PriceHistoryChart = dynamic(() => import('@/components/PriceHistoryChart'), {
@@ -2407,6 +2408,20 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
                     fontWeight: '500'
                   }}>
                     {error}
+                  </div>
+                )}
+
+                {/* Price Alert Button */}
+                {pricing && pricing.suggestedPrice > 0 && (
+                  <div style={{ marginTop: '16px', marginBottom: '8px' }}>
+                    <PriceAlertButton
+                      itemNo={minifig.no}
+                      itemType="MINIFIG"
+                      itemName={minifig.name}
+                      condition={condition}
+                      currentPrice={pricing.suggestedPrice}
+                      currencyCode={pricing.currencyCode || 'USD'}
+                    />
                   </div>
                 )}
 

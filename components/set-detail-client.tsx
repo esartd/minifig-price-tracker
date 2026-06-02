@@ -22,6 +22,7 @@ import { trackAffiliateClick } from '@/lib/analytics';
 import SetDescription from '@/components/SetDescription';
 import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
+import PriceAlertButton from '@/components/PriceAlertButton';
 
 interface SetData {
   box_no: string;
@@ -1179,6 +1180,20 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                     </div>
                   )}
                 </>
+              )}
+
+              {/* Price Alert Button */}
+              {pricing && pricing.suggestedPrice > 0 && (
+                <div style={{ marginTop: '16px', marginBottom: '8px' }}>
+                  <PriceAlertButton
+                    itemNo={setData.box_no}
+                    itemType="SET"
+                    itemName={setData.name}
+                    condition={condition}
+                    currentPrice={pricing.suggestedPrice}
+                    currencyCode={pricing.currencyCode || 'USD'}
+                  />
+                </div>
               )}
 
               {/* Where to Buy Section - always show, prioritize by availability */}
