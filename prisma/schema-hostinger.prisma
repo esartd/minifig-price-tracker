@@ -530,3 +530,31 @@ model PriceFetchFailure {
   @@index([resolved])
   @@index([error_type])
 }
+
+// Set Contents - Which minifigs appear in which sets
+// Fetched from BrickLink API on-demand and via background cron
+// Data is permanent (sets don't change after release)
+model SetContents {
+  id          String   @id @default(cuid())
+  set_no      String   // e.g., "75192-1"
+  minifig_no  String   // e.g., "sw0001"
+  quantity    Int      // how many of this minifig in the set
+  fetched_at  DateTime @default(now())
+
+  @@unique([set_no, minifig_no])
+  @@index([set_no])
+  @@index([minifig_no])
+  @@index([fetched_at])
+}
+
+// Tracks which sets have had their contents fetched
+// Prevents duplicate API calls for the same set
+model SetContentsFetched {
+  set_no          String   @id // e.g., "75192-1"
+  minifig_count   Int      // total minifigs in this set
+  fetched_at      DateTime @default(now())
+  fetched_via     String   // "user_view" | "cron_seed"
+
+  @@index([fetched_at])
+  @@index([fetched_via])
+}

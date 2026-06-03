@@ -961,6 +961,22 @@ export class BricklinkAPI {
       cached_at: new Date().toISOString()
     };
   }
+
+  /**
+   * Get subsets for a set (parts, minifigs, etc.)
+   * Used for fetching which minifigs appear in which sets
+   */
+  async getSubsets(setNo: string): Promise<any> {
+    const url = `https://api.bricklink.com/api/store/v1/items/SET/${setNo}/subsets`;
+
+    try {
+      const response = await this.makeRequest(url);
+      return response;
+    } catch (error) {
+      console.error(`[BRICKLINK API] Error fetching subsets for ${setNo}:`, error);
+      throw error;
+    }
+  }
 }
 
 export const bricklinkAPI = new BricklinkAPI();
