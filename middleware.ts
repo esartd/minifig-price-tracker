@@ -117,9 +117,15 @@ export function middleware(request: NextRequest) {
               request.headers.get('x-real-ip') ||
               'unknown';
 
+  // Log all traffic for debugging (remove after investigation)
+  if (Math.random() < 0.01) { // 1% sampling to avoid log spam
+    console.log(`[TRAFFIC SAMPLE] IP: ${ip}, UA: ${userAgent.substring(0, 80)}, Path: ${pathname}`)
+  }
+
   // Block Singapore traffic (before user-agent checks)
   // Note: Legitimate search engines are allowed later in the flow
   if (ip !== 'unknown' && isSingaporeIP(ip)) {
+    console.log(`[BLOCKED] Singapore IP: ${ip}, UA: ${userAgent.substring(0, 100)}, Path: ${pathname}`)
     return new NextResponse('Forbidden - Geographic Restriction', { status: 403 })
   }
 
