@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../node_modules/@prisma/client-hostinger"
 }
 
 datasource db {
@@ -25,7 +24,7 @@ model Account {
   session_state     String?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
-  User              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
 }
@@ -316,8 +315,6 @@ model User {
   showOnMinifigLeaderboard   Boolean?                    @default(true)
   showOnSetLeaderboard       Boolean?                    @default(true)
   leaderboardDisplayName     String?
-  username                   String?                     @unique  // Public profile URL slug
-  profileEnabled             Boolean                     @default(false)  // Opt-in for public profiles
   shareToken                 String?                     @unique
   shareEnabled               Boolean                     @default(false)
   shareTokenInventory        String?                     @unique
@@ -336,6 +333,7 @@ model User {
   shareEnabledSetsCollection Boolean                     @default(false)
   shareTokenSetsCollectionPrivate String?                @unique
   shareEnabledSetsCollectionPrivate Boolean              @default(false)
+  totalPricingViews          Int                         @default(0)
   Account                    Account[]
   CollectionItem             CollectionItem[]
   Listing                    Listing[]
@@ -345,8 +343,7 @@ model User {
   Session                    Session[]
   WishlistItem               WishlistItem[]
   SetWishlistItem            SetWishlistItem[]
-
-  @@index([username])  // For profile page lookups
+  PriceAlert                 PriceAlert[]
 }
 
 model Sponsor {
@@ -535,30 +532,36 @@ model PriceFetchFailure {
   @@index([error_type])
 }
 
-// Set Contents - Which minifigs appear in which sets
-// Fetched from BrickLink API on-demand and via background cron
-// Data is permanent (sets don't change after release)
-model SetContents {
-  id          String   @id @default(cuid())
-  set_no      String   // e.g., "75192-1"
-  minifig_no  String   // e.g., "sw0001"
-  quantity    Int      // how many of this minifig in the set
-  fetched_at  DateTime @default(now())
+model MonetizationEvent {
+  id        String   @id @default(cuid())
+  eventType String   // "pricing_view", "donation_cta_shown", "donation_cta_clicked", "donation_completed"
+  userId    String?  // optional - can track anonymous events
+  metadata  String?  @db.Text // JSON stringified metadata (amount, page, itemNo, etc)
+  createdAt DateTime @default(now())
 
-  @@unique([set_no, minifig_no])
-  @@index([set_no])
-  @@index([minifig_no])
-  @@index([fetched_at])
+  @@index([eventType])
+  @@index([userId])
+  @@index([createdAt])
+  @@index([userId, eventType])
 }
 
-// Tracks which sets have had their contents fetched
-// Prevents duplicate API calls for the same set
-model SetContentsFetched {
-  set_no          String   @id // e.g., "75192-1"
-  minifig_count   Int      // total minifigs in this set
-  fetched_at      DateTime @default(now())
-  fetched_via     String   // "user_view" | "cron_seed"
+model PriceAlert {
+  id            String   @id @default(cuid())
+  userId        String
+  item_no       String
+  item_type     String   // "MINIFIG" | "SET"
+  item_name     String
+  condition     String   // "new" | "used"
+  target_price  Float
+  currency_code String   @default("USD")
+  active        Boolean  @default(true)
+  created_at    DateTime @default(now())
+  triggered_at  DateTime?
+  last_checked  DateTime?
+  User          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([fetched_at])
-  @@index([fetched_via])
+  @@unique([userId, item_no, item_type, condition])
+  @@index([active, last_checked])
+  @@index([userId])
+  @@index([item_no, item_type])
 }

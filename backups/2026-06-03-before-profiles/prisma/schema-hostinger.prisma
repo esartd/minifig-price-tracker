@@ -316,8 +316,6 @@ model User {
   showOnMinifigLeaderboard   Boolean?                    @default(true)
   showOnSetLeaderboard       Boolean?                    @default(true)
   leaderboardDisplayName     String?
-  username                   String?                     @unique  // Public profile URL slug
-  profileEnabled             Boolean                     @default(false)  // Opt-in for public profiles
   shareToken                 String?                     @unique
   shareEnabled               Boolean                     @default(false)
   shareTokenInventory        String?                     @unique
@@ -345,8 +343,6 @@ model User {
   Session                    Session[]
   WishlistItem               WishlistItem[]
   SetWishlistItem            SetWishlistItem[]
-
-  @@index([username])  // For profile page lookups
 }
 
 model Sponsor {
