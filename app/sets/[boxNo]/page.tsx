@@ -231,11 +231,12 @@ export default async function SetPage({
   }));
 
   // Fetch set contents (minifigs in this set)
-  const { getMinifigsInSet } = await import('@/lib/set-contents');
+  const { fetchSetContents } = await import('@/lib/set-contents');
   let setMinifigs: Array<{ minifig_no: string; quantity: number; name?: string; image_url?: string }> = [];
 
   try {
-    const minifigsData = await getMinifigsInSet(boxNo);
+    const result = await fetchSetContents(boxNo, 'user_view');
+    const minifigsData = result.minifigs;
 
     // Enrich with minifig details from catalog
     const { findMinifigByNumber } = await import('@/lib/catalog-static');
