@@ -230,6 +230,29 @@ export default async function SetPage({
     image_url: b.image_url
   }));
 
+  // Fetch set contents (minifigs in this set)
+  const { getMinifigsInSet } = await import('@/lib/set-contents');
+  let setMinifigs: Array<{ minifig_no: string; quantity: number; name?: string; image_url?: string }> = [];
+
+  try {
+    const minifigsData = await getMinifigsInSet(boxNo);
+
+    // Enrich with minifig details from catalog
+    const { findMinifigByNumber } = await import('@/lib/catalog-static');
+    const enriched = await Promise.all(minifigsData.map(async m => {
+      const minifig = await findMinifigByNumber(m.minifig_no);
+      return {
+        ...m,
+        name: minifig?.name,
+        image_url: minifig ? `https://img.bricklink.com/ItemImage/MN/0/${minifig.minifigure_no}.png` : undefined
+      };
+    }));
+    setMinifigs = enriched;
+  } catch (error) {
+    console.error('[SET PAGE] Error fetching minifigs:', error);
+    // Continue without minifigs if error
+  }
+
   // Schema.org structured data for rich search results
   const productSchema = {
     '@context': 'https://schema.org',
@@ -305,6 +328,7 @@ export default async function SetPage({
         themeSets={themeSetsData}
         sameYearSets={sameYearData}
         closeRangeSets={closeRangeSetsData}
+        minifigs={setMinifigs}
       />
     </>
   );

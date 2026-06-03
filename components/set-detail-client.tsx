@@ -35,15 +35,23 @@ interface SetData {
   description?: string;
 }
 
+interface MinifigData {
+  minifig_no: string;
+  quantity: number;
+  name?: string;
+  image_url?: string;
+}
+
 interface SetDetailClientProps {
   set: SetData;
   themeSets: Array<{ box_no: string; name: string; image_url: string }>;
   sameYearSets: Array<{ box_no: string; name: string; image_url: string }>;
   closeRangeSets?: Array<{ box_no: string; name: string; image_url: string }>;
+  minifigs?: MinifigData[];
 }
 
-export default function SetDetailClient({ set, themeSets, sameYearSets, closeRangeSets = [] }: SetDetailClientProps) {
-  const { t } = useTranslation();
+export default function SetDetailClient({ set, themeSets, sameYearSets, closeRangeSets = [], minifigs = [] }: SetDetailClientProps) {
+  const { t, translations } = useTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
@@ -1409,6 +1417,103 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
             </div>
           </div>
         </div>
+
+        {minifigs && minifigs.length > 0 && (
+          <div style={{ marginTop: '48px', marginBottom: '48px' }}>
+            <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: '24px', color: '#171717' }}>
+              {translations.set_detail?.included_minifigs || 'Included Minifigures'} ({minifigs.length})
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: '20px' }}>
+              {minifigs.map(m => (
+                <Link key={m.minifig_no} href={`/minifigs/${m.minifig_no}`} style={{ textDecoration: 'none', display: 'flex' }}>
+                  <div style={{
+                    background: 'white',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    border: '1px solid #e5e5e5',
+                    transition: 'transform 0.2s, box-shadow 0.2s',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '100%',
+                    position: 'relative'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}>
+                    {m.quantity > 1 && (
+                      <div style={{
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                        background: '#3b82f6',
+                        color: 'white',
+                        borderRadius: '12px',
+                        padding: '4px 10px',
+                        fontSize: '12px',
+                        fontWeight: '700',
+                        zIndex: 1,
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                      }}>
+                        ×{m.quantity}
+                      </div>
+                    )}
+                    <div style={{
+                      padding: '16px',
+                      height: '180px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: '#fafafa'
+                    }}>
+                      {m.image_url ? (
+                        <Image
+                          src={m.image_url}
+                          alt={m.name || m.minifig_no}
+                          width={120}
+                          height={150}
+                          style={{ width: 'auto', height: 'auto', maxWidth: '100%', maxHeight: '150px', objectFit: 'contain' }}
+                          unoptimized
+                        />
+                      ) : (
+                        <div style={{ fontSize: '48px', opacity: 0.3 }}>🧑</div>
+                      )}
+                    </div>
+                    <div style={{
+                      padding: '12px',
+                      borderTop: '1px solid #e5e5e5',
+                      minHeight: '70px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start'
+                    }}>
+                      <div style={{
+                        fontSize: '13px',
+                        fontWeight: '600',
+                        color: '#171717',
+                        marginBottom: '4px',
+                        lineHeight: '1.3',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical'
+                      }}>
+                        {m.name || m.minifig_no}
+                      </div>
+                      <div style={{ fontSize: '11px', color: '#737373', marginTop: 'auto' }}>{m.minifig_no}</div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
         {closeRangeSets && closeRangeSets.length > 0 && (
           <div style={{ marginTop: '48px', marginBottom: '48px' }}>
