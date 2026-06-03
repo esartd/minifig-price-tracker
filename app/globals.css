@@ -877,8 +877,35 @@ input[type="number"] {
   display: none;
 }
 
-/* Desktop: sticky side-by-side layout */
+/* Tablet: Slightly larger image, keep stacked layout */
 @media (min-width: 768px) {
+  .minifig-sticky-wrapper {
+    width: 280px !important;
+    height: 350px !important;
+  }
+
+  .minifig-main-image {
+    max-height: 350px !important;
+    width: auto !important;
+    height: auto !important;
+  }
+
+  .minifig-image-container {
+    padding: 32px 24px !important;
+  }
+
+  .minifig-details-section {
+    padding: 32px 32px !important;
+  }
+
+  .minifig-related-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+/* Desktop: sticky side-by-side layout */
+@media (min-width: 1200px) {
   .minifig-card-wrapper {
     overflow: visible !important;
   }
@@ -997,29 +1024,8 @@ input[type="number"] {
   }
 }
 
-/* Desktop */
-@media (min-width: 1024px) {
-  .minifig-detail-grid {
-    grid-template-columns: 550px 1fr !important;
-  }
-
-  .minifig-image-container {
-    padding: 64px 16px !important;
-  }
-
-  .minifig-main-image {
-    max-height: 100% !important;
-    height: auto !important;
-  }
-
-  .minifig-details-section {
-    padding: 64px 56px !important;
-  }
-
-  .minifig-detail-grid h1 {
-    font-size: var(--text-2xl) !important;
-  }
-
+/* Extra Large Desktop: 4-column related grid */
+@media (min-width: 1400px) {
   .minifig-related-grid {
     grid-template-columns: repeat(4, 1fr);
   }
