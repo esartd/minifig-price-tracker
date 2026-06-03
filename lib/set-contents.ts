@@ -63,21 +63,22 @@ export async function fetchSetContents(
 
     const response = await bricklinkAPI.getSubsets(setNo);
 
-    console.log(`[SET CONTENTS] Raw API response for ${setNo}:`, JSON.stringify(response).substring(0, 500));
-
-    // BrickLink API returns { data: [...] } structure
-    if (!response || !response.data || !Array.isArray(response.data)) {
+    // BrickLink getSubsets returns array of subset groups directly
+    if (!response || !Array.isArray(response)) {
       console.error(`[SET CONTENTS] Unexpected response format for ${setNo}:`, response);
       return { minifigs: [], cached: false };
     }
 
-    // Filter to only minifigs
-    const minifigs = response.data
-      .filter((subset: any) => subset.item?.type === 'MINIFIG')
-      .map((subset: any) => ({
-        minifig_no: subset.item.no,
-        quantity: subset.entries.reduce((sum: number, e: any) => sum + e.quantity, 0)
-      }));
+    // Each subset group has entries[], and each entry has item with type
+    // Flatten all entries and filter to only minifigs
+    const allEntries = response.flatMap((group: any) => group.entries || []);
+    const minifigEntries = allEntries.filter((entry: any) => entry.item?.type === 'MINIFIG');
+
+    // Map to our format
+    const minifigs = minifigEntries.map((entry: any) => ({
+      minifig_no: entry.item.no,
+      quantity: entry.quantity
+    }));
 
     // Save to database
     if (minifigs.length > 0) {
