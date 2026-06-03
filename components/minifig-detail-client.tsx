@@ -44,14 +44,22 @@ interface MinifigData {
   description?: string | null; // NEW FIELD (localized)
 }
 
+interface SetData {
+  set_no: string;
+  quantity: number;
+  name?: string;
+  image_url?: string;
+}
+
 interface MinifigDetailClientProps {
   minifig: MinifigData;
   variants: Array<{ no: string; name: string; image_url: string }>;
   similarSets: Array<{ no: string; name: string; image_url: string }>;
+  appearsInSets?: SetData[];
 }
 
-export default function MinifigDetailClient({ minifig, variants, similarSets }: MinifigDetailClientProps) {
-  const { t } = useTranslation();
+export default function MinifigDetailClient({ minifig, variants, similarSets, appearsInSets = [] }: MinifigDetailClientProps) {
+  const { t, translations } = useTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
@@ -2653,6 +2661,101 @@ export default function MinifigDetailClient({ minifig, variants, similarSets }: 
               <PriceHistoryChart minifigure_no={minifig.no} condition={condition} />
             </div>
           </div>
+
+          {/* Appears in Sets Section */}
+          {appearsInSets.length > 0 && (
+            <div className="minifig-related-section" style={{ marginTop: '32px' }}>
+              <h2 className="minifig-related-heading">
+                {translations.minifig_detail?.appears_in_sets || 'Appears in These Sets'} ({appearsInSets.length})
+              </h2>
+              <p className="minifig-related-description">
+                LEGO sets that include this minifigure
+              </p>
+                <div className="minifig-related-grid">
+                  {appearsInSets.map((set) => (
+                    <Link
+                      key={set.set_no}
+                      href={`/sets/${set.set_no}`}
+                      style={{
+                        display: 'block',
+                        background: '#ffffff',
+                        borderRadius: '12px',
+                        border: '1px solid #e5e5e5',
+                        overflow: 'hidden',
+                        textDecoration: 'none',
+                        transition: 'all 0.2s',
+                        cursor: 'pointer',
+                        position: 'relative'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = '#3b82f6';
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.1)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = '#e5e5e5';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
+                    >
+                      {set.quantity > 1 && (
+                        <div style={{
+                          position: 'absolute',
+                          top: '8px',
+                          right: '8px',
+                          background: '#3b82f6',
+                          color: 'white',
+                          borderRadius: '12px',
+                          padding: '4px 10px',
+                          fontSize: '12px',
+                          fontWeight: '700',
+                          zIndex: 1,
+                          boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                        }}>
+                          ×{set.quantity}
+                        </div>
+                      )}
+                      <div className="minifig-variant-image">
+                        {set.image_url ? (
+                          <Image
+                            src={set.image_url}
+                            alt={set.name || set.set_no}
+                            width={160}
+                            height={160}
+                            style={{ objectFit: 'contain' }}
+                            unoptimized
+                          />
+                        ) : (
+                          <div style={{ fontSize: '48px', opacity: 0.3 }}>📦</div>
+                        )}
+                      </div>
+                      <div style={{ padding: '8px 16px 16px' }}>
+                        <p style={{
+                          fontSize: 'var(--text-sm)',
+                          fontWeight: '600',
+                          color: '#171717',
+                          marginBottom: '4px',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical',
+                          lineHeight: '1.4',
+                          minHeight: '2.8em'
+                        }}>
+                          {set.name || set.set_no}
+                        </p>
+                        <p style={{
+                          fontSize: 'var(--text-xs)',
+                          color: '#737373',
+                          fontFamily: 'inherit'
+                        }}>
+                          {set.set_no}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+            </div>
+          )}
 
           {/* From Similar Sets Section */}
           {similarSets.length > 0 && (

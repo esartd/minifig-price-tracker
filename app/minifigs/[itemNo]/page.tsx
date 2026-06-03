@@ -343,6 +343,28 @@ export default async function MinifigPage({
     image_url: `https://img.bricklink.com/ItemImage/MN/0/${m.minifigure_no}.png`
   }));
 
+  // Fetch sets containing this minifig
+  const { getSetsContainingMinifig } = await import('@/lib/set-contents');
+  let appearsInSets: Array<{ set_no: string; quantity: number; name?: string; image_url?: string }> = [];
+
+  try {
+    const setsData = await getSetsContainingMinifig(itemNo);
+
+    // Enrich with set details from catalog
+    const { getBoxByNumber } = await import('@/lib/boxes-data');
+    appearsInSets = setsData.map(s => {
+      const set = getBoxByNumber(s.set_no);
+      return {
+        ...s,
+        name: set?.name,
+        image_url: set?.image_url
+      };
+    });
+  } catch (error) {
+    console.error('[MINIFIG PAGE] Error fetching sets:', error);
+    // Continue without sets if error
+  }
+
   // Get parent theme for breadcrumbs
   const parentTheme = minifig.category_name.split(' / ')[0];
   const themeSlug = parentTheme.toLowerCase().replace(/\s+/g, '-');
@@ -435,7 +457,7 @@ export default async function MinifigPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <MinifigDetailClient minifig={minifigData} variants={variantsData} similarSets={similarSetsData} />
+      <MinifigDetailClient minifig={minifigData} variants={variantsData} similarSets={similarSetsData} appearsInSets={appearsInSets} />
     </>
   );
 }
