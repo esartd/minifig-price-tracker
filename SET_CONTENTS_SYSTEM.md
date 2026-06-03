@@ -1,6 +1,6 @@
 # Set Contents System
 
-**Status:** ✅ Phase 1 Complete - API and Database Ready
+**Status:** ✅ ALL PHASES COMPLETE (1-5) - FULLY OPERATIONAL
 
 Progressive data collection system to track which minifigs appear in which sets.
 
@@ -16,7 +16,7 @@ Progressive data collection system to track which minifigs appear in which sets.
 
 ---
 
-## Current Status (June 3, 2026)
+## Current Status (June 3, 2026 - COMPLETE)
 
 ### ✅ Phase 1: Database + API (COMPLETE)
 
@@ -196,57 +196,74 @@ const stats = await getSetContentsStats();
 
 ---
 
-## Next Phases
+## Completed Phases
 
-### Phase 2: Display on Set Detail Pages
+### ✅ Phase 2: Display on Set Detail Pages (COMPLETE)
 **Goal:** Show which minifigs are included when user views a set
 
-**Tasks:**
-- [ ] Add "Included Minifigures" section to set detail pages
-- [ ] Display minifig images in grid
-- [ ] Show quantity for each minifig
-- [ ] Link to minifig detail pages
-- [ ] Trigger fetch when user views set (if not cached)
+**Completed:**
+- ✅ Added "Included Minifigures" section to set detail pages
+- ✅ Display minifig images in responsive grid
+- ✅ Show quantity badge for duplicates (×2, ×3, etc.)
+- ✅ Link to minifig detail pages
+- ✅ Auto-fetch when user views set (if not cached)
 
-**Files to modify:**
-- `app/sets/[boxNo]/page.tsx` - Server component
-- `components/set-detail-client.tsx` - Add minifigs section
+**Files modified:**
+- `app/sets/[boxNo]/page.tsx` - Added fetchSetContents call
+- `components/set-detail-client.tsx` - Added minifigs grid section
 
-### Phase 3: Display on Minifig Pages
+### ✅ Phase 3: Display on Minifig Pages (COMPLETE)
 **Goal:** Show which sets contain this minifig
 
-**Tasks:**
-- [ ] Add "Appears in These Sets" section to minifig detail pages
-- [ ] Display set images in grid
-- [ ] Show set names, years, piece counts
-- [ ] Link to set detail pages
-- [ ] Show "Data available for X sets" message
+**Completed:**
+- ✅ Added "Appears in These Sets" section to minifig detail pages
+- ✅ Display set images in responsive grid
+- ✅ Show set names with quantity badges
+- ✅ Link to set detail pages
+- ✅ Shows only cached sets (coverage grows over time)
 
-**Files to modify:**
-- `app/minifigs/[itemNo]/page.tsx` - Server component
-- `components/minifig-detail-client.tsx` - Add sets section
+**Files modified:**
+- `app/minifigs/[itemNo]/page.tsx` - Added getSetsContainingMinifig call
+- `components/minifig-detail-client.tsx` - Added sets grid section
 
-### Phase 4: Background Cron Seeding
+### ✅ Phase 4: Background Cron Seeding (COMPLETE)
 **Goal:** Pre-populate popular sets to improve coverage
 
-**Tasks:**
-- [ ] Create cron endpoint `/api/cron/seed-set-contents`
-- [ ] Prioritize by theme: Star Wars > Marvel > Harry Potter > Architecture
-- [ ] Fetch 200 sets/day at 3am
-- [ ] Stop after ~1,000 most popular sets seeded
-- [ ] Add to deployment documentation
+**Completed:**
+- ✅ Created cron endpoint `/api/cron/seed-set-contents`
+- ✅ Prioritizes by theme: Star Wars (100) > Marvel (90) > Harry Potter (80) > Others
+- ✅ Fetches 200 sets/day at 3:30am UTC
+- ✅ Stops after 1,000 most popular sets seeded
+- ✅ Added to crontab on VPS
 
-**Budget:** 200 calls/day = stays under 28% total usage
+**Cron schedule:**
+```bash
+30 3 * * * curl -H "Authorization: Bearer $CRON_SECRET" \
+  https://figtracker.ericksu.com/api/cron/seed-set-contents \
+  >> /var/log/figtracker-set-contents.log 2>&1
+```
 
-### Phase 5: Admin Dashboard
+**Budget:** 200 calls/day = 28% of 5,000 daily limit (72% headroom)
+
+### ✅ Phase 5: Admin Dashboard (COMPLETE)
 **Goal:** Monitor coverage and API usage
 
-**Tasks:**
-- [ ] Add stats to `/admin/stats` page
-- [ ] Show total sets fetched
-- [ ] Show coverage by theme
-- [ ] Show API calls used today
-- [ ] Show seeding progress
+**Completed:**
+- ✅ Added Set Contents System stats section to `/admin/stats`
+- ✅ Shows total sets fetched and minifig mappings
+- ✅ Shows breakdown by source (user_view vs cron_seed)
+- ✅ BrickLink API usage today (with progress bar)
+- ✅ Manual trigger button for testing cron
+- ✅ Cron schedule information
+
+**Admin dashboard shows:**
+- Total sets fetched
+- Total minifig mappings
+- User-triggered fetches (Phase 2)
+- Cron-seeded fetches (Phase 4)
+- API usage: X / 5,000 (Y%)
+- Manual trigger button
+- Cron schedule info
 
 ---
 
@@ -365,6 +382,30 @@ When completing phases, update:
 
 ---
 
+## Success Metrics (ACHIEVED)
+
+**All phases operational:**
+- ✅ Database and API working
+- ✅ Set pages display minifigs automatically
+- ✅ Minifig pages show which sets they're in
+- ✅ Background cron seeding 200 sets/day
+- ✅ Admin dashboard monitoring coverage
+
+**API Budget:**
+- Daily limit: 5,000 calls
+- Projected usage: ~1,400 calls/day (28%)
+- Headroom: 72% remaining
+- Status: SAFE
+
+**Coverage Target:**
+- Cron will seed 1,000 most popular sets
+- ETA: 5 days (200/day)
+- User-triggered fetches add more coverage organically
+- System scales automatically as users browse
+
+---
+
 **Last Updated:** June 3, 2026
-**Status:** Production-ready, Phase 1 complete
-**Next Step:** Phase 2 - Display on set detail pages
+**Status:** ✅ PRODUCTION - ALL PHASES COMPLETE
+**Cron:** Daily at 3:30am UTC (200 sets/day)
+**Admin:** https://figtracker.ericksu.com/admin/stats
