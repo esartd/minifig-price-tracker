@@ -61,14 +61,22 @@ export async function fetchSetContents(
   try {
     const { bricklinkAPI } = await import('@/lib/bricklink');
 
-    const data = await bricklinkAPI.getSubsets(setNo);
+    const response = await bricklinkAPI.getSubsets(setNo);
+
+    console.log(`[SET CONTENTS] Raw API response for ${setNo}:`, JSON.stringify(response).substring(0, 500));
+
+    // BrickLink API returns { data: [...] } structure
+    if (!response || !response.data || !Array.isArray(response.data)) {
+      console.error(`[SET CONTENTS] Unexpected response format for ${setNo}:`, response);
+      return { minifigs: [], cached: false };
+    }
 
     // Filter to only minifigs
-    const minifigs = data.data
-      .filter(subset => subset.item.type === 'MINIFIG')
-      .map(subset => ({
+    const minifigs = response.data
+      .filter((subset: any) => subset.item?.type === 'MINIFIG')
+      .map((subset: any) => ({
         minifig_no: subset.item.no,
-        quantity: subset.entries.reduce((sum, e) => sum + e.quantity, 0)
+        quantity: subset.entries.reduce((sum: number, e: any) => sum + e.quantity, 0)
       }));
 
     // Save to database
