@@ -211,6 +211,24 @@ export default async function AdminStatsPage() {
     console.log('[Admin Stats] MonetizationEvent table not available:', error);
   }
 
+  // Set Contents System Stats
+  const { getSetContentsStats } = await import('@/lib/set-contents');
+  const setContentsStats = await getSetContentsStats();
+
+  // Get API call stats for today
+  const today = new Date().toISOString().split('T')[0];
+  const { PrismaClient } = await import('@prisma/client-hostinger');
+  const prismaHostinger = new PrismaClient();
+
+  const apiCallsToday = await prismaHostinger.apiCallTracker.findUnique({
+    where: { date: today }
+  });
+
+  await prismaHostinger.$disconnect();
+
+  const apiUsageToday = apiCallsToday?.call_count || 0;
+  const apiUsagePercent = Math.round((apiUsageToday / 5000) * 100);
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -322,6 +340,147 @@ export default async function AdminStatsPage() {
             }
             color="#f59e0b"
           />
+        </div>
+
+        {/* Set Contents System Stats */}
+        <div className="admin-card" style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          border: '1px solid #e5e5e5',
+          padding: 'var(--space-3)',
+          marginBottom: 'var(--space-6)',
+        }}>
+          <h2 style={{
+            fontSize: 'var(--text-lg)',
+            fontWeight: '600',
+            color: '#171717',
+            marginBottom: 'var(--space-1)',
+          }}>
+            Set Contents System
+          </h2>
+          <p style={{
+            fontSize: 'var(--text-sm)',
+            color: '#737373',
+            marginBottom: 'var(--space-4)',
+          }}>
+            Tracks which minifigs appear in which sets (Phase 1-3 complete)
+          </p>
+
+          {/* Coverage Stats */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: 'var(--space-3)',
+            marginBottom: 'var(--space-4)',
+          }}>
+            <div>
+              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '8px' }}>Total Sets Fetched</div>
+              <div style={{ fontSize: 'var(--text-2xl)', fontWeight: '600', color: '#171717' }}>
+                {setContentsStats.totalSetsFetched || 0}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '8px' }}>Total Minifig Mappings</div>
+              <div style={{ fontSize: 'var(--text-2xl)', fontWeight: '600', color: '#171717' }}>
+                {setContentsStats.totalMinifigMappings || 0}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '8px' }}>User-Triggered</div>
+              <div style={{ fontSize: 'var(--text-2xl)', fontWeight: '600', color: '#3b82f6' }}>
+                {setContentsStats.bySource?.user_view || 0}
+              </div>
+              <div style={{ fontSize: '11px', color: '#737373', marginTop: '4px' }}>
+                Phase 2: Set pages auto-fetch
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '8px' }}>Cron-Seeded</div>
+              <div style={{ fontSize: 'var(--text-2xl)', fontWeight: '600', color: '#10b981' }}>
+                {setContentsStats.bySource?.cron_seed || 0}
+              </div>
+              <div style={{ fontSize: '11px', color: '#737373', marginTop: '4px' }}>
+                Phase 4: Background seeding (target: 1,000)
+              </div>
+            </div>
+          </div>
+
+          {/* API Usage Today */}
+          <div style={{
+            background: '#fafafa',
+            borderRadius: '8px',
+            padding: 'var(--space-3)',
+            marginBottom: 'var(--space-3)',
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <div style={{ fontSize: '13px', fontWeight: '600', color: '#171717' }}>
+                BrickLink API Usage Today
+              </div>
+              <div style={{ fontSize: '13px', fontWeight: '600', color: apiUsagePercent > 80 ? '#ef4444' : apiUsagePercent > 50 ? '#f59e0b' : '#10b981' }}>
+                {apiUsageToday} / 5,000 ({apiUsagePercent}%)
+              </div>
+            </div>
+            <div style={{
+              width: '100%',
+              height: '8px',
+              background: '#e5e5e5',
+              borderRadius: '4px',
+              overflow: 'hidden'
+            }}>
+              <div style={{
+                width: `${Math.min(apiUsagePercent, 100)}%`,
+                height: '100%',
+                background: apiUsagePercent > 80 ? '#ef4444' : apiUsagePercent > 50 ? '#f59e0b' : '#10b981',
+                transition: 'width 0.3s'
+              }} />
+            </div>
+          </div>
+
+          {/* Cron Controls */}
+          <div style={{
+            display: 'flex',
+            gap: 'var(--space-2)',
+            flexWrap: 'wrap',
+          }}>
+            <a
+              href="/api/cron/seed-set-contents"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 16px',
+                background: '#10b981',
+                color: '#ffffff',
+                fontSize: '13px',
+                fontWeight: '600',
+                borderRadius: '8px',
+                textDecoration: 'none',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              Trigger Cron Manually (seeds 200 sets)
+            </a>
+            <div style={{
+              padding: '10px 16px',
+              background: '#f5f5f5',
+              color: '#737373',
+              fontSize: '12px',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+            }}>
+              <svg style={{ width: '14px', height: '14px', marginRight: '6px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Scheduled: Daily at 3am (200 sets/day, ~10min runtime)
+            </div>
+          </div>
         </div>
 
         {/* Affiliate Click Stats */}
