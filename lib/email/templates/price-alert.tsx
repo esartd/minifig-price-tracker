@@ -56,7 +56,7 @@ export const PriceAlertEmail = ({
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
           }
           .header {
-            background: #2563eb;
+            background: linear-gradient(135deg, #005C97 0%, #363795 100%);
             color: white;
             padding: 24px;
             text-align: center;
@@ -131,14 +131,15 @@ export const PriceAlertEmail = ({
           }
           .cta-button {
             display: inline-block;
-            background: #2563eb;
+            background: linear-gradient(135deg, #005C97 0%, #363795 100%);
             color: white;
             text-decoration: none;
             padding: 14px 32px;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: 600;
             font-size: 16px;
             margin: 8px;
+            box-shadow: 0 2px 8px rgba(0, 92, 151, 0.2);
           }
           .marketplace-links {
             margin: 24px 0;
@@ -153,10 +154,13 @@ export const PriceAlertEmail = ({
           }
           .marketplace-link {
             display: block;
-            color: #2563eb;
+            color: #005C97;
             text-decoration: none;
             padding: 8px 0;
             font-size: 14px;
+          }
+          .marketplace-link:hover {
+            color: #363795;
           }
           .footer {
             background: #f9fafb;
@@ -166,8 +170,11 @@ export const PriceAlertEmail = ({
             font-size: 12px;
           }
           .footer a {
-            color: #2563eb;
+            color: #005C97;
             text-decoration: none;
+          }
+          .footer a:hover {
+            color: #363795;
           }
         `}</style>
       </head>
