@@ -1,0 +1,5 @@
+# Keep user data backups but ignore large catalog backups
+database-backups/catalog-*.json
+database-backups/minifig-cache-*.json
+database-backups/price-cache-*.json
+database-backups/api-tracker-*.json

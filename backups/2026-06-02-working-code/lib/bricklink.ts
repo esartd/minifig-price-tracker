@@ -1,0 +1,966 @@
+import crypto from 'crypto';
+import { Minifigure, PriceGuide, PricingData, SetInfo } from '@/types';
+import { prisma, prismaPublic } from './prisma';
+import { getCurrencyByCountryCode } from './currency-config';
+
+// Manual name enhancements for minifigs with poor Bricklink API names
+// These are searchable, accurate names that help users find what they're looking for
+const NAME_ENHANCEMENTS: Record<string, string> = {
+  'sw1173': 'Grogu / The Child / Baby Yoda - Holiday Outfit',
+  // Add more as we discover problematic names
+};
+
+export class BricklinkAPI {
+  private consumerKey: string;
+  private consumerSecret: string;
+  private tokenValue: string;
+  private tokenSecret: string;
+  private baseURL = 'https://api.bricklink.com/api/store/v1';
+  private static readonly MAX_CALLS_PER_DAY = 5000; // BrickLink ToS: 5,000 calls/day limit
+  private static readonly MIN_DELAY_MS = 3000; // 3 seconds between calls
+  private static lastRequestTime = 0;
+
+  constructor() {
+    // Load from environment variables
+    this.consumerKey = process.env.BRICKLINK_CONSUMER_KEY || '';
+    this.consumerSecret = process.env.BRICKLINK_CONSUMER_SECRET || '';
+    this.tokenValue = process.env.BRICKLINK_TOKEN_VALUE || '';
+    this.tokenSecret = process.env.BRICKLINK_TOKEN_SECRET || '';
+  }
+
+  private isLocalhost(): boolean {
+    // Only block on actual localhost - NOT on production even if NODE_ENV is development
+    const url = process.env.NEXTAUTH_URL || process.env.AUTH_URL || process.env.VERCEL_URL || '';
+    const isActuallyLocalhost = url.includes('localhost') || url.includes('127.0.0.1');
+
+    // Also check if we're in Vercel production (VERCEL_ENV === 'production')
+    const isVercelProduction = process.env.VERCEL_ENV === 'production';
+
+    // Only block if actually localhost, never block on Vercel production
+    return isActuallyLocalhost && !isVercelProduction;
+  }
+
+  /**
+   * Rate limiter - ENFORCES BrickLink API Terms of Service
+   * - Maximum 5,000 calls per day
+   * - Minimum 3 seconds between requests
+   * - Prevents accidental blocking
+   */
+  private async enforceRateLimit(): Promise<void> {
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+
+    // Get today's call count from database
+    let tracker = await prismaPublic.apiCallTracker.findUnique({
+      where: { date: today }
+    });
+
+    // Create new tracker if doesn't exist
+    if (!tracker) {
+      tracker = await prismaPublic.apiCallTracker.create({
+        data: {
+          date: today,
+          call_count: 0
+        }
+      });
+    }
+
+    // HARD LIMIT: Prevent exceeding 5,000 calls/day
+    if (tracker.call_count >= BricklinkAPI.MAX_CALLS_PER_DAY) {
+      throw new Error(
+        `🚫 BrickLink API daily limit reached (${BricklinkAPI.MAX_CALLS_PER_DAY} calls/day). ` +
+        `Resets at midnight. This protects you from being blocked.`
+      );
+    }
+
+    // Enforce minimum delay between requests
+    const now = Date.now();
+    const timeSinceLastRequest = now - BricklinkAPI.lastRequestTime;
+    if (timeSinceLastRequest < BricklinkAPI.MIN_DELAY_MS) {
+      const delayNeeded = BricklinkAPI.MIN_DELAY_MS - timeSinceLastRequest;
+      await new Promise(resolve => setTimeout(resolve, delayNeeded));
+    }
+
+    // Update tracker
+    await prismaPublic.apiCallTracker.update({
+      where: { date: today },
+      data: {
+        call_count: tracker.call_count + 1,
+        last_call_at: new Date()
+      }
+    });
+
+    BricklinkAPI.lastRequestTime = Date.now();
+
+    // Warn when approaching limit
+    if (tracker.call_count >= BricklinkAPI.MAX_CALLS_PER_DAY * 0.9) {
+      console.warn(
+        `⚠️  WARNING: Approaching daily API limit (${tracker.call_count + 1}/${BricklinkAPI.MAX_CALLS_PER_DAY})`
+      );
+    }
+  }
+
+  private generateOAuthSignature(
+    method: string,
+    baseUrl: string,
+    params: Record<string, string>
+  ): string {
+    // Create parameter string
+    const sortedParams = Object.keys(params)
+      .sort()
+      .map((key) => `${this.encodeRFC3986(key)}=${this.encodeRFC3986(params[key])}`)
+      .join('&');
+
+    // Create signature base string using base URL without query params
+    const signatureBaseString = [
+      method.toUpperCase(),
+      this.encodeRFC3986(baseUrl),
+      this.encodeRFC3986(sortedParams),
+    ].join('&');
+
+    // Create signing key
+    const signingKey = `${this.encodeRFC3986(this.consumerSecret)}&${this.encodeRFC3986(
+      this.tokenSecret
+    )}`;
+
+    // Generate signature
+    const hmac = crypto.createHmac('sha1', signingKey);
+    hmac.update(signatureBaseString);
+    return hmac.digest('base64');
+  }
+
+  private encodeRFC3986(value: string): string {
+    return encodeURIComponent(value).replace(
+      /[!'()*]/g,
+      (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`
+    );
+  }
+
+  private async makeRequest(endpoint: string, method = 'GET'): Promise<any> {
+    // BLOCK all API calls on localhost to preserve production limits
+    const isLocal = this.isLocalhost();
+    console.log(`Bricklink API call check: isLocalhost=${isLocal}, NODE_ENV=${process.env.NODE_ENV}, NEXTAUTH_URL=${process.env.NEXTAUTH_URL}`);
+
+    if (isLocal) {
+      console.warn('🚫 Bricklink API blocked on localhost - use production for real data');
+      return null;
+    }
+
+    const url = `${this.baseURL}${endpoint}`;
+
+    // ENFORCE BrickLink API rate limits (5,000 calls/day, 3 second delays)
+    await this.enforceRateLimit();
+
+    // Parse URL to separate base URL and query parameters
+    const urlObj = new URL(url);
+    const baseUrl = `${urlObj.protocol}//${urlObj.host}${urlObj.pathname}`;
+    const queryParams: Record<string, string> = {};
+    urlObj.searchParams.forEach((value, key) => {
+      queryParams[key] = value;
+    });
+
+    const timestamp = Math.floor(Date.now() / 1000).toString();
+    const nonce = crypto.randomBytes(16).toString('hex');
+
+    const oauthParams: Record<string, string> = {
+      oauth_consumer_key: this.consumerKey,
+      oauth_token: this.tokenValue,
+      oauth_signature_method: 'HMAC-SHA1',
+      oauth_timestamp: timestamp,
+      oauth_nonce: nonce,
+      oauth_version: '1.0',
+    };
+
+    // Combine OAuth params and query params for signature
+    const allParams: Record<string, string> = { ...oauthParams, ...queryParams };
+    const signature = this.generateOAuthSignature(method, baseUrl, allParams);
+    oauthParams.oauth_signature = signature;
+
+    // Build Authorization header
+    const authHeader =
+      'OAuth ' +
+      Object.keys(oauthParams)
+        .map((key) => `${key}="${this.encodeRFC3986(oauthParams[key])}"`)
+        .join(', ');
+
+    const response = await fetch(url, {
+      method,
+      headers: {
+        Authorization: authHeader,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      // Log the error response body from Bricklink
+      console.error(`[makeRequest] Bricklink API ${response.status} error for ${endpoint}:`, JSON.stringify(data));
+      (this as any).lastError = {
+        endpoint,
+        status: response.status,
+        statusText: response.statusText,
+        body: data
+      };
+      throw new Error(`Bricklink API error: ${response.statusText}`);
+    }
+
+    // Log the raw response for debugging
+    console.log(`[makeRequest] Raw Bricklink response for ${endpoint}:`, JSON.stringify(data));
+
+    // BrickLink returns 200 OK even for errors, check meta field
+    if (data.meta && data.meta.code && data.meta.code !== 200) {
+      const errorDetails = {
+        endpoint,
+        code: data.meta.code,
+        message: data.meta.message,
+        description: data.meta.description
+      };
+      console.error(`BrickLink API error:`, JSON.stringify(errorDetails));
+      // Store last error for debugging
+      (this as any).lastError = errorDetails;
+      return null;
+    }
+
+    // Log if data is empty/null
+    if (!data.data) {
+      console.warn(`BrickLink API returned no data for ${endpoint}`, {
+        meta: data.meta,
+        hasData: !!data.data
+      });
+      (this as any).lastError = { endpoint, reason: 'No data.data field', meta: data.meta };
+      return null;
+    }
+
+    // Clear last error on success
+    (this as any).lastError = null;
+    return data.data;
+  }
+
+  async searchMinifigures(query: string): Promise<Minifigure[]> {
+    // Search in the catalog for minifigures
+    // Note: Bricklink API doesn't have direct search, so we'll need to get catalog and filter
+    // For now, return mock data with a note to implement actual search
+    return [];
+  }
+
+  async getMinifigureByNumber(itemNo: string): Promise<Minifigure | null> {
+    try {
+      // STEP 1: Check cache first (no API call)
+      const cached = await prismaPublic.minifigCache.findUnique({
+        where: { minifigure_no: itemNo }
+      });
+
+      // If cached and not expired, return immediately (saves API call)
+      if (cached && cached.expires_at > new Date()) {
+        return {
+          no: cached.minifigure_no,
+          name: cached.name,
+          category_id: cached.category_id,
+          image_url: cached.image_url
+        };
+      }
+
+      // STEP 2: Cache miss or expired - fetch from API
+      const data = await this.makeRequest(`/items/MINIFIG/${itemNo}`);
+
+      // If data is null/undefined, item doesn't exist
+      if (!data) {
+        return null;
+      }
+
+      // Bricklink stores images at: https://img.bricklink.com/ItemImage/MN/0/{item_no}.png
+      let imageUrl = data.image_url || data.thumbnail_url || `https://img.bricklink.com/ItemImage/MN/0/${itemNo}.png`;
+
+      // Add protocol if missing (Bricklink returns URLs starting with //)
+      if (imageUrl.startsWith('//')) {
+        imageUrl = `https:${imageUrl}`;
+      }
+
+      // Use enhanced name if available, otherwise use API name
+      const enhancedName = NAME_ENHANCEMENTS[data.no] || data.name;
+
+      const minifig: Minifigure = {
+        no: data.no,
+        name: enhancedName,
+        category_id: data.category_id,
+        image_url: imageUrl,
+      };
+
+      // STEP 3: Store in cache (6 hour expiration per BrickLink API Terms Section 1)
+      // "Display item Content or product information and/or images which is more than
+      // six hours older than such information is on the Website"
+      const expiresAt = new Date();
+      expiresAt.setHours(expiresAt.getHours() + 6);
+
+      // MinifigCache upsert removed - not needed for basic minifig search
+
+      return minifig;
+    } catch (error) {
+      // Item doesn't exist or API error
+      return null;
+    }
+  }
+
+  /**
+   * Track persistent price fetch failures for monitoring
+   */
+  private async trackPriceFetchFailure(
+    itemNo: string,
+    itemType: string,
+    condition: string,
+    countryCode: string,
+    errorMessage: string,
+    errorType: string
+  ): Promise<void> {
+    try {
+      // PriceFetchFailure table removed from schema - just log errors
+      console.log(`⚠️ [Price Fetch Failed] ${itemNo} (${itemType}, ${condition}, ${countryCode}): ${errorType} - ${errorMessage}`);
+    } catch (error) {
+      // Don't let failure tracking break the main flow
+      console.error(`⚠️  [Failure Tracking] Error tracking failure for ${itemNo}:`, error);
+    }
+  }
+
+  /**
+   * Retry wrapper with exponential backoff
+   * Attempts: 1st = immediate, 2nd = 10s delay, 3rd = 30s delay
+   */
+  private async retryWithBackoff<T>(
+    fn: () => Promise<T>,
+    itemNo: string,
+    maxRetries: number = 3
+  ): Promise<T | null> {
+    const delays = [0, 10000, 30000]; // 0s, 10s, 30s
+    let lastError: any;
+
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        if (attempt > 1) {
+          const delay = delays[attempt - 1];
+          console.log(`[Retry] Attempt ${attempt}/${maxRetries} for ${itemNo} after ${delay}ms delay...`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+        }
+
+        const result = await fn();
+
+        if (attempt > 1) {
+          console.log(`✅ [Retry] Success on attempt ${attempt} for ${itemNo}`);
+        }
+
+        return result;
+      } catch (error: any) {
+        lastError = error;
+        console.error(`❌ [Retry] Attempt ${attempt}/${maxRetries} failed for ${itemNo}:`, error.message);
+
+        // Don't retry on rate limit errors - respect the limit
+        if (error.message?.includes('daily limit reached')) {
+          throw error;
+        }
+      }
+    }
+
+    // All retries failed - log persistent failure
+    console.error(`🚫 [Retry] All ${maxRetries} attempts failed for ${itemNo}`);
+    return null;
+  }
+
+  async getPriceGuide(
+    itemNo: string,
+    condition: 'N' | 'U' = 'N',
+    countryCode: string = 'US',
+    region: string = 'north_america',
+    currencyCode?: string,
+    guideType: 'stock' | 'sold' = 'stock'
+  ): Promise<PriceGuide | null> {
+    // Wrap the actual fetch in retry logic
+    return this.retryWithBackoff(async () => {
+      // BrickLink API parameters:
+      // - country_code: FILTERS sellers to only that country (very restrictive)
+      // - currency_code: CONVERTS prices to that currency (all sellers, just different display)
+      // - guide_type: 'stock' for current listings, 'sold' for historical sales
+      // For pricing, we want ALL sellers with currency conversion, NOT filtered by country
+      let url = `/items/MINIFIG/${itemNo}/price?new_or_used=${condition}&guide_type=${guideType}`;
+      if (currencyCode) {
+        url += `&currency_code=${currencyCode}`;
+      }
+      // Don't use country_code - it filters sellers which gives zeros for rare items
+
+      console.log(`[getPriceGuide] Requesting: ${url}`);
+
+      const data = await this.makeRequest(url);
+
+      if (!data) {
+        console.log(`[getPriceGuide] No data returned for ${itemNo} in ${countryCode}`);
+        throw new Error('NO_DATA');
+      }
+
+      console.log(`[getPriceGuide] Response for ${itemNo}:`, {
+        guide_type: guideType,
+        currency_code: data.currency_code,
+        min_price: data.min_price,
+        max_price: data.max_price,
+        avg_price: data.avg_price,
+        qty_avg_price: data.qty_avg_price,
+        unit_quantity: data.unit_quantity,
+        total_quantity: data.total_quantity
+      });
+
+      // Debug: Check if we got empty price data
+      if (!data.min_price && !data.qty_avg_price && !data.avg_price) {
+        console.log(`⚠️  [getPriceGuide] WARNING: All price fields are empty/null for ${itemNo} (${guideType})`);
+        console.log(`   This could mean: no sellers, no sales, or API returned empty data`);
+        console.log(`   Raw data:`, JSON.stringify(data));
+      }
+
+      return data;
+    }, itemNo);
+  }
+
+  async getSetsContainingMinifig(itemNo: string): Promise<SetInfo[]> {
+    // NOTE: This method is not used to preserve API rate limits
+    // BrickLink API has 5,000 calls/day limit - showing sets on every page would exceed this
+    // Consider implementing as a database-backed feature with periodic updates if needed
+    return [];
+  }
+
+  async calculatePricingData(
+    itemNo: string,
+    condition: 'new' | 'used',
+    countryCode: string = 'US',
+    region: string = 'north_america',
+    userId?: string
+  ): Promise<PricingData> {
+    console.log(`[calculatePricingData] START: ${itemNo}, condition=${condition}, country=${countryCode}`);
+    const conditionCode = condition === 'new' ? 'N' : 'U';
+
+    // Note: countryCode is used for cache key (to separate USD from GBP prices)
+    // but NOT passed to Bricklink API (which would filter sellers)
+    const cacheRegion = '';
+
+    // Check cache first
+    const cached = await prisma.priceCache.findUnique({
+      where: {
+        item_no_item_type_condition_country_code_region: {
+          item_no: itemNo,
+          item_type: 'MINIFIG',
+          condition: condition,
+          country_code: countryCode,
+          region: cacheRegion
+        }
+      }
+    });
+
+    // If cache exists and hasn't expired, return cached data
+    if (cached && cached.expires_at > new Date()) {
+      console.log(`[calculatePricingData] Cache HIT for ${itemNo}: $${cached.suggested_price}`);
+      return {
+        sixMonthAverage: cached.six_month_avg,
+        currentAverage: cached.current_avg,
+        currentLowest: cached.current_lowest,
+        suggestedPrice: cached.suggested_price,
+        currencyCode: cached.currency_code,
+        cached_at: cached.cached_at.toISOString(),
+      };
+    }
+
+    console.log(`[calculatePricingData] Cache MISS for ${itemNo}, fetching from API...`);
+
+    // Get currency code from country code
+    const currencyConfig = getCurrencyByCountryCode(countryCode);
+    const currencyCodeValue = currencyConfig?.code || 'USD';
+
+    // Cache miss or expired - fetch BOTH stock and sold data from API with currency conversion
+    // Fetch stock data (current listings)
+    const stockPriceGuide = await this.getPriceGuide(itemNo, conditionCode, countryCode, region, currencyCodeValue, 'stock');
+    console.log(`[calculatePricingData] Stock API response for ${itemNo}:`, stockPriceGuide ? 'SUCCESS' : 'NULL');
+
+    // Wait 3 seconds between API calls (BrickLink rate limit)
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+    // Fetch sold data (historical sales)
+    const soldPriceGuide = await this.getPriceGuide(itemNo, conditionCode, countryCode, region, currencyCodeValue, 'sold');
+    console.log(`[calculatePricingData] Sold API response for ${itemNo}:`, soldPriceGuide ? 'SUCCESS' : 'NULL');
+
+    if (!stockPriceGuide && !soldPriceGuide) {
+      console.log(`❌ No price guide data at all for ${itemNo} in ${countryCode} - both API calls returned null`);
+
+      // Track persistent failures
+      await this.trackPriceFetchFailure(
+        itemNo,
+        'MINIFIG',
+        condition,
+        countryCode,
+        'Both stock and sold API calls returned no data',
+        'NO_DATA'
+      );
+
+      // If we have OLD cached data (even if expired), check if it's < 6 hours old
+      // BrickLink Terms: Cannot display data more than 6 hours old
+      if (cached && cached.suggested_price > 0) {
+        const cacheAgeHours = (Date.now() - cached.cached_at.getTime()) / (1000 * 60 * 60);
+
+        if (cacheAgeHours < 6) {
+          console.log(`✅ [calculatePricingData] API failed but returning cached data for ${itemNo}: $${cached.suggested_price} (age: ${cacheAgeHours.toFixed(1)}h - compliant)`);
+          return {
+            sixMonthAverage: cached.six_month_avg,
+            currentAverage: cached.current_avg,
+            currentLowest: cached.current_lowest,
+            suggestedPrice: cached.suggested_price,
+            currencyCode: cached.currency_code,
+            cached_at: cached.cached_at.toISOString(),
+          };
+        } else {
+          console.log(`❌ [calculatePricingData] Cache is ${cacheAgeHours.toFixed(1)}h old (> 6h) - cannot display per BrickLink terms`);
+          // Fall through to return $0 - frontend will show "Price unavailable"
+        }
+      }
+
+      // No data from API and no old data - cache zeros for 1 hour to avoid repeated failed API calls
+      const expiresAt = new Date();
+      expiresAt.setHours(expiresAt.getHours() + 1);
+
+      await prisma.priceCache.upsert({
+        where: {
+          item_no_item_type_condition_country_code_region: {
+            item_no: itemNo,
+            item_type: 'MINIFIG',
+            condition: condition,
+            country_code: countryCode,
+            region: cacheRegion
+          }
+        },
+        update: {
+          six_month_avg: 0,
+          current_avg: 0,
+          current_lowest: 0,
+          suggested_price: 0,
+          cached_at: new Date(),
+          expires_at: expiresAt,
+          currency_code: currencyCodeValue,
+        },
+        create: {
+          item_no: itemNo,
+          item_type: 'MINIFIG',
+          condition: condition,
+          country_code: countryCode,
+          region: cacheRegion,
+          currency_code: currencyCodeValue,
+          six_month_avg: 0,
+          current_avg: 0,
+          current_lowest: 0,
+          suggested_price: 0,
+          expires_at: expiresAt,
+        }
+      });
+
+      return {
+        sixMonthAverage: 0,
+        currentAverage: 0,
+        currentLowest: 0,
+        suggestedPrice: 0,
+        currencyCode: currencyCodeValue,
+        cached_at: new Date().toISOString(),
+      };
+    }
+
+    // Extract pricing data from both sources (use whichever is available)
+    const soldQtyAvg = soldPriceGuide ? parseFloat(soldPriceGuide.qty_avg_price || '0') : 0; // Sold: Quantity-weighted average of historical sales
+    const stockQtyAvg = stockPriceGuide ? parseFloat(stockPriceGuide.qty_avg_price || '0') : 0; // Stock: Quantity-weighted average of current listings
+    const stockLowest = stockPriceGuide ? parseFloat(stockPriceGuide.min_price || '0') : 0; // Stock: Lowest current listing
+
+    console.log(`[calculatePricingData] Extracted prices - soldQtyAvg: ${soldQtyAvg}, stockQtyAvg: ${stockQtyAvg}, stockLowest: ${stockLowest}`);
+
+    // Store individual components for reference
+    const sixMonthAverage = soldQtyAvg; // Repurpose to store sold qty avg
+    const currentAverage = stockQtyAvg; // Repurpose to store stock qty avg
+    const currentLowest = stockLowest;
+
+    // Calculate suggested price - only average values that exist
+    const priceComponents = [];
+    if (soldQtyAvg > 0) priceComponents.push(soldQtyAvg);
+    if (stockQtyAvg > 0) priceComponents.push(stockQtyAvg);
+    if (stockLowest > 0) priceComponents.push(stockLowest);
+
+    const suggestedPrice = priceComponents.length > 0
+      ? priceComponents.reduce((sum, price) => sum + price, 0) / priceComponents.length
+      : 0;
+
+    console.log(`[calculatePricingData] Suggested price calculated from ${priceComponents.length} components: $${suggestedPrice}`);
+
+    // If we got API responses but all fields are empty/zero, this is a genuinely rare item
+    // Cache it as zero so we don't keep retrying
+    if (suggestedPrice === 0) {
+      console.log(`[calculatePricingData] No usable price data for ${itemNo} - caching zeros`);
+    }
+
+    const pricingData = {
+      sixMonthAverage: parseFloat(sixMonthAverage.toFixed(2)),
+      currentAverage: parseFloat(currentAverage.toFixed(2)),
+      currentLowest: parseFloat(currentLowest.toFixed(2)),
+      suggestedPrice: parseFloat(suggestedPrice.toFixed(2)),
+      currencyCode: currencyCodeValue,
+    };
+
+    // Store in cache - use shorter expiration for zero prices (1 hour vs 6 hours)
+    // This allows re-checking for new sellers without hammering the API
+    const expiresAt = new Date();
+    if (pricingData.suggestedPrice === 0) {
+      expiresAt.setHours(expiresAt.getHours() + 1); // 1 hour for no-seller regions
+      console.log(`No sellers found for ${itemNo} in ${countryCode}, caching zeros for 1 hour`);
+    } else {
+      expiresAt.setHours(expiresAt.getHours() + 6); // 6 hour per BrickLink API Terms
+    }
+
+    await prisma.priceCache.upsert({
+      where: {
+        item_no_item_type_condition_country_code_region: {
+          item_no: itemNo,
+          item_type: 'MINIFIG',
+          condition: condition,
+          country_code: countryCode,
+          region: cacheRegion
+        }
+      },
+      update: {
+        six_month_avg: pricingData.sixMonthAverage,
+        current_avg: pricingData.currentAverage,
+        current_lowest: pricingData.currentLowest,
+        suggested_price: pricingData.suggestedPrice,
+        cached_at: new Date(),
+        expires_at: expiresAt,
+        currency_code: currencyCodeValue,
+      },
+      create: {
+        item_no: itemNo,
+        item_type: 'MINIFIG',
+        condition: condition,
+        country_code: countryCode,
+        region: cacheRegion,
+        currency_code: currencyCodeValue,
+        six_month_avg: pricingData.sixMonthAverage,
+        current_avg: pricingData.currentAverage,
+        current_lowest: pricingData.currentLowest,
+        suggested_price: pricingData.suggestedPrice,
+        expires_at: expiresAt,
+      }
+    });
+
+    // Record price history opportunistically (limit 1 per day per item)
+    // This builds up history naturally as people use the site, no cron needed
+    if (pricingData.suggestedPrice > 0) {
+      await this.recordPriceHistory(itemNo, condition, pricingData);
+    }
+
+    // Track pricing view (fire-and-forget pattern - don't fail pricing if tracking fails)
+    if (userId && pricingData.suggestedPrice > 0) {
+      prisma.user.update({
+        where: { id: userId },
+        data: { totalPricingViews: { increment: 1 } }
+      }).catch(err => {
+        console.error(`Failed to track pricing view for user ${userId}:`, err);
+      });
+    }
+
+    return {
+      ...pricingData,
+      cached_at: new Date().toISOString()
+    };
+  }
+
+  /**
+   * Record price history snapshot (max 1 per day per item+condition)
+   * Called automatically when fresh pricing data is fetched
+   */
+  private async recordPriceHistory(
+    itemNo: string,
+    condition: 'new' | 'used',
+    pricing: PricingData
+  ): Promise<void> {
+    try {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Start of day
+
+      // Check if we already recorded today
+      const existingToday = await prisma.priceHistory.findFirst({
+        where: {
+          minifigure_no: itemNo,
+          condition: condition,
+          recorded_at: {
+            gte: today
+          }
+        }
+      });
+
+      if (existingToday) {
+        // Already recorded today, skip
+        return;
+      }
+
+      // Record new snapshot
+      await prisma.priceHistory.create({
+        data: {
+          minifigure_no: itemNo,
+          condition: condition,
+          six_month_avg: pricing.sixMonthAverage,
+          current_avg: pricing.currentAverage,
+          current_lowest: pricing.currentLowest,
+          suggested_price: pricing.suggestedPrice,
+        }
+      });
+
+      console.log(`📊 Recorded price history for ${itemNo} (${condition}): $${pricing.suggestedPrice}`);
+    } catch (error) {
+      // Don't fail pricing fetch if history recording fails
+      console.error(`Failed to record price history for ${itemNo}:`, error);
+    }
+  }
+
+  async getSetPriceGuide(
+    boxNo: string,
+    condition: 'N' | 'U' = 'N',
+    countryCode: string = 'US',
+    region: string = 'north_america',
+    currencyCode?: string,
+    guideType: 'stock' | 'sold' = 'stock'
+  ): Promise<PriceGuide | null> {
+    try {
+      // For price guide, Bricklink needs the full set number INCLUDING the variant suffix (e.g., "10228-1")
+      // This is different from item details which may strip the suffix
+      const bricklinkNo = boxNo; // Keep the full number like "10228-1"
+
+      // BrickLink API: Don't use country_code (filters sellers), use currency_code (converts prices)
+      // Use SET as item type (same format as MINIFIG for minifigures)
+      // guide_type: 'stock' for current listings, 'sold' for historical sales
+      let url = `/items/SET/${bricklinkNo}/price?new_or_used=${condition}&guide_type=${guideType}`;
+      if (currencyCode) {
+        url += `&currency_code=${currencyCode}`;
+      }
+
+      console.log(`[getSetPriceGuide] Requesting: ${url}`);
+      const data = await this.makeRequest(url);
+
+      if (!data) {
+        console.log(`[getSetPriceGuide] No data returned for set ${bricklinkNo}`);
+        // Check if lastError was set by makeRequest
+        if (!(this as any).lastError) {
+          (this as any).lastError = {
+            endpoint: url,
+            reason: 'makeRequest returned null but did not set lastError',
+            boxNo: bricklinkNo
+          };
+        }
+        return null;
+      }
+
+      console.log(`[getSetPriceGuide] Response for ${bricklinkNo}:`, {
+        guide_type: guideType,
+        currency_code: data.currency_code,
+        min_price: data.min_price,
+        qty_avg_price: data.qty_avg_price,
+        total_quantity: data.total_quantity
+      });
+
+      return data;
+    } catch (error) {
+      console.error('[getSetPriceGuide] Error fetching set price guide:', error);
+      return null;
+    }
+  }
+
+  async calculateSetPricing(
+    boxNo: string,
+    condition: 'new' | 'used',
+    countryCode: string = 'US',
+    region: string = 'north_america',
+    userId?: string
+  ): Promise<PricingData> {
+    const conditionCode = condition === 'new' ? 'N' : 'U';
+
+    // Standardize region to empty string since we only use country_code now
+    const cacheRegion = '';
+
+    // Check cache first
+    const cached = await prisma.priceCache.findUnique({
+      where: {
+        item_no_item_type_condition_country_code_region: {
+          item_no: boxNo,
+          item_type: 'SET',
+          condition: condition,
+          country_code: countryCode,
+          region: cacheRegion
+        }
+      }
+    });
+
+    // If cache exists and hasn't expired, return cached data
+    if (cached && cached.expires_at > new Date()) {
+      return {
+        sixMonthAverage: cached.six_month_avg,
+        currentAverage: cached.current_avg,
+        currentLowest: cached.current_lowest,
+        suggestedPrice: cached.suggested_price,
+        currencyCode: cached.currency_code,
+        cached_at: cached.cached_at.toISOString(),
+      };
+    }
+
+    // Get currency code from country code
+    const currencyConfig = getCurrencyByCountryCode(countryCode);
+    const currencyCodeValue = currencyConfig?.code || 'USD';
+
+    // Cache miss or expired - fetch BOTH stock and sold data from API with currency conversion
+    // Fetch stock data (current listings)
+    const stockPriceGuide = await this.getSetPriceGuide(boxNo, conditionCode, countryCode, region, currencyCodeValue, 'stock');
+    console.log(`[calculateSetPricing] Stock API response for ${boxNo}:`, stockPriceGuide ? 'SUCCESS' : 'NULL');
+
+    // Wait 3 seconds between API calls (BrickLink rate limit)
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+    // Fetch sold data (historical sales)
+    const soldPriceGuide = await this.getSetPriceGuide(boxNo, conditionCode, countryCode, region, currencyCodeValue, 'sold');
+    console.log(`[calculateSetPricing] Sold API response for ${boxNo}:`, soldPriceGuide ? 'SUCCESS' : 'NULL');
+
+    if (!stockPriceGuide && !soldPriceGuide) {
+      console.log(`No price guide data at all for set ${boxNo} in ${countryCode} - caching zeros for 1 hour`);
+      // No data from API - cache zeros for 1 hour to avoid repeated failed API calls
+      const expiresAt = new Date();
+      expiresAt.setHours(expiresAt.getHours() + 1);
+
+      await prisma.priceCache.upsert({
+        where: {
+          item_no_item_type_condition_country_code_region: {
+            item_no: boxNo,
+            item_type: 'SET',
+            condition: condition,
+            country_code: countryCode,
+            region: cacheRegion
+          }
+        },
+        update: {
+          six_month_avg: 0,
+          current_avg: 0,
+          current_lowest: 0,
+          suggested_price: 0,
+          cached_at: new Date(),
+          expires_at: expiresAt,
+          currency_code: currencyCodeValue,
+        },
+        create: {
+          item_no: boxNo,
+          item_type: 'SET',
+          condition: condition,
+          country_code: countryCode,
+          region: cacheRegion,
+          currency_code: currencyCodeValue,
+          six_month_avg: 0,
+          current_avg: 0,
+          current_lowest: 0,
+          suggested_price: 0,
+          expires_at: expiresAt,
+        }
+      });
+
+      return {
+        sixMonthAverage: 0,
+        currentAverage: 0,
+        currentLowest: 0,
+        suggestedPrice: 0,
+        currencyCode: currencyCodeValue,
+        cached_at: new Date().toISOString(),
+      };
+    }
+
+    // Extract pricing data from both sources (use whichever is available)
+    const soldQtyAvg = soldPriceGuide ? parseFloat(soldPriceGuide.qty_avg_price || '0') : 0; // Sold: Quantity-weighted average of historical sales
+    const stockQtyAvg = stockPriceGuide ? parseFloat(stockPriceGuide.qty_avg_price || '0') : 0; // Stock: Quantity-weighted average of current listings
+    const stockLowest = stockPriceGuide ? parseFloat(stockPriceGuide.min_price || '0') : 0; // Stock: Lowest current listing
+
+    console.log(`[calculateSetPricing] Extracted prices - soldQtyAvg: ${soldQtyAvg}, stockQtyAvg: ${stockQtyAvg}, stockLowest: ${stockLowest}`);
+
+    // Store individual components for reference
+    const sixMonthAverage = soldQtyAvg; // Repurpose to store sold qty avg
+    const currentAverage = stockQtyAvg; // Repurpose to store stock qty avg
+    const currentLowest = stockLowest;
+
+    // Calculate suggested price - only average values that exist
+    const priceComponents = [];
+    if (soldQtyAvg > 0) priceComponents.push(soldQtyAvg);
+    if (stockQtyAvg > 0) priceComponents.push(stockQtyAvg);
+    if (stockLowest > 0) priceComponents.push(stockLowest);
+
+    const suggestedPrice = priceComponents.length > 0
+      ? priceComponents.reduce((sum, price) => sum + price, 0) / priceComponents.length
+      : 0;
+
+    console.log(`[calculateSetPricing] Suggested price calculated from ${priceComponents.length} components: $${suggestedPrice}`);
+
+    const pricingData = {
+      sixMonthAverage: parseFloat(sixMonthAverage.toFixed(2)),
+      currentAverage: parseFloat(currentAverage.toFixed(2)),
+      currentLowest: parseFloat(currentLowest.toFixed(2)),
+      suggestedPrice: parseFloat(suggestedPrice.toFixed(2)),
+      currencyCode: currencyCodeValue,
+    };
+
+    // Store in cache - use shorter expiration for zero prices (1 hour vs 6 hours)
+    // This allows re-checking for new sellers without hammering the API
+    const expiresAt = new Date();
+    if (pricingData.suggestedPrice === 0) {
+      expiresAt.setHours(expiresAt.getHours() + 1); // 1 hour for no-seller regions
+      console.log(`No sellers found for set ${boxNo} in ${countryCode}, caching zeros for 1 hour`);
+    } else {
+      expiresAt.setHours(expiresAt.getHours() + 6); // 6 hour per BrickLink API Terms
+    }
+
+    await prisma.priceCache.upsert({
+      where: {
+        item_no_item_type_condition_country_code_region: {
+          item_no: boxNo,
+          item_type: 'SET',
+          condition: condition,
+          country_code: countryCode,
+          region: cacheRegion
+        }
+      },
+      update: {
+        six_month_avg: pricingData.sixMonthAverage,
+        current_avg: pricingData.currentAverage,
+        current_lowest: pricingData.currentLowest,
+        suggested_price: pricingData.suggestedPrice,
+        cached_at: new Date(),
+        expires_at: expiresAt,
+        currency_code: currencyCodeValue,
+      },
+      create: {
+        item_no: boxNo,
+        item_type: 'SET',
+        condition: condition,
+        country_code: countryCode,
+        region: cacheRegion,
+        currency_code: currencyCodeValue,
+        six_month_avg: pricingData.sixMonthAverage,
+        current_avg: pricingData.currentAverage,
+        current_lowest: pricingData.currentLowest,
+        suggested_price: pricingData.suggestedPrice,
+        expires_at: expiresAt,
+      }
+    });
+
+    // Track pricing view (fire-and-forget pattern - don't fail pricing if tracking fails)
+    if (userId && pricingData.suggestedPrice > 0) {
+      prisma.user.update({
+        where: { id: userId },
+        data: { totalPricingViews: { increment: 1 } }
+      }).catch(err => {
+        console.error(`Failed to track pricing view for user ${userId}:`, err);
+      });
+    }
+
+    return {
+      ...pricingData,
+      cached_at: new Date().toISOString()
+    };
+  }
+}
+
+export const bricklinkAPI = new BricklinkAPI();

@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(openssl rand:*)",
+      "Bash(tsx scripts/export-old-data.ts)",
+      "Bash(kill 95922)",
+      "Bash(curl -s http://localhost:3000/auth/signin)",
+      "Bash(npm search:*)",
+      "Bash(python*)",
+      "Bash(cat *)",
+      "Bash(jq *)",
+      "Bash(split *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(curl -s -I \"https://figtracker.ericksu.com/_next/image?url=%2Fapi%2Fimages%2Fminifig%2Fsw1398&w=640&q=75\")"
+    ],
+    "additionalDirectories": [
+      "/Users/erickkosysu/Code Projects/minifig-price-tracker/app/api/auth"
+    ]
+  },
+  "enableAllProjectMcpServers": true
+}

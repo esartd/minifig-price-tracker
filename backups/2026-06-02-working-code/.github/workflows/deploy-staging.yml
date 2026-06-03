@@ -1,0 +1,105 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - develop  # Create a 'develop' branch for staging
+      - staging
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy-staging:
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Build Next.js application
+        run: npm run build
+        env:
+          NODE_ENV: production
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEXT_PUBLIC_BASE_URL: https://staging.figtracker.com
+          SKIP_ENV_VALIDATION: true
+
+      - name: Create deployment package
+        run: |
+          mkdir -p deploy-package/node_modules
+          cp -r .next deploy-package/
+          cp package.json package-lock.json deploy-package/
+          cp -r node_modules/@prisma deploy-package/node_modules/
+          cp -r node_modules/.prisma deploy-package/node_modules/
+          cp -r prisma deploy-package/
+          cp -r public deploy-package/ 2>/dev/null || true
+          tar -czf deploy-staging.tar.gz -C deploy-package .
+
+      - name: Deploy to Staging VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "deploy-staging.tar.gz"
+          target: "/tmp/"
+
+      - name: Extract and reload staging on VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            # Staging runs on port 3001
+            cd /var/www/figtracker-staging
+
+            # Backup current deployment
+            tar -czf /root/staging-backup-$(date +%Y%m%d-%H%M%S).tar.gz .next 2>/dev/null || true
+
+            # Extract new build
+            rm -rf .next node_modules/@prisma node_modules/.prisma
+            tar -xzf /tmp/deploy-staging.tar.gz
+
+            # PM2 reload (zero-downtime restart)
+            pm2 reload figtracker-staging || pm2 start npm --name "figtracker-staging" -- start -- -p 3001
+
+            # Cleanup
+            rm /tmp/deploy-staging.tar.gz
+
+            # Health check
+            sleep 5
+            for i in {1..10}; do
+              if curl -f http://localhost:3001/api/health; then
+                echo "✅ Staging deployment successful"
+                exit 0
+              fi
+              echo "Attempt $i failed, retrying..."
+              sleep 2
+            done
+
+            echo "❌ Health check failed after 10 attempts"
+            exit 1
+
+      - name: Notify deployment status
+        if: always()
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "✅ Staging deployment successful: https://staging.figtracker.com"
+          else
+            echo "❌ Staging deployment failed"
+          fi

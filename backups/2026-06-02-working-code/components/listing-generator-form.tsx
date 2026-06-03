@@ -1,0 +1,1121 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+
+interface CollectionItem {
+  id: string;
+  minifigure_no: string;
+  minifigure_name: string;
+  quantity: number;
+  condition: string;
+  image_url?: string;
+  pricing?: {
+    suggestedPrice: number;
+    currentAverage: number;
+    currentLowest: number;
+    sixMonthAverage: number;
+  };
+}
+
+interface ListingGeneratorFormProps {
+  item: CollectionItem;
+  onSuccess: (listing: any) => void;
+  onOpen?: () => void;
+  itemType?: 'minifig' | 'set';
+}
+
+interface ListingPreferences {
+  // Facebook
+  offersShipping: boolean;
+  offersLocalPickup: boolean;
+  offersBundleDiscount: boolean;
+  acceptsCash: boolean;
+  acceptsVenmo: boolean;
+  acceptsPayPal: boolean;
+
+  // eBay
+  acceptsOffers: boolean;
+  fastShipping: boolean;
+  carefulPackaging: boolean;
+  messageWithQuestions: boolean;
+
+  // All platforms
+  smokeFreeHome: boolean;
+  shipsWithTracking: boolean;
+}
+
+const DEFAULT_PREFERENCES: ListingPreferences = {
+  // Facebook defaults
+  offersShipping: true,
+  offersLocalPickup: true,
+  offersBundleDiscount: true,
+  acceptsCash: true,
+  acceptsVenmo: false,
+  acceptsPayPal: false,
+
+  // eBay defaults
+  acceptsOffers: true,
+  fastShipping: true,
+  carefulPackaging: true,
+  messageWithQuestions: true,
+
+  // All platforms
+  smokeFreeHome: true,
+  shipsWithTracking: true,
+};
+
+export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType = 'minifig' }: ListingGeneratorFormProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [showDetailedForm, setShowDetailedForm] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [preview, setPreview] = useState<any>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTitle, setEditedTitle] = useState('');
+  const [editedDescription, setEditedDescription] = useState('');
+
+  // Load preferences from localStorage
+  const [preferences, setPreferences] = useState<ListingPreferences>(DEFAULT_PREFERENCES);
+  const [lastUsed, setLastUsed] = useState<{
+    platform: 'facebook' | 'ebay' | 'bricklink' | 'vinted';
+    condition: string;
+  }>({
+    platform: 'facebook',
+    condition: 'new'
+  });
+
+  // Helper function to get smart condition default
+  const getSmartConditionDefault = (platform: string, itemCondition: string): string => {
+    // If item is new, always use "new" for each platform
+    if (itemCondition === 'new') {
+      return 'new';
+    }
+
+    // If item is used, check if we have a saved preference for this platform
+    const savedConditions = localStorage.getItem('listingConditionsByPlatform');
+    if (savedConditions) {
+      const conditions = JSON.parse(savedConditions);
+      const savedCondition = conditions[platform];
+      if (savedCondition) {
+        return savedCondition;
+      }
+    }
+
+    // Default to "like_new" for used items if no preference saved
+    return 'like_new';
+  };
+
+  useEffect(() => {
+    const saved = localStorage.getItem('listingPreferences');
+    if (saved) {
+      setPreferences(JSON.parse(saved));
+    }
+
+    const savedLastUsed = localStorage.getItem('listingLastUsed');
+    if (savedLastUsed) {
+      const lastUsedData = JSON.parse(savedLastUsed);
+      setLastUsed(lastUsedData);
+
+      // Set form defaults: last used platform + smart condition
+      const smartCondition = getSmartConditionDefault(lastUsedData.platform, item.condition);
+      setFormData(prev => ({
+        ...prev,
+        platform: lastUsedData.platform,
+        condition_detail: smartCondition
+      }));
+    }
+  }, [item.condition]);
+
+  // Reset fields when item changes
+  useEffect(() => {
+    setFormData(prev => ({
+      ...prev,
+      accessories: '',
+      known_flaws: '',
+      box_condition: 'opened_new',
+      completeness: 'complete_verified',
+      building_status: 'unbuilt',
+      instructions_included: true,
+      minifigures_included: true,
+      set_notes: '',
+      quantity: 1
+    }));
+    setPreview(null);
+    setShowDetailedForm(false);
+  }, [item.id, item.condition]);
+
+  const [formData, setFormData] = useState({
+    platform: 'facebook' as 'facebook' | 'ebay' | 'bricklink' | 'vinted',
+    condition_detail: item.condition || 'new',
+    // Minifig fields
+    accessories: '',
+    known_flaws: '',
+    // Set fields
+    box_condition: 'opened_new',
+    completeness: 'complete_verified',
+    building_status: 'unbuilt',
+    instructions_included: true,
+    minifigures_included: true,
+    set_notes: '',
+    quantity: 1
+  });
+
+  // Update condition when platform changes
+  const handlePlatformChange = (newPlatform: 'facebook' | 'ebay' | 'bricklink' | 'vinted') => {
+    setFormData(prev => ({
+      ...prev,
+      platform: newPlatform
+    }));
+  };
+
+  const handleGenerate = async () => {
+    setLoading(true);
+    try {
+      const endpoint = itemType === 'set'
+        ? `/api/set-inventory/${item.id}/generate-listing`
+        : `/api/inventory/${item.id}/generate-listing`;
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          preferences
+        })
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setPreview(data.listing);
+        setEditedTitle(data.listing.title);
+        setEditedDescription(data.listing.description);
+        setIsEditing(false);
+        setShowDetailedForm(false); // Close form to show preview
+
+        // Save preferences and last used settings
+        localStorage.setItem('listingPreferences', JSON.stringify(preferences));
+        const lastUsedData = {
+          platform: formData.platform,
+          condition: formData.condition_detail
+        };
+        setLastUsed(lastUsedData);
+        localStorage.setItem('listingLastUsed', JSON.stringify(lastUsedData));
+
+        // Save condition preference per platform (for used items)
+        if (item.condition === 'used') {
+          const savedConditions = localStorage.getItem('listingConditionsByPlatform');
+          const conditions = savedConditions ? JSON.parse(savedConditions) : {};
+          conditions[formData.platform] = formData.condition_detail;
+          localStorage.setItem('listingConditionsByPlatform', JSON.stringify(conditions));
+        }
+      } else {
+        alert(data.error || 'Failed to generate listing');
+      }
+    } catch (error) {
+      alert('Failed to generate listing');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  // Quick generate with last used defaults
+  const handleQuickGenerate = async () => {
+    onOpen?.(); // Clear parent success messages
+
+    // Use last used platform + smart condition based on item
+    const smartCondition = getSmartConditionDefault(lastUsed.platform, item.condition);
+    const quickFormData = {
+      platform: lastUsed.platform,
+      condition_detail: smartCondition,
+      accessories: '',
+      known_flaws: '',
+      box_condition: 'sealed',
+      completeness: 'complete_verified',
+      building_status: 'unbuilt',
+      instructions_included: true,
+      minifigures_included: true,
+      set_notes: '',
+      quantity: 1
+    };
+
+    setLoading(true);
+    try {
+      const endpoint = itemType === 'set'
+        ? `/api/set-inventory/${item.id}/generate-listing`
+        : `/api/inventory/${item.id}/generate-listing`;
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...quickFormData,
+          preferences
+        })
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setPreview(data.listing);
+        setEditedTitle(data.listing.title);
+        setEditedDescription(data.listing.description);
+        setIsEditing(false);
+        setIsOpen(true);
+        setShowDetailedForm(false);
+        setFormData(quickFormData); // Update formData so price displays correctly
+
+        // Save last used settings
+        const lastUsedData = {
+          platform: quickFormData.platform,
+          condition: quickFormData.condition_detail
+        };
+        setLastUsed(lastUsedData);
+        localStorage.setItem('listingLastUsed', JSON.stringify(lastUsedData));
+
+        // Save condition preference per platform (for used items)
+        if (item.condition === 'used') {
+          const savedConditions = localStorage.getItem('listingConditionsByPlatform');
+          const conditions = savedConditions ? JSON.parse(savedConditions) : {};
+          conditions[quickFormData.platform] = quickFormData.condition_detail;
+          localStorage.setItem('listingConditionsByPlatform', JSON.stringify(conditions));
+        }
+      } else {
+        alert(data.error || 'Failed to generate listing');
+      }
+    } catch (error) {
+      alert('Failed to generate listing');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Check if user has generated listings before
+  const hasUsageHistory = localStorage.getItem('listingLastUsed') !== null;
+
+  if (!isOpen) {
+    return (
+      <div style={{ marginTop: '24px' }}>
+        {!hasUsageHistory && (
+          <div style={{
+            marginBottom: '12px',
+            padding: '12px',
+            backgroundColor: '#eff6ff',
+            borderRadius: '6px',
+            fontSize: 'var(--text-xs)',
+            color: '#1e40af',
+            border: '1px solid #dbeafe'
+          }}>
+            💡 <strong>First time?</strong> Use the settings icon to customize your listing preferences (platform, condition, etc). Generate Listing will remember them for next time!
+          </div>
+        )}
+        <div style={{ display: 'flex', gap: '12px' }}>
+          <button
+            onClick={handleQuickGenerate}
+            disabled={loading}
+            style={{
+              flex: 1,
+              padding: '14px 20px',
+              backgroundColor: loading ? '#a3a3a3' : '#3b82f6',
+              color: '#ffffff',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: 'var(--text-sm)',
+              fontWeight: '600',
+              cursor: loading ? 'not-allowed' : 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              transition: 'all 0.2s'
+            }}
+            onMouseEnter={(e) => {
+              if (!loading) e.currentTarget.style.background = '#2563eb';
+            }}
+            onMouseLeave={(e) => {
+              if (!loading) e.currentTarget.style.background = '#3b82f6';
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+            </svg>
+            {loading ? 'Generating Listing...' : 'Generate Listing'}
+          </button>
+        <button
+          onClick={() => {
+            onOpen?.(); // Clear parent success messages
+            setIsOpen(true);
+            setShowDetailedForm(true);
+            // Set defaults to last used when opening
+            setFormData(prev => ({
+              ...prev,
+              platform: lastUsed.platform,
+              condition_detail: lastUsed.condition
+            }));
+          }}
+          title="Customize options"
+          style={{
+            padding: '14px 16px',
+            backgroundColor: '#ffffff',
+            color: '#525252',
+            border: '1px solid #e5e5e5',
+            borderRadius: '8px',
+            fontSize: 'var(--text-sm)',
+            fontWeight: '600',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
+            transition: 'all 0.2s'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = '#f5f5f5';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = '#ffffff';
+          }}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{
+      marginTop: '24px',
+      padding: '24px',
+      border: '1px solid #e5e5e5',
+      borderRadius: '12px',
+      backgroundColor: '#ffffff'
+    }}>
+      {preview && !showDetailedForm ? (
+        <>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+            <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', margin: 0 }}>Generated Listing</h3>
+            <button
+              onClick={() => setShowDetailedForm(true)}
+              title="Adjust Settings"
+              style={{
+                  width: '40px',
+                  height: '40px',
+                  padding: '0',
+                  backgroundColor: '#ffffff',
+                  color: '#525252',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#f5f5f5';
+                  e.currentTarget.style.borderColor = '#d4d4d4';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#ffffff';
+                  e.currentTarget.style.borderColor = '#e5e5e5';
+                }}
+              >
+                <svg width="var(--icon-base)" height="var(--icon-base)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+              </button>
+          </div>
+
+          <div style={{ marginBottom: '24px' }}>
+            <div style={{ marginBottom: '16px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                <strong style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: '#171717' }}>Title:</strong>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(editedTitle);
+                  }}
+                  style={{
+                    padding: '8px 16px',
+                    backgroundColor: '#ffffff',
+                    color: '#3b82f6',
+                    border: '2px solid #3b82f6',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-xs)',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#eff6ff';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#ffffff';
+                  }}
+                >
+                  Copy Title
+                </button>
+              </div>
+              <textarea
+                value={editedTitle}
+                onChange={(e) => setEditedTitle(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  backgroundColor: '#f9fafb',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '8px',
+                  fontSize: 'var(--text-sm)',
+                  fontFamily: 'inherit',
+                  minHeight: '60px',
+                  resize: 'vertical',
+                  lineHeight: '1.5'
+                }}
+              />
+            </div>
+
+            {/* Suggested Price */}
+            <div style={{ marginBottom: '16px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                <strong style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: '#171717' }}>Price:</strong>
+                <button
+                  onClick={() => {
+                    const price = (formData.platform === 'facebook' || formData.platform === 'vinted')
+                      ? Math.round(item.pricing?.suggestedPrice ?? 0).toString()
+                      : (item.pricing?.suggestedPrice ?? 0).toFixed(2);
+                    navigator.clipboard.writeText(price);
+                  }}
+                  style={{
+                    padding: '8px 16px',
+                    backgroundColor: '#ffffff',
+                    color: '#3b82f6',
+                    border: '2px solid #3b82f6',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-xs)',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#eff6ff';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#ffffff';
+                  }}
+                >
+                  Copy Price
+                </button>
+              </div>
+              <div style={{ padding: '12px', backgroundColor: '#f9fafb', borderRadius: '8px', fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717' }}>
+                {(formData.platform === 'facebook' || formData.platform === 'vinted')
+                  ? `$${Math.round(item.pricing?.suggestedPrice ?? 0)}`
+                  : `$${(item.pricing?.suggestedPrice ?? 0).toFixed(2)}`
+                }
+                {(formData.platform === 'facebook' || formData.platform === 'vinted') && (
+                  <span style={{ fontSize: 'var(--text-xs)', color: '#737373', marginLeft: '8px', fontWeight: 'normal' }}>
+                    (whole number)
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                <strong style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: '#171717' }}>Description:</strong>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(editedDescription);
+                  }}
+                  style={{
+                    padding: '8px 16px',
+                    backgroundColor: '#ffffff',
+                    color: '#3b82f6',
+                    border: '2px solid #3b82f6',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-xs)',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#eff6ff';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#ffffff';
+                  }}
+                >
+                  Copy Description
+                </button>
+              </div>
+              <textarea
+                value={editedDescription}
+                onChange={(e) => setEditedDescription(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  backgroundColor: '#f9fafb',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '8px',
+                  fontSize: 'var(--text-sm)',
+                  fontFamily: 'inherit',
+                  minHeight: '200px',
+                  resize: 'vertical',
+                  lineHeight: '1.6'
+                }}
+              />
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                setPreview(null);
+                setIsEditing(false);
+                setShowDetailedForm(false);
+              }}
+              style={{
+                flex: 1,
+                padding: '14px 24px',
+                backgroundColor: '#3b82f6',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: 'var(--text-sm)',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#2563eb';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#3b82f6';
+              }}
+            >
+              Done
+            </button>
+          </div>
+        </>
+      ) : showDetailedForm ? (
+        <>
+          <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', margin: 0, marginBottom: '24px' }}>
+            {preview ? 'Adjust Settings' : 'Generate Listing'}
+          </h3>
+
+          {/* Platform Selection */}
+          <div style={{ marginBottom: '16px' }}>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Platform:</label>
+            <select
+              value={formData.platform}
+              onChange={(e) => handlePlatformChange(e.target.value as 'facebook' | 'ebay' | 'bricklink' | 'vinted')}
+              style={{
+                width: '100%',
+                padding: '12px 16px',
+                border: '1px solid #e5e5e5',
+                borderRadius: '8px',
+                fontSize: 'var(--text-sm)',
+                backgroundColor: '#ffffff',
+                cursor: 'pointer',
+                appearance: 'none',
+                backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'%23737373\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 9l-7 7-7-7\'/%3E%3C/svg%3E")',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'right 12px center',
+                backgroundSize: '20px',
+                paddingRight: '40px'
+              }}
+            >
+              <option value="ebay">eBay</option>
+              <option value="facebook">Facebook Marketplace</option>
+              <option value="bricklink">BrickLink</option>
+              <option value="vinted">Vinted</option>
+            </select>
+          </div>
+
+          {/* Condition */}
+          <div style={{ marginBottom: '16px' }}>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Condition:</label>
+            <select
+              value={formData.condition_detail}
+              onChange={(e) => {
+                const newCondition = e.target.value;
+                setFormData(prev => ({
+                  ...prev,
+                  condition_detail: newCondition,
+                  // Reset box/building status based on condition
+                  box_condition: newCondition === 'new' ? 'opened_new' : 'with_box',
+                  building_status: 'unbuilt'
+                }));
+              }}
+              style={{
+                width: '100%',
+                padding: '12px 16px',
+                border: '1px solid #e5e5e5',
+                borderRadius: '8px',
+                fontSize: 'var(--text-sm)',
+                backgroundColor: '#ffffff',
+                cursor: 'pointer',
+                appearance: 'none',
+                backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'%23737373\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 9l-7 7-7-7\'/%3E%3C/svg%3E")',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'right 12px center',
+                backgroundSize: '20px',
+                paddingRight: '40px'
+              }}
+            >
+              {formData.platform === 'facebook' && (
+                <>
+                  <option value="new">New</option>
+                  <option value="like_new">Like new</option>
+                  <option value="good">Good</option>
+                  <option value="fair">Fair</option>
+                </>
+              )}
+              {formData.platform === 'ebay' && (
+                <>
+                  <option value="new">New</option>
+                  <option value="like_new">Like New</option>
+                  <option value="very_good">Very Good</option>
+                  <option value="good">Good</option>
+                  <option value="acceptable">Acceptable</option>
+                </>
+              )}
+              {formData.platform === 'bricklink' && (
+                <>
+                  <option value="new">New</option>
+                  <option value="like_new">Used - Like New</option>
+                  <option value="very_good">Used - Very Good</option>
+                  <option value="good">Used - Good</option>
+                  <option value="acceptable">Used - Acceptable</option>
+                </>
+              )}
+              {formData.platform === 'vinted' && (
+                <>
+                  <option value="new">New with tags</option>
+                  <option value="like_new">Very good</option>
+                  <option value="good">Good</option>
+                  <option value="fair">Satisfactory</option>
+                </>
+              )}
+            </select>
+          </div>
+
+          {/* Minifig-specific fields */}
+          {itemType === 'minifig' && (
+            <>
+              {/* Accessories */}
+              <div style={{ marginBottom: '16px' }}>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Accessories Included:</label>
+                <textarea
+                  placeholder="Helmet, blasters, cape..."
+                  value={formData.accessories}
+                  onChange={(e) => setFormData(prev => ({ ...prev, accessories: e.target.value }))}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-sm)',
+                    minHeight: '80px',
+                    fontFamily: 'inherit',
+                    resize: 'vertical',
+                    lineHeight: '1.5'
+                  }}
+                />
+              </div>
+
+              {/* Known Flaws */}
+              <div style={{ marginBottom: '16px' }}>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Known Flaws (optional):</label>
+                <textarea
+                  placeholder="Minor print wear, loose joints..."
+                  value={formData.known_flaws}
+                  onChange={(e) => setFormData(prev => ({ ...prev, known_flaws: e.target.value }))}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-sm)',
+                    minHeight: '80px',
+                    fontFamily: 'inherit',
+                    resize: 'vertical',
+                    lineHeight: '1.5'
+                  }}
+                />
+              </div>
+            </>
+          )}
+
+          {/* Set-specific fields */}
+          {itemType === 'set' && (
+            <>
+              {/* Box Condition */}
+              <div style={{ marginBottom: '16px' }}>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Box Condition:</label>
+                <select
+                  value={formData.box_condition}
+                  onChange={(e) => setFormData(prev => ({ ...prev, box_condition: e.target.value }))}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-sm)',
+                    background: '#ffffff'
+                  }}
+                >
+                  {formData.condition_detail === 'new' ? (
+                    <>
+                      <option value="sealed">Sealed (never opened)</option>
+                      <option value="opened_new">Opened (set still new/unbuilt)</option>
+                      <option value="no_box">No box</option>
+                    </>
+                  ) : (
+                    <>
+                      <option value="with_box">Box included</option>
+                      <option value="no_box">No box</option>
+                    </>
+                  )}
+                </select>
+              </div>
+
+              {/* Building Status */}
+              <div style={{ marginBottom: '16px' }}>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Building Status:</label>
+                <select
+                  value={formData.building_status}
+                  onChange={(e) => setFormData(prev => ({ ...prev, building_status: e.target.value }))}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-sm)',
+                    background: '#ffffff'
+                  }}
+                >
+                  {formData.condition_detail === 'new' ? (
+                    <>
+                      <option value="unbuilt">Unbuilt (bags sealed)</option>
+                    </>
+                  ) : (
+                    <>
+                      <option value="unbuilt">Unassembled</option>
+                      <option value="partially_built">Partially built</option>
+                      <option value="fully_built">Fully built</option>
+                      <option value="disassembled">Built then disassembled</option>
+                    </>
+                  )}
+                </select>
+              </div>
+
+              {/* Completeness */}
+              <div style={{ marginBottom: '16px' }}>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Completeness:</label>
+                <select
+                  value={formData.completeness}
+                  onChange={(e) => setFormData(prev => ({ ...prev, completeness: e.target.value }))}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-sm)',
+                    background: '#ffffff'
+                  }}
+                >
+                  <option value="complete_verified">100% complete (verified piece count)</option>
+                  <option value="appears_complete">Appears complete (not verified)</option>
+                  <option value="missing_minor">Missing minor pieces</option>
+                  <option value="missing_major">Missing some pieces</option>
+                </select>
+              </div>
+
+              {/* Instructions & Minifigures checkboxes */}
+              <div style={{ marginBottom: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={formData.instructions_included}
+                    onChange={(e) => setFormData(prev => ({ ...prev, instructions_included: e.target.checked }))}
+                    style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                  />
+                  <span style={{ fontSize: 'var(--text-sm)', color: '#171717' }}>Instructions included</span>
+                </label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={formData.minifigures_included}
+                    onChange={(e) => setFormData(prev => ({ ...prev, minifigures_included: e.target.checked }))}
+                    style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                  />
+                  <span style={{ fontSize: 'var(--text-sm)', color: '#171717' }}>All minifigures included</span>
+                </label>
+              </div>
+
+              {/* Additional Notes */}
+              <div style={{ marginBottom: '16px' }}>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Additional Notes (optional):</label>
+                <textarea
+                  placeholder="Any other details about the set condition..."
+                  value={formData.set_notes}
+                  onChange={(e) => setFormData(prev => ({ ...prev, set_notes: e.target.value }))}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    fontSize: 'var(--text-sm)',
+                    minHeight: '80px',
+                    fontFamily: 'inherit',
+                    resize: 'vertical',
+                    lineHeight: '1.5'
+                  }}
+                />
+              </div>
+            </>
+          )}
+
+          {/* Quantity */}
+          <div style={{ marginBottom: '24px' }}>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Quantity to List:</label>
+            <input
+              type="number"
+              min="1"
+              max={item.quantity}
+              value={formData.quantity}
+              onChange={(e) => setFormData(prev => ({ ...prev, quantity: parseInt(e.target.value) || 1 }))}
+              style={{
+                width: '100%',
+                padding: '12px 16px',
+                border: '1px solid #e5e5e5',
+                borderRadius: '8px',
+                fontSize: 'var(--text-sm)'
+              }}
+            />
+          </div>
+
+          {/* Preferences */}
+          <div style={{ marginBottom: '24px', padding: '16px', backgroundColor: '#f9fafb', borderRadius: '8px', border: '1px solid #e5e5e5' }}>
+            <label style={{ display: 'block', marginBottom: '12px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Include in listing:</label>
+
+            <div style={{ display: 'grid', gap: '8px' }}>
+              {/* Facebook-specific */}
+              {formData.platform === 'facebook' && (
+                <>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={preferences.offersShipping}
+                      onChange={(e) => setPreferences(prev => ({ ...prev, offersShipping: e.target.checked }))}
+                    />
+                    I offer shipping
+                  </label>
+
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={preferences.offersLocalPickup}
+                      onChange={(e) => setPreferences(prev => ({ ...prev, offersLocalPickup: e.target.checked }))}
+                    />
+                    I offer local pickup
+                  </label>
+
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={preferences.offersBundleDiscount}
+                      onChange={(e) => setPreferences(prev => ({ ...prev, offersBundleDiscount: e.target.checked }))}
+                    />
+                    Bundle discounts available
+                  </label>
+
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={preferences.acceptsCash}
+                      onChange={(e) => setPreferences(prev => ({ ...prev, acceptsCash: e.target.checked }))}
+                    />
+                    Accept cash
+                  </label>
+
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={preferences.acceptsVenmo}
+                      onChange={(e) => setPreferences(prev => ({ ...prev, acceptsVenmo: e.target.checked }))}
+                    />
+                    Accept Venmo
+                  </label>
+
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={preferences.acceptsPayPal}
+                      onChange={(e) => setPreferences(prev => ({ ...prev, acceptsPayPal: e.target.checked }))}
+                    />
+                    Accept PayPal
+                  </label>
+                </>
+              )}
+
+              {/* eBay-specific */}
+              {formData.platform === 'ebay' && (
+                <>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={preferences.acceptsOffers}
+                      onChange={(e) => setPreferences(prev => ({ ...prev, acceptsOffers: e.target.checked }))}
+                    />
+                    Offers accepted - "Make Offer" enabled
+                  </label>
+
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={preferences.fastShipping}
+                      onChange={(e) => setPreferences(prev => ({ ...prev, fastShipping: e.target.checked }))}
+                    />
+                    Ships fast and securely
+                  </label>
+
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={preferences.carefulPackaging}
+                      onChange={(e) => setPreferences(prev => ({ ...prev, carefulPackaging: e.target.checked }))}
+                    />
+                    Carefully packaged in protective material
+                  </label>
+
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={preferences.messageWithQuestions}
+                      onChange={(e) => setPreferences(prev => ({ ...prev, messageWithQuestions: e.target.checked }))}
+                    />
+                    "Feel free to message with any questions"
+                  </label>
+                </>
+              )}
+
+              {/* BrickLink-specific */}
+              {formData.platform === 'bricklink' && (
+                <>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={preferences.shipsWithTracking}
+                      onChange={(e) => setPreferences(prev => ({ ...prev, shipsWithTracking: e.target.checked }))}
+                    />
+                    Shipped with tracking
+                  </label>
+
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={preferences.carefulPackaging}
+                      onChange={(e) => setPreferences(prev => ({ ...prev, carefulPackaging: e.target.checked }))}
+                    />
+                    Carefully packaged
+                  </label>
+
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={preferences.messageWithQuestions}
+                      onChange={(e) => setPreferences(prev => ({ ...prev, messageWithQuestions: e.target.checked }))}
+                    />
+                    "Contact with questions before purchasing"
+                  </label>
+                </>
+              )}
+
+              {/* Vinted-specific */}
+              {formData.platform === 'vinted' && (
+                <>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={preferences.offersBundleDiscount}
+                      onChange={(e) => setPreferences(prev => ({ ...prev, offersBundleDiscount: e.target.checked }))}
+                    />
+                    Bundle discounts available
+                  </label>
+                </>
+              )}
+
+              {/* Common to all platforms */}
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                <input
+                  type="checkbox"
+                  checked={preferences.smokeFreeHome}
+                  onChange={(e) => setPreferences(prev => ({ ...prev, smokeFreeHome: e.target.checked }))}
+                />
+                From smoke-free home
+              </label>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
+            <button
+              onClick={() => {
+                if (preview) {
+                  setShowDetailedForm(false);
+                } else {
+                  setIsOpen(false);
+                }
+              }}
+              style={{
+                padding: '14px 24px',
+                backgroundColor: '#ffffff',
+                color: '#525252',
+                border: '1px solid #e5e5e5',
+                borderRadius: '8px',
+                fontSize: 'var(--text-sm)',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#f5f5f5';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#ffffff';
+              }}
+            >
+              {preview ? 'Cancel' : 'Cancel'}
+            </button>
+            <button
+              onClick={handleGenerate}
+              disabled={loading}
+              style={{
+                flex: 1,
+                padding: '14px 24px',
+                backgroundColor: loading ? '#9ca3af' : '#3b82f6',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: 'var(--text-sm)',
+                fontWeight: '600',
+                cursor: loading ? 'not-allowed' : 'pointer',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                if (!loading) e.currentTarget.style.backgroundColor = '#2563eb';
+              }}
+              onMouseLeave={(e) => {
+                if (!loading) e.currentTarget.style.backgroundColor = '#3b82f6';
+              }}
+            >
+              {loading ? 'Generating...' : preview ? 'Regenerate' : 'Generate Listing'}
+            </button>
+          </div>
+        </>
+      ) : null}
+    </div>
+  );
+}

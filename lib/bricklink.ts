@@ -967,10 +967,10 @@ export class BricklinkAPI {
    * Used for fetching which minifigs appear in which sets
    */
   async getSubsets(setNo: string): Promise<any> {
-    const url = `https://api.bricklink.com/api/store/v1/items/SET/${setNo}/subsets`;
+    const endpoint = `/items/SET/${setNo}/subsets`;
 
     try {
-      const response = await this.makeRequest(url);
+      const response = await this.makeRequest(endpoint);
       return response;
     } catch (error) {
       console.error(`[BRICKLINK API] Error fetching subsets for ${setNo}:`, error);
