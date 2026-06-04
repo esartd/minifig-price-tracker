@@ -60,7 +60,7 @@ const SINGAPORE_IP_RANGES = [
   { start: '14.0.0.0', end: '14.127.255.255' },        // Various ISPs
   { start: '27.50.0.0', end: '27.63.255.255' },        // StarHub
   { start: '42.60.0.0', end: '42.63.255.255' },        // AWS Singapore
-  { start: '43.224.0.0', end: '43.255.255.255' },      // Various cloud providers
+  { start: '43.128.0.0', end: '43.255.255.255' },      // Various cloud providers (expanded)
   { start: '45.64.0.0', end: '45.127.255.255' },       // Cloud/datacenter ranges
   { start: '49.128.0.0', end: '49.159.255.255' },      // Various ISPs
   { start: '54.169.0.0', end: '54.169.255.255' },      // AWS Singapore
