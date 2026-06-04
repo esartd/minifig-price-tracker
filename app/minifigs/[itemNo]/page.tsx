@@ -94,7 +94,7 @@ export async function generateMetadata({
   let priceString = '';
   try {
     const { bricklinkAPI } = await import('@/lib/bricklink');
-    const pricing = await bricklinkAPI.calculatePricingData(itemNo, 'new', 'US', '');
+    const pricing = await bricklinkAPI.calculatePricingData(itemNo, 'new', 'US', '', undefined, 'minifig-page-metadata');
     if (pricing && pricing.currentLowest > 0) {
       priceString = ` - $${pricing.currentLowest.toFixed(2)}`;
     }
@@ -417,7 +417,9 @@ export default async function MinifigPage({
       itemNo,
       'new',
       'US',
-      ''
+      '',
+      undefined,
+      'minifig-page-render'
     );
   } catch (error) {
     console.error('[MINIFIG PAGE] Failed to fetch pricing for schema:', error);

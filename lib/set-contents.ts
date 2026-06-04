@@ -61,7 +61,8 @@ export async function fetchSetContents(
   try {
     const { bricklinkAPI } = await import('@/lib/bricklink');
 
-    const response = await bricklinkAPI.getSubsets(setNo);
+    const apiSource = source === 'cron_seed' ? 'cron-seed' : 'user-request';
+    const response = await bricklinkAPI.getSubsets(setNo, apiSource);
 
     // BrickLink getSubsets returns array of subset groups directly
     if (!response || !Array.isArray(response)) {

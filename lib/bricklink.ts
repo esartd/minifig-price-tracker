@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import { Minifigure, PriceGuide, PricingData, SetInfo } from '@/types';
 import { prisma, prismaPublic } from './prisma';
 import { getCurrencyByCountryCode } from './currency-config';
+import { logBrickLinkCall, type BrickLinkCallLog } from './bricklink-call-logger';
 
 // Manual name enhancements for minifigs with poor Bricklink API names
 // These are searchable, accurate names that help users find what they're looking for
@@ -138,11 +139,16 @@ export class BricklinkAPI {
   private async makeRequest(endpoint: string, method = 'GET'): Promise<any> {
     // BLOCK all API calls on localhost to preserve production limits
     const isLocal = this.isLocalhost();
-    console.log(`Bricklink API call check: isLocalhost=${isLocal}, NODE_ENV=${process.env.NODE_ENV}, NEXTAUTH_URL=${process.env.NEXTAUTH_URL}`);
+    const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build';
+    console.log(`[BrickLink API] ${endpoint} | build=${isBuildTime} | localhost=${isLocal} | NODE_ENV=${process.env.NODE_ENV}`);
 
     if (isLocal) {
       console.warn('🚫 Bricklink API blocked on localhost - use production for real data');
       return null;
+    }
+
+    if (isBuildTime) {
+      console.warn(`⚠️  [BUILD-TIME API CALL] ${endpoint} | This counts toward 5,000/day limit!`);
     }
 
     const url = `${this.baseURL}${endpoint}`;
@@ -428,9 +434,11 @@ export class BricklinkAPI {
     condition: 'new' | 'used',
     countryCode: string = 'US',
     region: string = 'north_america',
-    userId?: string
+    userId?: string,
+    callSource?: BrickLinkCallLog['source']
   ): Promise<PricingData> {
-    console.log(`[calculatePricingData] START: ${itemNo}, condition=${condition}, country=${countryCode}`);
+    const source = callSource || 'unknown';
+    console.log(`[calculatePricingData] START: ${itemNo}, condition=${condition}, country=${countryCode}, source=${source}`);
     const conditionCode = condition === 'new' ? 'N' : 'U';
 
     // Note: countryCode is used for cache key (to separate USD from GBP prices)
@@ -470,12 +478,26 @@ export class BricklinkAPI {
     const currencyCodeValue = currencyConfig?.code || 'USD';
 
     // Cache miss or expired - fetch BOTH stock and sold data from API with currency conversion
+    // LOG: Stock API call
+    logBrickLinkCall({
+      endpoint: `/items/MINIFIG/${itemNo}/price?guide_type=stock`,
+      source,
+      itemNo
+    });
+
     // Fetch stock data (current listings)
     const stockPriceGuide = await this.getPriceGuide(itemNo, conditionCode, countryCode, region, currencyCodeValue, 'stock');
     console.log(`[calculatePricingData] Stock API response for ${itemNo}:`, stockPriceGuide ? 'SUCCESS' : 'NULL');
 
     // Wait 3 seconds between API calls (BrickLink rate limit)
     await new Promise(resolve => setTimeout(resolve, 3000));
+
+    // LOG: Sold API call
+    logBrickLinkCall({
+      endpoint: `/items/MINIFIG/${itemNo}/price?guide_type=sold`,
+      source,
+      itemNo
+    });
 
     // Fetch sold data (historical sales)
     const soldPriceGuide = await this.getPriceGuide(itemNo, conditionCode, countryCode, region, currencyCodeValue, 'sold');
@@ -966,8 +988,16 @@ export class BricklinkAPI {
    * Get subsets for a set (parts, minifigs, etc.)
    * Used for fetching which minifigs appear in which sets
    */
-  async getSubsets(setNo: string): Promise<any> {
+  async getSubsets(setNo: string, callSource?: BrickLinkCallLog['source']): Promise<any> {
     const endpoint = `/items/SET/${setNo}/subsets`;
+    const source = callSource || 'unknown';
+
+    // LOG: Set contents API call
+    logBrickLinkCall({
+      endpoint,
+      source,
+      itemNo: setNo
+    });
 
     try {
       const response = await this.makeRequest(endpoint);
