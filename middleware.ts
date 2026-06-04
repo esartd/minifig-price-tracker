@@ -119,10 +119,7 @@ export function middleware(request: NextRequest) {
               request.headers.get('x-real-ip') ||
               'unknown';
 
-  // Log all traffic for debugging (remove after investigation)
-  if (Math.random() < 0.01) { // 1% sampling to avoid log spam
-    console.log(`[TRAFFIC SAMPLE] IP: ${ip}, UA: ${userAgent.substring(0, 80)}, Path: ${pathname}`)
-  }
+  // Traffic sampling removed - Singapore blocking is working
 
   // Block Singapore traffic (before user-agent checks)
   // Note: Legitimate search engines are allowed later in the flow
