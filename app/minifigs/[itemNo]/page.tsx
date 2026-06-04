@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { findMinifigByNumber, getMinifigsByCategoryId } from '@/lib/catalog-static';
 import MinifigDetailClient from '@/components/minifig-detail-client';
+import Breadcrumb from '@/components/breadcrumb';
 
 // Force dynamic rendering - required for filesystem access and database queries
 export const dynamic = 'force-dynamic';
@@ -481,6 +482,14 @@ export default async function MinifigPage({
     ]
   };
 
+  // Prepare breadcrumb items for UI component
+  const breadcrumbItems = [
+    { name: 'Home', href: '/' },
+    { name: 'Themes', href: '/themes' },
+    { name: parentTheme, href: `/themes/${themeSlug}` },
+    { name: minifig.name }, // Last item has no href
+  ];
+
   return (
     <>
       <script
@@ -491,6 +500,9 @@ export default async function MinifigPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 16px' }}>
+        <Breadcrumb items={breadcrumbItems} />
+      </div>
       <MinifigDetailClient minifig={minifigData} variants={variantsData} similarSets={similarSetsData} appearsInSets={appearsInSets} />
     </>
   );
