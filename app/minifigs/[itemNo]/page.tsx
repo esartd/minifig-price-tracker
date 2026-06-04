@@ -85,8 +85,21 @@ export async function generateMetadata({
     ? description.split('. ').slice(0, 2).join('. ') + '.'
     : `${minifig.category_name} - ${fullName}. Track current BrickLink prices, see market value, and manage your collection. Add to sell or keep. Released ${minifig.year_released || 'date unknown'}.`;
 
+  // Fetch current price for title (non-blocking, use cache if available)
+  let priceString = '';
+  try {
+    const { bricklinkAPI } = await import('@/lib/bricklink');
+    const pricing = await bricklinkAPI.calculatePricingData(itemNo, 'new', 'US', '');
+    if (pricing && pricing.currentLowest > 0) {
+      priceString = ` - $${pricing.currentLowest.toFixed(2)}`;
+    }
+  } catch (error) {
+    // Silent fail - if pricing unavailable, just show title without price
+    console.error('[METADATA] Failed to fetch price for title:', error);
+  }
+
   return {
-    title: `${fullName} (${minifig.minifigure_no}) - LEGO Minifigure Price Guide`,
+    title: `${fullName} (${minifig.minifigure_no})${priceString} | LEGO Minifigure Price Tracker`,
     description: metaDescription,
     keywords: [
       'LEGO minifigure',
@@ -427,10 +440,10 @@ export default async function MinifigPage({
       '@type': 'AggregateOffer',
       priceCurrency: 'USD',
       availability: 'https://schema.org/PreOrder', // Collectible items are typically pre-owned
-      ...(pricingData && pricingData.current_lowest > 0 && {
-        lowPrice: pricingData.current_lowest.toFixed(2),
-        highPrice: (pricingData.current_highest || pricingData.current_lowest * 2).toFixed(2),
-        offerCount: pricingData.total_quantity || 1,
+      ...(pricingData && pricingData.currentLowest > 0 && {
+        lowPrice: pricingData.currentLowest.toFixed(2),
+        highPrice: (pricingData.currentHighest || pricingData.currentLowest * 2).toFixed(2),
+        offerCount: pricingData.totalQuantity || 1,
       }),
       url: `https://www.bricklink.com/v2/catalog/catalogitem.page?M=${minifig.minifigure_no}`
     }
