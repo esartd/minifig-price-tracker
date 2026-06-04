@@ -3,6 +3,11 @@ import type { NextRequest } from 'next/server'
 import { getLocaleFromHost } from '@/lib/i18n-subdomain'
 import { rateLimit } from '@/lib/rate-limit'
 
+// Whitelisted IPs (no rate limiting)
+const WHITELISTED_IPS = [
+  '73.52.155.221', // User's IP (Erick)
+];
+
 // Legitimate search engine bots that should ALWAYS be allowed
 const ALLOWED_BOTS = [
   'googlebot',           // Google Search
@@ -93,11 +98,14 @@ export function middleware(request: NextRequest) {
     return response
   }
 
-  // Rate limiting (before bot check to catch aggressive scrapers)
-  const { allowed } = rateLimit(ip, 100, 60 * 1000); // 100 requests per minute
+  // Skip rate limiting for whitelisted IPs
+  if (!WHITELISTED_IPS.includes(ip)) {
+    // Rate limiting (before bot check to catch aggressive scrapers)
+    const { allowed } = rateLimit(ip, 100, 60 * 1000); // 100 requests per minute
 
-  if (!allowed) {
-    return new NextResponse('Too Many Requests', { status: 429 });
+    if (!allowed) {
+      return new NextResponse('Too Many Requests', { status: 429 });
+    }
   }
 
   // Block requests with suspicious user agents (only if not a legitimate bot)
