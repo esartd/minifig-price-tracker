@@ -2,13 +2,18 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getBoxByNumber, loadAllBoxes } from '@/lib/boxes-data';
 import SetDetailClient from '@/components/set-detail-client';
+import { POPULAR_SETS } from '@/lib/popular-sets';
 
-// Force dynamic rendering
-export const dynamic = 'force-dynamic';
+// ISR: Pre-render popular pages, revalidate every 6 hours
+export const revalidate = 21600; // 6 hours in seconds
 
-// Disable pre-rendering at build time
+// Generate static params for top 100 popular sets at build time
 export async function generateStaticParams() {
-  return [];
+  // Pre-generate popular sets only
+  // Other sets will be generated on-demand and cached
+  return POPULAR_SETS.map((boxNo) => ({
+    boxNo,
+  }));
 }
 
 // Generate metadata for SEO
