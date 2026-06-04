@@ -113,7 +113,9 @@ export function middleware(request: NextRequest) {
   }
 
   // Get IP address for geographic blocking
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+  // Cloudflare sends real IP in cf-connecting-ip header
+  const ip = request.headers.get('cf-connecting-ip') ||
+              request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
               request.headers.get('x-real-ip') ||
               'unknown';
 
