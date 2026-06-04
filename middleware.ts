@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { getLocaleFromHost } from '@/lib/i18n-subdomain'
-import { rateLimit } from '@/lib/rate-limit'
+import { tieredRateLimit, getTierForPath } from '@/lib/tiered-rate-limit'
 
 // Whitelisted IPs (no rate limiting)
 const WHITELISTED_IPS = [
@@ -100,11 +100,21 @@ export function middleware(request: NextRequest) {
 
   // Skip rate limiting for whitelisted IPs
   if (!WHITELISTED_IPS.includes(ip)) {
-    // Rate limiting (before bot check to catch aggressive scrapers)
-    const { allowed } = rateLimit(ip, 100, 60 * 1000); // 100 requests per minute
+    // Tiered rate limiting based on path cost
+    const pathname = request.nextUrl.pathname;
+    const { tier, config } = getTierForPath(pathname);
 
-    if (!allowed) {
-      return new NextResponse('Too Many Requests', { status: 429 });
+    // Skip rate limiting for static assets
+    if (tier !== 'STATIC') {
+      const { allowed, resetIn } = tieredRateLimit(ip, tier, config);
+
+      if (!allowed) {
+        const response = new NextResponse('Too Many Requests', { status: 429 });
+        if (resetIn) {
+          response.headers.set('Retry-After', Math.ceil(resetIn / 1000).toString());
+        }
+        return response;
+      }
     }
   }
 
