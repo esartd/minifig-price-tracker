@@ -391,18 +391,34 @@ export default async function MinifigPage({
 
   const baseUrl = domains[locale as keyof typeof domains];
 
+  // Fetch pricing data for schema.org rich snippets
+  const { calculatePricingData } = await import('@/lib/bricklink');
+  let pricingData = null;
+  try {
+    pricingData = await calculatePricingData(
+      itemNo,
+      'MINIFIG',
+      'new',
+      'US',
+      'north_america'
+    );
+  } catch (error) {
+    console.error('[MINIFIG PAGE] Failed to fetch pricing for schema:', error);
+  }
+
   // Schema.org structured data for rich search results
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: minifig.name,
-    description: `${minifig.category_name} LEGO minifigure ${minifig.minifigure_no}`,
+    description: description || `${minifig.category_name} LEGO minifigure ${minifig.minifigure_no}. Track current BrickLink prices and market value.`,
     image: `https://img.bricklink.com/ItemImage/MN/0/${minifig.minifigure_no}.png`,
     brand: {
       '@type': 'Brand',
       name: 'LEGO'
     },
     category: minifig.category_name,
+    sku: minifig.minifigure_no,
     identifier: minifig.minifigure_no,
     inLanguage: localeMap[locale as keyof typeof localeMap],
     ...(minifig.year_released && {
@@ -411,7 +427,13 @@ export default async function MinifigPage({
     offers: {
       '@type': 'AggregateOffer',
       priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock'
+      availability: 'https://schema.org/PreOrder', // Collectible items are typically pre-owned
+      ...(pricingData && pricingData.current_lowest > 0 && {
+        lowPrice: pricingData.current_lowest.toFixed(2),
+        highPrice: (pricingData.current_highest || pricingData.current_lowest * 2).toFixed(2),
+        offerCount: pricingData.total_quantity || 1,
+      }),
+      url: `https://www.bricklink.com/v2/catalog/catalogitem.page?M=${minifig.minifigure_no}`
     }
   };
 
