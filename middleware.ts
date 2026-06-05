@@ -134,10 +134,21 @@ export function middleware(request: NextRequest) {
   const referer = request.headers.get('referer') || '';
   const isDetailPage = pathname.match(/^\/minifigs\/[^/]+$/) || pathname.match(/^\/sets\/[^/]+$/);
 
-  // Suspicious: Direct access to detail pages with no referer and short user agent
-  if (isDetailPage && !referer && userAgent.length < 50) {
-    console.log(`[⚠️  SUSPICIOUS] IP: ${ip} | No referer on detail page | UA: ${userAgent.substring(0, 100)} | Path: ${pathname}`)
-    // Don't block yet, just log for monitoring
+  // AGGRESSIVE: Block direct detail page access with NO referer (likely scraper)
+  // Real users come from:
+  //   1. Search engines (google.com, bing.com) - have referer
+  //   2. Browse pages on our site (figtracker.ericksu.com) - have referer
+  //   3. Social media (twitter, reddit) - have referer
+  // Scrapers: Direct typed URLs or scripts - NO referer
+  //
+  // Exception: Allow if user is coming from our own site (internal navigation)
+  const isInternalReferer = referer && referer.includes('figtracker.ericksu.com');
+  const hasReferer = referer && referer.length > 0;
+
+  // Block: Detail page + no referer at all = scraper
+  if (isDetailPage && !hasReferer && !WHITELISTED_IPS.includes(ip)) {
+    console.log(`[🚫 SCRAPER BLOCKED] IP: ${ip} | No referer on detail page | UA: ${userAgent.substring(0, 100)} | Path: ${pathname}`)
+    return new NextResponse('Forbidden - Direct access not allowed', { status: 403 })
   }
 
   // Get locale from subdomain
