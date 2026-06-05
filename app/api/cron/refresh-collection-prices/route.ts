@@ -5,24 +5,31 @@ import { bricklinkAPI } from '@/lib/bricklink';
 /**
  * Cron job to pre-warm price cache for high-value items in collections
  *
- * Schedule: Every 6 hours (matches BrickLink cache requirement)
+ * Schedule: Twice daily during American waking hours
+ *   - 3 PM UTC = 8 AM PST / 11 AM EST (morning)
+ *   - 1 AM UTC = 5 PM PST / 8 PM EST (evening)
+ *
  * Purpose: Pre-cache high-value items for instant page loads
  *
- * STRATEGY:
+ * OPTIMIZATIONS (May 2026):
+ * - Only fetches USED items (most collections are used, saves ~50% API calls)
+ * - Runs only during American hours (most users are American)
  * - Focuses on top 300 highest-value items per run
  * - Other items refresh opportunistically when users view them
- * - Eliminates timeout issues by keeping runs short (~15 minutes)
  *
  * HOW IT WORKS:
  * 1. Find all unique (item_no, condition, currency) from all users' collections
- * 2. Check which need refresh (cache expired or missing)
- * 3. Sort by value (highest first)
- * 4. Fetch top 300 items from BrickLink API
- * 5. Save to priceCache (automatic via bricklinkAPI)
+ * 2. Filter to USED condition only (skip "new" - rarely collected)
+ * 3. Check which need refresh (cache expired or missing)
+ * 4. Sort by value (highest first)
+ * 5. Fetch top 300 items from BrickLink API
+ * 6. Save to priceCache (automatic via bricklinkAPI)
  *
  * RATE LIMITS:
  * - BrickLink: 5,000 calls/day
- * - Budget per 6-hour run: 300 calls
+ * - Budget per run: 300 items × 2 calls = 600 calls
+ * - 2 runs/day × 600 calls = 1,200 calls/day from cron
+ * - Leaves 3,800 calls for user traffic
  * - 3-second delay between calls (safety + compliance)
  * - Total time: ~15 minutes per run
  */
@@ -110,8 +117,11 @@ export async function POST(request: NextRequest) {
 
     const uniqueItems = new Map<string, ItemToRefresh>();
 
-    // Add minifigs from personal collection
+    // Add minifigs from personal collection (USED only - most items are used)
     collectionItems.forEach((item: any) => {
+      // Skip "new" condition items - waste of API calls, most collections are used
+      if (item.condition === 'new') return;
+
       const countryCode = (userCountryMap.get(item.userId) || 'US') as string;
       const key = `${item.minifigure_no}-MINIFIG-${item.condition}-${countryCode}`;
       if (!uniqueItems.has(key)) {
@@ -124,8 +134,11 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    // Add minifigs from inventory
+    // Add minifigs from inventory (USED only)
     inventoryItems.forEach((item: any) => {
+      // Skip "new" condition items
+      if (item.condition === 'new') return;
+
       const countryCode = (userCountryMap.get(item.userId) || 'US') as string;
       const key = `${item.minifigure_no}-MINIFIG-${item.condition}-${countryCode}`;
       if (!uniqueItems.has(key)) {
@@ -138,8 +151,11 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    // Add sets from collection
+    // Add sets from collection (USED only)
     setCollectionItems.forEach((item: any) => {
+      // Skip "new" condition items
+      if (item.condition === 'new') return;
+
       const countryCode = (userCountryMap.get(item.userId) || 'US') as string;
       const key = `${item.box_no}-SET-${item.condition}-${countryCode}`;
       if (!uniqueItems.has(key)) {
@@ -152,8 +168,11 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    // Add sets from inventory
+    // Add sets from inventory (USED only)
     setInventoryMinifigs.forEach((item: any) => {
+      // Skip "new" condition items
+      if (item.condition === 'new') return;
+
       const countryCode = (userCountryMap.get(item.userId) || 'US') as string;
       const key = `${item.box_no}-SET-${item.condition}-${countryCode}`;
       if (!uniqueItems.has(key)) {
