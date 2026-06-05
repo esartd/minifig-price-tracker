@@ -24,6 +24,13 @@ const ALLOWED_BOTS = [
   'linkedinbot',         // LinkedIn link previews
   'discordbot',          // Discord link previews
   'slackbot',            // Slack link previews
+  'chatgpt-user',        // OpenAI ChatGPT indexing
+  'gptbot',              // OpenAI GPT crawler
+  'anthropic-ai',        // Anthropic Claude crawler
+  'claudebot',           // Anthropic Claude bot
+  'perplexity',          // Perplexity AI
+  'amzn-searchbot',      // Amazon search bot
+  'sleepbot',            // Website monitoring (allow for uptime checks)
 ]
 
 // Common scraper/bot user agents to block (excluding legitimate search engines)
@@ -98,6 +105,12 @@ export function middleware(request: NextRequest) {
     return response
   }
 
+  // AGGRESSIVE RATE LIMITING for high-risk regions (Singapore, China, Russia, etc.)
+  // These regions have 573 bot users vs 9 from New York - clearly scrapers
+  const cloudflareCountry = request.headers.get('cf-ipcountry') || '';
+  const HIGH_RISK_COUNTRIES = ['SG', 'CN', 'RU', 'IN', 'VN', 'ID', 'PH'];
+  const isHighRisk = HIGH_RISK_COUNTRIES.includes(cloudflareCountry);
+
   // Skip rate limiting for whitelisted IPs
   if (!WHITELISTED_IPS.includes(ip)) {
     // Tiered rate limiting based on path cost
@@ -106,9 +119,17 @@ export function middleware(request: NextRequest) {
 
     // Skip rate limiting for static assets
     if (tier !== 'STATIC') {
-      const { allowed, resetIn } = tieredRateLimit(ip, tier, config);
+      // Apply 5x stricter limits for high-risk countries
+      const adjustedConfig = isHighRisk ? {
+        ...config,
+        maxRequests: Math.floor(config.maxRequests / 5), // 5x stricter
+        burstMax: config.burstMax ? Math.floor(config.burstMax / 5) : undefined,
+      } : config;
+
+      const { allowed, resetIn } = tieredRateLimit(ip, tier, adjustedConfig);
 
       if (!allowed) {
+        console.log(`[⚠️  RATE LIMITED] IP: ${ip} | Country: ${cloudflareCountry} | Path: ${pathname}`)
         const response = new NextResponse('Too Many Requests', { status: 429 });
         if (resetIn) {
           response.headers.set('Retry-After', Math.ceil(resetIn / 1000).toString());
@@ -133,22 +154,30 @@ export function middleware(request: NextRequest) {
   // Bots often visit detail pages directly without referrer
   const referer = request.headers.get('referer') || '';
   const isDetailPage = pathname.match(/^\/minifigs\/[^/]+$/) || pathname.match(/^\/sets\/[^/]+$/);
+  const hasReferer = referer && referer.length > 0;
 
-  // AGGRESSIVE: Block direct detail page access with NO referer (likely scraper)
+  // AGGRESSIVE SCRAPER BLOCKING: Detail pages with no referer
   // Real users come from:
   //   1. Search engines (google.com, bing.com) - have referer
   //   2. Browse pages on our site (figtracker.ericksu.com) - have referer
   //   3. Social media (twitter, reddit) - have referer
   // Scrapers: Direct typed URLs or scripts - NO referer
   //
-  // Exception: Allow if user is coming from our own site (internal navigation)
-  const isInternalReferer = referer && referer.includes('figtracker.ericksu.com');
-  const hasReferer = referer && referer.length > 0;
+  // Exceptions:
+  // - Whitelisted IPs (your IP, known good IPs)
+  // - Legitimate bots (already allowed above via ALLOWED_BOTS)
+  // - High-risk countries get EXTRA scrutiny (always block if no referer)
 
-  // Block: Detail page + no referer at all = scraper
   if (isDetailPage && !hasReferer && !WHITELISTED_IPS.includes(ip)) {
-    console.log(`[🚫 SCRAPER BLOCKED] IP: ${ip} | No referer on detail page | UA: ${userAgent.substring(0, 100)} | Path: ${pathname}`)
-    return new NextResponse('Forbidden - Direct access not allowed', { status: 403 })
+    // Extra strict for high-risk countries - ALWAYS block
+    if (isHighRisk) {
+      console.log(`[🚫 SCRAPER BLOCKED - HIGH RISK] Country: ${cloudflareCountry} | IP: ${ip} | No referer | Path: ${pathname}`)
+      return new NextResponse('Forbidden', { status: 403 })
+    }
+
+    // For other countries, log as suspicious but allow (might be real user)
+    // They'll hit rate limits if they scrape too much
+    console.log(`[⚠️  SUSPICIOUS] IP: ${ip} | Country: ${cloudflareCountry} | No referer on detail page | Path: ${pathname}`)
   }
 
   // Get locale from subdomain
