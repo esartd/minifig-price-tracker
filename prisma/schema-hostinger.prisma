@@ -558,3 +558,15 @@ model SetContentsFetched {
   @@index([fetched_at])
   @@index([fetched_via])
 }
+
+model IsrCache {
+  key           String   @id @db.VarChar(500)
+  value         String   @db.LongText
+  last_modified DateTime @default(now())
+  expires_at    DateTime?
+  tags          Json?
+  created_at    DateTime @default(now())
+
+  @@index([expires_at])
+  @@index([created_at])
+}

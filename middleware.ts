@@ -124,8 +124,20 @@ export function middleware(request: NextRequest) {
   )
 
   if (isSuspiciousBot) {
+    console.log(`[🚫 BOT BLOCKED] IP: ${ip} | UA: ${userAgent.substring(0, 100)} | Path: ${pathname}`)
     // Return 403 Forbidden for scrapers
     return new NextResponse('Forbidden', { status: 403 })
+  }
+
+  // Enhanced bot detection: Check for rapid page access without typical user behavior
+  // Bots often visit detail pages directly without referrer
+  const referer = request.headers.get('referer') || '';
+  const isDetailPage = pathname.match(/^\/minifigs\/[^/]+$/) || pathname.match(/^\/sets\/[^/]+$/);
+
+  // Suspicious: Direct access to detail pages with no referer and short user agent
+  if (isDetailPage && !referer && userAgent.length < 50) {
+    console.log(`[⚠️  SUSPICIOUS] IP: ${ip} | No referer on detail page | UA: ${userAgent.substring(0, 100)} | Path: ${pathname}`)
+    // Don't block yet, just log for monitoring
   }
 
   // Get locale from subdomain

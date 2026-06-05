@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Use database-backed cache handler for ISR (prevents API calls on every page view)
+  cacheHandler: process.env.NODE_ENV === 'production'
+    ? require.resolve('./cache-handler.js')
+    : undefined,
+  cacheMaxMemorySize: 0, // Disable in-memory cache, use database only
   experimental: {
     serverActions: {
       bodySizeLimit: '10mb',
