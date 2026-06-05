@@ -2,6 +2,17 @@
 
 **READ THIS FIRST BEFORE ANY CODE CHANGES**
 
+## ⏰ TIMEZONE: Always Use Mountain Time
+
+**User is in Utah (Mountain Time Zone: UTC-7 in summer, UTC-6 in winter)**
+
+- Always express times in Mountain Time (MT)
+- BrickLink API resets at midnight UTC = **6pm MT (summer) or 5pm MT (winter)**
+- Cron jobs run in server time (UTC) but communicate in MT
+- When discussing schedules, deadlines, or timing, use MT
+
+---
+
 ## 🎯 GENERAL PRINCIPLE: DO IT RIGHT, NOT EASY
 
 **Always choose the correct solution over the quick solution.**
