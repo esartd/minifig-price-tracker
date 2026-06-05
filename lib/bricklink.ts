@@ -541,39 +541,49 @@ export class BricklinkAPI {
       const expiresAt = new Date();
       expiresAt.setHours(expiresAt.getHours() + 1);
 
-      await prisma.priceCache.upsert({
-        where: {
-          item_no_item_type_condition_country_code_region: {
+      try {
+        await prisma.priceCache.upsert({
+          where: {
+            item_no_item_type_condition_country_code_region: {
+              item_no: itemNo,
+              item_type: 'MINIFIG',
+              condition: condition,
+              country_code: countryCode,
+              region: cacheRegion
+            }
+          },
+          update: {
+            six_month_avg: 0,
+            current_avg: 0,
+            current_lowest: 0,
+            suggested_price: 0,
+            cached_at: new Date(),
+            expires_at: expiresAt,
+            currency_code: currencyCodeValue,
+          },
+          create: {
             item_no: itemNo,
             item_type: 'MINIFIG',
             condition: condition,
             country_code: countryCode,
-            region: cacheRegion
+            region: cacheRegion,
+            currency_code: currencyCodeValue,
+            six_month_avg: 0,
+            current_avg: 0,
+            current_lowest: 0,
+            suggested_price: 0,
+            expires_at: expiresAt,
           }
-        },
-        update: {
-          six_month_avg: 0,
-          current_avg: 0,
-          current_lowest: 0,
-          suggested_price: 0,
-          cached_at: new Date(),
-          expires_at: expiresAt,
-          currency_code: currencyCodeValue,
-        },
-        create: {
-          item_no: itemNo,
-          item_type: 'MINIFIG',
-          condition: condition,
-          country_code: countryCode,
-          region: cacheRegion,
-          currency_code: currencyCodeValue,
-          six_month_avg: 0,
-          current_avg: 0,
-          current_lowest: 0,
-          suggested_price: 0,
-          expires_at: expiresAt,
+        });
+      } catch (error: any) {
+        // Race condition: another request created this cache entry simultaneously
+        // This is safe to ignore - the other request's cache entry is fine
+        if (error.code !== 'P2002') {
+          // Not a unique constraint error - log it
+          console.error(`[PriceCache] Unexpected error caching $0 for ${itemNo}:`, error);
         }
-      });
+        // Continue execution - we'll use $0 prices below
+      }
 
       return {
         sixMonthAverage: 0,
@@ -633,39 +643,49 @@ export class BricklinkAPI {
       expiresAt.setHours(expiresAt.getHours() + 6); // 6 hour per BrickLink API Terms
     }
 
-    await prisma.priceCache.upsert({
-      where: {
-        item_no_item_type_condition_country_code_region: {
+    try {
+      await prisma.priceCache.upsert({
+        where: {
+          item_no_item_type_condition_country_code_region: {
+            item_no: itemNo,
+            item_type: 'MINIFIG',
+            condition: condition,
+            country_code: countryCode,
+            region: cacheRegion
+          }
+        },
+        update: {
+          six_month_avg: pricingData.sixMonthAverage,
+          current_avg: pricingData.currentAverage,
+          current_lowest: pricingData.currentLowest,
+          suggested_price: pricingData.suggestedPrice,
+          cached_at: new Date(),
+          expires_at: expiresAt,
+          currency_code: currencyCodeValue,
+        },
+        create: {
           item_no: itemNo,
           item_type: 'MINIFIG',
           condition: condition,
           country_code: countryCode,
-          region: cacheRegion
+          region: cacheRegion,
+          currency_code: currencyCodeValue,
+          six_month_avg: pricingData.sixMonthAverage,
+          current_avg: pricingData.currentAverage,
+          current_lowest: pricingData.currentLowest,
+          suggested_price: pricingData.suggestedPrice,
+          expires_at: expiresAt,
         }
-      },
-      update: {
-        six_month_avg: pricingData.sixMonthAverage,
-        current_avg: pricingData.currentAverage,
-        current_lowest: pricingData.currentLowest,
-        suggested_price: pricingData.suggestedPrice,
-        cached_at: new Date(),
-        expires_at: expiresAt,
-        currency_code: currencyCodeValue,
-      },
-      create: {
-        item_no: itemNo,
-        item_type: 'MINIFIG',
-        condition: condition,
-        country_code: countryCode,
-        region: cacheRegion,
-        currency_code: currencyCodeValue,
-        six_month_avg: pricingData.sixMonthAverage,
-        current_avg: pricingData.currentAverage,
-        current_lowest: pricingData.currentLowest,
-        suggested_price: pricingData.suggestedPrice,
-        expires_at: expiresAt,
+      });
+    } catch (error: any) {
+      // Race condition: another request created this cache entry simultaneously
+      // This is safe to ignore - the data is correct from our calculation
+      if (error.code !== 'P2002') {
+        // Not a unique constraint error - log it
+        console.error(`[PriceCache] Unexpected error caching ${itemNo}:`, error);
       }
-    });
+      // Continue execution - pricing data is still valid and will be returned
+    }
 
     // Record price history opportunistically (limit 1 per day per item)
     // This builds up history naturally as people use the site, no cron needed
@@ -848,30 +868,31 @@ export class BricklinkAPI {
       const expiresAt = new Date();
       expiresAt.setHours(expiresAt.getHours() + 1);
 
-      await prisma.priceCache.upsert({
-        where: {
-          item_no_item_type_condition_country_code_region: {
+      try {
+        await prisma.priceCache.upsert({
+          where: {
+            item_no_item_type_condition_country_code_region: {
+              item_no: boxNo,
+              item_type: 'SET',
+              condition: condition,
+              country_code: countryCode,
+              region: cacheRegion
+            }
+          },
+          update: {
+            six_month_avg: 0,
+            current_avg: 0,
+            current_lowest: 0,
+            suggested_price: 0,
+            cached_at: new Date(),
+            expires_at: expiresAt,
+            currency_code: currencyCodeValue,
+          },
+          create: {
             item_no: boxNo,
             item_type: 'SET',
             condition: condition,
             country_code: countryCode,
-            region: cacheRegion
-          }
-        },
-        update: {
-          six_month_avg: 0,
-          current_avg: 0,
-          current_lowest: 0,
-          suggested_price: 0,
-          cached_at: new Date(),
-          expires_at: expiresAt,
-          currency_code: currencyCodeValue,
-        },
-        create: {
-          item_no: boxNo,
-          item_type: 'SET',
-          condition: condition,
-          country_code: countryCode,
           region: cacheRegion,
           currency_code: currencyCodeValue,
           six_month_avg: 0,
@@ -880,7 +901,13 @@ export class BricklinkAPI {
           suggested_price: 0,
           expires_at: expiresAt,
         }
-      });
+        });
+      } catch (error: any) {
+        // Race condition: another request created this cache entry simultaneously
+        if (error.code !== 'P2002') {
+          console.error(`[PriceCache] Unexpected error caching $0 for set ${boxNo}:`, error);
+        }
+      }
 
       return {
         sixMonthAverage: 0,
@@ -934,22 +961,23 @@ export class BricklinkAPI {
       expiresAt.setHours(expiresAt.getHours() + 6); // 6 hour per BrickLink API Terms
     }
 
-    await prisma.priceCache.upsert({
-      where: {
-        item_no_item_type_condition_country_code_region: {
-          item_no: boxNo,
-          item_type: 'SET',
-          condition: condition,
-          country_code: countryCode,
-          region: cacheRegion
-        }
-      },
-      update: {
-        six_month_avg: pricingData.sixMonthAverage,
-        current_avg: pricingData.currentAverage,
-        current_lowest: pricingData.currentLowest,
-        suggested_price: pricingData.suggestedPrice,
-        cached_at: new Date(),
+    try {
+      await prisma.priceCache.upsert({
+        where: {
+          item_no_item_type_condition_country_code_region: {
+            item_no: boxNo,
+            item_type: 'SET',
+            condition: condition,
+            country_code: countryCode,
+            region: cacheRegion
+          }
+        },
+        update: {
+          six_month_avg: pricingData.sixMonthAverage,
+          current_avg: pricingData.currentAverage,
+          current_lowest: pricingData.currentLowest,
+          suggested_price: pricingData.suggestedPrice,
+          cached_at: new Date(),
         expires_at: expiresAt,
         currency_code: currencyCodeValue,
       },
@@ -966,7 +994,14 @@ export class BricklinkAPI {
         suggested_price: pricingData.suggestedPrice,
         expires_at: expiresAt,
       }
-    });
+      });
+    } catch (error: any) {
+      // Race condition: another request created this cache entry simultaneously
+      if (error.code !== 'P2002') {
+        console.error(`[PriceCache] Unexpected error caching set ${boxNo}:`, error);
+      }
+      // Continue execution - pricing data is still valid and will be returned
+    }
 
     // Track pricing view (fire-and-forget pattern - don't fail pricing if tracking fails)
     if (userId && pricingData.suggestedPrice > 0) {

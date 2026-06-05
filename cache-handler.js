@@ -1,6 +1,14 @@
 const { PrismaClient } = require('@prisma/client-hostinger');
 
-const prisma = new PrismaClient();
+let prisma;
+
+// Initialize Prisma only once (singleton pattern for Next.js)
+function getPrismaClient() {
+  if (!prisma) {
+    prisma = new PrismaClient();
+  }
+  return prisma;
+}
 
 module.exports = class PrismaCacheHandler {
   constructor(options) {
@@ -9,6 +17,7 @@ module.exports = class PrismaCacheHandler {
 
   async get(key) {
     try {
+      const prisma = getPrismaClient();
       const cached = await prisma.isrCache.findUnique({
         where: { key },
       });
@@ -36,6 +45,7 @@ module.exports = class PrismaCacheHandler {
 
   async set(key, data, ctx) {
     try {
+      const prisma = getPrismaClient();
       const { revalidate } = ctx;
       const expiresAt = revalidate
         ? new Date(Date.now() + revalidate * 1000)
@@ -64,6 +74,7 @@ module.exports = class PrismaCacheHandler {
 
   async revalidateTag(tag) {
     try {
+      const prisma = getPrismaClient();
       // Delete all entries with this tag
       await prisma.isrCache.deleteMany({
         where: {
