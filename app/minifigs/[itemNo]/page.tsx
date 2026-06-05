@@ -90,18 +90,9 @@ export async function generateMetadata({
     ? description.split('. ').slice(0, 2).join('. ') + '.'
     : `${minifig.category_name} - ${fullName}. Track current BrickLink prices, see market value, and manage your collection. Add to sell or keep. Released ${minifig.year_released || 'date unknown'}.`;
 
-  // Fetch current price for title (non-blocking, use cache if available)
-  let priceString = '';
-  try {
-    const { bricklinkAPI } = await import('@/lib/bricklink');
-    const pricing = await bricklinkAPI.calculatePricingData(itemNo, 'new', 'US', '', undefined, 'minifig-page-metadata');
-    if (pricing && pricing.currentLowest > 0) {
-      priceString = ` - $${pricing.currentLowest.toFixed(2)}`;
-    }
-  } catch (error) {
-    // Silent fail - if pricing unavailable, just show title without price
-    console.error('[METADATA] Failed to fetch price for title:', error);
-  }
+  // Skip pricing in page title - reduces API calls from 4 to 2 per page
+  // Pricing still shown in page content and schema.org
+  const priceString = '';
 
   return {
     title: `${fullName} (${minifig.minifigure_no})${priceString} | LEGO Minifigure Price Tracker`,
