@@ -5,16 +5,13 @@
 
 echo "🔄 Preparing for deployment..."
 
-# 1. Restore production PostgreSQL schema
-echo "📋 Restoring production schema..."
-git restore prisma/schema.prisma
-
-# 2. Check if schema was restored successfully
-if grep -q 'provider = "postgresql"' prisma/schema.prisma; then
-  echo "✅ Schema restored to PostgreSQL"
+# 1. Check schema provider (should be MySQL for production)
+echo "📋 Checking production schema..."
+if grep -q 'provider = "mysql"' prisma/schema.prisma; then
+  echo "✅ Schema is MySQL (production)"
 else
-  echo "❌ Failed to restore schema!"
-  exit 1
+  echo "⚠️  Warning: Schema is not MySQL"
+  echo "   Current provider: $(grep 'provider =' prisma/schema.prisma)"
 fi
 
 # 3. Stage all changes

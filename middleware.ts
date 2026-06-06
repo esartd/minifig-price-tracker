@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { getLocaleFromHost } from '@/lib/i18n-subdomain'
 import { tieredRateLimit, getTierForPath } from '@/lib/tiered-rate-limit'
+import { shouldBlockIP, blockIP } from '@/lib/ip-blocker'
 
 // Whitelisted IPs (no rate limiting)
 const WHITELISTED_IPS = [
@@ -111,6 +112,18 @@ export function middleware(request: NextRequest) {
   const HIGH_RISK_COUNTRIES = ['SG', 'CN', 'RU', 'IN', 'VN', 'ID', 'PH'];
   const isHighRisk = HIGH_RISK_COUNTRIES.includes(cloudflareCountry);
 
+  // Check if IP is automatically blocked based on behavior patterns
+  if (!WHITELISTED_IPS.includes(ip)) {
+    // Fire-and-forget check for auto-blocking (don't await to avoid slowing down requests)
+    shouldBlockIP(ip).then(async ({ shouldBlock, reason }) => {
+      if (shouldBlock && reason !== 'Already blocked') {
+        await blockIP(ip, cloudflareCountry || 'unknown', reason, 24); // 24-hour blocks
+      }
+    }).catch(err => {
+      console.error('[IP Blocker] Check failed (non-blocking):', err.message);
+    });
+  }
+
   // Skip rate limiting for whitelisted IPs
   if (!WHITELISTED_IPS.includes(ip)) {
     // Tiered rate limiting based on path cost
@@ -178,6 +191,37 @@ export function middleware(request: NextRequest) {
     // For other countries, log as suspicious but allow (might be real user)
     // They'll hit rate limits if they scrape too much
     console.log(`[⚠️  SUSPICIOUS] IP: ${ip} | Country: ${cloudflareCountry} | No referer on detail page | Path: ${pathname}`)
+  }
+
+  // Track visitor event (fire-and-forget)
+  // Only track actual page views, not API calls or static assets
+  const isPageView = !pathname.startsWith('/api/') &&
+                     !pathname.startsWith('/_next/') &&
+                     !pathname.match(/\.(jpg|jpeg|png|gif|svg|ico|webp|css|js)$/);
+
+  if (isPageView) {
+    // Fire-and-forget tracking (don't await)
+    fetch(new URL('/api/track-visitor', request.url), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        country: cloudflareCountry || 'unknown',
+        ip,
+        userAgent: userAgent.substring(0, 500), // Truncate long UAs
+        path: pathname,
+        referer: referer || null,
+        eventType: 'page_view',
+        metadata: {
+          isHighRisk,
+          hasReferer,
+          isDetailPage,
+        },
+        userId: null, // Not available in middleware
+      }),
+    }).catch(err => {
+      // Silent fail - don't break user experience
+      console.error('[Visitor Tracking] Error (non-blocking):', err.message);
+    });
   }
 
   // Get locale from subdomain
