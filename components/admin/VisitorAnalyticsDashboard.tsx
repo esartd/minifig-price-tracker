@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { MagnifyingGlassIcon, ArrowPathIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, ArrowPathIcon, ExclamationTriangleIcon, ShieldExclamationIcon } from '@heroicons/react/24/outline';
 
 interface CountryAnalytics {
   success: boolean;
@@ -49,12 +49,44 @@ const TIME_RANGES = [
   { value: 30, label: 'Last 30 Days' },
 ];
 
+interface TcoBotAnalysis {
+  totalVisits: number;
+  uniqueIPs: number;
+  botScore: number;
+  indicators: {
+    botUserAgents: number;
+    rapidAccessIPs: number;
+    onlyDetailPagesIPs: number;
+    highSessionIPs: number;
+  };
+  recommendation: 'block' | 'monitor' | 'allow';
+  details: string;
+}
+
+interface TcoBotStats {
+  analysis: TcoBotAnalysis;
+  topBotIPs: Array<{
+    ip: string;
+    visits: number;
+    botIndicators: string[];
+  }>;
+  topPages: Array<{
+    path: string;
+    visits: number;
+  }>;
+}
+
 export default function VisitorAnalyticsDashboard() {
   const [selectedCountry, setSelectedCountry] = useState('SG');
   const [days, setDays] = useState(7);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<CountryAnalytics | null>(null);
   const [error, setError] = useState('');
+
+  // T.co bot analysis state
+  const [showTcoAnalysis, setShowTcoAnalysis] = useState(false);
+  const [tcoLoading, setTcoLoading] = useState(false);
+  const [tcoData, setTcoData] = useState<TcoBotStats | null>(null);
 
   const fetchAnalytics = async () => {
     setLoading(true);
@@ -77,15 +109,266 @@ export default function VisitorAnalyticsDashboard() {
     }
   };
 
+  const fetchTcoAnalysis = async () => {
+    setTcoLoading(true);
+
+    try {
+      const response = await fetch(`/api/admin/tco-bot-analysis?hours=${days * 24}`);
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch t.co analysis');
+      }
+
+      const result = await response.json();
+      setTcoData(result);
+    } catch (err: any) {
+      console.error('T.co analysis error:', err);
+      setTcoData(null);
+    } finally {
+      setTcoLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchAnalytics();
   }, [selectedCountry, days]);
+
+  useEffect(() => {
+    if (showTcoAnalysis) {
+      fetchTcoAnalysis();
+    }
+  }, [showTcoAnalysis, days]);
 
   const selectedCountryData = COUNTRIES.find(c => c.code === selectedCountry);
   const isHighRisk = data && data.scrapingIndicators.noRefererRate > 70;
 
   return (
     <div>
+      {/* T.co Bot Analysis Toggle */}
+      <div style={{
+        background: '#fff7ed',
+        border: '1px solid #fdba74',
+        borderRadius: '12px',
+        padding: '16px',
+        marginBottom: '16px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        cursor: 'pointer',
+      }}
+      onClick={() => setShowTcoAnalysis(!showTcoAnalysis)}
+      >
+        <ShieldExclamationIcon style={{ width: '24px', height: '24px', color: '#ea580c', flexShrink: 0 }} />
+        <div style={{ flex: 1 }}>
+          <strong style={{ color: '#9a3412' }}>Twitter/X Bot Detection (t.co referrals)</strong>
+          <p style={{ color: '#9a3412', marginTop: '4px', fontSize: '14px' }}>
+            Click to analyze whether t.co traffic is real users or automated bots
+          </p>
+        </div>
+        <div style={{
+          background: '#ea580c',
+          color: 'white',
+          padding: '6px 12px',
+          borderRadius: '6px',
+          fontSize: '14px',
+          fontWeight: '600',
+        }}>
+          {showTcoAnalysis ? 'Hide' : 'Analyze'}
+        </div>
+      </div>
+
+      {/* T.co Analysis Results */}
+      {showTcoAnalysis && (
+        <div style={{
+          background: 'white',
+          borderRadius: '12px',
+          border: '1px solid #e5e5e5',
+          padding: '24px',
+          marginBottom: '24px',
+        }}>
+          {tcoLoading ? (
+            <div style={{ textAlign: 'center', padding: '48px', color: '#737373' }}>
+              Analyzing t.co traffic...
+            </div>
+          ) : tcoData && tcoData.analysis.totalVisits > 0 ? (
+            <div>
+              <h2 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '16px' }}>
+                Twitter/X (t.co) Bot Analysis
+              </h2>
+
+              {/* Bot Score Alert */}
+              <div style={{
+                background: tcoData.analysis.botScore >= 70 ? '#fef2f2' :
+                           tcoData.analysis.botScore >= 40 ? '#fef3c7' : '#f0fdf4',
+                border: `1px solid ${tcoData.analysis.botScore >= 70 ? '#fecaca' :
+                                      tcoData.analysis.botScore >= 40 ? '#fbbf24' : '#86efac'}`,
+                borderRadius: '12px',
+                padding: '16px',
+                marginBottom: '24px',
+              }}>
+                <div style={{ fontSize: '48px', fontWeight: '700', marginBottom: '8px',
+                  color: tcoData.analysis.botScore >= 70 ? '#dc2626' :
+                         tcoData.analysis.botScore >= 40 ? '#f59e0b' : '#16a34a'
+                }}>
+                  {tcoData.analysis.botScore}%
+                </div>
+                <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '4px' }}>
+                  Bot Likelihood Score
+                </div>
+                <div style={{ fontSize: '14px', color: '#737373', marginTop: '8px' }}>
+                  {tcoData.analysis.details}
+                </div>
+                <div style={{
+                  marginTop: '12px',
+                  padding: '8px 12px',
+                  background: 'white',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                }}>
+                  Recommendation: <span style={{
+                    color: tcoData.analysis.recommendation === 'block' ? '#dc2626' :
+                           tcoData.analysis.recommendation === 'monitor' ? '#f59e0b' : '#16a34a'
+                  }}>
+                    {tcoData.analysis.recommendation.toUpperCase()}
+                  </span>
+                </div>
+              </div>
+
+              {/* Indicators */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: '16px',
+                marginBottom: '24px',
+              }}>
+                <div style={{ padding: '16px', background: '#fafafa', borderRadius: '8px' }}>
+                  <div style={{ fontSize: '14px', color: '#737373', marginBottom: '4px' }}>
+                    Total t.co Visits
+                  </div>
+                  <div style={{ fontSize: '24px', fontWeight: '700' }}>
+                    {tcoData.analysis.totalVisits}
+                  </div>
+                </div>
+                <div style={{ padding: '16px', background: '#fafafa', borderRadius: '8px' }}>
+                  <div style={{ fontSize: '14px', color: '#737373', marginBottom: '4px' }}>
+                    Unique IPs
+                  </div>
+                  <div style={{ fontSize: '24px', fontWeight: '700' }}>
+                    {tcoData.analysis.uniqueIPs}
+                  </div>
+                </div>
+                <div style={{ padding: '16px', background: '#fafafa', borderRadius: '8px' }}>
+                  <div style={{ fontSize: '14px', color: '#737373', marginBottom: '4px' }}>
+                    Bot User Agents
+                  </div>
+                  <div style={{ fontSize: '24px', fontWeight: '700' }}>
+                    {tcoData.analysis.indicators.botUserAgents}
+                  </div>
+                </div>
+                <div style={{ padding: '16px', background: '#fafafa', borderRadius: '8px' }}>
+                  <div style={{ fontSize: '14px', color: '#737373', marginBottom: '4px' }}>
+                    Rapid Access IPs
+                  </div>
+                  <div style={{ fontSize: '24px', fontWeight: '700' }}>
+                    {tcoData.analysis.indicators.rapidAccessIPs}
+                  </div>
+                </div>
+              </div>
+
+              {/* Suspicious IPs */}
+              {tcoData.topBotIPs.length > 0 && (
+                <div style={{ marginTop: '24px' }}>
+                  <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '12px' }}>
+                    Suspicious IPs ({tcoData.topBotIPs.length})
+                  </h3>
+                  <div style={{ overflowX: 'auto' }}>
+                    <table style={{ width: '100%', fontSize: '14px' }}>
+                      <thead>
+                        <tr style={{ borderBottom: '1px solid #e5e5e5' }}>
+                          <th style={{ textAlign: 'left', padding: '8px' }}>IP (Hashed)</th>
+                          <th style={{ textAlign: 'right', padding: '8px' }}>Visits</th>
+                          <th style={{ textAlign: 'left', padding: '8px' }}>Bot Indicators</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {tcoData.topBotIPs.map((ip, idx) => (
+                          <tr key={idx} style={{ borderBottom: '1px solid #f5f5f5' }}>
+                            <td style={{ padding: '12px 8px', fontFamily: 'monospace', fontSize: '12px' }}>
+                              {ip.ip.substring(0, 12)}...
+                            </td>
+                            <td style={{ textAlign: 'right', padding: '12px 8px' }}>
+                              {ip.visits}
+                            </td>
+                            <td style={{ padding: '12px 8px' }}>
+                              {ip.botIndicators.map((indicator, i) => (
+                                <div key={i} style={{
+                                  display: 'inline-block',
+                                  background: '#fef2f2',
+                                  color: '#dc2626',
+                                  padding: '2px 8px',
+                                  borderRadius: '4px',
+                                  fontSize: '12px',
+                                  marginRight: '4px',
+                                  marginBottom: '4px',
+                                }}>
+                                  {indicator}
+                                </div>
+                              ))}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+
+              {/* Top Pages */}
+              {tcoData.topPages.length > 0 && (
+                <div style={{ marginTop: '24px' }}>
+                  <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '12px' }}>
+                    Top Pages from t.co
+                  </h3>
+                  <div style={{ overflowX: 'auto' }}>
+                    <table style={{ width: '100%', fontSize: '14px' }}>
+                      <thead>
+                        <tr style={{ borderBottom: '1px solid #e5e5e5' }}>
+                          <th style={{ textAlign: 'left', padding: '8px' }}>Path</th>
+                          <th style={{ textAlign: 'right', padding: '8px' }}>Visits</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {tcoData.topPages.map((page, idx) => (
+                          <tr key={idx} style={{ borderBottom: '1px solid #f5f5f5' }}>
+                            <td style={{ padding: '12px 8px', fontFamily: 'monospace', fontSize: '13px' }}>
+                              {page.path}
+                            </td>
+                            <td style={{ textAlign: 'right', padding: '12px 8px' }}>
+                              {page.visits}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : tcoData ? (
+            <div style={{ textAlign: 'center', padding: '48px', color: '#737373' }}>
+              <div style={{ fontSize: '48px', marginBottom: '16px' }}>📊</div>
+              <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>
+                No t.co Traffic Yet
+              </div>
+              <div style={{ fontSize: '14px' }}>
+                Visitor tracking just started. Check back in 24 hours.
+              </div>
+            </div>
+          ) : null}
+        </div>
+      )}
+
       {/* Controls */}
       <div style={{
         background: 'white',
