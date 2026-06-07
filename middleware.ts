@@ -169,6 +169,10 @@ export function middleware(request: NextRequest) {
   const isDetailPage = pathname.match(/^\/minifigs\/[^/]+$/) || pathname.match(/^\/sets\/[^/]+$/);
   const hasReferer = referer && referer.length > 0;
 
+  // CAPTCHA VERIFICATION for high-risk countries (Singapore, etc.)
+  // Check if user has verified captcha cookie
+  const captchaVerified = request.cookies.get('captcha_verified')?.value === 'true';
+
   // AGGRESSIVE SCRAPER BLOCKING: Detail pages with no referer
   // Real users come from:
   //   1. Search engines (google.com, bing.com) - have referer
@@ -179,13 +183,20 @@ export function middleware(request: NextRequest) {
   // Exceptions:
   // - Whitelisted IPs (your IP, known good IPs)
   // - Legitimate bots (already allowed above via ALLOWED_BOTS)
-  // - High-risk countries get EXTRA scrutiny (always block if no referer)
+  // - High-risk countries get EXTRA scrutiny (redirect to CAPTCHA if no referer)
 
   if (isDetailPage && !hasReferer && !WHITELISTED_IPS.includes(ip)) {
-    // Extra strict for high-risk countries - ALWAYS block
+    // Extra strict for high-risk countries - Show CAPTCHA instead of blocking
     if (isHighRisk) {
-      console.log(`[🚫 SCRAPER BLOCKED - HIGH RISK] Country: ${cloudflareCountry} | IP: ${ip} | No referer | Path: ${pathname}`)
-      return new NextResponse('Forbidden', { status: 403 })
+      if (!captchaVerified) {
+        console.log(`[🛡️  CAPTCHA REQUIRED] Country: ${cloudflareCountry} | IP: ${ip} | No referer | Path: ${pathname}`)
+        // Redirect to CAPTCHA verification page
+        const verifyUrl = new URL('/verify-human', request.url);
+        verifyUrl.searchParams.set('returnTo', pathname);
+        return NextResponse.redirect(verifyUrl);
+      }
+      // If captcha verified, allow through
+      console.log(`[✅ CAPTCHA VERIFIED] Country: ${cloudflareCountry} | IP: ${ip} | Path: ${pathname}`)
     }
 
     // For other countries, log as suspicious but allow (might be real user)

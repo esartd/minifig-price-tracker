@@ -13,7 +13,8 @@
       "Bash(head *)",
       "Bash(tail *)",
       "Bash(wc *)",
-      "Bash(curl -s -I \"https://figtracker.ericksu.com/_next/image?url=%2Fapi%2Fimages%2Fminifig%2Fsw1398&w=640&q=75\")"
+      "Bash(curl -s -I \"https://figtracker.ericksu.com/_next/image?url=%2Fapi%2Fimages%2Fminifig%2Fsw1398&w=640&q=75\")",
+      "Bash(dig www.ericksu.com CNAME +short)"
     ],
     "additionalDirectories": [
       "/Users/erickkosysu/Code Projects/minifig-price-tracker/app/api/auth"
