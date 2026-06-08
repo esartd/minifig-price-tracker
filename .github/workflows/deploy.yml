@@ -1,0 +1,88 @@
+name: Deploy to Production VPS
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # Allow manual trigger from GitHub UI
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      - name: Build Next.js (standalone mode)
+        run: npm run build
+        env:
+          NODE_ENV: production
+          # Add your build-time env vars here if needed
+          # NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+
+      - name: Prepare deployment package
+        run: |
+          mkdir -p deploy
+
+          # Copy built files
+          cp -r .next deploy/
+          cp -r public deploy/
+          cp -r prisma deploy/
+          cp package.json package-lock.json deploy/
+          cp ecosystem.config.js deploy/
+
+          # Create tarball
+          cd deploy && tar -czf ../deploy.tar.gz .
+
+      - name: Copy files to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "deploy.tar.gz"
+          target: "/tmp/"
+
+      - name: Deploy on VPS (zero downtime)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /var/www/figtracker
+
+            # Backup current deployment
+            tar -czf /root/backup-$(date +%Y%m%d-%H%M%S).tar.gz .next ecosystem.config.js 2>/dev/null || true
+
+            # Extract new build
+            tar -xzf /tmp/deploy.tar.gz
+            rm /tmp/deploy.tar.gz
+
+            # Install/update dependencies (quick if cached)
+            npm ci --omit=dev
+
+            # Generate Prisma client
+            npx prisma generate
+
+            # Zero-downtime reload (PM2 cluster mode keeps old workers alive until new ones are ready)
+            pm2 startOrReload ecosystem.config.js --update-env
+
+            # Wait and verify
+            sleep 3
+            pm2 status figtracker
+
+            # Health check
+            curl -f http://localhost:3000 || echo "⚠️  WARNING: Health check failed"

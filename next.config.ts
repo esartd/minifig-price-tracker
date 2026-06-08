@@ -5,6 +5,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 
 const nextConfig: NextConfig = {
+  // Note: standalone output disabled - Next.js 15 + PM2 cluster mode work better with standard output
+  // output: 'standalone',
   skipTrailingSlashRedirect: true, // Prevent 308 redirects that Google flags as "Page with redirect"
   images: {
     remotePatterns: [
