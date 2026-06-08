@@ -1,265 +1,250 @@
 # FigTracker Deployment Guide
 
-## Why Manual Deployment?
+## 🚀 Quick Deploy (Zero Downtime)
 
-**GitHub Actions automated deployment is currently blocked by Hostinger's network-level DDoS protection.**
+**One command from your local machine:**
 
-- GitHub Actions uses dynamic IP pools
-- Some GitHub IPs are allowed through, others are blocked
-- This causes intermittent deployment failures (timeout errors)
-- Manual deployment from your local machine works 100% reliably
+```bash
+ssh root@137.184.34.143 '/var/www/figtracker/deploy.sh'
+```
 
-**History:**
-- Automated deployments worked: 9:00 AM - 10:00 AM (June 2, 2026)
-- Started failing: 10:05 AM onwards
-- Root cause: Hostinger blocked new GitHub Actions IP ranges (`64.236.133.202`)
+**Time:** ~2-3 minutes | **Downtime:** 0 seconds ✨
 
 ---
 
-## Quick Deployment (Recommended)
+## 📋 What the Deploy Script Does
 
-### 1. Using the Deployment Script
+The script at `/var/www/figtracker/deploy.sh` runs:
 
-```bash
-./deploy.sh
-```
+1. `git pull origin main` - Get latest code
+2. `npm ci --omit=dev` - Install production dependencies
+3. `npx prisma generate` - Generate Prisma client
+4. `npm run build` - Build Next.js (~2 min)
+5. `pm2 reload ecosystem.config.js --update-env` - **Zero-downtime reload**
 
-**What it does:**
-- ✅ Checks you're on `main` branch
-- ✅ Warns about uncommitted changes
-- ✅ Checks sync with GitHub remote
-- ✅ Pulls latest code on VPS
-- ✅ Installs dependencies
-- ✅ Builds production bundle
-- ✅ Restarts PM2
-- ✅ Shows deployment status
+### How Zero Downtime Works
 
-**Time:** ~2-3 minutes
+PM2 cluster mode (2 instances):
+1. Starts 2 new worker processes
+2. New workers become ready
+3. Old workers shut down gracefully
+4. **Site never goes offline!**
 
 ---
 
-## Manual Deployment (Alternative)
+## 📝 Full Deployment Workflow
 
-If the script fails or you prefer manual steps:
+### Step 1: Make Changes Locally
 
-### Step 1: Push to GitHub
 ```bash
-git add .
-git commit -m "Your commit message"
-git push
+cd /Users/erickkosysu/Code\ Projects/_Personal/FigTracker
+
+# Make your code changes
+# Test locally: npm run dev
+
+# Commit
+git add -A
+git commit -m "your changes"
+git push origin main
 ```
 
-### Step 2: Deploy to VPS
+### Step 2: Deploy to Production
+
 ```bash
-ssh root@187.77.202.14 "cd /var/www/figtracker && git pull && npm install --production && npm run build && pm2 restart figtracker"
+ssh root@137.184.34.143 '/var/www/figtracker/deploy.sh'
 ```
 
-**Time:** ~2-3 minutes
+### Step 3: Verify
+
+```bash
+# Check PM2 status
+ssh root@137.184.34.143 'pm2 status'
+
+# Test site
+open https://figtracker.ericksu.com
+
+# Monitor logs (if needed)
+ssh root@137.184.34.143 'pm2 logs figtracker --lines 50'
+```
 
 ---
 
-## Emergency Rollback
+## 🆘 Troubleshooting
 
-If deployment breaks the site:
+### Build Fails on Server
 
 ```bash
-ssh root@187.77.202.14
+# SSH in and diagnose
+ssh root@137.184.34.143
+cd /var/www/figtracker
+
+# Check what went wrong
+git status
+npm run build  # See the actual error
+
+# Common fixes:
+npm ci --omit=dev  # Clean dependency install
+npx prisma generate  # Regenerate Prisma client
+```
+
+### Site Down After Deploy
+
+```bash
+# Check PM2 status
+ssh root@137.184.34.143 'pm2 status'
+
+# View error logs
+ssh root@137.184.34.143 'pm2 logs figtracker --err --lines 50'
+
+# Restart if needed
+ssh root@137.184.34.143 'pm2 restart figtracker'
+```
+
+### Emergency Rollback
+
+```bash
+ssh root@137.184.34.143
 cd /var/www/figtracker
 
 # Find last working commit
-git log --oneline | head -10
+git log --oneline -10
 
-# Rollback to specific commit
+# Rollback
 git reset --hard <commit-hash>
-
-# Rebuild and restart
-npm install --production
+npm ci --omit=dev
 npm run build
-pm2 restart figtracker
+pm2 reload ecosystem.config.js
 ```
 
 ---
 
-## Deployment Checklist
+## 🚫 Why GitHub Actions Doesn't Work
 
-Before deploying:
-- [ ] All changes committed to git
-- [ ] Pushed to GitHub (`git push`)
-- [ ] On `main` branch (`git branch` to check)
-- [ ] Tests passing locally (if applicable)
-- [ ] No broken imports or syntax errors
+**Status:** Disabled due to Hostinger firewall
 
-After deploying:
-- [ ] Visit https://figtracker.ericksu.com
-- [ ] Check main features work (search, pricing, collections)
-- [ ] Check browser console for errors (F12)
-- [ ] Monitor PM2 logs: `ssh root@187.77.202.14 "pm2 logs figtracker --lines 50"`
+**The Problem:**
+- GitHub Actions uses rotating AWS/Azure IPs
+- Hostinger's datacenter firewall blocks most of these IPs
+- Error: `dial tcp ***:22: i/o timeout`
+- Success rate: ~10% (too unreliable)
 
----
+**What We Tried:**
+- SSH keys configured correctly ✅
+- Server firewall (UFW) is off ✅
+- SSH accessible from local machine ✅
+- GitHub Actions still times out ❌
 
-## Troubleshooting
+**Root Cause (per Google AI):**
+> Hostinger VPS has datacenter-level firewall that blocks GitHub Actions' rotating IP pools. Not an SSH config issue - it's network-level filtering.
 
-### Deployment script fails
+**Workflow file:** `.github/workflows/deploy.yml` (exists but won't work)
 
-**"Warning: You're on branch 'feature-branch'"**
-- Switch to main: `git checkout main`
-- Or continue anyway (type `y` when prompted)
-
-**"Warning: You have uncommitted changes"**
-- Commit changes: `git add . && git commit -m "message"`
-- Or continue anyway (type `y` when prompted)
-
-**"Warning: Your local branch is not in sync"**
-- Pull remote changes: `git pull`
-- Or push your changes: `git push`
-
-### Build fails on VPS
-
-**"npm ERR! missing script: build"**
-- Check `package.json` has build script
-- Try: `ssh root@187.77.202.14 "cd /var/www/figtracker && cat package.json | grep build"`
-
-**"Out of memory"**
-- VPS might be low on RAM during build
-- Try: `ssh root@187.77.202.14 "free -h"` to check memory
-- Contact Hostinger if consistently running out
-
-### PM2 restart fails
-
-**"Error: Process figtracker not found"**
-- Start it manually: `ssh root@187.77.202.14 "cd /var/www/figtracker && pm2 start ecosystem.config.js"`
-
-**"Error: Script not found"**
-- Check PM2 config: `ssh root@187.77.202.14 "cat /var/www/figtracker/ecosystem.config.js"`
-
-### Site shows 500 errors after deployment
-
-**Check PM2 logs:**
-```bash
-ssh root@187.77.202.14 "pm2 logs figtracker --lines 100"
-```
-
-**Common causes:**
-- Database migration needed (check Prisma schema changes)
-- Environment variables missing (check `.env` on VPS)
-- Build artifacts corrupted (delete `.next` folder and rebuild)
-
-### Rollback doesn't work
-
-**If git rollback fails:**
-```bash
-ssh root@187.77.202.14
-cd /var/www/figtracker
-
-# Force rollback (warning: loses uncommitted changes on VPS)
-git fetch origin
-git reset --hard origin/main
-
-# Rebuild
-npm install --production
-npm run build
-pm2 restart figtracker
-```
+**Solution:** Manual SSH deploy works 100% reliably
 
 ---
 
-## Future: Re-enabling GitHub Actions
+## 🔮 Future: Automated Deploys
 
-If Hostinger resolves the IP blocking issue, or you switch VPS providers:
+If we want automation later:
 
-### Option 1: Contact Hostinger Support
+### Option 1: Hostinger Whitelist (Unlikely)
+Contact Hostinger support to whitelist GitHub Actions IPs
+- GitHub uses 100+ rotating IPs
+- Hostinger unlikely to whitelist all
+- Estimated time: 2-5 business days
 
-Ask them to whitelist GitHub Actions IP ranges:
-- https://api.github.com/meta (get official IP list)
-- Provide these IP ranges to Hostinger support
-- Wait 2-5 business days for approval
-
-### Option 2: Switch VPS Provider
-
-Providers with less aggressive network filtering:
-- DigitalOcean (tested, works with GitHub Actions)
-- Linode (tested, works)
-- Vultr (tested, works)
-- AWS Lightsail (tested, works)
-
-### Option 3: Self-hosted Runner
-
-Run GitHub Actions runner on the VPS itself:
-- Bypasses network restrictions entirely
-- Uses local SSH connection
-- More complex setup (~30 minutes)
+### Option 2: Self-Hosted Runner (Best)
+Install GitHub Actions runner on VPS:
+- ✅ Bypasses firewall entirely
+- ✅ 100% reliable
+- ⏱️ 30 min setup
 - Guide: https://docs.github.com/en/actions/hosting-your-own-runners
 
+### Option 3: Switch VPS Provider
+Providers that work with GitHub Actions:
+- DigitalOcean ✅
+- Linode ✅
+- Vultr ✅
+- AWS Lightsail ✅
+
+**For now:** Manual deploy is fast enough (one command!)
+
 ---
 
-## Production Environment
+## 📊 Production Environment
 
 **VPS Details:**
 - Provider: Hostinger VPS
-- IP: 187.77.202.14
-- Location: US
+- IP: `137.184.34.143`
 - OS: Ubuntu
-- Web server: None (Next.js standalone)
-- Process manager: PM2
+- Process Manager: PM2 (cluster mode, 2 instances)
 - Domain: figtracker.ericksu.com
 
-**Application Path:**
-- Code: `/var/www/figtracker`
-- Logs: `~/.pm2/logs/`
+**Application:**
+- Path: `/var/www/figtracker`
 - Config: `/var/www/figtracker/ecosystem.config.js`
+- Logs: `~/.pm2/logs/figtracker-*.log`
 
 **Database:**
 - Provider: Hostinger MySQL
-- Connection string: See `.env` on VPS
-- Migrations: Run via Prisma on VPS
+- Host: `srv1777.hstgr.io`
+- Connection: See `.env` on VPS
 
 **SSH Access:**
 ```bash
-ssh root@187.77.202.14
-```
-
-**Authorized Keys:**
-- `claude-code` (Ed25519)
-- `claude-figtracker` (Ed25519)
-- `figtracker-deployment` (Ed25519) ← Used by deployments
-- `github-actions-deploy` (RSA 4096) ← For GitHub Actions (currently blocked)
-
----
-
-## Monitoring
-
-**Check if site is up:**
-```bash
-curl -I https://figtracker.ericksu.com
-```
-
-**Check PM2 status:**
-```bash
-ssh root@187.77.202.14 "pm2 status"
-```
-
-**Check recent logs:**
-```bash
-ssh root@187.77.202.14 "pm2 logs figtracker --lines 50"
-```
-
-**Check server resources:**
-```bash
-ssh root@187.77.202.14 "free -h && df -h"
+ssh root@137.184.34.143
 ```
 
 ---
 
-## Notes
+## 📈 Deployment History
 
-**Last updated:** June 2, 2026
+**June 8, 2026 - Zero Downtime Setup**
+- ✅ Created `deploy.sh` script on server
+- ✅ Switched to PM2 cluster mode (2 instances)
+- ✅ Verified zero-downtime reload works
+- ✅ Deployed 4 major features successfully
 
-**GitHub Actions Status:**
-- ❌ Blocked by Hostinger network firewall
-- Last successful automated deployment: June 2, 2026 at 9:58 AM
-- Issue documented in: `.github/workflows/deploy-production.yml`
+**Features Deployed:**
+1. Mobile Safari login fix (cookie domain removed)
+2. 60% API call reduction (USD-only caching)
+3. Client-side currency conversion
+4. Smart set listing descriptions
 
-**Deployment History:**
-- All deployments since 10:05 AM have been manual via `deploy.sh`
-- Average deployment time: 2-3 minutes
-- Success rate: 100% (manual), ~30% (GitHub Actions)
+**Key Commits:**
+- `e79f3c0` - Remove visitor tracking
+- `02d1a57` - Add PM2 cluster config
+- `f59f474` - Smart conditional listing fields
+- `bb455b6` - Client-side currency conversion
+- `6dccf5b` - USD-only caching
+
+---
+
+## ✅ Deployment Checklist
+
+**Before:**
+- [ ] Changes committed: `git status`
+- [ ] Pushed to GitHub: `git push origin main`
+- [ ] Build succeeds locally: `npm run build`
+
+**Deploy:**
+- [ ] Run: `ssh root@137.184.34.143 '/var/www/figtracker/deploy.sh'`
+- [ ] Wait ~2-3 minutes
+
+**After:**
+- [ ] Visit https://figtracker.ericksu.com
+- [ ] Test key features (login, pricing, collections)
+- [ ] Check browser console (F12) for errors
+
+---
+
+## 📝 Notes
+
+**Last Updated:** June 8, 2026
+
+**Deploy Method:** Manual SSH (100% reliable)  
+**Average Time:** 2-3 minutes  
+**Downtime:** 0 seconds (PM2 cluster mode)  
+**Success Rate:** 100%
+
+**GitHub Actions:** Disabled (Hostinger firewall blocks it)
