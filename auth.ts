@@ -84,7 +84,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           sameSite: 'lax',
           path: '/',
           secure: true,
-          domain: '.figtracker.ericksu.com'
         }
       },
       callbackUrl: {
@@ -93,7 +92,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           sameSite: 'lax',
           path: '/',
           secure: true,
-          domain: '.figtracker.ericksu.com'
         }
       },
       csrfToken: {
@@ -112,7 +110,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           sameSite: 'lax',
           path: '/',
           secure: true,
-          domain: '.figtracker.ericksu.com'
         }
       },
       state: {
@@ -122,7 +119,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           sameSite: 'lax',
           path: '/',
           secure: true,
-          domain: '.figtracker.ericksu.com'
         }
       },
       nonce: {
@@ -132,7 +128,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           sameSite: 'lax',
           path: '/',
           secure: true,
-          domain: '.figtracker.ericksu.com'
         }
       }
     }
