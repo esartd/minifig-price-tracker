@@ -367,8 +367,14 @@ function generateSetListing(
     description += `\nBox: ${boxText[data.boxCondition] || data.boxCondition}`;
   }
 
-  // Building status (only show "never built" if condition is actually "new")
-  if (data.buildingStatus) {
+  // Smart redundancy elimination:
+  // - Sealed box implies bags are sealed AND 100% complete
+  // - Any other box state could have variations, so show all details
+  // - This handles edge cases like "new but opened to remove minifigs"
+  const shouldHideRedundantFields = data.boxCondition === 'sealed';
+
+  // Building status - hide if box is sealed (only show "never built" if condition is actually "new")
+  if (data.buildingStatus && !shouldHideRedundantFields) {
     const buildText: Record<string, string> = {
       'unbuilt': data.condition === 'new' ? 'Bags sealed, never built' : 'Unassembled',
       'partially_built': 'Partially built',
@@ -378,8 +384,8 @@ function generateSetListing(
     description += `\nBuilding Status: ${buildText[data.buildingStatus] || data.buildingStatus}`;
   }
 
-  // Completeness
-  if (data.completeness) {
+  // Completeness - hide if box is sealed
+  if (data.completeness && !shouldHideRedundantFields) {
     const completeText: Record<string, string> = {
       'complete': '100% complete',
       'complete_verified': '100% complete (verified piece count)',

@@ -13,6 +13,7 @@ import { calculateCollectionStats } from '@/lib/collection-stats';
 import CollectionPagination from '@/components/CollectionPagination';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import { useTranslation } from '@/components/TranslationProvider';
+import { convertPricing } from '@/lib/currency-converter';
 import CollectionToggle from '@/components/CollectionToggle';
 
 export default function SetsCollectionPage() {
@@ -83,20 +84,22 @@ export default function SetsCollectionPage() {
       const data = await response.json();
 
       if (data.success) {
-        setCollection(data.data);
+        // Convert all prices to user's preferred currency
+        const userCurrency = session?.user?.preferredCurrency || 'USD';
+        const convertedData = data.data.map((item: any) => ({
+          ...item,
+          pricing: item.pricing ? convertPricing(item.pricing, userCurrency) : item.pricing,
+        }));
+
+        setCollection(convertedData);
         setLoading(false);
 
-        // Check which items need pricing refresh (expired cache or wrong currency)
-        // Note: Items now show stale prices immediately, we just refresh in background
-        const userCurrency = session?.user?.preferredCurrency || 'USD';
+        // Check which items need pricing refresh (expired cache only, currency is handled client-side)
         const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
 
         const itemsNeedingRefresh = data.data.filter((item: any) => {
           // Refresh if no pricing at all
           if (!item.pricing || item.pricing.suggestedPrice === 0) return true;
-
-          // Refresh if wrong currency
-          if (item.pricing.currencyCode !== userCurrency) return true;
 
           // Refresh if no cached_at (old data from before fix) OR cache is older than 6 hours
           if (!item.pricing.cached_at) return true; // Missing cached_at = needs refresh
@@ -153,11 +156,17 @@ export default function SetsCollectionPage() {
               const result = await response.json();
 
               if (result.success && result.data) {
+                // Convert pricing to user currency and update collection
+                const userCurrency = session?.user?.preferredCurrency || 'USD';
+                const convertedItem = {
+                  ...result.data,
+                  pricing: result.data.pricing ? convertPricing(result.data.pricing, userCurrency) : result.data.pricing,
+                };
                 setCollection(prev => prev.map(i =>
-                  i.id === item.id ? result.data : i
+                  i.id === item.id ? convertedItem : i
                 ));
-                if (process.env.NODE_ENV === 'development') console.log(`  ✅ Updated ${item.box_no}: ${result.data.pricing?.suggestedPrice || 0}`);
-              } else {
+                if (process.env.NODE_ENV === 'development') console.log(`  ✅ Updated ${item.box_no}: ${convertedItem.pricing?.suggestedPrice || 0}`);
+              } else{
                 if (process.env.NODE_ENV === 'development') console.log(`  ⚠️ No price for ${item.box_no}`);
               }
             } catch (err) {

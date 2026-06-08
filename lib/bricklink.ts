@@ -441,9 +441,9 @@ export class BricklinkAPI {
     console.log(`[calculatePricingData] START: ${itemNo}, condition=${condition}, country=${countryCode}, source=${source}`);
     const conditionCode = condition === 'new' ? 'N' : 'U';
 
-    // Note: countryCode is used for cache key (to separate USD from GBP prices)
-    // but NOT passed to Bricklink API (which would filter sellers)
+    // Always cache in USD (all users share same cache, convert client-side)
     const cacheRegion = '';
+    const cacheCountryCode = 'US'; // Always USD for global pricing
 
     // Check cache first
     const cached = await prisma.priceCache.findUnique({
@@ -452,7 +452,7 @@ export class BricklinkAPI {
           item_no: itemNo,
           item_type: 'MINIFIG',
           condition: condition,
-          country_code: countryCode,
+          country_code: cacheCountryCode,
           region: cacheRegion
         }
       }
@@ -473,9 +473,8 @@ export class BricklinkAPI {
 
     console.log(`[calculatePricingData] Cache MISS for ${itemNo}, fetching from API...`);
 
-    // Get currency code from country code
-    const currencyConfig = getCurrencyByCountryCode(countryCode);
-    const currencyCodeValue = currencyConfig?.code || 'USD';
+    // Always fetch in USD (global pricing, single cache for all users)
+    const currencyCodeValue = 'USD';
 
     // Cache miss or expired - fetch BOTH stock and sold data from API with currency conversion
     // LOG: Stock API call
@@ -486,7 +485,7 @@ export class BricklinkAPI {
     });
 
     // Fetch stock data (current listings)
-    const stockPriceGuide = await this.getPriceGuide(itemNo, conditionCode, countryCode, region, currencyCodeValue, 'stock');
+    const stockPriceGuide = await this.getPriceGuide(itemNo, conditionCode, cacheCountryCode, region, currencyCodeValue, 'stock');
     console.log(`[calculatePricingData] Stock API response for ${itemNo}:`, stockPriceGuide ? 'SUCCESS' : 'NULL');
 
     // Wait 3 seconds between API calls (BrickLink rate limit)
@@ -500,7 +499,7 @@ export class BricklinkAPI {
     });
 
     // Fetch sold data (historical sales)
-    const soldPriceGuide = await this.getPriceGuide(itemNo, conditionCode, countryCode, region, currencyCodeValue, 'sold');
+    const soldPriceGuide = await this.getPriceGuide(itemNo, conditionCode, cacheCountryCode, region, currencyCodeValue, 'sold');
     console.log(`[calculatePricingData] Sold API response for ${itemNo}:`, soldPriceGuide ? 'SUCCESS' : 'NULL');
 
     if (!stockPriceGuide && !soldPriceGuide) {
@@ -548,7 +547,7 @@ export class BricklinkAPI {
               item_no: itemNo,
               item_type: 'MINIFIG',
               condition: condition,
-              country_code: countryCode,
+              country_code: cacheCountryCode, // Always US/USD
               region: cacheRegion
             }
           },
@@ -559,15 +558,15 @@ export class BricklinkAPI {
             suggested_price: 0,
             cached_at: new Date(),
             expires_at: expiresAt,
-            currency_code: currencyCodeValue,
+            currency_code: currencyCodeValue, // Always USD
           },
           create: {
             item_no: itemNo,
             item_type: 'MINIFIG',
             condition: condition,
-            country_code: countryCode,
+            country_code: cacheCountryCode, // Always US/USD
             region: cacheRegion,
-            currency_code: currencyCodeValue,
+            currency_code: currencyCodeValue, // Always USD
             six_month_avg: 0,
             current_avg: 0,
             current_lowest: 0,
@@ -637,8 +636,8 @@ export class BricklinkAPI {
     // This allows re-checking for new sellers without hammering the API
     const expiresAt = new Date();
     if (pricingData.suggestedPrice === 0) {
-      expiresAt.setHours(expiresAt.getHours() + 1); // 1 hour for no-seller regions
-      console.log(`No sellers found for ${itemNo} in ${countryCode}, caching zeros for 1 hour`);
+      expiresAt.setHours(expiresAt.getHours() + 1); // 1 hour for items with no sellers
+      console.log(`No sellers found for ${itemNo}, caching zeros for 1 hour`);
     } else {
       expiresAt.setHours(expiresAt.getHours() + 6); // 6 hour per BrickLink API Terms
     }
@@ -650,7 +649,7 @@ export class BricklinkAPI {
             item_no: itemNo,
             item_type: 'MINIFIG',
             condition: condition,
-            country_code: countryCode,
+            country_code: cacheCountryCode, // Always US/USD
             region: cacheRegion
           }
         },
@@ -661,15 +660,15 @@ export class BricklinkAPI {
           suggested_price: pricingData.suggestedPrice,
           cached_at: new Date(),
           expires_at: expiresAt,
-          currency_code: currencyCodeValue,
+          currency_code: currencyCodeValue, // Always USD
         },
         create: {
           item_no: itemNo,
           item_type: 'MINIFIG',
           condition: condition,
-          country_code: countryCode,
+          country_code: cacheCountryCode, // Always US/USD
           region: cacheRegion,
-          currency_code: currencyCodeValue,
+          currency_code: currencyCodeValue, // Always USD
           six_month_avg: pricingData.sixMonthAverage,
           current_avg: pricingData.currentAverage,
           current_lowest: pricingData.currentLowest,
@@ -818,8 +817,9 @@ export class BricklinkAPI {
   ): Promise<PricingData> {
     const conditionCode = condition === 'new' ? 'N' : 'U';
 
-    // Standardize region to empty string since we only use country_code now
+    // Always cache in USD (all users share same cache, convert client-side)
     const cacheRegion = '';
+    const cacheCountryCode = 'US'; // Always USD for global pricing
 
     // Check cache first
     const cached = await prisma.priceCache.findUnique({
@@ -828,7 +828,7 @@ export class BricklinkAPI {
           item_no: boxNo,
           item_type: 'SET',
           condition: condition,
-          country_code: countryCode,
+          country_code: cacheCountryCode,
           region: cacheRegion
         }
       }
@@ -846,24 +846,23 @@ export class BricklinkAPI {
       };
     }
 
-    // Get currency code from country code
-    const currencyConfig = getCurrencyByCountryCode(countryCode);
-    const currencyCodeValue = currencyConfig?.code || 'USD';
+    // Always fetch in USD (global pricing, single cache for all users)
+    const currencyCodeValue = 'USD';
 
     // Cache miss or expired - fetch BOTH stock and sold data from API with currency conversion
     // Fetch stock data (current listings)
-    const stockPriceGuide = await this.getSetPriceGuide(boxNo, conditionCode, countryCode, region, currencyCodeValue, 'stock');
+    const stockPriceGuide = await this.getSetPriceGuide(boxNo, conditionCode, cacheCountryCode, region, currencyCodeValue, 'stock');
     console.log(`[calculateSetPricing] Stock API response for ${boxNo}:`, stockPriceGuide ? 'SUCCESS' : 'NULL');
 
     // Wait 3 seconds between API calls (BrickLink rate limit)
     await new Promise(resolve => setTimeout(resolve, 3000));
 
     // Fetch sold data (historical sales)
-    const soldPriceGuide = await this.getSetPriceGuide(boxNo, conditionCode, countryCode, region, currencyCodeValue, 'sold');
+    const soldPriceGuide = await this.getSetPriceGuide(boxNo, conditionCode, cacheCountryCode, region, currencyCodeValue, 'sold');
     console.log(`[calculateSetPricing] Sold API response for ${boxNo}:`, soldPriceGuide ? 'SUCCESS' : 'NULL');
 
     if (!stockPriceGuide && !soldPriceGuide) {
-      console.log(`No price guide data at all for set ${boxNo} in ${countryCode} - caching zeros for 1 hour`);
+      console.log(`No price guide data at all for set ${boxNo} - caching zeros for 1 hour`);
       // No data from API - cache zeros for 1 hour to avoid repeated failed API calls
       const expiresAt = new Date();
       expiresAt.setHours(expiresAt.getHours() + 1);
@@ -875,7 +874,7 @@ export class BricklinkAPI {
               item_no: boxNo,
               item_type: 'SET',
               condition: condition,
-              country_code: countryCode,
+              country_code: cacheCountryCode, // Always US/USD
               region: cacheRegion
             }
           },
@@ -886,15 +885,15 @@ export class BricklinkAPI {
             suggested_price: 0,
             cached_at: new Date(),
             expires_at: expiresAt,
-            currency_code: currencyCodeValue,
+            currency_code: currencyCodeValue, // Always USD
           },
           create: {
             item_no: boxNo,
             item_type: 'SET',
             condition: condition,
-            country_code: countryCode,
+            country_code: cacheCountryCode, // Always US/USD
           region: cacheRegion,
-          currency_code: currencyCodeValue,
+          currency_code: currencyCodeValue, // Always USD
           six_month_avg: 0,
           current_avg: 0,
           current_lowest: 0,
@@ -955,8 +954,8 @@ export class BricklinkAPI {
     // This allows re-checking for new sellers without hammering the API
     const expiresAt = new Date();
     if (pricingData.suggestedPrice === 0) {
-      expiresAt.setHours(expiresAt.getHours() + 1); // 1 hour for no-seller regions
-      console.log(`No sellers found for set ${boxNo} in ${countryCode}, caching zeros for 1 hour`);
+      expiresAt.setHours(expiresAt.getHours() + 1); // 1 hour for items with no sellers
+      console.log(`No sellers found for set ${boxNo}, caching zeros for 1 hour`);
     } else {
       expiresAt.setHours(expiresAt.getHours() + 6); // 6 hour per BrickLink API Terms
     }
@@ -968,7 +967,7 @@ export class BricklinkAPI {
             item_no: boxNo,
             item_type: 'SET',
             condition: condition,
-            country_code: countryCode,
+            country_code: cacheCountryCode, // Always US/USD
             region: cacheRegion
           }
         },
@@ -979,15 +978,15 @@ export class BricklinkAPI {
           suggested_price: pricingData.suggestedPrice,
           cached_at: new Date(),
         expires_at: expiresAt,
-        currency_code: currencyCodeValue,
+        currency_code: currencyCodeValue, // Always USD
       },
       create: {
         item_no: boxNo,
         item_type: 'SET',
         condition: condition,
-        country_code: countryCode,
+        country_code: cacheCountryCode, // Always US/USD
         region: cacheRegion,
-        currency_code: currencyCodeValue,
+        currency_code: currencyCodeValue, // Always USD
         six_month_avg: pricingData.sixMonthAverage,
         current_avg: pricingData.currentAverage,
         current_lowest: pricingData.currentLowest,
