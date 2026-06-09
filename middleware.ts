@@ -157,8 +157,32 @@ export function middleware(request: NextRequest) {
   const hasReferer = referer && referer.length > 0;
 
   // CAPTCHA VERIFICATION for high-risk countries (Singapore, etc.)
-  // Check if user has verified captcha cookie
-  const captchaVerified = request.cookies.get('captcha_verified')?.value === 'true';
+  // Check if user has verified captcha cookie AND it matches their current IP
+  const captchaCookie = request.cookies.get('captcha_verified')?.value;
+  let captchaVerified = false;
+
+  if (captchaCookie) {
+    try {
+      // Decode IP-bound cookie (format: base64(IP:timestamp))
+      const decoded = Buffer.from(captchaCookie, 'base64').toString('utf-8');
+      const [cookieIP, timestamp] = decoded.split(':');
+
+      // Verify:
+      // 1. IP matches current request IP (prevents cookie theft/sharing)
+      // 2. Cookie isn't expired (1 hour = 3600000ms)
+      const isIPMatch = cookieIP === ip;
+      const isNotExpired = (Date.now() - parseInt(timestamp)) < 3600000;
+
+      captchaVerified = isIPMatch && isNotExpired;
+
+      if (!captchaVerified && captchaCookie) {
+        console.log(`[🚫 CAPTCHA INVALID] IP mismatch or expired | Cookie IP: ${cookieIP} | Current IP: ${ip}`)
+      }
+    } catch (e) {
+      // Invalid cookie format - treat as not verified
+      captchaVerified = false;
+    }
+  }
 
   // AGGRESSIVE SCRAPER BLOCKING: Detail pages with no referer
   // Real users come from:

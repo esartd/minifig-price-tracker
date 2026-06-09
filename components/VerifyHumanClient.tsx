@@ -39,9 +39,9 @@ export default function VerifyHumanClient() {
 
   useEffect(() => {
     if (turnstileLoaded) {
-      // Render invisible Turnstile widget
+      // Render visible Turnstile widget (managed mode for better bot detection)
       window.turnstile.render('#turnstile-widget', {
-        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA', // Demo key
+        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
         callback: async (token: string) => {
           // User passed CAPTCHA
           await handleVerificationSuccess(token);
@@ -56,6 +56,7 @@ export default function VerifyHumanClient() {
         },
         theme: 'light',
         size: 'normal',
+        appearance: 'always', // Force interactive challenge (not invisible)
       });
     }
   }, [turnstileLoaded]);
@@ -72,9 +73,7 @@ export default function VerifyHumanClient() {
       const data = await response.json();
 
       if (data.success) {
-        // Verification successful - set cookie and redirect
-        document.cookie = `captcha_verified=true; path=/; max-age=${60 * 60 * 24}`; // 24 hour cookie
-
+        // Verification successful - cookie is set by server (httpOnly, secure)
         // Show success message briefly
         setIsVerifying(false);
 

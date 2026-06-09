@@ -18,6 +18,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Get IP address (same logic as middleware)
+    const ip = request.headers.get('cf-connecting-ip') ||
+                request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+                request.headers.get('x-real-ip') ||
+                'unknown';
+
     // Verify token with Cloudflare Turnstile API
     const verifyResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
@@ -34,12 +40,17 @@ export async function POST(request: NextRequest) {
       // CAPTCHA verified successfully
       const response = NextResponse.json({ success: true });
 
-      // Set verification cookie (24 hours)
-      response.cookies.set('captcha_verified', 'true', {
+      // Create IP-bound cookie value (prevents cookie theft/sharing between IPs)
+      // Format: IP_ADDRESS:timestamp
+      const cookieValue = `${ip}:${Date.now()}`;
+      const encodedValue = Buffer.from(cookieValue).toString('base64');
+
+      // Set verification cookie (1 hour - force re-verification more frequently)
+      response.cookies.set('captcha_verified', encodedValue, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
-        maxAge: 60 * 60 * 24, // 24 hours
+        maxAge: 60 * 60, // 1 hour (not 24 - too easy for bots to persist)
         path: '/',
       });
 
