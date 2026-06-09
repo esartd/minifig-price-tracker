@@ -33,6 +33,7 @@ const ALLOWED_BOTS = [
   'perplexity',          // Perplexity AI
   'amzn-searchbot',      // Amazon search bot
   'sleepbot',            // Website monitoring (allow for uptime checks)
+  'figtracker-cron',     // Internal cron jobs (price refresh, backups, etc.)
 ]
 
 // Common scraper/bot user agents to block (excluding legitimate search engines)
