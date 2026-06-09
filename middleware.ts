@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server'
 import { getLocaleFromHost } from '@/lib/i18n-subdomain'
 import { tieredRateLimit, getTierForPath } from '@/lib/tiered-rate-limit'
 import { trackBehavior, isBlacklisted } from '@/lib/smart-bot-detector'
+import { isHistoricalBot } from '@/lib/historical-bot-blocklist'
 
 // Whitelisted IPs (no rate limiting)
 const WHITELISTED_IPS = [
@@ -170,6 +171,13 @@ export function middleware(request: NextRequest) {
         return new NextResponse('Access from Tencent Cloud is not permitted', { status: 403 });
       }
     }
+  }
+
+  // HISTORICAL BOT BLOCKLIST: Block known bots from past activity
+  // These IPs exhibited bot behavior before (CAPTCHA failures, suspicious patterns)
+  if (!WHITELISTED_IPS.includes(ip) && isHistoricalBot(ip)) {
+    console.log(`[🚫 HISTORICAL BOT] IP: ${ip} | Known bot from past activity | Path: ${pathname}`)
+    return new NextResponse('Access denied: Known bot', { status: 403 });
   }
 
   // SMART BOT DETECTION: Track behavior and auto-block suspicious IPs
