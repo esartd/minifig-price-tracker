@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { getLocaleFromHost } from '@/lib/i18n-subdomain'
 import { tieredRateLimit, getTierForPath } from '@/lib/tiered-rate-limit'
+import { trackBehavior, isBlacklisted } from '@/lib/smart-bot-detector'
 
 // Whitelisted IPs (no rate limiting)
 const WHITELISTED_IPS = [
@@ -110,6 +111,61 @@ export function middleware(request: NextRequest) {
   const cloudflareCountry = request.headers.get('cf-ipcountry') || '';
   const HIGH_RISK_COUNTRIES = ['SG', 'CN', 'RU', 'IN', 'VN', 'ID', 'PH'];
   const isHighRisk = HIGH_RISK_COUNTRIES.includes(cloudflareCountry);
+
+  // SMART BLOCKING: Block known hosting providers & data centers (not residential ISPs)
+  // These ASNs (Autonomous System Numbers) are used by bot operators, not real users
+  // Real Singapore users use: Singtel (AS4657), StarHub (AS4657), M1 (AS9658)
+  const cloudflareASN = request.headers.get('cf-asn') || '';
+
+  const BLOCKED_ASNS = [
+    // Singapore bot networks (Tencent Cloud + proxies) - 99% of current bot traffic
+    'AS132203', // Tencent Cloud (majority of bot traffic from SG)
+    'AS212238', // Datacamp Limited (hosting/proxy service)
+    'AS139628', // Mega Truenet (VPS provider)
+    'AS150436', // Byteplus (TikTok's cloud service)
+    '132203',   // Same as above but without 'AS' prefix (Cloudflare format varies)
+    '212238',
+    '139628',
+    '150436',
+
+    // Known proxy/scraping services (not general hosting)
+    'AS208843', // Alpha Strike Labs (proxy service)
+    'AS206092', // Oxylabs (commercial scraping service)
+    'AS212695', // Smartproxy (scraping service)
+    '208843',
+    '206092',
+    '212695',
+  ];
+
+  if (BLOCKED_ASNS.some(asn => cloudflareASN.includes(asn)) && !WHITELISTED_IPS.includes(ip)) {
+    console.log(`[🚫 ASN BLOCKED] ASN: ${cloudflareASN} | Country: ${cloudflareCountry} | IP: ${ip} | Path: ${pathname}`)
+    return new NextResponse('Access from hosting providers is not permitted', { status: 403 });
+  }
+
+  // SMART BOT DETECTION: Track behavior and auto-block suspicious IPs
+  // This catches bots that bypass ASN blocks (residential proxies, etc.)
+  if (!WHITELISTED_IPS.includes(ip)) {
+    // Check if already blacklisted
+    if (isBlacklisted(ip)) {
+      console.log(`[🤖 AUTO-BLOCKED] IP: ${ip} | Previously identified as bot | Path: ${pathname}`)
+      return new NextResponse('Automated access detected', { status: 403 });
+    }
+
+    // Track this request and check if it looks like a bot
+    const isCaptchaPage = pathname === '/verify-human';
+    const referer = request.headers.get('referer') || '';
+    const botCheck = trackBehavior(ip, pathname, referer, userAgent, isCaptchaPage);
+
+    if (botCheck.isBot) {
+      console.log(`[🤖 AUTO-BLOCKED] IP: ${ip} | Score: ${botCheck.score}/100 | Reason: ${botCheck.reason} | Path: ${pathname}`)
+      return new NextResponse(`Automated access detected: ${botCheck.reason}`, { status: 403 });
+    }
+
+    // Log high-risk IPs (not blocked yet, but suspicious)
+    if (botCheck.score > 40) {
+      console.log(`[⚠️  HIGH BOT SCORE] IP: ${ip} | Score: ${botCheck.score}/100 | Path: ${pathname}`)
+    }
+  }
 
   // Skip rate limiting for whitelisted IPs
   if (!WHITELISTED_IPS.includes(ip)) {
