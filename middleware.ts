@@ -137,9 +137,39 @@ export function middleware(request: NextRequest) {
     '212695',
   ];
 
-  if (BLOCKED_ASNS.some(asn => cloudflareASN.includes(asn)) && !WHITELISTED_IPS.includes(ip)) {
+  // ASN blocking (if Cloudflare provides ASN header)
+  if (cloudflareASN && BLOCKED_ASNS.some(asn => cloudflareASN.includes(asn)) && !WHITELISTED_IPS.includes(ip)) {
     console.log(`[🚫 ASN BLOCKED] ASN: ${cloudflareASN} | Country: ${cloudflareCountry} | IP: ${ip} | Path: ${pathname}`)
     return new NextResponse('Access from hosting providers is not permitted', { status: 403 });
+  }
+
+  // BACKUP: IP Range blocking for Tencent Cloud (in case ASN header not available)
+  // Tencent Cloud Singapore IP ranges: 43.128.0.0/14, 43.132.0.0/14, 43.152.0.0/14, 43.156.0.0/14
+  // 43.163.0.0/16, 43.172.0.0/14, 43.176.0.0/13
+  const TENCENT_IP_RANGES = [
+    { start: '43.128.0.0', end: '43.131.255.255' },    // 43.128.0.0/14
+    { start: '43.132.0.0', end: '43.135.255.255' },    // 43.132.0.0/14
+    { start: '43.152.0.0', end: '43.155.255.255' },    // 43.152.0.0/14
+    { start: '43.156.0.0', end: '43.159.255.255' },    // 43.156.0.0/14
+    { start: '43.163.0.0', end: '43.163.255.255' },    // 43.163.0.0/16
+    { start: '43.172.0.0', end: '43.175.255.255' },    // 43.172.0.0/14
+    { start: '43.176.0.0', end: '43.183.255.255' },    // 43.176.0.0/13
+  ];
+
+  function isInRange(ip: string, start: string, end: string): boolean {
+    const ipNum = ip.split('.').reduce((acc, octet) => (acc << 8) + parseInt(octet), 0) >>> 0;
+    const startNum = start.split('.').reduce((acc, octet) => (acc << 8) + parseInt(octet), 0) >>> 0;
+    const endNum = end.split('.').reduce((acc, octet) => (acc << 8) + parseInt(octet), 0) >>> 0;
+    return ipNum >= startNum && ipNum <= endNum;
+  }
+
+  if (!WHITELISTED_IPS.includes(ip)) {
+    for (const range of TENCENT_IP_RANGES) {
+      if (isInRange(ip, range.start, range.end)) {
+        console.log(`[🚫 TENCENT CLOUD BLOCKED] IP: ${ip} | Country: ${cloudflareCountry} | Path: ${pathname}`)
+        return new NextResponse('Access from Tencent Cloud is not permitted', { status: 403 });
+      }
+    }
   }
 
   // SMART BOT DETECTION: Track behavior and auto-block suspicious IPs
