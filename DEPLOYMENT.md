@@ -5,7 +5,7 @@
 **One command from your local machine:**
 
 ```bash
-ssh root@137.184.34.143 '/var/www/figtracker/deploy.sh'
+ssh root@187.77.202.14 '/var/www/figtracker/deploy.sh'
 ```
 
 **Time:** ~2-3 minutes | **Downtime:** 0 seconds ✨
@@ -51,20 +51,20 @@ git push origin main
 ### Step 2: Deploy to Production
 
 ```bash
-ssh root@137.184.34.143 '/var/www/figtracker/deploy.sh'
+ssh root@187.77.202.14 '/var/www/figtracker/deploy.sh'
 ```
 
 ### Step 3: Verify
 
 ```bash
 # Check PM2 status
-ssh root@137.184.34.143 'pm2 status'
+ssh root@187.77.202.14 'pm2 status'
 
 # Test site
 open https://figtracker.ericksu.com
 
 # Monitor logs (if needed)
-ssh root@137.184.34.143 'pm2 logs figtracker --lines 50'
+ssh root@187.77.202.14 'pm2 logs figtracker --lines 50'
 ```
 
 ---
@@ -75,7 +75,7 @@ ssh root@137.184.34.143 'pm2 logs figtracker --lines 50'
 
 ```bash
 # SSH in and diagnose
-ssh root@137.184.34.143
+ssh root@187.77.202.14
 cd /var/www/figtracker
 
 # Check what went wrong
@@ -91,19 +91,19 @@ npx prisma generate  # Regenerate Prisma client
 
 ```bash
 # Check PM2 status
-ssh root@137.184.34.143 'pm2 status'
+ssh root@187.77.202.14 'pm2 status'
 
 # View error logs
-ssh root@137.184.34.143 'pm2 logs figtracker --err --lines 50'
+ssh root@187.77.202.14 'pm2 logs figtracker --err --lines 50'
 
 # Restart if needed
-ssh root@137.184.34.143 'pm2 restart figtracker'
+ssh root@187.77.202.14 'pm2 restart figtracker'
 ```
 
 ### Emergency Rollback
 
 ```bash
-ssh root@137.184.34.143
+ssh root@187.77.202.14
 cd /var/www/figtracker
 
 # Find last working commit
@@ -192,7 +192,7 @@ Providers that work with GitHub Actions:
 
 **SSH Access:**
 ```bash
-ssh root@137.184.34.143
+ssh root@187.77.202.14
 ```
 
 ---
@@ -228,7 +228,7 @@ ssh root@137.184.34.143
 - [ ] Build succeeds locally: `npm run build`
 
 **Deploy:**
-- [ ] Run: `ssh root@137.184.34.143 '/var/www/figtracker/deploy.sh'`
+- [ ] Run: `ssh root@187.77.202.14 '/var/www/figtracker/deploy.sh'`
 - [ ] Wait ~2-3 minutes
 
 **After:**
