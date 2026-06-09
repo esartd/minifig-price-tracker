@@ -140,12 +140,15 @@ export class BricklinkAPI {
     // BLOCK all API calls on localhost to preserve production limits
     const isLocal = this.isLocalhost();
     const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build';
-    console.log(`[BrickLink API] ${endpoint} | build=${isBuildTime} | localhost=${isLocal} | NODE_ENV=${process.env.NODE_ENV}`);
 
     if (isLocal) {
-      console.warn('🚫 Bricklink API blocked on localhost - use production for real data');
+      console.warn(`🚫 [LOCALHOST BLOCKED] BrickLink API call blocked: ${endpoint}`);
+      console.warn('   Reason: Running on localhost (NEXTAUTH_URL contains localhost)');
+      console.warn('   To test: Use production at figtracker.ericksu.com');
       return null;
     }
+
+    console.log(`[BrickLink API] ${endpoint} | build=${isBuildTime} | localhost=${isLocal} | NODE_ENV=${process.env.NODE_ENV}`);
 
     if (isBuildTime) {
       console.warn(`⚠️  [BUILD-TIME API CALL] ${endpoint} | This counts toward 5,000/day limit!`);
@@ -437,6 +440,12 @@ export class BricklinkAPI {
     userId?: string,
     callSource?: BrickLinkCallLog['source']
   ): Promise<PricingData> {
+    // CRITICAL: Block ALL API calls on localhost
+    if (this.isLocalhost()) {
+      console.warn(`🚫 [LOCALHOST] BrickLink API blocked for ${itemNo} - use production to test pricing`);
+      throw new Error('BrickLink API calls are blocked on localhost. Use production at figtracker.ericksu.com to test pricing.');
+    }
+
     const source = callSource || 'unknown';
     console.log(`[calculatePricingData] START: ${itemNo}, condition=${condition}, country=${countryCode}, source=${source}`);
     const conditionCode = condition === 'new' ? 'N' : 'U';
@@ -815,6 +824,12 @@ export class BricklinkAPI {
     region: string = 'north_america',
     userId?: string
   ): Promise<PricingData> {
+    // CRITICAL: Block ALL API calls on localhost
+    if (this.isLocalhost()) {
+      console.warn(`🚫 [LOCALHOST] BrickLink API blocked for set ${boxNo} - use production to test pricing`);
+      throw new Error('BrickLink API calls are blocked on localhost. Use production at figtracker.ericksu.com to test pricing.');
+    }
+
     const conditionCode = condition === 'new' ? 'N' : 'U';
 
     // Always cache in USD (all users share same cache, convert client-side)

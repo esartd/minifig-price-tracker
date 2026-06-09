@@ -14,16 +14,17 @@ import { bricklinkAPI } from '@/lib/bricklink';
  * OPTIMIZATIONS (May 2026):
  * - Only fetches USED items (most collections are used, saves ~50% API calls)
  * - Runs only during American hours (most users are American)
- * - Focuses on top 300 highest-value items per run
+ * - Focuses on top 300 MOST COMMON items per run (owned by most users)
  * - Other items refresh opportunistically when users view them
  *
  * HOW IT WORKS:
  * 1. Find all unique (item_no, condition, currency) from all users' collections
  * 2. Filter to USED condition only (skip "new" - rarely collected)
  * 3. Check which need refresh (cache expired or missing)
- * 4. Sort by value (highest first)
- * 5. Fetch top 300 items from BrickLink API
- * 6. Save to priceCache (automatic via bricklinkAPI)
+ * 4. Count occurrences (how many users own each item)
+ * 5. Sort by occurrences (most common first = benefits most users)
+ * 6. Fetch top 300 items from BrickLink API
+ * 7. Save to priceCache (automatic via bricklinkAPI)
  *
  * RATE LIMITS:
  * - BrickLink: 5,000 calls/day
@@ -231,32 +232,57 @@ export async function POST(request: NextRequest) {
     // 4. Safety check: Don't exceed rate limits
     // Since users' collections will refresh opportunistically when they view them,
     // we only need to pre-warm the most important items here.
-    // Prioritize high-value items to maximize cache hit rate.
-    const itemsWithValue = await Promise.all(
-      itemsNeedingRefresh.map(async item => {
-        const cached = await prisma.priceCache.findUnique({
-          where: {
-            item_no_item_type_condition_country_code_region: {
-              item_no: item.itemNo,
-              item_type: item.itemType,
-              condition: item.condition,
-              country_code: item.countryCode,
-              region: '',
-            }
-          }
-        });
-        return {
-          ...item,
-          value: cached?.suggested_price || 0
-        };
-      })
-    );
+    // Prioritize MOST COMMON items (owned by most users) to maximize cache hit rate.
 
-    // Sort by value descending (high-value items first)
-    itemsWithValue.sort((a, b) => b.value - a.value);
+    // Count how many users own each item
+    const itemOccurrences = new Map<string, number>();
 
-    const MAX_CALLS_PER_RUN = 300; // Reduced: focus on top items only
-    const itemsToProcess = itemsWithValue.slice(0, MAX_CALLS_PER_RUN);
+    // Count minifigs from personal collection
+    collectionItems.forEach((item: any) => {
+      if (item.condition === 'new') return; // Skip new items
+      const countryCode = (userCountryMap.get(item.userId) || 'US') as string;
+      const key = `${item.minifigure_no}-MINIFIG-${item.condition}-${countryCode}`;
+      itemOccurrences.set(key, (itemOccurrences.get(key) || 0) + 1);
+    });
+
+    // Count minifigs from inventory
+    inventoryItems.forEach((item: any) => {
+      if (item.condition === 'new') return;
+      const countryCode = (userCountryMap.get(item.userId) || 'US') as string;
+      const key = `${item.minifigure_no}-MINIFIG-${item.condition}-${countryCode}`;
+      itemOccurrences.set(key, (itemOccurrences.get(key) || 0) + 1);
+    });
+
+    // Count sets from collection
+    setCollectionItems.forEach((item: any) => {
+      if (item.condition === 'new') return;
+      const countryCode = (userCountryMap.get(item.userId) || 'US') as string;
+      const key = `${item.box_no}-SET-${item.condition}-${countryCode}`;
+      itemOccurrences.set(key, (itemOccurrences.get(key) || 0) + 1);
+    });
+
+    // Count sets from inventory
+    setInventoryMinifigs.forEach((item: any) => {
+      if (item.condition === 'new') return;
+      const countryCode = (userCountryMap.get(item.userId) || 'US') as string;
+      const key = `${item.box_no}-SET-${item.condition}-${countryCode}`;
+      itemOccurrences.set(key, (itemOccurrences.get(key) || 0) + 1);
+    });
+
+    // Add occurrence count to items needing refresh
+    const itemsWithOccurrences = itemsNeedingRefresh.map(item => {
+      const key = `${item.itemNo}-${item.itemType}-${item.condition}-${item.countryCode}`;
+      return {
+        ...item,
+        occurrences: itemOccurrences.get(key) || 1
+      };
+    });
+
+    // Sort by occurrences descending (most common items first = benefits most users)
+    itemsWithOccurrences.sort((a, b) => b.occurrences - a.occurrences);
+
+    const MAX_CALLS_PER_RUN = 300; // Focus on most common items
+    const itemsToProcess = itemsWithOccurrences.slice(0, MAX_CALLS_PER_RUN);
 
     if (itemsNeedingRefresh.length > MAX_CALLS_PER_RUN) {
       console.log(`⚠️  Limiting to ${MAX_CALLS_PER_RUN} high-value items (${itemsNeedingRefresh.length - MAX_CALLS_PER_RUN} will refresh when viewed)`);
