@@ -151,7 +151,8 @@ export function trackBehavior(
   tracker.score = Math.min(tracker.score, 100);
 
   // Auto-blacklist if score exceeds threshold
-  const BOT_THRESHOLD = 60;
+  // UPDATED June 10, 2026: Lowered from 60 to 40 to catch residential proxy bots faster
+  const BOT_THRESHOLD = 40;
   if (tracker.score >= BOT_THRESHOLD) {
     tracker.blacklisted = true;
 

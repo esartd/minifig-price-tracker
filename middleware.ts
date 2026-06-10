@@ -110,8 +110,13 @@ export function middleware(request: NextRequest) {
 
   // AGGRESSIVE RATE LIMITING for high-risk regions (Singapore, China, Russia, etc.)
   // These regions have 573 bot users vs 9 from New York - clearly scrapers
+  // UPDATED June 10, 2026: Added BD, PK, AR, HK after bots bypassed Singapore blocking
+  // via global residential proxies
   const cloudflareCountry = request.headers.get('cf-ipcountry') || '';
-  const HIGH_RISK_COUNTRIES = ['SG', 'CN', 'RU', 'IN', 'VN', 'ID', 'PH'];
+  const HIGH_RISK_COUNTRIES = [
+    'SG', 'CN', 'RU', 'IN', 'VN', 'ID', 'PH', // Original high-risk countries
+    'BD', 'PK', 'AR', 'HK',                   // NEW: Residential proxy sources (June 2026)
+  ];
   const isHighRisk = HIGH_RISK_COUNTRIES.includes(cloudflareCountry);
 
   // SMART BLOCKING: Block known hosting providers & data centers (not residential ISPs)
