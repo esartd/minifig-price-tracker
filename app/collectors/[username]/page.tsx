@@ -2,7 +2,6 @@
 
 import { useState, useEffect, use } from 'react';
 import { useSession } from 'next-auth/react';
-import Image from 'next/image';
 import Link from 'next/link';
 import {
   UserCircleIcon,
@@ -16,6 +15,27 @@ import { useTranslation } from '@/components/TranslationProvider';
 
 function tx(translations: Record<string, any>, path: string): string | undefined {
   return path.split('.').reduce((obj: any, key) => obj?.[key], translations) as string | undefined;
+}
+
+const PALETTE = ['#3b82f6','#8b5cf6','#ec4899','#f59e0b','#10b981','#f97316','#06b6d4','#6366f1'];
+
+function ProfileAvatar({ profile }: { profile: { displayName: string; image: string | null; profileSlug: string } }) {
+  const [err, setErr] = useState(false);
+  const initials = profile.displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+  const color = PALETTE[profile.profileSlug.charCodeAt(0) % PALETTE.length];
+  const src = profile.image
+    ? (profile.image.startsWith('http') || profile.image.startsWith('/') ? profile.image : `/avatars/${profile.image}.png`)
+    : null;
+  return (
+    <div style={{ width: 80, height: 80, borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '2px solid #e5e5e5', position: 'relative' }}>
+      <div style={{ position: 'absolute', inset: 0, backgroundColor: color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: '24px' }}>
+        {initials}
+      </div>
+      {src && !err && (
+        <img src={src} alt={profile.displayName} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} onError={() => setErr(true)} />
+      )}
+    </div>
+  );
 }
 
 type Tab = 'minifigInventory' | 'minifigPersonal' | 'setInventory' | 'setPersonal';
@@ -132,28 +152,7 @@ export default function CollectorProfilePage({ params }: { params: Promise<{ use
         <div style={{ maxWidth: '860px', margin: '0 auto', padding: '32px 24px 24px' }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px', flexWrap: 'wrap' }}>
             {/* Avatar */}
-            <div
-              style={{
-                width: '80px',
-                height: '80px',
-                borderRadius: '50%',
-                overflow: 'hidden',
-                flexShrink: 0,
-                backgroundColor: '#f5f5f5',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '2px solid #e5e5e5',
-              }}
-            >
-              {profile.image ? (
-                <Image
-                  src={profile.image.startsWith('http') || profile.image.startsWith('/') ? profile.image : `/avatars/${profile.image}.png`}
-                  alt={profile.displayName} width={80} height={80} unoptimized style={{ objectFit: 'cover' }} />
-              ) : (
-                <UserCircleIcon style={{ width: '52px', height: '52px', color: '#a3a3a3' }} />
-              )}
-            </div>
+            <ProfileAvatar profile={profile} />
 
             {/* Name + meta */}
             <div style={{ flex: 1, minWidth: 0 }}>

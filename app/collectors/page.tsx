@@ -64,22 +64,23 @@ function Avatar({ user, size = 48 }: { user: CollectorCard; size?: number }) {
   const [err, setErr] = useState(false);
   const initials = user.displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
   const src = avatarSrc(user.image);
-  if (src && !err) {
-    return (
-      <Image src={src} alt={user.displayName} width={size} height={size} unoptimized
-        style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0, border: '2px solid #e5e5e5' }}
-        onError={() => setErr(true)} />
-    );
-  }
+  const color = avatarColor(user.profileSlug);
   return (
-    <div style={{
-      width: size, height: size, borderRadius: '50%', flexShrink: 0,
-      backgroundColor: avatarColor(user.profileSlug),
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      color: '#fff', fontWeight: 700, fontSize: size > 40 ? '17px' : '12px',
-      border: '2px solid rgba(255,255,255,0.2)',
-    }}>
-      {initials}
+    <div style={{ width: size, height: size, borderRadius: '50%', flexShrink: 0, position: 'relative', overflow: 'hidden', border: '2px solid #e5e5e5' }}>
+      {/* Initials always rendered underneath */}
+      <div style={{
+        position: 'absolute', inset: 0, backgroundColor: color,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        color: '#fff', fontWeight: 700, fontSize: size > 40 ? '17px' : '12px',
+      }}>
+        {initials}
+      </div>
+      {/* Avatar image on top — hides itself on error */}
+      {src && !err && (
+        <img src={src} alt={user.displayName} width={size} height={size}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }}
+          onError={() => setErr(true)} />
+      )}
     </div>
   );
 }
