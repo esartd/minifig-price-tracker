@@ -14,6 +14,9 @@ import {
   ArchiveBoxIcon,
   ArrowRightIcon,
   TagIcon,
+  BoltIcon,
+  FireIcon,
+  PuzzlePieceIcon,
 } from '@heroicons/react/24/outline';
 import { useTranslation } from '@/components/TranslationProvider';
 
@@ -36,6 +39,20 @@ interface ThemeLeader {
   count: number;
 }
 
+interface Specialist {
+  user: CollectorCard;
+  theme: string;
+  pct: number;
+}
+
+interface RecentActivityItem {
+  minifigureNo: string;
+  name: string;
+  imageUrl: string | null;
+  addedAt: string;
+  user: { profileSlug: string; displayName: string; image: string | null };
+}
+
 interface CommunityStats {
   totalCollectors: number;
   totalItemsTracked: number;
@@ -45,9 +62,11 @@ interface CommunityStats {
   newestMembers: CollectorCard[];
   spotlight: CollectorCard[];
   themeLeaders: ThemeLeader[];
+  risingStars: CollectorCard[];
+  specialists: Specialist[];
+  recentActivity: RecentActivityItem[];
 }
 
-// Colour per username (consistent across renders)
 const PALETTE = ['#3b82f6','#8b5cf6','#ec4899','#f59e0b','#10b981','#f97316','#06b6d4','#6366f1'];
 function avatarColor(slug: string) {
   let hash = 0;
@@ -57,19 +76,17 @@ function avatarColor(slug: string) {
 
 function avatarSrc(image: string | null): string | null {
   if (!image) return null;
-  // If it looks like an avatar key (no slashes, no http), build the path
   if (!image.startsWith('http') && !image.startsWith('/')) return `/avatars/${image}.png`;
   return image;
 }
 
-function Avatar({ user, size = 48 }: { user: CollectorCard; size?: number }) {
+function Avatar({ user, size = 48 }: { user: { displayName: string; image: string | null; profileSlug: string }; size?: number }) {
   const [err, setErr] = useState(false);
   const initials = user.displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
   const src = avatarSrc(user.image);
   const color = avatarColor(user.profileSlug);
   return (
     <div style={{ width: size, height: size, borderRadius: '50%', flexShrink: 0, position: 'relative', overflow: 'hidden', border: '2px solid #e5e5e5' }}>
-      {/* Initials always rendered underneath */}
       <div style={{
         position: 'absolute', inset: 0, backgroundColor: color,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -77,7 +94,6 @@ function Avatar({ user, size = 48 }: { user: CollectorCard; size?: number }) {
       }}>
         {initials}
       </div>
-      {/* Avatar image on top — hides itself on error */}
       {src && !err && (
         <img src={src} alt={user.displayName} width={size} height={size}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }}
@@ -239,6 +255,95 @@ function ThemeLeaderCard({ leader }: { leader: ThemeLeader }) {
   );
 }
 
+function SpecialistCard({ specialist }: { specialist: Specialist }) {
+  const color = avatarColor(specialist.user.profileSlug);
+  return (
+    <Link href={`/collectors/${specialist.user.profileSlug}`} style={{ textDecoration: 'none' }}>
+      <div
+        style={{
+          backgroundColor: '#fff', border: '1px solid #e5e5e5', borderRadius: '14px',
+          padding: '16px', display: 'flex', alignItems: 'center', gap: '12px',
+          cursor: 'pointer', transition: 'transform 0.12s, box-shadow 0.12s',
+        }}
+        onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.transform = 'translateY(-2px)'; el.style.boxShadow = '0 6px 20px rgba(0,0,0,0.08)'; }}
+        onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.transform = ''; el.style.boxShadow = ''; }}
+      >
+        <Avatar user={specialist.user} size={40} />
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <p style={{ margin: '0 0 2px', fontSize: '13px', fontWeight: 700, color: '#171717', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {specialist.user.displayName}
+          </p>
+          <p style={{ margin: 0, fontSize: '12px', color: '#737373', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {specialist.pct}% {specialist.theme}
+          </p>
+        </div>
+        {/* Pct bar */}
+        <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
+          <span style={{ fontSize: '14px', fontWeight: 800, color }}>{specialist.pct}%</span>
+          <div style={{ width: 48, height: 4, borderRadius: '2px', backgroundColor: '#f0f0f0', overflow: 'hidden' }}>
+            <div style={{ width: `${specialist.pct}%`, height: '100%', backgroundColor: color, borderRadius: '2px' }} />
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function RecentActivityRow({ item }: { item: RecentActivityItem }) {
+  const [imgErr, setImgErr] = useState(false);
+  const [avatarErr, setAvatarErr] = useState(false);
+  const avatarSrcUrl = avatarSrc(item.user.image);
+  const color = avatarColor(item.user.profileSlug);
+  const initials = item.user.displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+
+  const timeAgo = (iso: string) => {
+    const diff = Date.now() - new Date(iso).getTime();
+    const mins = Math.floor(diff / 60000);
+    const hrs = Math.floor(diff / 3600000);
+    const days = Math.floor(diff / 86400000);
+    if (days >= 1) return `${days}d ago`;
+    if (hrs >= 1) return `${hrs}h ago`;
+    if (mins >= 1) return `${mins}m ago`;
+    return 'just now';
+  };
+
+  return (
+    <Link href={`/collectors/${item.user.profileSlug}`} style={{ textDecoration: 'none' }}>
+      <div
+        style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', borderRadius: '10px', transition: 'background 0.1s' }}
+        onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.backgroundColor = '#fafafa'; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.backgroundColor = ''; }}
+      >
+        {/* Minifig image */}
+        <div style={{ width: 40, height: 40, borderRadius: '8px', backgroundColor: '#f5f5f5', flexShrink: 0, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {item.imageUrl && !imgErr ? (
+            <img src={item.imageUrl} alt={item.name} width={40} height={40} style={{ objectFit: 'contain', width: '100%', height: '100%' }} onError={() => setImgErr(true)} />
+          ) : (
+            <CubeIcon style={{ width: 20, height: 20, color: '#d4d4d4' }} />
+          )}
+        </div>
+        {/* Name + collector */}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <p style={{ margin: 0, fontSize: '13px', fontWeight: 600, color: '#171717', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {item.name}
+          </p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginTop: '2px' }}>
+            <div style={{ width: 16, height: 16, borderRadius: '50%', position: 'relative', overflow: 'hidden', flexShrink: 0, border: '1px solid #e5e5e5' }}>
+              <div style={{ position: 'absolute', inset: 0, backgroundColor: color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '7px', fontWeight: 700, color: '#fff' }}>{initials}</div>
+              {avatarSrcUrl && !avatarErr && (
+                <img src={avatarSrcUrl} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} onError={() => setAvatarErr(true)} />
+              )}
+            </div>
+            <p style={{ margin: 0, fontSize: '11px', color: '#737373' }}>{item.user.displayName}</p>
+          </div>
+        </div>
+        {/* Time */}
+        <span style={{ fontSize: '11px', color: '#a3a3a3', flexShrink: 0 }}>{timeAgo(item.addedAt)}</span>
+      </div>
+    </Link>
+  );
+}
+
 function SearchResultCard({ user }: { user: CollectorCard }) {
   return <SpotlightCard user={user} />;
 }
@@ -389,6 +494,18 @@ export default function CollectorsPage() {
             </section>
           )}
 
+          {/* Rising Stars */}
+          {!statsLoading && stats && stats.risingStars.length > 0 && (
+            <section style={{ marginBottom: '56px' }}>
+              <SectionHeader icon={<BoltIcon style={{ width: 18, height: 18 }} />} color="#f59e0b" title="Rising Stars" sub="Joined in the last 60 days · already building fast" />
+              <div style={{ backgroundColor: '#fff', border: '1px solid #e5e5e5', borderRadius: '16px', padding: '8px 4px' }}>
+                {stats.risingStars.map((u, i) => (
+                  <RankRow key={u.profileSlug} user={u} rank={i + 1} suffix={`${u.stats.totalItems} items`} />
+                ))}
+              </div>
+            </section>
+          )}
+
           {/* Leaderboards */}
           {!statsLoading && stats && (stats.longestTenured.length > 0 || stats.biggestCollections.length > 0 || stats.mostDiverse.length > 0) && (
             <section style={{ marginBottom: '56px' }}>
@@ -413,6 +530,34 @@ export default function CollectorsPage() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px,1fr))', gap: '12px' }}>
                 {stats.themeLeaders.map(l => <ThemeLeaderCard key={l.theme} leader={l} />)}
               </div>
+            </section>
+          )}
+
+          {/* Specialists + What's Being Added — side by side on wide screens */}
+          {!statsLoading && stats && (stats.specialists.length > 0 || stats.recentActivity.length > 0) && (
+            <section style={{ marginBottom: '56px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px,1fr))', gap: '32px' }}>
+
+              {/* The Specialists */}
+              {stats.specialists.length > 0 && (
+                <div>
+                  <SectionHeader icon={<PuzzlePieceIcon style={{ width: 18, height: 18 }} />} color="#06b6d4" title="The Specialists" sub="80%+ of their collection is one theme" />
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {stats.specialists.map(s => <SpecialistCard key={s.user.profileSlug} specialist={s} />)}
+                  </div>
+                </div>
+              )}
+
+              {/* What's Being Added Right Now */}
+              {stats.recentActivity.length > 0 && (
+                <div>
+                  <SectionHeader icon={<FireIcon style={{ width: 18, height: 18 }} />} color="#f97316" title="Being Added Right Now" sub="Latest minifigs across the community" />
+                  <div style={{ backgroundColor: '#fff', border: '1px solid #e5e5e5', borderRadius: '16px', padding: '6px 4px' }}>
+                    {stats.recentActivity.map((item, i) => (
+                      <RecentActivityRow key={`${item.minifigureNo}-${i}`} item={item} />
+                    ))}
+                  </div>
+                </div>
+              )}
             </section>
           )}
 

@@ -186,7 +186,7 @@ export default function CollectorProfilePage({ params }: { params: Promise<{ use
                   @{profile.username}
                 </p>
               )}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#a3a3a3', fontSize: 'var(--text-xs)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#a3a3a3', fontSize: 'var(--text-xs)', marginTop: '8px' }}>
                 <CalendarIcon style={{ width: '14px', height: '14px' }} />
                 <span>
                   {(t('collectors.profile.memberSince') || 'Member since {date}').replace('{date}', String(memberYear))}
