@@ -1787,5 +1787,68 @@
       "noSets": "No retiring sets found",
       "tryDifferentFilter": "Try selecting a different theme or timeline"
     }
+  },
+  "collectors": {
+    "directory": {
+      "badge": "Community",
+      "title": "Collector Community",
+      "subtitle": "Explore collections from LEGO fans around the world",
+      "searchPlaceholder": "Search collectors by name...",
+      "noResults": "No collectors found",
+      "empty": "No public collectors yet",
+      "collectorsFound": "collectors",
+      "totalCollectors": "Total Collectors",
+      "totalCollectorsDesc": "Active community members",
+      "totalItemsTracked": "Items Tracked",
+      "totalItemsDesc": "Minifigures & sets logged",
+      "longestTenured": "Longest Member",
+      "largestCollection": "Biggest Collection",
+      "memberSince": "Member since {date}",
+      "viewProfile": "View Profile",
+      "newestMembers": "Newest Members",
+      "items": "{count} items"
+    },
+    "profile": {
+      "title": "{name}'s Collection",
+      "memberSince": "Member since {date}",
+      "totalMinifigs": "Minifigs",
+      "totalSets": "Sets",
+      "totalItems": "Total",
+      "tabs": {
+        "minifigInventory": "Minifig Inventory",
+        "minifigCollection": "Minifig Collection",
+        "setInventory": "Set Inventory",
+        "setCollection": "Set Collection"
+      },
+      "empty": {
+        "noItems": "No items in this collection yet",
+        "privateProfile": "This profile is private"
+      },
+      "notFound": "Collector not found",
+      "profilePrivate": "This collector's profile is private"
+    },
+    "username": {
+      "title": "Username",
+      "subtitle": "Set a unique username for your public profile",
+      "placeholder": "choose-a-username",
+      "suggestion": "Use {suggestion}",
+      "rules": "3–30 characters, lowercase letters, numbers, hyphens, and underscores",
+      "taken": "This username is already taken",
+      "invalid": "Username can only contain lowercase letters, numbers, hyphens, and underscores",
+      "tooShort": "Username must be at least 3 characters",
+      "tooLong": "Username must be 30 characters or fewer",
+      "reserved": "This username is reserved",
+      "saved": "Username saved!",
+      "profileUrl": "Your profile: {url}",
+      "setPrompt": "Set a username to enable your public profile"
+    },
+    "visibility": {
+      "title": "Public Profile",
+      "subtitle": "Let others browse your LEGO collection on your public profile page",
+      "public": "Profile is Public",
+      "private": "Profile is Private",
+      "publicDescription": "Your collection is visible at your public profile",
+      "privateDescription": "Your collection is hidden from the public"
+    }
   }
 }

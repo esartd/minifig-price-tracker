@@ -1809,5 +1809,68 @@
       "noSets": "Aucun set en cours de retrait trouvé",
       "tryDifferentFilter": "Essayez de sélectionner un thème ou une chronologie différente"
     }
+  },
+  "collectors": {
+    "directory": {
+      "badge": "Communauté",
+      "title": "Communauté de Collectionneurs",
+      "subtitle": "Explorez les collections de fans de LEGO du monde entier",
+      "searchPlaceholder": "Rechercher des collectionneurs par nom...",
+      "noResults": "Aucun collectionneur trouvé",
+      "empty": "Aucun collectionneur public pour l'instant",
+      "collectorsFound": "collectionneurs",
+      "totalCollectors": "Total de Collectionneurs",
+      "totalCollectorsDesc": "Membres actifs de la communauté",
+      "totalItemsTracked": "Articles Suivis",
+      "totalItemsDesc": "Minifigurines et sets enregistrés",
+      "longestTenured": "Membre le Plus Ancien",
+      "largestCollection": "Plus Grande Collection",
+      "memberSince": "Membre depuis {date}",
+      "viewProfile": "Voir le Profil",
+      "newestMembers": "Nouveaux Membres",
+      "items": "{count} articles"
+    },
+    "profile": {
+      "title": "Collection de {name}",
+      "memberSince": "Membre depuis {date}",
+      "totalMinifigs": "Minifigurines",
+      "totalSets": "Sets",
+      "totalItems": "Total",
+      "tabs": {
+        "minifigInventory": "Inventaire Minifigs",
+        "minifigCollection": "Collection Minifigs",
+        "setInventory": "Inventaire Sets",
+        "setCollection": "Collection Sets"
+      },
+      "empty": {
+        "noItems": "Aucun article dans cette collection pour l'instant",
+        "privateProfile": "Ce profil est privé"
+      },
+      "notFound": "Collectionneur non trouvé",
+      "profilePrivate": "Le profil de ce collectionneur est privé"
+    },
+    "username": {
+      "title": "Nom d'utilisateur",
+      "subtitle": "Choisissez un nom d'utilisateur unique pour votre profil public",
+      "placeholder": "choisir-un-pseudo",
+      "suggestion": "Utiliser {suggestion}",
+      "rules": "3–30 caractères, lettres minuscules, chiffres, tirets et tirets bas",
+      "taken": "Ce nom d'utilisateur est déjà pris",
+      "invalid": "Le nom d'utilisateur ne peut contenir que des lettres minuscules, des chiffres, des tirets et des tirets bas",
+      "tooShort": "Le nom d'utilisateur doit comporter au moins 3 caractères",
+      "tooLong": "Le nom d'utilisateur ne peut pas dépasser 30 caractères",
+      "reserved": "Ce nom d'utilisateur est réservé",
+      "saved": "Nom d'utilisateur sauvegardé !",
+      "profileUrl": "Votre profil : {url}",
+      "setPrompt": "Définissez un nom d'utilisateur pour activer votre profil public"
+    },
+    "visibility": {
+      "title": "Profil Public",
+      "subtitle": "Laissez les autres parcourir votre collection LEGO sur votre page de profil public",
+      "public": "Le profil est Public",
+      "private": "Le profil est Privé",
+      "publicDescription": "Votre collection est visible sur votre profil public",
+      "privateDescription": "Votre collection est masquée du public"
+    }
   }
 }

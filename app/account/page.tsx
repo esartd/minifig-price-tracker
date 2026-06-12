@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { getCurrenciesByContinent, SUPPORTED_CURRENCIES } from '@/lib/currency-config';
 import { formatPrice } from '@/lib/format-price';
 import { useTranslation } from '@/components/TranslationProvider';
+import SetUsernamePrompt from '@/components/SetUsernamePrompt';
 
 export default function AccountPage() {
   const { t, locale } = useTranslation();
@@ -68,6 +69,10 @@ export default function AccountPage() {
     leaderboardDisplayName: '',
   });
   const [loadingLeaderboard, setLoadingLeaderboard] = useState(true);
+
+  // Public profile states
+  const [profilePublic, setProfilePublic] = useState(true);
+  const [savingProfileVisibility, setSavingProfileVisibility] = useState(false);
 
   useEffect(() => {
     if (session?.user?.name) {
@@ -214,6 +219,9 @@ export default function AccountPage() {
             showOnSetLeaderboard: data.data.showOnSetLeaderboard ?? true,
             leaderboardDisplayName: data.data.leaderboardDisplayName || '',
           });
+          if (typeof data.data.profilePublic === 'boolean') {
+            setProfilePublic(data.data.profilePublic);
+          }
         }
       } catch (error) {
         console.error('Failed to fetch leaderboard settings:', error);
@@ -494,6 +502,28 @@ export default function AccountPage() {
       showMessage('error', 'Network error. Please try again.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleProfileVisibilityToggle = async (newValue: boolean) => {
+    setProfilePublic(newValue);
+    setSavingProfileVisibility(true);
+    try {
+      const response = await fetch('/api/user/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...leaderboardSettings, profilePublic: newValue }),
+      });
+      const data = await response.json();
+      if (!data.success) {
+        setProfilePublic(!newValue);
+        showMessage('error', data.error || 'Failed to update visibility');
+      }
+    } catch {
+      setProfilePublic(!newValue);
+      showMessage('error', 'Network error. Please try again.');
+    } finally {
+      setSavingProfileVisibility(false);
     }
   };
 
@@ -930,6 +960,101 @@ export default function AccountPage() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Public Profile Section */}
+        <div className="account-section" style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          padding: '24px 16px',
+          marginBottom: '32px',
+          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+        }}>
+          <h2 style={{
+            fontSize: 'var(--text-lg)',
+            fontWeight: '600',
+            color: '#171717',
+            marginBottom: '8px',
+            letterSpacing: '-0.01em'
+          }}>
+            {t('collectors.visibility.title') || 'Public Profile'}
+          </h2>
+          <p style={{
+            fontSize: 'var(--text-sm)',
+            color: '#737373',
+            marginBottom: '24px',
+            lineHeight: '1.5'
+          }}>
+            {t('collectors.visibility.subtitle') || 'Let others browse your LEGO collection on your public profile page'}
+          </p>
+
+          {/* Username */}
+          <div style={{ marginBottom: '28px' }}>
+            <SetUsernamePrompt onSaved={() => {}} />
+          </div>
+
+          {/* Visibility toggle */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '16px',
+            backgroundColor: '#fafafa',
+            borderRadius: '10px',
+            border: '1px solid #e5e5e5',
+          }}>
+            <div>
+              <p style={{ margin: '0 0 4px 0', fontSize: 'var(--text-sm)', fontWeight: 600, color: '#171717' }}>
+                {profilePublic
+                  ? (t('collectors.visibility.public') || 'Profile is Public')
+                  : (t('collectors.visibility.private') || 'Profile is Private')}
+              </p>
+              <p style={{ margin: 0, fontSize: 'var(--text-xs)', color: '#737373' }}>
+                {profilePublic
+                  ? (t('collectors.visibility.publicDescription') || 'Your collection is visible at your public profile')
+                  : (t('collectors.visibility.privateDescription') || 'Your collection is hidden from the public')}
+              </p>
+            </div>
+            <button
+              onClick={() => handleProfileVisibilityToggle(!profilePublic)}
+              disabled={savingProfileVisibility}
+              style={{
+                width: '48px',
+                height: '28px',
+                borderRadius: '14px',
+                border: 'none',
+                backgroundColor: profilePublic ? '#171717' : '#e5e5e5',
+                cursor: savingProfileVisibility ? 'not-allowed' : 'pointer',
+                position: 'relative',
+                transition: 'background-color 0.2s',
+                flexShrink: 0,
+              }}
+            >
+              <span style={{
+                position: 'absolute',
+                top: '3px',
+                left: profilePublic ? '23px' : '3px',
+                width: '22px',
+                height: '22px',
+                borderRadius: '50%',
+                backgroundColor: '#fff',
+                transition: 'left 0.2s',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+              }} />
+            </button>
+          </div>
+
+          {session.user.username && (
+            <p style={{ margin: '12px 0 0', fontSize: 'var(--text-xs)', color: '#a3a3a3' }}>
+              Your profile:{' '}
+              <a
+                href={`/collectors/${session.user.username}`}
+                style={{ color: '#3b82f6', textDecoration: 'none' }}
+              >
+                /collectors/{session.user.username}
+              </a>
+            </p>
+          )}
         </div>
 
         {/* Leaderboard Settings Section */}

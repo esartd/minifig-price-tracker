@@ -334,6 +334,8 @@ model User {
   shareTokenSetsCollectionPrivate String?                @unique
   shareEnabledSetsCollectionPrivate Boolean              @default(false)
   totalPricingViews          Int                         @default(0)
+  username                   String?                     @unique
+  profilePublic              Boolean                     @default(true)
   Account                    Account[]
   CollectionItem             CollectionItem[]
   Listing                    Listing[]
@@ -344,6 +346,9 @@ model User {
   WishlistItem               WishlistItem[]
   SetWishlistItem            SetWishlistItem[]
   PriceAlert                 PriceAlert[]
+
+  @@index([username])
+  @@index([profilePublic])
 }
 
 model Sponsor {

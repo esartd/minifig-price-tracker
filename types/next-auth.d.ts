@@ -12,6 +12,7 @@ declare module 'next-auth' {
       preferredRegion?: string | null;
       currencySymbol?: string | null;
       locale?: string | null;
+      username?: string | null;
     };
   }
 
@@ -22,5 +23,6 @@ declare module 'next-auth' {
     preferredRegion?: string | null;
     currencySymbol?: string | null;
     locale?: string | null;
+    username?: string | null;
   }
 }

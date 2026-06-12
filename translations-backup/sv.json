@@ -1784,5 +1784,68 @@
       "noSets": "Inga set som fasas ut hittades",
       "tryDifferentFilter": "Prova att välja ett annat tema eller tidslinje"
     }
+  },
+  "collectors": {
+    "directory": {
+      "badge": "Gemenskap",
+      "title": "Samlargemenskapen",
+      "subtitle": "Utforska samlingar från LEGO-fans runt om i världen",
+      "searchPlaceholder": "Sök samlare efter namn...",
+      "noResults": "Inga samlare hittades",
+      "empty": "Inga offentliga samlare ännu",
+      "collectorsFound": "samlare",
+      "totalCollectors": "Totalt Samlare",
+      "totalCollectorsDesc": "Aktiva gemenskapsmedlemmar",
+      "totalItemsTracked": "Spårade Föremål",
+      "totalItemsDesc": "Minifigurer och set registrerade",
+      "longestTenured": "Längst Aktiv Medlem",
+      "largestCollection": "Störst Samling",
+      "memberSince": "Medlem sedan {date}",
+      "viewProfile": "Se Profil",
+      "newestMembers": "Nyaste Medlemmar",
+      "items": "{count} föremål"
+    },
+    "profile": {
+      "title": "{name}s Samling",
+      "memberSince": "Medlem sedan {date}",
+      "totalMinifigs": "Minifigurer",
+      "totalSets": "Set",
+      "totalItems": "Totalt",
+      "tabs": {
+        "minifigInventory": "Minifig-inventarie",
+        "minifigCollection": "Minifig-samling",
+        "setInventory": "Set-inventarie",
+        "setCollection": "Set-samling"
+      },
+      "empty": {
+        "noItems": "Inga föremål i denna samling ännu",
+        "privateProfile": "Denna profil är privat"
+      },
+      "notFound": "Samlare hittades inte",
+      "profilePrivate": "Denna samlares profil är privat"
+    },
+    "username": {
+      "title": "Användarnamn",
+      "subtitle": "Välj ett unikt användarnamn för din offentliga profil",
+      "placeholder": "välj-användarnamn",
+      "suggestion": "Använd {suggestion}",
+      "rules": "3–30 tecken, gemener, siffror, bindestreck och understreck",
+      "taken": "Det här användarnamnet är redan taget",
+      "invalid": "Användarnamnet får bara innehålla gemener, siffror, bindestreck och understreck",
+      "tooShort": "Användarnamnet måste ha minst 3 tecken",
+      "tooLong": "Användarnamnet får inte ha mer än 30 tecken",
+      "reserved": "Det här användarnamnet är reserverat",
+      "saved": "Användarnamnet sparades!",
+      "profileUrl": "Din profil: {url}",
+      "setPrompt": "Ange ett användarnamn för att aktivera din offentliga profil"
+    },
+    "visibility": {
+      "title": "Offentlig Profil",
+      "subtitle": "Låt andra bläddra i din LEGO-samling på din offentliga profilsida",
+      "public": "Profilen är Offentlig",
+      "private": "Profilen är Privat",
+      "publicDescription": "Din samling är synlig på din offentliga profil",
+      "privateDescription": "Din samling är dold för allmänheten"
+    }
   }
 }

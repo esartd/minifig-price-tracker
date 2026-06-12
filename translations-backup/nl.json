@@ -1785,5 +1785,68 @@
       "noSets": "Geen sets die stoppen gevonden",
       "tryDifferentFilter": "Probeer een ander thema of tijdlijn te selecteren"
     }
+  },
+  "collectors": {
+    "directory": {
+      "badge": "Community",
+      "title": "Verzamelaarsgemeen­schap",
+      "subtitle": "Verken verzamelingen van LEGO-fans van over de hele wereld",
+      "searchPlaceholder": "Zoek verzamelaars op naam...",
+      "noResults": "Geen verzamelaars gevonden",
+      "empty": "Nog geen openbare verzamelaars",
+      "collectorsFound": "verzamelaars",
+      "totalCollectors": "Totaal Verzamelaars",
+      "totalCollectorsDesc": "Actieve communityleden",
+      "totalItemsTracked": "Gevolgde Artikelen",
+      "totalItemsDesc": "Minifiguren en sets geregistreerd",
+      "longestTenured": "Oudste Lid",
+      "largestCollection": "Grootste Verzameling",
+      "memberSince": "Lid sinds {date}",
+      "viewProfile": "Profiel Bekijken",
+      "newestMembers": "Nieuwste Leden",
+      "items": "{count} artikelen"
+    },
+    "profile": {
+      "title": "Verzameling van {name}",
+      "memberSince": "Lid sinds {date}",
+      "totalMinifigs": "Minifiguren",
+      "totalSets": "Sets",
+      "totalItems": "Totaal",
+      "tabs": {
+        "minifigInventory": "Minifig Inventaris",
+        "minifigCollection": "Minifig Verzameling",
+        "setInventory": "Set Inventaris",
+        "setCollection": "Set Verzameling"
+      },
+      "empty": {
+        "noItems": "Nog geen artikelen in deze verzameling",
+        "privateProfile": "Dit profiel is privé"
+      },
+      "notFound": "Verzamelaar niet gevonden",
+      "profilePrivate": "Het profiel van deze verzamelaar is privé"
+    },
+    "username": {
+      "title": "Gebruikersnaam",
+      "subtitle": "Kies een unieke gebruikersnaam voor uw openbare profiel",
+      "placeholder": "gebruikersnaam-kiezen",
+      "suggestion": "Gebruik {suggestion}",
+      "rules": "3–30 tekens, kleine letters, cijfers, koppeltekens en underscores",
+      "taken": "Deze gebruikersnaam is al in gebruik",
+      "invalid": "Gebruikersnaam mag alleen kleine letters, cijfers, koppeltekens en underscores bevatten",
+      "tooShort": "Gebruikersnaam moet minimaal 3 tekens bevatten",
+      "tooLong": "Gebruikersnaam mag niet meer dan 30 tekens bevatten",
+      "reserved": "Deze gebruikersnaam is gereserveerd",
+      "saved": "Gebruikersnaam opgeslagen!",
+      "profileUrl": "Uw profiel: {url}",
+      "setPrompt": "Stel een gebruikersnaam in om uw openbare profiel te activeren"
+    },
+    "visibility": {
+      "title": "Openbaar Profiel",
+      "subtitle": "Laat anderen uw LEGO-verzameling bekijken op uw openbare profielpagina",
+      "public": "Profiel is Openbaar",
+      "private": "Profiel is Privé",
+      "publicDescription": "Uw verzameling is zichtbaar op uw openbare profiel",
+      "privateDescription": "Uw verzameling is verborgen voor het publiek"
+    }
   }
 }

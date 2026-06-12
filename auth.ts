@@ -206,6 +206,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             preferredRegion: true,
             currencySymbol: true,
             locale: true,
+            username: true,
           }
         })
 
@@ -219,6 +220,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           token.preferredRegion = dbUser.preferredRegion
           token.currencySymbol = dbUser.currencySymbol
           token.locale = dbUser.locale
+          token.username = dbUser.username
         }
       }
 
@@ -233,6 +235,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           token.preferredRegion = session.preferredRegion
           token.currencySymbol = session.currencySymbol
           token.locale = session.locale
+        }
+        if (session?.username !== undefined) {
+          token.username = session.username
         }
       }
 
@@ -249,6 +254,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.preferredRegion = token.preferredRegion as string
         session.user.currencySymbol = token.currencySymbol as string
         session.user.locale = token.locale as string
+        session.user.username = token.username as string | null | undefined
       }
       return session
     },

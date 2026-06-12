@@ -1784,5 +1784,68 @@
       "noSets": "廃盤予定のセットが見つかりません",
       "tryDifferentFilter": "別のテーマまたはタイムラインを選択してみてください"
     }
+  },
+  "collectors": {
+    "directory": {
+      "badge": "コミュニティ",
+      "title": "コレクターコミュニティ",
+      "subtitle": "世界中のLEGOファンのコレクションを探索する",
+      "searchPlaceholder": "名前でコレクターを検索...",
+      "noResults": "コレクターが見つかりません",
+      "empty": "まだ公開コレクターがいません",
+      "collectorsFound": "コレクター",
+      "totalCollectors": "コレクター総数",
+      "totalCollectorsDesc": "アクティブなコミュニティメンバー",
+      "totalItemsTracked": "追跡アイテム",
+      "totalItemsDesc": "ミニフィグ＆セット登録済み",
+      "longestTenured": "最長在籍メンバー",
+      "largestCollection": "最大コレクション",
+      "memberSince": "{date}年から会員",
+      "viewProfile": "プロフィールを見る",
+      "newestMembers": "新規メンバー",
+      "items": "{count}アイテム"
+    },
+    "profile": {
+      "title": "{name}のコレクション",
+      "memberSince": "{date}年から会員",
+      "totalMinifigs": "ミニフィグ",
+      "totalSets": "セット",
+      "totalItems": "合計",
+      "tabs": {
+        "minifigInventory": "ミニフィグ在庫",
+        "minifigCollection": "ミニフィグコレクション",
+        "setInventory": "セット在庫",
+        "setCollection": "セットコレクション"
+      },
+      "empty": {
+        "noItems": "このコレクションにはまだアイテムがありません",
+        "privateProfile": "このプロフィールは非公開です"
+      },
+      "notFound": "コレクターが見つかりません",
+      "profilePrivate": "このコレクターのプロフィールは非公開です"
+    },
+    "username": {
+      "title": "ユーザー名",
+      "subtitle": "公開プロフィール用のユニークなユーザー名を設定してください",
+      "placeholder": "ユーザー名を選択",
+      "suggestion": "{suggestion}を使用",
+      "rules": "3〜30文字、小文字、数字、ハイフン、アンダースコア",
+      "taken": "このユーザー名はすでに使用されています",
+      "invalid": "ユーザー名には小文字、数字、ハイフン、アンダースコアのみ使用できます",
+      "tooShort": "ユーザー名は3文字以上必要です",
+      "tooLong": "ユーザー名は30文字以内にしてください",
+      "reserved": "このユーザー名は予約済みです",
+      "saved": "ユーザー名を保存しました！",
+      "profileUrl": "あなたのプロフィール: {url}",
+      "setPrompt": "公開プロフィールを有効にするにはユーザー名を設定してください"
+    },
+    "visibility": {
+      "title": "公開プロフィール",
+      "subtitle": "公開プロフィールページでLEGOコレクションを他の人に見せましょう",
+      "public": "プロフィールは公開",
+      "private": "プロフィールは非公開",
+      "publicDescription": "あなたのコレクションは公開プロフィールで見られます",
+      "privateDescription": "あなたのコレクションは非公開です"
+    }
   }
 }

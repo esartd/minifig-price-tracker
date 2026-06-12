@@ -21,6 +21,8 @@ export async function GET() {
         showOnMinifigLeaderboard: true,
         showOnSetLeaderboard: true,
         leaderboardDisplayName: true,
+        profilePublic: true,
+        username: true,
       },
     });
 
@@ -51,7 +53,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const { showOnMinifigLeaderboard, showOnSetLeaderboard, leaderboardDisplayName } = body;
+    const { showOnMinifigLeaderboard, showOnSetLeaderboard, leaderboardDisplayName, profilePublic } = body;
 
     // Validate display name if provided and user is opting-in to any leaderboard
     if ((showOnMinifigLeaderboard || showOnSetLeaderboard) && leaderboardDisplayName) {
@@ -68,6 +70,7 @@ export async function POST(request: NextRequest) {
         showOnMinifigLeaderboard: showOnMinifigLeaderboard || false,
         showOnSetLeaderboard: showOnSetLeaderboard || false,
         leaderboardDisplayName: leaderboardDisplayName?.trim() || null,
+        ...(typeof profilePublic === 'boolean' ? { profilePublic } : {}),
       },
     });
 

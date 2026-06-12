@@ -74,6 +74,10 @@ export default function Footer() {
               {t('footer.resources') || 'Resources'}
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <a href="/collectors" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+              >{t('collectors.directory.badge') || 'Collectors'}</a>
               <a href="/about" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
                 onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
                 onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
