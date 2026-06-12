@@ -412,7 +412,7 @@ export default function CollectorsPage() {
             <span style={{ fontSize: '12px', color: '#c084fc', fontWeight: 600, letterSpacing: '0.04em' }}>Community</span>
           </div>
 
-          <h1 style={{ margin: '0 0 12px', fontSize: 'clamp(28px,5vw,48px)', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1.1 }}>
+          <h1 style={{ margin: '0 0 12px', fontSize: 'clamp(28px,5vw,48px)', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1.1, fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif' }}>
             Explore Collectors
           </h1>
           <p style={{ margin: '0 0 32px', fontSize: '16px', color: '#94a3b8', lineHeight: 1.6 }}>
