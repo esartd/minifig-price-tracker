@@ -441,20 +441,6 @@ export default function CollectorsPage() {
             />
           </div>
 
-          {/* Quick stats */}
-          {stats && (
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '40px', marginTop: '36px', flexWrap: 'wrap' }}>
-              {[
-                { value: stats.totalCollectors, label: 'Collectors' },
-                { value: stats.totalItemsTracked, label: 'Items Tracked' },
-              ].map(s => (
-                <div key={s.label}>
-                  <p style={{ margin: 0, fontSize: '32px', fontWeight: 800, color: '#fff', lineHeight: 1 }}>{s.value.toLocaleString()}</p>
-                  <p style={{ margin: '4px 0 0', fontSize: '11px', color: '#475569', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{s.label}</p>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
       </div>
 
