@@ -53,12 +53,20 @@ function avatarColor(slug: string) {
   return PALETTE[slug.charCodeAt(0) % PALETTE.length];
 }
 
+function avatarSrc(image: string | null): string | null {
+  if (!image) return null;
+  // If it looks like an avatar key (no slashes, no http), build the path
+  if (!image.startsWith('http') && !image.startsWith('/')) return `/avatars/${image}.png`;
+  return image;
+}
+
 function Avatar({ user, size = 48 }: { user: CollectorCard; size?: number }) {
   const [err, setErr] = useState(false);
   const initials = user.displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-  if (user.image && !err) {
+  const src = avatarSrc(user.image);
+  if (src && !err) {
     return (
-      <Image src={user.image} alt={user.displayName} width={size} height={size} unoptimized
+      <Image src={src} alt={user.displayName} width={size} height={size} unoptimized
         style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0, border: '2px solid #e5e5e5' }}
         onError={() => setErr(true)} />
     );
@@ -205,8 +213,8 @@ function ThemeLeaderCard({ leader }: { leader: ThemeLeader }) {
             {leader.theme}
           </p>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            {leader.user.image && !err ? (
-              <Image src={leader.user.image} alt={leader.user.displayName} width={18} height={18} unoptimized
+            {avatarSrc(leader.user.image) && !err ? (
+              <Image src={avatarSrc(leader.user.image)!} alt={leader.user.displayName} width={18} height={18} unoptimized
                 style={{ borderRadius: '50%', objectFit: 'cover' }} onError={() => setErr(true)} />
             ) : (
               <div style={{

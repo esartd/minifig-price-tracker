@@ -147,7 +147,9 @@ export default function CollectorProfilePage({ params }: { params: Promise<{ use
               }}
             >
               {profile.image ? (
-                <Image src={profile.image} alt={profile.displayName} width={80} height={80} style={{ objectFit: 'cover' }} />
+                <Image
+                  src={profile.image.startsWith('http') || profile.image.startsWith('/') ? profile.image : `/avatars/${profile.image}.png`}
+                  alt={profile.displayName} width={80} height={80} unoptimized style={{ objectFit: 'cover' }} />
               ) : (
                 <UserCircleIcon style={{ width: '52px', height: '52px', color: '#a3a3a3' }} />
               )}
