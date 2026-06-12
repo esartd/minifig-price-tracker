@@ -1,11 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { UserIcon, CubeIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from './TranslationProvider';
 
 interface Collector {
   displayName: string;
+  profileSlug?: string;
   count: number;
   rank: number;
 }
@@ -383,6 +385,7 @@ function LeaderboardCard({
   t: any;
 }) {
   const [isHovered, setIsHovered] = useState(false);
+  const profileSlug = type === 'collector' ? (item as Collector).profileSlug : undefined;
 
   // Get trophy emoji for top 3
   const getTrophyEmoji = (rank: number) => {
@@ -407,7 +410,7 @@ function LeaderboardCard({
     return 'items';
   };
 
-  return (
+  const cardContent = (
     <div
       style={{
         background: '#ffffff',
@@ -422,6 +425,7 @@ function LeaderboardCard({
         display: 'flex',
         alignItems: 'center',
         gap: '12px',
+        cursor: profileSlug ? 'pointer' : 'default',
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -466,4 +470,14 @@ function LeaderboardCard({
       </div>
     </div>
   );
+
+  if (profileSlug) {
+    return (
+      <Link href={`/collectors/${profileSlug}`} style={{ textDecoration: 'none' }}>
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return cardContent;
 }

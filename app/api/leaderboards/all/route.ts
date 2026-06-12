@@ -57,6 +57,7 @@ export async function GET(request: NextRequest) {
         where: { showOnMinifigLeaderboard: true },
         select: {
           id: true,
+          username: true,
           name: true,
           leaderboardDisplayName: true,
           CollectionItem: {
@@ -75,6 +76,7 @@ export async function GET(request: NextRequest) {
         where: { showOnSetLeaderboard: true },
         select: {
           id: true,
+          username: true,
           name: true,
           leaderboardDisplayName: true,
           SetInventoryItem: {
@@ -116,6 +118,7 @@ export async function GET(request: NextRequest) {
         const personalTotal = user.PersonalCollectionItem.reduce((sum, item) => sum + item.quantity, 0);
         return {
           displayName: user.leaderboardDisplayName || generateDefaultDisplayName(user.name),
+          profileSlug: user.username || user.id,
           count: inventoryTotal + personalTotal,
         };
       })
@@ -130,6 +133,7 @@ export async function GET(request: NextRequest) {
         const personalTotal = user.SetPersonalCollectionItem.reduce((sum, item) => sum + item.quantity, 0);
         return {
           displayName: user.leaderboardDisplayName || generateDefaultDisplayName(user.name),
+          profileSlug: user.username || user.id,
           count: inventoryTotal + personalTotal,
         };
       })
