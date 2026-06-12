@@ -22,7 +22,8 @@ type Tab = 'minifigInventory' | 'minifigPersonal' | 'setInventory' | 'setPersona
 
 interface ProfileData {
   profile: {
-    username: string;
+    profileSlug: string;
+    username: string | null;
     displayName: string;
     image: string | null;
     memberSince: string;
@@ -58,7 +59,7 @@ export default function CollectorProfilePage({ params }: { params: Promise<{ use
       .finally(() => setLoading(false));
   }, [username]);
 
-  const isOwnProfile = session?.user?.username === username;
+  const isOwnProfile = session?.user?.id === data?.profile.profileSlug || session?.user?.username === data?.profile.username;
 
   const tabs: { key: Tab; label: string }[] = [
     { key: 'minifigInventory', label: t('collectors.profile.tabs.minifigInventory') || 'Minifig Inventory' },
@@ -174,9 +175,11 @@ export default function CollectorProfilePage({ params }: { params: Promise<{ use
                   </Link>
                 )}
               </div>
-              <p style={{ margin: '4px 0 12px', fontSize: 'var(--text-sm)', color: '#737373' }}>
-                @{profile.username}
-              </p>
+              {profile.username && (
+                <p style={{ margin: '4px 0 12px', fontSize: 'var(--text-sm)', color: '#737373' }}>
+                  @{profile.username}
+                </p>
+              )}
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#a3a3a3', fontSize: 'var(--text-xs)' }}>
                 <CalendarIcon style={{ width: '14px', height: '14px' }} />
                 <span>

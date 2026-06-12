@@ -8,7 +8,7 @@ export async function GET() {
   try {
     const [allPublicUsers, newestMembers, spotlightCandidates] = await prisma.$transaction([
       prisma.user.findMany({
-        where: { profilePublic: true, username: { not: null } },
+        where: { profilePublic: true },
         select: {
           id: true,
           username: true,
@@ -28,8 +28,9 @@ export async function GET() {
         orderBy: { createdAt: 'asc' },
       }),
       prisma.user.findMany({
-        where: { profilePublic: true, username: { not: null } },
+        where: { profilePublic: true },
         select: {
+          id: true,
           username: true,
           name: true,
           image: true,
@@ -51,7 +52,6 @@ export async function GET() {
       prisma.user.findMany({
         where: {
           profilePublic: true,
-          username: { not: null },
           OR: [
             { CollectionItem: { some: {} } },
             { PersonalCollectionItem: { some: {} } },
@@ -60,6 +60,7 @@ export async function GET() {
           ],
         },
         select: {
+          id: true,
           username: true,
           name: true,
           image: true,
@@ -85,16 +86,17 @@ export async function GET() {
       INNER JOIN MinifigCatalog mc ON mc.minifigure_no = ci.minifigure_no
       INNER JOIN User u ON u.id = ci.userId
       WHERE mc.category_name IS NOT NULL AND mc.category_name != ''
-        AND u.profilePublic = true AND u.username IS NOT NULL
+        AND u.profilePublic = true
       GROUP BY ci.userId, mc.category_name
       ORDER BY cnt DESC
     `
 
-    function toCard(u: (typeof allPublicUsers)[0] | (typeof newestMembers)[0]) {
+    function toCard(u: (typeof allPublicUsers)[0]) {
       const totalMinifigs = u._count.CollectionItem + u._count.PersonalCollectionItem
       const totalSets = u._count.SetInventoryItem + u._count.SetPersonalCollectionItem
       return {
-        username: u.username!,
+        profileSlug: u.username || u.id,
+        username: u.username,
         displayName: u.leaderboardDisplayName || generateDefaultDisplayName(u.name),
         image: u.image ?? null,
         memberSince: u.createdAt.toISOString(),
@@ -102,10 +104,9 @@ export async function GET() {
       }
     }
 
-    // Build userId -> user lookup
     const userById = new Map(allPublicUsers.map(u => [u.id, u]))
 
-    // Theme leaders: for each theme, find top user
+    // Theme leaders: for each theme keep the top user
     const themeTopMap = new Map<string, { userId: string; count: number }>()
     for (const row of themeCounts) {
       const theme = row.category_name
@@ -117,7 +118,6 @@ export async function GET() {
       }
     }
 
-    // Convert to array, filter to popular themes (at least 3 items), sort by count desc, take top 8
     const POPULAR_THEMES = [
       'Star Wars', 'Harry Potter', 'Super Heroes', 'Ninjago', 'City', 'Technic',
       'Creator', 'Ideas', 'Friends', 'Jurassic World', 'Speed Champions', 'Disney',
@@ -130,7 +130,6 @@ export async function GET() {
       if (!u) continue
       themeLeaders.push({ theme, user: toCard(u), count })
     }
-    // Sort: popular themes first, then by count
     themeLeaders.sort((a, b) => {
       const aP = POPULAR_THEMES.indexOf(a.theme)
       const bP = POPULAR_THEMES.indexOf(b.theme)
@@ -143,10 +142,7 @@ export async function GET() {
     const longestTenured = allPublicUsers.slice(0, 5).map(toCard)
 
     const biggestCollections = [...allPublicUsers]
-      .map(u => ({
-        ...u,
-        total: u._count.CollectionItem + u._count.PersonalCollectionItem + u._count.SetInventoryItem + u._count.SetPersonalCollectionItem,
-      }))
+      .map(u => ({ ...u, total: u._count.CollectionItem + u._count.PersonalCollectionItem + u._count.SetInventoryItem + u._count.SetPersonalCollectionItem }))
       .filter(u => u.total > 0)
       .sort((a, b) => b.total - a.total)
       .slice(0, 5)
@@ -168,9 +164,9 @@ export async function GET() {
       totalItemsTracked += u._count.CollectionItem + u._count.PersonalCollectionItem + u._count.SetInventoryItem + u._count.SetPersonalCollectionItem
     }
 
-    // Shuffle spotlight (vary by username char to get different each deploy)
+    // Shuffle spotlight using id chars for variation
     const shuffled = [...spotlightCandidates].sort((a, b) =>
-      (a.username!.charCodeAt(1) || 0) % 11 - (b.username!.charCodeAt(1) || 0) % 11
+      (a.id.charCodeAt(3) || 0) % 11 - (b.id.charCodeAt(3) || 0) % 11
     )
     const spotlight = shuffled.slice(0, 4).map(toCard)
 

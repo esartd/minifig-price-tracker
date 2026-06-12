@@ -12,9 +12,8 @@ export async function GET(req: NextRequest) {
     const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10))
     const search = searchParams.get('search')?.trim() || ''
 
-    const where = {
+    const where: any = {
       profilePublic: true,
-      username: { not: null as null },
       ...(search
         ? {
             OR: [
@@ -31,6 +30,7 @@ export async function GET(req: NextRequest) {
       prisma.user.findMany({
         where,
         select: {
+          id: true,
           username: true,
           name: true,
           leaderboardDisplayName: true,
@@ -55,7 +55,8 @@ export async function GET(req: NextRequest) {
       const totalMinifigs = u._count.CollectionItem + u._count.PersonalCollectionItem
       const totalSets = u._count.SetInventoryItem + u._count.SetPersonalCollectionItem
       return {
-        username: u.username!,
+        profileSlug: u.username || u.id,
+        username: u.username,
         displayName: u.leaderboardDisplayName || generateDefaultDisplayName(u.name),
         image: u.image,
         memberSince: u.createdAt.toISOString(),

@@ -35,30 +35,37 @@ export async function GET(
 
     const lower = username.toLowerCase()
 
-    const user = await prisma.user.findUnique({
-      where: { username: lower },
-      select: {
-        id: true,
-        name: true,
-        leaderboardDisplayName: true,
-        image: true,
-        createdAt: true,
-        profilePublic: true,
-        _count: {
-          select: {
-            CollectionItem: true,
-            PersonalCollectionItem: true,
-            SetInventoryItem: true,
-            SetPersonalCollectionItem: true,
-          },
+    // Look up by username first, fall back to id (for users without a username)
+    const userSelect = {
+      id: true,
+      username: true,
+      name: true,
+      leaderboardDisplayName: true,
+      image: true,
+      createdAt: true,
+      profilePublic: true,
+      _count: {
+        select: {
+          CollectionItem: true,
+          PersonalCollectionItem: true,
+          SetInventoryItem: true,
+          SetPersonalCollectionItem: true,
         },
       },
+    }
+
+    const user = await prisma.user.findFirst({
+      where: {
+        profilePublic: true,
+        OR: [
+          { username: lower },
+          { id: username },
+        ],
+      },
+      select: userSelect,
     })
 
     if (!user) return NextResponse.json({ error: 'Collector not found' }, { status: 404 })
-    if (!user.profilePublic) {
-      return NextResponse.json({ error: 'This profile is private' }, { status: 403 })
-    }
 
     const [minifigInventory, minifigPersonal, setInventory, setPersonal] =
       await prisma.$transaction([
@@ -91,7 +98,8 @@ export async function GET(
       success: true,
       data: {
         profile: {
-          username: lower,
+          profileSlug: user.username || user.id,
+          username: user.username,
           displayName: user.leaderboardDisplayName || generateDefaultDisplayName(user.name),
           image: user.image,
           memberSince: user.createdAt.toISOString(),

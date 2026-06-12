@@ -22,7 +22,8 @@ function tx(translations: Record<string, any>, path: string): string | undefined
 }
 
 interface CollectorCard {
-  username: string;
+  profileSlug: string;
+  username: string | null;
   displayName: string;
   image: string | null;
   memberSince: string;
@@ -48,8 +49,8 @@ interface CommunityStats {
 
 // Colour per username (consistent across renders)
 const PALETTE = ['#3b82f6','#8b5cf6','#ec4899','#f59e0b','#10b981','#f97316','#06b6d4','#6366f1'];
-function avatarColor(username: string) {
-  return PALETTE[username.charCodeAt(0) % PALETTE.length];
+function avatarColor(slug: string) {
+  return PALETTE[slug.charCodeAt(0) % PALETTE.length];
 }
 
 function Avatar({ user, size = 48 }: { user: CollectorCard; size?: number }) {
@@ -65,7 +66,7 @@ function Avatar({ user, size = 48 }: { user: CollectorCard; size?: number }) {
   return (
     <div style={{
       width: size, height: size, borderRadius: '50%', flexShrink: 0,
-      backgroundColor: avatarColor(user.username),
+      backgroundColor: avatarColor(user.profileSlug),
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       color: '#fff', fontWeight: 700, fontSize: size > 40 ? '17px' : '12px',
       border: '2px solid rgba(255,255,255,0.2)',
@@ -78,7 +79,7 @@ function Avatar({ user, size = 48 }: { user: CollectorCard; size?: number }) {
 function SpotlightCard({ user }: { user: CollectorCard }) {
   const year = new Date(user.memberSince).getFullYear();
   return (
-    <Link href={`/collectors/${user.username}`} style={{ textDecoration: 'none' }}>
+    <Link href={`/collectors/${user.profileSlug}`} style={{ textDecoration: 'none' }}>
       <div
         style={{
           backgroundColor: '#fff', border: '1px solid #e5e5e5', borderRadius: '16px',
@@ -94,7 +95,7 @@ function SpotlightCard({ user }: { user: CollectorCard }) {
             <p style={{ margin: 0, fontWeight: 700, fontSize: '14px', color: '#171717', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {user.displayName}
             </p>
-            <p style={{ margin: '2px 0 0', fontSize: '11px', color: '#a3a3a3' }}>@{user.username} · member since {year}</p>
+            <p style={{ margin: '2px 0 0', fontSize: '11px', color: '#a3a3a3' }}>{user.username ? `@${user.username} · ` : ''}member since {year}</p>
           </div>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px' }}>
@@ -130,7 +131,7 @@ function RankRow({ user, rank, suffix }: { user: CollectorCard; rank: number; su
   };
   const medal = medalColors[rank] ?? { bg: '#f5f5f5', text: '#a3a3a3' };
   return (
-    <Link href={`/collectors/${user.username}`} style={{ textDecoration: 'none' }}>
+    <Link href={`/collectors/${user.profileSlug}`} style={{ textDecoration: 'none' }}>
       <div
         style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', borderRadius: '10px', transition: 'background 0.1s' }}
         onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.backgroundColor = '#fafafa'; }}
@@ -171,7 +172,7 @@ function RankCard({ title, icon, color, users, getSuffix }: {
       </div>
       <div style={{ padding: '6px 4px' }}>
         {users.map((u, i) => (
-          <RankRow key={u.username} user={u} rank={i + 1} suffix={getSuffix?.(u)} />
+          <RankRow key={u.profileSlug} user={u} rank={i + 1} suffix={getSuffix?.(u)} />
         ))}
       </div>
     </div>
@@ -182,7 +183,7 @@ function ThemeLeaderCard({ leader }: { leader: ThemeLeader }) {
   const [err, setErr] = useState(false);
   const initials = leader.user.displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
   return (
-    <Link href={`/collectors/${leader.user.username}`} style={{ textDecoration: 'none' }}>
+    <Link href={`/collectors/${leader.user.profileSlug}`} style={{ textDecoration: 'none' }}>
       <div
         style={{
           backgroundColor: '#fff', border: '1px solid #e5e5e5', borderRadius: '14px',
@@ -194,10 +195,10 @@ function ThemeLeaderCard({ leader }: { leader: ThemeLeader }) {
       >
         <div style={{
           width: 40, height: 40, borderRadius: '10px', flexShrink: 0,
-          backgroundColor: avatarColor(leader.user.username) + '18',
+          backgroundColor: avatarColor(leader.user.profileSlug) + '18',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }}>
-          <TagIcon style={{ width: 18, height: 18, color: avatarColor(leader.user.username) }} />
+          <TagIcon style={{ width: 18, height: 18, color: avatarColor(leader.user.profileSlug) }} />
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <p style={{ margin: '0 0 2px', fontSize: '11px', fontWeight: 700, color: '#a3a3a3', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -209,7 +210,7 @@ function ThemeLeaderCard({ leader }: { leader: ThemeLeader }) {
                 style={{ borderRadius: '50%', objectFit: 'cover' }} onError={() => setErr(true)} />
             ) : (
               <div style={{
-                width: 18, height: 18, borderRadius: '50%', backgroundColor: avatarColor(leader.user.username),
+                width: 18, height: 18, borderRadius: '50%', backgroundColor: avatarColor(leader.user.profileSlug),
                 display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '8px', fontWeight: 700,
               }}>{initials}</div>
             )}
@@ -357,7 +358,7 @@ export default function CollectorsPage() {
             </div>
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px,1fr))', gap: '16px' }}>
-              {searchResults.map(c => <SearchResultCard key={c.username} user={c} />)}
+              {searchResults.map(c => <SearchResultCard key={c.profileSlug} user={c} />)}
             </div>
           )}
         </div>
@@ -372,7 +373,7 @@ export default function CollectorsPage() {
             <section style={{ marginBottom: '56px' }}>
               <SectionHeader icon={<SparklesIcon style={{ width: 18, height: 18 }} />} color="#8b5cf6" title="Featured Collectors" sub="Changes each visit" />
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(230px,1fr))', gap: '16px' }}>
-                {stats.spotlight.map(u => <SpotlightCard key={u.username} user={u} />)}
+                {stats.spotlight.map(u => <SpotlightCard key={u.profileSlug} user={u} />)}
               </div>
             </section>
           )}
@@ -413,7 +414,7 @@ export default function CollectorsPage() {
                 padding: '8px 4px',
                 display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px,1fr))',
               }}>
-                {stats.newestMembers.map(u => <MiniRow key={u.username} user={u} />)}
+                {stats.newestMembers.map(u => <MiniRow key={u.profileSlug} user={u} />)}
               </div>
             </section>
           )}
@@ -446,7 +447,7 @@ function SectionHeader({ icon, color, title, sub }: { icon: React.ReactNode; col
 
 function MiniRow({ user }: { user: CollectorCard }) {
   return (
-    <Link href={`/collectors/${user.username}`} style={{ textDecoration: 'none' }}>
+    <Link href={`/collectors/${user.profileSlug}`} style={{ textDecoration: 'none' }}>
       <div
         style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', borderRadius: '10px', transition: 'background 0.1s' }}
         onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.backgroundColor = '#fafafa'; }}
@@ -455,7 +456,7 @@ function MiniRow({ user }: { user: CollectorCard }) {
         <Avatar user={user} size={32} />
         <div style={{ flex: 1, minWidth: 0 }}>
           <p style={{ margin: 0, fontSize: '13px', fontWeight: 600, color: '#171717', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user.displayName}</p>
-          <p style={{ margin: 0, fontSize: '11px', color: '#a3a3a3' }}>@{user.username}</p>
+          <p style={{ margin: 0, fontSize: '11px', color: '#a3a3a3' }}>{user.username ? `@${user.username}` : 'Collector'}</p>
         </div>
         <span style={{ fontSize: '11px', color: '#a3a3a3', flexShrink: 0 }}>{user.stats.totalItems} items</span>
       </div>
