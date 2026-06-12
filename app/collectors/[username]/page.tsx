@@ -18,11 +18,16 @@ function tx(translations: Record<string, any>, path: string): string | undefined
 }
 
 const PALETTE = ['#3b82f6','#8b5cf6','#ec4899','#f59e0b','#10b981','#f97316','#06b6d4','#6366f1'];
+function hashColor(slug: string) {
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) hash = (hash * 31 + slug.charCodeAt(i)) >>> 0;
+  return PALETTE[hash % PALETTE.length];
+}
 
 function ProfileAvatar({ profile }: { profile: { displayName: string; image: string | null; profileSlug: string } }) {
   const [err, setErr] = useState(false);
   const initials = profile.displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-  const color = PALETTE[profile.profileSlug.charCodeAt(0) % PALETTE.length];
+  const color = hashColor(profile.profileSlug);
   const src = profile.image
     ? (profile.image.startsWith('http') || profile.image.startsWith('/') ? profile.image : `/avatars/${profile.image}.png`)
     : null;

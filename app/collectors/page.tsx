@@ -50,7 +50,9 @@ interface CommunityStats {
 // Colour per username (consistent across renders)
 const PALETTE = ['#3b82f6','#8b5cf6','#ec4899','#f59e0b','#10b981','#f97316','#06b6d4','#6366f1'];
 function avatarColor(slug: string) {
-  return PALETTE[slug.charCodeAt(0) % PALETTE.length];
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) hash = (hash * 31 + slug.charCodeAt(i)) >>> 0;
+  return PALETTE[hash % PALETTE.length];
 }
 
 function avatarSrc(image: string | null): string | null {
