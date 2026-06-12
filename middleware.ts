@@ -8,6 +8,8 @@ import { isHistoricalBot } from '@/lib/historical-bot-blocklist'
 // Whitelisted IPs (no rate limiting)
 const WHITELISTED_IPS = [
   '73.52.155.221', // User's IP (Erick)
+  '127.0.0.1',     // localhost dev
+  '::1',           // localhost IPv6
 ];
 
 // Legitimate search engine bots that should ALWAYS be allowed
