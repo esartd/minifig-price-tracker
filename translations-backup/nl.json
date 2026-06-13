@@ -1827,7 +1827,8 @@
       "memberSince": "Lid sinds {date}",
       "viewProfile": "Profiel Bekijken",
       "newestMembers": "Nieuwste Leden",
-      "items": "{count} artikelen"
+      "items": "{count} artikelen",
+      "topCollectorByTheme": "Beste minifiguur-verzamelaar per thema"
     },
     "profile": {
       "title": "Verzameling van {name}",

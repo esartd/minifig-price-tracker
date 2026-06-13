@@ -1827,7 +1827,8 @@
       "memberSince": "Członek od {date}",
       "viewProfile": "Zobacz Profil",
       "newestMembers": "Najnowsi Członkowie",
-      "items": "{count} przedmiotów"
+      "items": "{count} przedmiotów",
+      "topCollectorByTheme": "Najlepszy kolekcjoner minifigurek według motywu"
     },
     "profile": {
       "title": "Kolekcja {name}",

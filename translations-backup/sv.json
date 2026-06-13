@@ -1827,7 +1827,8 @@
       "memberSince": "Medlem sedan {date}",
       "viewProfile": "Se Profil",
       "newestMembers": "Nyaste Medlemmar",
-      "items": "{count} föremål"
+      "items": "{count} föremål",
+      "topCollectorByTheme": "Bästa minifigursamlare per tema"
     },
     "profile": {
       "title": "{name}s Samling",

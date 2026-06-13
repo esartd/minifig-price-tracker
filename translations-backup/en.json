@@ -1828,7 +1828,8 @@
       "memberSince": "Member since {date}",
       "viewProfile": "View Profile",
       "newestMembers": "Newest Members",
-      "items": "{count} items"
+      "items": "{count} items",
+      "topCollectorByTheme": "Top Minifig Collector by Theme"
     },
     "profile": {
       "title": "{name}'s Collection",

@@ -1827,7 +1827,8 @@
       "memberSince": "Membro dal {date}",
       "viewProfile": "Vedi Profilo",
       "newestMembers": "Nuovi Membri",
-      "items": "{count} articoli"
+      "items": "{count} articoli",
+      "topCollectorByTheme": "Miglior collezionista di minifigure per tema"
     },
     "profile": {
       "title": "Collezione di {name}",

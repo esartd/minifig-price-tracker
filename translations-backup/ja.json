@@ -1827,7 +1827,8 @@
       "memberSince": "{date}年から会員",
       "viewProfile": "プロフィールを見る",
       "newestMembers": "新規メンバー",
-      "items": "{count}アイテム"
+      "items": "{count}アイテム",
+      "topCollectorByTheme": "テーマ別トップミニフィグコレクター"
     },
     "profile": {
       "title": "{name}のコレクション",

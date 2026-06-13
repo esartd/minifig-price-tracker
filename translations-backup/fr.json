@@ -1860,7 +1860,8 @@
       "memberSince": "Membre depuis {date}",
       "viewProfile": "Voir le Profil",
       "newestMembers": "Nouveaux Membres",
-      "items": "{count} articles"
+      "items": "{count} articles",
+      "topCollectorByTheme": "Meilleur collectionneur de minifigurines par thème"
     },
     "profile": {
       "title": "Collection de {name}",
