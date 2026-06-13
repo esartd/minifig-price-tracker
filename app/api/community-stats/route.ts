@@ -102,6 +102,47 @@ export async function GET() {
       ORDER BY cnt DESC
     `
 
+    // Per-user quantity totals (minifigs + sets, inventory + personal)
+    const rawQtyTotals = await prisma.$queryRaw<{
+      userId: string; minifigQty: bigint; setQty: bigint
+    }[]>`
+      SELECT userId, SUM(minifigQty) AS minifigQty, SUM(setQty) AS setQty
+      FROM (
+        SELECT userId, SUM(quantity) AS minifigQty, 0 AS setQty
+        FROM CollectionItem ci
+        INNER JOIN User u ON u.id = ci.userId
+        WHERE u.profilePublic = true
+        GROUP BY userId
+        UNION ALL
+        SELECT userId, SUM(quantity) AS minifigQty, 0 AS setQty
+        FROM PersonalCollectionItem pci
+        INNER JOIN User u ON u.id = pci.userId
+        WHERE u.profilePublic = true
+        GROUP BY userId
+        UNION ALL
+        SELECT userId, 0 AS minifigQty, SUM(quantity) AS setQty
+        FROM SetInventoryItem si
+        INNER JOIN User u ON u.id = si.userId
+        WHERE u.profilePublic = true
+        GROUP BY userId
+        UNION ALL
+        SELECT userId, 0 AS minifigQty, SUM(quantity) AS setQty
+        FROM SetPersonalCollectionItem spci
+        INNER JOIN User u ON u.id = spci.userId
+        WHERE u.profilePublic = true
+        GROUP BY userId
+      ) combined
+      GROUP BY userId
+    `
+
+    const qtyByUser = new Map<string, { minifigs: number; sets: number }>()
+    for (const row of rawQtyTotals) {
+      qtyByUser.set(row.userId, {
+        minifigs: Number(row.minifigQty),
+        sets: Number(row.setQty),
+      })
+    }
+
     // Recent activity: last 20 items added across all public collectors
     const recentActivityRaw = await prisma.$queryRaw<{
       minifigure_no: string;
@@ -121,8 +162,9 @@ export async function GET() {
     `
 
     function toCard(u: (typeof allPublicUsers)[0]) {
-      const totalMinifigs = u._count.CollectionItem + u._count.PersonalCollectionItem
-      const totalSets = u._count.SetInventoryItem + u._count.SetPersonalCollectionItem
+      const qty = qtyByUser.get(u.id)
+      const totalMinifigs = qty?.minifigs ?? 0
+      const totalSets = qty?.sets ?? 0
       return {
         profileSlug: u.username || u.id,
         username: u.username,
@@ -203,15 +245,13 @@ export async function GET() {
     const sixtyDaysAgo = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000)
     const risingStars = allPublicUsers
       .filter(u => {
-        const total = u._count.CollectionItem + u._count.PersonalCollectionItem
-          + u._count.SetInventoryItem + u._count.SetPersonalCollectionItem
+        const qty = qtyByUser.get(u.id)
+        const total = (qty?.minifigs ?? 0) + (qty?.sets ?? 0)
         return u.createdAt >= sixtyDaysAgo && total >= 10
       })
       .sort((a, b) => {
-        const tA = a._count.CollectionItem + a._count.PersonalCollectionItem
-          + a._count.SetInventoryItem + a._count.SetPersonalCollectionItem
-        const tB = b._count.CollectionItem + b._count.PersonalCollectionItem
-          + b._count.SetInventoryItem + b._count.SetPersonalCollectionItem
+        const tA = (qtyByUser.get(a.id)?.minifigs ?? 0) + (qtyByUser.get(a.id)?.sets ?? 0)
+        const tB = (qtyByUser.get(b.id)?.minifigs ?? 0) + (qtyByUser.get(b.id)?.sets ?? 0)
         return tB - tA
       })
       .slice(0, 5)
@@ -249,17 +289,18 @@ export async function GET() {
     const longestTenured = allPublicUsers.slice(0, 5).map(toCard)
 
     const biggestCollections = [...allPublicUsers]
-      .map(u => ({ ...u, total: u._count.CollectionItem + u._count.PersonalCollectionItem + u._count.SetInventoryItem + u._count.SetPersonalCollectionItem }))
+      .map(u => ({ ...u, total: (qtyByUser.get(u.id)?.minifigs ?? 0) + (qtyByUser.get(u.id)?.sets ?? 0) }))
       .filter(u => u.total > 0)
       .sort((a, b) => b.total - a.total)
       .slice(0, 5)
       .map(toCard)
 
+    // Most diverse: collectors who have both minifigs AND sets, sorted by total quantity
     const mostDiverse = [...allPublicUsers]
       .map(u => ({
         ...u,
-        minifigs: u._count.CollectionItem + u._count.PersonalCollectionItem,
-        sets: u._count.SetInventoryItem + u._count.SetPersonalCollectionItem,
+        minifigs: qtyByUser.get(u.id)?.minifigs ?? 0,
+        sets: qtyByUser.get(u.id)?.sets ?? 0,
       }))
       .filter(u => u.minifigs > 0 && u.sets > 0)
       .sort((a, b) => (b.minifigs + b.sets) - (a.minifigs + a.sets))
@@ -267,8 +308,8 @@ export async function GET() {
       .map(toCard)
 
     let totalItemsTracked = 0
-    for (const u of allPublicUsers) {
-      totalItemsTracked += u._count.CollectionItem + u._count.PersonalCollectionItem + u._count.SetInventoryItem + u._count.SetPersonalCollectionItem
+    for (const [, qty] of qtyByUser) {
+      totalItemsTracked += qty.minifigs + qty.sets
     }
 
     // Shuffle spotlight using id chars for variation
