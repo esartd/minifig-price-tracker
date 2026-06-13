@@ -584,7 +584,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
                 onMouseLeave={(e) => e.currentTarget.style.color = pathname === '/support' ? '#171717' : '#525252'}
               >
-                Support
+                {t('navigation.support') || 'Support'}
               </Link>
 
               <div className="desktop-auth" style={{
@@ -920,7 +920,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   minHeight: '44px'
                 }}
               >
-                Support
+                {t('navigation.support') || 'Support'}
               </Link>
 
               <Link href="/auth/signin" onClick={() => setMobileMenuOpen(false)} style={{
@@ -1361,7 +1361,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
               onMouseLeave={(e) => e.currentTarget.style.color = pathname === '/support' ? '#171717' : '#525252'}
             >
-              Support
+              {t('navigation.support') || 'Support'}
             </Link>
 
             <div className="desktop-auth" style={{
