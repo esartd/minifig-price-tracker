@@ -267,7 +267,7 @@ export async function GET() {
     )
     const spotlight = shuffled.slice(0, 4).map(toCard)
 
-    return NextResponse.json({
+    const payload = {
       success: true,
       data: {
         totalCollectors: allPublicUsers.length,
@@ -282,6 +282,10 @@ export async function GET() {
         specialists: specialists.slice(0, 6),
         recentActivity,
       },
+    }
+    // Use manual JSON.stringify with BigInt replacer — NextResponse.json() throws on BigInt
+    return new Response(JSON.stringify(payload, (_k, v) => typeof v === 'bigint' ? Number(v) : v), {
+      headers: { 'Content-Type': 'application/json' },
     })
   } catch (error) {
     console.error('community-stats error:', error)
