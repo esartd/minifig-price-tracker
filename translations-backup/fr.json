@@ -1872,5 +1872,15 @@
       "publicDescription": "Votre collection est visible sur votre profil public",
       "privateDescription": "Votre collection est masquée du public"
     }
+  },
+  "homepage": {
+    "stats": {
+      "minifigsTracked": "Minifigurines suivies",
+      "setsInCatalog": "Sets dans le catalogue",
+      "realTime": "Temps réel",
+      "bricklinkPricing": "Prix BrickLink",
+      "free": "Gratuit",
+      "forCollectorsSellers": "Pour collectionneurs & vendeurs"
+    }
   }
 }
