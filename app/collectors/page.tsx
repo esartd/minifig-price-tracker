@@ -359,7 +359,7 @@ export default function CollectorsPage() {
   const searchRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    fetch('/api/community-stats')
+    fetch('/api/community-stats?v=2')
       .then(r => r.json())
       .then(j => { if (j.success) setStats(j.data); })
       .catch(() => {})
