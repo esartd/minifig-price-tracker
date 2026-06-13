@@ -63,7 +63,9 @@
     "minifigsForSale": "Minifigurines à Vendre",
     "minifigsToKeep": "Minifigurines à Garder",
     "setsForSale": "Sets à Vendre",
-    "setsToKeep": "Sets à Garder"
+    "setsToKeep": "Sets à Garder",
+    "articles": "Articles",
+    "community": "Communauté"
   },
   "themes": {
     "browse_title": "Parcourir les thèmes de minifigurines LEGO",

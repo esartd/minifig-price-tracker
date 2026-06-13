@@ -63,7 +63,9 @@
     "minifigsForSale": "Minifigure in Vendita",
     "minifigsToKeep": "Minifigure da Tenere",
     "setsForSale": "Set in Vendita",
-    "setsToKeep": "Set da Tenere"
+    "setsToKeep": "Set da Tenere",
+    "articles": "Articoli",
+    "community": "Community"
   },
   "themes": {
     "browse_title": "Sfoglia i Temi delle Minifigure LEGO",

@@ -64,7 +64,9 @@
     "minifigsToKeep": "Minifiguren Om Te Houden",
     "setsForSale": "Sets Te Koop",
     "setsToKeep": "Sets Om Te Houden",
-    "guides": "Artikelen"
+    "guides": "Artikelen",
+    "articles": "Artikelen",
+    "community": "Community"
   },
   "themes": {
     "browse_title": "Browse LEGO Minifigure Themes",

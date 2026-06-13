@@ -63,7 +63,9 @@
     "minifigsForSale": "Minifigurer till salu",
     "minifigsToKeep": "Minifigurer att behålla",
     "setsForSale": "Set till salu",
-    "setsToKeep": "Set att behålla"
+    "setsToKeep": "Set att behålla",
+    "articles": "Artiklar",
+    "community": "Community"
   },
   "themes": {
     "browse_title": "Bläddra bland LEGO Minifigur-teman",

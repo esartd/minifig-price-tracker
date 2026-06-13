@@ -63,7 +63,9 @@
     "minifigsForSale": "ミニフィギュア for セール",
     "minifigsToKeep": "ミニフィギュア to 保管",
     "setsForSale": "セット for セール",
-    "setsToKeep": "セット to 保管"
+    "setsToKeep": "セット to 保管",
+    "articles": "記事",
+    "community": "コミュニティ"
   },
   "themes": {
     "browse_title": "Browse LEGO Minifigure Themes",
