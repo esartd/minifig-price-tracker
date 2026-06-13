@@ -59,7 +59,7 @@ export async function generateMetadata(): Promise<Metadata> {
     verification: {
       google: 'Q_SG-OFVZAL1wgpz58lt_DRWEOa0lSN_ISMhFg6TpuE',
     },
-    robots: {
+    robots: locale === 'en' ? {
       index: true,
       follow: true,
       googleBot: {
@@ -69,6 +69,9 @@ export async function generateMetadata(): Promise<Metadata> {
         'max-image-preview': 'large',
         'max-snippet': -1,
       },
+    } : {
+      index: false,
+      follow: false,
     },
     openGraph: {
       type: 'website',
