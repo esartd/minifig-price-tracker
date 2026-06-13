@@ -27,13 +27,16 @@ interface SetWishlistItem {
 }
 
 export default function WishlistPage() {
-  const { t } = useTranslation();
+  const { t, translations } = useTranslation();
   const { data: session, status } = useSession();
   const router = useRouter();
   const [minifigWishlist, setMinifigWishlist] = useState<MinifigWishlistItem[]>([]);
   const [setWishlist, setSetWishlist] = useState<SetWishlistItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'minifigs' | 'sets'>('minifigs');
+
+  const buyOnEbayLabel = translations?.buyButtons?.ebay?.buyOn || 'Buy on eBay';
+  const amazonLabel = translations?.buyButtons?.amazon?.name || 'Amazon';
 
   useEffect(() => {
     if (status === 'authenticated') {
@@ -694,7 +697,7 @@ export default function WishlistPage() {
                     }}
                   >
                     <ShoppingCartIcon style={{ width: '14px', height: '14px', flexShrink: 0 }} />
-                    <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>Buy on eBay</span>
+                    <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{buyOnEbayLabel}</span>
                   </button>
                   <button
                     onClick={(e) => {
@@ -731,7 +734,7 @@ export default function WishlistPage() {
                     }}
                   >
                     <ShoppingCartIcon style={{ width: '14px', height: '14px', flexShrink: 0 }} />
-                    <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>Amazon</span>
+                    <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{amazonLabel}</span>
                   </button>
                 </div>
 

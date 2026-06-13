@@ -23,7 +23,10 @@
     "searching": "Searching...",
     "clearFilter": "Wyczyść Filtruj",
     "noResultsFor": "No results found for \"{query}\"",
-    "minifigCount": "{count, plural, one {# minifigure} other {# minifigures}}"
+    "minifigCount": "{count, plural, one {# minifigure} other {# minifigures}}",
+    "viewDetails": "Zobacz szczegóły",
+    "new": "Nowy",
+    "used": "Używany"
   },
   "navigation": {
     "home": "Strona główna",
@@ -385,18 +388,24 @@
     "placeholderSets": "Szukaj for LEGO Zestawy...",
     "notFound": "Not found. Try different Szukaj terms.",
     "results": "{count} results found",
-    "searching": "Searching..."
+    "searching": "Szukanie...",
+    "seeAllMinifigures": "Zobacz wszystkie minifigurki →",
+    "emptyTitle": "Szukaj minifigurek i zestawów",
+    "emptySubtitle": "Spróbuj wyszukać według nazwy, numeru lub motywu"
   },
   "buyButtons": {
     "ebay": {
       "name": "eBay",
       "description": "Rare finds & collector deals",
-      "sponsored": "Sponsorowane"
+      "sponsored": "Sponsorowane",
+      "buyOn": "Kup na eBay"
     },
     "amazon": {
       "name": "Amazon",
       "description": "Fast shipping & easy returns",
-      "sponsored": "Sponsorowane"
+      "sponsored": "Sponsorowane",
+      "shopOn": "Kup na Amazon",
+      "buyOn": "Kup na Amazon"
     },
     "bricklink": {
       "name": "BrickLink",
@@ -431,7 +440,8 @@
     "emptyDescription": "Przeglądaj Minifigurki and click the heart icon to Zapisz them here",
     "browseButton": "Przeglądaj Minifigurki",
     "buyBrickLink": "BrickLink",
-    "buyAmazon": "Amazon"
+    "buyAmazon": "Amazon",
+    "buyEbay": "eBay"
   },
   "sets": {
     "browse": {

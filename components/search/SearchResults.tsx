@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { CollectionItem } from '@/types';
 import ThemeFilters from './ThemeFilters';
 import MinifigCard from './MinifigCard';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface SearchResultsProps {
   searchResults: any[];
@@ -22,10 +23,15 @@ export default function SearchResults({
   onCancelSelection,
   onClearSearch,
 }: SearchResultsProps) {
+  const { translations } = useTranslation();
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const [pricing, setPricing] = useState<Record<string, { suggestedPrice: number; loading: boolean }>>({});
   const [activeTab, setActiveTab] = useState<'minifigs' | 'sets' | null>(null);
   const [displayCount, setDisplayCount] = useState(50);
+
+  const minifiguresLabel = translations?.navigation?.minifigures || 'Minifigures';
+  const setsLabel = translations?.navigation?.sets || 'Sets';
+  const seeAllMinifiguresLabel = translations?.search?.seeAllMinifigures || 'See All Minifigures →';
 
   const RESULTS_PER_PAGE = 50;
   const PREVIEW_LIMIT = 5;
@@ -230,7 +236,7 @@ export default function SearchResults({
                   marginBottom: '-2px'
                 }}
               >
-                Minifigures ({minifigs.length})
+                {minifiguresLabel} ({minifigs.length})
               </button>
             )}
             {sets.length > 0 && (
@@ -249,7 +255,7 @@ export default function SearchResults({
                   marginBottom: '-2px'
                 }}
               >
-                Sets ({sets.length})
+                {setsLabel} ({sets.length})
               </button>
             )}
           </div>
@@ -272,7 +278,7 @@ export default function SearchResults({
                     letterSpacing: '-0.01em',
                     marginBottom: '16px'
                   }}>
-                    Minifigures ({minifigs.length})
+                    {minifiguresLabel} ({minifigs.length})
                   </h3>
                   <div className="search-results-list" style={{
                     display: 'flex',
@@ -318,7 +324,7 @@ export default function SearchResults({
                           e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
                         }}
                       >
-                        See All Minifigures →
+                        {seeAllMinifiguresLabel}
                       </button>
                     </div>
                   )}
@@ -335,7 +341,7 @@ export default function SearchResults({
                     letterSpacing: '-0.01em',
                     marginBottom: '16px'
                   }}>
-                    Sets ({sets.length})
+                    {setsLabel} ({sets.length})
                   </h3>
                   <div className="search-results-list" style={{
                     display: 'flex',

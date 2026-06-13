@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface DealSetCardProps {
   deal: {
@@ -21,8 +22,12 @@ interface DealSetCardProps {
 }
 
 export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
+  const { translations } = useTranslation();
   const [imageError, setImageError] = useState(false);
   const [currentImageUrl, setCurrentImageUrl] = useState(deal.imageUrl);
+
+  const sponsoredLabel = translations?.buyButtons?.amazon?.sponsored || translations?.buyButtons?.ebay?.sponsored || 'Sponsored';
+  const buyOnAmazonLabel = translations?.buyButtons?.amazon?.buyOn || 'Buy on Amazon';
 
   const handleImageError = () => {
     // Try fallback: switch between /ON/ and /SN/ image URLs
@@ -88,7 +93,7 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
           zIndex: 10,
         }}
       >
-        Sponsored
+        {sponsoredLabel}
       </div>
 
       {/* Set Image */}
@@ -230,7 +235,7 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
             e.currentTarget.style.background = '#3b82f6';
           }}
         >
-          Buy on Amazon
+          {buyOnAmazonLabel}
         </a>
       </div>
     </div>

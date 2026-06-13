@@ -23,7 +23,10 @@
     "searching": "Söker...",
     "clearFilter": "Rensa filter",
     "noResultsFor": "Inga resultat hittades för \"{query}\"",
-    "minifigCount": "{count, plural, one {# minifigurer} other {# minifigurer}}"
+    "minifigCount": "{count, plural, one {# minifigurer} other {# minifigurer}}",
+    "viewDetails": "Se detaljer",
+    "new": "Ny",
+    "used": "Begagnad"
   },
   "navigation": {
     "home": "Hem",
@@ -385,18 +388,24 @@
     "placeholderSets": "Sök for LEGO set...",
     "notFound": "Ingat found. Try different sök terms.",
     "results": "{count} resultat hittades",
-    "searching": "Söker..."
+    "searching": "Söker...",
+    "seeAllMinifigures": "Se alla minifigurer →",
+    "emptyTitle": "Sök efter minifigurer och set",
+    "emptySubtitle": "Försök söka efter namn, nummer eller tema"
   },
   "buyButtons": {
     "ebay": {
       "name": "eBay",
       "description": "Rare finds & collector erbjudandes",
-      "sponsored": "Sponsrad"
+      "sponsored": "Sponsrad",
+      "buyOn": "Köp på eBay"
     },
     "amazon": {
       "name": "Amazon",
       "description": "Fast shipping & easy returns",
-      "sponsored": "Sponsrad"
+      "sponsored": "Sponsrad",
+      "shopOn": "Handla på Amazon",
+      "buyOn": "Köp på Amazon"
     },
     "bricklink": {
       "name": "BrickLink",
@@ -431,7 +440,8 @@
     "emptyDescription": "Bläddra minifigurr and click the heart icon to spara them here",
     "browseButton": "Bläddra Minifigurer",
     "buyBrickLink": "BrickLink",
-    "buyAmazon": "Amazon"
+    "buyAmazon": "Amazon",
+    "buyEbay": "eBay"
   },
   "sets": {
     "browse": {

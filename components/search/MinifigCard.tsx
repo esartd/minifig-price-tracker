@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 import { generateAmazonMinifigLink, generateAmazonLegoSetLink } from '@/lib/affiliate-links';
 import { trackAffiliateClick } from '@/lib/analytics';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface MinifigCardProps {
   minifig: any;
@@ -23,9 +24,14 @@ export default function MinifigCard({
   minifig
 }: MinifigCardProps) {
   const router = useRouter();
+  const { translations } = useTranslation();
   const [imageError, setImageError] = useState(false);
   const [amazonPrice, setAmazonPrice] = useState<AmazonPrice | null>(null);
   const [loadingPrice, setLoadingPrice] = useState(false);
+
+  const viewDetailsLabel = translations?.common?.viewDetails || 'View Details';
+  const shopOnAmazonLabel = translations?.buyButtons?.amazon?.shopOn || 'Shop on Amazon';
+  const amazonLabel = translations?.buyButtons?.amazon?.name || 'Amazon';
 
   // Detect if this is a set or minifig
   const isSet = minifig.resultType === 'set' || minifig.box_no;
@@ -283,7 +289,7 @@ export default function MinifigCard({
                 e.currentTarget.style.background = '#3b82f6';
               }}
             >
-              View Details
+              {viewDetailsLabel}
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14"></path>
                 <path d="m12 5 7 7-7 7"></path>
@@ -346,12 +352,12 @@ export default function MinifigCard({
               {loadingPrice && isSet ? (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <div style={{ width: '12px', height: '12px', border: '2px solid #e5e5e5', borderTop: '2px solid #525252', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
-                  <span>Amazon</span>
+                  <span>{amazonLabel}</span>
                 </div>
               ) : amazonPrice ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', width: '100%' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: 'var(--text-xs)', color: '#737373' }}>Amazon</span>
+                    <span style={{ fontSize: 'var(--text-xs)', color: '#737373' }}>{amazonLabel}</span>
                     {amazonPrice.isPrime && (
                       <span style={{ fontSize: '10px', fontWeight: '600', color: '#00a8e1', background: '#e6f7ff', padding: '1px 4px', borderRadius: '3px' }}>Prime</span>
                     )}
@@ -379,7 +385,7 @@ export default function MinifigCard({
                     <circle cx="20" cy="21" r="1"></circle>
                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                   </svg>
-                  <span>Shop on Amazon</span>
+                  <span>{shopOnAmazonLabel}</span>
                 </div>
               )}
             </Link>
@@ -421,7 +427,7 @@ export default function MinifigCard({
             e.currentTarget.style.background = '#3b82f6';
           }}
         >
-          View Details
+          {viewDetailsLabel}
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12h14"></path>
             <path d="m12 5 7 7-7 7"></path>
@@ -480,7 +486,7 @@ export default function MinifigCard({
           {amazonPrice ? (
             <>
               <span style={{ fontSize: 'var(--text-xs)', color: '#737373' }}>
-                Amazon {amazonPrice.isPrime && '⚡'}
+                {amazonLabel} {amazonPrice.isPrime && '⚡'}
               </span>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
                 <span style={{ fontSize: 'var(--text-base)', fontWeight: '700', color: '#171717' }}>
@@ -500,7 +506,7 @@ export default function MinifigCard({
                 <circle cx="20" cy="21" r="1"></circle>
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
               </svg>
-              Amazon
+              {shopOnAmazonLabel}
             </>
           )}
         </Link>

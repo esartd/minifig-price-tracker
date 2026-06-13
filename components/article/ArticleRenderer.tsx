@@ -2,12 +2,16 @@
 
 import { ArticleBlock } from '@/types/article';
 import { marked } from 'marked';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface ArticleRendererProps {
   blocks: ArticleBlock[];
 }
 
 export function ArticleRenderer({ blocks }: ArticleRendererProps) {
+  const { translations } = useTranslation();
+  const buyOnAmazonLabel = translations?.buyButtons?.amazon?.buyOn || 'Buy on Amazon';
+
   const renderBlock = (block: ArticleBlock) => {
     switch (block.type) {
       case 'heading':
@@ -265,7 +269,7 @@ export function ArticleRenderer({ blocks }: ArticleRendererProps) {
                     fontWeight: '600',
                     textAlign: 'center',
                   }}>
-                    Buy on Amazon
+                    {buyOnAmazonLabel}
                   </div>
                 </div>
               </a>

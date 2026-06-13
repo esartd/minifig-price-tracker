@@ -23,7 +23,10 @@
     "searching": "検索中...",
     "clearFilter": "フィルターをクリア",
     "noResultsFor": "いいえ results found for \"{query}\"",
-    "minifigCount": "{count, plural, one {# minifigure} other {# minifigures}}"
+    "minifigCount": "{count, plural, one {# minifigure} other {# minifigures}}",
+    "viewDetails": "詳細を見る",
+    "new": "新品",
+    "used": "中古"
   },
   "navigation": {
     "home": "ホーム",
@@ -385,18 +388,24 @@
     "placeholderSets": "Search for LEGO sets...",
     "notFound": "Not found. Try different search terms.",
     "results": "{count} results found",
-    "searching": "検索中..."
+    "searching": "検索中...",
+    "seeAllMinifigures": "すべてのミニフィグを見る →",
+    "emptyTitle": "ミニフィグとセットを検索",
+    "emptySubtitle": "名前、番号、またはテーマで検索してみてください"
   },
   "buyButtons": {
     "ebay": {
       "name": "eBay",
       "description": "Rare finds & collector deals",
-      "sponsored": "Sponsored"
+      "sponsored": "Sponsored",
+      "buyOn": "eBayで購入"
     },
     "amazon": {
       "name": "Amazon",
       "description": "Fast shipping & easy returns",
-      "sponsored": "Sponsored"
+      "sponsored": "Sponsored",
+      "shopOn": "Amazonで購入",
+      "buyOn": "Amazonで購入"
     },
     "bricklink": {
       "name": "BrickLink",
@@ -431,7 +440,8 @@
     "emptyDescription": "閲覧 ミニフィギュア and click the heart icon to save them here",
     "browseButton": "閲覧 ミニフィギュア",
     "buyBrickLink": "BrickLink",
-    "buyAmazon": "Amazon"
+    "buyAmazon": "Amazon",
+    "buyEbay": "eBay"
   },
   "sets": {
     "browse": {

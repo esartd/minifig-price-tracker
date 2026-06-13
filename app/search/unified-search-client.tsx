@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslation } from '@/components/TranslationProvider';
 
 type TabType = 'all' | 'minifigs' | 'sets';
 
@@ -26,7 +27,14 @@ interface SetResult {
 export default function UnifiedSearchClient() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { translations } = useTranslation();
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
+
+  const minifiguresLabel = translations?.navigation?.minifigures || 'Minifigures';
+  const setsLabel = translations?.navigation?.sets || 'Sets';
+  const searchEmptyTitle = translations?.search?.emptyTitle || 'Search for Minifigures and Sets';
+  const searchEmptySubtitle = translations?.search?.emptySubtitle || 'Try searching by name, number, or theme';
+  const searchingLabel = translations?.search?.searching || 'Searching...';
   const [activeTab, setActiveTab] = useState<TabType>('all');
   const [minifigs, setMinifigs] = useState<MinifigResult[]>([]);
   const [sets, setSets] = useState<SetResult[]>([]);
@@ -244,7 +252,7 @@ export default function UnifiedSearchClient() {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    Minifigures ({minifigs.length})
+                    {minifiguresLabel} ({minifigs.length})
                   </button>
                 )}
 
@@ -264,7 +272,7 @@ export default function UnifiedSearchClient() {
                       whiteSpace: 'nowrap'
                     }}
                   >
-                    Sets ({sets.length})
+                    {setsLabel} ({sets.length})
                   </button>
                 )}
               </div>
@@ -277,16 +285,16 @@ export default function UnifiedSearchClient() {
           {loading ? (
             <div style={{ textAlign: 'center', padding: '80px 20px' }}>
               <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
-              <div style={{ fontSize: '18px', color: '#525252' }}>Searching...</div>
+              <div style={{ fontSize: '18px', color: '#525252' }}>{searchingLabel}</div>
             </div>
           ) : !searchQuery ? (
             <div style={{ textAlign: 'center', padding: '80px 20px', color: '#737373' }}>
               <div style={{ fontSize: '64px', marginBottom: '24px' }}>🔍</div>
               <div style={{ fontSize: '24px', fontWeight: '600', marginBottom: '12px' }}>
-                Search for Minifigures and Sets
+                {searchEmptyTitle}
               </div>
               <div style={{ fontSize: '16px', marginBottom: '24px' }}>
-                Try searching by name, number, or theme
+                {searchEmptySubtitle}
               </div>
               <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
                 {['Star Wars', 'Harry Potter', 'City', 'Ninjago'].map(theme => (
@@ -337,7 +345,7 @@ export default function UnifiedSearchClient() {
                       fontWeight: '700',
                       color: '#171717'
                     }}>
-                      Minifigures {activeTab === 'minifigs' && `(${minifigs.length})`}
+                      {minifiguresLabel} {activeTab === 'minifigs' && `(${minifigs.length})`}
                     </h2>
                     {activeTab === 'all' && minifigs.length > 5 && (
                       <button
@@ -446,7 +454,7 @@ export default function UnifiedSearchClient() {
                       fontWeight: '700',
                       color: '#171717'
                     }}>
-                      Sets {activeTab === 'sets' && `(${sets.length})`}
+                      {setsLabel} {activeTab === 'sets' && `(${sets.length})`}
                     </h2>
                     {activeTab === 'all' && sets.length > 5 && (
                       <button
