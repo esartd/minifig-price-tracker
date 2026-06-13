@@ -85,7 +85,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
 
       // Always use mobile layout below 1000px to prevent text wrapping
       if (headerWidth < 1000) {
-        console.log('Mobile layout: screen width < 1000px');
         setUseMobileLayout(true);
         return;
       }
@@ -105,7 +104,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
 
       // Switch to mobile if content doesn't fit with 20px safety margin
       const shouldUseMobile = totalNeeded + 20 > headerWidth;
-      console.log('Mobile layout check:', { headerWidth, totalNeeded, shouldUseMobile });
       setUseMobileLayout(shouldUseMobile);
     };
 
