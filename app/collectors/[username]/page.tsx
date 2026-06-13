@@ -120,8 +120,8 @@ export default function CollectorProfilePage({ params }: { params: Promise<{ use
           </h1>
           <p style={{ fontSize: 'var(--text-sm)', color: '#737373', margin: '0 0 24px 0' }}>
             {isPrivate
-              ? "This collector's profile is not public."
-              : "We couldn't find a collector with that username."}
+              ? (t('collectors.profile.profilePrivate') || "This collector's profile is not public.")
+              : (t('collectors.profile.notFoundDesc') || "We couldn't find a collector with that username.")}
           </p>
           <Link
             href="/collectors"
@@ -136,7 +136,7 @@ export default function CollectorProfilePage({ params }: { params: Promise<{ use
               fontWeight: 600,
             }}
           >
-            Browse Collectors
+            {t('collectors.directory.heroTitle') ? (t('collectors.directory.badge') || 'Browse Collectors') : 'Browse Collectors'}
           </Link>
         </div>
       </div>
@@ -177,7 +177,7 @@ export default function CollectorProfilePage({ params }: { params: Promise<{ use
                       textDecoration: 'none',
                     }}
                   >
-                    Edit profile
+                    {t('collectors.profile.editProfile') || 'Edit profile'}
                   </Link>
                 )}
               </div>

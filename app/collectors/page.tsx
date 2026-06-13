@@ -104,6 +104,7 @@ function Avatar({ user, size = 48 }: { user: { displayName: string; image: strin
 }
 
 function SpotlightCard({ user }: { user: CollectorCard }) {
+  const { translations } = useTranslation();
   const year = new Date(user.memberSince).getFullYear();
   return (
     <Link href={`/collectors/${user.profileSlug}`} style={{ textDecoration: 'none' }}>
@@ -122,13 +123,13 @@ function SpotlightCard({ user }: { user: CollectorCard }) {
             <p style={{ margin: 0, fontWeight: 700, fontSize: '14px', color: '#171717', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {user.displayName}
             </p>
-            <p style={{ margin: '2px 0 0', fontSize: '11px', color: '#a3a3a3' }}>{user.username ? `@${user.username} · ` : ''}member since {year}</p>
+            <p style={{ margin: '2px 0 0', fontSize: '11px', color: '#a3a3a3' }}>{user.username ? `@${user.username} · ` : ''}{(tx(translations, 'collectors.directory.memberSinceYear') || 'member since {year}').replace('{year}', String(year))}</p>
           </div>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px' }}>
           {[
-            { icon: <CubeIcon style={{ width: 13, height: 13 }} />, value: user.stats.totalMinifigs, label: 'minifigs' },
-            { icon: <ArchiveBoxIcon style={{ width: 13, height: 13 }} />, value: user.stats.totalSets, label: 'sets' },
+            { icon: <CubeIcon style={{ width: 13, height: 13 }} />, value: user.stats.totalMinifigs, label: tx(translations, 'collectors.directory.minifigs') || 'minifigs' },
+            { icon: <ArchiveBoxIcon style={{ width: 13, height: 13 }} />, value: user.stats.totalSets, label: tx(translations, 'collectors.directory.sets') || 'sets' },
           ].map(s => (
             <div key={s.label} style={{
               backgroundColor: '#fafafa', borderRadius: '8px', padding: '8px 10px',
@@ -141,7 +142,7 @@ function SpotlightCard({ user }: { user: CollectorCard }) {
           ))}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-          <span style={{ fontSize: '12px', color: '#3b82f6', fontWeight: 600 }}>View collection</span>
+          <span style={{ fontSize: '12px', color: '#3b82f6', fontWeight: 600 }}>{tx(translations, 'collectors.directory.viewCollection') || 'View collection'}</span>
           <ArrowRightIcon style={{ width: 12, height: 12, color: '#3b82f6' }} />
         </div>
       </div>
@@ -150,6 +151,7 @@ function SpotlightCard({ user }: { user: CollectorCard }) {
 }
 
 function RankRow({ user, rank, suffix }: { user: CollectorCard; rank: number; suffix?: string }) {
+  const { translations } = useTranslation();
   const year = new Date(user.memberSince).getFullYear();
   const medalColors: Record<number, { bg: string; text: string }> = {
     1: { bg: '#fef3c7', text: '#d97706' },
@@ -174,7 +176,7 @@ function RankRow({ user, rank, suffix }: { user: CollectorCard; rank: number; su
           <p style={{ margin: 0, fontWeight: 600, fontSize: '13px', color: '#171717', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {user.displayName}
           </p>
-          <p style={{ margin: 0, fontSize: '11px', color: '#a3a3a3' }}>since {year}</p>
+          <p style={{ margin: 0, fontSize: '11px', color: '#a3a3a3' }}>{(tx(translations, 'collectors.directory.sinceYear') || 'since {year}').replace('{year}', String(year))}</p>
         </div>
         {suffix && (
           <span style={{ fontSize: '12px', fontWeight: 700, color: '#171717', flexShrink: 0 }}>{suffix}</span>
@@ -207,6 +209,7 @@ function RankCard({ title, icon, color, users, getSuffix }: {
 }
 
 function ThemeLeaderCard({ leader }: { leader: ThemeLeader }) {
+  const { translations } = useTranslation();
   const [err, setErr] = useState(false);
   const initials = leader.user.displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
   return (
@@ -248,7 +251,7 @@ function ThemeLeaderCard({ leader }: { leader: ThemeLeader }) {
         </div>
         <div style={{ textAlign: 'right', flexShrink: 0 }}>
           <p style={{ margin: 0, fontSize: '15px', fontWeight: 800, color: '#171717' }}>{leader.count}</p>
-          <p style={{ margin: 0, fontSize: '10px', color: '#a3a3a3' }}>minifigs</p>
+          <p style={{ margin: 0, fontSize: '10px', color: '#a3a3a3' }}>{tx(translations, 'collectors.directory.minifigs') || 'minifigs'}</p>
         </div>
       </div>
     </Link>
@@ -409,14 +412,14 @@ export default function CollectorsPage() {
             backgroundColor: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)',
           }}>
             <SparklesIcon style={{ width: 13, height: 13, color: '#c084fc' }} />
-            <span style={{ fontSize: '12px', color: '#c084fc', fontWeight: 600, letterSpacing: '0.04em' }}>Community</span>
+            <span style={{ fontSize: '12px', color: '#c084fc', fontWeight: 600, letterSpacing: '0.04em' }}>{tx(translations, 'collectors.directory.badge') || 'Community'}</span>
           </div>
 
           <h1 style={{ margin: '0 0 12px', fontSize: 'clamp(28px,5vw,48px)', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1.1, fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif' }}>
-            Explore Collectors
+            {tx(translations, 'collectors.directory.heroTitle') || 'Explore Collectors'}
           </h1>
           <p style={{ margin: '0 0 32px', fontSize: '16px', color: '#94a3b8', lineHeight: 1.6 }}>
-            Discover what LEGO fans are building around the world
+            {tx(translations, 'collectors.directory.heroSubtitle') || 'Discover what LEGO fans are building around the world'}
           </p>
 
           {/* Search */}
@@ -429,7 +432,7 @@ export default function CollectorsPage() {
               type="text"
               value={search}
               onChange={handleSearch}
-              placeholder="Search by name or username…"
+              placeholder={tx(translations, 'collectors.directory.searchPlaceholder') || 'Search by name or username…'}
               style={{
                 width: '100%', padding: '15px 20px 15px 48px',
                 borderRadius: '14px', border: '1px solid rgba(255,255,255,0.14)',
@@ -456,7 +459,7 @@ export default function CollectorsPage() {
           ) : searchResults.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '48px 0', color: '#a3a3a3' }}>
               <UserCircleIcon style={{ width: 40, height: 40, margin: '0 auto 10px', display: 'block' }} />
-              <p style={{ margin: 0, fontSize: '14px' }}>No collectors found for "{search}"</p>
+              <p style={{ margin: 0, fontSize: '14px' }}>{(tx(translations, 'collectors.directory.noCollectorsFound') || 'No collectors found for "{search}"').replace('{search}', search)}</p>
             </div>
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px,1fr))', gap: '16px' }}>
@@ -473,7 +476,7 @@ export default function CollectorsPage() {
           {/* Spotlight */}
           {!statsLoading && stats && stats.spotlight.length > 0 && (
             <section style={{ marginBottom: '56px' }}>
-              <SectionHeader icon={<SparklesIcon style={{ width: 18, height: 18 }} />} color="#8b5cf6" title="Featured Collectors" sub="Changes each visit" />
+              <SectionHeader icon={<SparklesIcon style={{ width: 18, height: 18 }} />} color="#8b5cf6" title={tx(translations, 'collectors.directory.featuredCollectors') || 'Featured Collectors'} sub={tx(translations, 'collectors.directory.featuredSub') || 'Changes each visit'} />
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(230px,1fr))', gap: '16px' }}>
                 {stats.spotlight.map(u => <SpotlightCard key={u.profileSlug} user={u} />)}
               </div>
@@ -483,10 +486,10 @@ export default function CollectorsPage() {
           {/* Rising Stars */}
           {!statsLoading && stats && stats.risingStars.length > 0 && (
             <section style={{ marginBottom: '56px' }}>
-              <SectionHeader icon={<BoltIcon style={{ width: 18, height: 18 }} />} color="#f59e0b" title="Rising Stars" sub="Joined in the last 60 days · already building fast" />
+              <SectionHeader icon={<BoltIcon style={{ width: 18, height: 18 }} />} color="#f59e0b" title={tx(translations, 'collectors.directory.risingStars') || 'Rising Stars'} sub={tx(translations, 'collectors.directory.risingStarsSub') || 'Joined in the last 60 days · already building fast'} />
               <div style={{ backgroundColor: '#fff', border: '1px solid #e5e5e5', borderRadius: '16px', padding: '8px 4px' }}>
                 {stats.risingStars.map((u, i) => (
-                  <RankRow key={u.profileSlug} user={u} rank={i + 1} suffix={`${u.stats.totalItems} items`} />
+                  <RankRow key={u.profileSlug} user={u} rank={i + 1} suffix={(tx(translations, 'collectors.directory.items') || '{count} items').replace('{count}', String(u.stats.totalItems))} />
                 ))}
               </div>
             </section>
@@ -495,14 +498,14 @@ export default function CollectorsPage() {
           {/* Leaderboards */}
           {!statsLoading && stats && (stats.longestTenured.length > 0 || stats.biggestCollections.length > 0 || stats.mostDiverse.length > 0) && (
             <section style={{ marginBottom: '56px' }}>
-              <SectionHeader icon={<TrophyIcon style={{ width: 18, height: 18 }} />} color="#f59e0b" title="Leaderboards" />
+              <SectionHeader icon={<TrophyIcon style={{ width: 18, height: 18 }} />} color="#f59e0b" title={tx(translations, 'collectors.directory.leaderboards') || 'Leaderboards'} />
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px,1fr))', gap: '16px' }}>
-                <RankCard title="Longest Members" icon={<ClockIcon style={{ width: 15, height: 15 }} />} color="#3b82f6"
+                <RankCard title={tx(translations, 'collectors.directory.longestMembers') || 'Longest Members'} icon={<ClockIcon style={{ width: 15, height: 15 }} />} color="#3b82f6"
                   users={stats.longestTenured} />
-                <RankCard title="Biggest Collections" icon={<TrophyIcon style={{ width: 15, height: 15 }} />} color="#f59e0b"
-                  users={stats.biggestCollections} getSuffix={u => `${u.stats.totalItems.toLocaleString()} items`} />
+                <RankCard title={tx(translations, 'collectors.directory.biggestCollections') || 'Biggest Collections'} icon={<TrophyIcon style={{ width: 15, height: 15 }} />} color="#f59e0b"
+                  users={stats.biggestCollections} getSuffix={u => (tx(translations, 'collectors.directory.items') || '{count} items').replace('{count}', u.stats.totalItems.toLocaleString())} />
                 {stats.mostDiverse.length > 0 && (
-                  <RankCard title="Most Diverse" icon={<SparklesIcon style={{ width: 15, height: 15 }} />} color="#8b5cf6"
+                  <RankCard title={tx(translations, 'collectors.directory.mostDiverse') || 'Most Diverse'} icon={<SparklesIcon style={{ width: 15, height: 15 }} />} color="#8b5cf6"
                     users={stats.mostDiverse} getSuffix={u => `${u.stats.totalMinifigs}f + ${u.stats.totalSets}s`} />
                 )}
               </div>
@@ -512,7 +515,7 @@ export default function CollectorsPage() {
           {/* Theme Leaders */}
           {!statsLoading && stats && stats.themeLeaders.length > 0 && (
             <section style={{ marginBottom: '56px' }}>
-              <SectionHeader icon={<TagIcon style={{ width: 18, height: 18 }} />} color="#ec4899" title="Top Collector by Theme" sub="Who has the most minifigs per theme" />
+              <SectionHeader icon={<TagIcon style={{ width: 18, height: 18 }} />} color="#ec4899" title={tx(translations, 'collectors.directory.topCollectorByTheme') || 'Top Collector by Theme'} sub={tx(translations, 'collectors.directory.topCollectorByThemeSub') || 'Who has the most minifigs per theme'} />
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px,1fr))', gap: '12px' }}>
                 {stats.themeLeaders.map(l => <ThemeLeaderCard key={l.theme} leader={l} />)}
               </div>
@@ -526,7 +529,7 @@ export default function CollectorsPage() {
               {/* The Specialists */}
               {stats.specialists.length > 0 && (
                 <div>
-                  <SectionHeader icon={<PuzzlePieceIcon style={{ width: 18, height: 18 }} />} color="#06b6d4" title="The Specialists" sub="80%+ of their collection is one theme" />
+                  <SectionHeader icon={<PuzzlePieceIcon style={{ width: 18, height: 18 }} />} color="#06b6d4" title={tx(translations, 'collectors.directory.theSpecialists') || 'The Specialists'} sub={tx(translations, 'collectors.directory.theSpecialistsSub') || '80%+ of their collection is one theme'} />
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     {stats.specialists.map(s => <SpecialistCard key={s.user.profileSlug} specialist={s} />)}
                   </div>
@@ -536,7 +539,7 @@ export default function CollectorsPage() {
               {/* What's Being Added Right Now */}
               {stats.recentActivity.length > 0 && (
                 <div>
-                  <SectionHeader icon={<FireIcon style={{ width: 18, height: 18 }} />} color="#f97316" title="Being Added Right Now" sub="Latest minifigs across the community" />
+                  <SectionHeader icon={<FireIcon style={{ width: 18, height: 18 }} />} color="#f97316" title={tx(translations, 'collectors.directory.beingAddedNow') || 'Being Added Right Now'} sub={tx(translations, 'collectors.directory.beingAddedNowSub') || 'Latest minifigs across the community'} />
                   <div style={{ backgroundColor: '#fff', border: '1px solid #e5e5e5', borderRadius: '16px', padding: '6px 4px' }}>
                     {stats.recentActivity.map((item, i) => (
                       <RecentActivityRow key={`${item.minifigureNo}-${i}`} item={item} />
@@ -550,7 +553,7 @@ export default function CollectorsPage() {
           {/* Recently Joined */}
           {!statsLoading && stats && stats.newestMembers.length > 0 && (
             <section>
-              <SectionHeader icon={<UsersIcon style={{ width: 18, height: 18 }} />} color="#10b981" title="Recently Joined" />
+              <SectionHeader icon={<UsersIcon style={{ width: 18, height: 18 }} />} color="#10b981" title={tx(translations, 'collectors.directory.recentlyJoined') || 'Recently Joined'} />
               <div style={{
                 backgroundColor: '#fff', border: '1px solid #e5e5e5', borderRadius: '16px',
                 padding: '8px 4px',
@@ -588,6 +591,7 @@ function SectionHeader({ icon, color, title, sub }: { icon: React.ReactNode; col
 }
 
 function MiniRow({ user }: { user: CollectorCard }) {
+  const { translations } = useTranslation();
   return (
     <Link href={`/collectors/${user.profileSlug}`} style={{ textDecoration: 'none' }}>
       <div
@@ -598,9 +602,9 @@ function MiniRow({ user }: { user: CollectorCard }) {
         <Avatar user={user} size={32} />
         <div style={{ flex: 1, minWidth: 0 }}>
           <p style={{ margin: 0, fontSize: '13px', fontWeight: 600, color: '#171717', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user.displayName}</p>
-          <p style={{ margin: 0, fontSize: '11px', color: '#a3a3a3' }}>{user.username ? `@${user.username}` : 'Collector'}</p>
+          <p style={{ margin: 0, fontSize: '11px', color: '#a3a3a3' }}>{user.username ? `@${user.username}` : (tx(translations, 'collectors.directory.collector') || 'Collector')}</p>
         </div>
-        <span style={{ fontSize: '11px', color: '#a3a3a3', flexShrink: 0 }}>{user.stats.totalItems} items</span>
+        <span style={{ fontSize: '11px', color: '#a3a3a3', flexShrink: 0 }}>{(tx(translations, 'collectors.directory.items') || '{count} items').replace('{count}', String(user.stats.totalItems))}</span>
       </div>
     </Link>
   );

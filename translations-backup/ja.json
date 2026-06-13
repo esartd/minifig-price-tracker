@@ -66,7 +66,10 @@
     "setsToKeep": "セット to 保管",
     "articles": "記事",
     "community": "コミュニティ",
-    "support": "サポート"
+    "support": "サポート",
+    "guides": "ガイド",
+    "language": "言語",
+    "user": "ユーザー"
   },
   "themes": {
     "browse_title": "Browse LEGO Minifigure Themes",
@@ -634,13 +637,21 @@
     "shopLinksNote": "You pay the same price — we earn a small commission to keep the site running.",
     "donateLabel": "Or support us directly:",
     "donateLeaderboard": "Donors appear on the Top Supporters leaderboard on our homepage",
-    "donateButton": "Donate via PayPal",
+    "donateButton": "PayPalで寄付",
     "thankYou": "Thank you for supporting FigTracker!",
     "meta": {
       "title": "Support FigTracker - Keep Our LEGO Price Tracker Free",
       "description": "Learn how FigTracker stays free and how you can help support the site through affiliate purchases and sharing with other LEGO collectors.",
       "keywords": "support FigTracker, LEGO affiliate links, help FigTracker, support LEGO price tracker, donate to FigTracker"
-    }
+    },
+    "heroTitle": "迅速で正確な価格をサポート",
+    "pricingViews": "{count}件の価格を確認しました — 毎回の確認があなたの時間を節約しました",
+    "builtBy": "ユタ州のLEGOファンによって作られました。運営を続けるためにご支援ください。",
+    "shopLinksTitle2": "リンクから購入",
+    "shopLinksDesc2": "eBay、Amazon、またはLEGOのリンクから購入すると、小額のコミッションが発生します。追加費用はかかりません。",
+    "donateDirect": "直接寄付",
+    "donateDesc": "毎ドルがサーバーコストをカバーし、このツールの運営を維持します。",
+    "donateNote": "上位の寄付者はホームページのリーダーボードで任意に認められます。"
   },
   "leaderboards": {
     "title": "Community Leaderboards",
@@ -1825,7 +1836,9 @@
         "privateProfile": "このプロフィールは非公開です"
       },
       "notFound": "コレクターが見つかりません",
-      "profilePrivate": "このコレクターのプロフィールは非公開です"
+      "profilePrivate": "このコレクターのプロフィールは公開されていません。",
+      "notFoundDesc": "そのユーザー名のコレクターが見つかりませんでした。",
+      "editProfile": "プロフィールを編集"
     },
     "username": {
       "title": "ユーザー名",
@@ -1850,5 +1863,34 @@
       "publicDescription": "あなたのコレクションは公開プロフィールで見られます",
       "privateDescription": "あなたのコレクションは非公開です"
     }
+  },
+  "directory": {
+    "badge": "コミュニティ",
+    "heroTitle": "コレクターを探す",
+    "heroSubtitle": "世界中のLEGOファンが何を作っているか発見しよう",
+    "searchPlaceholder": "名前またはユーザー名で検索…",
+    "noCollectorsFound": "「{search}」のコレクターが見つかりません",
+    "featuredCollectors": "注目のコレクター",
+    "featuredSub": "訪問するたびに変わります",
+    "risingStars": "急上昇中",
+    "risingStarsSub": "60日以内に参加・すでに快調にコレクション中",
+    "leaderboards": "ランキング",
+    "longestMembers": "最長会員",
+    "biggestCollections": "最大コレクション",
+    "mostDiverse": "最多テーマ",
+    "topCollectorByTheme": "テーマ別トップコレクター",
+    "topCollectorByThemeSub": "テーマ別最多ミニフィグ保有者",
+    "theSpecialists": "スペシャリスト",
+    "theSpecialistsSub": "コレクションの80%以上が1テーマ",
+    "beingAddedNow": "今追加されている",
+    "beingAddedNowSub": "コミュニティの最新ミニフィグ",
+    "recentlyJoined": "最近参加",
+    "memberSinceYear": "{year}年から会員",
+    "sinceYear": "{year}年から",
+    "minifigs": "ミニフィグ",
+    "sets": "セット",
+    "items": "{count}点",
+    "viewCollection": "コレクションを見る",
+    "collector": "コレクター"
   }
 }

@@ -396,7 +396,7 @@ export default function SetsCollectionPage() {
                   }}
                 >
                   <PlusIcon style={{ width: '18px', height: '18px' }} />
-                  <span className="add-button-text">Add</span>
+                  <span className="add-button-text">{t('common.add')}</span>
                 </Link>
                 <ShareCollectionButton type="sets-collection" />
               </div>
@@ -434,7 +434,7 @@ export default function SetsCollectionPage() {
                       color: '#737373',
                       letterSpacing: '0.01em'
                     }}>
-                      Total Value
+                      {t('collection.totalValue')}
                     </div>
                     {pricesFetching && (
                       <div style={{
@@ -453,7 +453,7 @@ export default function SetsCollectionPage() {
                           borderRadius: '50%',
                           animation: 'spin 0.8s linear infinite'
                         }} />
-                        Updating
+                        {t('collection.updating')}
                       </div>
                     )}
                   </div>
@@ -484,7 +484,7 @@ export default function SetsCollectionPage() {
                     marginBottom: '4px',
                     letterSpacing: '0.01em'
                   }}>
-                    Total Items
+                    {t('collection.totalItems')}
                   </div>
                   <div className="collection-stat-value" style={{
                     fontSize: 'var(--text-xl)',

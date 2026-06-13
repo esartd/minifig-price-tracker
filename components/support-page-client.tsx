@@ -1,12 +1,16 @@
 'use client';
 
 import { ShoppingCartIcon, HeartIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface SupportPageClientProps {
   totalPricingViews: number | null;
 }
 
 export default function SupportPageClient({ totalPricingViews }: SupportPageClientProps) {
+  const { translations } = useTranslation();
+  const sp = translations.supportPage || {};
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -27,7 +31,7 @@ export default function SupportPageClient({ totalPricingViews }: SupportPageClie
           marginBottom: '24px',
           lineHeight: '1.2'
         }}>
-          Support Quick, Accurate Pricing
+          {sp.heroTitle || 'Support Quick, Accurate Pricing'}
         </h1>
         {totalPricingViews !== null && totalPricingViews > 0 ? (
           <p style={{
@@ -35,9 +39,12 @@ export default function SupportPageClient({ totalPricingViews }: SupportPageClie
             color: 'rgba(255, 255, 255, 0.95)',
             lineHeight: '1.6',
             marginBottom: '0'
-          }}>
-            You've checked <strong>{totalPricingViews.toLocaleString()} prices</strong> — every check saved you time
-          </p>
+          }}
+            dangerouslySetInnerHTML={{
+              __html: (sp.pricingViews || "You've checked {count} prices — every check saved you time")
+                .replace('{count}', `<strong>${totalPricingViews.toLocaleString()}</strong>`)
+            }}
+          />
         ) : (
           <p style={{
             fontSize: 'clamp(18px, 3vw, 22px)',
@@ -45,7 +52,7 @@ export default function SupportPageClient({ totalPricingViews }: SupportPageClie
             lineHeight: '1.6',
             marginBottom: '0'
           }}>
-            Built by one LEGO fan in Utah. Help keep it running.
+            {sp.builtBy || 'Built by one LEGO fan in Utah. Help keep it running.'}
           </p>
         )}
       </div>
@@ -93,7 +100,7 @@ export default function SupportPageClient({ totalPricingViews }: SupportPageClie
                 marginTop: '0',
                 marginBottom: '16px'
               }}>
-                Shop Through Our Links
+                {sp.shopLinksTitle2 || sp.shopLinksTitle || 'Shop Through Our Links'}
               </h3>
               <p style={{
                 fontSize: '15px',
@@ -101,7 +108,7 @@ export default function SupportPageClient({ totalPricingViews }: SupportPageClie
                 color: '#525252',
                 marginBottom: '0'
               }}>
-                We earn a small commission when you buy through our eBay, Amazon, or LEGO links. No extra cost to you.
+                {sp.shopLinksDesc2 || sp.shopLinksNote || 'We earn a small commission when you buy through our eBay, Amazon, or LEGO links. No extra cost to you.'}
               </p>
             </div>
 
@@ -129,7 +136,7 @@ export default function SupportPageClient({ totalPricingViews }: SupportPageClie
                 marginTop: '0',
                 marginBottom: '16px'
               }}>
-                Donate Directly
+                {sp.donateDirect || 'Donate Directly'}
               </h3>
               <p style={{
                 fontSize: '15px',
@@ -137,7 +144,7 @@ export default function SupportPageClient({ totalPricingViews }: SupportPageClie
                 color: '#525252',
                 marginBottom: '16px'
               }}>
-                Every dollar covers server costs and keeps this tool running.
+                {sp.donateDesc || 'Every dollar covers server costs and keeps this tool running.'}
               </p>
               <form action="https://www.paypal.com/donate" method="post" target="_blank">
                 <input type="hidden" name="business" value="W2LZ3TNF2X88C" />
@@ -161,7 +168,7 @@ export default function SupportPageClient({ totalPricingViews }: SupportPageClie
                   onMouseOver={(e) => e.currentTarget.style.background = '#005ea6'}
                   onMouseOut={(e) => e.currentTarget.style.background = '#0070ba'}
                 >
-                  Donate via PayPal
+                  {sp.donateButton || 'Donate via PayPal'}
                 </button>
               </form>
             </div>
@@ -175,7 +182,7 @@ export default function SupportPageClient({ totalPricingViews }: SupportPageClie
             marginBottom: '0',
             lineHeight: '1.6'
           }}>
-            Top donors are recognized on the homepage leaderboard (optional).
+            {sp.donateNote || 'Top donors are recognized on the homepage leaderboard (optional).'}
           </p>
         </div>
       </div>

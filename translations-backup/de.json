@@ -66,7 +66,10 @@
     "setsToKeep": "Sets zum Behalten",
     "articles": "Artikel",
     "community": "Community",
-    "support": "Support"
+    "support": "Support",
+    "guides": "Anleitungen",
+    "language": "Sprache",
+    "user": "Benutzer"
   },
   "themes": {
     "browse_title": "LEGO Minifiguren-Themen durchsuchen",
@@ -686,7 +689,15 @@
       "title": "FigTracker Unterstützen - Halten Sie Unseren LEGO Preis-Tracker Kostenlos",
       "description": "Erfahren Sie, wie FigTracker kostenlos bleibt und wie Sie die Website durch Affiliate-Käufe und das Teilen mit anderen LEGO-Sammlern unterstützen können.",
       "keywords": "FigTracker unterstützen, LEGO Affiliate-Links, FigTracker helfen, LEGO Preis-Tracker unterstützen, an FigTracker spenden"
-    }
+    },
+    "heroTitle": "Schnelle, genaue Preise unterstützen",
+    "pricingViews": "Du hast {count} Preise abgefragt — jede Abfrage hat dir Zeit gespart",
+    "builtBy": "Erstellt von einem LEGO-Fan in Utah. Hilf mit, es am Laufen zu halten.",
+    "shopLinksTitle2": "Über unsere Links einkaufen",
+    "shopLinksDesc2": "Wir verdienen eine kleine Provision, wenn du über unsere eBay-, Amazon- oder LEGO-Links kaufst. Für dich entstehen keine Mehrkosten.",
+    "donateDirect": "Direkt spenden",
+    "donateDesc": "Jeder Dollar deckt Serverkosten und hält dieses Tool am Laufen.",
+    "donateNote": "Top-Spender werden optional auf der Bestenlisten-Homepage genannt."
   },
   "leaderboards": {
     "title": "Community-Bestenlisten",
@@ -720,7 +731,15 @@
     "bricklinkTrademark": "Der Begriff \"BrickLink\" ist eine Marke der LEGO Group BrickLink. Diese Anwendung verwendet die BrickLink-API, wird jedoch nicht von LEGO BrickLink, Inc. unterstützt oder zertifiziert.",
     "legoTrademark": "LEGO® ist eine Marke der LEGO Group.",
     "allRightsReserved": "Alle Rechte vorbehalten.",
-    "createdBy": "Erstellt von"
+    "createdBy": "Erstellt von",
+    "browse": "Durchsuchen",
+    "resources": "Ressourcen",
+    "accountLegal": "Konto & Recht",
+    "aboutFigTracker": "Über FigTracker",
+    "aboutDescription": "LEGO-Preise mit Echtzeit-BrickLink-Daten verfolgen. Sammlung verwalten und an Bestenlisten teilnehmen.",
+    "affiliateDisclosure": "As an Amazon Associate, LEGO Affiliate, and eBay Partner, FigTracker earns from qualifying purchases.",
+    "bricklinkDisclosure": "Minifigure data provided by BrickLink.com. The term \"BrickLink\" is a trademark of the LEGO Group. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.",
+    "copyright": "© {year} FigTracker. Alle Rechte vorbehalten."
   },
   "disclosure": {
     "title": "Affiliate-Offenlegung",
@@ -1849,7 +1868,9 @@
         "privateProfile": "Dieses Profil ist privat"
       },
       "notFound": "Sammler nicht gefunden",
-      "profilePrivate": "Das Profil dieses Sammlers ist privat"
+      "profilePrivate": "Das Profil dieses Sammlers ist nicht öffentlich.",
+      "notFoundDesc": "Wir konnten keinen Sammler mit diesem Benutzernamen finden.",
+      "editProfile": "Profil bearbeiten"
     },
     "username": {
       "title": "Benutzername",
@@ -1884,5 +1905,42 @@
       "free": "Kostenlos",
       "forCollectorsSellers": "Für Sammler & Verkäufer"
     }
+  },
+  "articles": {
+    "writeArticle": "Artikel schreiben",
+    "searchPlaceholder": "Artikel suchen...",
+    "showingAll": "Alle {count} Artikel werden angezeigt",
+    "foundResults": "{found} von {total} Artikeln gefunden",
+    "noArticlesFound": "Keine Artikel gefunden",
+    "tryAdjustingFilters": "Suche oder Filter anpassen"
+  },
+  "directory": {
+    "badge": "Community",
+    "heroTitle": "Sammler entdecken",
+    "heroSubtitle": "Entdecke, was LEGO-Fans auf der ganzen Welt bauen",
+    "searchPlaceholder": "Nach Name oder Benutzername suchen…",
+    "noCollectorsFound": "Keine Sammler für „{search}\" gefunden",
+    "featuredCollectors": "Ausgewählte Sammler",
+    "featuredSub": "Ändert sich bei jedem Besuch",
+    "risingStars": "Aufsteigende Sterne",
+    "risingStarsSub": "In den letzten 60 Tagen beigetreten · schon fleißig am Bauen",
+    "leaderboards": "Bestenlisten",
+    "longestMembers": "Längste Mitglieder",
+    "biggestCollections": "Größte Sammlungen",
+    "mostDiverse": "Vielfältigste",
+    "topCollectorByTheme": "Top-Sammler nach Thema",
+    "topCollectorByThemeSub": "Wer hat die meisten Minifiguren pro Thema",
+    "theSpecialists": "Die Spezialisten",
+    "theSpecialistsSub": "80%+ ihrer Sammlung ist ein Thema",
+    "beingAddedNow": "Wird gerade hinzugefügt",
+    "beingAddedNowSub": "Neueste Minifiguren aus der Community",
+    "recentlyJoined": "Zuletzt beigetreten",
+    "memberSinceYear": "Mitglied seit {year}",
+    "sinceYear": "seit {year}",
+    "minifigs": "Minifiguren",
+    "sets": "Sets",
+    "items": "{count} Artikel",
+    "viewCollection": "Sammlung ansehen",
+    "collector": "Sammler"
   }
 }

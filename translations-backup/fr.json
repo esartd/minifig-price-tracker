@@ -66,7 +66,10 @@
     "setsToKeep": "Sets à Garder",
     "articles": "Articles",
     "community": "Communauté",
-    "support": "Support"
+    "support": "Support",
+    "guides": "Guides",
+    "language": "Langue",
+    "user": "Utilisateur"
   },
   "themes": {
     "browse_title": "Parcourir les thèmes de minifigurines LEGO",
@@ -686,7 +689,15 @@
       "title": "Soutenir FigTracker - Gardez Notre Suivi des Prix LEGO Gratuit",
       "description": "Découvrez comment FigTracker reste gratuit et comment vous pouvez aider à soutenir le site par des achats affiliés et en le partageant avec d'autres collectionneurs LEGO.",
       "keywords": "soutenir FigTracker, liens affiliés LEGO, aider FigTracker, soutenir suivi prix LEGO, faire un don à FigTracker"
-    }
+    },
+    "heroTitle": "Soutenir des prix rapides et précis",
+    "pricingViews": "Vous avez consulté {count} prix — chaque consultation vous a fait gagner du temps",
+    "builtBy": "Créé par un fan de LEGO de l'Utah. Aidez-nous à le maintenir en ligne.",
+    "shopLinksTitle2": "Acheter via nos liens",
+    "shopLinksDesc2": "Nous gagnons une petite commission lorsque vous achetez via nos liens eBay, Amazon ou LEGO. Aucun coût supplémentaire pour vous.",
+    "donateDirect": "Faire un don directement",
+    "donateDesc": "Chaque dollar couvre les coûts du serveur et maintient cet outil en ligne.",
+    "donateNote": "Les meilleurs donateurs sont reconnus sur le classement de la page d'accueil (optionnel)."
   },
   "leaderboards": {
     "title": "Classements de la communauté",
@@ -720,7 +731,15 @@
     "bricklinkTrademark": "Le terme \"BrickLink\" est une marque commerciale de LEGO Group BrickLink. Cette application utilise l'API BrickLink mais n'est pas approuvée ou certifiée par LEGO BrickLink, Inc.",
     "legoTrademark": "LEGO® est une marque commerciale de LEGO Group.",
     "allRightsReserved": "Tous droits réservés.",
-    "createdBy": "Créé par"
+    "createdBy": "Créé par",
+    "browse": "Parcourir",
+    "resources": "Ressources",
+    "accountLegal": "Compte & Légal",
+    "aboutFigTracker": "À propos de FigTracker",
+    "aboutDescription": "Suivez les prix LEGO avec des données BrickLink en temps réel. Gérez votre collection et rejoignez les classements.",
+    "affiliateDisclosure": "As an Amazon Associate, LEGO Affiliate, and eBay Partner, FigTracker earns from qualifying purchases.",
+    "bricklinkDisclosure": "Minifigure data provided by BrickLink.com. The term \"BrickLink\" is a trademark of the LEGO Group. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.",
+    "copyright": "© {year} FigTracker. Tous droits réservés."
   },
   "disclosure": {
     "title": "Divulgation des affiliations",
@@ -1850,7 +1869,9 @@
         "privateProfile": "Ce profil est privé"
       },
       "notFound": "Collectionneur non trouvé",
-      "profilePrivate": "Le profil de ce collectionneur est privé"
+      "profilePrivate": "Le profil de ce collectionneur n'est pas public.",
+      "notFoundDesc": "Nous n'avons pas trouvé de collectionneur avec ce nom d'utilisateur.",
+      "editProfile": "Modifier le profil"
     },
     "username": {
       "title": "Nom d'utilisateur",
@@ -1885,5 +1906,42 @@
       "free": "Gratuit",
       "forCollectorsSellers": "Pour collectionneurs & vendeurs"
     }
+  },
+  "articles": {
+    "writeArticle": "Écrire un article",
+    "searchPlaceholder": "Rechercher des articles...",
+    "showingAll": "Affichage de {count} articles",
+    "foundResults": "{found} sur {total} articles trouvés",
+    "noArticlesFound": "Aucun article trouvé",
+    "tryAdjustingFilters": "Essayez d'ajuster votre recherche ou vos filtres"
+  },
+  "directory": {
+    "badge": "Communauté",
+    "heroTitle": "Explorer les collectionneurs",
+    "heroSubtitle": "Découvrez ce que les fans de LEGO construisent dans le monde entier",
+    "searchPlaceholder": "Rechercher par nom ou pseudo…",
+    "noCollectorsFound": "Aucun collectionneur trouvé pour « {search} »",
+    "featuredCollectors": "Collectionneurs mis en avant",
+    "featuredSub": "Change à chaque visite",
+    "risingStars": "Étoiles montantes",
+    "risingStarsSub": "Rejoints dans les 60 derniers jours · déjà très actifs",
+    "leaderboards": "Classements",
+    "longestMembers": "Membres les plus anciens",
+    "biggestCollections": "Plus grandes collections",
+    "mostDiverse": "Plus diversifiés",
+    "topCollectorByTheme": "Meilleur collectionneur par thème",
+    "topCollectorByThemeSub": "Qui a le plus de minifigurines par thème",
+    "theSpecialists": "Les Spécialistes",
+    "theSpecialistsSub": "80%+ de leur collection est un seul thème",
+    "beingAddedNow": "Ajouté en ce moment",
+    "beingAddedNowSub": "Dernières minifigurines de la communauté",
+    "recentlyJoined": "Récemment rejoints",
+    "memberSinceYear": "membre depuis {year}",
+    "sinceYear": "depuis {year}",
+    "minifigs": "minifigurines",
+    "sets": "sets",
+    "items": "{count} articles",
+    "viewCollection": "Voir la collection",
+    "collector": "Collectionneur"
   }
 }

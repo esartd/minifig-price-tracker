@@ -395,7 +395,7 @@ export default function SetsInventoryPage() {
                   }}
                 >
                   <PlusIcon style={{ width: '18px', height: '18px' }} />
-                  <span className="add-button-text">Add</span>
+                  <span className="add-button-text">{t('common.add')}</span>
                 </Link>
                 <ShareCollectionButton type="sets-inventory" />
               </div>

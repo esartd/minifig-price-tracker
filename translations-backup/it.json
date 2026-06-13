@@ -66,7 +66,10 @@
     "setsToKeep": "Set da Tenere",
     "articles": "Articoli",
     "community": "Community",
-    "support": "Supporto"
+    "support": "Supporto",
+    "guides": "Guide",
+    "language": "Lingua",
+    "user": "Utente"
   },
   "themes": {
     "browse_title": "Sfoglia i Temi delle Minifigure LEGO",
@@ -634,13 +637,21 @@
     "shopLinksNote": "You pay the same prezzo — we earn a small commission Da Tenere the site running.",
     "donateLabel": "Or support us directly:",
     "donateLeaderboard": "Donors appear on the Top Supporters leaderboard on our Homepage",
-    "donateButton": "Donate via PayPal",
+    "donateButton": "Dona via PayPal",
     "thankYou": "Thank you for supporting FigTracker!",
     "meta": {
       "title": "Support FigTracker - Tieni Our LEGO prezzo Tracker Free",
       "description": "Learn how FigTracker stays free and how you can help support the site through affiliate purchases and sharing with other LEGO collezionistas.",
       "keywords": "support FigTracker, LEGO affiliate links, help FigTracker, support LEGO prezzo tracker, donate to FigTracker"
-    }
+    },
+    "heroTitle": "Supporta prezzi rapidi e accurati",
+    "pricingViews": "Hai consultato {count} prezzi — ogni consultazione ti ha fatto risparmiare tempo",
+    "builtBy": "Creato da un fan di LEGO nello Utah. Aiuta a mantenerlo attivo.",
+    "shopLinksTitle2": "Acquista tramite i nostri link",
+    "shopLinksDesc2": "Guadagniamo una piccola commissione quando acquisti tramite i nostri link eBay, Amazon o LEGO. Nessun costo aggiuntivo per te.",
+    "donateDirect": "Dona direttamente",
+    "donateDesc": "Ogni dollaro copre i costi del server e mantiene questo strumento attivo.",
+    "donateNote": "I migliori donatori sono riconosciuti nella classifica della homepage (opzionale)."
   },
   "leaderboards": {
     "title": "Community Leaderboards",
@@ -1825,7 +1836,9 @@
         "privateProfile": "Questo profilo è privato"
       },
       "notFound": "Collezionista non trovato",
-      "profilePrivate": "Il profilo di questo collezionista è privato"
+      "profilePrivate": "Il profilo di questo collezionista non è pubblico.",
+      "notFoundDesc": "Non abbiamo trovato un collezionista con quel nome utente.",
+      "editProfile": "Modifica profilo"
     },
     "username": {
       "title": "Nome Utente",
@@ -1850,5 +1863,34 @@
       "publicDescription": "La tua collezione è visibile sul tuo profilo pubblico",
       "privateDescription": "La tua collezione è nascosta al pubblico"
     }
+  },
+  "directory": {
+    "badge": "Community",
+    "heroTitle": "Esplora i collezionisti",
+    "heroSubtitle": "Scopri cosa stanno costruendo i fan di LEGO in tutto il mondo",
+    "searchPlaceholder": "Cerca per nome o username…",
+    "noCollectorsFound": "Nessun collezionista trovato per «{search}»",
+    "featuredCollectors": "Collezionisti in evidenza",
+    "featuredSub": "Cambia ad ogni visita",
+    "risingStars": "Stelle nascenti",
+    "risingStarsSub": "Uniti negli ultimi 60 giorni · già costruendo veloce",
+    "leaderboards": "Classifiche",
+    "longestMembers": "Membri più longevi",
+    "biggestCollections": "Collezioni più grandi",
+    "mostDiverse": "Più diversificati",
+    "topCollectorByTheme": "Top collezionista per tema",
+    "topCollectorByThemeSub": "Chi ha più minifigure per tema",
+    "theSpecialists": "Gli Specialisti",
+    "theSpecialistsSub": "L'80%+ della loro collezione è un solo tema",
+    "beingAddedNow": "Aggiunto proprio ora",
+    "beingAddedNowSub": "Ultime minifigure della community",
+    "recentlyJoined": "Iscritti di recente",
+    "memberSinceYear": "membro dal {year}",
+    "sinceYear": "dal {year}",
+    "minifigs": "minifigure",
+    "sets": "set",
+    "items": "{count} articoli",
+    "viewCollection": "Vedi collezione",
+    "collector": "Collezionista"
   }
 }

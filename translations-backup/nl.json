@@ -67,7 +67,9 @@
     "guides": "Artikelen",
     "articles": "Artikelen",
     "community": "Community",
-    "support": "Ondersteuning"
+    "support": "Ondersteuning",
+    "language": "Taal",
+    "user": "Gebruiker"
   },
   "themes": {
     "browse_title": "Browse LEGO Minifigure Themes",
@@ -635,13 +637,21 @@
     "shopLinksNote": "You pay the same price — we earn a small commission to keep the site running.",
     "donateLabel": "Or support us directly:",
     "donateLeaderboard": "Donors appear on the Top Supporters leaderboard on our homepage",
-    "donateButton": "Donate via PayPal",
+    "donateButton": "Doneer via PayPal",
     "thankYou": "Thank you for supporting FigTracker!",
     "meta": {
       "title": "Support FigTracker - Keep Our LEGO Price Tracker Free",
       "description": "Learn how FigTracker stays free and how you can help support the site through affiliate purchases and sharing with other LEGO collectors.",
       "keywords": "support FigTracker, LEGO affiliate links, help FigTracker, support LEGO price tracker, donate to FigTracker"
-    }
+    },
+    "heroTitle": "Ondersteun snelle, nauwkeurige prijzen",
+    "pricingViews": "Je hebt {count} prijzen gecontroleerd — elke controle bespaarde je tijd",
+    "builtBy": "Gemaakt door een LEGO-fan in Utah. Help het draaiende te houden.",
+    "shopLinksTitle2": "Kopen via onze links",
+    "shopLinksDesc2": "We verdienen een kleine commissie wanneer je via onze eBay-, Amazon- of LEGO-links koopt. Geen extra kosten voor jou.",
+    "donateDirect": "Direct doneren",
+    "donateDesc": "Elke dollar dekt serverkosten en houdt dit hulpmiddel draaiende.",
+    "donateNote": "Topdonateurs worden optioneel vermeld op het ranglijst op de startpagina."
   },
   "leaderboards": {
     "title": "Community Leaderboards",
@@ -1826,7 +1836,9 @@
         "privateProfile": "Dit profiel is privé"
       },
       "notFound": "Verzamelaar niet gevonden",
-      "profilePrivate": "Het profiel van deze verzamelaar is privé"
+      "profilePrivate": "Het profiel van deze verzamelaar is niet openbaar.",
+      "notFoundDesc": "We konden geen verzamelaar vinden met die gebruikersnaam.",
+      "editProfile": "Profiel bewerken"
     },
     "username": {
       "title": "Gebruikersnaam",
@@ -1851,5 +1863,34 @@
       "publicDescription": "Uw verzameling is zichtbaar op uw openbare profiel",
       "privateDescription": "Uw verzameling is verborgen voor het publiek"
     }
+  },
+  "directory": {
+    "badge": "Community",
+    "heroTitle": "Verzamelaars verkennen",
+    "heroSubtitle": "Ontdek wat LEGO-fans over de hele wereld bouwen",
+    "searchPlaceholder": "Zoek op naam of gebruikersnaam…",
+    "noCollectorsFound": "Geen verzamelaars gevonden voor \"{search}\"",
+    "featuredCollectors": "Uitgelichte verzamelaars",
+    "featuredSub": "Verandert elke bezoek",
+    "risingStars": "Rijzende sterren",
+    "risingStarsSub": "In de afgelopen 60 dagen lid geworden · al snel aan het bouwen",
+    "leaderboards": "Ranglijsten",
+    "longestMembers": "Langste leden",
+    "biggestCollections": "Grootste collecties",
+    "mostDiverse": "Meest divers",
+    "topCollectorByTheme": "Top verzamelaar per thema",
+    "topCollectorByThemeSub": "Wie heeft de meeste minifiguren per thema",
+    "theSpecialists": "De Specialisten",
+    "theSpecialistsSub": "80%+ van hun collectie is één thema",
+    "beingAddedNow": "Nu toegevoegd",
+    "beingAddedNowSub": "Nieuwste minifiguren van de community",
+    "recentlyJoined": "Recent lid geworden",
+    "memberSinceYear": "lid sinds {year}",
+    "sinceYear": "sinds {year}",
+    "minifigs": "minifiguren",
+    "sets": "sets",
+    "items": "{count} items",
+    "viewCollection": "Collectie bekijken",
+    "collector": "Verzamelaar"
   }
 }

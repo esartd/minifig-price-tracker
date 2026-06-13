@@ -66,7 +66,10 @@
     "setsToKeep": "Set att behålla",
     "articles": "Artiklar",
     "community": "Community",
-    "support": "Support"
+    "support": "Support",
+    "guides": "Guider",
+    "language": "Språk",
+    "user": "Användare"
   },
   "themes": {
     "browse_title": "Bläddra bland LEGO Minifigur-teman",
@@ -634,13 +637,21 @@
     "shopLinksNote": "You pay the same pris — we earn a smalla commission to keep the site running.",
     "donateLabel": "Or support us directly:",
     "donateLeaderboard": "Doners appear on the Top Supporters leaderboard on our hempage",
-    "donateButton": "Donate via PayPal",
+    "donateButton": "Donera via PayPal",
     "thankYou": "Thank you for supporting FigTracker!",
     "meta": {
       "title": "Support FigTracker - Behåll Our LEGO Pris Tracker Free",
       "description": "Learn how FigTracker stays free and how you can help support the site through affiliate purchases and sharing with other LEGO collectors.",
       "keywords": "support FigTracker, LEGO affiliate links, help FigTracker, support LEGO pris tracker, donate to FigTracker"
-    }
+    },
+    "heroTitle": "Stöd snabba, noggranna priser",
+    "pricingViews": "Du har kontrollerat {count} priser — varje kontroll sparade dig tid",
+    "builtBy": "Skapad av en LEGO-fan i Utah. Hjälp till att hålla det igång.",
+    "shopLinksTitle2": "Köp via våra länkar",
+    "shopLinksDesc2": "Vi tjänar en liten provision när du köper via våra eBay-, Amazon- eller LEGO-länkar. Inga extra kostnader för dig.",
+    "donateDirect": "Donera direkt",
+    "donateDesc": "Varje dollar täcker serverkostnader och håller detta verktyg igång.",
+    "donateNote": "Toppdonatorer erkänns valfritt på ranglistan på startsidan."
   },
   "leaderboards": {
     "title": "Community Leaderboards",
@@ -1825,7 +1836,9 @@
         "privateProfile": "Denna profil är privat"
       },
       "notFound": "Samlare hittades inte",
-      "profilePrivate": "Denna samlares profil är privat"
+      "profilePrivate": "Den här samlarens profil är inte offentlig.",
+      "notFoundDesc": "Vi hittade ingen samlare med det användarnamnet.",
+      "editProfile": "Redigera profil"
     },
     "username": {
       "title": "Användarnamn",
@@ -1850,5 +1863,34 @@
       "publicDescription": "Din samling är synlig på din offentliga profil",
       "privateDescription": "Din samling är dold för allmänheten"
     }
+  },
+  "directory": {
+    "badge": "Gemenskap",
+    "heroTitle": "Utforska samlare",
+    "heroSubtitle": "Upptäck vad LEGO-fans bygger runt om i världen",
+    "searchPlaceholder": "Sök efter namn eller användarnamn…",
+    "noCollectorsFound": "Inga samlare hittades för \"{search}\"",
+    "featuredCollectors": "Utvalda samlare",
+    "featuredSub": "Ändras vid varje besök",
+    "risingStars": "Uppåtgående stjärnor",
+    "risingStarsSub": "Gick med de senaste 60 dagarna · bygger redan snabbt",
+    "leaderboards": "Topplistor",
+    "longestMembers": "Längsta medlemmar",
+    "biggestCollections": "Största samlingar",
+    "mostDiverse": "Mest varierade",
+    "topCollectorByTheme": "Toppsamlare per tema",
+    "topCollectorByThemeSub": "Vem har flest minifigurer per tema",
+    "theSpecialists": "Specialisterna",
+    "theSpecialistsSub": "80%+ av deras samling är ett enda tema",
+    "beingAddedNow": "Läggs till just nu",
+    "beingAddedNowSub": "Senaste minifigurerna från gemenskapen",
+    "recentlyJoined": "Nyligen anslutna",
+    "memberSinceYear": "medlem sedan {year}",
+    "sinceYear": "sedan {year}",
+    "minifigs": "minifigurer",
+    "sets": "set",
+    "items": "{count} föremål",
+    "viewCollection": "Visa samling",
+    "collector": "Samlare"
   }
 }

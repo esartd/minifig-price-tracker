@@ -66,7 +66,10 @@
     "minifigsToKeep": "Minifigures to Keep",
     "setsForSale": "Sets for Sale",
     "setsToKeep": "Sets to Keep",
-    "community": "Community"
+    "community": "Community",
+    "guides": "Guides",
+    "language": "Language",
+    "user": "User"
   },
   "themes": {
     "browse_title": "Browse LEGO Minifigure Themes",
@@ -640,7 +643,15 @@
       "title": "Support FigTracker - Keep Our LEGO Price Tracker Free",
       "description": "Learn how FigTracker stays free and how you can help support the site through affiliate purchases and sharing with other LEGO collectors.",
       "keywords": "support FigTracker, LEGO affiliate links, help FigTracker, support LEGO price tracker, donate to FigTracker"
-    }
+    },
+    "heroTitle": "Support Quick, Accurate Pricing",
+    "pricingViews": "You've checked {count} prices — every check saved you time",
+    "builtBy": "Built by one LEGO fan in Utah. Help keep it running.",
+    "shopLinksTitle2": "Shop Through Our Links",
+    "shopLinksDesc2": "We earn a small commission when you buy through our eBay, Amazon, or LEGO links. No extra cost to you.",
+    "donateDirect": "Donate Directly",
+    "donateDesc": "Every dollar covers server costs and keeps this tool running.",
+    "donateNote": "Top donors are recognized on the homepage leaderboard (optional)."
   },
   "leaderboards": {
     "title": "Community Leaderboards",
@@ -1826,7 +1837,9 @@
         "privateProfile": "This profile is private"
       },
       "notFound": "Collector not found",
-      "profilePrivate": "This collector's profile is private"
+      "profilePrivate": "This collector's profile is not public.",
+      "notFoundDesc": "We couldn't find a collector with that username.",
+      "editProfile": "Edit profile"
     },
     "username": {
       "title": "Username",
@@ -1851,5 +1864,34 @@
       "publicDescription": "Your collection is visible at your public profile",
       "privateDescription": "Your collection is hidden from the public"
     }
+  },
+  "directory": {
+    "badge": "Community",
+    "heroTitle": "Explore Collectors",
+    "heroSubtitle": "Discover what LEGO fans are building around the world",
+    "searchPlaceholder": "Search by name or username…",
+    "noCollectorsFound": "No collectors found for \"{search}\"",
+    "featuredCollectors": "Featured Collectors",
+    "featuredSub": "Changes each visit",
+    "risingStars": "Rising Stars",
+    "risingStarsSub": "Joined in the last 60 days · already building fast",
+    "leaderboards": "Leaderboards",
+    "longestMembers": "Longest Members",
+    "biggestCollections": "Biggest Collections",
+    "mostDiverse": "Most Diverse",
+    "topCollectorByTheme": "Top Collector by Theme",
+    "topCollectorByThemeSub": "Who has the most minifigs per theme",
+    "theSpecialists": "The Specialists",
+    "theSpecialistsSub": "80%+ of their collection is one theme",
+    "beingAddedNow": "Being Added Right Now",
+    "beingAddedNowSub": "Latest minifigs across the community",
+    "recentlyJoined": "Recently Joined",
+    "memberSinceYear": "member since {year}",
+    "sinceYear": "since {year}",
+    "minifigs": "minifigs",
+    "sets": "sets",
+    "items": "{count} items",
+    "viewCollection": "View collection",
+    "collector": "Collector"
   }
 }

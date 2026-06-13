@@ -413,7 +413,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   }}>
                     {/* Minifigures Section */}
                     <div style={{ padding: '12px 20px 8px', fontSize: '11px', fontWeight: '600', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                      Minifigures
+                      {t('navigation.minifigures') || 'Minifigures'}
                     </div>
                     <Link href="/auth/signin?callbackUrl=/inventory" onClick={() => setLegoDropdownOpen(false)} style={{
                       display: 'flex',
@@ -450,7 +450,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
 
                     {/* Sets Section */}
                     <div style={{ padding: '12px 20px 8px', fontSize: '11px', fontWeight: '600', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                      Sets
+                      {t('navigation.sets') || 'Sets'}
                     </div>
                     <Link href="/auth/signin?callbackUrl=/sets-inventory" onClick={() => setLegoDropdownOpen(false)} style={{
                       display: 'flex',
@@ -958,7 +958,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     minHeight: '44px'
                   }}
                 >
-                  Language
+                  {t('navigation.language') || 'Language'}
                   <svg
                     style={{
                       width: '20px',
@@ -1028,7 +1028,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               fontSize: 'var(--text-base)',
               fontWeight: '600'
             }}>
-              Sign Up
+              {t('navigation.signUp') || 'Sign Up'}
             </Link>
           </nav>
         )}
@@ -1414,7 +1414,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap'
                     }}>
-                      {user.name || 'User'}
+                      {user.name || t('navigation.user') || 'User'}
                     </p>
                     <p style={{
                       fontSize: 'var(--text-xs)',
