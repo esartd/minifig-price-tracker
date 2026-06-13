@@ -80,15 +80,25 @@ export async function GET() {
     ])
 
     // Theme counts (reused for theme leaders + specialists)
-    // SUBSTRING_INDEX strips sub-themes: "Star Wars / Episode 1" -> "Star Wars"
+    // UNION both inventory + personal collection, SUM quantity, strip sub-themes
     const rawThemeCounts = await prisma.$queryRaw<{ userId: string; category_name: string; cnt: bigint }[]>`
-      SELECT ci.userId, SUBSTRING_INDEX(mc.category_name, ' / ', 1) AS category_name, COUNT(*) AS cnt
-      FROM CollectionItem ci
-      INNER JOIN MinifigCatalog mc ON mc.minifigure_no = ci.minifigure_no
-      INNER JOIN User u ON u.id = ci.userId
-      WHERE mc.category_name IS NOT NULL AND mc.category_name != ''
-        AND u.profilePublic = true
-      GROUP BY ci.userId, SUBSTRING_INDEX(mc.category_name, ' / ', 1)
+      SELECT userId, SUBSTRING_INDEX(category_name, ' / ', 1) AS category_name, SUM(qty) AS cnt
+      FROM (
+        SELECT ci.userId, mc.category_name, ci.quantity AS qty
+        FROM CollectionItem ci
+        INNER JOIN MinifigCatalog mc ON mc.minifigure_no = ci.minifigure_no
+        INNER JOIN User u ON u.id = ci.userId
+        WHERE mc.category_name IS NOT NULL AND mc.category_name != ''
+          AND u.profilePublic = true
+        UNION ALL
+        SELECT pci.userId, mc.category_name, pci.quantity AS qty
+        FROM PersonalCollectionItem pci
+        INNER JOIN MinifigCatalog mc ON mc.minifigure_no = pci.minifigure_no
+        INNER JOIN User u ON u.id = pci.userId
+        WHERE mc.category_name IS NOT NULL AND mc.category_name != ''
+          AND u.profilePublic = true
+      ) combined
+      GROUP BY userId, SUBSTRING_INDEX(category_name, ' / ', 1)
       ORDER BY cnt DESC
     `
 
