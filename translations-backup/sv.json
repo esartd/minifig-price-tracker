@@ -664,19 +664,19 @@
     "donateNote": "Toppdonatorer erkänns valfritt på ranglistan på startsidan."
   },
   "leaderboards": {
-    "title": "Community Leaderboards",
-    "tabQuarterly": "This Quarter",
-    "tabAllTime": "Alla-Time",
-    "quarterlyDescription": "{dateRange} ({season}) • Reset quarterly",
-    "alltimeDescription": "Total items lägg tilled since joining FigTracker",
-    "topMinifigCollectors": "Top Minifigur Collectors",
-    "topSetCollectors": "Top Set Collectors",
-    "topSupporters": "Top Supporters",
-    "minifigs": "minifigurr",
+    "title": "Community-topplistor",
+    "tabQuarterly": "Det här kvartalet",
+    "tabAllTime": "Alla tider",
+    "quarterlyDescription": "{dateRange} ({season}) • Återställs kvartalsvis",
+    "alltimeDescription": "Totalt antal objekt tillagda sedan du gick med i FigTracker",
+    "topMinifigCollectors": "Bästa minifigur-samlare",
+    "topSetCollectors": "Bästa set-samlare",
+    "topSupporters": "Bästa supporters",
+    "minifigs": "minifigurer",
     "sets": "set",
-    "supportFigTracker": "Support FigTracker",
-    "beFirstToDonate": "Be the First to Donate!",
-    "noSupporterYet": "Inga supporter yet"
+    "supportFigTracker": "Stöd FigTracker",
+    "beFirstToDonate": "Var den första att donera!",
+    "noSupporterYet": "Ingen supporter än"
   },
   "footer": {
     "faq": "FAQ",

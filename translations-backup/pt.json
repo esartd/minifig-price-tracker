@@ -664,19 +664,19 @@
     "donateNote": "Os principais doadores são reconhecidos opcionalmente no ranking da página inicial."
   },
   "leaderboards": {
-    "title": "Community Leaderboards",
-    "tabQuarterly": "This Quarter",
-    "tabAllTime": "All-Time",
-    "quarterlyDescription": "{dateRange} ({season}) • Resets quarterly",
-    "alltimeDescription": "Total items added since joining FigTracker",
-    "topMinifigCollectors": "Top Minifig Collectors",
-    "topSetCollectors": "Top Set Collectors",
-    "topSupporters": "Top Supporters",
-    "minifigs": "minifigs",
+    "title": "Classificações da comunidade",
+    "tabQuarterly": "Este trimestre",
+    "tabAllTime": "Todos os tempos",
+    "quarterlyDescription": "{dateRange} ({season}) • Reinicia trimestralmente",
+    "alltimeDescription": "Total de itens adicionados desde que entrou no FigTracker",
+    "topMinifigCollectors": "Melhores colecionadores de minifiguras",
+    "topSetCollectors": "Melhores colecionadores de sets",
+    "topSupporters": "Melhores apoiadores",
+    "minifigs": "minifiguras",
     "sets": "sets",
-    "supportFigTracker": "Support FigTracker",
-    "beFirstToDonate": "Be the First to Donate!",
-    "noSupporterYet": "No supporter yet"
+    "supportFigTracker": "Apoiar FigTracker",
+    "beFirstToDonate": "Seja o primeiro a doar!",
+    "noSupporterYet": "Ainda não há apoiador"
   },
   "footer": {
     "faq": "FAQ",

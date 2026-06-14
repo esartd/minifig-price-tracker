@@ -717,12 +717,12 @@
     "alltimeDescription": "Total de artículos añadidos desde que te uniste a FigTracker",
     "topMinifigCollectors": "Mejores coleccionistas de minifiguras",
     "topSetCollectors": "Mejores coleccionistas de sets",
-    "topSupporters": "Mejores apoyadores",
+    "topSupporters": "Mejores patrocinadores",
     "minifigs": "minifiguras",
     "sets": "sets",
     "supportFigTracker": "Apoyar FigTracker",
     "beFirstToDonate": "¡Sé el primero en donar!",
-    "noSupporterYet": "Aún no hay apoyo"
+    "noSupporterYet": "Aún no hay patrocinador"
   },
   "footer": {
     "faq": "Preguntas frecuentes",

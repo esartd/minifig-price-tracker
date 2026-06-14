@@ -713,16 +713,16 @@
     "title": "Classements de la communauté",
     "tabQuarterly": "Ce trimestre",
     "tabAllTime": "Tous les temps",
-    "quarterlyDescription": "{dateRange} ({season}) • Réinitialisé tous les trimestres",
+    "quarterlyDescription": "{dateRange} ({season}) • Réinitialisation trimestrielle",
     "alltimeDescription": "Total des articles ajoutés depuis l'inscription à FigTracker",
     "topMinifigCollectors": "Meilleurs collectionneurs de minifigurines",
     "topSetCollectors": "Meilleurs collectionneurs de sets",
-    "topSupporters": "Meilleurs supporteurs",
+    "topSupporters": "Meilleurs supporters",
     "minifigs": "minifigurines",
     "sets": "sets",
     "supportFigTracker": "Soutenir FigTracker",
     "beFirstToDonate": "Soyez le premier à faire un don !",
-    "noSupporterYet": "Pas encore de supporteur"
+    "noSupporterYet": "Pas encore de supporter"
   },
   "footer": {
     "faq": "FAQ",

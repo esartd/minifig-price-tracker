@@ -664,19 +664,19 @@
     "donateNote": "上位の寄付者はホームページのリーダーボードで任意に認められます。"
   },
   "leaderboards": {
-    "title": "Community Leaderboards",
-    "tabQuarterly": "This Quarter",
-    "tabAllTime": "All-Time",
-    "quarterlyDescription": "{dateRange} ({season}) • Resets quarterly",
-    "alltimeDescription": "Total items added since joining FigTracker",
-    "topMinifigCollectors": "Top Minifig Collectors",
-    "topSetCollectors": "Top Set Collectors",
-    "topSupporters": "Top Supporters",
-    "minifigs": "minifigs",
+    "title": "コミュニティランキング",
+    "tabQuarterly": "今四半期",
+    "tabAllTime": "歴代",
+    "quarterlyDescription": "{dateRange} ({season}) • 四半期ごとにリセット",
+    "alltimeDescription": "FigTracker参加以来の合計アイテム数",
+    "topMinifigCollectors": "トップミニフィグコレクター",
+    "topSetCollectors": "トップセットコレクター",
+    "topSupporters": "トップサポーター",
+    "minifigs": "ミニフィグ",
     "sets": "セット",
-    "supportFigTracker": "Support FigTracker",
-    "beFirstToDonate": "Be the First to Donate!",
-    "noSupporterYet": "いいえ supporter yet"
+    "supportFigTracker": "FigTrackerを支援",
+    "beFirstToDonate": "最初に寄付しよう！",
+    "noSupporterYet": "まだサポーターがいません"
   },
   "footer": {
     "faq": "FAQ",

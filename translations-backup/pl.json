@@ -666,16 +666,16 @@
   "leaderboards": {
     "title": "Rankingi społeczności",
     "tabQuarterly": "Ten kwartał",
-    "tabAllTime": "Wszechczasów",
-    "quarterlyDescription": "{dateRange} ({season}) • Resets quarterly",
-    "alltimeDescription": "Suma Przedmioty added since joining FigTracker",
+    "tabAllTime": "Wszechczasy",
+    "quarterlyDescription": "{dateRange} ({season}) • Resetuje się co kwartał",
+    "alltimeDescription": "Łączna liczba przedmiotów dodanych od dołączenia do FigTracker",
     "topMinifigCollectors": "Najlepsi kolekcjonerzy minifigurek",
     "topSetCollectors": "Najlepsi kolekcjonerzy zestawów",
     "topSupporters": "Najlepsi wspierający",
-    "minifigs": "Minifigurki",
-    "sets": "Zestawy",
+    "minifigs": "minifigurki",
+    "sets": "zestawy",
     "supportFigTracker": "Wesprzyj FigTracker",
-    "beFirstToDonate": "Bądź pierwszym ofiarodawcą!",
+    "beFirstToDonate": "Bądź pierwszym darczyńcą!",
     "noSupporterYet": "Jeszcze brak wspierających"
   },
   "footer": {

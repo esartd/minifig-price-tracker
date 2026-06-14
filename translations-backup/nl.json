@@ -664,19 +664,19 @@
     "donateNote": "Topdonateurs worden optioneel vermeld op het ranglijst op de startpagina."
   },
   "leaderboards": {
-    "title": "Community Leaderboards",
-    "tabQuarterly": "This Quarter",
-    "tabAllTime": "All-Time",
-    "quarterlyDescription": "{dateRange} ({season}) • Resets quarterly",
-    "alltimeDescription": "Total items added since joining FigTracker",
-    "topMinifigCollectors": "Top Minifig Collectors",
-    "topSetCollectors": "Top Set Collectors",
-    "topSupporters": "Top Supporters",
-    "minifigs": "minifigs",
+    "title": "Community-ranglijsten",
+    "tabQuarterly": "Dit kwartaal",
+    "tabAllTime": "Alle tijden",
+    "quarterlyDescription": "{dateRange} ({season}) • Wordt elk kwartaal gereset",
+    "alltimeDescription": "Totaal aantal items toegevoegd sinds je lid werd van FigTracker",
+    "topMinifigCollectors": "Top minifiguur-verzamelaars",
+    "topSetCollectors": "Top set-verzamelaars",
+    "topSupporters": "Top supporters",
+    "minifigs": "minifiguren",
     "sets": "sets",
-    "supportFigTracker": "Support FigTracker",
-    "beFirstToDonate": "Be the First to Donate!",
-    "noSupporterYet": "No supporter yet"
+    "supportFigTracker": "FigTracker steunen",
+    "beFirstToDonate": "Wees de eerste die doneert!",
+    "noSupporterYet": "Nog geen supporter"
   },
   "footer": {
     "faq": "Veelgestelde Vragen",
