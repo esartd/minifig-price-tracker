@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
-import { UserIcon, CubeIcon, StarIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
+import { UserIcon, CubeIcon, StarIcon, CurrencyDollarIcon, UsersIcon } from '@heroicons/react/24/outline';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from './TranslationProvider';
 
@@ -1285,6 +1285,26 @@ export function HeaderClient({ user }: HeaderClientProps) {
             </div>
 
             <Link
+              href="/collectors"
+              style={{
+                fontSize: 'var(--text-xs)',
+                fontWeight: pathname === '/collectors' || pathname.startsWith('/collectors/') ? '600' : '500',
+                color: pathname === '/collectors' || pathname.startsWith('/collectors/') ? '#171717' : '#525252',
+                textDecoration: 'none',
+                transition: 'color 0.2s',
+                lineHeight: '1',
+                display: 'flex',
+                alignItems: 'center',
+                height: '36px',
+                borderBottom: pathname === '/collectors' || pathname.startsWith('/collectors/') ? '2px solid #3b82f6' : 'none',
+                paddingBottom: '2px',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              {t('collectors.directory.badge') || 'Community'}
+            </Link>
+
+            <Link
               href="/about"
               style={{
                 fontSize: 'var(--text-xs)',
@@ -1876,6 +1896,23 @@ export function HeaderClient({ user }: HeaderClientProps) {
               </div>
             )}
           </div>
+
+          {/* Community Link */}
+          <Link href="/collectors" onClick={() => setMobileMenuOpen(false)} style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            padding: '16px 0',
+            borderBottom: '1px solid #f5f5f5',
+            color: '#171717',
+            textDecoration: 'none',
+            fontSize: 'var(--text-base)',
+            fontWeight: '600',
+            minHeight: '44px'
+          }}>
+            <UsersIcon style={{ width: '20px', height: '20px', color: '#737373', flexShrink: 0 }} />
+            {t('collectors.directory.badge') || 'Community'}
+          </Link>
 
           {/* Account & Personal Links */}
           <div style={{
