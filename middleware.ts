@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { getToken } from 'next-auth/jwt'
 import { getLocaleFromHost } from '@/lib/i18n-subdomain'
 import { tieredRateLimit, getTierForPath } from '@/lib/tiered-rate-limit'
 import { trackBehavior, isBlacklisted } from '@/lib/smart-bot-detector'
@@ -70,7 +71,7 @@ const BLOCKED_USER_AGENTS = [
   'bot',              // Generic bot pattern (will be checked AFTER legitimate bots)
 ]
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { hostname, pathname } = request.nextUrl
   const userAgent = request.headers.get('user-agent')?.toLowerCase() || ''
 
@@ -96,6 +97,14 @@ export function middleware(request: NextRequest) {
   // Block requests with no user agent (common bot behavior)
   if (!userAgent || userAgent.trim() === '') {
     return new NextResponse('Forbidden', { status: 403 })
+  }
+
+  // ALWAYS allow logged-in users — they have a valid session token, not bots
+  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET })
+  if (token) {
+    const response = NextResponse.next()
+    response.headers.set('x-locale', getLocaleFromHost(hostname))
+    return response
   }
 
   // ALWAYS allow legitimate search engines (check first, highest priority)
