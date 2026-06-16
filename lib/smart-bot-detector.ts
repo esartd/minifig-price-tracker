@@ -74,15 +74,22 @@ export function trackBehavior(
     return { isBot: true, score: 100, reason: 'Previously blacklisted' };
   }
 
-  // Track request timing
-  tracker.requestTimestamps.push(now);
-  // Keep only last 20 requests
-  if (tracker.requestTimestamps.length > 20) {
-    tracker.requestTimestamps.shift();
+  // Only track page navigations for speed/rate checks (not API calls)
+  // API calls fire concurrently on every page load — counting them would
+  // falsely flag real mobile users who load pages with multiple API requests
+  const isApiRequest = pathname.startsWith('/api/');
+
+  if (!isApiRequest) {
+    // Track request timing (page navigations only)
+    tracker.requestTimestamps.push(now);
+    // Keep only last 20 requests
+    if (tracker.requestTimestamps.length > 20) {
+      tracker.requestTimestamps.shift();
+    }
   }
 
-  // PATTERN 1: Rapid requests (faster than 500ms between requests)
-  if (tracker.requestTimestamps.length >= 3) {
+  // PATTERN 1: Rapid page navigations (faster than 500ms between page loads)
+  if (!isApiRequest && tracker.requestTimestamps.length >= 3) {
     const recentRequests = tracker.requestTimestamps.slice(-3);
     const timeDiffs = recentRequests.slice(1).map((t, i) => t - recentRequests[i]);
     const avgDiff = timeDiffs.reduce((a, b) => a + b, 0) / timeDiffs.length;
@@ -134,7 +141,7 @@ export function trackBehavior(
     }
   }
 
-  // PATTERN 5: High request rate (more than 20 requests in 1 minute)
+  // PATTERN 5: High page navigation rate (more than 20 page loads in 1 minute)
   const oneMinuteAgo = now - 60 * 1000;
   const recentCount = tracker.requestTimestamps.filter(t => t > oneMinuteAgo).length;
   if (recentCount > 20) {
