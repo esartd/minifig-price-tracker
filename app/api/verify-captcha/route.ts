@@ -37,20 +37,27 @@ export async function POST(request: NextRequest) {
     const verifyData = await verifyResponse.json();
 
     if (verifyData.success) {
-      // CAPTCHA verified successfully
+      // CAPTCHA verified — issue a signed JWT cookie (24h)
+      // Signed with NEXTAUTH_SECRET so it can't be forged, not IP-bound
+      // so it works across mobile/WiFi IP changes
+      const payload = {
+        verified: true,
+        iat: Math.floor(Date.now() / 1000),
+        exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60, // 24 hours
+      };
+      const secret = process.env.NEXTAUTH_SECRET || 'fallback-secret';
+      const header = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url');
+      const body = Buffer.from(JSON.stringify(payload)).toString('base64url');
+      const { createHmac } = await import('crypto');
+      const sig = createHmac('sha256', secret).update(`${header}.${body}`).digest('base64url');
+      const jwt = `${header}.${body}.${sig}`;
+
       const response = NextResponse.json({ success: true });
-
-      // Create IP-bound cookie value (prevents cookie theft/sharing between IPs)
-      // Format: IP_ADDRESS:timestamp
-      const cookieValue = `${ip}:${Date.now()}`;
-      const encodedValue = Buffer.from(cookieValue).toString('base64');
-
-      // Set verification cookie (1 hour - force re-verification more frequently)
-      response.cookies.set('captcha_verified', encodedValue, {
+      response.cookies.set('captcha_verified', jwt, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
-        maxAge: 60 * 60, // 1 hour (not 24 - too easy for bots to persist)
+        maxAge: 24 * 60 * 60,
         path: '/',
       });
 

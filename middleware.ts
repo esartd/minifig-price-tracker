@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { getToken } from 'next-auth/jwt'
+import { createHmac } from 'crypto'
 import { getLocaleFromHost } from '@/lib/i18n-subdomain'
 import { tieredRateLimit, getTierForPath } from '@/lib/tiered-rate-limit'
 import { trackBehavior, isBlacklisted } from '@/lib/smart-bot-detector'
@@ -71,7 +71,7 @@ const BLOCKED_USER_AGENTS = [
   'bot',              // Generic bot pattern (will be checked AFTER legitimate bots)
 ]
 
-export async function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const { hostname, pathname } = request.nextUrl
   const userAgent = request.headers.get('user-agent')?.toLowerCase() || ''
 
@@ -97,14 +97,6 @@ export async function middleware(request: NextRequest) {
   // Block requests with no user agent (common bot behavior)
   if (!userAgent || userAgent.trim() === '') {
     return new NextResponse('Forbidden', { status: 403 })
-  }
-
-  // ALWAYS allow logged-in users — they have a valid session token, not bots
-  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET })
-  if (token) {
-    const response = NextResponse.next()
-    response.headers.set('x-locale', getLocaleFromHost(hostname))
-    return response
   }
 
   // ALWAYS allow legitimate search engines (check first, highest priority)
@@ -269,23 +261,21 @@ export async function middleware(request: NextRequest) {
 
   if (captchaCookie) {
     try {
-      // Decode IP-bound cookie (format: base64(IP:timestamp))
-      const decoded = Buffer.from(captchaCookie, 'base64').toString('utf-8');
-      const [cookieIP, timestamp] = decoded.split(':');
-
-      // Verify:
-      // 1. IP matches current request IP (prevents cookie theft/sharing)
-      // 2. Cookie isn't expired (1 hour = 3600000ms)
-      const isIPMatch = cookieIP === ip;
-      const isNotExpired = (Date.now() - parseInt(timestamp)) < 3600000;
-
-      captchaVerified = isIPMatch && isNotExpired;
-
-      if (!captchaVerified && captchaCookie) {
-        console.log(`[🚫 CAPTCHA INVALID] IP mismatch or expired | Cookie IP: ${cookieIP} | Current IP: ${ip}`)
+      // Verify signed JWT cookie (HMAC-SHA256, no IP binding)
+      const parts = captchaCookie.split('.');
+      if (parts.length === 3) {
+        const [header, body, sig] = parts;
+        const secret = process.env.NEXTAUTH_SECRET || 'fallback-secret';
+        const expectedSig = createHmac('sha256', secret)
+          .update(`${header}.${body}`)
+          .digest('base64url');
+        if (sig === expectedSig) {
+          const payload = JSON.parse(Buffer.from(body, 'base64url').toString('utf-8'));
+          const isNotExpired = payload.exp && payload.exp > Math.floor(Date.now() / 1000);
+          captchaVerified = !!isNotExpired;
+        }
       }
     } catch (e) {
-      // Invalid cookie format - treat as not verified
       captchaVerified = false;
     }
   }
