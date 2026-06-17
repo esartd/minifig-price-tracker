@@ -400,17 +400,12 @@ export default async function MinifigPage({
 
   const baseUrl = domains[locale as keyof typeof domains];
 
-  // Fetch pricing data for schema.org rich snippets
-  const { bricklinkAPI } = await import('@/lib/bricklink');
+  // Fetch pricing data for schema.org rich snippets — use orchestrator so cache is respected
+  const { pricingOrchestrator, LOGGED_OUT_TTL_HOURS } = await import('@/lib/pricing-orchestrator');
   let pricingData = null;
   try {
-    pricingData = await bricklinkAPI.calculatePricingData(
-      itemNo,
-      'new',
-      'US',
-      '',
-      undefined,
-      'minifig-page-render'
+    pricingData = await pricingOrchestrator.getMinifigPrice(
+      itemNo, 'new', 'US', '', undefined, 'minifig-page-render', false, undefined, LOGGED_OUT_TTL_HOURS
     );
   } catch (error) {
     console.error('[MINIFIG PAGE] Failed to fetch pricing for schema:', error);
