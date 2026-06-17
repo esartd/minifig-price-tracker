@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { bricklinkAPI } from '@/lib/bricklink';
+import { pricingOrchestrator } from '@/lib/pricing-orchestrator';
 import { auth } from '@/auth';
 
 // GET /api/collection/temp-pricing?itemNo=sw0001&condition=new
@@ -23,12 +23,13 @@ export async function GET(request: NextRequest) {
     const countryCode = session?.user?.preferredCountryCode || 'US';
     const region = session?.user?.preferredRegion || 'north_america';
 
-    // Fetch pricing data from BrickLink with specified condition
-    const pricingData = await bricklinkAPI.calculatePricingData(
+    const pricingData = await pricingOrchestrator.getMinifigPrice(
       itemNo,
       condition,
       countryCode,
-      region
+      region,
+      session?.user?.id,
+      'api-endpoint'
     );
 
     return NextResponse.json({
