@@ -199,8 +199,11 @@ export async function fetchEbayPricing(
   try {
     const categoryId = itemType === 'MINIFIG' ? CATEGORY_MINIFIG : CATEGORY_SET;
     const conditionId = condition === 'new' ? CONDITION_NEW : CONDITION_USED;
-    // Use the human-readable name if available — eBay sellers don't use BrickLink IDs
-    const query = itemName ? `LEGO ${itemName}` : `LEGO ${itemType === 'MINIFIG' ? 'minifigure' : 'set'} ${itemNo}`;
+    // Use the human-readable name if available — eBay sellers don't use BrickLink IDs.
+    // Strip subtitle after comma (e.g. "Anakin Skywalker, Podracer" → "Anakin Skywalker")
+    // since sub-descriptions reduce match count on eBay.
+    const searchName = itemName ? itemName.split(',')[0].trim() : null;
+    const query = searchName ? `LEGO ${searchName}` : `LEGO ${itemType === 'MINIFIG' ? 'minifigure' : 'set'} ${itemNo}`;
 
     console.log(`[eBay] Searching for ${itemNo} (${condition}): "${query}"`);
 
