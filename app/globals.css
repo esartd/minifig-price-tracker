@@ -733,6 +733,19 @@ input[type="number"] {
   text-align: center !important;
 }
 
+/* 3-column single row layout when 6 Mo Avg is hidden (eBay source) */
+.minifig-pricing-row.pricing-3col {
+  flex-wrap: nowrap !important;
+}
+.minifig-pricing-row.pricing-3col .pricing-item {
+  flex: 1 1 0 !important;
+  border-bottom: none !important;
+  border-right: none !important;
+}
+.minifig-pricing-row.pricing-3col .pricing-divider {
+  display: block !important;
+}
+
 /* Top-left: right + bottom border */
 .minifig-pricing-row .pricing-item-1 {
   border-right: 1px solid #e5e5e5 !important;

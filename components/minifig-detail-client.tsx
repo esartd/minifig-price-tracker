@@ -1094,7 +1094,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       <p style={{ fontSize: 'var(--text-sm)' }}>Loading pricing...</p>
                     </div>
                   ) : pricing.suggestedPrice > 0 ? (
-                    <div className="minifig-pricing-row" style={{
+                    <div className={`minifig-pricing-row${pricing.price_source === 'ebay' ? ' pricing-3col' : ''}`} style={{
                       display: 'flex',
                       width: '100%',
                       marginBottom: '0px',
