@@ -194,6 +194,8 @@ model PriceCache {
   suggested_price Float
   cached_at       DateTime @default(now())
   expires_at      DateTime
+  price_source    String   @default("bricklink")
+  confidence      Float    @default(1.0)
 
   @@unique([item_no, item_type, condition, country_code, region])
   @@index([expires_at])

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { database } from '@/lib/database';
-import { bricklinkAPI } from '@/lib/bricklink';
+import { pricingOrchestrator } from '@/lib/pricing-orchestrator';
 import { auth } from '@/auth';
 
 // POST - Refresh pricing for a single collection item
@@ -53,15 +53,22 @@ export async function POST(
 
     console.log(`Refreshing pricing for ${item.minifigure_no} (${item.condition}) in ${countryCode}`);
 
-    // Fetch fresh pricing
-    const pricing = await bricklinkAPI.calculatePricingData(
+    // Fetch fresh pricing (uses eBay as fallback if BrickLink budget exhausted)
+    const pricing = await pricingOrchestrator.getMinifigPrice(
       item.minifigure_no,
       item.condition,
       countryCode,
       cacheRegion
     );
 
-    console.log(`Got pricing for ${item.minifigure_no}: $${pricing.suggestedPrice}`);
+    if (!pricing) {
+      return NextResponse.json(
+        { success: false, error: 'Pricing unavailable from all sources' },
+        { status: 503 }
+      );
+    }
+
+    console.log(`Got pricing for ${item.minifigure_no}: $${pricing.suggestedPrice} (source: ${pricing.price_source})`);
 
     // Return the item with updated pricing (don't update DB, pricing is cached separately)
     // Omit userId to match CollectionItem type expected by frontend

@@ -40,6 +40,8 @@ export interface PricingData {
   suggestedPrice: number; // Calculated suggested selling price
   currencyCode?: string; // Currency code the prices are in (e.g., 'USD', 'KRW', 'EUR')
   cached_at?: string; // ISO timestamp of when this price was cached
+  price_source?: 'bricklink' | 'ebay'; // Which marketplace provided this price
+  confidence?: number; // 1.0 = BrickLink (authoritative), 0.75 = eBay (estimated)
 }
 
 export interface CollectionItem {

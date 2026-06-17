@@ -420,7 +420,10 @@
     "suggestedPrice": "Suggested Price",
     "priceHistory": "Price History",
     "noPricing": "いいえ pricing data available",
-    "refreshPricing": "Refresh Pricing"
+    "refreshPricing": "Refresh Pricing",
+    "sourceEbay": "eBayの価格",
+    "sourceEbayTooltip": "eBayの出品から推定（BrickLink利用不可）",
+    "sourceBrickLink": "BrickLinkの価格"
   },
   "errors": {
     "notFound": "Not found",

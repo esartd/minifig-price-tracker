@@ -420,7 +420,10 @@
     "suggestedPrice": "Suggested Pris",
     "priceHistory": "Pris History",
     "noPricing": "Inga pricing data available",
-    "refreshPricing": "Refresh Pricing"
+    "refreshPricing": "Refresh Pricing",
+    "sourceEbay": "Pris från eBay",
+    "sourceEbayTooltip": "Uppskattat från eBay-annonser (BrickLink ej tillgänglig)",
+    "sourceBrickLink": "Pris från BrickLink"
   },
   "errors": {
     "notFound": "Ingat found",

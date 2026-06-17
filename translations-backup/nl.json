@@ -420,7 +420,10 @@
     "suggestedPrice": "Suggested Price",
     "priceHistory": "Price History",
     "noPricing": "No pricing data available",
-    "refreshPricing": "Refresh Pricing"
+    "refreshPricing": "Refresh Pricing",
+    "sourceEbay": "Prijs van eBay",
+    "sourceEbayTooltip": "Geschat uit eBay-advertenties (BrickLink niet beschikbaar)",
+    "sourceBrickLink": "Prijs van BrickLink"
   },
   "errors": {
     "notFound": "Not found",

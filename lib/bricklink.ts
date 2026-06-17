@@ -100,6 +100,20 @@ export class BricklinkAPI {
     }
   }
 
+  /**
+   * Returns how many BrickLink API calls remain today without consuming one.
+   */
+  async getRemainingBudget(): Promise<{ used: number; remaining: number; total: number }> {
+    const today = new Date().toISOString().split('T')[0];
+    const tracker = await prismaPublic.apiCallTracker.findUnique({ where: { date: today } });
+    const used = tracker?.call_count ?? 0;
+    return {
+      used,
+      remaining: Math.max(0, BricklinkAPI.MAX_CALLS_PER_DAY - used),
+      total: BricklinkAPI.MAX_CALLS_PER_DAY,
+    };
+  }
+
   private generateOAuthSignature(
     method: string,
     baseUrl: string,

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { database } from '@/lib/database';
-import { bricklinkAPI } from '@/lib/bricklink';
+import { pricingOrchestrator } from '@/lib/pricing-orchestrator';
 
 export async function POST(
   request: NextRequest,
@@ -32,13 +32,22 @@ export async function POST(
     // Region is now standardized to empty string (we fetch all sellers and use currency conversion)
     const region = '';
 
-    // Fetch fresh pricing
-    const pricing = await bricklinkAPI.calculateSetPricing(
+    // Fetch fresh pricing (uses eBay as fallback if BrickLink budget exhausted)
+    const pricing = await pricingOrchestrator.getSetPrice(
       item.box_no,
       item.condition,
       countryCode,
       region
     );
+
+    if (!pricing) {
+      return NextResponse.json(
+        { success: false, error: 'Pricing unavailable from all sources' },
+        { status: 503 }
+      );
+    }
+
+    console.log(`Got pricing for set ${item.box_no}: $${pricing.suggestedPrice} (source: ${pricing.price_source})`);
 
     // Update the item with new pricing
     const updated = await database.updateSetInventoryItem(itemId, { pricing });

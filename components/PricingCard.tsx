@@ -110,6 +110,14 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
         </div>
       </div>
 
+      {/* eBay source notice — shown when BrickLink API limit was reached */}
+      {pricing.price_source === 'ebay' && (
+        <div className="mt-3 flex items-center gap-1.5 text-xs text-gray-400">
+          <span className="inline-block px-1.5 py-0.5 bg-gray-100 border border-gray-200 rounded text-[10px] font-semibold text-gray-500 tracking-wide">eBay</span>
+          <span>{t('pricing.sourceEbay') || 'Price from eBay'}</span>
+        </div>
+      )}
+
       {/* Support Link */}
       <div className="mt-4 text-center">
         <a

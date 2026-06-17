@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { bricklinkAPI } from '@/lib/bricklink';
+import { pricingOrchestrator } from '@/lib/pricing-orchestrator';
 import { auth } from '@/auth';
 
 export async function GET(
@@ -16,7 +16,14 @@ export async function GET(
     const countryCode = session?.user?.preferredCountryCode || 'US';
     const region = session?.user?.preferredRegion || 'north_america';
 
-    const pricing = await bricklinkAPI.calculatePricingData(itemNo, condition, countryCode, region);
+    const pricing = await pricingOrchestrator.getMinifigPrice(itemNo, condition, countryCode, region);
+
+    if (!pricing) {
+      return NextResponse.json(
+        { success: false, error: 'Pricing unavailable from all sources' },
+        { status: 503 }
+      );
+    }
 
     return NextResponse.json({ success: true, data: pricing });
   } catch (error) {

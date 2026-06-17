@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { bricklinkAPI } from '@/lib/bricklink';
+import { pricingOrchestrator } from '@/lib/pricing-orchestrator';
 
 /**
  * Cron job to pre-warm price cache for high-value items in collections
@@ -289,8 +289,11 @@ export async function POST(request: NextRequest) {
     }
 
     // 5. Fetch prices with rate limiting
+    // useBrickLinkBudgetReserve=true: cron switches to eBay when < 200 BrickLink calls remain,
+    // reserving those for on-demand user traffic
     let successCount = 0;
     let errorCount = 0;
+    let ebayCount = 0;
     const errors: string[] = [];
 
     for (let i = 0; i < itemsToProcess.length; i++) {
@@ -299,19 +302,39 @@ export async function POST(request: NextRequest) {
       try {
         console.log(`[${i + 1}/${itemsToProcess.length}] Fetching ${item.itemNo} (${item.condition})...`);
 
-        // Use existing API method - automatically caches
-        await bricklinkAPI.calculatePricingData(
-          item.itemNo,
-          item.condition,
-          item.countryCode,
-          '' // cacheRegion
-        );
+        let result;
+        if (item.itemType === 'SET') {
+          result = await pricingOrchestrator.getSetPrice(
+            item.itemNo,
+            item.condition,
+            item.countryCode,
+            '',
+            undefined,
+            true // useBrickLinkBudgetReserve
+          );
+        } else {
+          result = await pricingOrchestrator.getMinifigPrice(
+            item.itemNo,
+            item.condition,
+            item.countryCode,
+            '',
+            undefined,
+            'background-job',
+            true // useBrickLinkBudgetReserve
+          );
+        }
 
-        successCount++;
+        if (result) {
+          successCount++;
+          if (result.price_source === 'ebay') ebayCount++;
+        } else {
+          errorCount++;
+          errors.push(`${item.itemNo}: no data from any source`);
+        }
 
         // Progress log every 50 items
         if ((i + 1) % 50 === 0) {
-          console.log(`✅ Progress: ${i + 1}/${itemsToProcess.length} (${successCount} success, ${errorCount} errors)`);
+          console.log(`✅ Progress: ${i + 1}/${itemsToProcess.length} (${successCount} success, ${ebayCount} via eBay, ${errorCount} errors)`);
         }
 
       } catch (error: any) {
@@ -321,7 +344,7 @@ export async function POST(request: NextRequest) {
         console.error(`❌ Error: ${errorMsg}`);
       }
 
-      // Rate limiting: 3-second delay between calls (BrickLink compliance)
+      // Rate limiting: 3-second delay between calls (BrickLink + eBay compliance)
       if (i < itemsToProcess.length - 1) {
         await new Promise(resolve => setTimeout(resolve, 3000));
       }
@@ -341,6 +364,7 @@ export async function POST(request: NextRequest) {
         needingRefresh: itemsNeedingRefresh.length,
         processed: itemsToProcess.length,
         successCount,
+        ebayCount,
         errorCount,
         duration,
         durationMinutes,
