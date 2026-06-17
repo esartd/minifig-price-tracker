@@ -154,7 +154,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
 
     const fetchPricing = async () => {
       try {
-        const response = await fetch(`/api/inventory/temp-pricing?itemNo=${minifig.no}&condition=${condition}`);
+        const response = await fetch(`/api/inventory/temp-pricing?itemNo=${minifig.no}&condition=${condition}&itemName=${encodeURIComponent(minifig.name)}`);
         const data = await response.json();
 
         if (data.success && data.pricing) {

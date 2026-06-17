@@ -133,22 +133,15 @@ async function searchEbay(
  * Filter eBay results for relevance and remove price outliers.
  *
  * Rules:
- * 1. Title must contain the item number (e.g. "sw0001" or "75192")
- * 2. Prices must be in USD
- * 3. Remove outliers beyond 3x / below 0.2x the median (catches bundles, mislabeled)
- * 4. Require at least 3 clean results
+ * 1. Prices must be in USD
+ * 2. Remove outliers beyond 3x / below 0.2x the median (catches bundles, mislabeled)
+ * 3. Require at least 3 clean results
  */
 function filterAndNormalize(items: EbayItem[], itemNo: string): number[] | null {
-  const itemNoLower = itemNo.toLowerCase();
-
-  // Must contain the item number somewhere in the title
-  const relevant = items.filter(item =>
-    item.title.toLowerCase().includes(itemNoLower) &&
-    item.price.currency === 'USD'
-  );
+  const relevant = items.filter(item => item.price.currency === 'USD');
 
   if (relevant.length < 3) {
-    console.log(`[eBay] Only ${relevant.length} relevant results for ${itemNo} (need 3+), skipping`);
+    console.log(`[eBay] Only ${relevant.length} USD results for ${itemNo} (need 3+), skipping`);
     return null;
   }
 
@@ -204,12 +197,13 @@ export async function fetchEbayPricing(
   itemNo: string,
   itemType: 'MINIFIG' | 'SET',
   condition: 'new' | 'used',
+  itemName?: string,
 ): Promise<PricingData | null> {
   try {
     const categoryId = itemType === 'MINIFIG' ? CATEGORY_MINIFIG : CATEGORY_SET;
     const conditionId = condition === 'new' ? CONDITION_NEW : CONDITION_USED;
-    const typeLabel = itemType === 'MINIFIG' ? 'minifigure' : 'set';
-    const query = `LEGO ${typeLabel} ${itemNo}`;
+    // Use the human-readable name if available — eBay sellers don't use BrickLink IDs
+    const query = itemName ? `LEGO ${itemName}` : `LEGO ${itemType === 'MINIFIG' ? 'minifigure' : 'set'} ${itemNo}`;
 
     console.log(`[eBay] Searching for ${itemNo} (${condition}): "${query}"`);
 

@@ -10,6 +10,7 @@ export async function GET(request: NextRequest) {
     const itemNo = searchParams.get('itemNo');
     const conditionParam = searchParams.get('condition');
     const condition = (conditionParam === 'used' ? 'used' : 'new') as 'new' | 'used';
+    const itemName = searchParams.get('itemName') || undefined;
 
     if (!itemNo) {
       return NextResponse.json(
@@ -29,7 +30,9 @@ export async function GET(request: NextRequest) {
       countryCode,
       region,
       session?.user?.id,
-      'api-endpoint'
+      'api-endpoint',
+      false,
+      itemName,
     );
 
     return NextResponse.json({

@@ -33,6 +33,7 @@ class PricingOrchestrator {
     userId?: string,
     callSource?: BrickLinkCallLog['source'],
     useBrickLinkBudgetReserve = false,
+    itemName?: string,
   ): Promise<PricingData | null> {
     // 1. Fresh cache hit — return immediately regardless of source
     const cached = await this.getFreshCache(itemNo, 'MINIFIG', condition);
@@ -63,7 +64,7 @@ class PricingOrchestrator {
     }
 
     // 3. Try eBay as fallback
-    const ebayResult = await fetchEbayPricing(itemNo, 'MINIFIG', condition);
+    const ebayResult = await fetchEbayPricing(itemNo, 'MINIFIG', condition, itemName);
     if (ebayResult) return ebayResult;
 
     // 4. No data available
@@ -81,6 +82,7 @@ class PricingOrchestrator {
     region: string = 'north_america',
     userId?: string,
     useBrickLinkBudgetReserve = false,
+    itemName?: string,
   ): Promise<PricingData | null> {
     // 1. Fresh cache hit
     const cached = await this.getFreshCache(boxNo, 'SET', condition);
@@ -110,7 +112,7 @@ class PricingOrchestrator {
     }
 
     // 3. Try eBay as fallback
-    const ebayResult = await fetchEbayPricing(boxNo, 'SET', condition);
+    const ebayResult = await fetchEbayPricing(boxNo, 'SET', condition, itemName);
     if (ebayResult) return ebayResult;
 
     // 4. No data available
