@@ -169,10 +169,16 @@ function filterAndNormalize(items: EbayItem[], itemNo: string): number[] | null 
  *   current_lowest = min of filtered listing prices
  *   suggested_price = average of current_avg and current_lowest
  */
-function computePricing(prices: number[]): Pick<PricingData, 'sixMonthAverage' | 'currentAverage' | 'currentLowest' | 'suggestedPrice'> {
+function computePricing(prices: number[], bricklinkSuggested?: number): Pick<PricingData, 'sixMonthAverage' | 'currentAverage' | 'currentLowest' | 'suggestedPrice'> {
   const avg = prices.reduce((sum, p) => sum + p, 0) / prices.length;
   const lowest = Math.min(...prices);
-  const suggested = (avg + lowest) / 2;
+
+  // If we have a recent BrickLink suggested price, weight it 3x as an anchor.
+  // BrickLink data is authoritative — this pulls the eBay estimate toward reality
+  // without displaying any BrickLink data to the user.
+  const suggested = (bricklinkSuggested && bricklinkSuggested > 0)
+    ? (bricklinkSuggested * 3 + avg + lowest) / 5
+    : (avg + lowest) / 2;
 
   return {
     sixMonthAverage: 0,
@@ -214,7 +220,22 @@ export async function fetchEbayPricing(
       return null;
     }
 
-    const pricing = computePricing(cleanPrices);
+    // Pull last BrickLink suggested price from history to anchor the eBay estimate.
+    // Only available for minifigs (PriceHistory.minifigure_no). Sets fall back to 2-value formula.
+    let bricklinkSuggested: number | undefined;
+    if (itemType === 'MINIFIG') {
+      const lastBrickLink = await prisma.priceHistory.findFirst({
+        where: { minifigure_no: itemNo, condition },
+        orderBy: { recorded_at: 'desc' },
+        select: { suggested_price: true },
+      });
+      bricklinkSuggested = lastBrickLink?.suggested_price ?? undefined;
+      if (bricklinkSuggested) {
+        console.log(`[eBay] Using BrickLink anchor $${bricklinkSuggested} for ${itemNo} suggested price`);
+      }
+    }
+
+    const pricing = computePricing(cleanPrices, bricklinkSuggested);
     // Confidence: 0.75 for 10+ results, 0.6 for 3–9 results
     const confidence = cleanPrices.length >= 10 ? 0.75 : 0.6;
 
