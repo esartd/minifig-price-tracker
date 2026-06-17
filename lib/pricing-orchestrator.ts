@@ -151,13 +151,57 @@ class PricingOrchestrator {
       console.log(`[Orchestrator] BrickLink budget low (${budget.remaining} remaining) — skipping fresh fetch for ${itemNo}`);
     }
 
-    // If BrickLink unavailable, try to use any stale cache entry rather than returning null
+    // If BrickLink unavailable, try stale cache first, then fall back to eBay-only
     if (!blRaw) {
       const stale = await this.getAnyCachedEntry(itemNo, itemType, condition);
       if (stale) {
         console.log(`[Orchestrator] Using stale cache for ${itemNo} (BL unavailable)`);
         return stale;
       }
+
+      // No stale cache — try eBay alone (eBay component carries 100% weight)
+      console.log(`[Orchestrator] No BL data or cache for ${itemNo} — trying eBay-only`);
+      const ebayOnly = await getEbayListingPrices(itemNo, itemType, condition);
+      if (ebayOnly) {
+        const suggested = parseFloat(((ebayOnly.avg + ebayOnly.lowest) / 2).toFixed(2));
+        const now = new Date();
+        const expiresAt = new Date(now.getTime() + cacheTtlHours * 60 * 60 * 1000);
+        const result: PricingData = {
+          sixMonthAverage: 0,
+          currentAverage: ebayOnly.avg,
+          currentLowest: ebayOnly.lowest,
+          suggestedPrice: suggested,
+          currencyCode: 'USD',
+          cached_at: now.toISOString(),
+          price_source: 'figtracker',
+          confidence: 0.7,
+        };
+        try {
+          await prisma.priceCache.upsert({
+            where: {
+              item_no_item_type_condition_country_code_region: {
+                item_no: itemNo, item_type: itemType, condition, country_code: 'US', region: '',
+              },
+            },
+            update: {
+              six_month_avg: 0, current_avg: ebayOnly.avg, current_lowest: ebayOnly.lowest,
+              suggested_price: suggested, cached_at: now, expires_at: expiresAt,
+              currency_code: 'USD', price_source: 'figtracker', confidence: 0.7,
+            },
+            create: {
+              item_no: itemNo, item_type: itemType, condition, country_code: 'US', region: '',
+              currency_code: 'USD', six_month_avg: 0, current_avg: ebayOnly.avg,
+              current_lowest: ebayOnly.lowest, suggested_price: suggested,
+              expires_at: expiresAt, price_source: 'figtracker', confidence: 0.7,
+            },
+          });
+        } catch (err: any) {
+          if (err.code !== 'P2002') console.error(`[Orchestrator] Cache write error for ${itemNo}:`, err);
+        }
+        console.log(`[Orchestrator] ${itemNo} (eBay-only fallback): suggested=$${suggested}`);
+        return result;
+      }
+
       console.log(`[Orchestrator] No data available for ${itemNo}`);
       return null;
     }
