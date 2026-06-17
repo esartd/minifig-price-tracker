@@ -13,7 +13,7 @@ import { prisma } from './prisma';
 
 const EBAY_API_BASE = 'https://api.ebay.com';
 const TOKEN_URL = 'https://api.ebay.com/identity/v1/oauth2/token';
-const BROWSE_SCOPE = 'https://api.ebay.com/oauth/api_scope/buy.marketplace.search';
+const BROWSE_SCOPE = 'https://api.ebay.com/oauth/api_scope';
 
 // eBay category IDs for LEGO items
 const CATEGORY_MINIFIG = '246';     // LEGO Minifigures
