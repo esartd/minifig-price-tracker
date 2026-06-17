@@ -173,11 +173,11 @@ function computePricing(prices: number[], bricklinkSuggested?: number): Pick<Pri
   const avg = prices.reduce((sum, p) => sum + p, 0) / prices.length;
   const lowest = Math.min(...prices);
 
-  // If we have a recent BrickLink suggested price, weight it 3x as an anchor.
-  // BrickLink data is authoritative — this pulls the eBay estimate toward reality
-  // without displaying any BrickLink data to the user.
+  // BrickLink's last suggested price gets 90% weight — it's authoritative.
+  // eBay avg and lowest each get 5% to nudge toward current market.
+  // The result is not shown as BrickLink data — it's the eBay suggested price.
   const suggested = (bricklinkSuggested && bricklinkSuggested > 0)
-    ? (bricklinkSuggested * 3 + avg + lowest) / 5
+    ? bricklinkSuggested * 0.9 + avg * 0.05 + lowest * 0.05
     : (avg + lowest) / 2;
 
   return {

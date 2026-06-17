@@ -1145,7 +1145,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                         <p style={{
                           fontSize: 'clamp(9px, 2vw, 10px)',
                           fontWeight: '500',
-                          color: '#737373',
+                          color: pricing.price_source === 'ebay' ? '#d97706' : '#737373',
                           textTransform: 'uppercase',
                           letterSpacing: '0.03em',
                           marginBottom: '6px',
@@ -1156,7 +1156,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                         <p style={{
                           fontSize: 'clamp(16px, 3.5vw, 18px)',
                           fontWeight: '700',
-                          color: '#171717',
+                          color: pricing.price_source === 'ebay' ? '#d97706' : '#171717',
                           letterSpacing: '-0.01em',
                           lineHeight: '1.2'
                         }}>
@@ -1179,7 +1179,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                         <p style={{
                           fontSize: 'clamp(9px, 2vw, 10px)',
                           fontWeight: '500',
-                          color: '#737373',
+                          color: pricing.price_source === 'ebay' ? '#d97706' : '#737373',
                           textTransform: 'uppercase',
                           letterSpacing: '0.03em',
                           marginBottom: '6px',
@@ -1190,7 +1190,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                         <p style={{
                           fontSize: 'clamp(16px, 3.5vw, 18px)',
                           fontWeight: '700',
-                          color: '#171717',
+                          color: pricing.price_source === 'ebay' ? '#d97706' : '#171717',
                           letterSpacing: '-0.01em',
                           lineHeight: '1.2'
                         }}>
@@ -1254,8 +1254,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                     }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <span style={{
-                          fontSize: '10px', fontWeight: '600', color: '#737373',
-                          background: '#f0f0f0', border: '1px solid #e5e5e5',
+                          fontSize: '10px', fontWeight: '600', color: '#d97706',
+                          background: '#fffbeb', border: '1px solid #fde68a',
                           borderRadius: '4px', padding: '2px 6px', letterSpacing: '0.02em', flexShrink: 0
                         }}>eBay</span>
                         <span style={{ fontSize: '11px', fontWeight: '600', color: '#525252' }}>

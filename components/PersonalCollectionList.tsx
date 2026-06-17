@@ -310,9 +310,9 @@ export default function PersonalCollectionList({
                     style={{
                       fontSize: '10px',
                       fontWeight: '600',
-                      color: '#737373',
-                      background: '#f5f5f5',
-                      border: '1px solid #e5e5e5',
+                      color: '#d97706',
+                      background: '#fffbeb',
+                      border: '1px solid #fde68a',
                       borderRadius: '4px',
                       padding: '1px 5px',
                       flexShrink: 0,
