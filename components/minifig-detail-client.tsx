@@ -1100,39 +1100,41 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       marginBottom: '0px',
                       alignItems: 'stretch'
                     }}>
-                      {/* Qty Weighted Average */}
-                      <div className="pricing-item pricing-item-1" style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'flex-start'
-                      }}>
-                        <p style={{
-                          fontSize: 'clamp(9px, 2vw, 10px)',
-                          fontWeight: '500',
-                          color: '#737373',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.03em',
-                          marginBottom: '6px',
-                          lineHeight: '1.2'
+                      {/* Qty Weighted Average — hidden for eBay source (no sold history available) */}
+                      {pricing.price_source !== 'ebay' && (
+                        <div className="pricing-item pricing-item-1" style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'flex-start'
                         }}>
-                          6 Mo Avg
-                        </p>
-                        <p style={{
-                          fontSize: 'clamp(16px, 3.5vw, 18px)',
-                          fontWeight: '700',
-                          color: '#171717',
-                          letterSpacing: '-0.01em',
-                          lineHeight: '1.2'
-                        }}>
-                          {formatPrice(pricing.sixMonthAverage, pricing.currencyCode || 'USD', true)}
-                        </p>
-                      </div>
+                          <p style={{
+                            fontSize: 'clamp(9px, 2vw, 10px)',
+                            fontWeight: '500',
+                            color: '#737373',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.03em',
+                            marginBottom: '6px',
+                            lineHeight: '1.2'
+                          }}>
+                            6 Mo Avg
+                          </p>
+                          <p style={{
+                            fontSize: 'clamp(16px, 3.5vw, 18px)',
+                            fontWeight: '700',
+                            color: '#171717',
+                            letterSpacing: '-0.01em',
+                            lineHeight: '1.2'
+                          }}>
+                            {formatPrice(pricing.sixMonthAverage, pricing.currencyCode || 'USD', true)}
+                          </p>
+                        </div>
+                      )}
 
-                      {/* Divider */}
-                      <div className="pricing-divider" style={{
+                      {/* Divider — hidden when 6mo avg is hidden */}
+                      {pricing.price_source !== 'ebay' && <div className="pricing-divider" style={{
                         width: '1px',
                         background: '#e5e5e5'
-                      }}></div>
+                      }}></div>}
 
                       {/* Current Average */}
                       <div className="pricing-item pricing-item-2" style={{

@@ -173,21 +173,19 @@ function filterAndNormalize(items: EbayItem[], itemNo: string): number[] | null 
 /**
  * Compute PricingData fields from a list of clean prices.
  *
- * Since Browse API shows current listings (not sold history), we use:
- *   six_month_avg = current_avg (best estimate we have for historical)
- *   current_avg   = mean of filtered listing prices
+ * Since Browse API shows current listings only (not sold history):
+ *   six_month_avg  = 0 (not available from eBay Browse API)
+ *   current_avg    = mean of filtered listing prices
  *   current_lowest = min of filtered listing prices
- *   suggested_price = average of the three non-zero components
+ *   suggested_price = average of current_avg and current_lowest
  */
 function computePricing(prices: number[]): Pick<PricingData, 'sixMonthAverage' | 'currentAverage' | 'currentLowest' | 'suggestedPrice'> {
   const avg = prices.reduce((sum, p) => sum + p, 0) / prices.length;
   const lowest = Math.min(...prices);
-
-  const components = [avg, avg, lowest].filter(p => p > 0);
-  const suggested = components.reduce((sum, p) => sum + p, 0) / components.length;
+  const suggested = (avg + lowest) / 2;
 
   return {
-    sixMonthAverage: parseFloat(avg.toFixed(2)),
+    sixMonthAverage: 0,
     currentAverage: parseFloat(avg.toFixed(2)),
     currentLowest: parseFloat(lowest.toFixed(2)),
     suggestedPrice: parseFloat(suggested.toFixed(2)),
