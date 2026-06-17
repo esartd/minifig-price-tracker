@@ -101,15 +101,12 @@ async function searchEbay(
   await enforceDelay();
   const token = await getAccessToken();
 
-  const params = new URLSearchParams({
-    q: query,
-    category_ids: categoryId,
-    filter: `conditionIds:{${conditionId}},buyingOptions:{FIXED_PRICE}`,
-    sort: 'price',
-    limit: '50',
-  });
-
-  const url = `${EBAY_API_BASE}/buy/browse/v1/item_summary/search?${params}`;
+  // Build URL manually — URLSearchParams encodes {} in filter values which breaks eBay's filter syntax
+  const url = `${EBAY_API_BASE}/buy/browse/v1/item_summary/search`
+    + `?q=${encodeURIComponent(query)}`
+    + `&category_ids=${categoryId}`
+    + `&filter=conditionIds:{${conditionId}},buyingOptions:{FIXED_PRICE}`
+    + `&sort=price&limit=50`;
 
   const res = await fetch(url, {
     headers: {
