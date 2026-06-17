@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { pricingOrchestrator } from '@/lib/pricing-orchestrator';
+import { pricingOrchestrator, LOGGED_IN_TTL_HOURS, LOGGED_OUT_TTL_HOURS } from '@/lib/pricing-orchestrator';
 import { auth } from '@/auth';
 
-// GET /api/collection/temp-pricing?itemNo=sw0001&condition=new
+// GET /api/inventory/temp-pricing?itemNo=sw0001&condition=new
 export async function GET(request: NextRequest) {
   try {
-
     const searchParams = request.nextUrl.searchParams;
     const itemNo = searchParams.get('itemNo');
     const conditionParam = searchParams.get('condition');
@@ -19,10 +18,10 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Get user's regional preferences from session
     const session = await auth();
     const countryCode = session?.user?.preferredCountryCode || 'US';
     const region = session?.user?.preferredRegion || 'north_america';
+    const cacheTtlHours = session?.user?.id ? LOGGED_IN_TTL_HOURS : LOGGED_OUT_TTL_HOURS;
 
     const pricingData = await pricingOrchestrator.getMinifigPrice(
       itemNo,
@@ -33,6 +32,7 @@ export async function GET(request: NextRequest) {
       'api-endpoint',
       false,
       itemName,
+      cacheTtlHours,
     );
 
     return NextResponse.json({

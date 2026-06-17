@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { bricklinkAPI } from '@/lib/bricklink';
+import { pricingOrchestrator, LOGGED_IN_TTL_HOURS, LOGGED_OUT_TTL_HOURS } from '@/lib/pricing-orchestrator';
+import { auth } from '@/auth';
 
 export async function GET(request: NextRequest) {
   try {
@@ -18,21 +19,23 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Keep the full box number including variant suffix (e.g., "75411-1")
-    // BrickLink API requires this for price guide requests
-    const pricing = await bricklinkAPI.calculateSetPricing(
+    const session = await auth();
+    const cacheTtlHours = session?.user?.id ? LOGGED_IN_TTL_HOURS : LOGGED_OUT_TTL_HOURS;
+
+    const pricing = await pricingOrchestrator.getSetPrice(
       boxNo,
       condition as 'new' | 'used',
       countryCode,
-      region
+      region,
+      session?.user?.id,
+      false,
+      undefined,
+      cacheTtlHours,
     );
 
-    console.log(`[Set Pricing API] Result for ${boxNo}: ${JSON.stringify(pricing)}`);
+    console.log(`[Set Pricing API] Result for ${boxNo}: suggested=$${pricing?.suggestedPrice ?? 0}`);
 
-    return NextResponse.json({
-      success: true,
-      pricing
-    });
+    return NextResponse.json({ success: true, pricing });
   } catch (error) {
     console.error('Error fetching set pricing:', error);
     return NextResponse.json(

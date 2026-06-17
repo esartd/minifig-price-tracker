@@ -73,7 +73,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
     currentLowest: number;
     suggestedPrice: number;
     currencyCode?: string;
-    price_source?: 'bricklink' | 'ebay';
     loading: boolean;
   }>({
     sixMonthAverage: 0,
@@ -164,7 +163,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
             currentLowest: data.pricing.currentLowest || 0,
             suggestedPrice: data.pricing.suggestedPrice || 0,
             currencyCode: data.pricing.currencyCode || 'USD',
-            price_source: data.pricing.price_source,
             loading: false
           });
         } else {
@@ -1094,50 +1092,14 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       <p style={{ fontSize: 'var(--text-sm)' }}>Loading pricing...</p>
                     </div>
                   ) : pricing.suggestedPrice > 0 ? (
-                    <div className={`minifig-pricing-row${pricing.price_source === 'ebay' ? ' pricing-3col' : ''}`} style={{
+                    <div className="minifig-pricing-row pricing-3col" style={{
                       display: 'flex',
                       width: '100%',
                       marginBottom: '0px',
                       alignItems: 'stretch'
                     }}>
-                      {/* Qty Weighted Average — hidden for eBay source (no sold history available) */}
-                      {pricing.price_source !== 'ebay' && (
-                        <div className="pricing-item pricing-item-1" style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'flex-start'
-                        }}>
-                          <p style={{
-                            fontSize: 'clamp(9px, 2vw, 10px)',
-                            fontWeight: '500',
-                            color: '#737373',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.03em',
-                            marginBottom: '6px',
-                            lineHeight: '1.2'
-                          }}>
-                            6 Mo Avg
-                          </p>
-                          <p style={{
-                            fontSize: 'clamp(16px, 3.5vw, 18px)',
-                            fontWeight: '700',
-                            color: '#171717',
-                            letterSpacing: '-0.01em',
-                            lineHeight: '1.2'
-                          }}>
-                            {formatPrice(pricing.sixMonthAverage, pricing.currencyCode || 'USD', true)}
-                          </p>
-                        </div>
-                      )}
-
-                      {/* Divider — hidden when 6mo avg is hidden */}
-                      {pricing.price_source !== 'ebay' && <div className="pricing-divider" style={{
-                        width: '1px',
-                        background: '#e5e5e5'
-                      }}></div>}
-
                       {/* Current Average */}
-                      <div className="pricing-item pricing-item-2" style={{
+                      <div className="pricing-item pricing-item-1" style={{
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'flex-start'
@@ -1145,7 +1107,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                         <p style={{
                           fontSize: 'clamp(9px, 2vw, 10px)',
                           fontWeight: '500',
-                          color: pricing.price_source === 'ebay' ? '#d97706' : '#737373',
+                          color: '#737373',
                           textTransform: 'uppercase',
                           letterSpacing: '0.03em',
                           marginBottom: '6px',
@@ -1156,7 +1118,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                         <p style={{
                           fontSize: 'clamp(16px, 3.5vw, 18px)',
                           fontWeight: '700',
-                          color: pricing.price_source === 'ebay' ? '#d97706' : '#171717',
+                          color: '#171717',
                           letterSpacing: '-0.01em',
                           lineHeight: '1.2'
                         }}>
@@ -1171,7 +1133,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       }}></div>
 
                       {/* Lowest Listing */}
-                      <div className="pricing-item pricing-item-3" style={{
+                      <div className="pricing-item pricing-item-2" style={{
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'flex-start'
@@ -1179,7 +1141,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                         <p style={{
                           fontSize: 'clamp(9px, 2vw, 10px)',
                           fontWeight: '500',
-                          color: pricing.price_source === 'ebay' ? '#d97706' : '#737373',
+                          color: '#737373',
                           textTransform: 'uppercase',
                           letterSpacing: '0.03em',
                           marginBottom: '6px',
@@ -1190,7 +1152,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                         <p style={{
                           fontSize: 'clamp(16px, 3.5vw, 18px)',
                           fontWeight: '700',
-                          color: pricing.price_source === 'ebay' ? '#d97706' : '#171717',
+                          color: '#171717',
                           letterSpacing: '-0.01em',
                           lineHeight: '1.2'
                         }}>
@@ -1205,7 +1167,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       }}></div>
 
                       {/* Suggested Price */}
-                      <div className="pricing-item pricing-item-4 pricing-suggested" style={{
+                      <div className="pricing-item pricing-item-3 pricing-suggested" style={{
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'flex-start'
@@ -1242,29 +1204,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       fontSize: 'var(--text-sm)'
                     }}>
                       {t('collection.pricing.noSellersAvailable')}
-                    </div>
-                  )}
-
-                  {/* eBay source notice */}
-                  {!pricing.loading && pricing.price_source === 'ebay' && (
-                    <div style={{
-                      marginTop: '12px', padding: '10px 12px',
-                      background: '#fafafa', border: '1px solid #e5e5e5',
-                      borderRadius: '8px', display: 'flex', flexDirection: 'column', gap: '4px'
-                    }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <span style={{
-                          fontSize: '10px', fontWeight: '600', color: '#d97706',
-                          background: '#fffbeb', border: '1px solid #fde68a',
-                          borderRadius: '4px', padding: '2px 6px', letterSpacing: '0.02em', flexShrink: 0
-                        }}>eBay</span>
-                        <span style={{ fontSize: '11px', fontWeight: '600', color: '#525252' }}>
-                          {t('pricing.ebayFallbackTitle') || 'Estimated from eBay active listings'}
-                        </span>
-                      </div>
-                      <p style={{ fontSize: '11px', color: '#a3a3a3', margin: 0, lineHeight: '1.5' }}>
-                        {t('pricing.ebayFallbackExplain') || "BrickLink's daily API limit has been reached. Prices are estimated from current eBay listings and refresh automatically. BrickLink pricing returns at 6 PM MT (midnight UTC)."}
-                      </p>
                     </div>
                   )}
 

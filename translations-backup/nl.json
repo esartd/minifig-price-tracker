@@ -425,6 +425,9 @@
     "sourceEbayTooltip": "Dagelijks API-limiet van BrickLink bereikt — prijs geschat uit actieve eBay-advertenties. BrickLink-prijzen keren terug om middernacht UTC.",
     "ebayFallbackTitle": "Geschat uit actieve eBay-advertenties",
     "ebayFallbackExplain": "Het dagelijkse API-limiet van BrickLink is bereikt. Prijzen worden geschat op basis van huidige eBay-advertenties. BrickLink-prijzen keren terug om middernacht UTC (18:00 MT).",
+    "ebayLoggedOutTitle": "eBay Market Pricing",
+    "ebayLoggedOutExplain": "Pricing based on current eBay market data.",
+    "ebayLoggedOutCta": "Sign in for BrickLink pricing →",
     "sourceBrickLink": "Prijs van BrickLink"
   },
   "errors": {
@@ -705,9 +708,9 @@
     "resources": "Bronnen",
     "accountLegal": "Account & Juridisch",
     "aboutFigTracker": "Over FigTracker",
-    "aboutDescription": "Volg LEGO-prijzen met realtime BrickLink-gegevens. Beheer je collectie en doe mee aan klassementen.",
+    "aboutDescription": "Track LEGO prices using data from multiple marketplaces. Manage your collection and join leaderboards.",
     "affiliateDisclosure": "Als Amazon Associate, LEGO Affiliate en eBay Partner verdient FigTracker aan in aanmerking komende aankopen.",
-    "bricklinkDisclosure": "Minifiguurgegevens geleverd door BrickLink.com. De term \"BrickLink\" is een handelsmerk van de LEGO Group. Deze applicatie gebruikt de BrickLink API maar is niet goedgekeurd of gecertificeerd door LEGO BrickLink, Inc.",
+    "bricklinkDisclosure": "Market data sourced from multiple marketplaces including BrickLink. The term \"BrickLink\" is a trademark of the LEGO Group. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.",
     "copyright": "© {year} FigTracker. Alle rechten voorbehouden."
   },
   "disclosure": {

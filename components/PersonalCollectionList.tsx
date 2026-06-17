@@ -303,25 +303,6 @@ export default function PersonalCollectionList({
                     flexShrink: 0
                   }} />
                 )}
-                {/* eBay source badge — shown when BrickLink was unavailable */}
-                {item.pricing.price_source === 'ebay' && (
-                  <span
-                    title={t('pricing.sourceEbayTooltip') || "BrickLink's daily API limit reached — price estimated from eBay active listings. BrickLink pricing returns at 6 PM MT (midnight UTC)."}
-                    style={{
-                      fontSize: '10px',
-                      fontWeight: '600',
-                      color: '#d97706',
-                      background: '#fffbeb',
-                      border: '1px solid #fde68a',
-                      borderRadius: '4px',
-                      padding: '1px 5px',
-                      flexShrink: 0,
-                      letterSpacing: '0.02em',
-                    }}
-                  >
-                    eBay
-                  </span>
-                )}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                   {item.quantity > 1 ? (
                     <>

@@ -293,7 +293,6 @@ export async function POST(request: NextRequest) {
     // reserving those for on-demand user traffic
     let successCount = 0;
     let errorCount = 0;
-    let ebayCount = 0;
     const errors: string[] = [];
 
     for (let i = 0; i < itemsToProcess.length; i++) {
@@ -326,7 +325,6 @@ export async function POST(request: NextRequest) {
 
         if (result) {
           successCount++;
-          if (result.price_source === 'ebay') ebayCount++;
         } else {
           errorCount++;
           errors.push(`${item.itemNo}: no data from any source`);
@@ -334,7 +332,7 @@ export async function POST(request: NextRequest) {
 
         // Progress log every 50 items
         if ((i + 1) % 50 === 0) {
-          console.log(`✅ Progress: ${i + 1}/${itemsToProcess.length} (${successCount} success, ${ebayCount} via eBay, ${errorCount} errors)`);
+          console.log(`✅ Progress: ${i + 1}/${itemsToProcess.length} (${successCount} success, ${errorCount} errors)`);
         }
 
       } catch (error: any) {
@@ -364,7 +362,6 @@ export async function POST(request: NextRequest) {
         needingRefresh: itemsNeedingRefresh.length,
         processed: itemsToProcess.length,
         successCount,
-        ebayCount,
         errorCount,
         duration,
         durationMinutes,

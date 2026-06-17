@@ -425,6 +425,9 @@
     "sourceEbayTooltip": "BrickLink's daily API limit reached — price estimated from eBay active listings. BrickLink pricing returns at 6 PM MT (midnight UTC).",
     "ebayFallbackTitle": "Estimated from eBay active listings",
     "ebayFallbackExplain": "BrickLink's daily API limit has been reached. Prices are estimated from current eBay listings and refresh automatically. BrickLink pricing returns at 6 PM MT (midnight UTC).",
+    "ebayLoggedOutTitle": "eBay Market Pricing",
+    "ebayLoggedOutExplain": "Pricing based on current eBay market data.",
+    "ebayLoggedOutCta": "Sign in for BrickLink pricing →",
     "sourceBrickLink": "Price from BrickLink"
   },
   "errors": {
@@ -704,9 +707,9 @@
     "resources": "Resources",
     "accountLegal": "Account & Legal",
     "aboutFigTracker": "About FigTracker",
-    "aboutDescription": "Track LEGO prices with real-time BrickLink data. Manage your collection and join leaderboards.",
+    "aboutDescription": "Track LEGO prices using data from multiple marketplaces. Manage your collection and join leaderboards.",
     "affiliateDisclosure": "As an Amazon Associate, LEGO Affiliate, and eBay Partner, FigTracker earns from qualifying purchases.",
-    "bricklinkDisclosure": "Minifigure data provided by BrickLink.com. The term \"BrickLink\" is a trademark of the LEGO Group. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.",
+    "bricklinkDisclosure": "Market data sourced from multiple marketplaces including BrickLink. The term \"BrickLink\" is a trademark of the LEGO Group. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.",
     "copyright": "© {year} FigTracker. All rights reserved."
   },
   "disclosure": {

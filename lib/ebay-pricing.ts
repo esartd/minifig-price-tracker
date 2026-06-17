@@ -1,27 +1,16 @@
 /**
  * eBay Browse API pricing client
  *
- * Used as fallback when BrickLink's 5,000 daily API calls are exhausted.
- * eBay is the #2 LEGO secondary market — strong price correlation with BrickLink.
+ * Returns raw listing prices (avg, lowest) for the orchestrator to blend
+ * into the unified FigTracker Market Price formula.
  *
  * Auth: OAuth2 Client Credentials flow (Application Access Token, no user login needed)
  * API: eBay Browse API v1 — public listings search, no personal data involved
  */
 
-import { PricingData } from '@/types';
-import { prisma } from './prisma';
-
 const EBAY_API_BASE = 'https://api.ebay.com';
 const TOKEN_URL = 'https://api.ebay.com/identity/v1/oauth2/token';
 const BROWSE_SCOPE = 'https://api.ebay.com/oauth/api_scope';
-
-// eBay category IDs for LEGO items
-const CATEGORY_MINIFIG = '246';     // LEGO Minifigures
-const CATEGORY_SET = '19006';       // LEGO Complete Sets & Packs
-
-// eBay condition IDs
-const CONDITION_USED = '3000';
-const CONDITION_NEW = '1000';
 
 // Minimum 3 seconds between eBay calls to be a good API citizen
 const MIN_DELAY_MS = 3000;
@@ -65,7 +54,7 @@ async function getAccessToken(): Promise<string> {
   const data = await res.json();
   cachedToken = {
     value: data.access_token,
-    expiresAt: now + (data.expires_in - 60) * 1000, // subtract 60s buffer
+    expiresAt: now + (data.expires_in - 60) * 1000,
   };
 
   console.log('[eBay] Access token refreshed, expires in', data.expires_in, 'seconds');
@@ -95,14 +84,12 @@ interface EbayItem {
  */
 async function searchEbay(
   query: string,
-  categoryId: string,
   conditionId: string,
 ): Promise<EbayItem[]> {
   await enforceDelay();
   const token = await getAccessToken();
 
   // Build URL manually — URLSearchParams encodes {} in filter values which breaks eBay's filter syntax.
-  // No category_ids filter — sellers list minifigs under various categories (Building Toys, Minifigures, etc.)
   const url = `${EBAY_API_BASE}/buy/browse/v1/item_summary/search`
     + `?q=${encodeURIComponent(query)}`
     + `&filter=conditionIds:{${conditionId}},buyingOptions:{FIXED_PRICE}`
@@ -128,11 +115,7 @@ async function searchEbay(
 
 /**
  * Filter eBay results for relevance and remove price outliers.
- *
- * Rules:
- * 1. Prices must be in USD
- * 2. Remove outliers beyond 3x / below 0.2x the median (catches bundles, mislabeled)
- * 3. Require at least 3 clean results
+ * Requires at least 3 clean USD results.
  */
 function filterAndNormalize(items: EbayItem[], itemNo: string): number[] | null {
   const relevant = items.filter(item => item.price.currency === 'USD');
@@ -143,13 +126,10 @@ function filterAndNormalize(items: EbayItem[], itemNo: string): number[] | null 
   }
 
   const prices = relevant.map(item => parseFloat(item.price.value)).filter(p => p > 0);
-
   if (prices.length < 3) return null;
 
-  // Compute median for outlier removal
   const sorted = [...prices].sort((a, b) => a - b);
   const median = sorted[Math.floor(sorted.length / 2)];
-
   const clean = prices.filter(p => p >= median * 0.2 && p <= median * 3);
 
   if (clean.length < 3) {
@@ -160,148 +140,43 @@ function filterAndNormalize(items: EbayItem[], itemNo: string): number[] | null 
   return clean;
 }
 
-/**
- * Compute PricingData fields from a list of clean prices.
- *
- * Since Browse API shows current listings only (not sold history):
- *   six_month_avg  = 0 (not available from eBay Browse API)
- *   current_avg    = mean of filtered listing prices
- *   current_lowest = min of filtered listing prices
- *   suggested_price = average of current_avg and current_lowest
- */
-function computePricing(prices: number[], bricklinkSuggested?: number): Pick<PricingData, 'sixMonthAverage' | 'currentAverage' | 'currentLowest' | 'suggestedPrice'> {
-  const avg = prices.reduce((sum, p) => sum + p, 0) / prices.length;
-  const lowest = Math.min(...prices);
-
-  // BrickLink's last suggested price gets 90% weight — it's authoritative.
-  // eBay avg and lowest each get 5% to nudge toward current market.
-  // The result is not shown as BrickLink data — it's the eBay suggested price.
-  const suggested = (bricklinkSuggested && bricklinkSuggested > 0)
-    ? bricklinkSuggested * 0.9 + avg * 0.05 + lowest * 0.05
-    : (avg + lowest) / 2;
-
-  return {
-    sixMonthAverage: 0,
-    currentAverage: parseFloat(avg.toFixed(2)),
-    currentLowest: parseFloat(lowest.toFixed(2)),
-    suggestedPrice: parseFloat(suggested.toFixed(2)),
-  };
+export interface EbayListingPrices {
+  avg: number;
+  lowest: number;
+  listingCount: number;
 }
 
 /**
- * Fetch pricing for a LEGO minifig or set from eBay Browse API.
+ * Fetch raw eBay listing prices for blending into FigTracker Market Price.
  *
- * Returns null if eBay doesn't have enough relevant listings to compute a
- * reliable price (< 3 clean results after filtering).
- *
- * On success, writes result to PriceCache with price_source='ebay'.
+ * Returns { avg, lowest } from current active listings, or null if < 3 clean results.
+ * Does NOT write to PriceCache — the orchestrator owns cache writes.
  */
-export async function fetchEbayPricing(
+export async function getEbayListingPrices(
   itemNo: string,
   itemType: 'MINIFIG' | 'SET',
   condition: 'new' | 'used',
-  itemName?: string,
-): Promise<PricingData | null> {
+): Promise<EbayListingPrices | null> {
   try {
-    const categoryId = itemType === 'MINIFIG' ? CATEGORY_MINIFIG : CATEGORY_SET;
-    const conditionId = condition === 'new' ? CONDITION_NEW : CONDITION_USED;
-    // Search by item ID — sellers include BrickLink IDs in titles (e.g. "sw1398", "75192-1")
-    // and it produces more accurate results than name-based search.
+    const conditionId = condition === 'new' ? '1000' : '3000';
     const query = `LEGO ${itemNo}`;
 
     console.log(`[eBay] Searching for ${itemNo} (${condition}): "${query}"`);
 
-    const items = await searchEbay(query, categoryId, conditionId);
+    const items = await searchEbay(query, conditionId);
     console.log(`[eBay] Raw results for ${itemNo}: ${items.length} listings`);
 
     const cleanPrices = filterAndNormalize(items, itemNo);
-    if (!cleanPrices) {
-      console.log(`[eBay] Insufficient data for ${itemNo} — not caching`);
-      return null;
-    }
+    if (!cleanPrices) return null;
 
-    // Pull last BrickLink suggested price from history to anchor the eBay estimate.
-    // Only available for minifigs (PriceHistory.minifigure_no). Sets fall back to 2-value formula.
-    let bricklinkSuggested: number | undefined;
-    if (itemType === 'MINIFIG') {
-      const lastBrickLink = await prisma.priceHistory.findFirst({
-        where: { minifigure_no: itemNo, condition },
-        orderBy: { recorded_at: 'desc' },
-        select: { suggested_price: true },
-      });
-      bricklinkSuggested = lastBrickLink?.suggested_price ?? undefined;
-      if (bricklinkSuggested) {
-        console.log(`[eBay] Using BrickLink anchor $${bricklinkSuggested} for ${itemNo} suggested price`);
-      }
-    }
+    const avg = parseFloat((cleanPrices.reduce((sum, p) => sum + p, 0) / cleanPrices.length).toFixed(2));
+    const lowest = parseFloat(Math.min(...cleanPrices).toFixed(2));
 
-    const pricing = computePricing(cleanPrices, bricklinkSuggested);
-    // Confidence: 0.75 for 10+ results, 0.6 for 3–9 results
-    const confidence = cleanPrices.length >= 10 ? 0.75 : 0.6;
+    console.log(`[eBay] ${itemNo} (${condition}): avg=$${avg}, lowest=$${lowest} from ${cleanPrices.length} listings`);
 
-    console.log(`[eBay] ${itemNo} (${condition}): suggested=$${pricing.suggestedPrice} from ${cleanPrices.length} listings (confidence=${confidence})`);
-
-    // Cache the eBay price — 6-hour TTL same as BrickLink
-    const expiresAt = new Date();
-    expiresAt.setHours(expiresAt.getHours() + 6);
-
-    try {
-      await prisma.priceCache.upsert({
-        where: {
-          item_no_item_type_condition_country_code_region: {
-            item_no: itemNo,
-            item_type: itemType,
-            condition,
-            country_code: 'US',
-            region: '',
-          },
-        },
-        update: {
-          six_month_avg: pricing.sixMonthAverage,
-          current_avg: pricing.currentAverage,
-          current_lowest: pricing.currentLowest,
-          suggested_price: pricing.suggestedPrice,
-          cached_at: new Date(),
-          expires_at: expiresAt,
-          currency_code: 'USD',
-          price_source: 'ebay',
-          confidence,
-        },
-        create: {
-          item_no: itemNo,
-          item_type: itemType,
-          condition,
-          country_code: 'US',
-          region: '',
-          currency_code: 'USD',
-          six_month_avg: pricing.sixMonthAverage,
-          current_avg: pricing.currentAverage,
-          current_lowest: pricing.currentLowest,
-          suggested_price: pricing.suggestedPrice,
-          expires_at: expiresAt,
-          price_source: 'ebay',
-          confidence,
-        },
-      });
-    } catch (err: any) {
-      if (err.code !== 'P2002') {
-        console.error(`[eBay] Cache write error for ${itemNo}:`, err);
-      }
-    }
-
-    // NOTE: eBay prices are intentionally NOT recorded to PriceHistory.
-    // Price history tracks only BrickLink data (authoritative sold/stock data).
-    // Mixing eBay estimates would pollute historical trends.
-
-    return {
-      ...pricing,
-      currencyCode: 'USD',
-      cached_at: new Date().toISOString(),
-      price_source: 'ebay',
-      confidence,
-    };
+    return { avg, lowest, listingCount: cleanPrices.length };
   } catch (err) {
-    console.error(`[eBay] fetchEbayPricing failed for ${itemNo}:`, err);
+    console.error(`[eBay] getEbayListingPrices failed for ${itemNo}:`, err);
     return null;
   }
 }

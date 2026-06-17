@@ -425,6 +425,9 @@
     "sourceEbayTooltip": "BrickLinkの1日のAPIリミットに達しました。価格はeBayのアクティブな出品から推定されています。BrickLinkの価格はUTC深夜（MT午後6時）に復元されます。",
     "ebayFallbackTitle": "eBayのアクティブな出品から推定",
     "ebayFallbackExplain": "BrickLinkの1日のAPIリミットに達しました。価格は現在のeBay出品から推定されており、自動的に更新されます。BrickLinkの価格はUTC深夜（MT午後6時）に復元されます。",
+    "ebayLoggedOutTitle": "eBay Market Pricing",
+    "ebayLoggedOutExplain": "Pricing based on current eBay market data.",
+    "ebayLoggedOutCta": "Sign in for BrickLink pricing →",
     "sourceBrickLink": "BrickLinkの価格"
   },
   "errors": {
@@ -705,9 +708,9 @@
     "resources": "リソース",
     "accountLegal": "アカウントと法的情報",
     "aboutFigTracker": "FigTrackerについて",
-    "aboutDescription": "リアルタイムのBrickLinkデータでLEGO価格を追跡。コレクションを管理し、リーダーボードに参加しましょう。",
+    "aboutDescription": "Track LEGO prices using data from multiple marketplaces. Manage your collection and join leaderboards.",
     "affiliateDisclosure": "Amazon Associate、LEGO Affiliate、eBay Partnerとして、FigTrackerは対象購入から収益を得ています。",
-    "bricklinkDisclosure": "ミニフィギュアデータはBrickLink.comによって提供されています。「BrickLink」という用語はLEGO Groupの商標です。このアプリケーションはBrickLink APIを使用していますが、LEGO BrickLink, Inc.によって承認または認証されていません。",
+    "bricklinkDisclosure": "Market data sourced from multiple marketplaces including BrickLink. The term \"BrickLink\" is a trademark of the LEGO Group. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.",
     "copyright": "© {year} FigTracker. 無断転載禁止。"
   },
   "disclosure": {
