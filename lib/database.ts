@@ -18,7 +18,9 @@ class DatabaseService {
         currentLowest: item.pricing_current_lowest,
         suggestedPrice: item.pricing_suggested_price,
         currencyCode: item.pricing_currency_code,
-        cached_at: item.pricing_cached_at ? item.pricing_cached_at.toISOString() : undefined
+        cached_at: item.pricing_cached_at ? item.pricing_cached_at.toISOString() : undefined,
+        price_source: item.pricing_price_source || 'bricklink',
+        confidence: item.pricing_confidence ?? 1.0,
       } : undefined,
       date_added: item.date_added.toISOString(),
       last_updated: item.last_updated.toISOString()
@@ -41,7 +43,9 @@ class DatabaseService {
         currentLowest: item.pricing_current_lowest,
         suggestedPrice: item.pricing_suggested_price,
         currencyCode: item.pricing_currency_code,
-        cached_at: item.pricing_cached_at ? item.pricing_cached_at.toISOString() : undefined
+        cached_at: item.pricing_cached_at ? item.pricing_cached_at.toISOString() : undefined,
+        price_source: item.pricing_price_source || 'bricklink',
+        confidence: item.pricing_confidence ?? 1.0,
       } : undefined,
       notes: item.notes || undefined,
       acquisition_date: item.acquisition_date?.toISOString(),
@@ -103,7 +107,9 @@ class DatabaseService {
           pricing_current_lowest: freshPrice.current_lowest,
           pricing_suggested_price: freshPrice.suggested_price,
           pricing_currency_code: freshPrice.currency_code,
-          pricing_cached_at: freshPrice.cached_at
+          pricing_cached_at: freshPrice.cached_at,
+          pricing_price_source: freshPrice.price_source,
+          pricing_confidence: freshPrice.confidence,
         };
       }
 
@@ -260,7 +266,9 @@ class DatabaseService {
           pricing_current_lowest: freshPrice.current_lowest,
           pricing_suggested_price: freshPrice.suggested_price,
           pricing_currency_code: freshPrice.currency_code,
-          pricing_cached_at: freshPrice.cached_at
+          pricing_cached_at: freshPrice.cached_at,
+          pricing_price_source: freshPrice.price_source,
+          pricing_confidence: freshPrice.confidence,
         };
       }
 
@@ -541,7 +549,9 @@ class DatabaseService {
         currentLowest: item.pricing_current_lowest,
         suggestedPrice: item.pricing_suggested_price,
         currencyCode: item.pricing_currency_code,
-        cached_at: item.pricing_cached_at ? item.pricing_cached_at.toISOString() : undefined
+        cached_at: item.pricing_cached_at ? item.pricing_cached_at.toISOString() : undefined,
+        price_source: item.pricing_price_source || 'bricklink',
+        confidence: item.pricing_confidence ?? 1.0,
       } : undefined,
       date_added: item.date_added.toISOString(),
       last_updated: item.last_updated.toISOString()
@@ -565,7 +575,9 @@ class DatabaseService {
         currentLowest: item.pricing_current_lowest,
         suggestedPrice: item.pricing_suggested_price,
         currencyCode: item.pricing_currency_code,
-        cached_at: item.pricing_cached_at ? item.pricing_cached_at.toISOString() : undefined
+        cached_at: item.pricing_cached_at ? item.pricing_cached_at.toISOString() : undefined,
+        price_source: item.pricing_price_source || 'bricklink',
+        confidence: item.pricing_confidence ?? 1.0,
       } : undefined,
       notes: item.notes || undefined,
       acquisition_date: item.acquisition_date?.toISOString(),
@@ -624,7 +636,9 @@ class DatabaseService {
           pricing_current_lowest: freshPrice.current_lowest,
           pricing_suggested_price: freshPrice.suggested_price,
           pricing_currency_code: freshPrice.currency_code,
-          pricing_cached_at: freshPrice.cached_at
+          pricing_cached_at: freshPrice.cached_at,
+          pricing_price_source: freshPrice.price_source,
+          pricing_confidence: freshPrice.confidence,
         };
       }
 
@@ -746,7 +760,9 @@ class DatabaseService {
           pricing_current_lowest: freshPrice.current_lowest,
           pricing_suggested_price: freshPrice.suggested_price,
           pricing_currency_code: freshPrice.currency_code,
-          pricing_cached_at: freshPrice.cached_at
+          pricing_cached_at: freshPrice.cached_at,
+          pricing_price_source: freshPrice.price_source,
+          pricing_confidence: freshPrice.confidence,
         };
       }
 
