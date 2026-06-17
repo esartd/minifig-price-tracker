@@ -278,6 +278,10 @@ export async function fetchEbayPricing(
       }
     }
 
+    // NOTE: eBay prices are intentionally NOT recorded to PriceHistory.
+    // Price history tracks only BrickLink data (authoritative sold/stock data).
+    // Mixing eBay estimates would pollute historical trends.
+
     return {
       ...pricing,
       currencyCode: 'USD',
