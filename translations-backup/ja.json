@@ -422,7 +422,9 @@
     "noPricing": "いいえ pricing data available",
     "refreshPricing": "Refresh Pricing",
     "sourceEbay": "eBayの価格",
-    "sourceEbayTooltip": "eBayの出品から推定（BrickLink利用不可）",
+    "sourceEbayTooltip": "BrickLinkの1日のAPIリミットに達しました。価格はeBayのアクティブな出品から推定されています。BrickLinkの価格はUTC深夜（MT午後6時）に復元されます。",
+    "ebayFallbackTitle": "eBayのアクティブな出品から推定",
+    "ebayFallbackExplain": "BrickLinkの1日のAPIリミットに達しました。価格は現在のeBay出品から推定されており、自動的に更新されます。BrickLinkの価格はUTC深夜（MT午後6時）に復元されます。",
     "sourceBrickLink": "BrickLinkの価格"
   },
   "errors": {

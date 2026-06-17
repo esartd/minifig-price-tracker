@@ -422,7 +422,9 @@
     "noPricing": "Inga pricing data available",
     "refreshPricing": "Refresh Pricing",
     "sourceEbay": "Pris från eBay",
-    "sourceEbayTooltip": "Uppskattat från eBay-annonser (BrickLink ej tillgänglig)",
+    "sourceEbayTooltip": "BrickLinks dagliga API-gräns nådd — pris uppskattat från aktiva eBay-annonser. BrickLink-priser återkommer vid midnatt UTC.",
+    "ebayFallbackTitle": "Uppskattat från aktiva eBay-annonser",
+    "ebayFallbackExplain": "BrickLinks dagliga API-gräns har nåtts. Priser uppskattas från aktuella eBay-annonser och uppdateras automatiskt. BrickLink-priser återkommer vid midnatt UTC (18:00 MT).",
     "sourceBrickLink": "Pris från BrickLink"
   },
   "errors": {

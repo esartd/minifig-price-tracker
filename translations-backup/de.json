@@ -479,7 +479,9 @@
     "noPricing": "Keine Preisdaten verfügbar",
     "refreshPricing": "Preise aktualisieren",
     "sourceEbay": "Preis von eBay",
-    "sourceEbayTooltip": "Geschätzt aus eBay-Angeboten (BrickLink nicht verfügbar)",
+    "sourceEbayTooltip": "BrickLinks tägliches API-Limit erreicht — Preis aus aktiven eBay-Angeboten geschätzt. BrickLink-Preise kehren um Mitternacht UTC zurück.",
+    "ebayFallbackTitle": "Aus aktiven eBay-Angeboten geschätzt",
+    "ebayFallbackExplain": "Das tägliche API-Limit von BrickLink wurde erreicht. Preise werden aus aktuellen eBay-Angeboten geschätzt. BrickLink-Preise kehren um Mitternacht UTC (18 Uhr MT) zurück.",
     "sourceBrickLink": "Preis von BrickLink"
   },
   "errors": {

@@ -73,6 +73,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
     currentLowest: number;
     suggestedPrice: number;
     currencyCode?: string;
+    price_source?: 'bricklink' | 'ebay';
     loading: boolean;
   }>({
     sixMonthAverage: 0,
@@ -163,6 +164,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
             currentLowest: data.pricing.currentLowest || 0,
             suggestedPrice: data.pricing.suggestedPrice || 0,
             currencyCode: data.pricing.currencyCode || 'USD',
+            price_source: data.pricing.price_source,
             loading: false
           });
         } else {
@@ -1238,6 +1240,29 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       fontSize: 'var(--text-sm)'
                     }}>
                       {t('collection.pricing.noSellersAvailable')}
+                    </div>
+                  )}
+
+                  {/* eBay source notice */}
+                  {!pricing.loading && pricing.price_source === 'ebay' && (
+                    <div style={{
+                      marginTop: '12px', padding: '10px 12px',
+                      background: '#fafafa', border: '1px solid #e5e5e5',
+                      borderRadius: '8px', display: 'flex', flexDirection: 'column', gap: '4px'
+                    }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span style={{
+                          fontSize: '10px', fontWeight: '600', color: '#737373',
+                          background: '#f0f0f0', border: '1px solid #e5e5e5',
+                          borderRadius: '4px', padding: '2px 6px', letterSpacing: '0.02em', flexShrink: 0
+                        }}>eBay</span>
+                        <span style={{ fontSize: '11px', fontWeight: '600', color: '#525252' }}>
+                          {t('pricing.ebayFallbackTitle') || 'Estimated from eBay active listings'}
+                        </span>
+                      </div>
+                      <p style={{ fontSize: '11px', color: '#a3a3a3', margin: 0, lineHeight: '1.5' }}>
+                        {t('pricing.ebayFallbackExplain') || "BrickLink's daily API limit has been reached. Prices are estimated from current eBay listings and refresh automatically. BrickLink pricing returns at 6 PM MT (midnight UTC)."}
+                      </p>
                     </div>
                   )}
 

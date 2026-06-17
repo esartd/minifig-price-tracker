@@ -304,7 +304,7 @@ export default function CollectionList({
                 {/* eBay source badge — shown when BrickLink was unavailable */}
                 {item.pricing.price_source === 'ebay' && (
                   <span
-                    title={t('pricing.sourceEbayTooltip') || 'Estimated from eBay listings (BrickLink unavailable)'}
+                    title={t('pricing.sourceEbayTooltip') || "BrickLink's daily API limit reached — price estimated from eBay active listings. BrickLink pricing returns at 6 PM MT (midnight UTC)."}
                     style={{
                       fontSize: '10px',
                       fontWeight: '600',

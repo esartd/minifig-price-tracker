@@ -422,7 +422,9 @@
     "noPricing": "No pricing data available",
     "refreshPricing": "Refresh Pricing",
     "sourceEbay": "Prijs van eBay",
-    "sourceEbayTooltip": "Geschat uit eBay-advertenties (BrickLink niet beschikbaar)",
+    "sourceEbayTooltip": "Dagelijks API-limiet van BrickLink bereikt — prijs geschat uit actieve eBay-advertenties. BrickLink-prijzen keren terug om middernacht UTC.",
+    "ebayFallbackTitle": "Geschat uit actieve eBay-advertenties",
+    "ebayFallbackExplain": "Het dagelijkse API-limiet van BrickLink is bereikt. Prijzen worden geschat op basis van huidige eBay-advertenties. BrickLink-prijzen keren terug om middernacht UTC (18:00 MT).",
     "sourceBrickLink": "Prijs van BrickLink"
   },
   "errors": {
