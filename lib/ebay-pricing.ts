@@ -101,10 +101,10 @@ async function searchEbay(
   await enforceDelay();
   const token = await getAccessToken();
 
-  // Build URL manually — URLSearchParams encodes {} in filter values which breaks eBay's filter syntax
+  // Build URL manually — URLSearchParams encodes {} in filter values which breaks eBay's filter syntax.
+  // No category_ids filter — sellers list minifigs under various categories (Building Toys, Minifigures, etc.)
   const url = `${EBAY_API_BASE}/buy/browse/v1/item_summary/search`
     + `?q=${encodeURIComponent(query)}`
-    + `&category_ids=${categoryId}`
     + `&filter=conditionIds:{${conditionId}},buyingOptions:{FIXED_PRICE}`
     + `&sort=price&limit=50`;
 
@@ -199,11 +199,9 @@ export async function fetchEbayPricing(
   try {
     const categoryId = itemType === 'MINIFIG' ? CATEGORY_MINIFIG : CATEGORY_SET;
     const conditionId = condition === 'new' ? CONDITION_NEW : CONDITION_USED;
-    // Use the human-readable name if available — eBay sellers don't use BrickLink IDs.
-    // Strip subtitle after comma (e.g. "Anakin Skywalker, Podracer" → "Anakin Skywalker")
-    // since sub-descriptions reduce match count on eBay.
-    const searchName = itemName ? itemName.split(',')[0].trim() : null;
-    const query = searchName ? `LEGO ${searchName}` : `LEGO ${itemType === 'MINIFIG' ? 'minifigure' : 'set'} ${itemNo}`;
+    // Search by item ID — sellers include BrickLink IDs in titles (e.g. "sw1398", "75192-1")
+    // and it produces more accurate results than name-based search.
+    const query = `LEGO ${itemNo}`;
 
     console.log(`[eBay] Searching for ${itemNo} (${condition}): "${query}"`);
 
