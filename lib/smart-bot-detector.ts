@@ -88,26 +88,28 @@ export function trackBehavior(
     }
   }
 
-  // PATTERN 1: Rapid page navigations (faster than 500ms between page loads)
-  if (!isApiRequest && tracker.requestTimestamps.length >= 3) {
-    const recentRequests = tracker.requestTimestamps.slice(-3);
+  // PATTERN 1: Rapid page navigations (faster than 200ms between page loads)
+  // 200ms is physically impossible for a human — click + network round trip alone takes longer.
+  // 500ms was too low and caught fast browsers / users on good connections.
+  if (!isApiRequest && tracker.requestTimestamps.length >= 5) {
+    const recentRequests = tracker.requestTimestamps.slice(-5);
     const timeDiffs = recentRequests.slice(1).map((t, i) => t - recentRequests[i]);
     const avgDiff = timeDiffs.reduce((a, b) => a + b, 0) / timeDiffs.length;
 
-    if (avgDiff < 500) {
-      // Faster than humanly possible (clicking + page load)
+    if (avgDiff < 200) {
       tracker.score += 30;
     }
   }
 
   // PATTERN 2: Direct detail page hits with no referer
+  // Real users regularly land on detail pages directly from Google, bookmarks, or shared links.
+  // Only flag this when the count is very high — a scraper hits dozens, not 4 or 5.
   const isDetailPage = pathname.match(/^\/minifigs\/[^/]+$/) || pathname.match(/^\/sets\/[^/]+$/);
   if (isDetailPage && !referer) {
     tracker.noRefererCount++;
     tracker.detailPageDirectHits++;
 
-    // Multiple direct hits = scraper (real users browse first)
-    if (tracker.detailPageDirectHits > 3) {
+    if (tracker.detailPageDirectHits > 15) {
       tracker.score += 25;
     }
   }
@@ -141,10 +143,12 @@ export function trackBehavior(
     }
   }
 
-  // PATTERN 5: High page navigation rate (more than 20 page loads in 1 minute)
+  // PATTERN 5: High page navigation rate (more than 60 page loads in 1 minute = 1/sec)
+  // 20/min was too easy to hit by clicking quickly through a collection. 60/min is
+  // physically impossible for a human browsing normally.
   const oneMinuteAgo = now - 60 * 1000;
   const recentCount = tracker.requestTimestamps.filter(t => t > oneMinuteAgo).length;
-  if (recentCount > 20) {
+  if (recentCount > 60) {
     tracker.score += 30;
   }
 
@@ -158,7 +162,7 @@ export function trackBehavior(
   tracker.score = Math.min(tracker.score, 100);
 
   // Auto-blacklist if score exceeds threshold
-  const BOT_THRESHOLD = 60;
+  const BOT_THRESHOLD = 80;
   if (tracker.score >= BOT_THRESHOLD) {
     tracker.blacklisted = true;
 
