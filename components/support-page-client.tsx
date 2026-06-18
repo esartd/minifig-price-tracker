@@ -31,7 +31,7 @@ export default function SupportPageClient({ totalPricingViews }: SupportPageClie
           marginBottom: '24px',
           lineHeight: '1.2'
         }}>
-          {sp.heroTitle || 'Support Quick, Accurate Pricing'}
+          {sp.heroTitle || 'Help Keep This Free'}
         </h1>
         {totalPricingViews !== null && totalPricingViews > 0 ? (
           <p style={{
@@ -52,7 +52,7 @@ export default function SupportPageClient({ totalPricingViews }: SupportPageClie
             lineHeight: '1.6',
             marginBottom: '0'
           }}>
-            {sp.builtBy || 'Built by one LEGO fan in Utah. Help keep it running.'}
+            {sp.builtBy || 'Built by one LEGO seller in Utah. Every affiliate click and donation keeps the lights on.'}
           </p>
         )}
       </div>

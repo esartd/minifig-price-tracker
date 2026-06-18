@@ -48,11 +48,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(domains[locale as keyof typeof domains]),
     title: {
-      default: 'FigTracker - LEGO Minifigure & Set Price Tracker',
+      default: 'FigTracker - One Price for Any LEGO Minifigure or Set',
       template: '%s | FigTracker'
     },
-    description: 'Track LEGO minifigure and set prices with smart market pricing from multiple sources. Manage your collection, organize items to sell and keep, see current market values, and join collector leaderboards. Free for LEGO collectors and sellers.',
-    keywords: ['LEGO minifigure prices', 'LEGO set prices', 'BrickLink price tracker', 'LEGO collection manager', 'minifig value tracker', 'LEGO seller tool', 'BrickLink marketplace data', 'LEGO price guide', 'minifigure collection tracker', 'LEGO set tracker', 'LEGO collector leaderboard', 'track LEGO prices', 'organize LEGO collection', 'real-time LEGO pricing'],
+    description: 'Price any LEGO minifigure or set in seconds. One suggested price from BrickLink and eBay data. Track your inventory free. 18,000+ minifigs, 20,000+ sets.',
+    keywords: ['LEGO minifigure prices', 'LEGO set prices', 'BrickLink price tracker', 'LEGO collection manager', 'minifig value tracker', 'LEGO seller tool', 'LEGO price guide', 'minifigure collection tracker', 'LEGO set tracker', 'LEGO inventory tracker', 'track LEGO prices', 'LEGO pricing tool', 'minifig suggested price'],
     authors: [{ name: 'FigTracker', url: 'https://figtracker.ericksu.com' }],
     creator: 'FigTracker',
     publisher: 'FigTracker',
@@ -79,8 +79,8 @@ export async function generateMetadata(): Promise<Metadata> {
       alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'nl_NL', 'pl_PL', 'pt_PT', 'sv_SE', 'ja_JP'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
       url: domains[locale as keyof typeof domains],
       siteName: 'FigTracker',
-      title: 'FigTracker - LEGO Minifigure & Set Price Tracker',
-      description: 'Track LEGO minifigure and set prices with smart market pricing from multiple sources. Manage your collection, organize items to sell and keep, see current market values, and join collector leaderboards.',
+      title: 'FigTracker - One Price for Any LEGO Minifigure or Set',
+      description: 'Price any LEGO minifigure or set in seconds. One suggested price from BrickLink and eBay data. Track your inventory free. 18,000+ minifigs, 20,000+ sets.',
       images: [
         {
           url: '/api/og',
@@ -92,8 +92,8 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'FigTracker - LEGO Minifigure & Set Price Tracker',
-      description: 'Track LEGO minifigure and set prices with smart market pricing from multiple sources. Manage your collection and see current market values.',
+      title: 'FigTracker - One Price for Any LEGO Minifigure or Set',
+      description: 'Price any LEGO minifigure or set in seconds. One suggested price from BrickLink and eBay data. Track your inventory free.',
       images: ['/api/og'],
     },
     alternates: {
@@ -164,7 +164,7 @@ export default async function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'FigTracker',
-    description: 'Free LEGO minifigure price tracker with smart market pricing from multiple sources',
+    description: 'Price any LEGO minifigure or set in seconds. One suggested price, no mental math.',
     url: baseUrl,
     inLanguage: localeCodeMap[locale as keyof typeof localeCodeMap],
     applicationCategory: 'BusinessApplication',
@@ -175,11 +175,11 @@ export default async function RootLayout({
       priceCurrency: 'USD',
     },
     featureList: [
-      'Real-time Bricklink price data',
-      'Inventory management',
+      'One suggested price per minifigure or set',
+      'Dual inventory: sell list and personal collection',
       'Suggested pricing calculator',
       'Collection tracking',
-      '8,000+ LEGO minifigures database'
+      '18,000+ LEGO minifigures, 20,000+ sets'
     ],
   };
 
@@ -189,7 +189,7 @@ export default async function RootLayout({
     name: 'FigTracker',
     url: 'https://figtracker.ericksu.com',
     logo: 'https://figtracker.ericksu.com/favicon.svg',
-    description: 'Free LEGO minifigure price tracker and inventory management tool',
+    description: 'FigTracker gives you one suggested price for any LEGO minifigure or set, so you can list faster and sell with confidence.',
     foundingDate: '2024',
     sameAs: [],
   };

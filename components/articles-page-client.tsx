@@ -112,7 +112,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
             maxWidth: '640px',
             marginBottom: '32px',
           }}>
-            {t('guides.hero.subtitle') || 'Expert guides and insights for LEGO collectors and sellers.'}
+            {t('guides.hero.subtitle') || 'Practical guides for pricing, listing, and managing your LEGO inventory.'}
           </p>
 
           {/* Search and Filter */}

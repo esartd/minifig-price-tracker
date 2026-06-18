@@ -143,7 +143,7 @@ export default function Footer() {
               lineHeight: '1.5',
               margin: 0
             }}>
-              {t('footer.aboutDescription') || 'Track LEGO prices using data from multiple marketplaces. Manage your collection and join leaderboards.'}
+              {t('footer.aboutDescription') || 'FigTracker gives you one suggested price for any LEGO minifigure or set, so you can list faster and sell with confidence.'}
             </p>
           </div>
 

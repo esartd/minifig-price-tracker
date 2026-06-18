@@ -29,11 +29,11 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: `${t.navigation?.guides || 'Articles'} | FigTracker`,
-    description: t.guides?.hero?.subtitle || 'Expert guides and insights for LEGO collectors and sellers.',
+    description: t.guides?.hero?.subtitle || 'Practical guides for pricing, listing, and managing your LEGO inventory.',
     keywords: t.guides?.meta?.keywords || ['LEGO guides', 'LEGO pricing', 'LEGO investing', 'LEGO selling tips', 'minifigure values'],
     openGraph: {
       title: t.guides?.meta?.ogTitle || 'LEGO Articles & Guides | FigTracker',
-      description: t.guides?.meta?.ogDescription || 'Expert guides for LEGO collectors and sellers',
+      description: t.guides?.meta?.ogDescription || 'Practical guides for pricing and selling LEGO. Learn how to price by condition, read BrickLink data, and manage your inventory.',
       url: `${domains[locale as keyof typeof domains]}/articles`,
     },
     alternates: {

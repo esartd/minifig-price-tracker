@@ -533,9 +533,9 @@
     "contactSupport": "Support kontaktieren",
     "emailUs": "Senden Sie uns eine E-Mail mit Fragen oder Feedback",
     "cta": {
-      "title": "Bereit loszulegen?",
-      "subtitle": "Beginnen Sie mit der Preisgestaltung Ihrer LEGO-Minifiguren mit intelligenten Marktdaten",
-      "button": "Jetzt mit der Bewertung beginnen →"
+      "title": "Bereit, dein nächstes Angebot zu bepreisen?",
+      "subtitle": "Suche nach beliebigen Minifiguren oder Sets und erhalte in Sekunden einen empfohlenen Preis.",
+      "button": "Jetzt bewerten →"
     },
     "items": [
       {
@@ -614,8 +614,8 @@
   "about": {
     "badge": "ÜBER FIGTRACKER",
     "hero": {
-      "title": "Kein Raten mehr. Jetzt verkaufen.",
-      "subtitle": "Das Preis-Tool von Verkäufern für Verkäufer. Verwalten Sie Ihr LEGO Minifiguren- und Set-Inventar mit intelligenten Marktpreisen aus mehreren Quellen."
+      "title": "Ein Preis. Kein Rätselraten.",
+      "subtitle": "Der schnellste Weg, LEGO-Minifiguren und Sets zu bewerten. Kostenlos für jeden Verkäufer."
     },
     "problem": {
       "title": "LEGO-Sets und Minifiguren zu bewerten sollte sich nicht wie Hausaufgaben anfühlen.",
@@ -628,39 +628,39 @@
       "mentalMath": "Kopfrechnen"
     },
     "features": {
-      "title": "Von Verkäufern für Verkäufer gebaut",
-      "subtitle": "Alles, was Sie brauchen, um Ihr Inventar zu bewerten und zu verfolgen. Nichts, was Sie nicht brauchen.",
+      "title": "Alles was du brauchst. Nichts darüber hinaus.",
+      "subtitle": "Bepreise und verfolge dein Inventar an einem Ort.",
       "pricing": {
         "title": "Ein empfohlener Preis",
-        "description": "Wir kombinieren Daten aus mehreren Marktplätzen zu einem einzigen empfohlenen Preis – unsere eigene Berechnung, keine Rohdaten einer einzelnen Quelle. Eine Zahl, sofort einsatzbereit."
+        "description": "Wir kombinieren BrickLink- und eBay-Daten zu einer einzigen Zahl, die du wirklich verwenden kannst. Keine Tabellen. Kein Kopfrechnen."
       },
       "inventory": {
-        "title": "Duales Inventarsystem",
-        "description": "Getrennte Verfolgung für Artikel, die Sie verkaufen, und Ihre persönliche Sammlung. Verfolgen Sie Mengen, Zustände und Gesamtwert. Ihr gesamter Bestand übersichtlich in einem Dashboard organisiert."
+        "title": "Verkauf und Sammlung getrennt",
+        "description": "Verfolge Artikel zum Verkaufen und deine persönliche Sammlung in getrennten Listen. Mengen, Zustand und Gesamtwert auf einen Blick."
       },
       "search": {
-        "title": "Intelligente Suche & Durchsuchen",
-        "description": "Durchsuchen Sie {catalogCountText} Minifiguren nach exakter BrickLink-ID (z.B. dis134, sw1219) oder Name. Durchsuchen Sie visuell nach Thema (Star Wars, Harry Potter, Marvel usw.) mit vorgestellten LEGO-Sets aus jeder Kollektion."
+        "title": "Jede Figur in Sekunden finden",
+        "description": "Suche nach BrickLink-ID oder Name. Stöbere nach Thema, wenn du erkunden möchtest."
       },
       "privacy": {
-        "title": "Intelligente Marktpreise",
-        "description": "FigTracker berechnet seinen eigenen Marktpreis anhand einer gewichteten Kombination mehrerer Marktplatzquellen. Genaue aktuelle Werte ohne manuelle Recherche."
+        "title": "Preise, die den Markt widerspiegeln",
+        "description": "Unser empfohlener Preis kombiniert aktuelle Verkaufsdaten mit aktuellen Angeboten. Eine Zahl, die berücksichtigt, was Käufer wirklich zahlen."
       }
     },
     "personas": {
-      "title": "Für alle, die sich jemals gefragt haben",
-      "subtitle": "\"Was ist diese Minifigur wert?\"",
+      "title": "Für jeden, der LEGO verkauft",
+      "subtitle": "",
       "resellers": {
         "title": "Wiederverkäufer",
-        "description": "Bewerten Sie Ihr Inventar schnell und listen Sie mit Vertrauen auf"
+        "description": "Du bewegst Volumen. FigTracker bewertet dein Inventar, damit du dich auf Beschaffung und Versand konzentrieren kannst."
       },
       "partTime": {
         "title": "Teilzeitverkäufer",
-        "description": "Bewerten Sie Ihr Nebenerwerbs-Inventar mit Vertrauen"
+        "description": "Du verkaufst, wenn das Leben es erlaubt. Bekomme einen fairen Preis, ohne deinen Abend mit Recherche zu verbringen."
       },
       "casual": {
         "title": "Gelegenheitsverkäufer",
-        "description": "Bewerten Sie schnell ein paar Figuren, bevor Sie sie online stellen"
+        "description": "Du hast ein paar Figuren zu listen. Suchen, bewerten, posten. In Minuten erledigt."
       }
     },
     "trust": {
@@ -678,13 +678,13 @@
       "contactDescription": "Senden Sie uns eine E-Mail mit Problemen, Fragen oder Feedback"
     },
     "cta": {
-      "title": "Bereit, mit dem Raten aufzuhören?",
-      "subtitle": "Beginnen Sie mit der Bewertung Ihres Inventars und erhalten Sie in Sekunden empfohlene Werte.",
-      "button": "Beginnen Sie mit der Bewertung Ihres Inventars →"
+      "title": "Bereit, dein nächstes Angebot zu bepreisen?",
+      "subtitle": "Suche nach beliebigen Minifiguren oder Sets und erhalte in Sekunden einen empfohlenen Preis.",
+      "button": "Jetzt bewerten →"
     },
     "meta": {
-      "title": "Über FigTracker - Kostenloser LEGO Minifiguren Preis-Tracker",
-      "description": "Erfahren Sie, wie FigTracker LEGO-Wiederverkäufern und -Sammlern hilft, Minifiguren präzise mit intelligentem Marktpreis aus mehreren Quellen zu bewerten. Durchsuchen Sie über 18.000 Minifiguren. Kostenlos.",
+      "title": "Über FigTracker - Jeden LEGO-Artikel in Sekunden bepreisen",
+      "description": "FigTracker wandelt 24 BrickLink-Datenpunkte in einen empfohlenen Preis für jede LEGO-Minifigur oder jedes Set um. Duales Inventar, 15+ Währungen, völlig kostenlos.",
       "keywords": "über FigTracker, LEGO Preis-Tracker, Bricklink API Tool, Minifiguren-Preisgestaltung, LEGO Inventar-Tracker, kostenlose LEGO Preisgestaltung"
     }
   },
@@ -704,13 +704,13 @@
     "donateButton": "Über PayPal spenden",
     "thankYou": "Vielen Dank für die Unterstützung von FigTracker!",
     "meta": {
-      "title": "FigTracker Unterstützen - Halten Sie Unseren LEGO Preis-Tracker Kostenlos",
-      "description": "Erfahren Sie, wie FigTracker kostenlos bleibt und wie Sie die Website durch Affiliate-Käufe und das Teilen mit anderen LEGO-Sammlern unterstützen können.",
+      "title": "FigTracker unterstützen - Kostenlos halten",
+      "description": "Hilf FigTracker kostenlos zu bleiben. Kaufe über unsere Affiliate-Links oder spende direkt. Von einem LEGO-Verkäufer für die Community gebaut.",
       "keywords": "FigTracker unterstützen, LEGO Affiliate-Links, FigTracker helfen, LEGO Preis-Tracker unterstützen, an FigTracker spenden"
     },
-    "heroTitle": "Schnelle, genaue Preise unterstützen",
+    "heroTitle": "Hilf uns, kostenlos zu bleiben",
     "pricingViews": "Du hast {count} Preise abgefragt — jede Abfrage hat dir Zeit gespart",
-    "builtBy": "Erstellt von einem LEGO-Fan in Utah. Hilf mit, es am Laufen zu halten.",
+    "builtBy": "Von einem LEGO-Verkäufer in Utah gebaut. Jeder Affiliate-Klick und jede Spende hält den Betrieb aufrecht.",
     "shopLinksTitle2": "Über unsere Links einkaufen",
     "shopLinksDesc2": "Wir verdienen eine kleine Provision, wenn du über unsere eBay-, Amazon- oder LEGO-Links kaufst. Für dich entstehen keine Mehrkosten.",
     "donateDirect": "Direkt spenden",
@@ -754,7 +754,7 @@
     "resources": "Ressourcen",
     "accountLegal": "Konto & Recht",
     "aboutFigTracker": "Über FigTracker",
-    "aboutDescription": "Track LEGO prices using data from multiple marketplaces. Manage your collection and join leaderboards.",
+    "aboutDescription": "FigTracker gibt dir einen empfohlenen Preis für jede LEGO-Minifigur oder jedes Set, damit du schneller listen und mit Zuversicht verkaufen kannst.",
     "affiliateDisclosure": "As an Amazon Associate, LEGO Affiliate, and eBay Partner, FigTracker earns from qualifying purchases.",
     "bricklinkDisclosure": "Market data sourced from multiple marketplaces including BrickLink. The term \"BrickLink\" is a trademark of the LEGO Group. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.",
     "copyright": "© {year} FigTracker. Alle Rechte vorbehalten."
@@ -784,8 +784,8 @@
   },
   "guides": {
     "meta": {
-      "title": "LEGO Minifiguren-Preis-Anleitungen & Tipps",
-      "description": "Expertenanleitungen zur Preisgestaltung von LEGO Minifiguren, Verkauf auf Bricklink, Inventarverwaltung und Maximierung des Wiederverkaufswerts. Kostenlose Ressourcen für Verkäufer und Sammler.",
+      "title": "LEGO-Bewertungsanleitungen für Verkäufer | FigTracker",
+      "description": "Praktische Anleitungen zum Bepreisen und Verkaufen von LEGO-Minifiguren.",
       "keywords": [
         "LEGO Preisführer",
         "Minifiguren bewerten",
@@ -799,8 +799,8 @@
     "pageTitle": "Artikel",
     "badge": "ANLEITUNGEN & RESSOURCEN",
     "hero": {
-      "title": "Meistern Sie die LEGO Minifiguren-Bewertung",
-      "subtitle": "Expertenanleitungen, die Ihnen helfen, Ihr Minifiguren-Inventar wie ein Profi zu bewerten, zu verkaufen und zu verwalten"
+      "title": "Klüger verkaufen, nicht länger",
+      "subtitle": "Praktische Anleitungen zum Bepreisen, Listen und Verwalten deines LEGO-Inventars."
     },
     "whatYoullLearn": "Was Sie lernen werden:",
     "readGuide": "Anleitung lesen →",
@@ -823,9 +823,9 @@
       }
     },
     "cta": {
-      "title": "Bereit, wie ein Profi zu bewerten?",
-      "subtitle": "Nutzen Sie FigTrackers intelligente Preistools — empfohlene Werte in Sekunden.",
-      "button": "Jetzt mit der Bewertung beginnen →"
+      "title": "Bereit, dein nächstes Angebot zu bepreisen?",
+      "subtitle": "Suche nach beliebigen Minifiguren oder Sets und erhalte in Sekunden einen empfohlenen Preis.",
+      "button": "Jetzt bewerten →"
     },
     "items": [
       {
@@ -897,8 +897,8 @@
   },
   "auth": {
     "signup": {
-      "title": "Verwalten Sie Ihr Inventar",
-      "subtitle": "Verwalten Sie Ihr Minifiguren-Inventar mit intelligenten Marktpreisen, um wettbewerbsfähig zu bleiben.",
+      "title": "Verfolge, was du verkaufst",
+      "subtitle": "Ein Konto. Unbegrenzte Artikel. Immer kostenlos.",
       "features": {
         "trackUnlimited": "Unbegrenzte Artikel verfolgen",
         "realtimePrices": "Echtzeit-Preisvorschläge",
@@ -984,12 +984,12 @@
         "confirmPassword": "Neues Passwort bestätigen"
       }
     },
-    "footer": "Bewerten Sie Ihr Inventar mit intelligentem Marktpreis",
-    "footerText": "Bewerten Sie Ihr Inventar mit intelligentem Marktpreis"
+    "footer": "Bewerte dein Inventar in Sekunden, nicht Stunden.",
+    "footerText": "Bewerte dein Inventar in Sekunden, nicht Stunden."
   },
   "newsletter": {
-    "title": "Monatliche Marktberichte erhalten",
-    "subtitle": "Top 10 Minifiguren mit Wertsteigerung, Markttrends und Preistipps monatlich geliefert.",
+    "title": "Monatliche Preisgewinner",
+    "subtitle": "Welche Minifiguren gestiegen sind, welche gefallen sind und was das für dein Inventar bedeutet. Eine E-Mail pro Monat.",
     "placeholder": "ihre@email.com",
     "button": "Kostenlos abonnieren",
     "buttonLoading": "Wird abonniert...",
@@ -1918,12 +1918,12 @@
   },
   "homepage": {
     "stats": {
-      "minifigsTracked": "Verfolgte Minifiguren",
+      "minifigsTracked": "Minifiguren zum Bewerten",
       "setsInCatalog": "Sets im Katalog",
       "realTime": "Echtzeit",
-      "bricklinkPricing": "Marktpreise",
+      "bricklinkPricing": "Unterstützte Währungen",
       "free": "Kostenlos",
-      "forCollectorsSellers": "Für Sammler & Verkäufer"
+      "forCollectorsSellers": "Kein Konto zum Suchen erforderlich"
     }
   },
   "articles": {

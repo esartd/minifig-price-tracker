@@ -3,7 +3,7 @@ interface AuthLayoutProps {
   footerText?: string;
 }
 
-export default function AuthLayout({ children, footerText = 'Track LEGO minifig prices with smart market pricing' }: AuthLayoutProps) {
+export default function AuthLayout({ children, footerText = 'Price your inventory in seconds, not hours.' }: AuthLayoutProps) {
   return (
     <div className="auth-container" style={{
       minHeight: '100vh',

@@ -131,25 +131,25 @@ export default function SignUp() {
             <svg style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)', color: '#3b82f6', flexShrink: 0 }} fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            <span style={{ fontSize: 'var(--text-sm)', color: '#171717', fontWeight: '500' }}>Price your LEGO in seconds</span>
+            <span style={{ fontSize: 'var(--text-sm)', color: '#171717', fontWeight: '500' }}>Unlimited inventory tracking</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <svg style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)', color: '#3b82f6', flexShrink: 0 }} fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            <span style={{ fontSize: 'var(--text-sm)', color: '#171717', fontWeight: '500' }}>Generate listings instantly</span>
+            <span style={{ fontSize: 'var(--text-sm)', color: '#171717', fontWeight: '500' }}>Suggested prices, updated automatically</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <svg style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)', color: '#3b82f6', flexShrink: 0 }} fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            <span style={{ fontSize: 'var(--text-sm)', color: '#171717', fontWeight: '500' }}>Track items separately (sell vs keep)</span>
+            <span style={{ fontSize: 'var(--text-sm)', color: '#171717', fontWeight: '500' }}>Sell list and collection separated</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <svg style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)', color: '#3b82f6', flexShrink: 0 }} fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            <span style={{ fontSize: 'var(--text-sm)', color: '#171717', fontWeight: '500' }}>Get automatic price updates</span>
+            <span style={{ fontSize: 'var(--text-sm)', color: '#171717', fontWeight: '500' }}>Your data stays private</span>
           </div>
           <div style={{
             marginTop: '8px',
