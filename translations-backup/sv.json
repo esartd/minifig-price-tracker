@@ -571,9 +571,9 @@
       "subtitle": "Prisverktyget byggt av säljare, för säljare. Spåra ditt LEGO-minifigur- och set-lager med smarta marknadspriser från flera källor."
     },
     "problem": {
-      "title": "Pricing minifigurr shouldn't feel like hemwork",
-      "paragraph1": "You open Bricklink. You see the quantity-weighted average. The simple average. The lowest pris. Three different numbers staring tillbaka at you.",
-      "paragraph2": "Ingaw you're doing mental math, trying to land on something fair. <strong>Every. Single. Time.</strong>"
+      "title": "Pricing LEGO sets and minifigures shouldn't feel like homework.",
+      "paragraph1": "You open BrickLink and see sold prices and listings. New and Used. Each with a minimum, average, quantity-weighted average, and maximum. That's 24 different numbers to sort through before you can price a single item.",
+      "paragraph2": "Then you do the mental math, trying to land on something fair. <strong>Every. Single. Time.</strong>"
     },
     "stats": {
       "pricePoints": "Pris points to compare",

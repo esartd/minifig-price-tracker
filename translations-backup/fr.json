@@ -618,9 +618,9 @@
       "subtitle": "L'outil de tarification conçu par des vendeurs, pour des vendeurs. Suivez votre inventaire de minifigurines et sets LEGO avec des prix de marché intelligents provenant de plusieurs sources."
     },
     "problem": {
-      "title": "Évaluer des minifigurines ne devrait pas ressembler à des devoirs",
-      "paragraph1": "Vous ouvrez BrickLink. Vous voyez les ventes et les annonces en cours – Neuf et Occasion – chacun avec prix minimum, moyenne, moyenne pondérée et prix maximum. Ça fait 24 chiffres répartis en 4 colonnes qui vous fixent.",
-      "paragraph2": "Maintenant vous faites des calculs mentaux, essayant d'arriver à quelque chose de juste. <strong>À. Chaque. Fois.</strong>"
+      "title": "Évaluer des sets et minifigurines LEGO ne devrait pas ressembler à des devoirs.",
+      "paragraph1": "Vous ouvrez BrickLink et voyez les prix de vente et les annonces en cours. Neuf et Occasion. Chacun avec un minimum, une moyenne, une moyenne pondérée et un maximum. Ça fait 24 chiffres différents à parcourir avant de pouvoir prix un seul article.",
+      "paragraph2": "Ensuite vous faites des calculs mentaux, essayant d'arriver à quelque chose de juste. <strong>À. Chaque. Fois.</strong>"
     },
     "stats": {
       "pricePoints": "Points de données à interpréter",

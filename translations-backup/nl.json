@@ -571,9 +571,9 @@
       "subtitle": "De prijstool gebouwd door verkopers, voor verkopers. Volg je LEGO minifiguren en sets met slimme marktprijzen van meerdere bronnen."
     },
     "problem": {
-      "title": "Pricing minifigs shouldn't feel like homework",
-      "paragraph1": "You open BrickLink. You see sold data and listed data — New and Used — each with min price, average, quantity-weighted average, and max. That's 24 numbers across 4 columns, staring back at you.",
-      "paragraph2": "Now you're doing mental math, trying to land on something fair. <strong>Every. Single. Time.</strong>"
+      "title": "Pricing LEGO sets and minifigures shouldn't feel like homework.",
+      "paragraph1": "You open BrickLink and see sold prices and listings. New and Used. Each with a minimum, average, quantity-weighted average, and maximum. That's 24 different numbers to sort through before you can price a single item.",
+      "paragraph2": "Then you do the mental math, trying to land on something fair. <strong>Every. Single. Time.</strong>"
     },
     "stats": {
       "pricePoints": "Data points to interpret",

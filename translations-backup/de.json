@@ -618,9 +618,9 @@
       "subtitle": "Das Preis-Tool von Verkäufern für Verkäufer. Verwalten Sie Ihr LEGO Minifiguren- und Set-Inventar mit intelligenten Marktpreisen aus mehreren Quellen."
     },
     "problem": {
-      "title": "Minifiguren zu bewerten sollte sich nicht wie Hausaufgaben anfühlen",
-      "paragraph1": "Sie öffnen BrickLink. Sie sehen Verkaufsdaten und aktuelle Angebote – Neu und Gebraucht – jeweils mit Mindestpreis, Durchschnitt, mengengewichtetem Durchschnitt und Maximalpreis. Das sind 24 Zahlen in 4 Spalten, die Sie anstarren.",
-      "paragraph2": "Jetzt rechnen Sie im Kopf und versuchen, etwas Faires zu finden. <strong>Jedes. Einzelne. Mal.</strong>"
+      "title": "LEGO-Sets und Minifiguren zu bewerten sollte sich nicht wie Hausaufgaben anfühlen.",
+      "paragraph1": "Sie öffnen BrickLink und sehen Verkaufspreise und aktuelle Angebote. Neu und Gebraucht. Jeweils mit Mindestpreis, Durchschnitt, mengengewichtetem Durchschnitt und Maximum. Das sind 24 verschiedene Zahlen, die Sie durchgehen müssen, bevor Sie einen einzigen Artikel bepreisen können.",
+      "paragraph2": "Dann rechnen Sie im Kopf und versuchen, etwas Faires zu finden. <strong>Jedes. Einzelne. Mal.</strong>"
     },
     "stats": {
       "pricePoints": "Datenpunkte zu interpretieren",

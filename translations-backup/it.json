@@ -571,9 +571,9 @@
       "subtitle": "Lo strumento di prezzo creato da venditori, per venditori. Monitora il tuo inventario di minifigure e set LEGO con prezzi di mercato intelligenti da più fonti."
     },
     "problem": {
-      "title": "Pricing minifig shouldn't feel like Homework",
-      "paragraph1": "You open mattoncinolink. You see the quantity-weighted average. The simple average. The lowest prezzo. Three different numbers staring Indietro at you.",
-      "paragraph2": "Now you're doing mental math, trying to land on something discreto. <strong>Every. Single. Time.</strong>"
+      "title": "Pricing LEGO sets and minifigures shouldn't feel like homework.",
+      "paragraph1": "You open BrickLink and see sold prices and listings. New and Used. Each with a minimum, average, quantity-weighted average, and maximum. That's 24 different numbers to sort through before you can price a single item.",
+      "paragraph2": "Then you do the mental math, trying to land on something fair. <strong>Every. Single. Time.</strong>"
     },
     "stats": {
       "pricePoints": "prezzo points to compare",

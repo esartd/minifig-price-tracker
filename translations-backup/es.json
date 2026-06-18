@@ -618,9 +618,9 @@
       "subtitle": "La herramienta de precios creada por vendedores, para vendedores. Rastrea tu inventario de minifiguras y sets LEGO con precios de mercado inteligentes de múltiples fuentes."
     },
     "problem": {
-      "title": "Valorar minifiguras no debería sentirse como una tarea",
-      "paragraph1": "Abres BrickLink. Ves datos de ventas y anuncios actuales — Nuevo y Usado — cada uno con precio mínimo, promedio, promedio ponderado y precio máximo. Son 24 números en 4 columnas mirándote fijamente.",
-      "paragraph2": "Ahora estás haciendo cálculos mentales, tratando de llegar a algo justo. <strong>Cada. Vez. Que. Lo. Haces.</strong>"
+      "title": "Valorar sets y minifiguras LEGO no debería sentirse como una tarea.",
+      "paragraph1": "Abres BrickLink y ves precios de ventas y anuncios actuales. Nuevo y Usado. Cada uno con un mínimo, promedio, promedio ponderado y máximo. Son 24 números diferentes que tienes que revisar antes de poder poner precio a un solo artículo.",
+      "paragraph2": "Luego haces los cálculos mentales, tratando de llegar a algo justo. <strong>Cada. Vez. Que. Lo. Haces.</strong>"
     },
     "stats": {
       "pricePoints": "Datos a interpretar",
