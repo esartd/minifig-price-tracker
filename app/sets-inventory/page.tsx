@@ -98,7 +98,7 @@ export default function SetsInventoryPage() {
 
         const itemsNeedingRefresh = data.data.filter((item: SetInventoryItem) => {
           // Refresh if no pricing at all
-          if (!item.pricing || item.pricing.suggestedPrice === 0) return true;
+          if (!item.pricing) return true;
 
           // Refresh if no cached_at or price is stale
           if (!item.pricing.cached_at) return true; // Missing cached_at = needs refresh
