@@ -223,16 +223,43 @@ class PricingOrchestrator {
         return result;
       }
 
-      // Both sources exhausted or unavailable — tell the frontend why
+      // Both sources exhausted or unavailable — cache the zero result so we don't
+      // re-fetch on every page visit. Use a short TTL (6h) so it rechecks later.
       const bothLimited = blLimitHit && ebayLimitHit;
-      console.log(`[Orchestrator] No data available for ${itemNo} (bothLimited=${bothLimited})`);
+      const noDataReason: 'daily_limit' | 'no_listings' = bothLimited ? 'daily_limit' : 'no_listings';
+      console.log(`[Orchestrator] No data available for ${itemNo} (reason=${noDataReason})`);
+      const now = new Date();
+      const shortTtlHours = 6;
+      const expiresAt = new Date(now.getTime() + shortTtlHours * 60 * 60 * 1000);
+      try {
+        await prisma.priceCache.upsert({
+          where: {
+            item_no_item_type_condition_country_code_region: {
+              item_no: itemNo, item_type: itemType, condition, country_code: 'US', region: '',
+            },
+          },
+          update: {
+            six_month_avg: 0, current_avg: 0, current_lowest: 0,
+            suggested_price: 0, cached_at: now, expires_at: expiresAt,
+            currency_code: 'USD', price_source: 'figtracker', confidence: 0,
+          },
+          create: {
+            item_no: itemNo, item_type: itemType, condition, country_code: 'US', region: '',
+            currency_code: 'USD', six_month_avg: 0, current_avg: 0, current_lowest: 0,
+            suggested_price: 0, expires_at: expiresAt, price_source: 'figtracker', confidence: 0,
+          },
+        });
+      } catch (err: any) {
+        if (err.code !== 'P2002') console.error(`[Orchestrator] Cache write error (no-data) for ${itemNo}:`, err);
+      }
       return {
         sixMonthAverage: 0,
         currentAverage: 0,
         currentLowest: 0,
         suggestedPrice: 0,
         currencyCode: 'USD',
-        unavailable_reason: bothLimited ? 'daily_limit' : 'no_listings',
+        cached_at: now.toISOString(),
+        unavailable_reason: noDataReason,
       };
     }
 
