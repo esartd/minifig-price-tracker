@@ -619,11 +619,11 @@
     },
     "problem": {
       "title": "Minifiguren zu bewerten sollte sich nicht wie Hausaufgaben anfühlen",
-      "paragraph1": "Sie öffnen Bricklink. Sie sehen den mengengewichteten Durchschnitt. Den einfachen Durchschnitt. Den niedrigsten Preis. Drei verschiedene Zahlen starren Sie an.",
+      "paragraph1": "Sie öffnen BrickLink. Sie sehen Verkaufsdaten und aktuelle Angebote – Neu und Gebraucht – jeweils mit Mindestpreis, Durchschnitt, mengengewichtetem Durchschnitt und Maximalpreis. Das sind 24 Zahlen in 4 Spalten, die Sie anstarren.",
       "paragraph2": "Jetzt rechnen Sie im Kopf und versuchen, etwas Faires zu finden. <strong>Jedes. Einzelne. Mal.</strong>"
     },
     "stats": {
-      "pricePoints": "Preispunkte zum Vergleichen",
+      "pricePoints": "Datenpunkte zu interpretieren",
       "suggestedPrice": "Empfohlener Preis",
       "mentalMath": "Kopfrechnen erforderlich"
     },

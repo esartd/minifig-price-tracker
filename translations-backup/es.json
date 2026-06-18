@@ -619,11 +619,11 @@
     },
     "problem": {
       "title": "Valorar minifiguras no debería sentirse como una tarea",
-      "paragraph1": "Abres Bricklink. Ves el promedio ponderado por cantidad. El promedio simple. El precio más bajo. Tres números diferentes te miran fijamente.",
+      "paragraph1": "Abres BrickLink. Ves datos de ventas y anuncios actuales — Nuevo y Usado — cada uno con precio mínimo, promedio, promedio ponderado y precio máximo. Son 24 números en 4 columnas mirándote fijamente.",
       "paragraph2": "Ahora estás haciendo cálculos mentales, tratando de llegar a algo justo. <strong>Cada. Vez. Que. Lo. Haces.</strong>"
     },
     "stats": {
-      "pricePoints": "Puntos de precio para comparar",
+      "pricePoints": "Datos a interpretar",
       "suggestedPrice": "Precio sugerido",
       "mentalMath": "Cálculo mental requerido"
     },

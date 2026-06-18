@@ -572,11 +572,11 @@
     },
     "problem": {
       "title": "Pricing minifigs shouldn't feel like homework",
-      "paragraph1": "You open Bricklink. You see the quantity-weighted average. The simple average. The lowest price. Three different numbers staring back at you.",
+      "paragraph1": "You open BrickLink. You see sold data and listed data — New and Used — each with min price, average, quantity-weighted average, and max. That's 24 numbers across 4 columns, staring back at you.",
       "paragraph2": "Now you're doing mental math, trying to land on something fair. <strong>Every. Single. Time.</strong>"
     },
     "stats": {
-      "pricePoints": "Price points to compare",
+      "pricePoints": "Data points to interpret",
       "suggestedPrice": "Suggested price",
       "mentalMath": "Mental math required"
     },

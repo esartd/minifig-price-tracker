@@ -53,7 +53,7 @@ export default function AboutPageClient({ catalogCountText }: { catalogCountText
 
             <div className="stats-grid">
               <div className="stat-card">
-                <div className="stat-number">3</div>
+                <div className="stat-number">24</div>
                 <div className="stat-label">{t('about.stats.pricePoints')}</div>
               </div>
               <div className="stat-card">

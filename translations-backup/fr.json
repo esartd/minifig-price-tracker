@@ -619,11 +619,11 @@
     },
     "problem": {
       "title": "Évaluer des minifigurines ne devrait pas ressembler à des devoirs",
-      "paragraph1": "Vous ouvrez Bricklink. Vous voyez la moyenne pondérée par quantité. La moyenne simple. Le prix le plus bas. Trois chiffres différents vous regardent fixement.",
+      "paragraph1": "Vous ouvrez BrickLink. Vous voyez les ventes et les annonces en cours – Neuf et Occasion – chacun avec prix minimum, moyenne, moyenne pondérée et prix maximum. Ça fait 24 chiffres répartis en 4 colonnes qui vous fixent.",
       "paragraph2": "Maintenant vous faites des calculs mentaux, essayant d'arriver à quelque chose de juste. <strong>À. Chaque. Fois.</strong>"
     },
     "stats": {
-      "pricePoints": "Points de prix à comparer",
+      "pricePoints": "Points de données à interpréter",
       "suggestedPrice": "Prix suggéré",
       "mentalMath": "Calcul mental requis"
     },
