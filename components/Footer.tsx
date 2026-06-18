@@ -143,7 +143,7 @@ export default function Footer() {
               lineHeight: '1.5',
               margin: 0
             }}>
-              {t('footer.aboutDescription') || 'Track LEGO prices with real-time BrickLink data. Manage your collection and join leaderboards.'}
+              {t('footer.aboutDescription') || 'Track LEGO prices using data from multiple marketplaces. Manage your collection and join leaderboards.'}
             </p>
           </div>
 

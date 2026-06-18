@@ -5,12 +5,12 @@ import { getLocaleFromHost } from '@/lib/i18n-subdomain'
 import { tieredRateLimit, getTierForPath } from '@/lib/tiered-rate-limit'
 import { trackBehavior, isBlacklisted } from '@/lib/smart-bot-detector'
 import { isHistoricalBot } from '@/lib/historical-bot-blocklist'
+import { getToken } from 'next-auth/jwt'
 
-// Whitelisted IPs (no rate limiting)
+// Whitelisted IPs (bypass all middleware checks — only for localhost dev)
 const WHITELISTED_IPS = [
-  '73.52.155.221', // User's IP (Erick)
-  '127.0.0.1',     // localhost dev
-  '::1',           // localhost IPv6
+  '127.0.0.1',
+  '::1',
 ];
 
 // Legitimate search engine bots that should ALWAYS be allowed
@@ -71,7 +71,7 @@ const BLOCKED_USER_AGENTS = [
   'bot',              // Generic bot pattern (will be checked AFTER legitimate bots)
 ]
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { hostname, pathname } = request.nextUrl
   const userAgent = request.headers.get('user-agent')?.toLowerCase() || ''
 
@@ -209,8 +209,41 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // Skip rate limiting for whitelisted IPs
-  if (!WHITELISTED_IPS.includes(ip)) {
+  // Check CAPTCHA cookie — used to bypass rate limiting and high-risk country checks
+  const captchaCookie = request.cookies.get('captcha_verified')?.value;
+  let captchaVerified = false;
+  if (captchaCookie) {
+    try {
+      const parts = captchaCookie.split('.');
+      if (parts.length === 3) {
+        const [header, body, sig] = parts;
+        const secret = process.env.NEXTAUTH_SECRET || 'fallback-secret';
+        const expectedSig = createHmac('sha256', secret)
+          .update(`${header}.${body}`)
+          .digest('base64url');
+        if (sig === expectedSig) {
+          const payload = JSON.parse(Buffer.from(body, 'base64url').toString('utf-8'));
+          captchaVerified = !!(payload.exp && payload.exp > Math.floor(Date.now() / 1000));
+        }
+      }
+    } catch (e) {
+      captchaVerified = false;
+    }
+  }
+
+  // Skip rate limiting for logged-in users — their session proves they're real people.
+  // Bot defenses (ASN blocking, behavioral detection) still apply above this point.
+  const token = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
+    cookieName: process.env.NODE_ENV === 'production'
+      ? '__Secure-next-auth.session-token'
+      : 'next-auth.session-token',
+  });
+  const isLoggedIn = !!token?.id;
+
+  // Skip rate limiting for whitelisted IPs, logged-in users, or users who passed CAPTCHA
+  if (!WHITELISTED_IPS.includes(ip) && !isLoggedIn && !captchaVerified) {
     // Tiered rate limiting based on path cost
     const pathname = request.nextUrl.pathname;
     const { tier, config } = getTierForPath(pathname);
@@ -228,6 +261,13 @@ export function middleware(request: NextRequest) {
 
       if (!allowed) {
         console.log(`[⚠️  RATE LIMITED] IP: ${ip} | Country: ${cloudflareCountry} | Path: ${pathname}`)
+        // For page requests, redirect to CAPTCHA so the user can prove they're human.
+        // For API requests (JSON), return 429 — a redirect would break the fetch.
+        if (!pathname.startsWith('/api/')) {
+          const verifyUrl = new URL('/verify-human', request.url);
+          verifyUrl.searchParams.set('returnTo', pathname);
+          return NextResponse.redirect(verifyUrl);
+        }
         const response = new NextResponse('Too Many Requests', { status: 429 });
         if (resetIn) {
           response.headers.set('Retry-After', Math.ceil(resetIn / 1000).toString());
@@ -253,32 +293,6 @@ export function middleware(request: NextRequest) {
   const referer = request.headers.get('referer') || '';
   const isDetailPage = pathname.match(/^\/minifigs\/[^/]+$/) || pathname.match(/^\/sets\/[^/]+$/);
   const hasReferer = referer && referer.length > 0;
-
-  // CAPTCHA VERIFICATION for high-risk countries (Singapore, etc.)
-  // Check if user has verified captcha cookie AND it matches their current IP
-  const captchaCookie = request.cookies.get('captcha_verified')?.value;
-  let captchaVerified = false;
-
-  if (captchaCookie) {
-    try {
-      // Verify signed JWT cookie (HMAC-SHA256, no IP binding)
-      const parts = captchaCookie.split('.');
-      if (parts.length === 3) {
-        const [header, body, sig] = parts;
-        const secret = process.env.NEXTAUTH_SECRET || 'fallback-secret';
-        const expectedSig = createHmac('sha256', secret)
-          .update(`${header}.${body}`)
-          .digest('base64url');
-        if (sig === expectedSig) {
-          const payload = JSON.parse(Buffer.from(body, 'base64url').toString('utf-8'));
-          const isNotExpired = payload.exp && payload.exp > Math.floor(Date.now() / 1000);
-          captchaVerified = !!isNotExpired;
-        }
-      }
-    } catch (e) {
-      captchaVerified = false;
-    }
-  }
 
   // AGGRESSIVE SCRAPER BLOCKING: Detail pages with no referer
   // Real users come from:

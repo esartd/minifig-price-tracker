@@ -479,12 +479,12 @@
     "noPricing": "Keine Preisdaten verfügbar",
     "refreshPricing": "Preise aktualisieren",
     "sourceEbay": "Preis von eBay",
-    "sourceEbayTooltip": "BrickLinks tägliches API-Limit erreicht — Preis aus aktiven eBay-Angeboten geschätzt. BrickLink-Preise kehren um Mitternacht UTC zurück.",
+    "sourceEbayTooltip": "Preise werden aus aktuellen Marktdaten geschätzt.",
     "ebayFallbackTitle": "Aus aktiven eBay-Angeboten geschätzt",
-    "ebayFallbackExplain": "Das tägliche API-Limit von BrickLink wurde erreicht. Preise werden aus aktuellen eBay-Angeboten geschätzt. BrickLink-Preise kehren um Mitternacht UTC (18 Uhr MT) zurück.",
+    "ebayFallbackExplain": "Preise werden aus aktuellen Marktdaten geschätzt und aktualisieren sich automatisch.",
     "ebayLoggedOutTitle": "eBay Market Pricing",
     "ebayLoggedOutExplain": "Pricing based on current eBay market data.",
-    "ebayLoggedOutCta": "Sign in for BrickLink pricing →",
+    "ebayLoggedOutCta": "Anmelden für personalisierte Preise →",
     "sourceBrickLink": "Preis von BrickLink"
   },
   "errors": {
@@ -534,7 +534,7 @@
     "emailUs": "Senden Sie uns eine E-Mail mit Fragen oder Feedback",
     "cta": {
       "title": "Bereit loszulegen?",
-      "subtitle": "Beginnen Sie mit der Bewertung Ihrer LEGO-Minifiguren mit echten Bricklink-Daten",
+      "subtitle": "Beginnen Sie mit der Preisgestaltung Ihrer LEGO-Minifiguren mit intelligenten Marktdaten",
       "button": "Jetzt mit der Bewertung beginnen →"
     },
     "items": [
@@ -548,7 +548,7 @@
       },
       {
         "q": "Woher kommen die Preisdaten?",
-        "a": "Alle Preisdaten stammen direkt von der offiziellen Bricklink-API. Wir rufen globale Marktplatz-Angebote ab (6-Monats-Historie) und konvertieren sie in Ihre bevorzugte Währung unter Verwendung von Echtzeitwechselkursen. Sie können Preise jederzeit aktualisieren, um die neuesten Daten zu erhalten."
+        "a": "FigTracker berechnet seinen eigenen Marktpreis, indem es Daten aus mehreren Quellen kombiniert – hauptsächlich den BrickLink-Marktplatz, ergänzt durch aktuelle eBay-Angebote. Das Ergebnis ist ein FigTracker-Marktpreis: eine gewichtete Berechnung, die einzigartig für unsere Plattform ist – keine Rohdaten einer einzelnen Quelle. BrickLink-Daten werden über die offizielle BrickLink-API abgerufen; BrickLink ist eine Marke der LEGO-Gruppe."
       },
       {
         "q": "Welche Währungen werden unterstützt?",
@@ -576,7 +576,7 @@
       },
       {
         "q": "Wie oft werden Preisdaten aktualisiert?",
-        "a": "Preisdaten werden zur Leistungsoptimierung 24 Stunden lang zwischengespeichert. Sie können Preise jederzeit manuell aktualisieren, indem Sie auf einer beliebigen Minifigur-Seite auf die Aktualisierungsschaltfläche klicken oder die Schaltfläche \"Alle Preise aktualisieren\" in Ihrem Inventar verwenden, um Ihre gesamte Sammlung auf einmal zu aktualisieren."
+        "a": "FigTracker hält die Preise automatisch aktuell. Wenn Sie Ihre Sammlung besuchen, werden veraltete Preise im Hintergrund aktualisiert, während Sie stöbern."
       },
       {
         "q": "Kann ich mein Inventar exportieren?",
@@ -615,7 +615,7 @@
     "badge": "ÜBER FIGTRACKER",
     "hero": {
       "title": "Kein Raten mehr. Jetzt verkaufen.",
-      "subtitle": "Das Preis-Tool von Verkäufern für Verkäufer. Verwalten Sie Ihr LEGO Minifiguren- und Set-Inventar mit Echtzeit-Daten von Bricklink."
+      "subtitle": "Das Preis-Tool von Verkäufern für Verkäufer. Verwalten Sie Ihr LEGO Minifiguren- und Set-Inventar mit intelligenten Marktpreisen aus mehreren Quellen."
     },
     "problem": {
       "title": "Minifiguren zu bewerten sollte sich nicht wie Hausaufgaben anfühlen",
@@ -632,7 +632,7 @@
       "subtitle": "Alles, was Sie brauchen, um Ihr Inventar zu bewerten und zu verfolgen. Nichts, was Sie nicht brauchen.",
       "pricing": {
         "title": "Ein empfohlener Preis",
-        "description": "Wir berechnen einen gewichteten Preis aus aktuellen Bricklink-Marktplatz-Angeboten – mengengewichteter Durchschnitt, einfacher Durchschnitt und niedrigster Preis. Eine Zahl, sofort einsatzbereit."
+        "description": "Wir kombinieren Daten aus mehreren Marktplätzen zu einem einzigen empfohlenen Preis – unsere eigene Berechnung, keine Rohdaten einer einzelnen Quelle. Eine Zahl, sofort einsatzbereit."
       },
       "inventory": {
         "title": "Duales Inventarsystem",
@@ -643,8 +643,8 @@
         "description": "Durchsuchen Sie {catalogCountText} Minifiguren nach exakter BrickLink-ID (z.B. dis134, sw1219) oder Name. Durchsuchen Sie visuell nach Thema (Star Wars, Harry Potter, Marvel usw.) mit vorgestellten LEGO-Sets aus jeder Kollektion."
       },
       "privacy": {
-        "title": "Echte Bricklink-Daten",
-        "description": "Offizielle API-Integration bedeutet genaue, aktuelle US-Marktpreise. Jederzeit aktualisieren, um die neuesten Werte zu erhalten."
+        "title": "Intelligente Marktpreise",
+        "description": "FigTracker berechnet seinen eigenen Marktpreis anhand einer gewichteten Kombination mehrerer Marktplatzquellen. Genaue aktuelle Werte ohne manuelle Recherche."
       }
     },
     "personas": {
@@ -684,7 +684,7 @@
     },
     "meta": {
       "title": "Über FigTracker - Kostenloser LEGO Minifiguren Preis-Tracker",
-      "description": "Erfahren Sie, wie FigTracker LEGO-Wiederverkäufern und -Sammlern hilft, Minifiguren präzise mit Echtzeit-Bricklink-Marktdaten zu bewerten. Durchsuchen Sie über 18.000 Minifiguren. Kostenlos.",
+      "description": "Erfahren Sie, wie FigTracker LEGO-Wiederverkäufern und -Sammlern hilft, Minifiguren präzise mit intelligentem Marktpreis aus mehreren Quellen zu bewerten. Durchsuchen Sie über 18.000 Minifiguren. Kostenlos.",
       "keywords": "über FigTracker, LEGO Preis-Tracker, Bricklink API Tool, Minifiguren-Preisgestaltung, LEGO Inventar-Tracker, kostenlose LEGO Preisgestaltung"
     }
   },
@@ -695,7 +695,7 @@
   "supportPage": {
     "title": "FigTracker unterstützen",
     "subtitle": "Halten Sie unseren LEGO-Preis-Tracker kostenlos für die Community",
-    "intro": "FigTracker bietet kostenlose LEGO-Preisverfolgung für über 18.000 Minifiguren und 20.000 Sets mit Echtzeit-BrickLink-Daten. Wir decken die Kosten durch Affiliate-Provisionen, wenn Sie über unsere Links einkaufen. So können Sie helfen:",
+    "intro": "FigTracker bietet kostenlose LEGO-Preisverfolgung für über 18.000 Minifiguren und 20.000 Sets mit intelligentem Marktpreis aus mehreren Quellen. Wir decken die Kosten durch Affiliate-Provisionen, wenn Sie über unsere Links einkaufen. So können Sie helfen:",
     "shopLinksTitle": "Kaufen Sie über unsere Links",
     "shopLinksDescription": "Wenn Sie bereit sind, LEGO-Sets oder Minifiguren zu kaufen, verwenden Sie die Schaltflächen \"Bei eBay kaufen\" oder \"Bei Amazon kaufen\" auf Produktseiten (markiert mit \"Sponsored\").",
     "shopLinksNote": "Sie zahlen denselben Preis – wir erhalten eine kleine Provision, um die Website am Laufen zu halten.",
@@ -824,7 +824,7 @@
     },
     "cta": {
       "title": "Bereit, wie ein Profi zu bewerten?",
-      "subtitle": "Beginnen Sie mit den Preistools von FigTracker mit echten Bricklink-Daten",
+      "subtitle": "Nutzen Sie FigTrackers intelligente Preistools — empfohlene Werte in Sekunden.",
       "button": "Jetzt mit der Bewertung beginnen →"
     },
     "items": [
@@ -898,7 +898,7 @@
   "auth": {
     "signup": {
       "title": "Verwalten Sie Ihr Inventar",
-      "subtitle": "Verfolgen Sie Ihr Minifiguren-Inventar mit Echtzeit-Bricklink-Preisen, um Ihre Artikel wettbewerbsfähig zu bewerten.",
+      "subtitle": "Verwalten Sie Ihr Minifiguren-Inventar mit intelligenten Marktpreisen, um wettbewerbsfähig zu bleiben.",
       "features": {
         "trackUnlimited": "Unbegrenzte Artikel verfolgen",
         "realtimePrices": "Echtzeit-Preisvorschläge",
@@ -984,8 +984,8 @@
         "confirmPassword": "Neues Passwort bestätigen"
       }
     },
-    "footer": "Bewerten Sie Ihr Inventar mit Echtzeit-Bricklink-Daten",
-    "footerText": "Bewerten Sie Ihr Inventar mit Echtzeit-Bricklink-Daten"
+    "footer": "Bewerten Sie Ihr Inventar mit intelligentem Marktpreis",
+    "footerText": "Bewerten Sie Ihr Inventar mit intelligentem Marktpreis"
   },
   "newsletter": {
     "title": "Monatliche Marktberichte erhalten",
@@ -1046,11 +1046,12 @@
       "yearOldest": "Jahr: Älteste → Neueste"
     },
     "pricing": {
-      "pricesOlderThanSixHours": "Preise älter als 6 Stunden",
+      "pricesOlderThanSixHours": "Preise werden aktualisiert",
       "refreshingNow": "Jetzt aktualisieren",
       "remaining": "verbleibend",
       "updatingPrices": "Aktualisierung...",
       "noSellersAvailable": "Keine Verkäufer verfügbar",
+      "pricingDailyLimit": "Preise gerade nicht verfügbar — bald wieder prüfen",
       "loadingPrice": "Preis wird geladen..."
     },
     "inventoryTitle": "Ihr Inventar",
@@ -1116,7 +1117,7 @@
       "intro": "Wir verwenden gesammelte Informationen, um:",
       "items": [
         "Inventarverfolgung und Preisfunktionen bereitzustellen",
-        "Echtzeit-Bricklink-Marktdaten abzurufen",
+        "Marktpreisdaten aus mehreren Quellen abzurufen",
         "Unseren Service durch Nutzungsanalysen zu verbessern",
         "Wichtige Kontobenachrichtigungen zu senden (Passwortzurücksetzungen usw.)",
         "Einen durchsuchbaren Minifiguren-Katalog auf Basis von Nutzersuchen aufzubauen"
@@ -1309,7 +1310,7 @@
       "guides": "Anleitungen"
     },
     "startTracking": "Beginnen Sie mit der Verfolgung Ihrer Sammlung",
-    "startTrackingDesc": "Verwenden Sie FigTracker, um Ihre LEGO Minifiguren präzise mit Echtzeit-Bricklink-Daten zu bewerten",
+    "startTrackingDesc": "Verwenden Sie FigTracker, um Ihre LEGO Minifiguren präzise mit intelligentem Marktpreis zu bewerten",
     "searchMinifigures": "Minifiguren suchen →"
   },
   "guideArticles": {
@@ -1920,7 +1921,7 @@
       "minifigsTracked": "Verfolgte Minifiguren",
       "setsInCatalog": "Sets im Katalog",
       "realTime": "Echtzeit",
-      "bricklinkPricing": "BrickLink-Preise",
+      "bricklinkPricing": "Marktpreise",
       "free": "Kostenlos",
       "forCollectorsSellers": "Für Sammler & Verkäufer"
     }

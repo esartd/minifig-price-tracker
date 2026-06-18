@@ -422,12 +422,12 @@
     "noPricing": "Inga pricing data available",
     "refreshPricing": "Refresh Pricing",
     "sourceEbay": "Pris från eBay",
-    "sourceEbayTooltip": "BrickLinks dagliga API-gräns nådd — pris uppskattat från aktiva eBay-annonser. BrickLink-priser återkommer vid midnatt UTC.",
+    "sourceEbayTooltip": "Priser uppskattas från aktuella marknadsdata.",
     "ebayFallbackTitle": "Uppskattat från aktiva eBay-annonser",
-    "ebayFallbackExplain": "BrickLinks dagliga API-gräns har nåtts. Priser uppskattas från aktuella eBay-annonser och uppdateras automatiskt. BrickLink-priser återkommer vid midnatt UTC (18:00 MT).",
+    "ebayFallbackExplain": "Priser uppskattas från aktuella marknadsdata och uppdateras automatiskt.",
     "ebayLoggedOutTitle": "eBay Market Pricing",
     "ebayLoggedOutExplain": "Pricing based on current eBay market data.",
-    "ebayLoggedOutCta": "Sign in for BrickLink pricing →",
+    "ebayLoggedOutCta": "Logga in för personliga priser →",
     "sourceBrickLink": "Pris från BrickLink"
   },
   "errors": {
@@ -477,7 +477,7 @@
     "emailUs": "Email us with any questions or feedtillbaka",
     "cta": {
       "title": "Ready to get started?",
-      "subtitle": "Start pricing your LEGO minifigurr with real Bricklink data",
+      "subtitle": "Börja prissätta dina LEGO-minifigurer med smarta marknadsdata",
       "button": "Start Pricing Ingaw →"
     },
     "items": [
@@ -559,7 +559,7 @@
       "minifigsTracked": "Minifigurer spårade",
       "setsInCatalog": "Set i katalogen",
       "realTime": "Realtid",
-      "bricklinkPricing": "BrickLink-priser",
+      "bricklinkPricing": "Marknadspriser",
       "free": "Gratis",
       "forCollectorsSellers": "För samlare och säljare"
     }
@@ -568,7 +568,7 @@
     "badge": "Om FIGTRACKER",
     "hero": {
       "title": "Sluta Gissa. Börja Sälja.",
-      "subtitle": "Prisverktyget byggt av säljare, för säljare. Spåra dina LEGO-minifigurer och set med realtidsdata från Bricklink."
+      "subtitle": "Prisverktyget byggt av säljare, för säljare. Spåra ditt LEGO-minifigur- och set-lager med smarta marknadspriser från flera källor."
     },
     "problem": {
       "title": "Pricing minifigurr shouldn't feel like hemwork",
@@ -585,7 +585,7 @@
       "subtitle": "Everything you need to pris and track your inventering. Ingathing you don't.",
       "pricing": {
         "title": "One Suggested Pris",
-        "description": "We calculate a weighted pris from aktuella Bricklink marketplace listings—quantity-weighted average, simple average, and lowest pris. One number, ready to use."
+        "description": "Vi kombinerar data från flera marknadsplatser till ett enda föreslaget pris — vår egen beräkning, inte rådata från en enda källa. Ett tal, redo att använda."
       },
       "inventory": {
         "title": "Dual Inventering System",
@@ -596,8 +596,8 @@
         "description": "Sök {catalogCountText} minifigurr by exact BrickLink ID (e.g., dis134, sw1219) or name. Bläddra visuallay by tema (Star Wars, Harry Potter, Marvel, etc.) with featured LEGO set from each samling."
       },
       "privacy": {
-        "title": "Real Bricklink Data",
-        "description": "Official API integration means accurate, aktuella US marketplace priss. Refresh anytime to get the latest values."
+        "title": "Smarta marknadspriser",
+        "description": "FigTracker beräknar sitt eget marknadspris med en viktad kombination av flera marknadskällor. Noggranna aktuella värden utan manuell forskning."
       }
     },
     "personas": {
@@ -637,7 +637,7 @@
     },
     "meta": {
       "title": "Om FigTracker - Free LEGO Minifigur & Set Pris Tracker",
-      "description": "FigTracker helps LEGO collectors and sellers track minifigur and set priss with real-time BrickLink data. Manage your samling, organize items to sell and keep, and see aktuella market values. Over 18,000 minifigurr and 20,000 set. Free to use.",
+      "description": "FigTracker helps LEGO collectors and sellers track minifigur and set priss with smart market pricing from multiple sources. Manage your samling, organize items to sell and keep, and see aktuella market values. Over 18,000 minifigurr and 20,000 set. Free to use.",
       "keywords": "om FigTracker, LEGO pris tracker, BrickLink API tool, minifigur pricing, LEGO set pricing, LEGO samling manager, LEGO inventering tracker, free LEGO pricing, LEGO seller tool"
     }
   },
@@ -649,7 +649,7 @@
   "supportPage": {
     "title": "Support FigTracker",
     "subtitle": "Behåll our LEGO pris tracker free for the community",
-    "intro": "FigTracker provides free LEGO pris tracking for 18,000+ minifigurr and 20,000+ set with real-time BrickLink data. We cover costs through affiliate commissions when you shop through our links. Here's how you can help:",
+    "intro": "FigTracker provides free LEGO pris tracking for 18,000+ minifigurr and 20,000+ set with smart market pricing from multiple sources. We cover costs through affiliate commissions when you shop through our links. Here's how you can help:",
     "shopLinksTitle": "Shop Through Our Links",
     "shopLinksDescription": "When you're ready to buy LEGO set or minifigurr, use the \"Buy on eBay\" or \"Buy on Amazon\" buttons on product pages (marked \"Sponsored\").",
     "shopLinksNote": "You pay the same pris — we earn a smalla commission to keep the site running.",
@@ -791,7 +791,7 @@
     },
     "cta": {
       "title": "Ready to pris like a pro?",
-      "subtitle": "Start using FigTracker's pricing tools with real Bricklink data",
+      "subtitle": "Börja använda FigTrackers smarta prissättningsverktyg — få föreslagna värden på sekunder.",
       "button": "Start Pricing Ingaw →"
     },
     "items": [
@@ -865,7 +865,7 @@
   "auth": {
     "signup": {
       "title": "Manage Your Inventering",
-      "subtitle": "Track your minifigur inventering with real-time Bricklink pricing to pris your items competitively.",
+      "subtitle": "Spåra ditt minifigur-lager med smarta marknadspriser för att prissätta dina artiklar konkurrenskraftigt.",
       "features": {
         "trackUnlimited": "Track unlimited items",
         "realtimePrices": "Real-time suggested priss",
@@ -951,8 +951,8 @@
         "confirmPassword": "Bekräfta new password"
       }
     },
-    "footer": "Pris your inventering with real-time Bricklink data",
-    "footerText": "Pris your inventering with real-time Bricklink data"
+    "footer": "Pris your inventering with smart market pricing",
+    "footerText": "Pris your inventering with smart market pricing"
   },
   "newsletter": {
     "title": "Get Monthly Market Reports",
@@ -1013,11 +1013,12 @@
       "yearOldest": "Year: Oldest → Newest"
     },
     "pricing": {
-      "pricesOlderThanSixHours": "Priss äldre than 6 hours",
+      "pricesOlderThanSixHours": "Uppdaterar priser",
       "refreshingNow": "Refreshing new",
       "remaining": "remaining",
       "updatingPrices": "Updating...",
       "noSellersAvailable": "Inga sellers available",
+      "pricingDailyLimit": "Pricing unavailable right now — check back soon",
       "loadingPrice": "Laddar pris..."
     },
     "inventoryTitle": "Your Inventering",
@@ -1083,7 +1084,7 @@
       "intro": "We use collected information to:",
       "items": [
         "Provide inventering tracking and pricing features",
-        "Fetch real-time Bricklink marketplace data",
+        "Fetch market pricing data from multiple sources",
         "Improve our service through usage analytics",
         "Send essential konto netifications (password reset, etc.)",
         "Build a sökable minifigur catalog based on user sökes"
@@ -1277,7 +1278,7 @@
       "articles": "Articles"
     },
     "startTracking": "Start Tracking Your Samling",
-    "startTrackingDesc": "Use FigTracker to pris your LEGO minifigurr accurately with real-time Bricklink data",
+    "startTrackingDesc": "Use FigTracker to pris your LEGO minifigurr accurately with smart market pricing",
     "searchMinifigures": "Sök Minifigurer →"
   },
   "guideArticles": {

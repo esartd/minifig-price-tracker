@@ -48,10 +48,10 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(domains[locale as keyof typeof domains]),
     title: {
-      default: 'FigTracker - LEGO Minifigure & Set Price Tracker with Real-Time Bricklink Data',
+      default: 'FigTracker - LEGO Minifigure & Set Price Tracker',
       template: '%s | FigTracker'
     },
-    description: 'Track LEGO minifigure and set prices with real-time BrickLink data. Manage your collection, organize items to sell and keep, see current market values, and join collector leaderboards. Free for LEGO collectors and sellers.',
+    description: 'Track LEGO minifigure and set prices with smart market pricing from multiple sources. Manage your collection, organize items to sell and keep, see current market values, and join collector leaderboards. Free for LEGO collectors and sellers.',
     keywords: ['LEGO minifigure prices', 'LEGO set prices', 'BrickLink price tracker', 'LEGO collection manager', 'minifig value tracker', 'LEGO seller tool', 'BrickLink marketplace data', 'LEGO price guide', 'minifigure collection tracker', 'LEGO set tracker', 'LEGO collector leaderboard', 'track LEGO prices', 'organize LEGO collection', 'real-time LEGO pricing'],
     authors: [{ name: 'FigTracker', url: 'https://figtracker.ericksu.com' }],
     creator: 'FigTracker',
@@ -79,8 +79,8 @@ export async function generateMetadata(): Promise<Metadata> {
       alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'nl_NL', 'pl_PL', 'pt_PT', 'sv_SE', 'ja_JP'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
       url: domains[locale as keyof typeof domains],
       siteName: 'FigTracker',
-      title: 'FigTracker - LEGO Minifigure & Set Price Tracker with Real-Time Bricklink Data',
-      description: 'Track LEGO minifigure and set prices with real-time BrickLink data. Manage your collection, organize items to sell and keep, see current market values, and join collector leaderboards.',
+      title: 'FigTracker - LEGO Minifigure & Set Price Tracker',
+      description: 'Track LEGO minifigure and set prices with smart market pricing from multiple sources. Manage your collection, organize items to sell and keep, see current market values, and join collector leaderboards.',
       images: [
         {
           url: '/api/og',
@@ -93,7 +93,7 @@ export async function generateMetadata(): Promise<Metadata> {
     twitter: {
       card: 'summary_large_image',
       title: 'FigTracker - LEGO Minifigure & Set Price Tracker',
-      description: 'Track LEGO minifigure and set prices with real-time BrickLink data. Manage your collection and see current market values.',
+      description: 'Track LEGO minifigure and set prices with smart market pricing from multiple sources. Manage your collection and see current market values.',
       images: ['/api/og'],
     },
     alternates: {
@@ -164,7 +164,7 @@ export default async function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'FigTracker',
-    description: 'Free LEGO minifigure price tracker with real-time Bricklink marketplace data',
+    description: 'Free LEGO minifigure price tracker with smart market pricing from multiple sources',
     url: baseUrl,
     inLanguage: localeCodeMap[locale as keyof typeof localeCodeMap],
     applicationCategory: 'BusinessApplication',

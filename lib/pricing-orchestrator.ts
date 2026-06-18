@@ -43,14 +43,26 @@ function blendPrices(input: BlendInput): Pick<PricingData, 'currentAverage' | 'c
 
   const hasEbay = ebayAvg !== null && ebayLowest !== null && ebayAvg > 0 && ebayLowest > 0;
 
-  const blComponent = (blSoldAvg + blStockAvg + blLowest) / 3;
+  // Only average the BL values that actually exist (> 0).
+  // Dividing by 3 when some values are 0 would drag the price way down for rare items.
+  const blValues = [blSoldAvg, blStockAvg, blLowest].filter(v => v > 0);
+  const blComponent = blValues.length > 0
+    ? blValues.reduce((sum, v) => sum + v, 0) / blValues.length
+    : 0;
+
   const ebayComponent = hasEbay ? ((ebayAvg! + ebayLowest!) / 2) : 0;
   const ebayWeight = hasEbay ? 0.05 : 0;
   const blWeight = 1 - ebayWeight;
 
   const suggested = parseFloat((blComponent * blWeight + ebayComponent * ebayWeight).toFixed(2));
-  const currentAverage = parseFloat((blStockAvg * blWeight + (hasEbay ? ebayAvg! * ebayWeight : 0)).toFixed(2));
-  const currentLowest = parseFloat((blLowest * blWeight + (hasEbay ? ebayLowest! * ebayWeight : 0)).toFixed(2));
+
+  // For currentAverage: use blStockAvg if it exists, otherwise fall back to blComponent
+  const blAvgForDisplay = blStockAvg > 0 ? blStockAvg : blComponent;
+  const currentAverage = parseFloat((blAvgForDisplay * blWeight + (hasEbay ? ebayAvg! * ebayWeight : 0)).toFixed(2));
+
+  // For currentLowest: use blLowest if it exists, otherwise fall back to blComponent
+  const blLowestForDisplay = blLowest > 0 ? blLowest : blComponent;
+  const currentLowest = parseFloat((blLowestForDisplay * blWeight + (hasEbay ? ebayLowest! * ebayWeight : 0)).toFixed(2));
 
   return { suggestedPrice: suggested, currentAverage, currentLowest };
 }
@@ -123,6 +135,7 @@ class PricingOrchestrator {
     const threshold = useBrickLinkBudgetReserve ? RESERVE_FOR_USERS : 0;
 
     let blRaw: { sixMonthAverage: number; currentAverage: number; currentLowest: number } | null = null;
+    let blLimitHit = false;
 
     if (budget.remaining > threshold) {
       try {
@@ -142,12 +155,12 @@ class PricingOrchestrator {
         }
       } catch (err: any) {
         const isRateLimit = err?.message?.includes('daily limit') || err?.message?.includes('5,000');
-        if (!isRateLimit) {
-          console.error(`[Orchestrator] BrickLink error for ${itemNo}:`, err?.message);
-        }
+        if (isRateLimit) blLimitHit = true;
+        else console.error(`[Orchestrator] BrickLink error for ${itemNo}:`, err?.message);
         console.log(`[Orchestrator] BrickLink unavailable for ${itemNo}`);
       }
     } else {
+      blLimitHit = true;
       console.log(`[Orchestrator] BrickLink budget low (${budget.remaining} remaining) — skipping fresh fetch for ${itemNo}`);
     }
 
@@ -161,7 +174,15 @@ class PricingOrchestrator {
 
       // No stale cache — try eBay alone (eBay component carries 100% weight)
       console.log(`[Orchestrator] No BL data or cache for ${itemNo} — trying eBay-only`);
-      const ebayOnly = await getEbayListingPrices(itemNo, itemType, condition);
+      let ebayOnly = null;
+      let ebayLimitHit = false;
+      try {
+        ebayOnly = await getEbayListingPrices(itemNo, itemType, condition);
+      } catch (err: any) {
+        if (err?.message?.includes('daily limit')) ebayLimitHit = true;
+        console.log(`[Orchestrator] eBay unavailable for ${itemNo}: ${err?.message}`);
+      }
+
       if (ebayOnly) {
         const suggested = parseFloat(((ebayOnly.avg + ebayOnly.lowest) / 2).toFixed(2));
         const now = new Date();
@@ -202,8 +223,17 @@ class PricingOrchestrator {
         return result;
       }
 
-      console.log(`[Orchestrator] No data available for ${itemNo}`);
-      return null;
+      // Both sources exhausted or unavailable — tell the frontend why
+      const bothLimited = blLimitHit && ebayLimitHit;
+      console.log(`[Orchestrator] No data available for ${itemNo} (bothLimited=${bothLimited})`);
+      return {
+        sixMonthAverage: 0,
+        currentAverage: 0,
+        currentLowest: 0,
+        suggestedPrice: 0,
+        currencyCode: 'USD',
+        unavailable_reason: bothLimited ? 'daily_limit' : 'no_listings',
+      };
     }
 
     // Fetch eBay data (optional — null is fine, BL carries 100% in that case)

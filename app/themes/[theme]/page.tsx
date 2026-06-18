@@ -50,7 +50,7 @@ export async function generateMetadata({
   }
 
   const title = `Browse ${decodedTheme} LEGO Minifigures & Sets${totalMinifigs > 0 ? ` (${totalMinifigs.toLocaleString()} minifigs)` : ''} | FigTracker`;
-  const description = `Explore ${totalMinifigs > 0 ? totalMinifigs.toLocaleString() : 'all'} ${decodedTheme} LEGO minifigures and sets with real-time BrickLink pricing. Track current market values, manage your collection, and organize items to sell and keep${seriesCount > 0 ? ` across ${seriesCount} series` : ''}.`;
+  const description = `Explore ${totalMinifigs > 0 ? totalMinifigs.toLocaleString() : 'all'} ${decodedTheme} LEGO minifigures and sets with smart market pricing. Track current market values, manage your collection, and organize items to sell and keep${seriesCount > 0 ? ` across ${seriesCount} series` : ''}.`;
 
   return {
     title,

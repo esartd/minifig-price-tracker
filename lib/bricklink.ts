@@ -559,9 +559,10 @@ export class BricklinkAPI {
         }
       }
 
-      // No data from API and no old data - cache zeros for 1 hour to avoid repeated failed API calls
+      // No data from API and no old data - cache zeros for 6 hours (same as real data)
+      // There won't be new sellers in an hour — no point re-checking that often
       const expiresAt = new Date();
-      expiresAt.setHours(expiresAt.getHours() + 1);
+      expiresAt.setHours(expiresAt.getHours() + 6);
 
       try {
         await prisma.priceCache.upsert({
@@ -655,14 +656,14 @@ export class BricklinkAPI {
       currencyCode: currencyCodeValue,
     };
 
-    // Store in cache - use shorter expiration for zero prices (1 hour vs 6 hours)
-    // This allows re-checking for new sellers without hammering the API
+    // Cache for 6 hours regardless of whether price is $0 or not.
+    // If there are no sellers now, there won't be new ones in an hour.
     const expiresAt = new Date();
     if (pricingData.suggestedPrice === 0) {
-      expiresAt.setHours(expiresAt.getHours() + 1); // 1 hour for items with no sellers
-      console.log(`No sellers found for ${itemNo}, caching zeros for 1 hour`);
+      expiresAt.setHours(expiresAt.getHours() + 6);
+      console.log(`No sellers found for ${itemNo}, caching zeros for 6 hours`);
     } else {
-      expiresAt.setHours(expiresAt.getHours() + 6); // 6 hour per BrickLink API Terms
+      expiresAt.setHours(expiresAt.getHours() + 6); // 6 hours per BrickLink API Terms
     }
 
     try {
@@ -891,10 +892,10 @@ export class BricklinkAPI {
     console.log(`[calculateSetPricing] Sold API response for ${boxNo}:`, soldPriceGuide ? 'SUCCESS' : 'NULL');
 
     if (!stockPriceGuide && !soldPriceGuide) {
-      console.log(`No price guide data at all for set ${boxNo} - caching zeros for 1 hour`);
-      // No data from API - cache zeros for 1 hour to avoid repeated failed API calls
+      console.log(`No price guide data at all for set ${boxNo} - caching zeros for 6 hours`);
+      // No data from API - cache zeros for 6 hours (same as real data)
       const expiresAt = new Date();
-      expiresAt.setHours(expiresAt.getHours() + 1);
+      expiresAt.setHours(expiresAt.getHours() + 6);
 
       try {
         await prisma.priceCache.upsert({
@@ -983,10 +984,10 @@ export class BricklinkAPI {
     // This allows re-checking for new sellers without hammering the API
     const expiresAt = new Date();
     if (pricingData.suggestedPrice === 0) {
-      expiresAt.setHours(expiresAt.getHours() + 1); // 1 hour for items with no sellers
-      console.log(`No sellers found for set ${boxNo}, caching zeros for 1 hour`);
+      expiresAt.setHours(expiresAt.getHours() + 6); // 6 hours even for $0 — no new sellers in an hour
+      console.log(`No sellers found for set ${boxNo}, caching zeros for 6 hours`);
     } else {
-      expiresAt.setHours(expiresAt.getHours() + 6); // 6 hour per BrickLink API Terms
+      expiresAt.setHours(expiresAt.getHours() + 6); // 6 hours per BrickLink API Terms
     }
 
     try {

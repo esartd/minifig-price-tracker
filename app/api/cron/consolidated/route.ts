@@ -1,37 +1,32 @@
 import { NextResponse } from 'next/server';
 
 /**
- * Consolidated cron endpoint - runs all scheduled tasks
- * Hostinger only allows 1 cron job, so this handles everything
+ * Consolidated cron endpoint
+ * Hostinger only allows 1 cron job, so this handles all scheduled tasks.
  *
  * SETUP IN HOSTINGER:
- * Set cron to run every 6 hours (runs at 12 AM, 6 AM, 12 PM, 6 PM UTC)
  * URL: https://figtracker.ericksu.com/api/cron/consolidated
  * Method: GET
+ * Schedule: Every 6 hours (or less frequently — no heavy tasks run here)
  *
- * Tasks:
- * 1. Collection Price Pre-warming (every run) - Pre-cache prices for all user collections
+ * Current tasks: none active
  *
- * Note: Amazon deals and price history are now handled opportunistically:
- * - Amazon deals: Refreshed automatically when /lego-sale page is visited (if data > 6 hours old)
+ * Pricing pre-warming was removed (June 2026). With the unified 95/5 blended
+ * pricing system, logged-in users have a 24h cache TTL. Prices refresh
+ * on-demand via progressive fetch when a user visits their collection.
+ * Pre-warming was burning ~2,400 API calls/day (48% of budget) for work
+ * that the user's own first daily visit handles automatically.
+ *
+ * Other refreshes are handled opportunistically:
+ * - Price refresh: Progressive fetch on collection pages (3-second delays)
  * - Price history: Recorded automatically when fresh pricing is fetched
- * This eliminates timeout issues and spreads API load across user activity.
  */
 export async function GET(request: Request) {
-  const results: any = {
-    timestamp: new Date().toISOString(),
-    tasks: []
-  };
-
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://figtracker.ericksu.com';
     const cronSecret = process.env.CRON_SECRET;
     const authHeader = request.headers.get('authorization');
-
-    // Vercel cron jobs send this header automatically
     const isVercelCron = request.headers.get('x-vercel-cron') === '1';
 
-    // Verify authorization (allow Vercel cron or Bearer token if CRON_SECRET is set)
     if (cronSecret && !isVercelCron && authHeader !== `Bearer ${cronSecret}`) {
       return NextResponse.json(
         { success: false, error: 'Unauthorized' },
@@ -39,53 +34,16 @@ export async function GET(request: Request) {
       );
     }
 
-    // TASK 1: Collection Price Pre-warming (runs EVERY time - every 6 hours)
-    // This pre-caches prices for all items in user collections for instant page loads
-    console.log('Starting collection price pre-warming...');
-    try {
-      const collectionPriceResponse = await fetch(`${baseUrl}/api/cron/refresh-collection-prices`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(cronSecret && { 'Authorization': `Bearer ${cronSecret}` })
-        }
-      });
-      const collectionPriceData = await collectionPriceResponse.json();
-
-      results.tasks.push({
-        name: 'collection-price-prewarm',
-        status: collectionPriceData.success ? 'success' : 'failed',
-        data: collectionPriceData
-      });
-      console.log('Collection price pre-warming completed:', collectionPriceData);
-    } catch (error) {
-      console.error('Collection price pre-warming failed:', error);
-      results.tasks.push({
-        name: 'collection-price-prewarm',
-        status: 'error',
-        error: error instanceof Error ? error.message : 'Unknown error'
-      });
-    }
-
-    // Amazon deals and price refresh are now handled opportunistically:
-    // - Price refresh: Happens when users view collections (progressive loading)
-    // - Price history: Recorded automatically when fresh pricing is fetched
-    // This eliminates timeout issues and makes the site more responsive.
-
     return NextResponse.json({
       success: true,
-      message: 'Cron tasks completed',
-      results
+      message: 'Cron ran — no active tasks',
+      timestamp: new Date().toISOString(),
     });
 
   } catch (error) {
     console.error('Consolidated cron error:', error);
     return NextResponse.json(
-      {
-        success: false,
-        error: 'Cron execution failed',
-        results
-      },
+      { success: false, error: 'Cron execution failed' },
       { status: 500 }
     );
   }

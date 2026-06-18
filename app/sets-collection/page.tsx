@@ -28,7 +28,7 @@ export default function SetsCollectionPage() {
   const [pricesUpdating, setPricesUpdating] = useState(0);
   const [pricesFetching, setPricesFetching] = useState(false); // Track if pricing is actively loading
   const [itemsUpdating, setItemsUpdating] = useState<Set<string>>(new Set()); // Track which item IDs are currently updating
-  const [staleItems, setStaleItems] = useState<Set<string>>(new Set()); // Track which item IDs have stale prices (>6 hours old)
+  const [staleItems, setStaleItems] = useState<Set<string>>(new Set()); // Track which item IDs have stale prices
 
   // Pagination state for display only (all items loaded client-side)
   const [currentPage, setCurrentPage] = useState(1);
@@ -95,17 +95,17 @@ export default function SetsCollectionPage() {
         setLoading(false);
 
         // Check which items need pricing refresh (expired cache only, currency is handled client-side)
-        const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
+        const STALE_THRESHOLD_MS = 24 * 60 * 60 * 1000;
 
         const itemsNeedingRefresh = data.data.filter((item: any) => {
           // Refresh if no pricing at all
           if (!item.pricing || item.pricing.suggestedPrice === 0) return true;
 
-          // Refresh if no cached_at (old data from before fix) OR cache is older than 6 hours
+          // Refresh if no cached_at or price is stale
           if (!item.pricing.cached_at) return true; // Missing cached_at = needs refresh
 
           const cacheAge = Date.now() - new Date(item.pricing.cached_at).getTime();
-          if (cacheAge > SIX_HOURS_MS) return true;
+          if (cacheAge > STALE_THRESHOLD_MS) return true;
 
           return false;
         });

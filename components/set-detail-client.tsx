@@ -65,6 +65,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
     suggestedPrice: number;
     currencyCode?: string;
     loading: boolean;
+    unavailable_reason?: 'daily_limit' | 'no_listings';
   }>({
     sixMonthAverage: 0,
     currentAverage: 0,
@@ -160,7 +161,8 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
             currentLowest: data.pricing.currentLowest || 0,
             suggestedPrice: data.pricing.suggestedPrice || 0,
             currencyCode: data.pricing.currencyCode || session?.user?.preferredCurrency || 'USD',
-            loading: false
+            loading: false,
+            unavailable_reason: data.pricing.unavailable_reason,
           });
         } else {
           setPricing({ ...pricing, loading: false });
@@ -790,7 +792,9 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
             ) : (
               <div style={{ padding: '24px', textAlign: 'center', background: '#fafafa',
                 borderRadius: '8px', color: '#737373', fontSize: 'var(--text-sm)', marginBottom: '24px' }}>
-                {t('collection.pricing.noSellersAvailable')}
+                {pricing.unavailable_reason === 'daily_limit'
+                  ? (t('collection.pricing.pricingDailyLimit') || 'Pricing unavailable right now — check back soon')
+                  : (t('collection.pricing.noSellersAvailable') || 'No sellers available')}
               </div>
             )}
 

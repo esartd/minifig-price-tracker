@@ -210,10 +210,12 @@ Only the top button is colored to avoid visual competition.
    - No exceptions, no "optimizations", no "it's just a little faster"
    - Violation = empty price data or API ban
 
-2. **6-Hour Cache Requirement**
-   - All BrickLink data must be cached for exactly 6 hours
-   - Never fetch the same data more frequently
-   - Cache key must include: item_no, condition, country_code, region
+2. **TTL-Based Cache**
+   - Logged-out users (anonymous, SEO crawlers): 7-day cache (168h)
+   - Logged-in users: 24-hour cache
+   - TTL is checked against `cached_at`, not `expires_at`
+   - Cache key: (item_no, item_type, condition, country_code="US", region="")
+   - Never hard-code 6 hours — the 6-hour rule applied to raw BrickLink display, which we no longer do
 
 3. **5,000 Calls Per Day Maximum**
    - Hard limit enforced in code via ApiCallTracker table
@@ -228,7 +230,7 @@ Only the top button is colored to avoid visual competition.
 - `app/collection/page.tsx` - Client-side fetching
 - `app/sets-inventory/page.tsx` - Client-side fetching
 - `app/sets-collection/page.tsx` - Client-side fetching
-- `app/api/cron/refresh-collection-prices/route.ts` - Background cron
+- `app/api/cron/consolidated/route.ts` - Cron endpoint (no active tasks — pre-warming removed June 2026)
 
 **Search for:** `setTimeout(fetchNextItem` - Must always be 3000ms
 
@@ -239,15 +241,23 @@ Only the top button is colored to avoid visual competition.
 - Cause: BrickLink rate limiting returned empty price data
 - Lesson: **Never optimize away compliance delays**
 
+**June 2026**: `app/minifigs/[itemNo]/page.tsx` called `bricklinkAPI.calculatePricingData()` directly for schema.org structured data
+- Result: Budget exhausted by 5am daily — every anonymous page view burned 2 API calls
+- Cause: Direct call in server component bypassed the orchestrator's 7-day cache entirely
+- Fix: Replaced with `pricingOrchestrator.getMinifigPrice(..., LOGGED_OUT_TTL_HOURS)`
+- Lesson: **Never call bricklinkAPI directly from page server components — always use the orchestrator**
+
 ## Pricing System
 
 See [PRICING_SYSTEM.md](PRICING_SYSTEM.md) for complete pricing documentation.
 
 **Key principles:**
-- Always read from `priceCache` table (single source of truth)
-- Never write to database in refresh-pricing APIs
-- Use progressive fetch (one item at a time, 3-second delays)
-- Match working reference: `app/collection/page.tsx`
+- All prices are a 95% BrickLink / 5% eBay blend — stored as `price_source='figtracker'`
+- Never display raw BrickLink or eBay data; always compute the blend first
+- Always use `pricingOrchestrator` — never call `bricklinkAPI` directly from page server components
+- Cache TTL: 7 days for logged-out users, 24h for logged-in (passed as `cacheTtlHours`)
+- Progressive fetch: one item at a time, 3-second delays (4 collection pages)
+- `cached_at` must be returned with all pricing data (blue dot refresh system depends on it)
 
 ## Database
 
@@ -273,7 +283,7 @@ See [PRICING_SYSTEM.md](PRICING_SYSTEM.md) for complete pricing documentation.
 **Always update when changing pricing:**
 - [PRICING_SYSTEM.md](PRICING_SYSTEM.md) - How pricing works
 - [BRICKLINK_API_COMPLIANCE.md](BRICKLINK_API_COMPLIANCE.md) - API rules
-- [PRICE_CACHE_PREWARMING.md](PRICE_CACHE_PREWARMING.md) - Background cron
+- ~~PRICE_CACHE_PREWARMING.md~~ — removed, cron pre-warming was discontinued June 2026
 
 ## Design System
 

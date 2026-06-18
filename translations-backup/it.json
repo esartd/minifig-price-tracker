@@ -422,12 +422,12 @@
     "noPricing": "No pricing data available",
     "refreshPricing": "Refresh Pricing",
     "sourceEbay": "Prezzo da eBay",
-    "sourceEbayTooltip": "Limite API giornaliero di BrickLink raggiunto — prezzo stimato dagli annunci eBay attivi. I prezzi BrickLink tornano a mezzanotte UTC.",
+    "sourceEbayTooltip": "I prezzi sono stimati dai dati di mercato attuali.",
     "ebayFallbackTitle": "Stimato dagli annunci eBay attivi",
-    "ebayFallbackExplain": "Il limite API giornaliero di BrickLink è stato raggiunto. I prezzi sono stimati dagli annunci eBay attuali. I prezzi BrickLink tornano a mezzanotte UTC (18:00 MT).",
+    "ebayFallbackExplain": "I prezzi sono stimati dai dati di mercato attuali e si aggiornano automaticamente.",
     "ebayLoggedOutTitle": "eBay Market Pricing",
     "ebayLoggedOutExplain": "Pricing based on current eBay market data.",
-    "ebayLoggedOutCta": "Sign in for BrickLink pricing →",
+    "ebayLoggedOutCta": "Accedi per prezzi personalizzati →",
     "sourceBrickLink": "Prezzo da BrickLink"
   },
   "errors": {
@@ -477,7 +477,7 @@
     "emailUs": "Email us with any questions or feedIndietro",
     "cta": {
       "title": "Ready to get started?",
-      "subtitle": "Start pricing I tuoi LEGO minifigura with real mattoncinolink data",
+      "subtitle": "Inizia a valutare le tue minifigure LEGO con dati di mercato intelligenti",
       "button": "Start Pricing Now →"
     },
     "items": [
@@ -548,7 +548,7 @@
     ],
     "meta": {
       "title": "FAQ - Frequently Asked Questions | FigTracker",
-      "description": "Common questions Info FigTracker LEGO minifigura and set prezzo tracker. Learn how to price items, track inventory in 15+ currencies, and use mattoncinolink data effectively.",
+      "description": "Common questions Info FigTracker LEGO minifigura and set prezzo tracker. Learn how to price items, track inventory in 15+ currencies, and use smart market pricing effectively.",
       "keywords": "LEGO pricing FAQ, mattoncinolink help, minifigura pricing guide, FigTracker help, how to prezzo LEGO, LEGO set tracker",
       "ogTitle": "Frequently Asked Questions | FigTracker",
       "ogDescription": "Get answers Info pricing LEGO minifigura and Set with FigTracker. 15+ currencies, 18,000+ minifig, 20,000+ set."
@@ -559,7 +559,7 @@
       "minifigsTracked": "Minifigure tracciate",
       "setsInCatalog": "Set nel catalogo",
       "realTime": "Tempo reale",
-      "bricklinkPricing": "Prezzi BrickLink",
+      "bricklinkPricing": "Prezzi di mercato",
       "free": "Gratuito",
       "forCollectorsSellers": "Per collezionisti e venditori"
     }
@@ -568,7 +568,7 @@
     "badge": "Info FIGTRACKER",
     "hero": {
       "title": "Smetti di Indovinare. Inizia a Vendere.",
-      "subtitle": "Lo strumento di prezzo creato da venditori, per venditori. Traccia i tuoi minifigure e set LEGO con dati Bricklink in tempo reale."
+      "subtitle": "Lo strumento di prezzo creato da venditori, per venditori. Monitora il tuo inventario di minifigure e set LEGO con prezzi di mercato intelligenti da più fonti."
     },
     "problem": {
       "title": "Pricing minifig shouldn't feel like Homework",
@@ -585,7 +585,7 @@
       "subtitle": "Everything you need to prezzo and track your inventory. Nothing you don't.",
       "pricing": {
         "title": "One Suggested prezzo",
-        "description": "We calculate a weighted prezzo Da attuale mattoncinolink marketplace listings—quantity-weighted average, simple average, and lowest price. One number, ready to use."
+        "description": "Combiniamo dati da più marketplace in un unico prezzo suggerito — il nostro calcolo, non dati grezzi da un'unica fonte. Un numero, pronto all'uso."
       },
       "inventory": {
         "title": "Dual Inventory System",
@@ -596,8 +596,8 @@
         "description": "Cerca {catalogCountText} minifig by exact mattoncinoLink ID (e.g., dis134, sw1219) or name. Sfoglia visually by Tema (Star Wars, Harry Potter, Marvel, etc.) with presentava set LEGO Da each collezione."
       },
       "privacy": {
-        "title": "Real mattoncinolink Data",
-        "description": "Official API integration means accurate, attuale US marketplace prezzos. Refresh anytime to get the latest valores."
+        "title": "Prezzi di mercato intelligenti",
+        "description": "FigTracker calcola il proprio prezzo di mercato utilizzando una combinazione ponderata di più fonti di mercato. Valori attuali accurati senza ricerche manuali."
       }
     },
     "personas": {
@@ -637,7 +637,7 @@
     },
     "meta": {
       "title": "Info FigTracker - Free LEGO minifigura & Set prezzo Tracker",
-      "description": "FigTracker helps LEGO collezionistas and sellers track minifigura and set prezzos with real-time mattoncinoLink data. Manage your collezione, organize items to sell and Tieni, and see attuale market valores. Over 18,000 minifig and 20,000 Set. Free to use.",
+      "description": "FigTracker helps LEGO collezionistas and sellers track minifigura and set prezzos with smart market pricing from multiple sources. Manage your collezione, organize items to sell and Tieni, and see attuale market valores. Over 18,000 minifig and 20,000 Set. Free to use.",
       "keywords": "Info FigTracker, LEGO prezzo tracker, mattoncinoLink API tool, minifigura pricing, LEGO set pricing, LEGO collezione manager, LEGO inventory tracker, free LEGO pricing, LEGO seller tool"
     }
   },
@@ -649,7 +649,7 @@
   "supportPage": {
     "title": "Support FigTracker",
     "subtitle": "Tieni our LEGO prezzo tracker free for the community",
-    "intro": "FigTracker provides free LEGO prezzo tracking for 18,000+ minifigura and 20,000+ Set with real-time mattoncinoLink data. We cover costs through affiliate commissions when you shop through our links. Here's how you can help:",
+    "intro": "FigTracker provides free LEGO prezzo tracking for 18,000+ minifigura and 20,000+ Set with smart market pricing from multiple sources. We cover costs through affiliate commissions when you shop through our links. Here's how you can help:",
     "shopLinksTitle": "Shop Through Our Links",
     "shopLinksDescription": "When you're ready to buy set LEGO or minifigura, use the \"Buy on eBay\" or \"Buy on Amazon\" buttons on product pages (marked \"Sponsored\").",
     "shopLinksNote": "You pay the same prezzo — we earn a small commission Da Tenere the site running.",
@@ -791,7 +791,7 @@
     },
     "cta": {
       "title": "Ready to prezzo like a pro?",
-      "subtitle": "Start using FigTracker's pricing strumenti with real mattoncinolink data",
+      "subtitle": "Inizia a usare gli strumenti di prezzi intelligenti di FigTracker — ottieni valori suggeriti in pochi secondi.",
       "button": "Start Pricing Now →"
     },
     "items": [
@@ -865,7 +865,7 @@
   "auth": {
     "signup": {
       "title": "Manage Your Inventory",
-      "subtitle": "Track your minifig inventory with real-time mattoncinolink pricing to prezzo your items competitively.",
+      "subtitle": "Monitora il tuo inventario di minifigure con prezzi di mercato intelligenti per prezzare i tuoi articoli in modo competitivo.",
       "features": {
         "trackUnlimited": "Track unlimited items",
         "realtimePrices": "Real-time suggested prezzos",
@@ -951,8 +951,8 @@
         "confirmPassword": "Conferma new password"
       }
     },
-    "footer": "prezzo your inventory with real-time mattoncinolink data",
-    "footerText": "prezzo your inventory with real-time mattoncinolink data"
+    "footer": "prezzo your inventory with smart market pricing",
+    "footerText": "prezzo your inventory with smart market pricing"
   },
   "newsletter": {
     "title": "Get Monthly Market Reports",
@@ -1013,11 +1013,12 @@
       "yearOldest": "anno: Oldest → Newest"
     },
     "pricing": {
-      "pricesOlderThanSixHours": "prezzos older than 6 hours",
+      "pricesOlderThanSixHours": "Aggiornamento prezzi",
       "refreshingNow": "Refreshing now",
       "remaining": "remaining",
       "updatingPrices": "Updating...",
       "noSellersAvailable": "No sellers available",
+      "pricingDailyLimit": "Pricing unavailable right now — check back soon",
       "loadingPrice": "Loading prezzo..."
     },
     "inventoryTitle": "Your Inventory",
@@ -1083,7 +1084,7 @@
       "intro": "We use collezionaed information to:",
       "items": [
         "Provide inventory tracking and pricing caratterizzanos",
-        "Fetch real-time mattoncinolink marketplace data",
+        "Fetch market pricing data from multiple sources",
         "Improve our service through usage analytics",
         "Send essential Account notifications (password reSet, etc.)",
         "costruisci a Cercaable minifigura catalog Basato su user searches"
@@ -1277,7 +1278,7 @@
       "articles": "Articles"
     },
     "startTracking": "Start Tracking Your collezione",
-    "startTrackingDesc": "Use FigTracker to prezzo I tuoi LEGO minifigura accurately with real-time mattoncinolink data",
+    "startTrackingDesc": "Use FigTracker to prezzo I tuoi LEGO minifigura accurately with smart market pricing",
     "searchMinifigures": "Cerca minifigura →"
   },
   "guideArticles": {

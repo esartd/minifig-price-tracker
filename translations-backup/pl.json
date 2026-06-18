@@ -422,12 +422,12 @@
     "noPricing": "Nie Wycena data available",
     "refreshPricing": "Refresh Wycena",
     "sourceEbay": "Cena z eBay",
-    "sourceEbayTooltip": "Dzienny limit API BrickLink osiągnięty — cena szacowana na podstawie aktywnych ofert eBay. Ceny BrickLink wracają o północy UTC.",
+    "sourceEbayTooltip": "Ceny są szacowane na podstawie aktualnych danych rynkowych.",
     "ebayFallbackTitle": "Szacowane na podstawie aktywnych ofert eBay",
-    "ebayFallbackExplain": "Osiągnięto dzienny limit API BrickLink. Ceny są szacowane na podstawie aktualnych ofert eBay i odświeżają się automatycznie. Ceny BrickLink wracają o północy UTC (18:00 MT).",
+    "ebayFallbackExplain": "Ceny są szacowane na podstawie aktualnych danych rynkowych i odświeżają się automatycznie.",
     "ebayLoggedOutTitle": "eBay Market Pricing",
     "ebayLoggedOutExplain": "Pricing based on current eBay market data.",
-    "ebayLoggedOutCta": "Sign in for BrickLink pricing →",
+    "ebayLoggedOutCta": "Zaloguj się, aby uzyskać spersonalizowane ceny →",
     "sourceBrickLink": "Cena z BrickLink"
   },
   "errors": {
@@ -477,7 +477,7 @@
     "emailUs": "E-mail us with any questions or feedback",
     "cta": {
       "title": "Ready to get started?",
-      "subtitle": "Start Wycena your LEGO Minifigurki with real Bricklink data",
+      "subtitle": "Zacznij wyceniać swoje minifigurki LEGO z inteligentnymi danymi rynkowymi",
       "button": "Zacznij wyceniać teraz →"
     },
     "items": [
@@ -559,7 +559,7 @@
       "minifigsTracked": "Śledzone minifigurki",
       "setsInCatalog": "Zestawy w katalogu",
       "realTime": "Czas rzeczywisty",
-      "bricklinkPricing": "Ceny BrickLink",
+      "bricklinkPricing": "Ceny rynkowe",
       "free": "Bezpłatne",
       "forCollectorsSellers": "Dla kolekcjonerów i sprzedawców"
     }
@@ -568,7 +568,7 @@
     "badge": "O nas FIGTRACKER",
     "hero": {
       "title": "Przestań Zgadywać. Zacznij Sprzedawać.",
-      "subtitle": "Narzędzie cenowe stworzone przez sprzedawców, dla sprzedawców. Śledź swoje minifigurki i zestawy LEGO z danymi Bricklink w czasie rzeczywistym."
+      "subtitle": "Narzędzie cenowe stworzone przez sprzedawców, dla sprzedawców. Śledź swój inwentarz figurek i zestawów LEGO z inteligentnymi cenami rynkowymi z wielu źródeł."
     },
     "problem": {
       "title": "Wycena Minifigurki shouldn't feel like homework",
@@ -585,7 +585,7 @@
       "subtitle": "Everything you need to Cena and track your Inwentarz. Nothing you don't.",
       "pricing": {
         "title": "One Suggested Cena",
-        "description": "We calculate a weighted Cena from current Bricklink marketplace listings—Ilość-weighted average, simple average, and lowest Cena. One number, ready to use."
+        "description": "Łączymy dane z wielu rynków w jedną sugerowaną cenę — nasze własne obliczenia, nie surowe dane z jednego źródła. Jedna liczba, gotowa do użycia."
       },
       "inventory": {
         "title": "Dual Inwentarz System",
@@ -596,8 +596,8 @@
         "description": "Search {catalogCountText} minifigs by exact BrickLink ID (e.g., dis134, sw1219) or name. Browse visually by theme (Star Wars, Harry Potter, Marvel, etc.) with featured LEGO sets from each collection."
       },
       "privacy": {
-        "title": "Real Bricklink Data",
-        "description": "Official API integration means accurate, current US marketplace prices. Refresh anytime to get the latest values."
+        "title": "Inteligentne ceny rynkowe",
+        "description": "FigTracker oblicza własną cenę rynkową na podstawie ważonej kombinacji wielu źródeł rynkowych. Dokładne aktualne wartości bez ręcznego wyszukiwania."
       }
     },
     "personas": {
@@ -637,7 +637,7 @@
     },
     "meta": {
       "title": "O nas FigTracker - Free LEGO minifigurka & zestaw Cena Tracker",
-      "description": "FigTracker helps LEGO collectors and sellers track minifigurka and zestaw prices with real-Czas BrickLink data. Manage your Kolekcja, organize Przedmioty to sell and Zachować, and see current market values. Over 18,000 Minifigurki and 20,000 Zestawy. Darmowe.",
+      "description": "FigTracker helps LEGO collectors and sellers track minifigurka and zestaw prices with smart market pricing from multiple sources. Manage your Kolekcja, organize Przedmioty to sell and Zachować, and see current market values. Over 18,000 Minifigurki and 20,000 Zestawy. Darmowe.",
       "keywords": "O nas FigTracker, LEGO Cena tracker, BrickLink API tool, minifigurka Wycena, LEGO zestaw Wycena, LEGO Kolekcja manager, LEGO Inwentarz tracker, free LEGO Wycena, LEGO seller tool"
     }
   },
@@ -649,7 +649,7 @@
   "supportPage": {
     "title": "Wesprzyj FigTracker",
     "subtitle": "Zachować our LEGO Cena tracker free for the community",
-    "intro": "FigTracker provides free LEGO Cena tracking for 18,000+ Minifigurki and 20,000+ Zestawy with real-Czas BrickLink data. We cover costs through affiliate commissions when you shop through our links. Here's how you can Pomoc:",
+    "intro": "FigTracker provides free LEGO Cena tracking for 18,000+ Minifigurki and 20,000+ Zestawy with smart market pricing from multiple sources. We cover costs through affiliate commissions when you shop through our links. Here's how you can Pomoc:",
     "shopLinksTitle": "Shop Through Our Links",
     "shopLinksDescription": "When you're ready to buy LEGO Zestawy or Minifigurki, use the \"Kup na eBay\" or \"Kup na Amazon\" buttons on product pages (marked \"Sponsorowane\").",
     "shopLinksNote": "You pay the same Cena — we earn a small commission to Zachować the site running.",
@@ -791,7 +791,7 @@
     },
     "cta": {
       "title": "Ready to Cena like a pro?",
-      "subtitle": "Start using FigTracker's Wycena tools with real Bricklink data",
+      "subtitle": "Zacznij korzystać z inteligentnych narzędzi cenowych FigTracker — uzyskaj sugerowane wartości w sekundy.",
       "button": "Zacznij wyceniać teraz →"
     },
     "items": [
@@ -865,7 +865,7 @@
   "auth": {
     "signup": {
       "title": "Manage Twój inwentarz",
-      "subtitle": "Track your minifigurka Inwentarz with real-Czas Bricklink Wycena to Cena your Przedmioty competitively.",
+      "subtitle": "Śledź swój inwentarz figurek z inteligentnymi cenami rynkowymi, aby konkurencyjnie wyceniać swoje przedmioty.",
       "features": {
         "trackUnlimited": "Track unlimited Przedmioty",
         "realtimePrices": "Real-Czas suggested prices",
@@ -951,8 +951,8 @@
         "confirmPassword": "Potwierdź Nowy Hasło"
       }
     },
-    "footer": "Cena your Inwentarz with real-Czas Bricklink data",
-    "footerText": "Cena your Inwentarz with real-Czas Bricklink data"
+    "footer": "Cena your Inwentarz with smart market pricing",
+    "footerText": "Cena your Inwentarz with smart market pricing"
   },
   "newsletter": {
     "title": "Get Monthly Market Reports",
@@ -1013,11 +1013,12 @@
       "yearOldest": "Year: Najstarsze → Najnowsze"
     },
     "pricing": {
-      "pricesOlderThanSixHours": "Prices older than 6 hours",
+      "pricesOlderThanSixHours": "Aktualizowanie cen",
       "refreshingNow": "Odświeżanie",
       "remaining": "remaining",
       "updatingPrices": "Aktualizacja...",
       "noSellersAvailable": "Brak sprzedawców",
+      "pricingDailyLimit": "Ceny chwilowo niedostępne — sprawdź ponownie wkrótce",
       "loadingPrice": "Ładowanie ceny..."
     },
     "inventoryTitle": "Twój inwentarz",
@@ -1083,7 +1084,7 @@
       "intro": "We use collected information to:",
       "items": [
         "Provide Inwentarz tracking and Wycena features",
-        "Fetch real-Czas Bricklink marketplace data",
+        "Pobierz dane o cenach z wielu źródeł rynkowych",
         "Improve our service through usage analytics",
         "Wyślij essential Konto notifications (Hasło resets, etc.)",
         "Build a searchable minifigurka catalog based on user searches"
@@ -1277,7 +1278,7 @@
       "articles": "Artykuły"
     },
     "startTracking": "Start Tracking Twoja kolekcja",
-    "startTrackingDesc": "Use FigTracker to Cena your LEGO Minifigurki accurately with real-Czas Bricklink data",
+    "startTrackingDesc": "Use FigTracker to Cena your LEGO Minifigurki accurately with smart market pricing",
     "searchMinifigures": "Szukaj Minifigurki →"
   },
   "guideArticles": {

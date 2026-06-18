@@ -939,7 +939,7 @@ export default function May4thDealsClient() {
             }}>
               <li>✓ 18,000+ minifigures tracked</li>
               <li>✓ 20,000+ sets tracked</li>
-              <li>✓ Real-time BrickLink data</li>
+              <li>✓ Smart market pricing</li>
               <li>✓ 15+ currency support</li>
             </ul>
           </div>

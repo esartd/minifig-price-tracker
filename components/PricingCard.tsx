@@ -30,11 +30,14 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
   }
 
   if (pricing.suggestedPrice === 0) {
+    const msg = pricing.unavailable_reason === 'daily_limit'
+      ? (t('collection.pricing.pricingDailyLimit') || 'Pricing unavailable right now — check back soon')
+      : (t('collection.pricing.noSellersAvailable') || 'No sellers available');
     return (
       <div className="apple-card">
         <h3 className="text-lg font-semibold mb-4 text-gray-900 tracking-tight">{item.minifigure_name}</h3>
         <p className="text-xs text-gray-400 mb-2">{item.minifigure_no}</p>
-        <p className="text-gray-500 text-sm">{t('collection.pricing.noSellersAvailable')}</p>
+        <p className="text-gray-500 text-sm">{msg}</p>
       </div>
     );
   }

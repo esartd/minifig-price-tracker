@@ -69,7 +69,7 @@ export async function generateMetadata({
 
   return {
     title: `${exactThemeName} LEGO Minifigures - Price Guide & Collection (${count} Minifigs) | FigTracker`,
-    description: `Browse all ${count} ${exactThemeName} LEGO minifigures with real-time Bricklink prices. Track values, manage inventory, and discover character variants. Complete ${exactThemeName} collection guide.`,
+    description: `Browse all ${count} ${exactThemeName} LEGO minifigures with smart market pricing. Track values, manage inventory, and discover character variants. Complete ${exactThemeName} collection guide.`,
     keywords: [
       `${exactThemeName} LEGO minifigures`,
       `${exactThemeName} minifig prices`,
@@ -80,7 +80,7 @@ export async function generateMetadata({
     ],
     openGraph: {
       title: `${exactThemeName} LEGO Minifigures - ${count} Minifigs`,
-      description: `Browse and price ${count} ${exactThemeName} LEGO minifigures with real-time Bricklink marketplace data`,
+      description: `Browse and price ${count} ${exactThemeName} LEGO minifigures with smart market pricing from multiple sources`,
       url: `${domains[locale as keyof typeof domains]}/themes/${encodeURIComponent(themeName)}`,
       locale: localeMap[locale as keyof typeof localeMap],
       alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),

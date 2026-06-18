@@ -8,6 +8,8 @@
  * API: eBay Browse API v1 — public listings search, no personal data involved
  */
 
+import { prisma } from './prisma';
+
 const EBAY_API_BASE = 'https://api.ebay.com';
 const TOKEN_URL = 'https://api.ebay.com/identity/v1/oauth2/token';
 const BROWSE_SCOPE = 'https://api.ebay.com/oauth/api_scope';
@@ -15,6 +17,8 @@ const BROWSE_SCOPE = 'https://api.ebay.com/oauth/api_scope';
 // Minimum 3 seconds between eBay calls to be a good API citizen
 const MIN_DELAY_MS = 3000;
 let lastRequestTime = 0;
+
+const EBAY_MAX_CALLS_PER_DAY = 5000;
 
 // In-memory token cache (token lasts 2 hours)
 let cachedToken: { value: string; expiresAt: number } | null = null;
@@ -62,15 +66,36 @@ async function getAccessToken(): Promise<string> {
 }
 
 /**
- * Enforce minimum delay between eBay API calls.
+ * Enforce minimum delay between eBay API calls and track daily usage.
+ * Throws if the 5,000/day limit is reached — same protection as BrickLink.
  */
-async function enforceDelay(): Promise<void> {
+async function enforceRateLimit(): Promise<void> {
+  const today = `ebay-${new Date().toISOString().split('T')[0]}`; // e.g. "ebay-2026-06-17"
+
+  let tracker = await prisma.apiCallTracker.findUnique({ where: { date: today } });
+  if (!tracker) {
+    tracker = await prisma.apiCallTracker.create({ data: { date: today, call_count: 0 } });
+  }
+
+  if (tracker.call_count >= EBAY_MAX_CALLS_PER_DAY) {
+    throw new Error(`eBay API daily limit reached (${EBAY_MAX_CALLS_PER_DAY} calls/day). Resets at midnight UTC.`);
+  }
+
+  if (tracker.call_count >= EBAY_MAX_CALLS_PER_DAY * 0.9) {
+    console.warn(`[eBay] ⚠️ Approaching daily limit (${tracker.call_count + 1}/${EBAY_MAX_CALLS_PER_DAY})`);
+  }
+
   const now = Date.now();
   const elapsed = now - lastRequestTime;
   if (elapsed < MIN_DELAY_MS) {
     await new Promise(resolve => setTimeout(resolve, MIN_DELAY_MS - elapsed));
   }
   lastRequestTime = Date.now();
+
+  await prisma.apiCallTracker.update({
+    where: { date: today },
+    data: { call_count: tracker.call_count + 1, last_call_at: new Date() },
+  });
 }
 
 interface EbayItem {
@@ -86,7 +111,7 @@ async function searchEbay(
   query: string,
   conditionId: string,
 ): Promise<EbayItem[]> {
-  await enforceDelay();
+  await enforceRateLimit();
   const token = await getAccessToken();
 
   // Build URL manually — URLSearchParams encodes {} in filter values which breaks eBay's filter syntax.
@@ -157,26 +182,31 @@ export async function getEbayListingPrices(
   itemType: 'MINIFIG' | 'SET',
   condition: 'new' | 'used',
 ): Promise<EbayListingPrices | null> {
+  const conditionId = condition === 'new' ? '1000' : '3000';
+  const query = `LEGO ${itemNo}`;
+
+  console.log(`[eBay] Searching for ${itemNo} (${condition}): "${query}"`);
+
+  // Let daily-limit errors bubble up so the orchestrator can detect them.
+  // Catch everything else and return null (no listings is fine).
+  let items: EbayItem[];
   try {
-    const conditionId = condition === 'new' ? '1000' : '3000';
-    const query = `LEGO ${itemNo}`;
-
-    console.log(`[eBay] Searching for ${itemNo} (${condition}): "${query}"`);
-
-    const items = await searchEbay(query, conditionId);
-    console.log(`[eBay] Raw results for ${itemNo}: ${items.length} listings`);
-
-    const cleanPrices = filterAndNormalize(items, itemNo);
-    if (!cleanPrices) return null;
-
-    const avg = parseFloat((cleanPrices.reduce((sum, p) => sum + p, 0) / cleanPrices.length).toFixed(2));
-    const lowest = parseFloat(Math.min(...cleanPrices).toFixed(2));
-
-    console.log(`[eBay] ${itemNo} (${condition}): avg=$${avg}, lowest=$${lowest} from ${cleanPrices.length} listings`);
-
-    return { avg, lowest, listingCount: cleanPrices.length };
-  } catch (err) {
+    items = await searchEbay(query, conditionId);
+  } catch (err: any) {
+    if (err?.message?.includes('daily limit')) throw err;
     console.error(`[eBay] getEbayListingPrices failed for ${itemNo}:`, err);
     return null;
   }
+
+  console.log(`[eBay] Raw results for ${itemNo}: ${items.length} listings`);
+
+  const cleanPrices = filterAndNormalize(items, itemNo);
+  if (!cleanPrices) return null;
+
+  const avg = parseFloat((cleanPrices.reduce((sum, p) => sum + p, 0) / cleanPrices.length).toFixed(2));
+  const lowest = parseFloat(Math.min(...cleanPrices).toFixed(2));
+
+  console.log(`[eBay] ${itemNo} (${condition}): avg=$${avg}, lowest=$${lowest} from ${cleanPrices.length} listings`);
+
+  return { avg, lowest, listingCount: cleanPrices.length };
 }

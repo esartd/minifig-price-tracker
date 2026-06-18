@@ -42,6 +42,7 @@ export interface PricingData {
   cached_at?: string; // ISO timestamp of when this price was cached
   price_source?: 'bricklink' | 'ebay' | 'figtracker'; // figtracker = 95/5 blended market price
   confidence?: number; // 1.0 = BrickLink (authoritative), 0.75 = eBay (estimated)
+  unavailable_reason?: 'daily_limit' | 'no_listings'; // why price is unavailable (suggestedPrice = 0)
 }
 
 export interface CollectionItem {
