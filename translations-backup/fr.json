@@ -623,9 +623,9 @@
       "paragraph2": "Ensuite vous faites des calculs mentaux, essayant d'arriver à quelque chose de juste. <strong>À. Chaque. Fois.</strong>"
     },
     "stats": {
-      "pricePoints": "Points de données à interpréter",
-      "suggestedPrice": "Prix suggéré",
-      "mentalMath": "Calcul mental requis"
+      "pricePoints": "Chiffres de BrickLink",
+      "suggestedPrice": "Prix de FigTracker",
+      "mentalMath": "Calcul mental"
     },
     "features": {
       "title": "Conçu par des vendeurs, pour des vendeurs",

@@ -576,9 +576,9 @@
       "paragraph2": "Then you do the mental math, trying to land on something fair. <strong>Every. Single. Time.</strong>"
     },
     "stats": {
-      "pricePoints": "Cena points to compare",
-      "suggestedPrice": "Suggested Cena",
-      "mentalMath": "Mental math required"
+      "pricePoints": "Numbers from BrickLink",
+      "suggestedPrice": "Price from FigTracker",
+      "mentalMath": "Mental math"
     },
     "features": {
       "title": "Built for sellers, by sellers",
