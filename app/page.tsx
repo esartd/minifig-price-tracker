@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import SearchBar from '@/components/SearchBar';
 import { SearchResults } from '@/components/search';
 import { CollectionItem } from '@/types';
-import FeaturedSets from '@/components/FeaturedSets';
+import RecommendedSets from '@/components/RecommendedSets';
 import LeaderboardsSection from '@/components/LeaderboardsSection';
 import TrendingMinifigs from '@/components/TrendingMinifigs';
 import { useTranslation } from '@/components/TranslationProvider';
@@ -618,7 +618,7 @@ function SearchPageContent() {
         <>
           <LeaderboardsSection />
           <TrendingMinifigs />
-          <FeaturedSets />
+          <RecommendedSets />
         </>
       )}
     </div>

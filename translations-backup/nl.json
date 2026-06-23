@@ -646,6 +646,16 @@
     "subtitle": "Hand-picked sets worth checking out",
     "sponsored": "Gesponsord"
   },
+  "recommended": {
+    "title": "Aanbevolen voor jou",
+    "subtitle": "Gebaseerd op jouw thema's",
+    "popularTitle": "Populaire sets",
+    "popularSubtitle": "Sets die verzamelaars graag kopen",
+    "shopAmazon": "Kopen op Amazon",
+    "affiliate": "Affiliate",
+    "availableNow": "Nu beschikbaar",
+    "retiringSoon": "Binnenkort uit productie"
+  },
   "supportPage": {
     "title": "Support FigTracker",
     "subtitle": "Keep our LEGO price tracker free for the community",

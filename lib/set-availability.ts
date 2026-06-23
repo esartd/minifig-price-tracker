@@ -1,12 +1,12 @@
 /**
  * Set Availability Status Detection
  *
- * Since LEGO's official API requires authentication and rate limiting,
- * we use a hybrid approach:
- * 1. Year-based heuristic (sets from current/last 2 years = likely available)
- * 2. BrickLink API availability flag (when fetching prices)
- * 3. Manual overrides for known retiring/retired sets
+ * Uses empirical lifespan data (lib/set-lifespan-data.ts) derived from
+ * historical LEGO retirement patterns. Theme + price tier → expected lifespan.
+ * Age / lifespan ratio determines the status bucket.
  */
+
+import { getExpectedLifespan } from '@/lib/set-lifespan-data';
 
 export type SetAvailabilityStatus =
   | 'available'      // Currently sold by LEGO
@@ -32,32 +32,39 @@ const MANUAL_OVERRIDES: Record<string, { status: SetAvailabilityStatus; notes?: 
 };
 
 /**
- * Detect availability based on year released
- * Shows "available" for sets from last 2 years (current + previous)
- * This covers most sets still in production while avoiding false positives
+ * Detect availability using empirical theme/price-tier lifespan data.
+ * Age-to-lifespan ratio determines the bucket:
+ *   < 0.70 → available
+ *   0.70–1.0 → retiring_soon
+ *   > 1.0 → retired
+ *
+ * @param yearReleased - Release year string from catalog
+ * @param categoryName - BrickLink category (e.g., "Star Wars / UCS") — improves accuracy
+ * @param price - Secondary market price estimate; 0 = unknown
  */
-export function detectAvailabilityByYear(yearReleased: string | null): SetAvailabilityStatus {
+export function detectAvailabilityByYear(
+  yearReleased: string | null,
+  categoryName: string = '',
+  price: number = 0
+): SetAvailabilityStatus {
   if (!yearReleased || yearReleased === '?') {
     return 'unknown';
   }
 
   const year = parseInt(yearReleased);
-  const currentYear = new Date().getFullYear();
-  const yearsSinceRelease = currentYear - year;
+  if (isNaN(year)) return 'unknown';
 
-  if (yearsSinceRelease < 0) {
-    // Future release
-    return 'unknown';
-  } else if (yearsSinceRelease === 0 || yearsSinceRelease === 1) {
-    // Released this year or last year - likely still available
-    return 'available';
-  } else if (yearsSinceRelease === 2) {
-    // Released 2 years ago - may be retiring soon
-    return 'retiring_soon';
-  } else {
-    // 3+ years old - likely retired
-    return 'retired';
-  }
+  const currentYear = new Date().getFullYear();
+  const age = currentYear - year;
+
+  if (age < 0) return 'unknown'; // Future release
+
+  const expectedLifespan = getExpectedLifespan(categoryName, price);
+  const ratio = age / expectedLifespan;
+
+  if (ratio < 0.70) return 'available';
+  if (ratio <= 1.0) return 'retiring_soon';
+  return 'retired';
 }
 
 /**

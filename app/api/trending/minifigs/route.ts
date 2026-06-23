@@ -46,7 +46,7 @@ export async function GET() {
         categoryName: minifig?.category_name || 'Unknown',
         yearReleased: minifig?.year_released || null,
         imageUrl: `https://img.bricklink.com/ItemImage/MN/0/${t.minifigure_no}.png`,
-        userCount: t._count.minifigure_no
+        userCount: Number(t._count.minifigure_no) // MySQL returns BigInt; cast to Number for JSON serialization
       };
     });
 

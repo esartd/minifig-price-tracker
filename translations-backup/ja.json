@@ -646,6 +646,16 @@
     "subtitle": "Hand-picked セット worth checking out",
     "sponsored": "スポンサー"
   },
+  "recommended": {
+    "title": "おすすめセット",
+    "subtitle": "あなたのコレクションテーマに基づく",
+    "popularTitle": "人気セット",
+    "popularSubtitle": "コレクターに人気のセット",
+    "shopAmazon": "Amazonで購入",
+    "affiliate": "アフィリエイト",
+    "availableNow": "現在販売中",
+    "retiringSoon": "まもなく終了"
+  },
   "supportPage": {
     "title": "Support FigTracker",
     "subtitle": "Keep our LEGO price tracker free for the community",

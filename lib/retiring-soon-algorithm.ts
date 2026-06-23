@@ -2,6 +2,7 @@
 import { loadAllBoxes } from '@/lib/boxes-data';
 import type { LegoBox } from '@/types';
 import { prisma } from '@/lib/prisma';
+import { getExpectedLifespan } from '@/lib/set-lifespan-data';
 
 export interface RetirementPrediction {
   boxNo: string;
@@ -246,86 +247,22 @@ async function analyzePriceTrend(boxNo: string): Promise<{
   }
 }
 
-// Get set lifespan with price tier detection for better accuracy
-async function getSetLifespanByPriceAndTheme(theme: string, boxNo: string): Promise<number> {
-  const themeLower = theme.toLowerCase();
-
-  // Try to get price from PriceCache
+// Get set lifespan using empirical theme/price-tier data from set-lifespan-data.ts
+async function getSetLifespanByPriceAndTheme(categoryName: string, boxNo: string): Promise<number> {
   let price = 0;
   try {
-    if (!process.env.DATABASE_URL || process.env.DATABASE_URL.includes('postgresql://')) {
-      // Development mode - use theme-only
-      return getSetLifespanByThemeOnly(theme);
+    if (process.env.DATABASE_URL && !process.env.DATABASE_URL.includes('postgresql://')) {
+      const priceData = await prisma.priceCache.findFirst({
+        where: { item_no: boxNo, item_type: 'SET', condition: 'N' },
+        orderBy: { cached_at: 'desc' },
+        select: { current_avg: true },
+      });
+      price = priceData?.current_avg ?? 0;
     }
-
-    const priceData = await prisma.priceCache.findFirst({
-      where: {
-        item_no: boxNo,
-        item_type: 'SET',
-        condition: 'N'
-      },
-      orderBy: { cached_at: 'desc' },
-      select: { current_avg: true }
-    });
-
-    price = priceData ? priceData.current_avg : 0;
-  } catch (error) {
-    // Fallback to theme-only if price lookup fails
-    return getSetLifespanByThemeOnly(theme);
+  } catch {
+    // Fall through with price = 0
   }
-
-  // UCS/Icons with price tiers
-  if (themeLower.includes('icons') || themeLower.includes('ucs') || themeLower.includes('ultimate collector')) {
-    if (price > 500) return 5.5; // Massive UCS (Falcon, Star Destroyer)
-    if (price > 300) return 4.5;
-    if (price > 200) return 4;
-    return 3.5;
-  }
-
-  // Creator Expert with price tiers
-  if (themeLower.includes('creator expert') || themeLower.includes('creator')) {
-    if (price > 300) return 4.5; // Large flagship sets
-    if (price > 200) return 4;
-    if (price > 100) return 3.5;
-    if (price > 0) return 2.5; // Small Creator sets
-    return 3.5; // Unknown price, use default
-  }
-
-  // Architecture with price tiers
-  if (themeLower.includes('architecture')) {
-    if (price > 200) return 4;
-    if (price > 100) return 3.5;
-    return 3;
-  }
-
-  // Licensed themes with price tiers
-  if (themeLower.includes('star wars') || themeLower.includes('marvel') ||
-      themeLower.includes('dc') || themeLower.includes('harry potter')) {
-    if (price > 400) return 4.5; // UCS or flagship
-    if (price > 200) return 3;
-    if (price > 100) return 2.5;
-    return 2;
-  }
-
-  // Default price tiers for other themes
-  if (price > 200) return 4;
-  if (price > 100) return 3;
-  if (price > 50) return 2.5;
-  if (price > 0) return 1.5;
-
-  // No price data - use theme default
-  return getSetLifespanByThemeOnly(theme);
-}
-
-// Fallback: Theme-only lifespan (used when price not available)
-function getSetLifespanByThemeOnly(theme: string): number {
-  const themeLower = theme.toLowerCase();
-
-  if (themeLower.includes('icons') || themeLower.includes('ucs')) return 4;
-  if (themeLower.includes('creator expert') || themeLower.includes('architecture')) return 3.5;
-  if (themeLower.includes('star wars') || themeLower.includes('marvel')) return 2;
-
-  return 2.5;
+  return getExpectedLifespan(categoryName, price);
 }
 
 // Calculate retirement score for a set
@@ -338,7 +275,7 @@ function calculateRetirementScore(set: LegoBox): {
   const currentYear = new Date().getFullYear();
   const yearReleased = parseInt(set.year_released);
   const age = currentYear - yearReleased;
-  const expectedLifespan = getSetLifespanByThemeOnly(set.category_name);
+  const expectedLifespan = getExpectedLifespan(set.category_name);
   const ageRatio = age / expectedLifespan;
 
   // Age component (0-100 points)
@@ -379,7 +316,7 @@ function estimateRetirementQuarter(yearReleased: string, theme: string): {
   quarter: string;
   date: Date;
 } {
-  const expectedLifespan = getSetLifespanByThemeOnly(theme);
+  const expectedLifespan = getExpectedLifespan(theme);
   const year = parseInt(yearReleased);
   const estimatedRetirementYear = year + Math.ceil(expectedLifespan);
 

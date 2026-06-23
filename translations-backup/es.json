@@ -692,6 +692,16 @@
     "title": "Sets que nos emocionan",
     "subtitle": "Sets seleccionados que vale la pena descubrir"
   },
+  "recommended": {
+    "title": "Recomendado para ti",
+    "subtitle": "Basado en los temas que coleccionas",
+    "popularTitle": "Sets populares",
+    "popularSubtitle": "Sets que adoran los coleccionistas",
+    "shopAmazon": "Comprar en Amazon",
+    "affiliate": "Afiliado",
+    "availableNow": "Disponible ahora",
+    "retiringSoon": "Retirándose pronto"
+  },
   "supportPage": {
     "title": "Apoyar FigTracker",
     "subtitle": "Mantén nuestro rastreador de precios LEGO gratis para la comunidad",

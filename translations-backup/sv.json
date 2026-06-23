@@ -646,6 +646,16 @@
     "subtitle": "Hand-picked set worth checking out",
     "sponsored": "Sponsrad"
   },
+  "recommended": {
+    "title": "Rekommenderat för dig",
+    "subtitle": "Baserat på dina teman",
+    "popularTitle": "Populära set",
+    "popularSubtitle": "Set som samlare älskar",
+    "shopAmazon": "Handla på Amazon",
+    "affiliate": "Affiliate",
+    "availableNow": "Tillgänglig nu",
+    "retiringSoon": "Snart utgången"
+  },
   "supportPage": {
     "title": "Support FigTracker",
     "subtitle": "Behåll our LEGO pris tracker free for the community",
