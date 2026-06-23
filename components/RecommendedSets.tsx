@@ -213,6 +213,11 @@ export default function RecommendedSets() {
 
                       {/* Text */}
                       <div>
+                        {mainTheme && (
+                          <p style={{ fontSize: 'var(--text-xs)', color: '#a3a3a3', marginBottom: '4px', marginTop: '0' }}>
+                            {mainTheme}
+                          </p>
+                        )}
                         <h3 style={{
                           fontSize: 'var(--text-lg)',
                           fontWeight: '600',
@@ -222,11 +227,6 @@ export default function RecommendedSets() {
                         }}>
                           {set.name}
                         </h3>
-                        {mainTheme && (
-                          <p style={{ fontSize: 'var(--text-xs)', color: '#a3a3a3', marginBottom: '4px', marginTop: '2px' }}>
-                            {mainTheme}
-                          </p>
-                        )}
                         <p style={{ fontSize: 'var(--text-sm)', color: '#737373', marginBottom: '0' }}>
                           {t('recommended.affiliate') || 'Affiliate'} • {set.box_no.replace(/-\d+$/, '')}
                         </p>
