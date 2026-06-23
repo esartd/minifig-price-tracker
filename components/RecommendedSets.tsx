@@ -173,7 +173,7 @@ export default function RecommendedSets() {
                   return (
                     <div key={set.box_no} className="rec-card">
                       {/* Availability badge */}
-                      <div style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div style={{ marginBottom: '12px' }}>
                         <span style={{
                           fontSize: 'var(--text-xs)',
                           fontWeight: '600',
@@ -182,23 +182,10 @@ export default function RecommendedSets() {
                           padding: '2px 8px',
                           borderRadius: '999px',
                           whiteSpace: 'nowrap',
-                          flexShrink: 0,
+                          display: 'inline-block',
                         }}>
                           {availabilityLabel}
                         </span>
-                        {mainTheme && (
-                          <span style={{
-                            fontSize: 'var(--text-xs)',
-                            color: '#737373',
-                            fontWeight: '500',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            marginLeft: 'auto',
-                          }}>
-                            {mainTheme}
-                          </span>
-                        )}
                       </div>
 
                       {/* Image */}
@@ -235,6 +222,11 @@ export default function RecommendedSets() {
                         }}>
                           {set.name}
                         </h3>
+                        {mainTheme && (
+                          <p style={{ fontSize: 'var(--text-xs)', color: '#a3a3a3', marginBottom: '4px', marginTop: '2px' }}>
+                            {mainTheme}
+                          </p>
+                        )}
                         <p style={{ fontSize: 'var(--text-sm)', color: '#737373', marginBottom: '0' }}>
                           {t('recommended.affiliate') || 'Affiliate'} • {set.box_no.replace(/-\d+$/, '')}
                         </p>
