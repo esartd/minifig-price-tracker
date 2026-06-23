@@ -173,7 +173,7 @@ export default function RecommendedSets() {
                   return (
                     <div key={set.box_no} className="rec-card">
                       {/* Availability badge */}
-                      <div style={{ marginBottom: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <div style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <span style={{
                           fontSize: 'var(--text-xs)',
                           fontWeight: '600',
@@ -181,6 +181,8 @@ export default function RecommendedSets() {
                           backgroundColor: availabilityBg,
                           padding: '2px 8px',
                           borderRadius: '999px',
+                          whiteSpace: 'nowrap',
+                          flexShrink: 0,
                         }}>
                           {availabilityLabel}
                         </span>
@@ -189,6 +191,10 @@ export default function RecommendedSets() {
                             fontSize: 'var(--text-xs)',
                             color: '#737373',
                             fontWeight: '500',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            marginLeft: 'auto',
                           }}>
                             {mainTheme}
                           </span>
