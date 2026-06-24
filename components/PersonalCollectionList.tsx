@@ -264,8 +264,8 @@ export default function PersonalCollectionList({
                   backgroundSize: '16px'
                 }}
               >
-                <option value="new">NEW</option>
-                <option value="used">USED</option>
+                <option value="new">{t('common.new').toUpperCase()}</option>
+                <option value="used">{t('common.used').toUpperCase()}</option>
               </select>
             </div>
             {itemsUpdating.has(item.id) || (staleItems.has(item.id) && (!item.pricing || item.pricing.suggestedPrice === 0)) ? (
@@ -311,7 +311,7 @@ export default function PersonalCollectionList({
                         color: '#737373',
                         fontWeight: '500'
                       }}>
-                        {formatPrice(item.pricing.suggestedPrice, currency, showDecimals)} ea
+                        {formatPrice(item.pricing.suggestedPrice, currency, showDecimals)} {t('collection.ea')}
                       </div>
                       <div style={{
                         fontSize: 'var(--text-lg)',
@@ -319,7 +319,7 @@ export default function PersonalCollectionList({
                         color: '#3b82f6',
                         letterSpacing: '-0.01em'
                       }}>
-                        {formatPrice(item.pricing.suggestedPrice * item.quantity, currency, showDecimals)} <span style={{ fontSize: 'var(--text-xs)', fontWeight: '500', color: '#737373' }}>total</span>
+                        {formatPrice(item.pricing.suggestedPrice * item.quantity, currency, showDecimals)} <span style={{ fontSize: 'var(--text-xs)', fontWeight: '500', color: '#737373' }}>{t('collection.total')}</span>
                       </div>
                     </>
                   ) : (
@@ -340,7 +340,7 @@ export default function PersonalCollectionList({
                 color: '#a3a3a3',
                 fontStyle: 'italic'
               }}>
-                Price unavailable
+                {t('collection.priceUnavailable')}
               </div>
             )}
           </div>
@@ -490,7 +490,7 @@ export default function PersonalCollectionList({
                     padding: 0,
                     transition: 'all 0.2s'
                   }}
-                  title="Move to Inventory"
+                  title={t('collection.moveToInventory')}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = '#f0fdf4';
                     e.currentTarget.style.color = '#60a5fa';
@@ -508,7 +508,7 @@ export default function PersonalCollectionList({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                if (confirm('Delete this item from your personal collection?')) {
+                if (confirm(t('collection.deleteFromCollection'))) {
                   onItemDelete(item.id);
                 }
               }}

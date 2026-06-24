@@ -27,7 +27,8 @@
     "viewDetails": "詳細を見る",
     "new": "新品",
     "used": "中古",
-    "copied": "コピーしました！"
+    "copied": "コピーしました！",
+    "showLess": "少なく表示"
   },
   "navigation": {
     "home": "ホーム",
@@ -382,6 +383,23 @@
       "refreshPage": "Refresh the page in a few minutes to see updated prices.",
       "pricesWillDisplay": "Prices will now display in {currencyCode}.",
       "genericError": "An error occurred. Please try again."
+    },
+    "quickLinks": {
+      "title": "クイックリンク",
+      "priceAlerts": "価格アラート",
+      "priceAlertsDesc": "価格通知を管理"
+    },
+    "leaderboard": {
+      "title": "コミュニティランキング",
+      "subtitle": "FigTrackerのトップページランキングでの表示を管理",
+      "displayName": "表示名",
+      "displayNameDesc": "空白にするとイニシャルが使用されます。（3〜30文字）",
+      "showMinifig": "トップミニフィグコレクターランキングに表示",
+      "showMinifigDesc": "ミニフィグのコレクション数が公開されます",
+      "showSets": "トップセットコレクターランキングに表示",
+      "showSetsDesc": "セットのコレクション数が公開されます",
+      "save": "ランキング設定を保存",
+      "saving": "保存中..."
     }
   },
   "search": {
@@ -458,7 +476,15 @@
     "browseButton": "閲覧 ミニフィギュア",
     "buyBrickLink": "BrickLink",
     "buyAmazon": "Amazon",
-    "buyEbay": "eBay"
+    "buyEbay": "eBay",
+    "tabs": {
+      "minifigures": "ミニフィグ",
+      "sets": "セット"
+    },
+    "emptyMinifigs": "ウィッシュリストにミニフィグなし",
+    "emptySets": "ウィッシュリストにセットなし",
+    "emptyMinifigsHint": "ミニフィグのハートアイコンをクリックして追加",
+    "emptySetsHint": "セットのハートアイコンをクリックして追加"
   },
   "sets": {
     "browse": {
@@ -1052,7 +1078,12 @@
     "startAddingSets": "Start adding to your personal コレクション",
     "startAddingSetsInventory": "Start adding to your 在庫 by browsing セット",
     "browseSets": "閲覧 セット",
-    "noConditionSets": "いいえ {condition} condition セット"
+    "noConditionSets": "いいえ {condition} condition セット",
+    "priceUnavailable": "価格なし",
+    "deleteFromInventory": "このアイテムを在庫から削除しますか？",
+    "deleteFromCollection": "このアイテムをコレクションから削除しますか？",
+    "ea": "個",
+    "total": "合計"
   },
   "privacyPolicy": {
     "meta": {
@@ -1196,11 +1227,13 @@
       "brickLinkDescRetired": "Best for retired セット",
       "brickLinkDescAvailable": "Used & new available",
       "amazon": "Amazon",
-      "amazonDesc": "Fast shipping"
+      "amazonDesc": "Fast shipping",
+      "sponsoredLinks": "スポンサーアフィリエイトリンク"
     },
     "relatedSets": {
       "moreFrom": "More from {theme}",
-      "featured": "Featured {theme} セット"
+      "featured": "Featured {theme} セット",
+      "title": "関連セット"
     },
     "messages": {
       "addedToInventory": "Added {quantity} item to sell",
@@ -1223,7 +1256,8 @@
       "messageInventory": "This will permanently remove this セット from your inventory.",
       "messageCollection": "This will permanently remove this セット from your collection.",
       "cancel": "キャンセル",
-      "confirm": "Remove"
+      "confirm": "Remove",
+      "remove": "削除"
     },
     "buttons": {
       "addInventory": "+ To sell",
@@ -1240,7 +1274,8 @@
       "yearUnknown": "Year Unknown",
       "year": "Year",
       "weight": "Weight"
-    }
+    },
+    "newestFrom": "{theme}の最新セット"
   },
   "subcategoryPage": {
     "minifigureCount": "{count} minifigure",
@@ -1877,7 +1912,9 @@
       "notFound": "コレクターが見つかりません",
       "profilePrivate": "このコレクターのプロフィールは公開されていません。",
       "notFoundDesc": "そのユーザー名のコレクターが見つかりませんでした。",
-      "editProfile": "プロフィールを編集"
+      "editProfile": "プロフィールを編集",
+      "conditionNew": "新品",
+      "conditionUsed": "中古"
     },
     "username": {
       "title": "ユーザー名",
@@ -1931,5 +1968,50 @@
     "items": "{count}点",
     "viewCollection": "コレクションを見る",
     "collector": "コレクター"
+  },
+  "minifigDetail": {
+    "yearUnknown": "年不明",
+    "loadingPricing": "価格を読み込み中...",
+    "checkingCollections": "コレクションを確認中...",
+    "addThisMinifigure": "このミニフィグを追加",
+    "quantity": "数量",
+    "toSell": "+ 売却用",
+    "toKeep": "+ 保管用",
+    "itemsToSell": "売却アイテム",
+    "itemsToKeep": "保管アイテム",
+    "addToKeepPrompt": "保管に追加？",
+    "addToSellPrompt": "売却に追加？",
+    "moveToCollection": "コレクションに移動",
+    "moveToInventory": "在庫に移動",
+    "removeFromInventory": "在庫から削除",
+    "removeFromCollection": "コレクションから削除",
+    "listingSaved": "出品保存済み！",
+    "whereToBuy": "購入先",
+    "sponsoredLinks": "スポンサーアフィリエイトリンク",
+    "appearsInSets": "このミニフィグを含むLEGOセット",
+    "appearsInSetsDesc": "このミニフィグを含むLEGOセット",
+    "fromSimilarSets": "似たセットから",
+    "fromSimilarSetsDesc": "同時期にリリースされたミニフィグ",
+    "otherVariants": "他のバリアント",
+    "variantCountSingular": "1つの別バージョン...",
+    "variantCountPlural": "{count}つの別バージョン...",
+    "showLess": "少なく表示",
+    "showMoreVariants": "さらに{count}バリアントを表示",
+    "featuredSets": "注目の{theme}セット",
+    "featuredSetsDesc": "このテーマの現行LEGOセット",
+    "deleteFromSell": "売却アイテムから削除しますか？",
+    "deleteFromKeep": "保管アイテムから削除しますか？",
+    "cannotBeUndone": "この操作は取り消せません。",
+    "movedToCollection": "コレクションに移動しました！",
+    "movedToInventory": "在庫に移動しました！",
+    "legoSetsInclude": "このミニフィグを含むLEGOセット",
+    "minifigsReleasedAround": "同時期にリリースされたミニフィグ",
+    "variantCountOne": "1つの別バージョン...",
+    "variantCountMany": "{count}つの別バージョン...",
+    "featuredThemeSets": "注目の{theme}セット",
+    "currentLegoSetsTheme": "このテーマの現行LEGOセット"
+  },
+  "supportLink": {
+    "savedYouTime": "時間を節約できましたか？迅速・正確な価格設定をサポート →"
   }
 }

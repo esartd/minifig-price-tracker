@@ -262,8 +262,8 @@ export default function CollectionList({
                   backgroundSize: '16px'
                 }}
               >
-                <option value="new">NEW</option>
-                <option value="used">USED</option>
+                <option value="new">{t('common.new').toUpperCase()}</option>
+                <option value="used">{t('common.used').toUpperCase()}</option>
               </select>
             </div>
             {itemsUpdating.has(item.id) || (staleItems.has(item.id) && (!item.pricing || item.pricing.suggestedPrice === 0)) ? (
@@ -309,7 +309,7 @@ export default function CollectionList({
                         color: '#737373',
                         fontWeight: '500'
                       }}>
-                        {formatPrice(item.pricing.suggestedPrice, item.pricing.currencyCode || 'USD', showDecimals)} ea
+                        {formatPrice(item.pricing.suggestedPrice, item.pricing.currencyCode || 'USD', showDecimals)} {t('collection.ea')}
                       </div>
                       <div style={{
                         fontSize: 'var(--text-lg)',
@@ -317,7 +317,7 @@ export default function CollectionList({
                         color: '#3b82f6',
                         letterSpacing: '-0.01em'
                       }}>
-                        {formatPrice(item.pricing.suggestedPrice * item.quantity, item.pricing.currencyCode || 'USD', showDecimals)} <span style={{ fontSize: 'var(--text-xs)', fontWeight: '500', color: '#737373' }}>total</span>
+                        {formatPrice(item.pricing.suggestedPrice * item.quantity, item.pricing.currencyCode || 'USD', showDecimals)} <span style={{ fontSize: 'var(--text-xs)', fontWeight: '500', color: '#737373' }}>{t('collection.total')}</span>
                       </div>
                     </>
                   ) : (
@@ -338,7 +338,7 @@ export default function CollectionList({
                 color: '#a3a3a3',
                 fontStyle: 'italic'
               }}>
-                Price unavailable
+                {t('collection.priceUnavailable')}
               </div>
             )}
           </div>
@@ -488,7 +488,7 @@ export default function CollectionList({
                     padding: 0,
                     transition: 'all 0.2s'
                   }}
-                  title="Move to Your Collection"
+                  title={t('collection.moveToCollection')}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = '#eff6ff';
                     e.currentTarget.style.color = '#3b82f6';
@@ -506,7 +506,7 @@ export default function CollectionList({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                if (confirm('Delete this item from your inventory?')) {
+                if (confirm(t('collection.deleteFromInventory'))) {
                   onItemDelete(item.id);
                 }
               }}

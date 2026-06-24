@@ -937,7 +937,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       letterSpacing: '0.05em'
                     }}>
                       <span>
-                        {minifig.year_released && minifig.year_released !== '?' ? minifig.year_released : 'Year Unknown'}
+                        {minifig.year_released && minifig.year_released !== '?' ? minifig.year_released : t('minifigDetail.yearUnknown')}
                       </span>
                       <span style={{ opacity: 0.4 }}>•</span>
                       <span>
@@ -1048,7 +1048,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                               whiteSpace: 'nowrap'
                             }}
                           >
-                            New{newCount > 0 ? ` (${newCount})` : ''}
+                            {t('common.new')}{newCount > 0 ? ` (${newCount})` : ''}
                           </button>
                           <button
                             onClick={() => {
@@ -1068,7 +1068,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                               whiteSpace: 'nowrap'
                             }}
                           >
-                            Used{usedCount > 0 ? ` (${usedCount})` : ''}
+                            {t('common.used')}{usedCount > 0 ? ` (${usedCount})` : ''}
                           </button>
                         </>
                       );
@@ -1091,7 +1091,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                         borderRadius: '50%',
                         animation: 'spin 0.8s linear infinite'
                       }}></div>
-                      <p style={{ fontSize: 'var(--text-sm)' }}>Loading pricing...</p>
+                      <p style={{ fontSize: 'var(--text-sm)' }}>{t('minifigDetail.loadingPricing')}</p>
                     </div>
                   ) : pricing.suggestedPrice > 0 ? (
                     <div className="minifig-pricing-row pricing-3col" style={{
@@ -1115,7 +1115,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                           marginBottom: '6px',
                           lineHeight: '1.2'
                         }}>
-                          Current Avg
+                          {t('pricing.currentAvg')}
                         </p>
                         <p style={{
                           fontSize: 'clamp(16px, 3.5vw, 18px)',
@@ -1149,7 +1149,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                           marginBottom: '6px',
                           lineHeight: '1.2'
                         }}>
-                          Lowest
+                          {t('pricing.lowest')}
                         </p>
                         <p style={{
                           fontSize: 'clamp(16px, 3.5vw, 18px)',
@@ -1183,7 +1183,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                           marginBottom: '8px',
                           lineHeight: '1.2'
                         }}>
-                          Suggested
+                          {t('pricing.suggestedPrice')}
                         </p>
                         <p style={{
                           fontSize: 'clamp(18px, 4vw, 20px)',
@@ -1245,7 +1245,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                         onMouseEnter={(e) => e.currentTarget.style.color = '#737373'}
                         onMouseLeave={(e) => e.currentTarget.style.color = '#a3a3a3'}
                       >
-                        Saved you some time? Support quick, accurate pricing →
+                        {t('supportLink.savedYouTime') || 'Saved you some time? Support quick, accurate pricing →'}
                       </a>
                     </div>
                   )}
@@ -1263,7 +1263,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                 <div>
                   {checkingCollection ? (
                     <div style={{ textAlign: 'center', padding: '20px', color: '#737373' }}>
-                      Checking collections...
+                      {t('minifigDetail.checkingCollections')}
                     </div>
                   ) : (
                     <>
@@ -1277,7 +1277,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             marginTop: 0,
                             marginBottom: '16px'
                           }}>
-                            Add This Minifigure
+                            {t('minifigDetail.addThisMinifigure')}
                           </h2>
 
                           {/* Quantity Selector */}
@@ -1289,7 +1289,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                               color: '#525252',
                               marginBottom: '8px'
                             }}>
-                              Quantity
+                              {t('minifigDetail.quantity')}
                             </label>
                             <div className="quantity-stepper" style={{ flex: 1 }}>
                               <button
@@ -1423,7 +1423,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                 if (!addLoading) e.currentTarget.style.background = '#3b82f6';
                               }}
                             >
-                              + To sell
+                              {t('minifigDetail.toSell')}
                             </button>
 
                             <button
@@ -1451,7 +1451,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                 if (!addPersonalLoading) e.currentTarget.style.background = '#3b82f6';
                               }}
                             >
-                              + To keep
+                              {t('minifigDetail.toKeep')}
                             </button>
                           </div>
                         </div>
@@ -1466,7 +1466,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             color: '#171717',
                             marginBottom: '16px'
                           }}>
-                            Items to Sell
+                            {t('minifigDetail.itemsToSell')}
                           </h2>
 
                       <div className="inventory-actions-container">
@@ -1618,7 +1618,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             padding: 0,
                             transition: 'all 0.2s'
                           }}
-                          title="Move to Your Collection"
+                          title={t('minifigDetail.moveToCollection')}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.background = '#eff6ff';
                             e.currentTarget.style.color = '#3b82f6';
@@ -1644,7 +1644,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             <polyline points="3 6 5 6 21 6"></polyline>
                             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                           </svg>
-                          <span className="inventory-delete-text">Remove from Inventory</span>
+                          <span className="inventory-delete-text">{t('minifigDetail.removeFromInventory')}</span>
                         </button>
                       </div>
 
@@ -1703,7 +1703,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                           <ListingGeneratorForm
                             item={collectionItem}
                             onSuccess={(listing) => {
-                              alert('Listing saved!');
+                              alert(t('minifigDetail.listingSaved'));
                             }}
                             onOpen={() => {
                               setSuccessMessage('');
@@ -1730,7 +1730,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             marginBottom: '16px',
                             marginTop: '0'
                           }}>
-                            {personalCollectionItem ? 'Items to Keep' : 'Add to keep?'}
+                            {personalCollectionItem ? t('minifigDetail.itemsToKeep') : t('minifigDetail.addToKeepPrompt')}
                           </h2>
 
                           <div style={{ marginBottom: '16px' }}>
@@ -1741,7 +1741,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                               color: '#525252',
                               marginBottom: '8px'
                             }}>
-                              Quantity
+                              {t('minifigDetail.quantity')}
                             </label>
                             <div className="quantity-stepper">
                               <button
@@ -1933,7 +1933,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             marginTop: collectionItem ? '32px' : '0',
                             marginBottom: '16px'
                           }}>
-                            Items to Keep
+                            {t('minifigDetail.itemsToKeep')}
                           </h2>
 
                           <div className="inventory-actions-container">
@@ -2085,7 +2085,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                 padding: 0,
                                 transition: 'all 0.2s'
                               }}
-                              title="Move to Inventory"
+                              title={t('minifigDetail.moveToInventory')}
                               onMouseEnter={(e) => {
                                 e.currentTarget.style.background = '#f0fdf4';
                                 e.currentTarget.style.color = '#22c55e';
@@ -2111,7 +2111,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                 <polyline points="3 6 5 6 21 6"></polyline>
                                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                               </svg>
-                              <span className="inventory-delete-text">Remove from Your Collection</span>
+                              <span className="inventory-delete-text">{t('minifigDetail.removeFromCollection')}</span>
                             </button>
                           </div>
 
@@ -2183,7 +2183,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             marginBottom: '16px',
                             marginTop: '0'
                           }}>
-                            Add to sell?
+                            {t('minifigDetail.addToSellPrompt')}
                           </h2>
 
                           <div style={{ marginBottom: '16px' }}>
@@ -2194,7 +2194,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                               color: '#525252',
                               marginBottom: '8px'
                             }}>
-                              Quantity
+                              {t('minifigDetail.quantity')}
                             </label>
                             <div className="quantity-stepper">
                               <button
@@ -2423,14 +2423,14 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       marginTop: 0,
                       marginBottom: '4px'
                     }} className="where-to-buy-title">
-                      Where to Buy
+                      {t('minifigDetail.whereToBuy')}
                     </h3>
                     <p style={{
                       fontSize: '10px',
                       color: '#737373',
                       margin: 0
                     }} className="where-to-buy-subtitle">
-                      Sponsored affiliate links
+                      {t('minifigDetail.sponsoredLinks')}
                     </p>
                   </div>
 
@@ -2639,7 +2639,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                 {translations.minifig_detail?.appears_in_sets || 'Appears in These Sets'} ({appearsInSets.length})
               </h2>
               <p className="minifig-related-description">
-                LEGO sets that include this minifigure
+                {t('minifigDetail.legoSetsInclude')}
               </p>
                 <div className="minifig-related-grid">
                   {appearsInSets.map((set) => (
@@ -2731,10 +2731,10 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
           {similarSets.length > 0 && (
             <div className="minifig-related-section" style={{ marginTop: '32px' }}>
               <h2 className="minifig-related-heading">
-                From Similar Sets
+                {t('minifigDetail.fromSimilarSets')}
               </h2>
               <p className="minifig-related-description">
-                Minifigures released around the same time
+                {t('minifigDetail.minifigsReleasedAround')}
               </p>
                 <div className="minifig-related-grid">
                   {similarSets.map((related) => (
@@ -2804,12 +2804,12 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
           {variants.length > 0 && (
             <div className="minifig-related-section" style={{ marginTop: '32px' }}>
               <h2 className="minifig-related-heading">
-                Other Variants
+                {t('minifigDetail.otherVariants')}
               </h2>
               <p className="minifig-related-description">
                 {variants.length === 1
-                  ? '1 different version of this character'
-                  : `${variants.length} different versions of this character`}
+                  ? t('minifigDetail.variantCountOne')
+                  : t('minifigDetail.variantCountMany', { count: variants.length })}
               </p>
                 <div className="minifig-related-grid">
                   {(showAllVariants ? variants : variants.slice(0, INITIAL_VARIANTS_COUNT)).map((variant) => (
@@ -2906,14 +2906,14 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                     >
                       {showAllVariants ? (
                         <>
-                          Show Less
+                          {t('common.showLess')}
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="18 15 12 9 6 15"></polyline>
                           </svg>
                         </>
                       ) : (
                         <>
-                          Show {variants.length - INITIAL_VARIANTS_COUNT} More Variants
+                          {t('minifigDetail.showMoreVariants', { count: variants.length - INITIAL_VARIANTS_COUNT })}
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="6 9 12 15 18 9"></polyline>
                           </svg>
@@ -2935,7 +2935,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                 marginBottom: '12px',
                 letterSpacing: '-0.02em'
               }}>
-                Featured {minifig.category_name.split('/')[0].trim()} Sets
+                {t('minifigDetail.featuredThemeSets', { theme: minifig.category_name.split('/')[0].trim() })}
               </h2>
               <p style={{
                 fontSize: 'var(--text-base)',
@@ -2943,7 +2943,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                 marginBottom: '32px',
                 lineHeight: '1.6'
               }}>
-                Current LEGO sets from this theme
+                {t('minifigDetail.currentLegoSetsTheme')}
               </p>
               <div style={{
                 display: 'grid',
@@ -3080,14 +3080,14 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
               marginBottom: '8px',
               color: '#171717'
             }}>
-              Delete from {deleteTarget === 'inventory' ? 'items to sell' : 'items to keep'}?
+              {deleteTarget === 'inventory' ? t('minifigDetail.deleteFromSell') : t('minifigDetail.deleteFromKeep')}
             </h2>
             <p style={{
               fontSize: 'var(--text-sm)',
               color: '#737373',
               marginBottom: '24px'
             }}>
-              This action cannot be undone.
+              {t('minifigDetail.cannotBeUndone')}
             </p>
 
             <div style={{
@@ -3112,7 +3112,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                   transition: 'all 0.2s'
                 }}
               >
-                Cancel
+                {t('common.cancel')}
               </button>
               <button
                 onClick={async () => {
@@ -3151,7 +3151,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                   transition: 'all 0.2s'
                 }}
               >
-                Delete
+                {t('common.delete')}
               </button>
             </div>
           </div>

@@ -300,7 +300,7 @@ export default function WishlistPage() {
             transition: 'all 0.2s'
           }}
         >
-          Minifigures ({minifigWishlist.length})
+          {t('wishlist.tabs.minifigures')} ({minifigWishlist.length})
         </button>
         <button
           onClick={() => setActiveTab('sets')}
@@ -316,7 +316,7 @@ export default function WishlistPage() {
             transition: 'all 0.2s'
           }}
         >
-          Sets ({setWishlist.length})
+          {t('wishlist.tabs.sets')} ({setWishlist.length})
         </button>
       </div>
 
@@ -341,7 +341,7 @@ export default function WishlistPage() {
             color: '#171717',
             marginBottom: '8px'
           }}>
-            {activeTab === 'minifigs' ? 'No minifigures in wishlist' : 'No sets in wishlist'}
+            {activeTab === 'minifigs' ? t('wishlist.emptyMinifigs') : t('wishlist.emptySets')}
           </p>
           <p style={{
             fontSize: 'var(--text-base)',
@@ -350,8 +350,8 @@ export default function WishlistPage() {
             lineHeight: '1.6'
           }}>
             {activeTab === 'minifigs'
-              ? 'Click the heart icon on any minifigure to add it here'
-              : 'Click the heart icon on any set to add it here'}
+              ? t('wishlist.emptyMinifigsHint')
+              : t('wishlist.emptySetsHint')}
           </p>
           <Link
             href="/"

@@ -27,7 +27,8 @@
     "viewDetails": "Ver detalles",
     "new": "Nuevo",
     "used": "Usado",
-    "copied": "¡Copiado!"
+    "copied": "¡Copiado!",
+    "showLess": "Mostrar menos"
   },
   "navigation": {
     "home": "Inicio",
@@ -439,6 +440,23 @@
       "refreshPage": "Actualiza la página en unos minutos para ver los precios actualizados.",
       "pricesWillDisplay": "Los precios ahora se mostrarán en {currencyCode}.",
       "genericError": "Ocurrió un error. Por favor, inténtalo de nuevo."
+    },
+    "quickLinks": {
+      "title": "Enlaces rápidos",
+      "priceAlerts": "Alertas de precio",
+      "priceAlertsDesc": "Gestionar notificaciones de precio"
+    },
+    "leaderboard": {
+      "title": "Clasificaciones de la comunidad",
+      "subtitle": "Controla tu visibilidad en las clasificaciones de la página de inicio de FigTracker",
+      "displayName": "Nombre para mostrar",
+      "displayNameDesc": "Dejar en blanco para usar sus iniciales. (3-30 caracteres)",
+      "showMinifig": "Mostrarme en el clasificación de los mejores coleccionistas de minifiguras",
+      "showMinifigDesc": "El número de tus minifiguras será visible públicamente",
+      "showSets": "Mostrarme en el clasificación de los mejores coleccionistas de sets",
+      "showSetsDesc": "El número de tus sets será visible públicamente",
+      "save": "Guardar configuración de clasificación",
+      "saving": "Guardando..."
     }
   },
   "search": {
@@ -515,7 +533,15 @@
     "browseButton": "Explorar minifiguras",
     "buyBrickLink": "BrickLink",
     "buyAmazon": "Amazon",
-    "buyEbay": "eBay"
+    "buyEbay": "eBay",
+    "tabs": {
+      "minifigures": "Minifiguras",
+      "sets": "Sets"
+    },
+    "emptyMinifigs": "No hay minifiguras en la lista de deseos",
+    "emptySets": "No hay sets en la lista de deseos",
+    "emptyMinifigsHint": "Haga clic en el icono de corazón de cualquier minifigura para agregarla aquí",
+    "emptySetsHint": "Haga clic en el icono de corazón de cualquier set para agregarlo aquí"
   },
   "sets": {
     "browse": {
@@ -1085,7 +1111,12 @@
     "startAddingSets": "Comienza a añadir a tu colección personal",
     "startAddingSetsInventory": "Comienza a añadir a tu inventario explorando sets",
     "browseSets": "Explorar Sets",
-    "noConditionSets": "No hay sets en condición {condition}"
+    "noConditionSets": "No hay sets en condición {condition}",
+    "priceUnavailable": "Precio no disponible",
+    "deleteFromInventory": "¿Eliminar este artículo de su inventario?",
+    "deleteFromCollection": "¿Eliminar este artículo de su colección personal?",
+    "ea": "u.",
+    "total": "total"
   },
   "privacyPolicy": {
     "meta": {
@@ -1229,11 +1260,13 @@
       "brickLinkDescRetired": "Mejor para sets retirados",
       "brickLinkDescAvailable": "Usado y nuevo disponible",
       "amazon": "Amazon",
-      "amazonDesc": "Envío rápido"
+      "amazonDesc": "Envío rápido",
+      "sponsoredLinks": "Enlaces de afiliados patrocinados"
     },
     "relatedSets": {
       "moreFrom": "Más de {theme}",
-      "featured": "Sets destacados de {theme}"
+      "featured": "Sets destacados de {theme}",
+      "title": "Sets relacionados"
     },
     "messages": {
       "addedToInventory": "¡Agregado {quantity} {condition} al inventario!",
@@ -1256,7 +1289,8 @@
       "messageInventory": "Esto eliminará permanentemente este set de tu inventario.",
       "messageCollection": "Esto eliminará permanentemente este set de tu colección.",
       "cancel": "Cancelar",
-      "confirm": "Eliminar"
+      "confirm": "Eliminar",
+      "remove": "Eliminar"
     },
     "buttons": {
       "addInventory": "+ Inventario",
@@ -1273,7 +1307,8 @@
       "yearUnknown": "Año desconocido",
       "year": "Año",
       "weight": "Peso"
-    }
+    },
+    "newestFrom": "Sets más nuevos de {theme}"
   },
   "subcategoryPage": {
     "minifigureCount": "{count} minifigura",
@@ -1910,7 +1945,9 @@
       "notFound": "Coleccionista no encontrado",
       "profilePrivate": "El perfil de este coleccionista no es público.",
       "notFoundDesc": "No encontramos un coleccionista con ese nombre de usuario.",
-      "editProfile": "Editar perfil"
+      "editProfile": "Editar perfil",
+      "conditionNew": "Nuevo",
+      "conditionUsed": "Usado"
     },
     "username": {
       "title": "Nombre de Usuario",
@@ -1982,5 +2019,50 @@
     "items": "{count} elementos",
     "viewCollection": "Ver colección",
     "collector": "Coleccionista"
+  },
+  "minifigDetail": {
+    "yearUnknown": "Año desconocido",
+    "loadingPricing": "Cargando precios...",
+    "checkingCollections": "Verificando colecciones...",
+    "addThisMinifigure": "Agregar esta minifigura",
+    "quantity": "Cantidad",
+    "toSell": "+ A vender",
+    "toKeep": "+ A conservar",
+    "itemsToSell": "Artículos a vender",
+    "itemsToKeep": "Artículos a conservar",
+    "addToKeepPrompt": "¿Agregar para conservar?",
+    "addToSellPrompt": "¿Agregar para vender?",
+    "moveToCollection": "Mover a tu colección",
+    "moveToInventory": "Mover al inventario",
+    "removeFromInventory": "Eliminar del inventario",
+    "removeFromCollection": "Eliminar de tu colección",
+    "listingSaved": "¡Listado guardado!",
+    "whereToBuy": "Dónde comprar",
+    "sponsoredLinks": "Enlaces de afiliados patrocinados",
+    "appearsInSets": "Sets LEGO que incluyen esta minifigura",
+    "appearsInSetsDesc": "Sets LEGO que incluyen esta minifigura",
+    "fromSimilarSets": "De sets similares",
+    "fromSimilarSetsDesc": "Minifiguras lanzadas al mismo tiempo",
+    "otherVariants": "Otras variantes",
+    "variantCountSingular": "1 versión diferente...",
+    "variantCountPlural": "{count} versiones diferentes...",
+    "showLess": "Mostrar menos",
+    "showMoreVariants": "Mostrar {count} variantes más",
+    "featuredSets": "Sets {theme} destacados",
+    "featuredSetsDesc": "Sets LEGO actuales de este tema",
+    "deleteFromSell": "¿Eliminar de artículos a vender?",
+    "deleteFromKeep": "¿Eliminar de artículos a conservar?",
+    "cannotBeUndone": "Esta acción no se puede deshacer.",
+    "movedToCollection": "¡Movido a la colección!",
+    "movedToInventory": "¡Movido al inventario!",
+    "legoSetsInclude": "Sets LEGO que incluyen esta minifigura",
+    "minifigsReleasedAround": "Minifiguras lanzadas al mismo tiempo",
+    "variantCountOne": "1 versión diferente...",
+    "variantCountMany": "{count} versiones diferentes...",
+    "featuredThemeSets": "Sets {theme} destacados",
+    "currentLegoSetsTheme": "Sets LEGO actuales de este tema"
+  },
+  "supportLink": {
+    "savedYouTime": "¿Ahorró tiempo? Apoya una fijación de precios rápida y precisa →"
   }
 }

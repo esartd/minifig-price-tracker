@@ -719,7 +719,7 @@ export default function AccountPage() {
             marginBottom: '20px',
             letterSpacing: '-0.01em'
           }}>
-            Quick Links
+            {t('account.quickLinks.title')}
           </h2>
           <div style={{
             display: 'grid',
@@ -759,13 +759,13 @@ export default function AccountPage() {
                   fontWeight: '600',
                   marginBottom: '2px'
                 }}>
-                  Price Alerts
+                  {t('account.quickLinks.priceAlerts')}
                 </div>
                 <div style={{
                   fontSize: 'var(--text-xs)',
                   color: '#737373'
                 }}>
-                  Manage price notifications
+                  {t('account.quickLinks.priceAlertsDesc')}
                 </div>
               </div>
             </Link>
@@ -1072,7 +1072,7 @@ export default function AccountPage() {
             marginBottom: '8px',
             letterSpacing: '-0.01em'
           }}>
-            Community Leaderboards
+            {t('account.leaderboard.title')}
           </h2>
           <p style={{
             fontSize: 'var(--text-sm)',
@@ -1080,7 +1080,7 @@ export default function AccountPage() {
             marginBottom: '32px',
             lineHeight: '1.5'
           }}>
-            Control your visibility on the FigTracker homepage leaderboards
+            {t('account.leaderboard.subtitle')}
           </p>
 
           {!loadingLeaderboard && (
@@ -1095,7 +1095,7 @@ export default function AccountPage() {
                   color: '#525252',
                   letterSpacing: '0.01em'
                 }}>
-                  Display Name
+                  {t('account.leaderboard.displayName')}
                 </label>
                 <input
                   id="leaderboardDisplayName"
@@ -1132,7 +1132,7 @@ export default function AccountPage() {
                   marginTop: '8px',
                   lineHeight: '1.5'
                 }}>
-                  Leave blank to use "{session?.user?.name?.split(' ')[0]} {session?.user?.name?.split(' ')[1]?.[0]}." (3-30 characters)
+                  {t('account.leaderboard.displayNameDesc')}
                 </p>
               </div>
 
@@ -1164,14 +1164,14 @@ export default function AccountPage() {
                       color: '#171717',
                       marginBottom: '4px'
                     }}>
-                      Show me on Top Minifig Collectors leaderboard
+                      {t('account.leaderboard.showMinifig')}
                     </span>
                     <span style={{
                       fontSize: 'var(--text-xs)',
                       color: '#737373',
                       lineHeight: '1.5'
                     }}>
-                      Your minifig collection count will be publicly visible
+                      {t('account.leaderboard.showMinifigDesc')}
                     </span>
                   </div>
                 </label>
@@ -1205,14 +1205,14 @@ export default function AccountPage() {
                       color: '#171717',
                       marginBottom: '4px'
                     }}>
-                      Show me on Top Set Collectors leaderboard
+                      {t('account.leaderboard.showSets')}
                     </span>
                     <span style={{
                       fontSize: 'var(--text-xs)',
                       color: '#737373',
                       lineHeight: '1.5'
                     }}>
-                      Your set collection count will be publicly visible
+                      {t('account.leaderboard.showSetsDesc')}
                     </span>
                   </div>
                 </label>
@@ -1237,7 +1237,7 @@ export default function AccountPage() {
                   boxSizing: 'border-box'
                 }}
               >
-                {loading ? 'Saving...' : 'Save Leaderboard Settings'}
+                {loading ? t('account.leaderboard.saving') : t('account.leaderboard.save')}
               </button>
             </form>
           )}

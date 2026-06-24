@@ -27,7 +27,8 @@
     "viewDetails": "Se detaljer",
     "new": "Ny",
     "used": "Begagnad",
-    "copied": "Kopierat!"
+    "copied": "Kopierat!",
+    "showLess": "Visa färre"
   },
   "navigation": {
     "home": "Hem",
@@ -382,6 +383,23 @@
       "refreshPage": "Refresh the page in a few minutes to see updated priss.",
       "pricesWillDisplay": "Priss will new display in {currencyCode}.",
       "genericError": "An fel occurred. Please try again."
+    },
+    "quickLinks": {
+      "title": "Snabblänkar",
+      "priceAlerts": "Prisaviseringar",
+      "priceAlertsDesc": "Hantera prisaviseringar"
+    },
+    "leaderboard": {
+      "title": "Gemenskapens topplistor",
+      "subtitle": "Kontrollera din synlighet på FigTracker hemsidans topplistor",
+      "displayName": "Visningsnamn",
+      "displayNameDesc": "Lämna tomt för att använda dina initialer. (3-30 tecken)",
+      "showMinifig": "Visa mig i rankinglistan för topp-minifigur-samlare",
+      "showMinifigDesc": "Antalet minifigurer i din samling kommer att vara offentligt synligt",
+      "showSets": "Visa mig i rankinglistan för topp-set-samlare",
+      "showSetsDesc": "Antalet set i din samling kommer att vara offentligt synligt",
+      "save": "Spara rankinglisteinställningar",
+      "saving": "Sparar..."
     }
   },
   "search": {
@@ -458,7 +476,15 @@
     "browseButton": "Bläddra Minifigurer",
     "buyBrickLink": "BrickLink",
     "buyAmazon": "Amazon",
-    "buyEbay": "eBay"
+    "buyEbay": "eBay",
+    "tabs": {
+      "minifigures": "Minifigurer",
+      "sets": "Set"
+    },
+    "emptyMinifigs": "Inga minifigurer i önskelistan",
+    "emptySets": "Inga set i önskelistan",
+    "emptyMinifigsHint": "Klicka på hjärtikonen på en minifigur för att lägga till den här",
+    "emptySetsHint": "Klicka på hjärtikonen på ett set för att lägga till det här"
   },
   "sets": {
     "browse": {
@@ -1052,7 +1078,12 @@
     "startAddingSets": "Start lägg tilling to your personal samling",
     "startAddingSetsInventory": "Start lägg tilling to your inventering by browsing set",
     "browseSets": "Bläddra Set",
-    "noConditionSets": "Inga {condition} condition set"
+    "noConditionSets": "Inga {condition} condition set",
+    "priceUnavailable": "Pris ej tillgängligt",
+    "deleteFromInventory": "Ta bort det här föremålet från ditt inventarie?",
+    "deleteFromCollection": "Ta bort det här föremålet från din personliga samling?",
+    "ea": "st",
+    "total": "totalt"
   },
   "privacyPolicy": {
     "meta": {
@@ -1196,11 +1227,13 @@
       "brickLinkDescRetired": "Best for retired set",
       "brickLinkDescAvailable": "Used & new available",
       "amazon": "Amazon",
-      "amazonDesc": "Fast shipping"
+      "amazonDesc": "Fast shipping",
+      "sponsoredLinks": "Sponsrade affiliatelänkar"
     },
     "relatedSets": {
       "moreFrom": "More from {theme}",
-      "featured": "Featured {theme} Set"
+      "featured": "Featured {theme} Set",
+      "title": "Relaterade set"
     },
     "messages": {
       "addedToInventory": "Lägg tilled {quantity} item to sell",
@@ -1223,7 +1256,8 @@
       "messageInventory": "This will permanently remove this set from your inventering.",
       "messageCollection": "This will permanently remove this set from your samling.",
       "cancel": "Avbryt",
-      "confirm": "Remove"
+      "confirm": "Remove",
+      "remove": "Ta bort"
     },
     "buttons": {
       "addInventory": "+ To sell",
@@ -1240,7 +1274,8 @@
       "yearUnknown": "Year Unknewn",
       "year": "Year",
       "weight": "Weight"
-    }
+    },
+    "newestFrom": "Nyaste set från {theme}"
   },
   "subcategoryPage": {
     "minifigureCount": "{count} minifigur",
@@ -1877,7 +1912,9 @@
       "notFound": "Samlare hittades inte",
       "profilePrivate": "Den här samlarens profil är inte offentlig.",
       "notFoundDesc": "Vi hittade ingen samlare med det användarnamnet.",
-      "editProfile": "Redigera profil"
+      "editProfile": "Redigera profil",
+      "conditionNew": "Ny",
+      "conditionUsed": "Begagnad"
     },
     "username": {
       "title": "Användarnamn",
@@ -1931,5 +1968,50 @@
     "items": "{count} föremål",
     "viewCollection": "Visa samling",
     "collector": "Samlare"
+  },
+  "minifigDetail": {
+    "yearUnknown": "År okänt",
+    "loadingPricing": "Laddar priser...",
+    "checkingCollections": "Kontrollerar samlingar...",
+    "addThisMinifigure": "Lägg till denna minifigur",
+    "quantity": "Antal",
+    "toSell": "+ Till salu",
+    "toKeep": "+ Att behålla",
+    "itemsToSell": "Saker att sälja",
+    "itemsToKeep": "Saker att behålla",
+    "addToKeepPrompt": "Lägg till att behålla?",
+    "addToSellPrompt": "Lägg till att sälja?",
+    "moveToCollection": "Flytta till din samling",
+    "moveToInventory": "Flytta till inventarie",
+    "removeFromInventory": "Ta bort från inventarie",
+    "removeFromCollection": "Ta bort från din samling",
+    "listingSaved": "Annons sparad!",
+    "whereToBuy": "Var man köper",
+    "sponsoredLinks": "Sponsrade affiliatelänkar",
+    "appearsInSets": "LEGO-set med denna minifigur",
+    "appearsInSetsDesc": "LEGO-set med denna minifigur",
+    "fromSimilarSets": "Från liknande set",
+    "fromSimilarSetsDesc": "Minifigurer utgivna ungefär samma tid",
+    "otherVariants": "Andra varianter",
+    "variantCountSingular": "1 annan version...",
+    "variantCountPlural": "{count} andra versioner...",
+    "showLess": "Visa färre",
+    "showMoreVariants": "Visa {count} fler varianter",
+    "featuredSets": "Utvalda {theme}-set",
+    "featuredSetsDesc": "Aktuella LEGO-set från detta tema",
+    "deleteFromSell": "Ta bort från saker att sälja?",
+    "deleteFromKeep": "Ta bort från saker att behålla?",
+    "cannotBeUndone": "Denna åtgärd kan inte ångras.",
+    "movedToCollection": "Flyttad till samlingen!",
+    "movedToInventory": "Flyttad till inventariet!",
+    "legoSetsInclude": "LEGO-set med denna minifigur",
+    "minifigsReleasedAround": "Minifigurer utgivna ungefär samma tid",
+    "variantCountOne": "1 annan version...",
+    "variantCountMany": "{count} andra versioner...",
+    "featuredThemeSets": "Utvalda {theme}-set",
+    "currentLegoSetsTheme": "Aktuella LEGO-set från detta tema"
+  },
+  "supportLink": {
+    "savedYouTime": "Sparade du tid? Stöd snabb, korrekt prissättning →"
   }
 }

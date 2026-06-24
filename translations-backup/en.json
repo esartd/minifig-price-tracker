@@ -27,7 +27,8 @@
     "viewDetails": "View Details",
     "new": "New",
     "used": "Used",
-    "copied": "Copied!"
+    "copied": "Copied!",
+    "showLess": "Show Less"
   },
   "navigation": {
     "home": "Home",
@@ -382,6 +383,23 @@
       "refreshPage": "Refresh the page in a few minutes to see updated prices.",
       "pricesWillDisplay": "Prices will now display in {currencyCode}.",
       "genericError": "An error occurred. Please try again."
+    },
+    "quickLinks": {
+      "title": "Quick Links",
+      "priceAlerts": "Price Alerts",
+      "priceAlertsDesc": "Manage price notifications"
+    },
+    "leaderboard": {
+      "title": "Community Leaderboards",
+      "subtitle": "Control your visibility on the FigTracker homepage leaderboards",
+      "displayName": "Display Name",
+      "displayNameDesc": "Leave blank to use your initials. (3-30 characters)",
+      "showMinifig": "Show me on Top Minifig Collectors leaderboard",
+      "showMinifigDesc": "Your minifig collection count will be publicly visible",
+      "showSets": "Show me on Top Set Collectors leaderboard",
+      "showSetsDesc": "Your set collection count will be publicly visible",
+      "save": "Save Leaderboard Settings",
+      "saving": "Saving..."
     }
   },
   "search": {
@@ -458,7 +476,15 @@
     "browseButton": "Browse Minifigures",
     "buyBrickLink": "BrickLink",
     "buyAmazon": "Amazon",
-    "buyEbay": "eBay"
+    "buyEbay": "eBay",
+    "tabs": {
+      "minifigures": "Minifigures",
+      "sets": "Sets"
+    },
+    "emptyMinifigs": "No minifigures in wishlist",
+    "emptySets": "No sets in wishlist",
+    "emptyMinifigsHint": "Click the heart icon on any minifigure to add it here",
+    "emptySetsHint": "Click the heart icon on any set to add it here"
   },
   "sets": {
     "browse": {
@@ -1051,7 +1077,12 @@
     "startAddingSets": "Start adding to your personal collection",
     "startAddingSetsInventory": "Start adding to your inventory by browsing sets",
     "browseSets": "Browse Sets",
-    "noConditionSets": "No {condition} condition sets"
+    "noConditionSets": "No {condition} condition sets",
+    "priceUnavailable": "Price unavailable",
+    "deleteFromInventory": "Delete this item from your inventory?",
+    "deleteFromCollection": "Delete this item from your personal collection?",
+    "ea": "ea",
+    "total": "total"
   },
   "privacyPolicy": {
     "meta": {
@@ -1195,11 +1226,13 @@
       "brickLinkDescRetired": "Best for retired sets",
       "brickLinkDescAvailable": "Used & new available",
       "amazon": "Amazon",
-      "amazonDesc": "Fast shipping"
+      "amazonDesc": "Fast shipping",
+      "sponsoredLinks": "Sponsored affiliate links"
     },
     "relatedSets": {
       "moreFrom": "More from {theme}",
-      "featured": "Featured {theme} Sets"
+      "featured": "Featured {theme} Sets",
+      "title": "Related Sets"
     },
     "messages": {
       "addedToInventory": "Added {quantity} item to sell",
@@ -1222,7 +1255,8 @@
       "messageInventory": "This will permanently remove this set from your inventory.",
       "messageCollection": "This will permanently remove this set from your collection.",
       "cancel": "Cancel",
-      "confirm": "Remove"
+      "confirm": "Remove",
+      "remove": "Remove"
     },
     "buttons": {
       "addInventory": "+ To sell",
@@ -1239,7 +1273,8 @@
       "yearUnknown": "Year Unknown",
       "year": "Year",
       "weight": "Weight"
-    }
+    },
+    "newestFrom": "Newest Sets from {theme}"
   },
   "subcategoryPage": {
     "minifigureCount": "{count} minifigure",
@@ -1878,7 +1913,9 @@
       "notFound": "Collector not found",
       "profilePrivate": "This collector's profile is not public.",
       "notFoundDesc": "We couldn't find a collector with that username.",
-      "editProfile": "Edit profile"
+      "editProfile": "Edit profile",
+      "conditionNew": "New",
+      "conditionUsed": "Used"
     },
     "username": {
       "title": "Username",
@@ -1932,5 +1969,50 @@
     "items": "{count} items",
     "viewCollection": "View collection",
     "collector": "Collector"
+  },
+  "minifigDetail": {
+    "yearUnknown": "Year Unknown",
+    "loadingPricing": "Loading pricing...",
+    "checkingCollections": "Checking collections...",
+    "addThisMinifigure": "Add This Minifigure",
+    "quantity": "Quantity",
+    "toSell": "+ To sell",
+    "toKeep": "+ To keep",
+    "itemsToSell": "Items to Sell",
+    "itemsToKeep": "Items to Keep",
+    "addToKeepPrompt": "Add to keep?",
+    "addToSellPrompt": "Add to sell?",
+    "moveToCollection": "Move to Your Collection",
+    "moveToInventory": "Move to Inventory",
+    "removeFromInventory": "Remove from Inventory",
+    "removeFromCollection": "Remove from Your Collection",
+    "listingSaved": "Listing saved!",
+    "whereToBuy": "Where to Buy",
+    "sponsoredLinks": "Sponsored affiliate links",
+    "appearsInSets": "LEGO sets that include this minifigure",
+    "appearsInSetsDesc": "LEGO sets that include this minifigure",
+    "fromSimilarSets": "From Similar Sets",
+    "fromSimilarSetsDesc": "Minifigures released around the same time",
+    "otherVariants": "Other Variants",
+    "variantCountSingular": "1 different version...",
+    "variantCountPlural": "{count} different versions...",
+    "showLess": "Show Less",
+    "showMoreVariants": "Show {count} More Variants",
+    "featuredSets": "Featured {theme} Sets",
+    "featuredSetsDesc": "Current LEGO sets from this theme",
+    "deleteFromSell": "Delete from items to sell?",
+    "deleteFromKeep": "Delete from items to keep?",
+    "cannotBeUndone": "This action cannot be undone.",
+    "movedToCollection": "Moved to Collection!",
+    "movedToInventory": "Moved to Inventory!",
+    "legoSetsInclude": "LEGO sets that include this minifigure",
+    "minifigsReleasedAround": "Minifigures released around the same time",
+    "variantCountOne": "1 different version...",
+    "variantCountMany": "{count} different versions...",
+    "featuredThemeSets": "Featured {theme} Sets",
+    "currentLegoSetsTheme": "Current LEGO sets from this theme"
+  },
+  "supportLink": {
+    "savedYouTime": "Saved you some time? Support quick, accurate pricing →"
   }
 }

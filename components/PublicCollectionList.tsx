@@ -37,7 +37,7 @@ interface PublicCollectionListProps {
 }
 
 export default function PublicCollectionList({ items, type }: PublicCollectionListProps) {
-  const { translations } = useTranslation();
+  const { translations, t } = useTranslation();
 
   if (items.length === 0) {
     return (
@@ -154,7 +154,7 @@ export default function PublicCollectionList({ items, type }: PublicCollectionLi
                     color: item.condition === 'new' ? '#16a34a' : '#a16207',
                   }}
                 >
-                  {item.condition === 'new' ? 'New' : 'Used'}
+                  {item.condition === 'new' ? t('collectors.profile.conditionNew') : t('collectors.profile.conditionUsed')}
                 </span>
               </div>
             </div>

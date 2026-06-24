@@ -27,7 +27,8 @@
     "viewDetails": "Details bekijken",
     "new": "Nieuw",
     "used": "Gebruikt",
-    "copied": "Gekopieerd!"
+    "copied": "Gekopieerd!",
+    "showLess": "Minder weergeven"
   },
   "navigation": {
     "home": "Home",
@@ -382,6 +383,23 @@
       "refreshPage": "Refresh the page in a few minutes to see updated prices.",
       "pricesWillDisplay": "Prices will now display in {currencyCode}.",
       "genericError": "An error occurred. Please try again."
+    },
+    "quickLinks": {
+      "title": "Snelle links",
+      "priceAlerts": "Prijsmeldingen",
+      "priceAlertsDesc": "Prijsmeldingen beheren"
+    },
+    "leaderboard": {
+      "title": "Community-ranglijsten",
+      "subtitle": "Beheer uw zichtbaarheid op de FigTracker-startpagina ranglijsten",
+      "displayName": "Weergavenaam",
+      "displayNameDesc": "Leeg laten om uw initialen te gebruiken. (3-30 tekens)",
+      "showMinifig": "Toon mij in de ranglijst van top minifiguur-verzamelaars",
+      "showMinifigDesc": "Uw aantal minifiguren zal openbaar zichtbaar zijn",
+      "showSets": "Toon mij in de ranglijst van top set-verzamelaars",
+      "showSetsDesc": "Uw aantal sets zal openbaar zichtbaar zijn",
+      "save": "Ranglijstinstellingen opslaan",
+      "saving": "Opslaan..."
     }
   },
   "search": {
@@ -458,7 +476,15 @@
     "browseButton": "Browse Minifigures",
     "buyBrickLink": "BrickLink",
     "buyAmazon": "Amazon",
-    "buyEbay": "eBay"
+    "buyEbay": "eBay",
+    "tabs": {
+      "minifigures": "Minifiguren",
+      "sets": "Sets"
+    },
+    "emptyMinifigs": "Geen minifiguren op de verlanglijst",
+    "emptySets": "Geen sets op de verlanglijst",
+    "emptyMinifigsHint": "Klik op het hartpictogram van een minifiguur om het hier toe te voegen",
+    "emptySetsHint": "Klik op het hartpictogram van een set om het hier toe te voegen"
   },
   "sets": {
     "browse": {
@@ -1052,7 +1078,12 @@
     "startAddingSets": "Start adding to your personal collection",
     "startAddingSetsInventory": "Start adding to your inventory by browsing sets",
     "browseSets": "Browse Sets",
-    "noConditionSets": "No {condition} condition sets"
+    "noConditionSets": "No {condition} condition sets",
+    "priceUnavailable": "Prijs niet beschikbaar",
+    "deleteFromInventory": "Dit artikel uit uw inventaris verwijderen?",
+    "deleteFromCollection": "Dit artikel uit uw persoonlijke collectie verwijderen?",
+    "ea": "st.",
+    "total": "totaal"
   },
   "privacyPolicy": {
     "meta": {
@@ -1196,11 +1227,13 @@
       "brickLinkDescRetired": "Best for retired sets",
       "brickLinkDescAvailable": "Used & new available",
       "amazon": "Amazon",
-      "amazonDesc": "Fast shipping"
+      "amazonDesc": "Fast shipping",
+      "sponsoredLinks": "Gesponsorde affiliate-links"
     },
     "relatedSets": {
       "moreFrom": "More from {theme}",
-      "featured": "Featured {theme} Sets"
+      "featured": "Featured {theme} Sets",
+      "title": "Gerelateerde sets"
     },
     "messages": {
       "addedToInventory": "Added {quantity} item to sell",
@@ -1223,7 +1256,8 @@
       "messageInventory": "This will permanently remove this set from your inventory.",
       "messageCollection": "This will permanently remove this set from your collection.",
       "cancel": "Cancel",
-      "confirm": "Remove"
+      "confirm": "Remove",
+      "remove": "Verwijderen"
     },
     "buttons": {
       "addInventory": "+ To sell",
@@ -1240,7 +1274,8 @@
       "yearUnknown": "Year Unknown",
       "year": "Year",
       "weight": "Weight"
-    }
+    },
+    "newestFrom": "Nieuwste sets van {theme}"
   },
   "subcategoryPage": {
     "minifigureCount": "{count} minifigure",
@@ -1877,7 +1912,9 @@
       "notFound": "Verzamelaar niet gevonden",
       "profilePrivate": "Het profiel van deze verzamelaar is niet openbaar.",
       "notFoundDesc": "We konden geen verzamelaar vinden met die gebruikersnaam.",
-      "editProfile": "Profiel bewerken"
+      "editProfile": "Profiel bewerken",
+      "conditionNew": "Nieuw",
+      "conditionUsed": "Gebruikt"
     },
     "username": {
       "title": "Gebruikersnaam",
@@ -1931,5 +1968,50 @@
     "items": "{count} items",
     "viewCollection": "Collectie bekijken",
     "collector": "Verzamelaar"
+  },
+  "minifigDetail": {
+    "yearUnknown": "Jaar onbekend",
+    "loadingPricing": "Prijzen laden...",
+    "checkingCollections": "Collecties controleren...",
+    "addThisMinifigure": "Voeg deze minifiguur toe",
+    "quantity": "Hoeveelheid",
+    "toSell": "+ Te verkopen",
+    "toKeep": "+ Om te bewaren",
+    "itemsToSell": "Artikelen te koop",
+    "itemsToKeep": "Artikelen om te bewaren",
+    "addToKeepPrompt": "Toevoegen om te bewaren?",
+    "addToSellPrompt": "Toevoegen om te verkopen?",
+    "moveToCollection": "Verplaatsen naar uw collectie",
+    "moveToInventory": "Verplaatsen naar inventaris",
+    "removeFromInventory": "Verwijder uit inventaris",
+    "removeFromCollection": "Verwijder uit uw collectie",
+    "listingSaved": "Vermelding opgeslagen!",
+    "whereToBuy": "Waar te kopen",
+    "sponsoredLinks": "Gesponsorde affiliate-links",
+    "appearsInSets": "LEGO-sets met deze minifiguur",
+    "appearsInSetsDesc": "LEGO-sets met deze minifiguur",
+    "fromSimilarSets": "Uit vergelijkbare sets",
+    "fromSimilarSetsDesc": "Minifiguren die tegelijkertijd uitkwamen",
+    "otherVariants": "Andere varianten",
+    "variantCountSingular": "1 andere versie...",
+    "variantCountPlural": "{count} andere versies...",
+    "showLess": "Minder weergeven",
+    "showMoreVariants": "Toon {count} meer varianten",
+    "featuredSets": "Uitgelichte {theme}-sets",
+    "featuredSetsDesc": "Huidige LEGO-sets van dit thema",
+    "deleteFromSell": "Verwijderen uit te verkopen artikelen?",
+    "deleteFromKeep": "Verwijderen uit te bewaren artikelen?",
+    "cannotBeUndone": "Deze actie kan niet ongedaan worden gemaakt.",
+    "movedToCollection": "Verplaatst naar collectie!",
+    "movedToInventory": "Verplaatst naar inventaris!",
+    "legoSetsInclude": "LEGO-sets met deze minifiguur",
+    "minifigsReleasedAround": "Minifiguren die tegelijkertijd uitkwamen",
+    "variantCountOne": "1 andere versie...",
+    "variantCountMany": "{count} andere versies...",
+    "featuredThemeSets": "Uitgelichte {theme}-sets",
+    "currentLegoSetsTheme": "Huidige LEGO-sets van dit thema"
+  },
+  "supportLink": {
+    "savedYouTime": "Tijd bespaard? Steun snelle, nauwkeurige prijsstelling →"
   }
 }

@@ -607,15 +607,15 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
           boxShadow: '0 8px 16px rgba(0,0,0,0.15)', fontSize: '15px', fontWeight: '600',
           cursor: 'pointer', maxWidth: '90vw'
         }}>
-          ✓ Moved to {lastMovedItem.direction === 'to-collection' ? 'Collection' : 'Inventory'}! Click anywhere to dismiss.
+          ✓ {lastMovedItem.direction === 'to-collection' ? t('setDetail.messages.movedToCollection') : t('setDetail.messages.movedToInventory')}
         </div>
       )}
 
       <div style={{ background: 'white', borderBottom: '1px solid #e5e5e5', padding: '16px' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <Breadcrumbs items={[
-            { label: 'Home', href: '/' },
-            { label: 'Set Themes', href: '/sets-themes' },
+            { label: t('setDetail.breadcrumbs.home'), href: '/' },
+            { label: t('setDetail.breadcrumbs.setThemes'), href: '/sets-themes' },
             { label: parentTheme, href: `/sets-themes/${encodeURIComponent(parentTheme)}` },
             { label: set.name }
           ]} />
@@ -669,7 +669,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                 fontSize: 'var(--text-xs)', fontWeight: '500', color: '#3b82f6',
                 textTransform: 'uppercase', letterSpacing: '0.05em', flexWrap: 'wrap' }}>
                 <span>
-                  {set.year_released && set.year_released !== '?' ? set.year_released : 'Year Unknown'}
+                  {set.year_released && set.year_released !== '?' ? set.year_released : t('setDetail.meta.yearUnknown')}
                 </span>
                 <span style={{ opacity: 0.4 }}>•</span>
                 <span>
@@ -744,7 +744,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                       border: 'none', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.2s',
                       whiteSpace: 'nowrap'
                     }}>
-                      New{newCount > 0 ? ` (${newCount})` : ''}
+                      {t('setDetail.condition.new')}{newCount > 0 ? ` (${newCount})` : ''}
                     </button>
                     <button onClick={() => setCondition('used')} style={{
                       padding: '8px 16px', fontSize: 'var(--text-sm)', fontWeight: '600',
@@ -753,7 +753,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                       border: 'none', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.2s',
                       whiteSpace: 'nowrap'
                     }}>
-                      Used{usedCount > 0 ? ` (${usedCount})` : ''}
+                      {t('setDetail.condition.used')}{usedCount > 0 ? ` (${usedCount})` : ''}
                     </button>
                   </>
                 );
@@ -762,7 +762,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
 
             {pricing.loading ? (
               <div style={{ padding: '32px', textAlign: 'center', color: '#737373' }}>
-                <p style={{ fontSize: 'var(--text-sm)' }}>Loading pricing...</p>
+                <p style={{ fontSize: 'var(--text-sm)' }}>{t('setDetail.pricing.loadingPricing')}</p>
               </div>
             ) : pricing.suggestedPrice > 0 ? (
               <div className="minifig-pricing-row pricing-3col" style={{
@@ -770,21 +770,21 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
               }}>
                 <div className="pricing-item pricing-item-1" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                   <p style={{ fontSize: 'clamp(9px, 2vw, 10px)', fontWeight: '500', color: '#737373',
-                    textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>Current Avg</p>
+                    textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>{t('setDetail.pricing.currentAvg')}</p>
                   <p style={{ fontSize: 'clamp(16px, 3.5vw, 18px)', fontWeight: '700', color: '#171717' }}>
                     {formatPrice(pricing.currentAverage, pricing.currencyCode, true)}</p>
                 </div>
                 <div className="pricing-divider" style={{ width: '1px', background: '#e5e5e5' }}></div>
                 <div className="pricing-item pricing-item-2" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                   <p style={{ fontSize: 'clamp(9px, 2vw, 10px)', fontWeight: '500', color: '#737373',
-                    textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>Lowest</p>
+                    textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>{t('setDetail.pricing.lowest')}</p>
                   <p style={{ fontSize: 'clamp(16px, 3.5vw, 18px)', fontWeight: '700', color: '#171717' }}>
                     {formatPrice(pricing.currentLowest, pricing.currencyCode, true)}</p>
                 </div>
                 <div className="pricing-divider" style={{ width: '1px', background: '#e5e5e5' }}></div>
                 <div className="pricing-item pricing-item-3" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                   <p style={{ fontSize: 'clamp(9px, 2vw, 10px)', fontWeight: '500', color: '#737373',
-                    textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>Suggested</p>
+                    textTransform: 'uppercase', letterSpacing: '0.03em', marginBottom: '6px' }}>{t('setDetail.pricing.suggested')}</p>
                   <p style={{ fontSize: 'clamp(18px, 4vw, 20px)', fontWeight: '700', color: '#3b82f6' }}>
                     {formatPrice(pricing.suggestedPrice, pricing.currencyCode, true)}</p>
                 </div>
@@ -802,17 +802,17 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
 
             <div>
               {checkingCollection ? (
-                <div style={{ textAlign: 'center', padding: '20px', color: '#737373' }}>Checking collections...</div>
+                <div style={{ textAlign: 'center', padding: '20px', color: '#737373' }}>{t('setDetail.collection.checkingCollections')}</div>
               ) : (
                 <>
                   {/* Show add buttons when neither inventory nor collection exists */}
                   {!inventoryItem && !personalCollectionItem && (
                     <div>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
-                        marginTop: 0, marginBottom: '16px' }}>Add This Set</h2>
+                        marginTop: 0, marginBottom: '16px' }}>{t('setDetail.collection.addThisSet')}</h2>
                       <div style={{ marginBottom: '12px' }}>
                         <label style={{ display: 'block', fontSize: 'var(--text-sm)', fontWeight: '500',
-                          color: '#525252', marginBottom: '8px' }}>Quantity</label>
+                          color: '#525252', marginBottom: '8px' }}>{t('setDetail.collection.quantity')}</label>
                         <div className="quantity-stepper" style={{ flex: 1 }}>
                           <button type="button" onClick={() => { if (quantity > 1) setQuantity(quantity - 1); }}
                             disabled={quantity <= 1} style={{
@@ -847,14 +847,14 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                             gap: '8px', background: addLoading ? '#a3a3a3' : '#3b82f6', color: '#ffffff',
                             border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
                             cursor: addLoading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
-                          + To sell
+                          {t('minifigDetail.toSell')}
                         </button>
                         <button onClick={() => handleAddToPersonalCollection(quantity)} disabled={addPersonalLoading}
                           style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
                             gap: '8px', background: addPersonalLoading ? '#a3a3a3' : '#3b82f6', color: '#ffffff',
                             border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
                             cursor: addPersonalLoading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
-                          + To keep
+                          {t('minifigDetail.toKeep')}
                         </button>
                       </div>
                     </div>
@@ -863,7 +863,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                   {inventoryItem && (
                     <>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
-                        marginBottom: '16px' }}>Items to Sell</h2>
+                        marginBottom: '16px' }}>{t('minifigDetail.itemsToSell')}</h2>
                       <div className="inventory-actions-container">
                         <div className="quantity-stepper">
                           <button type="button"
@@ -918,7 +918,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
                           color: '#737373', background: '#ffffff', border: '1px solid #e5e5e5', borderRadius: '8px',
                           cursor: 'pointer', padding: 0, transition: 'all 0.2s'
-                        }} title="Move to Your Collection">
+                        }} title={t('minifigDetail.moveToCollection')}>
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <polyline points="9 18 15 12 9 6"></polyline>
                           </svg>
@@ -986,10 +986,10 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                     <div style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid #e5e5e5',
                       padding: '20px', marginTop: '24px' }}>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
-                        marginBottom: '16px', marginTop: '0' }}>Add to keep?</h2>
+                        marginBottom: '16px', marginTop: '0' }}>{t('minifigDetail.addToKeepPrompt')}</h2>
                       <div style={{ marginBottom: '16px' }}>
                         <label style={{ display: 'block', fontSize: 'var(--text-sm)', fontWeight: '500',
-                          color: '#525252', marginBottom: '8px' }}>Quantity</label>
+                          color: '#525252', marginBottom: '8px' }}>{t('setDetail.collection.quantity')}</label>
                         <div className="quantity-stepper">
                           <button type="button" onClick={() => setAddToCollectionQty(Math.max(1, addToCollectionQty - 1))}
                             disabled={addToCollectionQty <= 1} style={{
@@ -1026,7 +1026,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
                           cursor: addToCollectionLoading ? 'not-allowed' : 'pointer',
                           transition: 'all 0.2s' }}>
-                        {addToCollectionLoading ? 'Adding...' : '+ Add to keep'}
+                        {addToCollectionLoading ? t('setDetail.buttons.adding') : t('setDetail.buttons.addCollection')}
                       </button>
                     </div>
                   )}
@@ -1034,7 +1034,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                   {personalCollectionItem && (
                     <>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
-                        marginBottom: '16px', marginTop: inventoryItem ? '24px' : '0' }}>Items to Keep</h2>
+                        marginBottom: '16px', marginTop: inventoryItem ? '24px' : '0' }}>{t('minifigDetail.itemsToKeep')}</h2>
                       <div className="inventory-actions-container">
                         <div className="quantity-stepper">
                           <button type="button"
@@ -1089,7 +1089,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
                           color: '#737373', background: '#ffffff', border: '1px solid #e5e5e5', borderRadius: '8px',
                           cursor: 'pointer', padding: 0, transition: 'all 0.2s'
-                        }} title="Move to Inventory">
+                        }} title={t('minifigDetail.moveToInventory')}>
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <polyline points="9 18 15 12 9 6"></polyline>
                           </svg>
@@ -1143,10 +1143,10 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                     <div style={{ background: '#ffffff', borderRadius: '12px', border: '1px solid #e5e5e5',
                       padding: '20px', marginTop: '24px' }}>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
-                        marginBottom: '16px', marginTop: '0' }}>Add to sell?</h2>
+                        marginBottom: '16px', marginTop: '0' }}>{t('minifigDetail.addToSellPrompt')}</h2>
                       <div style={{ marginBottom: '16px' }}>
                         <label style={{ display: 'block', fontSize: 'var(--text-sm)', fontWeight: '500',
-                          color: '#525252', marginBottom: '8px' }}>Quantity</label>
+                          color: '#525252', marginBottom: '8px' }}>{t('setDetail.collection.quantity')}</label>
                         <div className="quantity-stepper">
                           <button type="button" onClick={() => setAddToInventoryQty(Math.max(1, addToInventoryQty - 1))}
                             disabled={addToInventoryQty <= 1} style={{
@@ -1180,7 +1180,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           color: '#ffffff', border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)',
                           fontWeight: '600', cursor: addToInventoryLoading ? 'not-allowed' : 'pointer',
                           transition: 'all 0.2s' }}>
-                        {addToInventoryLoading ? 'Adding...' : 'Add to sell'}
+                        {addToInventoryLoading ? t('setDetail.buttons.adding') : t('setDetail.buttons.addInventory')}
                       </button>
                     </div>
                   )}
@@ -1219,14 +1219,14 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                     marginTop: 0,
                     marginBottom: '4px'
                   }} className="where-to-buy-title">
-                    Where to Buy
+                    {t('setDetail.whereToBuy.title')}
                   </h3>
                   <p style={{
                     fontSize: '10px',
                     color: '#737373',
                     margin: 0
                   }} className="where-to-buy-subtitle">
-                    Sponsored affiliate links
+                    {t('setDetail.whereToBuy.sponsoredLinks')}
                   </p>
                 </div>
 
@@ -1515,7 +1515,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
         {closeRangeSets && closeRangeSets.length > 0 && (
           <div style={{ marginTop: '48px', marginBottom: '48px' }}>
             <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: '24px', color: '#171717' }}>
-              Related Sets
+              {t('setDetail.relatedSets.title')}
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '24px' }}>
               {closeRangeSets.map(s => (
@@ -1540,7 +1540,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
         {themeSets.length > 0 && (
           <div style={{ marginTop: '48px', marginBottom: '48px' }}>
             <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: '24px', color: '#171717' }}>
-              Newest Sets from {parentTheme}
+              {t('setDetail.newestFrom').replace('{theme}', parentTheme)}
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '24px' }}>
               {themeSets.map(s => (
@@ -1611,21 +1611,21 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
             width: '100%', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}
             onClick={(e) => e.stopPropagation()}>
             <h3 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '12px', color: '#171717' }}>
-              Delete from {deleteTarget === 'inventory' ? 'items to sell' : 'items to keep'}?
+              {deleteTarget === 'inventory' ? t('minifigDetail.deleteFromSell') : t('minifigDetail.deleteFromKeep')}
             </h3>
             <p style={{ fontSize: '14px', color: '#737373', marginBottom: '24px', lineHeight: '1.5' }}>
-              This will permanently remove this set from your {deleteTarget === 'inventory' ? 'items to sell' : 'items to keep'}.
+              {deleteTarget === 'inventory' ? t('setDetail.delete.messageInventory') : t('setDetail.delete.messageCollection')}
             </p>
             <div style={{ display: 'flex', gap: '12px' }}>
               <button onClick={() => { setShowDeleteDialog(false); setDeleteTarget(null); }}
                 style={{ flex: 1, padding: '12px', background: 'white', color: '#525252', border: '1px solid #e5e5e5',
                   borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '14px', minHeight: '44px' }}>
-                Cancel
+                {t('setDetail.delete.cancel')}
               </button>
               <button onClick={deleteTarget === 'inventory' ? handleRemoveFromInventory : handleRemoveFromCollection}
                 style={{ flex: 1, padding: '12px', background: '#ef4444', color: 'white', border: 'none',
                   borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '14px', minHeight: '44px' }}>
-                Remove
+                {t('setDetail.delete.remove')}
               </button>
             </div>
           </div>
