@@ -392,7 +392,15 @@
     "searching": "Ricerca...",
     "seeAllMinifigures": "Vedi tutte le minifigure →",
     "emptyTitle": "Cerca minifigure e set",
-    "emptySubtitle": "Prova a cercare per nome, numero o tema"
+    "emptySubtitle": "Prova a cercare per nome, numero o tema",
+    "enterSearchTerm": "Inserisci un termine di ricerca",
+    "foundVariations": "{count} varianti trovate",
+    "failed": "Ricerca fallita. Riprova.",
+    "searchResults": "Risultati di ricerca",
+    "seeAllSets": "Vedi tutti i set →",
+    "showing": "Mostrando {shown} di {total} risultato",
+    "showingPlural": "Mostrando {shown} di {total} risultati",
+    "loadMore": "Carica altro ({remaining} rimanenti)"
   },
   "buyButtons": {
     "ebay": {

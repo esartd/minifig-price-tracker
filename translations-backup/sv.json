@@ -392,7 +392,15 @@
     "searching": "Söker...",
     "seeAllMinifigures": "Se alla minifigurer →",
     "emptyTitle": "Sök efter minifigurer och set",
-    "emptySubtitle": "Försök söka efter namn, nummer eller tema"
+    "emptySubtitle": "Försök söka efter namn, nummer eller tema",
+    "enterSearchTerm": "Ange ett sökord",
+    "foundVariations": "Hittade {count} varianter",
+    "failed": "Sökning misslyckades. Försök igen.",
+    "searchResults": "Sökresultat",
+    "seeAllSets": "Se alla set →",
+    "showing": "Visar {shown} av {total} resultat",
+    "showingPlural": "Visar {shown} av {total} resultat",
+    "loadMore": "Ladda mer ({remaining} kvar)"
   },
   "buyButtons": {
     "ebay": {

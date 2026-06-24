@@ -392,7 +392,15 @@
     "searching": "Searching...",
     "seeAllMinifigures": "See All Minifigures →",
     "emptyTitle": "Search for Minifigures and Sets",
-    "emptySubtitle": "Try searching by name, number, or theme"
+    "emptySubtitle": "Try searching by name, number, or theme",
+    "enterSearchTerm": "Enter a search term",
+    "foundVariations": "Found {count} variations",
+    "failed": "Search failed. Please try again.",
+    "searchResults": "Search Results",
+    "seeAllSets": "See All Sets →",
+    "showing": "Showing {shown} of {total} result",
+    "showingPlural": "Showing {shown} of {total} results",
+    "loadMore": "Load More ({remaining} remaining)"
   },
   "buyButtons": {
     "ebay": {

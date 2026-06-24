@@ -29,7 +29,7 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
     const term = searchTerm || searchQuery.trim();
 
     if (!term) {
-      setError('Enter a search term');
+      setError(t('search.enterSearchTerm'));
       return;
     }
 
@@ -51,13 +51,13 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
         } else {
           // Multiple results - show selection list
           onSearchResults(data.data);
-          setSuccess(`Found ${data.data.length} variations`);
+          setSuccess(t('search.foundVariations', { count: data.data.length }));
         }
       } else {
-        setError(data.error || 'Not found. Try different search terms.');
+        setError(data.error || t('search.notFound'));
       }
     } catch (err) {
-      setError('Search failed. Please try again.');
+      setError(t('search.failed'));
     } finally {
       setLoading(false);
     }

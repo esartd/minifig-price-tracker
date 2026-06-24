@@ -392,7 +392,15 @@
     "searching": "Zoeken...",
     "seeAllMinifigures": "Zie alle minifiguren →",
     "emptyTitle": "Zoek naar minifiguren en sets",
-    "emptySubtitle": "Probeer te zoeken op naam, nummer of thema"
+    "emptySubtitle": "Probeer te zoeken op naam, nummer of thema",
+    "enterSearchTerm": "Voer een zoekterm in",
+    "foundVariations": "{count} varianten gevonden",
+    "failed": "Zoeken mislukt. Probeer het opnieuw.",
+    "searchResults": "Zoekresultaten",
+    "seeAllSets": "Alle sets bekijken →",
+    "showing": "{shown} van {total} resultaat weergegeven",
+    "showingPlural": "{shown} van {total} resultaten weergegeven",
+    "loadMore": "Meer laden ({remaining} resterend)"
   },
   "buyButtons": {
     "ebay": {

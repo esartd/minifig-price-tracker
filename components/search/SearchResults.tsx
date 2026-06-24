@@ -23,7 +23,7 @@ export default function SearchResults({
   onCancelSelection,
   onClearSearch,
 }: SearchResultsProps) {
-  const { translations } = useTranslation();
+  const { translations, t } = useTranslation();
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const [pricing, setPricing] = useState<Record<string, { suggestedPrice: number; loading: boolean }>>({});
   const [activeTab, setActiveTab] = useState<'minifigs' | 'sets' | null>(null);
@@ -192,7 +192,7 @@ export default function SearchResults({
           letterSpacing: '-0.01em',
           marginBottom: '16px'
         }}>
-          Search Results
+          {t('search.searchResults')}
         </h2>
 
         {/* Tabs */}
@@ -387,7 +387,7 @@ export default function SearchResults({
                           e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
                         }}
                       >
-                        See All Sets →
+                        {t('search.seeAllSets')}
                       </button>
                     </div>
                   )}
@@ -410,7 +410,9 @@ export default function SearchResults({
                 color: '#737373',
                 marginBottom: '8px'
               }}>
-                Showing {paginatedResults.length} of {sortedResults.length} result{sortedResults.length !== 1 ? 's' : ''}
+                {sortedResults.length === 1
+                  ? t('search.showing', { shown: String(paginatedResults.length), total: String(sortedResults.length) })
+                  : t('search.showingPlural', { shown: String(paginatedResults.length), total: String(sortedResults.length) })}
                 {selectedTheme && ` (${displayedResults.length} total)`}
               </p>
 
@@ -456,7 +458,7 @@ export default function SearchResults({
                       e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
                     }}
                   >
-                    Load More ({sortedResults.length - displayCount} remaining)
+                    {t('search.loadMore', { remaining: String(sortedResults.length - displayCount) })}
                   </button>
                 </div>
               )}
