@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { database } from '@/lib/database';
-import { bricklinkAPI } from '@/lib/bricklink';
+import { pricingOrchestrator, LOGGED_IN_TTL_HOURS } from '@/lib/pricing-orchestrator';
 import { auth } from '@/auth';
 import { prismaPublic } from '@/lib/prisma';
 
@@ -57,39 +57,6 @@ export async function GET(request: NextRequest) {
       ...item,
       year_released: yearMap.get(item.minifigure_no) || null
     }));
-
-    // Get user's currency for comparison
-    const userCurrency = session.user?.preferredCurrency || 'USD';
-
-    // Start background pricing fetch for items with no cache OR wrong currency
-    const itemsNeedingPricing = items.filter(item =>
-      !item.pricing ||
-      item.pricing.suggestedPrice === 0 ||
-      item.pricing.currencyCode !== userCurrency
-    );
-
-    console.log(`Personal collection: ${itemsNeedingPricing.length} items need pricing refresh (user currency: ${userCurrency})`);
-
-    if (itemsNeedingPricing.length > 0) {
-      console.log(`🔄 Starting background fetch for ${itemsNeedingPricing.length} items...`);
-      // Fetch pricing in background - prices will appear progressively as they're cached
-      Promise.all(
-        itemsNeedingPricing.map((item, index) => {
-          console.log(`  [${index + 1}/${itemsNeedingPricing.length}] Fetching ${userCurrency} price for ${item.minifigure_no} (current: ${item.pricing?.currencyCode || 'none'})`);
-          return bricklinkAPI.calculatePricingData(item.minifigure_no, item.condition, countryCode, cacheRegion)
-            .then(result => {
-              console.log(`  ✅ [${index + 1}/${itemsNeedingPricing.length}] Got price for ${item.minifigure_no}: $${result.suggestedPrice}`);
-              return result;
-            })
-            .catch(err => {
-              console.error(`  ❌ [${index + 1}/${itemsNeedingPricing.length}] Pricing fetch error for ${item.minifigure_no}:`, err);
-              return null; // Continue even if one fails
-            });
-        })
-      ).then(() => {
-        console.log(`✅ Background pricing fetch completed for ${itemsNeedingPricing.length} items`);
-      }).catch(err => console.error('❌ Background pricing fetch error:', err));
-    }
 
     return NextResponse.json({
       success: true,
@@ -195,8 +162,8 @@ export async function POST(request: NextRequest) {
       display_location
     });
 
-    // Fetch pricing in background (don't await - user doesn't need to wait)
-    bricklinkAPI.calculatePricingData(minifigure_no, itemCondition, countryCode, cacheRegion)
+    // Warm the cache for this new item (respects rate limits and budget)
+    pricingOrchestrator.getMinifigPrice(minifigure_no, itemCondition, countryCode, cacheRegion, session.user.id, 'api-endpoint', false, undefined, LOGGED_IN_TTL_HOURS)
       .catch(err => console.error(`Background pricing fetch error for ${minifigure_no}:`, err));
 
     return NextResponse.json({ success: true, data: newItem }, { status: 201 });

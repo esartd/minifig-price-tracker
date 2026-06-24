@@ -14,7 +14,7 @@
  * When eBay has < 3 listings, BrickLink carries 100%.
  *
  * Cache TTL:
- *   Logged-in users  → 24 hours (fresher data)
+ *   Logged-in users  → 72 hours / 3 days
  *   Logged-out users → 7 days (week-long cache, drastically reduces BL API calls)
  *
  * Result is stored with price_source='figtracker' — never labeled as BrickLink.
@@ -26,7 +26,7 @@ import { getEbayListingPrices } from './ebay-pricing';
 import { prisma } from './prisma';
 import type { BrickLinkCallLog } from './bricklink-call-logger';
 
-const LOGGED_IN_TTL_HOURS = 24;
+const LOGGED_IN_TTL_HOURS = 3 * 24; // 3 days
 const LOGGED_OUT_TTL_HOURS = 7 * 24; // 7 days
 const RESERVE_FOR_USERS = 200;
 

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { pricingOrchestrator } from '@/lib/pricing-orchestrator';
+import { pricingOrchestrator, LOGGED_IN_TTL_HOURS, LOGGED_OUT_TTL_HOURS } from '@/lib/pricing-orchestrator';
 import { auth } from '@/auth';
 
 export async function GET(
@@ -16,7 +16,8 @@ export async function GET(
     const countryCode = session?.user?.preferredCountryCode || 'US';
     const region = session?.user?.preferredRegion || 'north_america';
 
-    const pricing = await pricingOrchestrator.getMinifigPrice(itemNo, condition, countryCode, region);
+    const cacheTtlHours = session?.user?.id ? LOGGED_IN_TTL_HOURS : LOGGED_OUT_TTL_HOURS;
+    const pricing = await pricingOrchestrator.getMinifigPrice(itemNo, condition, countryCode, region, session?.user?.id, undefined, false, undefined, cacheTtlHours);
 
     if (!pricing) {
       return NextResponse.json(
