@@ -26,7 +26,8 @@
     "minifigCount": "{count, plural, one {# minifigurer} other {# minifigurer}}",
     "viewDetails": "Se detaljer",
     "new": "Ny",
-    "used": "Begagnad"
+    "used": "Begagnad",
+    "copied": "Kopierat!"
   },
   "navigation": {
     "home": "Hem",

@@ -26,7 +26,8 @@
     "minifigCount": "{count, plural, one {# minifigure} other {# minifigures}}",
     "viewDetails": "詳細を見る",
     "new": "新品",
-    "used": "中古"
+    "used": "中古",
+    "copied": "コピーしました！"
   },
   "navigation": {
     "home": "ホーム",

@@ -207,6 +207,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             currencySymbol: true,
             locale: true,
             username: true,
+            profilePublic: true,
           }
         })
 
@@ -221,6 +222,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           token.currencySymbol = dbUser.currencySymbol
           token.locale = dbUser.locale
           token.username = dbUser.username
+          token.profilePublic = dbUser.profilePublic
         }
       }
 
@@ -239,6 +241,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (session?.username !== undefined) {
           token.username = session.username
         }
+        if (session?.profilePublic !== undefined) {
+          token.profilePublic = session.profilePublic
+        }
       }
 
       return token
@@ -255,6 +260,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.currencySymbol = token.currencySymbol as string
         session.user.locale = token.locale as string
         session.user.username = token.username as string | null | undefined
+        session.user.profilePublic = token.profilePublic as boolean | null | undefined
       }
       return session
     },

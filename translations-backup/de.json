@@ -26,7 +26,8 @@
     "minifigCount": "{count, plural, one {# Minifigur} other {# Minifiguren}}",
     "viewDetails": "Details anzeigen",
     "new": "Neu",
-    "used": "Gebraucht"
+    "used": "Gebraucht",
+    "copied": "Kopiert!"
   },
   "navigation": {
     "home": "Startseite",
