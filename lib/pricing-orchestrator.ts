@@ -14,8 +14,8 @@
  * When eBay has < 3 listings, BrickLink carries 100%.
  *
  * Cache TTL:
- *   Logged-in users  → 72 hours / 3 days
- *   Logged-out users → 7 days (week-long cache, drastically reduces BL API calls)
+ *   Logged-in users  → 168 hours / 7 days
+ *   Logged-out users → 336 hours / 14 days
  *
  * Result is stored with price_source='figtracker' — never labeled as BrickLink.
  */
@@ -26,8 +26,8 @@ import { getEbayListingPrices } from './ebay-pricing';
 import { prisma } from './prisma';
 import type { BrickLinkCallLog } from './bricklink-call-logger';
 
-const LOGGED_IN_TTL_HOURS = 3 * 24; // 3 days
-const LOGGED_OUT_TTL_HOURS = 7 * 24; // 7 days
+const LOGGED_IN_TTL_HOURS = 7 * 24; // 7 days
+const LOGGED_OUT_TTL_HOURS = 14 * 24; // 14 days
 const RESERVE_FOR_USERS = 200;
 
 interface BlendInput {
@@ -72,7 +72,7 @@ class PricingOrchestrator {
    * Get unified market price for a minifig.
    *
    * @param cacheTtlHours - How old a cache entry can be before we re-fetch.
-   *   Pass LOGGED_IN_TTL_HOURS (24) for logged-in users, LOGGED_OUT_TTL_HOURS (168) for anonymous.
+   *   Pass LOGGED_IN_TTL_HOURS (168) for logged-in users, LOGGED_OUT_TTL_HOURS (336) for anonymous.
    */
   async getMinifigPrice(
     itemNo: string,

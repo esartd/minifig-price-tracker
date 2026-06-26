@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { database } from '@/lib/database';
-import { bricklinkAPI } from '@/lib/bricklink';
+import { pricingOrchestrator, LOGGED_IN_TTL_HOURS } from '@/lib/pricing-orchestrator';
 import { auth } from '@/auth';
 
 // GET a single collection item
@@ -82,9 +82,17 @@ export async function PATCH(
 
     // If condition changed, recalculate pricing
     if (body.condition) {
-      const pricing = await bricklinkAPI.calculatePricingData(
+      const countryCode = session.user?.preferredCountryCode || 'US';
+      const pricing = await pricingOrchestrator.getMinifigPrice(
         item.minifigure_no,
-        body.condition
+        body.condition,
+        countryCode,
+        '',
+        session.user.id,
+        'api-endpoint',
+        false,
+        undefined,
+        LOGGED_IN_TTL_HOURS
       );
       body.pricing = pricing;
     }

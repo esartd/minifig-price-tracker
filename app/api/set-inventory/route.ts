@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { database } from '@/lib/database';
-import { bricklinkAPI } from '@/lib/bricklink';
+import { pricingOrchestrator, LOGGED_IN_TTL_HOURS } from '@/lib/pricing-orchestrator';
 import { getBoxByNumber } from '@/lib/boxes-data';
 import { auth } from '@/auth';
 import { prismaPublic } from '@/lib/prisma';
@@ -120,8 +120,8 @@ export async function POST(request: NextRequest) {
       pricing: undefined // No pricing yet - will be fetched in background
     });
 
-    // Fetch pricing in background (don't await - user doesn't need to wait)
-    bricklinkAPI.calculateSetPricing(box_no, condition, countryCode, region)
+    // Warm the cache for this new item via orchestrator (respects rate limits and budget)
+    pricingOrchestrator.getSetPrice(box_no, condition, countryCode, region, session.user.id, false, undefined, LOGGED_IN_TTL_HOURS)
       .catch(err => console.error(`Background pricing fetch error for ${box_no}:`, err));
 
     return NextResponse.json({

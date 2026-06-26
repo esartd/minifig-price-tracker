@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { database } from '@/lib/database';
-import { bricklinkAPI } from '@/lib/bricklink';
+import { pricingOrchestrator, LOGGED_IN_TTL_HOURS } from '@/lib/pricing-orchestrator';
 import { auth } from '@/auth';
 import { prismaPublic } from '@/lib/prisma';
 
@@ -52,21 +52,6 @@ export async function GET(request: NextRequest) {
       ...item,
       year_released: yearMap.get(item.minifigure_no) || null
     }));
-
-    // Start background pricing fetch for items with no cache (don't await - progressive loading)
-    const itemsNeedingPricing = items.filter(item => !item.pricing || item.pricing.suggestedPrice === 0);
-    if (itemsNeedingPricing.length > 0) {
-      // Fetch pricing in background - prices will appear progressively as they're cached
-      Promise.all(
-        itemsNeedingPricing.map(item =>
-          bricklinkAPI.calculatePricingData(item.minifigure_no, item.condition, countryCode, cacheRegion)
-            .catch(err => {
-              console.error(`Pricing fetch error for ${item.minifigure_no}:`, err);
-              return null; // Continue even if one fails
-            })
-        )
-      ).catch(err => console.error('Background pricing fetch error:', err));
-    }
 
     return NextResponse.json({
       success: true,
@@ -167,8 +152,8 @@ export async function POST(request: NextRequest) {
       pricing: undefined, // No pricing yet - will be fetched in background
     });
 
-    // Fetch pricing in background (don't await - user doesn't need to wait)
-    bricklinkAPI.calculatePricingData(minifigure_no, itemCondition, countryCode, cacheRegion)
+    // Warm the cache for this new item via orchestrator (respects rate limits and budget)
+    pricingOrchestrator.getMinifigPrice(minifigure_no, itemCondition, countryCode, cacheRegion, session.user.id, 'api-endpoint', false, undefined, LOGGED_IN_TTL_HOURS)
       .catch(err => console.error(`Background pricing fetch error for ${minifigure_no}:`, err));
 
     return NextResponse.json({ success: true, data: newItem }, { status: 201 });

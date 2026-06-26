@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
-import { bricklinkAPI } from '@/lib/bricklink';
+import { pricingOrchestrator, LOGGED_IN_TTL_HOURS } from '@/lib/pricing-orchestrator';
 
 export async function PATCH(
   request: NextRequest,
@@ -55,9 +55,17 @@ export async function PATCH(
     });
 
     // Get fresh pricing for the new condition
-    const pricing = await bricklinkAPI.calculatePricingData(
+    const countryCode = session.user?.preferredCountryCode || 'US';
+    const pricing = await pricingOrchestrator.getMinifigPrice(
       currentItem.minifigure_no,
-      newCondition as 'new' | 'used'
+      newCondition as 'new' | 'used',
+      countryCode,
+      '',
+      session.user.id,
+      'api-endpoint',
+      false,
+      undefined,
+      LOGGED_IN_TTL_HOURS
     );
 
     if (existingTargetItem) {

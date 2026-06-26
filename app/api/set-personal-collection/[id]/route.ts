@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { database } from '@/lib/database';
-import { bricklinkAPI } from '@/lib/bricklink';
+import { pricingOrchestrator, LOGGED_IN_TTL_HOURS } from '@/lib/pricing-orchestrator';
 import { auth } from '@/auth';
 
 // GET a single set personal collection item
@@ -85,11 +85,15 @@ export async function PATCH(
       const countryCode = session.user?.preferredCountryCode || 'US';
       const region = session.user?.preferredRegion || 'north_america';
 
-      const pricing = await bricklinkAPI.calculateSetPricing(
+      const pricing = await pricingOrchestrator.getSetPrice(
         item.box_no,
         body.condition,
         countryCode,
-        region
+        region,
+        session.user.id,
+        false,
+        undefined,
+        LOGGED_IN_TTL_HOURS
       );
       body.pricing = pricing;
     }

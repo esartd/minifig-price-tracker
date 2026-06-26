@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { database } from '@/lib/database';
-import { bricklinkAPI } from '@/lib/bricklink';
+import { pricingOrchestrator, LOGGED_IN_TTL_HOURS } from '@/lib/pricing-orchestrator';
 import { auth } from '@/auth';
 import { prisma, prismaPublic } from '@/lib/prisma';
 
@@ -108,12 +108,17 @@ export async function POST() {
           await new Promise(resolve => setTimeout(resolve, delay));
         }
 
-        // Fetch fresh pricing from Bricklink API with user's region (this updates cache with 24hr expiration)
-        const pricing = await bricklinkAPI.calculatePricingData(
+        // Fetch fresh pricing via orchestrator (enforces budget and cache TTL)
+        const pricing = await pricingOrchestrator.getMinifigPrice(
           item.minifigure_no,
           item.condition,
           countryCode,
-          region
+          region,
+          session.user.id,
+          'api-endpoint',
+          false,
+          undefined,
+          LOGGED_IN_TTL_HOURS
         );
 
         // Update the item with new pricing and timestamp
