@@ -121,6 +121,11 @@ export async function POST() {
           LOGGED_IN_TTL_HOURS
         );
 
+        if (!pricing) {
+          console.log(`⚠ No pricing available for ${item.minifigure_no}, skipping`);
+          continue;
+        }
+
         // Update the item with new pricing and timestamp
         const updatedItem = await database.updateItem(item.id, {
           pricing,
