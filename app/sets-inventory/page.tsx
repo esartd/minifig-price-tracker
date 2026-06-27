@@ -94,7 +94,7 @@ export default function SetsInventoryPage() {
         setLoading(false);
 
         // Check which items need pricing refresh (expired cache only, currency is handled client-side)
-        const STALE_THRESHOLD_MS = 24 * 60 * 60 * 1000;
+        const STALE_THRESHOLD_MS = 7 * 24 * 60 * 60 * 1000;
 
         const itemsNeedingRefresh = data.data.filter((item: SetInventoryItem) => {
           // Refresh if no pricing at all
