@@ -168,6 +168,7 @@ class DatabaseService {
       data.pricing_current_lowest = updates.pricing.currentLowest;
       data.pricing_suggested_price = updates.pricing.suggestedPrice;
       data.pricing_currency_code = updates.pricing.currencyCode;
+      data.pricing_cached_at = updates.pricing.cached_at ? new Date(updates.pricing.cached_at) : new Date();
     }
 
     try {
@@ -335,6 +336,7 @@ class DatabaseService {
       data.pricing_current_lowest = updates.pricing.currentLowest;
       data.pricing_suggested_price = updates.pricing.suggestedPrice;
       data.pricing_currency_code = updates.pricing.currencyCode;
+      data.pricing_cached_at = updates.pricing.cached_at ? new Date(updates.pricing.cached_at) : new Date();
     }
 
     try {
@@ -696,6 +698,7 @@ class DatabaseService {
       data.pricing_current_lowest = updates.pricing.currentLowest;
       data.pricing_suggested_price = updates.pricing.suggestedPrice;
       data.pricing_currency_code = updates.pricing.currencyCode;
+      data.pricing_cached_at = updates.pricing.cached_at ? new Date(updates.pricing.cached_at) : new Date();
     }
 
     const updated = await prisma.setInventoryItem.update({
@@ -828,6 +831,7 @@ class DatabaseService {
       data.pricing_current_lowest = updates.pricing.currentLowest;
       data.pricing_suggested_price = updates.pricing.suggestedPrice;
       data.pricing_currency_code = updates.pricing.currencyCode;
+      data.pricing_cached_at = updates.pricing.cached_at ? new Date(updates.pricing.cached_at) : new Date();
     }
 
     const updated = await prisma.setPersonalCollectionItem.update({
