@@ -799,6 +799,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                   {formData.condition_detail === 'new' ? (
                     <>
                       <option value="unbuilt">Unbuilt (bags sealed)</option>
+                      <option value="unbuilt_bags_opened">Unbuilt (bags opened)</option>
                     </>
                   ) : (
                     <>

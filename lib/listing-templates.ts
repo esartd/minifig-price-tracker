@@ -377,6 +377,7 @@ function generateSetListing(
   if (data.buildingStatus && !shouldHideRedundantFields) {
     const buildText: Record<string, string> = {
       'unbuilt': data.condition === 'new' ? 'Bags sealed, never built' : 'Unassembled',
+      'unbuilt_bags_opened': 'Bags opened, never built',
       'partially_built': 'Partially built',
       'fully_built': 'Fully assembled',
       'disassembled': 'Built then disassembled'
