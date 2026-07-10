@@ -25,12 +25,12 @@ Go to https://www.bricklink.com/catalogDownload.asp and download:
 
 That's all the live site reads. (`categories.txt` is optional — the converter script will process it if present, but nothing in the app currently uses `categories.json`. Files like `Catalogs.txt`, `Parts.txt`, and `Original Boxes.txt` belong to an old, unused pipeline — skip them.)
 
-Save both files into one local folder (any location is fine — it doesn't need to match a special date-based path).
+Save both files into **`Bricklink Catalog txt/`** at the project root — that's the one standing folder for this now (no more dated subfolders). Just overwrite `Sets.txt` there and add `Minifigures.txt` alongside it.
 
 ### 2. Convert to JSON
 
 ```bash
-npx tsx scripts/update-catalogs-simple.ts "/path/to/your/folder"
+npx tsx scripts/update-catalogs-simple.ts "Bricklink Catalog txt"
 ```
 
 This reads the `.txt` files and writes directly into `public/catalog/`:

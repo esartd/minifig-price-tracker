@@ -49,8 +49,9 @@ public/uploads/
 # Allow article images (curated content)
 !public/uploads/articles/
 
-# Bricklink catalog download (large file, auto-downloaded by cron)
+# Bricklink catalog downloads (large raw exports, re-downloaded from BrickLink as needed)
 Minifigures.txt
+Sets.txt
 
 # BrickLink catalog downloads (not used in app)
 Catalogs.txt
