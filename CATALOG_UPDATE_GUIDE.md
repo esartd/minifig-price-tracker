@@ -1,199 +1,80 @@
 # BrickLink Catalog Update Guide
 
-This guide explains how to update the BrickLink catalog data **twice per month** when BrickLink releases new downloads.
+This guide explains how to update the BrickLink catalog data (minifigure and set names, categories, years, weights) when BrickLink releases new downloads.
+
+There is **no automatic cron job** for this anymore — it's a manual process you run when you want fresh data. (Older docs in this repo describe a fully-automated FTP pipeline; that pipeline is not wired up to anything running in production. This guide reflects what the live app actually reads.)
 
 ---
 
 ## 📅 When to Update
 
-BrickLink typically updates their catalog files **twice per month**. Check: https://www.bricklink.com/catalogDownload.asp
+BrickLink typically refreshes their catalog files a couple times a month. Check: https://www.bricklink.com/catalogDownload.asp
 
-Set a reminder for the **1st and 15th of each month** to check for updates.
+There's no enforced schedule — update whenever you notice stale names/categories or want the latest items.
 
 ---
 
 ## 🔄 Step-by-Step Update Process
 
-### 1. Run the Update Script (First Time)
+### 1. Download 2 files from BrickLink
 
-The script will **automatically create the correct date folder**:
+Go to https://www.bricklink.com/catalogDownload.asp and download:
 
-```bash
-cd "/Users/erickkosysu/Code Projects/FigTracker"
-./update-catalog.sh
-```
+- ✅ **Minifigures.txt**
+- ✅ **Sets.txt**
 
-The script will:
-- ✅ Create folder: `Bricklink Catalog txt/2026/4/` (or current year/month)
-- ✅ Tell you where to download files
+That's all the live site reads. (`categories.txt` is optional — the converter script will process it if present, but nothing in the app currently uses `categories.json`. Files like `Catalogs.txt`, `Parts.txt`, and `Original Boxes.txt` belong to an old, unused pipeline — skip them.)
 
-Example output:
-```
-📁 Creating directory: /Users/erickkosysu/Code Projects/FigTracker/Bricklink Catalog txt/2026/4
-✅ Directory created
+Save both files into one local folder (any location is fine — it doesn't need to match a special date-based path).
 
-📥 Now download BrickLink catalog files to this directory:
-   /Users/erickkosysu/Code Projects/FigTracker/Bricklink Catalog txt/2026/4
-```
-
-### 2. Download BrickLink Catalog Files
-
-1. Go to https://www.bricklink.com/catalogDownload.asp
-2. Download these 5 files:
-   - ✅ **Minifigures.txt** (Required)
-   - ✅ **Catalogs.txt** (Sets)
-   - ✅ **Parts.txt** 
-   - ✅ **Original Boxes.txt**
-   - ✅ **categories.txt** (Required)
-
-3. Save them to the folder shown by the script:
-   - **2026 April:** `Bricklink Catalog txt/2026/4/`
-   - **2026 May:** `Bricklink Catalog txt/2026/5/`
-   - **2026 June:** `Bricklink Catalog txt/2026/6/`
-   - *(Script automatically uses current year/month)*
-
-### 3. Run the Script Again
-
-After downloading files:
+### 2. Convert to JSON
 
 ```bash
-cd "/Users/erickkosysu/Code Projects/FigTracker"
-./update-catalog.sh
+npx tsx scripts/update-catalogs-simple.ts "/path/to/your/folder"
 ```
 
-The script will:
-- ✅ Verify all 5 files are present
-- ✅ Convert TXT files to JSON
-- ✅ Upload JSON files to Hostinger CDN
-- ✅ Update metadata with timestamp
+This reads the `.txt` files and writes directly into `public/catalog/`:
+- `minifigs.json`
+- `boxes.json` (this is the **Sets** catalog, despite the name — `lib/boxes-data.ts` reads it for LEGO sets)
 
-### 4. Verify the Update
+It only updates item names, categories, years, and weights. **It never touches minifig/set descriptions** — those live in the `MinifigCatalog`/`SetsCatalog` database tables, which this script doesn't go near (see [CATALOG_DESCRIPTIONS_SYSTEM.md](CATALOG_DESCRIPTIONS_SYSTEM.md)).
 
-Visit these URLs to confirm:
-```bash
-curl https://figtracker.ericksu.com/catalog/metadata.json
-```
+Check the item counts it prints — a sudden large drop usually means a bad/partial download from BrickLink.
 
-Check the `lastUpdated` timestamp.
-
----
-
-## 📂 Folder Structure (Automatically Created)
-
-```
-Bricklink Catalog txt/
-├── 2026/
-│   ├── 4/          ← April 2026
-│   │   ├── Minifigures.txt
-│   │   ├── Catalogs.txt
-│   │   ├── Parts.txt
-│   │   ├── Original Boxes.txt
-│   │   └── categories.txt
-│   ├── 5/          ← May 2026 (created automatically)
-│   │   └── (download files here)
-│   └── 6/          ← June 2026 (created automatically)
-│       └── (download files here)
-└── 2027/
-    └── 1/          ← January 2027 (created automatically)
-        └── (download files here)
-```
-
-**The script automatically creates folders based on current date!**
-
----
-
-## 🎯 Quick Reference
+### 3. Commit and push
 
 ```bash
-# Run TWICE per month (1st and 15th):
-
-cd "/Users/erickkosysu/Code Projects/FigTracker"
-
-# 1. First run - creates folder and shows path
-./update-catalog.sh
-
-# 2. Download TXT files to the shown path
-# (Go to https://www.bricklink.com/catalogDownload.asp)
-
-# 3. Second run - converts and uploads
-./update-catalog.sh
-
-# 4. Verify
-curl https://figtracker.ericksu.com/catalog/metadata.json
+git add public/catalog/minifigs.json public/catalog/boxes.json
+git commit -m "Update BrickLink catalog data"
+git push origin main
 ```
 
----
+### 4. Deploy
 
-## 🔧 Advanced Usage
-
-### Specify Custom Date Folder
-
-If you want to use a different date:
+This is a data-only change — no code changed, so you can skip the rebuild:
 
 ```bash
-# Use specific year/month
-npx tsx scripts/update-bricklink-catalog.ts "2026/5"
-
-# Use specific date folder
-npx tsx scripts/update-bricklink-catalog.ts "2027/1"
+ssh -i ~/.ssh/figtracker_vps root@187.77.202.14 'cd /var/www/figtracker && git pull && pm2 restart figtracker'
 ```
 
-### One-Time Setup
+The restart matters: `minifigs.json` is cached in memory for 24 hours (`lib/catalog-static.ts`) and `boxes.json` for 15 minutes (`lib/boxes-data.ts`). Without restarting, the running server keeps serving the old data until those caches expire on their own.
 
-First time only, set your Hostinger FTP password:
+### 5. Verify
 
-```bash
-nano .env.catalog
-# Change: HOSTINGER_FTP_PASSWORD=your_actual_password
-# Save: Ctrl+O, Enter, Ctrl+X
-```
+Search for a minifig/set you know was recently added on BrickLink, or spot-check an existing item's category/year on the live site.
 
 ---
 
 ## 🔍 Troubleshooting
 
-### "Missing required files"
-Download all 5 files from BrickLink to the correct folder.
+### "Minifigures.txt not found" / "Sets.txt not found"
+The converter looks for those exact filenames (case-sensitive) in the folder you pass it. Make sure you didn't rename them on download.
 
-### "HOSTINGER_FTP_PASSWORD not set"
-Edit `.env.catalog` and add your password:
-```bash
-nano .env.catalog
-```
-
-### "Directory not found"
-The script creates it automatically on first run. Just run it again after downloading files.
+### Item counts look way too low
+Usually means BrickLink's download was truncated or the wrong file got saved. Re-download and re-run.
 
 ---
 
-## 📊 What Gets Updated
-
-Each update uploads:
-- **minifigs.json** (18,732 items, ~8 MB)
-- **sets.json** (5,076 items, ~1.5 MB)
-- **parts.json** (93,973 items, ~31 MB)
-- **boxes.json** (21,340 items, ~6.6 MB)
-- **categories.json** (1,179 items, ~134 KB)
-- **metadata.json** (timestamp, ~1 KB)
-
-**Total:** ~47 MB per update
-
----
-
-## 📅 Monthly Checklist
-
-- [ ] **1st of month:** Run `./update-catalog.sh`
-- [ ] Download 5 TXT files from BrickLink
-- [ ] Run `./update-catalog.sh` again
-- [ ] Verify: `curl https://figtracker.ericksu.com/catalog/metadata.json`
-
-- [ ] **15th of month:** Run `./update-catalog.sh`
-- [ ] Download 5 TXT files from BrickLink
-- [ ] Run `./update-catalog.sh` again
-- [ ] Verify: `curl https://figtracker.ericksu.com/catalog/metadata.json`
-
----
-
-**Last Updated:** April 2026  
-**Update Frequency:** Twice per month (1st and 15th)  
-**Automation:** Semi-automated (manual download, auto folder creation, auto conversion & upload)
+**Last updated:** 2026-07-10
+**Update frequency:** As needed, manual
+**Automation:** None currently — fully manual (see note at top about the old automated pipeline)
