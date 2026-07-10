@@ -8,20 +8,20 @@ export const revalidate = 86400; // Cache for 24 hours
 export async function GET() {
   try {
     const filePath = path.join(process.cwd(), 'public', 'catalog', 'minifigs.json');
+    const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
-    // Stream the file instead of loading into memory
-    const stream = fs.createReadStream(filePath);
-
-    return new NextResponse(stream as any, {
-      headers: {
-        'Cache-Control': 'public, max-age=86400, immutable',
-        'Content-Type': 'application/json',
-      },
-    });
+    return NextResponse.json(
+      { success: true, data },
+      {
+        headers: {
+          'Cache-Control': 'public, max-age=86400, immutable',
+        },
+      }
+    );
   } catch (error) {
     console.error('Error serving catalog:', error);
     return NextResponse.json(
-      { error: 'Failed to load catalog' },
+      { success: false, error: 'Failed to load catalog' },
       { status: 500 }
     );
   }
