@@ -393,7 +393,7 @@
       "title": "Community Leaderboards",
       "subtitle": "Control your visibility on the FigTracker homepage leaderboards",
       "displayName": "Display Name",
-      "displayNameDesc": "Shown on your public profile and the community leaderboards. Leave blank to use your initials. (3-30 characters)",
+      "displayNameDesc": "Shown on your public profile and the community leaderboards — also creates your profile link. Leave blank to use your initials. (3-30 characters)",
       "showMinifig": "Show me on Top Minifig Collectors leaderboard",
       "showMinifigDesc": "Your minifig collection count will be publicly visible",
       "showSets": "Show me on Top Set Collectors leaderboard",
@@ -1930,7 +1930,7 @@
       "reserved": "This username is reserved",
       "saved": "Username saved!",
       "profileUrl": "Your profile: {url}",
-      "setPrompt": "Set a username to enable your public profile"
+      "setPrompt": "Save a display name above to create your public profile link"
     },
     "visibility": {
       "title": "Public Profile",

@@ -393,7 +393,7 @@
       "title": "Classificações da comunidade",
       "subtitle": "Controle sua visibilidade nas classificações da página inicial do FigTracker",
       "displayName": "Nome de exibição",
-      "displayNameDesc": "Exibido no seu perfil público e nas classificações da comunidade. Deixe em branco para usar suas iniciais. (3-30 caracteres)",
+      "displayNameDesc": "Exibido no seu perfil público e nas classificações da comunidade — também cria seu link de perfil. Deixe em branco para usar suas iniciais. (3-30 caracteres)",
       "showMinifig": "Mostrar-me na classificação dos melhores colecionadores de minifiguras",
       "showMinifigDesc": "O número de suas minifiguras será visível publicamente",
       "showSets": "Mostrar-me na classificação dos melhores colecionadores de sets",
@@ -1929,7 +1929,7 @@
       "reserved": "Este nome de usuário está reservado",
       "saved": "Nome de usuário salvo!",
       "profileUrl": "Seu perfil: {url}",
-      "setPrompt": "Defina um nome de usuário para ativar seu perfil público"
+      "setPrompt": "Salve um nome de exibição acima para criar seu link de perfil público"
     },
     "visibility": {
       "title": "Perfil Público",

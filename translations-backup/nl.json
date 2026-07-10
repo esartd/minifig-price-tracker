@@ -393,7 +393,7 @@
       "title": "Community-ranglijsten",
       "subtitle": "Beheer uw zichtbaarheid op de FigTracker-startpagina ranglijsten",
       "displayName": "Weergavenaam",
-      "displayNameDesc": "Wordt getoond op uw openbare profiel en de community-ranglijsten. Leeg laten om uw initialen te gebruiken. (3-30 tekens)",
+      "displayNameDesc": "Wordt getoond op uw openbare profiel en de community-ranglijsten — maakt ook uw profiellink aan. Leeg laten om uw initialen te gebruiken. (3-30 tekens)",
       "showMinifig": "Toon mij in de ranglijst van top minifiguur-verzamelaars",
       "showMinifigDesc": "Uw aantal minifiguren zal openbaar zichtbaar zijn",
       "showSets": "Toon mij in de ranglijst van top set-verzamelaars",
@@ -1929,7 +1929,7 @@
       "reserved": "Deze gebruikersnaam is gereserveerd",
       "saved": "Gebruikersnaam opgeslagen!",
       "profileUrl": "Uw profiel: {url}",
-      "setPrompt": "Stel een gebruikersnaam in om uw openbare profiel te activeren"
+      "setPrompt": "Sla hierboven een weergavenaam op om uw openbare profiellink aan te maken"
     },
     "visibility": {
       "title": "Openbaar Profiel",

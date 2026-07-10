@@ -450,7 +450,7 @@
       "title": "Community-Ranglisten",
       "subtitle": "Kontrollieren Sie Ihre Sichtbarkeit in den FigTracker-Ranglisten",
       "displayName": "Anzeigename",
-      "displayNameDesc": "Wird auf Ihrem öffentlichen Profil und in den Community-Ranglisten angezeigt. Leer lassen, um Ihre Initialen zu verwenden. (3-30 Zeichen)",
+      "displayNameDesc": "Wird auf Ihrem öffentlichen Profil und in den Community-Ranglisten angezeigt – erstellt außerdem Ihren Profil-Link. Leer lassen, um Ihre Initialen zu verwenden. (3-30 Zeichen)",
       "showMinifig": "Zeige mich in der Top-Minifiguren-Sammler-Rangliste",
       "showMinifigDesc": "Ihre Minifigurenanzahl wird öffentlich sichtbar sein",
       "showSets": "Zeige mich in der Top-Sets-Sammler-Rangliste",
@@ -1961,7 +1961,7 @@
       "reserved": "Dieser Benutzername ist reserviert",
       "saved": "Benutzername gespeichert!",
       "profileUrl": "Dein Profil: {url}",
-      "setPrompt": "Lege einen Benutzernamen fest, um dein öffentliches Profil zu aktivieren"
+      "setPrompt": "Speichere oben einen Anzeigenamen, um deinen öffentlichen Profil-Link zu erstellen"
     },
     "visibility": {
       "title": "Öffentliches Profil",

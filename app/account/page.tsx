@@ -7,7 +7,6 @@ import Link from 'next/link';
 import { getCurrenciesByContinent, SUPPORTED_CURRENCIES } from '@/lib/currency-config';
 import { formatPrice } from '@/lib/format-price';
 import { useTranslation } from '@/components/TranslationProvider';
-import SetUsernamePrompt from '@/components/SetUsernamePrompt';
 
 export default function AccountPage() {
   const { t, locale } = useTranslation();
@@ -495,6 +494,9 @@ export default function AccountPage() {
 
       if (data.success) {
         showMessage('success', 'Leaderboard settings updated successfully!');
+        if (data.username && data.username !== session?.user?.username) {
+          await update({ username: data.username });
+        }
       } else {
         showMessage('error', data.error || 'Failed to update settings');
       }
@@ -988,11 +990,6 @@ export default function AccountPage() {
             {t('collectors.visibility.subtitle') || 'Let others browse your LEGO collection and see you on the community leaderboards'}
           </p>
 
-          {/* Username */}
-          <div style={{ marginBottom: '28px' }}>
-            <SetUsernamePrompt onSaved={() => {}} />
-          </div>
-
           {!loadingLeaderboard && (
             <form onSubmit={handleLeaderboardUpdate}>
               {/* Display Name */}
@@ -1099,7 +1096,7 @@ export default function AccountPage() {
                 </button>
               </div>
 
-              {session.user.username && (
+              {session.user.username ? (
                 <p style={{ margin: '-12px 0 24px', fontSize: 'var(--text-xs)', color: '#a3a3a3' }}>
                   Your profile:{' '}
                   <a
@@ -1108,6 +1105,10 @@ export default function AccountPage() {
                   >
                     /collectors/{session.user.username}
                   </a>
+                </p>
+              ) : (
+                <p style={{ margin: '-12px 0 24px', fontSize: 'var(--text-xs)', color: '#a3a3a3' }}>
+                  {t('collectors.username.setPrompt') || 'Save a display name above to create your public profile link'}
                 </p>
               )}
 

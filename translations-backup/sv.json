@@ -393,7 +393,7 @@
       "title": "Gemenskapens topplistor",
       "subtitle": "Kontrollera din synlighet på FigTracker hemsidans topplistor",
       "displayName": "Visningsnamn",
-      "displayNameDesc": "Visas på din offentliga profil och gemenskapens topplistor. Lämna tomt för att använda dina initialer. (3-30 tecken)",
+      "displayNameDesc": "Visas på din offentliga profil och gemenskapens topplistor — skapar även din profillänk. Lämna tomt för att använda dina initialer. (3-30 tecken)",
       "showMinifig": "Visa mig i rankinglistan för topp-minifigur-samlare",
       "showMinifigDesc": "Antalet minifigurer i din samling kommer att vara offentligt synligt",
       "showSets": "Visa mig i rankinglistan för topp-set-samlare",
@@ -1929,7 +1929,7 @@
       "reserved": "Det här användarnamnet är reserverat",
       "saved": "Användarnamnet sparades!",
       "profileUrl": "Din profil: {url}",
-      "setPrompt": "Ange ett användarnamn för att aktivera din offentliga profil"
+      "setPrompt": "Spara ett visningsnamn ovan för att skapa din offentliga profillänk"
     },
     "visibility": {
       "title": "Offentlig Profil",
