@@ -393,12 +393,12 @@
       "title": "Gemenskapens topplistor",
       "subtitle": "Kontrollera din synlighet på FigTracker hemsidans topplistor",
       "displayName": "Visningsnamn",
-      "displayNameDesc": "Lämna tomt för att använda dina initialer. (3-30 tecken)",
+      "displayNameDesc": "Visas på din offentliga profil och gemenskapens topplistor. Lämna tomt för att använda dina initialer. (3-30 tecken)",
       "showMinifig": "Visa mig i rankinglistan för topp-minifigur-samlare",
       "showMinifigDesc": "Antalet minifigurer i din samling kommer att vara offentligt synligt",
       "showSets": "Visa mig i rankinglistan för topp-set-samlare",
       "showSetsDesc": "Antalet set i din samling kommer att vara offentligt synligt",
-      "save": "Spara rankinglisteinställningar",
+      "save": "Spara ändringar",
       "saving": "Sparar..."
     }
   },
@@ -1933,7 +1933,7 @@
     },
     "visibility": {
       "title": "Offentlig Profil",
-      "subtitle": "Låt andra bläddra i din LEGO-samling på din offentliga profilsida",
+      "subtitle": "Låt andra bläddra i din LEGO-samling och se dig på gemenskapens topplistor",
       "public": "Profilen är Offentlig",
       "private": "Profilen är Privat",
       "publicDescription": "Din samling är synlig på din offentliga profil",

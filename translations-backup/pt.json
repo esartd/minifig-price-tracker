@@ -393,12 +393,12 @@
       "title": "Classificações da comunidade",
       "subtitle": "Controle sua visibilidade nas classificações da página inicial do FigTracker",
       "displayName": "Nome de exibição",
-      "displayNameDesc": "Deixe em branco para usar suas iniciais. (3-30 caracteres)",
+      "displayNameDesc": "Exibido no seu perfil público e nas classificações da comunidade. Deixe em branco para usar suas iniciais. (3-30 caracteres)",
       "showMinifig": "Mostrar-me na classificação dos melhores colecionadores de minifiguras",
       "showMinifigDesc": "O número de suas minifiguras será visível publicamente",
       "showSets": "Mostrar-me na classificação dos melhores colecionadores de sets",
       "showSetsDesc": "O número de seus sets será visível publicamente",
-      "save": "Salvar configurações de classificação",
+      "save": "Salvar alterações",
       "saving": "Salvando..."
     }
   },
@@ -1933,7 +1933,7 @@
     },
     "visibility": {
       "title": "Perfil Público",
-      "subtitle": "Deixe outros navegar pela sua coleção de LEGO na sua página de perfil público",
+      "subtitle": "Deixe outros navegar pela sua coleção de LEGO e vê-lo nas classificações da comunidade",
       "public": "Perfil é Público",
       "private": "Perfil é Privado",
       "publicDescription": "Sua coleção está visível no seu perfil público",

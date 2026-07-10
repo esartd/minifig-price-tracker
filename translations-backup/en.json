@@ -393,12 +393,12 @@
       "title": "Community Leaderboards",
       "subtitle": "Control your visibility on the FigTracker homepage leaderboards",
       "displayName": "Display Name",
-      "displayNameDesc": "Leave blank to use your initials. (3-30 characters)",
+      "displayNameDesc": "Shown on your public profile and the community leaderboards. Leave blank to use your initials. (3-30 characters)",
       "showMinifig": "Show me on Top Minifig Collectors leaderboard",
       "showMinifigDesc": "Your minifig collection count will be publicly visible",
       "showSets": "Show me on Top Set Collectors leaderboard",
       "showSetsDesc": "Your set collection count will be publicly visible",
-      "save": "Save Leaderboard Settings",
+      "save": "Save Changes",
       "saving": "Saving..."
     }
   },
@@ -1934,7 +1934,7 @@
     },
     "visibility": {
       "title": "Public Profile",
-      "subtitle": "Let others browse your LEGO collection on your public profile page",
+      "subtitle": "Let others browse your LEGO collection and see you on the community leaderboards",
       "public": "Profile is Public",
       "private": "Profile is Private",
       "publicDescription": "Your collection is visible at your public profile",

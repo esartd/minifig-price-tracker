@@ -450,12 +450,12 @@
       "title": "Community-Ranglisten",
       "subtitle": "Kontrollieren Sie Ihre Sichtbarkeit in den FigTracker-Ranglisten",
       "displayName": "Anzeigename",
-      "displayNameDesc": "Leer lassen, um Ihre Initialen zu verwenden. (3-30 Zeichen)",
+      "displayNameDesc": "Wird auf Ihrem öffentlichen Profil und in den Community-Ranglisten angezeigt. Leer lassen, um Ihre Initialen zu verwenden. (3-30 Zeichen)",
       "showMinifig": "Zeige mich in der Top-Minifiguren-Sammler-Rangliste",
       "showMinifigDesc": "Ihre Minifigurenanzahl wird öffentlich sichtbar sein",
       "showSets": "Zeige mich in der Top-Sets-Sammler-Rangliste",
       "showSetsDesc": "Ihre Setanzahl wird öffentlich sichtbar sein",
-      "save": "Ranglisteneinstellungen speichern",
+      "save": "Änderungen speichern",
       "saving": "Wird gespeichert..."
     }
   },
@@ -1965,7 +1965,7 @@
     },
     "visibility": {
       "title": "Öffentliches Profil",
-      "subtitle": "Lass andere deine LEGO-Sammlung auf deiner öffentlichen Profilseite durchsuchen",
+      "subtitle": "Lass andere deine LEGO-Sammlung durchsuchen und dich in den Community-Ranglisten sehen",
       "public": "Profil ist öffentlich",
       "private": "Profil ist privat",
       "publicDescription": "Deine Sammlung ist auf deinem öffentlichen Profil sichtbar",
