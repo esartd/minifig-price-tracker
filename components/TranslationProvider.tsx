@@ -28,12 +28,12 @@ export function TranslationProvider({
       if (value && typeof value === 'object') {
         value = value[k];
       } else {
-        return key; // Return key if translation not found
+        return ''; // Missing translation — let callers' `|| fallback` take over
       }
     }
 
     if (typeof value !== 'string') {
-      return key;
+      return '';
     }
 
     // Replace parameters like {name}, {count}, etc.

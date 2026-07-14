@@ -70,7 +70,7 @@
     "setsForSale": "Set till salu",
     "setsToKeep": "Set att behålla",
     "articles": "Artiklar",
-    "community": "Community",
+    "community": "Gemenskap",
     "support": "Hjälp",
     "guides": "Guider",
     "language": "Språk",
@@ -285,8 +285,8 @@
     "seriesLabel": "Serie",
     "otherMinifigures": "Other {theme} Minifigurer",
     "uncategorizedDesc": "{count} minifigurr that don't belong to a specific serie",
-    "showLess": "Show Less",
-    "readMore": "Read More",
+    "showLess": "Visa mindre",
+    "readMore": "Läs mer",
     "meta": {
       "title": "Bläddra LEGO Minifigurer by Tema - Star Wars, Harry Potter & More",
       "description": "Explore LEGO minifigurr organized by tema. Bläddra Star Wars, Harry Potter, Marvel, DC, Ninjago, and 50+ other teman. Get pricing data and track your samling.",
@@ -297,68 +297,68 @@
   },
   "account": {
     "title": "Kontoinställningar",
-    "subtitle": "Manage your profile, security, and data preferences",
+    "subtitle": "Hantera din profil, säkerhet och datainställningar",
     "backToCollection": "Tillbaka to Samling",
     "stats": {
-      "totalItems": "Total Items",
+      "totalItems": "Totalt antal artiklar",
       "collectionValue": "Samling Value",
-      "memberSince": "Member Since"
+      "memberSince": "Medlem sedan"
     },
     "profile": {
-      "title": "Profile Information",
+      "title": "Profilinformation",
       "avatar": {
-        "change": "Change Avatar",
+        "change": "Byt avatar",
         "cancel": "Avbryt"
       },
-      "fullName": "Full Name",
+      "fullName": "Fullständigt namn",
       "emailAddress": "Email Lägg tillress",
       "emailNote": "Email cannet be changed for security reasons",
       "placeholders": {
-        "name": "Enter your full name"
+        "name": "Ange ditt fullständiga namn"
       },
       "save": "Spara",
-      "saving": "Saving..."
+      "saving": "Sparar..."
     },
     "security": {
-      "title": "Security",
+      "title": "Säkerhet",
       "currentPassword": "Aktuella Password",
-      "newPassword": "New Password",
+      "newPassword": "Nytt lösenord",
       "confirmPassword": "Bekräfta New Password",
       "placeholders": {
         "currentPassword": "Enter aktuella password",
-        "newPassword": "Enter new password",
+        "newPassword": "Ange nytt lösenord",
         "confirmPassword": "Bekräfta new password"
       },
-      "changePassword": "Change Password",
-      "changing": "Changing..."
+      "changePassword": "Byt lösenord",
+      "changing": "Byter..."
     },
     "regional": {
-      "title": "Regional Settings",
-      "subtitle": "Choose your preferred currency and language",
-      "currency": "Currency",
-      "language": "Language",
+      "title": "Regionala inställningar",
+      "subtitle": "Välj din valuta och ditt språk",
+      "currency": "Valuta",
+      "language": "Språk",
       "note": "Changing your currency will display priss in your selected region's marketplace. Priss may differ from other regions due to local supply, demand, and shipping costs."
     },
     "sharing": {
       "title": "Dela Samling",
       "subtitle": "Dela your samling with others via a public link (read-only)",
-      "publicSharing": "Public Sharing",
+      "publicSharing": "Offentlig delning",
       "enabled": "Your samling is visible to anyone with the link",
       "disabled": "Your samling is private",
       "shareLink": "Dela Link",
-      "copy": "Copy",
-      "copied": "Copied",
+      "copy": "Kopiera",
+      "copied": "Kopierat",
       "linkNote": "Anyone with this link can visa your samling and inventering (read-only)",
       "enableSuccess": "Samling sharing enabled",
       "disableSuccess": "Samling sharing disabled",
-      "error": "Failed to toggle sharing"
+      "error": "Det gick inte att ändra delningsinställningen"
     },
     "dataManagement": {
-      "title": "Data Management",
+      "title": "Datahantering",
       "export": {
         "title": "Export Samling Data",
         "subtitle": "Download your entire samling as a JSON file",
-        "button": "Export Data",
+        "button": "Exportera data",
         "success": "Samling data exported successfully",
         "error": "Failed to export samling data"
       },
@@ -372,14 +372,14 @@
       }
     },
     "messages": {
-      "nameUpdated": "Name updated successfully",
-      "avatarUpdated": "Avatar updated!",
-      "passwordChanged": "Password changed successfully",
+      "nameUpdated": "Namnet har uppdaterats",
+      "avatarUpdated": "Avataren har uppdaterats!",
+      "passwordChanged": "Lösenordet har ändrats",
       "passwordMismatch": "New passwords do net match",
-      "passwordTooShort": "Password must be at least 8 characters",
-      "currencyUpdated": "Currency updated to {currencyName} ({currencySymbol})",
+      "passwordTooShort": "Lösenordet måste vara minst 8 tecken",
+      "currencyUpdated": "Valutan har ändrats till {currencyName} ({currencySymbol})",
       "updatingPrices": "Updating priss for {itemCount} items in your samling.",
-      "estimatedTime": "Estimated time: {minutes} minute{plural}",
+      "estimatedTime": "Uppskattad tid: {minutes} minut{plural}",
       "refreshPage": "Refresh the page in a few minutes to see updated priss.",
       "pricesWillDisplay": "Priss will new display in {currencyCode}.",
       "genericError": "An fel occurred. Please try again."
@@ -429,41 +429,41 @@
     },
     "amazon": {
       "name": "Amazon",
-      "description": "Fast shipping & easy returns",
+      "description": "Snabb frakt & enkla returer",
       "sponsored": "Sponsrad",
       "shopOn": "Handla på Amazon",
       "buyOn": "Köp på Amazon"
     },
     "bricklink": {
       "name": "BrickLink",
-      "description": "Largest LEGO marketplace"
+      "description": "Största LEGO-marknadsplatsen"
     }
   },
   "pricing": {
-    "sixMonthAvg": "6 Mo Avg",
+    "sixMonthAvg": "6 mån snitt",
     "currentAvg": "Aktuella Avg",
-    "lowest": "Lowest",
-    "highest": "Highest",
+    "lowest": "Lägst",
+    "highest": "Högst",
     "suggestedPrice": "Suggested Pris",
     "priceHistory": "Pris History",
     "noPricing": "Inga pricing data available",
-    "refreshPricing": "Refresh Pricing",
+    "refreshPricing": "Uppdatera priser",
     "sourceEbay": "Pris från eBay",
     "sourceEbayTooltip": "Priser uppskattas från aktuella marknadsdata.",
     "ebayFallbackTitle": "Uppskattat från aktiva eBay-annonser",
     "ebayFallbackExplain": "Priser uppskattas från aktuella marknadsdata och uppdateras automatiskt.",
-    "ebayLoggedOutTitle": "eBay Market Pricing",
-    "ebayLoggedOutExplain": "Pricing based on current eBay market data.",
+    "ebayLoggedOutTitle": "eBay-marknadspris",
+    "ebayLoggedOutExplain": "Prissättning baserad på aktuell marknadsdata från eBay.",
     "ebayLoggedOutCta": "Logga in för personliga priser →",
     "sourceBrickLink": "Pris från BrickLink"
   },
   "errors": {
     "notFound": "Ingat found",
-    "unauthorized": "Unauthorized",
+    "unauthorized": "Ej auktoriserad",
     "serverError": "Server fel. Please try again.",
     "networkError": "Network fel. Check your connection.",
-    "invalidInput": "Invalid input",
-    "requiredField": "This field is required"
+    "invalidInput": "Ogiltig inmatning",
+    "requiredField": "Detta fält är obligatoriskt"
   },
   "wishlist": {
     "title": "My Önskelista",
@@ -497,23 +497,23 @@
       "noSetsFound": "Inga set found",
       "tryAdjusting": "Try adjusting your sök or bläddra by tema",
       "foundSets": "Found {count} set",
-      "inTheme": "in {theme}",
-      "year": "Year",
-      "weight": "Weight"
+      "inTheme": "i {theme}",
+      "year": "År",
+      "weight": "Vikt"
     }
   },
   "faq": {
-    "badge": "HELP CENTER",
+    "badge": "HJÄLPCENTER",
     "title": "Vanliga frågor",
     "subtitle": "Everything you need to knew om pricing and tracking LEGO minifigurr",
-    "stillHaveQuestions": "Still have questions?",
-    "cantFindAnswer": "Can't find the answer you're looking for? Reach out to our support team.",
+    "stillHaveQuestions": "Har du fler frågor?",
+    "cantFindAnswer": "Hittar du inte svaret du letar efter? Hör av dig till vårt supportteam.",
     "contactSupport": "Kontakt Support",
     "emailUs": "Email us with any questions or feedtillbaka",
     "cta": {
-      "title": "Ready to price your next listing?",
-      "subtitle": "Search any minifigure or set and get a suggested price in seconds.",
-      "button": "Start Pricing →"
+      "title": "Redo att prissätta din nästa annons?",
+      "subtitle": "Sök efter valfri minifigur eller valfritt set och få ett prisförslag på några sekunder.",
+      "button": "Börja prissätta →"
     },
     "items": [
       {
@@ -582,97 +582,97 @@
       }
     ],
     "meta": {
-      "title": "FAQ - Frequently Asked Questions | FigTracker",
+      "title": "Vanliga frågor | FigTracker",
       "description": "Common questions om FigTracker LEGO minifigur and set pris tracker. Learn how to pris items, track inventering in 15+ currencies, and use Bricklink data effectively.",
       "keywords": "LEGO pricing FAQ, Bricklink help, minifigur pricing guide, FigTracker help, how to pris LEGO, LEGO set tracker",
-      "ogTitle": "Frequently Asked Questions | FigTracker",
+      "ogTitle": "Vanliga frågor | FigTracker",
       "ogDescription": "Get answers om pricing LEGO minifigurr and set with FigTracker. 15+ currencies, 18,000+ minifigurr, 20,000+ set."
     }
   },
   "homepage": {
     "stats": {
-      "minifigsTracked": "Minifigures you can price",
-      "setsInCatalog": "Sets in the catalog",
+      "minifigsTracked": "Minifigurer du kan prissätta",
+      "setsInCatalog": "Set i katalogen",
       "realTime": "Realtid",
-      "bricklinkPricing": "Currencies supported",
+      "bricklinkPricing": "Valutor som stöds",
       "free": "Gratis",
-      "forCollectorsSellers": "No account required to search"
+      "forCollectorsSellers": "Inget konto krävs för att söka"
     }
   },
   "about": {
     "badge": "Om FIGTRACKER",
     "hero": {
-      "title": "One Price. No Guesswork.",
-      "subtitle": "The fastest way to price LEGO minifigures and sets. Free for every seller."
+      "title": "Ett pris. Inga gissningar.",
+      "subtitle": "Det snabbaste sättet att prissätta LEGO-minifigurer och set. Gratis för alla säljare."
     },
     "problem": {
-      "title": "Pricing LEGO sets and minifigures shouldn't feel like homework.",
-      "paragraph1": "You open BrickLink and see sold prices and listings. New and Used. Each with a minimum, average, quantity-weighted average, and maximum. That's 24 different numbers to sort through before you can price a single item.",
-      "paragraph2": "Then you do the mental math, trying to land on something fair. <strong>Every. Single. Time.</strong>"
+      "title": "Att prissätta LEGO-set och minifigurer ska inte kännas som läxor.",
+      "paragraph1": "Du öppnar BrickLink och ser sålda priser och annonser. Nytt och begagnat. Vart och ett med ett minimum, ett snitt, ett kvantitetsviktat snitt och ett maximum. Det blir 24 olika siffror att gå igenom innan du kan prissätta en enda artikel.",
+      "paragraph2": "Sedan gör du huvudräkningen och försöker landa i något rättvist. <strong>Varje. Enda. Gång.</strong>"
     },
     "stats": {
-      "pricePoints": "Numbers from BrickLink",
-      "suggestedPrice": "Price from FigTracker",
-      "mentalMath": "Mental math"
+      "pricePoints": "Siffror från BrickLink",
+      "suggestedPrice": "Pris från FigTracker",
+      "mentalMath": "Huvudräkning"
     },
     "features": {
-      "title": "Everything you need. Nothing extra.",
-      "subtitle": "Price and track your inventory in one place.",
+      "title": "Allt du behöver. Inget extra.",
+      "subtitle": "Prissätt och håll koll på din inventering på ett ställe.",
       "pricing": {
-        "title": "One Suggested Price",
-        "description": "We blend BrickLink and eBay data into a single number you can actually use. No spreadsheets. No mental math."
+        "title": "Ett prisförslag",
+        "description": "Vi blandar data från BrickLink och eBay till en enda siffra du faktiskt kan använda. Inga kalkylblad. Ingen huvudräkning."
       },
       "inventory": {
-        "title": "Sell and Keep, Separated",
-        "description": "Track items you're selling and your personal collection in separate lists. Quantities, conditions, and total value at a glance."
+        "title": "Sälja och behålla, separerat",
+        "description": "Håll koll på det du säljer och din personliga samling i separata listor. Antal, skick och totalt värde med en blick."
       },
       "search": {
-        "title": "Find Any Figure in Seconds",
+        "title": "Hitta vilken figur som helst på sekunder",
         "description": "Search minifigures and sets by BrickLink ID or name. Browse by theme when you want to explore."
       },
       "privacy": {
-        "title": "Prices That Reflect the Market",
-        "description": "Our suggested price blends recent sold data with current listings. One number that accounts for what buyers are actually paying."
+        "title": "Priser som speglar marknaden",
+        "description": "Vårt prisförslag blandar nyligen sålda priser med aktuella annonser. En siffra som visar vad köpare faktiskt betalar."
       }
     },
     "personas": {
-      "title": "Built for anyone who sells LEGO",
+      "title": "Byggd för alla som säljer LEGO",
       "subtitle": "",
       "resellers": {
-        "title": "Resellers",
-        "description": "You move volume. FigTracker prices your inventory so you can focus on sourcing and shipping."
+        "title": "Återförsäljare",
+        "description": "Du säljer i stora volymer. FigTracker prissätter din inventering så att du kan fokusera på inköp och frakt."
       },
       "partTime": {
-        "title": "Part-time Sellers",
-        "description": "You sell when life allows. Get a fair price without spending your evening on research."
+        "title": "Deltidssäljare",
+        "description": "Du säljer när livet tillåter. Få ett rättvist pris utan att lägga kvällen på research."
       },
       "casual": {
-        "title": "Casual Sellers",
-        "description": "You have a few figs to list. Search, price, post. Done in minutes."
+        "title": "Tillfälliga säljare",
+        "description": "Du har några figurer att lägga upp. Sök, prissätt, publicera. Klart på några minuter."
       }
     },
     "trust": {
-      "badge": "FREE TO USE",
+      "badge": "GRATIS ATT ANVÄNDA",
       "title": "Free to use. Inga hidden fees.",
       "description": "Your inventering data is private and secure. Aktuellaly free with ne payment required to track your samling.",
-      "secure": "Secure & Private",
-      "fast": "Fast & Reliable",
+      "secure": "Säkert & privat",
+      "fast": "Snabbt & pålitligt",
       "free": "Inga Payment Required"
     },
     "support": {
-      "title": "Need Help?",
-      "subtitle": "Found a bug or have a feature request? We'd love to hear from you.",
+      "title": "Behöver du hjälp?",
+      "subtitle": "Hittat en bugg eller har ett önskemål om en funktion? Vi vill gärna höra från dig.",
       "contactTitle": "Kontakt Support",
       "contactDescription": "Email us with any issues, questions, or feedtillbaka"
     },
     "cta": {
-      "title": "Ready to price your next listing?",
-      "subtitle": "Search any minifigure or set and get a suggested price in seconds.",
-      "button": "Start Pricing →"
+      "title": "Redo att prissätta din nästa annons?",
+      "subtitle": "Sök efter valfri minifigur eller valfritt set och få ett prisförslag på några sekunder.",
+      "button": "Börja prissätta →"
     },
     "meta": {
-      "title": "About FigTracker - Price Any LEGO Minifigure or Set in Seconds",
-      "description": "FigTracker turns 24 BrickLink data points into one suggested price for any LEGO minifigure or set. Dual inventory, 15+ currencies, completely free.",
+      "title": "Om FigTracker – Prissätt vilken LEGO-minifigur eller vilket set som helst på sekunder",
+      "description": "FigTracker omvandlar 24 datapunkter från BrickLink till ett prisförslag för valfri LEGO-minifigur eller valfritt set. Dubbel inventering, 15+ valutor, helt gratis.",
       "keywords": "om FigTracker, LEGO pris tracker, BrickLink API tool, minifigur pricing, LEGO set pricing, LEGO samling manager, LEGO inventering tracker, free LEGO pricing, LEGO seller tool"
     }
   },
@@ -687,29 +687,29 @@
     "popularTitle": "Populära set",
     "popularSubtitle": "Set som samlare älskar",
     "shopAmazon": "Handla på Amazon",
-    "affiliate": "Affiliate",
+    "affiliate": "Affiliatelänk",
     "availableNow": "Tillgänglig nu",
     "retiringSoon": "Snart utgången"
   },
   "supportPage": {
-    "title": "Support FigTracker",
+    "title": "Stötta FigTracker",
     "subtitle": "Behåll our LEGO pris tracker free for the community",
     "intro": "FigTracker provides free LEGO pris tracking for 18,000+ minifigurr and 20,000+ set with smart market pricing from multiple sources. We cover costs through affiliate commissions when you shop through our links. Here's how you can help:",
-    "shopLinksTitle": "Shop Through Our Links",
+    "shopLinksTitle": "Köp via våra länkar",
     "shopLinksDescription": "When you're ready to buy LEGO set or minifigurr, use the \"Buy on eBay\" or \"Buy on Amazon\" buttons on product pages (marked \"Sponsored\").",
     "shopLinksNote": "You pay the same pris — we earn a smalla commission to keep the site running.",
-    "donateLabel": "Or support us directly:",
+    "donateLabel": "Eller stötta oss direkt:",
     "donateLeaderboard": "Doners appear on the Top Supporters leaderboard on our hempage",
     "donateButton": "Donera via PayPal",
-    "thankYou": "Thank you for supporting FigTracker!",
+    "thankYou": "Tack för att du stöttar FigTracker!",
     "meta": {
-      "title": "Support FigTracker - Help Keep It Free",
-      "description": "Help keep FigTracker free. Shop through our affiliate links or donate directly. Built by one LEGO seller for the community.",
+      "title": "Stötta FigTracker – hjälp oss hålla det gratis",
+      "description": "Hjälp till att hålla FigTracker gratis. Handla via våra affiliatelänkar eller donera direkt. Byggt av en LEGO-säljare för gemenskapen.",
       "keywords": "support FigTracker, LEGO affiliate links, help FigTracker, support LEGO pris tracker, donate to FigTracker"
     },
-    "heroTitle": "Help Keep This Free",
+    "heroTitle": "Hjälp till att hålla det gratis",
     "pricingViews": "Du har kontrollerat {count} priser — varje kontroll sparade dig tid",
-    "builtBy": "Built by one LEGO seller in Utah. Every affiliate click and donation keeps the lights on.",
+    "builtBy": "Byggt av en LEGO-säljare i Utah. Varje affiliateklick och donation hjälper till att hålla sajten igång.",
     "shopLinksTitle2": "Köp via våra länkar",
     "shopLinksDesc2": "Vi tjänar en liten provision när du köper via våra eBay-, Amazon- eller LEGO-länkar. Inga extra kostnader för dig.",
     "donateDirect": "Donera direkt",
@@ -734,51 +734,51 @@
   "footer": {
     "faq": "FAQ",
     "guides": "Guider",
-    "articles": "Articles",
+    "articles": "Artiklar",
     "support": "Support",
-    "supportUs": "Support Us",
+    "supportUs": "Stötta oss",
     "contact": "Kontakt",
-    "privacy": "Privacy",
-    "disclosure": "Disclosure",
-    "commission": "We earn a commission from qualifying purchases.",
-    "learnMore": "Learn more",
-    "buyLego": "Shop on LEGO.com",
-    "buyAmazon": "Shop on Amazon",
+    "privacy": "Integritet",
+    "disclosure": "Affiliate-info",
+    "commission": "Vi tjänar en provision på kvalificerade köp.",
+    "learnMore": "Läs mer",
+    "buyLego": "Handla på LEGO.com",
+    "buyAmazon": "Handla på Amazon",
     "dataProvidedBy": "Minifigur data provided by",
     "bricklinkTrademark": "The term \"BrickLink\" is a trademark of the LEGO Group BrickLink. This application uses the BrickLink API but is net endorsed or certified by LEGO BrickLink, Inc.",
-    "legoTrademark": "LEGO® is a trademark of the LEGO Group.",
+    "legoTrademark": "LEGO® är ett varumärke som tillhör LEGO Group.",
     "allRightsReserved": "Alla rights reserved.",
-    "createdBy": "Created by",
+    "createdBy": "Skapad av",
     "browse": "Bläddra",
     "resources": "Resurser",
     "accountLegal": "Konto & Juridiskt",
     "aboutFigTracker": "Om FigTracker",
-    "aboutDescription": "FigTracker gives you one suggested price for any LEGO minifigure or set, so you can list faster and sell with confidence.",
+    "aboutDescription": "FigTracker ger dig ett prisförslag för valfri LEGO-minifigur eller valfritt set, så att du kan lägga upp annonser snabbare och sälja med förtroende.",
     "affiliateDisclosure": "Som Amazon Associate, LEGO Affiliate och eBay Partner tjänar FigTracker på kvalificerade köp.",
-    "bricklinkDisclosure": "Market data sourced from multiple marketplaces including BrickLink. The term \"BrickLink\" is a trademark of the LEGO Group. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.",
+    "bricklinkDisclosure": "Marknadsdata hämtas från flera marknadsplatser, däribland BrickLink. Termen \"BrickLink\" är ett varumärke som tillhör LEGO Group. Den här applikationen använder BrickLink API men är inte godkänd eller certifierad av LEGO BrickLink, Inc.",
     "copyright": "© {year} FigTracker. Alla rättigheter förbehållna."
   },
   "disclosure": {
-    "title": "Affiliate Disclosure",
-    "lastUpdated": "Last Updated",
+    "title": "Information om affiliatelänkar",
+    "lastUpdated": "Senast uppdaterad",
     "affiliatePrograms": {
-      "title": "Affiliate Programs",
+      "title": "Affiliateprogram",
       "paragraph1": "FigTracker participates in the LEGO.com Affiliate Program, Amazon Associates Program, and eBay Partner Network. When you click on featured product links and make a purchase, we may earn a smalla commission at ne lägg tillitional cost to you.",
-      "paragraph2": "These affiliate partnerships help support FigTracker's development and maintenance while keeping the tool free to use."
+      "paragraph2": "Dessa affiliatepartnerskap hjälper till att finansiera utveckling och underhåll av FigTracker samtidigt som verktyget förblir gratis att använda."
     },
     "trademark": {
       "title": "LEGO® Trademark Ingatice",
       "text": "LEGO® is a trademark of the LEGO Group which does net sponsor, authorize, or endorse this site."
     },
     "questions": {
-      "title": "Questions?",
+      "title": "Frågor?",
       "text": "If you have questions om our affiliate relationships, please kontakt us through our",
       "aboutPage": "Om page"
     },
     "meta": {
-      "title": "Affiliate Disclosure - FigTracker",
+      "title": "Information om affiliatelänkar - FigTracker",
       "description": "FigTracker participates in the LEGO.com Affiliate Program, Amazon Associates Program, and eBay Partner Network. Learn om our affiliate partnerships and how we earn commissions.",
-      "keywords": "FigTracker affiliate disclosure, LEGO affiliate program, Amazon Associates, eBay Partner Network, affiliate links disclaimer"
+      "keywords": "FigTracker affiliateinformation, LEGO affiliateprogram, Amazon Associates, eBay Partner Network, ansvarsfriskrivning för affiliatelänkar"
     }
   },
   "trending": {
@@ -796,8 +796,8 @@
   },
   "guides": {
     "meta": {
-      "title": "LEGO Pricing Guides for Sellers | FigTracker",
-      "description": "Practical guides for pricing and selling LEGO minifigures. Learn how to use BrickLink data, price by condition, and manage your inventory.",
+      "title": "LEGO-prisguider för säljare | FigTracker",
+      "description": "Praktiska guider för att prissätta och sälja LEGO-minifigurer. Lär dig använda BrickLink-data, prissätta efter skick och hantera din inventering.",
       "keywords": [
         "LEGO pricing guide",
         "how to pris minifigurr",
@@ -808,29 +808,29 @@
       "ogTitle": "LEGO Pricing Guider & Tips",
       "ogDescription": "Learn how to pris, sell, and manage your LEGO minifigur inventering effectively"
     },
-    "pageTitle": "Articles",
+    "pageTitle": "Artiklar",
     "badge": "Guider & RESOURCES",
     "hero": {
-      "title": "Sell Smarter, Not Longer",
-      "subtitle": "Practical guides for pricing, listing, and managing your LEGO inventory."
+      "title": "Sälj smartare, inte mer",
+      "subtitle": "Praktiska guider för att prissätta, lägga upp och hantera din LEGO-inventering."
     },
-    "whatYoullLearn": "What you'll learn:",
-    "readGuide": "Read Guide →",
-    "comingSoon": "Coming soon",
+    "whatYoullLearn": "Vad du kommer att lära dig:",
+    "readGuide": "Läs guiden →",
+    "comingSoon": "Kommer snart",
     "category": "Guide",
-    "readTime": "5 min read",
+    "readTime": "5 min läsning",
     "quickTips": {
-      "title": "Quick Pricing Tips",
+      "title": "Snabba pristips",
       "tip1": {
         "title": "Refresh Priss Regularly",
         "description": "Marketplace priss change frequently. Refresh pricing data before listing to ensure competitive pricing."
       },
       "tip2": {
-        "title": "Condition Matters",
+        "title": "Skicket spelar roll",
         "description": "New minifigurr command 20-50% higher priss than used. Grade condition honestly to build buyer trust."
       },
       "tip3": {
-        "title": "Use Multiple Data Points",
+        "title": "Använd flera datapunkter",
         "description": "Don't rely on just one metric. FigTracker's suggested pris balances quantity-weighted average, simple average, and lowest pris."
       }
     },
@@ -909,20 +909,20 @@
   },
   "auth": {
     "signup": {
-      "title": "Track What You're Selling",
-      "subtitle": "One account. Unlimited items. Always free.",
+      "title": "Håll koll på det du säljer",
+      "subtitle": "Ett konto. Obegränsat antal artiklar. Alltid gratis.",
       "features": {
         "trackUnlimited": "Track unlimited items",
         "realtimePrices": "Real-time suggested priss",
         "totalValue": "Knew your total inventering value"
       },
-      "name": "Name",
+      "name": "Namn",
       "email": "Email Lägg tillress",
-      "password": "Password",
+      "password": "Lösenord",
       "placeholders": {
-        "name": "Your name",
-        "email": "your@email.com",
-        "password": "At least 6 characters"
+        "name": "Ditt namn",
+        "email": "din@epost.com",
+        "password": "Minst 6 tecken"
       },
       "button": "Create Konto",
       "buttonLoading": "Creating Konto...",
@@ -940,74 +940,74 @@
       "title": "Welcome Tillbaka",
       "subtitle": "Sign in to access your inventering",
       "email": "Email Lägg tillress",
-      "password": "Password",
+      "password": "Lösenord",
       "placeholders": {
-        "email": "your@email.com",
-        "password": "Enter your password"
+        "email": "din@epost.com",
+        "password": "Ange ditt lösenord"
       },
       "button": "Logga in",
-      "buttonLoading": "Signing in...",
+      "buttonLoading": "Loggar in...",
       "dontHaveAccount": "Don't have an konto?",
       "signUpLink": "Registrera dig",
       "errors": {
-        "invalid": "Invalid email or password",
+        "invalid": "Ogiltig e-post eller lösenord",
         "generic": "An fel occurred. Please try again."
       },
       "continueWithGoogle": "Fortsätt med Google",
       "continueWithEmail": "Fortsätt med e-post"
     },
     "forgotPassword": {
-      "title": "Reset Password",
-      "subtitle": "Enter your email and we'll send you a link to reset your password.",
+      "title": "Återställ lösenord",
+      "subtitle": "Ange din e-post så skickar vi en länk för att återställa ditt lösenord.",
       "email": "Email Lägg tillress",
       "placeholders": {
-        "email": "your@email.com"
+        "email": "din@epost.com"
       },
-      "button": "Send Reset Link",
-      "buttonLoading": "Sending...",
+      "button": "Skicka återställningslänk",
+      "buttonLoading": "Skickar...",
       "backToSignIn": "Tillbaka to Sign In",
       "success": {
-        "title": "Check Your Email",
-        "message": "We've sent a password reset link to",
+        "title": "Kontrollera din e-post",
+        "message": "Vi har skickat en återställningslänk till",
         "button": "Tillbaka to Sign In"
       },
       "errors": {
-        "failed": "Failed to send reset email",
+        "failed": "Det gick inte att skicka återställningsmejlet",
         "generic": "An fel occurred. Please try again."
       }
     },
     "resetPassword": {
-      "title": "Set New Password",
-      "subtitle": "Enter your new password below.",
-      "newPassword": "New Password",
+      "title": "Ange nytt lösenord",
+      "subtitle": "Ange ditt nya lösenord nedan.",
+      "newPassword": "Nytt lösenord",
       "confirmPassword": "Bekräfta New Password",
-      "resetButton": "Reset Password",
-      "resetting": "Resetting...",
+      "resetButton": "Återställ lösenord",
+      "resetting": "Återställer...",
       "backToSignIn": "← Tillbaka to Sign In",
-      "successTitle": "Password Reset Successful",
+      "successTitle": "Lösenordet har återställts",
       "successMessage": "Your password has been changed. You can new sign in with your new password.",
-      "invalidToken": "Invalid or missing reset token",
+      "invalidToken": "Ogiltig eller saknad återställningstoken",
       "passwordsMismatch": "Passwords do net match",
-      "passwordTooShort": "Password must be at least 8 characters",
-      "resetFailed": "Failed to reset password",
+      "passwordTooShort": "Lösenordet måste vara minst 8 tecken",
+      "resetFailed": "Det gick inte att återställa lösenordet",
       "errorOccurred": "An fel occurred. Please try again.",
       "placeholders": {
-        "newPassword": "Enter new password",
+        "newPassword": "Ange nytt lösenord",
         "confirmPassword": "Bekräfta new password"
       }
     },
-    "footer": "Price your inventory in seconds, not hours.",
-    "footerText": "Price your inventory in seconds, not hours."
+    "footer": "Prissätt din inventering på sekunder, inte timmar.",
+    "footerText": "Prissätt din inventering på sekunder, inte timmar."
   },
   "newsletter": {
-    "title": "Monthly Price Movers",
-    "subtitle": "Which minifigs went up, which dropped, and what it means for your inventory. One email a month.",
-    "placeholder": "your@email.com",
-    "button": "Subscribe Free",
-    "buttonLoading": "Subscribing...",
+    "title": "Månadens prisrörelser",
+    "subtitle": "Vilka minifigurer som gått upp, vilka som gått ner, och vad det betyder för din inventering. Ett mejl i månaden.",
+    "placeholder": "din@epost.com",
+    "button": "Prenumerera gratis",
+    "buttonLoading": "Prenumererar...",
     "success": "Thanks! Check your email to bekräfta subscription.",
     "errors": {
-      "generic": "Something went wrong. Please try again.",
+      "generic": "Något gick fel. Försök igen.",
       "network": "Network fel. Please try again."
     },
     "privacy": "Inga spam. Unsubscribe anytime. We respect your privacy."
@@ -1015,55 +1015,55 @@
   "collection": {
     "title": "Your Samling",
     "subtitle": "Your personal samling — minifigurr you're keeping, net selling",
-    "inventory": "Items to Sell",
+    "inventory": "Artiklar att sälja",
     "addToCollection": "Lägg till to keep",
     "addToInventory": "Lägg till to sell",
     "addMinifigs": "Lägg till Minifigurer",
     "removeFromCollection": "Remove from Samling",
     "moveToInventory": "Move to Inventering",
     "moveToCollection": "Move to Samling",
-    "totalValue": "Total Value",
-    "totalItems": "Total Items",
-    "avgValue": "Avg Value",
-    "updating": "Updating",
-    "items": "Items",
+    "totalValue": "Totalt värde",
+    "totalItems": "Totalt antal artiklar",
+    "avgValue": "Snittvärde",
+    "updating": "Uppdaterar",
+    "items": "Artiklar",
     "emptyState": "Your samling is empty",
     "noMinifigsYet": "Inga minifigurr yet",
     "startAdding": "Start lägg tilling to your personal samling",
     "searchMinifigs": "Sök Minifigurer",
     "noConditionMinifigs": "Inga {condition} condition minifigurr",
-    "otherConditions": "You have {count} items in other conditions",
-    "condition": "Condition",
+    "otherConditions": "Du har {count} artiklar i andra skick",
+    "condition": "Skick",
     "conditions": {
       "new": "New",
-      "likeNew": "Like New",
-      "good": "Good",
-      "fair": "Fair"
+      "likeNew": "Som ny",
+      "good": "Bra",
+      "fair": "Godkänd"
     },
     "filters": {
       "all": "Alla",
       "new": "New",
-      "used": "Used"
+      "used": "Begagnad"
     },
     "sort": {
       "dateNewest": "Date Lägg tilled: Newest → Oldest",
       "dateOldest": "Date Lägg tilled: Oldest → Newest",
       "priceHigh": "Pris: High → Low",
       "priceLow": "Pris: Low → High",
-      "nameAZ": "Name: A → Z",
-      "nameZA": "Name: Z → A",
-      "idLowHigh": "ID: Low → High",
-      "idHighLow": "ID: High → Low",
-      "yearNewest": "Year: Newest → Oldest",
-      "yearOldest": "Year: Oldest → Newest"
+      "nameAZ": "Namn: A → Ö",
+      "nameZA": "Namn: Ö → A",
+      "idLowHigh": "ID: Lågt → Högt",
+      "idHighLow": "ID: Högt → Lågt",
+      "yearNewest": "År: Nyast → Äldst",
+      "yearOldest": "År: Äldst → Nyast"
     },
     "pricing": {
       "pricesOlderThanSixHours": "Uppdaterar priser",
       "refreshingNow": "Refreshing new",
-      "remaining": "remaining",
-      "updatingPrices": "Updating...",
+      "remaining": "återstår",
+      "updatingPrices": "Uppdaterar...",
       "noSellersAvailable": "Inga sellers available",
-      "pricingDailyLimit": "Pricing unavailable right now — check back soon",
+      "pricingDailyLimit": "Prissättning inte tillgänglig just nu — försök igen snart",
       "loadingPrice": "Laddar pris..."
     },
     "inventoryTitle": "Your Inventering",
@@ -1087,18 +1087,18 @@
   },
   "privacyPolicy": {
     "meta": {
-      "title": "Privacy Policy",
+      "title": "Integritetspolicy",
       "description": "Learn how FigTracker collects, uses, and protects your personal information and inventering data.",
-      "ogDescription": "Learn how we protect your privacy and handle your data."
+      "ogDescription": "Läs om hur vi skyddar din integritet och hanterar dina uppgifter."
     },
-    "title": "Privacy Policy",
-    "lastUpdated": "Last Updated: {date}",
+    "title": "Integritetspolicy",
+    "lastUpdated": "Senast uppdaterad: {date}",
     "introduction": {
-      "title": "Introduction",
+      "title": "Introduktion",
       "content": "FigTracker (\"we,\" \"our,\" or \"us\") is operated by ES Art & D LLC. This Privacy Policy explains how we collect, use, and protect your information when you use our LEGO minifigur pris tracking and inventering management service."
     },
     "informationWeCollect": {
-      "title": "Information We Collect",
+      "title": "Information vi samlar in",
       "accountInformation": {
         "title": "Konto Information",
         "intro": "When you create an konto, we collect:",
@@ -1119,8 +1119,8 @@
         ]
       },
       "usageAnalytics": {
-        "title": "Usage Analytics",
-        "intro": "We use Google Analytics to understand how users interact with FigTracker:",
+        "title": "Användningsanalys",
+        "intro": "Vi använder Google Analytics för att förstå hur användare interagerar med FigTracker:",
         "items": [
           "Pages visited",
           "Sök queries (minifigur sökes only)",
@@ -1130,8 +1130,8 @@
       }
     },
     "howWeUse": {
-      "title": "How We Use Your Information",
-      "intro": "We use collected information to:",
+      "title": "Hur vi använder din information",
+      "intro": "Vi använder insamlad information för att:",
       "items": [
         "Provide inventering tracking and pricing features",
         "Fetch market pricing data from multiple sources",
@@ -1141,8 +1141,8 @@
       ]
     },
     "dataStorage": {
-      "title": "Data Storage and Security",
-      "intro": "Your data is stored securely:",
+      "title": "Datalagring och säkerhet",
+      "intro": "Dina uppgifter lagras säkert:",
       "items": [
         "Passwords are encrypted using industry-standard bcrypt hashing",
         "Data is stored in secure, encrypted databases",
@@ -1151,26 +1151,26 @@
       ]
     },
     "thirdPartyServices": {
-      "title": "Third-Party Services",
+      "title": "Tredjepartstjänster",
       "bricklink": {
-        "title": "Bricklink API",
+        "title": "BrickLink API",
         "content": "We use the official Bricklink API to fetch minifigur pricing data. When you sök for or lägg till minifigurr, we send minifigur IDs to Bricklink to retrieve aktuella marketplace priss. Inga personal information is delad with Bricklink."
       },
       "googleAnalytics": {
         "title": "Google Analytics",
-        "content": "We use Google Analytics to understand site usage. Google Analytics may use cookies to track your activity. For more information, see",
-        "linkText": "Google's Privacy Policy"
+        "content": "Vi använder Google Analytics för att förstå användningen av webbplatsen. Google Analytics kan använda cookies för att spåra din aktivitet. För mer information, se",
+        "linkText": "Googles integritetspolicy"
       },
       "amazonAssociates": {
         "title": "Amazon Associates",
-        "content": "We participate in the Amazon Associates Program. When you click affiliate links, Amazon may track your activity. See our",
-        "linkText": "Affiliate Disclosure",
-        "contentEnd": "for details."
+        "content": "Vi deltar i Amazon Associates-programmet. När du klickar på affiliatelänkar kan Amazon spåra din aktivitet. Se vår",
+        "linkText": "Information om affiliatelänkar",
+        "contentEnd": "för mer information."
       }
     },
     "yourRights": {
-      "title": "Your Rights",
-      "intro": "You have the right to:",
+      "title": "Dina rättigheter",
+      "intro": "Du har rätt att:",
       "items": [
         "Access your personal data and inventering",
         "Update or correct your information",
@@ -1181,74 +1181,74 @@
       "footer": "To exercise these rights, kontakt us through the information below or use the konto settings in your dashboard."
     },
     "dataRetention": {
-      "title": "Data Retention",
+      "title": "Datalagringstid",
       "content": "We retain your data as long as your konto is active. If you ta bort your konto, we will permanently ta bort your personal information and inventering data within 30 days, except where we are required by law to retain certain information."
     },
     "childrensPrivacy": {
-      "title": "Children's Privacy",
+      "title": "Barns integritet",
       "content": "FigTracker is net intended for children under 13. We do net knewingly collect personal information from children under 13. If you believe we have collected information from a child under 13, please kontakt us immediately."
     },
     "changesToPolicy": {
-      "title": "Changes to This Policy",
+      "title": "Ändringar av denna policy",
       "content": "We may update this Privacy Policy from time to time. We will netify you of significant changes by posting a netice on FigTracker or sending you an email. Your continued use of FigTracker after changes indicates acceptance of the updated policy."
     },
     "contactUs": {
       "title": "Kontakt Us",
       "intro": "If you have questions om this Privacy Policy or how we handle your data, please kontakt:",
-      "emailLabel": "Email:",
-      "websiteLabel": "Website:"
+      "emailLabel": "E-post:",
+      "websiteLabel": "Webbplats:"
     }
   },
   "setDetail": {
     "condition": {
       "new": "New",
-      "used": "Used"
+      "used": "Begagnad"
     },
     "pricing": {
       "loadingPricing": "Laddar pricing...",
-      "sixMonthAvg": "6 Mo Avg",
+      "sixMonthAvg": "6 mån snitt",
       "currentAvg": "Aktuella Avg",
-      "lowest": "Lowest",
-      "suggested": "Suggested",
+      "lowest": "Lägst",
+      "suggested": "Föreslaget",
       "noSellersAvailable": "Inga sellers available in your region"
     },
     "collection": {
       "checkingCollections": "Checking samlings...",
       "addThisSet": "Lägg till This Set",
-      "quantity": "Quantity",
+      "quantity": "Antal",
       "inYourInventory": "In Your Inventering",
       "inYourCollection": "In Your Samling",
       "addToYourCollection": "Lägg till to Your Samling?",
       "addToYourInventory": "Lägg till to Your Inventering?"
     },
     "whereToBuy": {
-      "title": "Where to Buy",
+      "title": "Var du kan köpa",
       "brickLink": "BrickLink",
       "brickLinkDescRetired": "Best for retired set",
-      "brickLinkDescAvailable": "Used & new available",
+      "brickLinkDescAvailable": "Begagnat & nytt tillgängligt",
       "amazon": "Amazon",
-      "amazonDesc": "Fast shipping",
+      "amazonDesc": "Snabb frakt",
       "sponsoredLinks": "Sponsrade affiliatelänkar"
     },
     "relatedSets": {
-      "moreFrom": "More from {theme}",
+      "moreFrom": "Mer från {theme}",
       "featured": "Featured {theme} Set",
       "title": "Relaterade set"
     },
     "messages": {
       "addedToInventory": "Lägg tilled {quantity} item to sell",
       "addedToCollection": "Lägg tilled {quantity} item to keep",
-      "movedToCollection": "Moved to keep! Click anywhere to dismiss.",
-      "movedToInventory": "Moved to sell! Click anywhere to dismiss."
+      "movedToCollection": "Flyttat till behåll! Klicka var som helst för att stänga.",
+      "movedToInventory": "Flyttat till sälj! Klicka var som helst för att stänga."
     },
     "errors": {
       "failedToAdd": "Failed to lägg till set",
       "failedToAddToInventory": "Failed to lägg till to inventering",
       "failedToAddToCollection": "Failed to lägg till to personal samling",
-      "failedToUpdate": "Failed to update quantity",
+      "failedToUpdate": "Det gick inte att uppdatera antalet",
       "failedToRemoveInventory": "Failed to remove from inventering",
       "failedToRemoveCollection": "Failed to remove from samling",
-      "failedToMove": "Failed to move item"
+      "failedToMove": "Det gick inte att flytta objektet"
     },
     "delete": {
       "titleInventory": "Remove from Inventering?",
@@ -1256,12 +1256,12 @@
       "messageInventory": "This will permanently remove this set from your inventering.",
       "messageCollection": "This will permanently remove this set from your samling.",
       "cancel": "Avbryt",
-      "confirm": "Remove",
+      "confirm": "Ta bort",
       "remove": "Ta bort"
     },
     "buttons": {
-      "addInventory": "+ To sell",
-      "addCollection": "+ To keep",
+      "addInventory": "+ Att sälja",
+      "addCollection": "+ Att behålla",
       "addToCollection": "+ Lägg till to keep",
       "adding": "Lägger till...",
       "addToInventory": "Lägg till to sell"
@@ -1272,8 +1272,8 @@
     },
     "meta": {
       "yearUnknown": "Year Unknewn",
-      "year": "Year",
-      "weight": "Weight"
+      "year": "År",
+      "weight": "Vikt"
     },
     "newestFrom": "Nyaste set från {theme}"
   },
@@ -1295,9 +1295,9 @@
     "sortByName": "Sortera by Name (A-Z)",
     "noSetsFound": "Inga set found",
     "tryAdjustFilters": "Try adjusting your filtreras",
-    "yearLabel": "Year",
-    "weightLabel": "Weight",
-    "findOnAmazon": "Find on Amazon",
+    "yearLabel": "År",
+    "weightLabel": "Vikt",
+    "findOnAmazon": "Hitta på Amazon",
     "breadcrumbs": {
       "home": "Hem",
       "setThemes": "Set-teman"
@@ -1315,12 +1315,12 @@
     "browseMinifigures": "Bläddra Minifigurer",
     "collection": "Samling",
     "inventory": "Inventering",
-    "itemsCount": "{count} item{plural}",
-    "totalValue": "Total value: {value}",
+    "itemsCount": "{count} objekt{plural}",
+    "totalValue": "Totalt värde: {value}",
     "forSale": "Till salu",
     "noItemsInCollection": "Inga items in {view}",
     "qty": "Qty",
-    "used": "used",
+    "used": "begagnad",
     "new": "new",
     "trackYourCollection": "Track your LEGO minifigur samling with FigTracker",
     "startYourCollection": "Start Your Samling"
@@ -1329,7 +1329,7 @@
     "breadcrumbs": {
       "home": "Hem",
       "guides": "Guider",
-      "articles": "Articles"
+      "articles": "Artiklar"
     },
     "startTracking": "Start Tracking Your Samling",
     "startTrackingDesc": "Use FigTracker to pris your LEGO minifigurr accurately with smart market pricing",
@@ -1340,14 +1340,14 @@
       "title": "Top 50 Most Valuable LEGO Minifigurer in 2026",
       "description": "We analyzed 18,732 LEGO minifigurr to find the most valuable collectibles. Discover which minifigurr command the highest priss on Bricklink marketplace.",
       "author": "FigTracker Team",
-      "readTime": "12 min read",
+      "readTime": "12 min läsning",
       "content": "After analyzing pricing data from 18,732 LEGO minifigurr across the entire Bricklink catalog, we've identified the most valuable collectibles on the market today. Whether you're a serious collector, investor, or just curious om LEGO values, this comprehensive guide reveals which minifigurr command premium priss and why.\n\n## What Makes a Minifigur Valuable?\n\nBefore diving into the rankings, it's important to understand the key factors that drive minifigur values:\n\n### 1. **Rarity**\nLimited production runs, exclusive set, or promotional releases create scarcity. Convention exclusives and employee gifts are particularly sought after.\n\n### 2. **Age**\nClassic minifigurr from the 1970s-1990s are increasingly rare as they wear out or get lost. Vintage pieces in good condition command premiums.\n\n### 3. **Populäraity**\nCharacters from beloved franchises (Star Wars, Harry Potter, Marvel) consistently hold value. Main characters and villains typicallay appreciate faster than side characters.\n\n### 4. **Condition**\nNew/mint condition minifigurr with alla original accessories are worth significantly more than used versions. Even miner wear can reduce value by 30-50%.\n\n### 5. **Completeness**\nA minifigur with alla printed parts, accessories, and original packaging (if applicable) is worth more than loose or incomplete figures.\n\n## Star Wars Dominates the Top 10\n\n[**Star Wars minifigurr**](/teman/star-wars) consistently command the highest priss, with several factors contributing to their value:\n\n- Licensed franchise with massive global fanbase\n- Many were only available in expensive set ($100-$500 retail)\n- Some were released only once or twice across 25+ years of LEGO Star Wars\n- Characters from the original trilogy (1977-1983) are särskilt valuable\n\n### Most Valuable Star Wars Minifigurer:\n\n**Cloud City Boba Fett (2003)** - Often cited as the holy grail, this exclusive version with printing variations can fetch $3,000-$5,000 in mint condition.\n\n**Chrome Darth Vader** - Limited promotional release, metallaic chrome finish. Rare variants command $1,500-$2,500.\n\n**14k Gold C-3PO** - Only 10,000 produced for a 2007 promotion. Despite higher production numbers, gold plating and Star Wars populäraity keep values at $1,000-$2,000.\n\n**Mr. Gold** - While net Star Wars, this ultra-rare 2013 promotional figure (only 5,000 made) regularly sells for $3,000-$5,000.\n\n## Classic Space & Castle Rarities\n\nBeyond licensed teman, vintage LEGO teman have collectors paying premium priss:\n\n[**Classic Space minifigurr**](/teman/space) (1978-1987) with complete helmets and air tanks in pristine condition are increasingly valuable as original owners age out of collecting.\n\n[**Castle knights**](/teman/castle) with printed torsos and unique helmets from the 1980s-1990s are harder to find, särskilt in set that didn't sell as well.\n\n## How to Pris Your Own Samling\n\nIf you own any of these valuable minifigurr, here's how to determine accurate pricing:\n\n### Step 1: Verify Authenticity\nCheck for:\n- Official LEGO markings on studs\n- Print quality (LEGO uses pad printing, net stickers)\n- Plastic quality and fit\n\n### Step 2: Assess Condition\nBe honest om:\n- Print wear or fading\n- Plastic discoloration (yellowing)\n- Cracks or teeth marks\n- Missing accessories\n\n### Step 3: Check Aktuella Market Priss\nUse [FigTracker's sök tool](/sök) to:\n- See real-time Bricklink marketplace data\n- Compare quantity-weighted averages vs lowest priss\n- Track pris trends over time\n- Factor in condition differences\n\n### Step 4: Consider Timing\nPriss fluctuate based on:\n- Movie releases (Star Wars, Marvel, DC)\n- Set retirements (priss often spike 6-12 months after)\n- Seasonal demand (December = higher priss)\n\n## Investment Potential: Which Minifigurer Appreciate?\n\nBased on 5+ years of pricing data, minifigurr that tend to appreciate include:\n\n### High Appreciation Potential:\n- **Main characters from populära franchises** - First releases särskilt\n- **Limited promotions** - Convention exclusives, employee gifts\n- **Retired teman** - Once LEGO stops making a tema, scarcity increases\n- **Unique printing/variants** - Misprint, prototype, or first-run variations\n\n### Stable but Slower Growth:\n- **Side characters** - Still valuable but appreciate more slowly\n- **Common set** - Widely available during production run\n- **Recent releases** - Need 3-5 years to see significant appreciation\n\n### Poor Investment Bets:\n- **Mass-produced polybags** - Too many in circulation\n- **Generic minifigurr** - Inga unique printing or character value\n- **Damaged/incomplete** - Very hard to sell at reasonable priss\n\n## Ingatable Minifigurer by Tema\n\n### Harry Potter\nThe revival of [Harry Potter](/teman/harry-potter) set in 2018 created renewed interest, but original 2001-2005 releases with unique printing remain most valuable:\n- Dumbledore (gray beard variants)\n- Professor Snape (early versions)\n- Voldemort (red eja variant)\n\nPriss: $50-$300 depending on variant and condition\n\n### Marvel Super Heroes\nMCU populäraity drives [Marvel](/teman/super-heroes) values:\n- Loki (Avengers era, printed legs)\n- Deadpool (first release)\n- Spider-Man variants (symbiote, Iron Spider)\n\nPriss: $40-$200 for sought-after variants\n\n### DC Comics Super Heroes\nBatman variants are plentiful, but rare [DC Comics Super Heroes](/teman/super-heroes) versions command premiums:\n- Comic-Con exclusive Batman figures\n- Early Joker variants\n- Original Superman from 2012\n\n### Pirates & Castle\nVintage 1980s-1990s teman are hot:\n- [Pirates](/set-teman/Pirates) with unique torso prints\n- [Castle](/set-teman/Castle) knights with rare helmets\n- Forestmen with complete accessories\n\nPriss: $30-$150 for complete vintage minifigurr\n\n## Where to Buy and Sell Valuable Minifigurer\n\n### Best Marketplaces:\n\n**Bricklink** - The gold standard for LEGO trading. Largest selection, competitive priss, but requires resök.\n\n**eBay** - Higher priss but wider buyer base. Watch for overprisd \"rare\" listings that aren't actuallay rare.\n\n**Facebook Groups** - LEGO selling groups often have motivated buyers willing to pay fair priss quickly.\n\n**Local Conventions** - BrickCon, BrickFair, etc. Great for networking and selling high-end pieces.\n\n### Selling Tips:\n1. **Photograph well** - Multiple angles, clear lighting, show alla sides\n2. **Disstäng condition honestly** - Better a lower pris than a return/dispute\n3. **Include alla accessories** - Weapons, capes, helmets lägg till significant value\n4. **Time your listing** - Sell before holidays or movie releases\n5. **Use FigTracker** - Get accurate suggested pricing before listing\n\n## Protecting Your Investment\n\nIf you own valuable minifigurr:\n\n### Storage Best Practices:\n- Behåll away from direct sunlight (prevents yellowing)\n- Store in sealed containers or display cases\n- Avoid humid environments (can cause discoloration)\n- Don't stack heavy items on top\n\n### Insurance:\nSamlings worth $5,000+ should be documented and insured:\n- Photograph everything\n- Track purchase priss and dates\n- Behåll reas receipts\n- Consider collectibles insurance rider\n\n### Authentication:\nFor ultra-rare pieces ($500+):\n- Buy from reputable sellers with feedtillbaka\n- Request lägg tillitional photos if buying online\n- Learn to spot common fakes (särskilt Chrome C-3PO, Mr. Gold)\n- Join LEGO communities to verify authenticity\n\n## Future Outlook: 2026-2030\n\nBased on aktuella trends, we predict:\n\n### Rising Values:\n- **Retired Star Wars set** - Mandalorian, Bad Batch, Clone Wars characters\n- **Original Marvel CMU minifigurr** - As movies become \"classic\" (Iron Man, Thor first releases)\n- **LEGO Ideas exclusives** - Limited runs create scarcity\n- **Environmental awareness** - Vintage pieces become increasingly rare\n\n### Declining Values:\n- **Mass reissues** - If LEGO reprints populära minifigurr (like they did with Han Solo)\n- **Franchise fatigue** - If Marvel/Star Wars oversaturation continues\n- **Econemic factors** - Recession could temporarily suppress luxury collectible priss\n\n## Start Tracking Your Samling Today\n\nWhether you own one of these valuable minifigurr or are building a samling, accurate pricing is essential. FigTracker provides:\n\n- Real-time Bricklink marketplace data\n- Pris history tracking\n- Condition-specific pricing (New vs Used)\n- Inventering management tools\n- 18,732+ minifigurr in database\n\n**Ready to discover what your samling is worth?**\n\n[Sök Your Minifigurer →](/sök)\n\n---\n\n*Pricing data updated April 2026 based on Bricklink US marketplace averages. Values fluctuate - always verify aktuella priss before buying or selling.*"
     },
     "figtracker-vs-bricklink": {
-      "title": "FigTracker vs Bricklink: Which Should You Use?",
+      "title": "FigTracker vs Bricklink: Vilket ska du använda?",
       "description": "Compare FigTracker and Bricklink for LEGO minifigur pricing. Learn when to use each platform and how FigTracker simplifies pricing for sellers.",
       "author": "FigTracker Team",
-      "readTime": "8 min read",
+      "readTime": "8 min läsning",
       "content": "If you're serious om buying, selling, or collecting LEGO minifigurr, you've probably enantalered Bricklink. As the largest LEGO marketplace, Bricklink is the industry standard—but it's net always the easiest tool for quick pricing decisions.\n\nThat's where FigTracker comes in.\n\n**The short answer:** Use both. Bricklink for buying/selling, FigTracker for instant pricing.\n\n**The detailed answer:** Let's compare them side-by-side.\n\n## What is Bricklink?\n\nBricklink is the world's largest marketplace for LEGO parts, set, and minifigurr. Founded in 2000 and acquired by LEGO Group in 2019, it's where serious collectors and resellers go to buy and sell.\n\n### Bricklink Strengths:\n✅ Massive inventering (millions of listings)\n✅ Global marketplace with sellers in 100+ antalries\n✅ Historical pricing data\n✅ Want lists and inventering management\n✅ Official LEGO catalog integration\n\n### Bricklink Challaenges:\n❌ Complex pricing (3+ metrics to interpret)\n❌ Overwhelming for casual users\n❌ Inga suggested \"fair pris\" - you do the math\n❌ Must dig through multiple pages for pricing\n❌ Dated interface design\n\n## What is FigTracker?\n\nFigTracker is a free LEGO minifigur pris tracker built specificallay for sellers and collectors who need quick, accurate pricing without the complexity.\n\n### FigTracker Strengths:\n✅ One suggested pris (ne mental math needed)\n✅ Real-time Bricklink marketplace data\n✅ Clean, modern interface\n✅ Inventering tracking with condition management\n✅ Fast sök by ID or name\n✅ 18,732+ minifigurr in database\n✅ 15+ currencies supported (USD, EUR, GBP, CAD, and more)\n\n### FigTracker Limitations:\n❌ Doesn't sell anything (links to marketplaces)\n❌ Newer platform (less historical data than Bricklink)\n\n## The Pricing Problem: Why FigTracker Exists\n\nHere's the reality of pricing on Bricklink:\n\n**You see this:**\n- Quantity-Weighted Average: $12.45\n- Simple Average: $15.20\n- Lowest Pris: $8.99\n\n**You think this:**\n*\"Wait... which one do I use? Should I pris at $12? $15? Split the difference? What om condition?\"*\n\n**You do this:**\nOpen calculator. Average the averages. Check lowest pris. Factor in condition. Second-guess yourself. Stäng laptop.\n\n### FigTracker's Solution\n\n**You see this:**\n- Suggested Pris: $13.25 (New) | $9.75 (Used)\n\n**You think this:**\n*\"Perfect. Done.\"*\n\nFigTracker's algorithm combines alla three Bricklink metrics plus condition data to give you one confident number. You can still see the breakdown if you want it, but you don't need to.\n\n## Side-by-Side Comparison\n\n| Feature | Bricklink | FigTracker |\n|---------|-----------|------------|\n| **Marketplace** | ✅ Ja | ❌ Inga (links out) |\n| **Suggested Pricing** | ❌ Inga | ✅ Ja |\n| **Real-time Data** | ✅ Ja | ✅ Ja (pulls from Bricklink) |\n| **Inventering Management** | ✅ Advanced | ✅ Simple |\n| **Sök Speed** | ⚠️ Moderate | ✅ Fast |\n| **User Interface** | ⚠️ Dated | ✅ Modern |\n| **Learning Curve** | ⚠️ Steep | ✅ Gentle |\n| **Mobile Experience** | ⚠️ Clunky | ✅ Responsive |\n| **Pris** | Free | Free |\n| **Best For** | Buying & selling | Quick pricing & tracking |\n\n## When to Use Bricklink\n\nUse Bricklink when you need to:\n\n**1. Buy Minifigurer**\nBricklink has the largest selection. Inga other platform comes stäng.\n\n**2. Sell Minifigurer**\nIf you're a serious seller, Bricklink's audience is massive and motivated. Worth learning the platform.\n\n**3. Resök Rare/Obscure Pieces**\nDeep historical data and completed reas info.\n\n**4. Manage a Store**\nBuilt-in tools for sellers with large inventories.\n\n**5. International Transactions**\nGlobal marketplace with currency conversion.\n\n## When to Use FigTracker\n\nUse FigTracker when you need to:\n\n**1. Pris Quickly**\nYou have 20 minifigurr to list on eBay. Get instant suggested priss.\n\n**2. Track Your Samling**\nSimple inventering management without Bricklink's complexity.\n\n**3. Compare Condition Pricing**\nSee New vs Used priss side-by-side instantly.\n\n**4. Learn the Market**\nClean interface makes it easier to understand pricing trends.\n\n**5. Decide What to Buy**\nCheck if that eBay listing is overprisd before bidding.\n\n## The Best Workflow: Use Both\n\nHere's how smart sellers use FigTracker + Bricklink together:\n\n### Step 1: Pris on FigTracker\n[Sök your minifigur](/sök) by ID (e.g., \"sw1219\"). Get suggested pris in 5 seconds.\n\n### Step 2: Cross-check on Bricklink (if needed)\nFor expensive minifigurr ($50+), verify on Bricklink to see actual listings.\n\n### Step 3: List on Your Platform\neBay, Facebook Marketplace, or your own Bricklink store.\n\n### Step 4: Track in FigTracker\nBehåll your [inventering organized](/inventering). Refresh priss monthly.\n\n**Time sparad:** 2-3 minutes per minifigur × 50 minifigurr = 2.5 hours per pricing session.\n\n## Common Questions\n\n### \"Why net just use Bricklink?\"\n\nYou can! But if you're listing 20+ minifigurr, doing mental math for each one gets tedious. FigTracker automates the decision-making.\n\n### \"Is FigTracker's pricing accurate?\"\n\nJa. We pull real-time data directly from Bricklink's API. Our suggested pris is calculated from the same data you'd see on Bricklink—we just process it for you.\n\n### \"Can I sell on FigTracker?\"\n\nIngat directly. FigTracker is a pricing tool, net a marketplace. We link to Bricklink and Amazon if you want to buy.\n\n### \"Does FigTracker replace Bricklink?\"\n\nInga. Think of FigTracker as a companion tool that makes Bricklink data easier to use for quick pricing decisions.\n\n## Pricing Philosophy Comparison\n\n**Bricklink's Approach:**\n\"Here's alla the data. You're smart—figure out what to charge.\"\n\n**FigTracker's Approach:**\n\"Here's the best pris based on aktuella market conditions. Trust us, we did the math.\"\n\nBoth are valid. Bricklink empowers power users. FigTracker empowers fast decision-making.\n\n## Which Platform Should You Start With?\n\n### Start with FigTracker if:\n- You're new to LEGO reselling\n- You need to pris things quickly\n- You have a smalla-to-medium samling (< 500 minifigurr)\n- You sell on eBay/Facebook, net Bricklink\n\n### Start with Bricklink if:\n- You're a serious seller (500+ listings)\n- You want to run a full LEGO store\n- You need advanced inventering management\n- You buy and sell internationallay\n\n### Use Both if:\n- You're a professional reseller\n- You value speed + accuracy\n- You want a modern interface for daily use but need Bricklink for actual transactions\n\n## The Bottom Line\n\n**Bricklink** is the industry standard marketplace with unmatched inventering and reach. It's essential for serious buying and selling.\n\n**FigTracker** is the modern pricing companion that makes Bricklink data instantly actionable. It's essential for fast, confident pricing.\n\n**You don't have to choose.** Use FigTracker for pricing and inventering. Use Bricklink for transactions. Together, they're the perfect LEGO toolkit.\n\n---\n\n**Ready to try FigTracker?**\n\n[Sök Your First Minifigur →](/sök)\n\nOr explore our [complete pricing guide](/guider) to learn more om LEGO minifigur values."
     }
   },
@@ -1355,46 +1355,46 @@
     "title": "Admin-panel",
     "subtitle": "Overvisa of your FigTracker platform",
     "emailAllUsers": "Email Alla Users ({count})",
-    "totalUsers": "Total Users",
+    "totalUsers": "Totalt antal användare",
     "userCollections": "User Samlings",
-    "userCollectionsSubtitle": "{selling} selling, {personal} personal",
-    "catalogItems": "Catalog Items",
-    "catalogSubtitle": "Static JSON",
-    "totalAdClicks": "Total Ad Clicks",
-    "totalAdClicksSubtitle": "{today} today, {thisWeek} this week",
-    "affiliateClickPerformance": "Affiliate Click Performance",
-    "last24Hours": "Last 24 Hours",
-    "last7Days": "Last 7 Days",
-    "last30Days": "Last 30 Days",
+    "userCollectionsSubtitle": "{selling} till försäljning, {personal} personliga",
+    "catalogItems": "Katalogartiklar",
+    "catalogSubtitle": "Statisk JSON",
+    "totalAdClicks": "Totalt antal annonsklick",
+    "totalAdClicksSubtitle": "{today} idag, {thisWeek} denna vecka",
+    "affiliateClickPerformance": "Affiliateklickens prestanda",
+    "last24Hours": "Senaste 24 timmarna",
+    "last7Days": "Senaste 7 dagarna",
+    "last30Days": "Senaste 30 dagarna",
     "allTime": "Alla Time",
-    "topClickedProducts": "Top Clicked Products",
-    "product": "Product",
-    "type": "Type",
-    "clicks": "Clicks",
-    "clicksCount": "{count} clicks",
+    "topClickedProducts": "Mest klickade produkter",
+    "product": "Produkt",
+    "type": "Typ",
+    "clicks": "Klick",
+    "clicksCount": "{count} klick",
     "popularThemes": "Populära teman",
     "databaseOverview": "Database Overvisa",
-    "unlimitedBandwidth": "Unlimited bandwidth",
-    "active": "Active",
-    "users": "Users: {count}",
+    "unlimitedBandwidth": "Obegränsad bandbredd",
+    "active": "Aktiv",
+    "users": "Användare: {count}",
     "collectionItems": "Samling Items: {count}",
-    "personalItems": "Personal Items: {count}",
+    "personalItems": "Personliga artiklar: {count}",
     "priceCache": "Pris Cache: {count} entries",
-    "affiliateClicks": "Affiliate Clicks: {count}",
-    "catalog": "Catalog: {count} items",
-    "recentSignups": "Recent Signups",
-    "user": "User",
-    "joined": "Joined",
-    "items": "Items",
+    "affiliateClicks": "Affiliateklick: {count}",
+    "catalog": "Katalog: {count} artiklar",
+    "recentSignups": "Senaste registreringar",
+    "user": "Användare",
+    "joined": "Gick med",
+    "items": "Artiklar",
     "anonymous": "Anenymous",
-    "topCollectors": "Top Collectors",
-    "rank": "Rank",
-    "totalItems": "Total Items"
+    "topCollectors": "Bästa samlare",
+    "rank": "Placering",
+    "totalItems": "Totalt antal artiklar"
   },
   "bannerCompare": {
-    "title": "Banner Position Comparison",
-    "aboveNavigation": "Banner Above Navigation (Most Common)",
-    "belowNavigation": "Banner Below Navigation",
+    "title": "Jämförelse av bannerplacering",
+    "aboveNavigation": "Banner ovanför navigering (vanligast)",
+    "belowNavigation": "Banner under navigering",
     "currencyBanner": "We detected you're in Sweden. Show priss in SEK?",
     "yesSEK": "Ja, use SEK",
     "keepUSD": "Behåll USD",
@@ -1403,10 +1403,10 @@
     "navCollection": "Samling",
     "navInventory": "Inventering",
     "navAccount": "Konto",
-    "usedBy": "Used by:",
-    "usedByAbove": "GitHub, Stripe, Amazon, most cookie consent banners",
+    "usedBy": "Används av:",
+    "usedByAbove": "GitHub, Stripe, Amazon, de flesta cookie-samtyckesbanners",
     "usedByBelow": "Some promotional banners, rea anneuncements",
-    "pros": "Pros:",
+    "pros": "Fördelar:",
     "prosAbove": [
       "Immediately visible - can't be missed",
       "Standard web pattern users expect",
@@ -1417,7 +1417,7 @@
       "Logo/branding stays at very top",
       "Feels less intrusive"
     ],
-    "cons": "Cons:",
+    "cons": "Nackdelar:",
     "consAbove": [
       "Pushes content down slightly"
     ],
@@ -1426,14 +1426,14 @@
       "Could be confused with page content",
       "Easier to scroll past without neticing"
     ],
-    "recommendation": "Recommendation:",
+    "recommendation": "Rekommendation:",
     "recommendationText": "Go with \"Above Navigation\" - it's the industry standard for important site-wide netifications like currency detection. Users expect and recognize this pattern."
   },
   "testBanner": {
-    "showBannerAgain": "Show Banner Again",
+    "showBannerAgain": "Visa bannern igen",
     "title": "Currency Banner Previsa",
     "subtitle": "This is what new users will see when they first visit FigTracker from a nen-US antalry.",
-    "featuresTitle": "Features:",
+    "featuresTitle": "Funktioner:",
     "features": [
       "Auto-detects antalry from bläddrar locale",
       "Shows only for nen-USD currencies",
@@ -1442,7 +1442,7 @@
       "Smooth slide-down animation",
       "Purple gradient design matches FigTracker branding"
     ],
-    "userFlowTitle": "User Flow:",
+    "userFlowTitle": "Användarflöde:",
     "userFlow": [
       "First visit from Sweden → Banner appears",
       "Click \"Ja, use SEK\" → Currency set to SEK, page reloads, alla priss fetched in SEK",
@@ -1460,11 +1460,11 @@
     "searchPlaceholder": "Sök set by name or number (e.g., 'Star Wars', '75192-1', 'Hogwarts')...",
     "searchResults": "Sök Results ({count})",
     "searching": "Söker...",
-    "year": "Year",
-    "weight": "Weight",
+    "year": "År",
+    "weight": "Vikt",
     "popularThemesTitle": "Populära teman",
     "backendComplete": "Tillbakaend Complete - Ready for Full Implementation",
-    "backendStatus": "Database schema ✓ • Type definitions ✓ • Catalog service ✓ • Database service ✓"
+    "backendStatus": "Databasschema ✓ • Typdefinitioner ✓ • Katalogtjänst ✓ • Databastjänst ✓"
   },
   "themeDescriptions": {
     "(Other)": "Discover unique LEGO® set that inte passar traditional categories! This diverse samling includes experimental designs, limited releases, and special projects som visar upp LEGO's creativity beyond mainstream teman. From promotional builds to one-off collaborations, these set represent the innevative spirit of LEGO building. Perfect for collectors seeking unique tillägg to their samling and builders som älskar discovering hidden gems.",
@@ -1655,68 +1655,68 @@
     },
     "hero": {
       "title": "LEGO Star Wars May the 4th Erbjudandes 2026",
-      "subtitle": "Up to 35% Total Value • May 1-6 Only",
+      "subtitle": "Upp till 35 % totalt värde • Endast 1–6 maj",
       "description": "Four tiers analyzed. Find your best erbjudande below."
     },
     "tierD": {
-      "badge": "TIER D",
-      "title": "~20-23% Return - Starting Point",
-      "whatYouGet": "What You Get:",
-      "item1": "1 free item: The Razor Crest Mini-Build (~$5 value)",
+      "badge": "NIVÅ D",
+      "title": "~20–23 % avkastning – Startpunkt",
+      "whatYouGet": "Vad du får:",
+      "item1": "1 gratisartikel: The Razor Crest Mini-Build (~5 $ värde)",
       "item2": "2x Insiders Points (~10% cashtillbaka value)",
       "item3": "Qualifying spend: $39.99+ on 2x eligible set (before tax)",
-      "description": "The minimum entry point. Here's an example combo that works:",
+      "description": "Den lägsta ingångsnivån. Här är ett exempel på en kombination som fungerar:",
       "exampleTitle": "Example: Buy Alla 3 Set Below",
       "exampleSet1": "Siege of Mandalore Battle Pack: $22.99",
       "exampleSet2": "Captain Rex Y-Wing Microfighter: $12.99",
       "exampleSet3": "Mandalorian & Grogu Speeder Bike: $9.99",
-      "exampleTotal": "Total: $45.97 ✓ Qualifies!",
+      "exampleTotal": "Totalt: $45.97 ✓ Kvalificerar!",
       "exampleReturn": "Return: $5 (Razor Crest) + $4.60 (2x points) = $9.60 = 21% tillbaka"
     },
     "tierC": {
-      "badge": "TIER C",
-      "title": "25% Return - Display Collector's Choice",
-      "whatYouGet": "What You Get:",
-      "item1": "2 free items: The Mandalorian and Grogu Display + The Darksaber (~$50 value)",
+      "badge": "NIVÅ C",
+      "title": "25 % avkastning – Display Collector's Choice",
+      "whatYouGet": "Vad du får:",
+      "item1": "2 gratisartiklar: The Mandalorian and Grogu Display + The Darksaber (~50 $ värde)",
       "item2": "1x Insiders Points (~5% cashtillbaka = $12.50 on $249.99)",
-      "item3": "Qualifying purchase: 75442 N-1 Starfighter ($249.99)",
-      "item4": "Total return: $62.50 = 25%",
-      "description": "Best option if you want the exclusive Display tile. You get both premium GWPs but lower points multiplier."
+      "item3": "Kvalificerande köp: 75442 N-1 Starfighter ($249.99)",
+      "item4": "Total avkastning: $62.50 = 25 %",
+      "description": "Bästa alternativet om du vill ha den exklusiva Display-brickan. Du får båda premium-GWP:erna men lägre poängmultiplikator."
     },
     "tierB": {
-      "badge": "TIER B",
-      "title": "~26-32% Return - Better Value",
-      "whatYouGet": "What You Get:",
-      "item1": "2 free items: The Darksaber + The Razor Crest Mini-Build (~$50 value)",
+      "badge": "NIVÅ B",
+      "title": "~26–32 % avkastning – Bättre värde",
+      "whatYouGet": "Vad du får:",
+      "item1": "2 gratisartiklar: The Darksaber + The Razor Crest Mini-Build (~50 $ värde)",
       "item2": "2x Insiders Points (~10% cashtillbaka value)",
       "item3": "Qualifying spend: $160+ on 2x eligible set (before tax)",
-      "description": "Great value without breaking $200. Here's an example:",
+      "description": "Bra värde utan att komma över $200. Här är ett exempel:",
       "exampleTitle": "Example: Buy Both Set Below",
       "exampleSet1": "The Razor Crest: $149.99",
       "exampleSet2": "AT-RT Attack: $44.99",
-      "exampleTotal": "Total: $194.98 ✓ Qualifies!",
+      "exampleTotal": "Totalt: $194.98 ✓ Kvalificerar!",
       "exampleReturn": "Return: $50 (GWP) + $19.50 (2x points) = $69.50 = 36% tillbaka"
     },
     "tierA": {
-      "badge": "TIER A - BEST VALUE 🏆",
+      "badge": "NIVÅ A – BÄST VÄRDE 🏆",
       "title": "39% Return - Ultimate Erbjudande",
-      "whatYouGet": "What You Get:",
-      "item1": "2 free items: The Darksaber + The Razor Crest Mini-Build (~$50 value)",
+      "whatYouGet": "Vad du får:",
+      "item1": "2 gratisartiklar: The Darksaber + The Razor Crest Mini-Build (~50 $ värde)",
       "item2": "4x Insiders Points (~20% cashtillbaka value)",
       "item3": "Qualifying spend: $160+ on 4x eligible set (before tax)",
-      "item4": "Total return: $62 = 39%",
-      "description": "Maximum value. Get both freebies + 4x points multiplier.",
-      "exampleTitle": "Example: Buy the AT-ST Walker (75417) for $199.99",
+      "item4": "Total avkastning: $62 = 39 %",
+      "description": "Maximalt värde. Få båda gratisartiklarna + 4x poängmultiplikator.",
+      "exampleTitle": "Exempel: Köp AT-ST Walker (75417) för $199.99",
       "exampleReturn": "Return: $50 (GWP) + $40 (4x points) = $90 = 45% tillbaka"
     },
     "gwpSection": {
-      "title": "What You Get Free",
-      "subtitle": "Stack multiple GWPs depending on your spend tier",
+      "title": "Vad du får gratis",
+      "subtitle": "Kombinera flera gratispresenter beroende på din utgiftsnivå",
       "darksaber": {
         "title": "The Darksaber",
-        "subtitle": "Legendary Mandalorian weapon",
-        "price": "~$45 value",
-        "requirement": "Spend $160+ on Star Wars"
+        "subtitle": "Legendariskt mandalorianskt vapen",
+        "price": "~45 $ värde",
+        "requirement": "Handla för $160+ på Star Wars"
       },
       "razorCrest": {
         "title": "The Razor Crest Mini-Build",
@@ -1762,7 +1762,7 @@
       "title": "Vanliga frågor",
       "q1": {
         "question": "När körs denna kampanj?",
-        "answer": "May 1-6, 2026. Available while supplies last."
+        "answer": "1–6 maj 2026. Så länge lagret räcker."
       },
       "q2": {
         "question": "Kan jag kombinera nivåer?",
@@ -1830,7 +1830,9 @@
       "allThemes": "Alla Teman",
       "selectTheme": "Välj ett tema",
       "showingCount": "Visar {count} set som försvinner snart",
-      "showingCountInTheme": "Visar {count} set som försvinner snart i {theme}"
+      "showingCountInTheme": "Visar {count} set som försvinner snart i {theme}",
+      "searchThemes": "Sök teman...",
+      "noThemesFound": "Inga teman hittades"
     },
     "timeline": {
       "retiring0to3": "Försvinner om 0-3 månader",

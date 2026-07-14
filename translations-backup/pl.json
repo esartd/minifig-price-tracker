@@ -18,12 +18,12 @@
     "yes": "Tak",
     "no": "Nie",
     "share": "Udostępnij",
-    "adding": "Adding...",
+    "adding": "Dodawanie...",
     "loadingChart": "Ładowanie chart...",
-    "searching": "Searching...",
+    "searching": "Szukanie...",
     "clearFilter": "Wyczyść Filtruj",
-    "noResultsFor": "No results found for \"{query}\"",
-    "minifigCount": "{count, plural, one {# minifigure} other {# minifigures}}",
+    "noResultsFor": "Brak wyników dla „{query}”",
+    "minifigCount": "{count, plural, one {# minifigurka} other {# minifigurek}}",
     "viewDetails": "Zobacz szczegóły",
     "new": "Nowy",
     "used": "Używany",
@@ -79,23 +79,23 @@
   "themes": {
     "browse_title": "Przeglądaj LEGO minifigurka Motywy",
     "browse_sets": "Przeglądaj LEGO zestaw Motywy",
-    "theme_sets": "{theme} Sets",
-    "count": "{count} minifigs",
-    "countSets": "{count} sets in this theme",
-    "setsCount": "{count} sets",
-    "subcategoriesCount": "{count} subcategories",
-    "exploreThemesWithSets": "Explore {themeCount} themes with {setCount} LEGO sets",
-    "series": "{count} series",
+    "theme_sets": "Zestawy {theme}",
+    "count": "{count} minifigurek",
+    "countSets": "{count} zestawów w tym motywie",
+    "setsCount": "{count} zestawów",
+    "subcategoriesCount": "{count} podkategorii",
+    "exploreThemesWithSets": "Odkryj {themeCount} motywów z {setCount} zestawami LEGO",
+    "series": "{count} serii",
     "allThemes": "Wszystkie motywy",
     "popularThemes": "Popularne motywy",
     "themeLabel": "motyw",
-    "moreCount": "+{count} more",
+    "moreCount": "+{count} więcej",
     "searchPlaceholder": "Szukaj Motywy...",
     "currentThemes": "Aktualne motywy",
-    "currentThemesDesc": "Themes with sets released between {yearRange}",
+    "currentThemesDesc": "Motywy z zestawami wydanymi w latach {yearRange}",
     "olderThemes": "Older Motywy",
     "olderThemesDesc": "Motywy from Poprzedni years",
-    "showMore": "Show {count} More Themes",
+    "showMore": "Pokaż {count} więcej motywów",
     "noThemesFound": "Nie Motywy found",
     "tryAdjustSearch": "Try adjusting your Szukaj",
     "descriptions": {
@@ -120,7 +120,7 @@
       "Ben 10": "It's hero Czas with LEGO® Ben 10™ Zestawy! Based on Cartoon Network's action-packed series, build alien transformations, vehicles, and battle scenes from Ben Tennyson's adventures. These Zestawy capture the excitement of the Omnitrix and Ben's alien forms as he fights villains and saves the world. Though a brief motyw, Ben 10 Zestawy delivered action-packed building for fans of the animated series. Perfect for young fans of the Pokaż who love aliens, action, and superhero adventures.",
       "Bluey": "It's playtime with LEGO® Bluey™! Based on the Australian animated sensation, collect Bluey, Bingo, Bandit, and Chilli from the beloved children's series. These Minifigurki capture the heart and humor of the Heeler family's imaginative games and everyday adventures. Build the Heeler house, go on camping trips, and recreate episodes that resonate with families worldwide. From Keepy Uppy to Dance Mode, these figures celebrate play, parenting, and family bonds. DUPLO and standard LEGO Zestawy bring Bluey's world to life for young builders. Perfect for families who love the Pokaż's warmth, creativity, and celebration of childhood imagination.",
       "Boat": "zestaw sail with LEGO® Boat Zestawy! This classic Kategoria features vessels of Wszystkie kinds - from small sailboats and speedboats to massive cargo ships and cruise liners. These Zestawy focus on nautical building with hulls, sails, motors, and maritime Szczegóły. Whether building harbor scenes or ocean adventures, Boat Zestawy celebrate humanity's relationship with water. Perfect for builders who love maritime Motywy, sailing, and nautical engineering.",
-      "Boost": "Program, build, and play with LEGO® Boost! This innovative system combines building with coding, allowing creators to construct five different models that come to life through app-controlled programming. Build a robot, a cat, a guitar, a rover, or an AutoBuilder, then use the intuitive drag-and-drop coding interface to make them move, play music, and react to their environment. With motors, sensors, and hundreds of building possibilities, Boost bridges physical and digital play. Perfect for children learning coding, parents seeking educational STEM toys, and families who want to build and program together.",
+      "Boost": "Programuj, buduj i baw się z LEGO® Boost! Ten innowacyjny system łączy budowanie z programowaniem, umożliwiając twórcom skonstruowanie pięciu różnych modeli, które ożywają dzięki programowaniu sterowanemu z aplikacji. Zbuduj robota, kota, gitarę, łazik lub AutoBuildera, a następnie użyj intuicyjnego interfejsu programowania metodą „przeciągnij i upuść”, aby sprawić, że będą się poruszać, grać muzykę i reagować na otoczenie. Dzięki silnikom, czujnikom i setkom możliwości budowania Boost łączy zabawę fizyczną z cyfrową. Idealne dla dzieci uczących się programowania, rodziców szukających edukacyjnych zabawek STEM oraz rodzin, które chcą wspólnie budować i programować.",
       "Botanicals": "Bring nature indoors with LEGO® Botanicals! This adult-focused motyw features realistic flowers, plants, and botanical displays that never need watering. From intricate bouquets and bonsai trees to dried flowers and succulents, these sophisticated builds serve as permanent Strona główna décor. Each botanical creation captures the beauty and detail of real plants while lasting forever. Build mindfully, display proudly, and enjoy the meditative process of constructing nature's beauty brick by brick. Perfect for plant lovers, Strona główna decorators, and adults seeking creative relaxation through beautiful building projects.",
       "Braille Bricks": "Learn through touch with LEGO® Braille Bricks! This innovative educational initiative teaches braille to blind and visually impaired children through play. Each brick features studs corresponding to braille letters and numbers, with printed letters for sighted teachers and peers to learn alongside. Braille Bricks transform literacy learning into tactile, engaging play, promoting inclusive education. Though primarily distributed through educational partners rather than retail, these Zestawy represent LEGO's commitment to accessibility. Perfect for educators teaching braille, families with visually impaired children, and promoting inclusive learning.",
       "Brick Sketches": "Create iconic portraits with LEGO® Brick Sketches! These mosaic-style Zestawy let you build flat, stylized portraits of beloved characters from Star Wars™, Marvel, DC, and Więcej. Mounted on decorative frames with nameplates, Brick Sketches serve as artistic wall décor celebrating pop culture icons. With bold colors and simplified designs, these Zestawy offer quick, satisfying builds that look impressive on display. Perfect for fans who want character art, collectors seeking affordable display pieces, and builders who love mosaic-style construction.",
@@ -185,18 +185,18 @@
       "Horizon": "Hunt mechanical beasts in a post-apocalyptic world with LEGO® Horizon™ Minifigurki! Based on PlayStation's acclaimed video game series, collect Aloy and Inne tribal hunters from Horizon Forbidden West and LEGO Horizon Adventures. These Minifigurki feature detailed tribal gear, weapons, and accessories from the games' unique blend of primitive culture and advanced technology. Face mechanical dinosaurs and uncover ancient secrets in a far-future Earth. With stunning visual designs and epic adventures, Horizon brings PlayStation gaming to LEGO building. Perfect for gamers who love exploration, robot dinosaurs, and post-apocalyptic worlds where nature and technology collide in spectacular fashion.",
       "IKEA": "Build Swedish design with LEGO® IKEA collaboration Zestawy! These special releases combined IKEA's minimalist aesthetic with LEGO building. From storage solutions with buildable elements to furniture-inspired builds, the IKEA partnership explored Strona główna design through bricks. Perfect for design enthusiasts, IKEA fans, and collectors of brand collaboration Zestawy.",
       "Indiana Jones": "Adventure awaits with LEGO® Indiana Jones™ Minifigurki! Recreate classic film moments with Professor Henry Jones Jr. in his iconic fedora, leather jacket, and whip. Collect Indy across multiple films - Raiders of the Lost Ark, Temple of Doom, Last Crusade, and Kingdom of the Crystal Skull. Face villains like René Belloq, Major Toht, Mola Ram, and Irina Spalko. These Minifigurki capture the pulp adventure spirit with detailed printing and accessories. From the golden idol to the Holy Grail, seek ancient artifacts while dodging traps and enemies. Perfect for fans of classic adventure films, archaeology, and the archaeologist who belongs in a museum.",
-      "Inventor": "Innovate and create with LEGO® Inventor! This educational line teaches engineering principles through motorized building. Construct vehicles, machines, and contraptions that move, then learn the science behind how they work. Inventor bridges play and education, making STEM concepts tangible through building. Perfect for young engineers, students learning mechanics, and parents seeking educational building experiences.",
+      "Inventor": "Twórz i wynajduj z LEGO® Inventor! Ta edukacyjna linia uczy zasad inżynierii poprzez budowanie modeli z napędem. Skonstruuj pojazdy, maszyny i urządzenia, które się poruszają, a następnie poznaj naukę stojącą za ich działaniem. Inventor łączy zabawę z edukacją, czyniąc koncepcje STEM namacalnymi dzięki budowaniu. Idealne dla młodych inżynierów, uczniów poznających mechanikę oraz rodziców szukających edukacyjnych doświadczeń budowlanych.",
       "Island Xtreme Stunts": "Extreme action awaits with LEGO® Island Xtreme Stunts Minifigurki! Based on the 2002 video game sequel to LEGO Island, this motyw featured Pepper Roni and friends performing dangerous stunts for a movie production. Collect characters from LEGO Island including the Brickster, the skateboarding pizza delivery hero Pepper, and movie crew members. These Zestawy combined action sports with movie-making Motywy, featuring ramps, vehicles, and stunt equipment. Island Xtreme Stunts represented LEGO's expansion into multimedia franchises connecting games with physical Zestawy. Though brief, it delivered high-energy action and extreme sports excitement. Perfect for fans of the classic LEGO Island video games, nostalgic gamers, and collectors of LEGO's experimental multimedia Motywy from the early 2000s.",
       "Juniors": "Build confidence with LEGO® Juniors! Designed for children ages 4-7, Juniors bridges DUPLO and System building with simplified Zestawy featuring Quick Start elements. These Zestawy include large foundation pieces that let young builders complete models quickly, building confidence while teaching System building techniques. From superhero adventures to city scenes, Juniors delivers age-appropriate building Sukces. Perfect for kindergarten builders transitioning to regular LEGO and parents seeking confidence-building construction experiences.",
       "Jurassic World": "Life finds a way with LEGO® Jurassic World™ Minifigurki! Collect fearless dinosaur trainers like Owen Grady and Claire Dearing as they navigate the dangerous world of prehistoric creatures. From park scientists to InGen personnel, our Jurassic World Kolekcja features characters from Wszystkie six films spanning the Jurassic Park and Jurassic World franchises. While the dinosaurs steal the Pokaż, these brave Minifigurki are ready to study, rescue, or escape from these magnificent creatures. Whether you're recreating the classic Jurassic Park gates or building modern Jurassic World adventures, these detailed Minifigurki bring 65 million years of history to life. Perfect for dinosaur enthusiasts and action-adventure fans of Wszystkie ages.",
       "LEGENDS OF CHIMA": "Enter the mystical animal kingdom with LEGO® LEGENDS OF CHIMA™ Minifigurki! In this fantastical world, anthropomorphic animals battle for control of the powerful CHI energy. Collect warriors from noble tribes like the Lions led by Laval, Crocodiles under Cragger, Eagles with Eris, Wolves with Worriz, Ravens, Gorillas, and Bears. Face sinister villains from the Ice Tribes and legendary creatures. Each minifigurka features incredible detail with animal heads, armor, weapons, and tribal markings. With complex alliances, betrayals, and epic battles, Chima delivers rich storytelling and stunning character designs. Perfect for fans of fantasy, animals, and action-packed adventures in a unique LEGO universe.",
       "LEGO Brand": "Celebrate LEGO itself with LEGO® Brand Minifigurki! These meta Zestawy and figures celebrate the LEGO company, its history, stores, and brand identity. From LEGO Store employee figures to brand ambassadors, LEGO Brand Minifigurki represent the company's self-referential products. Collect promotional store figures, anniversary celebration characters, and corporate mascots. These figures often appear in LEGO Store grand openings, brand events, and corporate materials. Some celebrate LEGO milestones like anniversaries or achievements. LEGO Brand figures acknowledge that LEGO itself has become a beloved icon worthy of celebration. From classic logo designs to modern branding, these figures tell LEGO's story. Perfect for ultimate fans who love LEGO not just as a toy but as a cultural institution and brand with rich history.",
       "LEGO Ideas (CUUSOO)": "Fan creativity becomes reality with LEGO® Ideas Minifigurki! Formerly CUUSOO, this platform lets fans Wyślij designs that the community votes on. Successful projects reaching 10,000 supporters are reviewed for production. Ideas Zestawy span incredible diversity - from NASA Apollo Saturn V to The Big Bang Theory apartment, from Beatles Yellow Submarine to working typewriters. Minifigurki reflect this range, featuring real people (scientists, musicians), fictional characters, and historical figures. Each Ideas zestaw represents a fan's dream becoming official LEGO. With community-driven selection and limited production, these figures celebrate fan passion. Perfect for collectors who appreciate fan creativity, unique builds, and supporting fellow enthusiasts' visions becoming real LEGO products that anyone can build.",
-      "LEGO Originals": "Celebrate LEGO culture with LEGO® Originals! This lifestyle brand extends LEGO beyond building into clothing, accessories, and collectibles celebrating LEGO heritage. From vintage-inspired merchandise to cultural collaborations, LEGO Originals makes LEGO identity wearable. Perfect for LEGO fans seeking branded lifestyle products and collectors who love LEGO culture beyond bricks.",
+      "LEGO Originals": "Świętuj kulturę LEGO z LEGO® Originals! Ta lifestyle'owa marka wykracza poza budowanie, oferując odzież, akcesoria i przedmioty kolekcjonerskie celebrujące dziedzictwo LEGO. Od produktów inspirowanych stylem vintage po kulturalne kolaboracje, LEGO Originals sprawia, że tożsamość LEGO można nosić na sobie. Idealne dla fanów LEGO szukających markowych produktów lifestylowych oraz kolekcjonerów, którzy kochają kulturę LEGO wykraczającą poza klocki.",
       "LEGOLAND": "Experience the parks at Strona główna with LEGO® LEGOLAND Minifigurki! These Zestawy recreate rides, attractions, and experiences from LEGOLAND motyw parks worldwide. Collect park visitors, ride operators, and mascots from LEGO's real-world destinations. From roller coasters to miniland displays, these Zestawy bring motyw park magic Strona główna. LEGOLAND figures often include exclusive variants sold only at park locations. With park maps, attractions, and iconic structures, these Zestawy celebrate LEGO's physical presence worldwide. Some Zestawy recreate specific park areas or attractions, letting fans relive vacation memories. Perfect for families who visited LEGOLAND parks, enthusiasts collecting park exclusives, and builders who want to recreate motyw park excitement in brick form at Strona główna.",
       "LEGOLAND Parks": "Adventure awaits at LEGOLAND® Parks with exclusive Minifigurki available only at motyw park locations! These special figures commemorate visits to LEGOLAND parks across the globe - from California to Florida, Windsor to Billund, Dubai to Japan. Park-exclusive Minifigurki feature unique designs, often incorporating park logos, landmarks, or regional Motywy. Collect mascots, ride operators, and special edition figures unavailable anywhere else. LEGOLAND Parks Minifigurki become travel souvenirs and prove you visited specific locations. With limited availability and regional exclusivity, they're highly sought by collectors. These figures celebrate the real-world places where LEGO imagination comes to life. Perfect for park visitors wanting mementos, collectors hunting rare exclusives, and fans of LEGO's motyw park legacy spanning decades.",
       "Lightyear": "To infinity and beyond with LEGO® Lightyear™ Minifigurki! Based on the Pixar film exploring Buzz Lightyear's origin story, collect Space Ranger Buzz, his team, and the menacing Zurg. These Minifigurki feature sci-fi space suits, advanced technology, and futuristic designs. While inspired by Toy Story's Buzz, Lightyear tells the real story of the space hero. Build starships, explore alien planets, and battle robots in epic space adventures. Though a standalone Pixar film, these figures connect to the beloved Toy Story universe. Perfect for Pixar fans who want to explore the heroic origins of everyone's favorite Space Ranger.",
-      "MINDSTORMS": "Program the future with LEGO® MINDSTORMS! This revolutionary robotics platform combines LEGO building with advanced programming, letting you construct and code sophisticated robots. From remote-controlled vehicles to autonomous problem-solvers, MINDSTORMS makes engineering and computer science tangible. With sensors, motors, and unlimited building possibilities, MINDSTORMS has educated millions in robotics since 1998. Perfect for students learning programming, educators teaching STEM, robotics competitors, and anyone fascinated by bringing LEGO creations to life through code.",
+      "MINDSTORMS": "Zaprogramuj przyszłość z LEGO® MINDSTORMS! Ta rewolucyjna platforma robotyczna łączy budowanie z klocków LEGO z zaawansowanym programowaniem, pozwalając konstruować i programować zaawansowane roboty. Od pojazdów zdalnie sterowanych po autonomiczne maszyny rozwiązujące problemy, MINDSTORMS czyni inżynierię i informatykę namacalnymi. Dzięki czujnikom, silnikom i nieograniczonym możliwościom budowania MINDSTORMS uczy robotyki miliony ludzi od 1998 roku. Idealne dla uczniów uczących się programowania, nauczycieli prowadzących zajęcia STEM, uczestników zawodów robotycznych oraz każdego, kogo fascynuje ożywianie konstrukcji LEGO za pomocą kodu.",
       "MIXELS": "Mix and combine with LEGO® MIXELS! This quirky motyw featured small, colorful creatures from different tribes that could combine into larger 'Maxes' or even 'Murps'. Based on a Cartoon Network series, MIXELS delivered affordable, creative builds with personality. Each series introduced Nowy tribes with unique characteristics and combination possibilities. Perfect for children who love combining builds, collectors of complete series, and budget-conscious builders seeking fun, creative Zestawy.",
       "Master Builder Academy": "Learn advanced techniques with LEGO® Master Builder Academy Minifigurki! This subscription-based program (2011-2013) taught sophisticated building skills through monthly kits. Each level introduced professional building techniques Używany by official LEGO designers. Accompanying Minifigurki represented instructors and characters guiding builders through increasingly complex projects. Master Builder Academy emphasized education through structured curriculum, graduating students through different achievement levels. From architecture to mechanical engineering, these Zestawy taught real skills. Though discontinued, Master Builder Academy represented premium educational LEGO content for serious builders. These figures came with designer secrets and insider building tips. Perfect for adult builders seeking mastery, LEGO enthusiasts wanting professional techniques, and collectors of educational LEGO history.",
       "Minecraft": "Build, craft, and explore the blocky world of Minecraft® with LEGO® Minifigurki! From Steve and Alex to zombies, creepers, and endermen, bring your favorite Minecraft characters into the real world. Collect villagers, piglins, skeletons, and Wszystkie the mobs that make Minecraft adventures unforgettable. Our Minecraft Minifigurki feature the same cubic design as the game, perfectly capturing the iconic blocky aesthetic while adding LEGO building possibilities. Battle the Ender Dragon, explore the Nether, or build your dream base with these detailed character figures. Perfect for Minecraft players who want to bring their digital adventures into physical building experiences, combining two beloved worlds of creativity and imagination.",
@@ -222,7 +222,7 @@
       "Prince of Persia": "Rewind Czas with LEGO® Prince of Persia™ Minifigurki! Based on the 2010 film adaptation, collect Prince Dastan, Princess Tamina, and warriors from ancient Persia. These Minifigurki feature detailed Middle Eastern costumes, curved weapons, and accessories including the Czas-manipulating Dagger of Czas. Build desert fortresses, engage in palace intrigue, and recreate parkour-style action sequences. Though a single-year tie-in motyw, Prince of Persia delivered elaborate Zestawy and detailed figures from Disney's fantasy adventure film. Perfect for fans of Arabian Nights-style adventures, Czas manipulation, and the Prince of Persia video game franchise that inspired the movie.",
       "Project Hail Mary": "Science saves humanity with LEGO® Project Hail Mary Minifigurki! Based on Andy Weir's science fiction novel, follow lone astronaut Ryder Grace on his desperate mission to Zapisz Earth. This LEGO Ideas zestaw celebrates hard science fiction with detailed Minifigurki and scientific accuracy. From space travel to alien encounters, Project Hail Mary combines survival story with genuine scientific problem-solving. These Minifigurki represent characters from the book's gripping narrative O nas sacrifice, ingenuity, and interstellar friendship. With spacecraft and scientific equipment, recreate humanity's last hope against extinction. Perfect for fans of The Martian author Andy Weir, hard science fiction enthusiasts, and readers who love stories where intelligence and perseverance overcome impossible odds in realistic space exploration.",
       "Promotional": "Collect exclusive treasures with LEGO® Promotional Minifigurki! These special figures are never sold separately, only available through specific promotions, purchases, or events. From store giveaways to magazine subscriptions, mail-in offers to purchase incentives, promotional Minifigurki reward loyalty and drive engagement. Some celebrate holidays, others promote Nowy motyw launches or store openings. With limited distribution and Czas-sensitive availability, promotional figures become highly collectible. From polybag giveaways to free gifts with purchase, these exclusives range from common to extremely rare. Collectors hunt promotional figures through secondary markets, completing collections with these elusive pieces. Perfect for completists tracking down every variant, bargain hunters finding rare promotions, and fans who love the thrill of hunting exclusive releases.",
-      "Quatro": "Supersized building for tiny hands with LEGO® Quatro figures! Designed for children aged 1-3, Quatro featured bricks even larger than DUPLO, prioritizing safety for the youngest builders. These oversized, chunky figures introduced toddlers to construction play with pieces too large to swallow. Quatro emphasized bright colors, simple shapes, and developmental benefits. From animals to basic characters, Quatro figures supported early learning through tactile play. Though discontinued and absorbed into DUPLO's youngest age ranges, Quatro represented LEGO's commitment to safety and early childhood development. These extra-large figures gave toddlers confidence building independently. Perfect for nostalgic parents who remember this short-lived line and collectors of LEGO's early childhood product history.",
+      "Quatro": "Ogromne klocki dla małych rączek z figurkami LEGO® Quatro! Zaprojektowane dla dzieci w wieku 1-3 lat, klocki Quatro były jeszcze większe niż DUPLO, stawiając bezpieczeństwo najmłodszych budowniczych na pierwszym miejscu. Te potężne, masywne figurki wprowadzały maluchy w świat budowania za pomocą elementów zbyt dużych, by je połknąć. Quatro stawiało na jaskrawe kolory, proste kształty i korzyści rozwojowe. Od zwierząt po podstawowe postacie, figurki Quatro wspierały wczesną naukę poprzez zabawę dotykową. Choć linia została wycofana i wchłonięta przez najmłodszy zakres wiekowy DUPLO, Quatro reprezentowało zaangażowanie LEGO w bezpieczeństwo i rozwój najmłodszych dzieci. Te ponadwymiarowe figurki dawały maluchom pewność siebie w samodzielnym budowaniu. Idealne dla nostalgicznych rodziców, którzy pamiętają tę krótkotrwałą linię, oraz kolekcjonerów historii produktów LEGO dla najmłodszych.",
       "Queer Eye": "Can you believe? LEGO® Queer Eye™ Minifigurki bring the Fab Five to brick form! Based on Netflix's beloved makeover Pokaż, collect Jonathan Van Ness, Tan France, Antoni Porowski, Bobby Berk, and Karamo Brown. This LEGO Ideas zestaw celebrates positivity, self-care, and transformative kindness. Each minifigurka captures the hosts' distinctive styles and personalities, from Jonathan's flowing hair to Tan's fashion expertise. Build the loft where transformations happen and recreate emotional makeovers that changed lives. With representation and inclusivity, Queer Eye Minifigurki celebrate being yourself. This zestaw honors the Pokaż's message that everyone deserves to feel confident and loved. Perfect for fans of the Pokaż who believe in kindness, self-improvement, and celebrating what makes everyone unique and beautiful.",
       "Racers": "Feel the speed with LEGO® Racers Minifigurki! This high-octane motyw (2001-2010) focused on racing vehicles across multiple competition types. Collect race car drivers, pit crew members, and mechanics from street racing, Formula racing, and off-road competitions. Racers featured sleek vehicles, starting gates, and racing accessories. Some Zestawy included pullback motors or remote control functionality. These Minifigurki wore detailed racing suits with sponsor logos and team colors. From desert rally races to professional circuits, Racers delivered competitive speed. The motyw also included Tiny Turbos - miniature pull-Wstecz racers. Though superseded by Speed Champions, Racers remains nostalgic for fans of early 2000s racing excitement. Perfect for speed enthusiasts and collectors of LEGO's racing heritage.",
       "Rock Raiders": "Mine the underground with LEGO® Rock Raiders™ Minifigurki! This 1999-2000 motyw featured a stranded mining crew exploring an alien planet's cave systems. Collect the Rock Raiders team in distinctive yellow and blue mining suits with drilling equipment and vehicles. Mine energy crystals while avoiding rock monsters, cave-ins, and underground hazards. These Minifigurki pioneered underground exploration Motywy with unique tools and vehicles. From chromestone to energy crystals, extract resources while battling slimy rock monsters. Rock Raiders combined resource management gameplay with LEGO building. Perfect for fans of underground exploration, mining operations, and surviving hostile alien environments deep beneath the surface.",
@@ -279,12 +279,12 @@
       "Znap": "Connect in Nowy ways with LEGO® Znap! This experimental 1990s system featured flexible beam-and-panel construction different from traditional brick building. Znap Zestawy created skeletal structures, vehicles, and creatures using hinged connections. Though unsuccessful commercially, Znap showed LEGO's willingness to explore alternative building systems. Perfect for LEGO historians, collectors of failed experiments, and fans of LEGO's innovative attempts beyond standard bricks.",
       "xtra": "Enhance your worlds with LEGO® xtra! These accessory Zestawy include extra elements, scenery pieces, and Szczegóły for customizing existing builds. From street signs and plants to furniture and decorations, xtra Zestawy Dodaj life and realism to LEGO cities and scenes. Perfect for builders adding detail to displays, city builders seeking realism, and those who love accessorizing their LEGO worlds."
     },
-    "exploreCount": "Explore {themeCount} themes with {minifigCount} minifigures",
-    "minifigsCount": "{count} minifigures",
-    "acrossSeries": "across {count} series",
-    "seriesLabel": "Series",
-    "otherMinifigures": "Other {theme} Minifigures",
-    "uncategorizedDesc": "{count} minifigures that don't belong to a specific series",
+    "exploreCount": "Odkryj {themeCount} motywów z {minifigCount} minifigurkami",
+    "minifigsCount": "{count} minifigurek",
+    "acrossSeries": "w {count} seriach",
+    "seriesLabel": "Seria",
+    "otherMinifigures": "Inne minifigurki z {theme}",
+    "uncategorizedDesc": "{count} minifigurek, które nie należą do żadnej konkretnej serii",
     "showLess": "Pokaż Mniej",
     "readMore": "Czytaj więcej",
     "meta": {
@@ -302,12 +302,12 @@
     "stats": {
       "totalItems": "Wszystkich przedmiotów",
       "collectionValue": "Kolekcja Value",
-      "memberSince": "Member Since"
+      "memberSince": "Członek od"
     },
     "profile": {
       "title": "Profil Information",
       "avatar": {
-        "change": "Change Avatar",
+        "change": "Zmień awatar",
         "cancel": "Anuluj"
       },
       "fullName": "Full Imię",
@@ -317,10 +317,10 @@
         "name": "Enter your full Imię"
       },
       "save": "Zapisz",
-      "saving": "Saving..."
+      "saving": "Zapisywanie..."
     },
     "security": {
-      "title": "Security",
+      "title": "Bezpieczeństwo",
       "currentPassword": "Current Hasło",
       "newPassword": "Nowy Hasło",
       "confirmPassword": "Potwierdź Nowy Hasło",
@@ -330,31 +330,31 @@
         "confirmPassword": "Potwierdź Nowy Hasło"
       },
       "changePassword": "Change Hasło",
-      "changing": "Changing..."
+      "changing": "Zmienianie..."
     },
     "regional": {
       "title": "Regional Ustawienia",
-      "subtitle": "Choose your preferred currency and language",
-      "currency": "Currency",
-      "language": "Language",
+      "subtitle": "Wybierz preferowaną walutę i język",
+      "currency": "Waluta",
+      "language": "Język",
       "note": "Changing your currency will display prices in your selected region's marketplace. Prices may differ from Inne regions due to local supply, demand, and shipping costs."
     },
     "sharing": {
       "title": "Udostępnij Kolekcja",
       "subtitle": "Udostępnij your Kolekcja with others via a public link (read-only)",
-      "publicSharing": "Public Sharing",
+      "publicSharing": "Udostępnianie publiczne",
       "enabled": "Your Kolekcja is visible to anyone with the link",
       "disabled": "Your Kolekcja is private",
       "shareLink": "Udostępnij Link",
-      "copy": "Copy",
-      "copied": "Copied",
+      "copy": "Kopiuj",
+      "copied": "Skopiowano",
       "linkNote": "Anyone with this link can Zobacz your Kolekcja and Inwentarz (read-only)",
       "enableSuccess": "Kolekcja sharing enabled",
       "disableSuccess": "Kolekcja sharing disabled",
-      "error": "Failed to toggle sharing"
+      "error": "Nie udało się zmienić ustawień udostępniania"
     },
     "dataManagement": {
-      "title": "Data Management",
+      "title": "Zarządzanie danymi",
       "export": {
         "title": "Eksportuj Kolekcja Data",
         "subtitle": "Pobierz your entire Kolekcja as a JSON file",
@@ -373,15 +373,15 @@
     },
     "messages": {
       "nameUpdated": "Imię updated successfully",
-      "avatarUpdated": "Avatar updated!",
+      "avatarUpdated": "Awatar zaktualizowany!",
       "passwordChanged": "Hasło changed successfully",
       "passwordMismatch": "Nowy passwords do not match",
       "passwordTooShort": "Hasło must be at least 8 characters",
-      "currencyUpdated": "Currency updated to {currencyName} ({currencySymbol})",
-      "updatingPrices": "Updating prices for {itemCount} items in your collection.",
-      "estimatedTime": "Estimated time: {minutes} minute{plural}",
-      "refreshPage": "Refresh the page in a few minutes to see updated prices.",
-      "pricesWillDisplay": "Prices will now display in {currencyCode}.",
+      "currencyUpdated": "Waluta zmieniona na {currencyName} ({currencySymbol})",
+      "updatingPrices": "Aktualizowanie cen {itemCount} przedmiotów w Twojej kolekcji.",
+      "estimatedTime": "Szacowany czas: {minutes} minut{plural}",
+      "refreshPage": "Odśwież stronę za kilka minut, aby zobaczyć zaktualizowane ceny.",
+      "pricesWillDisplay": "Ceny będą teraz wyświetlane w {currencyCode}.",
       "genericError": "An Błąd occurred. Please try again."
     },
     "quickLinks": {
@@ -406,7 +406,7 @@
     "placeholder": "Szukaj for any LEGO minifigurka or zestaw...",
     "placeholderSets": "Szukaj for LEGO Zestawy...",
     "notFound": "Not found. Try different Szukaj terms.",
-    "results": "{count} results found",
+    "results": "Znaleziono {count} wyników",
     "searching": "Szukanie...",
     "seeAllMinifigures": "Zobacz wszystkie minifigurki →",
     "emptyTitle": "Szukaj minifigurek i zestawów",
@@ -423,27 +423,27 @@
   "buyButtons": {
     "ebay": {
       "name": "eBay",
-      "description": "Rare finds & collector deals",
+      "description": "Rzadkie znaleziska i okazje dla kolekcjonerów",
       "sponsored": "Sponsorowane",
       "buyOn": "Kup na eBay"
     },
     "amazon": {
       "name": "Amazon",
-      "description": "Fast shipping & easy returns",
+      "description": "Szybka wysyłka i łatwe zwroty",
       "sponsored": "Sponsorowane",
       "shopOn": "Kup na Amazon",
       "buyOn": "Kup na Amazon"
     },
     "bricklink": {
       "name": "BrickLink",
-      "description": "Largest LEGO marketplace"
+      "description": "Największy rynek LEGO"
     }
   },
   "pricing": {
-    "sixMonthAvg": "6 Mo Avg",
-    "currentAvg": "Current Avg",
-    "lowest": "Lowest",
-    "highest": "Highest",
+    "sixMonthAvg": "Śr. z 6 mies.",
+    "currentAvg": "Aktualna śr.",
+    "lowest": "Najniższa",
+    "highest": "Najwyższa",
     "suggestedPrice": "Suggested Cena",
     "priceHistory": "Cena History",
     "noPricing": "Nie Wycena data available",
@@ -452,25 +452,25 @@
     "sourceEbayTooltip": "Ceny są szacowane na podstawie aktualnych danych rynkowych.",
     "ebayFallbackTitle": "Szacowane na podstawie aktywnych ofert eBay",
     "ebayFallbackExplain": "Ceny są szacowane na podstawie aktualnych danych rynkowych i odświeżają się automatycznie.",
-    "ebayLoggedOutTitle": "eBay Market Pricing",
-    "ebayLoggedOutExplain": "Pricing based on current eBay market data.",
+    "ebayLoggedOutTitle": "Ceny rynkowe eBay",
+    "ebayLoggedOutExplain": "Ceny na podstawie aktualnych danych rynkowych eBay.",
     "ebayLoggedOutCta": "Zaloguj się, aby uzyskać spersonalizowane ceny →",
     "sourceBrickLink": "Cena z BrickLink"
   },
   "errors": {
-    "notFound": "Not found",
-    "unauthorized": "Unauthorized",
+    "notFound": "Nie znaleziono",
+    "unauthorized": "Brak autoryzacji",
     "serverError": "Server Błąd. Please try again.",
     "networkError": "Network Błąd. Check your connection.",
-    "invalidInput": "Invalid input",
-    "requiredField": "This field is required"
+    "invalidInput": "Nieprawidłowe dane",
+    "requiredField": "To pole jest wymagane"
   },
   "wishlist": {
     "title": "My Lista życzeń",
     "signInTitle": "Zapisz Your Favorite Minifigurki",
     "signInDescription": "Create a free Konto to Zapisz Minifigurki to your Lista życzeń, track your Kolekcja, and get Cena updates.",
     "createAccount": "Create Free Konto",
-    "itemsSaved": "{count} minifigure(s) saved",
+    "itemsSaved": "Zapisano {count} minifigurek",
     "emptyTitle": "Your Lista życzeń is empty",
     "emptyDescription": "Przeglądaj Minifigurki and click the heart icon to Zapisz them here",
     "browseButton": "Przeglądaj Minifigurki",
@@ -493,27 +493,27 @@
       "searchPlaceholder": "Szukaj by Imię or zestaw number...",
       "browseByTheme": "Przeglądaj by motyw",
       "clearFilter": "Wyczyść motyw Filtruj",
-      "searching": "Searching...",
+      "searching": "Szukanie...",
       "noSetsFound": "Nie Zestawy found",
       "tryAdjusting": "Try adjusting your Szukaj or Przeglądaj by motyw",
-      "foundSets": "Found {count} sets",
-      "inTheme": "in {theme}",
-      "year": "Year",
-      "weight": "Weight"
+      "foundSets": "Znaleziono {count} zestawów",
+      "inTheme": "w {theme}",
+      "year": "Rok",
+      "weight": "Waga"
     }
   },
   "faq": {
     "badge": "Pomoc CENTER",
     "title": "Najczęściej zadawane pytania",
     "subtitle": "Everything you need to know O nas Wycena and tracking LEGO Minifigurki",
-    "stillHaveQuestions": "Still have questions?",
+    "stillHaveQuestions": "Nadal masz pytania?",
     "cantFindAnswer": "Can't find the answer you're looking for? Reach out to our Wsparcie team.",
     "contactSupport": "Skontaktuj się z pomocą",
     "emailUs": "E-mail us with any questions or feedback",
     "cta": {
-      "title": "Ready to price your next listing?",
-      "subtitle": "Search any minifigure or set and get a suggested price in seconds.",
-      "button": "Start Pricing →"
+      "title": "Gotowy, aby wycenić swoje następne ogłoszenie?",
+      "subtitle": "Wyszukaj dowolną minifigurkę lub zestaw i uzyskaj sugerowaną cenę w kilka sekund.",
+      "button": "Zacznij wyceniać →"
     },
     "items": [
       {
@@ -591,88 +591,88 @@
   },
   "homepage": {
     "stats": {
-      "minifigsTracked": "Minifigures you can price",
-      "setsInCatalog": "Sets in the catalog",
+      "minifigsTracked": "Minifigurek, które możesz wycenić",
+      "setsInCatalog": "Zestawów w katalogu",
       "realTime": "Czas rzeczywisty",
-      "bricklinkPricing": "Currencies supported",
+      "bricklinkPricing": "Obsługiwanych walut",
       "free": "Bezpłatne",
-      "forCollectorsSellers": "No account required to search"
+      "forCollectorsSellers": "Konto nie jest wymagane do wyszukiwania"
     }
   },
   "about": {
     "badge": "O nas FIGTRACKER",
     "hero": {
-      "title": "One Price. No Guesswork.",
-      "subtitle": "The fastest way to price LEGO minifigures and sets. Free for every seller."
+      "title": "Jedna cena. Bez zgadywania.",
+      "subtitle": "Najszybszy sposób na wycenę minifigurek i zestawów LEGO. Bezpłatny dla każdego sprzedawcy."
     },
     "problem": {
-      "title": "Pricing LEGO sets and minifigures shouldn't feel like homework.",
-      "paragraph1": "You open BrickLink and see sold prices and listings. New and Used. Each with a minimum, average, quantity-weighted average, and maximum. That's 24 different numbers to sort through before you can price a single item.",
-      "paragraph2": "Then you do the mental math, trying to land on something fair. <strong>Every. Single. Time.</strong>"
+      "title": "Wycena zestawów i minifigurek LEGO nie powinna przypominać odrabiania lekcji.",
+      "paragraph1": "Otwierasz BrickLink i widzisz ceny sprzedanych przedmiotów oraz aktualne oferty. Nowe i używane. Każda kategoria ma cenę minimalną, średnią, średnią ważoną ilością i maksymalną. To 24 różne liczby, które trzeba przeanalizować, zanim wycenisz choć jeden przedmiot.",
+      "paragraph2": "Potem liczysz w głowie, próbując znaleźć uczciwą cenę. <strong>Za. Każdym. Razem.</strong>"
     },
     "stats": {
-      "pricePoints": "Numbers from BrickLink",
-      "suggestedPrice": "Price from FigTracker",
-      "mentalMath": "Mental math"
+      "pricePoints": "Liczb z BrickLink",
+      "suggestedPrice": "Cena z FigTracker",
+      "mentalMath": "Liczenie w głowie"
     },
     "features": {
-      "title": "Everything you need. Nothing extra.",
-      "subtitle": "Price and track your inventory in one place.",
+      "title": "Wszystko, czego potrzebujesz. Nic ponadto.",
+      "subtitle": "Wyceniaj i śledź swój inwentarz w jednym miejscu.",
       "pricing": {
-        "title": "One Suggested Price",
-        "description": "We blend BrickLink and eBay data into a single number you can actually use. No spreadsheets. No mental math."
+        "title": "Jedna sugerowana cena",
+        "description": "Łączymy dane z BrickLink i eBay w jedną liczbę, z której naprawdę możesz skorzystać. Bez arkuszy kalkulacyjnych. Bez liczenia w głowie."
       },
       "inventory": {
-        "title": "Sell and Keep, Separated",
-        "description": "Track items you're selling and your personal collection in separate lists. Quantities, conditions, and total value at a glance."
+        "title": "Sprzedaż i kolekcja osobno",
+        "description": "Śledź przedmioty na sprzedaż i swoją osobistą kolekcję w oddzielnych listach. Ilości, stan i łączna wartość na pierwszy rzut oka."
       },
       "search": {
-        "title": "Find Any Figure in Seconds",
+        "title": "Znajdź dowolną figurkę w kilka sekund",
         "description": "Search minifigures and sets by BrickLink ID or name. Browse by theme when you want to explore."
       },
       "privacy": {
-        "title": "Prices That Reflect the Market",
-        "description": "Our suggested price blends recent sold data with current listings. One number that accounts for what buyers are actually paying."
+        "title": "Ceny, które odzwierciedlają rynek",
+        "description": "Nasza sugerowana cena łączy dane o niedawno sprzedanych przedmiotach z aktualnymi ofertami. Jedna liczba, która odzwierciedla to, ile naprawdę płacą kupujący."
       }
     },
     "personas": {
-      "title": "Built for anyone who sells LEGO",
+      "title": "Stworzone dla każdego, kto sprzedaje LEGO",
       "subtitle": "",
       "resellers": {
-        "title": "Resellers",
-        "description": "You move volume. FigTracker prices your inventory so you can focus on sourcing and shipping."
+        "title": "Odsprzedawcy",
+        "description": "Sprzedajesz dużo. FigTracker wycenia Twój inwentarz, dzięki czemu możesz skupić się na pozyskiwaniu towaru i wysyłce."
       },
       "partTime": {
         "title": "Part-Czas Sellers",
-        "description": "You sell when life allows. Get a fair price without spending your evening on research."
+        "description": "Sprzedajesz, kiedy życie na to pozwala. Uzyskaj uczciwą cenę bez spędzania wieczoru na researchu."
       },
       "casual": {
-        "title": "Casual Sellers",
-        "description": "You have a few figs to list. Search, price, post. Done in minutes."
+        "title": "Sprzedawcy okazjonalni",
+        "description": "Masz kilka figurek do wystawienia. Wyszukaj, wyceń, opublikuj. Gotowe w kilka minut."
       }
     },
     "trust": {
-      "badge": "FREE TO USE",
+      "badge": "DARMOWE W UŻYCIU",
       "title": "Darmowe. Nie hidden fees.",
       "description": "Your Inwentarz data is private and secure. Currently free with Nie payment required to track your Kolekcja.",
-      "secure": "Secure & Private",
-      "fast": "Fast & Reliable",
+      "secure": "Bezpieczne i prywatne",
+      "fast": "Szybkie i niezawodne",
       "free": "Nie Payment Required"
     },
     "support": {
       "title": "Need Pomoc?",
-      "subtitle": "Found a bug or have a feature request? We'd love to hear from you.",
+      "subtitle": "Znalazłeś błąd albo masz pomysł na nową funkcję? Chętnie Cię wysłuchamy.",
       "contactTitle": "Skontaktuj się z pomocą",
       "contactDescription": "E-mail us with any issues, questions, or feedback"
     },
     "cta": {
-      "title": "Ready to price your next listing?",
-      "subtitle": "Search any minifigure or set and get a suggested price in seconds.",
-      "button": "Start Pricing →"
+      "title": "Gotowy, aby wycenić swoje następne ogłoszenie?",
+      "subtitle": "Wyszukaj dowolną minifigurkę lub zestaw i uzyskaj sugerowaną cenę w kilka sekund.",
+      "button": "Zacznij wyceniać →"
     },
     "meta": {
-      "title": "About FigTracker - Price Any LEGO Minifigure or Set in Seconds",
-      "description": "FigTracker turns 24 BrickLink data points into one suggested price for any LEGO minifigure or set. Dual inventory, 15+ currencies, completely free.",
+      "title": "O FigTracker - Wyceń dowolną minifigurkę lub zestaw LEGO w kilka sekund",
+      "description": "FigTracker zamienia 24 punkty danych z BrickLink w jedną sugerowaną cenę dla dowolnej minifigurki lub zestawu LEGO. Podwójny inwentarz, ponad 15 walut, całkowicie za darmo.",
       "keywords": "O nas FigTracker, LEGO Cena tracker, BrickLink API tool, minifigurka Wycena, LEGO zestaw Wycena, LEGO Kolekcja manager, LEGO Inwentarz tracker, free LEGO Wycena, LEGO seller tool"
     }
   },
@@ -687,7 +687,7 @@
     "popularTitle": "Popularne zestawy",
     "popularSubtitle": "Zestawy uwielbiiane przez kolekcjonerów",
     "shopAmazon": "Kup na Amazon",
-    "affiliate": "Affiliate",
+    "affiliate": "Afiliacja",
     "availableNow": "Dostępne teraz",
     "retiringSoon": "Wkrótce wycofane"
   },
@@ -695,21 +695,21 @@
     "title": "Wesprzyj FigTracker",
     "subtitle": "Zachować our LEGO Cena tracker free for the community",
     "intro": "FigTracker provides free LEGO Cena tracking for 18,000+ Minifigurki and 20,000+ Zestawy with smart market pricing from multiple sources. We cover costs through affiliate commissions when you shop through our links. Here's how you can Pomoc:",
-    "shopLinksTitle": "Shop Through Our Links",
+    "shopLinksTitle": "Kupuj przez nasze linki",
     "shopLinksDescription": "When you're ready to buy LEGO Zestawy or Minifigurki, use the \"Kup na eBay\" or \"Kup na Amazon\" buttons on product pages (marked \"Sponsorowane\").",
     "shopLinksNote": "You pay the same Cena — we earn a small commission to Zachować the site running.",
     "donateLabel": "Or Wsparcie us directly:",
     "donateLeaderboard": "Donors appear on the Najlepsi wspierający leaderboard on our homepage",
     "donateButton": "Wpłać przez PayPal",
-    "thankYou": "Thank you for supporting FigTracker!",
+    "thankYou": "Dziękujemy za wsparcie FigTracker!",
     "meta": {
-      "title": "Support FigTracker - Help Keep It Free",
-      "description": "Help keep FigTracker free. Shop through our affiliate links or donate directly. Built by one LEGO seller for the community.",
+      "title": "Wesprzyj FigTracker - Pomóż nam pozostać darmowym",
+      "description": "Pomóż nam utrzymać FigTracker za darmo. Kupuj przez nasze linki afiliacyjne lub wesprzyj nas bezpośrednio. Stworzone przez jednego sprzedawcę LEGO dla społeczności.",
       "keywords": "Wsparcie FigTracker, LEGO affiliate links, Pomoc FigTracker, Wsparcie LEGO Cena tracker, Wspomóż to FigTracker"
     },
-    "heroTitle": "Help Keep This Free",
+    "heroTitle": "Pomóż nam pozostać darmowym",
     "pricingViews": "Sprawdziłeś {count} cen — każde sprawdzenie zaoszczędziło ci czasu",
-    "builtBy": "Built by one LEGO seller in Utah. Every affiliate click and donation keeps the lights on.",
+    "builtBy": "Stworzone przez jednego sprzedawcę LEGO w Utah. Każde kliknięcie w link afiliacyjny i każda darowizna utrzymują to miejsce przy życiu.",
     "shopLinksTitle2": "Kupuj przez nasze linki",
     "shopLinksDesc2": "Zarabiamy małą prowizję, gdy kupujesz przez nasze linki eBay, Amazon lub LEGO. Żadnych dodatkowych kosztów dla ciebie.",
     "donateDirect": "Wpłać darowiznę bezpośrednio",
@@ -743,35 +743,35 @@
     "commission": "Otrzymujemy prowizję od kwalifikujących się zakupów.",
     "learnMore": "Learn Więcej",
     "buyLego": "Kup na LEGO.com",
-    "buyAmazon": "Shop on Amazon",
+    "buyAmazon": "Kup na Amazon",
     "dataProvidedBy": "minifigurka data provided by",
-    "bricklinkTrademark": "The term \"BrickLink\" is a trademark of the LEGO Group BrickLink. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.",
-    "legoTrademark": "LEGO® is a trademark of the LEGO Group.",
+    "bricklinkTrademark": "Termin „BrickLink” jest znakiem towarowym grupy LEGO BrickLink. Ta aplikacja korzysta z API BrickLink, ale nie jest zatwierdzona ani certyfikowana przez LEGO BrickLink, Inc.",
+    "legoTrademark": "LEGO® jest znakiem towarowym grupy LEGO.",
     "allRightsReserved": "Wszelkie prawa zastrzeżone.",
     "createdBy": "Stworzone przez",
     "browse": "Przeglądaj",
     "resources": "Zasoby",
     "accountLegal": "Konto i Prawo",
     "aboutFigTracker": "O FigTracker",
-    "aboutDescription": "FigTracker gives you one suggested price for any LEGO minifigure or set, so you can list faster and sell with confidence.",
+    "aboutDescription": "FigTracker podaje Ci jedną sugerowaną cenę dla dowolnej minifigurki lub zestawu LEGO, dzięki czemu możesz szybciej wystawiać ogłoszenia i sprzedawać z pewnością siebie.",
     "affiliateDisclosure": "Jako Amazon Associate, LEGO Affiliate i eBay Partner, FigTracker zarabia na kwalifikujących się zakupach.",
-    "bricklinkDisclosure": "Market data sourced from multiple marketplaces including BrickLink. The term \"BrickLink\" is a trademark of the LEGO Group. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.",
+    "bricklinkDisclosure": "Dane rynkowe pochodzą z wielu platform handlowych, w tym BrickLink. Termin „BrickLink” jest znakiem towarowym grupy LEGO. Ta aplikacja korzysta z API BrickLink, ale nie jest zatwierdzona ani certyfikowana przez LEGO BrickLink, Inc.",
     "copyright": "© {year} FigTracker. Wszelkie prawa zastrzeżone."
   },
   "disclosure": {
     "title": "Affiliate Ujawnienie",
     "lastUpdated": "Ostatnia aktualizacja",
     "affiliatePrograms": {
-      "title": "Affiliate Programs",
+      "title": "Programy afiliacyjne",
       "paragraph1": "FigTracker participates in the LEGO.com Affiliate Program, Amazon Associates Program, and eBay Partner Network. When you click on featured product links and make a purchase, we may earn a small commission at Nie additional cost to you.",
       "paragraph2": "These affiliate partnerships Pomoc Wsparcie FigTracker's development and maintenance while keeping the tool free to use."
     },
     "trademark": {
-      "title": "LEGO® Trademark Notice",
-      "text": "LEGO® is a trademark of the LEGO Group which does not sponsor, authorize, or endorse this site."
+      "title": "Informacja o znaku towarowym LEGO®",
+      "text": "LEGO® jest znakiem towarowym grupy LEGO, która nie sponsoruje, nie autoryzuje ani nie popiera tej strony."
     },
     "questions": {
-      "title": "Questions?",
+      "title": "Masz pytania?",
       "text": "If you have questions O nas our affiliate relationships, please Kontakt us through our",
       "aboutPage": "O nas page"
     },
@@ -796,8 +796,8 @@
   },
   "guides": {
     "meta": {
-      "title": "LEGO Pricing Guides for Sellers | FigTracker",
-      "description": "Practical guides for pricing and selling LEGO minifigures. Learn how to use BrickLink data, price by condition, and manage your inventory.",
+      "title": "Przewodniki po wycenie LEGO dla sprzedawców | FigTracker",
+      "description": "Praktyczne przewodniki po wycenie i sprzedaży minifigurek LEGO. Dowiedz się, jak korzystać z danych BrickLink, wyceniać według stanu i zarządzać swoim inwentarzem.",
       "keywords": [
         "LEGO Wycena Przewodnik",
         "how to Cena Minifigurki",
@@ -811,18 +811,18 @@
     "pageTitle": "Artykuły",
     "badge": "Przewodniki & RESOURCES",
     "hero": {
-      "title": "Sell Smarter, Not Longer",
-      "subtitle": "Practical guides for pricing, listing, and managing your LEGO inventory."
+      "title": "Sprzedawaj mądrzej, nie dłużej",
+      "subtitle": "Praktyczne przewodniki po wycenie, wystawianiu i zarządzaniu Twoim inwentarzem LEGO."
     },
-    "whatYoullLearn": "What you'll learn:",
+    "whatYoullLearn": "Czego się dowiesz:",
     "readGuide": "Przeczytaj przewodnik →",
     "comingSoon": "Wkrótce",
     "category": "Przewodnik",
-    "readTime": "5 min read",
+    "readTime": "5 min czytania",
     "quickTips": {
       "title": "Quick Wycena Tips",
       "tip1": {
-        "title": "Refresh Prices Regularly",
+        "title": "Regularnie odświeżaj ceny",
         "description": "Marketplace prices change frequently. Refresh Wycena data before listing to ensure competitive Wycena."
       },
       "tip2": {
@@ -830,7 +830,7 @@
         "description": "Nowy Minifigurki command 20-50% higher prices than Używany. Grade Stan honestly to build buyer trust."
       },
       "tip3": {
-        "title": "Use Multiple Data Points",
+        "title": "Korzystaj z wielu źródeł danych",
         "description": "Don't rely on just one metric. FigTracker's suggested Cena balances Ilość-weighted average, simple average, and lowest Cena."
       }
     },
@@ -909,8 +909,8 @@
   },
   "auth": {
     "signup": {
-      "title": "Track What You're Selling",
-      "subtitle": "One account. Unlimited items. Always free.",
+      "title": "Śledź to, co sprzedajesz",
+      "subtitle": "Jedno konto. Nieograniczona liczba przedmiotów. Zawsze za darmo.",
       "features": {
         "trackUnlimited": "Track unlimited Przedmioty",
         "realtimePrices": "Real-Czas suggested prices",
@@ -946,7 +946,7 @@
         "password": "Wprowadź swoje hasło"
       },
       "button": "Zaloguj się",
-      "buttonLoading": "Signing in...",
+      "buttonLoading": "Logowanie...",
       "dontHaveAccount": "Nie masz konta?",
       "signUpLink": "Zarejestruj się",
       "errors": {
@@ -964,7 +964,7 @@
         "email": "twoj@email.com"
       },
       "button": "Wyślij Reset Link",
-      "buttonLoading": "Sending...",
+      "buttonLoading": "Wysyłanie...",
       "backToSignIn": "Wstecz to Zaloguj się",
       "success": {
         "title": "Check Your E-mail",
@@ -982,12 +982,12 @@
       "newPassword": "Nowy Hasło",
       "confirmPassword": "Potwierdź Nowy Hasło",
       "resetButton": "Resetuj hasło",
-      "resetting": "Resetting...",
+      "resetting": "Resetowanie...",
       "backToSignIn": "← Wstecz to Zaloguj się",
       "successTitle": "Hasło Reset Successful",
       "successMessage": "Your Hasło has been changed. You can now sign in with your Nowy Hasło.",
-      "invalidToken": "Invalid or missing reset token",
-      "passwordsMismatch": "Passwords do not match",
+      "invalidToken": "Nieprawidłowy lub brakujący token resetowania",
+      "passwordsMismatch": "Hasła nie są zgodne",
       "passwordTooShort": "Hasło must be at least 8 characters",
       "resetFailed": "Failed to reset Hasło",
       "errorOccurred": "An Błąd occurred. Please try again.",
@@ -996,18 +996,18 @@
         "confirmPassword": "Potwierdź Nowy Hasło"
       }
     },
-    "footer": "Price your inventory in seconds, not hours.",
-    "footerText": "Price your inventory in seconds, not hours."
+    "footer": "Wyceń swój inwentarz w kilka sekund, nie godzin.",
+    "footerText": "Wyceń swój inwentarz w kilka sekund, nie godzin."
   },
   "newsletter": {
-    "title": "Monthly Price Movers",
-    "subtitle": "Which minifigs went up, which dropped, and what it means for your inventory. One email a month.",
+    "title": "Comiesięczne zmiany cen",
+    "subtitle": "Które minifigurki podrożały, które potaniały i co to oznacza dla Twojego inwentarza. Jeden e-mail miesięcznie.",
     "placeholder": "twoj@email.com",
     "button": "Subskrybuj za darmo",
-    "buttonLoading": "Subscribing...",
+    "buttonLoading": "Subskrybowanie...",
     "success": "Thanks! Check your E-mail to Potwierdź subscription.",
     "errors": {
-      "generic": "Something went wrong. Please try again.",
+      "generic": "Coś poszło nie tak. Spróbuj ponownie.",
       "network": "Network Błąd. Please try again."
     },
     "privacy": "Bez spamu. Wypisz się w każdej chwili. Szanujemy Twoją prywatność."
@@ -1031,14 +1031,14 @@
     "noMinifigsYet": "Brak minifigurek",
     "startAdding": "Rozpocznij dodawanie do swojej kolekcji",
     "searchMinifigs": "Szukaj Minifigurki",
-    "noConditionMinifigs": "No {condition} condition minifigs",
-    "otherConditions": "You have {count} items in other conditions",
+    "noConditionMinifigs": "Brak minifigurek w stanie {condition}",
+    "otherConditions": "Masz {count} przedmiotów w innych stanach",
     "condition": "Stan",
     "conditions": {
       "new": "Nowy",
       "likeNew": "Like Nowy",
-      "good": "Good",
-      "fair": "Fair"
+      "good": "Dobry",
+      "fair": "Przeciętny"
     },
     "filters": {
       "all": "Wszystkie",
@@ -1052,15 +1052,15 @@
       "priceLow": "Cena: Low → High",
       "nameAZ": "Imię: A → Z",
       "nameZA": "Imię: Z → A",
-      "idLowHigh": "ID: Low → High",
-      "idHighLow": "ID: High → Low",
+      "idLowHigh": "ID: Rosnąco",
+      "idHighLow": "ID: Malejąco",
       "yearNewest": "Year: Najnowsze → Najstarsze",
       "yearOldest": "Year: Najstarsze → Najnowsze"
     },
     "pricing": {
       "pricesOlderThanSixHours": "Aktualizowanie cen",
       "refreshingNow": "Odświeżanie",
-      "remaining": "remaining",
+      "remaining": "pozostało",
       "updatingPrices": "Aktualizacja...",
       "noSellersAvailable": "Brak sprzedawców",
       "pricingDailyLimit": "Ceny chwilowo niedostępne — sprawdź ponownie wkrótce",
@@ -1078,7 +1078,7 @@
     "startAddingSets": "Rozpocznij dodawanie do swojej kolekcji",
     "startAddingSetsInventory": "Rozpocznij dodawanie do inwentarza by browsing Zestawy",
     "browseSets": "Przeglądaj zestawy",
-    "noConditionSets": "No {condition} condition sets",
+    "noConditionSets": "Brak zestawów w stanie {condition}",
     "priceUnavailable": "Cena niedostępna",
     "deleteFromInventory": "Usunąć ten przedmiot z inwentarza?",
     "deleteFromCollection": "Usunąć ten przedmiot z osobistej kolekcji?",
@@ -1094,11 +1094,11 @@
     "title": "Polityka prywatności",
     "lastUpdated": "Ostatnia aktualizacja: {date}",
     "introduction": {
-      "title": "Introduction",
+      "title": "Wstęp",
       "content": "FigTracker (\"we,\" \"our,\" or \"us\") is operated by ES Art & D LLC. This Polityka prywatności explains how we collect, use, and protect your information when you use our LEGO minifigurka Cena tracking and Inwentarz management service."
     },
     "informationWeCollect": {
-      "title": "Information We Collect",
+      "title": "Informacje, które zbieramy",
       "accountInformation": {
         "title": "Konto Information",
         "intro": "When you create an Konto, we collect:",
@@ -1119,8 +1119,8 @@
         ]
       },
       "usageAnalytics": {
-        "title": "Usage Analytics",
-        "intro": "We use Google Analytics to understand how users interact with FigTracker:",
+        "title": "Analiza użytkowania",
+        "intro": "Korzystamy z Google Analytics, aby zrozumieć, jak użytkownicy korzystają z FigTracker:",
         "items": [
           "Pages visited",
           "Szukaj queries (minifigurka searches only)",
@@ -1130,8 +1130,8 @@
       }
     },
     "howWeUse": {
-      "title": "How We Use Your Information",
-      "intro": "We use collected information to:",
+      "title": "Jak wykorzystujemy Twoje informacje",
+      "intro": "Zebrane informacje wykorzystujemy do:",
       "items": [
         "Provide Inwentarz tracking and Wycena features",
         "Pobierz dane o cenach z wielu źródeł rynkowych",
@@ -1141,8 +1141,8 @@
       ]
     },
     "dataStorage": {
-      "title": "Data Storage and Security",
-      "intro": "Your data is stored securely:",
+      "title": "Przechowywanie danych i bezpieczeństwo",
+      "intro": "Twoje dane są przechowywane w sposób bezpieczny:",
       "items": [
         "Passwords are encrypted using industry-standard bcrypt hashing",
         "Data is stored in secure, encrypted databases",
@@ -1151,9 +1151,9 @@
       ]
     },
     "thirdPartyServices": {
-      "title": "Third-Party Services",
+      "title": "Usługi stron trzecich",
       "bricklink": {
-        "title": "Bricklink API",
+        "title": "API Bricklink",
         "content": "We use the official Bricklink API to fetch minifigurka Wycena data. When you Szukaj for or Dodaj Minifigurki, we Wyślij minifigurka IDs to Bricklink to retrieve current marketplace prices. Nie personal information is shared with Bricklink."
       },
       "googleAnalytics": {
@@ -1163,14 +1163,14 @@
       },
       "amazonAssociates": {
         "title": "Amazon Associates",
-        "content": "We participate in the Amazon Associates Program. When you click affiliate links, Amazon may track your activity. See our",
+        "content": "Uczestniczymy w programie Amazon Associates. Gdy klikasz linki afiliacyjne, Amazon może śledzić Twoją aktywność. Zobacz naszą",
         "linkText": "Affiliate Ujawnienie",
         "contentEnd": "for Szczegóły."
       }
     },
     "yourRights": {
-      "title": "Your Rights",
-      "intro": "You have the right to:",
+      "title": "Twoje prawa",
+      "intro": "Masz prawo do:",
       "items": [
         "Access your personal data and Inwentarz",
         "Aktualizuj or correct your information",
@@ -1181,7 +1181,7 @@
       "footer": "To exercise these rights, Kontakt us through the information below or use the Konto Ustawienia in your Panel."
     },
     "dataRetention": {
-      "title": "Data Retention",
+      "title": "Przechowywanie danych",
       "content": "We retain your data as long as your Konto is active. If you Usuń your Konto, we will permanently Usuń your personal information and Inwentarz data within 30 days, except where we are required by law to retain certain information."
     },
     "childrensPrivacy": {
@@ -1189,14 +1189,14 @@
       "content": "FigTracker is not intended for children under 13. We do not knowingly collect personal information from children under 13. If you believe we have collected information from a child under 13, please Kontakt us immediately."
     },
     "changesToPolicy": {
-      "title": "Changes to This Policy",
+      "title": "Zmiany w tej polityce",
       "content": "We may Aktualizuj this Polityka prywatności from Czas to Czas. We will notify you of significant changes by posting a notice on FigTracker or sending you an E-mail. Your continued use of FigTracker after changes indicates acceptance of the updated policy."
     },
     "contactUs": {
       "title": "Kontakt Us",
       "intro": "If you have questions O nas this Polityka prywatności or how we handle your data, please Kontakt:",
       "emailLabel": "E-mail:",
-      "websiteLabel": "Website:"
+      "websiteLabel": "Strona internetowa:"
     }
   },
   "setDetail": {
@@ -1206,14 +1206,14 @@
     },
     "pricing": {
       "loadingPricing": "Ładowanie Wycena...",
-      "sixMonthAvg": "6 Mo Avg",
-      "currentAvg": "Current Avg",
-      "lowest": "Lowest",
-      "suggested": "Suggested",
+      "sixMonthAvg": "Śr. z 6 mies.",
+      "currentAvg": "Aktualna śr.",
+      "lowest": "Najniższa",
+      "suggested": "Sugerowana",
       "noSellersAvailable": "Brak sprzedawców in your region"
     },
     "collection": {
-      "checkingCollections": "Checking collections...",
+      "checkingCollections": "Sprawdzanie kolekcji...",
       "addThisSet": "Dodaj This zestaw",
       "quantity": "Ilość",
       "inYourInventory": "In Twój inwentarz",
@@ -1222,24 +1222,24 @@
       "addToYourInventory": "Dodaj to Twój inwentarz?"
     },
     "whereToBuy": {
-      "title": "Where to Buy",
+      "title": "Gdzie kupić",
       "brickLink": "BrickLink",
       "brickLinkDescRetired": "Best for retired Zestawy",
       "brickLinkDescAvailable": "Używany & Nowy available",
       "amazon": "Amazon",
-      "amazonDesc": "Fast shipping",
+      "amazonDesc": "Szybka wysyłka",
       "sponsoredLinks": "Sponsorowane linki afiliacyjne"
     },
     "relatedSets": {
-      "moreFrom": "More from {theme}",
-      "featured": "Featured {theme} Sets",
+      "moreFrom": "Więcej z {theme}",
+      "featured": "Wyróżnione zestawy {theme}",
       "title": "Powiązane zestawy"
     },
     "messages": {
-      "addedToInventory": "Added {quantity} item to sell",
-      "addedToCollection": "Added {quantity} item to keep",
+      "addedToInventory": "Dodano {quantity} szt. do sprzedania",
+      "addedToCollection": "Dodano {quantity} szt. do zachowania",
       "movedToCollection": "Moved to Zachować! Click anywhere to dismiss.",
-      "movedToInventory": "Moved to sell! Click anywhere to dismiss."
+      "movedToInventory": "Przeniesiono do sprzedania! Kliknij gdziekolwiek, aby zamknąć."
     },
     "errors": {
       "failedToAdd": "Failed to Dodaj zestaw",
@@ -1248,7 +1248,7 @@
       "failedToUpdate": "Failed to Aktualizuj Ilość",
       "failedToRemoveInventory": "Failed to Usuń from Inwentarz",
       "failedToRemoveCollection": "Failed to Usuń from Kolekcja",
-      "failedToMove": "Failed to move item"
+      "failedToMove": "Nie udało się przenieść przedmiotu"
     },
     "delete": {
       "titleInventory": "Usuń z inwentarza?",
@@ -1260,10 +1260,10 @@
       "remove": "Usuń"
     },
     "buttons": {
-      "addInventory": "+ To sell",
+      "addInventory": "+ Do sprzedania",
       "addCollection": "+ To Zachować",
       "addToCollection": "+ Dodaj (zachować)",
-      "adding": "Adding...",
+      "adding": "Dodawanie...",
       "addToInventory": "Dodaj (sprzedać)"
     },
     "breadcrumbs": {
@@ -1271,15 +1271,15 @@
       "setThemes": "zestaw Motywy"
     },
     "meta": {
-      "yearUnknown": "Year Unknown",
-      "year": "Year",
-      "weight": "Weight"
+      "yearUnknown": "Rok nieznany",
+      "year": "Rok",
+      "weight": "Waga"
     },
     "newestFrom": "Najnowsze zestawy z {theme}"
   },
   "subcategoryPage": {
-    "minifigureCount": "{count} minifigure",
-    "minifigureCountPlural": "{count} minifigures",
+    "minifigureCount": "{count} minifigurka",
+    "minifigureCountPlural": "{count} minifigurek",
     "noMinifigsFound": "Nie Minifigurki found in this Kategoria.",
     "breadcrumbs": {
       "home": "Strona główna",
@@ -1287,17 +1287,17 @@
     }
   },
   "setsThemePage": {
-    "loadingText": "Loading {theme} sets...",
+    "loadingText": "Ładowanie zestawów {theme}...",
     "themeLabel": "motyw",
-    "setsInTheme": "{count} sets in this theme",
-    "subcategoryAll": "All Subcategories ({count})",
+    "setsInTheme": "{count} zestawów w tym motywie",
+    "subcategoryAll": "Wszystkie podkategorie ({count})",
     "sortByYear": "Sortuj by Year (Najnowsze First)",
     "sortByName": "Sortuj by Imię (A-Z)",
     "noSetsFound": "Nie Zestawy found",
-    "tryAdjustFilters": "Try adjusting your filters",
-    "yearLabel": "Year",
-    "weightLabel": "Weight",
-    "findOnAmazon": "Find on Amazon",
+    "tryAdjustFilters": "Spróbuj dostosować filtry",
+    "yearLabel": "Rok",
+    "weightLabel": "Waga",
+    "findOnAmazon": "Znajdź na Amazon",
     "breadcrumbs": {
       "home": "Strona główna",
       "setThemes": "zestaw Motywy"
@@ -1315,10 +1315,10 @@
     "browseMinifigures": "Przeglądaj Minifigurki",
     "collection": "Kolekcja",
     "inventory": "Inwentarz",
-    "itemsCount": "{count} item{plural}",
-    "totalValue": "Total value: {value}",
+    "itemsCount": "{count} przedmiot{plural}",
+    "totalValue": "Całkowita wartość: {value}",
     "forSale": "Na sprzedaż",
-    "noItemsInCollection": "No items in {view}",
+    "noItemsInCollection": "Brak przedmiotów w {view}",
     "qty": "Qty",
     "used": "Używany",
     "new": "Nowy",
@@ -1339,62 +1339,62 @@
     "most-valuable-lego-minifigures-2026": {
       "title": "Top 50 Most Valuable LEGO Minifigurki in 2026",
       "description": "We analyzed 18,732 LEGO Minifigurki to find the most valuable collectibles. Discover which Minifigurki command the highest prices on Bricklink marketplace.",
-      "author": "FigTracker Team",
-      "readTime": "12 min read",
+      "author": "Zespół FigTracker",
+      "readTime": "12 min czytania",
       "content": "After analyzing Wycena data from 18,732 LEGO Minifigurki across the entire Bricklink catalog, we've identified the most valuable collectibles on the market today. Whether you're a serious collector, investor, or just curious O nas LEGO values, this comprehensive Przewodnik reveals which Minifigurki command premium prices and why.\n\n## What Makes a minifigurka Valuable?\n\nBefore diving into the rankings, it's important to understand the key factors that drive minifigurka values:\n\n### 1. **Rarity**\nLimited production runs, exclusive Zestawy, or promotional releases create scarcity. Convention exclusives and employee gifts are particularly sought after.\n\n### 2. **Age**\nClassic Minifigurki from the 1970s-1990s are increasingly rare as they wear out or get lost. Vintage pieces in good Stan command premiums.\n\n### 3. **Popularity**\nCharacters from beloved franchises (Star Wars, Harry Potter, Marvel) consistently hold value. Main characters and villains typically appreciate faster than side characters.\n\n### 4. **Stan**\nNowy/mint Stan Minifigurki with Wszystkie original accessories are worth significantly Więcej than Używany versions. Even minor wear can reduce value by 30-50%.\n\n### 5. **Completeness**\nA minifigurka with Wszystkie printed parts, accessories, and original packaging (if applicable) is worth Więcej than loose or incomplete figures.\n\n## Star Wars Dominates the Top 10\n\n[**Star Wars Minifigurki**](/Motywy/star-wars) consistently command the highest prices, with several factors contributing to their value:\n\n- Licensed franchise with massive global fanbase\n- Many were only available in expensive Zestawy ($100-$500 retail)\n- Some were released only once or twice across 25+ years of LEGO Star Wars\n- Characters from the original trilogy (1977-1983) are especially valuable\n\n### Most Valuable Star Wars Minifigurki:\n\n**Cloud City Boba Fett (2003)** - Often cited as the holy grail, this exclusive version with printing variations can fetch $3,000-$5,000 in mint Stan.\n\n**Chrome Darth Vader** - Limited promotional release, metallic chrome finish. Rare variants command $1,500-$2,500.\n\n**14k Gold C-3PO** - Only 10,000 produced for a 2007 promotion. Despite higher production numbers, gold plating and Star Wars popularity Zachować values at $1,000-$2,000.\n\n**Mr. Gold** - While not Star Wars, this ultra-rare 2013 promotional figure (only 5,000 made) regularly sells for $3,000-$5,000.\n\n## Classic Space & Castle Rarities\n\nBeyond licensed Motywy, vintage LEGO Motywy have collectors paying premium prices:\n\n[**Classic Space Minifigurki**](/Motywy/space) (1978-1987) with complete helmets and air tanks in pristine Stan are increasingly valuable as original owners age out of collecting.\n\n[**Castle knights**](/Motywy/castle) with printed torsos and unique helmets from the 1980s-1990s are harder to find, especially in Zestawy that didn't sell as well.\n\n## How to Cena Your Own Kolekcja\n\nIf you own any of these valuable Minifigurki, here's how to determine accurate Wycena:\n\n### Step 1: Verify Authenticity\nCheck for:\n- Official LEGO markings on studs\n- Print quality (LEGO uses pad printing, not stickers)\n- Plastic quality and fit\n\n### Step 2: Assess Stan\nBe honest O nas:\n- Print wear or fading\n- Plastic discoloration (yellowing)\n- Cracks or teeth marks\n- Missing accessories\n\n### Step 3: Check Current Market Prices\nUse [FigTracker's Szukaj tool](/Szukaj) to:\n- See real-Czas Bricklink marketplace data\n- Compare Ilość-weighted averages vs lowest prices\n- Track Cena trends over Czas\n- Factor in Stan differences\n\n### Step 4: Consider Timing\nPrices fluctuate based on:\n- Movie releases (Star Wars, Marvel, DC)\n- zestaw retirements (prices often spike 6-12 months after)\n- Seasonal demand (December = higher prices)\n\n## Investment Potential: Which Minifigurki Appreciate?\n\nBased on 5+ years of Wycena data, Minifigurki that tend to appreciate include:\n\n### High Appreciation Potential:\n- **Main characters from popular franchises** - First releases especially\n- **Limited promotions** - Convention exclusives, employee gifts\n- **Retired Motywy** - Once LEGO stops making a motyw, scarcity increases\n- **Unique printing/variants** - Misprint, prototype, or first-run variations\n\n### Stable but Slower Growth:\n- **Side characters** - Still valuable but appreciate Więcej slowly\n- **Common Zestawy** - Widely available during production run\n- **Recent releases** - Need 3-5 years to see significant appreciation\n\n### Poor Investment Bets:\n- **Mass-produced polybags** - Too many in circulation\n- **Generic Minifigurki** - Nie unique printing or character value\n- **Damaged/incomplete** - Very hard to sell at reasonable prices\n\n## Notable Minifigurki by motyw\n\n### Harry Potter\nThe revival of [Harry Potter](/Motywy/harry-potter) Zestawy in 2018 created renewed interest, but original 2001-2005 releases with unique printing remain most valuable:\n- Dumbledore (gray beard variants)\n- Professor Snape (early versions)\n- Voldemort (red eyes variant)\n\nPrices: $50-$300 depending on variant and Stan\n\n### Marvel Super Heroes\nMCU popularity drives [Marvel](/Motywy/super-heroes) values:\n- Loki (Avengers era, printed legs)\n- Deadpool (first release)\n- Spider-Man variants (symbiote, Iron Spider)\n\nPrices: $40-$200 for sought-after variants\n\n### DC Comics Super Heroes\nBatman variants are plentiful, but rare [DC Comics Super Heroes](/Motywy/super-heroes) versions command premiums:\n- Comic-Con exclusive Batman figures\n- Early Joker variants\n- Original Superman from 2012\n\n### Pirates & Castle\nVintage 1980s-1990s Motywy are hot:\n- [Pirates](/Zestawy-Motywy/Pirates) with unique torso prints\n- [Castle](/Zestawy-Motywy/Castle) knights with rare helmets\n- Forestmen with complete accessories\n\nPrices: $30-$150 for complete vintage Minifigurki\n\n## Where to Buy and Sell Valuable Minifigurki\n\n### Best Marketplaces:\n\n**Bricklink** - The gold standard for LEGO trading. Largest selection, competitive prices, but requires research.\n\n**eBay** - Higher prices but wider buyer base. Watch for overpriced \"rare\" listings that aren't actually rare.\n\n**Facebook Groups** - LEGO selling groups often have motivated buyers willing to pay fair prices quickly.\n\n**Local Conventions** - BrickCon, BrickFair, etc. Great for networking and selling high-end pieces.\n\n### Selling Tips:\n1. **Photograph well** - Multiple angles, Wyczyść lighting, Pokaż Wszystkie sides\n2. **Disclose Stan honestly** - Better a lower Cena than a return/dispute\n3. **Include Wszystkie accessories** - Weapons, capes, helmets Dodaj significant value\n4. **Czas your listing** - Sell before holidays or movie releases\n5. **Use FigTracker** - Get accurate suggested Wycena before listing\n\n## Protecting Your Investment\n\nIf you own valuable Minifigurki:\n\n### Storage Best Practices:\n- Zachować away from direct sunlight (prevents yellowing)\n- Store in sealed containers or display cases\n- Avoid humid environments (can cause discoloration)\n- Don't stack heavy Przedmioty on top\n\n### Insurance:\nCollections worth $5,000+ should be documented and insured:\n- Photograph everything\n- Track purchase prices and dates\n- Zachować sales receipts\n- Consider collectibles insurance rider\n\n### Authentication:\nFor ultra-rare pieces ($500+):\n- Buy from reputable sellers with feedback\n- Request additional photos if buying online\n- Learn to spot common fakes (especially Chrome C-3PO, Mr. Gold)\n- Join LEGO communities to verify authenticity\n\n## Future Outlook: 2026-2030\n\nBased on current trends, we predict:\n\n### Rising Values:\n- **Retired Star Wars Zestawy** - Mandalorian, Bad Batch, Clone Wars characters\n- **Original Marvel CMU Minifigurki** - As movies become \"classic\" (Iron Man, Thor first releases)\n- **LEGO Ideas exclusives** - Limited runs create scarcity\n- **Environmental awareness** - Vintage pieces become increasingly rare\n\n### Declining Values:\n- **Mass reissues** - If LEGO reprints popular Minifigurki (like they did with Han Solo)\n- **Franchise fatigue** - If Marvel/Star Wars oversaturation continues\n- **Economic factors** - Recession could temporarily suppress luxury collectible prices\n\n## Start Tracking Twoja kolekcja Today\n\nWhether you own one of these valuable Minifigurki or are building a Kolekcja, accurate Wycena is essential. FigTracker provides:\n\n- Real-Czas Bricklink marketplace data\n- Cena history tracking\n- Stan-specific Wycena (Nowy vs Używany)\n- Inwentarz management tools\n- 18,732+ Minifigurki in database\n\n**Ready to discover what your Kolekcja is worth?**\n\n[Szukaj Your Minifigurki →](/Szukaj)\n\n---\n\n*Wycena data updated April 2026 based on Bricklink US marketplace averages. Values fluctuate - always verify current prices before buying or selling.*"
     },
     "figtracker-vs-bricklink": {
-      "title": "FigTracker vs Bricklink: Which Should You Use?",
+      "title": "FigTracker czy Bricklink: Którego używać?",
       "description": "Compare FigTracker and Bricklink for LEGO minifigurka Wycena. Learn when to use each platform and how FigTracker simplifies Wycena for sellers.",
-      "author": "FigTracker Team",
-      "readTime": "8 min read",
+      "author": "Zespół FigTracker",
+      "readTime": "8 min czytania",
       "content": "If you're serious O nas buying, selling, or collecting LEGO Minifigurki, you've probably encountered Bricklink. As the largest LEGO marketplace, Bricklink is the industry standard—but it's not always the easiest tool for quick Wycena decisions.\n\nThat's where FigTracker comes in.\n\n**The short answer:** Use both. Bricklink for buying/selling, FigTracker for instant Wycena.\n\n**The detailed answer:** Let's compare them side-by-side.\n\n## What is Bricklink?\n\nBricklink is the world's largest marketplace for LEGO parts, Zestawy, and Minifigurki. Founded in 2000 and acquired by LEGO Group in 2019, it's where serious collectors and resellers go to buy and sell.\n\n### Bricklink Strengths:\n✅ Massive Inwentarz (millions of listings)\n✅ Global marketplace with sellers in 100+ countries\n✅ Historical Wycena data\n✅ Want lists and Inwentarz management\n✅ Official LEGO catalog integration\n\n### Bricklink Challenges:\n❌ Complex Wycena (3+ metrics to interpret)\n❌ Overwhelming for casual users\n❌ Nie suggested \"fair Cena\" - you do the math\n❌ Must dig through multiple pages for Wycena\n❌ Dated interface design\n\n## What is FigTracker?\n\nFigTracker is a free LEGO minifigurka Cena tracker built specifically for sellers and collectors who need quick, accurate Wycena without the complexity.\n\n### FigTracker Strengths:\n✅ One suggested Cena (Nie mental math needed)\n✅ Real-Czas Bricklink marketplace data\n✅ Clean, modern interface\n✅ Inwentarz tracking with Stan management\n✅ Fast Szukaj by ID or Imię\n✅ 18,732+ Minifigurki in database\n✅ 15+ currencies supported (USD, EUR, GBP, CAD, and Więcej)\n\n### FigTracker Limitations:\n❌ Doesn't sell anything (links to marketplaces)\n❌ Newer platform (Mniej historical data than Bricklink)\n\n## The Wycena Problem: Why FigTracker Exists\n\nHere's the reality of Wycena on Bricklink:\n\n**You see this:**\n- Ilość-Weighted Average: $12.45\n- Simple Average: $15.20\n- Lowest Cena: $8.99\n\n**You think this:**\n*\"Wait... which one do I use? Should I Cena at $12? $15? Split the difference? What O nas Stan?\"*\n\n**You do this:**\nOpen calculator. Average the averages. Check lowest Cena. Factor in Stan. Second-guess yourself. Zamknij laptop.\n\n### FigTracker's Solution\n\n**You see this:**\n- Suggested Cena: $13.25 (Nowy) | $9.75 (Używany)\n\n**You think this:**\n*\"Perfect. Done.\"*\n\nFigTracker's algorithm combines Wszystkie three Bricklink metrics plus Stan data to give you one confident number. You can still see the breakdown if you want it, but you don't need to.\n\n## Side-by-Side Comparison\n\n| Feature | Bricklink | FigTracker |\n|---------|-----------|------------|\n| **Marketplace** | ✅ Tak | ❌ Nie (links out) |\n| **Suggested Wycena** | ❌ Nie | ✅ Tak |\n| **Real-Czas Data** | ✅ Tak | ✅ Tak (pulls from Bricklink) |\n| **Inwentarz Management** | ✅ Advanced | ✅ Simple |\n| **Szukaj Speed** | ⚠️ Moderate | ✅ Fast |\n| **User Interface** | ⚠️ Dated | ✅ Modern |\n| **Learning Curve** | ⚠️ Steep | ✅ Gentle |\n| **Mobile Experience** | ⚠️ Clunky | ✅ Responsive |\n| **Cena** | Free | Free |\n| **Best For** | Buying & selling | Quick Wycena & tracking |\n\n## When to Use Bricklink\n\nUse Bricklink when you need to:\n\n**1. Buy Minifigurki**\nBricklink has the largest selection. Nie Inne platform comes Zamknij.\n\n**2. Sell Minifigurki**\nIf you're a serious seller, Bricklink's audience is massive and motivated. Worth learning the platform.\n\n**3. Research Rare/Obscure Pieces**\nDeep historical data and completed sales info.\n\n**4. Manage a Store**\nBuilt-in tools for sellers with large inventories.\n\n**5. International Transactions**\nGlobal marketplace with currency conversion.\n\n## When to Use FigTracker\n\nUse FigTracker when you need to:\n\n**1. Cena Quickly**\nYou have 20 Minifigurki to list on eBay. Get instant suggested prices.\n\n**2. Track Twoja kolekcja**\nSimple Inwentarz management without Bricklink's complexity.\n\n**3. Compare Stan Wycena**\nSee Nowy vs Używany prices side-by-side instantly.\n\n**4. Learn the Market**\nClean interface makes it easier to understand Wycena trends.\n\n**5. Decide What to Buy**\nCheck if that eBay listing is overpriced before bidding.\n\n## The Best Workflow: Use Both\n\nHere's how smart sellers use FigTracker + Bricklink together:\n\n### Step 1: Cena on FigTracker\n[Szukaj your minifigurka](/Szukaj) by ID (e.g., \"sw1219\"). Get suggested Cena in 5 seconds.\n\n### Step 2: Cross-check on Bricklink (if needed)\nFor expensive Minifigurki ($50+), verify on Bricklink to see actual listings.\n\n### Step 3: List on Your Platform\neBay, Facebook Marketplace, or your own Bricklink store.\n\n### Step 4: Track in FigTracker\nZachować your [Inwentarz organized](/Inwentarz). Refresh prices monthly.\n\n**Czas saved:** 2-3 minutes per minifigurka × 50 Minifigurki = 2.5 hours per Wycena session.\n\n## Common Questions\n\n### \"Why not just use Bricklink?\"\n\nYou can! But if you're listing 20+ Minifigurki, doing mental math for each one gets tedious. FigTracker automates the decision-making.\n\n### \"Is FigTracker's Wycena accurate?\"\n\nTak. We pull real-Czas data directly from Bricklink's API. Our suggested Cena is calculated from the same data you'd see on Bricklink—we just process it for you.\n\n### \"Can I sell on FigTracker?\"\n\nNot directly. FigTracker is a Wycena tool, not a marketplace. We link to Bricklink and Amazon if you want to buy.\n\n### \"Does FigTracker replace Bricklink?\"\n\nNie. Think of FigTracker as a companion tool that makes Bricklink data easier to use for quick Wycena decisions.\n\n## Wycena Philosophy Comparison\n\n**Bricklink's Approach:**\n\"Here's Wszystkie the data. You're smart—figure out what to charge.\"\n\n**FigTracker's Approach:**\n\"Here's the best Cena based on current market conditions. Trust us, we did the math.\"\n\nBoth are valid. Bricklink empowers power users. FigTracker empowers fast decision-making.\n\n## Which Platform Should You Start With?\n\n### Start with FigTracker if:\n- You're Nowy to LEGO reselling\n- You need to Cena things quickly\n- You have a small-to-medium Kolekcja (< 500 Minifigurki)\n- You sell on eBay/Facebook, not Bricklink\n\n### Start with Bricklink if:\n- You're a serious seller (500+ listings)\n- You want to run a full LEGO store\n- You need advanced Inwentarz management\n- You buy and sell internationally\n\n### Use Both if:\n- You're a professional reseller\n- You value speed + accuracy\n- You want a modern interface for daily use but need Bricklink for actual transactions\n\n## The Bottom Line\n\n**Bricklink** is the industry standard marketplace with unmatched Inwentarz and reach. It's essential for serious buying and selling.\n\n**FigTracker** is the modern Wycena companion that makes Bricklink data instantly actionable. It's essential for fast, confident Wycena.\n\n**You don't have to choose.** Use FigTracker for Wycena and Inwentarz. Use Bricklink for transactions. Together, they're the perfect LEGO toolkit.\n\n---\n\n**Ready to try FigTracker?**\n\n[Szukaj Your First minifigurka →](/Szukaj)\n\nOr explore our [complete Wycena Przewodnik](/Przewodniki) to learn Więcej O nas LEGO minifigurka values."
     }
   },
   "adminStats": {
     "title": "Administrator Panel",
-    "subtitle": "Overview of your FigTracker platform",
-    "emailAllUsers": "Email All Users ({count})",
+    "subtitle": "Podgląd platformy FigTracker",
+    "emailAllUsers": "Wyślij e-mail do wszystkich użytkowników ({count})",
     "totalUsers": "Suma Users",
-    "userCollections": "User Collections",
-    "userCollectionsSubtitle": "{selling} selling, {personal} personal",
+    "userCollections": "Kolekcje użytkowników",
+    "userCollectionsSubtitle": "{selling} na sprzedaż, {personal} osobistych",
     "catalogItems": "Catalog Przedmioty",
-    "catalogSubtitle": "Static JSON",
+    "catalogSubtitle": "Statyczny JSON",
     "totalAdClicks": "Suma Ad Clicks",
-    "totalAdClicksSubtitle": "{today} today, {thisWeek} this week",
-    "affiliateClickPerformance": "Affiliate Click Performance",
-    "last24Hours": "Last 24 Hours",
-    "last7Days": "Last 7 Days",
-    "last30Days": "Last 30 Days",
+    "totalAdClicksSubtitle": "{today} dzisiaj, {thisWeek} w tym tygodniu",
+    "affiliateClickPerformance": "Skuteczność kliknięć afiliacyjnych",
+    "last24Hours": "Ostatnie 24 godziny",
+    "last7Days": "Ostatnie 7 dni",
+    "last30Days": "Ostatnie 30 dni",
     "allTime": "Wszystkie Czas",
-    "topClickedProducts": "Top Clicked Products",
-    "product": "Product",
+    "topClickedProducts": "Najczęściej klikane produkty",
+    "product": "Produkt",
     "type": "Typ",
-    "clicks": "Clicks",
-    "clicksCount": "{count} clicks",
+    "clicks": "Kliknięcia",
+    "clicksCount": "{count} kliknięć",
     "popularThemes": "Popularne motywy",
-    "databaseOverview": "Database Overview",
-    "unlimitedBandwidth": "Unlimited bandwidth",
-    "active": "Active",
-    "users": "Users: {count}",
-    "collectionItems": "Collection Items: {count}",
-    "personalItems": "Personal Items: {count}",
-    "priceCache": "Price Cache: {count} entries",
-    "affiliateClicks": "Affiliate Clicks: {count}",
-    "catalog": "Catalog: {count} items",
-    "recentSignups": "Recent Signups",
-    "user": "User",
-    "joined": "Joined",
+    "databaseOverview": "Przegląd bazy danych",
+    "unlimitedBandwidth": "Nielimitowana przepustowość",
+    "active": "Aktywny",
+    "users": "Użytkownicy: {count}",
+    "collectionItems": "Przedmioty w kolekcjach: {count}",
+    "personalItems": "Przedmioty osobiste: {count}",
+    "priceCache": "Pamięć podręczna cen: {count} wpisów",
+    "affiliateClicks": "Kliknięcia afiliacyjne: {count}",
+    "catalog": "Katalog: {count} przedmiotów",
+    "recentSignups": "Ostatnie rejestracje",
+    "user": "Użytkownik",
+    "joined": "Dołączył",
     "items": "Przedmioty",
-    "anonymous": "Anonymous",
-    "topCollectors": "Top Collectors",
-    "rank": "Rank",
+    "anonymous": "Anonimowy",
+    "topCollectors": "Najlepsi kolekcjonerzy",
+    "rank": "Pozycja",
     "totalItems": "Wszystkich przedmiotów"
   },
   "bannerCompare": {
-    "title": "Banner Position Comparison",
-    "aboveNavigation": "Banner Above Navigation (Most Common)",
-    "belowNavigation": "Banner Below Navigation",
+    "title": "Porównanie pozycji banera",
+    "aboveNavigation": "Baner nad nawigacją (najczęstsze)",
+    "belowNavigation": "Baner pod nawigacją",
     "currencyBanner": "We detected you're in Sweden. Pokaż prices in SEK?",
     "yesSEK": "Tak, use SEK",
     "keepUSD": "Zachować USD",
@@ -1404,9 +1404,9 @@
     "navInventory": "Inwentarz",
     "navAccount": "Konto",
     "usedBy": "Używany by:",
-    "usedByAbove": "GitHub, Stripe, Amazon, most cookie consent banners",
+    "usedByAbove": "GitHub, Stripe, Amazon i większość banerów zgody na cookies",
     "usedByBelow": "Some promotional banners, Wyprzedaż announcements",
-    "pros": "Pros:",
+    "pros": "Zalety:",
     "prosAbove": [
       "Immediately visible - can't be missed",
       "Standard web pattern users expect",
@@ -1417,7 +1417,7 @@
       "Logo/branding stays at very top",
       "Feels Mniej intrusive"
     ],
-    "cons": "Cons:",
+    "cons": "Wady:",
     "consAbove": [
       "Pushes content down slightly"
     ],
@@ -1426,14 +1426,14 @@
       "Could be confused with page content",
       "Easier to scroll past without noticing"
     ],
-    "recommendation": "Recommendation:",
-    "recommendationText": "Go with \"Above Navigation\" - it's the industry standard for important site-wide notifications like currency detection. Users expect and recognize this pattern."
+    "recommendation": "Rekomendacja:",
+    "recommendationText": "Wybierz opcję „Nad nawigacją” - to standard branżowy dla ważnych powiadomień na całej stronie, takich jak wykrywanie waluty. Użytkownicy oczekują tego wzorca i go rozpoznają."
   },
   "testBanner": {
     "showBannerAgain": "Pokaż Banner Again",
-    "title": "Currency Banner Preview",
+    "title": "Podgląd banera walutowego",
     "subtitle": "This is what Nowy users will see when they first visit FigTracker from a non-US country.",
-    "featuresTitle": "Features:",
+    "featuresTitle": "Funkcje:",
     "features": [
       "Auto-detects country from browser locale",
       "Shows only for non-USD currencies",
@@ -1442,7 +1442,7 @@
       "Smooth slide-down animation",
       "Purple gradient design matches FigTracker branding"
     ],
-    "userFlowTitle": "User Flow:",
+    "userFlowTitle": "Ścieżka użytkownika:",
     "userFlow": [
       "First visit from Sweden → Banner appears",
       "Click \"Tak, use SEK\" → Currency zestaw to SEK, page reloads, Wszystkie prices fetched in SEK",
@@ -1453,17 +1453,17 @@
   "setsDemo": {
     "loadingText": "Ładowanie Zestawy catalog...",
     "title": "LEGO Zestawy Catalog Demo",
-    "subtitle": "Testing the new sets implementation - browse {count} LEGO sets",
+    "subtitle": "Testowanie nowej implementacji zestawów - przeglądaj {count} zestawów LEGO",
     "totalSets": "Suma Zestawy",
     "recentSets": "Recent Zestawy (2024-2026)",
     "uniqueThemes": "Unique Motywy",
     "searchPlaceholder": "Szukaj zestawów by Imię or number (e.g., 'Star Wars', '75192-1', 'Hogwarts')...",
-    "searchResults": "Search Results ({count})",
-    "searching": "Searching...",
-    "year": "Year",
-    "weight": "Weight",
+    "searchResults": "Wyniki wyszukiwania ({count})",
+    "searching": "Szukanie...",
+    "year": "Rok",
+    "weight": "Waga",
     "popularThemesTitle": "Popularne motywy",
-    "backendComplete": "Backend Complete - Ready for Full Implementation",
+    "backendComplete": "Backend gotowy - gotowe do pełnej implementacji",
     "backendStatus": "Database schema ✓ • Typ definitions ✓ • Catalog service ✓ • Database service ✓"
   },
   "themeDescriptions": {
@@ -1488,7 +1488,7 @@
     "Ben 10": "It's hero Czas with LEGO® Ben 10™ Zestawy! Based on Cartoon Network's action-packed series, build alien transformations, vehicles, and battle scenes from Ben Tennyson's adventures. These Zestawy capture the excitement of the Omnitrix and Ben's alien forms as he fights villains and saves the world. Though a brief motyw, Ben 10 Zestawy delivered action-packed building for fans of the animated series. Perfect for young fans of the Pokaż who love aliens, action, and superhero adventures.",
     "Bluey": "It's playtime with LEGO® Bluey™! Based on the Australian animated sensation, collect Bluey, Bingo, Bandit, and Chilli from the beloved children's series. These Minifigurki capture the heart and humor of the Heeler family's imaginative games and everyday adventures. Build the Heeler house, go on camping trips, and recreate episodes that resonate with families worldwide. From Keepy Uppy to Dance Mode, these figures celebrate play, parenting, and family bonds. DUPLO and standard LEGO Zestawy bring Bluey's world to life for young builders. Perfect for families who love the Pokaż's warmth, creativity, and celebration of childhood imagination.",
     "Boat": "zestaw sail with LEGO® Boat Zestawy! This classic Kategoria features vessels of Wszystkie kinds - from small sailboats and speedboats to massive cargo ships and cruise liners. These Zestawy focus on nautical building with hulls, sails, motors, and maritime Szczegóły. Whether building harbor scenes or ocean adventures, Boat Zestawy celebrate humanity's relationship with water. Perfect for builders who love maritime Motywy, sailing, and nautical engineering.",
-    "Boost": "Program, build, and play with LEGO® Boost! This innovative system combines building with coding, allowing creators to construct five different models that come to life through app-controlled programming. Build a robot, a cat, a guitar, a rover, or an AutoBuilder, then use the intuitive drag-and-drop coding interface to make them move, play music, and react to their environment. With motors, sensors, and hundreds of building possibilities, Boost bridges physical and digital play. Perfect for children learning coding, parents seeking educational STEM toys, and families who want to build and program together.",
+    "Boost": "Programuj, buduj i baw się z LEGO® Boost! Ten innowacyjny system łączy budowanie z programowaniem, umożliwiając twórcom skonstruowanie pięciu różnych modeli, które ożywają dzięki programowaniu sterowanemu z aplikacji. Zbuduj robota, kota, gitarę, łazik lub AutoBuildera, a następnie użyj intuicyjnego interfejsu programowania metodą „przeciągnij i upuść”, aby sprawić, że będą się poruszać, grać muzykę i reagować na otoczenie. Dzięki silnikom, czujnikom i setkom możliwości budowania Boost łączy zabawę fizyczną z cyfrową. Idealne dla dzieci uczących się programowania, rodziców szukających edukacyjnych zabawek STEM oraz rodzin, które chcą wspólnie budować i programować.",
     "Botanicals": "Bring nature indoors with LEGO® Botanicals! This adult-focused motyw features realistic flowers, plants, and botanical displays that never need watering. From intricate bouquets and bonsai trees to dried flowers and succulents, these sophisticated builds serve as permanent Strona główna décor. Each botanical creation captures the beauty and detail of real plants while lasting forever. Build mindfully, display proudly, and enjoy the meditative process of constructing nature's beauty brick by brick. Perfect for plant lovers, Strona główna decorators, and adults seeking creative relaxation through beautiful building projects.",
     "Braille Bricks": "Learn through touch with LEGO® Braille Bricks! This innovative educational initiative teaches braille to blind and visually impaired children through play. Each brick features studs corresponding to braille letters and numbers, with printed letters for sighted teachers and peers to learn alongside. Braille Bricks transform literacy learning into tactile, engaging play, promoting inclusive education. Though primarily distributed through educational partners rather than retail, these Zestawy represent LEGO's commitment to accessibility. Perfect for educators teaching braille, families with visually impaired children, and promoting inclusive learning.",
     "Brick Sketches": "Create iconic portraits with LEGO® Brick Sketches! These mosaic-style Zestawy let you build flat, stylized portraits of beloved characters from Star Wars™, Marvel, DC, and Więcej. Mounted on decorative frames with nameplates, Brick Sketches serve as artistic wall décor celebrating pop culture icons. With bold colors and simplified designs, these Zestawy offer quick, satisfying builds that look impressive on display. Perfect for fans who want character art, collectors seeking affordable display pieces, and builders who love mosaic-style construction.",
@@ -1553,18 +1553,18 @@
     "Horizon": "Hunt mechanical beasts in a post-apocalyptic world with LEGO® Horizon™ Minifigurki! Based on PlayStation's acclaimed video game series, collect Aloy and Inne tribal hunters from Horizon Forbidden West and LEGO Horizon Adventures. These Minifigurki feature detailed tribal gear, weapons, and accessories from the games' unique blend of primitive culture and advanced technology. Face mechanical dinosaurs and uncover ancient secrets in a far-future Earth. With stunning visual designs and epic adventures, Horizon brings PlayStation gaming to LEGO building. Perfect for gamers who love exploration, robot dinosaurs, and post-apocalyptic worlds where nature and technology collide in spectacular fashion.",
     "IKEA": "Build Swedish design with LEGO® IKEA collaboration Zestawy! These special releases combined IKEA's minimalist aesthetic with LEGO building. From storage solutions with buildable elements to furniture-inspired builds, the IKEA partnership explored Strona główna design through bricks. Perfect for design enthusiasts, IKEA fans, and collectors of brand collaboration Zestawy.",
     "Indiana Jones": "Adventure awaits with LEGO® Indiana Jones™ Minifigurki! Recreate classic film moments with Professor Henry Jones Jr. in his iconic fedora, leather jacket, and whip. Collect Indy across multiple films - Raiders of the Lost Ark, Temple of Doom, Last Crusade, and Kingdom of the Crystal Skull. Face villains like René Belloq, Major Toht, Mola Ram, and Irina Spalko. These Minifigurki capture the pulp adventure spirit with detailed printing and accessories. From the golden idol to the Holy Grail, seek ancient artifacts while dodging traps and enemies. Perfect for fans of classic adventure films, archaeology, and the archaeologist who belongs in a museum.",
-    "Inventor": "Innovate and create with LEGO® Inventor! This educational line teaches engineering principles through motorized building. Construct vehicles, machines, and contraptions that move, then learn the science behind how they work. Inventor bridges play and education, making STEM concepts tangible through building. Perfect for young engineers, students learning mechanics, and parents seeking educational building experiences.",
+    "Inventor": "Twórz i wynajduj z LEGO® Inventor! Ta edukacyjna linia uczy zasad inżynierii poprzez budowanie modeli z napędem. Skonstruuj pojazdy, maszyny i urządzenia, które się poruszają, a następnie poznaj naukę stojącą za ich działaniem. Inventor łączy zabawę z edukacją, czyniąc koncepcje STEM namacalnymi dzięki budowaniu. Idealne dla młodych inżynierów, uczniów poznających mechanikę oraz rodziców szukających edukacyjnych doświadczeń budowlanych.",
     "Island Xtreme Stunts": "Extreme action awaits with LEGO® Island Xtreme Stunts Minifigurki! Based on the 2002 video game sequel to LEGO Island, this motyw featured Pepper Roni and friends performing dangerous stunts for a movie production. Collect characters from LEGO Island including the Brickster, the skateboarding pizza delivery hero Pepper, and movie crew members. These Zestawy combined action sports with movie-making Motywy, featuring ramps, vehicles, and stunt equipment. Island Xtreme Stunts represented LEGO's expansion into multimedia franchises connecting games with physical Zestawy. Though brief, it delivered high-energy action and extreme sports excitement. Perfect for fans of the classic LEGO Island video games, nostalgic gamers, and collectors of LEGO's experimental multimedia Motywy from the early 2000s.",
     "Juniors": "Build confidence with LEGO® Juniors! Designed for children ages 4-7, Juniors bridges DUPLO and System building with simplified Zestawy featuring Quick Start elements. These Zestawy include large foundation pieces that let young builders complete models quickly, building confidence while teaching System building techniques. From superhero adventures to city scenes, Juniors delivers age-appropriate building Sukces. Perfect for kindergarten builders transitioning to regular LEGO and parents seeking confidence-building construction experiences.",
     "Jurassic World": "Life finds a way with LEGO® Jurassic World™ Minifigurki! Collect fearless dinosaur trainers like Owen Grady and Claire Dearing as they navigate the dangerous world of prehistoric creatures. From park scientists to InGen personnel, our Jurassic World Kolekcja features characters from Wszystkie six films spanning the Jurassic Park and Jurassic World franchises. While the dinosaurs steal the Pokaż, these brave Minifigurki are ready to study, rescue, or escape from these magnificent creatures. Whether you're recreating the classic Jurassic Park gates or building modern Jurassic World adventures, these detailed Minifigurki bring 65 million years of history to life. Perfect for dinosaur enthusiasts and action-adventure fans of Wszystkie ages.",
     "LEGENDS OF CHIMA": "Enter the mystical animal kingdom with LEGO® LEGENDS OF CHIMA™ Minifigurki! In this fantastical world, anthropomorphic animals battle for control of the powerful CHI energy. Collect warriors from noble tribes like the Lions led by Laval, Crocodiles under Cragger, Eagles with Eris, Wolves with Worriz, Ravens, Gorillas, and Bears. Face sinister villains from the Ice Tribes and legendary creatures. Each minifigurka features incredible detail with animal heads, armor, weapons, and tribal markings. With complex alliances, betrayals, and epic battles, Chima delivers rich storytelling and stunning character designs. Perfect for fans of fantasy, animals, and action-packed adventures in a unique LEGO universe.",
     "LEGO Brand": "Celebrate LEGO itself with LEGO® Brand Minifigurki! These meta Zestawy and figures celebrate the LEGO company, its history, stores, and brand identity. From LEGO Store employee figures to brand ambassadors, LEGO Brand Minifigurki represent the company's self-referential products. Collect promotional store figures, anniversary celebration characters, and corporate mascots. These figures often appear in LEGO Store grand openings, brand events, and corporate materials. Some celebrate LEGO milestones like anniversaries or achievements. LEGO Brand figures acknowledge that LEGO itself has become a beloved icon worthy of celebration. From classic logo designs to modern branding, these figures tell LEGO's story. Perfect for ultimate fans who love LEGO not just as a toy but as a cultural institution and brand with rich history.",
     "LEGO Ideas (CUUSOO)": "Fan creativity becomes reality with LEGO® Ideas Minifigurki! Formerly CUUSOO, this platform lets fans Wyślij designs that the community votes on. Successful projects reaching 10,000 supporters are reviewed for production. Ideas Zestawy span incredible diversity - from NASA Apollo Saturn V to The Big Bang Theory apartment, from Beatles Yellow Submarine to working typewriters. Minifigurki reflect this range, featuring real people (scientists, musicians), fictional characters, and historical figures. Each Ideas zestaw represents a fan's dream becoming official LEGO. With community-driven selection and limited production, these figures celebrate fan passion. Perfect for collectors who appreciate fan creativity, unique builds, and supporting fellow enthusiasts' visions becoming real LEGO products that anyone can build.",
-    "LEGO Originals": "Celebrate LEGO culture with LEGO® Originals! This lifestyle brand extends LEGO beyond building into clothing, accessories, and collectibles celebrating LEGO heritage. From vintage-inspired merchandise to cultural collaborations, LEGO Originals makes LEGO identity wearable. Perfect for LEGO fans seeking branded lifestyle products and collectors who love LEGO culture beyond bricks.",
+    "LEGO Originals": "Świętuj kulturę LEGO z LEGO® Originals! Ta lifestyle'owa marka wykracza poza budowanie, oferując odzież, akcesoria i przedmioty kolekcjonerskie celebrujące dziedzictwo LEGO. Od produktów inspirowanych stylem vintage po kulturalne kolaboracje, LEGO Originals sprawia, że tożsamość LEGO można nosić na sobie. Idealne dla fanów LEGO szukających markowych produktów lifestylowych oraz kolekcjonerów, którzy kochają kulturę LEGO wykraczającą poza klocki.",
     "LEGOLAND": "Experience the parks at Strona główna with LEGO® LEGOLAND Minifigurki! These Zestawy recreate rides, attractions, and experiences from LEGOLAND motyw parks worldwide. Collect park visitors, ride operators, and mascots from LEGO's real-world destinations. From roller coasters to miniland displays, these Zestawy bring motyw park magic Strona główna. LEGOLAND figures often include exclusive variants sold only at park locations. With park maps, attractions, and iconic structures, these Zestawy celebrate LEGO's physical presence worldwide. Some Zestawy recreate specific park areas or attractions, letting fans relive vacation memories. Perfect for families who visited LEGOLAND parks, enthusiasts collecting park exclusives, and builders who want to recreate motyw park excitement in brick form at Strona główna.",
     "LEGOLAND Parks": "Adventure awaits at LEGOLAND® Parks with exclusive Minifigurki available only at motyw park locations! These special figures commemorate visits to LEGOLAND parks across the globe - from California to Florida, Windsor to Billund, Dubai to Japan. Park-exclusive Minifigurki feature unique designs, often incorporating park logos, landmarks, or regional Motywy. Collect mascots, ride operators, and special edition figures unavailable anywhere else. LEGOLAND Parks Minifigurki become travel souvenirs and prove you visited specific locations. With limited availability and regional exclusivity, they're highly sought by collectors. These figures celebrate the real-world places where LEGO imagination comes to life. Perfect for park visitors wanting mementos, collectors hunting rare exclusives, and fans of LEGO's motyw park legacy spanning decades.",
     "Lightyear": "To infinity and beyond with LEGO® Lightyear™ Minifigurki! Based on the Pixar film exploring Buzz Lightyear's origin story, collect Space Ranger Buzz, his team, and the menacing Zurg. These Minifigurki feature sci-fi space suits, advanced technology, and futuristic designs. While inspired by Toy Story's Buzz, Lightyear tells the real story of the space hero. Build starships, explore alien planets, and battle robots in epic space adventures. Though a standalone Pixar film, these figures connect to the beloved Toy Story universe. Perfect for Pixar fans who want to explore the heroic origins of everyone's favorite Space Ranger.",
-    "MINDSTORMS": "Program the future with LEGO® MINDSTORMS! This revolutionary robotics platform combines LEGO building with advanced programming, letting you construct and code sophisticated robots. From remote-controlled vehicles to autonomous problem-solvers, MINDSTORMS makes engineering and computer science tangible. With sensors, motors, and unlimited building possibilities, MINDSTORMS has educated millions in robotics since 1998. Perfect for students learning programming, educators teaching STEM, robotics competitors, and anyone fascinated by bringing LEGO creations to life through code.",
+    "MINDSTORMS": "Zaprogramuj przyszłość z LEGO® MINDSTORMS! Ta rewolucyjna platforma robotyczna łączy budowanie z klocków LEGO z zaawansowanym programowaniem, pozwalając konstruować i programować zaawansowane roboty. Od pojazdów zdalnie sterowanych po autonomiczne maszyny rozwiązujące problemy, MINDSTORMS czyni inżynierię i informatykę namacalnymi. Dzięki czujnikom, silnikom i nieograniczonym możliwościom budowania MINDSTORMS uczy robotyki miliony ludzi od 1998 roku. Idealne dla uczniów uczących się programowania, nauczycieli prowadzących zajęcia STEM, uczestników zawodów robotycznych oraz każdego, kogo fascynuje ożywianie konstrukcji LEGO za pomocą kodu.",
     "MIXELS": "Mix and combine with LEGO® MIXELS! This quirky motyw featured small, colorful creatures from different tribes that could combine into larger 'Maxes' or even 'Murps'. Based on a Cartoon Network series, MIXELS delivered affordable, creative builds with personality. Each series introduced Nowy tribes with unique characteristics and combination possibilities. Perfect for children who love combining builds, collectors of complete series, and budget-conscious builders seeking fun, creative Zestawy.",
     "Master Builder Academy": "Learn advanced techniques with LEGO® Master Builder Academy Minifigurki! This subscription-based program (2011-2013) taught sophisticated building skills through monthly kits. Each level introduced professional building techniques Używany by official LEGO designers. Accompanying Minifigurki represented instructors and characters guiding builders through increasingly complex projects. Master Builder Academy emphasized education through structured curriculum, graduating students through different achievement levels. From architecture to mechanical engineering, these Zestawy taught real skills. Though discontinued, Master Builder Academy represented premium educational LEGO content for serious builders. These figures came with designer secrets and insider building tips. Perfect for adult builders seeking mastery, LEGO enthusiasts wanting professional techniques, and collectors of educational LEGO history.",
     "Minecraft": "Build, craft, and explore the blocky world of Minecraft® with LEGO® Minifigurki! From Steve and Alex to zombies, creepers, and endermen, bring your favorite Minecraft characters into the real world. Collect villagers, piglins, skeletons, and Wszystkie the mobs that make Minecraft adventures unforgettable. Our Minecraft Minifigurki feature the same cubic design as the game, perfectly capturing the iconic blocky aesthetic while adding LEGO building possibilities. Battle the Ender Dragon, explore the Nether, or build your dream base with these detailed character figures. Perfect for Minecraft players who want to bring their digital adventures into physical building experiences, combining two beloved worlds of creativity and imagination.",
@@ -1590,7 +1590,7 @@
     "Prince of Persia": "Rewind Czas with LEGO® Prince of Persia™ Minifigurki! Based on the 2010 film adaptation, collect Prince Dastan, Princess Tamina, and warriors from ancient Persia. These Minifigurki feature detailed Middle Eastern costumes, curved weapons, and accessories including the Czas-manipulating Dagger of Czas. Build desert fortresses, engage in palace intrigue, and recreate parkour-style action sequences. Though a single-year tie-in motyw, Prince of Persia delivered elaborate Zestawy and detailed figures from Disney's fantasy adventure film. Perfect for fans of Arabian Nights-style adventures, Czas manipulation, and the Prince of Persia video game franchise that inspired the movie.",
     "Project Hail Mary": "Science saves humanity with LEGO® Project Hail Mary Minifigurki! Based on Andy Weir's science fiction novel, follow lone astronaut Ryder Grace on his desperate mission to Zapisz Earth. This LEGO Ideas zestaw celebrates hard science fiction with detailed Minifigurki and scientific accuracy. From space travel to alien encounters, Project Hail Mary combines survival story with genuine scientific problem-solving. These Minifigurki represent characters from the book's gripping narrative O nas sacrifice, ingenuity, and interstellar friendship. With spacecraft and scientific equipment, recreate humanity's last hope against extinction. Perfect for fans of The Martian author Andy Weir, hard science fiction enthusiasts, and readers who love stories where intelligence and perseverance overcome impossible odds in realistic space exploration.",
     "Promotional": "Collect exclusive treasures with LEGO® Promotional Minifigurki! These special figures are never sold separately, only available through specific promotions, purchases, or events. From store giveaways to magazine subscriptions, mail-in offers to purchase incentives, promotional Minifigurki reward loyalty and drive engagement. Some celebrate holidays, others promote Nowy motyw launches or store openings. With limited distribution and Czas-sensitive availability, promotional figures become highly collectible. From polybag giveaways to free gifts with purchase, these exclusives range from common to extremely rare. Collectors hunt promotional figures through secondary markets, completing collections with these elusive pieces. Perfect for completists tracking down every variant, bargain hunters finding rare promotions, and fans who love the thrill of hunting exclusive releases.",
-    "Quatro": "Supersized building for tiny hands with LEGO® Quatro figures! Designed for children aged 1-3, Quatro featured bricks even larger than DUPLO, prioritizing safety for the youngest builders. These oversized, chunky figures introduced toddlers to construction play with pieces too large to swallow. Quatro emphasized bright colors, simple shapes, and developmental benefits. From animals to basic characters, Quatro figures supported early learning through tactile play. Though discontinued and absorbed into DUPLO's youngest age ranges, Quatro represented LEGO's commitment to safety and early childhood development. These extra-large figures gave toddlers confidence building independently. Perfect for nostalgic parents who remember this short-lived line and collectors of LEGO's early childhood product history.",
+    "Quatro": "Ogromne klocki dla małych rączek z figurkami LEGO® Quatro! Zaprojektowane dla dzieci w wieku 1-3 lat, klocki Quatro były jeszcze większe niż DUPLO, stawiając bezpieczeństwo najmłodszych budowniczych na pierwszym miejscu. Te potężne, masywne figurki wprowadzały maluchy w świat budowania za pomocą elementów zbyt dużych, by je połknąć. Quatro stawiało na jaskrawe kolory, proste kształty i korzyści rozwojowe. Od zwierząt po podstawowe postacie, figurki Quatro wspierały wczesną naukę poprzez zabawę dotykową. Choć linia została wycofana i wchłonięta przez najmłodszy zakres wiekowy DUPLO, Quatro reprezentowało zaangażowanie LEGO w bezpieczeństwo i rozwój najmłodszych dzieci. Te ponadwymiarowe figurki dawały maluchom pewność siebie w samodzielnym budowaniu. Idealne dla nostalgicznych rodziców, którzy pamiętają tę krótkotrwałą linię, oraz kolekcjonerów historii produktów LEGO dla najmłodszych.",
     "Queer Eye": "Can you believe? LEGO® Queer Eye™ Minifigurki bring the Fab Five to brick form! Based on Netflix's beloved makeover Pokaż, collect Jonathan Van Ness, Tan France, Antoni Porowski, Bobby Berk, and Karamo Brown. This LEGO Ideas zestaw celebrates positivity, self-care, and transformative kindness. Each minifigurka captures the hosts' distinctive styles and personalities, from Jonathan's flowing hair to Tan's fashion expertise. Build the loft where transformations happen and recreate emotional makeovers that changed lives. With representation and inclusivity, Queer Eye Minifigurki celebrate being yourself. This zestaw honors the Pokaż's message that everyone deserves to feel confident and loved. Perfect for fans of the Pokaż who believe in kindness, self-improvement, and celebrating what makes everyone unique and beautiful.",
     "Racers": "Feel the speed with LEGO® Racers Minifigurki! This high-octane motyw (2001-2010) focused on racing vehicles across multiple competition types. Collect race car drivers, pit crew members, and mechanics from street racing, Formula racing, and off-road competitions. Racers featured sleek vehicles, starting gates, and racing accessories. Some Zestawy included pullback motors or remote control functionality. These Minifigurki wore detailed racing suits with sponsor logos and team colors. From desert rally races to professional circuits, Racers delivered competitive speed. The motyw also included Tiny Turbos - miniature pull-Wstecz racers. Though superseded by Speed Champions, Racers remains nostalgic for fans of early 2000s racing excitement. Perfect for speed enthusiasts and collectors of LEGO's racing heritage.",
     "Rock Raiders": "Mine the underground with LEGO® Rock Raiders™ Minifigurki! This 1999-2000 motyw featured a stranded mining crew exploring an alien planet's cave systems. Collect the Rock Raiders team in distinctive yellow and blue mining suits with drilling equipment and vehicles. Mine energy crystals while avoiding rock monsters, cave-ins, and underground hazards. These Minifigurki pioneered underground exploration Motywy with unique tools and vehicles. From chromestone to energy crystals, extract resources while battling slimy rock monsters. Rock Raiders combined resource management gameplay with LEGO building. Perfect for fans of underground exploration, mining operations, and surviving hostile alien environments deep beneath the surface.",
@@ -1651,129 +1651,129 @@
     "meta": {
       "title": "LEGO Star Wars May the 4th Deals 2026 - Up to 39% Wstecz",
       "description": "Exclusive LEGO Star Wars May the 4th deals Przewodnik. Get up to 39% Suma value with free Minifigurki and 4x Insiders Points. Analysis of Wszystkie deal tiers May 1-6, 2026.",
-      "keywords": "LEGO Star Wars May the 4th 2026, LEGO May 4th deals, LEGO Star Wars GWP, LEGO Insiders Points, best LEGO deals 2026, LEGO Star Wars freebies"
+      "keywords": "LEGO Star Wars Dzień Gwiezdnych Wojen 2026, promocje LEGO na 4 maja, gratisy LEGO Star Wars, punkty LEGO Insiders, najlepsze promocje LEGO 2026, darmowe gratisy LEGO Star Wars"
     },
     "hero": {
-      "title": "LEGO Star Wars May the 4th Deals 2026",
+      "title": "Promocje LEGO Star Wars na 4 maja 2026",
       "subtitle": "Up to 35% Całkowita wartość • May 1-6 Only",
-      "description": "Four tiers analyzed. Find your best deal below."
+      "description": "Przeanalizowaliśmy cztery poziomy. Znajdź swoją najlepszą ofertę poniżej."
     },
     "tierD": {
-      "badge": "TIER D",
-      "title": "~20-23% Return - Starting Point",
-      "whatYouGet": "What You Get:",
-      "item1": "1 free item: The Razor Crest Mini-Build (~$5 value)",
-      "item2": "2x Insiders Points (~10% cashback value)",
+      "badge": "POZIOM D",
+      "title": "~20-23% zwrotu - punkt startowy",
+      "whatYouGet": "Co otrzymujesz:",
+      "item1": "1 darmowy przedmiot: mini-model Razor Crest (wartość ~5 USD)",
+      "item2": "2x punkty Insiders (wartość ~10% zwrotu)",
       "item3": "Qualifying spend: $39.99+ on 2x eligible Zestawy (before tax)",
-      "description": "The minimum entry point. Here's an example combo that works:",
+      "description": "Minimalny próg wejścia. Oto przykładowy zestaw, który się sprawdza:",
       "exampleTitle": "Example: Buy Wszystkie 3 Zestawy Below",
-      "exampleSet1": "Siege of Mandalore Battle Pack: $22.99",
-      "exampleSet2": "Captain Rex Y-Wing Microfighter: $12.99",
-      "exampleSet3": "Mandalorian & Grogu Speeder Bike: $9.99",
+      "exampleSet1": "Zestaw bitewny Oblężenie Mandalore: 22,99 USD",
+      "exampleSet2": "Mikromyśliwiec Y-Wing kapitana Rexa: 12,99 USD",
+      "exampleSet3": "Speeder Mandalorianina i Grogu: 9,99 USD",
       "exampleTotal": "Suma: $45.97 ✓ Qualifies!",
       "exampleReturn": "Return: $5 (Razor Crest) + $4.60 (2x points) = $9.60 = 21% Wstecz"
     },
     "tierC": {
-      "badge": "TIER C",
-      "title": "25% Return - Display Collector's Choice",
-      "whatYouGet": "What You Get:",
+      "badge": "POZIOM C",
+      "title": "25% zwrotu - wybór kolekcjonera z ekspozycją",
+      "whatYouGet": "Co otrzymujesz:",
       "item1": "2 free Przedmioty: The Mandalorian and Grogu Display + The Darksaber (~$50 value)",
-      "item2": "1x Insiders Points (~5% cashback = $12.50 on $249.99)",
-      "item3": "Qualifying purchase: 75442 N-1 Starfighter ($249.99)",
+      "item2": "1x punkty Insiders (~5% zwrotu = 12,50 USD przy 249,99 USD)",
+      "item3": "Kwalifikujący się zakup: 75442 N-1 Starfighter (249,99 USD)",
       "item4": "Suma return: $62.50 = 25%",
-      "description": "Best option if you want the exclusive Display tile. You get both premium GWPs but lower points multiplier."
+      "description": "Najlepsza opcja, jeśli zależy Ci na ekskluzywnej płytce ekspozycyjnej. Otrzymujesz oba premium gratisy, ale z niższym mnożnikiem punktów."
     },
     "tierB": {
-      "badge": "TIER B",
-      "title": "~26-32% Return - Better Value",
-      "whatYouGet": "What You Get:",
+      "badge": "POZIOM B",
+      "title": "~26-32% zwrotu - lepsza wartość",
+      "whatYouGet": "Co otrzymujesz:",
       "item1": "2 free Przedmioty: The Darksaber + The Razor Crest Mini-Build (~$50 value)",
-      "item2": "2x Insiders Points (~10% cashback value)",
+      "item2": "2x punkty Insiders (wartość ~10% zwrotu)",
       "item3": "Qualifying spend: $160+ on 2x eligible Zestawy (before tax)",
-      "description": "Great value without breaking $200. Here's an example:",
+      "description": "Świetna wartość bez przekraczania 200 USD. Oto przykład:",
       "exampleTitle": "Example: Buy Both Zestawy Below",
-      "exampleSet1": "The Razor Crest: $149.99",
-      "exampleSet2": "AT-RT Attack: $44.99",
+      "exampleSet1": "Razor Crest: 149,99 USD",
+      "exampleSet2": "Atak AT-RT: 44,99 USD",
       "exampleTotal": "Suma: $194.98 ✓ Qualifies!",
       "exampleReturn": "Return: $50 (GWP) + $19.50 (2x points) = $69.50 = 36% Wstecz"
     },
     "tierA": {
-      "badge": "TIER A - BEST VALUE 🏆",
-      "title": "39% Return - Ultimate Deal",
-      "whatYouGet": "What You Get:",
+      "badge": "POZIOM A - NAJLEPSZA WARTOŚĆ 🏆",
+      "title": "39% zwrotu - najlepsza oferta",
+      "whatYouGet": "Co otrzymujesz:",
       "item1": "2 free Przedmioty: The Darksaber + The Razor Crest Mini-Build (~$50 value)",
-      "item2": "4x Insiders Points (~20% cashback value)",
+      "item2": "4x punkty Insiders (wartość ~20% zwrotu)",
       "item3": "Qualifying spend: $160+ on 4x eligible Zestawy (before tax)",
       "item4": "Suma return: $62 = 39%",
-      "description": "Maximum value. Get both freebies + 4x points multiplier.",
-      "exampleTitle": "Example: Buy the AT-ST Walker (75417) for $199.99",
+      "description": "Maksymalna wartość. Otrzymaj oba gratisy + 4-krotny mnożnik punktów.",
+      "exampleTitle": "Przykład: Kup krocznika AT-ST (75417) za 199,99 USD",
       "exampleReturn": "Return: $50 (GWP) + $40 (4x points) = $90 = 45% Wstecz"
     },
     "gwpSection": {
-      "title": "What You Get Free",
-      "subtitle": "Stack multiple GWPs depending on your spend tier",
+      "title": "Co otrzymasz gratis",
+      "subtitle": "Łącz wiele gratisów w zależności od poziomu wydatków",
       "darksaber": {
-        "title": "The Darksaber",
-        "subtitle": "Legendary Mandalorian weapon",
-        "price": "~$45 value",
-        "requirement": "Spend $160+ on Star Wars"
+        "title": "Mroczny Miecz",
+        "subtitle": "Legendarna broń Mandalorian",
+        "price": "wartość ~45 USD",
+        "requirement": "Wydaj 160+ USD na Star Wars"
       },
       "razorCrest": {
-        "title": "The Razor Crest Mini-Build",
-        "subtitle": "Mando's iconic ship",
-        "price": "~$5 value",
+        "title": "Mini-model Razor Crest",
+        "subtitle": "Kultowy statek Mando",
+        "price": "wartość ~5 USD",
         "requirement": "Spend $40+ on 2x Zestawy"
       },
       "display": {
-        "title": "Mandalorian & Grogu Display",
-        "subtitle": "Exclusive display tile",
-        "price": "~$5 value",
-        "requirement": "Buy 75442 N-1 Starfighter"
+        "title": "Ekspozycja Mandalorianin i Grogu",
+        "subtitle": "Ekskluzywna płytka ekspozycyjna",
+        "price": "wartość ~5 USD",
+        "requirement": "Kup 75442 N-1 Starfighter"
       }
     },
     "whichTier": {
-      "title": "Which Tier Should You Buy?",
+      "title": "Który poziom wybrać?",
       "tierA": {
-        "title": "Choose Tier A if...",
+        "title": "Wybierz poziom A, jeśli...",
         "item1": "You want maximum value (39% Wstecz)",
-        "item2": "You're buying AT-ST or TIE Interceptor anyway",
-        "item3": "4x points matter to you for future purchases"
+        "item2": "I tak planujesz kupić AT-ST lub TIE Interceptor",
+        "item3": "Zależy Ci na 4-krotnych punktach na przyszłe zakupy"
       },
       "tierB": {
-        "title": "Choose Tier B if...",
-        "item1": "You want solid value without spending $200+",
+        "title": "Wybierz poziom B, jeśli...",
+        "item1": "Chcesz solidnej wartości bez wydawania 200+ USD",
         "item2": "The Razor Crest zestaw interests you",
         "item3": "You prefer flexibility with 2x Zestawy"
       },
       "tierC": {
-        "title": "Choose Tier C if...",
-        "item1": "You specifically want the Display tile",
-        "item2": "You're buying the N-1 Starfighter anyway",
+        "title": "Wybierz poziom C, jeśli...",
+        "item1": "Zależy Ci konkretnie na płytce ekspozycyjnej",
+        "item2": "I tak planujesz kupić N-1 Starfighter",
         "item3": "GWPs matter Więcej than points to you"
       },
       "tierD": {
-        "title": "Choose Tier D if...",
-        "item1": "You're on a tight budget (~$40-50)",
-        "item2": "You just want the Razor Crest mini-build",
-        "item3": "You prefer small impulse purchases"
+        "title": "Wybierz poziom D, jeśli...",
+        "item1": "Masz ograniczony budżet (~40-50 USD)",
+        "item2": "Zależy Ci tylko na mini-modelu Razor Crest",
+        "item3": "Wolisz mniejsze, spontaniczne zakupy"
       }
     },
     "faq": {
       "title": "Najczęściej zadawane pytania",
       "q1": {
-        "question": "When does this promotion run?",
-        "answer": "May 1-6, 2026. Available while supplies last."
+        "question": "Kiedy trwa ta promocja?",
+        "answer": "1-6 maja 2026. Dostępne do wyczerpania zapasów."
       },
       "q2": {
-        "question": "Can I combine tiers?",
+        "question": "Czy mogę łączyć poziomy?",
         "answer": "Nie. You qualify for ONE tier based on your purchase. Choose wisely."
       },
       "q3": {
-        "question": "Do I need to be a LEGO Insiders member?",
+        "question": "Czy muszę być członkiem LEGO Insiders?",
         "answer": "Tak. Free to join at LEGO.com. Required for points."
       },
       "q4": {
-        "question": "When do I receive my Insiders Points?",
+        "question": "Kiedy otrzymam swoje punkty Insiders?",
         "answer": "Points post to your Konto 60 days after purchase."
       },
       "q5": {
@@ -1782,37 +1782,37 @@
       }
     },
     "cta": {
-      "title": "Ready to Maximize Your Value?",
-      "description": "Choose your tier and shop now. Promotion ends May 6, 2026.",
-      "button": "Shop LEGO.com",
+      "title": "Gotowy, aby zmaksymalizować swoją wartość?",
+      "description": "Wybierz swój poziom i kupuj już teraz. Promocja kończy się 6 maja 2026.",
+      "button": "Kupuj na LEGO.com",
       "disclaimer": "Otrzymujemy prowizję od kwalifikujących się zakupów. Prices accurate as of May 2, 2026."
     },
     "common": {
-      "buyOnLego": "Buy on LEGO.com",
+      "buyOnLego": "Kup na LEGO.com",
       "price": "Cena",
       "setNumber": "zestaw",
-      "eligibleFor": "Eligible for"
+      "eligibleFor": "Kwalifikuje się do"
     }
   },
   "legoSale": {
     "pageTitle": "LEGO® Wyprzedaż",
     "subtitle": "Best Amazon Deals on LEGO Zestawy",
-    "tier50": "Excellent Deals - 50%+ Off",
-    "tier40": "Great Deals - 40%+ Off",
-    "tier30": "Good Deals - 30%+ Off",
-    "tier20": "Deals - 20%+ Off",
+    "tier50": "Świetne okazje - 50%+ zniżki",
+    "tier40": "Dobre okazje - 40%+ zniżki",
+    "tier30": "Niezłe okazje - 30%+ zniżki",
+    "tier20": "Okazje - 20%+ zniżki",
     "filterByTheme": "Filtruj by motyw",
     "priceRange": "Cena Range",
     "sortBy": "Sortuj By",
-    "sortDiscount": "Highest Discount",
+    "sortDiscount": "Największa zniżka",
     "sortPrice": "Lowest Cena",
     "sortName": "Imię (A-Z)",
     "buyOnAmazon": "Kup na Amazon",
     "primeEligible": "Sponsorowane",
     "noDealsinTier": "Nie deals found in this Kategoria",
-    "lastUpdated": "Prices updated",
+    "lastUpdated": "Ceny zaktualizowane",
     "allThemes": "Wszystkie motywy",
-    "priceUnder25": "Under $25",
+    "priceUnder25": "Poniżej 25 USD",
     "price25to50": "$25 - $50",
     "price50to100": "$50 - $100",
     "price100to200": "$100 - $200",
@@ -1830,7 +1830,9 @@
       "allThemes": "Wszystkie Motywy",
       "selectTheme": "Wybierz motyw",
       "showingCount": "Pokazuje {count} zestawów wycofywanych wkrótce",
-      "showingCountInTheme": "Pokazuje {count} zestawów wycofywanych wkrótce w {theme}"
+      "showingCountInTheme": "Pokazuje {count} zestawów wycofywanych wkrótce w {theme}",
+      "searchThemes": "Szukaj motywów...",
+      "noThemesFound": "Nie znaleziono motywów"
     },
     "timeline": {
       "retiring0to3": "Wycofanie za 0-3 miesiące",

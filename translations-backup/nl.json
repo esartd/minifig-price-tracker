@@ -77,27 +77,27 @@
     "user": "Gebruiker"
   },
   "themes": {
-    "browse_title": "Browse LEGO Minifigure Themes",
-    "browse_sets": "Browse LEGO Set Themes",
+    "browse_title": "Blader door LEGO Minifiguur Thema's",
+    "browse_sets": "Blader door LEGO Set Thema's",
     "theme_sets": "{theme} Sets",
-    "count": "{count} minifigs",
+    "count": "{count} minifiguren",
     "countSets": "{count} sets in dit thema",
     "setsCount": "{count} sets",
     "subcategoriesCount": "{count} subcategorieën",
     "exploreThemesWithSets": "Ontdek {themeCount} thema's met {setCount} LEGO sets",
     "series": "{count} series",
-    "allThemes": "All Themes",
-    "popularThemes": "Popular Themes",
-    "themeLabel": "Theme",
+    "allThemes": "Alle Thema's",
+    "popularThemes": "Populaire Thema's",
+    "themeLabel": "Thema",
     "moreCount": "+{count} meer",
-    "searchPlaceholder": "Search themes...",
-    "currentThemes": "Current Themes",
+    "searchPlaceholder": "Zoek thema's...",
+    "currentThemes": "Huidige Thema's",
     "currentThemesDesc": "Themas with sets released between {yearRange}",
-    "olderThemes": "Older Themes",
-    "olderThemesDesc": "Themes from previous years",
+    "olderThemes": "Oudere Thema's",
+    "olderThemesDesc": "Thema's uit voorgaande jaren",
     "showMore": "Toon {count} More Themas",
-    "noThemesFound": "No themes found",
-    "tryAdjustSearch": "Try adjusting your search",
+    "noThemesFound": "Geen thema's gevonden",
+    "tryAdjustSearch": "Probeer je zoekopdracht aan te passen",
     "descriptions": {
       "(Other)": "Ontdek unique LEGO® sets dat niet passen traditionele categorieën! deze diverse collectie bevat experimental designs, limited releases, en special projects dat showcase LEGO's creativity beyond mainstream themes. Van promotional builds naar one-off collaborations, deze sets represent de innovative spirit of LEGO building. Perfect voor verzamelaars seeking unique additions naar their collectie en bouwers die houden van discovering hidden gems.",
       "4 Juniors": "Designed for young bouwers transitioning Van DUPLO, LEGO® 4 Juniors minifiguren offer simplified building experiences met recognizable personages en themes. deze sets feature easy-naar-bouw models met larger pieces en pre-decorated elements, making construction accessible for children ages 4-7. verzamel minifiguren Van popular themes like Batman, Spider-Man, Frozen, Toy Story, en Jurassic wereld, alle adapted for younger hands. 4 Juniors bridges de gap between toddler building en standard LEGO sets, maintaining de creativity en play value while reducing complexity. elke minifiguur comes met themed accessories en vehicles dat snap together quickly, building confidence in young constructors. Perfect voor preschoolers en early elementary students ready naar graduate Van DUPLO en begin their LEGO Reis met geliefde personages.",
@@ -280,109 +280,109 @@
       "xtra": "Enhance your worlds met LEGO® xtra! deze accessory sets include extra elements, scenery pieces, en details for customizing existing builds. Van street signs en plants naar furniture en decorations, xtra sets add life en realism naar LEGO cities en scenes. Perfect voor bouwers adding detail naar displays, city bouwers seeking realism, en those die houden van accessorizing their LEGO worlds."
     },
     "exploreCount": "Ontdek {themeCount} thema's met {minifigCount} minifigures",
-    "minifigsCount": "{count} minifigures",
-    "acrossSeries": "across {count} series",
-    "seriesLabel": "Series",
-    "otherMinifigures": "Other {theme} Minifigures",
-    "uncategorizedDesc": "{count} minifigures that don't belong to a specific series",
-    "showLess": "Show Less",
-    "readMore": "Read More",
+    "minifigsCount": "{count} minifiguren",
+    "acrossSeries": "verdeeld over {count} series",
+    "seriesLabel": "Serie",
+    "otherMinifigures": "Overige {theme} Minifiguren",
+    "uncategorizedDesc": "{count} minifiguren die niet bij een specifieke serie horen",
+    "showLess": "Minder weergeven",
+    "readMore": "Meer lezen",
     "meta": {
-      "title": "Browse LEGO Minifigures by Theme - Star Wars, Harry Potter & More",
-      "description": "Explore LEGO minifigures organized by theme. Browse Star Wars, Harry Potter, Marvel, DC, Ninjago, and 50+ other themes. Get pricing data and track your collection.",
-      "keywords": "LEGO themes, Star Wars minifigures, Harry Potter LEGO, Marvel LEGO, DC LEGO, Ninjago minifigs, LEGO catalog by theme",
-      "ogTitle": "Browse LEGO Minifigures by Theme | FigTracker",
-      "ogDescription": "Explore minifigures from Star Wars, Harry Potter, Marvel, and 50+ other LEGO themes with real-time pricing."
+      "title": "Blader door LEGO Minifiguren op Thema - Star Wars, Harry Potter & Meer",
+      "description": "Ontdek LEGO minifiguren gerangschikt op thema. Blader door Star Wars, Harry Potter, Marvel, DC, Ninjago en 50+ andere thema's. Bekijk prijsgegevens en houd je collectie bij.",
+      "keywords": "LEGO thema's, Star Wars minifiguren, Harry Potter LEGO, Marvel LEGO, DC LEGO, Ninjago minifigs, LEGO catalogus per thema",
+      "ogTitle": "Blader door LEGO Minifiguren op Thema | FigTracker",
+      "ogDescription": "Ontdek minifiguren uit Star Wars, Harry Potter, Marvel en 50+ andere LEGO thema's met actuele prijzen."
     }
   },
   "account": {
-    "title": "Account Settings",
-    "subtitle": "Manage your profile, security, and data preferences",
-    "backToCollection": "Back to Collection",
+    "title": "Accountinstellingen",
+    "subtitle": "Beheer uw profiel, beveiliging en gegevensvoorkeuren",
+    "backToCollection": "Terug naar Collectie",
     "stats": {
-      "totalItems": "Total Items",
-      "collectionValue": "Collection Value",
-      "memberSince": "Member Since"
+      "totalItems": "Totaal Aantal Items",
+      "collectionValue": "Collectiewaarde",
+      "memberSince": "Lid Sinds"
     },
     "profile": {
-      "title": "Profile Information",
+      "title": "Profielinformatie",
       "avatar": {
-        "change": "Change Avatar",
-        "cancel": "Cancel"
+        "change": "Avatar Wijzigen",
+        "cancel": "Annuleren"
       },
-      "fullName": "Full Name",
-      "emailAddress": "Email Address",
-      "emailNote": "Email cannot be changed for security reasons",
+      "fullName": "Volledige Naam",
+      "emailAddress": "E-mailadres",
+      "emailNote": "E-mailadres kan om veiligheidsredenen niet worden gewijzigd",
       "placeholders": {
-        "name": "Enter your full name"
+        "name": "Voer uw volledige naam in"
       },
-      "save": "Save",
-      "saving": "Saving..."
+      "save": "Opslaan",
+      "saving": "Opslaan..."
     },
     "security": {
-      "title": "Security",
-      "currentPassword": "Current Password",
-      "newPassword": "New Password",
-      "confirmPassword": "Confirm New Password",
+      "title": "Beveiliging",
+      "currentPassword": "Huidig Wachtwoord",
+      "newPassword": "Nieuw Wachtwoord",
+      "confirmPassword": "Bevestig Nieuw Wachtwoord",
       "placeholders": {
-        "currentPassword": "Enter current password",
-        "newPassword": "Enter new password",
-        "confirmPassword": "Confirm new password"
+        "currentPassword": "Voer huidig wachtwoord in",
+        "newPassword": "Voer nieuw wachtwoord in",
+        "confirmPassword": "Bevestig nieuw wachtwoord"
       },
-      "changePassword": "Change Password",
-      "changing": "Changing..."
+      "changePassword": "Wachtwoord Wijzigen",
+      "changing": "Bezig met wijzigen..."
     },
     "regional": {
-      "title": "Regional Settings",
-      "subtitle": "Choose your preferred currency and language",
-      "currency": "Currency",
-      "language": "Language",
-      "note": "Changing your currency will display prices in your selected region's marketplace. Prices may differ from other regions due to local supply, demand, and shipping costs."
+      "title": "Regio-instellingen",
+      "subtitle": "Kies uw gewenste valuta en taal",
+      "currency": "Valuta",
+      "language": "Taal",
+      "note": "Als u uw valuta wijzigt, worden prijzen weergegeven in de marktplaats van de geselecteerde regio. Prijzen kunnen afwijken van andere regio's door lokale vraag, aanbod en verzendkosten."
     },
     "sharing": {
-      "title": "Share Collection",
-      "subtitle": "Share your collection with others via a public link (read-only)",
-      "publicSharing": "Public Sharing",
-      "enabled": "Your collection is visible to anyone with the link",
-      "disabled": "Your collection is private",
-      "shareLink": "Share Link",
-      "copy": "Copy",
-      "copied": "Copied",
-      "linkNote": "Anyone with this link can view your collection and inventory (read-only)",
-      "enableSuccess": "Collection sharing enabled",
-      "disableSuccess": "Collection sharing disabled",
-      "error": "Failed to toggle sharing"
+      "title": "Collectie Delen",
+      "subtitle": "Deel uw collectie met anderen via een openbare link (alleen-lezen)",
+      "publicSharing": "Openbaar Delen",
+      "enabled": "Uw collectie is zichtbaar voor iedereen met de link",
+      "disabled": "Uw collectie is privé",
+      "shareLink": "Deel Link",
+      "copy": "Kopiëren",
+      "copied": "Gekopieerd",
+      "linkNote": "Iedereen met deze link kan uw collectie en inventaris bekijken (alleen-lezen)",
+      "enableSuccess": "Delen van collectie ingeschakeld",
+      "disableSuccess": "Delen van collectie uitgeschakeld",
+      "error": "Delen in-/uitschakelen mislukt"
     },
     "dataManagement": {
-      "title": "Data Management",
+      "title": "Gegevensbeheer",
       "export": {
-        "title": "Export Collection Data",
-        "subtitle": "Download your entire collection as a JSON file",
-        "button": "Export Data",
-        "success": "Collection data exported successfully",
-        "error": "Failed to export collection data"
+        "title": "Collectiegegevens Exporteren",
+        "subtitle": "Download uw volledige collectie als JSON-bestand",
+        "button": "Gegevens Exporteren",
+        "success": "Collectiegegevens succesvol geëxporteerd",
+        "error": "Exporteren van collectiegegevens mislukt"
       },
       "delete": {
-        "title": "Delete Account",
-        "subtitle": "Permanently delete your account and all associated data",
-        "button": "Delete Account",
-        "confirm1": "Are you sure you want to delete your account? This action cannot be undone and will permanently delete all your collection data.",
-        "confirm2": "This is your last chance. Are you absolutely sure you want to delete your account and all data?",
-        "error": "Failed to delete account"
+        "title": "Account Verwijderen",
+        "subtitle": "Verwijder uw account en alle bijbehorende gegevens permanent",
+        "button": "Account Verwijderen",
+        "confirm1": "Weet u zeker dat u uw account wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt en verwijdert al uw collectiegegevens permanent.",
+        "confirm2": "Dit is uw laatste kans. Weet u absoluut zeker dat u uw account en alle gegevens wilt verwijderen?",
+        "error": "Verwijderen van account mislukt"
       }
     },
     "messages": {
-      "nameUpdated": "Name updated successfully",
-      "avatarUpdated": "Avatar updated!",
-      "passwordChanged": "Password changed successfully",
-      "passwordMismatch": "New passwords do not match",
-      "passwordTooShort": "Password must be at least 8 characters",
-      "currencyUpdated": "Currency updated to {currencyName} ({currencySymbol})",
-      "updatingPrices": "Updating prices for {itemCount} items in your collection.",
-      "estimatedTime": "Estimated time: {minutes} minute{plural}",
-      "refreshPage": "Refresh the page in a few minutes to see updated prices.",
-      "pricesWillDisplay": "Prices will now display in {currencyCode}.",
-      "genericError": "An error occurred. Please try again."
+      "nameUpdated": "Naam succesvol bijgewerkt",
+      "avatarUpdated": "Avatar bijgewerkt!",
+      "passwordChanged": "Wachtwoord succesvol gewijzigd",
+      "passwordMismatch": "Nieuwe wachtwoorden komen niet overeen",
+      "passwordTooShort": "Wachtwoord moet minimaal 8 tekens bevatten",
+      "currencyUpdated": "Valuta gewijzigd naar {currencyName} ({currencySymbol})",
+      "updatingPrices": "Prijzen worden bijgewerkt voor {itemCount} items in uw collectie.",
+      "estimatedTime": "Geschatte tijd: {minutes} minuut{plural}",
+      "refreshPage": "Ververs de pagina over een paar minuten om bijgewerkte prijzen te zien.",
+      "pricesWillDisplay": "Prijzen worden nu weergegeven in {currencyCode}.",
+      "genericError": "Er is een fout opgetreden. Probeer het opnieuw."
     },
     "quickLinks": {
       "title": "Snelle links",
@@ -403,10 +403,10 @@
     }
   },
   "search": {
-    "placeholder": "Search for any LEGO minifigure or set...",
-    "placeholderSets": "Search for LEGO sets...",
-    "notFound": "Not found. Try different search terms.",
-    "results": "{count} results found",
+    "placeholder": "Zoek naar een LEGO minifiguur of set...",
+    "placeholderSets": "Zoek naar LEGO sets...",
+    "notFound": "Niet gevonden. Probeer andere zoektermen.",
+    "results": "{count} resultaten gevonden",
     "searching": "Zoeken...",
     "seeAllMinifigures": "Zie alle minifiguren →",
     "emptyTitle": "Zoek naar minifiguren en sets",
@@ -423,57 +423,57 @@
   "buyButtons": {
     "ebay": {
       "name": "eBay",
-      "description": "Rare finds & collector deals",
-      "sponsored": "Sponsored",
+      "description": "Zeldzame vondsten & verzamelaarsdeals",
+      "sponsored": "Gesponsord",
       "buyOn": "Kopen bij eBay"
     },
     "amazon": {
       "name": "Amazon",
-      "description": "Fast shipping & easy returns",
-      "sponsored": "Sponsored",
+      "description": "Snelle verzending & eenvoudig retourneren",
+      "sponsored": "Gesponsord",
       "shopOn": "Kopen bij Amazon",
       "buyOn": "Kopen bij Amazon"
     },
     "bricklink": {
       "name": "BrickLink",
-      "description": "Largest LEGO marketplace"
+      "description": "Grootste LEGO marktplaats"
     }
   },
   "pricing": {
-    "sixMonthAvg": "6 Mo Avg",
-    "currentAvg": "Current Avg",
-    "lowest": "Lowest",
-    "highest": "Highest",
-    "suggestedPrice": "Suggested Price",
-    "priceHistory": "Price History",
-    "noPricing": "No pricing data available",
-    "refreshPricing": "Refresh Pricing",
+    "sixMonthAvg": "Gem. 6 Mnd",
+    "currentAvg": "Huidig Gem.",
+    "lowest": "Laagste",
+    "highest": "Hoogste",
+    "suggestedPrice": "Voorgestelde Prijs",
+    "priceHistory": "Prijsgeschiedenis",
+    "noPricing": "Geen prijsgegevens beschikbaar",
+    "refreshPricing": "Prijzen Vernieuwen",
     "sourceEbay": "Prijs van eBay",
     "sourceEbayTooltip": "Prijzen worden geschat op basis van actuele marktgegevens.",
     "ebayFallbackTitle": "Geschat uit actieve eBay-advertenties",
     "ebayFallbackExplain": "Prijzen worden geschat op basis van actuele marktgegevens en worden automatisch vernieuwd.",
-    "ebayLoggedOutTitle": "eBay Market Pricing",
-    "ebayLoggedOutExplain": "Pricing based on current eBay market data.",
+    "ebayLoggedOutTitle": "eBay Marktprijzen",
+    "ebayLoggedOutExplain": "Prijzen gebaseerd op actuele eBay marktgegevens.",
     "ebayLoggedOutCta": "Log in voor persoonlijke prijzen →",
     "sourceBrickLink": "Prijs van BrickLink"
   },
   "errors": {
-    "notFound": "Not found",
-    "unauthorized": "Unauthorized",
-    "serverError": "Server error. Please try again.",
-    "networkError": "Network error. Check your connection.",
-    "invalidInput": "Invalid input",
-    "requiredField": "This field is required"
+    "notFound": "Niet gevonden",
+    "unauthorized": "Niet geautoriseerd",
+    "serverError": "Serverfout. Probeer het opnieuw.",
+    "networkError": "Netwerkfout. Controleer uw verbinding.",
+    "invalidInput": "Ongeldige invoer",
+    "requiredField": "Dit veld is verplicht"
   },
   "wishlist": {
-    "title": "My Wishlist",
-    "signInTitle": "Save Your Favorite Minifigures",
-    "signInDescription": "Create a free account to save minifigures to your wishlist, track your collection, and get price updates.",
-    "createAccount": "Create Free Account",
-    "itemsSaved": "{count} minifigure(s) saved",
-    "emptyTitle": "Your wishlist is empty",
-    "emptyDescription": "Browse minifigures and click the heart icon to save them here",
-    "browseButton": "Browse Minifigures",
+    "title": "Mijn Verlanglijst",
+    "signInTitle": "Bewaar Je Favoriete Minifiguren",
+    "signInDescription": "Maak een gratis account aan om minifiguren op te slaan in je verlanglijst, je collectie bij te houden en prijsupdates te ontvangen.",
+    "createAccount": "Gratis Account Aanmaken",
+    "itemsSaved": "{count} minifiguren opgeslagen",
+    "emptyTitle": "Je verlanglijst is leeg",
+    "emptyDescription": "Blader door minifiguren en klik op het hartpictogram om ze hier op te slaan",
+    "browseButton": "Blader door Minifiguren",
     "buyBrickLink": "BrickLink",
     "buyAmazon": "Amazon",
     "buyEbay": "eBay",
@@ -488,32 +488,32 @@
   },
   "sets": {
     "browse": {
-      "title": "Browse LEGO Sets",
-      "subtitle": "Search and explore LEGO sets from all themes",
-      "searchPlaceholder": "Search by name or set number...",
-      "browseByTheme": "Browse by Theme",
-      "clearFilter": "Clear Theme Filter",
-      "searching": "Searching...",
-      "noSetsFound": "No sets found",
-      "tryAdjusting": "Try adjusting your search or browse by theme",
-      "foundSets": "Found {count} sets",
+      "title": "Blader door LEGO Sets",
+      "subtitle": "Zoek en ontdek LEGO sets uit alle thema's",
+      "searchPlaceholder": "Zoek op naam of setnummer...",
+      "browseByTheme": "Blader op Thema",
+      "clearFilter": "Themafilter Wissen",
+      "searching": "Zoeken...",
+      "noSetsFound": "Geen sets gevonden",
+      "tryAdjusting": "Probeer je zoekopdracht aan te passen of blader op thema",
+      "foundSets": "{count} sets gevonden",
       "inTheme": "in {theme}",
-      "year": "Year",
-      "weight": "Weight"
+      "year": "Jaar",
+      "weight": "Gewicht"
     }
   },
   "faq": {
-    "badge": "HELP CENTER",
-    "title": "Frequently Asked Questions",
-    "subtitle": "Everything you need to know about pricing and tracking LEGO minifigures",
-    "stillHaveQuestions": "Still have questions?",
-    "cantFindAnswer": "Can't find the answer you're looking for? Reach out to our support team.",
-    "contactSupport": "Contact Support",
-    "emailUs": "Email us with any questions or feedback",
+    "badge": "HELPCENTRUM",
+    "title": "Veelgestelde Vragen",
+    "subtitle": "Alles wat je moet weten over het prijzen en bijhouden van LEGO minifiguren",
+    "stillHaveQuestions": "Nog vragen?",
+    "cantFindAnswer": "Kun je het antwoord dat je zoekt niet vinden? Neem contact op met ons supportteam.",
+    "contactSupport": "Contact Opnemen",
+    "emailUs": "Mail ons met al je vragen of feedback",
     "cta": {
-      "title": "Ready to price your next listing?",
-      "subtitle": "Search any minifigure or set and get a suggested price in seconds.",
-      "button": "Start Pricing →"
+      "title": "Klaar om je volgende listing te prijzen?",
+      "subtitle": "Zoek een minifiguur of set en krijg binnen seconden een voorgestelde prijs.",
+      "button": "Begin met Prijzen →"
     },
     "items": [
       {
@@ -582,103 +582,103 @@
       }
     ],
     "meta": {
-      "title": "FAQ - Frequently Asked Questions | FigTracker",
-      "description": "Common questions about FigTracker LEGO minifigure and set price tracker. Learn how to price items, track inventory in 15+ currencies, and use Bricklink data effectively.",
-      "keywords": "LEGO pricing FAQ, Bricklink help, minifigure pricing guide, FigTracker help, how to price LEGO, LEGO set tracker",
-      "ogTitle": "Frequently Asked Questions | FigTracker",
-      "ogDescription": "Get answers about pricing LEGO minifigures and sets with FigTracker. 15+ currencies, 18,000+ minifigs, 20,000+ sets."
+      "title": "FAQ - Veelgestelde Vragen | FigTracker",
+      "description": "Veelgestelde vragen over de LEGO minifiguur- en setprijstracker van FigTracker. Leer hoe je items prijst, je inventaris in 15+ valuta bijhoudt en Bricklink-gegevens effectief gebruikt.",
+      "keywords": "LEGO prijzen FAQ, Bricklink hulp, minifiguur prijsgids, FigTracker hulp, hoe LEGO te prijzen, LEGO set tracker",
+      "ogTitle": "Veelgestelde Vragen | FigTracker",
+      "ogDescription": "Krijg antwoorden over het prijzen van LEGO minifiguren en sets met FigTracker. 15+ valuta, 18.000+ minifigs, 20.000+ sets."
     }
   },
   "homepage": {
     "stats": {
-      "minifigsTracked": "Minifigures you can price",
-      "setsInCatalog": "Sets in the catalog",
+      "minifigsTracked": "Minifiguren die je kunt prijzen",
+      "setsInCatalog": "Sets in de catalogus",
       "realTime": "Realtime",
-      "bricklinkPricing": "Currencies supported",
+      "bricklinkPricing": "Ondersteunde valuta",
       "free": "Gratis",
-      "forCollectorsSellers": "No account required to search"
+      "forCollectorsSellers": "Geen account nodig om te zoeken"
     }
   },
   "about": {
-    "badge": "ABOUT FIGTRACKER",
+    "badge": "OVER FIGTRACKER",
     "hero": {
-      "title": "One Price. No Guesswork.",
-      "subtitle": "The fastest way to price LEGO minifigures and sets. Free for every seller."
+      "title": "Eén Prijs. Geen Giswerk.",
+      "subtitle": "De snelste manier om LEGO minifiguren en sets te prijzen. Gratis voor elke verkoper."
     },
     "problem": {
-      "title": "Pricing LEGO sets and minifigures shouldn't feel like homework.",
-      "paragraph1": "You open BrickLink and see sold prices and listings. New and Used. Each with a minimum, average, quantity-weighted average, and maximum. That's 24 different numbers to sort through before you can price a single item.",
-      "paragraph2": "Then you do the mental math, trying to land on something fair. <strong>Every. Single. Time.</strong>"
+      "title": "Het prijzen van LEGO sets en minifiguren zou geen huiswerk moeten aanvoelen.",
+      "paragraph1": "Je opent BrickLink en ziet verkochte prijzen en advertenties. Nieuw en Gebruikt. Elk met een minimum, gemiddelde, hoeveelheidsgewogen gemiddelde en maximum. Dat zijn 24 verschillende getallen om doorheen te spitten voordat je één item kunt prijzen.",
+      "paragraph2": "Dan doe je het rekenwerk in je hoofd, in een poging iets eerlijks te bepalen. <strong>Elke. Keer. Weer.</strong>"
     },
     "stats": {
-      "pricePoints": "Numbers from BrickLink",
-      "suggestedPrice": "Price from FigTracker",
-      "mentalMath": "Mental math"
+      "pricePoints": "Getallen van BrickLink",
+      "suggestedPrice": "Prijs van FigTracker",
+      "mentalMath": "Hoofdrekenen"
     },
     "features": {
-      "title": "Everything you need. Nothing extra.",
-      "subtitle": "Price and track your inventory in one place.",
+      "title": "Alles wat je nodig hebt. Niets extra's.",
+      "subtitle": "Prijs en beheer je inventaris op één plek.",
       "pricing": {
-        "title": "One Suggested Price",
-        "description": "We blend BrickLink and eBay data into a single number you can actually use. No spreadsheets. No mental math."
+        "title": "Eén Voorgestelde Prijs",
+        "description": "We combineren BrickLink- en eBay-gegevens tot één getal dat je daadwerkelijk kunt gebruiken. Geen spreadsheets. Geen hoofdrekenen."
       },
       "inventory": {
-        "title": "Sell and Keep, Separated",
-        "description": "Track items you're selling and your personal collection in separate lists. Quantities, conditions, and total value at a glance."
+        "title": "Verkopen en Houden, Gescheiden",
+        "description": "Houd items die je verkoopt en je persoonlijke collectie bij in aparte lijsten. Aantallen, condities en totale waarde in één oogopslag."
       },
       "search": {
-        "title": "Find Any Figure in Seconds",
+        "title": "Vind Elke Figuur in Seconden",
         "description": "Search minifigures and sets by BrickLink ID or name. Browse by theme when you want to explore."
       },
       "privacy": {
-        "title": "Prices That Reflect the Market",
-        "description": "Our suggested price blends recent sold data with current listings. One number that accounts for what buyers are actually paying."
+        "title": "Prijzen Die de Markt Weerspiegelen",
+        "description": "Onze voorgestelde prijs combineert recente verkoopgegevens met actuele advertenties. Eén getal dat rekening houdt met wat kopers daadwerkelijk betalen."
       }
     },
     "personas": {
-      "title": "Built for anyone who sells LEGO",
+      "title": "Gemaakt voor iedereen die LEGO verkoopt",
       "subtitle": "",
       "resellers": {
-        "title": "Resellers",
-        "description": "You move volume. FigTracker prices your inventory so you can focus on sourcing and shipping."
+        "title": "Doorverkopers",
+        "description": "Jij verplaatst volume. FigTracker prijst je inventaris zodat jij je kunt focussen op inkoop en verzending."
       },
       "partTime": {
-        "title": "Part-time Sellers",
-        "description": "You sell when life allows. Get a fair price without spending your evening on research."
+        "title": "Parttime Verkopers",
+        "description": "Jij verkoopt wanneer het leven het toelaat. Krijg een eerlijke prijs zonder je avond aan onderzoek te besteden."
       },
       "casual": {
-        "title": "Casual Sellers",
-        "description": "You have a few figs to list. Search, price, post. Done in minutes."
+        "title": "Casual Verkopers",
+        "description": "Je hebt een paar figuren om te listen. Zoeken, prijzen, plaatsen. Klaar in enkele minuten."
       }
     },
     "trust": {
-      "badge": "FREE TO USE",
-      "title": "Free to use. No hidden fees.",
-      "description": "Your inventory data is private and secure. Currently free with no payment required to track your collection.",
-      "secure": "Secure & Private",
-      "fast": "Fast & Reliable",
-      "free": "No Payment Required"
+      "badge": "GRATIS TE GEBRUIKEN",
+      "title": "Gratis te gebruiken. Geen verborgen kosten.",
+      "description": "Je inventarisgegevens zijn privé en veilig. Momenteel gratis, zonder betaling vereist om je collectie bij te houden.",
+      "secure": "Veilig & Privé",
+      "fast": "Snel & Betrouwbaar",
+      "free": "Geen Betaling Vereist"
     },
     "support": {
-      "title": "Need Help?",
-      "subtitle": "Found a bug or have a feature request? We'd love to hear from you.",
-      "contactTitle": "Contact Support",
-      "contactDescription": "Email us with any issues, questions, or feedback"
+      "title": "Hulp Nodig?",
+      "subtitle": "Een bug gevonden of een functieverzoek? We horen het graag van je.",
+      "contactTitle": "Contact Opnemen",
+      "contactDescription": "Mail ons met eventuele problemen, vragen of feedback"
     },
     "cta": {
-      "title": "Ready to price your next listing?",
-      "subtitle": "Search any minifigure or set and get a suggested price in seconds.",
-      "button": "Start Pricing →"
+      "title": "Klaar om je volgende listing te prijzen?",
+      "subtitle": "Zoek een minifiguur of set en krijg binnen seconden een voorgestelde prijs.",
+      "button": "Begin met Prijzen →"
     },
     "meta": {
-      "title": "About FigTracker - Price Any LEGO Minifigure or Set in Seconds",
-      "description": "FigTracker turns 24 BrickLink data points into one suggested price for any LEGO minifigure or set. Dual inventory, 15+ currencies, completely free.",
-      "keywords": "about FigTracker, LEGO price tracker, BrickLink API tool, minifigure pricing, LEGO set pricing, LEGO collection manager, LEGO inventory tracker, free LEGO pricing, LEGO seller tool"
+      "title": "Over FigTracker - Prijs Elke LEGO Minifiguur of Set in Seconden",
+      "description": "FigTracker verandert 24 BrickLink datapunten in één voorgestelde prijs voor elke LEGO minifiguur of set. Dubbele inventaris, 15+ valuta, volledig gratis.",
+      "keywords": "over FigTracker, LEGO prijstracker, BrickLink API tool, minifiguur prijzen, LEGO set prijzen, LEGO collectiebeheer, LEGO inventaris tracker, gratis LEGO prijzen, LEGO verkoper tool"
     }
   },
   "featured": {
-    "title": "Sets We're Excited About",
-    "subtitle": "Hand-picked sets worth checking out",
+    "title": "Sets Waar We Enthousiast Over Zijn",
+    "subtitle": "Handmatig geselecteerde sets die het bekijken waard zijn",
     "sponsored": "Gesponsord"
   },
   "recommended": {
@@ -693,23 +693,23 @@
   },
   "supportPage": {
     "title": "Support FigTracker",
-    "subtitle": "Keep our LEGO price tracker free for the community",
-    "intro": "FigTracker provides free LEGO price tracking for 18,000+ minifigures and 20,000+ sets with smart market pricing from multiple sources. We cover costs through affiliate commissions when you shop through our links. Here's how you can help:",
-    "shopLinksTitle": "Shop Through Our Links",
-    "shopLinksDescription": "When you're ready to buy LEGO sets or minifigures, use the \"Buy on eBay\" or \"Buy on Amazon\" buttons on product pages (marked \"Sponsored\").",
-    "shopLinksNote": "You pay the same price — we earn a small commission to keep the site running.",
-    "donateLabel": "Or support us directly:",
-    "donateLeaderboard": "Donors appear on the Top Supporters leaderboard on our homepage",
+    "subtitle": "Houd onze LEGO prijstracker gratis voor de community",
+    "intro": "FigTracker biedt gratis LEGO prijstracking voor 18.000+ minifiguren en 20.000+ sets met slimme marktprijzen uit meerdere bronnen. We dekken kosten via affiliate-commissies wanneer je via onze links winkelt. Zo kun je helpen:",
+    "shopLinksTitle": "Winkel via Onze Links",
+    "shopLinksDescription": "Als je klaar bent om LEGO sets of minifiguren te kopen, gebruik dan de knoppen \"Koop op eBay\" of \"Koop op Amazon\" op productpagina's (gemarkeerd als \"Gesponsord\").",
+    "shopLinksNote": "Je betaalt dezelfde prijs — wij verdienen een kleine commissie om de site draaiende te houden.",
+    "donateLabel": "Of steun ons direct:",
+    "donateLeaderboard": "Donateurs verschijnen op de Topsupporters-ranglijst op onze homepage",
     "donateButton": "Doneer via PayPal",
-    "thankYou": "Thank you for supporting FigTracker!",
+    "thankYou": "Bedankt voor je steun aan FigTracker!",
     "meta": {
-      "title": "Support FigTracker - Help Keep It Free",
-      "description": "Help keep FigTracker free. Shop through our affiliate links or donate directly. Built by one LEGO seller for the community.",
-      "keywords": "support FigTracker, LEGO affiliate links, help FigTracker, support LEGO price tracker, donate to FigTracker"
+      "title": "Support FigTracker - Help Het Gratis Te Houden",
+      "description": "Help FigTracker gratis te houden. Winkel via onze affiliate-links of doneer direct. Gebouwd door één LEGO-verkoper voor de community.",
+      "keywords": "support FigTracker, LEGO affiliate links, help FigTracker, steun LEGO prijstracker, doneer aan FigTracker"
     },
-    "heroTitle": "Help Keep This Free",
+    "heroTitle": "Help Dit Gratis te Houden",
     "pricingViews": "Je hebt {count} prijzen gecontroleerd — elke controle bespaarde je tijd",
-    "builtBy": "Built by one LEGO seller in Utah. Every affiliate click and donation keeps the lights on.",
+    "builtBy": "Gebouwd door één LEGO-verkoper in Utah. Elke affiliate-klik en donatie houdt de lichten aan.",
     "shopLinksTitle2": "Kopen via onze links",
     "shopLinksDesc2": "We verdienen een kleine commissie wanneer je via onze eBay-, Amazon- of LEGO-links koopt. Geen extra kosten voor jou.",
     "donateDirect": "Direct doneren",
@@ -736,49 +736,49 @@
     "guides": "Gidsen",
     "articles": "Artikelen",
     "support": "Support",
-    "supportUs": "Support Us",
+    "supportUs": "Steun Ons",
     "contact": "Contact",
     "privacy": "Privacy",
     "disclosure": "Disclosure",
-    "commission": "We earn a commission from qualifying purchases.",
+    "commission": "We verdienen een commissie op in aanmerking komende aankopen.",
     "learnMore": "Meer informatie",
-    "buyLego": "Shop on LEGO.com",
-    "buyAmazon": "Shop on Amazon",
-    "dataProvidedBy": "Minifigure data provided by",
-    "bricklinkTrademark": "The term \"BrickLink\" is a trademark of the LEGO Group BrickLink. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.",
-    "legoTrademark": "LEGO® is a trademark of the LEGO Group.",
-    "allRightsReserved": "All rights reserved.",
-    "createdBy": "Created by",
+    "buyLego": "Koop op LEGO.com",
+    "buyAmazon": "Koop op Amazon",
+    "dataProvidedBy": "Minifiguurgegevens aangeleverd door",
+    "bricklinkTrademark": "De term \"BrickLink\" is een handelsmerk van de LEGO Group BrickLink. Deze applicatie maakt gebruik van de BrickLink API maar wordt niet onderschreven of gecertificeerd door LEGO BrickLink, Inc.",
+    "legoTrademark": "LEGO® is een handelsmerk van de LEGO Group.",
+    "allRightsReserved": "Alle rechten voorbehouden.",
+    "createdBy": "Gemaakt door",
     "browse": "Bladeren",
     "resources": "Bronnen",
     "accountLegal": "Account & Juridisch",
     "aboutFigTracker": "Over FigTracker",
-    "aboutDescription": "FigTracker gives you one suggested price for any LEGO minifigure or set, so you can list faster and sell with confidence.",
+    "aboutDescription": "FigTracker geeft je één voorgestelde prijs voor elke LEGO minifiguur of set, zodat je sneller kunt listen en met vertrouwen kunt verkopen.",
     "affiliateDisclosure": "Als Amazon Associate, LEGO Affiliate en eBay Partner verdient FigTracker aan in aanmerking komende aankopen.",
-    "bricklinkDisclosure": "Market data sourced from multiple marketplaces including BrickLink. The term \"BrickLink\" is a trademark of the LEGO Group. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.",
+    "bricklinkDisclosure": "Marktgegevens afkomstig van meerdere marktplaatsen, waaronder BrickLink. De term \"BrickLink\" is een handelsmerk van de LEGO Group. Deze applicatie maakt gebruik van de BrickLink API maar wordt niet onderschreven of gecertificeerd door LEGO BrickLink, Inc.",
     "copyright": "© {year} FigTracker. Alle rechten voorbehouden."
   },
   "disclosure": {
     "title": "Affiliate Disclosure",
-    "lastUpdated": "Last Updated",
+    "lastUpdated": "Laatst Bijgewerkt",
     "affiliatePrograms": {
-      "title": "Affiliate Programs",
-      "paragraph1": "FigTracker participates in the LEGO.com Affiliate Program, Amazon Associates Program, and eBay Partner Network. When you click on featured product links and make a purchase, we may earn a small commission at no additional cost to you.",
-      "paragraph2": "These affiliate partnerships help support FigTracker's development and maintenance while keeping the tool free to use."
+      "title": "Affiliateprogramma's",
+      "paragraph1": "FigTracker neemt deel aan het LEGO.com Affiliate Program, Amazon Associates Program en eBay Partner Network. Wanneer je op uitgelichte productlinks klikt en een aankoop doet, kunnen wij een kleine commissie verdienen zonder extra kosten voor jou.",
+      "paragraph2": "Deze affiliate-partnerschappen helpen de ontwikkeling en het onderhoud van FigTracker te ondersteunen, terwijl de tool gratis te gebruiken blijft."
     },
     "trademark": {
-      "title": "LEGO® Trademark Notice",
-      "text": "LEGO® is a trademark of the LEGO Group which does not sponsor, authorize, or endorse this site."
+      "title": "LEGO® Handelsmerkmelding",
+      "text": "LEGO® is een handelsmerk van de LEGO Group, die deze site niet sponsort, autoriseert of onderschrijft."
     },
     "questions": {
-      "title": "Questions?",
-      "text": "If you have questions about our affiliate relationships, please contact us through our",
-      "aboutPage": "About page"
+      "title": "Vragen?",
+      "text": "Als je vragen hebt over onze affiliate-relaties, neem dan contact met ons op via onze",
+      "aboutPage": "Over-pagina"
     },
     "meta": {
       "title": "Affiliate Disclosure - FigTracker",
-      "description": "FigTracker participates in the LEGO.com Affiliate Program, Amazon Associates Program, and eBay Partner Network. Learn about our affiliate partnerships and how we earn commissions.",
-      "keywords": "FigTracker affiliate disclosure, LEGO affiliate program, Amazon Associates, eBay Partner Network, affiliate links disclaimer"
+      "description": "FigTracker neemt deel aan het LEGO.com Affiliate Program, Amazon Associates Program en eBay Partner Network. Lees meer over onze affiliate-partnerschappen en hoe we commissies verdienen.",
+      "keywords": "FigTracker affiliate disclosure, LEGO affiliateprogramma, Amazon Associates, eBay Partner Network, disclaimer affiliate links"
     }
   },
   "trending": {
@@ -796,8 +796,8 @@
   },
   "guides": {
     "meta": {
-      "title": "LEGO Pricing Guides for Sellers | FigTracker",
-      "description": "Practical guides for pricing and selling LEGO minifigures. Learn how to use BrickLink data, price by condition, and manage your inventory.",
+      "title": "LEGO Prijsgidsen voor Verkopers | FigTracker",
+      "description": "Praktische gidsen voor het prijzen en verkopen van LEGO minifiguren. Leer hoe je BrickLink-gegevens gebruikt, prijst op basis van conditie en je inventaris beheert.",
       "keywords": [
         "LEGO pricing guide",
         "how to price minifigures",
@@ -805,33 +805,33 @@
         "LEGO resale guide",
         "minifigure value guide"
       ],
-      "ogTitle": "LEGO Pricing Guides & Tips",
-      "ogDescription": "Learn how to price, sell, and manage your LEGO minifigure inventory effectively"
+      "ogTitle": "LEGO Prijsgidsen & Tips",
+      "ogDescription": "Leer hoe je je LEGO minifiguur-inventaris effectief prijst, verkoopt en beheert"
     },
     "pageTitle": "Artikelen",
-    "badge": "GUIDES & RESOURCES",
+    "badge": "GIDSEN & BRONNEN",
     "hero": {
-      "title": "Sell Smarter, Not Longer",
-      "subtitle": "Practical guides for pricing, listing, and managing your LEGO inventory."
+      "title": "Slimmer Verkopen, Niet Langer",
+      "subtitle": "Praktische gidsen voor het prijzen, listen en beheren van je LEGO-inventaris."
     },
-    "whatYoullLearn": "What you'll learn:",
-    "readGuide": "Read Guide →",
-    "comingSoon": "Coming soon",
-    "category": "Guide",
-    "readTime": "5 min read",
+    "whatYoullLearn": "Wat je leert:",
+    "readGuide": "Lees Gids →",
+    "comingSoon": "Binnenkort beschikbaar",
+    "category": "Gids",
+    "readTime": "5 min. leestijd",
     "quickTips": {
-      "title": "Quick Pricing Tips",
+      "title": "Snelle Prijstips",
       "tip1": {
-        "title": "Refresh Prices Regularly",
-        "description": "Marketplace prices change frequently. Refresh pricing data before listing to ensure competitive pricing."
+        "title": "Ververs Prijzen Regelmatig",
+        "description": "Marktprijzen veranderen vaak. Ververs prijsgegevens voordat je gaat listen om concurrerend geprijsd te blijven."
       },
       "tip2": {
-        "title": "Condition Matters",
-        "description": "New minifigures command 20-50% higher prices than used. Grade condition honestly to build buyer trust."
+        "title": "Conditie is Belangrijk",
+        "description": "Nieuwe minifiguren brengen 20-50% hogere prijzen op dan gebruikte. Beoordeel de conditie eerlijk om vertrouwen bij kopers op te bouwen."
       },
       "tip3": {
-        "title": "Use Multiple Data Points",
-        "description": "Don't rely on just one metric. FigTracker's suggested price balances quantity-weighted average, simple average, and lowest price."
+        "title": "Gebruik Meerdere Datapunten",
+        "description": "Vertrouw niet op slechts één statistiek. De voorgestelde prijs van FigTracker weegt hoeveelheidsgewogen gemiddelde, eenvoudig gemiddelde en laagste prijs tegen elkaar af."
       }
     },
     "cta": {
@@ -909,176 +909,176 @@
   },
   "auth": {
     "signup": {
-      "title": "Track What You're Selling",
-      "subtitle": "One account. Unlimited items. Always free.",
+      "title": "Houd Bij Wat Je Verkoopt",
+      "subtitle": "Eén account. Onbeperkt aantal items. Altijd gratis.",
       "features": {
         "trackUnlimited": "Track unlimited items",
         "realtimePrices": "Real-time suggested prices",
         "totalValue": "Know your total inventory value"
       },
-      "name": "Name",
-      "email": "Email Address",
+      "name": "Naam",
+      "email": "E-mailadres",
       "password": "Wachtwoord",
       "placeholders": {
-        "name": "Your name",
-        "email": "your@email.com",
-        "password": "At least 6 characters"
+        "name": "Je naam",
+        "email": "jouw@email.com",
+        "password": "Minimaal 6 tekens"
       },
-      "button": "Create Account",
-      "buttonLoading": "Creating Account...",
-      "alreadyHaveAccount": "Already have an account?",
+      "button": "Account Aanmaken",
+      "buttonLoading": "Account Aanmaken...",
+      "alreadyHaveAccount": "Heb je al een account?",
       "signInLink": "Inloggen",
       "errors": {
-        "failed": "Failed to create account",
-        "accountCreatedSignInFailed": "Account created but sign in failed. Please try signing in.",
-        "generic": "An error occurred. Please try again."
+        "failed": "Aanmaken van account mislukt",
+        "accountCreatedSignInFailed": "Account aangemaakt, maar inloggen mislukt. Probeer opnieuw in te loggen.",
+        "generic": "Er is een fout opgetreden. Probeer het opnieuw."
       },
       "continueWithGoogle": "Aanmelden met Google",
       "signupWithEmail": "Aanmelden met e-mail"
     },
     "signin": {
-      "title": "Welcome Back",
-      "subtitle": "Sign in to access your inventory",
-      "email": "Email Address",
+      "title": "Welkom Terug",
+      "subtitle": "Log in om toegang te krijgen tot je inventaris",
+      "email": "E-mailadres",
       "password": "Wachtwoord",
       "placeholders": {
-        "email": "your@email.com",
-        "password": "Enter your password"
+        "email": "jouw@email.com",
+        "password": "Voer je wachtwoord in"
       },
       "button": "Inloggen",
-      "buttonLoading": "Signing in...",
-      "dontHaveAccount": "Don't have an account?",
+      "buttonLoading": "Bezig met inloggen...",
+      "dontHaveAccount": "Heb je nog geen account?",
       "signUpLink": "Registreren",
       "errors": {
-        "invalid": "Invalid email or password",
-        "generic": "An error occurred. Please try again."
+        "invalid": "Ongeldig e-mailadres of wachtwoord",
+        "generic": "Er is een fout opgetreden. Probeer het opnieuw."
       },
       "continueWithGoogle": "Doorgaan met Google",
       "continueWithEmail": "Doorgaan met e-mail"
     },
     "forgotPassword": {
-      "title": "Reset Password",
-      "subtitle": "Enter your email and we'll send you a link to reset your password.",
-      "email": "Email Address",
+      "title": "Wachtwoord Resetten",
+      "subtitle": "Voer je e-mailadres in en we sturen je een link om je wachtwoord opnieuw in te stellen.",
+      "email": "E-mailadres",
       "placeholders": {
-        "email": "your@email.com"
+        "email": "jouw@email.com"
       },
-      "button": "Send Reset Link",
-      "buttonLoading": "Sending...",
-      "backToSignIn": "Back to Sign In",
+      "button": "Resetlink Versturen",
+      "buttonLoading": "Versturen...",
+      "backToSignIn": "Terug naar Inloggen",
       "success": {
-        "title": "Check Your Email",
-        "message": "We've sent a password reset link to",
-        "button": "Back to Sign In"
+        "title": "Controleer Je E-mail",
+        "message": "We hebben een link om je wachtwoord opnieuw in te stellen gestuurd naar",
+        "button": "Terug naar Inloggen"
       },
       "errors": {
-        "failed": "Failed to send reset email",
-        "generic": "An error occurred. Please try again."
+        "failed": "Versturen van reset-e-mail mislukt",
+        "generic": "Er is een fout opgetreden. Probeer het opnieuw."
       }
     },
     "resetPassword": {
-      "title": "Set New Password",
-      "subtitle": "Enter your new password below.",
-      "newPassword": "New Password",
-      "confirmPassword": "Confirm New Password",
-      "resetButton": "Reset Password",
-      "resetting": "Resetting...",
-      "backToSignIn": "← Back to Sign In",
-      "successTitle": "Password Reset Successful",
-      "successMessage": "Your password has been changed. You can now sign in with your new password.",
-      "invalidToken": "Invalid or missing reset token",
-      "passwordsMismatch": "Passwords do not match",
-      "passwordTooShort": "Password must be at least 8 characters",
-      "resetFailed": "Failed to reset password",
-      "errorOccurred": "An error occurred. Please try again.",
+      "title": "Nieuw Wachtwoord Instellen",
+      "subtitle": "Voer hieronder je nieuwe wachtwoord in.",
+      "newPassword": "Nieuw Wachtwoord",
+      "confirmPassword": "Bevestig Nieuw Wachtwoord",
+      "resetButton": "Wachtwoord Resetten",
+      "resetting": "Bezig met resetten...",
+      "backToSignIn": "← Terug naar Inloggen",
+      "successTitle": "Wachtwoord Succesvol Gereset",
+      "successMessage": "Je wachtwoord is gewijzigd. Je kunt nu inloggen met je nieuwe wachtwoord.",
+      "invalidToken": "Ongeldig of ontbrekend reset-token",
+      "passwordsMismatch": "Wachtwoorden komen niet overeen",
+      "passwordTooShort": "Wachtwoord moet minimaal 8 tekens bevatten",
+      "resetFailed": "Resetten van wachtwoord mislukt",
+      "errorOccurred": "Er is een fout opgetreden. Probeer het opnieuw.",
       "placeholders": {
-        "newPassword": "Enter new password",
-        "confirmPassword": "Confirm new password"
+        "newPassword": "Voer nieuw wachtwoord in",
+        "confirmPassword": "Bevestig nieuw wachtwoord"
       }
     },
-    "footer": "Price your inventory in seconds, not hours.",
-    "footerText": "Price your inventory in seconds, not hours."
+    "footer": "Prijs je inventaris in seconden, niet in uren.",
+    "footerText": "Prijs je inventaris in seconden, niet in uren."
   },
   "newsletter": {
-    "title": "Monthly Price Movers",
-    "subtitle": "Which minifigs went up, which dropped, and what it means for your inventory. One email a month.",
-    "placeholder": "your@email.com",
-    "button": "Subscribe Free",
-    "buttonLoading": "Subscribing...",
-    "success": "Thanks! Check your email to confirm subscription.",
+    "title": "Maandelijkse Prijsbewegingen",
+    "subtitle": "Welke minifigs stegen, welke daalden, en wat het betekent voor jouw inventaris. Eén e-mail per maand.",
+    "placeholder": "jouw@email.com",
+    "button": "Gratis Abonneren",
+    "buttonLoading": "Abonneren...",
+    "success": "Bedankt! Controleer je e-mail om je abonnement te bevestigen.",
     "errors": {
-      "generic": "Something went wrong. Please try again.",
-      "network": "Network error. Please try again."
+      "generic": "Er ging iets mis. Probeer het opnieuw.",
+      "network": "Netwerkfout. Probeer het opnieuw."
     },
-    "privacy": "No spam. Unsubscribe anytime. We respect your privacy."
+    "privacy": "Geen spam. Op elk moment opzegbaar. We respecteren je privacy."
   },
   "collection": {
-    "title": "Your Collection",
-    "subtitle": "Your personal collection — minifigs you're keeping, not selling",
-    "inventory": "Items to Sell",
-    "addToCollection": "Add to keep",
-    "addToInventory": "Add to sell",
-    "addMinifigs": "Add Minifigs",
-    "removeFromCollection": "Remove from Collection",
-    "moveToInventory": "Move to Inventory",
-    "moveToCollection": "Move to Collection",
-    "totalValue": "Total Value",
-    "totalItems": "Total Items",
-    "avgValue": "Avg Value",
-    "updating": "Updating",
+    "title": "Jouw Collectie",
+    "subtitle": "Jouw persoonlijke collectie — minifiguren die je houdt, niet verkoopt",
+    "inventory": "Items om te Verkopen",
+    "addToCollection": "Toevoegen om te houden",
+    "addToInventory": "Toevoegen om te verkopen",
+    "addMinifigs": "Minifiguren Toevoegen",
+    "removeFromCollection": "Verwijderen uit Collectie",
+    "moveToInventory": "Verplaatsen naar Inventaris",
+    "moveToCollection": "Verplaatsen naar Collectie",
+    "totalValue": "Totale Waarde",
+    "totalItems": "Totaal Aantal Items",
+    "avgValue": "Gem. Waarde",
+    "updating": "Bijwerken",
     "items": "Items",
-    "emptyState": "Your collection is empty",
-    "noMinifigsYet": "No minifigs yet",
-    "startAdding": "Start adding to your personal collection",
-    "searchMinifigs": "Search Minifigs",
-    "noConditionMinifigs": "No {condition} condition minifigs",
-    "otherConditions": "You have {count} items in other conditions",
+    "emptyState": "Je collectie is leeg",
+    "noMinifigsYet": "Nog geen minifiguren",
+    "startAdding": "Begin met toevoegen aan je persoonlijke collectie",
+    "searchMinifigs": "Minifiguren Zoeken",
+    "noConditionMinifigs": "Geen minifiguren met conditie {condition}",
+    "otherConditions": "Je hebt {count} items in andere condities",
     "condition": "Conditie",
     "conditions": {
       "new": "Nieuw",
-      "likeNew": "Like New",
-      "good": "Good",
-      "fair": "Fair"
+      "likeNew": "Zo Goed als Nieuw",
+      "good": "Goed",
+      "fair": "Redelijk"
     },
     "filters": {
       "all": "All",
       "new": "Nieuw",
-      "used": "Used"
+      "used": "Gebruikt"
     },
     "sort": {
-      "dateNewest": "Date Added: Newest → Oldest",
-      "dateOldest": "Date Added: Oldest → Newest",
-      "priceHigh": "Price: High → Low",
-      "priceLow": "Price: Low → High",
-      "nameAZ": "Name: A → Z",
-      "nameZA": "Name: Z → A",
-      "idLowHigh": "ID: Low → High",
-      "idHighLow": "ID: High → Low",
-      "yearNewest": "Year: Newest → Oldest",
-      "yearOldest": "Year: Oldest → Newest"
+      "dateNewest": "Datum Toegevoegd: Nieuwste → Oudste",
+      "dateOldest": "Datum Toegevoegd: Oudste → Nieuwste",
+      "priceHigh": "Prijs: Hoog → Laag",
+      "priceLow": "Prijs: Laag → Hoog",
+      "nameAZ": "Naam: A → Z",
+      "nameZA": "Naam: Z → A",
+      "idLowHigh": "ID: Laag → Hoog",
+      "idHighLow": "ID: Hoog → Laag",
+      "yearNewest": "Jaar: Nieuwste → Oudste",
+      "yearOldest": "Jaar: Oudste → Nieuwste"
     },
     "pricing": {
       "pricesOlderThanSixHours": "Prijzen worden bijgewerkt",
-      "refreshingNow": "Refreshing now",
-      "remaining": "remaining",
-      "updatingPrices": "Updating...",
-      "noSellersAvailable": "No sellers available",
-      "pricingDailyLimit": "Pricing unavailable right now — check back soon",
-      "loadingPrice": "Loading price..."
+      "refreshingNow": "Nu Vernieuwen",
+      "remaining": "resterend",
+      "updatingPrices": "Bijwerken...",
+      "noSellersAvailable": "Geen verkopers beschikbaar",
+      "pricingDailyLimit": "Prijzen momenteel niet beschikbaar — kom later terug",
+      "loadingPrice": "Prijs laden..."
     },
-    "inventoryTitle": "Your Inventory",
-    "inventorySubtitle": "Minifigs you're selling or planning to sell with real-time pricing",
-    "startAddingInventory": "Start adding to your inventory by searching for minifigs",
-    "setsCollectionTitle": "Your Sets to Keep",
-    "setsCollectionSubtitle": "Your personal collection — sets you're keeping, not selling",
-    "setsInventoryTitle": "Your Sets for Sale",
-    "setsInventorySubtitle": "Sets you're selling or planning to sell with real-time pricing",
-    "addSets": "Add Sets",
-    "noSetsYet": "No sets yet",
-    "startAddingSets": "Start adding to your personal collection",
-    "startAddingSetsInventory": "Start adding to your inventory by browsing sets",
-    "browseSets": "Browse Sets",
-    "noConditionSets": "No {condition} condition sets",
+    "inventoryTitle": "Jouw Inventaris",
+    "inventorySubtitle": "Minifiguren die je verkoopt of van plan bent te verkopen, met actuele prijzen",
+    "startAddingInventory": "Begin met toevoegen aan je inventaris door te zoeken naar minifiguren",
+    "setsCollectionTitle": "Jouw Sets om te Houden",
+    "setsCollectionSubtitle": "Jouw persoonlijke collectie — sets die je houdt, niet verkoopt",
+    "setsInventoryTitle": "Jouw Sets te Koop",
+    "setsInventorySubtitle": "Sets die je verkoopt of van plan bent te verkopen, met actuele prijzen",
+    "addSets": "Sets Toevoegen",
+    "noSetsYet": "Nog geen sets",
+    "startAddingSets": "Begin met toevoegen aan je persoonlijke collectie",
+    "startAddingSetsInventory": "Begin met toevoegen aan je inventaris door sets te bladeren",
+    "browseSets": "Blader door Sets",
+    "noConditionSets": "Geen sets met conditie {condition}",
     "priceUnavailable": "Prijs niet beschikbaar",
     "deleteFromInventory": "Dit artikel uit uw inventaris verwijderen?",
     "deleteFromCollection": "Dit artikel uit uw persoonlijke collectie verwijderen?",
@@ -1087,21 +1087,21 @@
   },
   "privacyPolicy": {
     "meta": {
-      "title": "Privacy Policy",
-      "description": "Learn how FigTracker collects, uses, and protects your personal information and inventory data.",
-      "ogDescription": "Learn how we protect your privacy and handle your data."
+      "title": "Privacybeleid",
+      "description": "Lees hoe FigTracker uw persoonlijke gegevens en inventarisgegevens verzamelt, gebruikt en beschermt.",
+      "ogDescription": "Lees hoe wij uw privacy beschermen en uw gegevens verwerken."
     },
-    "title": "Privacy Policy",
-    "lastUpdated": "Last Updated: {date}",
+    "title": "Privacybeleid",
+    "lastUpdated": "Laatst Bijgewerkt: {date}",
     "introduction": {
-      "title": "Introduction",
-      "content": "FigTracker (\"we,\" \"our,\" or \"us\") is operated by ES Art & D LLC. This Privacy Policy explains how we collect, use, and protect your information when you use our LEGO minifigure price tracking and inventory management service."
+      "title": "Inleiding",
+      "content": "FigTracker (\"wij\", \"ons\" of \"onze\") wordt beheerd door ES Art & D LLC. Dit Privacybeleid legt uit hoe wij uw informatie verzamelen, gebruiken en beschermen wanneer u onze LEGO minifiguur-prijstracking- en inventarisbeheerdienst gebruikt."
     },
     "informationWeCollect": {
-      "title": "Information We Collect",
+      "title": "Informatie Die Wij Verzamelen",
       "accountInformation": {
-        "title": "Account Information",
-        "intro": "When you create an account, we collect:",
+        "title": "Accountinformatie",
+        "intro": "Wanneer u een account aanmaakt, verzamelen wij:",
         "items": [
           "Email address",
           "Password (encrypted)",
@@ -1109,8 +1109,8 @@
         ]
       },
       "inventoryData": {
-        "title": "Inventory Data",
-        "intro": "Your inventory data includes:",
+        "title": "Inventarisgegevens",
+        "intro": "Uw inventarisgegevens omvatten:",
         "items": [
           "LEGO minifigure IDs you track",
           "Quantities and conditions",
@@ -1119,8 +1119,8 @@
         ]
       },
       "usageAnalytics": {
-        "title": "Usage Analytics",
-        "intro": "We use Google Analytics to understand how users interact with FigTracker:",
+        "title": "Gebruiksanalyse",
+        "intro": "Wij gebruiken Google Analytics om te begrijpen hoe gebruikers omgaan met FigTracker:",
         "items": [
           "Pages visited",
           "Search queries (minifigure searches only)",
@@ -1130,8 +1130,8 @@
       }
     },
     "howWeUse": {
-      "title": "How We Use Your Information",
-      "intro": "We use collected information to:",
+      "title": "Hoe Wij Uw Informatie Gebruiken",
+      "intro": "Wij gebruiken verzamelde informatie om:",
       "items": [
         "Provide inventory tracking and pricing features",
         "Fetch market pricing data from multiple sources",
@@ -1141,8 +1141,8 @@
       ]
     },
     "dataStorage": {
-      "title": "Data Storage and Security",
-      "intro": "Your data is stored securely:",
+      "title": "Gegevensopslag en Beveiliging",
+      "intro": "Uw gegevens worden veilig opgeslagen:",
       "items": [
         "Passwords are encrypted using industry-standard bcrypt hashing",
         "Data is stored in secure, encrypted databases",
@@ -1151,26 +1151,26 @@
       ]
     },
     "thirdPartyServices": {
-      "title": "Third-Party Services",
+      "title": "Diensten van Derden",
       "bricklink": {
         "title": "Bricklink API",
-        "content": "We use the official Bricklink API to fetch minifigure pricing data. When you search for or add minifigures, we send minifigure IDs to Bricklink to retrieve current marketplace prices. No personal information is shared with Bricklink."
+        "content": "Wij gebruiken de officiële Bricklink API om prijsgegevens van minifiguren op te halen. Wanneer u zoekt naar of minifiguren toevoegt, sturen wij minifiguur-ID's naar Bricklink om actuele marktprijzen op te halen. Er wordt geen persoonlijke informatie gedeeld met Bricklink."
       },
       "googleAnalytics": {
         "title": "Google Analytics",
-        "content": "We use Google Analytics to understand site usage. Google Analytics may use cookies to track your activity. For more information, see",
-        "linkText": "Google's Privacy Policy"
+        "content": "Wij gebruiken Google Analytics om het gebruik van de site te begrijpen. Google Analytics kan cookies gebruiken om uw activiteit bij te houden. Zie voor meer informatie",
+        "linkText": "Het Privacybeleid van Google"
       },
       "amazonAssociates": {
         "title": "Amazon Associates",
-        "content": "We participate in the Amazon Associates Program. When you click affiliate links, Amazon may track your activity. See our",
+        "content": "Wij nemen deel aan het Amazon Associates Program. Wanneer u op affiliate-links klikt, kan Amazon uw activiteit bijhouden. Zie onze",
         "linkText": "Affiliate Disclosure",
-        "contentEnd": "for details."
+        "contentEnd": "voor details."
       }
     },
     "yourRights": {
-      "title": "Your Rights",
-      "intro": "You have the right to:",
+      "title": "Uw Rechten",
+      "intro": "U heeft het recht om:",
       "items": [
         "Access your personal data and inventory",
         "Update or correct your information",
@@ -1178,152 +1178,152 @@
         "Export your inventory data",
         "Opt out of analytics tracking (via browser settings)"
       ],
-      "footer": "To exercise these rights, contact us through the information below or use the account settings in your dashboard."
+      "footer": "Om deze rechten uit te oefenen, kunt u contact met ons opnemen via onderstaande informatie of de accountinstellingen in uw dashboard gebruiken."
     },
     "dataRetention": {
-      "title": "Data Retention",
-      "content": "We retain your data as long as your account is active. If you delete your account, we will permanently delete your personal information and inventory data within 30 days, except where we are required by law to retain certain information."
+      "title": "Gegevensbewaring",
+      "content": "Wij bewaren uw gegevens zolang uw account actief is. Als u uw account verwijdert, verwijderen wij uw persoonlijke informatie en inventarisgegevens binnen 30 dagen permanent, behalve wanneer wij wettelijk verplicht zijn bepaalde informatie te bewaren."
     },
     "childrensPrivacy": {
-      "title": "Children's Privacy",
-      "content": "FigTracker is not intended for children under 13. We do not knowingly collect personal information from children under 13. If you believe we have collected information from a child under 13, please contact us immediately."
+      "title": "Privacy van Kinderen",
+      "content": "FigTracker is niet bedoeld voor kinderen jonger dan 13 jaar. Wij verzamelen niet bewust persoonlijke informatie van kinderen jonger dan 13 jaar. Als u denkt dat wij informatie hebben verzameld van een kind jonger dan 13 jaar, neem dan onmiddellijk contact met ons op."
     },
     "changesToPolicy": {
-      "title": "Changes to This Policy",
-      "content": "We may update this Privacy Policy from time to time. We will notify you of significant changes by posting a notice on FigTracker or sending you an email. Your continued use of FigTracker after changes indicates acceptance of the updated policy."
+      "title": "Wijzigingen in Dit Beleid",
+      "content": "Wij kunnen dit Privacybeleid van tijd tot tijd bijwerken. Wij stellen u op de hoogte van belangrijke wijzigingen door een melding op FigTracker te plaatsen of u een e-mail te sturen. Uw voortgezet gebruik van FigTracker na wijzigingen betekent dat u akkoord gaat met het bijgewerkte beleid."
     },
     "contactUs": {
-      "title": "Contact Us",
-      "intro": "If you have questions about this Privacy Policy or how we handle your data, please contact:",
-      "emailLabel": "Email:",
+      "title": "Neem Contact Op",
+      "intro": "Als u vragen heeft over dit Privacybeleid of hoe wij uw gegevens verwerken, neem dan contact op:",
+      "emailLabel": "E-mail:",
       "websiteLabel": "Website:"
     }
   },
   "setDetail": {
     "condition": {
       "new": "Nieuw",
-      "used": "Used"
+      "used": "Gebruikt"
     },
     "pricing": {
-      "loadingPricing": "Loading pricing...",
-      "sixMonthAvg": "6 Mo Avg",
-      "currentAvg": "Current Avg",
-      "lowest": "Lowest",
-      "suggested": "Suggested",
-      "noSellersAvailable": "No sellers available in your region"
+      "loadingPricing": "Prijzen laden...",
+      "sixMonthAvg": "Gem. 6 Mnd",
+      "currentAvg": "Huidig Gem.",
+      "lowest": "Laagste",
+      "suggested": "Voorgesteld",
+      "noSellersAvailable": "Geen verkopers beschikbaar in jouw regio"
     },
     "collection": {
-      "checkingCollections": "Checking collections...",
-      "addThisSet": "Add This Set",
-      "quantity": "Quantity",
-      "inYourInventory": "In Your Inventory",
-      "inYourCollection": "In Your Collection",
-      "addToYourCollection": "Add to Your Collection?",
-      "addToYourInventory": "Add to Your Inventory?"
+      "checkingCollections": "Collecties controleren...",
+      "addThisSet": "Deze Set Toevoegen",
+      "quantity": "Aantal",
+      "inYourInventory": "In Jouw Inventaris",
+      "inYourCollection": "In Jouw Collectie",
+      "addToYourCollection": "Toevoegen aan Jouw Collectie?",
+      "addToYourInventory": "Toevoegen aan Jouw Inventaris?"
     },
     "whereToBuy": {
-      "title": "Where to Buy",
+      "title": "Waar te Kopen",
       "brickLink": "BrickLink",
-      "brickLinkDescRetired": "Best for retired sets",
-      "brickLinkDescAvailable": "Used & new available",
+      "brickLinkDescRetired": "Het beste voor uitgefaseerde sets",
+      "brickLinkDescAvailable": "Gebruikt & nieuw beschikbaar",
       "amazon": "Amazon",
-      "amazonDesc": "Fast shipping",
+      "amazonDesc": "Snelle verzending",
       "sponsoredLinks": "Gesponsorde affiliate-links"
     },
     "relatedSets": {
-      "moreFrom": "More from {theme}",
-      "featured": "Featured {theme} Sets",
+      "moreFrom": "Meer van {theme}",
+      "featured": "Uitgelichte {theme} Sets",
       "title": "Gerelateerde sets"
     },
     "messages": {
-      "addedToInventory": "Added {quantity} item to sell",
-      "addedToCollection": "Added {quantity} item to keep",
-      "movedToCollection": "Moved to keep! Click anywhere to dismiss.",
-      "movedToInventory": "Moved to sell! Click anywhere to dismiss."
+      "addedToInventory": "{quantity} item toegevoegd om te verkopen",
+      "addedToCollection": "{quantity} item toegevoegd om te houden",
+      "movedToCollection": "Verplaatst naar houden! Klik ergens om te sluiten.",
+      "movedToInventory": "Verplaatst naar verkopen! Klik ergens om te sluiten."
     },
     "errors": {
-      "failedToAdd": "Failed to add set",
-      "failedToAddToInventory": "Failed to add to inventory",
-      "failedToAddToCollection": "Failed to add to personal collection",
-      "failedToUpdate": "Failed to update quantity",
-      "failedToRemoveInventory": "Failed to remove from inventory",
-      "failedToRemoveCollection": "Failed to remove from collection",
-      "failedToMove": "Failed to move item"
+      "failedToAdd": "Toevoegen van set mislukt",
+      "failedToAddToInventory": "Toevoegen aan inventaris mislukt",
+      "failedToAddToCollection": "Toevoegen aan persoonlijke collectie mislukt",
+      "failedToUpdate": "Bijwerken van aantal mislukt",
+      "failedToRemoveInventory": "Verwijderen uit inventaris mislukt",
+      "failedToRemoveCollection": "Verwijderen uit collectie mislukt",
+      "failedToMove": "Verplaatsen van item mislukt"
     },
     "delete": {
-      "titleInventory": "Remove from Inventory?",
-      "titleCollection": "Remove from Collection?",
-      "messageInventory": "This will permanently remove this set from your inventory.",
-      "messageCollection": "This will permanently remove this set from your collection.",
-      "cancel": "Cancel",
-      "confirm": "Remove",
+      "titleInventory": "Verwijderen uit Inventaris?",
+      "titleCollection": "Verwijderen uit Collectie?",
+      "messageInventory": "Dit verwijdert deze set permanent uit je inventaris.",
+      "messageCollection": "Dit verwijdert deze set permanent uit je collectie.",
+      "cancel": "Annuleren",
+      "confirm": "Verwijderen",
       "remove": "Verwijderen"
     },
     "buttons": {
-      "addInventory": "+ To sell",
-      "addCollection": "+ To keep",
-      "addToCollection": "+ Add to keep",
-      "adding": "Adding...",
-      "addToInventory": "Add to sell"
+      "addInventory": "+ Te koop",
+      "addCollection": "+ Te houden",
+      "addToCollection": "+ Toevoegen om te houden",
+      "adding": "Toevoegen...",
+      "addToInventory": "Toevoegen om te verkopen"
     },
     "breadcrumbs": {
       "home": "Home",
-      "setThemes": "Set Themes"
+      "setThemes": "Set Thema's"
     },
     "meta": {
-      "yearUnknown": "Year Unknown",
-      "year": "Year",
-      "weight": "Weight"
+      "yearUnknown": "Jaar Onbekend",
+      "year": "Jaar",
+      "weight": "Gewicht"
     },
     "newestFrom": "Nieuwste sets van {theme}"
   },
   "subcategoryPage": {
-    "minifigureCount": "{count} minifigure",
-    "minifigureCountPlural": "{count} minifigures",
-    "noMinifigsFound": "No minifigures found in this category.",
+    "minifigureCount": "{count} minifiguur",
+    "minifigureCountPlural": "{count} minifiguren",
+    "noMinifigsFound": "Geen minifiguren gevonden in deze categorie.",
     "breadcrumbs": {
       "home": "Home",
-      "themes": "Themes"
+      "themes": "Thema's"
     }
   },
   "setsThemePage": {
-    "loadingText": "Loading {theme} sets...",
-    "themeLabel": "Theme",
+    "loadingText": "{theme} sets laden...",
+    "themeLabel": "Thema",
     "setsInTheme": "{count} sets in dit thema",
-    "subcategoryAll": "All Subcategories ({count})",
-    "sortByYear": "Sort by Year (Newest First)",
-    "sortByName": "Sort by Name (A-Z)",
-    "noSetsFound": "No sets found",
-    "tryAdjustFilters": "Try adjusting your filters",
-    "yearLabel": "Year",
-    "weightLabel": "Weight",
-    "findOnAmazon": "Find on Amazon",
+    "subcategoryAll": "Alle Subcategorieën ({count})",
+    "sortByYear": "Sorteer op Jaar (Nieuwste Eerst)",
+    "sortByName": "Sorteer op Naam (A-Z)",
+    "noSetsFound": "Geen sets gevonden",
+    "tryAdjustFilters": "Probeer je filters aan te passen",
+    "yearLabel": "Jaar",
+    "weightLabel": "Gewicht",
+    "findOnAmazon": "Vind op Amazon",
     "breadcrumbs": {
       "home": "Home",
-      "setThemes": "Set Themes"
+      "setThemes": "Set Thema's"
     },
     "meta": {
-      "title": "Browse LEGO Sets by Theme - Star Wars, Harry Potter & More",
-      "description": "Explore LEGO sets organized by theme. Browse Star Wars, Harry Potter, Friends, and 170+ other themes. Get pricing data and track your collection.",
-      "keywords": "LEGO set themes, Star Wars sets, Harry Potter LEGO sets, Marvel LEGO sets, DC LEGO sets, Friends sets, LEGO sets catalog",
-      "ogTitle": "Browse LEGO Sets by Theme | FigTracker",
-      "ogDescription": "Explore LEGO sets from Star Wars, Harry Potter, Friends, and 170+ other themes with real-time pricing."
+      "title": "Blader door LEGO Sets op Thema - Star Wars, Harry Potter & Meer",
+      "description": "Ontdek LEGO sets gerangschikt op thema. Blader door Star Wars, Harry Potter, Friends en 170+ andere thema's. Bekijk prijsgegevens en houd je collectie bij.",
+      "keywords": "LEGO set thema's, Star Wars sets, Harry Potter LEGO sets, Marvel LEGO sets, DC LEGO sets, Friends sets, LEGO sets catalogus",
+      "ogTitle": "Blader door LEGO Sets op Thema | FigTracker",
+      "ogDescription": "Ontdek LEGO sets uit Star Wars, Harry Potter, Friends en 170+ andere thema's met actuele prijzen."
     }
   },
   "sharedCollection": {
-    "collectionNotAvailable": "Collection Not Available",
-    "browseMinifigures": "Browse Minifigures",
+    "collectionNotAvailable": "Collectie Niet Beschikbaar",
+    "browseMinifigures": "Blader door Minifiguren",
     "collection": "Collectie",
     "inventory": "Inventaris",
     "itemsCount": "{count} item{plural}",
-    "totalValue": "Total value: {value}",
-    "forSale": "For Sale",
-    "noItemsInCollection": "No items in {view}",
+    "totalValue": "Totale waarde: {value}",
+    "forSale": "Te Koop",
+    "noItemsInCollection": "Geen items in {view}",
     "qty": "Qty",
-    "used": "used",
+    "used": "gebruikt",
     "new": "new",
-    "trackYourCollection": "Track your LEGO minifigure collection with FigTracker",
-    "startYourCollection": "Start Your Collection"
+    "trackYourCollection": "Houd je LEGO minifiguur-collectie bij met FigTracker",
+    "startYourCollection": "Begin Je Collectie"
   },
   "guidePage": {
     "breadcrumbs": {
@@ -1331,82 +1331,82 @@
       "guides": "Gidsen",
       "articles": "Artikelen"
     },
-    "startTracking": "Start Tracking Your Collection",
-    "startTrackingDesc": "Use FigTracker to price your LEGO minifigures accurately with smart market pricing",
-    "searchMinifigures": "Search Minifigures →"
+    "startTracking": "Begin met het Bijhouden van Je Collectie",
+    "startTrackingDesc": "Gebruik FigTracker om je LEGO minifiguren nauwkeurig te prijzen met slimme marktprijzen",
+    "searchMinifigures": "Zoek Minifiguren →"
   },
   "guideArticles": {
     "most-valuable-lego-minifigures-2026": {
-      "title": "Top 50 Most Valuable LEGO Minifigures in 2026",
-      "description": "We analyzed 18,732 LEGO minifigures to find the most valuable collectibles. Discover which minifigs command the highest prices on Bricklink marketplace.",
+      "title": "Top 50 Meest Waardevolle LEGO Minifiguren in 2026",
+      "description": "We analyseerden 18.732 LEGO minifiguren om de meest waardevolle collector's items te vinden. Ontdek welke minifigs de hoogste prijzen behalen op de Bricklink marktplaats.",
       "author": "FigTracker Team",
-      "readTime": "12 min read",
-      "content": "After analyzing pricing data from 18,732 LEGO minifigures across the entire Bricklink catalog, we've identified the most valuable collectibles on the market today. Whether you're a serious collector, investor, or just curious about LEGO values, this comprehensive guide reveals which minifigs command premium prices and why.\n\n## What Makes a Minifigure Valuable?\n\nBefore diving into the rankings, it's important to understand the key factors that drive minifigure values:\n\n### 1. **Rarity**\nLimited production runs, exclusive sets, or promotional releases create scarcity. Convention exclusives and employee gifts are particularly sought after.\n\n### 2. **Age**\nClassic minifigs from the 1970s-1990s are increasingly rare as they wear out or get lost. Vintage pieces in good condition command premiums.\n\n### 3. **Popularity**\nCharacters from beloved franchises (Star Wars, Harry Potter, Marvel) consistently hold value. Main characters and villains typically appreciate faster than side characters.\n\n### 4. **Condition**\nNew/mint condition minifigs with all original accessories are worth significantly more than used versions. Even minor wear can reduce value by 30-50%.\n\n### 5. **Completeness**\nA minifig with all printed parts, accessories, and original packaging (if applicable) is worth more than loose or incomplete figures.\n\n## Star Wars Dominates the Top 10\n\n[**Star Wars minifigures**](/themes/star-wars) consistently command the highest prices, with several factors contributing to their value:\n\n- Licensed franchise with massive global fanbase\n- Many were only available in expensive sets ($100-$500 retail)\n- Some were released only once or twice across 25+ years of LEGO Star Wars\n- Characters from the original trilogy (1977-1983) are especially valuable\n\n### Most Valuable Star Wars Minifigures:\n\n**Cloud City Boba Fett (2003)** - Often cited as the holy grail, this exclusive version with printing variations can fetch $3,000-$5,000 in mint condition.\n\n**Chrome Darth Vader** - Limited promotional release, metallic chrome finish. Rare variants command $1,500-$2,500.\n\n**14k Gold C-3PO** - Only 10,000 produced for a 2007 promotion. Despite higher production numbers, gold plating and Star Wars popularity keep values at $1,000-$2,000.\n\n**Mr. Gold** - While not Star Wars, this ultra-rare 2013 promotional figure (only 5,000 made) regularly sells for $3,000-$5,000.\n\n## Classic Space & Castle Rarities\n\nBeyond licensed themes, vintage LEGO themes have collectors paying premium prices:\n\n[**Classic Space minifigs**](/themes/space) (1978-1987) with complete helmets and air tanks in pristine condition are increasingly valuable as original owners age out of collecting.\n\n[**Castle knights**](/themes/castle) with printed torsos and unique helmets from the 1980s-1990s are harder to find, especially in sets that didn't sell as well.\n\n## How to Price Your Own Collection\n\nIf you own any of these valuable minifigures, here's how to determine accurate pricing:\n\n### Step 1: Verify Authenticity\nCheck for:\n- Official LEGO markings on studs\n- Print quality (LEGO uses pad printing, not stickers)\n- Plastic quality and fit\n\n### Step 2: Assess Condition\nBe honest about:\n- Print wear or fading\n- Plastic discoloration (yellowing)\n- Cracks or teeth marks\n- Missing accessories\n\n### Step 3: Check Current Market Prices\nUse [FigTracker's search tool](/search) to:\n- See real-time Bricklink marketplace data\n- Compare quantity-weighted averages vs lowest prices\n- Track price trends over time\n- Factor in condition differences\n\n### Step 4: Consider Timing\nPrices fluctuate based on:\n- Movie releases (Star Wars, Marvel, DC)\n- Set retirements (prices often spike 6-12 months after)\n- Seasonal demand (December = higher prices)\n\n## Investment Potential: Which Minifigs Appreciate?\n\nBased on 5+ years of pricing data, minifigs that tend to appreciate include:\n\n### High Appreciation Potential:\n- **Main characters from popular franchises** - First releases especially\n- **Limited promotions** - Convention exclusives, employee gifts\n- **Retired themes** - Once LEGO stops making a theme, scarcity increases\n- **Unique printing/variants** - Misprint, prototype, or first-run variations\n\n### Stable but Slower Growth:\n- **Side characters** - Still valuable but appreciate more slowly\n- **Common sets** - Widely available during production run\n- **Recent releases** - Need 3-5 years to see significant appreciation\n\n### Poor Investment Bets:\n- **Mass-produced polybags** - Too many in circulation\n- **Generic minifigs** - No unique printing or character value\n- **Damaged/incomplete** - Very hard to sell at reasonable prices\n\n## Notable Minifigures by Theme\n\n### Harry Potter\nThe revival of [Harry Potter](/themes/harry-potter) sets in 2018 created renewed interest, but original 2001-2005 releases with unique printing remain most valuable:\n- Dumbledore (gray beard variants)\n- Professor Snape (early versions)\n- Voldemort (red eyes variant)\n\nPrices: $50-$300 depending on variant and condition\n\n### Marvel Super Heroes\nMCU popularity drives [Marvel](/themes/super-heroes) values:\n- Loki (Avengers era, printed legs)\n- Deadpool (first release)\n- Spider-Man variants (symbiote, Iron Spider)\n\nPrices: $40-$200 for sought-after variants\n\n### DC Comics Super Heroes\nBatman variants are plentiful, but rare [DC Comics Super Heroes](/themes/super-heroes) versions command premiums:\n- Comic-Con exclusive Batman figures\n- Early Joker variants\n- Original Superman from 2012\n\n### Pirates & Castle\nVintage 1980s-1990s themes are hot:\n- [Pirates](/sets-themes/Pirates) with unique torso prints\n- [Castle](/sets-themes/Castle) knights with rare helmets\n- Forestmen with complete accessories\n\nPrices: $30-$150 for complete vintage minifigs\n\n## Where to Buy and Sell Valuable Minifigures\n\n### Best Marketplaces:\n\n**Bricklink** - The gold standard for LEGO trading. Largest selection, competitive prices, but requires research.\n\n**eBay** - Higher prices but wider buyer base. Watch for overpriced \"rare\" listings that aren't actually rare.\n\n**Facebook Groups** - LEGO selling groups often have motivated buyers willing to pay fair prices quickly.\n\n**Local Conventions** - BrickCon, BrickFair, etc. Great for networking and selling high-end pieces.\n\n### Selling Tips:\n1. **Photograph well** - Multiple angles, clear lighting, show all sides\n2. **Disclose condition honestly** - Better a lower price than a return/dispute\n3. **Include all accessories** - Weapons, capes, helmets add significant value\n4. **Time your listing** - Sell before holidays or movie releases\n5. **Use FigTracker** - Get accurate suggested pricing before listing\n\n## Protecting Your Investment\n\nIf you own valuable minifigures:\n\n### Storage Best Practices:\n- Keep away from direct sunlight (prevents yellowing)\n- Store in sealed containers or display cases\n- Avoid humid environments (can cause discoloration)\n- Don't stack heavy items on top\n\n### Insurance:\nCollections worth $5,000+ should be documented and insured:\n- Photograph everything\n- Track purchase prices and dates\n- Keep sales receipts\n- Consider collectibles insurance rider\n\n### Authentication:\nFor ultra-rare pieces ($500+):\n- Buy from reputable sellers with feedback\n- Request additional photos if buying online\n- Learn to spot common fakes (especially Chrome C-3PO, Mr. Gold)\n- Join LEGO communities to verify authenticity\n\n## Future Outlook: 2026-2030\n\nBased on current trends, we predict:\n\n### Rising Values:\n- **Retired Star Wars sets** - Mandalorian, Bad Batch, Clone Wars characters\n- **Original Marvel CMU minifigs** - As movies become \"classic\" (Iron Man, Thor first releases)\n- **LEGO Ideas exclusives** - Limited runs create scarcity\n- **Environmental awareness** - Vintage pieces become increasingly rare\n\n### Declining Values:\n- **Mass reissues** - If LEGO reprints popular minifigs (like they did with Han Solo)\n- **Franchise fatigue** - If Marvel/Star Wars oversaturation continues\n- **Economic factors** - Recession could temporarily suppress luxury collectible prices\n\n## Start Tracking Your Collection Today\n\nWhether you own one of these valuable minifigs or are building a collection, accurate pricing is essential. FigTracker provides:\n\n- Real-time Bricklink marketplace data\n- Price history tracking\n- Condition-specific pricing (New vs Used)\n- Inventory management tools\n- 18,732+ minifigures in database\n\n**Ready to discover what your collection is worth?**\n\n[Search Your Minifigures →](/search)\n\n---\n\n*Pricing data updated April 2026 based on Bricklink US marketplace averages. Values fluctuate - always verify current prices before buying or selling.*"
+      "readTime": "12 min. leestijd",
+      "content": "Na het analyseren van prijsgegevens van 18.732 LEGO minifiguren uit de volledige Bricklink-catalogus, hebben we de meest waardevolle collector's items op de markt van vandaag geïdentificeerd. Of je nu een serieuze verzamelaar, investeerder bent, of gewoon nieuwsgierig naar LEGO-waarden, deze uitgebreide gids onthult welke minifigs premiumprijzen behalen en waarom.\n\n## Wat Maakt een Minifiguur Waardevol?\n\nVoordat we in de ranglijst duiken, is het belangrijk om de belangrijkste factoren te begrijpen die de waarde van minifiguren bepalen:\n\n### 1. **Zeldzaamheid**\nBeperkte productieoplages, exclusieve sets of promotionele releases zorgen voor schaarste. Conventie-exclusieven en personeelscadeaus zijn bijzonder gewild.\n\n### 2. **Leeftijd**\nKlassieke minifigs uit de jaren 70-90 worden steeds zeldzamer naarmate ze slijten of kwijtraken. Vintage stukken in goede staat brengen premiumprijzen op.\n\n### 3. **Populariteit**\nPersonages uit geliefde franchises (Star Wars, Harry Potter, Marvel) behouden consequent hun waarde. Hoofdpersonages en schurken stijgen doorgaans sneller in waarde dan bijfiguren.\n\n### 4. **Conditie**\nMinifigs in nieuwstaat met alle originele accessoires zijn aanzienlijk meer waard dan gebruikte versies. Zelfs lichte slijtage kan de waarde met 30-50% verlagen.\n\n### 5. **Volledigheid**\nEen minifig met alle bedrukte onderdelen, accessoires en originele verpakking (indien van toepassing) is meer waard dan losse of incomplete figuren.\n\n## Star Wars Domineert de Top 10\n\n[**Star Wars minifiguren**](/themes/star-wars) behalen consequent de hoogste prijzen, door verschillende factoren die bijdragen aan hun waarde:\n\n- Gelicentieerde franchise met een enorme wereldwijde fanbase\n- Veel waren alleen verkrijgbaar in dure sets ($100-$500 winkelprijs)\n- Sommige zijn maar één of twee keer uitgebracht in 25+ jaar LEGO Star Wars\n- Personages uit de originele trilogie (1977-1983) zijn bijzonder waardevol\n\n### Meest Waardevolle Star Wars Minifiguren:\n\n**Cloud City Boba Fett (2003)** - Vaak genoemd als de heilige graal, deze exclusieve versie met bedrukkingsvarianten kan $3.000-$5.000 opbrengen in nieuwstaat.\n\n**Chrome Darth Vader** - Beperkte promotionele release, metallic chromen afwerking. Zeldzame varianten brengen $1.500-$2.500 op.\n\n**14k Gouden C-3PO** - Slechts 10.000 geproduceerd voor een promotie in 2007. Ondanks de hogere productieaantallen houden de gouden laag en de populariteit van Star Wars de waarde op $1.000-$2.000.\n\n**Mr. Gold** - Hoewel niet Star Wars, wordt deze ultrazeldzame promotionele figuur uit 2013 (slechts 5.000 gemaakt) regelmatig verkocht voor $3.000-$5.000.\n\n## Classic Space & Castle Zeldzaamheden\n\nNaast gelicentieerde thema's betalen verzamelaars ook premiumprijzen voor vintage LEGO-thema's:\n\n[**Classic Space minifigs**](/themes/space) (1978-1987) met complete helmen en zuurstoftanks in perfecte staat worden steeds waardevoller naarmate originele eigenaren stoppen met verzamelen.\n\n[**Castle-ridders**](/themes/castle) met bedrukte torso's en unieke helmen uit de jaren 80-90 zijn moeilijker te vinden, vooral in sets die minder goed verkochten.\n\n## Hoe Je Je Eigen Collectie Prijst\n\nAls je een van deze waardevolle minifiguren bezit, zo bepaal je een nauwkeurige prijs:\n\n### Stap 1: Verifieer Authenticiteit\nControleer op:\n- Officiële LEGO-markeringen op de noppen\n- Printkwaliteit (LEGO gebruikt tampondruk, geen stickers)\n- Kunststofkwaliteit en pasvorm\n\n### Stap 2: Beoordeel de Conditie\nWees eerlijk over:\n- Slijtage of vervaging van de bedrukking\n- Verkleuring van het plastic (vergeling)\n- Scheuren of tandafdrukken\n- Ontbrekende accessoires\n\n### Stap 3: Controleer Actuele Marktprijzen\nGebruik de [zoektool van FigTracker](/search) om:\n- Actuele Bricklink-marktgegevens te bekijken\n- Hoeveelheidsgewogen gemiddelden te vergelijken met de laagste prijzen\n- Prijstrends over tijd te volgen\n- Rekening te houden met verschillen in conditie\n\n### Stap 4: Houd Rekening met Timing\nPrijzen schommelen op basis van:\n- Filmreleases (Star Wars, Marvel, DC)\n- Uitfasering van sets (prijzen pieken vaak 6-12 maanden later)\n- Seizoensgebonden vraag (december = hogere prijzen)\n\n## Investeringspotentieel: Welke Minifigs Stijgen in Waarde?\n\nOp basis van meer dan 5 jaar aan prijsgegevens stijgen deze minifigs doorgaans in waarde:\n\n### Hoog Waardestijgingspotentieel:\n- **Hoofdpersonages uit populaire franchises** - Vooral eerste releases\n- **Beperkte promoties** - Conventie-exclusieven, personeelscadeaus\n- **Uitgefaseerde thema's** - Zodra LEGO stopt met een thema, neemt de schaarste toe\n- **Unieke bedrukking/varianten** - Misdrukken, prototypes of eerste-oplage-varianten\n\n### Stabiel maar Langzamere Groei:\n- **Bijfiguren** - Nog steeds waardevol maar stijgen langzamer in waarde\n- **Gangbare sets** - Breed verkrijgbaar tijdens de productieperiode\n- **Recente releases** - Hebben 3-5 jaar nodig om significant in waarde te stijgen\n\n### Slechte Investeringen:\n- **Massaal geproduceerde polybags** - Te veel in omloop\n- **Generieke minifigs** - Geen unieke bedrukking of characterwaarde\n- **Beschadigd/incompleet** - Zeer moeilijk te verkopen voor een redelijke prijs\n\n## Opvallende Minifiguren per Thema\n\n### Harry Potter\nDe heropleving van [Harry Potter](/themes/harry-potter)-sets in 2018 zorgde voor hernieuwde interesse, maar de originele releases uit 2001-2005 met unieke bedrukking blijven het meest waardevol:\n- Dumbledore (varianten met grijze baard)\n- Professor Snape (vroege versies)\n- Voldemort (variant met rode ogen)\n\nPrijzen: $50-$300, afhankelijk van variant en conditie\n\n### Marvel Super Heroes\nDe populariteit van de MCU stuwt de waarde van [Marvel](/themes/super-heroes) omhoog:\n- Loki (Avengers-tijdperk, bedrukte benen)\n- Deadpool (eerste release)\n- Spider-Man-varianten (symbiote, Iron Spider)\n\nPrijzen: $40-$200 voor felbegeerde varianten\n\n### DC Comics Super Heroes\nBatman-varianten zijn er in overvloed, maar zeldzame [DC Comics Super Heroes](/themes/super-heroes)-versies brengen premiumprijzen op:\n- Comic-Con-exclusieve Batman-figuren\n- Vroege Joker-varianten\n- Originele Superman uit 2012\n\n### Piraten & Kasteel\nVintage thema's uit de jaren 80-90 zijn erg gewild:\n- [Piraten](/sets-themes/Pirates) met unieke torso-bedrukkingen\n- [Kasteel](/sets-themes/Castle)-ridders met zeldzame helmen\n- Bosmannen met complete accessoires\n\nPrijzen: $30-$150 voor complete vintage minifigs\n\n## Waar Waardevolle Minifiguren Kopen en Verkopen\n\n### Beste Marktplaatsen:\n\n**Bricklink** - De gouden standaard voor LEGO-handel. Grootste aanbod, concurrerende prijzen, maar vereist onderzoek.\n\n**eBay** - Hogere prijzen maar een breder kopersbestand. Let op overprijsde \"zeldzame\" advertenties die dat niet daadwerkelijk zijn.\n\n**Facebookgroepen** - LEGO-verkoopgroepen hebben vaak gemotiveerde kopers die snel een eerlijke prijs willen betalen.\n\n**Lokale Conventies** - BrickCon, BrickFair, enz. Geweldig voor netwerken en het verkopen van high-end stukken.\n\n### Verkooptips:\n1. **Fotografeer goed** - Meerdere hoeken, helder licht, laat alle kanten zien\n2. **Wees eerlijk over de conditie** - Beter een lagere prijs dan een retour/geschil\n3. **Voeg alle accessoires toe** - Wapens, capes en helmen voegen aanzienlijke waarde toe\n4. **Time je listing** - Verkoop vóór feestdagen of filmreleases\n5. **Gebruik FigTracker** - Krijg een nauwkeurige voorgestelde prijs voordat je gaat listen\n\n## Bescherm Je Investering\n\nAls je waardevolle minifiguren bezit:\n\n### Beste Opslagpraktijken:\n- Houd ze uit direct zonlicht (voorkomt vergeling)\n- Bewaar ze in afgesloten containers of vitrinekasten\n- Vermijd vochtige omgevingen (kan verkleuring veroorzaken)\n- Stapel geen zware items erbovenop\n\n### Verzekering:\nCollecties ter waarde van $5.000+ moeten worden gedocumenteerd en verzekerd:\n- Fotografeer alles\n- Houd aankoopprijzen en -data bij\n- Bewaar verkoopbonnen\n- Overweeg een verzekering voor verzamelobjecten\n\n### Authenticatie:\nVoor ultrazeldzame stukken ($500+):\n- Koop bij betrouwbare verkopers met feedback\n- Vraag extra foto's aan bij online aankopen\n- Leer veelvoorkomende vervalsingen herkennen (vooral Chrome C-3PO, Mr. Gold)\n- Sluit je aan bij LEGO-communities om authenticiteit te verifiëren\n\n## Toekomstverwachting: 2026-2030\n\nOp basis van huidige trends voorspellen we:\n\n### Stijgende Waarden:\n- **Uitgefaseerde Star Wars-sets** - Personages uit Mandalorian, Bad Batch, Clone Wars\n- **Originele Marvel CMU-minifigs** - Naarmate films \"klassiek\" worden (eerste releases van Iron Man, Thor)\n- **LEGO Ideas-exclusieven** - Beperkte oplages zorgen voor schaarste\n- **Milieubewustzijn** - Vintage stukken worden steeds zeldzamer\n\n### Dalende Waarden:\n- **Massale herdrukken** - Als LEGO populaire minifigs opnieuw uitbrengt (zoals gebeurde met Han Solo)\n- **Franchisemoeheid** - Als de verzadiging van Marvel/Star Wars aanhoudt\n- **Economische factoren** - Een recessie kan de prijzen van luxe verzamelobjecten tijdelijk drukken\n\n## Begin Vandaag met het Bijhouden van Je Collectie\n\nOf je nu een van deze waardevolle minifigs bezit of een collectie aan het opbouwen bent, nauwkeurige prijsbepaling is essentieel. FigTracker biedt:\n\n- Actuele Bricklink-marktgegevens\n- Prijsgeschiedenis bijhouden\n- Conditie-specifieke prijzen (Nieuw vs Gebruikt)\n- Hulpmiddelen voor inventarisbeheer\n- 18.732+ minifiguren in de database\n\n**Klaar om te ontdekken wat jouw collectie waard is?**\n\n[Zoek Je Minifiguren →](/search)\n\n---\n\n*Prijsgegevens bijgewerkt in april 2026 op basis van Bricklink US-marktgemiddelden. Waarden schommelen - controleer altijd actuele prijzen voordat je koopt of verkoopt.*"
     },
     "figtracker-vs-bricklink": {
-      "title": "FigTracker vs Bricklink: Which Should You Use?",
-      "description": "Compare FigTracker and Bricklink for LEGO minifigure pricing. Learn when to use each platform and how FigTracker simplifies pricing for sellers.",
+      "title": "FigTracker vs Bricklink: Welke Moet Je Gebruiken?",
+      "description": "Vergelijk FigTracker en Bricklink voor het prijzen van LEGO minifiguren. Leer wanneer je elk platform gebruikt en hoe FigTracker het prijzen voor verkopers vereenvoudigt.",
       "author": "FigTracker Team",
-      "readTime": "8 min read",
-      "content": "If you're serious about buying, selling, or collecting LEGO minifigures, you've probably encountered Bricklink. As the largest LEGO marketplace, Bricklink is the industry standard—but it's not always the easiest tool for quick pricing decisions.\n\nThat's where FigTracker comes in.\n\n**The short answer:** Use both. Bricklink for buying/selling, FigTracker for instant pricing.\n\n**The detailed answer:** Let's compare them side-by-side.\n\n## What is Bricklink?\n\nBricklink is the world's largest marketplace for LEGO parts, sets, and minifigures. Founded in 2000 and acquired by LEGO Group in 2019, it's where serious collectors and resellers go to buy and sell.\n\n### Bricklink Strengths:\n✅ Massive inventory (millions of listings)\n✅ Global marketplace with sellers in 100+ countries\n✅ Historical pricing data\n✅ Want lists and inventory management\n✅ Official LEGO catalog integration\n\n### Bricklink Challenges:\n❌ Complex pricing (3+ metrics to interpret)\n❌ Overwhelming for casual users\n❌ No suggested \"fair price\" - you do the math\n❌ Must dig through multiple pages for pricing\n❌ Dated interface design\n\n## What is FigTracker?\n\nFigTracker is a free LEGO minifigure price tracker built specifically for sellers and collectors who need quick, accurate pricing without the complexity.\n\n### FigTracker Strengths:\n✅ One suggested price (no mental math needed)\n✅ Real-time Bricklink marketplace data\n✅ Clean, modern interface\n✅ Inventory tracking with condition management\n✅ Fast search by ID or name\n✅ 18,732+ minifigures in database\n✅ 15+ currencies supported (USD, EUR, GBP, CAD, and more)\n\n### FigTracker Limitations:\n❌ Doesn't sell anything (links to marketplaces)\n❌ Newer platform (less historical data than Bricklink)\n\n## The Pricing Problem: Why FigTracker Exists\n\nHere's the reality of pricing on Bricklink:\n\n**You see this:**\n- Quantity-Weighted Average: $12.45\n- Simple Average: $15.20\n- Lowest Price: $8.99\n\n**You think this:**\n*\"Wait... which one do I use? Should I price at $12? $15? Split the difference? What about condition?\"*\n\n**You do this:**\nOpen calculator. Average the averages. Check lowest price. Factor in condition. Second-guess yourself. Close laptop.\n\n### FigTracker's Solution\n\n**You see this:**\n- Suggested Price: $13.25 (New) | $9.75 (Used)\n\n**You think this:**\n*\"Perfect. Done.\"*\n\nFigTracker's algorithm combines all three Bricklink metrics plus condition data to give you one confident number. You can still see the breakdown if you want it, but you don't need to.\n\n## Side-by-Side Comparison\n\n| Feature | Bricklink | FigTracker |\n|---------|-----------|------------|\n| **Marketplace** | ✅ Yes | ❌ No (links out) |\n| **Suggested Pricing** | ❌ No | ✅ Yes |\n| **Real-time Data** | ✅ Yes | ✅ Yes (pulls from Bricklink) |\n| **Inventory Management** | ✅ Advanced | ✅ Simple |\n| **Search Speed** | ⚠️ Moderate | ✅ Fast |\n| **User Interface** | ⚠️ Dated | ✅ Modern |\n| **Learning Curve** | ⚠️ Steep | ✅ Gentle |\n| **Mobile Experience** | ⚠️ Clunky | ✅ Responsive |\n| **Price** | Free | Free |\n| **Best For** | Buying & selling | Quick pricing & tracking |\n\n## When to Use Bricklink\n\nUse Bricklink when you need to:\n\n**1. Buy Minifigures**\nBricklink has the largest selection. No other platform comes close.\n\n**2. Sell Minifigures**\nIf you're a serious seller, Bricklink's audience is massive and motivated. Worth learning the platform.\n\n**3. Research Rare/Obscure Pieces**\nDeep historical data and completed sales info.\n\n**4. Manage a Store**\nBuilt-in tools for sellers with large inventories.\n\n**5. International Transactions**\nGlobal marketplace with currency conversion.\n\n## When to Use FigTracker\n\nUse FigTracker when you need to:\n\n**1. Price Quickly**\nYou have 20 minifigs to list on eBay. Get instant suggested prices.\n\n**2. Track Your Collection**\nSimple inventory management without Bricklink's complexity.\n\n**3. Compare Condition Pricing**\nSee New vs Used prices side-by-side instantly.\n\n**4. Learn the Market**\nClean interface makes it easier to understand pricing trends.\n\n**5. Decide What to Buy**\nCheck if that eBay listing is overpriced before bidding.\n\n## The Best Workflow: Use Both\n\nHere's how smart sellers use FigTracker + Bricklink together:\n\n### Step 1: Price on FigTracker\n[Search your minifig](/search) by ID (e.g., \"sw1219\"). Get suggested price in 5 seconds.\n\n### Step 2: Cross-check on Bricklink (if needed)\nFor expensive minifigs ($50+), verify on Bricklink to see actual listings.\n\n### Step 3: List on Your Platform\neBay, Facebook Marketplace, or your own Bricklink store.\n\n### Step 4: Track in FigTracker\nKeep your [inventory organized](/inventory). Refresh prices monthly.\n\n**Time saved:** 2-3 minutes per minifig × 50 minifigs = 2.5 hours per pricing session.\n\n## Common Questions\n\n### \"Why not just use Bricklink?\"\n\nYou can! But if you're listing 20+ minifigs, doing mental math for each one gets tedious. FigTracker automates the decision-making.\n\n### \"Is FigTracker's pricing accurate?\"\n\nYes. We pull real-time data directly from Bricklink's API. Our suggested price is calculated from the same data you'd see on Bricklink—we just process it for you.\n\n### \"Can I sell on FigTracker?\"\n\nNot directly. FigTracker is a pricing tool, not a marketplace. We link to Bricklink and Amazon if you want to buy.\n\n### \"Does FigTracker replace Bricklink?\"\n\nNo. Think of FigTracker as a companion tool that makes Bricklink data easier to use for quick pricing decisions.\n\n## Pricing Philosophy Comparison\n\n**Bricklink's Approach:**\n\"Here's all the data. You're smart—figure out what to charge.\"\n\n**FigTracker's Approach:**\n\"Here's the best price based on current market conditions. Trust us, we did the math.\"\n\nBoth are valid. Bricklink empowers power users. FigTracker empowers fast decision-making.\n\n## Which Platform Should You Start With?\n\n### Start with FigTracker if:\n- You're new to LEGO reselling\n- You need to price things quickly\n- You have a small-to-medium collection (< 500 minifigs)\n- You sell on eBay/Facebook, not Bricklink\n\n### Start with Bricklink if:\n- You're a serious seller (500+ listings)\n- You want to run a full LEGO store\n- You need advanced inventory management\n- You buy and sell internationally\n\n### Use Both if:\n- You're a professional reseller\n- You value speed + accuracy\n- You want a modern interface for daily use but need Bricklink for actual transactions\n\n## The Bottom Line\n\n**Bricklink** is the industry standard marketplace with unmatched inventory and reach. It's essential for serious buying and selling.\n\n**FigTracker** is the modern pricing companion that makes Bricklink data instantly actionable. It's essential for fast, confident pricing.\n\n**You don't have to choose.** Use FigTracker for pricing and inventory. Use Bricklink for transactions. Together, they're the perfect LEGO toolkit.\n\n---\n\n**Ready to try FigTracker?**\n\n[Search Your First Minifigure →](/search)\n\nOr explore our [complete pricing guide](/guides) to learn more about LEGO minifigure values."
+      "readTime": "8 min. leestijd",
+      "content": "Als je serieus bezig bent met het kopen, verkopen of verzamelen van LEGO minifiguren, ben je waarschijnlijk Bricklink tegengekomen. Als grootste LEGO marktplaats is Bricklink de industriestandaard — maar het is niet altijd het makkelijkste hulpmiddel voor snelle prijsbeslissingen.\n\nDaar komt FigTracker om de hoek kijken.\n\n**Het korte antwoord:** Gebruik ze allebei. Bricklink voor kopen/verkopen, FigTracker voor directe prijzen.\n\n**Het uitgebreide antwoord:** Laten we ze naast elkaar vergelijken.\n\n## Wat is Bricklink?\n\nBricklink is 's werelds grootste marktplaats voor LEGO-onderdelen, sets en minifiguren. Opgericht in 2000 en overgenomen door LEGO Group in 2019, is het de plek waar serieuze verzamelaars en doorverkopers heen gaan om te kopen en verkopen.\n\n### Sterke Punten van Bricklink:\n✅ Enorme voorraad (miljoenen advertenties)\n✅ Wereldwijde marktplaats met verkopers in 100+ landen\n✅ Historische prijsgegevens\n✅ Wenslijsten en inventarisbeheer\n✅ Integratie met de officiële LEGO-catalogus\n\n### Uitdagingen van Bricklink:\n❌ Complexe prijsstelling (3+ statistieken om te interpreteren)\n❌ Overweldigend voor incidentele gebruikers\n❌ Geen voorgestelde \"eerlijke prijs\" - je doet het rekenwerk zelf\n❌ Je moet door meerdere pagina's spitten voor prijzen\n❌ Verouderd interface-ontwerp\n\n## Wat is FigTracker?\n\nFigTracker is een gratis prijstracker voor LEGO minifiguren, speciaal gebouwd voor verkopers en verzamelaars die snelle, nauwkeurige prijzen nodig hebben zonder de complexiteit.\n\n### Sterke Punten van FigTracker:\n✅ Eén voorgestelde prijs (geen hoofdrekenen nodig)\n✅ Actuele Bricklink-marktgegevens\n✅ Overzichtelijke, moderne interface\n✅ Inventarisbeheer met conditiebeheer\n✅ Snel zoeken op ID of naam\n✅ 18.732+ minifiguren in de database\n✅ 15+ ondersteunde valuta (USD, EUR, GBP, CAD en meer)\n\n### Beperkingen van FigTracker:\n❌ Verkoopt zelf niets (linkt naar marktplaatsen)\n❌ Nieuwer platform (minder historische data dan Bricklink)\n\n## Het Prijsprobleem: Waarom FigTracker Bestaat\n\nDit is de realiteit van prijzen op Bricklink:\n\n**Dit zie je:**\n- Hoeveelheidsgewogen Gemiddelde: $12,45\n- Eenvoudig Gemiddelde: $15,20\n- Laagste Prijs: $8,99\n\n**Dit denk je:**\n*\"Wacht... welke gebruik ik? Moet ik $12 vragen? $15? Het verschil splitsen? En de conditie dan?\"*\n\n**Dit doe je:**\nRekenmachine openen. De gemiddelden middelen. Laagste prijs controleren. Rekening houden met conditie. Aan jezelf twijfelen. Laptop dichtklappen.\n\n### De Oplossing van FigTracker\n\n**Dit zie je:**\n- Voorgestelde Prijs: $13,25 (Nieuw) | $9,75 (Gebruikt)\n\n**Dit denk je:**\n*\"Perfect. Klaar.\"*\n\nHet algoritme van FigTracker combineert alle drie de Bricklink-statistieken plus conditiegegevens tot één betrouwbaar getal. Je kunt de uitsplitsing nog steeds bekijken als je dat wilt, maar het hoeft niet.\n\n## Naast Elkaar Vergeleken\n\n| Functie | Bricklink | FigTracker |\n|---------|-----------|------------|\n| **Marktplaats** | ✅ Ja | ❌ Nee (linkt door) |\n| **Voorgestelde Prijzen** | ❌ Nee | ✅ Ja |\n| **Actuele Gegevens** | ✅ Ja | ✅ Ja (haalt data van Bricklink) |\n| **Inventarisbeheer** | ✅ Geavanceerd | ✅ Eenvoudig |\n| **Zoeksnelheid** | ⚠️ Gemiddeld | ✅ Snel |\n| **Gebruikersinterface** | ⚠️ Verouderd | ✅ Modern |\n| **Leercurve** | ⚠️ Steil | ✅ Zacht |\n| **Mobiele Ervaring** | ⚠️ Onhandig | ✅ Responsief |\n| **Prijs** | Gratis | Gratis |\n| **Het Beste Voor** | Kopen & verkopen | Snel prijzen & bijhouden |\n\n## Wanneer Gebruik Je Bricklink\n\nGebruik Bricklink wanneer je:\n\n**1. Minifiguren Wilt Kopen**\nBricklink heeft het grootste aanbod. Geen ander platform komt in de buurt.\n\n**2. Minifiguren Wilt Verkopen**\nAls je een serieuze verkoper bent, is het publiek van Bricklink enorm en gemotiveerd. Het is de moeite waard om het platform te leren kennen.\n\n**3. Zeldzame/Obscure Stukken Wilt Onderzoeken**\nDiepgaande historische gegevens en informatie over afgeronde verkopen.\n\n**4. Een Winkel Wilt Beheren**\nIngebouwde hulpmiddelen voor verkopers met grote voorraden.\n\n**5. Internationale Transacties Wilt Doen**\nWereldwijde marktplaats met valutaconversie.\n\n## Wanneer Gebruik Je FigTracker\n\nGebruik FigTracker wanneer je:\n\n**1. Snel Wilt Prijzen**\nJe hebt 20 minifigs om op eBay te listen. Krijg direct voorgestelde prijzen.\n\n**2. Je Collectie Wilt Bijhouden**\nEenvoudig inventarisbeheer zonder de complexiteit van Bricklink.\n\n**3. Prijzen per Conditie Wilt Vergelijken**\nZie Nieuw- vs Gebruikt-prijzen direct naast elkaar.\n\n**4. De Markt Wilt Leren Kennen**\nDe overzichtelijke interface maakt het makkelijker om prijstrends te begrijpen.\n\n**5. Wilt Beslissen Wat Je Koopt**\nControleer of die eBay-advertentie overprijsd is voordat je biedt.\n\n## De Beste Werkwijze: Gebruik Beide\n\nZo gebruiken slimme verkopers FigTracker + Bricklink samen:\n\n### Stap 1: Prijs op FigTracker\n[Zoek je minifig](/search) op ID (bijv. \"sw1219\"). Krijg binnen 5 seconden een voorgestelde prijs.\n\n### Stap 2: Controleer op Bricklink (indien nodig)\nVerifieer bij dure minifigs ($50+) op Bricklink om de daadwerkelijke advertenties te zien.\n\n### Stap 3: List op Jouw Platform\neBay, Facebook Marketplace, of je eigen Bricklink-winkel.\n\n### Stap 4: Houd Bij in FigTracker\nHoud je [inventaris georganiseerd](/inventory). Ververs prijzen maandelijks.\n\n**Bespaarde tijd:** 2-3 minuten per minifig × 50 minifigs = 2,5 uur per prijssessie.\n\n## Veelgestelde Vragen\n\n### \"Waarom niet gewoon Bricklink gebruiken?\"\n\nDat kan! Maar als je 20+ minifigs list, wordt het hoofdrekenen voor elk item al snel vervelend. FigTracker automatiseert de besluitvorming.\n\n### \"Is de prijsstelling van FigTracker nauwkeurig?\"\n\nJa. We halen actuele gegevens rechtstreeks uit de API van Bricklink. Onze voorgestelde prijs wordt berekend uit dezelfde gegevens die je op Bricklink zou zien — wij verwerken het gewoon voor je.\n\n### \"Kan ik verkopen op FigTracker?\"\n\nNiet rechtstreeks. FigTracker is een prijstool, geen marktplaats. We linken naar Bricklink en Amazon als je wilt kopen.\n\n### \"Vervangt FigTracker Bricklink?\"\n\nNee. Zie FigTracker als een aanvullend hulpmiddel dat Bricklink-gegevens makkelijker maakt te gebruiken voor snelle prijsbeslissingen.\n\n## Vergelijking van Prijsfilosofie\n\n**De Aanpak van Bricklink:**\n\"Hier is alle data. Jij bent slim genoeg - bedenk zelf wat je vraagt.\"\n\n**De Aanpak van FigTracker:**\n\"Hier is de beste prijs, gebaseerd op de huidige marktomstandigheden. Vertrouw ons, wij hebben het rekenwerk al gedaan.\"\n\nBeide zijn geldig. Bricklink geeft poweruser controle. FigTracker maakt snelle beslissingen mogelijk.\n\n## Met Welk Platform Moet Je Beginnen?\n\n### Begin met FigTracker als:\n- Je nieuw bent in het doorverkopen van LEGO\n- Je snel dingen moet prijzen\n- Je een kleine tot middelgrote collectie hebt (< 500 minifigs)\n- Je verkoopt op eBay/Facebook, niet op Bricklink\n\n### Begin met Bricklink als:\n- Je een serieuze verkoper bent (500+ advertenties)\n- Je een volledige LEGO-winkel wilt runnen\n- Je geavanceerd inventarisbeheer nodig hebt\n- Je internationaal koopt en verkoopt\n\n### Gebruik Beide als:\n- Je een professionele doorverkoper bent\n- Je snelheid + nauwkeurigheid waardeert\n- Je een moderne interface wilt voor dagelijks gebruik, maar Bricklink nodig hebt voor daadwerkelijke transacties\n\n## De Conclusie\n\n**Bricklink** is de standaard marktplaats in de branche met een ongeëvenaard aanbod en bereik. Onmisbaar voor serieus kopen en verkopen.\n\n**FigTracker** is de moderne prijsbegeleider die Bricklink-gegevens direct bruikbaar maakt. Onmisbaar voor snelle, zelfverzekerde prijsbepaling.\n\n**Je hoeft niet te kiezen.** Gebruik FigTracker voor prijzen en inventaris. Gebruik Bricklink voor transacties. Samen vormen ze de perfecte LEGO-toolkit.\n\n---\n\n**Klaar om FigTracker te proberen?**\n\n[Zoek Je Eerste Minifiguur →](/search)\n\nOf ontdek onze [complete prijsgids](/guides) om meer te leren over de waarde van LEGO minifiguren."
     }
   },
   "adminStats": {
     "title": "Admin Dashboard",
-    "subtitle": "Overview of your FigTracker platform",
-    "emailAllUsers": "Email All Users ({count})",
-    "totalUsers": "Total Users",
-    "userCollections": "User Collections",
-    "userCollectionsSubtitle": "{selling} selling, {personal} personal",
-    "catalogItems": "Catalog Items",
-    "catalogSubtitle": "Static JSON",
-    "totalAdClicks": "Total Ad Clicks",
-    "totalAdClicksSubtitle": "{today} today, {thisWeek} this week",
-    "affiliateClickPerformance": "Affiliate Click Performance",
-    "last24Hours": "Last 24 Hours",
-    "last7Days": "Last 7 Days",
-    "last30Days": "Last 30 Days",
-    "allTime": "All Time",
-    "topClickedProducts": "Top Clicked Products",
+    "subtitle": "Overzicht van jouw FigTracker-platform",
+    "emailAllUsers": "E-mail Alle Gebruikers ({count})",
+    "totalUsers": "Totaal Aantal Gebruikers",
+    "userCollections": "Gebruikerscollecties",
+    "userCollectionsSubtitle": "{selling} verkopend, {personal} persoonlijk",
+    "catalogItems": "Catalogusitems",
+    "catalogSubtitle": "Statische JSON",
+    "totalAdClicks": "Totaal Aantal Advertentieklikken",
+    "totalAdClicksSubtitle": "{today} vandaag, {thisWeek} deze week",
+    "affiliateClickPerformance": "Affiliate-klikprestaties",
+    "last24Hours": "Laatste 24 Uur",
+    "last7Days": "Laatste 7 Dagen",
+    "last30Days": "Laatste 30 Dagen",
+    "allTime": "Aller Tijden",
+    "topClickedProducts": "Meest Geklikte Producten",
     "product": "Product",
     "type": "Type",
-    "clicks": "Clicks",
-    "clicksCount": "{count} clicks",
-    "popularThemes": "Popular Themes",
-    "databaseOverview": "Database Overview",
-    "unlimitedBandwidth": "Unlimited bandwidth",
-    "active": "Active",
-    "users": "Users: {count}",
-    "collectionItems": "Collection Items: {count}",
-    "personalItems": "Personal Items: {count}",
-    "priceCache": "Price Cache: {count} entries",
-    "affiliateClicks": "Affiliate Clicks: {count}",
-    "catalog": "Catalog: {count} items",
-    "recentSignups": "Recent Signups",
-    "user": "User",
-    "joined": "Joined",
+    "clicks": "Klikken",
+    "clicksCount": "{count} klikken",
+    "popularThemes": "Populaire Thema's",
+    "databaseOverview": "Database-overzicht",
+    "unlimitedBandwidth": "Onbeperkte bandbreedte",
+    "active": "Actief",
+    "users": "Gebruikers: {count}",
+    "collectionItems": "Collectie-items: {count}",
+    "personalItems": "Persoonlijke items: {count}",
+    "priceCache": "Prijscache: {count} vermeldingen",
+    "affiliateClicks": "Affiliate-klikken: {count}",
+    "catalog": "Catalogus: {count} items",
+    "recentSignups": "Recente Aanmeldingen",
+    "user": "Gebruiker",
+    "joined": "Aangemeld",
     "items": "Items",
-    "anonymous": "Anonymous",
-    "topCollectors": "Top Collectors",
-    "rank": "Rank",
-    "totalItems": "Total Items"
+    "anonymous": "Anoniem",
+    "topCollectors": "Topverzamelaars",
+    "rank": "Rang",
+    "totalItems": "Totaal Aantal Items"
   },
   "bannerCompare": {
-    "title": "Banner Position Comparison",
-    "aboveNavigation": "Banner Above Navigation (Most Common)",
-    "belowNavigation": "Banner Below Navigation",
-    "currencyBanner": "We detected you're in Sweden. Show prices in SEK?",
-    "yesSEK": "Yes, use SEK",
-    "keepUSD": "Keep USD",
+    "title": "Bannerpositie Vergelijking",
+    "aboveNavigation": "Banner Boven Navigatie (Meest Voorkomend)",
+    "belowNavigation": "Banner Onder Navigatie",
+    "currencyBanner": "We hebben gedetecteerd dat je in Zweden bent. Prijzen tonen in SEK?",
+    "yesSEK": "Ja, gebruik SEK",
+    "keepUSD": "Behoud USD",
     "logoText": "FigTracker",
-    "navSearch": "Search",
+    "navSearch": "Zoeken",
     "navCollection": "Collectie",
     "navInventory": "Inventaris",
     "navAccount": "Account",
-    "usedBy": "Used by:",
-    "usedByAbove": "GitHub, Stripe, Amazon, most cookie consent banners",
-    "usedByBelow": "Some promotional banners, sale announcements",
-    "pros": "Pros:",
+    "usedBy": "Gebruikt door:",
+    "usedByAbove": "GitHub, Stripe, Amazon, de meeste cookiemeldingen",
+    "usedByBelow": "Sommige promotionele banners, aankondigingen van uitverkoop",
+    "pros": "Voordelen:",
     "prosAbove": [
       "Immediately visible - can't be missed",
       "Standard web pattern users expect",
@@ -1417,7 +1417,7 @@
       "Logo/branding stays at very top",
       "Feels less intrusive"
     ],
-    "cons": "Cons:",
+    "cons": "Nadelen:",
     "consAbove": [
       "Pushes content down slightly"
     ],
@@ -1426,14 +1426,14 @@
       "Could be confused with page content",
       "Easier to scroll past without noticing"
     ],
-    "recommendation": "Recommendation:",
-    "recommendationText": "Go with \"Above Navigation\" - it's the industry standard for important site-wide notifications like currency detection. Users expect and recognize this pattern."
+    "recommendation": "Aanbeveling:",
+    "recommendationText": "Kies voor \"Boven Navigatie\" - het is de industriestandaard voor belangrijke site-brede meldingen zoals valutadetectie. Gebruikers verwachten en herkennen dit patroon."
   },
   "testBanner": {
-    "showBannerAgain": "Show Banner Again",
-    "title": "Currency Banner Preview",
-    "subtitle": "This is what new users will see when they first visit FigTracker from a non-US country.",
-    "featuresTitle": "Features:",
+    "showBannerAgain": "Banner Opnieuw Tonen",
+    "title": "Voorbeeld Valutabanner",
+    "subtitle": "Dit is wat nieuwe gebruikers zien wanneer ze FigTracker voor het eerst bezoeken vanuit een niet-Amerikaans land.",
+    "featuresTitle": "Functies:",
     "features": [
       "Auto-detects country from browser locale",
       "Shows only for non-USD currencies",
@@ -1442,7 +1442,7 @@
       "Smooth slide-down animation",
       "Purple gradient design matches FigTracker branding"
     ],
-    "userFlowTitle": "User Flow:",
+    "userFlowTitle": "Gebruikersstroom:",
     "userFlow": [
       "First visit from Sweden → Banner appears",
       "Click \"Yes, use SEK\" → Currency set to SEK, page reloads, all prices fetched in SEK",
@@ -1451,20 +1451,20 @@
     ]
   },
   "setsDemo": {
-    "loadingText": "Loading sets catalog...",
-    "title": "LEGO Sets Catalog Demo",
-    "subtitle": "Testing the new sets implementation - browse {count} LEGO sets",
-    "totalSets": "Total Sets",
-    "recentSets": "Recent Sets (2024-2026)",
-    "uniqueThemes": "Unique Themes",
-    "searchPlaceholder": "Search sets by name or number (e.g., 'Star Wars', '75192-1', 'Hogwarts')...",
-    "searchResults": "Search Results ({count})",
-    "searching": "Searching...",
-    "year": "Year",
-    "weight": "Weight",
-    "popularThemesTitle": "Popular Themes",
-    "backendComplete": "Backend Complete - Ready for Full Implementation",
-    "backendStatus": "Database schema ✓ • Type definitions ✓ • Catalog service ✓ • Database service ✓"
+    "loadingText": "Setscatalogus laden...",
+    "title": "LEGO Sets Catalogus Demo",
+    "subtitle": "De nieuwe sets-implementatie testen - blader door {count} LEGO sets",
+    "totalSets": "Totaal Aantal Sets",
+    "recentSets": "Recente Sets (2024-2026)",
+    "uniqueThemes": "Unieke Thema's",
+    "searchPlaceholder": "Zoek sets op naam of nummer (bijv. 'Star Wars', '75192-1', 'Hogwarts')...",
+    "searchResults": "Zoekresultaten ({count})",
+    "searching": "Zoeken...",
+    "year": "Jaar",
+    "weight": "Gewicht",
+    "popularThemesTitle": "Populaire Thema's",
+    "backendComplete": "Backend Voltooid - Klaar voor Volledige Implementatie",
+    "backendStatus": "Databaseschema ✓ • Typedefinities ✓ • Catalogusservice ✓ • Databaseservice ✓"
   },
   "themeDescriptions": {
     "(Other)": "Ontdek unieke LEGO® sets dat niet in traditionele categorieën passen! Deze diverse verzamelie omvat experimentele ontwerpen, gelimiteerde uitgaven, en speciaale projecten dat tonen LEGO's creativity buiten mainstream thema's. Van promotionele bouwwerken tot eenmalige samenwerkingen, deze sets vertegenwoordigen de innovatieve geest of LEGO bouwing. Perfect voor verzamelaars die unieke toevoegingen zoeken naar their verzamelie en bouwers die houden van verborgen pareltjes ontdekken.",
@@ -1649,175 +1649,175 @@
   },
   "may4thDeals": {
     "meta": {
-      "title": "LEGO Star Wars May the 4th Deals 2026 - Up to 39% Back",
-      "description": "Exclusive LEGO Star Wars May the 4th deals guide. Get up to 39% total value with free minifigures and 4x Insiders Points. Analysis of all deal tiers May 1-6, 2026.",
-      "keywords": "LEGO Star Wars May the 4th 2026, LEGO May 4th deals, LEGO Star Wars GWP, LEGO Insiders Points, best LEGO deals 2026, LEGO Star Wars freebies"
+      "title": "LEGO Star Wars May the 4th Deals 2026 - Tot 39% Terug",
+      "description": "Exclusieve gids voor LEGO Star Wars May the 4th deals. Krijg tot 39% totale waarde terug met gratis minifiguren en 4x Insiders Points. Analyse van alle deal-tiers 1-6 mei 2026.",
+      "keywords": "LEGO Star Wars May the 4th 2026, LEGO May 4th deals, LEGO Star Wars GWP, LEGO Insiders Points, beste LEGO deals 2026, LEGO Star Wars gratis extra's"
     },
     "hero": {
       "title": "LEGO Star Wars May the 4th Deals 2026",
-      "subtitle": "Up to 35% Total Value • May 1-6 Only",
-      "description": "Four tiers analyzed. Find your best deal below."
+      "subtitle": "Tot 35% Totale Waarde • Alleen 1-6 Mei",
+      "description": "Vier tiers geanalyseerd. Vind hieronder jouw beste deal."
     },
     "tierD": {
       "badge": "TIER D",
-      "title": "~20-23% Return - Starting Point",
-      "whatYouGet": "What You Get:",
-      "item1": "1 free item: The Razor Crest Mini-Build (~$5 value)",
-      "item2": "2x Insiders Points (~10% cashback value)",
-      "item3": "Qualifying spend: $39.99+ on 2x eligible sets (before tax)",
-      "description": "The minimum entry point. Here's an example combo that works:",
-      "exampleTitle": "Example: Buy All 3 Sets Below",
-      "exampleSet1": "Siege of Mandalore Battle Pack: $22.99",
-      "exampleSet2": "Captain Rex Y-Wing Microfighter: $12.99",
-      "exampleSet3": "Mandalorian & Grogu Speeder Bike: $9.99",
-      "exampleTotal": "Total: $45.97 ✓ Qualifies!",
-      "exampleReturn": "Return: $5 (Razor Crest) + $4.60 (2x points) = $9.60 = 21% back"
+      "title": "~20-23% Rendement - Startpunt",
+      "whatYouGet": "Wat Je Krijgt:",
+      "item1": "1 gratis item: The Razor Crest Mini-Build (~$5 waarde)",
+      "item2": "2x Insiders Points (~10% cashback-waarde)",
+      "item3": "Kwalificerende besteding: $39,99+ aan 2x in aanmerking komende sets (excl. belasting)",
+      "description": "Het minimale instappunt. Hier is een voorbeeldcombinatie die werkt:",
+      "exampleTitle": "Voorbeeld: Koop Alle 3 Onderstaande Sets",
+      "exampleSet1": "Siege of Mandalore Battle Pack: $22,99",
+      "exampleSet2": "Captain Rex Y-Wing Microfighter: $12,99",
+      "exampleSet3": "Mandalorian & Grogu Speeder Bike: $9,99",
+      "exampleTotal": "Totaal: $45,97 ✓ Komt in aanmerking!",
+      "exampleReturn": "Rendement: $5 (Razor Crest) + $4,60 (2x points) = $9,60 = 21% terug"
     },
     "tierC": {
       "badge": "TIER C",
-      "title": "25% Return - Display Collector's Choice",
-      "whatYouGet": "What You Get:",
-      "item1": "2 free items: The Mandalorian and Grogu Display + The Darksaber (~$50 value)",
-      "item2": "1x Insiders Points (~5% cashback = $12.50 on $249.99)",
-      "item3": "Qualifying purchase: 75442 N-1 Starfighter ($249.99)",
-      "item4": "Total return: $62.50 = 25%",
-      "description": "Best option if you want the exclusive Display tile. You get both premium GWPs but lower points multiplier."
+      "title": "25% Rendement - Displaykeuze voor Verzamelaars",
+      "whatYouGet": "Wat Je Krijgt:",
+      "item1": "2 gratis items: The Mandalorian and Grogu Display + De Darksaber (~$50 waarde)",
+      "item2": "1x Insiders Points (~5% cashback = $12,50 op $249,99)",
+      "item3": "Kwalificerende aankoop: 75442 N-1 Starfighter ($249,99)",
+      "item4": "Totaal rendement: $62,50 = 25%",
+      "description": "Beste optie als je de exclusieve Display-tegel wilt. Je krijgt beide premium GWP's, maar een lagere pointsvermenigvuldiger."
     },
     "tierB": {
       "badge": "TIER B",
-      "title": "~26-32% Return - Better Value",
-      "whatYouGet": "What You Get:",
-      "item1": "2 free items: The Darksaber + The Razor Crest Mini-Build (~$50 value)",
-      "item2": "2x Insiders Points (~10% cashback value)",
-      "item3": "Qualifying spend: $160+ on 2x eligible sets (before tax)",
-      "description": "Great value without breaking $200. Here's an example:",
-      "exampleTitle": "Example: Buy Both Sets Below",
-      "exampleSet1": "The Razor Crest: $149.99",
-      "exampleSet2": "AT-RT Attack: $44.99",
-      "exampleTotal": "Total: $194.98 ✓ Qualifies!",
-      "exampleReturn": "Return: $50 (GWP) + $19.50 (2x points) = $69.50 = 36% back"
+      "title": "~26-32% Rendement - Betere Waarde",
+      "whatYouGet": "Wat Je Krijgt:",
+      "item1": "2 gratis items: De Darksaber + The Razor Crest Mini-Build (~$50 waarde)",
+      "item2": "2x Insiders Points (~10% cashback-waarde)",
+      "item3": "Kwalificerende besteding: $160+ aan 2x in aanmerking komende sets (excl. belasting)",
+      "description": "Geweldige waarde zonder de $200 te overschrijden. Hier is een voorbeeld:",
+      "exampleTitle": "Voorbeeld: Koop Beide Onderstaande Sets",
+      "exampleSet1": "The Razor Crest: $149,99",
+      "exampleSet2": "AT-RT Attack: $44,99",
+      "exampleTotal": "Totaal: $194,98 ✓ Komt in aanmerking!",
+      "exampleReturn": "Rendement: $50 (GWP) + $19,50 (2x points) = $69,50 = 36% terug"
     },
     "tierA": {
-      "badge": "TIER A - BEST VALUE 🏆",
-      "title": "39% Return - Ultimate Deal",
-      "whatYouGet": "What You Get:",
-      "item1": "2 free items: The Darksaber + The Razor Crest Mini-Build (~$50 value)",
-      "item2": "4x Insiders Points (~20% cashback value)",
-      "item3": "Qualifying spend: $160+ on 4x eligible sets (before tax)",
-      "item4": "Total return: $62 = 39%",
-      "description": "Maximum value. Get both freebies + 4x points multiplier.",
-      "exampleTitle": "Example: Buy the AT-ST Walker (75417) for $199.99",
-      "exampleReturn": "Return: $50 (GWP) + $40 (4x points) = $90 = 45% back"
+      "badge": "TIER A - BESTE WAARDE 🏆",
+      "title": "39% Rendement - Ultieme Deal",
+      "whatYouGet": "Wat Je Krijgt:",
+      "item1": "2 gratis items: De Darksaber + The Razor Crest Mini-Build (~$50 waarde)",
+      "item2": "4x Insiders Points (~20% cashback-waarde)",
+      "item3": "Kwalificerende besteding: $160+ aan 4x in aanmerking komende sets (excl. belasting)",
+      "item4": "Totaal rendement: $62 = 39%",
+      "description": "Maximale waarde. Krijg beide gratis extra's + 4x pointsvermenigvuldiger.",
+      "exampleTitle": "Voorbeeld: Koop de AT-ST Walker (75417) voor $199,99",
+      "exampleReturn": "Rendement: $50 (GWP) + $40 (4x points) = $90 = 45% terug"
     },
     "gwpSection": {
-      "title": "What You Get Free",
-      "subtitle": "Stack multiple GWPs depending on your spend tier",
+      "title": "Wat Je Gratis Krijgt",
+      "subtitle": "Stapel meerdere GWP's afhankelijk van je uitgaventier",
       "darksaber": {
-        "title": "The Darksaber",
-        "subtitle": "Legendary Mandalorian weapon",
-        "price": "~$45 value",
-        "requirement": "Spend $160+ on Star Wars"
+        "title": "De Darksaber",
+        "subtitle": "Legendarisch Mandalorian-wapen",
+        "price": "~$45 waarde",
+        "requirement": "Besteed $160+ aan Star Wars"
       },
       "razorCrest": {
         "title": "The Razor Crest Mini-Build",
-        "subtitle": "Mando's iconic ship",
-        "price": "~$5 value",
-        "requirement": "Spend $40+ on 2x sets"
+        "subtitle": "Mando's iconische schip",
+        "price": "~$5 waarde",
+        "requirement": "Besteed $40+ aan 2x sets"
       },
       "display": {
         "title": "Mandalorian & Grogu Display",
-        "subtitle": "Exclusive display tile",
-        "price": "~$5 value",
-        "requirement": "Buy 75442 N-1 Starfighter"
+        "subtitle": "Exclusieve displaytegel",
+        "price": "~$5 waarde",
+        "requirement": "Koop 75442 N-1 Starfighter"
       }
     },
     "whichTier": {
-      "title": "Which Tier Should You Buy?",
+      "title": "Welke Tier Moet Je Kopen?",
       "tierA": {
-        "title": "Choose Tier A if...",
-        "item1": "You want maximum value (39% back)",
-        "item2": "You're buying AT-ST or TIE Interceptor anyway",
-        "item3": "4x points matter to you for future purchases"
+        "title": "Kies Tier A als...",
+        "item1": "Je maximale waarde wilt (39% terug)",
+        "item2": "Je toch al de AT-ST of TIE Interceptor koopt",
+        "item3": "4x points belangrijk voor je zijn voor toekomstige aankopen"
       },
       "tierB": {
-        "title": "Choose Tier B if...",
-        "item1": "You want solid value without spending $200+",
-        "item2": "The Razor Crest set interests you",
-        "item3": "You prefer flexibility with 2x sets"
+        "title": "Kies Tier B als...",
+        "item1": "Je solide waarde wilt zonder $200+ uit te geven",
+        "item2": "De Razor Crest-set je interesseert",
+        "item3": "Je flexibiliteit met 2x sets verkiest"
       },
       "tierC": {
-        "title": "Choose Tier C if...",
-        "item1": "You specifically want the Display tile",
-        "item2": "You're buying the N-1 Starfighter anyway",
-        "item3": "GWPs matter more than points to you"
+        "title": "Kies Tier C als...",
+        "item1": "Je specifiek de Display-tegel wilt",
+        "item2": "Je toch al de N-1 Starfighter koopt",
+        "item3": "GWP's belangrijker voor je zijn dan points"
       },
       "tierD": {
-        "title": "Choose Tier D if...",
-        "item1": "You're on a tight budget (~$40-50)",
-        "item2": "You just want the Razor Crest mini-build",
-        "item3": "You prefer small impulse purchases"
+        "title": "Kies Tier D als...",
+        "item1": "Je een krap budget hebt (~$40-50)",
+        "item2": "Je gewoon de Razor Crest mini-build wilt",
+        "item3": "Je de voorkeur geeft aan kleine impulsaankopen"
       }
     },
     "faq": {
-      "title": "Frequently Asked Questions",
+      "title": "Veelgestelde Vragen",
       "q1": {
-        "question": "When does this promotion run?",
-        "answer": "May 1-6, 2026. Available while supplies last."
+        "question": "Wanneer loopt deze promotie?",
+        "answer": "1-6 mei 2026. Beschikbaar zolang de voorraad strekt."
       },
       "q2": {
-        "question": "Can I combine tiers?",
-        "answer": "No. You qualify for ONE tier based on your purchase. Choose wisely."
+        "question": "Kan ik tiers combineren?",
+        "answer": "Nee. Je komt in aanmerking voor ÉÉN tier op basis van je aankoop. Kies verstandig."
       },
       "q3": {
-        "question": "Do I need to be a LEGO Insiders member?",
-        "answer": "Yes. Free to join at LEGO.com. Required for points."
+        "question": "Moet ik LEGO Insiders-lid zijn?",
+        "answer": "Ja. Gratis lid worden op LEGO.com. Vereist voor points."
       },
       "q4": {
-        "question": "When do I receive my Insiders Points?",
-        "answer": "Points post to your account 60 days after purchase."
+        "question": "Wanneer ontvang ik mijn Insiders Points?",
+        "answer": "Points worden 60 dagen na aankoop op je account bijgeschreven."
       },
       "q5": {
-        "question": "Can I return items and keep the GWP?",
-        "answer": "No. LEGO requires you to return free gifts if you return the qualifying purchase."
+        "question": "Kan ik items retourneren en de GWP houden?",
+        "answer": "Nee. LEGO vereist dat je gratis cadeaus retourneert als je de kwalificerende aankoop retourneert."
       }
     },
     "cta": {
-      "title": "Ready to Maximize Your Value?",
-      "description": "Choose your tier and shop now. Promotion ends May 6, 2026.",
+      "title": "Klaar om Je Waarde te Maximaliseren?",
+      "description": "Kies je tier en shop nu. Promotie eindigt 6 mei 2026.",
       "button": "Shop LEGO.com",
-      "disclaimer": "We earn a commission from qualifying purchases. Prices accurate as of May 2, 2026."
+      "disclaimer": "We verdienen een commissie op in aanmerking komende aankopen. Prijzen correct per 2 mei 2026."
     },
     "common": {
-      "buyOnLego": "Buy on LEGO.com",
+      "buyOnLego": "Koop op LEGO.com",
       "price": "Prijs",
       "setNumber": "Set",
-      "eligibleFor": "Eligible for"
+      "eligibleFor": "In aanmerking voor"
     }
   },
   "legoSale": {
-    "pageTitle": "LEGO® Sale",
-    "subtitle": "Best Amazon Deals on LEGO Sets",
-    "tier50": "Excellent Deals - 50%+ Off",
-    "tier40": "Great Deals - 40%+ Off",
-    "tier30": "Good Deals - 30%+ Off",
-    "tier20": "Deals - 20%+ Off",
-    "filterByTheme": "Filter by Theme",
-    "priceRange": "Price Range",
-    "sortBy": "Sort By",
-    "sortDiscount": "Highest Discount",
-    "sortPrice": "Lowest Price",
-    "sortName": "Name (A-Z)",
-    "buyOnAmazon": "Buy on Amazon",
-    "primeEligible": "Sponsored",
-    "noDealsinTier": "No deals found in this category",
-    "lastUpdated": "Prices updated",
-    "allThemes": "All Themes",
-    "priceUnder25": "Under $25",
+    "pageTitle": "LEGO® Uitverkoop",
+    "subtitle": "Beste Amazon-deals op LEGO Sets",
+    "tier50": "Uitstekende Deals - 50%+ Korting",
+    "tier40": "Geweldige Deals - 40%+ Korting",
+    "tier30": "Goede Deals - 30%+ Korting",
+    "tier20": "Deals - 20%+ Korting",
+    "filterByTheme": "Filter op Thema",
+    "priceRange": "Prijsbereik",
+    "sortBy": "Sorteren Op",
+    "sortDiscount": "Hoogste Korting",
+    "sortPrice": "Laagste Prijs",
+    "sortName": "Naam (A-Z)",
+    "buyOnAmazon": "Koop op Amazon",
+    "primeEligible": "Gesponsord",
+    "noDealsinTier": "Geen deals gevonden in deze categorie",
+    "lastUpdated": "Prijzen bijgewerkt",
+    "allThemes": "Alle Thema's",
+    "priceUnder25": "Onder $25",
     "price25to50": "$25 - $50",
     "price50to100": "$50 - $100",
     "price100to200": "$100 - $200",
     "priceOver200": "$200+",
-    "seoDescription": "Discover the best LEGO® deals on Amazon with discounts up to 50% off. We track prices across thousands of sets and update every 6 hours to bring you the biggest savings. All deals are eligible for Amazon Prime free shipping. Whether you're looking for Star Wars, City, Creator, or any other theme, find your next LEGO set at an unbeatable price."
+    "seoDescription": "Ontdek de beste LEGO® deals op Amazon met kortingen tot 50%. We volgen prijzen van duizenden sets en updaten elke 6 uur om je de grootste besparingen te bieden. Alle deals komen in aanmerking voor gratis Amazon Prime-verzending. Of je nu op zoek bent naar Star Wars, City, Creator of een ander thema, vind hier je volgende LEGO set voor een onverslaanbare prijs."
   },
   "retiringSoon": {
     "pageTitle": "LEGO Sets die Binnenkort Verdwijnen 2026",
@@ -1830,7 +1830,9 @@
       "allThemes": "Alle Thema's",
       "selectTheme": "Selecteer een thema",
       "showingCount": "{count} sets die binnenkort verdwijnen",
-      "showingCountInTheme": "{count} sets die binnenkort verdwijnen in {theme}"
+      "showingCountInTheme": "{count} sets die binnenkort verdwijnen in {theme}",
+      "searchThemes": "Zoek thema's...",
+      "noThemesFound": "Geen thema's gevonden"
     },
     "timeline": {
       "retiring0to3": "Verdwijnt in 0-3 maanden",

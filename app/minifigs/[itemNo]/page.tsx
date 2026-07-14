@@ -432,7 +432,7 @@ export default async function MinifigPage({
     offers: {
       '@type': 'AggregateOffer',
       priceCurrency: 'USD',
-      availability: 'https://schema.org/PreOrder', // Collectible items are typically pre-owned
+      availability: 'https://schema.org/InStock',
       ...(pricingData && pricingData.currentLowest > 0 && {
         lowPrice: pricingData.currentLowest.toFixed(2),
         highPrice: (pricingData.currentHighest || pricingData.currentLowest * 2).toFixed(2),

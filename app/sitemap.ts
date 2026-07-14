@@ -50,7 +50,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...createMultilingualEntry('/articles', 'weekly', 0.9),
     ...createMultilingualEntry('/about', 'monthly', 0.8),
     ...createMultilingualEntry('/faq', 'monthly', 0.8),
-    ...createMultilingualEntry('/guides', 'weekly', 0.8),
     ...createMultilingualEntry('/privacy', 'monthly', 0.5),
     ...createMultilingualEntry('/disclosure', 'monthly', 0.5),
   ]
