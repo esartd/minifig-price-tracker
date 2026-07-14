@@ -407,7 +407,7 @@ function LeaderboardCard({
   const getItemTypeLabel = () => {
     if (itemType === 'minifigs') return t('leaderboards.minifigs');
     if (itemType === 'sets') return t('leaderboards.sets');
-    return 'items';
+    return t('leaderboards.items') || 'items';
   };
 
   const cardContent = (

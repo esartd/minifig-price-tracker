@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface CollectionPaginationProps {
   currentPage: number;
@@ -19,6 +20,7 @@ export default function CollectionPagination({
   onPageChange,
   onLoadMore
 }: CollectionPaginationProps) {
+  const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export default function CollectionPagination({
           fontSize: 'var(--text-sm)',
           color: '#737373'
         }}>
-          Showing {currentCount} of {totalCount}
+          {t('common.showingOfCount', { currentCount, totalCount }) || `Showing ${currentCount} of ${totalCount}`}
         </p>
         <button
           onClick={() => {
@@ -76,7 +78,7 @@ export default function CollectionPagination({
             e.currentTarget.style.background = '#3b82f6';
           }}
         >
-          Show More
+          {t('common.showMore') || 'Show More'}
         </button>
       </div>
     );
@@ -137,7 +139,7 @@ export default function CollectionPagination({
           e.currentTarget.style.background = 'transparent';
         }}
       >
-        ← Previous
+        ← {t('common.previous') || 'Previous'}
       </button>
 
       {/* Page Numbers */}
@@ -203,7 +205,7 @@ export default function CollectionPagination({
           e.currentTarget.style.background = 'transparent';
         }}
       >
-        Next →
+        {t('common.next') || 'Next'} →
       </button>
     </div>
   );

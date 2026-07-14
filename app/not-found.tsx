@@ -1,6 +1,11 @@
+'use client';
+
 import Link from 'next/link';
+import { useTranslation } from '@/components/TranslationProvider';
 
 export default function NotFound() {
+  const { t } = useTranslation();
+
   return (
     <div style={{
       maxWidth: '600px',
@@ -22,7 +27,7 @@ export default function NotFound() {
         marginBottom: '16px',
         letterSpacing: '-0.01em'
       }}>
-        Page not found
+        {t('notFound.heading') || 'Page not found'}
       </h2>
 
       <p style={{
@@ -31,7 +36,7 @@ export default function NotFound() {
         lineHeight: '1.6',
         marginBottom: '32px'
       }}>
-        The page you're looking for doesn't exist or has been moved.
+        {t('notFound.body') || "The page you're looking for doesn't exist or has been moved."}
       </p>
 
       <Link
@@ -49,7 +54,7 @@ export default function NotFound() {
           transition: 'all 0.2s'
         }}
       >
-        Go home
+        {t('notFound.goHome') || 'Go home'}
       </Link>
     </div>
   );

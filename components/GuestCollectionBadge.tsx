@@ -4,8 +4,10 @@ import { useState, useEffect } from 'react';
 import { useGuestCollection } from '@/hooks/useGuestCollection';
 import { formatPrice } from '@/lib/format-price';
 import SaveCollectionModal from '@/components/SaveCollectionModal';
+import { useTranslation } from '@/components/TranslationProvider';
 
 export default function GuestCollectionBadge() {
+  const { t } = useTranslation();
   const { count, total } = useGuestCollection();
   const [showModal, setShowModal] = useState(false);
   const [hasShownModal, setHasShownModal] = useState(false);
@@ -64,7 +66,7 @@ export default function GuestCollectionBadge() {
           letterSpacing: '0.05em',
           opacity: 0.9
         }}>
-          Your Collection
+          {t('guestCollectionBadge.title') || 'Your Collection'}
         </div>
         <div style={{
           fontSize: '20px',
@@ -80,8 +82,8 @@ export default function GuestCollectionBadge() {
           alignItems: 'center',
           justifyContent: 'space-between'
         }}>
-          <span>{count} {count === 1 ? 'item' : 'items'}</span>
-          <span style={{ fontSize: '11px', textDecoration: 'underline' }}>Save →</span>
+          <span>{t('guestCollectionBadge.itemCount', { count, itemWord: count === 1 ? 'item' : 'items' }) || `${count} ${count === 1 ? 'item' : 'items'}`}</span>
+          <span style={{ fontSize: '11px', textDecoration: 'underline' }}>{t('guestCollectionBadge.saveCta') || 'Save →'}</span>
         </div>
       </div>
 

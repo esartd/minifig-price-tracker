@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface ThemeFiltersProps {
   themes: string[];
@@ -15,6 +16,7 @@ export default function ThemeFilters({
   selectedTheme,
   onSelectTheme
 }: ThemeFiltersProps) {
+  const { t } = useTranslation();
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -66,7 +68,7 @@ export default function ThemeFilters({
               outline: 'none'
             }}
           >
-            All
+            {t('themeFilters.all') || 'All'}
           </button>
 
           {themes.map(theme => {
@@ -126,7 +128,7 @@ export default function ThemeFilters({
             }}
           >
             <span>
-              {selectedTheme ? selectedTheme : 'All categories'}
+              {selectedTheme ? selectedTheme : (t('themeFilters.allCategories') || 'All categories')}
             </span>
             <svg
               style={{
@@ -165,7 +167,7 @@ export default function ThemeFilters({
               {/* Search box */}
               <input
                 type="text"
-                placeholder="Search categories..."
+                placeholder={t('themeFilters.searchPlaceholder') || 'Search categories...'}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 autoFocus
@@ -220,7 +222,7 @@ export default function ThemeFilters({
                     if (selectedTheme !== null) e.currentTarget.style.background = 'transparent';
                   }}
                 >
-                  <span>All</span>
+                  <span>{t('themeFilters.all') || 'All'}</span>
                 </button>
 
                 {filteredThemes.length > 0 ? (
@@ -271,7 +273,7 @@ export default function ThemeFilters({
                     color: '#a3a3a3',
                     fontSize: 'var(--text-sm)'
                   }}>
-                    No categories found
+                    {t('themeFilters.noCategoriesFound') || 'No categories found'}
                   </div>
                 )}
               </div>

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface PriceAlert {
   id: string;
@@ -22,6 +23,7 @@ interface PriceAlert {
 export default function AlertsPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const { t } = useTranslation();
   const [alerts, setAlerts] = useState<PriceAlert[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -118,7 +120,7 @@ export default function AlertsPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this alert?')) return;
+    if (!confirm(t('accountAlerts.confirmDelete') || 'Are you sure you want to delete this alert?')) return;
 
     try {
       const response = await fetch(`/api/alerts?id=${id}`, {
@@ -127,12 +129,12 @@ export default function AlertsPage() {
 
       if (response.ok) {
         setAlerts(alerts.filter(a => a.id !== id));
-        showMessage('success', 'Alert deleted successfully');
+        showMessage('success', t('accountAlerts.deleteSuccess') || 'Alert deleted successfully');
       } else {
-        showMessage('error', 'Failed to delete alert');
+        showMessage('error', t('accountAlerts.deleteFailed') || 'Failed to delete alert');
       }
     } catch (error) {
-      showMessage('error', 'Failed to delete alert');
+      showMessage('error', t('accountAlerts.deleteFailed') || 'Failed to delete alert');
     }
   };
 
@@ -146,12 +148,14 @@ export default function AlertsPage() {
 
       if (response.ok) {
         setAlerts(alerts.map(a => a.id === id ? { ...a, active: !currentActive, triggered_at: null } : a));
-        showMessage('success', currentActive ? 'Alert paused' : 'Alert activated');
+        showMessage('success', currentActive
+          ? (t('accountAlerts.paused') || 'Alert paused')
+          : (t('accountAlerts.activated') || 'Alert activated'));
       } else {
-        showMessage('error', 'Failed to update alert');
+        showMessage('error', t('accountAlerts.updateFailed') || 'Failed to update alert');
       }
     } catch (error) {
-      showMessage('error', 'Failed to update alert');
+      showMessage('error', t('accountAlerts.updateFailed') || 'Failed to update alert');
     }
   };
 
@@ -168,7 +172,7 @@ export default function AlertsPage() {
   const saveEdit = async (alert: PriceAlert) => {
     const newPrice = parseFloat(editPrice);
     if (isNaN(newPrice) || newPrice <= 0) {
-      showMessage('error', 'Please enter a valid price');
+      showMessage('error', t('accountAlerts.invalidPrice') || 'Please enter a valid price');
       return;
     }
 
@@ -190,12 +194,12 @@ export default function AlertsPage() {
         setAlerts(alerts.map(a => a.id === alert.id ? { ...a, target_price: newPrice } : a));
         setEditingId(null);
         setEditPrice('');
-        showMessage('success', 'Target price updated');
+        showMessage('success', t('accountAlerts.priceUpdated') || 'Target price updated');
       } else {
-        showMessage('error', 'Failed to update price');
+        showMessage('error', t('accountAlerts.priceUpdateFailed') || 'Failed to update price');
       }
     } catch (error) {
-      showMessage('error', 'Failed to update price');
+      showMessage('error', t('accountAlerts.priceUpdateFailed') || 'Failed to update price');
     }
   };
 
@@ -225,7 +229,7 @@ export default function AlertsPage() {
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', padding: '48px 0', color: '#737373' }}>
-            Loading...
+            {t('common.loading') || 'Loading...'}
           </div>
         </div>
       </div>
@@ -261,10 +265,10 @@ export default function AlertsPage() {
             onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
             onMouseLeave={(e) => e.currentTarget.style.color = '#737373'}
             >
-              Account
+              {t('navigation.account') || 'Account'}
             </Link>
             <span>/</span>
-            <span style={{ color: '#171717' }}>Price Alerts</span>
+            <span style={{ color: '#171717' }}>{t('accountAlerts.title') || 'Price Alerts'}</span>
           </div>
           <h1 style={{
             fontSize: 'var(--text-2xl)',
@@ -274,14 +278,14 @@ export default function AlertsPage() {
             color: '#171717',
             marginBottom: '12px'
           }}>
-            Price Alerts
+            {t('accountAlerts.title') || 'Price Alerts'}
           </h1>
           <p style={{
             fontSize: 'var(--text-base)',
             color: '#525252',
             lineHeight: '1.6'
           }}>
-            Manage your price drop notifications
+            {t('accountAlerts.subtitle') || 'Manage your price drop notifications'}
           </p>
         </div>
 
@@ -333,14 +337,14 @@ export default function AlertsPage() {
               color: '#171717',
               marginBottom: '8px'
             }}>
-              No price alerts yet
+              {t('accountAlerts.emptyTitle') || 'No price alerts yet'}
             </h3>
             <p style={{
               fontSize: '14px',
               color: '#737373',
               marginBottom: '24px'
             }}>
-              Set price alerts on any minifig or set to get notified when prices drop.
+              {t('accountAlerts.emptyBody') || 'Set price alerts on any minifig or set to get notified when prices drop.'}
             </p>
             <Link
               href="/search"
@@ -359,7 +363,7 @@ export default function AlertsPage() {
               onMouseEnter={(e) => e.currentTarget.style.background = '#2563eb'}
               onMouseLeave={(e) => e.currentTarget.style.background = '#3b82f6'}
             >
-              Browse Items
+              {t('accountAlerts.browseItems') || 'Browse Items'}
             </Link>
           </div>
         )}
@@ -380,7 +384,7 @@ export default function AlertsPage() {
                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
                 <path d="M13.73 21a2 2 0 0 1-3.46 0" />
               </svg>
-              Active Alerts ({activeAlerts.length})
+              {(t('accountAlerts.activeAlerts', { count: activeAlerts.length }) || `Active Alerts (${activeAlerts.length})`)}
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {activeAlerts.map(alert => (
@@ -418,7 +422,7 @@ export default function AlertsPage() {
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#10b981' }}>
                 <path d="M20 6L9 17l-5-5" />
               </svg>
-              Triggered Alerts ({triggeredAlerts.length})
+              {(t('accountAlerts.triggeredAlerts', { count: triggeredAlerts.length }) || `Triggered Alerts (${triggeredAlerts.length})`)}
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {triggeredAlerts.map(alert => (
@@ -457,7 +461,7 @@ export default function AlertsPage() {
                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
                 <path d="M13.73 21a2 2 0 0 1-3.46 0" />
               </svg>
-              Paused Alerts ({pausedAlerts.length})
+              {(t('accountAlerts.pausedAlerts', { count: pausedAlerts.length }) || `Paused Alerts (${pausedAlerts.length})`)}
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {pausedAlerts.map(alert => (
@@ -511,6 +515,7 @@ function AlertCard({
   getCurrencySymbol,
   formatDate,
 }: AlertCardProps) {
+  const { t } = useTranslation();
   const itemUrl = alert.item_type === 'MINIFIG'
     ? `/minifigs/${alert.item_no}?condition=${alert.condition}`
     : `/sets/${alert.item_no}?condition=${alert.condition}`;
@@ -579,14 +584,14 @@ function AlertCard({
               color: '#737373',
               marginBottom: '12px'
             }}>
-              {alert.item_no} • {alert.condition === 'new' ? 'New' : 'Used'} • {alert.item_type === 'MINIFIG' ? 'Minifigure' : 'Set'}
+              {alert.item_no} • {alert.condition === 'new' ? (t('common.new') || 'New') : (t('common.used') || 'Used')} • {alert.item_type === 'MINIFIG' ? (t('accountAlerts.minifigure') || 'Minifigure') : (t('accountAlerts.set') || 'Set')}
             </div>
 
             {/* Target Price */}
             <div style={{ marginBottom: '8px' }}>
               {isEditing ? (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ fontSize: '13px', color: '#737373' }}>Target:</span>
+                  <span style={{ fontSize: '13px', color: '#737373' }}>{t('accountAlerts.target') || 'Target:'}</span>
                   <input
                     type="number"
                     step="0.01"
@@ -652,7 +657,7 @@ function AlertCard({
                 </div>
               ) : (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ fontSize: '13px', color: '#737373' }}>Target:</span>
+                  <span style={{ fontSize: '13px', color: '#737373' }}>{t('accountAlerts.target') || 'Target:'}</span>
                   <span style={{ fontSize: '15px', fontWeight: '600', color: '#171717' }}>
                     {getCurrencySymbol(alert.currency_code)}{alert.target_price.toFixed(2)}
                   </span>
@@ -677,7 +682,7 @@ function AlertCard({
                       e.currentTarget.style.background = 'none';
                       e.currentTarget.style.color = '#a3a3a3';
                     }}
-                    title="Edit target price"
+                    title={t('accountAlerts.editTargetPrice') || 'Edit target price'}
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
@@ -692,12 +697,12 @@ function AlertCard({
             <div style={{ fontSize: '12px', color: '#a3a3a3' }}>
               {alert.triggered_at ? (
                 <span style={{ color: '#10b981', fontWeight: '500' }}>
-                  Triggered on {formatDate(alert.triggered_at)}
+                  {t('accountAlerts.triggeredOn', { date: formatDate(alert.triggered_at) }) || `Triggered on ${formatDate(alert.triggered_at)}`}
                 </span>
               ) : alert.last_checked ? (
-                <span>Last checked: {formatDate(alert.last_checked)}</span>
+                <span>{t('accountAlerts.lastChecked', { date: formatDate(alert.last_checked) }) || `Last checked: ${formatDate(alert.last_checked)}`}</span>
               ) : (
-                <span>Created: {formatDate(alert.created_at)}</span>
+                <span>{t('accountAlerts.created', { date: formatDate(alert.created_at) }) || `Created: ${formatDate(alert.created_at)}`}</span>
               )}
             </div>
           </div>
@@ -723,7 +728,7 @@ function AlertCard({
               onMouseEnter={(e) => e.currentTarget.style.background = '#dbeafe'}
               onMouseLeave={(e) => e.currentTarget.style.background = '#eff6ff'}
             >
-              Reactivate
+              {t('accountAlerts.reactivate') || 'Reactivate'}
             </button>
           ) : (
             <button
@@ -747,7 +752,7 @@ function AlertCard({
                 e.currentTarget.style.background = alert.active ? '#fafafa' : '#eff6ff';
               }}
             >
-              {alert.active ? 'Pause' : 'Activate'}
+              {alert.active ? (t('accountAlerts.pause') || 'Pause') : (t('accountAlerts.activate') || 'Activate')}
             </button>
           )}
           <button
@@ -767,12 +772,12 @@ function AlertCard({
             }}
             onMouseEnter={(e) => e.currentTarget.style.background = '#fef2f2'}
             onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
-            title="Delete alert"
+            title={t('accountAlerts.deleteAlert') || 'Delete alert'}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
             </svg>
-            <span className="delete-button-text" style={{ display: 'none' }}>Delete</span>
+            <span className="delete-button-text" style={{ display: 'none' }}>{t('common.delete') || 'Delete'}</span>
           </button>
         </div>
       </div>

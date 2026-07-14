@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import { TOCItem } from '@/lib/article-utils';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface TableOfContentsProps {
   items: TOCItem[];
 }
 
 export function TableOfContents({ items }: TableOfContentsProps) {
+  const { t } = useTranslation();
   const [activeId, setActiveId] = useState<string>('');
 
   useEffect(() => {
@@ -51,7 +53,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
         textTransform: 'uppercase',
         letterSpacing: '0.5px',
       }}>
-        Table of Contents
+        {t('articles.tableOfContents') || 'Table of Contents'}
       </h3>
       <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
         {items.map((item) => (

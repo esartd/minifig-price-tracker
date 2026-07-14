@@ -1,9 +1,16 @@
+'use client';
+
+import { useTranslation } from '@/components/TranslationProvider';
+
 interface AuthLayoutProps {
   children: React.ReactNode;
   footerText?: string;
 }
 
-export default function AuthLayout({ children, footerText = 'Price your inventory in seconds, not hours.' }: AuthLayoutProps) {
+export default function AuthLayout({ children, footerText }: AuthLayoutProps) {
+  const { t } = useTranslation();
+  // Default is resolved here (not as a prop default) so it can go through useTranslation.
+  const resolvedFooterText = footerText ?? (t('auth.footerText') || 'Price your inventory in seconds, not hours.');
   return (
     <div className="auth-container" style={{
       minHeight: '100vh',
@@ -37,7 +44,7 @@ export default function AuthLayout({ children, footerText = 'Price your inventor
             color: 'rgba(255, 255, 255, 0.6)',
             lineHeight: '1.6'
           }}>
-            {footerText}
+            {resolvedFooterText}
           </p>
         </div>
       </div>

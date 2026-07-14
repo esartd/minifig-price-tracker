@@ -1,4 +1,7 @@
+'use client';
+
 import { ReactNode } from 'react';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface ComparisonItem {
   title: string;
@@ -12,6 +15,8 @@ interface ArticleComparisonProps {
 }
 
 export default function ArticleComparison({ items }: ArticleComparisonProps) {
+  const { t } = useTranslation();
+
   return (
     <div style={{
       display: 'grid',
@@ -50,7 +55,7 @@ export default function ArticleComparison({ items }: ArticleComparisonProps) {
               color: '#166534',
               marginBottom: '12px',
             }}>
-              ✓ Pros
+              {t('articles.pros') || '✓ Pros'}
             </h4>
             <ul style={{ paddingLeft: '20px', margin: 0 }}>
               {item.pros.map((pro, i) => (
@@ -73,7 +78,7 @@ export default function ArticleComparison({ items }: ArticleComparisonProps) {
               color: '#b91c1c',
               marginBottom: '12px',
             }}>
-              ✗ Cons
+              {t('articles.cons') || '✗ Cons'}
             </h4>
             <ul style={{ paddingLeft: '20px', margin: 0 }}>
               {item.cons.map((con, i) => (

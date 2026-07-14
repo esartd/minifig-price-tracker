@@ -31,6 +31,7 @@ export default function SearchResults({
 
   const minifiguresLabel = translations?.navigation?.minifigures || 'Minifigures';
   const setsLabel = translations?.navigation?.sets || 'Sets';
+  const allLabel = translations?.search?.all || 'All';
   const seeAllMinifiguresLabel = translations?.search?.seeAllMinifigures || 'See All Minifigures →';
 
   const RESULTS_PER_PAGE = 50;
@@ -218,7 +219,7 @@ export default function SearchResults({
                 marginBottom: '-2px'
               }}
             >
-              All ({minifigs.length + sets.length})
+              {allLabel} ({minifigs.length + sets.length})
             </button>
             {minifigs.length > 0 && (
               <button

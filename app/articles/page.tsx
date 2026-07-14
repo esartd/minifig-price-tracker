@@ -77,9 +77,11 @@ export default async function ArticlesPage() {
       description: translation.description,
       slug: article.slug,
       status: 'published' as const,
-      category: article.category || 'Guide',
+      category: article.category || (t.guides?.category || 'Guide'),
       date: new Date(article.publishedAt || article.createdAt).toLocaleDateString(locale, { year: 'numeric', month: 'long' }),
-      readTime: `${article.readTimeMinutes} min read`,
+      readTime: t.articles?.minRead
+        ? t.articles.minRead.replace('{minutes}', String(article.readTimeMinutes))
+        : `${article.readTimeMinutes} min read`,
       coverImage,
     };
   });
@@ -95,7 +97,10 @@ export default async function ArticlesPage() {
       slug: guide.slug,
       status: guide.status,
       category: t.guides?.category || 'Guide',
-      date: 'May 2026',
+      // These legacy guide articles were published in May 2026; format via
+      // Intl so the month name renders correctly per locale instead of a
+      // hardcoded English string.
+      date: new Date('2026-05-01').toLocaleDateString(locale, { year: 'numeric', month: 'long' }),
       readTime: t.guides?.readTime || '5 min read',
       coverImage: null,
     }));

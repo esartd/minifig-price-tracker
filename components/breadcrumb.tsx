@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface BreadcrumbItem {
   name: string;
@@ -12,8 +13,10 @@ interface BreadcrumbProps {
 }
 
 export default function Breadcrumb({ items }: BreadcrumbProps) {
+  const { t } = useTranslation();
+
   return (
-    <nav aria-label="Breadcrumb" style={{
+    <nav aria-label={t('breadcrumb.ariaLabel') || 'Breadcrumb'} style={{
       padding: '12px 0',
       fontSize: '14px',
       color: '#6b7280',

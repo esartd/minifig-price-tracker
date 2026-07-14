@@ -1,5 +1,13 @@
 import { Metadata } from 'next';
 import ThemePageClient from '@/components/theme-page-client';
+import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
+
+// Replace {placeholder} tokens in a translated template with dynamic values
+function interpolate(template: string, vars: Record<string, string | number>): string {
+  return template.replace(/\{(\w+)\}/g, (match, key) => (
+    vars[key] !== undefined ? String(vars[key]) : match
+  ));
+}
 
 // Generate metadata for SEO
 export async function generateMetadata({
@@ -14,6 +22,8 @@ export async function generateMetadata({
   const headersList = await headers();
   const host = headersList.get('host') || '';
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const t = await getTranslations(locale as Locale);
 
   const domains = {
     en: 'https://figtracker.ericksu.com',
@@ -49,25 +59,35 @@ export async function generateMetadata({
     console.error('Failed to fetch metadata for theme:', error);
   }
 
-  const title = `Browse ${decodedTheme} LEGO Minifigures & Sets${totalMinifigs > 0 ? ` (${totalMinifigs.toLocaleString()} minifigs)` : ''} | FigTracker`;
-  const description = `Explore ${totalMinifigs > 0 ? totalMinifigs.toLocaleString() : 'all'} ${decodedTheme} LEGO minifigures and sets with smart market pricing. Track current market values, manage your collection, and organize items to sell and keep${seriesCount > 0 ? ` across ${seriesCount} series` : ''}.`;
+  const nameLegoMinifigures = t.themeMeta?.nameLegoMinifigures || '{name} LEGO Minifigures';
+  const seriesSuffix = seriesCount > 0
+    ? interpolate(t.themeMeta?.acrossSeriesSuffix || ' across {count} series', { count: seriesCount })
+    : '';
+
+  const title = totalMinifigs > 0
+    ? interpolate(t.themeMeta?.titleWithCount || 'Browse {theme} LEGO Minifigures & Sets ({count} minifigs) | FigTracker', { theme: decodedTheme, count: totalMinifigs.toLocaleString() })
+    : interpolate(t.themeMeta?.titleNoCount || 'Browse {theme} LEGO Minifigures & Sets | FigTracker', { theme: decodedTheme });
+
+  const description = totalMinifigs > 0
+    ? interpolate(t.themeMeta?.descriptionWithCount || 'Explore {count} {theme} LEGO minifigures and sets with smart market pricing. Track current market values, manage your collection, and organize items to sell and keep{seriesSuffix}.', { count: totalMinifigs.toLocaleString(), theme: decodedTheme, seriesSuffix })
+    : interpolate(t.themeMeta?.descriptionAllNoCount || 'Explore all {theme} LEGO minifigures and sets with smart market pricing. Track current market values, manage your collection, and organize items to sell and keep{seriesSuffix}.', { theme: decodedTheme, seriesSuffix });
 
   return {
     title,
     description,
     keywords: [
-      `${decodedTheme} LEGO minifigures`,
-      `${decodedTheme} LEGO sets`,
-      `${decodedTheme} minifig price`,
-      `${decodedTheme} set price`,
-      `${decodedTheme} price tracker`,
-      `${decodedTheme} collection manager`,
-      'BrickLink prices',
-      'LEGO price guide',
-      'track LEGO prices'
+      interpolate(t.themeMeta?.keywordThemeMinifigures || '{theme} LEGO minifigures', { theme: decodedTheme }),
+      interpolate(t.themeMeta?.keywordThemeSets || '{theme} LEGO sets', { theme: decodedTheme }),
+      interpolate(t.themeMeta?.keywordThemeMinifigPrice || '{theme} minifig price', { theme: decodedTheme }),
+      interpolate(t.themeMeta?.keywordThemeSetPrice || '{theme} set price', { theme: decodedTheme }),
+      interpolate(t.themeMeta?.keywordThemePriceTracker || '{theme} price tracker', { theme: decodedTheme }),
+      interpolate(t.themeMeta?.keywordThemeCollectionManager || '{theme} collection manager', { theme: decodedTheme }),
+      t.themeMeta?.keywordBricklinkPrices || 'BrickLink prices',
+      t.themeMeta?.keywordLegoPriceGuide || 'LEGO price guide',
+      t.themeMeta?.keywordTrackLegoPrices || 'track LEGO prices'
     ],
     openGraph: {
-      title: `${decodedTheme} LEGO Minifigures & Sets | FigTracker`,
+      title: interpolate(t.themeMeta?.ogTitleThemeSets || '{theme} LEGO Minifigures & Sets | FigTracker', { theme: decodedTheme }),
       description,
       url: `${domains[locale as keyof typeof domains]}/themes/${theme}`,
       locale: localeMap[locale as keyof typeof localeMap],
@@ -77,13 +97,13 @@ export async function generateMetadata({
           url: '/og-image.png',
           width: 1200,
           height: 630,
-          alt: `${decodedTheme} LEGO Minifigures`
+          alt: interpolate(nameLegoMinifigures, { name: decodedTheme })
         }
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${decodedTheme} LEGO Minifigures`,
+      title: interpolate(nameLegoMinifigures, { name: decodedTheme }),
       description,
     },
     alternates: {

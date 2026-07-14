@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface BreadcrumbItem {
   label: string;
@@ -13,6 +14,7 @@ interface BreadcrumbsProps {
 }
 
 export default function Breadcrumbs({ items }: BreadcrumbsProps) {
+  const { t } = useTranslation();
   const [visibleItems, setVisibleItems] = useState(items);
   const containerRef = useRef<HTMLElement>(null);
   const itemsRef = useRef<(HTMLLIElement | null)[]>([]);
@@ -83,7 +85,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
       />
       <nav
         ref={containerRef}
-        aria-label="Breadcrumb"
+        aria-label={t('breadcrumb.ariaLabel') || 'Breadcrumb'}
         style={{
           marginBottom: '24px',
           fontSize: 'var(--text-sm)',

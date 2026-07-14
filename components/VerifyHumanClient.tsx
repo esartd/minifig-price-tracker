@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 import { ShieldCheckIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from '@/components/TranslationProvider';
 
 /**
  * Human Verification Page - Cloudflare Turnstile CAPTCHA
@@ -17,6 +18,7 @@ import { ShieldCheckIcon } from '@heroicons/react/24/outline';
  */
 
 export default function VerifyHumanClient() {
+  const { t } = useTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
   const returnTo = searchParams.get('returnTo') || '/';
@@ -47,7 +49,7 @@ export default function VerifyHumanClient() {
           await handleVerificationSuccess(token);
         },
         'error-callback': () => {
-          setError('Verification failed. Please refresh and try again.');
+          setError(t('verifyHuman.errors.refresh') || 'Verification failed. Please refresh and try again.');
           setIsVerifying(false);
         },
         'expired-callback': () => {
@@ -82,7 +84,7 @@ export default function VerifyHumanClient() {
           router.push(returnTo);
         }, 500);
       } else {
-        setError('Verification failed. Please try again.');
+        setError(t('verifyHuman.errors.retry') || 'Verification failed. Please try again.');
         setIsVerifying(false);
 
         // Reset widget for retry
@@ -91,7 +93,7 @@ export default function VerifyHumanClient() {
         }
       }
     } catch (err) {
-      setError('Network error. Please check your connection.');
+      setError(t('verifyHuman.errors.network') || 'Network error. Please check your connection.');
       setIsVerifying(false);
     }
   };
@@ -143,7 +145,7 @@ export default function VerifyHumanClient() {
             color: '#171717',
             marginBottom: '12px',
           }}>
-            Quick Security Check
+            {t('verifyHuman.heading') || 'Quick Security Check'}
           </h1>
 
           {/* Explanation (Transparent UX) */}
@@ -153,8 +155,7 @@ export default function VerifyHumanClient() {
             lineHeight: '1.6',
             marginBottom: '32px',
           }}>
-            We detected unusual traffic patterns. Please complete this quick test to verify you're human.
-            This helps us prevent spam and keep the site fast for everyone.
+            {t('verifyHuman.explanation') || "We detected unusual traffic patterns. Please complete this quick test to verify you're human. This helps us prevent spam and keep the site fast for everyone."}
           </p>
 
           {/* Turnstile Widget Container */}
@@ -171,7 +172,7 @@ export default function VerifyHumanClient() {
                 color: '#a3a3a3',
                 marginTop: '8px',
               }}>
-                This usually takes just a few seconds...
+                {t('verifyHuman.waitHint') || 'This usually takes just a few seconds...'}
               </p>
             </div>
           )}
@@ -194,7 +195,7 @@ export default function VerifyHumanClient() {
                 </svg>
               </div>
               <p style={{ fontSize: '16px', fontWeight: '600', color: '#16a34a' }}>
-                Verified! Redirecting...
+                {t('verifyHuman.success') || 'Verified! Redirecting...'}
               </p>
             </div>
           )}
@@ -234,7 +235,7 @@ export default function VerifyHumanClient() {
                   cursor: 'pointer',
                 }}
               >
-                Try Again
+                {t('verifyHuman.tryAgain') || 'Try Again'}
               </button>
             </div>
           )}
@@ -250,10 +251,10 @@ export default function VerifyHumanClient() {
               color: '#a3a3a3',
               lineHeight: '1.6',
             }}>
-              Protected by Cloudflare Turnstile
+              {t('verifyHuman.poweredBy') || 'Protected by Cloudflare Turnstile'}
               <br />
               <a href="https://www.cloudflare.com/products/turnstile/" target="_blank" rel="noopener" style={{ color: '#3b82f6', textDecoration: 'none' }}>
-                Learn more
+                {t('verifyHuman.learnMore') || 'Learn more'}
               </a>
             </p>
           </div>

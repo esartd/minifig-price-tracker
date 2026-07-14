@@ -28,8 +28,13 @@ import { useTranslation } from '@/components/TranslationProvider';
 import PriceAlertButton from '@/components/PriceAlertButton';
 
 // Lazy load PriceHistoryChart (only loads when in inventory)
+function ChartLoadingFallback() {
+  const { t } = useTranslation();
+  return <div style={{ padding: '24px', textAlign: 'center', color: '#737373' }}>{t('common.loadingChart') || 'Loading chart...'}</div>;
+}
+
 const PriceHistoryChart = dynamic(() => import('@/components/PriceHistoryChart'), {
-  loading: () => <div style={{ padding: '24px', textAlign: 'center', color: '#737373' }}>Loading chart...</div>,
+  loading: () => <ChartLoadingFallback />,
   ssr: false
 });
 
@@ -67,6 +72,9 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
   const [addLoading, setAddLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  // Stable (non-translated) flag for which success message is showing — the UI decides which
+  // success box to render based on this, NOT by substring-matching the (now translatable) message text.
+  const [successVariant, setSuccessVariant] = useState<'sell' | 'keep' | null>(null);
   const [pricing, setPricing] = useState<{
     sixMonthAverage: number;
     currentAverage: number;
@@ -386,13 +394,13 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
           window.dispatchEvent(new Event('wishlistAdded'));
         } else {
           console.error('Failed to add to wishlist:', data.error);
-          setError(data.error || 'Failed to add to wishlist');
+          setError(data.error || t('minifigDetail.errors.failedToAddToWishlist') || 'Failed to add to wishlist');
           setTimeout(() => setError(''), 3000);
         }
       }
     } catch (err) {
       console.error('Error toggling wishlist:', err);
-      setError('Failed to update wishlist');
+      setError(t('minifigDetail.errors.failedToUpdateWishlist') || 'Failed to update wishlist');
       setTimeout(() => setError(''), 3000);
     } finally {
       setWishlistLoading(false);
@@ -414,7 +422,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       });
 
       if (added) {
-        setSuccessMessage(`Added ${quantity} ${quantity === 1 ? 'item' : 'items'} to your collection!`);
+        setSuccessMessage(
+          quantity === 1
+            ? (t('minifigDetail.messages.addedToGuestCollectionOne') || 'Added 1 item to your collection!')
+            : (t('minifigDetail.messages.addedToGuestCollectionMany', { count: quantity }) || `Added ${quantity} items to your collection!`)
+        );
         setTimeout(() => setSuccessMessage(''), 3000);
 
         // Show save collection modal after 3+ items
@@ -428,6 +440,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
     setAddLoading(true);
     setError('');
     setSuccessMessage('');
+    setSuccessVariant(null);
 
     try {
       const response = await fetch('/api/inventory', {
@@ -446,20 +459,24 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
 
       if (data.success) {
         await refreshCollections();
-        const itemText = quantity === 1 ? 'item' : 'items';
-        setSuccessMessage(`Added ${quantity} ${itemText} to sell`);
+        setSuccessMessage(
+          quantity === 1
+            ? (t('minifigDetail.messages.addedToSellOne') || 'Added 1 item to sell')
+            : (t('minifigDetail.messages.addedToSellMany', { count: quantity }) || `Added ${quantity} items to sell`)
+        );
+        setSuccessVariant('sell');
         setQuantity(1);
       } else {
         if (response.status === 401) {
-          setError('Please sign in to add items');
+          setError(t('minifigDetail.errors.pleaseSignIn') || 'Please sign in to add items');
         } else if (response.status === 409) {
-          setError('Already in inventory');
+          setError(t('minifigDetail.errors.alreadyInInventory') || 'Already in inventory');
         } else {
-          setError(data.error || 'Failed to add');
+          setError(data.error || t('minifigDetail.errors.failedToAdd') || 'Failed to add');
         }
       }
     } catch (err: any) {
-      setError('Failed to add to inventory');
+      setError(t('minifigDetail.errors.failedToAddToInventory') || 'Failed to add to inventory');
     } finally {
       setAddLoading(false);
     }
@@ -480,7 +497,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       });
 
       if (added) {
-        setSuccessMessage(`Added ${quantity} ${quantity === 1 ? 'item' : 'items'} to your collection!`);
+        setSuccessMessage(
+          quantity === 1
+            ? (t('minifigDetail.messages.addedToGuestCollectionOne') || 'Added 1 item to your collection!')
+            : (t('minifigDetail.messages.addedToGuestCollectionMany', { count: quantity }) || `Added ${quantity} items to your collection!`)
+        );
         setTimeout(() => setSuccessMessage(''), 3000);
 
         // Show save collection modal after 3+ items
@@ -494,6 +515,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
     setAddPersonalLoading(true);
     setError('');
     setSuccessMessage('');
+    setSuccessVariant(null);
 
     try {
       const response = await fetch('/api/personal-collection', {
@@ -513,21 +535,25 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       if (data.success) {
         await refreshCollections();
         const count = data.quantityAdded || quantity;
-        const itemText = count === 1 ? 'item' : 'items';
         const message = data.quantityAdded
-          ? `Added ${data.quantityAdded} more ${itemText} to keep`
-          : `Added ${quantity} ${itemText} to keep`;
+          ? (count === 1
+              ? (t('minifigDetail.messages.addedMoreToKeepOne') || 'Added 1 more item to keep')
+              : (t('minifigDetail.messages.addedMoreToKeepMany', { count }) || `Added ${count} more items to keep`))
+          : (count === 1
+              ? (t('minifigDetail.messages.addedToKeepOne') || 'Added 1 item to keep')
+              : (t('minifigDetail.messages.addedToKeepMany', { count }) || `Added ${count} items to keep`));
         setSuccessMessage(message);
+        setSuccessVariant('keep');
         setQuantity(1);
       } else {
         if (response.status === 401) {
-          setError('Please sign in to add items');
+          setError(t('minifigDetail.errors.pleaseSignIn') || 'Please sign in to add items');
         } else {
-          setError(data.error || 'Failed to add');
+          setError(data.error || t('minifigDetail.errors.failedToAdd') || 'Failed to add');
         }
       }
     } catch (err: any) {
-      setError('Failed to add to personal collection');
+      setError(t('minifigDetail.errors.failedToAddToPersonalCollection') || 'Failed to add to personal collection');
     } finally {
       setAddPersonalLoading(false);
     }
@@ -563,12 +589,12 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       if (!data.success) {
         // Revert on failure
         await refreshCollections();
-        setError('Failed to update quantity');
+        setError(t('minifigDetail.errors.failedToUpdateQuantity') || 'Failed to update quantity');
       }
     } catch (err) {
       // Revert on error
       await refreshCollections();
-      setError('Failed to update quantity');
+      setError(t('minifigDetail.errors.failedToUpdateQuantity') || 'Failed to update quantity');
     }
   };
 
@@ -602,12 +628,12 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       if (!data.success) {
         // Revert on failure
         await refreshCollections();
-        setError('Failed to update quantity');
+        setError(t('minifigDetail.errors.failedToUpdateQuantity') || 'Failed to update quantity');
       }
     } catch (err) {
       // Revert on error
       await refreshCollections();
-      setError('Failed to update quantity');
+      setError(t('minifigDetail.errors.failedToUpdateQuantity') || 'Failed to update quantity');
     }
   };
 
@@ -646,7 +672,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       });
 
       if (added) {
-        setSuccessMessage(`Added ${addToCollectionQty} ${addToCollectionQty === 1 ? 'item' : 'items'} to your collection!`);
+        setSuccessMessage(
+          addToCollectionQty === 1
+            ? (t('minifigDetail.messages.addedToGuestCollectionOne') || 'Added 1 item to your collection!')
+            : (t('minifigDetail.messages.addedToGuestCollectionMany', { count: addToCollectionQty }) || `Added ${addToCollectionQty} items to your collection!`)
+        );
         setTimeout(() => setSuccessMessage(''), 3000);
 
         // Show save collection modal after 3+ items
@@ -660,6 +690,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
     setAddToCollectionLoading(true);
     setError('');
     setSuccessMessage('');
+    setSuccessVariant(null);
 
     try {
       const response = await fetch('/api/personal-collection', {
@@ -682,21 +713,25 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
         await refreshCollections();
         console.log('Collections refreshed after adding to personal collection');
         const count = data.quantityAdded || addToCollectionQty;
-        const itemText = count === 1 ? 'item' : 'items';
         const message = data.quantityAdded
-          ? `Added ${data.quantityAdded} more ${itemText} to keep`
-          : `Added ${addToCollectionQty} ${itemText} to keep`;
+          ? (count === 1
+              ? (t('minifigDetail.messages.addedMoreToKeepOne') || 'Added 1 more item to keep')
+              : (t('minifigDetail.messages.addedMoreToKeepMany', { count }) || `Added ${count} more items to keep`))
+          : (count === 1
+              ? (t('minifigDetail.messages.addedToKeepOne') || 'Added 1 item to keep')
+              : (t('minifigDetail.messages.addedToKeepMany', { count }) || `Added ${count} items to keep`));
         setSuccessMessage(message);
+        setSuccessVariant('keep');
         setAddToCollectionQty(1); // Reset
       } else {
         if (response.status === 401) {
-          setError('Please sign in to add items');
+          setError(t('minifigDetail.errors.pleaseSignIn') || 'Please sign in to add items');
         } else {
-          setError(data.error || 'Failed to add');
+          setError(data.error || t('minifigDetail.errors.failedToAdd') || 'Failed to add');
         }
       }
     } catch (err: any) {
-      setError('Failed to add to personal collection');
+      setError(t('minifigDetail.errors.failedToAddToPersonalCollection') || 'Failed to add to personal collection');
     } finally {
       setAddToCollectionLoading(false);
     }
@@ -717,7 +752,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       });
 
       if (added) {
-        setSuccessMessage(`Added ${addToInventoryQty} ${addToInventoryQty === 1 ? 'item' : 'items'} to your collection!`);
+        setSuccessMessage(
+          addToInventoryQty === 1
+            ? (t('minifigDetail.messages.addedToGuestCollectionOne') || 'Added 1 item to your collection!')
+            : (t('minifigDetail.messages.addedToGuestCollectionMany', { count: addToInventoryQty }) || `Added ${addToInventoryQty} items to your collection!`)
+        );
         setTimeout(() => setSuccessMessage(''), 3000);
 
         // Show save collection modal after 3+ items
@@ -731,6 +770,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
     setAddToInventoryLoading(true);
     setError('');
     setSuccessMessage('');
+    setSuccessVariant(null);
 
     try {
       const response = await fetch('/api/inventory', {
@@ -754,21 +794,25 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       if (data.success) {
         await refreshCollections();
         const count = data.quantityAdded || addToInventoryQty;
-        const itemText = count === 1 ? 'item' : 'items';
         const message = data.quantityAdded
-          ? `Added ${data.quantityAdded} more ${itemText} to sell`
-          : `Added ${addToInventoryQty} ${itemText} to sell`;
+          ? (count === 1
+              ? (t('minifigDetail.messages.addedMoreToSellOne') || 'Added 1 more item to sell')
+              : (t('minifigDetail.messages.addedMoreToSellMany', { count }) || `Added ${count} more items to sell`))
+          : (count === 1
+              ? (t('minifigDetail.messages.addedToSellOne') || 'Added 1 item to sell')
+              : (t('minifigDetail.messages.addedToSellMany', { count }) || `Added ${count} items to sell`));
         setSuccessMessage(message);
+        setSuccessVariant('sell');
         setAddToInventoryQty(1); // Reset
       } else {
         if (response.status === 401) {
-          setError('Please sign in to add items');
+          setError(t('minifigDetail.errors.pleaseSignIn') || 'Please sign in to add items');
         } else {
-          setError(data.error || 'Failed to add');
+          setError(data.error || t('minifigDetail.errors.failedToAdd') || 'Failed to add');
         }
       }
     } catch (err: any) {
-      setError('Failed to add to inventory');
+      setError(t('minifigDetail.errors.failedToAddToInventory') || 'Failed to add to inventory');
     } finally {
       setAddToInventoryLoading(false);
     }
@@ -793,7 +837,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: `LEGO ${minifig.name} Minifigure`,
-    description: minifig.description || `LEGO ${minifig.name} Minifigure ${minifig.no} from ${minifig.category_name} theme. Track current BrickLink prices and manage your LEGO collection.`,
+    description: minifig.description || t('minifigDetail.schemaDescription', {
+      name: minifig.name,
+      no: minifig.no,
+      category: minifig.category_name
+    }) || `LEGO ${minifig.name} Minifigure ${minifig.no} from ${minifig.category_name} theme. Track current BrickLink prices and manage your LEGO collection.`,
     image: [minifig.image_url],
     sku: minifig.no,
     mpn: minifig.no,
@@ -839,8 +887,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
           <Breadcrumbs
             items={(() => {
               const breadcrumbs: Array<{ label: string; href?: string }> = [
-                { label: 'Home', href: '/' },
-                { label: 'Themes', href: '/themes' },
+                { label: t('navigation.home') || 'Home', href: '/' },
+                { label: t('navigation.browseThemes') || 'Themes', href: '/themes' },
               ];
 
               // Parse category_name (e.g., "Star Wars / Episode 1" or "Agents")
@@ -890,7 +938,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                 }}>
                   <Image
                     src={minifig.image_url}
-                    alt={`LEGO ${minifig.name} Minifigure ${minifig.no} - ${minifig.category_name}`}
+                    alt={t('minifigDetail.altText.mainImage', {
+                      name: minifig.name,
+                      no: minifig.no,
+                      category: minifig.category_name
+                    }) || `LEGO ${minifig.name} Minifigure ${minifig.no} - ${minifig.category_name}`}
                     className="minifig-main-image"
                     width={200}
                     height={250}
@@ -1598,7 +1650,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   }, 10000);
                                 }
                               } catch (err) {
-                                setError('Failed to move item');
+                                setError(t('minifigDetail.errors.failedToMoveItem') || 'Failed to move item');
                               }
                             } else {
                               setShowMoveDialog(true);
@@ -1649,7 +1701,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       </div>
 
                         {/* Success message for inventory actions */}
-                        {successMessage && successMessage.includes('to sell') && (
+                        {successMessage && successVariant === 'sell' && (
                           <div style={{
                             marginTop: '16px',
                             padding: '12px 16px',
@@ -1688,7 +1740,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                 e.currentTarget.style.background = 'none';
                                 e.currentTarget.style.color = '#065f46';
                               }}
-                              title="Close"
+                              title={t('common.close') || 'Close'}
                             >
                               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -1872,7 +1924,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                           </button>
 
                           {/* Success message for this section */}
-                          {successMessage && successMessage.includes('to keep') && (
+                          {successMessage && successVariant === 'keep' && (
                             <div style={{
                               background: '#dbeafe',
                               border: '1px solid #93c5fd',
@@ -1911,7 +1963,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   e.currentTarget.style.background = 'none';
                                   e.currentTarget.style.color = '#1e40af';
                                 }}
-                                title="Close"
+                                title={t('common.close') || 'Close'}
                               >
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                   <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -2065,7 +2117,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                       }, 10000);
                                     }
                                   } catch (err) {
-                                    setError('Failed to move item');
+                                    setError(t('minifigDetail.errors.failedToMoveItem') || 'Failed to move item');
                                   }
                                 } else {
                                   setShowMoveToInventoryDialog(true);
@@ -2116,7 +2168,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                           </div>
 
                           {/* Success message for collection actions */}
-                          {successMessage && successMessage.includes('to keep') && (
+                          {successMessage && successVariant === 'keep' && (
                             <div style={{
                               marginTop: '16px',
                               padding: '12px 16px',
@@ -2155,7 +2207,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   e.currentTarget.style.background = 'none';
                                   e.currentTarget.style.color = '#065f46';
                                 }}
-                                title="Close"
+                                title={t('common.close') || 'Close'}
                               >
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                   <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -2321,7 +2373,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                           </button>
 
                           {/* Success message for this section */}
-                          {successMessage && successMessage.includes('to sell') && (
+                          {successMessage && successVariant === 'sell' && (
                             <div style={{
                               background: '#d1fae5',
                               border: '1px solid #6ee7b7',
@@ -2360,7 +2412,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   e.currentTarget.style.background = 'none';
                                   e.currentTarget.style.color = '#065f46';
                                 }}
-                                title="Close"
+                                title={t('common.close') || 'Close'}
                               >
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                   <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -2763,7 +2815,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       <div className="minifig-variant-image">
                         <Image
                           src={related.image_url}
-                          alt={`LEGO ${related.name} Minifigure ${related.no}`}
+                          alt={t('minifigDetail.altText.relatedImage', { name: related.name, no: related.no }) || `LEGO ${related.name} Minifigure ${related.no}`}
                           width={120}
                           height={150}
                           style={{
@@ -2838,7 +2890,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       <div className="minifig-variant-image">
                         <Image
                           src={variant.image_url}
-                          alt={`LEGO ${variant.name} Minifigure ${variant.no}`}
+                          alt={t('minifigDetail.altText.relatedImage', { name: variant.name, no: variant.no }) || `LEGO ${variant.name} Minifigure ${variant.no}`}
                           width={120}
                           height={150}
                           style={{
@@ -2996,11 +3048,15 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
 
                 setCollectionItem(updatedInv || null);
                 setPersonalCollectionItem(updatedCol || null);
-                const itemText = quantity === 1 ? 'item' : 'items';
-                setSuccessMessage(`Moved ${quantity} ${itemText} to keep`);
+                setSuccessMessage(
+                  quantity === 1
+                    ? (t('minifigDetail.messages.movedToKeepOne') || 'Moved 1 item to keep')
+                    : (t('minifigDetail.messages.movedToKeepMany', { count: quantity }) || `Moved ${quantity} items to keep`)
+                );
+                setSuccessVariant('keep');
               }
             } catch (err) {
-              setError('Failed to move item');
+              setError(t('minifigDetail.errors.failedToMoveItem') || 'Failed to move item');
             }
             setShowMoveDialog(false);
           }}
@@ -3026,11 +3082,15 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
               });
               if (response.ok) {
                 await refreshCollections();
-                const itemText = quantity === 1 ? 'item' : 'items';
-                setSuccessMessage(`Moved ${quantity} ${itemText} to sell`);
+                setSuccessMessage(
+                  quantity === 1
+                    ? (t('minifigDetail.messages.movedToSellOne') || 'Moved 1 item to sell')
+                    : (t('minifigDetail.messages.movedToSellMany', { count: quantity }) || `Moved ${quantity} items to sell`)
+                );
+                setSuccessVariant('sell');
               }
             } catch (err) {
-              setError('Failed to move item');
+              setError(t('minifigDetail.errors.failedToMoveItem') || 'Failed to move item');
             }
             setShowMoveToInventoryDialog(false);
           }}
@@ -3129,10 +3189,10 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       });
                       if (response.ok) {
                         await refreshCollections();
-                        setSuccessMessage('Removed from personal collection');
+                        setSuccessMessage(t('minifigDetail.messages.removedFromPersonalCollection') || 'Removed from personal collection');
                       }
                     } catch (err) {
-                      setError('Failed to delete item');
+                      setError(t('minifigDetail.errors.failedToDeleteItem') || 'Failed to delete item');
                     }
                   }
 
@@ -3177,7 +3237,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
           alignItems: 'center',
           gap: '16px'
         }}>
-          <span>Moved 1 minifigure</span>
+          <span>{t('minifigDetail.messages.movedOneMinifigure') || 'Moved 1 minifigure'}</span>
           <button
             onClick={async () => {
               setMoveSuccess(false);
@@ -3252,7 +3312,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
               e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
             }}
           >
-            Undo
+            {t('minifigDetail.messages.undo') || 'Undo'}
           </button>
         </div>
       )}

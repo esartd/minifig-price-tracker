@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface CollectionItem {
   id: string;
@@ -65,6 +66,7 @@ const DEFAULT_PREFERENCES: ListingPreferences = {
 };
 
 export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType = 'minifig' }: ListingGeneratorFormProps) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [showDetailedForm, setShowDetailedForm] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -207,10 +209,10 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
           localStorage.setItem('listingConditionsByPlatform', JSON.stringify(conditions));
         }
       } else {
-        alert(data.error || 'Failed to generate listing');
+        alert(data.error || t('listingGenerator.errors.generateFailed') || 'Failed to generate listing');
       }
     } catch (error) {
-      alert('Failed to generate listing');
+      alert(t('listingGenerator.errors.generateFailed') || 'Failed to generate listing');
     } finally {
       setLoading(false);
     }
@@ -277,10 +279,10 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
           localStorage.setItem('listingConditionsByPlatform', JSON.stringify(conditions));
         }
       } else {
-        alert(data.error || 'Failed to generate listing');
+        alert(data.error || t('listingGenerator.errors.generateFailed') || 'Failed to generate listing');
       }
     } catch (error) {
-      alert('Failed to generate listing');
+      alert(t('listingGenerator.errors.generateFailed') || 'Failed to generate listing');
     } finally {
       setLoading(false);
     }
@@ -302,7 +304,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
             color: '#1e40af',
             border: '1px solid #dbeafe'
           }}>
-            💡 <strong>First time?</strong> Use the settings icon to customize your listing preferences (platform, condition, etc). Generate Listing will remember them for next time!
+            💡 <strong>{t('listingGenerator.firstTimeBanner.title') || 'First time?'}</strong> {t('listingGenerator.firstTimeBanner.body') || 'Use the settings icon to customize your listing preferences (platform, condition, etc). Generate Listing will remember them for next time!'}
           </div>
         )}
         <div style={{ display: 'flex', gap: '12px' }}>
@@ -335,7 +337,9 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
             </svg>
-            {loading ? 'Generating Listing...' : 'Generate Listing'}
+            {loading
+              ? (t('listingGenerator.quickGenerate.loading') || 'Generating Listing...')
+              : (t('listingGenerator.generateListing') || 'Generate Listing')}
           </button>
         <button
           onClick={() => {
@@ -349,7 +353,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
               condition_detail: lastUsed.condition
             }));
           }}
-          title="Customize options"
+          title={t('listingGenerator.customizeOptionsTooltip') || 'Customize options'}
           style={{
             padding: '14px 16px',
             backgroundColor: '#ffffff',
@@ -393,10 +397,10 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
       {preview && !showDetailedForm ? (
         <>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-            <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', margin: 0 }}>Generated Listing</h3>
+            <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', margin: 0 }}>{t('listingGenerator.generatedListingHeading') || 'Generated Listing'}</h3>
             <button
               onClick={() => setShowDetailedForm(true)}
-              title="Adjust Settings"
+              title={t('listingGenerator.adjustSettingsTooltip') || 'Adjust Settings'}
               style={{
                   width: '40px',
                   height: '40px',
@@ -431,7 +435,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
           <div style={{ marginBottom: '24px' }}>
             <div style={{ marginBottom: '16px' }}>
               <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                <strong style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: '#171717' }}>Title:</strong>
+                <strong style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: '#171717' }}>{t('listingGenerator.titleLabel') || 'Title:'}</strong>
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText(editedTitle);
@@ -454,7 +458,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                     e.currentTarget.style.backgroundColor = '#ffffff';
                   }}
                 >
-                  Copy Title
+                  {t('listingGenerator.copyTitle') || 'Copy Title'}
                 </button>
               </div>
               <textarea
@@ -478,7 +482,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
             {/* Suggested Price */}
             <div style={{ marginBottom: '16px' }}>
               <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                <strong style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: '#171717' }}>Price:</strong>
+                <strong style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: '#171717' }}>{t('listingGenerator.priceLabel') || 'Price:'}</strong>
                 <button
                   onClick={() => {
                     const price = (formData.platform === 'facebook' || formData.platform === 'vinted')
@@ -504,7 +508,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                     e.currentTarget.style.backgroundColor = '#ffffff';
                   }}
                 >
-                  Copy Price
+                  {t('listingGenerator.copyPrice') || 'Copy Price'}
                 </button>
               </div>
               <div style={{ padding: '12px', backgroundColor: '#f9fafb', borderRadius: '8px', fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717' }}>
@@ -514,7 +518,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                 }
                 {(formData.platform === 'facebook' || formData.platform === 'vinted') && (
                   <span style={{ fontSize: 'var(--text-xs)', color: '#737373', marginLeft: '8px', fontWeight: 'normal' }}>
-                    (whole number)
+                    {t('listingGenerator.wholeNumber') || '(whole number)'}
                   </span>
                 )}
               </div>
@@ -522,7 +526,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
 
             <div>
               <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                <strong style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: '#171717' }}>Description:</strong>
+                <strong style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: '#171717' }}>{t('listingGenerator.descriptionLabel') || 'Description:'}</strong>
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText(editedDescription);
@@ -545,7 +549,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                     e.currentTarget.style.backgroundColor = '#ffffff';
                   }}
                 >
-                  Copy Description
+                  {t('listingGenerator.copyDescription') || 'Copy Description'}
                 </button>
               </div>
               <textarea
@@ -594,19 +598,21 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                 e.currentTarget.style.backgroundColor = '#3b82f6';
               }}
             >
-              Done
+              {t('listingGenerator.done') || 'Done'}
             </button>
           </div>
         </>
       ) : showDetailedForm ? (
         <>
           <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', margin: 0, marginBottom: '24px' }}>
-            {preview ? 'Adjust Settings' : 'Generate Listing'}
+            {preview
+              ? (t('listingGenerator.adjustSettingsTooltip') || 'Adjust Settings')
+              : (t('listingGenerator.generateListing') || 'Generate Listing')}
           </h3>
 
           {/* Platform Selection */}
           <div style={{ marginBottom: '16px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Platform:</label>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>{t('listingGenerator.platformLabel') || 'Platform:'}</label>
             <select
               value={formData.platform}
               onChange={(e) => handlePlatformChange(e.target.value as 'facebook' | 'ebay' | 'bricklink' | 'vinted')}
@@ -626,16 +632,16 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                 paddingRight: '40px'
               }}
             >
-              <option value="ebay">eBay</option>
-              <option value="facebook">Facebook Marketplace</option>
-              <option value="bricklink">BrickLink</option>
-              <option value="vinted">Vinted</option>
+              <option value="ebay">{t('listingGenerator.platform.ebay') || 'eBay'}</option>
+              <option value="facebook">{t('listingGenerator.platform.facebook') || 'Facebook Marketplace'}</option>
+              <option value="bricklink">{t('listingGenerator.platform.bricklink') || 'BrickLink'}</option>
+              <option value="vinted">{t('listingGenerator.platform.vinted') || 'Vinted'}</option>
             </select>
           </div>
 
           {/* Condition */}
           <div style={{ marginBottom: '16px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Condition:</label>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>{t('listingGenerator.conditionLabel') || 'Condition:'}</label>
             <select
               value={formData.condition_detail}
               onChange={(e) => {
@@ -666,36 +672,36 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
             >
               {formData.platform === 'facebook' && (
                 <>
-                  <option value="new">New</option>
-                  <option value="like_new">Like new</option>
-                  <option value="good">Good</option>
-                  <option value="fair">Fair</option>
+                  <option value="new">{t('listingGenerator.condition.facebook.new') || 'New'}</option>
+                  <option value="like_new">{t('listingGenerator.condition.facebook.likeNew') || 'Like new'}</option>
+                  <option value="good">{t('listingGenerator.condition.facebook.good') || 'Good'}</option>
+                  <option value="fair">{t('listingGenerator.condition.facebook.fair') || 'Fair'}</option>
                 </>
               )}
               {formData.platform === 'ebay' && (
                 <>
-                  <option value="new">New</option>
-                  <option value="like_new">Like New</option>
-                  <option value="very_good">Very Good</option>
-                  <option value="good">Good</option>
-                  <option value="acceptable">Acceptable</option>
+                  <option value="new">{t('listingGenerator.condition.ebay.new') || 'New'}</option>
+                  <option value="like_new">{t('listingGenerator.condition.ebay.likeNew') || 'Like New'}</option>
+                  <option value="very_good">{t('listingGenerator.condition.ebay.veryGood') || 'Very Good'}</option>
+                  <option value="good">{t('listingGenerator.condition.ebay.good') || 'Good'}</option>
+                  <option value="acceptable">{t('listingGenerator.condition.ebay.acceptable') || 'Acceptable'}</option>
                 </>
               )}
               {formData.platform === 'bricklink' && (
                 <>
-                  <option value="new">New</option>
-                  <option value="like_new">Used - Like New</option>
-                  <option value="very_good">Used - Very Good</option>
-                  <option value="good">Used - Good</option>
-                  <option value="acceptable">Used - Acceptable</option>
+                  <option value="new">{t('listingGenerator.condition.bricklink.new') || 'New'}</option>
+                  <option value="like_new">{t('listingGenerator.condition.bricklink.likeNew') || 'Used - Like New'}</option>
+                  <option value="very_good">{t('listingGenerator.condition.bricklink.veryGood') || 'Used - Very Good'}</option>
+                  <option value="good">{t('listingGenerator.condition.bricklink.good') || 'Used - Good'}</option>
+                  <option value="acceptable">{t('listingGenerator.condition.bricklink.acceptable') || 'Used - Acceptable'}</option>
                 </>
               )}
               {formData.platform === 'vinted' && (
                 <>
-                  <option value="new">New with tags</option>
-                  <option value="like_new">Very good</option>
-                  <option value="good">Good</option>
-                  <option value="fair">Satisfactory</option>
+                  <option value="new">{t('listingGenerator.condition.vinted.new') || 'New with tags'}</option>
+                  <option value="like_new">{t('listingGenerator.condition.vinted.likeNew') || 'Very good'}</option>
+                  <option value="good">{t('listingGenerator.condition.vinted.good') || 'Good'}</option>
+                  <option value="fair">{t('listingGenerator.condition.vinted.fair') || 'Satisfactory'}</option>
                 </>
               )}
             </select>
@@ -706,9 +712,9 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
             <>
               {/* Accessories */}
               <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Accessories Included:</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>{t('listingGenerator.accessoriesLabel') || 'Accessories Included:'}</label>
                 <textarea
-                  placeholder="Helmet, blasters, cape..."
+                  placeholder={t('listingGenerator.accessoriesPlaceholder') || 'Helmet, blasters, cape...'}
                   value={formData.accessories}
                   onChange={(e) => setFormData(prev => ({ ...prev, accessories: e.target.value }))}
                   style={{
@@ -727,9 +733,9 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
 
               {/* Known Flaws */}
               <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Known Flaws (optional):</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>{t('listingGenerator.knownFlawsLabel') || 'Known Flaws (optional):'}</label>
                 <textarea
-                  placeholder="Minor print wear, loose joints..."
+                  placeholder={t('listingGenerator.knownFlawsPlaceholder') || 'Minor print wear, loose joints...'}
                   value={formData.known_flaws}
                   onChange={(e) => setFormData(prev => ({ ...prev, known_flaws: e.target.value }))}
                   style={{
@@ -753,7 +759,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
             <>
               {/* Box Condition */}
               <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Box Condition:</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>{t('listingGenerator.boxConditionLabel') || 'Box Condition:'}</label>
                 <select
                   value={formData.box_condition}
                   onChange={(e) => setFormData(prev => ({ ...prev, box_condition: e.target.value }))}
@@ -768,14 +774,14 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                 >
                   {formData.condition_detail === 'new' ? (
                     <>
-                      <option value="sealed">Sealed (never opened)</option>
-                      <option value="opened_new">Opened (set still new/unbuilt)</option>
-                      <option value="no_box">No box</option>
+                      <option value="sealed">{t('listingGenerator.boxCondition.sealed') || 'Sealed (never opened)'}</option>
+                      <option value="opened_new">{t('listingGenerator.boxCondition.openedNew') || 'Opened (set still new/unbuilt)'}</option>
+                      <option value="no_box">{t('listingGenerator.boxCondition.noBox') || 'No box'}</option>
                     </>
                   ) : (
                     <>
-                      <option value="with_box">Box included</option>
-                      <option value="no_box">No box</option>
+                      <option value="with_box">{t('listingGenerator.boxCondition.withBox') || 'Box included'}</option>
+                      <option value="no_box">{t('listingGenerator.boxCondition.noBox') || 'No box'}</option>
                     </>
                   )}
                 </select>
@@ -783,7 +789,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
 
               {/* Building Status */}
               <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Building Status:</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>{t('listingGenerator.buildingStatusLabel') || 'Building Status:'}</label>
                 <select
                   value={formData.building_status}
                   onChange={(e) => setFormData(prev => ({ ...prev, building_status: e.target.value }))}
@@ -798,15 +804,15 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                 >
                   {formData.condition_detail === 'new' ? (
                     <>
-                      <option value="unbuilt">Unbuilt (bags sealed)</option>
-                      <option value="unbuilt_bags_opened">Unbuilt (bags opened)</option>
+                      <option value="unbuilt">{t('listingGenerator.buildingStatus.unbuiltSealed') || 'Unbuilt (bags sealed)'}</option>
+                      <option value="unbuilt_bags_opened">{t('listingGenerator.buildingStatus.unbuiltBagsOpened') || 'Unbuilt (bags opened)'}</option>
                     </>
                   ) : (
                     <>
-                      <option value="unbuilt">Unassembled</option>
-                      <option value="partially_built">Partially built</option>
-                      <option value="fully_built">Fully built</option>
-                      <option value="disassembled">Built then disassembled</option>
+                      <option value="unbuilt">{t('listingGenerator.buildingStatus.unassembled') || 'Unassembled'}</option>
+                      <option value="partially_built">{t('listingGenerator.buildingStatus.partiallyBuilt') || 'Partially built'}</option>
+                      <option value="fully_built">{t('listingGenerator.buildingStatus.fullyBuilt') || 'Fully built'}</option>
+                      <option value="disassembled">{t('listingGenerator.buildingStatus.disassembled') || 'Built then disassembled'}</option>
                     </>
                   )}
                 </select>
@@ -814,7 +820,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
 
               {/* Completeness */}
               <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Completeness:</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>{t('listingGenerator.completenessLabel') || 'Completeness:'}</label>
                 <select
                   value={formData.completeness}
                   onChange={(e) => setFormData(prev => ({ ...prev, completeness: e.target.value }))}
@@ -827,10 +833,10 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                     background: '#ffffff'
                   }}
                 >
-                  <option value="complete_verified">100% complete (verified piece count)</option>
-                  <option value="appears_complete">Appears complete (not verified)</option>
-                  <option value="missing_minor">Missing minor pieces</option>
-                  <option value="missing_major">Missing some pieces</option>
+                  <option value="complete_verified">{t('listingGenerator.completeness.verified') || '100% complete (verified piece count)'}</option>
+                  <option value="appears_complete">{t('listingGenerator.completeness.appearsComplete') || 'Appears complete (not verified)'}</option>
+                  <option value="missing_minor">{t('listingGenerator.completeness.missingMinor') || 'Missing minor pieces'}</option>
+                  <option value="missing_major">{t('listingGenerator.completeness.missingMajor') || 'Missing some pieces'}</option>
                 </select>
               </div>
 
@@ -843,7 +849,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                     onChange={(e) => setFormData(prev => ({ ...prev, instructions_included: e.target.checked }))}
                     style={{ width: '18px', height: '18px', cursor: 'pointer' }}
                   />
-                  <span style={{ fontSize: 'var(--text-sm)', color: '#171717' }}>Instructions included</span>
+                  <span style={{ fontSize: 'var(--text-sm)', color: '#171717' }}>{t('listingGenerator.instructionsIncluded') || 'Instructions included'}</span>
                 </label>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                   <input
@@ -852,15 +858,15 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                     onChange={(e) => setFormData(prev => ({ ...prev, minifigures_included: e.target.checked }))}
                     style={{ width: '18px', height: '18px', cursor: 'pointer' }}
                   />
-                  <span style={{ fontSize: 'var(--text-sm)', color: '#171717' }}>All minifigures included</span>
+                  <span style={{ fontSize: 'var(--text-sm)', color: '#171717' }}>{t('listingGenerator.minifiguresIncluded') || 'All minifigures included'}</span>
                 </label>
               </div>
 
               {/* Additional Notes */}
               <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Additional Notes (optional):</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>{t('listingGenerator.additionalNotesLabel') || 'Additional Notes (optional):'}</label>
                 <textarea
-                  placeholder="Any other details about the set condition..."
+                  placeholder={t('listingGenerator.additionalNotesPlaceholder') || 'Any other details about the set condition...'}
                   value={formData.set_notes}
                   onChange={(e) => setFormData(prev => ({ ...prev, set_notes: e.target.value }))}
                   style={{
@@ -881,7 +887,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
 
           {/* Quantity */}
           <div style={{ marginBottom: '24px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Quantity to List:</label>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>{t('listingGenerator.quantityLabel') || 'Quantity to List:'}</label>
             <input
               type="number"
               min="1"
@@ -900,7 +906,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
 
           {/* Preferences */}
           <div style={{ marginBottom: '24px', padding: '16px', backgroundColor: '#f9fafb', borderRadius: '8px', border: '1px solid #e5e5e5' }}>
-            <label style={{ display: 'block', marginBottom: '12px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>Include in listing:</label>
+            <label style={{ display: 'block', marginBottom: '12px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>{t('listingGenerator.includeInListingLabel') || 'Include in listing:'}</label>
 
             <div style={{ display: 'grid', gap: '8px' }}>
               {/* Facebook-specific */}
@@ -912,7 +918,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                       checked={preferences.offersShipping}
                       onChange={(e) => setPreferences(prev => ({ ...prev, offersShipping: e.target.checked }))}
                     />
-                    I offer shipping
+                    {t('listingGenerator.preferences.offersShipping') || 'I offer shipping'}
                   </label>
 
                   <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
@@ -921,7 +927,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                       checked={preferences.offersLocalPickup}
                       onChange={(e) => setPreferences(prev => ({ ...prev, offersLocalPickup: e.target.checked }))}
                     />
-                    I offer local pickup
+                    {t('listingGenerator.preferences.offersLocalPickup') || 'I offer local pickup'}
                   </label>
 
                   <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
@@ -930,7 +936,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                       checked={preferences.offersBundleDiscount}
                       onChange={(e) => setPreferences(prev => ({ ...prev, offersBundleDiscount: e.target.checked }))}
                     />
-                    Bundle discounts available
+                    {t('listingGenerator.preferences.offersBundleDiscount') || 'Bundle discounts available'}
                   </label>
 
                   <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
@@ -939,7 +945,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                       checked={preferences.acceptsCash}
                       onChange={(e) => setPreferences(prev => ({ ...prev, acceptsCash: e.target.checked }))}
                     />
-                    Accept cash
+                    {t('listingGenerator.preferences.acceptsCash') || 'Accept cash'}
                   </label>
 
                   <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
@@ -948,7 +954,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                       checked={preferences.acceptsVenmo}
                       onChange={(e) => setPreferences(prev => ({ ...prev, acceptsVenmo: e.target.checked }))}
                     />
-                    Accept Venmo
+                    {t('listingGenerator.preferences.acceptsVenmo') || 'Accept Venmo'}
                   </label>
 
                   <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
@@ -957,7 +963,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                       checked={preferences.acceptsPayPal}
                       onChange={(e) => setPreferences(prev => ({ ...prev, acceptsPayPal: e.target.checked }))}
                     />
-                    Accept PayPal
+                    {t('listingGenerator.preferences.acceptsPayPal') || 'Accept PayPal'}
                   </label>
                 </>
               )}
@@ -971,7 +977,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                       checked={preferences.acceptsOffers}
                       onChange={(e) => setPreferences(prev => ({ ...prev, acceptsOffers: e.target.checked }))}
                     />
-                    Offers accepted - "Make Offer" enabled
+                    {t('listingGenerator.preferences.acceptsOffers') || 'Offers accepted - "Make Offer" enabled'}
                   </label>
 
                   <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
@@ -980,7 +986,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                       checked={preferences.fastShipping}
                       onChange={(e) => setPreferences(prev => ({ ...prev, fastShipping: e.target.checked }))}
                     />
-                    Ships fast and securely
+                    {t('listingGenerator.preferences.fastShipping') || 'Ships fast and securely'}
                   </label>
 
                   <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
@@ -989,7 +995,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                       checked={preferences.carefulPackaging}
                       onChange={(e) => setPreferences(prev => ({ ...prev, carefulPackaging: e.target.checked }))}
                     />
-                    Carefully packaged in protective material
+                    {t('listingGenerator.preferences.carefulPackaging.ebay') || 'Carefully packaged in protective material'}
                   </label>
 
                   <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
@@ -998,7 +1004,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                       checked={preferences.messageWithQuestions}
                       onChange={(e) => setPreferences(prev => ({ ...prev, messageWithQuestions: e.target.checked }))}
                     />
-                    "Feel free to message with any questions"
+                    {t('listingGenerator.preferences.messageWithQuestions.ebay') || '"Feel free to message with any questions"'}
                   </label>
                 </>
               )}
@@ -1012,7 +1018,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                       checked={preferences.shipsWithTracking}
                       onChange={(e) => setPreferences(prev => ({ ...prev, shipsWithTracking: e.target.checked }))}
                     />
-                    Shipped with tracking
+                    {t('listingGenerator.preferences.shipsWithTracking') || 'Shipped with tracking'}
                   </label>
 
                   <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
@@ -1021,7 +1027,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                       checked={preferences.carefulPackaging}
                       onChange={(e) => setPreferences(prev => ({ ...prev, carefulPackaging: e.target.checked }))}
                     />
-                    Carefully packaged
+                    {t('listingGenerator.preferences.carefulPackaging.bricklink') || 'Carefully packaged'}
                   </label>
 
                   <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
@@ -1030,7 +1036,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                       checked={preferences.messageWithQuestions}
                       onChange={(e) => setPreferences(prev => ({ ...prev, messageWithQuestions: e.target.checked }))}
                     />
-                    "Contact with questions before purchasing"
+                    {t('listingGenerator.preferences.messageWithQuestions.bricklink') || '"Contact with questions before purchasing"'}
                   </label>
                 </>
               )}
@@ -1044,7 +1050,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                       checked={preferences.offersBundleDiscount}
                       onChange={(e) => setPreferences(prev => ({ ...prev, offersBundleDiscount: e.target.checked }))}
                     />
-                    Bundle discounts available
+                    {t('listingGenerator.preferences.offersBundleDiscount') || 'Bundle discounts available'}
                   </label>
                 </>
               )}
@@ -1056,7 +1062,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                   checked={preferences.smokeFreeHome}
                   onChange={(e) => setPreferences(prev => ({ ...prev, smokeFreeHome: e.target.checked }))}
                 />
-                From smoke-free home
+                {t('listingGenerator.preferences.smokeFreeHome') || 'From smoke-free home'}
               </label>
             </div>
           </div>
@@ -1088,7 +1094,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                 e.currentTarget.style.backgroundColor = '#ffffff';
               }}
             >
-              {preview ? 'Cancel' : 'Cancel'}
+              {t('listingGenerator.cancel') || 'Cancel'}
             </button>
             <button
               onClick={handleGenerate}
@@ -1112,7 +1118,11 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                 if (!loading) e.currentTarget.style.backgroundColor = '#3b82f6';
               }}
             >
-              {loading ? 'Generating...' : preview ? 'Regenerate' : 'Generate Listing'}
+              {loading
+                ? (t('listingGenerator.generating') || 'Generating...')
+                : preview
+                  ? (t('listingGenerator.regenerate') || 'Regenerate')
+                  : (t('listingGenerator.generateListing') || 'Generate Listing')}
             </button>
           </div>
         </>

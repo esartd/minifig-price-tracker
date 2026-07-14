@@ -32,7 +32,7 @@ export default function PriceDisplay({ loading, price, compact = false }: PriceD
           letterSpacing: '0.05em',
           marginBottom: '8px'
         }}>
-          Suggested Price
+          {t('priceDisplay.suggestedPrice') || 'Suggested Price'}
         </div>
         <div style={{
           fontSize: 'var(--text-base)',
@@ -40,7 +40,7 @@ export default function PriceDisplay({ loading, price, compact = false }: PriceD
           color: '#a3a3a3',
           fontStyle: 'italic'
         }}>
-          Price data unavailable
+          {t('priceDisplay.unavailable') || 'Price data unavailable'}
         </div>
       </div>
     );
@@ -60,7 +60,7 @@ export default function PriceDisplay({ loading, price, compact = false }: PriceD
           letterSpacing: '0.05em',
           marginBottom: '4px'
         }}>
-          Suggested Price
+          {t('priceDisplay.suggestedPrice') || 'Suggested Price'}
         </div>
         <div style={{
           fontSize: 'var(--text-base)',
@@ -83,7 +83,7 @@ export default function PriceDisplay({ loading, price, compact = false }: PriceD
         letterSpacing: '0.05em',
         marginBottom: '8px'
       }}>
-        Suggested Price
+        {t('priceDisplay.suggestedPrice') || 'Suggested Price'}
       </div>
       <div style={{
         fontSize: 'var(--text-2xl)',

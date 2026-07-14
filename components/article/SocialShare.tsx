@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ArrowUpOnSquareIcon, LinkIcon, CheckIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface SocialShareProps {
   title: string;
@@ -10,8 +11,17 @@ interface SocialShareProps {
 }
 
 export function SocialShare({ title, url, position = 'bottom' }: SocialShareProps) {
+  const { t } = useTranslation();
   const [showMenu, setShowMenu] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  const shareOnTwitterLabel = t('articles.shareOnTwitter') || 'Share on Twitter';
+  const shareOnFacebookLabel = t('articles.shareOnFacebook') || 'Share on Facebook';
+  const shareOnLinkedInLabel = t('articles.shareOnLinkedIn') || 'Share on LinkedIn';
+  const shareOnRedditLabel = t('articles.shareOnReddit') || 'Share on Reddit';
+  const copyLinkLabel = copied
+    ? (t('articles.linkCopied') || 'Link copied!')
+    : (t('articles.copyLink') || 'Copy link');
 
   const shareLinks = {
     twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,
@@ -67,7 +77,7 @@ export function SocialShare({ title, url, position = 'bottom' }: SocialShareProp
           href={shareLinks.twitter}
           target="_blank"
           rel="noopener noreferrer"
-          title="Share on Twitter"
+          title={shareOnTwitterLabel}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -104,7 +114,7 @@ export function SocialShare({ title, url, position = 'bottom' }: SocialShareProp
           href={shareLinks.facebook}
           target="_blank"
           rel="noopener noreferrer"
-          title="Share on Facebook"
+          title={shareOnFacebookLabel}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -141,7 +151,7 @@ export function SocialShare({ title, url, position = 'bottom' }: SocialShareProp
           href={shareLinks.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          title="Share on LinkedIn"
+          title={shareOnLinkedInLabel}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -178,7 +188,7 @@ export function SocialShare({ title, url, position = 'bottom' }: SocialShareProp
           href={shareLinks.reddit}
           target="_blank"
           rel="noopener noreferrer"
-          title="Share on Reddit"
+          title={shareOnRedditLabel}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -213,7 +223,7 @@ export function SocialShare({ title, url, position = 'bottom' }: SocialShareProp
 
         <button
           onClick={copyLink}
-          title={copied ? 'Link copied!' : 'Copy link'}
+          title={copyLinkLabel}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -274,7 +284,7 @@ export function SocialShare({ title, url, position = 'bottom' }: SocialShareProp
         textTransform: 'uppercase',
         letterSpacing: '0.5px',
       }}>
-        Share Article
+        {t('articles.shareArticle') || 'Share Article'}
       </div>
 
       <div style={{ display: 'flex', gap: '12px' }}>
@@ -282,7 +292,7 @@ export function SocialShare({ title, url, position = 'bottom' }: SocialShareProp
           href={shareLinks.twitter}
           target="_blank"
           rel="noopener noreferrer"
-          title="Share on Twitter"
+          title={shareOnTwitterLabel}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -318,7 +328,7 @@ export function SocialShare({ title, url, position = 'bottom' }: SocialShareProp
           href={shareLinks.facebook}
           target="_blank"
           rel="noopener noreferrer"
-          title="Share on Facebook"
+          title={shareOnFacebookLabel}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -354,7 +364,7 @@ export function SocialShare({ title, url, position = 'bottom' }: SocialShareProp
           href={shareLinks.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          title="Share on LinkedIn"
+          title={shareOnLinkedInLabel}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -388,7 +398,7 @@ export function SocialShare({ title, url, position = 'bottom' }: SocialShareProp
 
         <button
           onClick={copyLink}
-          title={copied ? 'Link copied!' : 'Copy link'}
+          title={copyLinkLabel}
           style={{
             display: 'flex',
             alignItems: 'center',

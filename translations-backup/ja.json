@@ -28,7 +28,14 @@
     "new": "新品",
     "used": "中古",
     "copied": "コピーしました！",
-    "showLess": "少なく表示"
+    "showLess": "少なく表示",
+    "showMoreDescription": "もっと見る",
+    "showLessDescription": "表示を減らす",
+    "showMoreDescriptionAria": "説明をもっと見る",
+    "showLessDescriptionAria": "説明の表示を減らす",
+    "showingOfCount": "{totalCount}件中{currentCount}件を表示",
+    "showingOfCountItems": "{totalCount}件中{currentCount}件のアイテムを表示",
+    "showMore": "もっと見る"
   },
   "navigation": {
     "home": "ホーム",
@@ -293,6 +300,15 @@
       "keywords": "LEGOテーマ, スター・ウォーズ ミニフィグ, ハリー・ポッター LEGO, マーベル LEGO, DC LEGO, ニンジャゴー ミニフィグ, テーマ別LEGOカタログ",
       "ogTitle": "LEGOミニフィグをテーマ別に見る | FigTracker",
       "ogDescription": "スター・ウォーズ、ハリー・ポッター、マーベルなど50以上のLEGOテーマからミニフィグを探せます。価格情報もリアルタイムで確認可能。"
+    },
+    "minifiguresHeading": "ミニフィグ",
+    "names": {
+      "starWars": "スター・ウォーズ",
+      "harryPotter": "ハリー・ポッター",
+      "superHeroes": "スーパーヒーローズ",
+      "city": "シティ",
+      "ninjago": "ニンジャゴー",
+      "friends": "フレンズ"
     }
   },
   "account": {
@@ -317,7 +333,8 @@
         "name": "お名前を入力してください"
       },
       "save": "保存",
-      "saving": "保存中..."
+      "saving": "保存中...",
+      "avatarAlt": "アバター"
     },
     "security": {
       "title": "セキュリティ",
@@ -337,7 +354,8 @@
       "subtitle": "お好みの通貨と言語を選択してください",
       "currency": "通貨",
       "language": "言語",
-      "note": "通貨を変更すると、選択した地域のマーケットプレイスの価格が表示されます。地域ごとの需給や送料の違いにより、価格が他地域と異なる場合があります。"
+      "note": "通貨を変更すると、選択した地域のマーケットプレイスの価格が表示されます。地域ごとの需給や送料の違いにより、価格が他地域と異なる場合があります。",
+      "noteLabel": "注："
     },
     "sharing": {
       "title": "共有 Collection",
@@ -399,7 +417,13 @@
       "showSets": "トップセットコレクターランキングに表示",
       "showSetsDesc": "セットのコレクション数が公開されます",
       "save": "変更を保存",
-      "saving": "保存中..."
+      "saving": "保存中...",
+      "updateSuccess": "ランキング設定を更新しました！",
+      "updateError": "設定の更新に失敗しました",
+      "networkError": "ネットワークエラーが発生しました。もう一度お試しください。",
+      "visibilityError": "公開設定の更新に失敗しました",
+      "displayNamePlaceholder": "例：LEGOマスター",
+      "yourProfile": "あなたのプロフィール："
     }
   },
   "search": {
@@ -418,7 +442,19 @@
     "seeAllSets": "すべてのセットを見る →",
     "showing": "{total}件中{shown}件を表示",
     "showingPlural": "{total}件中{shown}件を表示",
-    "loadMore": "さらに読み込む（残り{remaining}件）"
+    "loadMore": "さらに読み込む（残り{remaining}件）",
+    "all": "すべて",
+    "addToCollection": {
+      "signInToAdd": "追加するにはサインイン"
+    },
+    "badges": {
+      "set": "セット"
+    },
+    "legoTitle": "LEGOを検索",
+    "unifiedPlaceholder": "ミニフィグ・セットを検索...",
+    "noResultsFound": "検索結果が見つかりません",
+    "noResultsSubtitle": "別のキーワードを試すか、テーマから探してみてください",
+    "seeAll": "すべて見る →"
   },
   "buyButtons": {
     "ebay": {
@@ -432,7 +468,8 @@
       "description": "スピーディな配送と簡単な返品",
       "sponsored": "広告",
       "shopOn": "Amazonで購入",
-      "buyOn": "Amazonで購入"
+      "buyOn": "Amazonで購入",
+      "prime": "Prime"
     },
     "bricklink": {
       "name": "BrickLink",
@@ -455,7 +492,9 @@
     "ebayLoggedOutTitle": "eBayの市場価格",
     "ebayLoggedOutExplain": "現在のeBay市場データに基づく価格です。",
     "ebayLoggedOutCta": "パーソナライズされた価格にはサインイン →",
-    "sourceBrickLink": "BrickLinkの価格"
+    "sourceBrickLink": "BrickLinkの価格",
+    "loadingData": "価格データを読み込み中...",
+    "supportCta": "時間の節約になりましたか？無料の価格情報を支援する →"
   },
   "errors": {
     "notFound": "見つかりません",
@@ -674,6 +713,11 @@
       "title": "FigTrackerについて - どんなLEGOミニフィグやセットも数秒で価格チェック",
       "description": "FigTrackerは24個のBrickLinkデータを1つのおすすめ価格に変換します。売る用・保管用のデュアル在庫管理、15以上の通貨に対応、完全無料。",
       "keywords": "FigTrackerについて, LEGO 価格トラッカー, BrickLink API ツール, ミニフィグ 価格, LEGOセット 価格, LEGOコレクション管理, LEGO在庫トラッカー, 無料 LEGO 価格, LEGO 出品者ツール"
+    },
+    "catalogCount": {
+      "thousandsOf": "数千の",
+      "overPrefix": "以上の",
+      "nearlyPrefix": "もうすぐ"
     }
   },
   "featured": {
@@ -729,7 +773,9 @@
     "sets": "セット",
     "supportFigTracker": "FigTrackerを支援",
     "beFirstToDonate": "最初に寄付しよう！",
-    "noSupporterYet": "まだサポーターがいません"
+    "noSupporterYet": "まだサポーターがいません",
+    "donationSubtitle": "今四半期（{season}）にご支援いただいた皆さまに感謝します",
+    "items": "アイテム"
   },
   "footer": {
     "faq": "FAQ",
@@ -792,7 +838,23 @@
     "showingAll": "全{count}件の記事を表示",
     "foundResults": "{total}件中{found}件見つかりました",
     "noArticlesFound": "記事が見つかりませんでした",
-    "tryAdjustingFilters": "検索またはフィルターを調整してください"
+    "tryAdjustingFilters": "検索またはフィルターを調整してください",
+    "relatedArticles": "関連記事",
+    "shareOnTwitter": "Twitterでシェア",
+    "shareOnFacebook": "Facebookでシェア",
+    "shareOnLinkedIn": "LinkedInでシェア",
+    "shareOnReddit": "Redditでシェア",
+    "copyLink": "リンクをコピー",
+    "linkCopied": "リンクをコピーしました！",
+    "shareArticle": "記事をシェア",
+    "pros": "✓ メリット",
+    "cons": "✗ デメリット",
+    "tableOfContents": "目次",
+    "allCategory": "すべて",
+    "minRead": "{minutes}分で読めます",
+    "notFound": "記事が見つかりません",
+    "byline": "FigTrackerチーム",
+    "legacyFormatNotice": "旧形式の記事です - 新しいCMSへの移行が必要です"
   },
   "guides": {
     "meta": {
@@ -914,7 +976,8 @@
       "features": {
         "trackUnlimited": "Track unlimited items",
         "realtimePrices": "Real-time suggested prices",
-        "totalValue": "Know your total 在庫 value"
+        "totalValue": "Know your total 在庫 value",
+        "dataPrivate": "データは非公開のまま安全に保たれます"
       },
       "name": "名前",
       "email": "メールアドレス",
@@ -934,7 +997,8 @@
         "generic": "エラーが発生しました。もう一度お試しください。"
       },
       "continueWithGoogle": "Googleで登録",
-      "signupWithEmail": "メールで登録"
+      "signupWithEmail": "メールで登録",
+      "freeBadge": "完全無料 • クレジットカード不要"
     },
     "signin": {
       "title": "Welcome 戻る",
@@ -954,7 +1018,8 @@
         "generic": "エラーが発生しました。もう一度お試しください。"
       },
       "continueWithGoogle": "Googleで続ける",
-      "continueWithEmail": "メールで続ける"
+      "continueWithEmail": "メールで続ける",
+      "forgotLink": "お忘れですか？"
     },
     "forgotPassword": {
       "title": "パスワードをリセット",
@@ -997,7 +1062,13 @@
       }
     },
     "footer": "在庫の価格チェックが、数時間ではなく数秒で。",
-    "footerText": "在庫の価格チェックが、数時間ではなく数秒で。"
+    "footerText": "在庫の価格チェックが、数時間ではなく数秒で。",
+    "accountLinked": {
+      "title": "アカウントを連携しました！",
+      "message": "GoogleアカウントがFigTrackerに連携されました。"
+    },
+    "redirectingToGoogle": "Googleにリダイレクトしています...",
+    "orDivider": "または"
   },
   "newsletter": {
     "title": "月次プライスムーバー",
@@ -1083,7 +1154,19 @@
     "deleteFromInventory": "このアイテムを在庫から削除しますか？",
     "deleteFromCollection": "このアイテムをコレクションから削除しますか？",
     "ea": "個",
-    "total": "合計"
+    "total": "合計",
+    "noMinifigsInInventory": "在庫にミニフィグはまだありません",
+    "searchMinifiguresToGetStarted": "ミニフィグを検索して始めましょう",
+    "failedToChangeCondition": "状態の変更に失敗しました",
+    "movedToCollection": "1体のミニフィグをコレクションに移動しました",
+    "movedToInventory": "1体のミニフィグを在庫に移動しました",
+    "undo": "元に戻す",
+    "noMinifigsInPersonalCollection": "個人コレクションにミニフィグはまだありません",
+    "trackPersonalMinifigsSeparately": "販売用アイテムとは別に、個人的なLEGOミニフィグを管理できます",
+    "noSetsInInventory": "在庫にセットはまだありません",
+    "searchSetsToGetStarted": "セットを検索して始めましょう",
+    "noSetsInPersonalCollection": "個人コレクションにセットはまだありません",
+    "trackPersonalSetsSeparately": "販売用アイテムとは別に、個人的なLEGOセットを管理できます"
   },
   "privacyPolicy": {
     "meta": {
@@ -1239,7 +1322,8 @@
       "addedToInventory": "{quantity}点を販売用に追加しました",
       "addedToCollection": "{quantity}点を保管用に追加しました",
       "movedToCollection": "保管用に移動しました！どこかをクリックすると閉じます。",
-      "movedToInventory": "販売用に移動しました！どこかをクリックすると閉じます。"
+      "movedToInventory": "販売用に移動しました！どこかをクリックすると閉じます。",
+      "addedToGuestCollection": "{quantity}個のセット{plural}をコレクションに追加しました！"
     },
     "errors": {
       "failedToAdd": "Failed to add セット",
@@ -1273,7 +1357,12 @@
     "meta": {
       "yearUnknown": "発売年不明",
       "year": "発売年",
-      "weight": "重量"
+      "weight": "重量",
+      "notFoundTitle": "セットが見つかりません",
+      "descriptionFallback": "{category} - {name}。現在のBrickLink価格を追跡し、LEGOセットの在庫を管理できます。{year}年発売。",
+      "titleSuffix": "LEGOセット価格ガイド",
+      "ogDescription": "BrickLink価格を追跡し、現在の市場価値を確認しながらコレクションを管理",
+      "twitterDescriptionSuffix": "セット価格ガイド"
     },
     "newestFrom": "{theme}の最新セット"
   },
@@ -1308,7 +1397,8 @@
       "keywords": "LEGOセットテーマ, スター・ウォーズ セット, ハリー・ポッター LEGOセット, マーベル LEGOセット, DC LEGOセット, フレンズ セット, LEGOセットカタログ",
       "ogTitle": "LEGOセットをテーマ別に見る | FigTracker",
       "ogDescription": "スター・ウォーズ、ハリー・ポッター、フレンズなど170以上のテーマからLEGOセットを探せます。価格情報もリアルタイムで確認可能。"
-    }
+    },
+    "themeTitle": "{theme} セット"
   },
   "sharedCollection": {
     "collectionNotAvailable": "コレクションを表示できません",
@@ -1323,7 +1413,10 @@
     "used": "中古",
     "new": "new",
     "trackYourCollection": "FigTrackerでLEGOミニフィグコレクションを管理しよう",
-    "startYourCollection": "コレクションを始める"
+    "startYourCollection": "コレクションを始める",
+    "setsForSale": "販売用セット",
+    "setsCollection": "セットコレクション",
+    "emptyCollection": "このコレクションにはアイテムがありません"
   },
   "guidePage": {
     "breadcrumbs": {
@@ -1681,7 +1774,8 @@
       "item2": "インサイダーズポイント1倍（キャッシュバック約5% = $249.99で$12.50相当）",
       "item3": "対象商品: 75442 N-1スターファイター（$249.99）",
       "item4": "合計還元額: $62.50 = 25%",
-      "description": "限定のディスプレイタイルが欲しい方に最適です。プレミアムな無料アイテム2点がもらえますが、ポイント倍率は低めです。"
+      "description": "限定のディスプレイタイルが欲しい方に最適です。プレミアムな無料アイテム2点がもらえますが、ポイント倍率は低めです。",
+      "setName": "マンダロリアンのN-1スターファイター"
     },
     "tierB": {
       "badge": "ティアB",
@@ -1785,13 +1879,27 @@
       "title": "お得を最大限に活用する準備はできましたか？",
       "description": "ティアを選んで今すぐ購入。セールは2026年5月6日で終了です。",
       "button": "LEGO.comで購入する",
-      "disclaimer": "対象商品の購入によって当サイトが紹介料を得る場合があります。価格は2026年5月2日時点のものです。"
+      "disclaimer": "対象商品の購入によって当サイトが紹介料を得る場合があります。価格は2026年5月2日時点のものです。",
+      "features": {
+        "minifigsTracked": "✓ ミニフィグ18,000点以上を追跡",
+        "setsTracked": "✓ セット20,000点以上を追跡",
+        "smartPricing": "✓ スマート市場価格",
+        "currencySupport": "✓ 15以上の通貨に対応"
+      }
     },
     "common": {
       "buyOnLego": "LEGO.comで購入",
       "price": "価格",
       "setNumber": "Set",
-      "eligibleFor": "対象:"
+      "eligibleFor": "対象:",
+      "sponsored": "広告"
+    },
+    "comparisonTable": {
+      "tier": "ティア",
+      "spend": "購入金額",
+      "freebiesValue": "無料アイテムの価値",
+      "cashback": "キャッシュバック",
+      "totalReturn": "総還元額"
     }
   },
   "legoSale": {
@@ -1817,7 +1925,40 @@
     "price50to100": "$50 - $100",
     "price100to200": "$100 - $200",
     "priceOver200": "$200+",
-    "seoDescription": "AmazonでのLEGO®セール情報を最大50%OFFまでご紹介します。何千ものセットの価格を追跡し、6時間ごとに更新して最もお得な情報をお届けします。すべてのセール品はAmazonプライムの送料無料の対象です。スター・ウォーズ、シティ、クリエイターなど、どのテーマでもお得な価格のLEGOセットが見つかります。"
+    "seoDescription": "AmazonでのLEGO®セール情報を最大50%OFFまでご紹介します。何千ものセットの価格を追跡し、6時間ごとに更新して最もお得な情報をお届けします。すべてのセール品はAmazonプライムの送料無料の対象です。スター・ウォーズ、シティ、クリエイターなど、どのテーマでもお得な価格のLEGOセットが見つかります。",
+    "meta": {
+      "notFoundTitle": "ページが見つかりません",
+      "title": "LEGO®セール：Amazonの最大50%OFFお得情報 | FigTracker",
+      "description": "Amazonで最大50%OFFのLEGOお得情報をチェック。6時間ごとに更新。スター・ウォーズ、シティ、クリエイターなど現行LEGOセットを閲覧できます。Primeなら送料無料。",
+      "keywords": [
+        "LEGO セール",
+        "LEGO お得情報",
+        "LEGO Amazon",
+        "安い LEGOセット",
+        "LEGO 割引",
+        "LEGO クリアランス",
+        "LEGO スター・ウォーズ セール",
+        "LEGO シティ お得情報",
+        "LEGO 最安値",
+        "LEGO オファー",
+        "LEGO プロモーション"
+      ],
+      "ogTitle": "LEGO®セール - Amazonで最大50%OFF",
+      "ogDescription": "Amazonの最新LEGOお得情報をご紹介。20%〜50%OFFの割引情報を6時間ごとに更新。",
+      "twitterTitle": "LEGO®セール - Amazonのお得情報",
+      "twitterDescription": "Amazonで最大50%OFFのLEGOセットを見つけよう"
+    },
+    "subtitleUpdated": "Amazonのお得情報 - 6時間ごとに更新",
+    "seoParagraph": "Amazonで最大50%OFFになるLEGO®のお得情報をご紹介します。このLEGOセールページでは何千ものLEGOセットを自動的にスキャンし、スター・ウォーズ、シティ、クリエイター、テクニックなど人気テーマの中から最もお得な情報をピックアップしています。レアな廃盤セットを探している方も、最新リリースをお探しの方も、6時間ごとにAmazon価格を追跡しているので、お得な情報を見逃しません。テーマ、価格帯、割引率で絞り込んで、お探しの商品をぴったり見つけられます。すべてのお得情報はAmazonプライムの送料無料対象です。お気に入りのLEGOセットで今すぐお得に購入しましょう！",
+    "searchThemesPlaceholder": "テーマを検索...",
+    "allPrices": "すべての価格",
+    "priceDisclaimerLabel": "価格に関する免責事項：",
+    "priceDisclaimerText": "商品の価格および在庫状況は表示された日時時点のものであり、予告なく変更される場合があります。表示価格は最終更新時点（6時間ごとに更新）のAmazonの価格です。購入時にAmazonで表示される価格および在庫情報が実際の購入に適用されます。FigTrackerはAmazonアソシエイト、LEGOアフィリエイト、eBayパートナーとして、対象となる購入から収益を得ています。",
+    "loadingDeals": "お得情報を読み込み中...",
+    "tierUnbelievable50": "信じられないお得情報 - 50%OFF以上",
+    "tierExcellent40": "特大のお得情報 - 40%OFF以上",
+    "tierGreat30": "お得な情報 - 30%OFF以上",
+    "tierGood20": "セール情報 - 20%OFF以上"
   },
   "retiringSoon": {
     "pageTitle": "LEGO セット 廃盤予定 2026年",
@@ -1916,7 +2057,8 @@
       "notFoundDesc": "そのユーザー名のコレクターが見つかりませんでした。",
       "editProfile": "プロフィールを編集",
       "conditionNew": "新品",
-      "conditionUsed": "中古"
+      "conditionUsed": "中古",
+      "loadError": "プロフィールの読み込みに失敗しました"
     },
     "username": {
       "title": "ユーザー名",
@@ -2011,9 +2153,488 @@
     "variantCountOne": "1つの別バージョン...",
     "variantCountMany": "{count}つの別バージョン...",
     "featuredThemeSets": "注目の{theme}セット",
-    "currentLegoSetsTheme": "このテーマの現行LEGOセット"
+    "currentLegoSetsTheme": "このテーマの現行LEGOセット",
+    "meta": {
+      "notFoundTitle": "ミニフィグが見つかりません",
+      "description": "{category} - {fullName}。現在のBrickLink価格を追跡し、市場価値を確認しながらコレクションを管理できます。売却用・保管用に追加可能。{year}年発売。",
+      "dateUnknown": "発売日不明",
+      "titleSuffix": "LEGOミニフィグ価格トラッカー",
+      "ogDescription": "LEGOミニフィグ {itemNo} - BrickLink価格を追跡し、現在の市場価値を確認しながらコレクションを管理",
+      "twitterDescription": "{category}ミニフィグの価格ガイド",
+      "productDescription": "{category} LEGOミニフィグ {itemNo}。現在のBrickLink価格と市場価値を追跡できます。"
+    },
+    "breadcrumbs": {
+      "home": "ホーム",
+      "themes": "テーマ"
+    },
+    "errors": {
+      "failedToAddToWishlist": "ウィッシュリストへの追加に失敗しました",
+      "failedToUpdateWishlist": "ウィッシュリストの更新に失敗しました",
+      "failedToAdd": "追加に失敗しました",
+      "pleaseSignIn": "アイテムを追加するにはサインインしてください",
+      "alreadyInInventory": "すでに在庫にあります",
+      "failedToAddToInventory": "在庫への追加に失敗しました",
+      "failedToAddToPersonalCollection": "個人コレクションへの追加に失敗しました",
+      "failedToUpdateQuantity": "数量の更新に失敗しました",
+      "failedToMoveItem": "アイテムの移動に失敗しました",
+      "failedToDeleteItem": "アイテムの削除に失敗しました"
+    },
+    "messages": {
+      "addedToGuestCollectionOne": "1件のアイテムをコレクションに追加しました！",
+      "addedToGuestCollectionMany": "{count}件のアイテムをコレクションに追加しました！",
+      "addedToSellOne": "1件のアイテムを売却用に追加しました",
+      "addedToSellMany": "{count}件のアイテムを売却用に追加しました",
+      "addedToKeepOne": "1件のアイテムを保管用に追加しました",
+      "addedToKeepMany": "{count}件のアイテムを保管用に追加しました",
+      "addedMoreToSellOne": "売却用にさらに1件追加しました",
+      "addedMoreToSellMany": "売却用にさらに{count}件追加しました",
+      "addedMoreToKeepOne": "保管用にさらに1件追加しました",
+      "addedMoreToKeepMany": "保管用にさらに{count}件追加しました",
+      "movedToSellOne": "1件のアイテムを売却用に移動しました",
+      "movedToSellMany": "{count}件のアイテムを売却用に移動しました",
+      "movedToKeepOne": "1件のアイテムを保管用に移動しました",
+      "movedToKeepMany": "{count}件のアイテムを保管用に移動しました",
+      "removedFromPersonalCollection": "個人コレクションから削除しました",
+      "movedOneMinifigure": "1体のミニフィグを移動しました",
+      "undo": "元に戻す"
+    },
+    "altText": {
+      "mainImage": "LEGO {name} ミニフィグ {no} - {category}",
+      "relatedImage": "LEGO {name} ミニフィグ {no}"
+    },
+    "schemaDescription": "{category}テーマのLEGO {name} ミニフィグ {no}。現在のBrickLink価格を追跡し、LEGOコレクションを管理できます。"
   },
   "supportLink": {
     "savedYouTime": "時間を節約できましたか？迅速・正確な価格設定をサポート →"
+  },
+  "metadata": {
+    "title": "FigTracker - あらゆるLEGOミニフィグ・セットの価格をひと目で",
+    "description": "あらゆるLEGOミニフィグ・セットの価格を数秒で確認。BrickLinkとeBayのデータから算出したおすすめ価格をひとつご提案します。在庫管理も無料。18,000点以上のミニフィグ、20,000点以上のセットに対応。",
+    "twitterDescription": "あらゆるLEGOミニフィグ・セットの価格を数秒で確認。BrickLinkとeBayのデータから算出したおすすめ価格をひとつご提案します。在庫管理も無料。",
+    "keywords": [
+      "LEGOミニフィグ 価格",
+      "LEGOセット 価格",
+      "BrickLink 価格トラッカー",
+      "LEGOコレクション管理",
+      "ミニフィグ 価値トラッカー",
+      "LEGO 販売者向けツール",
+      "LEGO 価格ガイド",
+      "ミニフィギュア コレクショントラッカー",
+      "LEGOセット トラッカー",
+      "LEGO 在庫トラッカー",
+      "LEGO 価格を追跡",
+      "LEGO 価格ツール",
+      "ミニフィグ おすすめ価格"
+    ],
+    "ogImageAlt": "FigTracker - LEGOミニフィグ価格トラッカー",
+    "webAppDescription": "あらゆるLEGOミニフィグ・セットの価格を数秒で確認。おすすめ価格をひとつご提案するので、計算の手間はいりません。",
+    "featureList": [
+      "ミニフィグ・セットごとにおすすめ価格をひとつご提案",
+      "販売用リストと個人コレクションを分けて管理",
+      "おすすめ価格計算機",
+      "コレクション管理",
+      "LEGOミニフィグ18,000点以上、セット20,000点以上"
+    ],
+    "organizationDescription": "FigTrackerはあらゆるLEGOミニフィグ・セットに対しておすすめ価格をひとつご提案し、より早く自信を持って出品できるようサポートします。",
+    "siteAlternateName": "LEGOミニフィグ価格トラッカー",
+    "ogImage": {
+      "subtitle": "LEGOミニフィグ価格トラッカー",
+      "featureText": "リアルタイムのBrickLink価格 • コレクションを管理"
+    }
+  },
+  "themeMeta": {
+    "nameLegoMinifigures": "{name} LEGOミニフィグ",
+    "titleWithCount": "{theme} LEGOミニフィグ＆セットを見る（ミニフィグ{count}点）| FigTracker",
+    "titleNoCount": "{theme} LEGOミニフィグ＆セットを見る | FigTracker",
+    "descriptionWithCount": "{theme}のLEGOミニフィグ・セット{count}点をスマート市場価格でチェック。現在の市場価値を追跡し、コレクションを管理して、売却用・保管用アイテムを整理できます{seriesSuffix}。",
+    "descriptionAllNoCount": "{theme}のLEGOミニフィグ・セットをすべてスマート市場価格でチェック。現在の市場価値を追跡し、コレクションを管理して、売却用・保管用アイテムを整理できます{seriesSuffix}。",
+    "acrossSeriesSuffix": "（{count}シリーズ）",
+    "keywordThemeMinifigures": "{theme} LEGOミニフィグ",
+    "keywordThemeSets": "{theme} LEGOセット",
+    "keywordThemeMinifigPrice": "{theme} ミニフィグ 価格",
+    "keywordThemeSetPrice": "{theme} セット 価格",
+    "keywordThemePriceTracker": "{theme} 価格トラッカー",
+    "keywordThemeCollectionManager": "{theme} コレクション管理",
+    "keywordBricklinkPrices": "BrickLink 価格",
+    "keywordLegoPriceGuide": "LEGO 価格ガイド",
+    "keywordTrackLegoPrices": "LEGO 価格を追跡",
+    "ogTitleThemeSets": "{theme} LEGOミニフィグ＆セット | FigTracker",
+    "notFoundTitle": "テーマが見つかりません",
+    "layoutTitle": "{theme} LEGOミニフィグ - 価格ガイド＆コレクション（ミニフィグ{count}点）| FigTracker",
+    "layoutDescription": "{theme}のLEGOミニフィグ全{count}点をスマート市場価格で閲覧。価値を追跡し、在庫を管理して、キャラクターバリアントを発見できます。{theme}コレクションの完全ガイドです。",
+    "layoutOgTitle": "{theme} LEGOミニフィグ - {count}点",
+    "layoutOgDescription": "複数の情報源によるスマート市場価格で、{theme}のLEGOミニフィグ{count}点を閲覧・価格チェック",
+    "keywordThemeMinifigPrices": "{theme} ミニフィグ 価格",
+    "keywordThemeBricklink": "{theme} Bricklink",
+    "keywordThemeLegoCollection": "{theme} LEGOコレクション",
+    "keywordMinifigureValueTracker": "ミニフィギュア 価値トラッカー",
+    "subTitleWithCount": "{name} LEGOミニフィグ（{count}点）| FigTracker",
+    "subTitleNoCount": "{name} LEGOミニフィグ | FigTracker",
+    "subDescriptionWithCount": "{fullName}のLEGOミニフィグ全{count}点をスマート市場価格で閲覧。価格を追跡し、コレクションを管理して、レアなバリアントを発見できます。",
+    "subDescriptionNoCount": "{fullName}のLEGOミニフィグをスマート市場価格で閲覧。価格を追跡し、コレクションを管理できます。",
+    "keywordFullNameMinifigures": "{fullName} LEGOミニフィグ",
+    "keywordNameLego": "{name} LEGO",
+    "keywordNameMinifigPrice": "{name} ミニフィグ 価格",
+    "keywordMinifigureCollection": "ミニフィギュア コレクション"
+  },
+  "verifyHuman": {
+    "meta": {
+      "title": "セキュリティチェック | FigTracker",
+      "description": "続行するには、簡単なセキュリティチェックを完了してください"
+    },
+    "errors": {
+      "refresh": "認証に失敗しました。更新してもう一度お試しください。",
+      "retry": "認証に失敗しました。もう一度お試しください。",
+      "network": "ネットワークエラーが発生しました。接続をご確認ください。"
+    },
+    "heading": "簡単なセキュリティチェック",
+    "explanation": "通常と異なるアクセスパターンを検知しました。ボットではないことを確認するため、簡単なテストにご協力ください。これによりスパムを防ぎ、サイトを快適な速度に保つことができます。",
+    "waitHint": "通常は数秒で完了します...",
+    "success": "認証完了！リダイレクトしています...",
+    "tryAgain": "もう一度試す",
+    "poweredBy": "Cloudflare Turnstileによって保護されています",
+    "learnMore": "詳しく見る"
+  },
+  "claimDonation": {
+    "meta": {
+      "title": "寄付を登録する - FigTracker",
+      "description": "あなたの寄付をFigTrackerサポーターランキングに追加します"
+    },
+    "hero": {
+      "title": "寄付を登録する",
+      "subtitle": "サポーターランキングに参加して、FigTrackerを無料で維持するために貢献したことをコミュニティに知らせましょう"
+    },
+    "success": {
+      "title": "みんなのためにLEGO価格情報を無料で提供できるようご協力いただきありがとうございます",
+      "body": "寄付の登録が完了しました。",
+      "leaderboardNote": " ホームページでランキングに表示されたあなたの名前を確認してみましょう！",
+      "homeButton": "ホームページへ"
+    },
+    "form": {
+      "instructions": "寄付を確認してランキングに登録するには、寄付の領収書に記載されたPayPalのメールアドレスと取引IDを入力してください。",
+      "paypalEmailLabel": "PayPalのメールアドレス *",
+      "paypalEmailPlaceholder": "your@email.com",
+      "transactionIdLabel": "取引ID *",
+      "transactionIdPlaceholder": "例：1AB23456CD789012E",
+      "transactionIdHelper": "PayPalの領収書メールに記載されています",
+      "leaderboardOptIn": "サポーターランキングに登録する",
+      "displayNameLabel": "表示名 *",
+      "displayNamePlaceholder": "LEGOマスター",
+      "displayNameHelper": "3〜30文字、半角英数字、スペース、アンダースコア、ハイフンのみ使用できます",
+      "submitLoading": "登録中...",
+      "submit": "寄付を登録する",
+      "privacyNote": "メールアドレスと取引IDは確認のみに使用され、公開されることはありません。"
+    },
+    "errors": {
+      "failed": "寄付の登録に失敗しました",
+      "network": "ネットワークエラーが発生しました。もう一度お試しください。"
+    }
+  },
+  "minifigFAQ": {
+    "heading": "よくある質問",
+    "newOrUsed": {
+      "question": "{minifigNo}は新品と中古、どちらを買うべきですか？",
+      "answerExpensive": "{minifigName}については、予算と用途によって選択が変わります。新品は通常20〜40%高くなりますが、印刷の美しさと未使用であることが保証されます。中古はより手頃な価格で、個人のコレクションやMOC制作には十分適しています。{price}という価格であれば、大きく節約できる中古を検討する価値があります—ただし写真で印刷の状態を必ず確認してください。中古を購入する前には、印刷の色あせ、腕の割れ、胴体のひび割れがないか、出品者の写真を必ずチェックしましょう。",
+      "answerBudget": "{minifigName}については、予算と用途によって選択が変わります。新品は通常20〜40%高くなりますが、印刷の美しさと未使用であることが保証されます。中古はより手頃な価格で、個人のコレクションやMOC制作には十分適しています。{price}という価格であれば、完璧な状態を求めて新品を選ぶ価値が十分にあるでしょう。中古を購入する前には、印刷の色あせ、腕の割れ、胴体のひび割れがないか、出品者の写真を必ずチェックしましょう。",
+      "answerNeutral": "{minifigName}については、予算と用途によって選択が変わります。新品は通常20〜40%高くなりますが、印刷の美しさと未使用であることが保証されます。中古はより手頃な価格で、個人のコレクションやMOC制作には十分適しています。BrickLinkで新品と中古の価格を比較してみましょう—差がわずかな場合もあります。中古を購入する前には、印刷の色あせ、腕の割れ、胴体のひび割れがないか、出品者の写真を必ずチェックしましょう。",
+      "answerNoPriceData": "現在の価格データがない場合は、BrickLinkで{minifigName}の新品・中古の価格を比較してみてください。一般的には、価格差が$5未満の場合や転売目的で投資する場合は新品を、個人のコレクションを作っていて多少の使用感を許容できる場合は中古を選ぶとよいでしょう。"
+    },
+    "whyPrice": {
+      "questionExpensive": "{minifigNo}はなぜこんなに高いのですか？",
+      "questionBudget": "{minifigNo}はなぜこんなに手頃な価格なのですか？",
+      "questionNeutral": "{minifigNo}はなぜこの価格になっているのですか？",
+      "expensiveAnswerVintageRetired": "{minifigName}が{price}というプレミアム価格になっているのには、いくつかの理由があります：**発売年** - {year}年発売のヴィンテージミニフィグは、良好な状態のものを見つけにくくなっています。**{categoryName}の人気** - コレクターからの需要が高い。**入手困難** - 少数のセットや限定セットにのみ登場した可能性が高い。**廃盤セット** - 元のセットはすでに生産終了しています。限定セット、プロモーションアイテム、ファンに人気のキャラクターのプレミアムミニフィグは、常に高い価値を保ちます。",
+      "expensiveAnswerRetired": "{minifigName}が{price}というプレミアム価格になっているのには、いくつかの理由があります：**{categoryName}の人気** - コレクターからの需要が高い。**入手困難** - 少数のセットや限定セットにのみ登場した可能性が高い。**廃盤セット** - 元のセットはすでに生産終了しています。限定セット、プロモーションアイテム、ファンに人気のキャラクターのプレミアムミニフィグは、常に高い価値を保ちます。",
+      "expensiveAnswerBase": "{minifigName}が{price}というプレミアム価格になっているのには、いくつかの理由があります：**{categoryName}の人気** - コレクターからの需要が高い。**入手困難** - 少数のセットや限定セットにのみ登場した可能性が高い。限定セット、プロモーションアイテム、ファンに人気のキャラクターのプレミアムミニフィグは、常に高い価値を保ちます。",
+      "budgetAnswerRecent": "{minifigName}が{price}という手頃な価格なのには理由があります：**最近の発売** - {year}年発売のセットからまだ簡単に入手できます。**入手しやすさ** - 複数のセットに含まれているか、大量生産されている可能性が高い。**汎用的なデザイン** - キャラクター物ではない、いわゆる「アーミービルダー」向けミニフィグは価格が低くなります。大量購入やMOC制作、予算を抑えてコレクションを始めるのに最適です。",
+      "budgetAnswerBase": "{minifigName}が{price}という手頃な価格なのには理由があります：**入手しやすさ** - 複数のセットに含まれているか、大量生産されている可能性が高い。**汎用的なデザイン** - キャラクター物ではない、いわゆる「アーミービルダー」向けミニフィグは価格が低くなります。大量購入やMOC制作、予算を抑えてコレクションを始めるのに最適です。",
+      "neutralAnswerWithYear": "{minifigName}は{price}という適正な価格で、需要と供給のバランスを反映しています。{year}年発売で、高値がつくほど希少でもなく、投げ売りされるほどありふれてもいません。適正価格のおかげで、多くのコレクターにとって手が届きやすく、それでいてコレクションとしての価値も保たれています。",
+      "neutralAnswerNoYear": "{minifigName}は{price}という適正な価格で、需要と供給のバランスを反映しています。高値がつくほど希少でもなく、投げ売りされるほどありふれてもいません。適正価格のおかげで、多くのコレクターにとって手が届きやすく、それでいてコレクションとしての価値も保たれています。"
+    },
+    "bestTime": {
+      "question": "{minifigNo}を買うのに最適な時期はいつですか？",
+      "answerRecent": "LEGO市場のトレンドから見ると、{minifigName}を買うのに最適な時期は次の通りです：**今、廃盤になる前** - {year}年発売のセットはまもなく廃盤となり、廃盤後1年以内に価格が30〜50%急騰するのが一般的です。11月〜12月（ホリデー需要）やセット廃盤直後（投機的な高騰）の購入は避けましょう。上記の価格推移チャートで下落傾向がないか確認してください。BrickLinkで{priceLower}以下の価格アラートを設定すれば、お得な価格を逃しません。",
+      "answerVintage": "LEGO市場のトレンドから見ると、{minifigName}を買うのに最適な時期は次の通りです：**閑散期** - {year}年発売のヴィンテージミニフィグは、購入するコレクターが少なくなる夏（6月〜8月）が最も安くなります。11月〜12月（ホリデー需要）やセット廃盤直後（投機的な高騰）の購入は避けましょう。上記の価格推移チャートで下落傾向がないか確認してください。BrickLinkで{priceLower}以下の価格アラートを設定すれば、お得な価格を逃しません。",
+      "answerStandard": "LEGO市場のトレンドから見ると、{minifigName}を買うのに最適な時期は次の通りです：**ホリデーシーズン後** - 出品者の在庫が過剰になる1月〜2月に価格が下がることが多いです。11月〜12月（ホリデー需要）やセット廃盤直後（投機的な高騰）の購入は避けましょう。上記の価格推移チャートで下落傾向がないか確認してください。BrickLinkで{priceLower}以下の価格アラートを設定すれば、お得な価格を逃しません。"
+    },
+    "authenticity": {
+      "question": "{minifigNo}が本物かどうかはどうやって確認できますか？",
+      "answerExpensive": "{minifigName}が本物のLEGOかどうかを確認する方法：**1. スタッド（突起）を確認** - すべてのLEGOミニフィグのパーツには、スタッド部分（頭のてっぺん、胴体の内側）に\"LEGO\"の刻印があります。**2. 印刷の品質** - LEGOの印刷はにじみやズレのないくっきりとした仕上がりです。偽物は印刷がぼやけていることが多いです。**3. プラスチックの質感** - 本物のLEGOには独特の質感とクラッチパワー（パーツ同士のはまり具合）があります。偽物は光沢が強すぎたり、ペラペラだったりすることが多いです。**4. 色の一致** - LEGOの色は非常に均一です。黄色や肌色の色味が合っていない場合は偽物のパーツの可能性があります。この{price}のような高額なミニフィグの場合は、評価の高い信頼できるBrickLinkの出品者から購入しましょう。eBayで購入する場合は、出品者のタイトルに\"LEGO\"の表記があるか、LEGOの刻印のクローズアップ写真があるかを確認してください。",
+      "answerBase": "{minifigName}が本物のLEGOかどうかを確認する方法：**1. スタッド（突起）を確認** - すべてのLEGOミニフィグのパーツには、スタッド部分（頭のてっぺん、胴体の内側）に\"LEGO\"の刻印があります。**2. 印刷の品質** - LEGOの印刷はにじみやズレのないくっきりとした仕上がりです。偽物は印刷がぼやけていることが多いです。**3. プラスチックの質感** - 本物のLEGOには独特の質感とクラッチパワー（パーツ同士のはまり具合）があります。偽物は光沢が強すぎたり、ペラペラだったりすることが多いです。**4. 色の一致** - LEGOの色は非常に均一です。黄色や肌色の色味が合っていない場合は偽物のパーツの可能性があります。評価の高い信頼できるBrickLinkの出品者から購入しましょう。eBayで購入する場合は、出品者のタイトルに\"LEGO\"の表記があるか、LEGOの刻印のクローズアップ写真があるかを確認してください。"
+    }
+  },
+  "saveCollectionModal": {
+    "heading": "あなたのコレクションの価値は{value}です",
+    "subtext": "{count}{itemWord}を記録しました。無料アカウントを作成して永久に保存しましょう。",
+    "totalValueLabel": "合計価値",
+    "itemsTracked": "{count}{itemWord}を記録済み",
+    "benefitNeverLose": "このコレクションを二度と失わない",
+    "benefitAutoPriceUpdates": "価格を自動で更新",
+    "benefitGenerateListings": "出品文をすぐに作成",
+    "saveButton": "コレクションを保存する",
+    "continueAsGuest": "ゲストとして続ける"
+  },
+  "moveDialog": {
+    "titleToInventory": "在庫に移動",
+    "titleToCollection": "コレクションに移動",
+    "descriptionToInventory": "このアイテムを販売用の在庫に移動します。",
+    "descriptionToCollection": "このアイテムを個人コレクションに移動します。",
+    "failedToMove": "アイテムの移動に失敗しました",
+    "quantityLabel": "移動する数量",
+    "maximumLabel": "最大：{max}",
+    "cancel": "キャンセル",
+    "moving": "移動中...",
+    "confirm": "確認"
+  },
+  "guestCollectionBadge": {
+    "title": "あなたのコレクション",
+    "itemCount": "{count}{itemWord}",
+    "saveCta": "保存 →"
+  },
+  "priceDisplay": {
+    "suggestedPrice": "おすすめ価格",
+    "unavailable": "価格データがありません"
+  },
+  "currencyBanner": {
+    "detectionMessage": "{country}からのアクセスを検出しました。価格を{currency}で表示しますか？",
+    "acceptButton": "はい、{currency}を使用",
+    "keepUsd": "USDのまま"
+  },
+  "authRequiredModal": {
+    "heading": "コレクションで管理する",
+    "subheading": "「{itemName}」の管理を始めるにはサインアップしてください",
+    "benefitSavePermanently": "このアイテムを永久に保存",
+    "benefitTrackPrices": "価格を自動で追跡",
+    "benefitGenerateListings": "eBay・Facebookの出品文をすぐに作成",
+    "createAccountButton": "無料アカウントを作成",
+    "alreadyHaveAccount": "すでにアカウントをお持ちですか？",
+    "signInButton": "サインイン"
+  },
+  "notFound": {
+    "heading": "ページが見つかりません",
+    "body": "お探しのページは存在しないか、移動された可能性があります。",
+    "goHome": "ホームへ戻る"
+  },
+  "minifigError": {
+    "heading": "問題が発生しました",
+    "body": "このミニフィグを読み込めませんでした。一時的な問題である可能性があります。",
+    "tryAgain": "もう一度試す",
+    "backToSearch": "検索に戻る"
+  },
+  "minifigNotFound": {
+    "heading": "ミニフィグが見つかりません",
+    "body": "このミニフィグはカタログに見つかりませんでした。存在しないか、アイテム番号が間違っている可能性があります。",
+    "searchMinifigures": "ミニフィグを検索"
+  },
+  "scrollToTop": {
+    "ariaLabel": "トップへスクロール"
+  },
+  "breadcrumb": {
+    "ariaLabel": "パンくずリスト"
+  },
+  "communityStats": {
+    "since": "{year}年から",
+    "minifigsCount": "ミニフィグ{count}点"
+  },
+  "themeFilters": {
+    "all": "すべて",
+    "allCategories": "すべてのカテゴリー",
+    "searchPlaceholder": "カテゴリーを検索...",
+    "noCategoriesFound": "カテゴリーが見つかりません"
+  },
+  "deals": {
+    "off": "OFF",
+    "save": "節約額",
+    "noDealsFound": "このカテゴリーにはお得情報が見つかりません"
+  },
+  "priceHistory": {
+    "loadError": "価格履歴の読み込みに失敗しました",
+    "noDataMessage": "データが蓄積されると、ここに価格履歴が表示されます",
+    "noDataSubtext": "数日後にまた確認して、価格の推移をチェックしてみてください",
+    "sixMonths": "6ヶ月",
+    "allTime": "全期間"
+  },
+  "listingGenerator": {
+    "errors": {
+      "generateFailed": "出品文の生成に失敗しました"
+    },
+    "firstTimeBanner": {
+      "title": "はじめての方へ",
+      "body": "設定アイコンから出品の設定（プラットフォーム、状態など）をカスタマイズできます。「出品文を作成」ボタンは次回のために設定を記憶します！"
+    },
+    "quickGenerate": {
+      "loading": "出品文を作成中..."
+    },
+    "generateListing": "出品文を作成",
+    "customizeOptionsTooltip": "オプションをカスタマイズ",
+    "generatedListingHeading": "作成された出品文",
+    "adjustSettingsTooltip": "設定を調整",
+    "titleLabel": "タイトル：",
+    "copyTitle": "タイトルをコピー",
+    "priceLabel": "価格：",
+    "copyPrice": "価格をコピー",
+    "wholeNumber": "（整数）",
+    "descriptionLabel": "説明：",
+    "copyDescription": "説明をコピー",
+    "done": "完了",
+    "platformLabel": "プラットフォーム：",
+    "conditionLabel": "状態：",
+    "platform": {
+      "ebay": "eBay",
+      "facebook": "Facebook Marketplace",
+      "bricklink": "BrickLink",
+      "vinted": "Vinted"
+    },
+    "condition": {
+      "facebook": {
+        "new": "新品",
+        "likeNew": "ほぼ新品",
+        "good": "良好",
+        "fair": "可"
+      },
+      "ebay": {
+        "new": "新品",
+        "likeNew": "ほぼ新品",
+        "veryGood": "非常に良い",
+        "good": "良好",
+        "acceptable": "可"
+      },
+      "bricklink": {
+        "new": "新品",
+        "likeNew": "中古 - ほぼ新品",
+        "veryGood": "中古 - 非常に良い",
+        "good": "中古 - 良好",
+        "acceptable": "中古 - 可"
+      },
+      "vinted": {
+        "new": "タグ付き新品",
+        "likeNew": "非常に良い",
+        "good": "良好",
+        "fair": "普通"
+      }
+    },
+    "accessoriesLabel": "付属アクセサリー：",
+    "accessoriesPlaceholder": "ヘルメット、ブラスター、マントなど...",
+    "knownFlawsLabel": "既知の欠陥（任意）：",
+    "knownFlawsPlaceholder": "軽微な印刷の劣化、関節のゆるみなど...",
+    "boxConditionLabel": "箱の状態：",
+    "boxCondition": {
+      "sealed": "未開封（一度も開けていない）",
+      "openedNew": "開封済み（セットは新品・未組み立て）",
+      "noBox": "箱なし",
+      "withBox": "箱あり"
+    },
+    "buildingStatusLabel": "組み立て状況：",
+    "buildingStatus": {
+      "unbuiltSealed": "未組み立て（袋未開封）",
+      "unbuiltBagsOpened": "未組み立て（袋開封済み）",
+      "unassembled": "未組み立て",
+      "partiallyBuilt": "一部組み立て済み",
+      "fullyBuilt": "完全組み立て済み",
+      "disassembled": "組み立て後に分解済み"
+    },
+    "completenessLabel": "完全性：",
+    "completeness": {
+      "verified": "100%完備（パーツ数確認済み）",
+      "appearsComplete": "おそらく完備（未確認）",
+      "missingMinor": "一部の小さなパーツが欠品",
+      "missingMajor": "一部のパーツが欠品"
+    },
+    "instructionsIncluded": "説明書あり",
+    "minifiguresIncluded": "ミニフィグすべて含む",
+    "additionalNotesLabel": "追加メモ（任意）：",
+    "additionalNotesPlaceholder": "セットの状態に関するその他の詳細...",
+    "quantityLabel": "出品数量：",
+    "includeInListingLabel": "出品文に含める：",
+    "preferences": {
+      "offersShipping": "配送対応可能",
+      "offersLocalPickup": "直接受け渡し対応可能",
+      "offersBundleDiscount": "まとめ買い割引あり",
+      "acceptsCash": "現金対応可能",
+      "acceptsVenmo": "Venmo対応可能",
+      "acceptsPayPal": "PayPal対応可能",
+      "acceptsOffers": "オファー受付中 - \"Make Offer\"を有効にしています",
+      "fastShipping": "迅速・安全に発送します",
+      "carefulPackaging": {
+        "ebay": "保護材で丁寧に梱包します",
+        "bricklink": "丁寧に梱包します"
+      },
+      "messageWithQuestions": {
+        "ebay": "\"ご質問はお気軽にメッセージください\"",
+        "bricklink": "\"購入前にご質問があればご連絡ください\""
+      },
+      "shipsWithTracking": "追跡付きで発送します",
+      "smokeFreeHome": "禁煙環境での保管品"
+    },
+    "cancel": "キャンセル",
+    "generating": "生成中...",
+    "regenerate": "再生成"
+  },
+  "priceAlert": {
+    "invalidPrice": "有効な価格を入力してください",
+    "targetBelowCurrent": "目標価格は現在の価格（{price}）より低く設定してください",
+    "setSuccess": "✓ 価格アラートを設定しました！価格が下がるとメールでお知らせします。",
+    "setFailed": "アラートの設定に失敗しました",
+    "setFailedRetry": "アラートの設定に失敗しました。もう一度お試しください。",
+    "deleteFailed": "アラートの削除に失敗しました",
+    "deleteFailedRetry": "アラートの削除に失敗しました。もう一度お試しください。",
+    "deleteSuccess": "✓ 価格アラートを削除しました",
+    "buttonTooltip": "価格アラートを設定",
+    "buttonLabel": "価格アラート",
+    "modalTitle": "価格アラートを設定",
+    "currentPrice": "現在の価格",
+    "notifyLabel": "価格が次の金額まで下がったら通知：",
+    "targetHint": "現在の価格より低い目標価格を設定してください",
+    "cancel": "キャンセル",
+    "setting": "設定中...",
+    "setAlert": "アラートを設定",
+    "footerNote": "価格が目標金額以下になるとメールでお知らせします。アラートは通知後、自動的に無効になります。",
+    "viewAllAlerts": "すべてのアラートを見る",
+    "alertActive": "アラート有効",
+    "alertTarget": "アラートの目標価格",
+    "deleting": "削除中...",
+    "deleteAlert": "アラートを削除",
+    "editTarget": "目標価格を編集",
+    "saving": "保存中...",
+    "save": "保存"
+  },
+  "accountAlerts": {
+    "confirmDelete": "このアラートを削除してもよろしいですか？",
+    "deleteSuccess": "アラートを削除しました",
+    "deleteFailed": "アラートの削除に失敗しました",
+    "paused": "アラートを一時停止しました",
+    "activated": "アラートを有効にしました",
+    "updateFailed": "アラートの更新に失敗しました",
+    "invalidPrice": "有効な価格を入力してください",
+    "priceUpdated": "目標価格を更新しました",
+    "priceUpdateFailed": "価格の更新に失敗しました",
+    "title": "価格アラート",
+    "subtitle": "価格下落通知を管理",
+    "emptyTitle": "価格アラートはまだありません",
+    "emptyBody": "ミニフィグやセットに価格アラートを設定すると、価格が下がったときに通知を受け取れます。",
+    "browseItems": "アイテムを見る",
+    "activeAlerts": "有効なアラート（{count}）",
+    "triggeredAlerts": "発動したアラート（{count}）",
+    "pausedAlerts": "一時停止中のアラート（{count}）",
+    "minifigure": "ミニフィグ",
+    "set": "セット",
+    "target": "目標：",
+    "editTargetPrice": "目標価格を編集",
+    "triggeredOn": "{date}に発動",
+    "lastChecked": "最終確認：{date}",
+    "created": "作成日：{date}",
+    "reactivate": "再度有効にする",
+    "pause": "一時停止",
+    "activate": "有効にする",
+    "deleteAlert": "アラートを削除"
+  },
+  "setCard": {
+    "noImage": "画像なし",
+    "released": "{year}年発売",
+    "ageYears": "発売から{age}年",
+    "priceIncrease": "価格+{percent}%上昇",
+    "estimatedRetirement": "廃盤予想：{quarter}",
+    "retirementScore": "廃盤スコア",
+    "viewDetails": "詳細を見る"
   }
 }

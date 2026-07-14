@@ -432,7 +432,7 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
               marginBottom: '24px',
               letterSpacing: '-0.02em'
             }}>
-              Minifigures
+              {t('themes.minifiguresHeading') || 'Minifigures'}
             </h2>
           )}
           <div style={{

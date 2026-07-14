@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslation } from '@/components/TranslationProvider';
+import { formatPrice } from '@/lib/format-price';
 
 interface TopDonor {
   displayName: string;
@@ -9,6 +11,7 @@ interface TopDonor {
 }
 
 export default function DonationLeaderboard() {
+  const { t } = useTranslation();
   const [topDonors, setTopDonors] = useState<TopDonor[]>([]);
   const [season, setSeason] = useState<string>('');
   const [loading, setLoading] = useState(true);
@@ -52,7 +55,7 @@ export default function DonationLeaderboard() {
             letterSpacing: '-0.01em',
           }}
         >
-          Top Supporters
+          {t('leaderboards.topSupporters') || 'Top Supporters'}
         </h2>
         <p
           style={{
@@ -62,7 +65,7 @@ export default function DonationLeaderboard() {
             marginBottom: '40px',
           }}
         >
-          Thank you to our generous supporters this quarter ({season})
+          {(t('leaderboards.donationSubtitle') || 'Thank you to our generous supporters this quarter ({season})').replace('{season}', season)}
         </p>
 
         {/* Donor Grid */}
@@ -170,7 +173,7 @@ function DonorCard({ donor }: { donor: TopDonor }) {
           marginBottom: '0',
         }}
       >
-        ${donor.totalAmount.toFixed(2)}
+        {formatPrice(donor.totalAmount, 'USD', true)}
       </p>
     </div>
   );

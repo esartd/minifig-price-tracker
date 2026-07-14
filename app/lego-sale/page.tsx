@@ -2,22 +2,30 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import LegoSaleClient from './client';
 import { triggerRefreshIfStale } from '@/lib/amazon-deals-refresh';
+import { getTranslations, getLocaleFromHost } from '@/lib/i18n-subdomain';
 
 // Feature flag check
 const ENABLED = process.env.ENABLE_LEGO_SALE === 'true';
 
 export async function generateMetadata(): Promise<Metadata> {
+  const { headers } = await import('next/headers');
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const locale = getLocaleFromHost(host);
+  const t = await getTranslations(locale);
+
   if (!ENABLED) {
     return {
-      title: 'Page Not Found',
+      title: t.legoSale?.meta?.notFoundTitle || 'Page Not Found',
     };
   }
 
   return {
-    title: 'LEGO® Sale: Best Amazon Deals Up to 50% Off | FigTracker',
+    title: t.legoSale?.meta?.title || 'LEGO® Sale: Best Amazon Deals Up to 50% Off | FigTracker',
     description:
+      t.legoSale?.meta?.description ||
       'Find the best LEGO deals on Amazon with discounts up to 50% off. Updated every 6 hours. Browse current LEGO sets from Star Wars, City, Creator, and more. Free shipping with Prime.',
-    keywords: [
+    keywords: t.legoSale?.meta?.keywords || [
       'LEGO sale',
       'LEGO deals',
       'LEGO Amazon',
@@ -31,16 +39,17 @@ export async function generateMetadata(): Promise<Metadata> {
       'LEGO promotions',
     ],
     openGraph: {
-      title: 'LEGO® Sale - Up to 50% Off on Amazon',
+      title: t.legoSale?.meta?.ogTitle || 'LEGO® Sale - Up to 50% Off on Amazon',
       description:
+        t.legoSale?.meta?.ogDescription ||
         'Discover the best LEGO deals on Amazon. Updated every 6 hours with discounts from 20% to 50% off.',
       type: 'website',
       url: 'https://figtracker.ericksu.com/lego-sale',
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'LEGO® Sale - Best Amazon Deals',
-      description: 'Find LEGO sets with up to 50% off on Amazon',
+      title: t.legoSale?.meta?.twitterTitle || 'LEGO® Sale - Best Amazon Deals',
+      description: t.legoSale?.meta?.twitterDescription || 'Find LEGO sets with up to 50% off on Amazon',
     },
   };
 }

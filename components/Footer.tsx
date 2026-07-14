@@ -5,12 +5,12 @@ import { useTranslation } from './TranslationProvider';
 export default function Footer() {
   const { t } = useTranslation();
   const popularThemes = [
-    { name: 'Star Wars', slug: 'star-wars' },
-    { name: 'Harry Potter', slug: 'harry-potter' },
-    { name: 'Super Heroes', slug: 'super-heroes' },
-    { name: 'City', slug: 'city' },
-    { name: 'Ninjago', slug: 'ninjago' },
-    { name: 'Friends', slug: 'friends' },
+    { name: t('themes.names.starWars') || 'Star Wars', slug: 'star-wars' },
+    { name: t('themes.names.harryPotter') || 'Harry Potter', slug: 'harry-potter' },
+    { name: t('themes.names.superHeroes') || 'Super Heroes', slug: 'super-heroes' },
+    { name: t('themes.names.city') || 'City', slug: 'city' },
+    { name: t('themes.names.ninjago') || 'Ninjago', slug: 'ninjago' },
+    { name: t('themes.names.friends') || 'Friends', slug: 'friends' },
   ];
 
   return (

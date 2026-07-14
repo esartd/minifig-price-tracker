@@ -1,5 +1,17 @@
 import { ImageResponse } from '@vercel/og';
-export async function GET() {
+import { getTranslations, locales, defaultLocale, type Locale } from '@/lib/i18n-subdomain';
+
+export async function GET(request: Request) {
+  // Locale comes from a `?locale=` query param that app/layout.tsx appends when it
+  // builds the OG image URL (it already knows the visitor's locale from the host).
+  // No other caller of this route passes a locale today.
+  const { searchParams } = new URL(request.url);
+  const requestedLocale = searchParams.get('locale') || defaultLocale;
+  const locale: Locale = (locales as readonly string[]).includes(requestedLocale)
+    ? (requestedLocale as Locale)
+    : defaultLocale;
+  const t = await getTranslations(locale);
+
   return new ImageResponse(
     (
       <div
@@ -38,7 +50,7 @@ export async function GET() {
             marginBottom: 40,
           }}
         >
-          LEGO Minifigure Price Tracker
+          {t.metadata?.ogImage?.subtitle || 'LEGO Minifigure Price Tracker'}
         </div>
 
         {/* Feature Text */}
@@ -50,7 +62,7 @@ export async function GET() {
             marginBottom: 40,
           }}
         >
-          Real-time Bricklink prices • Track your collection
+          {t.metadata?.ogImage?.featureText || 'Real-time Bricklink prices • Track your collection'}
         </div>
 
         {/* URL */}

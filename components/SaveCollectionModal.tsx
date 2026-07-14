@@ -22,6 +22,8 @@ export default function SaveCollectionModal({
 
   if (!isOpen) return null;
 
+  const itemWord = itemCount === 1 ? 'item' : 'items';
+
   const handleSaveCollection = () => {
     // Store intent to migrate guest collection after signup
     if (typeof window !== 'undefined') {
@@ -84,14 +86,14 @@ export default function SaveCollectionModal({
                 marginBottom: '8px',
                 letterSpacing: '-0.01em'
               }}>
-                Your collection is worth {formatPrice(totalValue, currencyCode)}
+                {t('saveCollectionModal.heading', { value: formatPrice(totalValue, currencyCode) }) || `Your collection is worth ${formatPrice(totalValue, currencyCode)}`}
               </h2>
               <p style={{
                 fontSize: 'var(--text-sm)',
                 color: '#737373',
                 lineHeight: '1.5'
               }}>
-                You've tracked {itemCount} {itemCount === 1 ? 'item' : 'items'}. Create a free account to save it permanently.
+                {t('saveCollectionModal.subtext', { count: itemCount, itemWord }) || `You've tracked ${itemCount} ${itemWord}. Create a free account to save it permanently.`}
               </p>
             </div>
             <button
@@ -131,13 +133,13 @@ export default function SaveCollectionModal({
             color: 'white'
           }}>
             <div style={{ fontSize: 'var(--text-xs)', fontWeight: '500', opacity: 0.9, marginBottom: '4px' }}>
-              TOTAL VALUE
+              {t('saveCollectionModal.totalValueLabel') || 'TOTAL VALUE'}
             </div>
             <div style={{ fontSize: '32px', fontWeight: '700', letterSpacing: '-0.02em' }}>
               {formatPrice(totalValue, currencyCode)}
             </div>
             <div style={{ fontSize: 'var(--text-sm)', opacity: 0.9, marginTop: '4px' }}>
-              {itemCount} {itemCount === 1 ? 'item' : 'items'} tracked
+              {t('saveCollectionModal.itemsTracked', { count: itemCount, itemWord }) || `${itemCount} ${itemWord} tracked`}
             </div>
           </div>
 
@@ -156,7 +158,7 @@ export default function SaveCollectionModal({
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
               <span style={{ fontSize: 'var(--text-sm)', color: '#171717', fontWeight: '500', lineHeight: '1.5' }}>
-                Never lose this collection
+                {t('saveCollectionModal.benefitNeverLose') || 'Never lose this collection'}
               </span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -164,7 +166,7 @@ export default function SaveCollectionModal({
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
               <span style={{ fontSize: 'var(--text-sm)', color: '#171717', fontWeight: '500', lineHeight: '1.5' }}>
-                Get automatic price updates
+                {t('saveCollectionModal.benefitAutoPriceUpdates') || 'Get automatic price updates'}
               </span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -172,7 +174,7 @@ export default function SaveCollectionModal({
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
               <span style={{ fontSize: 'var(--text-sm)', color: '#171717', fontWeight: '500', lineHeight: '1.5' }}>
-                Generate listings instantly
+                {t('saveCollectionModal.benefitGenerateListings') || 'Generate listings instantly'}
               </span>
             </div>
           </div>
@@ -195,7 +197,7 @@ export default function SaveCollectionModal({
             onMouseEnter={(e) => e.currentTarget.style.background = '#2563eb'}
             onMouseLeave={(e) => e.currentTarget.style.background = '#3b82f6'}
           >
-            Save My Collection
+            {t('saveCollectionModal.saveButton') || 'Save My Collection'}
           </button>
 
           <button
@@ -221,7 +223,7 @@ export default function SaveCollectionModal({
               e.currentTarget.style.borderColor = '#e5e7eb';
             }}
           >
-            Continue as Guest
+            {t('saveCollectionModal.continueAsGuest') || 'Continue as Guest'}
           </button>
         </div>
       </div>

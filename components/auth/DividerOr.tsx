@@ -1,4 +1,9 @@
+'use client';
+
+import { useTranslation } from '@/components/TranslationProvider';
+
 export function DividerOr() {
+  const { t } = useTranslation();
   return (
     <div style={{
       margin: '24px 0',
@@ -18,7 +23,7 @@ export function DividerOr() {
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
       }}>
-        OR
+        {t('auth.orDivider') || 'OR'}
       </div>
       <div style={{
         height: '1px',

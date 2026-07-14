@@ -118,14 +118,14 @@ export default function PersonalCollectionList({
           color: '#171717',
           marginBottom: '8px'
         }}>
-          No minifigures in your personal collection yet
+          {t('collection.noMinifigsInPersonalCollection') || 'No minifigures in your personal collection yet'}
         </p>
         <p style={{
-          
+
           color: '#737373',
           lineHeight: '1.6'
         }}>
-          Track your personal LEGO minifigures separately from items for sale
+          {t('collection.trackPersonalMinifigsSeparately') || 'Track your personal LEGO minifigures separately from items for sale'}
         </p>
       </div>
     );
@@ -237,10 +237,10 @@ export default function PersonalCollectionList({
                       }
                     } else {
                       const data = await response.json();
-                      alert(data.error || 'Failed to change condition');
+                      alert(data.error || t('collection.failedToChangeCondition') || 'Failed to change condition');
                     }
                   } catch (err) {
-                    alert('Failed to change condition');
+                    alert(t('collection.failedToChangeCondition') || 'Failed to change condition');
                   }
                 }}
                 onClick={(e) => e.stopPropagation()}
@@ -577,7 +577,7 @@ export default function PersonalCollectionList({
           alignItems: 'center',
           gap: '16px'
         }}>
-          <span>Moved 1 minifigure to Inventory</span>
+          <span>{t('collection.movedToInventory') || 'Moved 1 minifigure to Inventory'}</span>
           <button
             onClick={async () => {
               setMoveSuccess(false);
@@ -627,7 +627,7 @@ export default function PersonalCollectionList({
               e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
             }}
           >
-            Undo
+            {t('collection.undo') || 'Undo'}
           </button>
         </div>
       )}

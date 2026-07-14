@@ -35,6 +35,20 @@ export default function UnifiedSearchClient() {
   const searchEmptyTitle = translations?.search?.emptyTitle || 'Search for Minifigures and Sets';
   const searchEmptySubtitle = translations?.search?.emptySubtitle || 'Try searching by name, number, or theme';
   const searchingLabel = translations?.search?.searching || 'Searching...';
+  const searchLegoTitle = translations?.search?.legoTitle || 'Search LEGO';
+  const searchUnifiedPlaceholder = translations?.search?.unifiedPlaceholder || 'Search minifigures and sets...';
+  const allTabLabel = translations?.collection?.filters?.all || 'All';
+  const noResultsFoundLabel = translations?.search?.noResultsFound || 'No results found';
+  const noResultsSubtitleLabel = translations?.search?.noResultsSubtitle || 'Try different keywords or browse by theme';
+  const seeAllLabel = translations?.search?.seeAll || 'See all →';
+  // query stays the canonical English theme name (what the catalog/search API expects);
+  // only the visible label is translated
+  const suggestedThemeChips = [
+    { query: 'Star Wars', label: translations?.themes?.names?.starWars || 'Star Wars' },
+    { query: 'Harry Potter', label: translations?.themes?.names?.harryPotter || 'Harry Potter' },
+    { query: 'City', label: translations?.themes?.names?.city || 'City' },
+    { query: 'Ninjago', label: translations?.themes?.names?.ninjago || 'Ninjago' },
+  ];
   const [activeTab, setActiveTab] = useState<TabType>('all');
   const [minifigs, setMinifigs] = useState<MinifigResult[]>([]);
   const [sets, setSets] = useState<SetResult[]>([]);
@@ -135,7 +149,7 @@ export default function UnifiedSearchClient() {
               marginBottom: '16px',
               color: '#171717'
             }}>
-              Search LEGO
+              {searchLegoTitle}
             </h1>
 
             {/* Search Bar */}
@@ -167,7 +181,7 @@ export default function UnifiedSearchClient() {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search minifigures and sets..."
+                  placeholder={searchUnifiedPlaceholder}
                   autoComplete="off"
                   style={{
                     flex: 1,
@@ -233,7 +247,7 @@ export default function UnifiedSearchClient() {
                     whiteSpace: 'nowrap'
                   }}
                 >
-                  All
+                  {allTabLabel}
                 </button>
 
                 {minifigs.length > 0 && (
@@ -297,12 +311,12 @@ export default function UnifiedSearchClient() {
                 {searchEmptySubtitle}
               </div>
               <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                {['Star Wars', 'Harry Potter', 'City', 'Ninjago'].map(theme => (
+                {suggestedThemeChips.map(theme => (
                   <button
-                    key={theme}
+                    key={theme.query}
                     onClick={() => {
-                      setSearchQuery(theme);
-                      router.push(`/search?q=${encodeURIComponent(theme)}`);
+                      setSearchQuery(theme.query);
+                      router.push(`/search?q=${encodeURIComponent(theme.query)}`);
                     }}
                     style={{
                       padding: '10px 20px',
@@ -314,7 +328,7 @@ export default function UnifiedSearchClient() {
                       color: '#525252'
                     }}
                   >
-                    {theme}
+                    {theme.label}
                   </button>
                 ))}
               </div>
@@ -323,10 +337,10 @@ export default function UnifiedSearchClient() {
             <div style={{ textAlign: 'center', padding: '80px 20px', color: '#737373' }}>
               <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
               <div style={{ fontSize: '24px', fontWeight: '600', marginBottom: '8px' }}>
-                No results found
+                {noResultsFoundLabel}
               </div>
               <div style={{ fontSize: '16px' }}>
-                Try different keywords or browse by theme
+                {noResultsSubtitleLabel}
               </div>
             </div>
           ) : (
@@ -359,7 +373,7 @@ export default function UnifiedSearchClient() {
                           cursor: 'pointer'
                         }}
                       >
-                        See all →
+                        {seeAllLabel}
                       </button>
                     )}
                   </div>
@@ -468,7 +482,7 @@ export default function UnifiedSearchClient() {
                           cursor: 'pointer'
                         }}
                       >
-                        See all →
+                        {seeAllLabel}
                       </button>
                     )}
                   </div>

@@ -71,7 +71,7 @@ export default function RetirementSetCard({ set, translations }: Props) {
             color: '#d4d4d4',
             fontSize: 'var(--text-sm)'
           }}>
-            No image
+            {translations?.setCard?.noImage || 'No image'}
           </div>
         )}
 
@@ -190,7 +190,7 @@ export default function RetirementSetCard({ set, translations }: Props) {
               fontWeight: '600',
               color: set.priceIncrease > 20 ? '#dc2626' : '#d97706'
             }}>
-              +{set.priceIncrease.toFixed(0)}% price increase
+              {(translations?.setCard?.priceIncrease || '+{percent}% price increase').replace('{percent}', set.priceIncrease.toFixed(0))}
             </span>
           </div>
         )}
@@ -226,7 +226,7 @@ export default function RetirementSetCard({ set, translations }: Props) {
               fontSize: 'var(--text-xs)',
               color: '#737373'
             }}>
-              Retirement Score
+              {translations?.setCard?.retirementScore || 'Retirement Score'}
             </span>
             <span style={{
               fontSize: 'var(--text-xs)',

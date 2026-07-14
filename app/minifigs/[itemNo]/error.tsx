@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslation } from '@/components/TranslationProvider';
+
 export default function Error({
   error,
   reset,
@@ -7,6 +9,8 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const { t } = useTranslation();
+
   return (
     <div style={{
       maxWidth: '600px',
@@ -28,7 +32,7 @@ export default function Error({
         marginBottom: '16px',
         letterSpacing: '-0.01em'
       }}>
-        Something went wrong
+        {t('minifigError.heading') || 'Something went wrong'}
       </h2>
 
       <p style={{
@@ -37,7 +41,7 @@ export default function Error({
         lineHeight: '1.6',
         marginBottom: '32px'
       }}>
-        We couldn't load this minifigure. This might be a temporary issue.
+        {t('minifigError.body') || "We couldn't load this minifigure. This might be a temporary issue."}
       </p>
 
       <div style={{
@@ -66,7 +70,7 @@ export default function Error({
             e.currentTarget.style.background = '#3b82f6';
           }}
         >
-          Try again
+          {t('minifigError.tryAgain') || 'Try again'}
         </button>
 
         <a
@@ -91,7 +95,7 @@ export default function Error({
             e.currentTarget.style.background = '#ffffff';
           }}
         >
-          Back to search
+          {t('minifigError.backToSearch') || 'Back to search'}
         </a>
       </div>
     </div>

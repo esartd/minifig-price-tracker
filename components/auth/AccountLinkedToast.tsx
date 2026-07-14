@@ -2,8 +2,10 @@
 
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { useTranslation } from '@/components/TranslationProvider'
 
 export function AccountLinkedToast() {
+  const { t } = useTranslation()
   const searchParams = useSearchParams()
   const router = useRouter()
   const [show, setShow] = useState(false)
@@ -42,9 +44,9 @@ export function AccountLinkedToast() {
           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
         </svg>
         <div>
-          <div style={{ fontWeight: '600', marginBottom: '4px' }}>Account Linked!</div>
+          <div style={{ fontWeight: '600', marginBottom: '4px' }}>{t('auth.accountLinked.title') || 'Account Linked!'}</div>
           <div style={{ fontSize: '14px', opacity: 0.9 }}>
-            Your Google account is now connected to FigTracker.
+            {t('auth.accountLinked.message') || 'Your Google account is now connected to FigTracker.'}
           </div>
         </div>
       </div>

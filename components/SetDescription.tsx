@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface SetDescriptionProps {
   description: string;
@@ -11,6 +12,7 @@ export default function SetDescription({
   description,
   setName
 }: SetDescriptionProps) {
+  const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
 
   if (!description) return null;
@@ -40,7 +42,11 @@ export default function SetDescription({
       {isLongDescription && (
         <button
           onClick={() => setExpanded(!expanded)}
-          aria-label={expanded ? 'Show less description' : 'Show more description'}
+          aria-label={
+            expanded
+              ? (t('common.showLessDescriptionAria') || 'Show less description')
+              : (t('common.showMoreDescriptionAria') || 'Show more description')
+          }
           style={{
             marginTop: '4px',
             padding: '0',
@@ -53,7 +59,9 @@ export default function SetDescription({
             textDecoration: 'underline',
           }}
         >
-          {expanded ? 'Show less' : 'Show more'}
+          {expanded
+            ? (t('common.showLessDescription') || 'Show less')
+            : (t('common.showMoreDescription') || 'Show more')}
         </button>
       )}
     </div>

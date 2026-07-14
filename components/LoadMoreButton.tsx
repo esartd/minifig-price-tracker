@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslation } from '@/components/TranslationProvider';
+
 interface LoadMoreButtonProps {
   onLoadMore: () => void;
   loading?: boolean;
@@ -9,6 +11,7 @@ interface LoadMoreButtonProps {
 }
 
 export default function LoadMoreButton({ onLoadMore, loading, hasMore, currentCount, totalCount }: LoadMoreButtonProps) {
+  const { t } = useTranslation();
   if (!hasMore) return null;
 
   return (
@@ -23,7 +26,7 @@ export default function LoadMoreButton({ onLoadMore, loading, hasMore, currentCo
         fontSize: 'var(--text-sm)',
         color: '#737373'
       }}>
-        Showing {currentCount} of {totalCount} items
+        {t('common.showingOfCountItems', { currentCount, totalCount }) || `Showing ${currentCount} of ${totalCount} items`}
       </p>
       <button
         onClick={onLoadMore}
@@ -53,7 +56,7 @@ export default function LoadMoreButton({ onLoadMore, loading, hasMore, currentCo
           }
         }}
       >
-        {loading ? 'Loading...' : 'Show More'}
+        {loading ? (t('common.loading') || 'Loading...') : (t('common.showMore') || 'Show More')}
       </button>
     </div>
   );

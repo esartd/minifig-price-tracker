@@ -28,7 +28,14 @@
     "new": "Neuf",
     "used": "Utilisé",
     "copied": "Copié !",
-    "showLess": "Afficher moins"
+    "showLess": "Afficher moins",
+    "showMoreDescription": "Afficher plus",
+    "showLessDescription": "Afficher moins",
+    "showMoreDescriptionAria": "Afficher plus de description",
+    "showLessDescriptionAria": "Afficher moins de description",
+    "showingOfCount": "Affichage de {currentCount} sur {totalCount}",
+    "showingOfCountItems": "Affichage de {currentCount} sur {totalCount} articles",
+    "showMore": "Afficher plus"
   },
   "navigation": {
     "home": "Accueil",
@@ -350,6 +357,15 @@
       "keywords": "thèmes LEGO, minifigurines Star Wars, Harry Potter LEGO, Marvel LEGO, DC LEGO, minifigurines Ninjago, catalogue LEGO par thème",
       "ogTitle": "Parcourir les Minifigurines LEGO par Thème | FigTracker",
       "ogDescription": "Explorez les minifigurines de Star Wars, Harry Potter, Marvel et plus de 50 autres thèmes LEGO avec tarification en temps réel."
+    },
+    "minifiguresHeading": "Minifigurines",
+    "names": {
+      "starWars": "Star Wars",
+      "harryPotter": "Harry Potter",
+      "superHeroes": "Super Heroes",
+      "city": "City",
+      "ninjago": "Ninjago",
+      "friends": "Friends"
     }
   },
   "account": {
@@ -374,7 +390,8 @@
         "name": "Entrez votre nom complet"
       },
       "save": "Enregistrer",
-      "saving": "Enregistrement..."
+      "saving": "Enregistrement...",
+      "avatarAlt": "Avatar"
     },
     "security": {
       "title": "Sécurité",
@@ -394,7 +411,8 @@
       "subtitle": "Choisissez votre devise et langue préférées",
       "currency": "Devise",
       "language": "Langue",
-      "note": "Le changement de devise affichera les prix dans le marché de votre région sélectionnée. Les prix peuvent différer d'une région à l'autre en raison de l'offre locale, de la demande et des frais d'expédition."
+      "note": "Le changement de devise affichera les prix dans le marché de votre région sélectionnée. Les prix peuvent différer d'une région à l'autre en raison de l'offre locale, de la demande et des frais d'expédition.",
+      "noteLabel": "Remarque :"
     },
     "sharing": {
       "title": "Partager la collection",
@@ -456,7 +474,13 @@
       "showSets": "M'afficher dans le classement des meilleurs collectionneurs de sets",
       "showSetsDesc": "Le nombre de vos sets sera visible publiquement",
       "save": "Enregistrer les modifications",
-      "saving": "Enregistrement..."
+      "saving": "Enregistrement...",
+      "updateSuccess": "Paramètres du classement mis à jour avec succès !",
+      "updateError": "Échec de la mise à jour des paramètres",
+      "networkError": "Erreur réseau. Veuillez réessayer.",
+      "visibilityError": "Échec de la mise à jour de la visibilité",
+      "displayNamePlaceholder": "ex. : Maître LEGO",
+      "yourProfile": "Votre profil :"
     }
   },
   "search": {
@@ -475,7 +499,19 @@
     "seeAllSets": "Voir tous les sets →",
     "showing": "Affichage de {shown} sur {total} résultat",
     "showingPlural": "Affichage de {shown} sur {total} résultats",
-    "loadMore": "Charger plus ({remaining} restants)"
+    "loadMore": "Charger plus ({remaining} restants)",
+    "all": "Tous",
+    "addToCollection": {
+      "signInToAdd": "Se connecter pour ajouter"
+    },
+    "badges": {
+      "set": "SET"
+    },
+    "legoTitle": "Rechercher LEGO",
+    "unifiedPlaceholder": "Rechercher des minifigurines et des sets...",
+    "noResultsFound": "Aucun résultat trouvé",
+    "noResultsSubtitle": "Essayez d'autres mots-clés ou parcourez par thème",
+    "seeAll": "Voir tout →"
   },
   "buyButtons": {
     "ebay": {
@@ -489,7 +525,8 @@
       "description": "Livraison rapide & retours faciles",
       "sponsored": "Sponsorisé",
       "shopOn": "Acheter sur Amazon",
-      "buyOn": "Acheter sur Amazon"
+      "buyOn": "Acheter sur Amazon",
+      "prime": "Prime"
     },
     "bricklink": {
       "name": "BrickLink",
@@ -512,7 +549,9 @@
     "ebayLoggedOutTitle": "Prix du marché eBay",
     "ebayLoggedOutExplain": "Prix basé sur les données actuelles du marché eBay.",
     "ebayLoggedOutCta": "Connectez-vous pour des prix personnalisés →",
-    "sourceBrickLink": "Prix BrickLink"
+    "sourceBrickLink": "Prix BrickLink",
+    "loadingData": "Chargement des données de prix...",
+    "supportCta": "On vous a fait gagner du temps ? Soutenez la tarification gratuite →"
   },
   "errors": {
     "notFound": "Non trouvé",
@@ -721,6 +760,11 @@
       "title": "À propos de FigTracker - Tarifez n'importe quel article LEGO en secondes",
       "description": "FigTracker transforme 24 points de données BrickLink en un prix suggéré pour toute minifigurine ou set LEGO. Double inventaire, 15+ devises, entièrement gratuit.",
       "keywords": "à propos de FigTracker, suivi prix LEGO, outil API Bricklink, tarification minifigurines, suivi inventaire LEGO, tarification LEGO gratuite"
+    },
+    "catalogCount": {
+      "thousandsOf": "des milliers de",
+      "overPrefix": "plus de",
+      "nearlyPrefix": "près de"
     }
   },
   "featured": {
@@ -776,7 +820,9 @@
     "sets": "sets",
     "supportFigTracker": "Soutenir FigTracker",
     "beFirstToDonate": "Soyez le premier à faire un don !",
-    "noSupporterYet": "Pas encore de supporter"
+    "noSupporterYet": "Pas encore de supporter",
+    "donationSubtitle": "Merci à nos généreux supporters ce trimestre ({season})",
+    "items": "articles"
   },
   "footer": {
     "faq": "FAQ",
@@ -948,7 +994,8 @@
       "features": {
         "trackUnlimited": "Suivez un nombre illimité d'articles",
         "realtimePrices": "Prix suggérés en temps réel",
-        "totalValue": "Connaissez la valeur totale de votre inventaire"
+        "totalValue": "Connaissez la valeur totale de votre inventaire",
+        "dataPrivate": "Vos données restent privées"
       },
       "name": "Nom",
       "email": "Adresse e-mail",
@@ -968,7 +1015,8 @@
         "generic": "Une erreur s'est produite. Veuillez réessayer."
       },
       "continueWithGoogle": "S'inscrire avec Google",
-      "signupWithEmail": "S'inscrire avec e-mail"
+      "signupWithEmail": "S'inscrire avec e-mail",
+      "freeBadge": "100% gratuit • Aucune carte de crédit requise"
     },
     "signin": {
       "title": "Bon retour",
@@ -988,7 +1036,8 @@
         "generic": "Une erreur s'est produite. Veuillez réessayer."
       },
       "continueWithGoogle": "Continuer avec Google",
-      "continueWithEmail": "Continuer avec e-mail"
+      "continueWithEmail": "Continuer avec e-mail",
+      "forgotLink": "Oublié ?"
     },
     "forgotPassword": {
       "title": "Réinitialiser le mot de passe",
@@ -1031,7 +1080,13 @@
       }
     },
     "footer": "Tarifez votre inventaire en secondes, pas en heures.",
-    "footerText": "Tarifez votre inventaire en secondes, pas en heures."
+    "footerText": "Tarifez votre inventaire en secondes, pas en heures.",
+    "accountLinked": {
+      "title": "Compte lié !",
+      "message": "Votre compte Google est maintenant connecté à FigTracker."
+    },
+    "redirectingToGoogle": "Redirection vers Google...",
+    "orDivider": "OU"
   },
   "newsletter": {
     "title": "Mouvements de prix mensuels",
@@ -1117,7 +1172,19 @@
     "deleteFromInventory": "Supprimer cet article de votre inventaire ?",
     "deleteFromCollection": "Supprimer cet article de votre collection personnelle ?",
     "ea": "pc",
-    "total": "total"
+    "total": "total",
+    "noMinifigsInInventory": "Aucune minifigurine dans votre inventaire pour l'instant",
+    "searchMinifiguresToGetStarted": "Recherchez des minifigurines pour commencer",
+    "failedToChangeCondition": "Échec du changement d'état",
+    "movedToCollection": "1 minifigurine déplacée vers la collection",
+    "movedToInventory": "1 minifigurine déplacée vers l'inventaire",
+    "undo": "Annuler",
+    "noMinifigsInPersonalCollection": "Aucune minifigurine dans votre collection personnelle pour l'instant",
+    "trackPersonalMinifigsSeparately": "Suivez vos minifigurines LEGO personnelles séparément des articles à vendre",
+    "noSetsInInventory": "Aucun set dans votre inventaire pour l'instant",
+    "searchSetsToGetStarted": "Recherchez des sets pour commencer",
+    "noSetsInPersonalCollection": "Aucun set dans votre collection personnelle pour l'instant",
+    "trackPersonalSetsSeparately": "Suivez vos sets LEGO personnels séparément des articles à vendre"
   },
   "privacyPolicy": {
     "meta": {
@@ -1273,7 +1340,8 @@
       "addedToInventory": "Ajouté {quantity} {condition} à l'inventaire !",
       "addedToCollection": "Ajouté {quantity} {condition} à votre collection !",
       "movedToCollection": "Déplacé vers la collection ! Cliquez n'importe où pour fermer.",
-      "movedToInventory": "Déplacé vers l'inventaire ! Cliquez n'importe où pour fermer."
+      "movedToInventory": "Déplacé vers l'inventaire ! Cliquez n'importe où pour fermer.",
+      "addedToGuestCollection": "{quantity} set{plural} ajouté(s) à votre collection !"
     },
     "errors": {
       "failedToAdd": "Échec de l'ajout du set",
@@ -1307,7 +1375,12 @@
     "meta": {
       "yearUnknown": "Année inconnue",
       "year": "Année",
-      "weight": "Poids"
+      "weight": "Poids",
+      "notFoundTitle": "Set introuvable",
+      "descriptionFallback": "{category} - {name}. Suivez les prix BrickLink actuels et gérez votre inventaire de sets LEGO. Sortie en {year}.",
+      "titleSuffix": "Guide des prix des sets LEGO",
+      "ogDescription": "Suivez les prix BrickLink, consultez la valeur marchande actuelle et gérez votre collection",
+      "twitterDescriptionSuffix": "guide des prix des sets"
     },
     "newestFrom": "Sets les plus récents de {theme}"
   },
@@ -1342,7 +1415,8 @@
       "keywords": "thèmes sets LEGO, sets Star Wars, sets Harry Potter LEGO, sets Marvel LEGO, sets DC LEGO, sets Friends, catalogue sets LEGO",
       "ogTitle": "Parcourir les Sets LEGO par Thème | FigTracker",
       "ogDescription": "Explorez les sets LEGO de Star Wars, Harry Potter, Friends et plus de 170 autres thèmes avec tarification en temps réel."
-    }
+    },
+    "themeTitle": "Sets {theme}"
   },
   "sharedCollection": {
     "collectionNotAvailable": "Collection non disponible",
@@ -1357,7 +1431,10 @@
     "used": "usagé",
     "new": "neuf",
     "trackYourCollection": "Suivez votre collection de figurines LEGO avec FigTracker",
-    "startYourCollection": "Commencez votre collection"
+    "startYourCollection": "Commencez votre collection",
+    "setsForSale": "Sets à vendre",
+    "setsCollection": "Collection de sets",
+    "emptyCollection": "Aucun article dans cette collection"
   },
   "guidePage": {
     "breadcrumbs": {
@@ -1715,7 +1792,8 @@
       "item2": "1x Points Insiders (~5% cashback = 12,50$ sur 249,99$)",
       "item3": "Achat qualifiant : 75442 N-1 Starfighter (249,99$)",
       "item4": "Retour total : 62,50$ = 25%",
-      "description": "Meilleure option si vous voulez la tuile Display exclusive. Vous obtenez les deux GWP premium mais multiplicateur de points inférieur."
+      "description": "Meilleure option si vous voulez la tuile Display exclusive. Vous obtenez les deux GWP premium mais multiplicateur de points inférieur.",
+      "setName": "The Mandalorian's N-1 Starfighter"
     },
     "tierB": {
       "badge": "NIVEAU B",
@@ -1819,13 +1897,27 @@
       "title": "Prêt à Maximiser Votre Valeur ?",
       "description": "Choisissez votre niveau et achetez maintenant. La promotion se termine le 6 mai 2026.",
       "button": "Acheter sur LEGO.com",
-      "disclaimer": "Nous gagnons une commission sur les achats qualifiés. Prix exacts au 2 mai 2026."
+      "disclaimer": "Nous gagnons une commission sur les achats qualifiés. Prix exacts au 2 mai 2026.",
+      "features": {
+        "minifigsTracked": "✓ Plus de 18 000 minifigurines suivies",
+        "setsTracked": "✓ Plus de 20 000 sets suivis",
+        "smartPricing": "✓ Tarification intelligente basée sur le marché",
+        "currencySupport": "✓ Plus de 15 devises prises en charge"
+      }
     },
     "common": {
       "buyOnLego": "Acheter sur LEGO.com",
       "price": "Prix",
       "setNumber": "Set",
-      "eligibleFor": "Éligible pour"
+      "eligibleFor": "Éligible pour",
+      "sponsored": "Sponsorisé"
+    },
+    "comparisonTable": {
+      "tier": "Niveau",
+      "spend": "Dépense",
+      "freebiesValue": "Valeur des cadeaux",
+      "cashback": "Cashback",
+      "totalReturn": "Retour total"
     }
   },
   "legoSale": {
@@ -1851,7 +1943,40 @@
     "price50to100": "50$ - 100$",
     "price100to200": "100$ - 200$",
     "priceOver200": "200$+",
-    "seoDescription": "Découvrez les meilleures offres LEGO® sur Amazon avec des réductions allant jusqu'à 50%. Nous suivons les prix sur des milliers de sets et mettons à jour toutes les 6 heures pour vous apporter les plus grandes économies. Toutes les offres sont éligibles à la livraison gratuite Amazon Prime. Que vous recherchiez Star Wars, City, Creator ou tout autre thème, trouvez votre prochain set LEGO à un prix imbattable."
+    "seoDescription": "Découvrez les meilleures offres LEGO® sur Amazon avec des réductions allant jusqu'à 50%. Nous suivons les prix sur des milliers de sets et mettons à jour toutes les 6 heures pour vous apporter les plus grandes économies. Toutes les offres sont éligibles à la livraison gratuite Amazon Prime. Que vous recherchiez Star Wars, City, Creator ou tout autre thème, trouvez votre prochain set LEGO à un prix imbattable.",
+    "meta": {
+      "notFoundTitle": "Page introuvable",
+      "title": "Soldes LEGO® : Meilleures offres Amazon jusqu'à 50% de réduction | FigTracker",
+      "description": "Trouvez les meilleures offres LEGO sur Amazon avec des réductions allant jusqu'à 50%. Mis à jour toutes les 6 heures. Parcourez les sets LEGO actuels de Star Wars, City, Creator et plus encore. Livraison gratuite avec Prime.",
+      "keywords": [
+        "Soldes LEGO",
+        "Offres LEGO",
+        "LEGO Amazon",
+        "Sets LEGO pas chers",
+        "Réduction LEGO",
+        "Déstockage LEGO",
+        "Soldes LEGO Star Wars",
+        "Offres LEGO City",
+        "Meilleurs prix LEGO",
+        "Offres LEGO",
+        "Promotions LEGO"
+      ],
+      "ogTitle": "Soldes LEGO® - Jusqu'à 50% de réduction sur Amazon",
+      "ogDescription": "Découvrez les meilleures offres LEGO sur Amazon. Mis à jour toutes les 6 heures avec des réductions de 20% à 50%.",
+      "twitterTitle": "Soldes LEGO® - Meilleures offres Amazon",
+      "twitterDescription": "Trouvez des sets LEGO jusqu'à 50% de réduction sur Amazon"
+    },
+    "subtitleUpdated": "Meilleures offres Amazon - Mises à jour toutes les 6 heures",
+    "seoParagraph": "Découvrez les meilleures offres LEGO® sur Amazon avec des réductions allant jusqu'à 50%. Notre page de soldes LEGO analyse automatiquement des milliers de sets LEGO et met en avant les plus grosses économies sur des thèmes populaires comme Star Wars, City, Creator, Technic et bien d'autres. Que vous recherchiez des sets retirés rares ou les dernières sorties, nous suivons les prix Amazon toutes les 6 heures pour vous assurer de ne jamais manquer une bonne affaire. Filtrez par thème, gamme de prix ou pourcentage de réduction pour trouver exactement ce que vous cherchez. Toutes les offres incluent la livraison gratuite avec Amazon Prime. Commencez à économiser sur vos sets LEGO préférés dès aujourd'hui !",
+    "searchThemesPlaceholder": "Rechercher des thèmes...",
+    "allPrices": "Tous les prix",
+    "priceDisclaimerLabel": "Avis sur les prix :",
+    "priceDisclaimerText": "Les prix et la disponibilité des produits sont exacts à la date/heure indiquée et sont susceptibles de changer. Les prix affichés proviennent d'Amazon au moment de la dernière actualisation (mise à jour toutes les 6 heures). Toute information sur le prix et la disponibilité affichée sur Amazon au moment de l'achat s'appliquera à l'achat de ce produit. En tant que partenaire Amazon, affilié LEGO et partenaire eBay, FigTracker perçoit une commission sur les achats éligibles.",
+    "loadingDeals": "Chargement des offres...",
+    "tierUnbelievable50": "Offres incroyables - 50% de réduction et plus",
+    "tierExcellent40": "Excellentes offres - 40% de réduction et plus",
+    "tierGreat30": "Très bonnes offres - 30% de réduction et plus",
+    "tierGood20": "Bonnes offres - 20% de réduction et plus"
   },
   "retiringSoon": {
     "pageTitle": "Sets LEGO Bientôt Retirés 2026",
@@ -1950,7 +2075,8 @@
       "notFoundDesc": "Nous n'avons pas trouvé de collectionneur avec ce nom d'utilisateur.",
       "editProfile": "Modifier le profil",
       "conditionNew": "Neuf",
-      "conditionUsed": "Occasion"
+      "conditionUsed": "Occasion",
+      "loadError": "Échec du chargement du profil"
     },
     "username": {
       "title": "Nom d'utilisateur",
@@ -1992,7 +2118,23 @@
     "showingAll": "Affichage de {count} articles",
     "foundResults": "{found} sur {total} articles trouvés",
     "noArticlesFound": "Aucun article trouvé",
-    "tryAdjustingFilters": "Essayez d'ajuster votre recherche ou vos filtres"
+    "tryAdjustingFilters": "Essayez d'ajuster votre recherche ou vos filtres",
+    "relatedArticles": "Articles connexes",
+    "shareOnTwitter": "Partager sur Twitter",
+    "shareOnFacebook": "Partager sur Facebook",
+    "shareOnLinkedIn": "Partager sur LinkedIn",
+    "shareOnReddit": "Partager sur Reddit",
+    "copyLink": "Copier le lien",
+    "linkCopied": "Lien copié !",
+    "shareArticle": "Partager l'article",
+    "pros": "✓ Avantages",
+    "cons": "✗ Inconvénients",
+    "tableOfContents": "Table des matières",
+    "allCategory": "Tous",
+    "minRead": "{minutes} min de lecture",
+    "notFound": "Article introuvable",
+    "byline": "Équipe FigTracker",
+    "legacyFormatNotice": "Format d'article obsolète - veuillez migrer vers le nouveau CMS"
   },
   "directory": {
     "badge": "Communauté",
@@ -2063,7 +2205,56 @@
     "variantCountOne": "1 version différente...",
     "variantCountMany": "{count} versions différentes...",
     "featuredThemeSets": "Sets {theme} en vedette",
-    "currentLegoSetsTheme": "Sets LEGO actuels de ce thème"
+    "currentLegoSetsTheme": "Sets LEGO actuels de ce thème",
+    "meta": {
+      "notFoundTitle": "Minifigurine introuvable",
+      "description": "{category} - {fullName}. Suivez les prix BrickLink actuels, consultez la valeur marchande et gérez votre collection. Ajoutez à vendre ou à garder. Sortie en {year}.",
+      "dateUnknown": "date inconnue",
+      "titleSuffix": "Suivi des prix de minifigurines LEGO",
+      "ogDescription": "Minifigurine LEGO {itemNo} - Suivez les prix BrickLink, consultez la valeur marchande actuelle et gérez votre collection",
+      "twitterDescription": "Guide des prix des minifigurines {category}",
+      "productDescription": "Minifigurine LEGO {category} {itemNo}. Suivez les prix BrickLink actuels et la valeur marchande."
+    },
+    "breadcrumbs": {
+      "home": "Accueil",
+      "themes": "Thèmes"
+    },
+    "errors": {
+      "failedToAddToWishlist": "Échec de l'ajout à la liste de souhaits",
+      "failedToUpdateWishlist": "Échec de la mise à jour de la liste de souhaits",
+      "failedToAdd": "Échec de l'ajout",
+      "pleaseSignIn": "Veuillez vous connecter pour ajouter des articles",
+      "alreadyInInventory": "Déjà dans l'inventaire",
+      "failedToAddToInventory": "Échec de l'ajout à l'inventaire",
+      "failedToAddToPersonalCollection": "Échec de l'ajout à la collection personnelle",
+      "failedToUpdateQuantity": "Échec de la mise à jour de la quantité",
+      "failedToMoveItem": "Échec du déplacement de l'article",
+      "failedToDeleteItem": "Échec de la suppression de l'article"
+    },
+    "messages": {
+      "addedToGuestCollectionOne": "1 article ajouté à votre collection !",
+      "addedToGuestCollectionMany": "{count} articles ajoutés à votre collection !",
+      "addedToSellOne": "1 article ajouté à vendre",
+      "addedToSellMany": "{count} articles ajoutés à vendre",
+      "addedToKeepOne": "1 article ajouté à garder",
+      "addedToKeepMany": "{count} articles ajoutés à garder",
+      "addedMoreToSellOne": "1 article de plus ajouté à vendre",
+      "addedMoreToSellMany": "{count} articles de plus ajoutés à vendre",
+      "addedMoreToKeepOne": "1 article de plus ajouté à garder",
+      "addedMoreToKeepMany": "{count} articles de plus ajoutés à garder",
+      "movedToSellOne": "1 article déplacé vers à vendre",
+      "movedToSellMany": "{count} articles déplacés vers à vendre",
+      "movedToKeepOne": "1 article déplacé vers à garder",
+      "movedToKeepMany": "{count} articles déplacés vers à garder",
+      "removedFromPersonalCollection": "Retiré de la collection personnelle",
+      "movedOneMinifigure": "1 minifigurine déplacée",
+      "undo": "Annuler"
+    },
+    "altText": {
+      "mainImage": "Minifigurine LEGO {name} {no} - {category}",
+      "relatedImage": "Minifigurine LEGO {name} {no}"
+    },
+    "schemaDescription": "Minifigurine LEGO {name} {no} du thème {category}. Suivez les prix BrickLink actuels et gérez votre collection LEGO."
   },
   "supportLink": {
     "savedYouTime": "Gagné du temps ? Soutenez la tarification rapide et précise →"
@@ -2072,5 +2263,435 @@
     "title": "Tendances de la semaine",
     "description": "Les minifigurines les plus suivies par les utilisateurs de FigTracker",
     "tracking": "{count} suivis"
+  },
+  "metadata": {
+    "title": "FigTracker - Un prix pour toute minifigurine ou set LEGO",
+    "description": "Évaluez n'importe quelle minifigurine ou set LEGO en quelques secondes. Un prix suggéré à partir des données BrickLink et eBay. Suivez votre inventaire gratuitement. Plus de 18 000 minifigs, plus de 20 000 sets.",
+    "twitterDescription": "Évaluez n'importe quelle minifigurine ou set LEGO en quelques secondes. Un prix suggéré à partir des données BrickLink et eBay. Suivez votre inventaire gratuitement.",
+    "keywords": [
+      "Prix des minifigurines LEGO",
+      "Prix des sets LEGO",
+      "Suivi des prix BrickLink",
+      "Gestionnaire de collection LEGO",
+      "Suivi de la valeur des minifigs",
+      "Outil pour vendeurs LEGO",
+      "Guide des prix LEGO",
+      "Suivi de collection de minifigurines",
+      "Suivi des sets LEGO",
+      "Suivi d'inventaire LEGO",
+      "Suivre les prix LEGO",
+      "Outil de tarification LEGO",
+      "Prix suggéré des minifigs"
+    ],
+    "ogImageAlt": "FigTracker - Suivi des prix de minifigurines LEGO",
+    "webAppDescription": "Évaluez n'importe quelle minifigurine ou set LEGO en quelques secondes. Un prix suggéré, sans calcul mental.",
+    "featureList": [
+      "Un prix suggéré par minifigurine ou set",
+      "Double inventaire : liste de vente et collection personnelle",
+      "Calculateur de prix suggéré",
+      "Suivi de collection",
+      "Plus de 18 000 minifigurines LEGO, plus de 20 000 sets"
+    ],
+    "organizationDescription": "FigTracker vous donne un prix suggéré pour toute minifigurine ou set LEGO, pour que vous puissiez lister plus vite et vendre avec confiance.",
+    "siteAlternateName": "Suivi des prix de minifigurines LEGO",
+    "ogImage": {
+      "subtitle": "Suivi des prix de minifigurines LEGO",
+      "featureText": "Prix BrickLink en temps réel • Suivez votre collection"
+    }
+  },
+  "themeMeta": {
+    "nameLegoMinifigures": "Minifigurines LEGO {name}",
+    "titleWithCount": "Parcourez les minifigurines et sets LEGO {theme} ({count} minifigs) | FigTracker",
+    "titleNoCount": "Parcourez les minifigurines et sets LEGO {theme} | FigTracker",
+    "descriptionWithCount": "Explorez {count} minifigurines et sets LEGO {theme} avec une tarification intelligente basée sur le marché. Suivez les valeurs marchandes actuelles, gérez votre collection et organisez les articles à vendre et à garder{seriesSuffix}.",
+    "descriptionAllNoCount": "Explorez toutes les minifigurines et sets LEGO {theme} avec une tarification intelligente basée sur le marché. Suivez les valeurs marchandes actuelles, gérez votre collection et organisez les articles à vendre et à garder{seriesSuffix}.",
+    "acrossSeriesSuffix": " sur {count} séries",
+    "keywordThemeMinifigures": "minifigurines LEGO {theme}",
+    "keywordThemeSets": "sets LEGO {theme}",
+    "keywordThemeMinifigPrice": "prix des minifigs {theme}",
+    "keywordThemeSetPrice": "prix des sets {theme}",
+    "keywordThemePriceTracker": "suivi des prix {theme}",
+    "keywordThemeCollectionManager": "gestionnaire de collection {theme}",
+    "keywordBricklinkPrices": "prix BrickLink",
+    "keywordLegoPriceGuide": "guide des prix LEGO",
+    "keywordTrackLegoPrices": "suivre les prix LEGO",
+    "ogTitleThemeSets": "Minifigurines et sets LEGO {theme} | FigTracker",
+    "notFoundTitle": "Thème introuvable",
+    "layoutTitle": "Minifigurines LEGO {theme} - Guide des prix et collection ({count} minifigs) | FigTracker",
+    "layoutDescription": "Parcourez les {count} minifigurines LEGO {theme} avec une tarification intelligente basée sur le marché. Suivez les valeurs, gérez votre inventaire et découvrez les variantes de personnages. Guide complet de la collection {theme}.",
+    "layoutOgTitle": "Minifigurines LEGO {theme} - {count} minifigs",
+    "layoutOgDescription": "Parcourez et évaluez {count} minifigurines LEGO {theme} avec une tarification intelligente basée sur plusieurs sources",
+    "keywordThemeMinifigPrices": "prix des minifigs {theme}",
+    "keywordThemeBricklink": "{theme} Bricklink",
+    "keywordThemeLegoCollection": "collection LEGO {theme}",
+    "keywordMinifigureValueTracker": "suivi de la valeur des minifigurines",
+    "subTitleWithCount": "Minifigurines LEGO {name} ({count}) | FigTracker",
+    "subTitleNoCount": "Minifigurines LEGO {name} | FigTracker",
+    "subDescriptionWithCount": "Parcourez les {count} minifigurines LEGO {fullName} avec une tarification intelligente basée sur le marché. Suivez les prix, gérez votre collection et découvrez des variantes rares.",
+    "subDescriptionNoCount": "Parcourez les minifigurines LEGO {fullName} avec une tarification intelligente basée sur le marché. Suivez les prix et gérez votre collection.",
+    "keywordFullNameMinifigures": "minifigurines LEGO {fullName}",
+    "keywordNameLego": "{name} LEGO",
+    "keywordNameMinifigPrice": "prix des minifigs {name}",
+    "keywordMinifigureCollection": "collection de minifigurines"
+  },
+  "verifyHuman": {
+    "meta": {
+      "title": "Vérification de sécurité | FigTracker",
+      "description": "Veuillez effectuer cette vérification de sécurité rapide pour continuer"
+    },
+    "errors": {
+      "refresh": "Échec de la vérification. Veuillez actualiser la page et réessayer.",
+      "retry": "Échec de la vérification. Veuillez réessayer.",
+      "network": "Erreur réseau. Veuillez vérifier votre connexion."
+    },
+    "heading": "Vérification de sécurité rapide",
+    "explanation": "Nous avons détecté un trafic inhabituel. Veuillez effectuer ce test rapide pour vérifier que vous êtes humain. Cela nous aide à prévenir le spam et à garder le site rapide pour tout le monde.",
+    "waitHint": "Cela ne prend généralement que quelques secondes...",
+    "success": "Vérifié ! Redirection en cours...",
+    "tryAgain": "Réessayer",
+    "poweredBy": "Protégé par Cloudflare Turnstile",
+    "learnMore": "En savoir plus"
+  },
+  "claimDonation": {
+    "meta": {
+      "title": "Réclamer votre don - FigTracker",
+      "description": "Ajoutez votre don au classement des supporters de FigTracker"
+    },
+    "hero": {
+      "title": "Réclamer votre don",
+      "subtitle": "Rejoignez notre classement des supporters et montrez à la communauté que vous avez aidé à garder FigTracker gratuit"
+    },
+    "success": {
+      "title": "Merci de nous aider à garder la tarification LEGO gratuite pour tous",
+      "body": "Votre don a été réclamé avec succès.",
+      "leaderboardNote": " Consultez la page d'accueil pour voir votre nom sur le classement !",
+      "homeButton": "Aller à la page d'accueil"
+    },
+    "form": {
+      "instructions": "Pour vérifier votre don et vous ajouter au classement, saisissez votre e-mail PayPal et l'identifiant de transaction figurant sur votre reçu de don.",
+      "paypalEmailLabel": "E-mail PayPal *",
+      "paypalEmailPlaceholder": "votre@email.com",
+      "transactionIdLabel": "Identifiant de transaction *",
+      "transactionIdPlaceholder": "ex. : 1AB23456CD789012E",
+      "transactionIdHelper": "Vous le trouverez dans l'e-mail de reçu PayPal",
+      "leaderboardOptIn": "M'ajouter au classement des supporters",
+      "displayNameLabel": "Nom d'affichage *",
+      "displayNamePlaceholder": "Maître LEGO",
+      "displayNameHelper": "3 à 30 caractères : lettres, chiffres, espaces, tirets bas et traits d'union uniquement",
+      "submitLoading": "Réclamation en cours...",
+      "submit": "Réclamer le don",
+      "privacyNote": "Votre e-mail et votre identifiant de transaction ne servent qu'à la vérification et ne seront jamais partagés publiquement."
+    },
+    "errors": {
+      "failed": "Échec de la réclamation du don",
+      "network": "Erreur réseau. Veuillez réessayer."
+    }
+  },
+  "minifigFAQ": {
+    "heading": "Questions fréquemment posées",
+    "newOrUsed": {
+      "question": "Dois-je acheter {minifigNo} neuf ou d'occasion ?",
+      "answerExpensive": "Pour {minifigName}, la décision dépend de votre budget et de votre usage. L'état neuf coûte généralement 20 à 40% de plus mais garantit une qualité d'impression impeccable et aucune usure. L'état d'occasion est plus abordable et parfaitement adapté aux collections personnelles ou aux MOC. À {price}, envisagez l'occasion pour économiser sensiblement — vérifiez simplement la qualité de l'impression sur les photos. Vérifiez toujours les photos du vendeur pour détecter une décoloration de l'impression, des fissures aux bras ou des marques de tension sur le torse avant d'acheter d'occasion.",
+      "answerBudget": "Pour {minifigName}, la décision dépend de votre budget et de votre usage. L'état neuf coûte généralement 20 à 40% de plus mais garantit une qualité d'impression impeccable et aucune usure. L'état d'occasion est plus abordable et parfaitement adapté aux collections personnelles ou aux MOC. À {price}, le neuf vaut souvent le léger supplément pour un état parfait. Vérifiez toujours les photos du vendeur pour détecter une décoloration de l'impression, des fissures aux bras ou des marques de tension sur le torse avant d'acheter d'occasion.",
+      "answerNeutral": "Pour {minifigName}, la décision dépend de votre budget et de votre usage. L'état neuf coûte généralement 20 à 40% de plus mais garantit une qualité d'impression impeccable et aucune usure. L'état d'occasion est plus abordable et parfaitement adapté aux collections personnelles ou aux MOC. Comparez les prix neuf et occasion sur BrickLink — parfois la différence est minime. Vérifiez toujours les photos du vendeur pour détecter une décoloration de l'impression, des fissures aux bras ou des marques de tension sur le torse avant d'acheter d'occasion.",
+      "answerNoPriceData": "Sans données de prix actuelles, consultez BrickLink pour comparer les prix neuf et occasion de {minifigName}. En général, achetez neuf si la différence de prix est inférieure à 5 $, ou si vous investissez en vue d'une revente. Achetez d'occasion si vous constituez une collection personnelle et pouvez tolérer une usure mineure."
+    },
+    "whyPrice": {
+      "questionExpensive": "Pourquoi {minifigNo} est-il si cher ?",
+      "questionBudget": "Pourquoi {minifigNo} est-il si abordable ?",
+      "questionNeutral": "Pourquoi {minifigNo} est-il tarifé ainsi ?",
+      "expensiveAnswerVintageRetired": "{minifigName} affiche un prix élevé de {price} pour plusieurs raisons : **Âge** - Sortie en {year}, les minifigurines vintage sont plus difficiles à trouver en bon état. **Popularité {categoryName}** - Forte demande de la part des collectionneurs. **Disponibilité limitée** - Probablement apparue dans peu de sets ou des sets exclusifs. **Sets retirés** - Les sets originaux ne sont plus en production. Les minifigurines premium issues de sets exclusifs, d'articles promotionnels ou de personnages préférés des fans conservent toujours une valeur plus élevée.",
+      "expensiveAnswerRetired": "{minifigName} affiche un prix élevé de {price} pour plusieurs raisons : **Popularité {categoryName}** - Forte demande de la part des collectionneurs. **Disponibilité limitée** - Probablement apparue dans peu de sets ou des sets exclusifs. **Sets retirés** - Les sets originaux ne sont plus en production. Les minifigurines premium issues de sets exclusifs, d'articles promotionnels ou de personnages préférés des fans conservent toujours une valeur plus élevée.",
+      "expensiveAnswerBase": "{minifigName} affiche un prix élevé de {price} pour plusieurs raisons : **Popularité {categoryName}** - Forte demande de la part des collectionneurs. **Disponibilité limitée** - Probablement apparue dans peu de sets ou des sets exclusifs. Les minifigurines premium issues de sets exclusifs, d'articles promotionnels ou de personnages préférés des fans conservent toujours une valeur plus élevée.",
+      "budgetAnswerRecent": "{minifigName} est abordable à {price} car : **Sortie récente** - Encore facilement disponible dans les sets de {year}. **Disponibilité courante** - Probablement incluse dans plusieurs sets ou produite en masse. **Design générique** - Les minifigurines génériques ou d'armée coûtent moins cher. C'est parfait pour les achats en gros, la construction de MOC ou le démarrage d'une collection sans se ruiner.",
+      "budgetAnswerBase": "{minifigName} est abordable à {price} car : **Disponibilité courante** - Probablement incluse dans plusieurs sets ou produite en masse. **Design générique** - Les minifigurines génériques ou d'armée coûtent moins cher. C'est parfait pour les achats en gros, la construction de MOC ou le démarrage d'une collection sans se ruiner.",
+      "neutralAnswerWithYear": "{minifigName} est modérément tarifée à {price}, reflétant un équilibre entre l'offre et la demande. Sortie en {year}, elle n'est ni assez rare pour être chère, ni assez courante pour être bradée. Ce prix juste la rend accessible à la plupart des collectionneurs tout en conservant une certaine valeur de collection.",
+      "neutralAnswerNoYear": "{minifigName} est modérément tarifée à {price}, reflétant un équilibre entre l'offre et la demande. Elle n'est ni assez rare pour être chère, ni assez courante pour être bradée. Ce prix juste la rend accessible à la plupart des collectionneurs tout en conservant une certaine valeur de collection."
+    },
+    "bestTime": {
+      "question": "Quel est le meilleur moment pour acheter {minifigNo} ?",
+      "answerRecent": "D'après les tendances du marché LEGO, le meilleur moment pour acheter {minifigName} est : **Maintenant, avant le retrait** - Les sets de {year} seront bientôt retirés, et les prix grimpent généralement de 30 à 50% dans l'année suivant le retrait. Évitez d'acheter en novembre-décembre (demande des fêtes) ou juste après le retrait d'un set (pic de spéculation). Surveillez le graphique d'historique des prix ci-dessus pour repérer les tendances à la baisse. Configurez des alertes de prix sur BrickLink pour saisir les bonnes affaires en dessous de {priceLower}.",
+      "answerVintage": "D'après les tendances du marché LEGO, le meilleur moment pour acheter {minifigName} est : **Pendant les saisons creuses** - Les minifigurines vintage de {year} sont moins chères en été (juin-août), lorsque moins de collectionneurs achètent. Évitez d'acheter en novembre-décembre (demande des fêtes) ou juste après le retrait d'un set (pic de spéculation). Surveillez le graphique d'historique des prix ci-dessus pour repérer les tendances à la baisse. Configurez des alertes de prix sur BrickLink pour saisir les bonnes affaires en dessous de {priceLower}.",
+      "answerStandard": "D'après les tendances du marché LEGO, le meilleur moment pour acheter {minifigName} est : **Après la saison des fêtes** - Les prix baissent généralement en janvier-février lorsque les vendeurs ont un surplus de stock. Évitez d'acheter en novembre-décembre (demande des fêtes) ou juste après le retrait d'un set (pic de spéculation). Surveillez le graphique d'historique des prix ci-dessus pour repérer les tendances à la baisse. Configurez des alertes de prix sur BrickLink pour saisir les bonnes affaires en dessous de {priceLower}."
+    },
+    "authenticity": {
+      "question": "Comment puis-je vérifier que {minifigNo} est authentique ?",
+      "answerExpensive": "Pour vérifier que {minifigName} est un LEGO authentique : **1. Vérifiez les tenons** - Toutes les pièces de minifigurines LEGO ont \"LEGO\" gravé sur les tenons (dessus de la tête, intérieur du torse). **2. Qualité d'impression** - Les impressions LEGO sont nettes, sans bavures ni désalignement. Les contrefaçons ont souvent des impressions floues. **3. Qualité du plastique** - Le vrai LEGO a une texture et une force de clip spécifiques. Les faux sont souvent plus brillants ou plus fragiles. **4. Correspondance des couleurs** - La cohérence des couleurs LEGO est parfaite. Des jaunes ou des teintes chair mal assortis indiquent des pièces contrefaites. Pour des minifigurines coûteuses comme celle-ci ({price}), achetez auprès de vendeurs BrickLink réputés avec de bonnes évaluations. Si vous achetez sur eBay, vérifiez que le vendeur a \"LEGO\" dans le titre et fournit des photos rapprochées des tampons LEGO.",
+      "answerBase": "Pour vérifier que {minifigName} est un LEGO authentique : **1. Vérifiez les tenons** - Toutes les pièces de minifigurines LEGO ont \"LEGO\" gravé sur les tenons (dessus de la tête, intérieur du torse). **2. Qualité d'impression** - Les impressions LEGO sont nettes, sans bavures ni désalignement. Les contrefaçons ont souvent des impressions floues. **3. Qualité du plastique** - Le vrai LEGO a une texture et une force de clip spécifiques. Les faux sont souvent plus brillants ou plus fragiles. **4. Correspondance des couleurs** - La cohérence des couleurs LEGO est parfaite. Des jaunes ou des teintes chair mal assortis indiquent des pièces contrefaites. Achetez auprès de vendeurs BrickLink réputés avec de bonnes évaluations. Si vous achetez sur eBay, vérifiez que le vendeur a \"LEGO\" dans le titre et fournit des photos rapprochées des tampons LEGO."
+    }
+  },
+  "saveCollectionModal": {
+    "heading": "Votre collection vaut {value}",
+    "subtext": "Vous avez suivi {count} {itemWord}. Créez un compte gratuit pour l'enregistrer définitivement.",
+    "totalValueLabel": "VALEUR TOTALE",
+    "itemsTracked": "{count} {itemWord} suivi(s)",
+    "benefitNeverLose": "Ne perdez jamais cette collection",
+    "benefitAutoPriceUpdates": "Recevez des mises à jour de prix automatiques",
+    "benefitGenerateListings": "Générez des annonces instantanément",
+    "saveButton": "Enregistrer ma collection",
+    "continueAsGuest": "Continuer en tant qu'invité"
+  },
+  "moveDialog": {
+    "titleToInventory": "Déplacer vers l'inventaire",
+    "titleToCollection": "Déplacer vers votre collection",
+    "descriptionToInventory": "Cela déplacera l'article vers votre inventaire de vente.",
+    "descriptionToCollection": "Cela déplacera l'article vers votre collection personnelle.",
+    "failedToMove": "Échec du déplacement de l'article",
+    "quantityLabel": "Quantité à déplacer",
+    "maximumLabel": "Maximum : {max}",
+    "cancel": "Annuler",
+    "moving": "Déplacement en cours...",
+    "confirm": "Confirmer"
+  },
+  "guestCollectionBadge": {
+    "title": "Votre collection",
+    "itemCount": "{count} {itemWord}",
+    "saveCta": "Enregistrer →"
+  },
+  "priceDisplay": {
+    "suggestedPrice": "Prix suggéré",
+    "unavailable": "Données de prix indisponibles"
+  },
+  "currencyBanner": {
+    "detectionMessage": "Nous avons détecté que vous êtes en {country}. Afficher les prix en {currency} ?",
+    "acceptButton": "Oui, utiliser {currency}",
+    "keepUsd": "Garder USD"
+  },
+  "authRequiredModal": {
+    "heading": "Suivez ceci dans votre collection",
+    "subheading": "Inscrivez-vous pour commencer à suivre \"{itemName}\"",
+    "benefitSavePermanently": "Enregistrez cet article définitivement",
+    "benefitTrackPrices": "Suivez les prix automatiquement",
+    "benefitGenerateListings": "Générez des annonces eBay/Facebook instantanément",
+    "createAccountButton": "Créer un compte gratuit",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "signInButton": "Se connecter"
+  },
+  "notFound": {
+    "heading": "Page introuvable",
+    "body": "La page que vous recherchez n'existe pas ou a été déplacée.",
+    "goHome": "Retour à l'accueil"
+  },
+  "minifigError": {
+    "heading": "Un problème est survenu",
+    "body": "Nous n'avons pas pu charger cette minifigurine. Il pourrait s'agir d'un problème temporaire.",
+    "tryAgain": "Réessayer",
+    "backToSearch": "Retour à la recherche"
+  },
+  "minifigNotFound": {
+    "heading": "Minifigurine introuvable",
+    "body": "Nous n'avons pas trouvé cette minifigurine dans notre catalogue. Elle n'existe peut-être pas ou le numéro d'article est peut-être incorrect.",
+    "searchMinifigures": "Rechercher des minifigurines"
+  },
+  "scrollToTop": {
+    "ariaLabel": "Retour en haut"
+  },
+  "breadcrumb": {
+    "ariaLabel": "Fil d'Ariane"
+  },
+  "communityStats": {
+    "since": "Depuis {year}",
+    "minifigsCount": "{count} minifigs"
+  },
+  "themeFilters": {
+    "all": "Tous",
+    "allCategories": "Toutes les catégories",
+    "searchPlaceholder": "Rechercher des catégories...",
+    "noCategoriesFound": "Aucune catégorie trouvée"
+  },
+  "deals": {
+    "off": "RÉDUCTION",
+    "save": "Économisez",
+    "noDealsFound": "Aucune offre trouvée dans cette catégorie"
+  },
+  "priceHistory": {
+    "loadError": "Échec du chargement de l'historique des prix",
+    "noDataMessage": "L'historique des prix apparaîtra ici au fur et à mesure que les données seront collectées",
+    "noDataSubtext": "Revenez dans quelques jours pour voir les tendances de prix",
+    "sixMonths": "6 mois",
+    "allTime": "Tous les temps"
+  },
+  "listingGenerator": {
+    "errors": {
+      "generateFailed": "Échec de la génération de l'annonce"
+    },
+    "firstTimeBanner": {
+      "title": "Première fois ?",
+      "body": "Utilisez l'icône des paramètres pour personnaliser vos préférences d'annonce (plateforme, état, etc.). Générer l'annonce s'en souviendra pour la prochaine fois !"
+    },
+    "quickGenerate": {
+      "loading": "Génération de l'annonce..."
+    },
+    "generateListing": "Générer l'annonce",
+    "customizeOptionsTooltip": "Personnaliser les options",
+    "generatedListingHeading": "Annonce générée",
+    "adjustSettingsTooltip": "Ajuster les paramètres",
+    "titleLabel": "Titre :",
+    "copyTitle": "Copier le titre",
+    "priceLabel": "Prix :",
+    "copyPrice": "Copier le prix",
+    "wholeNumber": "(nombre entier)",
+    "descriptionLabel": "Description :",
+    "copyDescription": "Copier la description",
+    "done": "Terminé",
+    "platformLabel": "Plateforme :",
+    "conditionLabel": "État :",
+    "platform": {
+      "ebay": "eBay",
+      "facebook": "Facebook Marketplace",
+      "bricklink": "BrickLink",
+      "vinted": "Vinted"
+    },
+    "condition": {
+      "facebook": {
+        "new": "Neuf",
+        "likeNew": "Comme neuf",
+        "good": "Bon",
+        "fair": "Correct"
+      },
+      "ebay": {
+        "new": "Neuf",
+        "likeNew": "Comme neuf",
+        "veryGood": "Très bon",
+        "good": "Bon",
+        "acceptable": "Acceptable"
+      },
+      "bricklink": {
+        "new": "Neuf",
+        "likeNew": "Occasion - Comme neuf",
+        "veryGood": "Occasion - Très bon",
+        "good": "Occasion - Bon",
+        "acceptable": "Occasion - Acceptable"
+      },
+      "vinted": {
+        "new": "Neuf avec étiquettes",
+        "likeNew": "Très bon état",
+        "good": "Bon état",
+        "fair": "État satisfaisant"
+      }
+    },
+    "accessoriesLabel": "Accessoires inclus :",
+    "accessoriesPlaceholder": "Casque, blasters, cape...",
+    "knownFlawsLabel": "Défauts connus (facultatif) :",
+    "knownFlawsPlaceholder": "Usure mineure de l'impression, articulations lâches...",
+    "boxConditionLabel": "État de la boîte :",
+    "boxCondition": {
+      "sealed": "Scellée (jamais ouverte)",
+      "openedNew": "Ouverte (set encore neuf/non monté)",
+      "noBox": "Sans boîte",
+      "withBox": "Boîte incluse"
+    },
+    "buildingStatusLabel": "État de montage :",
+    "buildingStatus": {
+      "unbuiltSealed": "Non monté (sachets scellés)",
+      "unbuiltBagsOpened": "Non monté (sachets ouverts)",
+      "unassembled": "Non assemblé",
+      "partiallyBuilt": "Partiellement monté",
+      "fullyBuilt": "Entièrement monté",
+      "disassembled": "Monté puis démonté"
+    },
+    "completenessLabel": "Complétude :",
+    "completeness": {
+      "verified": "100% complet (nombre de pièces vérifié)",
+      "appearsComplete": "Semble complet (non vérifié)",
+      "missingMinor": "Quelques pièces mineures manquantes",
+      "missingMajor": "Pièces importantes manquantes"
+    },
+    "instructionsIncluded": "Notice incluse",
+    "minifiguresIncluded": "Toutes les minifigurines incluses",
+    "additionalNotesLabel": "Notes supplémentaires (facultatif) :",
+    "additionalNotesPlaceholder": "Tout autre détail sur l'état du set...",
+    "quantityLabel": "Quantité à mettre en vente :",
+    "includeInListingLabel": "Inclure dans l'annonce :",
+    "preferences": {
+      "offersShipping": "Je propose l'expédition",
+      "offersLocalPickup": "Je propose le retrait sur place",
+      "offersBundleDiscount": "Réductions disponibles pour les lots",
+      "acceptsCash": "Espèces acceptées",
+      "acceptsVenmo": "Venmo accepté",
+      "acceptsPayPal": "PayPal accepté",
+      "acceptsOffers": "Offres acceptées - \"Faire une offre\" activé",
+      "fastShipping": "Expédition rapide et sécurisée",
+      "carefulPackaging": {
+        "ebay": "Emballé avec soin dans un matériau de protection",
+        "bricklink": "Emballé avec soin"
+      },
+      "messageWithQuestions": {
+        "ebay": "\"N'hésitez pas à envoyer un message pour toute question\"",
+        "bricklink": "\"Contactez-moi pour toute question avant l'achat\""
+      },
+      "shipsWithTracking": "Expédié avec suivi",
+      "smokeFreeHome": "Provenant d'un foyer non-fumeur"
+    },
+    "cancel": "Annuler",
+    "generating": "Génération en cours...",
+    "regenerate": "Régénérer"
+  },
+  "priceAlert": {
+    "invalidPrice": "Veuillez saisir un prix valide",
+    "targetBelowCurrent": "Le prix cible doit être inférieur au prix actuel ({price})",
+    "setSuccess": "✓ Alerte de prix configurée ! Vous recevrez un e-mail lorsque le prix baissera.",
+    "setFailed": "Échec de la configuration de l'alerte",
+    "setFailedRetry": "Échec de la configuration de l'alerte. Veuillez réessayer.",
+    "deleteFailed": "Échec de la suppression de l'alerte",
+    "deleteFailedRetry": "Échec de la suppression de l'alerte. Veuillez réessayer.",
+    "deleteSuccess": "✓ Alerte de prix supprimée",
+    "buttonTooltip": "Configurer une alerte de prix",
+    "buttonLabel": "Alerte de prix",
+    "modalTitle": "Configurer une alerte de prix",
+    "currentPrice": "Prix actuel",
+    "notifyLabel": "Me notifier lorsque le prix baisse à :",
+    "targetHint": "Définissez un prix cible inférieur au prix actuel",
+    "cancel": "Annuler",
+    "setting": "Configuration en cours...",
+    "setAlert": "Configurer l'alerte",
+    "footerNote": "Vous recevrez un e-mail lorsque le prix atteindra ou passera sous votre cible. L'alerte sera automatiquement désactivée après son déclenchement.",
+    "viewAllAlerts": "Voir toutes les alertes",
+    "alertActive": "Alerte active",
+    "alertTarget": "Cible de l'alerte",
+    "deleting": "Suppression en cours...",
+    "deleteAlert": "Supprimer l'alerte",
+    "editTarget": "Modifier la cible",
+    "saving": "Enregistrement en cours...",
+    "save": "Enregistrer"
+  },
+  "accountAlerts": {
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette alerte ?",
+    "deleteSuccess": "Alerte supprimée avec succès",
+    "deleteFailed": "Échec de la suppression de l'alerte",
+    "paused": "Alerte en pause",
+    "activated": "Alerte activée",
+    "updateFailed": "Échec de la mise à jour de l'alerte",
+    "invalidPrice": "Veuillez saisir un prix valide",
+    "priceUpdated": "Prix cible mis à jour",
+    "priceUpdateFailed": "Échec de la mise à jour du prix",
+    "title": "Alertes de prix",
+    "subtitle": "Gérez vos notifications de baisse de prix",
+    "emptyTitle": "Aucune alerte de prix pour l'instant",
+    "emptyBody": "Configurez des alertes de prix sur n'importe quel minifig ou set pour être notifié lorsque les prix baissent.",
+    "browseItems": "Parcourir les articles",
+    "activeAlerts": "Alertes actives ({count})",
+    "triggeredAlerts": "Alertes déclenchées ({count})",
+    "pausedAlerts": "Alertes en pause ({count})",
+    "minifigure": "Minifigurine",
+    "set": "Set",
+    "target": "Cible :",
+    "editTargetPrice": "Modifier le prix cible",
+    "triggeredOn": "Déclenchée le {date}",
+    "lastChecked": "Dernière vérification : {date}",
+    "created": "Créée le : {date}",
+    "reactivate": "Réactiver",
+    "pause": "Mettre en pause",
+    "activate": "Activer",
+    "deleteAlert": "Supprimer l'alerte"
+  },
+  "setCard": {
+    "noImage": "Aucune image",
+    "released": "Sorti en {year}",
+    "ageYears": "{age} ans",
+    "priceIncrease": "+{percent}% de hausse de prix",
+    "estimatedRetirement": "Retrait estimé : {quarter}",
+    "retirementScore": "Score de retrait",
+    "viewDetails": "Voir les détails"
   }
 }

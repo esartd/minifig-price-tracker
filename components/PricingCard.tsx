@@ -24,7 +24,7 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
     return (
       <div className="apple-card">
         <h3 className="text-lg font-semibold mb-4 text-gray-900 tracking-tight">{item.minifigure_name}</h3>
-        <p className="text-gray-500 text-sm">Loading pricing data...</p>
+        <p className="text-gray-500 text-sm">{t('pricing.loadingData') || 'Loading pricing data...'}</p>
       </div>
     );
   }
@@ -75,7 +75,7 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
         {/* Sold Qty Avg (6 months) */}
         <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-xl">
           <p className="text-[10px] font-medium text-blue-600 uppercase tracking-wide mb-2">
-            6 Mo Avg
+            {t('pricing.sixMonthAvg') || '6 Mo Avg'}
           </p>
           <p className="text-2xl font-semibold text-blue-900 tracking-tight">
             {formatPrice(pricing.sixMonthAverage)}
@@ -85,7 +85,7 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
         {/* Stock Qty Avg */}
         <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100/50 rounded-xl">
           <p className="text-[10px] font-medium text-purple-600 uppercase tracking-wide mb-2">
-            Current Avg
+            {t('pricing.currentAvg') || 'Current Avg'}
           </p>
           <p className="text-2xl font-semibold text-purple-900 tracking-tight">
             {formatPrice(pricing.currentAverage)}
@@ -95,7 +95,7 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
         {/* Stock Lowest */}
         <div className="p-4 bg-gradient-to-br from-orange-50 to-orange-100/50 rounded-xl">
           <p className="text-[10px] font-medium text-orange-600 uppercase tracking-wide mb-2">
-            Lowest
+            {t('pricing.lowest') || 'Lowest'}
           </p>
           <p className="text-2xl font-semibold text-orange-900 tracking-tight">
             {formatPrice(pricing.currentLowest)}
@@ -105,7 +105,7 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
         {/* Suggested Price */}
         <div className="p-4 bg-gradient-to-br from-green-50 to-green-100/50 rounded-xl">
           <p className="text-[10px] font-medium text-green-600 uppercase tracking-wide mb-2">
-            Suggested Price
+            {t('pricing.suggestedPrice') || 'Suggested Price'}
           </p>
           <p className="text-2xl font-semibold text-green-900 tracking-tight">
             {formatPrice(pricing.suggestedPrice)}
@@ -120,7 +120,7 @@ export default function PricingCard({ item, showDecimals }: PricingCardProps) {
           onClick={handleSupportClick}
           className="text-xs text-gray-400 hover:text-gray-600 transition-colors duration-200"
         >
-          Saved you some time? Support free pricing →
+          {t('pricing.supportCta') || 'Saved you some time? Support free pricing →'}
         </a>
       </div>
     </div>

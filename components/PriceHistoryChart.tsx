@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface PriceHistoryData {
   id: string;
@@ -29,6 +30,7 @@ interface PriceHistoryChartProps {
 }
 
 export default function PriceHistoryChart({ minifigure_no, condition }: PriceHistoryChartProps) {
+  const { t } = useTranslation();
   const [data, setData] = useState<PriceHistoryData[]>([]);
   const [stats, setStats] = useState<PriceHistoryStats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -53,10 +55,10 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
         setData(result.data);
         setStats(result.stats);
       } else {
-        setError(result.error || 'Failed to load price history');
+        setError(result.error || t('priceHistory.loadError') || 'Failed to load price history');
       }
     } catch (err) {
-      setError('Failed to load price history');
+      setError(t('priceHistory.loadError') || 'Failed to load price history');
     } finally {
       setLoading(false);
     }
@@ -77,7 +79,7 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
           color: '#737373',
           margin: 0
         }}>
-          Price history will appear here as data is collected over time
+          {t('priceHistory.noDataMessage') || 'Price history will appear here as data is collected over time'}
         </p>
         <p style={{
           fontSize: 'var(--text-sm)',
@@ -85,7 +87,7 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
           marginTop: '8px',
           marginBottom: 0
         }}>
-          Check back in a few days to see price trends
+          {t('priceHistory.noDataSubtext') || 'Check back in a few days to see price trends'}
         </p>
       </div>
     );
@@ -152,7 +154,7 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
           margin: 0,
           letterSpacing: '-0.01em'
         }}>
-          Price History
+          {t('pricing.priceHistory') || 'Price History'}
         </h2>
         <div style={{
           display: 'flex',
@@ -183,7 +185,7 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
             }
           }}
         >
-          6 Months
+          {t('priceHistory.sixMonths') || '6 Months'}
         </button>
         <button
           onClick={() => setTimeframe('all')}
@@ -210,7 +212,7 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
             }
           }}
         >
-          All Time
+          {t('priceHistory.allTime') || 'All Time'}
         </button>
         </div>
       </div>

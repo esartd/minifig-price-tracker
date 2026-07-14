@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from '@/components/TranslationProvider';
 
 export default function ClaimDonationClient() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     paypalEmail: '',
     transactionId: '',
@@ -39,10 +41,10 @@ export default function ClaimDonationClient() {
           showOnLeaderboard: false,
         });
       } else {
-        setError(data.error || 'Failed to claim donation');
+        setError(data.error || t('claimDonation.errors.failed') || 'Failed to claim donation');
       }
     } catch (err) {
-      setError('Network error. Please try again.');
+      setError(t('claimDonation.errors.network') || 'Network error. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -74,7 +76,7 @@ export default function ClaimDonationClient() {
             lineHeight: '1.2',
           }}
         >
-          Claim Your Donation
+          {t('claimDonation.hero.title') || 'Claim Your Donation'}
         </h1>
         <p
           style={{
@@ -84,7 +86,7 @@ export default function ClaimDonationClient() {
             marginBottom: '0',
           }}
         >
-          Join our supporters leaderboard and let the community know you helped keep FigTracker free
+          {t('claimDonation.hero.subtitle') || 'Join our supporters leaderboard and let the community know you helped keep FigTracker free'}
         </p>
       </div>
 
@@ -123,7 +125,7 @@ export default function ClaimDonationClient() {
                   marginBottom: '16px',
                 }}
               >
-                Thank you for helping keep LEGO pricing free for everyone
+                {t('claimDonation.success.title') || 'Thank you for helping keep LEGO pricing free for everyone'}
               </h2>
               <p
                 style={{
@@ -133,8 +135,8 @@ export default function ClaimDonationClient() {
                   marginBottom: '32px',
                 }}
               >
-                Your donation has been claimed successfully.
-                {formData.showOnLeaderboard && ' Check out the homepage to see your name on the leaderboard!'}
+                {t('claimDonation.success.body') || 'Your donation has been claimed successfully.'}
+                {formData.showOnLeaderboard && (t('claimDonation.success.leaderboardNote') || ' Check out the homepage to see your name on the leaderboard!')}
               </p>
               <a
                 href="/"
@@ -151,7 +153,7 @@ export default function ClaimDonationClient() {
                   transition: 'all 0.2s',
                 }}
               >
-                Go to Homepage
+                {t('claimDonation.success.homeButton') || 'Go to Homepage'}
               </a>
             </div>
           ) : (
@@ -166,8 +168,7 @@ export default function ClaimDonationClient() {
                   lineHeight: '1.7',
                 }}
               >
-                To verify your donation and add yourself to the leaderboard, enter your PayPal email and
-                transaction ID from your donation receipt.
+                {t('claimDonation.form.instructions') || 'To verify your donation and add yourself to the leaderboard, enter your PayPal email and transaction ID from your donation receipt.'}
               </p>
 
               {/* Error Message */}
@@ -205,7 +206,7 @@ export default function ClaimDonationClient() {
                     marginBottom: '8px',
                   }}
                 >
-                  PayPal Email *
+                  {t('claimDonation.form.paypalEmailLabel') || 'PayPal Email *'}
                 </label>
                 <input
                   type="email"
@@ -213,7 +214,7 @@ export default function ClaimDonationClient() {
                   required
                   value={formData.paypalEmail}
                   onChange={(e) => setFormData({ ...formData, paypalEmail: e.target.value })}
-                  placeholder="your@email.com"
+                  placeholder={t('claimDonation.form.paypalEmailPlaceholder') || 'your@email.com'}
                   style={{
                     width: '100%',
                     padding: '12px 16px',
@@ -237,7 +238,7 @@ export default function ClaimDonationClient() {
                     marginBottom: '8px',
                   }}
                 >
-                  Transaction ID *
+                  {t('claimDonation.form.transactionIdLabel') || 'Transaction ID *'}
                 </label>
                 <input
                   type="text"
@@ -245,7 +246,7 @@ export default function ClaimDonationClient() {
                   required
                   value={formData.transactionId}
                   onChange={(e) => setFormData({ ...formData, transactionId: e.target.value })}
-                  placeholder="e.g., 1AB23456CD789012E"
+                  placeholder={t('claimDonation.form.transactionIdPlaceholder') || 'e.g., 1AB23456CD789012E'}
                   style={{
                     width: '100%',
                     padding: '12px 16px',
@@ -263,7 +264,7 @@ export default function ClaimDonationClient() {
                     marginBottom: '0',
                   }}
                 >
-                  Find this in your PayPal receipt email
+                  {t('claimDonation.form.transactionIdHelper') || 'Find this in your PayPal receipt email'}
                 </p>
               </div>
 
@@ -294,7 +295,7 @@ export default function ClaimDonationClient() {
                       color: '#171717',
                     }}
                   >
-                    Add me to the supporters leaderboard
+                    {t('claimDonation.form.leaderboardOptIn') || 'Add me to the supporters leaderboard'}
                   </span>
                 </label>
               </div>
@@ -312,7 +313,7 @@ export default function ClaimDonationClient() {
                       marginBottom: '8px',
                     }}
                   >
-                    Display Name *
+                    {t('claimDonation.form.displayNameLabel') || 'Display Name *'}
                   </label>
                   <input
                     type="text"
@@ -320,7 +321,7 @@ export default function ClaimDonationClient() {
                     required={formData.showOnLeaderboard}
                     value={formData.displayName}
                     onChange={(e) => setFormData({ ...formData, displayName: e.target.value })}
-                    placeholder="LEGO Master"
+                    placeholder={t('claimDonation.form.displayNamePlaceholder') || 'LEGO Master'}
                     minLength={3}
                     maxLength={30}
                     style={{
@@ -340,7 +341,7 @@ export default function ClaimDonationClient() {
                       marginBottom: '0',
                     }}
                   >
-                    3-30 characters, letters, numbers, spaces, underscores, and hyphens only
+                    {t('claimDonation.form.displayNameHelper') || '3-30 characters, letters, numbers, spaces, underscores, and hyphens only'}
                   </p>
                 </div>
               )}
@@ -362,7 +363,9 @@ export default function ClaimDonationClient() {
                   transition: 'all 0.2s',
                 }}
               >
-                {loading ? 'Claiming...' : 'Claim Donation'}
+                {loading
+                  ? (t('claimDonation.form.submitLoading') || 'Claiming...')
+                  : (t('claimDonation.form.submit') || 'Claim Donation')}
               </button>
             </form>
           )}
@@ -379,7 +382,7 @@ export default function ClaimDonationClient() {
                 lineHeight: '1.6',
               }}
             >
-              Your email and transaction ID are used only for verification and will never be shared publicly.
+              {t('claimDonation.form.privacyNote') || 'Your email and transaction ID are used only for verification and will never be shared publicly.'}
             </p>
           )}
         </div>

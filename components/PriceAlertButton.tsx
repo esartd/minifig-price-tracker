@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface PriceAlertButtonProps {
   itemNo: string;
@@ -21,6 +22,7 @@ export default function PriceAlertButton({
   currencyCode,
 }: PriceAlertButtonProps) {
   const { data: session, status } = useSession();
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [targetPrice, setTargetPrice] = useState('');
   const [hasAlert, setHasAlert] = useState(false);
@@ -66,13 +68,16 @@ export default function PriceAlertButton({
 
     const price = parseFloat(targetPrice);
     if (isNaN(price) || price <= 0) {
-      setMessage({ type: 'error', text: 'Please enter a valid price' });
+      setMessage({ type: 'error', text: t('priceAlert.invalidPrice') || 'Please enter a valid price' });
       setIsLoading(false);
       return;
     }
 
     if (price >= currentPrice) {
-      setMessage({ type: 'error', text: `Target price must be below current price (${currencySymbol}${currentPrice})` });
+      setMessage({
+        type: 'error',
+        text: t('priceAlert.targetBelowCurrent', { price: `${currencySymbol}${currentPrice}` }) || `Target price must be below current price (${currencySymbol}${currentPrice})`,
+      });
       setIsLoading(false);
       return;
     }
@@ -93,17 +98,17 @@ export default function PriceAlertButton({
 
       if (response.ok) {
         setHasAlert(true);
-        setMessage({ type: 'success', text: '✓ Price alert set! You\'ll receive an email when the price drops.' });
+        setMessage({ type: 'success', text: t('priceAlert.setSuccess') || '✓ Price alert set! You\'ll receive an email when the price drops.' });
         setTimeout(() => {
           setIsOpen(false);
           setMessage(null);
         }, 2000);
       } else {
         const error = await response.json();
-        setMessage({ type: 'error', text: error.error || 'Failed to set alert' });
+        setMessage({ type: 'error', text: error.error || t('priceAlert.setFailed') || 'Failed to set alert' });
       }
     } catch (error) {
-      setMessage({ type: 'error', text: 'Failed to set alert. Please try again.' });
+      setMessage({ type: 'error', text: t('priceAlert.setFailedRetry') || 'Failed to set alert. Please try again.' });
     } finally {
       setIsLoading(false);
     }
@@ -127,17 +132,17 @@ export default function PriceAlertButton({
       if (response.ok) {
         setHasAlert(false);
         setTargetPrice('');
-        setMessage({ type: 'success', text: '✓ Price alert deleted' });
+        setMessage({ type: 'success', text: t('priceAlert.deleteSuccess') || '✓ Price alert deleted' });
         setTimeout(() => {
           setIsOpen(false);
           setMessage(null);
         }, 1500);
       } else {
         const error = await response.json();
-        setMessage({ type: 'error', text: error.error || 'Failed to delete alert' });
+        setMessage({ type: 'error', text: error.error || t('priceAlert.deleteFailed') || 'Failed to delete alert' });
       }
     } catch (error) {
-      setMessage({ type: 'error', text: 'Failed to delete alert. Please try again.' });
+      setMessage({ type: 'error', text: t('priceAlert.deleteFailedRetry') || 'Failed to delete alert. Please try again.' });
     } finally {
       setIsLoading(false);
     }
@@ -174,7 +179,7 @@ export default function PriceAlertButton({
           e.currentTarget.style.background = '#ffffff';
           e.currentTarget.style.borderColor = '#e5e5e5';
         }}
-        title="Set price alert"
+        title={t('priceAlert.buttonTooltip') || 'Set price alert'}
       >
         <svg
           width="16"
@@ -187,7 +192,7 @@ export default function PriceAlertButton({
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
           <path d="M13.73 21a2 2 0 0 1-3.46 0" />
         </svg>
-        <span>Price Alert</span>
+        <span>{t('priceAlert.buttonLabel') || 'Price Alert'}</span>
       </button>
 
       {isOpen && (
@@ -226,7 +231,7 @@ export default function PriceAlertButton({
                 margin: '0 0 4px 0',
                 letterSpacing: '-0.01em'
               }}>
-                Set Price Alert
+                {t('priceAlert.modalTitle') || 'Set Price Alert'}
               </h3>
               <p style={{
                 fontSize: '13px',
@@ -256,7 +261,7 @@ export default function PriceAlertButton({
                       letterSpacing: '0.05em',
                       marginBottom: '4px'
                     }}>
-                      Current Price
+                      {t('priceAlert.currentPrice') || 'Current Price'}
                     </div>
                     <div style={{
                       fontSize: '20px',
@@ -277,7 +282,7 @@ export default function PriceAlertButton({
                     color: '#525252',
                     marginBottom: '8px'
                   }}>
-                    Notify me when price drops to:
+                    {t('priceAlert.notifyLabel') || 'Notify me when price drops to:'}
                   </label>
                   <div style={{ position: 'relative' }}>
                     <span style={{
@@ -329,7 +334,7 @@ export default function PriceAlertButton({
                     color: '#a3a3a3',
                     margin: '6px 0 0 0'
                   }}>
-                    Set a target price below the current price
+                    {t('priceAlert.targetHint') || 'Set a target price below the current price'}
                   </p>
                 </div>
 
@@ -373,7 +378,7 @@ export default function PriceAlertButton({
                       e.currentTarget.style.background = '#ffffff';
                     }}
                   >
-                    Cancel
+                    {t('priceAlert.cancel') || 'Cancel'}
                   </button>
                   <button
                     type="submit"
@@ -397,7 +402,7 @@ export default function PriceAlertButton({
                       if (!isLoading) e.currentTarget.style.background = '#3b82f6';
                     }}
                   >
-                    {isLoading ? 'Setting...' : 'Set Alert'}
+                    {isLoading ? (t('priceAlert.setting') || 'Setting...') : (t('priceAlert.setAlert') || 'Set Alert')}
                   </button>
                 </div>
 
@@ -411,7 +416,7 @@ export default function PriceAlertButton({
                   lineHeight: '1.5',
                   marginBottom: '12px'
                 }}>
-                  You'll receive an email when the price drops to or below your target. The alert will be automatically deactivated after triggering.
+                  {t('priceAlert.footerNote') || "You'll receive an email when the price drops to or below your target. The alert will be automatically deactivated after triggering."}
                 </div>
 
                 {/* View All Alerts Link */}
@@ -435,7 +440,7 @@ export default function PriceAlertButton({
                     e.currentTarget.style.color = '#3b82f6';
                   }}
                 >
-                  View all alerts
+                  {t('priceAlert.viewAllAlerts') || 'View all alerts'}
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                   </svg>
@@ -469,7 +474,7 @@ export default function PriceAlertButton({
                           fontWeight: '600',
                           color: '#1e40af'
                         }}>
-                          Alert Active
+                          {t('priceAlert.alertActive') || 'Alert Active'}
                         </div>
                       </div>
                       <div style={{
@@ -486,7 +491,7 @@ export default function PriceAlertButton({
                             letterSpacing: '0.05em',
                             marginBottom: '4px'
                           }}>
-                            Current Price
+                            {t('priceAlert.currentPrice') || 'Current Price'}
                           </div>
                           <div style={{
                             fontSize: '16px',
@@ -505,7 +510,7 @@ export default function PriceAlertButton({
                             letterSpacing: '0.05em',
                             marginBottom: '4px'
                           }}>
-                            Alert Target
+                            {t('priceAlert.alertTarget') || 'Alert Target'}
                           </div>
                           <div style={{
                             fontSize: '16px',
@@ -537,7 +542,7 @@ export default function PriceAlertButton({
                           letterSpacing: '0.05em',
                           marginBottom: '4px'
                         }}>
-                          Current Price
+                          {t('priceAlert.currentPrice') || 'Current Price'}
                         </div>
                         <div style={{
                           fontSize: '20px',
@@ -558,7 +563,7 @@ export default function PriceAlertButton({
                         color: '#525252',
                         marginBottom: '8px'
                       }}>
-                        Notify me when price drops to:
+                        {t('priceAlert.notifyLabel') || 'Notify me when price drops to:'}
                       </label>
                       <div style={{ position: 'relative' }}>
                         <span style={{
@@ -610,7 +615,7 @@ export default function PriceAlertButton({
                         color: '#a3a3a3',
                         margin: '6px 0 0 0'
                       }}>
-                        Set a target price below the current price
+                        {t('priceAlert.targetHint') || 'Set a target price below the current price'}
                       </p>
                     </div>
                   </form>
@@ -671,7 +676,7 @@ export default function PriceAlertButton({
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
                         </svg>
-                        {isLoading ? 'Deleting...' : 'Delete Alert'}
+                        {isLoading ? (t('priceAlert.deleting') || 'Deleting...') : (t('priceAlert.deleteAlert') || 'Delete Alert')}
                       </button>
                       <button
                         onClick={() => setIsEditingPrice(true)}
@@ -702,7 +707,7 @@ export default function PriceAlertButton({
                           <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                           <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                         </svg>
-                        Edit Target
+                        {t('priceAlert.editTarget') || 'Edit Target'}
                       </button>
                     </>
                   ) : (
@@ -732,7 +737,7 @@ export default function PriceAlertButton({
                           e.currentTarget.style.background = '#ffffff';
                         }}
                       >
-                        Cancel
+                        {t('priceAlert.cancel') || 'Cancel'}
                       </button>
                       <button
                         onClick={async (e) => {
@@ -760,7 +765,7 @@ export default function PriceAlertButton({
                           if (!isLoading) e.currentTarget.style.background = '#3b82f6';
                         }}
                       >
-                        {isLoading ? 'Saving...' : 'Save'}
+                        {isLoading ? (t('priceAlert.saving') || 'Saving...') : (t('priceAlert.save') || 'Save')}
                       </button>
                     </>
                   )}
@@ -787,7 +792,7 @@ export default function PriceAlertButton({
                     e.currentTarget.style.color = '#3b82f6';
                   }}
                 >
-                  View all alerts
+                  {t('priceAlert.viewAllAlerts') || 'View all alerts'}
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                   </svg>

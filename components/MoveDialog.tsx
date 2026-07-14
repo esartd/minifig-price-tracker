@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface MoveDialogProps {
   isOpen: boolean;
@@ -19,16 +20,19 @@ export default function MoveDialog({
   direction,
   onConfirm
 }: MoveDialogProps) {
+  const { t } = useTranslation();
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
-  const title = direction === 'to-inventory' ? 'Move to Inventory' : 'Move to Your Collection';
+  const title = direction === 'to-inventory'
+    ? (t('moveDialog.titleToInventory') || 'Move to Inventory')
+    : (t('moveDialog.titleToCollection') || 'Move to Your Collection');
   const description = direction === 'to-inventory'
-    ? 'This will move the item to your selling inventory.'
-    : 'This will move the item to your personal collection.';
+    ? (t('moveDialog.descriptionToInventory') || 'This will move the item to your selling inventory.')
+    : (t('moveDialog.descriptionToCollection') || 'This will move the item to your personal collection.');
 
   const handleConfirm = async () => {
     setLoading(true);
@@ -38,7 +42,7 @@ export default function MoveDialog({
       onClose();
       setQuantity(1);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to move item');
+      setError(err instanceof Error ? err.message : (t('moveDialog.failedToMove') || 'Failed to move item'));
     } finally {
       setLoading(false);
     }
@@ -121,7 +125,7 @@ export default function MoveDialog({
             color: '#171717',
             marginBottom: '8px'
           }}>
-            Quantity to move
+            {t('moveDialog.quantityLabel') || 'Quantity to move'}
           </label>
           <div style={{
             display: 'flex',
@@ -209,7 +213,7 @@ export default function MoveDialog({
             color: '#737373',
             marginTop: '6px'
           }}>
-            Maximum: {maxQuantity}
+            {t('moveDialog.maximumLabel', { max: maxQuantity }) || `Maximum: ${maxQuantity}`}
           </p>
         </div>
 
@@ -253,7 +257,7 @@ export default function MoveDialog({
               transition: 'all 0.2s'
             }}
           >
-            Cancel
+            {t('moveDialog.cancel') || 'Cancel'}
           </button>
           <button
             onClick={handleConfirm}
@@ -271,7 +275,7 @@ export default function MoveDialog({
               transition: 'all 0.2s'
             }}
           >
-            {loading ? 'Moving...' : 'Confirm'}
+            {loading ? (t('moveDialog.moving') || 'Moving...') : (t('moveDialog.confirm') || 'Confirm')}
           </button>
         </div>
       </div>

@@ -78,9 +78,9 @@ export default function CollectorProfilePage({ params }: { params: Promise<{ use
       .then((r) => r.json())
       .then((json) => {
         if (json.success) setData(json.data);
-        else setError(json.error || 'Failed to load profile');
+        else setError(json.error || t('collectors.profile.loadError') || 'Failed to load profile');
       })
-      .catch(() => setError('Failed to load profile'))
+      .catch(() => setError(t('collectors.profile.loadError') || 'Failed to load profile'))
       .finally(() => setLoading(false));
   }, [username]);
 

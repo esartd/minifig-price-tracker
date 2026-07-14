@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslation } from '@/components/TranslationProvider';
+
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
@@ -7,6 +9,7 @@ interface PaginationProps {
 }
 
 export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
+  const { t } = useTranslation();
   if (totalPages <= 1) return null;
 
   const getPageNumbers = (isMobile: boolean) => {
@@ -84,7 +87,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
           e.currentTarget.style.background = 'transparent';
         }}
       >
-        {isMobile ? '←' : '← Previous'}
+        {isMobile ? '←' : `← ${t('common.previous') || 'Previous'}`}
       </button>
 
       {/* Page Numbers */}
@@ -159,7 +162,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
           e.currentTarget.style.background = 'transparent';
         }}
       >
-        {isMobile ? '→' : 'Next →'}
+        {isMobile ? '→' : `${t('common.next') || 'Next'} →`}
       </button>
     </div>
   );

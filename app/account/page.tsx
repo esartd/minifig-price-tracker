@@ -122,7 +122,7 @@ export default function AccountPage() {
       }}>
         <img
           src={imageUrl}
-          alt="Avatar"
+          alt={t('account.profile.avatarAlt') || 'Avatar'}
           style={{
             width: 'auto',
             height: '200%',
@@ -493,15 +493,15 @@ export default function AccountPage() {
       const data = await response.json();
 
       if (data.success) {
-        showMessage('success', 'Leaderboard settings updated successfully!');
+        showMessage('success', t('account.leaderboard.updateSuccess') || 'Leaderboard settings updated successfully!');
         if (data.username && data.username !== session?.user?.username) {
           await update({ username: data.username });
         }
       } else {
-        showMessage('error', data.error || 'Failed to update settings');
+        showMessage('error', data.error || t('account.leaderboard.updateError') || 'Failed to update settings');
       }
     } catch (error) {
-      showMessage('error', 'Network error. Please try again.');
+      showMessage('error', t('account.leaderboard.networkError') || 'Network error. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -519,11 +519,11 @@ export default function AccountPage() {
       const data = await response.json();
       if (!data.success) {
         setProfilePublic(!newValue);
-        showMessage('error', data.error || 'Failed to update visibility');
+        showMessage('error', data.error || t('account.leaderboard.visibilityError') || 'Failed to update visibility');
       }
     } catch {
       setProfilePublic(!newValue);
-      showMessage('error', 'Network error. Please try again.');
+      showMessage('error', t('account.leaderboard.networkError') || 'Network error. Please try again.');
     } finally {
       setSavingProfileVisibility(false);
     }
@@ -1009,7 +1009,7 @@ export default function AccountPage() {
                   type="text"
                   value={leaderboardSettings.leaderboardDisplayName}
                   onChange={(e) => setLeaderboardSettings({ ...leaderboardSettings, leaderboardDisplayName: e.target.value })}
-                  placeholder="e.g., LEGO Master"
+                  placeholder={t('account.leaderboard.displayNamePlaceholder') || 'e.g., LEGO Master'}
                   minLength={3}
                   maxLength={30}
                   style={{
@@ -1098,7 +1098,7 @@ export default function AccountPage() {
 
               {session.user.username ? (
                 <p style={{ margin: '-12px 0 24px', fontSize: 'var(--text-xs)', color: '#a3a3a3' }}>
-                  Your profile:{' '}
+                  {t('account.leaderboard.yourProfile') || 'Your profile:'}{' '}
                   <a
                     href={`/collectors/${session.user.username}`}
                     style={{ color: '#3b82f6', textDecoration: 'none' }}
@@ -1623,7 +1623,7 @@ export default function AccountPage() {
               color: '#525252',
               lineHeight: '1.6'
             }}>
-              <strong>Note:</strong> {t('account.regional.note')}
+              <strong>{t('account.regional.noteLabel') || 'Note:'}</strong> {t('account.regional.note')}
             </p>
           </div>
         </div>

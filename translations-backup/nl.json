@@ -28,7 +28,14 @@
     "new": "Nieuw",
     "used": "Gebruikt",
     "copied": "Gekopieerd!",
-    "showLess": "Minder weergeven"
+    "showLess": "Minder weergeven",
+    "showMoreDescription": "Meer weergeven",
+    "showLessDescription": "Minder weergeven",
+    "showMoreDescriptionAria": "Meer beschrijving weergeven",
+    "showLessDescriptionAria": "Minder beschrijving weergeven",
+    "showingOfCount": "{currentCount} van {totalCount} weergegeven",
+    "showingOfCountItems": "{currentCount} van {totalCount} items weergegeven",
+    "showMore": "Meer Weergeven"
   },
   "navigation": {
     "home": "Home",
@@ -293,6 +300,15 @@
       "keywords": "LEGO thema's, Star Wars minifiguren, Harry Potter LEGO, Marvel LEGO, DC LEGO, Ninjago minifigs, LEGO catalogus per thema",
       "ogTitle": "Blader door LEGO Minifiguren op Thema | FigTracker",
       "ogDescription": "Ontdek minifiguren uit Star Wars, Harry Potter, Marvel en 50+ andere LEGO thema's met actuele prijzen."
+    },
+    "minifiguresHeading": "Minifiguren",
+    "names": {
+      "starWars": "Star Wars",
+      "harryPotter": "Harry Potter",
+      "superHeroes": "Super Heroes",
+      "city": "City",
+      "ninjago": "Ninjago",
+      "friends": "Friends"
     }
   },
   "account": {
@@ -317,7 +333,8 @@
         "name": "Voer uw volledige naam in"
       },
       "save": "Opslaan",
-      "saving": "Opslaan..."
+      "saving": "Opslaan...",
+      "avatarAlt": "Avatar"
     },
     "security": {
       "title": "Beveiliging",
@@ -337,7 +354,8 @@
       "subtitle": "Kies uw gewenste valuta en taal",
       "currency": "Valuta",
       "language": "Taal",
-      "note": "Als u uw valuta wijzigt, worden prijzen weergegeven in de marktplaats van de geselecteerde regio. Prijzen kunnen afwijken van andere regio's door lokale vraag, aanbod en verzendkosten."
+      "note": "Als u uw valuta wijzigt, worden prijzen weergegeven in de marktplaats van de geselecteerde regio. Prijzen kunnen afwijken van andere regio's door lokale vraag, aanbod en verzendkosten.",
+      "noteLabel": "Let op:"
     },
     "sharing": {
       "title": "Collectie Delen",
@@ -399,7 +417,13 @@
       "showSets": "Toon mij in de ranglijst van top set-verzamelaars",
       "showSetsDesc": "Uw aantal sets zal openbaar zichtbaar zijn",
       "save": "Wijzigingen opslaan",
-      "saving": "Opslaan..."
+      "saving": "Opslaan...",
+      "updateSuccess": "Klassementinstellingen succesvol bijgewerkt!",
+      "updateError": "Bijwerken van instellingen mislukt",
+      "networkError": "Netwerkfout. Probeer het opnieuw.",
+      "visibilityError": "Bijwerken van zichtbaarheid mislukt",
+      "displayNamePlaceholder": "bijv. LEGO Meester",
+      "yourProfile": "Jouw profiel:"
     }
   },
   "search": {
@@ -418,7 +442,19 @@
     "seeAllSets": "Alle sets bekijken →",
     "showing": "{shown} van {total} resultaat weergegeven",
     "showingPlural": "{shown} van {total} resultaten weergegeven",
-    "loadMore": "Meer laden ({remaining} resterend)"
+    "loadMore": "Meer laden ({remaining} resterend)",
+    "all": "Alle",
+    "addToCollection": {
+      "signInToAdd": "Log in om toe te voegen"
+    },
+    "badges": {
+      "set": "SET"
+    },
+    "legoTitle": "Zoek LEGO",
+    "unifiedPlaceholder": "Zoek minifiguren en sets...",
+    "noResultsFound": "Geen resultaten gevonden",
+    "noResultsSubtitle": "Probeer andere zoekwoorden of blader op thema",
+    "seeAll": "Alles bekijken →"
   },
   "buyButtons": {
     "ebay": {
@@ -432,7 +468,8 @@
       "description": "Snelle verzending & eenvoudig retourneren",
       "sponsored": "Gesponsord",
       "shopOn": "Kopen bij Amazon",
-      "buyOn": "Kopen bij Amazon"
+      "buyOn": "Kopen bij Amazon",
+      "prime": "Prime"
     },
     "bricklink": {
       "name": "BrickLink",
@@ -455,7 +492,9 @@
     "ebayLoggedOutTitle": "eBay Marktprijzen",
     "ebayLoggedOutExplain": "Prijzen gebaseerd op actuele eBay marktgegevens.",
     "ebayLoggedOutCta": "Log in voor persoonlijke prijzen →",
-    "sourceBrickLink": "Prijs van BrickLink"
+    "sourceBrickLink": "Prijs van BrickLink",
+    "loadingData": "Prijsgegevens laden...",
+    "supportCta": "Tijd bespaard? Steun gratis prijsinformatie →"
   },
   "errors": {
     "notFound": "Niet gevonden",
@@ -674,6 +713,11 @@
       "title": "Over FigTracker - Prijs Elke LEGO Minifiguur of Set in Seconden",
       "description": "FigTracker verandert 24 BrickLink datapunten in één voorgestelde prijs voor elke LEGO minifiguur of set. Dubbele inventaris, 15+ valuta, volledig gratis.",
       "keywords": "over FigTracker, LEGO prijstracker, BrickLink API tool, minifiguur prijzen, LEGO set prijzen, LEGO collectiebeheer, LEGO inventaris tracker, gratis LEGO prijzen, LEGO verkoper tool"
+    },
+    "catalogCount": {
+      "thousandsOf": "duizenden",
+      "overPrefix": "meer dan",
+      "nearlyPrefix": "bijna"
     }
   },
   "featured": {
@@ -729,7 +773,9 @@
     "sets": "sets",
     "supportFigTracker": "FigTracker steunen",
     "beFirstToDonate": "Wees de eerste die doneert!",
-    "noSupporterYet": "Nog geen supporter"
+    "noSupporterYet": "Nog geen supporter",
+    "donationSubtitle": "Dank aan onze gulle supporters dit kwartaal ({season})",
+    "items": "items"
   },
   "footer": {
     "faq": "Veelgestelde Vragen",
@@ -792,7 +838,23 @@
     "showingAll": "Toont alle {count} artikelen",
     "foundResults": "{found} van {total} artikelen gevonden",
     "noArticlesFound": "Geen artikelen gevonden",
-    "tryAdjustingFilters": "Probeer je zoekopdracht of filters aan te passen"
+    "tryAdjustingFilters": "Probeer je zoekopdracht of filters aan te passen",
+    "relatedArticles": "Gerelateerde Artikelen",
+    "shareOnTwitter": "Delen op Twitter",
+    "shareOnFacebook": "Delen op Facebook",
+    "shareOnLinkedIn": "Delen op LinkedIn",
+    "shareOnReddit": "Delen op Reddit",
+    "copyLink": "Link kopiëren",
+    "linkCopied": "Link gekopieerd!",
+    "shareArticle": "Artikel Delen",
+    "pros": "✓ Voordelen",
+    "cons": "✗ Nadelen",
+    "tableOfContents": "Inhoudsopgave",
+    "allCategory": "Alle",
+    "minRead": "{minutes} min leestijd",
+    "notFound": "Artikel Niet Gevonden",
+    "byline": "FigTracker Team",
+    "legacyFormatNotice": "Verouderd artikelformaat - migreer naar het nieuwe CMS"
   },
   "guides": {
     "meta": {
@@ -914,7 +976,8 @@
       "features": {
         "trackUnlimited": "Track unlimited items",
         "realtimePrices": "Real-time suggested prices",
-        "totalValue": "Know your total inventory value"
+        "totalValue": "Know your total inventory value",
+        "dataPrivate": "Je gegevens blijven privé"
       },
       "name": "Naam",
       "email": "E-mailadres",
@@ -934,7 +997,8 @@
         "generic": "Er is een fout opgetreden. Probeer het opnieuw."
       },
       "continueWithGoogle": "Aanmelden met Google",
-      "signupWithEmail": "Aanmelden met e-mail"
+      "signupWithEmail": "Aanmelden met e-mail",
+      "freeBadge": "100% Gratis • Geen creditcard vereist"
     },
     "signin": {
       "title": "Welkom Terug",
@@ -954,7 +1018,8 @@
         "generic": "Er is een fout opgetreden. Probeer het opnieuw."
       },
       "continueWithGoogle": "Doorgaan met Google",
-      "continueWithEmail": "Doorgaan met e-mail"
+      "continueWithEmail": "Doorgaan met e-mail",
+      "forgotLink": "Vergeten?"
     },
     "forgotPassword": {
       "title": "Wachtwoord Resetten",
@@ -997,7 +1062,13 @@
       }
     },
     "footer": "Prijs je inventaris in seconden, niet in uren.",
-    "footerText": "Prijs je inventaris in seconden, niet in uren."
+    "footerText": "Prijs je inventaris in seconden, niet in uren.",
+    "accountLinked": {
+      "title": "Account Gekoppeld!",
+      "message": "Je Google-account is nu gekoppeld aan FigTracker."
+    },
+    "redirectingToGoogle": "Doorverwijzen naar Google...",
+    "orDivider": "OF"
   },
   "newsletter": {
     "title": "Maandelijkse Prijsbewegingen",
@@ -1083,7 +1154,19 @@
     "deleteFromInventory": "Dit artikel uit uw inventaris verwijderen?",
     "deleteFromCollection": "Dit artikel uit uw persoonlijke collectie verwijderen?",
     "ea": "st.",
-    "total": "totaal"
+    "total": "totaal",
+    "noMinifigsInInventory": "Nog geen minifiguren in je inventaris",
+    "searchMinifiguresToGetStarted": "Zoek naar minifiguren om te beginnen",
+    "failedToChangeCondition": "Wijzigen van conditie mislukt",
+    "movedToCollection": "1 minifiguur verplaatst naar Collectie",
+    "movedToInventory": "1 minifiguur verplaatst naar Inventaris",
+    "undo": "Ongedaan maken",
+    "noMinifigsInPersonalCollection": "Nog geen minifiguren in je persoonlijke collectie",
+    "trackPersonalMinifigsSeparately": "Houd je persoonlijke LEGO-minifiguren apart bij van items die je verkoopt",
+    "noSetsInInventory": "Nog geen sets in je inventaris",
+    "searchSetsToGetStarted": "Zoek naar sets om te beginnen",
+    "noSetsInPersonalCollection": "Nog geen sets in je persoonlijke collectie",
+    "trackPersonalSetsSeparately": "Houd je persoonlijke LEGO-sets apart bij van items die je verkoopt"
   },
   "privacyPolicy": {
     "meta": {
@@ -1239,7 +1322,8 @@
       "addedToInventory": "{quantity} item toegevoegd om te verkopen",
       "addedToCollection": "{quantity} item toegevoegd om te houden",
       "movedToCollection": "Verplaatst naar houden! Klik ergens om te sluiten.",
-      "movedToInventory": "Verplaatst naar verkopen! Klik ergens om te sluiten."
+      "movedToInventory": "Verplaatst naar verkopen! Klik ergens om te sluiten.",
+      "addedToGuestCollection": "{quantity} set{plural} toegevoegd aan je collectie!"
     },
     "errors": {
       "failedToAdd": "Toevoegen van set mislukt",
@@ -1273,7 +1357,12 @@
     "meta": {
       "yearUnknown": "Jaar Onbekend",
       "year": "Jaar",
-      "weight": "Gewicht"
+      "weight": "Gewicht",
+      "notFoundTitle": "Set Niet Gevonden",
+      "descriptionFallback": "{category} - {name}. Volg actuele BrickLink-prijzen en beheer je LEGO set-inventaris. Uitgebracht in {year}.",
+      "titleSuffix": "LEGO Set Prijsgids",
+      "ogDescription": "Volg BrickLink-prijzen, bekijk de actuele marktwaarde en beheer je collectie",
+      "twitterDescriptionSuffix": "set prijsgids"
     },
     "newestFrom": "Nieuwste sets van {theme}"
   },
@@ -1308,7 +1397,8 @@
       "keywords": "LEGO set thema's, Star Wars sets, Harry Potter LEGO sets, Marvel LEGO sets, DC LEGO sets, Friends sets, LEGO sets catalogus",
       "ogTitle": "Blader door LEGO Sets op Thema | FigTracker",
       "ogDescription": "Ontdek LEGO sets uit Star Wars, Harry Potter, Friends en 170+ andere thema's met actuele prijzen."
-    }
+    },
+    "themeTitle": "{theme} Sets"
   },
   "sharedCollection": {
     "collectionNotAvailable": "Collectie Niet Beschikbaar",
@@ -1323,7 +1413,10 @@
     "used": "gebruikt",
     "new": "new",
     "trackYourCollection": "Houd je LEGO minifiguur-collectie bij met FigTracker",
-    "startYourCollection": "Begin Je Collectie"
+    "startYourCollection": "Begin Je Collectie",
+    "setsForSale": "Sets Te Koop",
+    "setsCollection": "Sets Collectie",
+    "emptyCollection": "Geen items in deze collectie"
   },
   "guidePage": {
     "breadcrumbs": {
@@ -1681,7 +1774,8 @@
       "item2": "1x Insiders Points (~5% cashback = $12,50 op $249,99)",
       "item3": "Kwalificerende aankoop: 75442 N-1 Starfighter ($249,99)",
       "item4": "Totaal rendement: $62,50 = 25%",
-      "description": "Beste optie als je de exclusieve Display-tegel wilt. Je krijgt beide premium GWP's, maar een lagere pointsvermenigvuldiger."
+      "description": "Beste optie als je de exclusieve Display-tegel wilt. Je krijgt beide premium GWP's, maar een lagere pointsvermenigvuldiger.",
+      "setName": "The Mandalorian's N-1 Starfighter"
     },
     "tierB": {
       "badge": "TIER B",
@@ -1785,13 +1879,27 @@
       "title": "Klaar om Je Waarde te Maximaliseren?",
       "description": "Kies je tier en shop nu. Promotie eindigt 6 mei 2026.",
       "button": "Shop LEGO.com",
-      "disclaimer": "We verdienen een commissie op in aanmerking komende aankopen. Prijzen correct per 2 mei 2026."
+      "disclaimer": "We verdienen een commissie op in aanmerking komende aankopen. Prijzen correct per 2 mei 2026.",
+      "features": {
+        "minifigsTracked": "✓ 18.000+ minifiguren bijgehouden",
+        "setsTracked": "✓ 20.000+ sets bijgehouden",
+        "smartPricing": "✓ Slimme marktprijzen",
+        "currencySupport": "✓ Ondersteuning voor 15+ valuta's"
+      }
     },
     "common": {
       "buyOnLego": "Koop op LEGO.com",
       "price": "Prijs",
       "setNumber": "Set",
-      "eligibleFor": "In aanmerking voor"
+      "eligibleFor": "In aanmerking voor",
+      "sponsored": "Gesponsord"
+    },
+    "comparisonTable": {
+      "tier": "Tier",
+      "spend": "Besteding",
+      "freebiesValue": "Waarde Gratis Extra's",
+      "cashback": "Cashback",
+      "totalReturn": "Totaal Rendement"
     }
   },
   "legoSale": {
@@ -1817,7 +1925,40 @@
     "price50to100": "$50 - $100",
     "price100to200": "$100 - $200",
     "priceOver200": "$200+",
-    "seoDescription": "Ontdek de beste LEGO® deals op Amazon met kortingen tot 50%. We volgen prijzen van duizenden sets en updaten elke 6 uur om je de grootste besparingen te bieden. Alle deals komen in aanmerking voor gratis Amazon Prime-verzending. Of je nu op zoek bent naar Star Wars, City, Creator of een ander thema, vind hier je volgende LEGO set voor een onverslaanbare prijs."
+    "seoDescription": "Ontdek de beste LEGO® deals op Amazon met kortingen tot 50%. We volgen prijzen van duizenden sets en updaten elke 6 uur om je de grootste besparingen te bieden. Alle deals komen in aanmerking voor gratis Amazon Prime-verzending. Of je nu op zoek bent naar Star Wars, City, Creator of een ander thema, vind hier je volgende LEGO set voor een onverslaanbare prijs.",
+    "meta": {
+      "notFoundTitle": "Pagina Niet Gevonden",
+      "title": "LEGO® Uitverkoop: Beste Amazon-deals Tot 50% Korting | FigTracker",
+      "description": "Vind de beste LEGO-deals op Amazon met kortingen tot 50%. Elke 6 uur bijgewerkt. Blader door actuele LEGO-sets van Star Wars, City, Creator en meer. Gratis verzending met Prime.",
+      "keywords": [
+        "LEGO uitverkoop",
+        "LEGO deals",
+        "LEGO Amazon",
+        "goedkope LEGO sets",
+        "LEGO korting",
+        "LEGO opruiming",
+        "LEGO Star Wars uitverkoop",
+        "LEGO City deals",
+        "beste LEGO prijzen",
+        "LEGO aanbiedingen",
+        "LEGO promoties"
+      ],
+      "ogTitle": "LEGO® Uitverkoop - Tot 50% Korting op Amazon",
+      "ogDescription": "Ontdek de beste LEGO-deals op Amazon. Elke 6 uur bijgewerkt met kortingen van 20% tot 50%.",
+      "twitterTitle": "LEGO® Uitverkoop - Beste Amazon-deals",
+      "twitterDescription": "Vind LEGO-sets met tot 50% korting op Amazon"
+    },
+    "subtitleUpdated": "Beste Amazon-deals - Elke 6 Uur Bijgewerkt",
+    "seoParagraph": "Ontdek de beste LEGO®-deals op Amazon met kortingen tot 50%. Onze LEGO-uitverkooppagina scant automatisch duizenden LEGO-sets en licht de grootste besparingen uit binnen populaire thema's zoals Star Wars, City, Creator, Technic en meer. Of je nu op zoek bent naar zeldzame gestopte sets of de nieuwste releases, wij volgen de Amazon-prijzen elke 6 uur zodat je nooit een goede deal mist. Filter op thema, prijsklasse of kortingspercentage om precies te vinden wat je zoekt. Alle deals bieden gratis verzending met Amazon Prime. Begin vandaag nog met besparen op je favoriete LEGO-sets!",
+    "searchThemesPlaceholder": "Zoek thema's...",
+    "allPrices": "Alle Prijzen",
+    "priceDisclaimerLabel": "Prijsdisclaimer:",
+    "priceDisclaimerText": "Productprijzen en beschikbaarheid zijn accuraat op de aangegeven datum/tijd en kunnen wijzigen. Getoonde prijzen zijn afkomstig van Amazon op het moment van de laatste vernieuwing (elke 6 uur bijgewerkt). Alle prijs- en beschikbaarheidsinformatie die op het moment van aankoop op Amazon wordt weergegeven, is van toepassing op de aankoop van dit product. Als Amazon Associate, LEGO Affiliate en eBay Partner verdient FigTracker aan in aanmerking komende aankopen.",
+    "loadingDeals": "Deals laden...",
+    "tierUnbelievable50": "Ongelooflijke Deals - 50%+ Korting",
+    "tierExcellent40": "Uitstekende Deals - 40%+ Korting",
+    "tierGreat30": "Geweldige Deals - 30%+ Korting",
+    "tierGood20": "Goede Deals - 20%+ Korting"
   },
   "retiringSoon": {
     "pageTitle": "LEGO Sets die Binnenkort Verdwijnen 2026",
@@ -1916,7 +2057,8 @@
       "notFoundDesc": "We konden geen verzamelaar vinden met die gebruikersnaam.",
       "editProfile": "Profiel bewerken",
       "conditionNew": "Nieuw",
-      "conditionUsed": "Gebruikt"
+      "conditionUsed": "Gebruikt",
+      "loadError": "Laden van profiel mislukt"
     },
     "username": {
       "title": "Gebruikersnaam",
@@ -2011,9 +2153,488 @@
     "variantCountOne": "1 andere versie...",
     "variantCountMany": "{count} andere versies...",
     "featuredThemeSets": "Uitgelichte {theme}-sets",
-    "currentLegoSetsTheme": "Huidige LEGO-sets van dit thema"
+    "currentLegoSetsTheme": "Huidige LEGO-sets van dit thema",
+    "meta": {
+      "notFoundTitle": "Minifiguur Niet Gevonden",
+      "description": "{category} - {fullName}. Volg actuele BrickLink-prijzen, bekijk de marktwaarde en beheer je collectie. Voeg toe om te verkopen of te houden. Uitgebracht in {year}.",
+      "dateUnknown": "datum onbekend",
+      "titleSuffix": "LEGO Minifiguur Prijstracker",
+      "ogDescription": "LEGO Minifiguur {itemNo} - Volg BrickLink-prijzen, bekijk de actuele marktwaarde en beheer je collectie",
+      "twitterDescription": "{category} minifiguur prijsgids",
+      "productDescription": "{category} LEGO minifiguur {itemNo}. Volg actuele BrickLink-prijzen en marktwaarde."
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "themes": "Thema's"
+    },
+    "errors": {
+      "failedToAddToWishlist": "Toevoegen aan verlanglijst mislukt",
+      "failedToUpdateWishlist": "Bijwerken van verlanglijst mislukt",
+      "failedToAdd": "Toevoegen mislukt",
+      "pleaseSignIn": "Log in om items toe te voegen",
+      "alreadyInInventory": "Al in inventaris",
+      "failedToAddToInventory": "Toevoegen aan inventaris mislukt",
+      "failedToAddToPersonalCollection": "Toevoegen aan persoonlijke collectie mislukt",
+      "failedToUpdateQuantity": "Bijwerken van aantal mislukt",
+      "failedToMoveItem": "Verplaatsen van item mislukt",
+      "failedToDeleteItem": "Verwijderen van item mislukt"
+    },
+    "messages": {
+      "addedToGuestCollectionOne": "1 item toegevoegd aan je collectie!",
+      "addedToGuestCollectionMany": "{count} items toegevoegd aan je collectie!",
+      "addedToSellOne": "1 item toegevoegd om te verkopen",
+      "addedToSellMany": "{count} items toegevoegd om te verkopen",
+      "addedToKeepOne": "1 item toegevoegd om te houden",
+      "addedToKeepMany": "{count} items toegevoegd om te houden",
+      "addedMoreToSellOne": "1 extra item toegevoegd om te verkopen",
+      "addedMoreToSellMany": "{count} extra items toegevoegd om te verkopen",
+      "addedMoreToKeepOne": "1 extra item toegevoegd om te houden",
+      "addedMoreToKeepMany": "{count} extra items toegevoegd om te houden",
+      "movedToSellOne": "1 item verplaatst om te verkopen",
+      "movedToSellMany": "{count} items verplaatst om te verkopen",
+      "movedToKeepOne": "1 item verplaatst om te houden",
+      "movedToKeepMany": "{count} items verplaatst om te houden",
+      "removedFromPersonalCollection": "Verwijderd uit persoonlijke collectie",
+      "movedOneMinifigure": "1 minifiguur verplaatst",
+      "undo": "Ongedaan maken"
+    },
+    "altText": {
+      "mainImage": "LEGO {name} Minifiguur {no} - {category}",
+      "relatedImage": "LEGO {name} Minifiguur {no}"
+    },
+    "schemaDescription": "LEGO {name} Minifiguur {no} uit het {category}-thema. Volg actuele BrickLink-prijzen en beheer je LEGO-collectie."
   },
   "supportLink": {
     "savedYouTime": "Tijd bespaard? Steun snelle, nauwkeurige prijsstelling →"
+  },
+  "metadata": {
+    "title": "FigTracker - Eén Prijs voor Elke LEGO Minifiguur of Set",
+    "description": "Prijs elke LEGO minifiguur of set binnen enkele seconden. Eén voorgestelde prijs op basis van BrickLink- en eBay-gegevens. Houd je inventaris gratis bij. 18.000+ minifigs, 20.000+ sets.",
+    "twitterDescription": "Prijs elke LEGO minifiguur of set binnen enkele seconden. Eén voorgestelde prijs op basis van BrickLink- en eBay-gegevens. Houd je inventaris gratis bij.",
+    "keywords": [
+      "LEGO minifiguur prijzen",
+      "LEGO set prijzen",
+      "BrickLink prijstracker",
+      "LEGO collectiebeheer",
+      "minifig waardetracker",
+      "LEGO verkooptool",
+      "LEGO prijsgids",
+      "minifiguur collectietracker",
+      "LEGO settracker",
+      "LEGO inventaristracker",
+      "LEGO prijzen bijhouden",
+      "LEGO prijstool",
+      "minifig voorgestelde prijs"
+    ],
+    "ogImageAlt": "FigTracker - LEGO Minifiguur Prijstracker",
+    "webAppDescription": "Prijs elke LEGO minifiguur of set binnen enkele seconden. Eén voorgestelde prijs, geen hoofdrekenen nodig.",
+    "featureList": [
+      "Eén voorgestelde prijs per minifiguur of set",
+      "Dubbele inventaris: verkooplijst en persoonlijke collectie",
+      "Voorgestelde prijzencalculator",
+      "Collectie bijhouden",
+      "18.000+ LEGO minifiguren, 20.000+ sets"
+    ],
+    "organizationDescription": "FigTracker geeft je één voorgestelde prijs voor elke LEGO minifiguur of set, zodat je sneller kunt plaatsen en met vertrouwen kunt verkopen.",
+    "siteAlternateName": "LEGO Minifiguur Prijstracker",
+    "ogImage": {
+      "subtitle": "LEGO Minifiguur Prijstracker",
+      "featureText": "Realtime Bricklink-prijzen • Houd je collectie bij"
+    }
+  },
+  "themeMeta": {
+    "nameLegoMinifigures": "{name} LEGO Minifiguren",
+    "titleWithCount": "Blader door {theme} LEGO Minifiguren & Sets ({count} minifigs) | FigTracker",
+    "titleNoCount": "Blader door {theme} LEGO Minifiguren & Sets | FigTracker",
+    "descriptionWithCount": "Ontdek {count} {theme} LEGO minifiguren en sets met slimme marktprijzen. Volg actuele marktwaarden, beheer je collectie en organiseer items om te verkopen en te houden{seriesSuffix}.",
+    "descriptionAllNoCount": "Ontdek alle {theme} LEGO minifiguren en sets met slimme marktprijzen. Volg actuele marktwaarden, beheer je collectie en organiseer items om te verkopen en te houden{seriesSuffix}.",
+    "acrossSeriesSuffix": " verspreid over {count} series",
+    "keywordThemeMinifigures": "{theme} LEGO minifiguren",
+    "keywordThemeSets": "{theme} LEGO sets",
+    "keywordThemeMinifigPrice": "{theme} minifig prijs",
+    "keywordThemeSetPrice": "{theme} set prijs",
+    "keywordThemePriceTracker": "{theme} prijstracker",
+    "keywordThemeCollectionManager": "{theme} collectiebeheer",
+    "keywordBricklinkPrices": "BrickLink prijzen",
+    "keywordLegoPriceGuide": "LEGO prijsgids",
+    "keywordTrackLegoPrices": "LEGO prijzen bijhouden",
+    "ogTitleThemeSets": "{theme} LEGO Minifiguren & Sets | FigTracker",
+    "notFoundTitle": "Thema Niet Gevonden",
+    "layoutTitle": "{theme} LEGO Minifiguren - Prijsgids & Collectie ({count} Minifigs) | FigTracker",
+    "layoutDescription": "Blader door alle {count} {theme} LEGO minifiguren met slimme marktprijzen. Volg waarden, beheer je inventaris en ontdek personagevarianten. Complete {theme} collectiegids.",
+    "layoutOgTitle": "{theme} LEGO Minifiguren - {count} Minifigs",
+    "layoutOgDescription": "Blader door en prijs {count} {theme} LEGO minifiguren met slimme marktprijzen uit meerdere bronnen",
+    "keywordThemeMinifigPrices": "{theme} minifig prijzen",
+    "keywordThemeBricklink": "{theme} Bricklink",
+    "keywordThemeLegoCollection": "{theme} LEGO collectie",
+    "keywordMinifigureValueTracker": "minifiguur waardetracker",
+    "subTitleWithCount": "{name} LEGO Minifiguren ({count}) | FigTracker",
+    "subTitleNoCount": "{name} LEGO Minifiguren | FigTracker",
+    "subDescriptionWithCount": "Blader door alle {count} {fullName} LEGO minifiguren met slimme marktprijzen. Volg prijzen, beheer je collectie en ontdek zeldzame varianten.",
+    "subDescriptionNoCount": "Blader door {fullName} LEGO minifiguren met slimme marktprijzen. Volg prijzen en beheer je collectie.",
+    "keywordFullNameMinifigures": "{fullName} LEGO minifiguren",
+    "keywordNameLego": "{name} LEGO",
+    "keywordNameMinifigPrice": "{name} minifig prijs",
+    "keywordMinifigureCollection": "minifiguur collectie"
+  },
+  "verifyHuman": {
+    "meta": {
+      "title": "Beveiligingscontrole | FigTracker",
+      "description": "Voltooi deze snelle beveiligingscontrole om door te gaan"
+    },
+    "errors": {
+      "refresh": "Verificatie mislukt. Vernieuw de pagina en probeer het opnieuw.",
+      "retry": "Verificatie mislukt. Probeer het opnieuw.",
+      "network": "Netwerkfout. Controleer je verbinding."
+    },
+    "heading": "Snelle Beveiligingscontrole",
+    "explanation": "We hebben ongebruikelijke verkeerspatronen gedetecteerd. Voltooi deze korte test om te bevestigen dat je een mens bent. Dit helpt ons spam te voorkomen en de site snel te houden voor iedereen.",
+    "waitHint": "Dit duurt meestal maar een paar seconden...",
+    "success": "Geverifieerd! Doorverwijzen...",
+    "tryAgain": "Opnieuw Proberen",
+    "poweredBy": "Beveiligd door Cloudflare Turnstile",
+    "learnMore": "Meer informatie"
+  },
+  "claimDonation": {
+    "meta": {
+      "title": "Claim Je Donatie - FigTracker",
+      "description": "Voeg je donatie toe aan het FigTracker-supportersklassement"
+    },
+    "hero": {
+      "title": "Claim Je Donatie",
+      "subtitle": "Doe mee aan ons supportersklassement en laat de community weten dat jij hebt bijgedragen om FigTracker gratis te houden"
+    },
+    "success": {
+      "title": "Bedankt dat je helpt om LEGO-prijzen gratis te houden voor iedereen",
+      "body": "Je donatie is succesvol geclaimd.",
+      "leaderboardNote": " Bekijk de homepage om je naam op het klassement te zien!",
+      "homeButton": "Ga naar de Homepage"
+    },
+    "form": {
+      "instructions": "Om je donatie te verifiëren en jezelf aan het klassement toe te voegen, voer je je PayPal-e-mailadres en transactie-ID in van je donatiebon.",
+      "paypalEmailLabel": "PayPal E-mail *",
+      "paypalEmailPlaceholder": "jouw@email.com",
+      "transactionIdLabel": "Transactie-ID *",
+      "transactionIdPlaceholder": "bijv. 1AB23456CD789012E",
+      "transactionIdHelper": "Dit vind je in je PayPal-bonnetje-e-mail",
+      "leaderboardOptIn": "Voeg mij toe aan het supportersklassement",
+      "displayNameLabel": "Weergavenaam *",
+      "displayNamePlaceholder": "LEGO Meester",
+      "displayNameHelper": "3-30 tekens, alleen letters, cijfers, spaties, underscores en koppeltekens",
+      "submitLoading": "Bezig met claimen...",
+      "submit": "Donatie Claimen",
+      "privacyNote": "Je e-mailadres en transactie-ID worden alleen gebruikt voor verificatie en nooit openbaar gedeeld."
+    },
+    "errors": {
+      "failed": "Claimen van donatie mislukt",
+      "network": "Netwerkfout. Probeer het opnieuw."
+    }
+  },
+  "minifigFAQ": {
+    "heading": "Veelgestelde Vragen",
+    "newOrUsed": {
+      "question": "Moet ik {minifigNo} nieuw of gebruikt kopen?",
+      "answerExpensive": "Voor {minifigName} hangt de keuze af van je budget en doel. Nieuwe staat kost doorgaans 20-40% meer, maar garandeert een perfecte printkwaliteit en geen slijtage. Gebruikte staat is voordeliger en prima geschikt voor persoonlijke collecties of MOC's. Bij {price} kun je overwegen om gebruikt te kopen om flink te besparen — controleer wel de printkwaliteit op de foto's. Bekijk altijd de foto's van de verkoper op verbleekte prints, scheuren in de armen of stressplekken op de torso voordat je gebruikt koopt.",
+      "answerBudget": "Voor {minifigName} hangt de keuze af van je budget en doel. Nieuwe staat kost doorgaans 20-40% meer, maar garandeert een perfecte printkwaliteit en geen slijtage. Gebruikte staat is voordeliger en prima geschikt voor persoonlijke collecties of MOC's. Bij {price} is nieuw vaak de kleine meerprijs waard voor een perfecte staat. Bekijk altijd de foto's van de verkoper op verbleekte prints, scheuren in de armen of stressplekken op de torso voordat je gebruikt koopt.",
+      "answerNeutral": "Voor {minifigName} hangt de keuze af van je budget en doel. Nieuwe staat kost doorgaans 20-40% meer, maar garandeert een perfecte printkwaliteit en geen slijtage. Gebruikte staat is voordeliger en prima geschikt voor persoonlijke collecties of MOC's. Vergelijk de nieuw- en gebruikt-prijzen op BrickLink — soms is het verschil minimaal. Bekijk altijd de foto's van de verkoper op verbleekte prints, scheuren in de armen of stressplekken op de torso voordat je gebruikt koopt.",
+      "answerNoPriceData": "Zonder actuele prijsgegevens kun je BrickLink raadplegen om de nieuw- en gebruikt-prijzen van {minifigName} te vergelijken. Koop over het algemeen nieuw als het prijsverschil minder dan $5 is, of als je investeert om door te verkopen. Koop gebruikt als je een persoonlijke collectie opbouwt en lichte slijtage geen probleem is."
+    },
+    "whyPrice": {
+      "questionExpensive": "Waarom is {minifigNo} zo duur?",
+      "questionBudget": "Waarom is {minifigNo} zo betaalbaar?",
+      "questionNeutral": "Waarom heeft {minifigNo} deze prijs?",
+      "expensiveAnswerVintageRetired": "{minifigName} heeft een premiumprijs van {price} door verschillende factoren: **Leeftijd** - Uitgebracht in {year}, vintage minifiguren zijn moeilijker te vinden in goede staat. **Populariteit van {categoryName}** - Hoge vraag van verzamelaars. **Beperkte beschikbaarheid** - Waarschijnlijk in weinig of exclusieve sets verschenen. **Stopgezette sets** - De originele sets worden niet meer geproduceerd. Premium minifiguren uit exclusieve sets, promotieartikelen of favoriete personages behouden altijd een hogere waarde.",
+      "expensiveAnswerRetired": "{minifigName} heeft een premiumprijs van {price} door verschillende factoren: **Populariteit van {categoryName}** - Hoge vraag van verzamelaars. **Beperkte beschikbaarheid** - Waarschijnlijk in weinig of exclusieve sets verschenen. **Stopgezette sets** - De originele sets worden niet meer geproduceerd. Premium minifiguren uit exclusieve sets, promotieartikelen of favoriete personages behouden altijd een hogere waarde.",
+      "expensiveAnswerBase": "{minifigName} heeft een premiumprijs van {price} door verschillende factoren: **Populariteit van {categoryName}** - Hoge vraag van verzamelaars. **Beperkte beschikbaarheid** - Waarschijnlijk in weinig of exclusieve sets verschenen. Premium minifiguren uit exclusieve sets, promotieartikelen of favoriete personages behouden altijd een hogere waarde.",
+      "budgetAnswerRecent": "{minifigName} is betaalbaar met {price} omdat: **Recent uitgebracht** - Nog steeds ruim verkrijgbaar via sets uit {year}. **Algemene beschikbaarheid** - Waarschijnlijk opgenomen in meerdere sets of in massa geproduceerd. **Generiek ontwerp** - Minifiguren zonder personage of army-builders kosten minder. Dit maakt het perfect voor bulkaankopen, MOC-bouw of het starten van een collectie zonder een gat in je budget.",
+      "budgetAnswerBase": "{minifigName} is betaalbaar met {price} omdat: **Algemene beschikbaarheid** - Waarschijnlijk opgenomen in meerdere sets of in massa geproduceerd. **Generiek ontwerp** - Minifiguren zonder personage of army-builders kosten minder. Dit maakt het perfect voor bulkaankopen, MOC-bouw of het starten van een collectie zonder een gat in je budget.",
+      "neutralAnswerWithYear": "{minifigName} heeft een gematigde prijs van {price}, wat een evenwichtige vraag en aanbod weerspiegelt. Uitgebracht in {year}, is het niet zeldzaam genoeg om duur te zijn, maar ook niet algemeen genoeg om spotgoedkoop te zijn. Deze eerlijke prijs maakt het toegankelijk voor de meeste verzamelaars, terwijl het toch wat verzamelwaarde behoudt.",
+      "neutralAnswerNoYear": "{minifigName} heeft een gematigde prijs van {price}, wat een evenwichtige vraag en aanbod weerspiegelt. Het is niet zeldzaam genoeg om duur te zijn, maar ook niet algemeen genoeg om spotgoedkoop te zijn. Deze eerlijke prijs maakt het toegankelijk voor de meeste verzamelaars, terwijl het toch wat verzamelwaarde behoudt."
+    },
+    "bestTime": {
+      "question": "Wat is het beste moment om {minifigNo} te kopen?",
+      "answerRecent": "Op basis van LEGO-markttrends is het beste moment om {minifigName} te kopen: **Nu, voordat het stopgezet wordt** - Sets uit {year} worden binnenkort stopgezet, en prijzen stijgen doorgaans met 30-50% binnen een jaar na stopzetting. Vermijd kopen in november-december (feestdagenvraag) of vlak na stopzetting van een set (speculatiepiek). Houd de prijsgeschiedenisgrafiek hierboven in de gaten om dalende trends te spotten. Stel prijsmeldingen in op BrickLink om deals onder {priceLower} niet te missen.",
+      "answerVintage": "Op basis van LEGO-markttrends is het beste moment om {minifigName} te kopen: **Tijdens rustige seizoenen** - Vintage minifiguren uit {year} zijn het goedkoopst in de zomer (juni-augustus), wanneer minder verzamelaars kopen. Vermijd kopen in november-december (feestdagenvraag) of vlak na stopzetting van een set (speculatiepiek). Houd de prijsgeschiedenisgrafiek hierboven in de gaten om dalende trends te spotten. Stel prijsmeldingen in op BrickLink om deals onder {priceLower} niet te missen.",
+      "answerStandard": "Op basis van LEGO-markttrends is het beste moment om {minifigName} te kopen: **Na het feestdagenseizoen** - Prijzen dalen meestal in januari-februari, wanneer verkopers overtollige voorraad hebben. Vermijd kopen in november-december (feestdagenvraag) of vlak na stopzetting van een set (speculatiepiek). Houd de prijsgeschiedenisgrafiek hierboven in de gaten om dalende trends te spotten. Stel prijsmeldingen in op BrickLink om deals onder {priceLower} niet te missen."
+    },
+    "authenticity": {
+      "question": "Hoe kan ik controleren of {minifigNo} authentiek is?",
+      "answerExpensive": "Om te controleren of {minifigName} echte LEGO is: **1. Controleer de noppen** - Alle LEGO-minifiguuronderdelen hebben \"LEGO\" in reliëf op de noppen (bovenop het hoofd, binnenin de torso). **2. Printkwaliteit** - LEGO-prints zijn scherp, zonder vlekken of verschuivingen. Namaak heeft vaak wazige prints. **3. Kwaliteit van het plastic** - Echte LEGO heeft een specifiek gevoel en klikkracht. Nepversies zijn vaak glimmender of buigzamer. **4. Kleurconsistentie** - De kleurconsistentie van LEGO is perfect. Afwijkende gele of huidtinten wijzen op neponderdelen. Koop voor dure minifiguren zoals deze ({price}) bij betrouwbare BrickLink-verkopers met hoge beoordelingen. Controleer bij aankoop op eBay of de verkoper \"LEGO\" in de titel heeft staan en close-upfoto's van de LEGO-stempels biedt.",
+      "answerBase": "Om te controleren of {minifigName} echte LEGO is: **1. Controleer de noppen** - Alle LEGO-minifiguuronderdelen hebben \"LEGO\" in reliëf op de noppen (bovenop het hoofd, binnenin de torso). **2. Printkwaliteit** - LEGO-prints zijn scherp, zonder vlekken of verschuivingen. Namaak heeft vaak wazige prints. **3. Kwaliteit van het plastic** - Echte LEGO heeft een specifiek gevoel en klikkracht. Nepversies zijn vaak glimmender of buigzamer. **4. Kleurconsistentie** - De kleurconsistentie van LEGO is perfect. Afwijkende gele of huidtinten wijzen op neponderdelen. Koop bij betrouwbare BrickLink-verkopers met hoge beoordelingen. Controleer bij aankoop op eBay of de verkoper \"LEGO\" in de titel heeft staan en close-upfoto's van de LEGO-stempels biedt."
+    }
+  },
+  "saveCollectionModal": {
+    "heading": "Je collectie is {value} waard",
+    "subtext": "Je hebt {count} {itemWord} bijgehouden. Maak een gratis account aan om het permanent op te slaan.",
+    "totalValueLabel": "TOTALE WAARDE",
+    "itemsTracked": "{count} {itemWord} bijgehouden",
+    "benefitNeverLose": "Verlies deze collectie nooit",
+    "benefitAutoPriceUpdates": "Ontvang automatische prijsupdates",
+    "benefitGenerateListings": "Genereer direct vermeldingen",
+    "saveButton": "Mijn Collectie Opslaan",
+    "continueAsGuest": "Doorgaan als Gast"
+  },
+  "moveDialog": {
+    "titleToInventory": "Verplaatsen naar Inventaris",
+    "titleToCollection": "Verplaatsen naar Jouw Collectie",
+    "descriptionToInventory": "Dit verplaatst het item naar je verkoopinventaris.",
+    "descriptionToCollection": "Dit verplaatst het item naar je persoonlijke collectie.",
+    "failedToMove": "Verplaatsen van item mislukt",
+    "quantityLabel": "Aantal te verplaatsen",
+    "maximumLabel": "Maximum: {max}",
+    "cancel": "Annuleren",
+    "moving": "Bezig met verplaatsen...",
+    "confirm": "Bevestigen"
+  },
+  "guestCollectionBadge": {
+    "title": "Jouw Collectie",
+    "itemCount": "{count} {itemWord}",
+    "saveCta": "Opslaan →"
+  },
+  "priceDisplay": {
+    "suggestedPrice": "Voorgestelde Prijs",
+    "unavailable": "Prijsgegevens niet beschikbaar"
+  },
+  "currencyBanner": {
+    "detectionMessage": "We hebben gedetecteerd dat je in {country} bent. Prijzen tonen in {currency}?",
+    "acceptButton": "Ja, gebruik {currency}",
+    "keepUsd": "USD Behouden"
+  },
+  "authRequiredModal": {
+    "heading": "Volg Dit in Je Collectie",
+    "subheading": "Meld je aan om \"{itemName}\" te volgen",
+    "benefitSavePermanently": "Sla dit item permanent op",
+    "benefitTrackPrices": "Volg prijzen automatisch",
+    "benefitGenerateListings": "Genereer direct eBay/Facebook-vermeldingen",
+    "createAccountButton": "Gratis Account Aanmaken",
+    "alreadyHaveAccount": "Heb je al een account?",
+    "signInButton": "Inloggen"
+  },
+  "notFound": {
+    "heading": "Pagina niet gevonden",
+    "body": "De pagina die je zoekt bestaat niet of is verplaatst.",
+    "goHome": "Ga naar Home"
+  },
+  "minifigError": {
+    "heading": "Er is iets misgegaan",
+    "body": "We konden deze minifiguur niet laden. Dit kan een tijdelijk probleem zijn.",
+    "tryAgain": "Probeer opnieuw",
+    "backToSearch": "Terug naar zoeken"
+  },
+  "minifigNotFound": {
+    "heading": "Minifiguur niet gevonden",
+    "body": "We konden deze minifiguur niet vinden in onze catalogus. Mogelijk bestaat deze niet of is het itemnummer onjuist.",
+    "searchMinifigures": "Zoek minifiguren"
+  },
+  "scrollToTop": {
+    "ariaLabel": "Scroll naar boven"
+  },
+  "breadcrumb": {
+    "ariaLabel": "Broodkruimelpad"
+  },
+  "communityStats": {
+    "since": "Sinds {year}",
+    "minifigsCount": "{count} minifigs"
+  },
+  "themeFilters": {
+    "all": "Alle",
+    "allCategories": "Alle categorieën",
+    "searchPlaceholder": "Zoek categorieën...",
+    "noCategoriesFound": "Geen categorieën gevonden"
+  },
+  "deals": {
+    "off": "KORTING",
+    "save": "Bespaar",
+    "noDealsFound": "Geen deals gevonden in deze categorie"
+  },
+  "priceHistory": {
+    "loadError": "Laden van prijsgeschiedenis mislukt",
+    "noDataMessage": "Prijsgeschiedenis verschijnt hier zodra er gegevens worden verzameld",
+    "noDataSubtext": "Kom over een paar dagen terug om prijstrends te zien",
+    "sixMonths": "6 Maanden",
+    "allTime": "Altijd"
+  },
+  "listingGenerator": {
+    "errors": {
+      "generateFailed": "Genereren van vermelding mislukt"
+    },
+    "firstTimeBanner": {
+      "title": "Eerste keer?",
+      "body": "Gebruik het instellingenicoon om je vermeldingsvoorkeuren aan te passen (platform, conditie, enz.). Vermelding Genereren onthoudt ze voor de volgende keer!"
+    },
+    "quickGenerate": {
+      "loading": "Vermelding Genereren..."
+    },
+    "generateListing": "Vermelding Genereren",
+    "customizeOptionsTooltip": "Opties aanpassen",
+    "generatedListingHeading": "Gegenereerde Vermelding",
+    "adjustSettingsTooltip": "Instellingen Aanpassen",
+    "titleLabel": "Titel:",
+    "copyTitle": "Titel Kopiëren",
+    "priceLabel": "Prijs:",
+    "copyPrice": "Prijs Kopiëren",
+    "wholeNumber": "(heel getal)",
+    "descriptionLabel": "Beschrijving:",
+    "copyDescription": "Beschrijving Kopiëren",
+    "done": "Klaar",
+    "platformLabel": "Platform:",
+    "conditionLabel": "Conditie:",
+    "platform": {
+      "ebay": "eBay",
+      "facebook": "Facebook Marketplace",
+      "bricklink": "BrickLink",
+      "vinted": "Vinted"
+    },
+    "condition": {
+      "facebook": {
+        "new": "Nieuw",
+        "likeNew": "Zo goed als nieuw",
+        "good": "Goed",
+        "fair": "Redelijk"
+      },
+      "ebay": {
+        "new": "Nieuw",
+        "likeNew": "Zo Goed als Nieuw",
+        "veryGood": "Zeer Goed",
+        "good": "Goed",
+        "acceptable": "Acceptabel"
+      },
+      "bricklink": {
+        "new": "Nieuw",
+        "likeNew": "Gebruikt - Zo Goed als Nieuw",
+        "veryGood": "Gebruikt - Zeer Goed",
+        "good": "Gebruikt - Goed",
+        "acceptable": "Gebruikt - Acceptabel"
+      },
+      "vinted": {
+        "new": "Nieuw met label",
+        "likeNew": "Zeer goed",
+        "good": "Goed",
+        "fair": "Voldoende"
+      }
+    },
+    "accessoriesLabel": "Inbegrepen Accessoires:",
+    "accessoriesPlaceholder": "Helm, blasters, cape...",
+    "knownFlawsLabel": "Bekende Gebreken (optioneel):",
+    "knownFlawsPlaceholder": "Lichte printslijtage, losse gewrichten...",
+    "boxConditionLabel": "Doosconditie:",
+    "boxCondition": {
+      "sealed": "Verzegeld (nooit geopend)",
+      "openedNew": "Geopend (set nog nieuw/ongebouwd)",
+      "noBox": "Geen doos",
+      "withBox": "Doos inbegrepen"
+    },
+    "buildingStatusLabel": "Bouwstatus:",
+    "buildingStatus": {
+      "unbuiltSealed": "Ongebouwd (zakjes verzegeld)",
+      "unbuiltBagsOpened": "Ongebouwd (zakjes geopend)",
+      "unassembled": "Niet in elkaar gezet",
+      "partiallyBuilt": "Gedeeltelijk gebouwd",
+      "fullyBuilt": "Volledig gebouwd",
+      "disassembled": "Gebouwd en daarna uit elkaar gehaald"
+    },
+    "completenessLabel": "Volledigheid:",
+    "completeness": {
+      "verified": "100% compleet (geverifieerd aantal onderdelen)",
+      "appearsComplete": "Lijkt compleet (niet geverifieerd)",
+      "missingMinor": "Enkele kleine onderdelen ontbreken",
+      "missingMajor": "Sommige onderdelen ontbreken"
+    },
+    "instructionsIncluded": "Instructies inbegrepen",
+    "minifiguresIncluded": "Alle minifiguren inbegrepen",
+    "additionalNotesLabel": "Aanvullende Opmerkingen (optioneel):",
+    "additionalNotesPlaceholder": "Overige details over de staat van de set...",
+    "quantityLabel": "Aantal om te Vermelden:",
+    "includeInListingLabel": "Opnemen in vermelding:",
+    "preferences": {
+      "offersShipping": "Ik bied verzending aan",
+      "offersLocalPickup": "Ik bied lokaal ophalen aan",
+      "offersBundleDiscount": "Bundelkorting beschikbaar",
+      "acceptsCash": "Contant geld geaccepteerd",
+      "acceptsVenmo": "Venmo geaccepteerd",
+      "acceptsPayPal": "PayPal geaccepteerd",
+      "acceptsOffers": "Biedingen geaccepteerd - \"Doe een Bod\" ingeschakeld",
+      "fastShipping": "Verzendt snel en veilig",
+      "carefulPackaging": {
+        "ebay": "Zorgvuldig verpakt in beschermend materiaal",
+        "bricklink": "Zorgvuldig verpakt"
+      },
+      "messageWithQuestions": {
+        "ebay": "\"Stuur gerust een bericht bij vragen\"",
+        "bricklink": "\"Neem contact op bij vragen vóór aankoop\""
+      },
+      "shipsWithTracking": "Verzonden met tracking",
+      "smokeFreeHome": "Uit rookvrij huis"
+    },
+    "cancel": "Annuleren",
+    "generating": "Bezig met genereren...",
+    "regenerate": "Opnieuw Genereren"
+  },
+  "priceAlert": {
+    "invalidPrice": "Voer een geldige prijs in",
+    "targetBelowCurrent": "Streefprijs moet lager zijn dan de huidige prijs ({price})",
+    "setSuccess": "✓ Prijsmelding ingesteld! Je ontvangt een e-mail zodra de prijs daalt.",
+    "setFailed": "Instellen van melding mislukt",
+    "setFailedRetry": "Instellen van melding mislukt. Probeer het opnieuw.",
+    "deleteFailed": "Verwijderen van melding mislukt",
+    "deleteFailedRetry": "Verwijderen van melding mislukt. Probeer het opnieuw.",
+    "deleteSuccess": "✓ Prijsmelding verwijderd",
+    "buttonTooltip": "Prijsmelding instellen",
+    "buttonLabel": "Prijsmelding",
+    "modalTitle": "Prijsmelding Instellen",
+    "currentPrice": "Huidige Prijs",
+    "notifyLabel": "Meld mij wanneer de prijs daalt tot:",
+    "targetHint": "Stel een streefprijs in onder de huidige prijs",
+    "cancel": "Annuleren",
+    "setting": "Bezig met instellen...",
+    "setAlert": "Melding Instellen",
+    "footerNote": "Je ontvangt een e-mail zodra de prijs daalt tot of onder je streefprijs. De melding wordt automatisch gedeactiveerd nadat deze is geactiveerd.",
+    "viewAllAlerts": "Alle meldingen bekijken",
+    "alertActive": "Melding Actief",
+    "alertTarget": "Streefprijs Melding",
+    "deleting": "Bezig met verwijderen...",
+    "deleteAlert": "Melding Verwijderen",
+    "editTarget": "Streefprijs Bewerken",
+    "saving": "Bezig met opslaan...",
+    "save": "Opslaan"
+  },
+  "accountAlerts": {
+    "confirmDelete": "Weet je zeker dat je deze melding wilt verwijderen?",
+    "deleteSuccess": "Melding succesvol verwijderd",
+    "deleteFailed": "Verwijderen van melding mislukt",
+    "paused": "Melding gepauzeerd",
+    "activated": "Melding geactiveerd",
+    "updateFailed": "Bijwerken van melding mislukt",
+    "invalidPrice": "Voer een geldige prijs in",
+    "priceUpdated": "Streefprijs bijgewerkt",
+    "priceUpdateFailed": "Bijwerken van prijs mislukt",
+    "title": "Prijsmeldingen",
+    "subtitle": "Beheer je prijsdalingsmeldingen",
+    "emptyTitle": "Nog geen prijsmeldingen",
+    "emptyBody": "Stel prijsmeldingen in op elke minifig of set om een melding te krijgen wanneer prijzen dalen.",
+    "browseItems": "Blader door Items",
+    "activeAlerts": "Actieve Meldingen ({count})",
+    "triggeredAlerts": "Geactiveerde Meldingen ({count})",
+    "pausedAlerts": "Gepauzeerde Meldingen ({count})",
+    "minifigure": "Minifiguur",
+    "set": "Set",
+    "target": "Streefprijs:",
+    "editTargetPrice": "Streefprijs bewerken",
+    "triggeredOn": "Geactiveerd op {date}",
+    "lastChecked": "Laatst gecontroleerd: {date}",
+    "created": "Aangemaakt: {date}",
+    "reactivate": "Heractiveren",
+    "pause": "Pauzeren",
+    "activate": "Activeren",
+    "deleteAlert": "Melding verwijderen"
+  },
+  "setCard": {
+    "noImage": "Geen afbeelding",
+    "released": "Uitgebracht in {year}",
+    "ageYears": "{age} jaar oud",
+    "priceIncrease": "+{percent}% prijsstijging",
+    "estimatedRetirement": "Geschatte stopzetting: {quarter}",
+    "retirementScore": "Stopzettingsscore",
+    "viewDetails": "Details Bekijken"
   }
 }

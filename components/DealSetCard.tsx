@@ -22,7 +22,7 @@ interface DealSetCardProps {
 }
 
 export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
-  const { translations } = useTranslation();
+  const { translations, t } = useTranslation();
   const [imageError, setImageError] = useState(false);
   const [currentImageUrl, setCurrentImageUrl] = useState(deal.imageUrl);
 
@@ -75,7 +75,7 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
           boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
         }}
       >
-        {deal.discountPercent}% OFF
+        {deal.discountPercent}% {t('deals.off') || 'OFF'}
       </div>
 
       {/* Sponsored Badge */}
@@ -201,7 +201,7 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
             </span>
           </div>
           <p style={{ fontSize: '12px', color: '#16a34a', fontWeight: '600' }}>
-            Save ${(deal.listPrice - deal.currentPrice).toFixed(2)}
+            {t('deals.save') || 'Save'} ${(deal.listPrice - deal.currentPrice).toFixed(2)}
           </p>
         </div>
 

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface RelatedArticle {
   title: string;
@@ -17,6 +18,8 @@ interface RelatedArticlesProps {
 }
 
 export function RelatedArticles({ articles, currentSlug }: RelatedArticlesProps) {
+  const { t } = useTranslation();
+
   // Filter out current article and limit to 3
   const related = articles
     .filter(a => a.slug !== currentSlug)
@@ -37,7 +40,7 @@ export function RelatedArticles({ articles, currentSlug }: RelatedArticlesProps)
         marginBottom: '24px',
         color: '#171717',
       }}>
-        Related Articles
+        {t('articles.relatedArticles') || 'Related Articles'}
       </h2>
 
       <div style={{

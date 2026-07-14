@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface PasswordInputProps {
   id: string;
@@ -20,14 +21,17 @@ export default function PasswordInput({
   label,
   value,
   onChange,
-  placeholder = 'Enter your password',
+  placeholder,
   required = true,
   autoComplete = 'current-password',
   minLength,
   showForgotLink = false,
   onForgotClick,
 }: PasswordInputProps) {
+  const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
+  // Default is evaluated here (not as a prop default) so it can go through useTranslation.
+  const resolvedPlaceholder = placeholder ?? (t('auth.signin.placeholders.password') || 'Enter your password');
 
   return (
     <div style={{ marginBottom: '32px' }}>
@@ -61,7 +65,7 @@ export default function PasswordInput({
               padding: 0
             }}
           >
-            Forgot?
+            {t('auth.signin.forgotLink') || 'Forgot?'}
           </button>
         </div>
       ) : (
@@ -96,7 +100,7 @@ export default function PasswordInput({
             outline: 'none',
             transition: 'border-color 0.2s, box-shadow 0.2s'
           }}
-          placeholder={placeholder}
+          placeholder={resolvedPlaceholder}
           onFocus={(e) => {
             e.currentTarget.style.borderColor = '#3b82f6';
             e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';

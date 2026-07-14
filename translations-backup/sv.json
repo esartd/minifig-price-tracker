@@ -28,7 +28,14 @@
     "new": "Ny",
     "used": "Begagnad",
     "copied": "Kopierat!",
-    "showLess": "Visa färre"
+    "showLess": "Visa färre",
+    "showMoreDescription": "Visa mer",
+    "showLessDescription": "Visa mindre",
+    "showMoreDescriptionAria": "Visa mer beskrivning",
+    "showLessDescriptionAria": "Visa mindre beskrivning",
+    "showingOfCount": "Visar {currentCount} av {totalCount}",
+    "showingOfCountItems": "Visar {currentCount} av {totalCount} artiklar",
+    "showMore": "Visa mer"
   },
   "navigation": {
     "home": "Hem",
@@ -293,6 +300,15 @@
       "keywords": "LEGO teman, Star Wars minifigurr, Harry Potter LEGO, Marvel LEGO, DC LEGO, Ninjago minifigurr, LEGO catalog by tema",
       "ogTitle": "Bläddra LEGO Minifigurer by Tema | FigTracker",
       "ogDescription": "Explore minifigurr from Star Wars, Harry Potter, Marvel, and 50+ other LEGO teman with real-time pricing."
+    },
+    "minifiguresHeading": "Minifigurer",
+    "names": {
+      "starWars": "Star Wars",
+      "harryPotter": "Harry Potter",
+      "superHeroes": "Super Heroes",
+      "city": "City",
+      "ninjago": "Ninjago",
+      "friends": "Friends"
     }
   },
   "account": {
@@ -317,7 +333,8 @@
         "name": "Ange ditt fullständiga namn"
       },
       "save": "Spara",
-      "saving": "Sparar..."
+      "saving": "Sparar...",
+      "avatarAlt": "Avatar"
     },
     "security": {
       "title": "Säkerhet",
@@ -337,7 +354,8 @@
       "subtitle": "Välj din valuta och ditt språk",
       "currency": "Valuta",
       "language": "Språk",
-      "note": "Changing your currency will display priss in your selected region's marketplace. Priss may differ from other regions due to local supply, demand, and shipping costs."
+      "note": "Changing your currency will display priss in your selected region's marketplace. Priss may differ from other regions due to local supply, demand, and shipping costs.",
+      "noteLabel": "Obs:"
     },
     "sharing": {
       "title": "Dela Samling",
@@ -399,7 +417,13 @@
       "showSets": "Visa mig i rankinglistan för topp-set-samlare",
       "showSetsDesc": "Antalet set i din samling kommer att vara offentligt synligt",
       "save": "Spara ändringar",
-      "saving": "Sparar..."
+      "saving": "Sparar...",
+      "updateSuccess": "Topplisteinställningarna har uppdaterats!",
+      "updateError": "Det gick inte att uppdatera inställningarna",
+      "networkError": "Nätverksfel. Försök igen.",
+      "visibilityError": "Det gick inte att uppdatera synligheten",
+      "displayNamePlaceholder": "t.ex. LEGO Master",
+      "yourProfile": "Din profil:"
     }
   },
   "search": {
@@ -418,7 +442,19 @@
     "seeAllSets": "Se alla set →",
     "showing": "Visar {shown} av {total} resultat",
     "showingPlural": "Visar {shown} av {total} resultat",
-    "loadMore": "Ladda mer ({remaining} kvar)"
+    "loadMore": "Ladda mer ({remaining} kvar)",
+    "all": "Alla",
+    "addToCollection": {
+      "signInToAdd": "Logga in för att lägga till"
+    },
+    "badges": {
+      "set": "SET"
+    },
+    "legoTitle": "Sök LEGO",
+    "unifiedPlaceholder": "Sök minifigurer och set...",
+    "noResultsFound": "Inga resultat hittades",
+    "noResultsSubtitle": "Prova andra sökord eller bläddra efter tema",
+    "seeAll": "Se alla →"
   },
   "buyButtons": {
     "ebay": {
@@ -432,7 +468,8 @@
       "description": "Snabb frakt & enkla returer",
       "sponsored": "Sponsrad",
       "shopOn": "Handla på Amazon",
-      "buyOn": "Köp på Amazon"
+      "buyOn": "Köp på Amazon",
+      "prime": "Prime"
     },
     "bricklink": {
       "name": "BrickLink",
@@ -455,7 +492,9 @@
     "ebayLoggedOutTitle": "eBay-marknadspris",
     "ebayLoggedOutExplain": "Prissättning baserad på aktuell marknadsdata från eBay.",
     "ebayLoggedOutCta": "Logga in för personliga priser →",
-    "sourceBrickLink": "Pris från BrickLink"
+    "sourceBrickLink": "Pris från BrickLink",
+    "loadingData": "Laddar prisdata...",
+    "supportCta": "Sparade vi dig tid? Stöd gratis prissättning →"
   },
   "errors": {
     "notFound": "Ingat found",
@@ -674,6 +713,11 @@
       "title": "Om FigTracker – Prissätt vilken LEGO-minifigur eller vilket set som helst på sekunder",
       "description": "FigTracker omvandlar 24 datapunkter från BrickLink till ett prisförslag för valfri LEGO-minifigur eller valfritt set. Dubbel inventering, 15+ valutor, helt gratis.",
       "keywords": "om FigTracker, LEGO pris tracker, BrickLink API tool, minifigur pricing, LEGO set pricing, LEGO samling manager, LEGO inventering tracker, free LEGO pricing, LEGO seller tool"
+    },
+    "catalogCount": {
+      "thousandsOf": "tusentals",
+      "overPrefix": "över",
+      "nearlyPrefix": "nästan"
     }
   },
   "featured": {
@@ -729,7 +773,9 @@
     "sets": "set",
     "supportFigTracker": "Stöd FigTracker",
     "beFirstToDonate": "Var den första att donera!",
-    "noSupporterYet": "Ingen supporter än"
+    "noSupporterYet": "Ingen supporter än",
+    "donationSubtitle": "Tack till våra generösa supportrar detta kvartal ({season})",
+    "items": "artiklar"
   },
   "footer": {
     "faq": "FAQ",
@@ -792,7 +838,23 @@
     "showingAll": "Visar alla {count} artiklar",
     "foundResults": "Hittade {found} av {total} artiklar",
     "noArticlesFound": "Inga artiklar hittades",
-    "tryAdjustingFilters": "Försök justera din sökning eller filter"
+    "tryAdjustingFilters": "Försök justera din sökning eller filter",
+    "relatedArticles": "Relaterade artiklar",
+    "shareOnTwitter": "Dela på Twitter",
+    "shareOnFacebook": "Dela på Facebook",
+    "shareOnLinkedIn": "Dela på LinkedIn",
+    "shareOnReddit": "Dela på Reddit",
+    "copyLink": "Kopiera länk",
+    "linkCopied": "Länk kopierad!",
+    "shareArticle": "Dela artikel",
+    "pros": "✓ Fördelar",
+    "cons": "✗ Nackdelar",
+    "tableOfContents": "Innehållsförteckning",
+    "allCategory": "Alla",
+    "minRead": "{minutes} min läsning",
+    "notFound": "Artikeln hittades inte",
+    "byline": "FigTracker-teamet",
+    "legacyFormatNotice": "Äldre artikelformat - migrera till nytt CMS"
   },
   "guides": {
     "meta": {
@@ -914,7 +976,8 @@
       "features": {
         "trackUnlimited": "Track unlimited items",
         "realtimePrices": "Real-time suggested priss",
-        "totalValue": "Knew your total inventering value"
+        "totalValue": "Knew your total inventering value",
+        "dataPrivate": "Din data förblir privat"
       },
       "name": "Namn",
       "email": "Email Lägg tillress",
@@ -934,7 +997,8 @@
         "generic": "An fel occurred. Please try again."
       },
       "continueWithGoogle": "Registrera dig med Google",
-      "signupWithEmail": "Registrera dig med e-post"
+      "signupWithEmail": "Registrera dig med e-post",
+      "freeBadge": "100% gratis • Inget kreditkort krävs"
     },
     "signin": {
       "title": "Welcome Tillbaka",
@@ -954,7 +1018,8 @@
         "generic": "An fel occurred. Please try again."
       },
       "continueWithGoogle": "Fortsätt med Google",
-      "continueWithEmail": "Fortsätt med e-post"
+      "continueWithEmail": "Fortsätt med e-post",
+      "forgotLink": "Glömt?"
     },
     "forgotPassword": {
       "title": "Återställ lösenord",
@@ -997,7 +1062,13 @@
       }
     },
     "footer": "Prissätt din inventering på sekunder, inte timmar.",
-    "footerText": "Prissätt din inventering på sekunder, inte timmar."
+    "footerText": "Prissätt din inventering på sekunder, inte timmar.",
+    "accountLinked": {
+      "title": "Konto kopplat!",
+      "message": "Ditt Google-konto är nu kopplat till FigTracker."
+    },
+    "redirectingToGoogle": "Omdirigerar till Google...",
+    "orDivider": "ELLER"
   },
   "newsletter": {
     "title": "Månadens prisrörelser",
@@ -1083,7 +1154,19 @@
     "deleteFromInventory": "Ta bort det här föremålet från ditt inventarie?",
     "deleteFromCollection": "Ta bort det här föremålet från din personliga samling?",
     "ea": "st",
-    "total": "totalt"
+    "total": "totalt",
+    "noMinifigsInInventory": "Inga minifigurer i din inventering än",
+    "searchMinifiguresToGetStarted": "Sök efter minifigurer för att komma igång",
+    "failedToChangeCondition": "Det gick inte att ändra skicket",
+    "movedToCollection": "1 minifigur har flyttats till samlingen",
+    "movedToInventory": "1 minifigur har flyttats till inventeringen",
+    "undo": "Ångra",
+    "noMinifigsInPersonalCollection": "Inga minifigurer i din personliga samling än",
+    "trackPersonalMinifigsSeparately": "Håll koll på dina personliga LEGO-minifigurer separat från artiklar till försäljning",
+    "noSetsInInventory": "Inga set i din inventering än",
+    "searchSetsToGetStarted": "Sök efter set för att komma igång",
+    "noSetsInPersonalCollection": "Inga set i din personliga samling än",
+    "trackPersonalSetsSeparately": "Håll koll på dina personliga LEGO-set separat från artiklar till försäljning"
   },
   "privacyPolicy": {
     "meta": {
@@ -1239,7 +1322,8 @@
       "addedToInventory": "Lägg tilled {quantity} item to sell",
       "addedToCollection": "Lägg tilled {quantity} item to keep",
       "movedToCollection": "Flyttat till behåll! Klicka var som helst för att stänga.",
-      "movedToInventory": "Flyttat till sälj! Klicka var som helst för att stänga."
+      "movedToInventory": "Flyttat till sälj! Klicka var som helst för att stänga.",
+      "addedToGuestCollection": "{quantity} set{plural} har lagts till i din samling!"
     },
     "errors": {
       "failedToAdd": "Failed to lägg till set",
@@ -1273,7 +1357,12 @@
     "meta": {
       "yearUnknown": "Year Unknewn",
       "year": "År",
-      "weight": "Vikt"
+      "weight": "Vikt",
+      "notFoundTitle": "Set hittades inte",
+      "descriptionFallback": "{category} - {name}. Håll koll på aktuella BrickLink-priser och hantera din LEGO-setinventering. Släppt {year}.",
+      "titleSuffix": "LEGO Set Prisguide",
+      "ogDescription": "Håll koll på BrickLink-priser, se aktuellt marknadsvärde och hantera din samling",
+      "twitterDescriptionSuffix": "prisguide för set"
     },
     "newestFrom": "Nyaste set från {theme}"
   },
@@ -1308,7 +1397,8 @@
       "keywords": "LEGO set teman, Star Wars set, Harry Potter LEGO set, Marvel LEGO set, DC LEGO set, Friends set, LEGO set catalog",
       "ogTitle": "Bläddra LEGO Set by Tema | FigTracker",
       "ogDescription": "Explore LEGO set from Star Wars, Harry Potter, Friends, and 170+ other teman with real-time pricing."
-    }
+    },
+    "themeTitle": "{theme} Set"
   },
   "sharedCollection": {
     "collectionNotAvailable": "Samling Ingat Available",
@@ -1323,7 +1413,10 @@
     "used": "begagnad",
     "new": "new",
     "trackYourCollection": "Track your LEGO minifigur samling with FigTracker",
-    "startYourCollection": "Start Your Samling"
+    "startYourCollection": "Start Your Samling",
+    "setsForSale": "Set till salu",
+    "setsCollection": "Setsamling",
+    "emptyCollection": "Inga artiklar i denna samling"
   },
   "guidePage": {
     "breadcrumbs": {
@@ -1681,7 +1774,8 @@
       "item2": "1x Insiders Points (~5% cashtillbaka = $12.50 on $249.99)",
       "item3": "Kvalificerande köp: 75442 N-1 Starfighter ($249.99)",
       "item4": "Total avkastning: $62.50 = 25 %",
-      "description": "Bästa alternativet om du vill ha den exklusiva Display-brickan. Du får båda premium-GWP:erna men lägre poängmultiplikator."
+      "description": "Bästa alternativet om du vill ha den exklusiva Display-brickan. Du får båda premium-GWP:erna men lägre poängmultiplikator.",
+      "setName": "The Mandalorians N-1 Starfighter"
     },
     "tierB": {
       "badge": "NIVÅ B",
@@ -1785,13 +1879,27 @@
       "title": "Redo att maximera ditt värde?",
       "description": "Välj din nivå och handla nu. Kampanjen slutar 6 maj 2026.",
       "button": "Handla på LEGO.com",
-      "disclaimer": "Vi tjänar en provision från kvalificerade köp. Priser korrekta från och med 2 maj 2026."
+      "disclaimer": "Vi tjänar en provision från kvalificerade köp. Priser korrekta från och med 2 maj 2026.",
+      "features": {
+        "minifigsTracked": "✓ 18 000+ minifigurer spårade",
+        "setsTracked": "✓ 20 000+ set spårade",
+        "smartPricing": "✓ Smart marknadsprissättning",
+        "currencySupport": "✓ Stöd för 15+ valutor"
+      }
     },
     "common": {
       "buyOnLego": "Köp på LEGO.com",
       "price": "Pris",
       "setNumber": "Set",
-      "eligibleFor": "Berättigad för"
+      "eligibleFor": "Berättigad för",
+      "sponsored": "Sponsrad"
+    },
+    "comparisonTable": {
+      "tier": "Nivå",
+      "spend": "Spendera",
+      "freebiesValue": "Värde på gratisgåvor",
+      "cashback": "Cashback",
+      "totalReturn": "Total avkastning"
     }
   },
   "legoSale": {
@@ -1817,7 +1925,40 @@
     "price50to100": "$50 - $100",
     "price100to200": "$100 - $200",
     "priceOver200": "$200+",
-    "seoDescription": "Discover the best LEGO® erbjudandes on Amazon with rabatts up to 50% off. We track priss across thousands of set and update every 6 hours to bring you the biggest savings. Alla erbjudandes are eligible for Amazon Prime free shipping. Whether you're looking for Star Wars, City, Creator, or any other tema, find your nästa LEGO set at an unbeatable pris."
+    "seoDescription": "Discover the best LEGO® erbjudandes on Amazon with rabatts up to 50% off. We track priss across thousands of set and update every 6 hours to bring you the biggest savings. Alla erbjudandes are eligible for Amazon Prime free shipping. Whether you're looking for Star Wars, City, Creator, or any other tema, find your nästa LEGO set at an unbeatable pris.",
+    "meta": {
+      "notFoundTitle": "Sidan hittades inte",
+      "title": "LEGO® Rea: Bästa Amazon-erbjudandena upp till 50% rabatt | FigTracker",
+      "description": "Hitta de bästa LEGO-erbjudandena på Amazon med upp till 50% rabatt. Uppdateras var 6:e timme. Bläddra bland aktuella LEGO-set från Star Wars, City, Creator och fler. Fri frakt med Prime.",
+      "keywords": [
+        "LEGO rea",
+        "LEGO-erbjudanden",
+        "LEGO Amazon",
+        "billiga LEGO-set",
+        "LEGO rabatt",
+        "LEGO-utförsäljning",
+        "LEGO Star Wars rea",
+        "LEGO City-erbjudanden",
+        "bästa LEGO-priserna",
+        "LEGO-erbjudanden",
+        "LEGO-kampanjer"
+      ],
+      "ogTitle": "LEGO® Rea - Upp till 50% rabatt på Amazon",
+      "ogDescription": "Upptäck de bästa LEGO-erbjudandena på Amazon. Uppdateras var 6:e timme med rabatter från 20% till 50%.",
+      "twitterTitle": "LEGO® Rea - Bästa Amazon-erbjudandena",
+      "twitterDescription": "Hitta LEGO-set med upp till 50% rabatt på Amazon"
+    },
+    "subtitleUpdated": "Bästa Amazon-erbjudandena - Uppdateras var 6:e timme",
+    "seoParagraph": "Upptäck de bästa LEGO®-erbjudandena på Amazon med upp till 50% rabatt. Vår LEGO-reasida skannar automatiskt tusentals LEGO-set och lyfter fram de största besparingarna inom populära teman som Star Wars, City, Creator, Technic och fler. Oavsett om du letar efter sällsynta utfasade set eller de senaste nyheterna följer vi Amazons priser var 6:e timme så att du aldrig missar ett bra erbjudande. Filtrera efter tema, prisintervall eller rabattprocent för att hitta exakt det du letar efter. Alla erbjudanden har fri frakt med Amazon Prime. Börja spara på dina favorit-LEGO-set redan idag!",
+    "searchThemesPlaceholder": "Sök teman...",
+    "allPrices": "Alla priser",
+    "priceDisclaimerLabel": "Prisreservation:",
+    "priceDisclaimerText": "Produktpriser och tillgänglighet är korrekta per angivet datum/tidpunkt och kan ändras. Visade priser kommer från Amazon vid senaste uppdatering (uppdateras var 6:e timme). Den pris- och tillgänglighetsinformation som visas på Amazon vid köptillfället gäller för köpet av denna produkt. Som Amazon Associate, LEGO Affiliate och eBay Partner tjänar FigTracker på kvalificerade köp.",
+    "loadingDeals": "Laddar erbjudanden...",
+    "tierUnbelievable50": "Otroliga erbjudanden - 50%+ rabatt",
+    "tierExcellent40": "Utmärkta erbjudanden - 40%+ rabatt",
+    "tierGreat30": "Bra erbjudanden - 30%+ rabatt",
+    "tierGood20": "Goda erbjudanden - 20%+ rabatt"
   },
   "retiringSoon": {
     "pageTitle": "LEGO Set som Försvinner Snart 2026",
@@ -1916,7 +2057,8 @@
       "notFoundDesc": "Vi hittade ingen samlare med det användarnamnet.",
       "editProfile": "Redigera profil",
       "conditionNew": "Ny",
-      "conditionUsed": "Begagnad"
+      "conditionUsed": "Begagnad",
+      "loadError": "Det gick inte att läsa in profilen"
     },
     "username": {
       "title": "Användarnamn",
@@ -2011,9 +2153,488 @@
     "variantCountOne": "1 annan version...",
     "variantCountMany": "{count} andra versioner...",
     "featuredThemeSets": "Utvalda {theme}-set",
-    "currentLegoSetsTheme": "Aktuella LEGO-set från detta tema"
+    "currentLegoSetsTheme": "Aktuella LEGO-set från detta tema",
+    "meta": {
+      "notFoundTitle": "Minifigur hittades inte",
+      "description": "{category} - {fullName}. Håll koll på aktuella BrickLink-priser, se marknadsvärde och hantera din samling. Lägg till för att sälja eller behålla. Släppt {year}.",
+      "dateUnknown": "datum okänt",
+      "titleSuffix": "LEGO Minifigur Prisspårare",
+      "ogDescription": "LEGO Minifigur {itemNo} - Håll koll på BrickLink-priser, se aktuellt marknadsvärde och hantera din samling",
+      "twitterDescription": "Prisguide för {category}-minifigur",
+      "productDescription": "{category} LEGO-minifigur {itemNo}. Håll koll på aktuella BrickLink-priser och marknadsvärde."
+    },
+    "breadcrumbs": {
+      "home": "Hem",
+      "themes": "Teman"
+    },
+    "errors": {
+      "failedToAddToWishlist": "Det gick inte att lägga till i önskelistan",
+      "failedToUpdateWishlist": "Det gick inte att uppdatera önskelistan",
+      "failedToAdd": "Det gick inte att lägga till",
+      "pleaseSignIn": "Logga in för att lägga till artiklar",
+      "alreadyInInventory": "Redan i inventeringen",
+      "failedToAddToInventory": "Det gick inte att lägga till i inventeringen",
+      "failedToAddToPersonalCollection": "Det gick inte att lägga till i den personliga samlingen",
+      "failedToUpdateQuantity": "Det gick inte att uppdatera antalet",
+      "failedToMoveItem": "Det gick inte att flytta objektet",
+      "failedToDeleteItem": "Det gick inte att ta bort objektet"
+    },
+    "messages": {
+      "addedToGuestCollectionOne": "1 artikel har lagts till i din samling!",
+      "addedToGuestCollectionMany": "{count} artiklar har lagts till i din samling!",
+      "addedToSellOne": "1 artikel har lagts till för försäljning",
+      "addedToSellMany": "{count} artiklar har lagts till för försäljning",
+      "addedToKeepOne": "1 artikel har lagts till att behålla",
+      "addedToKeepMany": "{count} artiklar har lagts till att behålla",
+      "addedMoreToSellOne": "1 artikel till har lagts till för försäljning",
+      "addedMoreToSellMany": "{count} artiklar till har lagts till för försäljning",
+      "addedMoreToKeepOne": "1 artikel till har lagts till att behålla",
+      "addedMoreToKeepMany": "{count} artiklar till har lagts till att behålla",
+      "movedToSellOne": "1 artikel har flyttats till försäljning",
+      "movedToSellMany": "{count} artiklar har flyttats till försäljning",
+      "movedToKeepOne": "1 artikel har flyttats till att behålla",
+      "movedToKeepMany": "{count} artiklar har flyttats till att behålla",
+      "removedFromPersonalCollection": "Borttagen från personlig samling",
+      "movedOneMinifigure": "1 minifigur har flyttats",
+      "undo": "Ångra"
+    },
+    "altText": {
+      "mainImage": "LEGO {name} Minifigur {no} - {category}",
+      "relatedImage": "LEGO {name} Minifigur {no}"
+    },
+    "schemaDescription": "LEGO {name} Minifigur {no} från temat {category}. Håll koll på aktuella BrickLink-priser och hantera din LEGO-samling."
   },
   "supportLink": {
     "savedYouTime": "Sparade du tid? Stöd snabb, korrekt prissättning →"
+  },
+  "metadata": {
+    "title": "FigTracker - Ett Pris för Alla LEGO Minifigurer och Set",
+    "description": "Prissätt vilken LEGO-minifigur eller vilket set som helst på sekunder. Ett föreslaget pris från BrickLink- och eBay-data. Håll koll på din inventering gratis. 18 000+ minifigurer, 20 000+ set.",
+    "twitterDescription": "Prissätt vilken LEGO-minifigur eller vilket set som helst på sekunder. Ett föreslaget pris från BrickLink- och eBay-data. Håll koll på din inventering gratis.",
+    "keywords": [
+      "LEGO minifigurpriser",
+      "LEGO setpriser",
+      "BrickLink prisspårare",
+      "LEGO samlingshanterare",
+      "minifigur värdespårare",
+      "LEGO säljverktyg",
+      "LEGO prisguide",
+      "minifigursamling spårare",
+      "LEGO setspårare",
+      "LEGO inventeringsspårare",
+      "spåra LEGO-priser",
+      "LEGO prissättningsverktyg",
+      "minifigur föreslaget pris"
+    ],
+    "ogImageAlt": "FigTracker - LEGO Minifigur Prisspårare",
+    "webAppDescription": "Prissätt vilken LEGO-minifigur eller vilket set som helst på sekunder. Ett föreslaget pris, inget huvudräknande.",
+    "featureList": [
+      "Ett föreslaget pris per minifigur eller set",
+      "Dubbel inventering: säljlista och personlig samling",
+      "Kalkylator för föreslaget pris",
+      "Samlingsspårning",
+      "18 000+ LEGO-minifigurer, 20 000+ set"
+    ],
+    "organizationDescription": "FigTracker ger dig ett föreslaget pris för vilken LEGO-minifigur eller vilket set som helst, så att du kan lägga upp annonser snabbare och sälja med förtroende.",
+    "siteAlternateName": "LEGO Minifigur Prisspårare",
+    "ogImage": {
+      "subtitle": "LEGO Minifigur Prisspårare",
+      "featureText": "Bricklink-priser i realtid • Håll koll på din samling"
+    }
+  },
+  "themeMeta": {
+    "nameLegoMinifigures": "{name} LEGO-minifigurer",
+    "titleWithCount": "Bläddra bland {theme} LEGO-minifigurer & set ({count} minifigurer) | FigTracker",
+    "titleNoCount": "Bläddra bland {theme} LEGO-minifigurer & set | FigTracker",
+    "descriptionWithCount": "Utforska {count} {theme} LEGO-minifigurer och set med smart marknadsprissättning. Håll koll på aktuella marknadsvärden, hantera din samling och organisera artiklar att sälja och behålla{seriesSuffix}.",
+    "descriptionAllNoCount": "Utforska alla {theme} LEGO-minifigurer och set med smart marknadsprissättning. Håll koll på aktuella marknadsvärden, hantera din samling och organisera artiklar att sälja och behålla{seriesSuffix}.",
+    "acrossSeriesSuffix": " i {count} serier",
+    "keywordThemeMinifigures": "{theme} LEGO-minifigurer",
+    "keywordThemeSets": "{theme} LEGO-set",
+    "keywordThemeMinifigPrice": "{theme} minifigurpris",
+    "keywordThemeSetPrice": "{theme} setpris",
+    "keywordThemePriceTracker": "{theme} prisspårare",
+    "keywordThemeCollectionManager": "{theme} samlingshanterare",
+    "keywordBricklinkPrices": "BrickLink-priser",
+    "keywordLegoPriceGuide": "LEGO prisguide",
+    "keywordTrackLegoPrices": "spåra LEGO-priser",
+    "ogTitleThemeSets": "{theme} LEGO-minifigurer & set | FigTracker",
+    "notFoundTitle": "Tema hittades inte",
+    "layoutTitle": "{theme} LEGO-minifigurer - Prisguide & samling ({count} minifigurer) | FigTracker",
+    "layoutDescription": "Bläddra bland alla {count} {theme} LEGO-minifigurer med smart marknadsprissättning. Håll koll på värden, hantera inventeringen och upptäck karaktärsvarianter. Komplett samlingsguide för {theme}.",
+    "layoutOgTitle": "{theme} LEGO-minifigurer - {count} minifigurer",
+    "layoutOgDescription": "Bläddra och prissätt {count} {theme} LEGO-minifigurer med smart marknadsprissättning från flera källor",
+    "keywordThemeMinifigPrices": "{theme} minifigurpriser",
+    "keywordThemeBricklink": "{theme} Bricklink",
+    "keywordThemeLegoCollection": "{theme} LEGO-samling",
+    "keywordMinifigureValueTracker": "minifigur värdespårare",
+    "subTitleWithCount": "{name} LEGO-minifigurer ({count}) | FigTracker",
+    "subTitleNoCount": "{name} LEGO-minifigurer | FigTracker",
+    "subDescriptionWithCount": "Bläddra bland alla {count} {fullName} LEGO-minifigurer med smart marknadsprissättning. Håll koll på priser, hantera din samling och upptäck sällsynta varianter.",
+    "subDescriptionNoCount": "Bläddra bland {fullName} LEGO-minifigurer med smart marknadsprissättning. Håll koll på priser och hantera din samling.",
+    "keywordFullNameMinifigures": "{fullName} LEGO-minifigurer",
+    "keywordNameLego": "{name} LEGO",
+    "keywordNameMinifigPrice": "{name} minifigurpris",
+    "keywordMinifigureCollection": "minifigursamling"
+  },
+  "verifyHuman": {
+    "meta": {
+      "title": "Säkerhetskontroll | FigTracker",
+      "description": "Slutför den här snabba säkerhetskontrollen för att fortsätta"
+    },
+    "errors": {
+      "refresh": "Verifieringen misslyckades. Uppdatera sidan och försök igen.",
+      "retry": "Verifieringen misslyckades. Försök igen.",
+      "network": "Nätverksfel. Kontrollera din anslutning."
+    },
+    "heading": "Snabb säkerhetskontroll",
+    "explanation": "Vi upptäckte ovanliga trafikmönster. Slutför det här snabba testet för att verifiera att du är människa. Detta hjälper oss att förhindra spam och hålla sidan snabb för alla.",
+    "waitHint": "Detta tar oftast bara några sekunder...",
+    "success": "Verifierad! Omdirigerar...",
+    "tryAgain": "Försök igen",
+    "poweredBy": "Skyddad av Cloudflare Turnstile",
+    "learnMore": "Läs mer"
+  },
+  "claimDonation": {
+    "meta": {
+      "title": "Gör anspråk på din donation - FigTracker",
+      "description": "Lägg till din donation på FigTrackers topplista över supportrar"
+    },
+    "hero": {
+      "title": "Gör anspråk på din donation",
+      "subtitle": "Gå med i vår topplista över supportrar och låt communityn veta att du hjälpte till att hålla FigTracker gratis"
+    },
+    "success": {
+      "title": "Tack för att du hjälper till att hålla LEGO-prissättning gratis för alla",
+      "body": "Din donation har registrerats.",
+      "leaderboardNote": " Kolla in startsidan för att se ditt namn på topplistan!",
+      "homeButton": "Gå till startsidan"
+    },
+    "form": {
+      "instructions": "För att verifiera din donation och lägga till dig själv på topplistan, ange din PayPal-e-post och transaktions-ID från ditt donationskvitto.",
+      "paypalEmailLabel": "PayPal-e-post *",
+      "paypalEmailPlaceholder": "din@epost.com",
+      "transactionIdLabel": "Transaktions-ID *",
+      "transactionIdPlaceholder": "t.ex. 1AB23456CD789012E",
+      "transactionIdHelper": "Finns i ditt PayPal-kvitto via e-post",
+      "leaderboardOptIn": "Lägg till mig på topplistan över supportrar",
+      "displayNameLabel": "Visningsnamn *",
+      "displayNamePlaceholder": "LEGO Master",
+      "displayNameHelper": "3-30 tecken, endast bokstäver, siffror, mellanslag, understreck och bindestreck",
+      "submitLoading": "Registrerar...",
+      "submit": "Gör anspråk på donation",
+      "privacyNote": "Din e-post och ditt transaktions-ID används enbart för verifiering och delas aldrig offentligt."
+    },
+    "errors": {
+      "failed": "Det gick inte att registrera donationen",
+      "network": "Nätverksfel. Försök igen."
+    }
+  },
+  "minifigFAQ": {
+    "heading": "Vanliga frågor",
+    "newOrUsed": {
+      "question": "Ska jag köpa {minifigNo} ny eller begagnad?",
+      "answerExpensive": "För {minifigName} beror beslutet på din budget och ditt syfte. Nytt skick kostar vanligtvis 20-40% mer men garanterar oklanderlig trycktkvalitet och inget slitage. Begagnat skick är billigare och passar utmärkt för personliga samlingar eller egna byggen (MOC). Vid {price} kan det löna sig att välja begagnat för att spara rejält—kontrollera bara trycktkvaliteten på bilderna. Kolla alltid säljarens bilder efter blekt tryck, sprickor i armarna eller stressmärken på bålen innan du köper begagnat.",
+      "answerBudget": "För {minifigName} beror beslutet på din budget och ditt syfte. Nytt skick kostar vanligtvis 20-40% mer men garanterar oklanderlig trycktkvalitet och inget slitage. Begagnat skick är billigare och passar utmärkt för personliga samlingar eller egna byggen (MOC). Vid {price} är nytt ofta värt den lilla extrakostnaden för perfekt skick. Kolla alltid säljarens bilder efter blekt tryck, sprickor i armarna eller stressmärken på bålen innan du köper begagnat.",
+      "answerNeutral": "För {minifigName} beror beslutet på din budget och ditt syfte. Nytt skick kostar vanligtvis 20-40% mer men garanterar oklanderlig trycktkvalitet och inget slitage. Begagnat skick är billigare och passar utmärkt för personliga samlingar eller egna byggen (MOC). Jämför priser för nytt och begagnat på BrickLink—ibland är skillnaden minimal. Kolla alltid säljarens bilder efter blekt tryck, sprickor i armarna eller stressmärken på bålen innan du köper begagnat.",
+      "answerNoPriceData": "Utan aktuell prisdata, kolla BrickLink för att jämföra priser för nytt och begagnat för {minifigName}. Generellt, köp nytt om prisskillnaden är mindre än 5 USD, eller om du investerar för vidareförsäljning. Köp begagnat om du bygger en personlig samling och kan tolerera mindre slitage."
+    },
+    "whyPrice": {
+      "questionExpensive": "Varför är {minifigNo} så dyr?",
+      "questionBudget": "Varför är {minifigNo} så prisvärd?",
+      "questionNeutral": "Varför är {minifigNo} prissatt så här?",
+      "expensiveAnswerVintageRetired": "{minifigName} har ett premiumpris på {price} på grund av flera faktorer: **Ålder** - Släppt {year}, äldre minifigurer är svårare att hitta i gott skick. **{categoryName}-popularitet** - Hög efterfrågan från samlare. **Begränsad tillgänglighet** - Fanns troligen bara i få eller exklusiva set. **Utfasade set** - Originalseten tillverkas inte längre. Premiumminifigurer från exklusiva set, kampanjartiklar eller populära karaktärer behåller alltid högre värde.",
+      "expensiveAnswerRetired": "{minifigName} har ett premiumpris på {price} på grund av flera faktorer: **{categoryName}-popularitet** - Hög efterfrågan från samlare. **Begränsad tillgänglighet** - Fanns troligen bara i få eller exklusiva set. **Utfasade set** - Originalseten tillverkas inte längre. Premiumminifigurer från exklusiva set, kampanjartiklar eller populära karaktärer behåller alltid högre värde.",
+      "expensiveAnswerBase": "{minifigName} har ett premiumpris på {price} på grund av flera faktorer: **{categoryName}-popularitet** - Hög efterfrågan från samlare. **Begränsad tillgänglighet** - Fanns troligen bara i få eller exklusiva set. Premiumminifigurer från exklusiva set, kampanjartiklar eller populära karaktärer behåller alltid högre värde.",
+      "budgetAnswerRecent": "{minifigName} är prisvärd på {price} eftersom: **Nyligen släppt** - Fortfarande lätt tillgänglig från set från {year}. **Vanlig tillgänglighet** - Troligen inkluderad i flera set eller massproducerad. **Generisk design** - Icke-karaktärs- eller arméuppbyggnadsminifigurer kostar mindre. Detta gör den perfekt för bulkinköp, MOC-bygge eller att starta en samling utan att spräcka budgeten.",
+      "budgetAnswerBase": "{minifigName} är prisvärd på {price} eftersom: **Vanlig tillgänglighet** - Troligen inkluderad i flera set eller massproducerad. **Generisk design** - Icke-karaktärs- eller arméuppbyggnadsminifigurer kostar mindre. Detta gör den perfekt för bulkinköp, MOC-bygge eller att starta en samling utan att spräcka budgeten.",
+      "neutralAnswerWithYear": "{minifigName} är måttligt prissatt på {price}, vilket speglar en balanserad tillgång och efterfrågan. Släppt {year}, är den varken sällsynt nog för att vara dyr eller vanlig nog för att vara spottstötande billig. Det rättvisa priset gör den tillgänglig för de flesta samlare samtidigt som den behåller ett visst samlarvärde.",
+      "neutralAnswerNoYear": "{minifigName} är måttligt prissatt på {price}, vilket speglar en balanserad tillgång och efterfrågan. Den är varken sällsynt nog för att vara dyr eller vanlig nog för att vara spottstötande billig. Det rättvisa priset gör den tillgänglig för de flesta samlare samtidigt som den behåller ett visst samlarvärde."
+    },
+    "bestTime": {
+      "question": "Vad är bästa tiden att köpa {minifigNo}?",
+      "answerRecent": "Baserat på LEGO-marknadstrender är bästa tiden att köpa {minifigName}: **Nu, innan utfasning** - Set från {year} fasas ut snart, och priserna ökar vanligtvis 30-50% inom ett år efter utfasning. Undvik att köpa i november-december (julefterfrågan) eller direkt efter att ett set fasas ut (spekulationstopp). Håll koll på prishistorikdiagrammet ovan för att upptäcka nedåtgående trender. Ställ in prisaviseringar på BrickLink för att fånga erbjudanden under {priceLower}.",
+      "answerVintage": "Baserat på LEGO-marknadstrender är bästa tiden att köpa {minifigName}: **Under lågsäsong** - Äldre minifigurer från {year} är billigast på sommaren (juni-augusti) när färre samlare köper. Undvik att köpa i november-december (julefterfrågan) eller direkt efter att ett set fasas ut (spekulationstopp). Håll koll på prishistorikdiagrammet ovan för att upptäcka nedåtgående trender. Ställ in prisaviseringar på BrickLink för att fånga erbjudanden under {priceLower}.",
+      "answerStandard": "Baserat på LEGO-marknadstrender är bästa tiden att köpa {minifigName}: **Efter julsäsongen** - Priserna sjunker vanligtvis i januari-februari när säljare har överskottslager. Undvik att köpa i november-december (julefterfrågan) eller direkt efter att ett set fasas ut (spekulationstopp). Håll koll på prishistorikdiagrammet ovan för att upptäcka nedåtgående trender. Ställ in prisaviseringar på BrickLink för att fånga erbjudanden under {priceLower}."
+    },
+    "authenticity": {
+      "question": "Hur kan jag verifiera att {minifigNo} är äkta?",
+      "answerExpensive": "För att verifiera att {minifigName} är äkta LEGO: **1. Kolla knopparna** - Alla LEGO-minifigurdelar har \"LEGO\" ingraverat på knopparna (ovanpå huvudet, inuti bålen). **2. Trycktkvalitet** - LEGO-tryck är skarpa utan flytande färg eller felinriktning. Kopior har ofta suddiga tryck. **3. Plastkvalitet** - Äkta LEGO har en specifik känsla och klämkraft. Kopior är ofta blankare eller sladdrigare. **4. Färgmatchning** - LEGOs färgkonsekvens är perfekt. Omatchade gula eller hudfärgade toner tyder på falska delar. För dyra minifigurer som denna ({price}), köp från pålitliga BrickLink-säljare med höga betyg. Om du köper på eBay, kolla om säljaren har \"LEGO\" i titeln och tillhandahåller närbilder på LEGO-stämplarna.",
+      "answerBase": "För att verifiera att {minifigName} är äkta LEGO: **1. Kolla knopparna** - Alla LEGO-minifigurdelar har \"LEGO\" ingraverat på knopparna (ovanpå huvudet, inuti bålen). **2. Trycktkvalitet** - LEGO-tryck är skarpa utan flytande färg eller felinriktning. Kopior har ofta suddiga tryck. **3. Plastkvalitet** - Äkta LEGO har en specifik känsla och klämkraft. Kopior är ofta blankare eller sladdrigare. **4. Färgmatchning** - LEGOs färgkonsekvens är perfekt. Omatchade gula eller hudfärgade toner tyder på falska delar. Köp från pålitliga BrickLink-säljare med höga betyg. Om du köper på eBay, kolla om säljaren har \"LEGO\" i titeln och tillhandahåller närbilder på LEGO-stämplarna."
+    }
+  },
+  "saveCollectionModal": {
+    "heading": "Din samling är värd {value}",
+    "subtext": "Du har spårat {count} {itemWord}. Skapa ett gratis konto för att spara den permanent.",
+    "totalValueLabel": "TOTALT VÄRDE",
+    "itemsTracked": "{count} {itemWord} spårade",
+    "benefitNeverLose": "Förlora aldrig denna samling",
+    "benefitAutoPriceUpdates": "Få automatiska prisuppdateringar",
+    "benefitGenerateListings": "Skapa annonser direkt",
+    "saveButton": "Spara min samling",
+    "continueAsGuest": "Fortsätt som gäst"
+  },
+  "moveDialog": {
+    "titleToInventory": "Flytta till inventering",
+    "titleToCollection": "Flytta till din samling",
+    "descriptionToInventory": "Detta flyttar artikeln till din säljinventering.",
+    "descriptionToCollection": "Detta flyttar artikeln till din personliga samling.",
+    "failedToMove": "Det gick inte att flytta objektet",
+    "quantityLabel": "Antal att flytta",
+    "maximumLabel": "Max: {max}",
+    "cancel": "Avbryt",
+    "moving": "Flyttar...",
+    "confirm": "Bekräfta"
+  },
+  "guestCollectionBadge": {
+    "title": "Din samling",
+    "itemCount": "{count} {itemWord}",
+    "saveCta": "Spara →"
+  },
+  "priceDisplay": {
+    "suggestedPrice": "Föreslaget pris",
+    "unavailable": "Prisdata otillgänglig"
+  },
+  "currencyBanner": {
+    "detectionMessage": "Vi upptäckte att du är i {country}. Visa priser i {currency}?",
+    "acceptButton": "Ja, använd {currency}",
+    "keepUsd": "Behåll USD"
+  },
+  "authRequiredModal": {
+    "heading": "Håll koll på detta i din samling",
+    "subheading": "Registrera dig för att börja spåra \"{itemName}\"",
+    "benefitSavePermanently": "Spara denna artikel permanent",
+    "benefitTrackPrices": "Håll koll på priser automatiskt",
+    "benefitGenerateListings": "Skapa eBay/Facebook-annonser direkt",
+    "createAccountButton": "Skapa gratis konto",
+    "alreadyHaveAccount": "Har du redan ett konto?",
+    "signInButton": "Logga in"
+  },
+  "notFound": {
+    "heading": "Sidan hittades inte",
+    "body": "Sidan du letar efter finns inte eller har flyttats.",
+    "goHome": "Gå hem"
+  },
+  "minifigError": {
+    "heading": "Något gick fel",
+    "body": "Vi kunde inte läsa in denna minifigur. Det kan vara ett tillfälligt problem.",
+    "tryAgain": "Försök igen",
+    "backToSearch": "Tillbaka till sök"
+  },
+  "minifigNotFound": {
+    "heading": "Minifigur hittades inte",
+    "body": "Vi kunde inte hitta denna minifigur i vår katalog. Den kanske inte finns, eller så är artikelnumret felaktigt.",
+    "searchMinifigures": "Sök minifigurer"
+  },
+  "scrollToTop": {
+    "ariaLabel": "Scrolla till toppen"
+  },
+  "breadcrumb": {
+    "ariaLabel": "Brödsmula"
+  },
+  "communityStats": {
+    "since": "Sedan {year}",
+    "minifigsCount": "{count} minifigurer"
+  },
+  "themeFilters": {
+    "all": "Alla",
+    "allCategories": "Alla kategorier",
+    "searchPlaceholder": "Sök kategorier...",
+    "noCategoriesFound": "Inga kategorier hittades"
+  },
+  "deals": {
+    "off": "RABATT",
+    "save": "Spara",
+    "noDealsFound": "Inga erbjudanden hittades i denna kategori"
+  },
+  "priceHistory": {
+    "loadError": "Det gick inte att läsa in prishistoriken",
+    "noDataMessage": "Prishistoriken visas här när data har samlats in över tid",
+    "noDataSubtext": "Kom tillbaka om några dagar för att se pristrender",
+    "sixMonths": "6 månader",
+    "allTime": "Hela tiden"
+  },
+  "listingGenerator": {
+    "errors": {
+      "generateFailed": "Det gick inte att skapa annonsen"
+    },
+    "firstTimeBanner": {
+      "title": "Första gången?",
+      "body": "Använd inställningsikonen för att anpassa dina annonsinställningar (plattform, skick, etc). Skapa annons kommer ihåg dem till nästa gång!"
+    },
+    "quickGenerate": {
+      "loading": "Skapar annons..."
+    },
+    "generateListing": "Skapa annons",
+    "customizeOptionsTooltip": "Anpassa alternativ",
+    "generatedListingHeading": "Skapad annons",
+    "adjustSettingsTooltip": "Justera inställningar",
+    "titleLabel": "Titel:",
+    "copyTitle": "Kopiera titel",
+    "priceLabel": "Pris:",
+    "copyPrice": "Kopiera pris",
+    "wholeNumber": "(heltal)",
+    "descriptionLabel": "Beskrivning:",
+    "copyDescription": "Kopiera beskrivning",
+    "done": "Klar",
+    "platformLabel": "Plattform:",
+    "conditionLabel": "Skick:",
+    "platform": {
+      "ebay": "eBay",
+      "facebook": "Facebook Marketplace",
+      "bricklink": "BrickLink",
+      "vinted": "Vinted"
+    },
+    "condition": {
+      "facebook": {
+        "new": "Ny",
+        "likeNew": "Som ny",
+        "good": "Bra",
+        "fair": "Godkänd"
+      },
+      "ebay": {
+        "new": "Ny",
+        "likeNew": "Som ny",
+        "veryGood": "Mycket bra",
+        "good": "Bra",
+        "acceptable": "Godkänd"
+      },
+      "bricklink": {
+        "new": "Ny",
+        "likeNew": "Begagnad - Som ny",
+        "veryGood": "Begagnad - Mycket bra",
+        "good": "Begagnad - Bra",
+        "acceptable": "Begagnad - Godkänd"
+      },
+      "vinted": {
+        "new": "Ny med etikett",
+        "likeNew": "Mycket bra",
+        "good": "Bra",
+        "fair": "Tillfredsställande"
+      }
+    },
+    "accessoriesLabel": "Tillbehör inkluderade:",
+    "accessoriesPlaceholder": "Hjälm, blastrar, cape...",
+    "knownFlawsLabel": "Kända brister (valfritt):",
+    "knownFlawsPlaceholder": "Mindre trycktslitage, lösa leder...",
+    "boxConditionLabel": "Förpackningens skick:",
+    "boxCondition": {
+      "sealed": "Förseglad (aldrig öppnad)",
+      "openedNew": "Öppnad (setet fortfarande nytt/obyggt)",
+      "noBox": "Ingen förpackning",
+      "withBox": "Förpackning ingår"
+    },
+    "buildingStatusLabel": "Byggstatus:",
+    "buildingStatus": {
+      "unbuiltSealed": "Obyggt (påsar förseglade)",
+      "unbuiltBagsOpened": "Obyggt (påsar öppnade)",
+      "unassembled": "Ej monterat",
+      "partiallyBuilt": "Delvis byggt",
+      "fullyBuilt": "Helt byggt",
+      "disassembled": "Byggt och sedan nedmonterat"
+    },
+    "completenessLabel": "Fullständighet:",
+    "completeness": {
+      "verified": "100% komplett (verifierat antal delar)",
+      "appearsComplete": "Verkar komplett (ej verifierat)",
+      "missingMinor": "Saknar mindre delar",
+      "missingMajor": "Saknar en del delar"
+    },
+    "instructionsIncluded": "Byggbeskrivning ingår",
+    "minifiguresIncluded": "Alla minifigurer ingår",
+    "additionalNotesLabel": "Ytterligare anteckningar (valfritt):",
+    "additionalNotesPlaceholder": "Andra detaljer om setets skick...",
+    "quantityLabel": "Antal att lista:",
+    "includeInListingLabel": "Inkludera i annonsen:",
+    "preferences": {
+      "offersShipping": "Jag erbjuder frakt",
+      "offersLocalPickup": "Jag erbjuder lokal upphämtning",
+      "offersBundleDiscount": "Paketrabatter tillgängliga",
+      "acceptsCash": "Accepterar kontanter",
+      "acceptsVenmo": "Accepterar Venmo",
+      "acceptsPayPal": "Accepterar PayPal",
+      "acceptsOffers": "Bud accepteras - \"Lägg bud\" aktiverat",
+      "fastShipping": "Skickas snabbt och säkert",
+      "carefulPackaging": {
+        "ebay": "Noggrant förpackat i skyddande material",
+        "bricklink": "Noggrant förpackat"
+      },
+      "messageWithQuestions": {
+        "ebay": "\"Skicka gärna ett meddelande om du har frågor\"",
+        "bricklink": "\"Kontakta mig med frågor innan köp\""
+      },
+      "shipsWithTracking": "Skickas med spårning",
+      "smokeFreeHome": "Från rökfritt hem"
+    },
+    "cancel": "Avbryt",
+    "generating": "Skapar...",
+    "regenerate": "Skapa på nytt"
+  },
+  "priceAlert": {
+    "invalidPrice": "Ange ett giltigt pris",
+    "targetBelowCurrent": "Målpriset måste vara lägre än det aktuella priset ({price})",
+    "setSuccess": "✓ Prisavisering inställd! Du får ett e-postmeddelande när priset sjunker.",
+    "setFailed": "Det gick inte att ställa in aviseringen",
+    "setFailedRetry": "Det gick inte att ställa in aviseringen. Försök igen.",
+    "deleteFailed": "Det gick inte att ta bort aviseringen",
+    "deleteFailedRetry": "Det gick inte att ta bort aviseringen. Försök igen.",
+    "deleteSuccess": "✓ Prisavisering borttagen",
+    "buttonTooltip": "Ställ in prisavisering",
+    "buttonLabel": "Prisavisering",
+    "modalTitle": "Ställ in prisavisering",
+    "currentPrice": "Nuvarande pris",
+    "notifyLabel": "Meddela mig när priset sjunker till:",
+    "targetHint": "Ange ett målpris under det aktuella priset",
+    "cancel": "Avbryt",
+    "setting": "Ställer in...",
+    "setAlert": "Ställ in avisering",
+    "footerNote": "Du får ett e-postmeddelande när priset sjunker till eller under ditt mål. Aviseringen inaktiveras automatiskt efter att den har utlösts.",
+    "viewAllAlerts": "Visa alla aviseringar",
+    "alertActive": "Avisering aktiv",
+    "alertTarget": "Aviseringens mål",
+    "deleting": "Tar bort...",
+    "deleteAlert": "Ta bort avisering",
+    "editTarget": "Redigera mål",
+    "saving": "Sparar...",
+    "save": "Spara"
+  },
+  "accountAlerts": {
+    "confirmDelete": "Är du säker på att du vill ta bort denna avisering?",
+    "deleteSuccess": "Aviseringen har tagits bort",
+    "deleteFailed": "Det gick inte att ta bort aviseringen",
+    "paused": "Aviseringen pausad",
+    "activated": "Aviseringen aktiverad",
+    "updateFailed": "Det gick inte att uppdatera aviseringen",
+    "invalidPrice": "Ange ett giltigt pris",
+    "priceUpdated": "Målpriset har uppdaterats",
+    "priceUpdateFailed": "Det gick inte att uppdatera priset",
+    "title": "Prisaviseringar",
+    "subtitle": "Hantera dina prisfallsaviseringar",
+    "emptyTitle": "Inga prisaviseringar än",
+    "emptyBody": "Ställ in prisaviseringar på valfri minifigur eller set för att bli meddelad när priserna sjunker.",
+    "browseItems": "Bläddra bland artiklar",
+    "activeAlerts": "Aktiva aviseringar ({count})",
+    "triggeredAlerts": "Utlösta aviseringar ({count})",
+    "pausedAlerts": "Pausade aviseringar ({count})",
+    "minifigure": "Minifigur",
+    "set": "Set",
+    "target": "Mål:",
+    "editTargetPrice": "Redigera målpris",
+    "triggeredOn": "Utlöst {date}",
+    "lastChecked": "Senast kontrollerad: {date}",
+    "created": "Skapad: {date}",
+    "reactivate": "Återaktivera",
+    "pause": "Pausa",
+    "activate": "Aktivera",
+    "deleteAlert": "Ta bort avisering"
+  },
+  "setCard": {
+    "noImage": "Ingen bild",
+    "released": "Lanserat {year}",
+    "ageYears": "{age} år gammalt",
+    "priceIncrease": "+{percent}% prisökning",
+    "estimatedRetirement": "Uppskattad utfasning: {quarter}",
+    "retirementScore": "Utfasningspoäng",
+    "viewDetails": "Visa detaljer"
   }
 }

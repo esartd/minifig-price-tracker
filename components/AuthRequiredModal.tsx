@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslation } from '@/components/TranslationProvider';
+
 interface AuthRequiredModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -8,6 +10,8 @@ interface AuthRequiredModalProps {
 }
 
 export default function AuthRequiredModal({ isOpen, onClose, itemName, itemType = 'minifig' }: AuthRequiredModalProps) {
+  const { t } = useTranslation();
+
   if (!isOpen) return null;
 
   const handleEmailSignUp = () => {
@@ -67,7 +71,7 @@ export default function AuthRequiredModal({ isOpen, onClose, itemName, itemType 
                 marginBottom: '8px',
                 letterSpacing: '-0.01em'
               }}>
-                Track This in Your Collection
+                {t('authRequiredModal.heading') || 'Track This in Your Collection'}
               </h2>
               {itemName && (
                 <p style={{
@@ -75,7 +79,7 @@ export default function AuthRequiredModal({ isOpen, onClose, itemName, itemType 
                   color: '#737373',
                   lineHeight: '1.5'
                 }}>
-                  Sign up to start tracking "{itemName}"
+                  {t('authRequiredModal.subheading', { itemName }) || `Sign up to start tracking "${itemName}"`}
                 </p>
               )}
             </div>
@@ -120,7 +124,7 @@ export default function AuthRequiredModal({ isOpen, onClose, itemName, itemType 
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
               <span style={{ fontSize: 'var(--text-sm)', color: '#171717', fontWeight: '500', lineHeight: '1.5' }}>
-                Save this item permanently
+                {t('authRequiredModal.benefitSavePermanently') || 'Save this item permanently'}
               </span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -128,7 +132,7 @@ export default function AuthRequiredModal({ isOpen, onClose, itemName, itemType 
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
               <span style={{ fontSize: 'var(--text-sm)', color: '#171717', fontWeight: '500', lineHeight: '1.5' }}>
-                Track prices automatically
+                {t('authRequiredModal.benefitTrackPrices') || 'Track prices automatically'}
               </span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -136,7 +140,7 @@ export default function AuthRequiredModal({ isOpen, onClose, itemName, itemType 
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
               <span style={{ fontSize: 'var(--text-sm)', color: '#171717', fontWeight: '500', lineHeight: '1.5' }}>
-                Generate eBay/Facebook listings instantly
+                {t('authRequiredModal.benefitGenerateListings') || 'Generate eBay/Facebook listings instantly'}
               </span>
             </div>
           </div>
@@ -159,7 +163,7 @@ export default function AuthRequiredModal({ isOpen, onClose, itemName, itemType 
             onMouseEnter={(e) => e.currentTarget.style.background = '#2563eb'}
             onMouseLeave={(e) => e.currentTarget.style.background = '#3b82f6'}
           >
-            Create Free Account
+            {t('authRequiredModal.createAccountButton') || 'Create Free Account'}
           </button>
 
           {/* Sign in link */}
@@ -169,7 +173,7 @@ export default function AuthRequiredModal({ isOpen, onClose, itemName, itemType 
             color: '#737373',
             marginTop: '8px'
           }}>
-            Already have an account?{' '}
+            {t('authRequiredModal.alreadyHaveAccount') || 'Already have an account?'}{' '}
             <button
               onClick={handleSignIn}
               style={{
@@ -184,7 +188,7 @@ export default function AuthRequiredModal({ isOpen, onClose, itemName, itemType 
               onMouseEnter={(e) => e.currentTarget.style.color = '#2563eb'}
               onMouseLeave={(e) => e.currentTarget.style.color = '#3b82f6'}
             >
-              Sign In
+              {t('authRequiredModal.signInButton') || 'Sign In'}
             </button>
           </p>
         </div>

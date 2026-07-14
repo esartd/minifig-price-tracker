@@ -294,16 +294,21 @@ function SetsBrowseContent() {
   );
 }
 
+function SetsBrowseFallback() {
+  const { t } = useTranslation();
+  return (
+    <div style={{ minHeight: '100vh', background: '#fafafa', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
+        <div style={{ fontSize: '18px', color: '#525252' }}>{t('sets.browse.searching') || 'Loading...'}</div>
+      </div>
+    </div>
+  );
+}
+
 export default function SetsBrowsePage() {
   return (
-    <Suspense fallback={
-      <div style={{ minHeight: '100vh', background: '#fafafa', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔍</div>
-          <div style={{ fontSize: '18px', color: '#525252' }}>Loading...</div>
-        </div>
-      </div>
-    }>
+    <Suspense fallback={<SetsBrowseFallback />}>
       <SetsBrowseContent />
     </Suspense>
   );

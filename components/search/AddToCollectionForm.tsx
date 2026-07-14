@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Session } from 'next-auth';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface AddToCollectionFormProps {
   onAdd: (quantity: number) => void;
@@ -11,6 +12,7 @@ interface AddToCollectionFormProps {
 }
 
 export default function AddToCollectionForm({ onAdd, loading, session }: AddToCollectionFormProps) {
+  const { t } = useTranslation();
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
 
@@ -59,7 +61,7 @@ export default function AddToCollectionForm({ onAdd, loading, session }: AddToCo
           marginBottom: '12px',
           letterSpacing: '0.01em'
         }}>
-          Quantity
+          {t('minifigDetail.quantity') || 'Quantity'}
         </label>
         <div style={{
           display: 'flex',
@@ -188,7 +190,11 @@ export default function AddToCollectionForm({ onAdd, loading, session }: AddToCo
             if (!loading) e.currentTarget.style.background = '#3b82f6';
           }}
         >
-          {loading ? 'Adding...' : session ? 'Add to sell' : 'Sign In to Add'}
+          {loading
+            ? (t('common.adding') || 'Adding...')
+            : session
+              ? (t('collection.addToInventory') || 'Add to sell')
+              : (t('search.addToCollection.signInToAdd') || 'Sign In to Add')}
         </button>
       </div>
     </div>

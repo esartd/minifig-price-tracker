@@ -32,6 +32,8 @@ export default function MinifigCard({
   const viewDetailsLabel = translations?.common?.viewDetails || 'View Details';
   const shopOnAmazonLabel = translations?.buyButtons?.amazon?.shopOn || 'Shop on Amazon';
   const amazonLabel = translations?.buyButtons?.amazon?.name || 'Amazon';
+  const setBadgeLabel = translations?.search?.badges?.set || 'SET';
+  const primeLabel = translations?.buyButtons?.amazon?.prime || 'Prime';
 
   // Detect if this is a set or minifig
   const isSet = minifig.resultType === 'set' || minifig.box_no;
@@ -255,7 +257,7 @@ export default function MinifigCard({
                   padding: '2px 8px',
                   borderRadius: '4px'
                 }}>
-                  SET
+                  {setBadgeLabel}
                 </span>
               )}
             </div>
@@ -359,7 +361,7 @@ export default function MinifigCard({
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', justifyContent: 'space-between' }}>
                     <span style={{ fontSize: 'var(--text-xs)', color: '#737373' }}>{amazonLabel}</span>
                     {amazonPrice.isPrime && (
-                      <span style={{ fontSize: '10px', fontWeight: '600', color: '#00a8e1', background: '#e6f7ff', padding: '1px 4px', borderRadius: '3px' }}>Prime</span>
+                      <span style={{ fontSize: '10px', fontWeight: '600', color: '#00a8e1', background: '#e6f7ff', padding: '1px 4px', borderRadius: '3px' }}>{primeLabel}</span>
                     )}
                   </div>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>

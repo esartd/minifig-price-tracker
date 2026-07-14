@@ -26,18 +26,19 @@ export async function generateMetadata({
 
   const minifig = await findMinifigByNumber(itemNo);
 
-  if (!minifig) {
-    return {
-      title: 'Minifigure Not Found',
-    };
-  }
-
   const { headers } = await import('next/headers');
   const headersList = await headers();
   const host = headersList.get('host') || '';
 
-  const { getLocaleFromHost } = await import('@/lib/i18n-subdomain');
+  const { getLocaleFromHost, getTranslations } = await import('@/lib/i18n-subdomain');
   const locale = getLocaleFromHost(host);
+  const t = await getTranslations(locale);
+
+  if (!minifig) {
+    return {
+      title: t.minifigDetail?.meta?.notFoundTitle || 'Minifigure Not Found',
+    };
+  }
 
   const domains = {
     en: 'https://figtracker.ericksu.com',
@@ -86,16 +87,26 @@ export async function generateMetadata({
                       null;
 
   // Use first 2 sentences of description for meta description
+  const yearText = minifig.year_released || (t.minifigDetail?.meta?.dateUnknown || 'date unknown');
+  const metaDescriptionTemplate = t.minifigDetail?.meta?.description ||
+    '{category} - {fullName}. Track current BrickLink prices, see market value, and manage your collection. Add to sell or keep. Released {year}.';
   const metaDescription = description
     ? description.split('. ').slice(0, 2).join('. ') + '.'
-    : `${minifig.category_name} - ${fullName}. Track current BrickLink prices, see market value, and manage your collection. Add to sell or keep. Released ${minifig.year_released || 'date unknown'}.`;
+    : metaDescriptionTemplate
+        .replace('{category}', minifig.category_name)
+        .replace('{fullName}', fullName)
+        .replace('{year}', yearText);
 
   // Skip pricing in page title - reduces API calls from 4 to 2 per page
   // Pricing still shown in page content and schema.org
   const priceString = '';
+  const titleSuffix = t.minifigDetail?.meta?.titleSuffix || 'LEGO Minifigure Price Tracker';
+  const ogDescriptionTemplate = t.minifigDetail?.meta?.ogDescription ||
+    'LEGO Minifigure {itemNo} - Track BrickLink prices, see current market value, and manage your collection';
+  const twitterDescriptionTemplate = t.minifigDetail?.meta?.twitterDescription || '{category} minifigure price guide';
 
   return {
-    title: `${fullName} (${minifig.minifigure_no})${priceString} | LEGO Minifigure Price Tracker`,
+    title: `${fullName} (${minifig.minifigure_no})${priceString} | ${titleSuffix}`,
     description: metaDescription,
     keywords: [
       'LEGO minifigure',
@@ -111,7 +122,7 @@ export async function generateMetadata({
     ],
     openGraph: {
       title: `${fullName} - ${minifig.category_name}`,
-      description: `LEGO Minifigure ${minifig.minifigure_no} - Track BrickLink prices, see current market value, and manage your collection`,
+      description: ogDescriptionTemplate.replace('{itemNo}', minifig.minifigure_no),
       url: `${domains[locale as keyof typeof domains]}/minifigs/${itemNo}`,
       locale: localeMap[locale as keyof typeof localeMap],
       alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'nl_NL', 'pl_PL', 'pt_PT', 'sv_SE', 'ja_JP'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
@@ -120,7 +131,7 @@ export async function generateMetadata({
     twitter: {
       card: 'summary_large_image',
       title: `${fullName}`,
-      description: `${minifig.category_name} minifigure price guide`,
+      description: twitterDescriptionTemplate.replace('{category}', minifig.category_name),
       images: [`https://img.bricklink.com/ItemImage/MN/0/${minifig.minifigure_no}.png`],
     },
     alternates: {
@@ -384,6 +395,9 @@ export default async function MinifigPage({
   const host = headersList.get('host') || '';
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
 
+  const { getTranslations } = await import('@/lib/i18n-subdomain');
+  const t = await getTranslations(locale);
+
   const domains = {
     en: 'https://figtracker.ericksu.com',
     de: 'https://de.figtracker.ericksu.com',
@@ -412,11 +426,15 @@ export default async function MinifigPage({
   }
 
   // Schema.org structured data for rich search results
+  const productDescriptionTemplate = t.minifigDetail?.meta?.productDescription ||
+    '{category} LEGO minifigure {itemNo}. Track current BrickLink prices and market value.';
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: minifig.name,
-    description: description || `${minifig.category_name} LEGO minifigure ${minifig.minifigure_no}. Track current BrickLink prices and market value.`,
+    description: description || productDescriptionTemplate
+      .replace('{category}', minifig.category_name)
+      .replace('{itemNo}', minifig.minifigure_no),
     image: `https://img.bricklink.com/ItemImage/MN/0/${minifig.minifigure_no}.png`,
     brand: {
       '@type': 'Brand',
@@ -450,13 +468,13 @@ export default async function MinifigPage({
       {
         '@type': 'ListItem',
         position: 1,
-        name: 'Home',
+        name: t.minifigDetail?.breadcrumbs?.home || 'Home',
         item: baseUrl
       },
       {
         '@type': 'ListItem',
         position: 2,
-        name: 'Themes',
+        name: t.minifigDetail?.breadcrumbs?.themes || 'Themes',
         item: `${baseUrl}/themes`
       },
       {

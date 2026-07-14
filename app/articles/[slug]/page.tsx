@@ -12,7 +12,7 @@ import translationsDe from '@/translations-backup/de.json';
 import translationsFr from '@/translations-backup/fr.json';
 import translationsEs from '@/translations-backup/es.json';
 
-function getTranslations(locale: string) {
+function getTranslations(locale: string): any {
   switch (locale) {
     case 'de': return translationsDe;
     case 'fr': return translationsFr;
@@ -54,7 +54,7 @@ export async function generateMetadata({
   const guide = guideArticles[slug];
 
   if (!guide) {
-    return { title: 'Article Not Found' };
+    return { title: t.articles?.notFound || 'Article Not Found' };
   }
 
   return {
@@ -112,8 +112,10 @@ export default async function ArticlePage({
         title: articleTranslation.title,
         description: articleTranslation.description,
         slug: article.slug,
-        category: article.category || 'Guide',
-        readTime: `${article.readTimeMinutes} min read`,
+        category: article.category || (t.guides?.category || 'Guide'),
+        readTime: t.articles?.minRead
+          ? t.articles.minRead.replace('{minutes}', String(article.readTimeMinutes))
+          : `${article.readTimeMinutes} min read`,
         coverImage,
       };
     });
@@ -138,13 +140,13 @@ export default async function ArticlePage({
         {
           '@type': 'ListItem',
           position: 1,
-          name: 'Home',
+          name: t.navigation?.home || 'Home',
           item: baseUrl,
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'Articles',
+          name: t.navigation?.articles || 'Articles',
           item: `${baseUrl}/articles`,
         },
         {
@@ -184,7 +186,7 @@ export default async function ArticlePage({
         '@id': `${baseUrl}/articles/${slug}`,
       },
       keywords: Array.isArray(translation.metaKeywords) ? translation.metaKeywords.join(', ') : (translation.metaKeywords || ''),
-      articleSection: dbArticle.category || 'Guide',
+      articleSection: dbArticle.category || (t.guides?.category || 'Guide'),
       inLanguage: locale,
     };
 
@@ -207,9 +209,9 @@ export default async function ArticlePage({
           fontSize: 'var(--text-sm)',
           color: '#737373',
         }}>
-          <Link href="/" style={{ color: '#3b82f6', textDecoration: 'none' }}>Home</Link>
+          <Link href="/" style={{ color: '#3b82f6', textDecoration: 'none' }}>{t.navigation?.home || 'Home'}</Link>
           <span> / </span>
-          <Link href="/articles" style={{ color: '#3b82f6', textDecoration: 'none' }}>Articles</Link>
+          <Link href="/articles" style={{ color: '#3b82f6', textDecoration: 'none' }}>{t.navigation?.articles || 'Articles'}</Link>
           <span> / </span>
           <span style={{ color: '#171717' }}>{translation.title}</span>
         </nav>
@@ -259,7 +261,7 @@ export default async function ArticlePage({
                 <svg style={{ width: '14px', height: '14px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                 </svg>
-                Edit
+                {t.common?.edit || 'Edit'}
               </Link>
             )}
           </div>
@@ -269,11 +271,15 @@ export default async function ArticlePage({
             color: '#737373',
             marginBottom: '12px'
           }}>
-            <span>FigTracker Team</span>
+            <span>{t.articles?.byline || 'FigTracker Team'}</span>
             <span> · </span>
             <span>{new Date(dbArticle.publishedAt || dbArticle.createdAt).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
             <span> · </span>
-            <span>{dbArticle.readTimeMinutes} min read</span>
+            <span>
+              {t.articles?.minRead
+                ? t.articles.minRead.replace('{minutes}', String(dbArticle.readTimeMinutes))
+                : `${dbArticle.readTimeMinutes} min read`}
+            </span>
           </div>
 
           {/* Social Share Buttons - Top */}
@@ -330,7 +336,7 @@ export default async function ArticlePage({
   return (
     <article style={{ minHeight: '100vh', background: 'white' }}>
       <p style={{ padding: '40px', textAlign: 'center', color: '#737373' }}>
-        Legacy article format - please migrate to new CMS
+        {t.articles?.legacyFormatNotice || 'Legacy article format - please migrate to new CMS'}
       </p>
     </article>
   );

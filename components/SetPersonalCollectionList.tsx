@@ -118,14 +118,14 @@ export default function SetPersonalCollectionList({
           color: '#171717',
           marginBottom: '8px'
         }}>
-          No sets in your personal collection yet
+          {t('collection.noSetsInPersonalCollection') || 'No sets in your personal collection yet'}
         </p>
         <p style={{
-          
+
           color: '#737373',
           lineHeight: '1.6'
         }}>
-          Track your personal LEGO sets separately from items for sale
+          {t('collection.trackPersonalSetsSeparately') || 'Track your personal LEGO sets separately from items for sale'}
         </p>
       </div>
     );
@@ -243,10 +243,10 @@ export default function SetPersonalCollectionList({
                       }
                     } else {
                       const data = await response.json();
-                      alert(data.error || 'Failed to change condition');
+                      alert(data.error || t('collection.failedToChangeCondition') || 'Failed to change condition');
                     }
                   } catch (err) {
-                    alert('Failed to change condition');
+                    alert(t('collection.failedToChangeCondition') || 'Failed to change condition');
                   }
                 }}
                 onClick={(e) => e.stopPropagation()}
@@ -270,8 +270,8 @@ export default function SetPersonalCollectionList({
                   backgroundSize: '16px'
                 }}
               >
-                <option value="new">NEW</option>
-                <option value="used">USED</option>
+                <option value="new">{t('common.new').toUpperCase()}</option>
+                <option value="used">{t('common.used').toUpperCase()}</option>
               </select>
             </div>
             {itemsUpdating.has(item.id) || (staleItems.has(item.id) && (!item.pricing || item.pricing.suggestedPrice === 0)) ? (
@@ -317,7 +317,7 @@ export default function SetPersonalCollectionList({
                         color: '#737373',
                         fontWeight: '500'
                       }}>
-                        {formatPrice(item.pricing.suggestedPrice, currency, showDecimals)} ea
+                        {formatPrice(item.pricing.suggestedPrice, currency, showDecimals)} {t('collection.ea') || 'ea'}
                       </div>
                       <div style={{
                         fontSize: 'var(--text-lg)',
@@ -325,7 +325,7 @@ export default function SetPersonalCollectionList({
                         color: '#3b82f6',
                         letterSpacing: '-0.01em'
                       }}>
-                        {formatPrice(item.pricing.suggestedPrice * item.quantity, currency, showDecimals)} <span style={{ fontSize: 'var(--text-xs)', fontWeight: '500', color: '#737373' }}>total</span>
+                        {formatPrice(item.pricing.suggestedPrice * item.quantity, currency, showDecimals)} <span style={{ fontSize: 'var(--text-xs)', fontWeight: '500', color: '#737373' }}>{t('collection.total') || 'total'}</span>
                       </div>
                     </>
                   ) : (
@@ -346,7 +346,7 @@ export default function SetPersonalCollectionList({
                 color: '#a3a3a3',
                 fontStyle: 'italic'
               }}>
-                Price unavailable
+                {t('collection.priceUnavailable') || 'Price unavailable'}
               </div>
             )}
           </div>
@@ -496,7 +496,7 @@ export default function SetPersonalCollectionList({
                     padding: 0,
                     transition: 'all 0.2s'
                   }}
-                  title="Move to Inventory"
+                  title={t('collection.moveToInventory') || 'Move to Inventory'}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = '#f0fdf4';
                     e.currentTarget.style.color = '#60a5fa';
@@ -514,7 +514,7 @@ export default function SetPersonalCollectionList({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                if (confirm('Delete this item from your personal collection?')) {
+                if (confirm(t('collection.deleteFromCollection') || 'Delete this item from your personal collection?')) {
                   onItemDelete(item.id);
                 }
               }}
@@ -583,7 +583,7 @@ export default function SetPersonalCollectionList({
           alignItems: 'center',
           gap: '16px'
         }}>
-          <span>Moved 1 minifigure to Inventory</span>
+          <span>{t('collection.movedToInventory') || 'Moved 1 minifigure to Inventory'}</span>
           <button
             onClick={async () => {
               setMoveSuccess(false);
@@ -633,7 +633,7 @@ export default function SetPersonalCollectionList({
               e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
             }}
           >
-            Undo
+            {t('collection.undo') || 'Undo'}
           </button>
         </div>
       )}

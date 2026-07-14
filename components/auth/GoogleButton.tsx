@@ -2,6 +2,7 @@
 
 import { signIn } from "next-auth/react"
 import { useState } from "react"
+import { useTranslation } from "@/components/TranslationProvider"
 
 export function GoogleButton({
   text,
@@ -10,6 +11,7 @@ export function GoogleButton({
   text: string
   callbackUrl?: string
 }) {
+  const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
 
   const handleGoogleSignIn = async () => {
@@ -56,7 +58,7 @@ export function GoogleButton({
           <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
         </svg>
       )}
-      {loading ? "Redirecting to Google..." : text}
+      {loading ? (t('auth.redirectingToGoogle') || "Redirecting to Google...") : text}
     </button>
   )
 }

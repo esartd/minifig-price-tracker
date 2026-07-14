@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { useTranslation } from '@/components/TranslationProvider';
 
 export interface ArticleSearchItem {
   title: string;
@@ -18,6 +19,7 @@ interface ArticleSearchProps {
 }
 
 export function ArticleSearch({ articles, categories = [] }: ArticleSearchProps) {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
@@ -50,7 +52,7 @@ export function ArticleSearch({ articles, categories = [] }: ArticleSearchProps)
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search articles..."
+          placeholder={t('articles.searchPlaceholder') || 'Search articles...'}
           style={{
             width: '100%',
             padding: '14px 20px',
@@ -85,7 +87,7 @@ export function ArticleSearch({ articles, categories = [] }: ArticleSearchProps)
                 transition: 'all 0.2s',
               }}
             >
-              All
+              {t('articles.allCategory') || 'All'}
             </button>
             {categories.map(category => (
               <button
@@ -117,8 +119,8 @@ export function ArticleSearch({ articles, categories = [] }: ArticleSearchProps)
         marginBottom: '24px',
       }}>
         {filteredArticles.length === articles.length
-          ? `Showing all ${articles.length} articles`
-          : `Found ${filteredArticles.length} of ${articles.length} articles`}
+          ? (t('articles.showingAll', { count: articles.length }) || `Showing all ${articles.length} articles`)
+          : (t('articles.foundResults', { found: filteredArticles.length, total: articles.length }) || `Found ${filteredArticles.length} of ${articles.length} articles`)}
       </div>
 
       {/* Article Grid */}
@@ -128,8 +130,8 @@ export function ArticleSearch({ articles, categories = [] }: ArticleSearchProps)
           padding: '80px 24px',
           color: '#737373',
         }}>
-          <p style={{ fontSize: '18px', marginBottom: '8px' }}>No articles found</p>
-          <p style={{ fontSize: '14px' }}>Try adjusting your search or filters</p>
+          <p style={{ fontSize: '18px', marginBottom: '8px' }}>{t('articles.noArticlesFound') || 'No articles found'}</p>
+          <p style={{ fontSize: '14px' }}>{t('articles.tryAdjustingFilters') || 'Try adjusting your search or filters'}</p>
         </div>
       ) : (
         <div style={{

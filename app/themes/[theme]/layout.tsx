@@ -1,6 +1,14 @@
 import { Metadata } from 'next';
 import { getAllCategories, getAllMinifigs } from '@/lib/catalog-static';
 import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
+import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
+
+// Replace {placeholder} tokens in a translated template with dynamic values
+function interpolate(template: string, vars: Record<string, string | number>): string {
+  return template.replace(/\{(\w+)\}/g, (match, key) => (
+    vars[key] !== undefined ? String(vars[key]) : match
+  ));
+}
 
 // Helper to normalize theme names
 function normalizeThemeName(name: string): string {
@@ -24,6 +32,8 @@ export async function generateMetadata({
   const headersList = await headers();
   const host = headersList.get('host') || '';
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const t = await getTranslations(locale as Locale);
 
   const domains = {
     en: 'https://figtracker.ericksu.com',
@@ -54,7 +64,7 @@ export async function generateMetadata({
 
   if (!exactThemeName) {
     return {
-      title: 'Theme Not Found',
+      title: t.themeMeta?.notFoundTitle || 'Theme Not Found',
     };
   }
 
@@ -68,19 +78,19 @@ export async function generateMetadata({
   const count = themeMinifigs.length;
 
   return {
-    title: `${exactThemeName} LEGO Minifigures - Price Guide & Collection (${count} Minifigs) | FigTracker`,
-    description: `Browse all ${count} ${exactThemeName} LEGO minifigures with smart market pricing. Track values, manage inventory, and discover character variants. Complete ${exactThemeName} collection guide.`,
+    title: interpolate(t.themeMeta?.layoutTitle || '{theme} LEGO Minifigures - Price Guide & Collection ({count} Minifigs) | FigTracker', { theme: exactThemeName, count }),
+    description: interpolate(t.themeMeta?.layoutDescription || 'Browse all {count} {theme} LEGO minifigures with smart market pricing. Track values, manage inventory, and discover character variants. Complete {theme} collection guide.', { count, theme: exactThemeName }),
     keywords: [
-      `${exactThemeName} LEGO minifigures`,
-      `${exactThemeName} minifig prices`,
-      `${exactThemeName} Bricklink`,
-      `${exactThemeName} LEGO collection`,
-      'LEGO price guide',
-      'minifigure value tracker',
+      interpolate(t.themeMeta?.keywordThemeMinifigures || '{theme} LEGO minifigures', { theme: exactThemeName }),
+      interpolate(t.themeMeta?.keywordThemeMinifigPrices || '{theme} minifig prices', { theme: exactThemeName }),
+      interpolate(t.themeMeta?.keywordThemeBricklink || '{theme} Bricklink', { theme: exactThemeName }),
+      interpolate(t.themeMeta?.keywordThemeLegoCollection || '{theme} LEGO collection', { theme: exactThemeName }),
+      t.themeMeta?.keywordLegoPriceGuide || 'LEGO price guide',
+      t.themeMeta?.keywordMinifigureValueTracker || 'minifigure value tracker',
     ],
     openGraph: {
-      title: `${exactThemeName} LEGO Minifigures - ${count} Minifigs`,
-      description: `Browse and price ${count} ${exactThemeName} LEGO minifigures with smart market pricing from multiple sources`,
+      title: interpolate(t.themeMeta?.layoutOgTitle || '{theme} LEGO Minifigures - {count} Minifigs', { theme: exactThemeName, count }),
+      description: interpolate(t.themeMeta?.layoutOgDescription || 'Browse and price {count} {theme} LEGO minifigures with smart market pricing from multiple sources', { count, theme: exactThemeName }),
       url: `${domains[locale as keyof typeof domains]}/themes/${encodeURIComponent(themeName)}`,
       locale: localeMap[locale as keyof typeof localeMap],
       alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),

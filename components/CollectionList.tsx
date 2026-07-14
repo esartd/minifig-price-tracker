@@ -116,14 +116,14 @@ export default function CollectionList({
           color: '#171717',
           marginBottom: '8px'
         }}>
-          No minifigures in your inventory yet
+          {t('collection.noMinifigsInInventory') || 'No minifigures in your inventory yet'}
         </p>
         <p style={{
           fontSize: 'var(--text-base)',
           color: '#737373',
           lineHeight: '1.6'
         }}>
-          Search for minifigures to get started
+          {t('collection.searchMinifiguresToGetStarted') || 'Search for minifigures to get started'}
         </p>
       </div>
     );
@@ -235,10 +235,10 @@ export default function CollectionList({
                       }
                     } else {
                       const data = await response.json();
-                      alert(data.error || 'Failed to change condition');
+                      alert(data.error || t('collection.failedToChangeCondition') || 'Failed to change condition');
                     }
                   } catch (err) {
-                    alert('Failed to change condition');
+                    alert(t('collection.failedToChangeCondition') || 'Failed to change condition');
                   }
                 }}
                 onClick={(e) => e.stopPropagation()}
@@ -575,7 +575,7 @@ export default function CollectionList({
           alignItems: 'center',
           gap: '16px'
         }}>
-          <span>Moved 1 minifigure to Collection</span>
+          <span>{t('collection.movedToCollection') || 'Moved 1 minifigure to Collection'}</span>
           <button
             onClick={async () => {
               setMoveSuccess(false);
@@ -625,7 +625,7 @@ export default function CollectionList({
               e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
             }}
           >
-            Undo
+            {t('collection.undo') || 'Undo'}
           </button>
         </div>
       )}

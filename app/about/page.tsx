@@ -19,29 +19,32 @@ async function getSearchableCatalogCount(): Promise<number> {
 }
 
 // Format catalog count for display
-function formatCatalogCount(count: number): string {
+function formatCatalogCount(count: number, t: Record<string, any>): string {
   if (count === 0) {
-    return 'thousands of';
+    return t.about?.catalogCount?.thousandsOf || 'thousands of';
   } else if (count >= 10000) {
     const rounded = Math.floor(count / 1000) * 1000;
-    return `over ${rounded.toLocaleString()}`;
+    return `${t.about?.catalogCount?.overPrefix || 'over'} ${rounded.toLocaleString()}`;
   } else if (count >= 1000) {
     const rounded = Math.ceil(count / 1000) * 1000;
-    return `nearly ${rounded.toLocaleString()}`;
+    return `${t.about?.catalogCount?.nearlyPrefix || 'nearly'} ${rounded.toLocaleString()}`;
   } else {
     return `${count.toLocaleString()}`;
   }
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const catalogCount = await getSearchableCatalogCount();
-  const catalogCountText = formatCatalogCount(catalogCount);
-
+// Detect locale from the request host, matching the pattern used in generateMetadata()
+async function getRequestLocale(): Promise<Locale> {
   const headersList = await headers();
   const host = headersList.get('host') || '';
-  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+  return (host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en') as Locale;
+}
 
-  const t = await getTranslations(locale as Locale);
+export async function generateMetadata(): Promise<Metadata> {
+  const catalogCount = await getSearchableCatalogCount();
+  const locale = await getRequestLocale();
+  const t = await getTranslations(locale);
+  const catalogCountText = formatCatalogCount(catalogCount, t);
 
   const domains = {
     en: 'https://figtracker.ericksu.com',
@@ -83,7 +86,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AboutPage() {
   const catalogCount = await getSearchableCatalogCount();
-  const catalogCountText = formatCatalogCount(catalogCount);
+  const locale = await getRequestLocale();
+  const t = await getTranslations(locale);
+  const catalogCountText = formatCatalogCount(catalogCount, t);
 
   return <AboutPageClient catalogCountText={catalogCountText} />;
 }

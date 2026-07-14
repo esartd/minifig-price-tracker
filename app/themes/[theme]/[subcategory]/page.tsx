@@ -1,5 +1,13 @@
 import { Metadata } from 'next';
 import SubcategoryPageClient from '@/components/subcategory-page-client';
+import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
+
+// Replace {placeholder} tokens in a translated template with dynamic values
+function interpolate(template: string, vars: Record<string, string | number>): string {
+  return template.replace(/\{(\w+)\}/g, (match, key) => (
+    vars[key] !== undefined ? String(vars[key]) : match
+  ));
+}
 
 // Generate metadata for SEO
 export async function generateMetadata({
@@ -15,6 +23,8 @@ export async function generateMetadata({
   const headersList = await headers();
   const host = headersList.get('host') || '';
   const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+
+  const t = await getTranslations(locale as Locale);
 
   const domains = {
     en: 'https://figtracker.ericksu.com',
@@ -57,25 +67,30 @@ export async function generateMetadata({
   const displayName = isUncategorized ? decodedTheme : decodedSubcategory;
   const fullName = isUncategorized ? decodedTheme : `${decodedTheme} ${decodedSubcategory}`;
 
-  const title = `${displayName} LEGO Minifigures${minifigCount > 0 ? ` (${minifigCount.toLocaleString()})` : ''} | FigTracker`;
+  const nameLegoMinifigures = t.themeMeta?.nameLegoMinifigures || '{name} LEGO Minifigures';
+  const subTitleNoCount = t.themeMeta?.subTitleNoCount || '{name} LEGO Minifigures | FigTracker';
+
+  const title = minifigCount > 0
+    ? interpolate(t.themeMeta?.subTitleWithCount || '{name} LEGO Minifigures ({count}) | FigTracker', { name: displayName, count: minifigCount.toLocaleString() })
+    : interpolate(subTitleNoCount, { name: displayName });
   const description = minifigCount > 0
-    ? `Browse all ${minifigCount.toLocaleString()} ${fullName} LEGO minifigures with smart market pricing. Track prices, manage your collection, and discover rare variants.`
-    : `Browse ${fullName} LEGO minifigures with smart market pricing. Track prices and manage your collection.`;
+    ? interpolate(t.themeMeta?.subDescriptionWithCount || 'Browse all {count} {fullName} LEGO minifigures with smart market pricing. Track prices, manage your collection, and discover rare variants.', { count: minifigCount.toLocaleString(), fullName })
+    : interpolate(t.themeMeta?.subDescriptionNoCount || 'Browse {fullName} LEGO minifigures with smart market pricing. Track prices and manage your collection.', { fullName });
 
   return {
     title,
     description,
     keywords: [
-      `${fullName} LEGO minifigures`,
-      `${displayName} LEGO`,
-      `${displayName} minifig price`,
+      interpolate(t.themeMeta?.keywordFullNameMinifigures || '{fullName} LEGO minifigures', { fullName }),
+      interpolate(t.themeMeta?.keywordNameLego || '{name} LEGO', { name: displayName }),
+      interpolate(t.themeMeta?.keywordNameMinifigPrice || '{name} minifig price', { name: displayName }),
       `${decodedTheme} ${decodedSubcategory}`,
-      'BrickLink prices',
-      'LEGO price guide',
-      'minifigure collection'
+      t.themeMeta?.keywordBricklinkPrices || 'BrickLink prices',
+      t.themeMeta?.keywordLegoPriceGuide || 'LEGO price guide',
+      t.themeMeta?.keywordMinifigureCollection || 'minifigure collection'
     ],
     openGraph: {
-      title: `${displayName} LEGO Minifigures | FigTracker`,
+      title: interpolate(subTitleNoCount, { name: displayName }),
       description,
       url: `${baseUrl}/themes/${theme}/${subcategory}`,
       locale: localeMap[locale as keyof typeof localeMap],
@@ -85,13 +100,13 @@ export async function generateMetadata({
           url: '/og-image.png',
           width: 1200,
           height: 630,
-          alt: `${displayName} LEGO Minifigures`
+          alt: interpolate(nameLegoMinifigures, { name: displayName })
         }
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${displayName} LEGO Minifigures`,
+      title: interpolate(nameLegoMinifigures, { name: displayName }),
       description,
     },
     alternates: {

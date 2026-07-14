@@ -54,7 +54,9 @@ export default function CommunityStats({ stats }: CommunityStatsProps) {
       icon: TrophyIcon,
       label: tx(translations, 'collectors.directory.longestTenured') || 'Longest Member',
       value: stats.longestTenured?.displayName || '—',
-      description: longestYear ? `Since ${longestYear}` : '',
+      description: longestYear
+        ? (tx(translations, 'communityStats.since')?.replace('{year}', String(longestYear)) || `Since ${longestYear}`)
+        : '',
       color: '#f59e0b',
       bg: '#fffbeb',
       href: stats.longestTenured ? `/collectors/${stats.longestTenured.username}` : null,
@@ -64,7 +66,8 @@ export default function CommunityStats({ stats }: CommunityStatsProps) {
       label: tx(translations, 'collectors.directory.largestCollection') || 'Biggest Collection',
       value: stats.largestMinifigCollection?.displayName || '—',
       description: stats.largestMinifigCollection
-        ? `${stats.largestMinifigCollection.count.toLocaleString()} minifigs`
+        ? (tx(translations, 'communityStats.minifigsCount')?.replace('{count}', stats.largestMinifigCollection.count.toLocaleString())
+            || `${stats.largestMinifigCollection.count.toLocaleString()} minifigs`)
         : '',
       color: '#10b981',
       bg: '#ecfdf5',

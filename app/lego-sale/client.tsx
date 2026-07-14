@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import DealTierSection from '@/components/DealTierSection';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface Deal {
   boxNo: string;
@@ -22,6 +23,7 @@ interface Theme {
 }
 
 export default function LegoSaleClient() {
+  const { t } = useTranslation();
   const [deals50, setDeals50] = useState<Deal[]>([]);
   const [deals40, setDeals40] = useState<Deal[]>([]);
   const [deals30, setDeals30] = useState<Deal[]>([]);
@@ -133,10 +135,10 @@ export default function LegoSaleClient() {
       <div style={{ background: '#ffffff', borderBottom: '1px solid #e5e5e5', padding: '24px 16px' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h1 style={{ fontSize: 'var(--text-3xl)', fontWeight: '800', color: '#171717', marginBottom: '8px' }}>
-            LEGO® Sale
+            {t('legoSale.pageTitle') || 'LEGO® Sale'}
           </h1>
           <p style={{ fontSize: 'var(--text-base)', color: '#737373' }}>
-            Best Amazon Deals - Updated Every 6 Hours
+            {t('legoSale.subtitleUpdated') || 'Best Amazon Deals - Updated Every 6 Hours'}
           </p>
         </div>
       </div>
@@ -145,7 +147,8 @@ export default function LegoSaleClient() {
       <div style={{ background: '#ffffff', borderBottom: '1px solid #e5e5e5', padding: '24px 16px' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <p style={{ fontSize: 'var(--text-sm)', color: '#525252', lineHeight: '1.6' }}>
-            Discover the best LEGO® deals on Amazon with discounts up to 50% off. Our LEGO sale page automatically scans thousands of LEGO sets and highlights the biggest savings across popular themes like Star Wars, City, Creator, Technic, and more. Whether you're hunting for rare retired sets or the latest releases, we track Amazon prices every 6 hours to ensure you never miss a great deal. Filter by theme, price range, or discount percentage to find exactly what you're looking for. All deals feature free shipping with Amazon Prime. Start saving on your favorite LEGO sets today!
+            {t('legoSale.seoParagraph') ||
+              "Discover the best LEGO® deals on Amazon with discounts up to 50% off. Our LEGO sale page automatically scans thousands of LEGO sets and highlights the biggest savings across popular themes like Star Wars, City, Creator, Technic, and more. Whether you're hunting for rare retired sets or the latest releases, we track Amazon prices every 6 hours to ensure you never miss a great deal. Filter by theme, price range, or discount percentage to find exactly what you're looking for. All deals feature free shipping with Amazon Prime. Start saving on your favorite LEGO sets today!"}
           </p>
         </div>
       </div>
@@ -156,11 +159,11 @@ export default function LegoSaleClient() {
           {/* Theme Filter */}
           <div style={{ flex: '1 1 250px', minWidth: '200px' }}>
             <label style={{ fontSize: '12px', color: '#737373', display: 'block', marginBottom: '6px', fontWeight: '500' }}>
-              Filter by Theme
+              {t('legoSale.filterByTheme') || 'Filter by Theme'}
             </label>
             <input
               type="text"
-              placeholder="Search themes..."
+              placeholder={t('legoSale.searchThemesPlaceholder') || 'Search themes...'}
               value={themeSearch}
               onChange={(e) => setThemeSearch(e.target.value)}
               style={{
@@ -250,7 +253,7 @@ export default function LegoSaleClient() {
           {/* Price Range Filter */}
           <div style={{ flex: '0 1 200px' }}>
             <label style={{ fontSize: '12px', color: '#737373', display: 'block', marginBottom: '6px', fontWeight: '500' }}>
-              Price Range
+              {t('legoSale.priceRange') || 'Price Range'}
             </label>
             <select
               value={priceRange}
@@ -265,19 +268,19 @@ export default function LegoSaleClient() {
                 cursor: 'pointer',
               }}
             >
-              <option value="all">All Prices</option>
-              <option value="under25">Under $25</option>
-              <option value="25to50">$25 - $50</option>
-              <option value="50to100">$50 - $100</option>
-              <option value="100to200">$100 - $200</option>
-              <option value="over200">$200+</option>
+              <option value="all">{t('legoSale.allPrices') || 'All Prices'}</option>
+              <option value="under25">{t('legoSale.priceUnder25') || 'Under $25'}</option>
+              <option value="25to50">{t('legoSale.price25to50') || '$25 - $50'}</option>
+              <option value="50to100">{t('legoSale.price50to100') || '$50 - $100'}</option>
+              <option value="100to200">{t('legoSale.price100to200') || '$100 - $200'}</option>
+              <option value="over200">{t('legoSale.priceOver200') || '$200+'}</option>
             </select>
           </div>
 
           {/* Sort By */}
           <div style={{ flex: '0 1 180px' }}>
             <label style={{ fontSize: '12px', color: '#737373', display: 'block', marginBottom: '6px', fontWeight: '500' }}>
-              Sort By
+              {t('legoSale.sortBy') || 'Sort By'}
             </label>
             <select
               value={sortBy}
@@ -292,9 +295,9 @@ export default function LegoSaleClient() {
                 cursor: 'pointer',
               }}
             >
-              <option value="discount">Highest Discount</option>
-              <option value="price">Lowest Price</option>
-              <option value="name">Name (A-Z)</option>
+              <option value="discount">{t('legoSale.sortDiscount') || 'Highest Discount'}</option>
+              <option value="price">{t('legoSale.sortPrice') || 'Lowest Price'}</option>
+              <option value="name">{t('legoSale.sortName') || 'Name (A-Z)'}</option>
             </select>
           </div>
         </div>
@@ -312,42 +315,42 @@ export default function LegoSaleClient() {
         color: '#92400e',
         lineHeight: '1.6'
       }}>
-        <strong>Price Disclaimer:</strong> Product prices and availability are accurate as of the date/time indicated and are subject to change.
-        Prices shown are from Amazon at the time of last refresh (updated every 6 hours). Any price and availability information displayed on Amazon
-        at the time of purchase will apply to the purchase of this product. As an Amazon Associate, LEGO Affiliate, and eBay Partner, FigTracker earns from qualifying purchases.
+        <strong>{t('legoSale.priceDisclaimerLabel') || 'Price Disclaimer:'}</strong>{' '}
+        {t('legoSale.priceDisclaimerText') ||
+          'Product prices and availability are accurate as of the date/time indicated and are subject to change. Prices shown are from Amazon at the time of last refresh (updated every 6 hours). Any price and availability information displayed on Amazon at the time of purchase will apply to the purchase of this product. As an Amazon Associate, LEGO Affiliate, and eBay Partner, FigTracker earns from qualifying purchases.'}
       </div>
 
       {/* Deals Content */}
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '48px 16px' }}>
         {loading ? (
           <div style={{ textAlign: 'center', padding: '64px 0', color: '#737373' }}>
-            <p style={{ fontSize: 'var(--text-lg)' }}>Loading deals...</p>
+            <p style={{ fontSize: 'var(--text-lg)' }}>{t('legoSale.loadingDeals') || 'Loading deals...'}</p>
           </div>
         ) : (
           <>
             <DealTierSection
-              title="Unbelievable Deals - 50%+ Off"
+              title={t('legoSale.tierUnbelievable50') || 'Unbelievable Deals - 50%+ Off'}
               emoji="💥"
               deals={deals50}
               tierColor="#b91c1c"
               isEmpty={deals50.length === 0}
             />
             <DealTierSection
-              title="Excellent Deals - 40%+ Off"
+              title={t('legoSale.tierExcellent40') || 'Excellent Deals - 40%+ Off'}
               emoji="🔥"
               deals={deals40}
               tierColor="#dc2626"
               isEmpty={deals40.length === 0}
             />
             <DealTierSection
-              title="Great Deals - 30%+ Off"
+              title={t('legoSale.tierGreat30') || 'Great Deals - 30%+ Off'}
               emoji="💰"
               deals={deals30}
               tierColor="#ea580c"
               isEmpty={deals30.length === 0}
             />
             <DealTierSection
-              title="Good Deals - 20%+ Off"
+              title={t('legoSale.tierGood20') || 'Good Deals - 20%+ Off'}
               emoji="✨"
               deals={deals20}
               tierColor="#16a34a"

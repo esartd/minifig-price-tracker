@@ -305,7 +305,7 @@ export default function May4thDealsClient() {
                 }}>
                   <Image
                     src="https://www.lego.com/cdn/cs/set/assets/blt99c6a9bf2e0c2d9a/blt2f8fb720e38f6e09-75442_Prod_en-gb.png?format=jpg&fit=bounds&quality=80"
-                    alt="The Mandalorian's N-1 Starfighter"
+                    alt={t('may4thDeals.tierC.setName') || "The Mandalorian's N-1 Starfighter"}
                     fill
                     sizes="(max-width: 768px) 100vw, 280px"
                     style={{ objectFit: 'contain', padding: '12px' }}
@@ -319,7 +319,7 @@ export default function May4thDealsClient() {
                   marginBottom: '4px',
                   lineHeight: '1.3'
                 }}>
-                  The Mandalorian's N-1 Starfighter
+                  {t('may4thDeals.tierC.setName') || "The Mandalorian's N-1 Starfighter"}
                 </h3>
                 <p style={{
                   fontSize: 'var(--text-sm)',
@@ -334,7 +334,7 @@ export default function May4thDealsClient() {
                   color: '#171717',
                   marginBottom: '16px'
                 }}>
-                  $249.99
+                  {t('may4thDeals.common.price') || 'Price'}: $249.99
                 </p>
                 <a
                   href="https://click.linksynergy.com/link?id=g%2aDYfXR3HYU&offerid=1606623.1392315235359109392213990&type=2&murl=https%3a%2f%2fwww.lego.com%2fen-us%2fproduct%2fthe-mandalorians-n-1-starfighter-75442"
@@ -703,11 +703,11 @@ export default function May4thDealsClient() {
             }}>
               <thead>
                 <tr style={{ background: '#171717', color: '#ffffff' }}>
-                  <th style={{ padding: '16px', textAlign: 'left', fontSize: 'var(--text-base)', fontWeight: '600' }}>Tier</th>
-                  <th style={{ padding: '16px', textAlign: 'left', fontSize: 'var(--text-base)', fontWeight: '600' }}>Spend</th>
-                  <th style={{ padding: '16px', textAlign: 'left', fontSize: 'var(--text-base)', fontWeight: '600' }}>Freebies Value</th>
-                  <th style={{ padding: '16px', textAlign: 'left', fontSize: 'var(--text-base)', fontWeight: '600' }}>Cashback</th>
-                  <th style={{ padding: '16px', textAlign: 'left', fontSize: 'var(--text-base)', fontWeight: '600' }}>Total Return</th>
+                  <th style={{ padding: '16px', textAlign: 'left', fontSize: 'var(--text-base)', fontWeight: '600' }}>{t('may4thDeals.comparisonTable.tier') || 'Tier'}</th>
+                  <th style={{ padding: '16px', textAlign: 'left', fontSize: 'var(--text-base)', fontWeight: '600' }}>{t('may4thDeals.comparisonTable.spend') || 'Spend'}</th>
+                  <th style={{ padding: '16px', textAlign: 'left', fontSize: 'var(--text-base)', fontWeight: '600' }}>{t('may4thDeals.comparisonTable.freebiesValue') || 'Freebies Value'}</th>
+                  <th style={{ padding: '16px', textAlign: 'left', fontSize: 'var(--text-base)', fontWeight: '600' }}>{t('may4thDeals.comparisonTable.cashback') || 'Cashback'}</th>
+                  <th style={{ padding: '16px', textAlign: 'left', fontSize: 'var(--text-base)', fontWeight: '600' }}>{t('may4thDeals.comparisonTable.totalReturn') || 'Total Return'}</th>
                 </tr>
               </thead>
               <tbody>
@@ -752,7 +752,7 @@ export default function May4thDealsClient() {
               textAlign: 'center',
               marginBottom: '32px'
             }}>
-              Which Tier Should You Buy?
+              {t('may4thDeals.whichTier.title') || 'Which Tier Should You Buy?'}
             </h3>
             <div style={{
               display: 'grid',
@@ -937,10 +937,10 @@ export default function May4thDealsClient() {
               color: '#ffffff',
               textAlign: 'left'
             }}>
-              <li>✓ 18,000+ minifigures tracked</li>
-              <li>✓ 20,000+ sets tracked</li>
-              <li>✓ Smart market pricing</li>
-              <li>✓ 15+ currency support</li>
+              <li>{t('may4thDeals.cta.features.minifigsTracked') || '✓ 18,000+ minifigures tracked'}</li>
+              <li>{t('may4thDeals.cta.features.setsTracked') || '✓ 20,000+ sets tracked'}</li>
+              <li>{t('may4thDeals.cta.features.smartPricing') || '✓ Smart market pricing'}</li>
+              <li>{t('may4thDeals.cta.features.currencySupport') || '✓ 15+ currency support'}</li>
             </ul>
           </div>
 
@@ -1063,7 +1063,7 @@ function SetCard({ set, tierColor, isBest, t }: SetCardProps) {
         color: '#737373',
         marginBottom: '8px'
       }}>
-        Sponsored • {t('may4thDeals.common.setNumber')}: {set.setNumber}
+        {t('may4thDeals.common.sponsored') || 'Sponsored'} • {t('may4thDeals.common.setNumber')}: {set.setNumber}
       </p>
       <p style={{
         fontSize: 'var(--text-xl)',

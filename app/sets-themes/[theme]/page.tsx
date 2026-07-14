@@ -361,7 +361,7 @@ export default function ThemePage() {
                   color: '#171717',
                   lineHeight: '1.2'
                 }}>
-                  {theme} Sets
+                  {t('setsThemePage.themeTitle', { theme }) || `${theme} Sets`}
                 </h1>
                 <p style={{
                   fontSize: 'clamp(14px, 2vw, 16px)',
@@ -391,7 +391,7 @@ export default function ThemePage() {
                 color: '#171717',
                 lineHeight: '1.2'
               }}>
-                {theme} Sets
+                {t('setsThemePage.themeTitle', { theme }) || `${theme} Sets`}
               </h1>
               <p style={{
                 fontSize: 'clamp(14px, 2vw, 16px)',
@@ -399,7 +399,7 @@ export default function ThemePage() {
                 marginBottom: '16px',
                 lineHeight: '1.5'
               }}>
-                {formatCompactNumberSmart(sets.length)} sets in this theme
+                {t('setsThemePage.setsInTheme', { count: formatCompactNumberSmart(sets.length) }) || `${formatCompactNumberSmart(sets.length)} sets in this theme`}
               </p>
             </>
           )}

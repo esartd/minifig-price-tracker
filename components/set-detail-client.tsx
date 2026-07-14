@@ -58,6 +58,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
   const { addItem: addToGuestCollection, count: guestCollectionCount, total: guestCollectionTotal } = useGuestCollection();
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [successVariant, setSuccessVariant] = useState<'sell' | 'keep' | null>(null);
   const [pricing, setPricing] = useState<{
     sixMonthAverage: number;
     currentAverage: number;
@@ -182,6 +183,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
 
   useEffect(() => {
     setSuccessMessage('');
+    setSuccessVariant(null);
     setError('');
   }, [condition]);
 
@@ -331,7 +333,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       });
 
       if (added) {
-        setSuccessMessage(`Added ${qty} ${qty === 1 ? 'set' : 'sets'} to your collection!`);
+        setSuccessMessage(t('setDetail.messages.addedToGuestCollection', { quantity: qty, plural: qty === 1 ? '' : 's' }));
         setTimeout(() => setSuccessMessage(''), 3000);
 
         // Show save collection modal after 3+ items
@@ -344,6 +346,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
     setAddLoading(true);
     setError('');
     setSuccessMessage('');
+    setSuccessVariant(null);
     try {
       const response = await fetch('/api/set-inventory', {
         method: 'POST',
@@ -354,6 +357,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       if (data.success) {
         await refreshCollections();
         setSuccessMessage(t('setDetail.messages.addedToInventory', { quantity: qty, condition: t(`setDetail.condition.${condition}`) }));
+        setSuccessVariant('sell');
         setQuantity(1);
       } else {
         setError(data.error || t('setDetail.errors.failedToAdd'));
@@ -380,7 +384,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       });
 
       if (added) {
-        setSuccessMessage(`Added ${qty} ${qty === 1 ? 'set' : 'sets'} to your collection!`);
+        setSuccessMessage(t('setDetail.messages.addedToGuestCollection', { quantity: qty, plural: qty === 1 ? '' : 's' }));
         setTimeout(() => setSuccessMessage(''), 3000);
 
         // Show save collection modal after 3+ items
@@ -393,6 +397,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
     setAddPersonalLoading(true);
     setError('');
     setSuccessMessage('');
+    setSuccessVariant(null);
     try {
       const response = await fetch('/api/set-personal-collection', {
         method: 'POST',
@@ -403,6 +408,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       if (data.success) {
         await refreshCollections();
         setSuccessMessage(t('setDetail.messages.addedToCollection', { quantity: qty, condition: t(`setDetail.condition.${condition}`) }));
+        setSuccessVariant('keep');
         setQuantity(1);
       } else {
         setError(data.error || t('setDetail.errors.failedToAdd'));
@@ -429,7 +435,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       });
 
       if (added) {
-        setSuccessMessage(`Added ${addToCollectionQty} ${addToCollectionQty === 1 ? 'set' : 'sets'} to your collection!`);
+        setSuccessMessage(t('setDetail.messages.addedToGuestCollection', { quantity: addToCollectionQty, plural: addToCollectionQty === 1 ? '' : 's' }));
         setTimeout(() => setSuccessMessage(''), 3000);
 
         // Show save collection modal after 3+ items
@@ -442,6 +448,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
     setAddToCollectionLoading(true);
     setError('');
     setSuccessMessage('');
+    setSuccessVariant(null);
     try {
       const response = await fetch('/api/set-personal-collection', {
         method: 'POST',
@@ -451,11 +458,11 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       const data = await response.json();
       if (data.success) {
         await refreshCollections();
-        const itemText = addToCollectionQty === 1 ? 'item' : 'items';
-        setSuccessMessage(`Added ${addToCollectionQty} ${itemText} to keep`);
+        setSuccessMessage(t('setDetail.messages.addedToCollection', { quantity: addToCollectionQty }));
+        setSuccessVariant('keep');
         setAddToCollectionQty(1);
       } else {
-        setError(data.error || 'Failed to add');
+        setError(data.error || t('setDetail.errors.failedToAdd'));
       }
     } catch (err) {
       setError(t('setDetail.errors.failedToAddToCollection'));
@@ -479,7 +486,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       });
 
       if (added) {
-        setSuccessMessage(`Added ${addToInventoryQty} ${addToInventoryQty === 1 ? 'set' : 'sets'} to your collection!`);
+        setSuccessMessage(t('setDetail.messages.addedToGuestCollection', { quantity: addToInventoryQty, plural: addToInventoryQty === 1 ? '' : 's' }));
         setTimeout(() => setSuccessMessage(''), 3000);
 
         // Show save collection modal after 3+ items
@@ -492,6 +499,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
     setAddToInventoryLoading(true);
     setError('');
     setSuccessMessage('');
+    setSuccessVariant(null);
     try {
       const response = await fetch('/api/set-inventory', {
         method: 'POST',
@@ -501,11 +509,11 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       const data = await response.json();
       if (data.success) {
         await refreshCollections();
-        const itemText = addToInventoryQty === 1 ? 'item' : 'items';
-        setSuccessMessage(`Added ${addToInventoryQty} ${itemText} to sell`);
+        setSuccessMessage(t('setDetail.messages.addedToInventory', { quantity: addToInventoryQty }));
+        setSuccessVariant('sell');
         setAddToInventoryQty(1);
       } else {
-        setError(data.error || 'Failed to add');
+        setError(data.error || t('setDetail.errors.failedToAdd'));
       }
     } catch (err) {
       setError(t('setDetail.errors.failedToAddToInventory'));
@@ -517,6 +525,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
   const handleUpdateInventoryQuantity = async (newQuantity: number) => {
     if (!inventoryItem || !session) return;
     setSuccessMessage('');
+    setSuccessVariant(null);
     setError('');
     setInventoryItem({ ...inventoryItem, quantity: newQuantity });
     setAllInventoryItems(prev => prev.map(item => item.id === inventoryItem.id ? { ...item, quantity: newQuantity } : item));
@@ -533,13 +542,14 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       }
     } catch (err) {
       await refreshCollections();
-      setError('Failed to update quantity');
+      setError(t('setDetail.errors.failedToUpdate'));
     }
   };
 
   const handleUpdatePersonalQuantity = async (newQuantity: number) => {
     if (!personalCollectionItem || !session) return;
     setSuccessMessage('');
+    setSuccessVariant(null);
     setError('');
     setPersonalCollectionItem({ ...personalCollectionItem, quantity: newQuantity });
     setAllCollectionItems(prev => prev.map(item => item.id === personalCollectionItem.id ? { ...item, quantity: newQuantity } : item));
@@ -556,7 +566,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       }
     } catch (err) {
       await refreshCollections();
-      setError('Failed to update quantity');
+      setError(t('setDetail.errors.failedToUpdate'));
     }
   };
 
@@ -938,17 +948,18 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           item={{...inventoryItem, minifigure_no: inventoryItem.box_no, minifigure_name: inventoryItem.set_name}}
                           itemType="set"
                           onSuccess={(listing) => {
-                            alert('Listing saved!');
+                            alert(t('minifigDetail.listingSaved'));
                           }}
                           onOpen={() => {
                             setSuccessMessage('');
+                            setSuccessVariant(null);
                             setError('');
                           }}
                         />
                       </div>
 
                       {/* Success message for Items to Sell section */}
-                      {successMessage && successMessage.includes('to sell') && (
+                      {successMessage && successVariant === 'sell' && (
                         <div style={{
                           marginTop: '16px',
                           padding: '12px 16px',
@@ -965,7 +976,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                         }}>
                           <span>✓ {successMessage}</span>
                           <button
-                            onClick={() => setSuccessMessage('')}
+                            onClick={() => { setSuccessMessage(''); setSuccessVariant(null); }}
                             style={{
                               background: 'none',
                               border: 'none',
@@ -1104,7 +1115,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                       </div>
 
                       {/* Success message for Items to Keep section */}
-                      {successMessage && successMessage.includes('to keep') && (
+                      {successMessage && successVariant === 'keep' && (
                         <div style={{
                           marginTop: '16px',
                           padding: '12px 16px',
@@ -1121,7 +1132,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                         }}>
                           <span>✓ {successMessage}</span>
                           <button
-                            onClick={() => setSuccessMessage('')}
+                            onClick={() => { setSuccessMessage(''); setSuccessVariant(null); }}
                             style={{
                               background: 'none',
                               border: 'none',
@@ -1578,7 +1589,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                 setShowMoveDialog(false);
               }
             } catch (err) {
-              setError('Failed to move');
+              setError(t('setDetail.errors.failedToMove'));
             }
           }} />
       )}
@@ -1598,7 +1609,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                 setShowMoveToInventoryDialog(false);
               }
             } catch (err) {
-              setError('Failed to move');
+              setError(t('setDetail.errors.failedToMove'));
             }
           }} />
       )}

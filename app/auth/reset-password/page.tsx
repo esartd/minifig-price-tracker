@@ -172,6 +172,11 @@ function ResetPasswordForm() {
 }
 
 export default function ResetPassword() {
+  // TranslationProvider wraps the whole app in app/layout.tsx, above this component's
+  // tree, so useTranslation() is available here even though the fallback below belongs
+  // to a <Suspense> boundary — the boundary only isolates ResetPasswordForm (which needs
+  // it because useSearchParams() requires one), not the translation context itself.
+  const { t } = useTranslation();
   return (
     <Suspense fallback={
       <div style={{
@@ -185,8 +190,7 @@ export default function ResetPassword() {
           color: 'white',
           fontSize: 'var(--text-base)'
         }}>
-          {/* Loading text from context not available here */}
-          Loading...
+          {t('common.loading') || 'Loading...'}
         </div>
       </div>
     }>

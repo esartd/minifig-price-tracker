@@ -1,6 +1,11 @@
+'use client';
+
 import Link from 'next/link';
+import { useTranslation } from '@/components/TranslationProvider';
 
 export default function NotFound() {
+  const { t } = useTranslation();
+
   return (
     <div style={{
       maxWidth: '600px',
@@ -22,7 +27,7 @@ export default function NotFound() {
         marginBottom: '16px',
         letterSpacing: '-0.01em'
       }}>
-        Minifigure not found
+        {t('minifigNotFound.heading') || 'Minifigure not found'}
       </h2>
 
       <p style={{
@@ -31,7 +36,7 @@ export default function NotFound() {
         lineHeight: '1.6',
         marginBottom: '32px'
       }}>
-        We couldn't find this minifigure in our catalog. It might not exist or the item number might be incorrect.
+        {t('minifigNotFound.body') || "We couldn't find this minifigure in our catalog. It might not exist or the item number might be incorrect."}
       </p>
 
       <div style={{
@@ -55,7 +60,7 @@ export default function NotFound() {
             transition: 'all 0.2s'
           }}
         >
-          Search minifigures
+          {t('minifigNotFound.searchMinifigures') || 'Search minifigures'}
         </Link>
 
         <Link
@@ -73,7 +78,7 @@ export default function NotFound() {
             transition: 'all 0.2s'
           }}
         >
-          Go home
+          {t('notFound.goHome') || 'Go home'}
         </Link>
       </div>
     </div>

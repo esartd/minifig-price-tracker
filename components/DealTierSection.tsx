@@ -1,6 +1,7 @@
 'use client';
 
 import DealSetCard from './DealSetCard';
+import { useTranslation } from '@/components/TranslationProvider';
 
 interface Deal {
   boxNo: string;
@@ -30,6 +31,8 @@ export default function DealTierSection({
   tierColor,
   isEmpty = false,
 }: DealTierSectionProps) {
+  const { t } = useTranslation();
+
   if (isEmpty || deals.length === 0) {
     return (
       <div style={{ marginBottom: '48px' }}>
@@ -57,7 +60,7 @@ export default function DealTierSection({
           }}
         >
           <p style={{ fontSize: 'var(--text-base)', color: '#737373' }}>
-            No deals found in this category
+            {t('deals.noDealsFound') || 'No deals found in this category'}
           </p>
         </div>
       </div>

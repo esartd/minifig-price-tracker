@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { SUPPORTED_CURRENCIES } from '@/lib/currency-config';
+import { useTranslation } from '@/components/TranslationProvider';
 
 export default function CurrencyBanner() {
+  const { t } = useTranslation();
   const { data: session, update } = useSession();
   const [show, setShow] = useState(false);
   const [detectedCurrency, setDetectedCurrency] = useState<string | null>(null);
@@ -134,7 +136,7 @@ export default function CurrencyBanner() {
             fontWeight: '500',
             margin: 0
           }}>
-            We detected you're in {detectedCountry}. Show prices in {detectedCurrency}?
+            {t('currencyBanner.detectionMessage', { country: detectedCountry || '', currency: detectedCurrency || '' }) || `We detected you're in ${detectedCountry}. Show prices in ${detectedCurrency}?`}
           </p>
         </div>
         <div style={{
@@ -159,7 +161,7 @@ export default function CurrencyBanner() {
             onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
             onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
           >
-            Yes, use {detectedCurrency}
+            {t('currencyBanner.acceptButton', { currency: detectedCurrency || '' }) || `Yes, use ${detectedCurrency}`}
           </button>
           <button
             onClick={handleKeepUSD}
@@ -182,7 +184,7 @@ export default function CurrencyBanner() {
               e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
             }}
           >
-            Keep USD
+            {t('currencyBanner.keepUsd') || 'Keep USD'}
           </button>
         </div>
       </div>
