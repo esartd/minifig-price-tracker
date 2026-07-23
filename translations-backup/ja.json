@@ -2568,7 +2568,12 @@
     },
     "cancel": "キャンセル",
     "generating": "生成中...",
-    "regenerate": "再生成"
+    "regenerate": "再生成",
+    "bagConditionLabel": "袋の状態：",
+    "bagCondition": {
+      "noBag": "袋なし",
+      "withBag": "袋あり"
+    }
   },
   "priceAlert": {
     "invalidPrice": "有効な価格を入力してください",

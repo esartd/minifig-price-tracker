@@ -2568,7 +2568,12 @@
     },
     "cancel": "Annuleren",
     "generating": "Bezig met genereren...",
-    "regenerate": "Opnieuw Genereren"
+    "regenerate": "Opnieuw Genereren",
+    "bagConditionLabel": "Zakjesconditie:",
+    "bagCondition": {
+      "noBag": "Geen zakje",
+      "withBag": "Zakje inbegrepen"
+    }
   },
   "priceAlert": {
     "invalidPrice": "Voer een geldige prijs in",

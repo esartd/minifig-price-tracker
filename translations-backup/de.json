@@ -2475,7 +2475,12 @@
     },
     "regenerate": "Neu erstellen",
     "titleLabel": "Titel:",
-    "wholeNumber": "(ganze Zahl)"
+    "wholeNumber": "(ganze Zahl)",
+    "bagConditionLabel": "Tütenzustand:",
+    "bagCondition": {
+      "noBag": "Keine Tüte",
+      "withBag": "Tüte enthalten"
+    }
   },
   "metadata": {
     "description": "Bepreise jede LEGO-Minifigur oder jedes Set in Sekunden. Ein empfohlener Preis aus BrickLink- und eBay-Daten. Verfolge dein Inventar kostenlos. 18.000+ Minifigs, 20.000+ Sets.",

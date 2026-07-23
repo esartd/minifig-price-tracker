@@ -23,6 +23,8 @@ interface ListingGeneratorFormProps {
   onSuccess: (listing: any) => void;
   onOpen?: () => void;
   itemType?: 'minifig' | 'set';
+  /** Whether this set actually includes any minifigures - hides the "minifigures included" option when false */
+  hasMinifigs?: boolean;
 }
 
 interface ListingPreferences {
@@ -65,8 +67,11 @@ const DEFAULT_PREFERENCES: ListingPreferences = {
   shipsWithTracking: true,
 };
 
-export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType = 'minifig' }: ListingGeneratorFormProps) {
+export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType = 'minifig', hasMinifigs = true }: ListingGeneratorFormProps) {
   const { t } = useTranslation();
+  // Poly bags ship in a sealed plastic bag, not a box - use the right word in the form too
+  const isPolybag = itemType === 'set' && (item.minifigure_name || '').toLowerCase().includes('polybag');
+  const showMinifiguresOption = itemType === 'set' && hasMinifigs;
   const [isOpen, setIsOpen] = useState(false);
   const [showDetailedForm, setShowDetailedForm] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -180,6 +185,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
+          minifigures_included: showMinifiguresOption ? formData.minifigures_included : undefined,
           preferences
         })
       });
@@ -249,6 +255,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...quickFormData,
+          minifigures_included: showMinifiguresOption ? quickFormData.minifigures_included : undefined,
           preferences
         })
       });
@@ -757,9 +764,13 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
           {/* Set-specific fields */}
           {itemType === 'set' && (
             <>
-              {/* Box Condition */}
+              {/* Box/Bag Condition */}
               <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>{t('listingGenerator.boxConditionLabel') || 'Box Condition:'}</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', fontSize: 'var(--text-sm)', color: '#171717' }}>
+                  {isPolybag
+                    ? (t('listingGenerator.bagConditionLabel') || 'Bag Condition:')
+                    : (t('listingGenerator.boxConditionLabel') || 'Box Condition:')}
+                </label>
                 <select
                   value={formData.box_condition}
                   onChange={(e) => setFormData(prev => ({ ...prev, box_condition: e.target.value }))}
@@ -776,12 +787,12 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                     <>
                       <option value="sealed">{t('listingGenerator.boxCondition.sealed') || 'Sealed (never opened)'}</option>
                       <option value="opened_new">{t('listingGenerator.boxCondition.openedNew') || 'Opened (set still new/unbuilt)'}</option>
-                      <option value="no_box">{t('listingGenerator.boxCondition.noBox') || 'No box'}</option>
+                      <option value="no_box">{isPolybag ? (t('listingGenerator.bagCondition.noBag') || 'No bag') : (t('listingGenerator.boxCondition.noBox') || 'No box')}</option>
                     </>
                   ) : (
                     <>
-                      <option value="with_box">{t('listingGenerator.boxCondition.withBox') || 'Box included'}</option>
-                      <option value="no_box">{t('listingGenerator.boxCondition.noBox') || 'No box'}</option>
+                      <option value="with_box">{isPolybag ? (t('listingGenerator.bagCondition.withBag') || 'Bag included') : (t('listingGenerator.boxCondition.withBox') || 'Box included')}</option>
+                      <option value="no_box">{isPolybag ? (t('listingGenerator.bagCondition.noBag') || 'No bag') : (t('listingGenerator.boxCondition.noBox') || 'No box')}</option>
                     </>
                   )}
                 </select>
@@ -851,15 +862,17 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                   />
                   <span style={{ fontSize: 'var(--text-sm)', color: '#171717' }}>{t('listingGenerator.instructionsIncluded') || 'Instructions included'}</span>
                 </label>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-                  <input
-                    type="checkbox"
-                    checked={formData.minifigures_included}
-                    onChange={(e) => setFormData(prev => ({ ...prev, minifigures_included: e.target.checked }))}
-                    style={{ width: '18px', height: '18px', cursor: 'pointer' }}
-                  />
-                  <span style={{ fontSize: 'var(--text-sm)', color: '#171717' }}>{t('listingGenerator.minifiguresIncluded') || 'All minifigures included'}</span>
-                </label>
+                {showMinifiguresOption && (
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={formData.minifigures_included}
+                      onChange={(e) => setFormData(prev => ({ ...prev, minifigures_included: e.target.checked }))}
+                      style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                    />
+                    <span style={{ fontSize: 'var(--text-sm)', color: '#171717' }}>{t('listingGenerator.minifiguresIncluded') || 'All minifigures included'}</span>
+                  </label>
+                )}
               </div>
 
               {/* Additional Notes */}

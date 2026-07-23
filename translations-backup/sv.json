@@ -2568,7 +2568,12 @@
     },
     "cancel": "Avbryt",
     "generating": "Skapar...",
-    "regenerate": "Skapa på nytt"
+    "regenerate": "Skapa på nytt",
+    "bagConditionLabel": "Påsens skick:",
+    "bagCondition": {
+      "noBag": "Ingen påse",
+      "withBag": "Påse ingår"
+    }
   },
   "priceAlert": {
     "invalidPrice": "Ange ett giltigt pris",

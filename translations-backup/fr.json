@@ -2625,7 +2625,12 @@
     },
     "cancel": "Annuler",
     "generating": "Génération en cours...",
-    "regenerate": "Régénérer"
+    "regenerate": "Régénérer",
+    "bagConditionLabel": "État du sachet :",
+    "bagCondition": {
+      "noBag": "Sans sachet",
+      "withBag": "Sachet inclus"
+    }
   },
   "priceAlert": {
     "invalidPrice": "Veuillez saisir un prix valide",

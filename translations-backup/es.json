@@ -2625,7 +2625,12 @@
     },
     "cancel": "Cancelar",
     "generating": "Generando...",
-    "regenerate": "Regenerar"
+    "regenerate": "Regenerar",
+    "bagConditionLabel": "Condición de la bolsa:",
+    "bagCondition": {
+      "noBag": "Sin bolsa",
+      "withBag": "Bolsa incluida"
+    }
   },
   "priceAlert": {
     "invalidPrice": "Ingresa un precio válido",

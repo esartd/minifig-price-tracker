@@ -356,15 +356,24 @@ function generateSetListing(
 
   let description = `LEGO ${data.theme} Set ${data.setNo} - ${data.setName}\n\nCondition: ${data.condition}`;
 
-  // Box condition
+  // Poly bags ship in a sealed plastic bag, not a box - use the right word
+  const isPolybag = (data.setName || '').toLowerCase().includes('polybag');
+  const packagingLabel = isPolybag ? 'Bag' : 'Box';
+
+  // Box/bag condition
   if (data.boxCondition) {
-    const boxText: Record<string, string> = {
+    const boxText: Record<string, string> = isPolybag ? {
+      'sealed': 'Bag sealed (never opened)',
+      'opened_new': 'Bag opened (set unbuilt)',
+      'with_box': 'Bag included',
+      'no_box': 'No original bag'
+    } : {
       'sealed': 'Box sealed (never opened)',
       'opened_new': 'Box opened (set unbuilt)',
       'with_box': 'Box included',
       'no_box': 'No original box'
     };
-    description += `\nBox: ${boxText[data.boxCondition] || data.boxCondition}`;
+    description += `\n${packagingLabel}: ${boxText[data.boxCondition] || data.boxCondition}`;
   }
 
   // Smart redundancy elimination:

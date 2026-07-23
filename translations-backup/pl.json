@@ -2568,7 +2568,12 @@
     },
     "cancel": "Anuluj",
     "generating": "Generowanie...",
-    "regenerate": "Wygeneruj ponownie"
+    "regenerate": "Wygeneruj ponownie",
+    "bagConditionLabel": "Stan torebki:",
+    "bagCondition": {
+      "noBag": "Brak torebki",
+      "withBag": "Z torebką"
+    }
   },
   "priceAlert": {
     "invalidPrice": "Wprowadź prawidłową cenę",

@@ -2568,7 +2568,12 @@
     },
     "cancel": "Cancelar",
     "generating": "A gerar...",
-    "regenerate": "Regenerar"
+    "regenerate": "Regenerar",
+    "bagConditionLabel": "Condição do Saco:",
+    "bagCondition": {
+      "noBag": "Sem saco",
+      "withBag": "Saco incluído"
+    }
   },
   "priceAlert": {
     "invalidPrice": "Introduza um preço válido",
