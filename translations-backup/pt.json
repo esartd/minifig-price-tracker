@@ -1166,7 +1166,11 @@
     "noSetsInInventory": "Ainda sem sets no seu inventário",
     "searchSetsToGetStarted": "Pesquise sets para começar",
     "noSetsInPersonalCollection": "Ainda sem sets na sua coleção pessoal",
-    "trackPersonalSetsSeparately": "Monitorize os seus sets LEGO pessoais separadamente dos itens à venda"
+    "trackPersonalSetsSeparately": "Monitorize os seus sets LEGO pessoais separadamente dos itens à venda",
+    "searchPlaceholder": "Pesquisar por nome ou número do item...",
+    "clearSearch": "Limpar pesquisa",
+    "noSearchResults": "Nenhum resultado para \"{query}\"",
+    "tryDifferentSearch": "Tente outro nome ou número do item"
   },
   "privacyPolicy": {
     "meta": {

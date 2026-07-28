@@ -1166,7 +1166,11 @@
     "noSetsInInventory": "Nog geen sets in je inventaris",
     "searchSetsToGetStarted": "Zoek naar sets om te beginnen",
     "noSetsInPersonalCollection": "Nog geen sets in je persoonlijke collectie",
-    "trackPersonalSetsSeparately": "Houd je persoonlijke LEGO-sets apart bij van items die je verkoopt"
+    "trackPersonalSetsSeparately": "Houd je persoonlijke LEGO-sets apart bij van items die je verkoopt",
+    "searchPlaceholder": "Zoek op naam of itemnummer...",
+    "clearSearch": "Zoekopdracht wissen",
+    "noSearchResults": "Geen resultaten voor \"{query}\"",
+    "tryDifferentSearch": "Probeer een andere naam of itemnummer"
   },
   "privacyPolicy": {
     "meta": {

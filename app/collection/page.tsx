@@ -9,7 +9,7 @@ import ShareCollectionButton from '@/components/ShareCollectionButton';
 import DatabaseLimitError from '@/components/DatabaseLimitError';
 import CollectionPagination from '@/components/CollectionPagination';
 import Link from 'next/link';
-import { ChevronDownIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon, PlusIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
 import { calculateCollectionStats } from '@/lib/collection-stats';
 import AnimatedCounter from '@/components/AnimatedCounter';
@@ -26,6 +26,7 @@ export default function PersonalCollectionPage() {
   const [sortOrder, setSortOrder] = useState<string>('date-newest');
   const [showDecimals, setShowDecimals] = useState(false);
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
+  const [searchQuery, setSearchQuery] = useState('');
   const [dbError, setDbError] = useState<Date | null>(null);
   const [pricesUpdating, setPricesUpdating] = useState(0);
   const [pricesFetching, setPricesFetching] = useState(false); // Track if pricing is actively loading
@@ -272,6 +273,15 @@ export default function PersonalCollectionPage() {
       filtered = filtered.filter(item => item.condition === conditionFilter);
     }
 
+    // Filter by search query (name or item number)
+    const query = searchQuery.trim().toLowerCase();
+    if (query) {
+      filtered = filtered.filter(item =>
+        item.minifigure_name.toLowerCase().includes(query) ||
+        item.minifigure_no.toLowerCase().includes(query)
+      );
+    }
+
     // Sort
     switch (sortOrder) {
       case 'date-newest':
@@ -321,6 +331,13 @@ export default function PersonalCollectionPage() {
   const sortedAndFiltered = getSortedAndFilteredCollection();
   const totalFiltered = sortedAndFiltered.length;
   const totalPages = Math.ceil(totalFiltered / itemsPerPage);
+
+  // Reset pagination when the filtered set changes, so a stale page number
+  // from a larger result set doesn't leave the view showing nothing
+  useEffect(() => {
+    setCurrentPage(1);
+    setItemsToShow(itemsPerPage);
+  }, [conditionFilter, searchQuery]);
 
   // Mobile: show accumulated items, Desktop: show paginated items
   const [isMobile, setIsMobile] = useState(false);
@@ -629,6 +646,62 @@ export default function PersonalCollectionPage() {
             gap: '12px',
             marginBottom: '32px'
           }}>
+            {/* Search Row: filter your own collection by name or item number */}
+            {collection.length > 0 && (
+              <div style={{ position: 'relative', width: '100%' }}>
+                <MagnifyingGlassIcon style={{
+                  position: 'absolute',
+                  left: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  width: 'var(--icon-sm)',
+                  height: 'var(--icon-sm)',
+                  color: '#a3a3a3',
+                  pointerEvents: 'none'
+                }} />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={t('collection.searchPlaceholder') || 'Search by name or item number...'}
+                  style={{
+                    width: '100%',
+                    padding: '10px 40px',
+                    fontSize: 'var(--text-sm)',
+                    color: '#171717',
+                    background: '#ffffff',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                    fontFamily: 'inherit'
+                  }}
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    aria-label={t('collection.clearSearch') || 'Clear search'}
+                    style={{
+                      position: 'absolute',
+                      right: '8px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: '4px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#737373'
+                    }}
+                  >
+                    <XMarkIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
+                  </button>
+                )}
+              </div>
+            )}
+
             {/* First Row: Items label + All/New/Used filters + Sort (desktop) */}
             {collection.length > 0 && (
               <div className="items-filters-sort-row" style={{
@@ -905,7 +978,7 @@ export default function PersonalCollectionPage() {
 
           {sortedAndFiltered.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '60px 0' }}>
-              {conditionFilter === 'all' ? (
+              {collection.length === 0 ? (
                 <>
                   <div style={{ fontSize: 'var(--text-3xl)', marginBottom: '24px' }}>🏠</div>
                   <h3 style={{
@@ -940,6 +1013,41 @@ export default function PersonalCollectionPage() {
                   >
                     {t('collection.searchMinifigs')}
                   </Link>
+                </>
+              ) : searchQuery.trim() ? (
+                <>
+                  <div style={{ fontSize: 'var(--text-3xl)', marginBottom: '24px' }}>🔍</div>
+                  <h3 style={{
+                    fontSize: 'var(--text-lg)',
+                    fontWeight: '600',
+                    color: '#171717',
+                    marginBottom: '12px'
+                  }}>
+                    {t('collection.noSearchResults', { query: searchQuery }) || `No matches for "${searchQuery}"`}
+                  </h3>
+                  <p style={{
+                    fontSize: 'var(--text-base)',
+                    color: '#737373',
+                    marginBottom: '24px',
+                    lineHeight: '1.6'
+                  }}>
+                    {t('collection.tryDifferentSearch') || 'Try a different name or item number'}
+                  </p>
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    style={{
+                      padding: '10px 20px',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: '600',
+                      color: '#3b82f6',
+                      background: '#ffffff',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {t('collection.clearSearch') || 'Clear search'}
+                  </button>
                 </>
               ) : (
                 <>

@@ -1184,7 +1184,11 @@
     "searchSetsToGetStarted": "Suche nach Sets, um loszulegen",
     "trackPersonalMinifigsSeparately": "Verfolge deine persönlichen LEGO-Minifiguren getrennt von Verkaufsartikeln",
     "trackPersonalSetsSeparately": "Verfolge deine persönlichen LEGO-Sets getrennt von Verkaufsartikeln",
-    "undo": "Rückgängig"
+    "undo": "Rückgängig",
+    "searchPlaceholder": "Nach Name oder Artikelnummer suchen...",
+    "clearSearch": "Suche löschen",
+    "noSearchResults": "Keine Treffer für \"{query}\"",
+    "tryDifferentSearch": "Versuche einen anderen Namen oder eine andere Artikelnummer"
   },
   "privacyPolicy": {
     "meta": {

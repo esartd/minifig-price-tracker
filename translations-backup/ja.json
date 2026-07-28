@@ -1166,7 +1166,11 @@
     "noSetsInInventory": "在庫にセットはまだありません",
     "searchSetsToGetStarted": "セットを検索して始めましょう",
     "noSetsInPersonalCollection": "個人コレクションにセットはまだありません",
-    "trackPersonalSetsSeparately": "販売用アイテムとは別に、個人的なLEGOセットを管理できます"
+    "trackPersonalSetsSeparately": "販売用アイテムとは別に、個人的なLEGOセットを管理できます",
+    "searchPlaceholder": "名前または品番で検索...",
+    "clearSearch": "検索をクリア",
+    "noSearchResults": "「{query}」に一致する項目はありません",
+    "tryDifferentSearch": "別の名前または品番をお試しください"
   },
   "privacyPolicy": {
     "meta": {

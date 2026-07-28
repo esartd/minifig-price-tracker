@@ -1166,7 +1166,11 @@
     "noSetsInInventory": "Inga set i din inventering än",
     "searchSetsToGetStarted": "Sök efter set för att komma igång",
     "noSetsInPersonalCollection": "Inga set i din personliga samling än",
-    "trackPersonalSetsSeparately": "Håll koll på dina personliga LEGO-set separat från artiklar till försäljning"
+    "trackPersonalSetsSeparately": "Håll koll på dina personliga LEGO-set separat från artiklar till försäljning",
+    "searchPlaceholder": "Sök efter namn eller artikelnummer...",
+    "clearSearch": "Rensa sökning",
+    "noSearchResults": "Inga träffar för \"{query}\"",
+    "tryDifferentSearch": "Prova ett annat namn eller artikelnummer"
   },
   "privacyPolicy": {
     "meta": {
