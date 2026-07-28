@@ -25,6 +25,8 @@ interface ListingGeneratorFormProps {
   itemType?: 'minifig' | 'set';
   /** Whether this set actually includes any minifigures - hides the "minifigures included" option when false */
   hasMinifigs?: boolean;
+  /** BrickLink category name for the set - used to detect polybags */
+  categoryName?: string;
 }
 
 interface ListingPreferences {
@@ -67,10 +69,15 @@ const DEFAULT_PREFERENCES: ListingPreferences = {
   shipsWithTracking: true,
 };
 
-export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType = 'minifig', hasMinifigs = true }: ListingGeneratorFormProps) {
+export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType = 'minifig', hasMinifigs = true, categoryName }: ListingGeneratorFormProps) {
   const { t } = useTranslation();
-  // Poly bags ship in a sealed plastic bag, not a box - use the right word in the form too
-  const isPolybag = itemType === 'set' && (item.minifigure_name || '').toLowerCase().includes('polybag');
+  // Poly bags and foil packs ship in a sealed plastic bag, not a box - use the right word in the form too
+  // Matches the detection convention used in lib/boxes-data.ts: category for polybags, name for foil packs
+  const isPolybag = itemType === 'set' && (
+    (categoryName || '').toLowerCase().includes('polybag') ||
+    (item.minifigure_name || '').toLowerCase().includes('polybag') ||
+    (item.minifigure_name || '').toLowerCase().includes('foil pack')
+  );
   const showMinifiguresOption = itemType === 'set' && hasMinifigs;
   const [isOpen, setIsOpen] = useState(false);
   const [showDetailedForm, setShowDetailedForm] = useState(false);

@@ -40,6 +40,7 @@ interface ListingData {
   // Set fields
   setName?: string;
   setNo?: string;
+  categoryName?: string;
   boxCondition?: string;
   completeness?: string;
   buildingStatus?: string;
@@ -356,8 +357,11 @@ function generateSetListing(
 
   let description = `LEGO ${data.theme} Set ${data.setNo} - ${data.setName}\n\nCondition: ${data.condition}`;
 
-  // Poly bags ship in a sealed plastic bag, not a box - use the right word
-  const isPolybag = (data.setName || '').toLowerCase().includes('polybag');
+  // Poly bags and foil packs ship in a sealed plastic bag, not a box - use the right word
+  // Matches the detection convention used in lib/boxes-data.ts: category for polybags, name for foil packs
+  const categoryL = (data.categoryName || '').toLowerCase();
+  const setNameL = (data.setName || '').toLowerCase();
+  const isPolybag = categoryL.includes('polybag') || setNameL.includes('polybag') || setNameL.includes('foil pack');
   const packagingLabel = isPolybag ? 'Bag' : 'Box';
 
   // Box/bag condition

@@ -948,6 +948,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           item={{...inventoryItem, minifigure_no: inventoryItem.box_no, minifigure_name: inventoryItem.set_name}}
                           itemType="set"
                           hasMinifigs={minifigs.length > 0}
+                          categoryName={set.category_name}
                           onSuccess={(listing) => {
                             alert(t('minifigDetail.listingSaved'));
                           }}

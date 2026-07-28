@@ -72,6 +72,7 @@ export async function POST(
       // Set-specific fields
       setName: item.set_name,
       setNo: cleanBoxNo,
+      categoryName: item.category_name,
       theme,
       suggestedPrice: item.pricing_suggested_price || 0,
       currentAvg: item.pricing_current_avg || 0,
