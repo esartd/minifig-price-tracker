@@ -71,12 +71,14 @@ const DEFAULT_PREFERENCES: ListingPreferences = {
 
 export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType = 'minifig', hasMinifigs = true, categoryName }: ListingGeneratorFormProps) {
   const { t } = useTranslation();
-  // Poly bags and foil packs ship in a sealed plastic bag, not a box - use the right word in the form too
-  // Matches the detection convention used in lib/boxes-data.ts: category for polybags, name for foil packs
+  // Poly bags, foil packs, and paper bags ship in a sealed plastic/paper bag, not a box - use the right word in the form too
+  // Matches the detection convention used in lib/boxes-data.ts (category for polybags, name for foil packs),
+  // plus "paper bag" which is a separate BrickLink naming convention not covered there
   const isPolybag = itemType === 'set' && (
     (categoryName || '').toLowerCase().includes('polybag') ||
     (item.minifigure_name || '').toLowerCase().includes('polybag') ||
-    (item.minifigure_name || '').toLowerCase().includes('foil pack')
+    (item.minifigure_name || '').toLowerCase().includes('foil pack') ||
+    (item.minifigure_name || '').toLowerCase().includes('paper bag')
   );
   const showMinifiguresOption = itemType === 'set' && hasMinifigs;
   const [isOpen, setIsOpen] = useState(false);
