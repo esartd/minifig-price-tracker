@@ -355,7 +355,8 @@ function generateSetListing(
     title = `LEGO ${data.setNo} ${data.setName!.substring(0, 70)}...`;
   }
 
-  let description = `LEGO ${data.theme} Set ${data.setNo} - ${data.setName}\n\nCondition: ${data.condition}`;
+  const formattedCondition = formatCondition(data.condition, platform);
+  let description = `LEGO ${data.theme} Set ${data.setNo} - ${data.setName}\n\nCondition: ${formattedCondition}`;
 
   // Poly bags, foil packs, and paper bags ship in a sealed plastic/paper bag, not a box - use the right word
   // Matches the detection convention used in lib/boxes-data.ts (category for polybags, name for foil packs),
