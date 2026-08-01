@@ -245,7 +245,10 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
       condition_detail: smartCondition,
       accessories: '',
       known_flaws: '',
-      box_condition: 'sealed',
+      // "Sealed" is only a valid box condition when the item condition is "new" -
+      // the Box Condition dropdown doesn't even offer it otherwise (see the
+      // condition_detail === 'new' branches below), so match that same rule here
+      box_condition: smartCondition === 'new' ? 'sealed' : 'with_box',
       completeness: 'complete_verified',
       building_status: 'unbuilt',
       instructions_included: true,
