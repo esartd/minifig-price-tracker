@@ -56,6 +56,32 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
   const searchParams = useSearchParams();
   const { data: session } = useSession();
   const { addItem: addToGuestCollection, count: guestCollectionCount, total: guestCollectionTotal } = useGuestCollection();
+  // How many of each related minifig/set the logged-in user already owns (to keep + for sale
+  // combined) - shown as a small grey "×N" badge on the related-item cards below. This page is
+  // ISR-cached and shared across visitors, so this has to be fetched client-side per session
+  // rather than baked into the server-rendered props.
+  const [ownedMinifigQuantities, setOwnedMinifigQuantities] = useState<Record<string, number>>({});
+  const [ownedSetQuantities, setOwnedSetQuantities] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    if (!session?.user) return;
+    const minifigNos = minifigs.map(m => m.minifig_no);
+    const boxNos = [...themeSets.map(s => s.box_no), ...closeRangeSets.map(s => s.box_no)];
+    if (minifigNos.length === 0 && boxNos.length === 0) return;
+
+    fetch('/api/user/owned-quantities', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ minifigNos, boxNos })
+    })
+      .then(res => res.json())
+      .then(data => {
+        setOwnedMinifigQuantities(data.minifigs || {});
+        setOwnedSetQuantities(data.sets || {});
+      })
+      .catch(() => {}); // Non-critical UI enhancement - fail silently
+  }, [session?.user, minifigs, themeSets, closeRangeSets]);
+
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [successVariant, setSuccessVariant] = useState<'sell' | 'keep' | null>(null);
@@ -1456,6 +1482,22 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                     e.currentTarget.style.transform = 'translateY(0)';
                     e.currentTarget.style.boxShadow = 'none';
                   }}>
+                    {ownedMinifigQuantities[m.minifig_no] > 0 && (
+                      <div style={{
+                        position: 'absolute',
+                        top: '8px',
+                        left: '8px',
+                        background: '#e5e5e5',
+                        color: '#525252',
+                        borderRadius: '12px',
+                        padding: '4px 10px',
+                        fontSize: '12px',
+                        fontWeight: '700',
+                        zIndex: 1
+                      }}>
+                        ×{ownedMinifigQuantities[m.minifig_no]}
+                      </div>
+                    )}
                     {m.quantity > 1 && (
                       <div style={{
                         position: 'absolute',
@@ -1534,7 +1576,15 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
               {closeRangeSets.map(s => (
                 <Link key={s.box_no} href={`/sets/${s.box_no}`} style={{ textDecoration: 'none', display: 'flex' }}>
                   <div style={{ background: 'white', borderRadius: '12px', overflow: 'hidden', border: '1px solid #e5e5e5',
-                    transition: 'transform 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column', width: '100%' }}>
+                    transition: 'transform 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column', width: '100%', position: 'relative' }}>
+                    {ownedSetQuantities[s.box_no] > 0 && (
+                      <div style={{
+                        position: 'absolute', top: '8px', right: '8px', background: '#e5e5e5', color: '#525252',
+                        borderRadius: '12px', padding: '4px 10px', fontSize: '12px', fontWeight: '700', zIndex: 1
+                      }}>
+                        ×{ownedSetQuantities[s.box_no]}
+                      </div>
+                    )}
                     <div style={{ padding: '16px', height: '180px', display: 'flex', alignItems: 'center',
                       justifyContent: 'center', background: '#ffffff' }}>
                       <SetCardImage imageUrl={s.image_url} setName={s.name} width={160} height={160} maxHeight="160px" />
@@ -1559,7 +1609,15 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
               {themeSets.map(s => (
                 <Link key={s.box_no} href={`/sets/${s.box_no}`} style={{ textDecoration: 'none', display: 'flex' }}>
                   <div style={{ background: 'white', borderRadius: '12px', overflow: 'hidden', border: '1px solid #e5e5e5',
-                    transition: 'transform 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column', width: '100%' }}>
+                    transition: 'transform 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column', width: '100%', position: 'relative' }}>
+                    {ownedSetQuantities[s.box_no] > 0 && (
+                      <div style={{
+                        position: 'absolute', top: '8px', right: '8px', background: '#e5e5e5', color: '#525252',
+                        borderRadius: '12px', padding: '4px 10px', fontSize: '12px', fontWeight: '700', zIndex: 1
+                      }}>
+                        ×{ownedSetQuantities[s.box_no]}
+                      </div>
+                    )}
                     <div style={{ padding: '16px', height: '180px', display: 'flex', alignItems: 'center',
                       justifyContent: 'center', background: '#ffffff' }}>
                       <SetCardImage imageUrl={s.image_url} setName={s.name} width={160} height={160} maxHeight="160px" />
