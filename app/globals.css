@@ -2376,6 +2376,12 @@ select.custom-dropdown.condition-used {
   .collection-controls {
     display: flex !important;
   }
+
+  /* The inline search box has no room on the same line as Items/filters on mobile -
+     use the full-width search row below instead (see .collection-search-mobile) */
+  .collection-search-desktop {
+    display: none !important;
+  }
 }
 
 /* Desktop: show button text and normal layout */
@@ -2406,6 +2412,11 @@ select.custom-dropdown.condition-used {
 
   /* Hide mobile decimal toggle on desktop */
   .decimal-toggle-mobile {
+    display: none !important;
+  }
+
+  /* Search is inline in the filters/sort row on desktop instead */
+  .collection-search-mobile {
     display: none !important;
   }
 }
