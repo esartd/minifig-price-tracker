@@ -8,7 +8,7 @@ import CollectionList from '@/components/CollectionList';
 import ShareCollectionButton from '@/components/ShareCollectionButton';
 import DatabaseLimitError from '@/components/DatabaseLimitError';
 import Link from 'next/link';
-import { ChevronDownIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon, PlusIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
 import CollectionPagination from '@/components/CollectionPagination';
 import { calculateCollectionStats } from '@/lib/collection-stats';
@@ -26,6 +26,7 @@ export default function CollectionPage() {
   const [sortOrder, setSortOrder] = useState<string>('date-newest');
   const [showDecimals, setShowDecimals] = useState(false);
   const [conditionFilter, setConditionFilter] = useState<'all' | 'new' | 'used'>('all');
+  const [searchQuery, setSearchQuery] = useState('');
   const [dbError, setDbError] = useState<Date | null>(null);
   const [pricesUpdating, setPricesUpdating] = useState(0); // Count of items being updated
   const [pricesFetching, setPricesFetching] = useState(false); // Track if pricing is actively loading
@@ -272,6 +273,15 @@ export default function CollectionPage() {
       filtered = filtered.filter(item => item.condition === conditionFilter);
     }
 
+    // Filter by search query (name or item number)
+    const query = searchQuery.trim().toLowerCase();
+    if (query) {
+      filtered = filtered.filter(item =>
+        item.minifigure_name.toLowerCase().includes(query) ||
+        item.minifigure_no.toLowerCase().includes(query)
+      );
+    }
+
     // Sort
     switch (sortOrder) {
       case 'date-newest':
@@ -318,9 +328,16 @@ export default function CollectionPage() {
   };
 
   // Get filtered/sorted items, then paginate for display (memoized to react to collection changes)
-  const sortedAndFiltered = useMemo(() => getSortedAndFilteredCollection(), [collection, conditionFilter, sortOrder]);
+  const sortedAndFiltered = useMemo(() => getSortedAndFilteredCollection(), [collection, conditionFilter, sortOrder, searchQuery]);
   const totalFiltered = sortedAndFiltered.length;
   const totalPages = Math.ceil(totalFiltered / itemsPerPage);
+
+  // Reset pagination when the filtered set changes, so a stale page number
+  // from a larger result set doesn't leave the view showing nothing
+  useEffect(() => {
+    setCurrentPage(1);
+    setItemsToShow(itemsPerPage);
+  }, [conditionFilter, searchQuery]);
 
   // Mobile: show accumulated items, Desktop: show paginated items
   const [isMobile, setIsMobile] = useState(false);
@@ -786,6 +803,62 @@ export default function CollectionPage() {
               </div>
             )}
 
+            {/* Search Row: its own full-width row, right below the filters/sort row */}
+            {collection.length > 0 && (
+              <div style={{ position: 'relative', width: '100%' }}>
+                <MagnifyingGlassIcon style={{
+                  position: 'absolute',
+                  left: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  width: 'var(--icon-sm)',
+                  height: 'var(--icon-sm)',
+                  color: '#a3a3a3',
+                  pointerEvents: 'none'
+                }} />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={t('collection.searchPlaceholder') || 'Search by name or item number...'}
+                  style={{
+                    width: '100%',
+                    padding: '10px 40px',
+                    fontSize: 'var(--text-sm)',
+                    color: '#171717',
+                    background: '#ffffff',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                    fontFamily: 'inherit'
+                  }}
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    aria-label={t('collection.clearSearch') || 'Clear search'}
+                    style={{
+                      position: 'absolute',
+                      right: '8px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: '4px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#737373'
+                    }}
+                  >
+                    <XMarkIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
+                  </button>
+                )}
+              </div>
+            )}
+
             {/* Second Row: Price Update Legend */}
             {staleItems.size > 0 && (
               <div style={{
@@ -894,7 +967,7 @@ export default function CollectionPage() {
 
           {sortedAndFiltered.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '60px 0' }}>
-              {conditionFilter === 'all' ? (
+              {collection.length === 0 ? (
                 <>
                   <svg style={{ width: 'var(--icon-3xl)', height: 'var(--icon-3xl)', color: '#a3a3a3', margin: '0 auto 24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
@@ -931,6 +1004,41 @@ export default function CollectionPage() {
                   >
                     {t('collection.searchMinifigs')}
                   </Link>
+                </>
+              ) : searchQuery.trim() ? (
+                <>
+                  <div style={{ fontSize: 'var(--text-3xl)', marginBottom: '24px' }}>🔍</div>
+                  <h3 style={{
+                    fontSize: 'var(--text-lg)',
+                    fontWeight: '600',
+                    color: '#171717',
+                    marginBottom: '12px'
+                  }}>
+                    {t('collection.noSearchResults', { query: searchQuery }) || `No matches for "${searchQuery}"`}
+                  </h3>
+                  <p style={{
+                    fontSize: 'var(--text-base)',
+                    color: '#737373',
+                    marginBottom: '24px',
+                    lineHeight: '1.6'
+                  }}>
+                    {t('collection.tryDifferentSearch') || 'Try a different name or item number'}
+                  </p>
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    style={{
+                      padding: '10px 20px',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: '600',
+                      color: '#3b82f6',
+                      background: '#ffffff',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {t('collection.clearSearch') || 'Clear search'}
+                  </button>
                 </>
               ) : (
                 <>
