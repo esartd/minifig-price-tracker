@@ -169,6 +169,35 @@ class PricingOrchestrator {
       const stale = await this.getAnyCachedEntry(itemNo, itemType, condition);
       if (stale) {
         console.log(`[Orchestrator] Using stale cache for ${itemNo} (BL unavailable)`);
+
+        // Serving stale data doesn't advance cached_at, so without this the
+        // frontend's staleness check ("is this fresher than X hours old?")
+        // never passes and it retries this same doomed-to-fail refresh on
+        // every single page load until BrickLink's daily budget resets -
+        // turning a budget-exhausted day into a perpetual refresh loop
+        // (see PRICING_REFRESH_SYSTEM.md). Bump cached_at with a short
+        // backoff TTL - same pattern as the "no data at all" branch below -
+        // so it stops retrying for a few hours instead of every page view,
+        // without pretending the underlying price data itself is fresh.
+        if (blLimitHit) {
+          const now = new Date();
+          const backoffTtlHours = 3;
+          const expiresAt = new Date(now.getTime() + backoffTtlHours * 60 * 60 * 1000);
+          try {
+            await prisma.priceCache.update({
+              where: {
+                item_no_item_type_condition_country_code_region: {
+                  item_no: itemNo, item_type: itemType, condition, country_code: 'US', region: '',
+                },
+              },
+              data: { cached_at: now, expires_at: expiresAt },
+            });
+          } catch (err: any) {
+            console.error(`[Orchestrator] Backoff bump failed for ${itemNo}:`, err);
+          }
+          return { ...stale, cached_at: now.toISOString() };
+        }
+
         return stale;
       }
 
