@@ -82,7 +82,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
 
   useEffect(() => {
     if (!session?.user) return;
-    const minifigNos = similarSets.map(s => s.no);
+    const minifigNos = [...similarSets.map(s => s.no), ...variants.map(v => v.no)];
     const boxNos = appearsInSets.map(s => s.set_no);
     if (minifigNos.length === 0 && boxNos.length === 0) return;
 
@@ -97,7 +97,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
         setOwnedSetQuantities(data.sets || {});
       })
       .catch(() => {}); // Non-critical UI enhancement - fail silently
-  }, [session?.user, similarSets, appearsInSets]);
+  }, [session?.user, similarSets, appearsInSets, variants]);
   const [addLoading, setAddLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -2927,7 +2927,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                         overflow: 'hidden',
                         textDecoration: 'none',
                         transition: 'all 0.2s',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        position: 'relative'
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.borderColor = '#3b82f6';
@@ -2938,6 +2939,25 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                         e.currentTarget.style.boxShadow = 'none';
                       }}
                     >
+                      {ownedMinifigQuantities[variant.no] > 0 && (
+                        <BadgeTooltip
+                          text={t('minifigDetail.ownedMinifigBadgeTooltip', { count: ownedMinifigQuantities[variant.no] }) || `You own ${ownedMinifigQuantities[variant.no]} of this minifig`}
+                          style={{
+                            position: 'absolute',
+                            top: '8px',
+                            right: '8px',
+                            background: '#e5e5e5',
+                            color: '#525252',
+                            borderRadius: '12px',
+                            padding: '4px 10px',
+                            fontSize: '12px',
+                            fontWeight: '700',
+                            zIndex: 1,
+                            cursor: 'help'
+                          }}>
+                          ×{ownedMinifigQuantities[variant.no]}
+                        </BadgeTooltip>
+                      )}
                       <div className="minifig-variant-image">
                         <Image
                           src={variant.image_url}
