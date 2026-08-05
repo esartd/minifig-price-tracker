@@ -2410,40 +2410,8 @@ select.custom-dropdown.condition-used {
   }
 }
 
-/* ============================================ */
-/* Fast hover tooltip for owned-quantity/set-contents badges */
-/* CSS :hover triggers instantly - unlike the native title=""  */
-/* attribute tooltip, which has a ~1s browser-imposed delay.   */
-/* ============================================ */
-.badge-tooltip-wrapper {
-  position: relative;
-}
-
-.badge-tooltip {
-  position: absolute;
-  /* Below the badge, not above it - these badges sit near the top of
-     cards that have overflow: hidden (for rounded corners), so a
-     tooltip positioned above the badge renders past the card's edge
-     and gets clipped away entirely. */
-  top: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: #171717;
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1.3;
-  padding: 4px 8px;
-  border-radius: 6px;
-  white-space: nowrap;
-  z-index: 50;
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.1s ease;
-}
-
-.badge-tooltip-wrapper:hover .badge-tooltip {
-  opacity: 1;
-  visibility: visible;
-}
+/* Owned-quantity/set-contents badge tooltips now use the BadgeTooltip
+   component (components/BadgeTooltip.tsx), which portals the tooltip to
+   document.body instead of relying on CSS here - a card's overflow:
+   hidden (for rounded corners) would otherwise clip it regardless of
+   how it's positioned as a descendant. */

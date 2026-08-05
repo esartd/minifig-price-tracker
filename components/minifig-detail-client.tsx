@@ -26,6 +26,7 @@ import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
 import { useTranslation } from '@/components/TranslationProvider';
 import PriceAlertButton from '@/components/PriceAlertButton';
+import BadgeTooltip from '@/components/BadgeTooltip';
 
 // Lazy load PriceHistoryChart (only loads when in inventory)
 function ChartLoadingFallback() {
@@ -2747,8 +2748,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       }}
                     >
                       {ownedSetQuantities[set.set_no] > 0 && (
-                        <div
-                          className="badge-tooltip-wrapper"
+                        <BadgeTooltip
+                          text={t('minifigDetail.ownedSetBadgeTooltip', { count: ownedSetQuantities[set.set_no] }) || `You own ${ownedSetQuantities[set.set_no]} of this set`}
                           style={{
                             position: 'absolute',
                             top: '8px',
@@ -2763,10 +2764,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             cursor: 'help'
                           }}>
                           ×{ownedSetQuantities[set.set_no]}
-                          <span className="badge-tooltip">
-                            {t('minifigDetail.ownedSetBadgeTooltip', { count: ownedSetQuantities[set.set_no] }) || `You own ${ownedSetQuantities[set.set_no]} of this set`}
-                          </span>
-                        </div>
+                        </BadgeTooltip>
                       )}
                       <div className="minifig-variant-image">
                         {set.image_url ? (
@@ -2847,8 +2845,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       }}
                     >
                       {ownedMinifigQuantities[related.no] > 0 && (
-                        <div
-                          className="badge-tooltip-wrapper"
+                        <BadgeTooltip
+                          text={t('minifigDetail.ownedMinifigBadgeTooltip', { count: ownedMinifigQuantities[related.no] }) || `You own ${ownedMinifigQuantities[related.no]} of this minifig`}
                           style={{
                             position: 'absolute',
                             top: '8px',
@@ -2863,10 +2861,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             cursor: 'help'
                           }}>
                           ×{ownedMinifigQuantities[related.no]}
-                          <span className="badge-tooltip">
-                            {t('minifigDetail.ownedMinifigBadgeTooltip', { count: ownedMinifigQuantities[related.no] }) || `You own ${ownedMinifigQuantities[related.no]} of this minifig`}
-                          </span>
-                        </div>
+                        </BadgeTooltip>
                       )}
                       <div className="minifig-variant-image">
                         <Image
