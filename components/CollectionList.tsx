@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import MoveDialog from './MoveDialog';
+import ConfirmDeleteDialog from './ConfirmDeleteDialog';
 import { MinusIcon, PlusIcon, ArrowRightIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
 import { useTranslation } from '@/components/TranslationProvider';
@@ -41,6 +42,7 @@ export default function CollectionList({
   const [moveDialogItem, setMoveDialogItem] = useState<CollectionItem | null>(null);
   const [moveSuccess, setMoveSuccess] = useState(false);
   const [lastMovedItem, setLastMovedItem] = useState<{ id: string; minifigNo: string; condition: string } | null>(null);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   // Dismiss notification on click
   useEffect(() => {
@@ -506,9 +508,7 @@ export default function CollectionList({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                if (confirm(t('collection.deleteFromInventory'))) {
-                  onItemDelete(item.id);
-                }
+                setPendingDeleteId(item.id);
               }}
               style={{
                 width: '44px',
@@ -555,6 +555,17 @@ export default function CollectionList({
           }}
         />
       )}
+
+      {/* Delete Confirmation Dialog */}
+      <ConfirmDeleteDialog
+        isOpen={pendingDeleteId !== null}
+        onClose={() => setPendingDeleteId(null)}
+        onConfirm={() => {
+          if (pendingDeleteId) onItemDelete(pendingDeleteId);
+          setPendingDeleteId(null);
+        }}
+        message={t('collection.deleteFromInventory') || 'Delete this item from your inventory?'}
+      />
 
       {/* Success Notification */}
       {moveSuccess && lastMovedItem && (
