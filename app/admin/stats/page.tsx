@@ -267,7 +267,7 @@ export default async function AdminStatsPage() {
             </p>
           </div>
           <a
-            href={`mailto:${ADMIN_EMAIL}?bcc=${allUsers.map((u: any) => u.email).join(',')}`}
+            href={`mailto:${ADMIN_EMAIL}?bcc=${encodeURIComponent(allUsers.map((u: any) => u.email).join(','))}`}
             style={{
               display: 'flex',
               alignItems: 'center',
