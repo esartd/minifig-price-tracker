@@ -2748,7 +2748,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                     >
                       {ownedSetQuantities[set.set_no] > 0 && (
                         <div
-                          title={t('minifigDetail.ownedSetBadgeTooltip', { count: ownedSetQuantities[set.set_no] }) || `You own ${ownedSetQuantities[set.set_no]} of this set`}
+                          className="badge-tooltip-wrapper"
                           style={{
                             position: 'absolute',
                             top: '8px',
@@ -2763,6 +2763,9 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             cursor: 'help'
                           }}>
                           ×{ownedSetQuantities[set.set_no]}
+                          <span className="badge-tooltip">
+                            {t('minifigDetail.ownedSetBadgeTooltip', { count: ownedSetQuantities[set.set_no] }) || `You own ${ownedSetQuantities[set.set_no]} of this set`}
+                          </span>
                         </div>
                       )}
                       <div className="minifig-variant-image">
@@ -2845,7 +2848,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                     >
                       {ownedMinifigQuantities[related.no] > 0 && (
                         <div
-                          title={t('minifigDetail.ownedMinifigBadgeTooltip', { count: ownedMinifigQuantities[related.no] }) || `You own ${ownedMinifigQuantities[related.no]} of this minifig`}
+                          className="badge-tooltip-wrapper"
                           style={{
                             position: 'absolute',
                             top: '8px',
@@ -2860,6 +2863,9 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             cursor: 'help'
                           }}>
                           ×{ownedMinifigQuantities[related.no]}
+                          <span className="badge-tooltip">
+                            {t('minifigDetail.ownedMinifigBadgeTooltip', { count: ownedMinifigQuantities[related.no] }) || `You own ${ownedMinifigQuantities[related.no]} of this minifig`}
+                          </span>
                         </div>
                       )}
                       <div className="minifig-variant-image">

@@ -1484,7 +1484,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                   }}>
                     {ownedMinifigQuantities[m.minifig_no] > 0 && (
                       <div
-                        title={t('setDetail.ownedMinifigBadgeTooltip', { count: ownedMinifigQuantities[m.minifig_no] }) || `You own ${ownedMinifigQuantities[m.minifig_no]} of this minifig`}
+                        className="badge-tooltip-wrapper"
                         style={{
                           position: 'absolute',
                           top: '8px',
@@ -1499,11 +1499,14 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           cursor: 'help'
                         }}>
                         ×{ownedMinifigQuantities[m.minifig_no]}
+                        <span className="badge-tooltip">
+                          {t('setDetail.ownedMinifigBadgeTooltip', { count: ownedMinifigQuantities[m.minifig_no] }) || `You own ${ownedMinifigQuantities[m.minifig_no]} of this minifig`}
+                        </span>
                       </div>
                     )}
                     {m.quantity > 1 && (
                       <div
-                        title={t('setDetail.setContentsBadgeTooltip', { count: m.quantity }) || `This set includes ${m.quantity} of this minifig`}
+                        className="badge-tooltip-wrapper"
                         style={{
                           position: 'absolute',
                           top: '8px',
@@ -1519,6 +1522,9 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           cursor: 'help'
                         }}>
                         ×{m.quantity}
+                        <span className="badge-tooltip">
+                          {t('setDetail.setContentsBadgeTooltip', { count: m.quantity }) || `This set includes ${m.quantity} of this minifig`}
+                        </span>
                       </div>
                     )}
                     <div style={{
@@ -1585,12 +1591,15 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                     transition: 'transform 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column', width: '100%', position: 'relative' }}>
                     {ownedSetQuantities[s.box_no] > 0 && (
                       <div
-                        title={t('setDetail.ownedSetBadgeTooltip', { count: ownedSetQuantities[s.box_no] }) || `You own ${ownedSetQuantities[s.box_no]} of this set`}
+                        className="badge-tooltip-wrapper"
                         style={{
                           position: 'absolute', top: '8px', right: '8px', background: '#e5e5e5', color: '#525252',
                           borderRadius: '12px', padding: '4px 10px', fontSize: '12px', fontWeight: '700', zIndex: 1, cursor: 'help'
                         }}>
                         ×{ownedSetQuantities[s.box_no]}
+                        <span className="badge-tooltip">
+                          {t('setDetail.ownedSetBadgeTooltip', { count: ownedSetQuantities[s.box_no] }) || `You own ${ownedSetQuantities[s.box_no]} of this set`}
+                        </span>
                       </div>
                     )}
                     <div style={{ padding: '16px', height: '180px', display: 'flex', alignItems: 'center',
@@ -1620,12 +1629,15 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                     transition: 'transform 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column', width: '100%', position: 'relative' }}>
                     {ownedSetQuantities[s.box_no] > 0 && (
                       <div
-                        title={t('setDetail.ownedSetBadgeTooltip', { count: ownedSetQuantities[s.box_no] }) || `You own ${ownedSetQuantities[s.box_no]} of this set`}
+                        className="badge-tooltip-wrapper"
                         style={{
                           position: 'absolute', top: '8px', right: '8px', background: '#e5e5e5', color: '#525252',
                           borderRadius: '12px', padding: '4px 10px', fontSize: '12px', fontWeight: '700', zIndex: 1, cursor: 'help'
                         }}>
                         ×{ownedSetQuantities[s.box_no]}
+                        <span className="badge-tooltip">
+                          {t('setDetail.ownedSetBadgeTooltip', { count: ownedSetQuantities[s.box_no] }) || `You own ${ownedSetQuantities[s.box_no]} of this set`}
+                        </span>
                       </div>
                     )}
                     <div style={{ padding: '16px', height: '180px', display: 'flex', alignItems: 'center',
