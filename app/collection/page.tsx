@@ -670,7 +670,8 @@ export default function PersonalCollectionPage() {
                 <div className="condition-filters-mobile" style={{
                   display: 'flex',
                   gap: '8px',
-                  flex: '0 0 auto'
+                  flex: '1 1 auto',
+                  justifyContent: 'flex-end'
                 }}>
                   <button
                     onClick={() => setConditionFilter('all')}
@@ -809,71 +810,12 @@ export default function PersonalCollectionPage() {
                 >
                   {showDecimals ? '.00' : '.0'}
                 </button>
-
-                {/* Search (desktop) - to the right of the other controls */}
-                <div className="collection-search-desktop" style={{
-                  position: 'relative',
-                  flex: '1 1 140px',
-                  minWidth: '120px',
-                  maxWidth: '240px'
-                }}>
-                  <MagnifyingGlassIcon style={{
-                    position: 'absolute',
-                    left: '10px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    width: 'var(--icon-sm)',
-                    height: 'var(--icon-sm)',
-                    color: '#a3a3a3',
-                    pointerEvents: 'none'
-                  }} />
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder={t('collection.searchPlaceholder') || 'Search...'}
-                    style={{
-                      width: '100%',
-                      padding: '8px 32px',
-                      fontSize: 'var(--text-sm)',
-                      color: '#171717',
-                      background: '#ffffff',
-                      border: '1px solid #e5e5e5',
-                      borderRadius: '8px',
-                      outline: 'none',
-                      boxSizing: 'border-box',
-                      fontFamily: 'inherit'
-                    }}
-                  />
-                  {searchQuery && (
-                    <button
-                      onClick={() => setSearchQuery('')}
-                      aria-label={t('collection.clearSearch') || 'Clear search'}
-                      style={{
-                        position: 'absolute',
-                        right: '6px',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                        padding: '4px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#737373'
-                      }}
-                    >
-                      <XMarkIcon style={{ width: 'var(--icon-xs)', height: 'var(--icon-xs)' }} />
-                    </button>
-                  )}
-                </div>
               </div>
             )}
 
-            {/* Search (mobile) - full width row below filters, since the desktop row has no room */}
+            {/* Search Row: its own full-width row, right below the filters/sort row */}
             {collection.length > 0 && (
-              <div className="collection-search-mobile" style={{ position: 'relative', width: '100%' }}>
+              <div style={{ position: 'relative', width: '100%' }}>
                 <MagnifyingGlassIcon style={{
                   position: 'absolute',
                   left: '12px',

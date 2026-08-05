@@ -1819,11 +1819,11 @@ input[type="number"] {
     padding: 32px 24px !important;
   }
 
-  .collection-list-header {
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-  }
+  /* NOTE: collection-list-header intentionally stays flex-direction: column
+     (its inline style) at every breakpoint now - it stacks the filters/sort
+     row, the search row, and the price-update legend as separate rows.
+     It used to force row+space-between here, back when items-filters-sort-row
+     was its only child; with more rows added that forced them onto one line. */
 
   .collection-list-header h2 {
     font-size: var(--text-lg) !important;
@@ -2376,12 +2376,6 @@ select.custom-dropdown.condition-used {
   .collection-controls {
     display: flex !important;
   }
-
-  /* The inline search box has no room on the same line as Items/filters on mobile -
-     use the full-width search row below instead (see .collection-search-mobile) */
-  .collection-search-desktop {
-    display: none !important;
-  }
 }
 
 /* Desktop: show button text and normal layout */
@@ -2412,11 +2406,6 @@ select.custom-dropdown.condition-used {
 
   /* Hide mobile decimal toggle on desktop */
   .decimal-toggle-mobile {
-    display: none !important;
-  }
-
-  /* Search is inline in the filters/sort row on desktop instead */
-  .collection-search-mobile {
     display: none !important;
   }
 }
