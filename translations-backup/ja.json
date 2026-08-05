@@ -1368,7 +1368,10 @@
       "ogDescription": "BrickLink価格を追跡し、現在の市場価値を確認しながらコレクションを管理",
       "twitterDescriptionSuffix": "セット価格ガイド"
     },
-    "newestFrom": "{theme}の最新セット"
+    "newestFrom": "{theme}の最新セット",
+    "ownedMinifigBadgeTooltip": "このミニフィグを{count}個所有しています",
+    "setContentsBadgeTooltip": "このセットにはこのミニフィグが{count}個含まれています",
+    "ownedSetBadgeTooltip": "このセットを{count}個所有しています"
   },
   "subcategoryPage": {
     "minifigureCount": "ミニフィギュア {count} 体",
@@ -2206,7 +2209,9 @@
       "mainImage": "LEGO {name} ミニフィグ {no} - {category}",
       "relatedImage": "LEGO {name} ミニフィグ {no}"
     },
-    "schemaDescription": "{category}テーマのLEGO {name} ミニフィグ {no}。現在のBrickLink価格を追跡し、LEGOコレクションを管理できます。"
+    "schemaDescription": "{category}テーマのLEGO {name} ミニフィグ {no}。現在のBrickLink価格を追跡し、LEGOコレクションを管理できます。",
+    "ownedSetBadgeTooltip": "このセットを{count}個所有しています",
+    "ownedMinifigBadgeTooltip": "このミニフィグを{count}個所有しています"
   },
   "supportLink": {
     "savedYouTime": "時間を節約できましたか？迅速・正確な価格設定をサポート →"

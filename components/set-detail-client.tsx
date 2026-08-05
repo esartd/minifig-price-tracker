@@ -1483,35 +1483,41 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                     e.currentTarget.style.boxShadow = 'none';
                   }}>
                     {ownedMinifigQuantities[m.minifig_no] > 0 && (
-                      <div style={{
-                        position: 'absolute',
-                        top: '8px',
-                        left: '8px',
-                        background: '#e5e5e5',
-                        color: '#525252',
-                        borderRadius: '12px',
-                        padding: '4px 10px',
-                        fontSize: '12px',
-                        fontWeight: '700',
-                        zIndex: 1
-                      }}>
+                      <div
+                        title={t('setDetail.ownedMinifigBadgeTooltip', { count: ownedMinifigQuantities[m.minifig_no] }) || `You own ${ownedMinifigQuantities[m.minifig_no]} of this minifig`}
+                        style={{
+                          position: 'absolute',
+                          top: '8px',
+                          left: '8px',
+                          background: '#e5e5e5',
+                          color: '#525252',
+                          borderRadius: '12px',
+                          padding: '4px 10px',
+                          fontSize: '12px',
+                          fontWeight: '700',
+                          zIndex: 1,
+                          cursor: 'help'
+                        }}>
                         ×{ownedMinifigQuantities[m.minifig_no]}
                       </div>
                     )}
                     {m.quantity > 1 && (
-                      <div style={{
-                        position: 'absolute',
-                        top: '8px',
-                        right: '8px',
-                        background: '#3b82f6',
-                        color: 'white',
-                        borderRadius: '12px',
-                        padding: '4px 10px',
-                        fontSize: '12px',
-                        fontWeight: '700',
-                        zIndex: 1,
-                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-                      }}>
+                      <div
+                        title={t('setDetail.setContentsBadgeTooltip', { count: m.quantity }) || `This set includes ${m.quantity} of this minifig`}
+                        style={{
+                          position: 'absolute',
+                          top: '8px',
+                          right: '8px',
+                          background: '#3b82f6',
+                          color: 'white',
+                          borderRadius: '12px',
+                          padding: '4px 10px',
+                          fontSize: '12px',
+                          fontWeight: '700',
+                          zIndex: 1,
+                          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                          cursor: 'help'
+                        }}>
                         ×{m.quantity}
                       </div>
                     )}
@@ -1578,10 +1584,12 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                   <div style={{ background: 'white', borderRadius: '12px', overflow: 'hidden', border: '1px solid #e5e5e5',
                     transition: 'transform 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column', width: '100%', position: 'relative' }}>
                     {ownedSetQuantities[s.box_no] > 0 && (
-                      <div style={{
-                        position: 'absolute', top: '8px', right: '8px', background: '#e5e5e5', color: '#525252',
-                        borderRadius: '12px', padding: '4px 10px', fontSize: '12px', fontWeight: '700', zIndex: 1
-                      }}>
+                      <div
+                        title={t('setDetail.ownedSetBadgeTooltip', { count: ownedSetQuantities[s.box_no] }) || `You own ${ownedSetQuantities[s.box_no]} of this set`}
+                        style={{
+                          position: 'absolute', top: '8px', right: '8px', background: '#e5e5e5', color: '#525252',
+                          borderRadius: '12px', padding: '4px 10px', fontSize: '12px', fontWeight: '700', zIndex: 1, cursor: 'help'
+                        }}>
                         ×{ownedSetQuantities[s.box_no]}
                       </div>
                     )}
@@ -1611,10 +1619,12 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                   <div style={{ background: 'white', borderRadius: '12px', overflow: 'hidden', border: '1px solid #e5e5e5',
                     transition: 'transform 0.2s', cursor: 'pointer', display: 'flex', flexDirection: 'column', width: '100%', position: 'relative' }}>
                     {ownedSetQuantities[s.box_no] > 0 && (
-                      <div style={{
-                        position: 'absolute', top: '8px', right: '8px', background: '#e5e5e5', color: '#525252',
-                        borderRadius: '12px', padding: '4px 10px', fontSize: '12px', fontWeight: '700', zIndex: 1
-                      }}>
+                      <div
+                        title={t('setDetail.ownedSetBadgeTooltip', { count: ownedSetQuantities[s.box_no] }) || `You own ${ownedSetQuantities[s.box_no]} of this set`}
+                        style={{
+                          position: 'absolute', top: '8px', right: '8px', background: '#e5e5e5', color: '#525252',
+                          borderRadius: '12px', padding: '4px 10px', fontSize: '12px', fontWeight: '700', zIndex: 1, cursor: 'help'
+                        }}>
                         ×{ownedSetQuantities[s.box_no]}
                       </div>
                     )}

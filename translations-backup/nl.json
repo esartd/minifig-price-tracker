@@ -1368,7 +1368,10 @@
       "ogDescription": "Volg BrickLink-prijzen, bekijk de actuele marktwaarde en beheer je collectie",
       "twitterDescriptionSuffix": "set prijsgids"
     },
-    "newestFrom": "Nieuwste sets van {theme}"
+    "newestFrom": "Nieuwste sets van {theme}",
+    "ownedMinifigBadgeTooltip": "Je hebt {count} van dit minifiguurtje",
+    "setContentsBadgeTooltip": "Deze set bevat {count} van dit minifiguurtje",
+    "ownedSetBadgeTooltip": "Je hebt {count} van deze set"
   },
   "subcategoryPage": {
     "minifigureCount": "{count} minifiguur",
@@ -2206,7 +2209,9 @@
       "mainImage": "LEGO {name} Minifiguur {no} - {category}",
       "relatedImage": "LEGO {name} Minifiguur {no}"
     },
-    "schemaDescription": "LEGO {name} Minifiguur {no} uit het {category}-thema. Volg actuele BrickLink-prijzen en beheer je LEGO-collectie."
+    "schemaDescription": "LEGO {name} Minifiguur {no} uit het {category}-thema. Volg actuele BrickLink-prijzen en beheer je LEGO-collectie.",
+    "ownedSetBadgeTooltip": "Je hebt {count} van deze set",
+    "ownedMinifigBadgeTooltip": "Je hebt {count} van dit minifiguurtje"
   },
   "supportLink": {
     "savedYouTime": "Tijd bespaard? Steun snelle, nauwkeurige prijsstelling →"

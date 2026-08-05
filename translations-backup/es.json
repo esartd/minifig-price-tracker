@@ -1386,7 +1386,10 @@
       "ogDescription": "Rastrea precios de BrickLink, consulta el valor de mercado actual y gestiona tu colección",
       "twitterDescriptionSuffix": "guía de precios de sets"
     },
-    "newestFrom": "Sets más nuevos de {theme}"
+    "newestFrom": "Sets más nuevos de {theme}",
+    "ownedMinifigBadgeTooltip": "Tienes {count} de esta minifigura",
+    "setContentsBadgeTooltip": "Este set incluye {count} de esta minifigura",
+    "ownedSetBadgeTooltip": "Tienes {count} de este set"
   },
   "subcategoryPage": {
     "minifigureCount": "{count} minifigura",
@@ -2258,7 +2261,9 @@
       "mainImage": "Minifigura LEGO {name} {no} - {category}",
       "relatedImage": "Minifigura LEGO {name} {no}"
     },
-    "schemaDescription": "Minifigura LEGO {name} {no} del tema {category}. Rastrea los precios actuales de BrickLink y gestiona tu colección LEGO."
+    "schemaDescription": "Minifigura LEGO {name} {no} del tema {category}. Rastrea los precios actuales de BrickLink y gestiona tu colección LEGO.",
+    "ownedSetBadgeTooltip": "Tienes {count} de este set",
+    "ownedMinifigBadgeTooltip": "Tienes {count} de esta minifigura"
   },
   "supportLink": {
     "savedYouTime": "¿Ahorró tiempo? Apoya una fijación de precios rápida y precisa →"

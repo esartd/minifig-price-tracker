@@ -1368,7 +1368,10 @@
       "ogDescription": "Håll koll på BrickLink-priser, se aktuellt marknadsvärde och hantera din samling",
       "twitterDescriptionSuffix": "prisguide för set"
     },
-    "newestFrom": "Nyaste set från {theme}"
+    "newestFrom": "Nyaste set från {theme}",
+    "ownedMinifigBadgeTooltip": "Du äger {count} av denna minifigur",
+    "setContentsBadgeTooltip": "Denna set innehåller {count} av denna minifigur",
+    "ownedSetBadgeTooltip": "Du äger {count} av denna set"
   },
   "subcategoryPage": {
     "minifigureCount": "{count} minifigur",
@@ -2206,7 +2209,9 @@
       "mainImage": "LEGO {name} Minifigur {no} - {category}",
       "relatedImage": "LEGO {name} Minifigur {no}"
     },
-    "schemaDescription": "LEGO {name} Minifigur {no} från temat {category}. Håll koll på aktuella BrickLink-priser och hantera din LEGO-samling."
+    "schemaDescription": "LEGO {name} Minifigur {no} från temat {category}. Håll koll på aktuella BrickLink-priser och hantera din LEGO-samling.",
+    "ownedSetBadgeTooltip": "Du äger {count} av denna set",
+    "ownedMinifigBadgeTooltip": "Du äger {count} av denna minifigur"
   },
   "supportLink": {
     "savedYouTime": "Sparade du tid? Stöd snabb, korrekt prissättning →"

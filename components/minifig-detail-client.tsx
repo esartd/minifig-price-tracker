@@ -2744,36 +2744,22 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       }}
                     >
                       {ownedSetQuantities[set.set_no] > 0 && (
-                        <div style={{
-                          position: 'absolute',
-                          top: '8px',
-                          left: '8px',
-                          background: '#e5e5e5',
-                          color: '#525252',
-                          borderRadius: '12px',
-                          padding: '4px 10px',
-                          fontSize: '12px',
-                          fontWeight: '700',
-                          zIndex: 1
-                        }}>
+                        <div
+                          title={t('minifigDetail.ownedSetBadgeTooltip', { count: ownedSetQuantities[set.set_no] }) || `You own ${ownedSetQuantities[set.set_no]} of this set`}
+                          style={{
+                            position: 'absolute',
+                            top: '8px',
+                            right: '8px',
+                            background: '#e5e5e5',
+                            color: '#525252',
+                            borderRadius: '12px',
+                            padding: '4px 10px',
+                            fontSize: '12px',
+                            fontWeight: '700',
+                            zIndex: 1,
+                            cursor: 'help'
+                          }}>
                           ×{ownedSetQuantities[set.set_no]}
-                        </div>
-                      )}
-                      {set.quantity > 1 && (
-                        <div style={{
-                          position: 'absolute',
-                          top: '8px',
-                          right: '8px',
-                          background: '#3b82f6',
-                          color: 'white',
-                          borderRadius: '12px',
-                          padding: '4px 10px',
-                          fontSize: '12px',
-                          fontWeight: '700',
-                          zIndex: 1,
-                          boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-                        }}>
-                          ×{set.quantity}
                         </div>
                       )}
                       <div className="minifig-variant-image">
@@ -2855,18 +2841,21 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       }}
                     >
                       {ownedMinifigQuantities[related.no] > 0 && (
-                        <div style={{
-                          position: 'absolute',
-                          top: '8px',
-                          right: '8px',
-                          background: '#e5e5e5',
-                          color: '#525252',
-                          borderRadius: '12px',
-                          padding: '4px 10px',
-                          fontSize: '12px',
-                          fontWeight: '700',
-                          zIndex: 1
-                        }}>
+                        <div
+                          title={t('minifigDetail.ownedMinifigBadgeTooltip', { count: ownedMinifigQuantities[related.no] }) || `You own ${ownedMinifigQuantities[related.no]} of this minifig`}
+                          style={{
+                            position: 'absolute',
+                            top: '8px',
+                            right: '8px',
+                            background: '#e5e5e5',
+                            color: '#525252',
+                            borderRadius: '12px',
+                            padding: '4px 10px',
+                            fontSize: '12px',
+                            fontWeight: '700',
+                            zIndex: 1,
+                            cursor: 'help'
+                          }}>
                           ×{ownedMinifigQuantities[related.no]}
                         </div>
                       )}

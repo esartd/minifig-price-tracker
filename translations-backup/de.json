@@ -1386,7 +1386,10 @@
       "titleSuffix": "LEGO Set-Preisführer",
       "twitterDescriptionSuffix": "Set-Preisführer"
     },
-    "newestFrom": "Neueste Sets von {theme}"
+    "newestFrom": "Neueste Sets von {theme}",
+    "ownedMinifigBadgeTooltip": "Du besitzt {count} von dieser Minifigur",
+    "setContentsBadgeTooltip": "Dieses Set enthält {count} dieser Minifigur",
+    "ownedSetBadgeTooltip": "Du besitzt {count} von diesem Set"
   },
   "subcategoryPage": {
     "minifigureCount": "{count} Minifigur",
@@ -2258,7 +2261,9 @@
       "titleSuffix": "LEGO Minifiguren-Preis-Tracker",
       "twitterDescription": "{category} Minifiguren-Preisführer"
     },
-    "schemaDescription": "LEGO {name} Minifigur {no} aus dem {category}-Thema. Verfolge aktuelle BrickLink-Preise und verwalte deine LEGO-Sammlung."
+    "schemaDescription": "LEGO {name} Minifigur {no} aus dem {category}-Thema. Verfolge aktuelle BrickLink-Preise und verwalte deine LEGO-Sammlung.",
+    "ownedSetBadgeTooltip": "Du besitzt {count} von diesem Set",
+    "ownedMinifigBadgeTooltip": "Du besitzt {count} von dieser Minifigur"
   },
   "supportLink": {
     "savedYouTime": "Zeit gespart? Unterstützen Sie schnelle, genaue Preise →"
