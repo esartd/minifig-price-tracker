@@ -2421,7 +2421,11 @@ select.custom-dropdown.condition-used {
 
 .badge-tooltip {
   position: absolute;
-  bottom: calc(100% + 6px);
+  /* Below the badge, not above it - these badges sit near the top of
+     cards that have overflow: hidden (for rounded corners), so a
+     tooltip positioned above the badge renders past the card's edge
+     and gets clipped away entirely. */
+  top: calc(100% + 6px);
   left: 50%;
   transform: translateX(-50%);
   background: #171717;
