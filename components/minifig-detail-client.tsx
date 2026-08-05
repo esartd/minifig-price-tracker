@@ -1,5 +1,4 @@
 'use client';
-// Note: forcing a fresh build hash here on purpose - see commit message.
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -65,6 +64,9 @@ interface MinifigDetailClientProps {
 }
 
 export default function MinifigDetailClient({ minifig, variants, similarSets, appearsInSets = [] }: MinifigDetailClientProps) {
+  if (typeof window !== 'undefined' && window.location.search.includes('__cachebust_9f2a1c')) {
+    console.debug('cachebust marker 9f2a1c');
+  }
   const { t, translations } = useTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
