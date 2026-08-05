@@ -1,4 +1,5 @@
 'use client';
+// Note: forcing a fresh build hash here on purpose - see commit message.
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
