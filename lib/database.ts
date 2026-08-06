@@ -609,10 +609,21 @@ class DatabaseService {
       region: cacheRegion
     }));
 
+    // Return ALL cached prices (including expired ones) - same as
+    // getAllPersonalItems (minifigs). We show stale prices immediately with
+    // the blue-dot indicator while refreshing in the background; this is
+    // compliant since we're actively updating stale data, not ignoring
+    // expiration. Filtering by expires_at here (as this used to) meant a
+    // set's cache row would fall out of this query entirely once expired -
+    // pricing_cached_at would then come back missing instead of "old", so
+    // the frontend's own staleness check never saw a real cached_at to
+    // compare against and re-flagged the item as needing refresh on every
+    // page load, even for items whose refresh had already run recently
+    // (e.g. the short backoff window used when BrickLink's daily budget is
+    // exhausted - see pricing-orchestrator.ts).
     const allPrices = await prisma.priceCache.findMany({
       where: {
-        OR: priceCacheKeys,
-        expires_at: { gt: new Date() }
+        OR: priceCacheKeys
       }
     });
 
@@ -644,13 +655,16 @@ class DatabaseService {
         };
       }
 
+      // No cache for this region - return zeros (will trigger background fetch)
+      // IMPORTANT: Don't set pricing_cached_at here - absence signals "never cached"
       return {
         ...item,
         pricing_six_month_avg: 0,
         pricing_current_avg: 0,
         pricing_current_lowest: 0,
         pricing_suggested_price: 0,
-        pricing_currency_code: undefined
+        pricing_currency_code: undefined,
+        pricing_cached_at: null // Explicitly null = needs initial fetch
       };
     });
 
@@ -736,10 +750,10 @@ class DatabaseService {
       region: cacheRegion
     }));
 
+    // See getAllSetInventoryItems for why this must not filter by expires_at
     const allPrices = await prisma.priceCache.findMany({
       where: {
-        OR: priceCacheKeys,
-        expires_at: { gt: new Date() }
+        OR: priceCacheKeys
       }
     });
 
@@ -769,13 +783,16 @@ class DatabaseService {
         };
       }
 
+      // No cache for this region - return zeros (will trigger background fetch)
+      // IMPORTANT: Don't set pricing_cached_at here - absence signals "never cached"
       return {
         ...item,
         pricing_six_month_avg: 0,
         pricing_current_avg: 0,
         pricing_current_lowest: 0,
         pricing_suggested_price: 0,
-        pricing_currency_code: undefined
+        pricing_currency_code: undefined,
+        pricing_cached_at: null // Explicitly null = needs initial fetch
       };
     });
 
