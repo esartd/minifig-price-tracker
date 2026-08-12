@@ -335,10 +335,17 @@ export async function GET() {
       totalItemsTracked += qty.minifigs + qty.sets
     }
 
-    // Shuffle spotlight using id chars for variation
-    const shuffled = [...spotlightCandidates].sort((a, b) =>
-      (a.id.charCodeAt(3) || 0) % 11 - (b.id.charCodeAt(3) || 0) % 11
-    )
+    // Shuffle spotlight candidates for genuine per-request variety (the UI
+    // subtitle promises "Changes each visit"). The previous sort compared a
+    // fixed character of each user's database id - since ids never change,
+    // that produced the exact same 4 people on every single call. Verified
+    // live: 3 consecutive requests returned an identical list. Fisher-Yates
+    // with Math.random() actually varies per request.
+    const shuffled = [...spotlightCandidates]
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+    }
     const spotlight = shuffled.slice(0, 4).map(toCard)
 
     const payload = {
