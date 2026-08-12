@@ -46,7 +46,7 @@ interface Specialist {
 }
 
 interface RecentActivityItem {
-  minifigureNo: string;
+  itemNo: string;
   name: string;
   imageUrl: string | null;
   addedAt: string;
@@ -542,7 +542,7 @@ export default function CollectorsPage() {
                   <SectionHeader icon={<FireIcon style={{ width: 18, height: 18 }} />} color="#f97316" title={tx(translations, 'collectors.directory.beingAddedNow') || 'Being Added Right Now'} sub={tx(translations, 'collectors.directory.beingAddedNowSub') || 'Latest minifigs across the community'} />
                   <div style={{ backgroundColor: '#fff', border: '1px solid #e5e5e5', borderRadius: '16px', padding: '6px 4px' }}>
                     {stats.recentActivity.map((item, i) => (
-                      <RecentActivityRow key={`${item.minifigureNo}-${i}`} item={item} />
+                      <RecentActivityRow key={`${item.itemNo}-${i}`} item={item} />
                     ))}
                   </div>
                 </div>

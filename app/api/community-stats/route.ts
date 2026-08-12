@@ -143,22 +143,45 @@ export async function GET() {
       })
     }
 
-    // Recent activity: last 20 items added across all public collectors
+    // Recent activity: last 40 items added across all public collectors.
+    // This used to only query CollectionItem (minifigs "for sale"), missing
+    // PersonalCollectionItem ("to keep") and both set tables entirely - so
+    // if most community activity was people adding to their personal
+    // collection or adding sets rather than sell inventory specifically,
+    // this feed surfaced only sparse, increasingly old "for sale" additions
+    // (reported: entries showing as 48-64 days old on a "right now" feed).
+    // Union all 4 sources, same pattern already used for rawQtyTotals above.
     const recentActivityRaw = await prisma.$queryRaw<{
-      minifigure_no: string;
-      minifigure_name: string | null;
+      item_no: string;
+      item_name: string | null;
       image_url: string | null;
       date_added: Date | null;
       userId: string;
     }[]>`
-      SELECT ci.minifigure_no, ci.minifigure_name, ci.image_url, ci.date_added, ci.userId
-      FROM CollectionItem ci
-      INNER JOIN User u ON u.id = ci.userId
-      WHERE u.profilePublic = true
-        AND ci.minifigure_name IS NOT NULL
-        AND ci.date_added IS NOT NULL
-      ORDER BY ci.date_added DESC
-      LIMIT 20
+      SELECT item_no, item_name, image_url, date_added, userId
+      FROM (
+        SELECT ci.minifigure_no AS item_no, ci.minifigure_name AS item_name, ci.image_url, ci.date_added, ci.userId
+        FROM CollectionItem ci
+        INNER JOIN User u ON u.id = ci.userId
+        WHERE u.profilePublic = true AND ci.minifigure_name IS NOT NULL AND ci.date_added IS NOT NULL
+        UNION ALL
+        SELECT pci.minifigure_no AS item_no, pci.minifigure_name AS item_name, pci.image_url, pci.date_added, pci.userId
+        FROM PersonalCollectionItem pci
+        INNER JOIN User u ON u.id = pci.userId
+        WHERE u.profilePublic = true AND pci.minifigure_name IS NOT NULL AND pci.date_added IS NOT NULL
+        UNION ALL
+        SELECT si.box_no AS item_no, si.set_name AS item_name, si.image_url, si.date_added, si.userId
+        FROM SetInventoryItem si
+        INNER JOIN User u ON u.id = si.userId
+        WHERE u.profilePublic = true AND si.set_name IS NOT NULL AND si.date_added IS NOT NULL
+        UNION ALL
+        SELECT spci.box_no AS item_no, spci.set_name AS item_name, spci.image_url, spci.date_added, spci.userId
+        FROM SetPersonalCollectionItem spci
+        INNER JOIN User u ON u.id = spci.userId
+        WHERE u.profilePublic = true AND spci.set_name IS NOT NULL AND spci.date_added IS NOT NULL
+      ) combined
+      ORDER BY date_added DESC
+      LIMIT 40
     `
 
     function toCard(u: (typeof allPublicUsers)[0]) {
@@ -260,7 +283,7 @@ export async function GET() {
     // Recent activity: up to 5 items, max 2 per user for variety
     const seenUserCounts = new Map<string, number>()
     const recentActivity: {
-      minifigureNo: string;
+      itemNo: string;
       name: string;
       imageUrl: string | null;
       addedAt: string;
@@ -273,8 +296,8 @@ export async function GET() {
       if (!u) continue
       seenUserCounts.set(row.userId, userCount + 1)
       recentActivity.push({
-        minifigureNo: row.minifigure_no,
-        name: row.minifigure_name!,
+        itemNo: row.item_no,
+        name: row.item_name!,
         imageUrl: row.image_url,
         addedAt: row.date_added!.toISOString(),
         user: {
