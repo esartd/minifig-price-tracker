@@ -1,6 +1,12 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { generateDefaultDisplayName } from '@/lib/leaderboards'
+import { THEME_OVERRIDES } from '@/lib/theme-main-characters'
+
+function themeImageFor(theme: string): string | null {
+  const minifigNo = THEME_OVERRIDES[theme]
+  return minifigNo ? `/api/images/minifig/${minifigNo}` : null
+}
 
 export const dynamic = 'force-dynamic'
 
@@ -270,13 +276,13 @@ export async function GET() {
       'The Hobbit and The Lord of the Rings', 'Avatar', 'Batman I',
     ]
 
-    const themeLeaders: { theme: string; user: ReturnType<typeof toCard>; count: number }[] = []
+    const themeLeaders: { theme: string; themeImage: string | null; user: ReturnType<typeof toCard>; count: number }[] = []
     for (const [theme, { userId, count }] of themeTopMap.entries()) {
       if (count < 3) continue
       if (!POPULAR_THEMES.includes(theme)) continue
       const u = userById.get(userId)
       if (!u) continue
-      themeLeaders.push({ theme, user: toCard(u), count })
+      themeLeaders.push({ theme, themeImage: themeImageFor(theme), user: toCard(u), count })
     }
     themeLeaders.sort((a, b) => {
       const aP = POPULAR_THEMES.indexOf(a.theme)

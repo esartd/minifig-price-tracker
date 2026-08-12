@@ -35,6 +35,7 @@ interface CollectorCard {
 
 interface ThemeLeader {
   theme: string;
+  themeImage: string | null;
   user: CollectorCard;
   count: number;
 }
@@ -211,6 +212,7 @@ function RankCard({ title, icon, color, users, getSuffix }: {
 function ThemeLeaderCard({ leader }: { leader: ThemeLeader }) {
   const { translations } = useTranslation();
   const [err, setErr] = useState(false);
+  const [themeImgErr, setThemeImgErr] = useState(false);
   const initials = leader.user.displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
   return (
     <Link href={`/collectors/${leader.user.profileSlug}`} style={{ textDecoration: 'none' }}>
@@ -227,8 +229,21 @@ function ThemeLeaderCard({ leader }: { leader: ThemeLeader }) {
           width: 40, height: 40, borderRadius: '10px', flexShrink: 0,
           backgroundColor: avatarColor(leader.user.profileSlug) + '18',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
+          overflow: 'hidden',
         }}>
-          <TagIcon style={{ width: 18, height: 18, color: avatarColor(leader.user.profileSlug) }} />
+          {leader.themeImage && !themeImgErr ? (
+            <Image
+              src={leader.themeImage}
+              alt={leader.theme}
+              width={40}
+              height={40}
+              unoptimized
+              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+              onError={() => setThemeImgErr(true)}
+            />
+          ) : (
+            <TagIcon style={{ width: 18, height: 18, color: avatarColor(leader.user.profileSlug) }} />
+          )}
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <p style={{ margin: '0 0 2px', fontSize: '11px', fontWeight: 700, color: '#a3a3a3', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
