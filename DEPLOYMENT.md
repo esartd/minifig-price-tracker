@@ -175,7 +175,7 @@ Providers that work with GitHub Actions:
 
 **VPS Details:**
 - Provider: Hostinger VPS
-- IP: `137.184.34.143`
+- IP: `187.77.202.14`
 - OS: Ubuntu
 - Process Manager: PM2 (cluster mode, 2 instances)
 - Domain: figtracker.ericksu.com
