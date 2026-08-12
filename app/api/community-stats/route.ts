@@ -79,7 +79,8 @@ export async function GET() {
       }),
     ])
 
-    // Theme counts (reused for theme leaders + specialists)
+    // Theme counts, minifigs only - used for Theme Leaders ("who has the
+    // most minifigs per theme", explicitly minifig-scoped by its own label).
     // UNION both inventory + personal collection, SUM quantity, strip sub-themes
     const rawThemeCounts = await prisma.$queryRaw<{ userId: string; category_name: string; cnt: bigint }[]>`
       SELECT userId, SUBSTRING_INDEX(category_name, ' / ', 1) AS category_name, SUM(qty) AS cnt
@@ -96,6 +97,43 @@ export async function GET() {
         INNER JOIN MinifigCatalog mc ON mc.minifigure_no = pci.minifigure_no
         INNER JOIN User u ON u.id = pci.userId
         WHERE mc.category_name IS NOT NULL AND mc.category_name != ''
+          AND u.profilePublic = true
+      ) combined
+      GROUP BY userId, SUBSTRING_INDEX(category_name, ' / ', 1)
+      ORDER BY cnt DESC
+    `
+
+    // Theme counts across minifigs AND sets - used for Specialists ("80%+ of
+    // their collection is one theme", which unlike Theme Leaders is labeled
+    // as the whole collection, not minifigs specifically). Sets already
+    // carry their own denormalized category_name, no catalog join needed.
+    const rawThemeCountsAll = await prisma.$queryRaw<{ userId: string; category_name: string; cnt: bigint }[]>`
+      SELECT userId, SUBSTRING_INDEX(category_name, ' / ', 1) AS category_name, SUM(qty) AS cnt
+      FROM (
+        SELECT ci.userId, mc.category_name, ci.quantity AS qty
+        FROM CollectionItem ci
+        INNER JOIN MinifigCatalog mc ON mc.minifigure_no = ci.minifigure_no
+        INNER JOIN User u ON u.id = ci.userId
+        WHERE mc.category_name IS NOT NULL AND mc.category_name != ''
+          AND u.profilePublic = true
+        UNION ALL
+        SELECT pci.userId, mc.category_name, pci.quantity AS qty
+        FROM PersonalCollectionItem pci
+        INNER JOIN MinifigCatalog mc ON mc.minifigure_no = pci.minifigure_no
+        INNER JOIN User u ON u.id = pci.userId
+        WHERE mc.category_name IS NOT NULL AND mc.category_name != ''
+          AND u.profilePublic = true
+        UNION ALL
+        SELECT si.userId, si.category_name, si.quantity AS qty
+        FROM SetInventoryItem si
+        INNER JOIN User u ON u.id = si.userId
+        WHERE si.category_name IS NOT NULL AND si.category_name != ''
+          AND u.profilePublic = true
+        UNION ALL
+        SELECT spci.userId, spci.category_name, spci.quantity AS qty
+        FROM SetPersonalCollectionItem spci
+        INNER JOIN User u ON u.id = spci.userId
+        WHERE spci.category_name IS NOT NULL AND spci.category_name != ''
           AND u.profilePublic = true
       ) combined
       GROUP BY userId, SUBSTRING_INDEX(category_name, ' / ', 1)
@@ -200,8 +238,7 @@ export async function GET() {
 
     const userById = new Map(allPublicUsers.map(u => [u.id, u]))
 
-    // Build per-user theme map (for specialists) and global theme top map (for theme leaders)
-    const userThemeMap = new Map<string, Map<string, number>>()
+    // Global theme top map (for Theme Leaders - minifigs only)
     const themeTopMap = new Map<string, { userId: string; count: number }>()
 
     for (const row of rawThemeCounts) {
@@ -209,15 +246,20 @@ export async function GET() {
       if (!theme) continue
       const count = Number(row.cnt)
 
-      // Theme leaders: track top user per theme
       const existing = themeTopMap.get(theme)
       if (!existing || count > existing.count) {
         themeTopMap.set(theme, { userId: row.userId, count })
       }
+    }
 
-      // Specialists: accumulate per-user theme counts
-      if (!userThemeMap.has(row.userId)) userThemeMap.set(row.userId, new Map())
-      userThemeMap.get(row.userId)!.set(theme, count)
+    // Per-user theme map across minifigs AND sets (for Specialists)
+    const userThemeMapAll = new Map<string, Map<string, number>>()
+    for (const row of rawThemeCountsAll) {
+      const theme = row.category_name
+      if (!theme) continue
+      const count = Number(row.cnt)
+      if (!userThemeMapAll.has(row.userId)) userThemeMapAll.set(row.userId, new Map())
+      userThemeMapAll.get(row.userId)!.set(theme, count)
     }
 
     // Exact top-level category names as stored in MinifigCatalog
@@ -245,9 +287,9 @@ export async function GET() {
       return b.count - a.count
     })
 
-    // Specialists: collectors where 80%+ of their catalogued minifigs are one theme
+    // Specialists: collectors where 80%+ of their collection (minifigs + sets) is one theme
     const specialists: { user: ReturnType<typeof toCard>; theme: string; pct: number }[] = []
-    for (const [userId, themeMap] of userThemeMap.entries()) {
+    for (const [userId, themeMap] of userThemeMapAll.entries()) {
       const u = userById.get(userId)
       if (!u) continue
       let total = 0
