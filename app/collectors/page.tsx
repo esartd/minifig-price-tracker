@@ -227,7 +227,7 @@ function ThemeLeaderCard({ leader }: { leader: ThemeLeader }) {
       >
         <div style={{
           width: 40, height: 40, borderRadius: '10px', flexShrink: 0,
-          backgroundColor: avatarColor(leader.user.profileSlug) + '18',
+          backgroundColor: leader.themeImage && !themeImgErr ? '#ffffff' : avatarColor(leader.user.profileSlug) + '18',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           overflow: 'hidden',
         }}>
