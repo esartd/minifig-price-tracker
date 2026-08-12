@@ -122,6 +122,10 @@ export async function GET(request: NextRequest) {
           count: inventoryTotal + personalTotal,
         };
       })
+      // Exclude opted-in users with zero items this period - otherwise a
+      // leaderboard with fewer than 5 real collectors backfills the
+      // remaining ranks with 0-count users (e.g. "#3 - 0 minifigs").
+      .filter((collector) => collector.count > 0)
       .sort((a, b) => b.count - a.count)
       .slice(0, 5)
       .map((collector, index) => ({ ...collector, rank: index + 1 }));
@@ -137,6 +141,7 @@ export async function GET(request: NextRequest) {
           count: inventoryTotal + personalTotal,
         };
       })
+      .filter((collector) => collector.count > 0)
       .sort((a, b) => b.count - a.count)
       .slice(0, 5)
       .map((collector, index) => ({ ...collector, rank: index + 1 }));

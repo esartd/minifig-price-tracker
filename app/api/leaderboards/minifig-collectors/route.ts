@@ -70,8 +70,13 @@ export async function GET(request: NextRequest) {
       };
     });
 
-    // Sort by count descending and take top 5
+    // Sort by count descending and take top 5 - excluding opted-in users with
+    // zero minifigs this period. Without this filter, a leaderboard with
+    // fewer than 5 real collectors backfilled the remaining ranks with
+    // 0-count users in whatever order Prisma happened to return them,
+    // showing e.g. "#3 - 0 minifigs" on a "Top Collectors" list.
     const topCollectors = collectorsWithCounts
+      .filter((collector) => collector.count > 0)
       .sort((a, b) => b.count - a.count)
       .slice(0, 5)
       .map((collector, index) => ({
