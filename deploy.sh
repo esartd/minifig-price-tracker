@@ -66,6 +66,9 @@ git pull
 echo "📦 Installing dependencies..."
 npm install --production
 
+echo "🗄️  Applying database migrations..."
+npx prisma migrate deploy
+
 echo "🔨 Building application (this may take 1-2 minutes)..."
 npm run build
 

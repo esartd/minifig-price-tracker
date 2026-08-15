@@ -69,8 +69,11 @@ export function middleware(request: NextRequest) {
   const { hostname, pathname } = request.nextUrl
   const userAgent = request.headers.get('user-agent')?.toLowerCase() || ''
 
-  // Always pass health checks and robots.txt
-  if (pathname === '/api/health' || pathname === '/robots.txt') {
+  // Always pass health checks, robots.txt, and the Stripe webhook (auth is
+  // via signature verification inside the route, not UA/IP -- Stripe's
+  // webhook senders share an IP pool across all merchants and would
+  // otherwise trip rate limiting or a bot-detection rule below)
+  if (pathname === '/api/health' || pathname === '/robots.txt' || pathname === '/api/stripe/webhook') {
     return NextResponse.next()
   }
 

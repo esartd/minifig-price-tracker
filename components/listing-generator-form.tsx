@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from '@/components/TranslationProvider';
 
 interface CollectionItem {
-  id: string;
+  /** Real collection-row id -- absent when generating without adding to a
+   * collection first (premium bypass flow), since there's no row yet. */
+  id?: string;
   minifigure_no: string;
   minifigure_name: string;
   quantity: number;
@@ -27,6 +29,14 @@ interface ListingGeneratorFormProps {
   hasMinifigs?: boolean;
   /** BrickLink category name for the set - used to detect polybags */
   categoryName?: string;
+  /**
+   * Full generate-listing endpoint URL to POST to. Replaces the previous
+   * item.id-derived ternary so this form works both for real collection
+   * rows (/api/{inventory|set-inventory}/[id]/generate-listing) and the
+   * premium bypass flow with no collection row
+   * (/api/{minifigs|sets}/[itemNo|boxNo]/generate-listing).
+   */
+  generateEndpoint: string;
 }
 
 interface ListingPreferences {
@@ -69,7 +79,7 @@ const DEFAULT_PREFERENCES: ListingPreferences = {
   shipsWithTracking: true,
 };
 
-export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType = 'minifig', hasMinifigs = true, categoryName }: ListingGeneratorFormProps) {
+export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType = 'minifig', hasMinifigs = true, categoryName, generateEndpoint }: ListingGeneratorFormProps) {
   const { t } = useTranslation();
   // Poly bags, foil packs, and paper bags ship in a sealed plastic/paper bag, not a box - use the right word in the form too
   // Matches the detection convention used in lib/boxes-data.ts (category for polybags, name for foil packs),
@@ -157,7 +167,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
     }));
     setPreview(null);
     setShowDetailedForm(false);
-  }, [item.id, item.condition]);
+  }, [generateEndpoint, item.condition]);
 
   const [formData, setFormData] = useState({
     platform: 'facebook' as 'facebook' | 'ebay' | 'bricklink' | 'vinted',
@@ -186,14 +196,12 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
   const handleGenerate = async () => {
     setLoading(true);
     try {
-      const endpoint = itemType === 'set'
-        ? `/api/set-inventory/${item.id}/generate-listing`
-        : `/api/inventory/${item.id}/generate-listing`;
-      const response = await fetch(endpoint, {
+      const response = await fetch(generateEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
+          condition: item.condition,
           minifigures_included: showMinifiguresOption ? formData.minifigures_included : undefined,
           preferences
         })
@@ -259,14 +267,12 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
 
     setLoading(true);
     try {
-      const endpoint = itemType === 'set'
-        ? `/api/set-inventory/${item.id}/generate-listing`
-        : `/api/inventory/${item.id}/generate-listing`;
-      const response = await fetch(endpoint, {
+      const response = await fetch(generateEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...quickFormData,
+          condition: item.condition,
           minifigures_included: showMinifiguresOption ? quickFormData.minifigures_included : undefined,
           preferences
         })

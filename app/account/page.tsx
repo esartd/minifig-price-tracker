@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useSession, signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { getCurrenciesByContinent, SUPPORTED_CURRENCIES } from '@/lib/currency-config';
 import { formatPrice } from '@/lib/format-price';
@@ -12,6 +12,7 @@ export default function AccountPage() {
   const { t, locale } = useTranslation();
   const { data: session, update } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
@@ -72,6 +73,16 @@ export default function AccountPage() {
   // Public profile states
   const [profilePublic, setProfilePublic] = useState(true);
   const [savingProfileVisibility, setSavingProfileVisibility] = useState(false);
+
+  // Premium subscription states
+  const [subscription, setSubscription] = useState<{
+    isPremium: boolean;
+    status: string | null;
+    renewsAt: string | null;
+    cancelsAt: string | null;
+  } | null>(null);
+  const [loadingSubscription, setLoadingSubscription] = useState(true);
+  const [billingLoading, setBillingLoading] = useState(false);
 
   useEffect(() => {
     if (session?.user?.name) {
@@ -234,9 +245,79 @@ export default function AccountPage() {
     }
   }, [session]);
 
+  // Fetch premium subscription status
+  useEffect(() => {
+    const fetchSubscription = async () => {
+      try {
+        const response = await fetch('/api/user/subscription');
+        const data = await response.json();
+        if (data.success) setSubscription(data.data);
+      } catch (error) {
+        console.error('Failed to fetch subscription status:', error);
+      } finally {
+        setLoadingSubscription(false);
+      }
+    };
+
+    if (session?.user) {
+      fetchSubscription();
+    } else {
+      setLoadingSubscription(false);
+    }
+  }, [session]);
+
+  // One-time toast after returning from Stripe Checkout
+  useEffect(() => {
+    const upgrade = searchParams?.get('upgrade');
+    if (upgrade === 'success') {
+      showMessage('success', t('account.premium.messages.upgradeSuccess') || 'Welcome to Premium!');
+    } else if (upgrade === 'cancelled') {
+      showMessage('error', t('account.premium.messages.upgradeCancelled') || 'Checkout was cancelled.');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
   const showMessage = (type: 'success' | 'error', text: string) => {
     setMessage({ type, text });
     setTimeout(() => setMessage(null), 5000);
+  };
+
+  const handleUpgrade = async (plan: 'monthly' | 'yearly') => {
+    setBillingLoading(true);
+    try {
+      const response = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan }),
+      });
+      const data = await response.json();
+      if (data.success && data.url) {
+        window.location.href = data.url;
+      } else {
+        showMessage('error', data.error || t('account.messages.genericError'));
+        setBillingLoading(false);
+      }
+    } catch {
+      showMessage('error', t('account.messages.genericError'));
+      setBillingLoading(false);
+    }
+  };
+
+  const handleManageSubscription = async () => {
+    setBillingLoading(true);
+    try {
+      const response = await fetch('/api/stripe/portal', { method: 'POST' });
+      const data = await response.json();
+      if (data.success && data.url) {
+        window.location.href = data.url;
+      } else {
+        showMessage('error', data.error || t('account.messages.genericError'));
+        setBillingLoading(false);
+      }
+    } catch {
+      showMessage('error', t('account.messages.genericError'));
+      setBillingLoading(false);
+    }
   };
 
   const handleNameUpdate = async (e: React.FormEvent) => {
@@ -962,6 +1043,109 @@ export default function AccountPage() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Premium Section */}
+        <div className="account-section" style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          padding: '24px 16px',
+          marginBottom: '32px',
+          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+        }}>
+          <h2 style={{
+            fontSize: 'var(--text-lg)',
+            fontWeight: '600',
+            color: '#171717',
+            marginBottom: '8px',
+            letterSpacing: '-0.01em'
+          }}>
+            {t('account.premium.title') || 'Premium'}
+          </h2>
+
+          {loadingSubscription ? (
+            <p style={{ fontSize: 'var(--text-sm)', color: '#737373' }}>
+              {t('account.premium.loading') || 'Loading...'}
+            </p>
+          ) : subscription?.isPremium ? (
+            <div>
+              {subscription.status === 'past_due' || subscription.status === 'unpaid' ? (
+                <p style={{ fontSize: 'var(--text-sm)', color: '#b91c1c', marginBottom: '16px', lineHeight: '1.5' }}>
+                  {t('account.premium.paymentIssue') || 'There was a problem with your last payment. Please update your billing details.'}
+                </p>
+              ) : subscription.cancelsAt ? (
+                <p style={{ fontSize: 'var(--text-sm)', color: '#737373', marginBottom: '16px', lineHeight: '1.5' }}>
+                  {(t('account.premium.cancelsAt') || 'Premium active — access ends {date}').replace(
+                    '{date}',
+                    new Date(subscription.cancelsAt).toLocaleDateString(locale)
+                  )}
+                </p>
+              ) : (
+                <p style={{ fontSize: 'var(--text-sm)', color: '#737373', marginBottom: '16px', lineHeight: '1.5' }}>
+                  {(t('account.premium.renewsAt') || 'Premium active — renews {date}').replace(
+                    '{date}',
+                    subscription.renewsAt ? new Date(subscription.renewsAt).toLocaleDateString(locale) : ''
+                  )}
+                </p>
+              )}
+              <button
+                onClick={handleManageSubscription}
+                disabled={billingLoading}
+                style={{
+                  padding: '10px 20px',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: '600',
+                  color: '#171717',
+                  background: '#ffffff',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '8px',
+                  cursor: billingLoading ? 'not-allowed' : 'pointer',
+                }}
+              >
+                {t('account.premium.manageSubscription') || 'Manage Subscription'}
+              </button>
+            </div>
+          ) : (
+            <div>
+              <p style={{ fontSize: 'var(--text-sm)', color: '#737373', marginBottom: '16px', lineHeight: '1.5' }}>
+                {t('account.premium.pitch') || 'Generate listings for any minifig or set without adding it to your collection first.'}
+              </p>
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <button
+                  onClick={() => handleUpgrade('monthly')}
+                  disabled={billingLoading}
+                  style={{
+                    padding: '10px 20px',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '600',
+                    color: '#ffffff',
+                    background: billingLoading ? '#a3a3a3' : '#171717',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: billingLoading ? 'not-allowed' : 'pointer',
+                  }}
+                >
+                  {t('account.premium.upgradeMonthly') || 'Upgrade — Monthly'}
+                </button>
+                <button
+                  onClick={() => handleUpgrade('yearly')}
+                  disabled={billingLoading}
+                  style={{
+                    padding: '10px 20px',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '600',
+                    color: '#171717',
+                    background: '#ffffff',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    cursor: billingLoading ? 'not-allowed' : 'pointer',
+                  }}
+                >
+                  {t('account.premium.upgradeYearly') || 'Upgrade — Yearly'}
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Public Profile & Leaderboards Section */}

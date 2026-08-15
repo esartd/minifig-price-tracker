@@ -481,6 +481,21 @@
       "updateSuccess": "Ranglisten-Einstellungen erfolgreich aktualisiert!",
       "visibilityError": "Fehler beim Aktualisieren der Sichtbarkeit",
       "yourProfile": "Dein Profil:"
+    },
+    "premium": {
+      "title": "Premium",
+      "loading": "Loading...",
+      "pitch": "Generate listings for any minifig or set without adding it to your collection first.",
+      "upgradeMonthly": "Upgrade — Monthly",
+      "upgradeYearly": "Upgrade — Yearly",
+      "manageSubscription": "Manage Subscription",
+      "renewsAt": "Premium active — renews {date}",
+      "cancelsAt": "Premium active — access ends {date}",
+      "paymentIssue": "There was a problem with your last payment. Please update your billing details.",
+      "messages": {
+        "upgradeSuccess": "Welcome to Premium!",
+        "upgradeCancelled": "Checkout was cancelled."
+      }
     }
   },
   "search": {
@@ -2707,5 +2722,12 @@
     "success": "Verifiziert! Du wirst weitergeleitet...",
     "tryAgain": "Erneut versuchen",
     "waitHint": "Das dauert normalerweise nur ein paar Sekunden..."
+  },
+  "premium": {
+    "upgradeTeaser": {
+      "title": "Generate a listing without adding this to your collection",
+      "body": "This is a Premium feature. Upgrade to skip the collection step entirely.",
+      "cta": "Upgrade to Premium"
+    }
   }
 }

@@ -10,6 +10,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import SetAdCard from '@/components/SetAdCard';
 import MoveDialog from '@/components/MoveDialog';
 import ListingGeneratorForm from '@/components/listing-generator-form';
+import UpgradeTeaser from '@/components/UpgradeTeaser';
 import SetCardImage from '@/components/SetCard';
 import AuthRequiredModal from '@/components/AuthRequiredModal';
 import SaveCollectionModal from '@/components/SaveCollectionModal';
@@ -82,6 +83,27 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       })
       .catch(() => {}); // Non-critical UI enhancement - fail silently
   }, [session?.user, minifigs, themeSets, closeRangeSets]);
+
+  // Premium subscription status, for the listing-generator bypass shown to
+  // subscribers who haven't added this set to their collection yet.
+  // premiumChecked stays false while logged in and the check is in flight,
+  // so a real premium user never sees the upgrade teaser flash before their
+  // status loads -- logged-out users are never premium, so there's nothing
+  // to wait for and this is true immediately.
+  const [isPremium, setIsPremium] = useState(false);
+  const [premiumChecked, setPremiumChecked] = useState(!session?.user);
+  useEffect(() => {
+    if (!session?.user) {
+      setPremiumChecked(true);
+      return;
+    }
+    setPremiumChecked(false);
+    fetch('/api/user/subscription')
+      .then(res => res.json())
+      .then(data => setIsPremium(!!data?.data?.isPremium))
+      .catch(() => {})
+      .finally(() => setPremiumChecked(true));
+  }, [session?.user]);
 
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -897,6 +919,40 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                     </div>
                   )}
 
+                  {/* Premium bypass: generate a listing without adding to
+                      collection first. Only shown when the user owns
+                      neither a for-sale nor to-keep entry for this set --
+                      once either exists, the regular collection-backed
+                      generator above takes over. */}
+                  {!inventoryItem && !personalCollectionItem && premiumChecked && (
+                    isPremium ? (
+                      <div style={{ marginTop: '24px' }}>
+                        <ListingGeneratorForm
+                          item={{
+                            minifigure_no: set.box_no,
+                            minifigure_name: set.name,
+                            quantity: 1,
+                            condition: 'new',
+                          }}
+                          generateEndpoint={`/api/sets/${set.box_no}/generate-listing`}
+                          itemType="set"
+                          hasMinifigs={minifigs.length > 0}
+                          categoryName={set.category_name}
+                          onSuccess={() => {
+                            alert(t('minifigDetail.listingSaved'));
+                          }}
+                          onOpen={() => {
+                            setSuccessMessage('');
+                            setSuccessVariant(null);
+                            setError('');
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <UpgradeTeaser />
+                    )
+                  )}
+
                   {inventoryItem && (
                     <>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
@@ -973,6 +1029,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                       <div style={{ marginTop: '16px' }}>
                         <ListingGeneratorForm
                           item={{...inventoryItem, minifigure_no: inventoryItem.box_no, minifigure_name: inventoryItem.set_name}}
+                          generateEndpoint={`/api/set-inventory/${inventoryItem.id}/generate-listing`}
                           itemType="set"
                           hasMinifigs={minifigs.length > 0}
                           categoryName={set.category_name}

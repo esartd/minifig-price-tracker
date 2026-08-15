@@ -308,12 +308,18 @@ model User {
   locale                     String?                     @default("en-US")
   createdAt                  DateTime                    @default(now())
   updatedAt                  DateTime                    @updatedAt
+  // Unused -- belonged to an abandoned AI-scanner-credits feature. Do NOT
+  // reuse this for premium/subscription gating; see subscriptionStatus below.
   scanCredits                Int                         @default(0)
-  stripeCustomerId           String?
-  stripeSubscriptionId       String?
+  stripeCustomerId           String?                     @unique
+  stripeSubscriptionId       String?                     @unique
   subscriptionEndsAt         DateTime?
   subscriptionPlan           String?
+  // Mirrors Stripe Subscription.status verbatim: active | trialing |
+  // past_due | unpaid | canceled | incomplete | incomplete_expired | paused
   subscriptionStatus         String?
+  // true = user canceled but retains access until subscriptionEndsAt
+  subscriptionCancelAtPeriodEnd Boolean                  @default(false)
   showOnMinifigLeaderboard   Boolean?                    @default(true)
   showOnSetLeaderboard       Boolean?                    @default(true)
   leaderboardDisplayName     String?
@@ -351,6 +357,7 @@ model User {
 
   @@index([username])
   @@index([profilePublic])
+  @@index([subscriptionStatus])
 }
 
 model Sponsor {

@@ -9,6 +9,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import AddToCollectionForm from '@/components/search/AddToCollectionForm';
 import ListingGeneratorForm from '@/components/listing-generator-form';
+import UpgradeTeaser from '@/components/UpgradeTeaser';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SetAdCard from '@/components/SetAdCard';
 import MoveDialog from '@/components/MoveDialog';
@@ -98,6 +99,28 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       })
       .catch(() => {}); // Non-critical UI enhancement - fail silently
   }, [session?.user, similarSets, appearsInSets, variants]);
+
+  // Premium subscription status, for the listing-generator bypass shown to
+  // subscribers who haven't added this minifig to their collection yet.
+  // premiumChecked stays false while logged in and the check is in flight,
+  // so a real premium user never sees the upgrade teaser flash before their
+  // status loads -- logged-out users are never premium, so there's nothing
+  // to wait for and this is true immediately.
+  const [isPremium, setIsPremium] = useState(false);
+  const [premiumChecked, setPremiumChecked] = useState(!session?.user);
+  useEffect(() => {
+    if (!session?.user) {
+      setPremiumChecked(true);
+      return;
+    }
+    setPremiumChecked(false);
+    fetch('/api/user/subscription')
+      .then(res => res.json())
+      .then(data => setIsPremium(!!data?.data?.isPremium))
+      .catch(() => {})
+      .finally(() => setPremiumChecked(true));
+  }, [session?.user]);
+
   const [addLoading, setAddLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -1783,6 +1806,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                         <div style={{ marginTop: '16px' }}>
                           <ListingGeneratorForm
                             item={collectionItem}
+                            generateEndpoint={`/api/inventory/${collectionItem.id}/generate-listing`}
                             onSuccess={(listing) => {
                               alert(t('minifigDetail.listingSaved'));
                             }}
@@ -1793,6 +1817,37 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                           />
                         </div>
                         </>
+                      )}
+
+                      {/* Premium bypass: generate a listing without adding to
+                          collection first. Only shown when the user owns
+                          neither a for-sale nor to-keep entry for this
+                          minifig -- once either exists, the regular
+                          collection-backed generator above takes over. */}
+                      {!collectionItem && !personalCollectionItem && premiumChecked && (
+                        isPremium ? (
+                          <div style={{ marginTop: '24px' }}>
+                            <ListingGeneratorForm
+                              item={{
+                                minifigure_no: minifig.no,
+                                minifigure_name: minifig.name,
+                                quantity: 1,
+                                condition: 'new',
+                              }}
+                              generateEndpoint={`/api/minifigs/${minifig.no}/generate-listing`}
+                              onSuccess={() => {
+                                alert(t('minifigDetail.listingSaved'));
+                              }}
+                              onOpen={() => {
+                                setSuccessMessage('');
+                                setError('');
+                              }}
+                              categoryName={minifig.category_name}
+                            />
+                          </div>
+                        ) : (
+                          <UpgradeTeaser />
+                        )
                       )}
 
                       {/* Add to Collection Section - Only show when inventory exists but collection doesn't */}

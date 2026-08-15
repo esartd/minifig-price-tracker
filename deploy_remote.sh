@@ -9,6 +9,7 @@ git pull origin main
 
 # Rebuild
 npm install
+npx prisma migrate deploy
 npm run build
 
 # Restart
