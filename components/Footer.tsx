@@ -94,6 +94,10 @@ export default function Footer() {
                 onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
                 onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
               >{t('footer.supportUs')}</a>
+              <a href="/premium" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+              >{t('navigation.premium') || 'Premium'}</a>
             </div>
           </div>
 

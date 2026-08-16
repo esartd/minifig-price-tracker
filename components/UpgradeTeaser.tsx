@@ -30,7 +30,7 @@ export default function UpgradeTeaser() {
         {t('premium.upgradeTeaser.body') || 'This is a Premium feature. Upgrade to skip the collection step entirely.'}
       </p>
       <Link
-        href="/account"
+        href="/premium"
         style={{
           display: 'inline-block',
           padding: '8px 16px',

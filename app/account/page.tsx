@@ -1046,12 +1046,13 @@ export default function AccountPage() {
         </div>
 
         {/* Premium Section */}
-        <div className="account-section" style={{
+        <div id="premium" className="account-section" style={{
           background: '#ffffff',
           borderRadius: '12px',
           padding: '24px 16px',
           marginBottom: '32px',
-          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+          scrollMarginTop: '24px'
         }}>
           <h2 style={{
             fontSize: 'var(--text-lg)',

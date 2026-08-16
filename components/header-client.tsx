@@ -587,6 +587,43 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 {t('navigation.support') || 'Support'}
               </Link>
 
+              {/* Premium Link */}
+              <Link
+                href="/premium"
+                onClick={async () => {
+                  try {
+                    await fetch('/api/track-event', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        event: 'nav_premium_click',
+                        properties: { location: 'desktop_logged_out' }
+                      })
+                    });
+                  } catch (error) {
+                    console.error('Failed to track premium click:', error);
+                  }
+                }}
+                style={{
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: pathname === '/premium' ? '600' : '500',
+                  color: pathname === '/premium' ? '#171717' : '#525252',
+                  textDecoration: 'none',
+                  transition: 'color 0.2s',
+                  lineHeight: '1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  height: '36px',
+                  borderBottom: pathname === '/premium' ? '2px solid #3b82f6' : 'none',
+                  paddingBottom: '2px',
+                  whiteSpace: 'nowrap'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                onMouseLeave={(e) => e.currentTarget.style.color = pathname === '/premium' ? '#171717' : '#525252'}
+              >
+                {t('navigation.premium') || 'Premium'}
+              </Link>
+
               <div className="desktop-auth" style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -921,6 +958,39 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 }}
               >
                 {t('navigation.support') || 'Support'}
+              </Link>
+
+              {/* Premium Link */}
+              <Link
+                href="/premium"
+                onClick={async () => {
+                  setMobileMenuOpen(false);
+                  try {
+                    await fetch('/api/track-event', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        event: 'nav_premium_click',
+                        properties: { location: 'mobile_logged_out' }
+                      })
+                    });
+                  } catch (error) {
+                    console.error('Failed to track premium click:', error);
+                  }
+                }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '16px 0',
+                  borderBottom: '1px solid #f5f5f5',
+                  color: '#171717',
+                  textDecoration: 'none',
+                  fontSize: 'var(--text-base)',
+                  fontWeight: '500',
+                  minHeight: '44px'
+                }}
+              >
+                {t('navigation.premium') || 'Premium'}
               </Link>
 
               <Link href="/auth/signin" onClick={() => setMobileMenuOpen(false)} style={{
@@ -1384,6 +1454,43 @@ export function HeaderClient({ user }: HeaderClientProps) {
               {t('navigation.support') || 'Support'}
             </Link>
 
+            {/* Premium Link */}
+            <Link
+              href="/premium"
+              onClick={async () => {
+                try {
+                  await fetch('/api/track-event', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      event: 'nav_premium_click',
+                      properties: { location: 'desktop_logged_in' }
+                    })
+                  });
+                } catch (error) {
+                  console.error('Failed to track premium click:', error);
+                }
+              }}
+              style={{
+                fontSize: 'var(--text-xs)',
+                fontWeight: pathname === '/premium' ? '600' : '500',
+                color: pathname === '/premium' ? '#171717' : '#525252',
+                textDecoration: 'none',
+                transition: 'color 0.2s',
+                lineHeight: '1',
+                display: 'flex',
+                alignItems: 'center',
+                height: '36px',
+                borderBottom: pathname === '/premium' ? '2px solid #3b82f6' : 'none',
+                paddingBottom: '2px',
+                whiteSpace: 'nowrap'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+              onMouseLeave={(e) => e.currentTarget.style.color = pathname === '/premium' ? '#171717' : '#525252'}
+            >
+              {t('navigation.premium') || 'Premium'}
+            </Link>
+
             <div className="desktop-auth" style={{
               display: 'flex',
               alignItems: 'center',
@@ -1776,6 +1883,39 @@ export function HeaderClient({ user }: HeaderClientProps) {
             }}
           >
             {t('navigation.support') || 'Support'}
+          </Link>
+
+          {/* Premium Link */}
+          <Link
+            href="/premium"
+            onClick={async () => {
+              setMobileMenuOpen(false);
+              try {
+                await fetch('/api/track-event', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    event: 'nav_premium_click',
+                    properties: { location: 'mobile_logged_in' }
+                  })
+                });
+              } catch (error) {
+                console.error('Failed to track premium click:', error);
+              }
+            }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '16px 0',
+              borderBottom: '1px solid #f5f5f5',
+              color: '#171717',
+              textDecoration: 'none',
+              fontSize: 'var(--text-base)',
+              fontWeight: '600',
+              minHeight: '44px'
+            }}
+          >
+            {t('navigation.premium') || 'Premium'}
           </Link>
 
           {/* Your LEGO Dropdown */}

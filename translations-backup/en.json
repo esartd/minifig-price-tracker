@@ -81,7 +81,8 @@
     "community": "Community",
     "guides": "Guides",
     "language": "Language",
-    "user": "User"
+    "user": "User",
+    "premium": "Premium"
   },
   "themes": {
     "browse_title": "Browse LEGO Minifigure Themes",
@@ -509,7 +510,8 @@
     "ebayLoggedOutCta": "Sign in for personalized pricing →",
     "sourceBrickLink": "Price from BrickLink",
     "loadingData": "Loading pricing data...",
-    "supportCta": "Saved you some time? Support free pricing →"
+    "supportCta": "Saved you some time? Support free pricing →",
+    "premiumCta": "Skip the collection step — go Premium →"
   },
   "errors": {
     "notFound": "Not found",
@@ -2670,6 +2672,42 @@
       "title": "Generate a listing without adding this to your collection",
       "body": "This is a Premium feature. Upgrade to skip the collection step entirely.",
       "cta": "Upgrade to Premium"
+    },
+    "page": {
+      "badge": "Premium",
+      "hero": {
+        "title": "Skip the busywork. List anything, instantly.",
+        "subtitle": "Generate a marketplace listing for any minifig or set the moment you find it — no need to add it to your collection first."
+      },
+      "features": {
+        "title": "What you get",
+        "subtitle": "One subscription, one less step between finding a set and listing it for sale.",
+        "skipStep": {
+          "title": "No collection step required",
+          "description": "Normally you'd add an item to your collection or inventory before generating a listing. Premium skips that entirely — go straight from any minifig or set's page to a ready-to-post listing."
+        },
+        "minifigs": {
+          "title": "Works for minifigs",
+          "description": "Generate listings for any minifigure in the catalog, with live pricing pulled the moment you generate."
+        },
+        "sets": {
+          "title": "Works for sets",
+          "description": "Same instant listing generation for any LEGO set — box condition, completeness, and all the usual details included."
+        },
+        "sameQuality": {
+          "title": "Same great listings",
+          "description": "It's the exact same listing generator you already use — eBay, BrickLink, Facebook, and Vinted templates, just without the extra step."
+        }
+      },
+      "cta": {
+        "title": "Ready to skip the busywork?",
+        "subtitle": "Upgrade in a minute — cancel any time.",
+        "button": "Upgrade to Premium"
+      },
+      "meta": {
+        "title": "Premium",
+        "description": "Generate a marketplace listing for any LEGO minifig or set without adding it to your collection first."
+      }
     }
   }
 }
