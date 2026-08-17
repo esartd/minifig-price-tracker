@@ -10,7 +10,7 @@ import { useTranslation } from '@/components/TranslationProvider';
 
 export default function AccountPage() {
   const { t, locale } = useTranslation();
-  const { data: session, update } = useSession();
+  const { data: session, status, update } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
@@ -618,6 +618,16 @@ export default function AccountPage() {
     }
     return name.slice(0, 2).toUpperCase();
   };
+
+  // Logged-out visitors (e.g. from a Premium CTA linking to /account#premium)
+  // used to land on a blank page here -- redirect them to sign in instead,
+  // preserving the path/hash so they land back on the same section after.
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      const callbackUrl = encodeURIComponent(window.location.pathname + window.location.hash);
+      window.location.href = `/auth/signin?callbackUrl=${callbackUrl}`;
+    }
+  }, [status]);
 
   if (!session?.user) {
     return null;
