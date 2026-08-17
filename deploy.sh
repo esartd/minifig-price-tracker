@@ -69,6 +69,10 @@ npm install --production
 echo "🗄️  Applying database migrations..."
 npx prisma migrate deploy
 
+echo "🔧 Regenerating Prisma Client (postinstall only regenerates the"
+echo "   separate schema-hostinger.prisma client, not this one)..."
+npx prisma generate
+
 echo "🔨 Building application (this may take 1-2 minutes)..."
 npm run build
 

@@ -67,6 +67,9 @@ ssh root@187.77.202.14 << 'ENDSSH'
   echo "🗄️  Applying database migrations..."
   npx prisma migrate deploy
 
+  echo "🔧 Regenerating Prisma Client..."
+  npx prisma generate
+
   echo "🔨 Building production bundle..."
   npm run build
 
