@@ -30,7 +30,11 @@ export default function IdentifyPageClient() {
 
   return (
     <article className="min-h-screen" style={{ backgroundColor: '#fafafa' }}>
-      <header className="hero-section">
+      {/* Compact hero -- this page's job is to get people to the upload
+          widget fast, not to sell Premium (that's /premium's job), so it
+          overrides .hero-section's default min-height/padding to take up
+          much less vertical space than the marketing pages sharing that class. */}
+      <header className="hero-section" style={{ minHeight: 'auto', padding: '32px 24px' }}>
         <div className="hero-content">
           <div style={{
             display: 'inline-flex',
@@ -40,7 +44,7 @@ export default function IdentifyPageClient() {
             background: 'rgba(255, 255, 255, 0.15)',
             border: '1px solid rgba(255, 255, 255, 0.25)',
             borderRadius: '32px',
-            marginBottom: '40px',
+            marginBottom: '16px',
             lineHeight: '1',
             height: '44px',
             minHeight: '44px',
@@ -57,8 +61,8 @@ export default function IdentifyPageClient() {
               whiteSpace: 'nowrap',
             }}>{t('premium.page.badge') || 'Premium'}</span>
           </div>
-          <h1>{t('identify.hero.title') || 'Identify a Minifigure'}</h1>
-          <p>{t('identify.hero.subtitle') || 'Snap or drag in a photo — AI finds the BrickLink ID and current value.'}</p>
+          <h1 style={{ marginBottom: '12px' }}>{t('identify.hero.title') || 'Identify a Minifigure'}</h1>
+          <p style={{ margin: 0 }}>{t('identify.hero.subtitle') || 'Snap or drag in a photo — AI finds the BrickLink ID and current value.'}</p>
         </div>
         <div className="hero-decoration hero-decoration-1"></div>
         <div className="hero-decoration hero-decoration-2"></div>
