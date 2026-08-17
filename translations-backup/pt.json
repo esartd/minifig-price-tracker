@@ -654,6 +654,11 @@
       "bricklinkPricing": "Moedas suportadas",
       "free": "Gratuito",
       "forCollectorsSellers": "Sem necessidade de conta para pesquisar"
+    },
+    "identifyTeaser": {
+      "title": "New: AI Minifig Identifier",
+      "subtitle": "snap a photo, get the BrickLink ID + value instantly",
+      "cta": "Try it →"
     }
   },
   "about": {

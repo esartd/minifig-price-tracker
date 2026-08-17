@@ -654,6 +654,11 @@
       "bricklinkPricing": "Valutor som stöds",
       "free": "Gratis",
       "forCollectorsSellers": "Inget konto krävs för att söka"
+    },
+    "identifyTeaser": {
+      "title": "New: AI Minifig Identifier",
+      "subtitle": "snap a photo, get the BrickLink ID + value instantly",
+      "cta": "Try it →"
     }
   },
   "about": {

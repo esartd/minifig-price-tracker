@@ -9,6 +9,7 @@ import RecommendedSets from '@/components/RecommendedSets';
 import LeaderboardsSection from '@/components/LeaderboardsSection';
 import TrendingMinifigs from '@/components/TrendingMinifigs';
 import { useTranslation } from '@/components/TranslationProvider';
+import Link from 'next/link';
 
 // Diverse minifigures from multiple themes (verified to exist in catalog)
 const MINIFIG_POOL = [
@@ -408,6 +409,39 @@ function SearchPageContent() {
               onSearchQueryChange={handleSearchQueryChange}
             />
           </div>
+
+          {/* Identify-a-Minifig teaser -- generic for everyone, no auth/premium
+              check here. /identify itself already decides whether to show the
+              real widget or an upgrade prompt, so this just needs to get
+              people to click through. */}
+          {!isSearchActive && (
+            <div style={{ margin: '0 auto 32px auto', width: '100%', maxWidth: '640px', boxSizing: 'border-box' }}>
+              <Link
+                href="/identify"
+                className="fun-search-card"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '10px',
+                  padding: '14px 20px',
+                  textDecoration: 'none',
+                  color: '#171717',
+                  fontSize: 'var(--text-sm)',
+                }}
+              >
+                <span style={{ fontSize: '18px' }}>📷</span>
+                <span>
+                  <strong>{t('homepage.identifyTeaser.title') || 'New: AI Minifig Identifier'}</strong>
+                  {' — '}
+                  {t('homepage.identifyTeaser.subtitle') || 'snap a photo, get the BrickLink ID + value instantly'}
+                </span>
+                <span style={{ fontWeight: 600, whiteSpace: 'nowrap' }}>
+                  {t('homepage.identifyTeaser.cta') || 'Try it →'}
+                </span>
+              </Link>
+            </div>
+          )}
 
           {/* Category/Subcategory Browsing Header */}
           {(categoryId || subcategory) && categoryName && !searchQuery && (

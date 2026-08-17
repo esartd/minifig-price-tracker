@@ -2135,6 +2135,11 @@
       "bricklinkPricing": "Devises supportées",
       "free": "Gratuit",
       "forCollectorsSellers": "Pas de compte requis pour chercher"
+    },
+    "identifyTeaser": {
+      "title": "New: AI Minifig Identifier",
+      "subtitle": "snap a photo, get the BrickLink ID + value instantly",
+      "cta": "Try it →"
     }
   },
   "articles": {
