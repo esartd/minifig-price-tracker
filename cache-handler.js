@@ -35,7 +35,22 @@ module.exports = class PrismaCacheHandler {
 
       return {
         lastModified: cached.last_modified.getTime(),
-        value: JSON.parse(cached.value),
+        // Revive serialized Buffers (JSON.stringify turns a Buffer into
+        // {type: 'Buffer', data: [...]}) back into real Buffer instances.
+        // Without this, binary route bodies (e.g. favicon.ico, icon.svg)
+        // come back as plain objects and get coerced to the string
+        // "[object Object]" when Next.js writes the response.
+        value: JSON.parse(cached.value, (key, value) => {
+          if (
+            value &&
+            typeof value === 'object' &&
+            value.type === 'Buffer' &&
+            Array.isArray(value.data)
+          ) {
+            return Buffer.from(value.data);
+          }
+          return value;
+        }),
       };
     } catch (error) {
       console.error('Cache GET error:', error);
