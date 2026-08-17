@@ -320,6 +320,30 @@ export default function AccountPage() {
     }
   };
 
+  // Owner-only test toggle -- flips this account between simulated Premium
+  // and Free with zero Stripe involvement and zero charge, so both
+  // experiences can be tested without paying. Locked server-side too
+  // (app/api/admin/toggle-premium) so this button is purely cosmetic gating.
+  const isAdminAccount = session?.user?.email === 'erickkosysu@gmail.com';
+  const [togglingPremium, setTogglingPremium] = useState(false);
+  const handleToggleTestPremium = async () => {
+    setTogglingPremium(true);
+    try {
+      const response = await fetch('/api/admin/toggle-premium', { method: 'POST' });
+      const data = await response.json();
+      if (response.ok) {
+        setSubscription((prev) => prev ? { ...prev, isPremium: data.isPremium, status: data.isPremium ? 'active' : null, cancelsAt: null } : prev);
+        showMessage('success', data.isPremium ? 'Test mode: Premium ON' : 'Test mode: Premium OFF');
+      } else {
+        showMessage('error', data.error || t('account.messages.genericError'));
+      }
+    } catch {
+      showMessage('error', t('account.messages.genericError'));
+    } finally {
+      setTogglingPremium(false);
+    }
+  };
+
   const handleNameUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
@@ -1073,6 +1097,41 @@ export default function AccountPage() {
           }}>
             {t('account.premium.title') || 'Premium'}
           </h2>
+
+          {isAdminAccount && (
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '12px',
+              padding: '10px 12px',
+              marginBottom: '16px',
+              background: '#fffbeb',
+              border: '1px solid #fde68a',
+              borderRadius: '8px',
+            }}>
+              <span style={{ fontSize: 'var(--text-sm)', color: '#92400e' }}>
+                Owner test toggle — no Stripe, no charge. Currently: <strong>{subscription?.isPremium ? 'Premium' : 'Free'}</strong>
+              </span>
+              <button
+                onClick={handleToggleTestPremium}
+                disabled={togglingPremium || loadingSubscription}
+                style={{
+                  padding: '6px 12px',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: '600',
+                  color: '#92400e',
+                  background: '#ffffff',
+                  border: '1px solid #fde68a',
+                  borderRadius: '6px',
+                  cursor: togglingPremium ? 'not-allowed' : 'pointer',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {togglingPremium ? '...' : subscription?.isPremium ? 'Switch to Free' : 'Switch to Premium'}
+              </button>
+            </div>
+          )}
 
           {loadingSubscription ? (
             <p style={{ fontSize: 'var(--text-sm)', color: '#737373' }}>
