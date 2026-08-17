@@ -1162,6 +1162,9 @@ export default function AccountPage() {
                 <Link
                   href="/identify"
                   style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     padding: '10px 20px',
                     fontSize: 'var(--text-sm)',
                     fontWeight: '600',
@@ -1169,6 +1172,7 @@ export default function AccountPage() {
                     background: '#171717',
                     borderRadius: '8px',
                     textDecoration: 'none',
+                    lineHeight: 1.2,
                   }}
                 >
                   {t('account.premium.tryIdentifier') || 'Identify a Minifig'}

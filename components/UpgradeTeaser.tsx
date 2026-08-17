@@ -34,7 +34,9 @@ export default function UpgradeTeaser() {
       <Link
         href="/premium"
         style={{
-          display: 'inline-block',
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           padding: '8px 16px',
           fontSize: 'var(--text-sm)',
           fontWeight: 600,
@@ -42,6 +44,7 @@ export default function UpgradeTeaser() {
           backgroundColor: '#171717',
           borderRadius: '8px',
           textDecoration: 'none',
+          lineHeight: 1.2,
         }}
       >
         {t('premium.upgradeTeaser.cta') || 'Upgrade to Premium'}
