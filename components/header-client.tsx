@@ -23,14 +23,17 @@ export function HeaderClient({ user }: HeaderClientProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [browseDropdownOpen, setBrowseDropdownOpen] = useState(false);
   const [legoDropdownOpen, setLegoDropdownOpen] = useState(false);
+  const [resourcesDropdownOpen, setResourcesDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileBrowseOpen, setMobileBrowseOpen] = useState(false);
   const [mobileLegoOpen, setMobileLegoOpen] = useState(false);
+  const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
   const [mobileLanguageOpen, setMobileLanguageOpen] = useState(false);
   const [highlightWishlist, setHighlightWishlist] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const browseDropdownRef = useRef<HTMLDivElement>(null);
   const legoDropdownRef = useRef<HTMLDivElement>(null);
+  const resourcesDropdownRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLElement>(null);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLElement>(null);
@@ -46,6 +49,9 @@ export function HeaderClient({ user }: HeaderClientProps) {
       }
       if (legoDropdownRef.current && !legoDropdownRef.current.contains(event.target as Node)) {
         setLegoDropdownOpen(false);
+      }
+      if (resourcesDropdownRef.current && !resourcesDropdownRef.current.contains(event.target as Node)) {
+        setResourcesDropdownOpen(false);
       }
       // Mobile menu click-outside handler - only run when menu is open
       if (mobileMenuOpen && mobileMenuRef.current && mobileMenuButtonRef.current) {
@@ -507,85 +513,104 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 {t('collectors.directory.badge') || 'Collectors'}
               </Link>
 
-              <Link
-                href="/about"
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: pathname === '/about' ? '600' : '500',
-                  color: pathname === '/about' ? '#171717' : '#525252',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s',
-                  lineHeight: '1',
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: '36px',
-                  borderBottom: pathname === '/about' ? '2px solid #3b82f6' : 'none',
-                  paddingBottom: '2px',
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                {t('navigation.about')}
-              </Link>
+              {/* Resources Dropdown -- About, Articles, Support (Community/Premium stay standalone) */}
+              <div style={{ position: 'relative' }} ref={resourcesDropdownRef}>
+                <button
+                  onClick={() => setResourcesDropdownOpen(!resourcesDropdownOpen)}
+                  style={{
+                    fontSize: 'var(--text-xs)',
+                    fontWeight: (pathname === '/about' || pathname === '/articles' || pathname.startsWith('/articles/') || pathname === '/support') ? '600' : '500',
+                    color: (pathname === '/about' || pathname === '/articles' || pathname.startsWith('/articles/') || pathname === '/support') ? '#171717' : '#525252',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    height: '36px',
+                    padding: 0,
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  {t('navigation.resources') || 'Resources'}
+                  <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
 
-              {/* Articles Link */}
-              <Link
-                href="/articles"
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: pathname === '/articles' || pathname.startsWith('/articles/') ? '600' : '500',
-                  color: pathname === '/articles' || pathname.startsWith('/articles/') ? '#171717' : '#525252',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s',
-                  lineHeight: '1',
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: '36px',
-                  borderBottom: pathname === '/articles' || pathname.startsWith('/articles/') ? '2px solid #3b82f6' : 'none',
-                  paddingBottom: '2px',
-                  whiteSpace: 'nowrap'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
-                onMouseLeave={(e) => e.currentTarget.style.color = (pathname === '/articles' || pathname.startsWith('/articles/')) ? '#171717' : '#525252'}
-              >
-                {t('navigation.articles') || 'Articles'}
-              </Link>
-
-              {/* Support Link */}
-              <Link
-                href="/support"
-                onClick={async () => {
-                  try {
-                    await fetch('/api/track-event', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({
-                        event: 'nav_support_click',
-                        properties: { location: 'desktop_logged_out' }
-                      })
-                    });
-                  } catch (error) {
-                    console.error('Failed to track support click:', error);
-                  }
-                }}
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: pathname === '/support' ? '600' : '500',
-                  color: pathname === '/support' ? '#171717' : '#525252',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s',
-                  lineHeight: '1',
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: '36px',
-                  borderBottom: pathname === '/support' ? '2px solid #3b82f6' : 'none',
-                  paddingBottom: '2px',
-                  whiteSpace: 'nowrap'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
-                onMouseLeave={(e) => e.currentTarget.style.color = pathname === '/support' ? '#171717' : '#525252'}
-              >
-                {t('navigation.support') || 'Support'}
-              </Link>
+                {resourcesDropdownOpen && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    marginTop: '12px',
+                    background: 'white',
+                    borderRadius: '12px',
+                    boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                    border: '1px solid #e5e5e5',
+                    minWidth: '180px',
+                    overflow: 'hidden',
+                    zIndex: 1000
+                  }}>
+                    <Link href="/about" onClick={() => setResourcesDropdownOpen(false)} style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#171717',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-sm)',
+                      borderBottom: '1px solid #f5f5f5',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                      {t('navigation.about')}
+                    </Link>
+                    <Link href="/articles" onClick={() => setResourcesDropdownOpen(false)} style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#171717',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-sm)',
+                      borderBottom: '1px solid #f5f5f5',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                      {t('navigation.articles') || 'Articles'}
+                    </Link>
+                    <Link
+                      href="/support"
+                      onClick={async () => {
+                        setResourcesDropdownOpen(false);
+                        try {
+                          await fetch('/api/track-event', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                              event: 'nav_support_click',
+                              properties: { location: 'desktop_logged_out' }
+                            })
+                          });
+                        } catch (error) {
+                          console.error('Failed to track support click:', error);
+                        }
+                      }}
+                      style={{
+                        display: 'block',
+                        padding: '12px 20px',
+                        color: '#171717',
+                        textDecoration: 'none',
+                        fontSize: 'var(--text-sm)',
+                        transition: 'background 0.2s'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
+                    >
+                      {t('navigation.support') || 'Support'}
+                    </Link>
+                  </div>
+                )}
+              </div>
 
               {/* Premium Link */}
               <Link
@@ -898,67 +923,98 @@ export function HeaderClient({ user }: HeaderClientProps) {
             <div style={{
               marginTop: '32px'
             }}>
-              <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
-                display: 'flex',
-                alignItems: 'center',
-                padding: '16px 0',
-                borderBottom: '1px solid #f5f5f5',
-                color: '#171717',
-                textDecoration: 'none',
-                fontSize: 'var(--text-base)',
-                fontWeight: '600',
-                minHeight: '44px'
-              }}>
-                {t('navigation.about')}
-              </Link>
-
-              {/* Articles Link */}
-              <Link href="/articles" onClick={() => setMobileMenuOpen(false)} style={{
-                display: 'flex',
-                alignItems: 'center',
-                padding: '16px 0',
-                borderBottom: '1px solid #f5f5f5',
-                color: '#171717',
-                textDecoration: 'none',
-                fontSize: 'var(--text-base)',
-                fontWeight: '500',
-                minHeight: '44px'
-              }}>
-                {t('navigation.articles') || 'Articles'}
-              </Link>
-
-              {/* Support Link */}
-              <Link
-                href="/support"
-                onClick={async () => {
-                  setMobileMenuOpen(false);
-                  try {
-                    await fetch('/api/track-event', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({
-                        event: 'nav_support_click',
-                        properties: { location: 'mobile_logged_out' }
-                      })
-                    });
-                  } catch (error) {
-                    console.error('Failed to track support click:', error);
-                  }
-                }}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '16px 0',
-                  borderBottom: '1px solid #f5f5f5',
-                  color: '#171717',
-                  textDecoration: 'none',
-                  fontSize: 'var(--text-base)',
-                  fontWeight: '500',
-                  minHeight: '44px'
-                }}
-              >
-                {t('navigation.support') || 'Support'}
-              </Link>
+              {/* Resources Dropdown for mobile logged-out users -- About, Articles, Support */}
+              <div style={{ borderBottom: '1px solid #f5f5f5' }}>
+                <button
+                  onClick={() => setMobileResourcesOpen(!mobileResourcesOpen)}
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '16px 0',
+                    background: 'none',
+                    border: 'none',
+                    color: '#171717',
+                    fontSize: 'var(--text-base)',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    minHeight: '44px'
+                  }}
+                >
+                  <span>{t('navigation.resources') || 'Resources'}</span>
+                  <svg
+                    style={{
+                      width: '20px',
+                      height: '20px',
+                      transition: 'transform 0.2s',
+                      transform: mobileResourcesOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                      flexShrink: 0
+                    }}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {mobileResourcesOpen && (
+                  <div style={{ paddingLeft: '16px', paddingBottom: '16px' }}>
+                    <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '8px 0',
+                      color: '#525252',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-base)',
+                      minHeight: '44px'
+                    }}>
+                      {t('navigation.about')}
+                    </Link>
+                    <Link href="/articles" onClick={() => setMobileMenuOpen(false)} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '8px 0',
+                      color: '#525252',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-base)',
+                      minHeight: '44px'
+                    }}>
+                      {t('navigation.articles') || 'Articles'}
+                    </Link>
+                    <Link
+                      href="/support"
+                      onClick={async () => {
+                        setMobileMenuOpen(false);
+                        try {
+                          await fetch('/api/track-event', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                              event: 'nav_support_click',
+                              properties: { location: 'mobile_logged_out' }
+                            })
+                          });
+                        } catch (error) {
+                          console.error('Failed to track support click:', error);
+                        }
+                      }}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        padding: '8px 0',
+                        color: '#525252',
+                        textDecoration: 'none',
+                        fontSize: 'var(--text-base)',
+                        minHeight: '44px'
+                      }}
+                    >
+                      {t('navigation.support') || 'Support'}
+                    </Link>
+                  </div>
+                )}
+              </div>
 
               {/* Premium Link */}
               <Link
@@ -1374,85 +1430,104 @@ export function HeaderClient({ user }: HeaderClientProps) {
               {t('collectors.directory.badge') || 'Community'}
             </Link>
 
-            <Link
-              href="/about"
-              style={{
-                fontSize: 'var(--text-xs)',
-                fontWeight: pathname === '/about' ? '600' : '500',
-                color: pathname === '/about' ? '#171717' : '#525252',
-                textDecoration: 'none',
-                transition: 'color 0.2s',
-                lineHeight: '1',
-                display: 'flex',
-                alignItems: 'center',
-                height: '36px',
-                borderBottom: pathname === '/about' ? '2px solid #3b82f6' : 'none',
-                paddingBottom: '2px',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              {t('navigation.about')}
-            </Link>
+            {/* Resources Dropdown -- About, Articles, Support (Community/Premium stay standalone) */}
+            <div style={{ position: 'relative' }} ref={resourcesDropdownRef}>
+              <button
+                onClick={() => setResourcesDropdownOpen(!resourcesDropdownOpen)}
+                style={{
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: (pathname === '/about' || pathname === '/articles' || pathname.startsWith('/articles/') || pathname === '/support') ? '600' : '500',
+                  color: (pathname === '/about' || pathname === '/articles' || pathname.startsWith('/articles/') || pathname === '/support') ? '#171717' : '#525252',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  height: '36px',
+                  padding: 0,
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                {t('navigation.resources') || 'Resources'}
+                <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
 
-            {/* Articles Link */}
-            <Link
-              href="/articles"
-              style={{
-                fontSize: 'var(--text-xs)',
-                fontWeight: pathname === '/articles' || pathname.startsWith('/articles/') ? '600' : '500',
-                color: pathname === '/articles' || pathname.startsWith('/articles/') ? '#171717' : '#525252',
-                textDecoration: 'none',
-                transition: 'color 0.2s',
-                lineHeight: '1',
-                display: 'flex',
-                alignItems: 'center',
-                height: '36px',
-                borderBottom: pathname === '/articles' || pathname.startsWith('/articles/') ? '2px solid #3b82f6' : 'none',
-                paddingBottom: '2px',
-                whiteSpace: 'nowrap'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
-              onMouseLeave={(e) => e.currentTarget.style.color = (pathname === '/articles' || pathname.startsWith('/articles/')) ? '#171717' : '#525252'}
-            >
-              {t('navigation.articles') || 'Articles'}
-            </Link>
-
-            {/* Support Link */}
-            <Link
-              href="/support"
-              onClick={async () => {
-                try {
-                  await fetch('/api/track-event', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                      event: 'nav_support_click',
-                      properties: { location: 'desktop_logged_in' }
-                    })
-                  });
-                } catch (error) {
-                  console.error('Failed to track support click:', error);
-                }
-              }}
-              style={{
-                fontSize: 'var(--text-xs)',
-                fontWeight: pathname === '/support' ? '600' : '500',
-                color: pathname === '/support' ? '#171717' : '#525252',
-                textDecoration: 'none',
-                transition: 'color 0.2s',
-                lineHeight: '1',
-                display: 'flex',
-                alignItems: 'center',
-                height: '36px',
-                borderBottom: pathname === '/support' ? '2px solid #3b82f6' : 'none',
-                paddingBottom: '2px',
-                whiteSpace: 'nowrap'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
-              onMouseLeave={(e) => e.currentTarget.style.color = pathname === '/support' ? '#171717' : '#525252'}
-            >
-              {t('navigation.support') || 'Support'}
-            </Link>
+              {resourcesDropdownOpen && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  marginTop: '12px',
+                  background: 'white',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                  border: '1px solid #e5e5e5',
+                  minWidth: '180px',
+                  overflow: 'hidden',
+                  zIndex: 1000
+                }}>
+                  <Link href="/about" onClick={() => setResourcesDropdownOpen(false)} style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#171717',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-sm)',
+                    borderBottom: '1px solid #f5f5f5',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    {t('navigation.about')}
+                  </Link>
+                  <Link href="/articles" onClick={() => setResourcesDropdownOpen(false)} style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#171717',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-sm)',
+                    borderBottom: '1px solid #f5f5f5',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    {t('navigation.articles') || 'Articles'}
+                  </Link>
+                  <Link
+                    href="/support"
+                    onClick={async () => {
+                      setResourcesDropdownOpen(false);
+                      try {
+                        await fetch('/api/track-event', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({
+                            event: 'nav_support_click',
+                            properties: { location: 'desktop_logged_in' }
+                          })
+                        });
+                      } catch (error) {
+                        console.error('Failed to track support click:', error);
+                      }
+                    }}
+                    style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#171717',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-sm)',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
+                  >
+                    {t('navigation.support') || 'Support'}
+                  </Link>
+                </div>
+              )}
+            </div>
 
             {/* Premium Link */}
             <Link
@@ -1822,68 +1897,98 @@ export function HeaderClient({ user }: HeaderClientProps) {
             {t('collectors.directory.badge') || 'Collectors'}
           </Link>
 
-          {/* About Link */}
-          <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '16px 0',
-            borderBottom: '1px solid #f5f5f5',
-            color: '#171717',
-            textDecoration: 'none',
-            fontSize: 'var(--text-base)',
-            fontWeight: '600',
-            minHeight: '44px'
-          }}>
-            {t('navigation.about')}
-          </Link>
-
-          {/* Articles Link */}
-          <Link href="/articles" onClick={() => setMobileMenuOpen(false)} style={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '16px 0',
-            borderBottom: '1px solid #f5f5f5',
-            color: '#171717',
-            textDecoration: 'none',
-            fontSize: 'var(--text-base)',
-            fontWeight: '600',
-            minHeight: '44px'
-          }}>
-            {t('navigation.articles') || 'Articles'}
-          </Link>
-
-          {/* Support Link */}
-          <Link
-            href="/support"
-            onClick={async () => {
-              setMobileMenuOpen(false);
-              try {
-                await fetch('/api/track-event', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    event: 'nav_support_click',
-                    properties: { location: 'mobile_logged_in' }
-                  })
-                });
-              } catch (error) {
-                console.error('Failed to track support click:', error);
-              }
-            }}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              padding: '16px 0',
-              borderBottom: '1px solid #f5f5f5',
-              color: '#171717',
-              textDecoration: 'none',
-              fontSize: 'var(--text-base)',
-              fontWeight: '600',
-              minHeight: '44px'
-            }}
-          >
-            {t('navigation.support') || 'Support'}
-          </Link>
+          {/* Resources Dropdown for mobile logged-in users -- About, Articles, Support */}
+          <div style={{ borderBottom: '1px solid #f5f5f5' }}>
+            <button
+              onClick={() => setMobileResourcesOpen(!mobileResourcesOpen)}
+              style={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '16px 0',
+                background: 'none',
+                border: 'none',
+                color: '#171717',
+                fontSize: 'var(--text-base)',
+                fontWeight: '600',
+                cursor: 'pointer',
+                textAlign: 'left',
+                minHeight: '44px'
+              }}
+            >
+              <span>{t('navigation.resources') || 'Resources'}</span>
+              <svg
+                style={{
+                  width: '20px',
+                  height: '20px',
+                  transition: 'transform 0.2s',
+                  transform: mobileResourcesOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                  flexShrink: 0
+                }}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {mobileResourcesOpen && (
+              <div style={{ paddingLeft: '16px', paddingBottom: '16px' }}>
+                <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '8px 0',
+                  color: '#525252',
+                  textDecoration: 'none',
+                  fontSize: 'var(--text-base)',
+                  minHeight: '44px'
+                }}>
+                  {t('navigation.about')}
+                </Link>
+                <Link href="/articles" onClick={() => setMobileMenuOpen(false)} style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '8px 0',
+                  color: '#525252',
+                  textDecoration: 'none',
+                  fontSize: 'var(--text-base)',
+                  minHeight: '44px'
+                }}>
+                  {t('navigation.articles') || 'Articles'}
+                </Link>
+                <Link
+                  href="/support"
+                  onClick={async () => {
+                    setMobileMenuOpen(false);
+                    try {
+                      await fetch('/api/track-event', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          event: 'nav_support_click',
+                          properties: { location: 'mobile_logged_in' }
+                        })
+                      });
+                    } catch (error) {
+                      console.error('Failed to track support click:', error);
+                    }
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '8px 0',
+                    color: '#525252',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-base)',
+                    minHeight: '44px'
+                  }}
+                >
+                  {t('navigation.support') || 'Support'}
+                </Link>
+              </div>
+            )}
+          </div>
 
           {/* Premium Link */}
           <Link
