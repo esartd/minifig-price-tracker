@@ -1158,27 +1158,49 @@ export default function AccountPage() {
                   )}
                 </p>
               )}
-              <button
-                onClick={handleManageSubscription}
-                disabled={billingLoading}
-                style={{
-                  padding: '10px 20px',
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: '600',
-                  color: '#171717',
-                  background: '#ffffff',
-                  border: '1px solid #e5e5e5',
-                  borderRadius: '8px',
-                  cursor: billingLoading ? 'not-allowed' : 'pointer',
-                }}
-              >
-                {t('account.premium.manageSubscription') || 'Manage Subscription'}
-              </button>
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <Link
+                  href="/identify"
+                  style={{
+                    padding: '10px 20px',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '600',
+                    color: '#ffffff',
+                    background: '#171717',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                  }}
+                >
+                  {t('account.premium.tryIdentifier') || 'Identify a Minifig'}
+                </Link>
+                <button
+                  onClick={handleManageSubscription}
+                  disabled={billingLoading}
+                  style={{
+                    padding: '10px 20px',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: '600',
+                    color: '#171717',
+                    background: '#ffffff',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                    cursor: billingLoading ? 'not-allowed' : 'pointer',
+                  }}
+                >
+                  {t('account.premium.manageSubscription') || 'Manage Subscription'}
+                </button>
+              </div>
             </div>
           ) : (
             <div>
-              <p style={{ fontSize: 'var(--text-sm)', color: '#737373', marginBottom: '16px', lineHeight: '1.5' }}>
-                {t('account.premium.pitch') || 'Generate listings for any minifig or set without adding it to your collection first.'}
+              <p style={{ fontSize: 'var(--text-sm)', color: '#737373', marginBottom: '4px', lineHeight: '1.5' }}>
+                {t('account.premium.pitch') || 'Instant listings without the collection step, plus an unlimited AI minifigure identifier.'}
+              </p>
+              <p style={{ fontSize: 'var(--text-lg)', fontWeight: '700', color: '#171717', marginBottom: '16px' }}>
+                {t('premium.page.price') || '$4.99'}
+                <span style={{ fontSize: 'var(--text-sm)', fontWeight: '500', color: '#737373' }}>
+                  {t('premium.page.priceSuffix') || '/month'}
+                </span>
               </p>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                 <button

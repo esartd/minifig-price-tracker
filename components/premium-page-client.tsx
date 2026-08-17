@@ -1,6 +1,6 @@
 'use client';
 
-import { BoltIcon, CubeIcon, ArchiveBoxIcon, SparklesIcon } from '@heroicons/react/24/outline';
+import { BoltIcon, CameraIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from '@/components/TranslationProvider';
 
 export default function PremiumPageClient() {
@@ -36,66 +36,65 @@ export default function PremiumPageClient() {
               whiteSpace: 'nowrap'
             }}>{t('premium.page.badge') || 'Premium'}</span>
           </div>
-          <h1>{t('premium.page.hero.title') || 'Skip the busywork. List anything, instantly.'}</h1>
-          <p>{t('premium.page.hero.subtitle') || 'Generate a marketplace listing for any minifig or set the moment you find it — no need to add it to your collection first.'}</p>
+          <h1>{t('premium.page.hero.title') || 'Two tools. One subscription.'}</h1>
+          <p>{t('premium.page.hero.subtitle') || 'List anything instantly, and identify any minifigure from a photo.'}</p>
         </div>
         <div className="hero-decoration hero-decoration-1"></div>
         <div className="hero-decoration hero-decoration-2"></div>
       </header>
 
-      {/* Features Section */}
-      <section className="about-section about-features-section">
+      {/* Simple pricing card: price + the two things it includes + CTA */}
+      <section className="about-section">
         <div className="about-page-container">
-          <div className="section-header">
-            <h2>{t('premium.page.features.title') || 'What you get'}</h2>
-            <p>{t('premium.page.features.subtitle') || 'One subscription, one less step between finding a set and listing it for sale.'}</p>
-          </div>
+          <div style={{ maxWidth: '420px', margin: '0 auto' }}>
+            <div style={{
+              background: '#ffffff',
+              border: '1px solid #e5e5e5',
+              borderRadius: '16px',
+              padding: '32px 28px',
+              textAlign: 'center',
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+            }}>
+              <p style={{ margin: '0 0 4px', fontSize: '40px', fontWeight: '800', color: '#171717', letterSpacing: '-0.02em' }}>
+                {t('premium.page.price') || '$4.99'}
+                <span style={{ fontSize: 'var(--text-base)', fontWeight: '500', color: '#737373' }}>
+                  {t('premium.page.priceSuffix') || '/month'}
+                </span>
+              </p>
+              <p style={{ margin: '0 0 28px', fontSize: 'var(--text-sm)', color: '#737373' }}>
+                {t('premium.page.cancelAnytime') || 'Cancel anytime'}
+              </p>
 
-          <div className="features-grid">
-            <div className="feature-card">
-              <div className="feature-icon">
-                <BoltIcon />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', textAlign: 'left' }}>
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                  <BoltIcon style={{ width: '22px', height: '22px', color: '#171717', flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <p style={{ margin: 0, fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717' }}>
+                      {t('premium.page.features.skipStep.title') || 'Instant listings, no collection step'}
+                    </p>
+                    <p style={{ margin: '2px 0 0', fontSize: 'var(--text-sm)', color: '#737373' }}>
+                      {t('premium.page.features.skipStep.description') || 'Generate an eBay, BrickLink, Facebook, or Vinted listing for any minifig or set the moment you find it.'}
+                    </p>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                  <CameraIcon style={{ width: '22px', height: '22px', color: '#171717', flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <p style={{ margin: 0, fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717' }}>
+                      {t('premium.page.features.identify.title') || 'Unlimited AI minifigure identifier'}
+                    </p>
+                    <p style={{ margin: '2px 0 0', fontSize: 'var(--text-sm)', color: '#737373' }}>
+                      {t('premium.page.features.identify.description') || "Snap or drag in a photo — AI finds the BrickLink ID and current value. No scan limit."}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <h3>{t('premium.page.features.skipStep.title') || 'No collection step required'}</h3>
-              <p>{t('premium.page.features.skipStep.description') || "Normally you'd add an item to your collection or inventory before generating a listing. Premium skips that entirely — go straight from any minifig or set's page to a ready-to-post listing."}</p>
-            </div>
 
-            <div className="feature-card">
-              <div className="feature-icon">
-                <CubeIcon />
-              </div>
-              <h3>{t('premium.page.features.minifigs.title') || 'Works for minifigs'}</h3>
-              <p>{t('premium.page.features.minifigs.description') || 'Generate listings for any minifigure in the catalog, with live pricing pulled the moment you generate.'}</p>
+              <a href="/account#premium" className="cta-button" style={{ display: 'block', marginTop: '28px' }}>
+                {t('premium.page.cta.button') || 'Upgrade to Premium'}
+              </a>
             </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">
-                <ArchiveBoxIcon />
-              </div>
-              <h3>{t('premium.page.features.sets.title') || 'Works for sets'}</h3>
-              <p>{t('premium.page.features.sets.description') || 'Same instant listing generation for any LEGO set — box condition, completeness, and all the usual details included.'}</p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">
-                <SparklesIcon />
-              </div>
-              <h3>{t('premium.page.features.sameQuality.title') || 'Same great listings'}</h3>
-              <p>{t('premium.page.features.sameQuality.description') || "It's the exact same listing generator you already use — eBay, BrickLink, Facebook, and Vinted templates, just without the extra step."}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="about-section about-cta-section">
-        <div className="about-page-container">
-          <div className="section-content-narrow">
-            <h2>{t('premium.page.cta.title') || 'Ready to skip the busywork?'}</h2>
-            <p>{t('premium.page.cta.subtitle') || 'Upgrade in a minute — cancel any time.'}</p>
-            <a href="/account#premium" className="cta-button">
-              {t('premium.page.cta.button') || 'Upgrade to Premium'}
-            </a>
           </div>
         </div>
       </section>

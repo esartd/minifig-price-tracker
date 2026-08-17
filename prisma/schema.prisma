@@ -217,14 +217,19 @@ model PriceHistory {
 }
 
 model ScanHistory {
-  id             String   @id @default(cuid())
-  userId         String
-  imageUrl       String?
-  detectedItemNo String?
-  detectedName   String?
-  confidence     Float?
-  topMatches     Json?
-  scannedAt      DateTime @default(now())
+  id              String    @id @default(cuid())
+  userId          String
+  imageUrl        String?
+  isMixed         Boolean   @default(false) // true if AI detected a custom/mixed figure
+  detectedItemNo  String?   // complete-figure case only
+  detectedName    String?   // complete-figure case only
+  confidence      Float?    // complete-figure case only
+  topMatches      Json?     // complete: alternate whole-figure guesses. mixed: {head, torso, legs, hair} part guesses
+  scannedAt       DateTime  @default(now())
+  wasCorrect      Boolean?  // complete-figure case only; null until feedback given
+  correctedItemNo String?   // complete-figure case only
+  partFeedback    Json?     // mixed-figure case only: {head: {wasCorrect, correctedItemNo}, torso: {...}, legs: {...}, hair: {...}}
+  feedbackAt      DateTime?
 
   @@index([scannedAt])
   @@index([userId])

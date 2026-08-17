@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PremiumPageClient from '@/components/premium-page-client';
+import IdentifyPageClient from '@/components/identify-page-client';
 import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
 import { headers } from 'next/headers';
 
@@ -28,8 +28,8 @@ export async function generateMetadata(): Promise<Metadata> {
     es: 'es_ES',
   };
 
-  const title = t.premium?.page?.meta?.title || 'Premium';
-  const description = t.premium?.page?.meta?.description || 'Instant listings without the collection step, plus an unlimited AI minifigure identifier — $4.99/month.';
+  const title = t.identify?.meta?.title || 'Identify a Minifigure';
+  const description = t.identify?.meta?.description || 'Snap or drag in a photo and let AI identify your LEGO minifigure\'s BrickLink ID and current value.';
 
   return {
     title,
@@ -37,23 +37,23 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title,
       description,
-      url: `${domains[locale as keyof typeof domains]}/premium`,
+      url: `${domains[locale as keyof typeof domains]}/identify`,
       locale: localeMap[locale as keyof typeof localeMap],
       alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
     },
     alternates: {
-      canonical: `${domains[locale as keyof typeof domains]}/premium`,
+      canonical: `${domains[locale as keyof typeof domains]}/identify`,
       languages: {
-        'en': `${domains.en}/premium`,
-        'de': `${domains.de}/premium`,
-        'fr': `${domains.fr}/premium`,
-        'es': `${domains.es}/premium`,
-        'x-default': `${domains.en}/premium`,
+        'en': `${domains.en}/identify`,
+        'de': `${domains.de}/identify`,
+        'fr': `${domains.fr}/identify`,
+        'es': `${domains.es}/identify`,
+        'x-default': `${domains.en}/identify`,
       },
     },
   };
 }
 
-export default function PremiumPage() {
-  return <PremiumPageClient />;
+export default function IdentifyPage() {
+  return <IdentifyPageClient />;
 }
