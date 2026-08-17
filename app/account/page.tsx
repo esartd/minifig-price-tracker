@@ -1128,22 +1128,8 @@ export default function AccountPage() {
                 >
                   {t('account.premium.upgradeMonthly') || 'Upgrade — Monthly'}
                 </button>
-                <button
-                  onClick={() => handleUpgrade('yearly')}
-                  disabled={billingLoading}
-                  style={{
-                    padding: '10px 20px',
-                    fontSize: 'var(--text-sm)',
-                    fontWeight: '600',
-                    color: '#171717',
-                    background: '#ffffff',
-                    border: '1px solid #e5e5e5',
-                    borderRadius: '8px',
-                    cursor: billingLoading ? 'not-allowed' : 'pointer',
-                  }}
-                >
-                  {t('account.premium.upgradeYearly') || 'Upgrade — Yearly'}
-                </button>
+                {/* Yearly plan hidden until a yearly price actually exists in Stripe --
+                    STRIPE_YEARLY_PRICE_ID is unset, so this button would just error today. */}
               </div>
             </div>
           )}
