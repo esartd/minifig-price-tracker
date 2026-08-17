@@ -2676,8 +2676,8 @@
   },
   "premium": {
     "upgradeTeaser": {
-      "title": "Generate a listing without adding this to your collection",
-      "body": "This is a Premium feature. Upgrade to skip the collection step entirely.",
+      "title": "This is a Premium feature",
+      "body": "Premium gets you instant listings with no collection step, plus an unlimited AI minifigure identifier.",
       "cta": "Upgrade to Premium"
     },
     "page": {
