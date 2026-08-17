@@ -14,6 +14,7 @@ interface PartGuess {
   name: string;
   confidence: number;
   bricklinkUrl: string;
+  imageUrl: string;
 }
 
 interface PrimaryResult {
@@ -410,16 +411,30 @@ export default function MinifigIdentifierWidget() {
                   if (!part) return null;
                   return (
                     <div key={partKey} style={{ padding: '16px', border: '1px solid #e5e5e5', borderRadius: '12px', background: '#ffffff' }}>
-                      <p style={{ margin: '0 0 2px', fontSize: 'var(--text-xs)', fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
-                        {PART_LABELS[partKey]}
-                      </p>
-                      <p style={{ margin: '0 0 2px', fontSize: 'var(--text-base)', fontWeight: 700, color: '#171717' }}>{part.name}</p>
-                      <a href={part.bricklinkUrl} target="_blank" rel="noopener noreferrer" style={{ fontSize: 'var(--text-sm)', color: '#3b82f6', textDecoration: 'none' }}>
-                        {t('identify.brickLinkId') || 'BrickLink ID'}: {part.itemNo} ↗
-                      </a>
-                      <p style={{ margin: '4px 0 0', fontSize: 'var(--text-xs)', color: '#a3a3a3' }}>
-                        {t('identify.aiEstimateUnverified') || 'AI estimate — unverified'}
-                      </p>
+                      <div style={{ display: 'flex', gap: '12px' }}>
+                        {/* Built from BrickLink's public image CDN using the AI's guessed
+                            part number + color -- not verified, so it can 404; hide on error
+                            rather than show a broken-image icon. */}
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={part.imageUrl}
+                          alt=""
+                          style={{ width: '56px', height: '56px', objectFit: 'contain', borderRadius: '8px', background: '#fafafa', flexShrink: 0 }}
+                          onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                        />
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <p style={{ margin: '0 0 2px', fontSize: 'var(--text-xs)', fontWeight: 600, color: '#737373', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
+                            {PART_LABELS[partKey]}
+                          </p>
+                          <p style={{ margin: '0 0 2px', fontSize: 'var(--text-base)', fontWeight: 700, color: '#171717' }}>{part.name}</p>
+                          <a href={part.bricklinkUrl} target="_blank" rel="noopener noreferrer" style={{ fontSize: 'var(--text-sm)', color: '#3b82f6', textDecoration: 'none' }}>
+                            {t('identify.brickLinkId') || 'BrickLink ID'}: {part.itemNo} ↗
+                          </a>
+                          <p style={{ margin: '4px 0 0', fontSize: 'var(--text-xs)', color: '#a3a3a3' }}>
+                            {t('identify.aiEstimateUnverified') || 'AI estimate — unverified'}
+                          </p>
+                        </div>
+                      </div>
                       <div style={{ marginTop: '10px' }}>
                         {feedbackRow(partKey, partKey)}
                       </div>

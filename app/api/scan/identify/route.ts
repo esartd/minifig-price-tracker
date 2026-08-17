@@ -6,9 +6,10 @@ import sharp from 'sharp';
 import { auth } from '@/auth';
 import { isPremiumUser } from '@/lib/premium';
 import { prisma } from '@/lib/prisma';
-import { identifyMinifig, type GuessCandidate, type IdentifyResult } from '@/lib/gemini-vision';
+import { identifyMinifig, type GuessCandidate, type IdentifyResult, type PartGuess } from '@/lib/gemini-vision';
 import { findMinifigByNumber, searchMinifigs } from '@/lib/catalog-static';
 import { pricingOrchestrator, LOGGED_IN_TTL_HOURS } from '@/lib/pricing-orchestrator';
+import type { Prisma } from '@prisma/client';
 
 const DAILY_LIMIT = parseInt(process.env.SCAN_DAILY_LIMIT || '30', 10);
 
@@ -53,16 +54,29 @@ async function resolveGuess(guess: GuessCandidate): Promise<ResolvedGuess | null
   return null;
 }
 
+interface PartResponse {
+  itemNo: string;
+  name: string;
+  confidence: number;
+  bricklinkUrl: string;
+  // Built directly from BrickLink's public image CDN using the AI's guessed
+  // part number + color -- not validated against any internal catalog (we
+  // don't have one for parts), so this can 404 if the guess is off. The
+  // widget handles that with an onError fallback.
+  imageUrl: string;
+}
+
 function buildPartsResponse(parts: Extract<IdentifyResult, { isMixed: true }>['parts']) {
-  const out: Record<string, { itemNo: string; name: string; confidence: number; bricklinkUrl: string }> = {};
+  const out: Record<string, PartResponse> = {};
   (['head', 'torso', 'legs', 'hair'] as const).forEach((key) => {
-    const guess = parts[key];
+    const guess: PartGuess | undefined = parts[key];
     if (guess) {
       out[key] = {
         itemNo: guess.itemNo,
         name: guess.name,
         confidence: guess.confidence,
         bricklinkUrl: `https://www.bricklink.com/v2/catalog/catalogitem.page?P=${encodeURIComponent(guess.itemNo)}`,
+        imageUrl: `https://img.bricklink.com/ItemImage/PN/${guess.colorId}/${encodeURIComponent(guess.itemNo)}.png`,
       };
     }
   });
@@ -148,7 +162,7 @@ export async function POST(request: NextRequest) {
           userId: session.user.id,
           imageUrl,
           isMixed: true,
-          topMatches: parts,
+          topMatches: parts as unknown as Prisma.InputJsonValue,
         },
       });
 

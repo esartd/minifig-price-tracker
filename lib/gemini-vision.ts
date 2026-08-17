@@ -30,9 +30,17 @@ export interface GuessCandidate {
   confidence: number;
 }
 
+// Parts additionally carry a BrickLink color ID -- unlike a complete
+// minifigure, the same part mold renders completely differently depending
+// on color, and BrickLink's image CDN needs it to return the right photo
+// (see buildPartsResponse in app/api/scan/identify/route.ts).
+export interface PartGuess extends GuessCandidate {
+  colorId: number;
+}
+
 export type IdentifyResult =
   | { isMixed: false; primary: GuessCandidate; alternates: GuessCandidate[] }
-  | { isMixed: true; parts: { head?: GuessCandidate; torso?: GuessCandidate; legs?: GuessCandidate; hair?: GuessCandidate } };
+  | { isMixed: true; parts: { head?: PartGuess; torso?: PartGuess; legs?: PartGuess; hair?: PartGuess } };
 
 const GUESS_SCHEMA = {
   type: Type.OBJECT,
@@ -42,6 +50,17 @@ const GUESS_SCHEMA = {
     confidence: { type: Type.NUMBER, description: 'Confidence from 0 to 1 that this guess is correct.' },
   },
   required: ['itemNo', 'name', 'confidence'],
+};
+
+const PART_GUESS_SCHEMA = {
+  type: Type.OBJECT,
+  properties: {
+    itemNo: { type: Type.STRING, description: "The BrickLink part number for this piece's mold (without a color suffix)." },
+    name: { type: Type.STRING, description: 'The official name of the part.' },
+    confidence: { type: Type.NUMBER, description: 'Confidence from 0 to 1 that this guess is correct.' },
+    colorId: { type: Type.INTEGER, description: "The BrickLink numeric color ID matching this part's actual color as seen in the photo (e.g. 11 for black, 1 for white, 5 for red). Best guess even if unsure -- never omit." },
+  },
+  required: ['itemNo', 'name', 'confidence', 'colorId'],
 };
 
 const RESPONSE_SCHEMA = {
@@ -57,10 +76,10 @@ const RESPONSE_SCHEMA = {
       items: GUESS_SCHEMA,
       description: 'Up to 2 alternate guesses for the complete minifigure, most confident first. Only set when isMixed is false.',
     },
-    head: { ...GUESS_SCHEMA, description: "Guess for the head piece's BrickLink part number. Only set when isMixed is true and a head is visible." },
-    torso: { ...GUESS_SCHEMA, description: "Guess for the torso piece's BrickLink part number. Only set when isMixed is true and a torso is visible." },
-    legs: { ...GUESS_SCHEMA, description: "Guess for the legs piece's BrickLink part number. Only set when isMixed is true and legs are visible." },
-    hair: { ...GUESS_SCHEMA, description: "Guess for the hair/headgear piece's BrickLink part number. Only set when isMixed is true and hair/headgear is visible." },
+    head: { ...PART_GUESS_SCHEMA, description: "Guess for the head piece's BrickLink part number and color. Only set when isMixed is true and a head is visible." },
+    torso: { ...PART_GUESS_SCHEMA, description: "Guess for the torso piece's BrickLink part number and color. Only set when isMixed is true and a torso is visible." },
+    legs: { ...PART_GUESS_SCHEMA, description: "Guess for the legs piece's BrickLink part number and color. Only set when isMixed is true and legs are visible." },
+    hair: { ...PART_GUESS_SCHEMA, description: "Guess for the hair/headgear piece's BrickLink part number and color. Only set when isMixed is true and hair/headgear is visible." },
   },
   required: ['isMixed'],
 };
@@ -77,7 +96,7 @@ If it is a COMPLETE official minifigure:
 
 If it is a CUSTOM/MIXED figure:
 - Set isMixed to true.
-- For each part you can clearly see (head, torso, legs, hair/headgear), give your best guess at that individual part's BrickLink part number and name, with a confidence from 0 to 1.
+- For each part you can clearly see (head, torso, legs, hair/headgear), give your best guess at that individual part's BrickLink part number, name, and BrickLink color ID matching the part's actual color in the photo, with a confidence from 0 to 1.
 - Omit any part you cannot see or identify at all.
 - Do not set primary/alternates.
 
@@ -114,10 +133,10 @@ export async function identifyMinifig(imageBuffer: Buffer, mimeType = 'image/web
     return {
       isMixed: true,
       parts: {
-        head: isValidGuess(parsed.head) ? parsed.head : undefined,
-        torso: isValidGuess(parsed.torso) ? parsed.torso : undefined,
-        legs: isValidGuess(parsed.legs) ? parsed.legs : undefined,
-        hair: isValidGuess(parsed.hair) ? parsed.hair : undefined,
+        head: isValidPartGuess(parsed.head) ? parsed.head : undefined,
+        torso: isValidPartGuess(parsed.torso) ? parsed.torso : undefined,
+        legs: isValidPartGuess(parsed.legs) ? parsed.legs : undefined,
+        hair: isValidPartGuess(parsed.hair) ? parsed.hair : undefined,
       },
     };
   }
@@ -142,4 +161,8 @@ function isValidGuess(value: unknown): value is GuessCandidate {
     typeof (value as GuessCandidate).name === 'string' &&
     typeof (value as GuessCandidate).confidence === 'number'
   );
+}
+
+function isValidPartGuess(value: unknown): value is PartGuess {
+  return isValidGuess(value) && typeof (value as PartGuess).colorId === 'number';
 }
