@@ -7,6 +7,7 @@ import { ArticleEditor } from '@/components/admin/ArticleEditor';
 import { ArticlePreview } from '@/components/admin/ArticlePreview';
 import { ArticleBlock } from '@/types/article';
 import pako from 'pako';
+import AlertDialog from '@/components/AlertDialog';
 
 const DEFAULT_TEMPLATE: ArticleBlock[] = [
   {
@@ -81,6 +82,7 @@ export default function WriteArticlePage() {
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
   const [saving, setSaving] = useState(false);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [loading, setLoading] = useState(!!editSlug);
@@ -124,7 +126,7 @@ export default function WriteArticlePage() {
       }
     } catch (error) {
       console.error('Failed to load article:', error);
-      alert('Failed to load article for editing');
+      setAlertMessage('Failed to load article for editing');
     } finally {
       setLoading(false);
     }
@@ -148,7 +150,7 @@ export default function WriteArticlePage() {
 
   const handleSave = async (status: 'draft' | 'published') => {
     if (!title || contentBlocks.length === 0) {
-      alert('Please add a title and at least one content block');
+      setAlertMessage('Please add a title and at least one content block');
       return;
     }
 
@@ -183,7 +185,7 @@ export default function WriteArticlePage() {
 
       // Check if still over Vercel's 4.5MB limit
       if (compressedSize > 4.5 * 1024 * 1024) {
-        alert('Article is too large to save. Please reduce content or split into multiple articles.');
+        setAlertMessage('Article is too large to save. Please reduce content or split into multiple articles.');
         setSaving(false);
         return;
       }
@@ -227,14 +229,14 @@ export default function WriteArticlePage() {
       setTimeout(() => setSaved(false), 3000);
 
       if (status === 'published') {
-        alert(`✓ Article published!\n\nView it at:\n/articles/${slug}`);
+        setAlertMessage(`✓ Article published!\n\nView it at:\n/articles/${slug}`);
       } else {
-        alert(`✓ Article saved as draft!`);
+        setAlertMessage(`✓ Article saved as draft!`);
       }
 
     } catch (error) {
       console.error('Save error:', error);
-      alert('Failed to save article. Please try again.');
+      setAlertMessage('Failed to save article. Please try again.');
       setSaving(false);
     }
   };
@@ -386,6 +388,12 @@ export default function WriteArticlePage() {
           </div>
         )}
       </div>
+
+      <AlertDialog
+        isOpen={alertMessage !== null}
+        onClose={() => setAlertMessage(null)}
+        message={alertMessage || ''}
+      />
     </div>
   );
 }

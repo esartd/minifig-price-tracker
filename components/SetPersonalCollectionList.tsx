@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import MoveDialog from './MoveDialog';
 import ConfirmDeleteDialog from './ConfirmDeleteDialog';
+import AlertDialog from './AlertDialog';
 import { MinusIcon, PlusIcon, ArrowRightIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
 import { useTranslation } from '@/components/TranslationProvider';
@@ -43,6 +44,7 @@ export default function SetPersonalCollectionList({
   const [moveSuccess, setMoveSuccess] = useState(false);
   const [lastMovedItem, setLastMovedItem] = useState<{ id: string; minifigNo: string; condition: string } | null>(null);
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
   const currency = session?.user?.preferredCurrency || 'USD';
 
@@ -245,10 +247,10 @@ export default function SetPersonalCollectionList({
                       }
                     } else {
                       const data = await response.json();
-                      alert(data.error || t('collection.failedToChangeCondition') || 'Failed to change condition');
+                      setAlertMessage(data.error || t('collection.failedToChangeCondition') || 'Failed to change condition');
                     }
                   } catch (err) {
-                    alert(t('collection.failedToChangeCondition') || 'Failed to change condition');
+                    setAlertMessage(t('collection.failedToChangeCondition') || 'Failed to change condition');
                   }
                 }}
                 onClick={(e) => e.stopPropagation()}
@@ -573,6 +575,12 @@ export default function SetPersonalCollectionList({
           setPendingDeleteId(null);
         }}
         message={t('collection.deleteFromCollection') || 'Delete this item from your personal collection?'}
+      />
+
+      <AlertDialog
+        isOpen={alertMessage !== null}
+        onClose={() => setAlertMessage(null)}
+        message={alertMessage || ''}
       />
 
       {/* Success Notification */}

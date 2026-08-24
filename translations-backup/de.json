@@ -35,7 +35,8 @@
     "showMoreDescription": "Mehr anzeigen",
     "showMoreDescriptionAria": "Beschreibung erweitern",
     "showingOfCount": "{currentCount} von {totalCount} angezeigt",
-    "showingOfCountItems": "{currentCount} von {totalCount} Artikeln angezeigt"
+    "showingOfCountItems": "{currentCount} von {totalCount} Artikeln angezeigt",
+    "ok": "OK"
   },
   "navigation": {
     "home": "Startseite",

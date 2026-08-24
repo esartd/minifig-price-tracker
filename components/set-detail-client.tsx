@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useTranslation } from '@/components/TranslationProvider';
+import AlertDialog from './AlertDialog';
 import Image from 'next/image';
 import Link from 'next/link';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -106,6 +107,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
   }, [session?.user]);
 
   const [error, setError] = useState('');
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState('');
   const [successVariant, setSuccessVariant] = useState<'sell' | 'keep' | null>(null);
   const [pricing, setPricing] = useState<{
@@ -939,7 +941,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           hasMinifigs={minifigs.length > 0}
                           categoryName={set.category_name}
                           onSuccess={() => {
-                            alert(t('minifigDetail.listingSaved'));
+                            setAlertMessage(t('minifigDetail.listingSaved'));
                           }}
                           onOpen={() => {
                             setSuccessMessage('');
@@ -1034,7 +1036,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           hasMinifigs={minifigs.length > 0}
                           categoryName={set.category_name}
                           onSuccess={(listing) => {
-                            alert(t('minifigDetail.listingSaved'));
+                            setAlertMessage(t('minifigDetail.listingSaved'));
                           }}
                           onOpen={() => {
                             setSuccessMessage('');
@@ -1786,6 +1788,12 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
         itemCount={guestCollectionCount}
         totalValue={guestCollectionTotal}
         currencyCode={pricing.currencyCode}
+      />
+
+      <AlertDialog
+        isOpen={alertMessage !== null}
+        onClose={() => setAlertMessage(null)}
+        message={alertMessage || ''}
       />
     </div>
   );

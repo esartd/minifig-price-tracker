@@ -35,7 +35,8 @@
     "showLessDescriptionAria": "Afficher moins de description",
     "showingOfCount": "Affichage de {currentCount} sur {totalCount}",
     "showingOfCountItems": "Affichage de {currentCount} sur {totalCount} articles",
-    "showMore": "Afficher plus"
+    "showMore": "Afficher plus",
+    "ok": "OK"
   },
   "navigation": {
     "home": "Accueil",

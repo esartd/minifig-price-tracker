@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslation } from '@/components/TranslationProvider';
+import AlertDialog from './AlertDialog';
 
 interface CollectionItem {
   /** Real collection-row id -- absent when generating without adding to a
@@ -92,6 +93,7 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
   );
   const showMinifiguresOption = itemType === 'set' && hasMinifigs;
   const [isOpen, setIsOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const [showDetailedForm, setShowDetailedForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState<any>(null);
@@ -232,10 +234,10 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
           localStorage.setItem('listingConditionsByPlatform', JSON.stringify(conditions));
         }
       } else {
-        alert(data.error || t('listingGenerator.errors.generateFailed') || 'Failed to generate listing');
+        setAlertMessage(data.error || t('listingGenerator.errors.generateFailed') || 'Failed to generate listing');
       }
     } catch (error) {
-      alert(t('listingGenerator.errors.generateFailed') || 'Failed to generate listing');
+      setAlertMessage(t('listingGenerator.errors.generateFailed') || 'Failed to generate listing');
     } finally {
       setLoading(false);
     }
@@ -304,10 +306,10 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
           localStorage.setItem('listingConditionsByPlatform', JSON.stringify(conditions));
         }
       } else {
-        alert(data.error || t('listingGenerator.errors.generateFailed') || 'Failed to generate listing');
+        setAlertMessage(data.error || t('listingGenerator.errors.generateFailed') || 'Failed to generate listing');
       }
     } catch (error) {
-      alert(t('listingGenerator.errors.generateFailed') || 'Failed to generate listing');
+      setAlertMessage(t('listingGenerator.errors.generateFailed') || 'Failed to generate listing');
     } finally {
       setLoading(false);
     }
@@ -1158,6 +1160,12 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
           </div>
         </>
       ) : null}
+
+      <AlertDialog
+        isOpen={alertMessage !== null}
+        onClose={() => setAlertMessage(null)}
+        message={alertMessage || ''}
+      />
     </div>
   );
 }

@@ -26,6 +26,7 @@ import { trackAffiliateClick } from '@/lib/analytics';
 import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
 import { useTranslation } from '@/components/TranslationProvider';
+import AlertDialog from './AlertDialog';
 import PriceAlertButton from '@/components/PriceAlertButton';
 import BadgeTooltip from '@/components/BadgeTooltip';
 
@@ -123,6 +124,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
 
   const [addLoading, setAddLoading] = useState(false);
   const [error, setError] = useState('');
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState('');
   // Stable (non-translated) flag for which success message is showing — the UI decides which
   // success box to render based on this, NOT by substring-matching the (now translatable) message text.
@@ -1845,7 +1847,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             item={collectionItem}
                             generateEndpoint={`/api/inventory/${collectionItem.id}/generate-listing`}
                             onSuccess={(listing) => {
-                              alert(t('minifigDetail.listingSaved'));
+                              setAlertMessage(t('minifigDetail.listingSaved'));
                             }}
                             onOpen={() => {
                               setSuccessMessage('');
@@ -1873,7 +1875,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                               }}
                               generateEndpoint={`/api/minifigs/${minifig.no}/generate-listing`}
                               onSuccess={() => {
-                                alert(t('minifigDetail.listingSaved'));
+                                setAlertMessage(t('minifigDetail.listingSaved'));
                               }}
                               onOpen={() => {
                                 setSuccessMessage('');
@@ -3505,6 +3507,12 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
         itemCount={guestCollectionCount}
         totalValue={guestCollectionTotal}
         currencyCode={pricing.currencyCode}
+      />
+
+      <AlertDialog
+        isOpen={alertMessage !== null}
+        onClose={() => setAlertMessage(null)}
+        message={alertMessage || ''}
       />
     </div>
   );

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { AmazonProductsBlock } from '@/types/article';
+import AlertDialog from '../../AlertDialog';
 
 interface AmazonProductsBlockEditorProps {
   block: AmazonProductsBlock;
@@ -10,6 +11,7 @@ interface AmazonProductsBlockEditorProps {
 
 export function AmazonProductsBlockEditor({ block, onChange }: AmazonProductsBlockEditorProps) {
   const [fetchingIndex, setFetchingIndex] = useState<number | null>(null);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
   const fetchProductInfo = async (url: string, index: number) => {
     setFetchingIndex(index);
@@ -37,7 +39,7 @@ export function AmazonProductsBlockEditor({ block, onChange }: AmazonProductsBlo
       onChange({ products: newProducts });
     } catch (err) {
       console.error('Failed to fetch product:', err);
-      alert('Failed to auto-fetch product info. Please enter details manually.');
+      setAlertMessage('Failed to auto-fetch product info. Please enter details manually.');
     } finally {
       setFetchingIndex(null);
     }
@@ -294,6 +296,12 @@ export function AmazonProductsBlockEditor({ block, onChange }: AmazonProductsBlo
       }}>
         <strong>✨ Auto-Fetch:</strong> Paste any Amazon product link (including amzn.to short links) and click "Fetch" to automatically fill in title, image, and price.
       </div>
+
+      <AlertDialog
+        isOpen={alertMessage !== null}
+        onClose={() => setAlertMessage(null)}
+        message={alertMessage || ''}
+      />
     </div>
   );
 }

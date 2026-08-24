@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ImageBlock } from '@/types/article';
 import imageCompression from 'browser-image-compression';
+import AlertDialog from '../../AlertDialog';
 
 interface ImageBlockEditorProps {
   block: ImageBlock;
@@ -11,13 +12,14 @@ interface ImageBlockEditorProps {
 
 export function ImageBlockEditor({ block, onChange }: ImageBlockEditorProps) {
   const [uploadingIndex, setUploadingIndex] = useState<number | null>(null);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      alert('Please upload an image file');
+      setAlertMessage('Please upload an image file');
       return;
     }
 
@@ -61,7 +63,7 @@ export function ImageBlockEditor({ block, onChange }: ImageBlockEditorProps) {
       };
       onChange({ images: newImages });
     } catch (err) {
-      alert('Failed to upload image. Please try again.');
+      setAlertMessage('Failed to upload image. Please try again.');
       console.error('Upload error:', err);
     } finally {
       setUploadingIndex(null);
@@ -364,6 +366,12 @@ export function ImageBlockEditor({ block, onChange }: ImageBlockEditorProps) {
           + Add Image
         </button>
       )}
+
+      <AlertDialog
+        isOpen={alertMessage !== null}
+        onClose={() => setAlertMessage(null)}
+        message={alertMessage || ''}
+      />
     </div>
   );
 }

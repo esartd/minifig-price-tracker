@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { getCurrenciesByContinent, SUPPORTED_CURRENCIES } from '@/lib/currency-config';
 import { formatPrice } from '@/lib/format-price';
 import { useTranslation } from '@/components/TranslationProvider';
+import ConfirmDeleteDialog from '@/components/ConfirmDeleteDialog';
+import AlertDialog from '@/components/AlertDialog';
 
 export default function AccountPage() {
   const { t, locale } = useTranslation();
@@ -15,6 +17,8 @@ export default function AccountPage() {
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [deleteAccountStep, setDeleteAccountStep] = useState<0 | 1 | 2>(0);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
   // Profile states
   const [name, setName] = useState('');
@@ -467,19 +471,12 @@ export default function AccountPage() {
     }
   };
 
-  const handleDeleteAccount = async () => {
-    const confirmed = window.confirm(
-      t('account.dataManagement.delete.confirm1')
-    );
+  const handleDeleteAccount = () => {
+    setDeleteAccountStep(1);
+  };
 
-    if (!confirmed) return;
-
-    const doubleConfirm = window.confirm(
-      t('account.dataManagement.delete.confirm2')
-    );
-
-    if (!doubleConfirm) return;
-
+  const performAccountDeletion = async () => {
+    setDeleteAccountStep(0);
     setLoading(true);
     try {
       const response = await fetch('/api/auth/delete-account', {
@@ -543,7 +540,7 @@ export default function AccountPage() {
           message += `\n\n${t('account.messages.pricesWillDisplay', { currencyCode: currency.code })}`;
         }
 
-        alert(message);
+        setAlertMessage(message);
         router.refresh();
       }
     } catch (error) {
@@ -2003,6 +2000,24 @@ export default function AccountPage() {
           </div>
         </div>
       </div>
+
+      <ConfirmDeleteDialog
+        isOpen={deleteAccountStep === 1}
+        onClose={() => setDeleteAccountStep(0)}
+        onConfirm={() => setDeleteAccountStep(2)}
+        message={t('account.dataManagement.delete.confirm1')}
+      />
+      <ConfirmDeleteDialog
+        isOpen={deleteAccountStep === 2}
+        onClose={() => setDeleteAccountStep(0)}
+        onConfirm={performAccountDeletion}
+        message={t('account.dataManagement.delete.confirm2')}
+      />
+      <AlertDialog
+        isOpen={alertMessage !== null}
+        onClose={() => setAlertMessage(null)}
+        message={alertMessage || ''}
+      />
     </div>
   );
 }

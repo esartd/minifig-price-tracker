@@ -35,7 +35,8 @@
     "showLessDescriptionAria": "Visa mindre beskrivning",
     "showingOfCount": "Visar {currentCount} av {totalCount}",
     "showingOfCountItems": "Visar {currentCount} av {totalCount} artiklar",
-    "showMore": "Visa mer"
+    "showMore": "Visa mer",
+    "ok": "OK"
   },
   "navigation": {
     "home": "Hem",

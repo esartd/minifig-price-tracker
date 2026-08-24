@@ -35,7 +35,8 @@
     "showLessDescriptionAria": "Minder beschrijving weergeven",
     "showingOfCount": "{currentCount} van {totalCount} weergegeven",
     "showingOfCountItems": "{currentCount} van {totalCount} items weergegeven",
-    "showMore": "Meer Weergeven"
+    "showMore": "Meer Weergeven",
+    "ok": "OK"
   },
   "navigation": {
     "home": "Home",

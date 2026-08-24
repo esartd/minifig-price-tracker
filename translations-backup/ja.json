@@ -35,7 +35,8 @@
     "showLessDescriptionAria": "説明の表示を減らす",
     "showingOfCount": "{totalCount}件中{currentCount}件を表示",
     "showingOfCountItems": "{totalCount}件中{currentCount}件のアイテムを表示",
-    "showMore": "もっと見る"
+    "showMore": "もっと見る",
+    "ok": "OK"
   },
   "navigation": {
     "home": "ホーム",
