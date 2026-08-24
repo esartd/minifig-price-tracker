@@ -83,7 +83,7 @@
     "language": "Språk",
     "user": "Användare",
     "premium": "Premium",
-    "resources": "Resources"
+    "resources": "Resurser"
   },
   "themes": {
     "browse_title": "Bläddra bland LEGO Minifigur-teman",
@@ -429,19 +429,19 @@
     },
     "premium": {
       "title": "Premium",
-      "loading": "Loading...",
-      "pitch": "Generate listings for any minifig or set without adding it to your collection first.",
-      "upgradeMonthly": "Upgrade — Monthly",
-      "upgradeYearly": "Upgrade — Yearly",
-      "manageSubscription": "Manage Subscription",
-      "renewsAt": "Premium active — renews {date}",
-      "cancelsAt": "Premium active — access ends {date}",
-      "paymentIssue": "There was a problem with your last payment. Please update your billing details.",
+      "loading": "Laddar...",
+      "pitch": "Skapa annonser för vilken minifigur eller vilket set som helst utan att först lägga till den i din samling.",
+      "upgradeMonthly": "Uppgradera — Månadsvis",
+      "upgradeYearly": "Uppgradera — Årsvis",
+      "manageSubscription": "Hantera prenumeration",
+      "renewsAt": "Premium aktiverat — förnyas {date}",
+      "cancelsAt": "Premium aktiverat — åtkomsten upphör {date}",
+      "paymentIssue": "Det uppstod ett problem med din senaste betalning. Uppdatera dina betalningsuppgifter.",
       "messages": {
-        "upgradeSuccess": "Welcome to Premium!",
-        "upgradeCancelled": "Checkout was cancelled."
+        "upgradeSuccess": "Välkommen till Premium!",
+        "upgradeCancelled": "Kassan avbröts."
       },
-      "tryIdentifier": "Identify a Minifig"
+      "tryIdentifier": "Identifiera en minifigur"
     }
   },
   "search": {
@@ -513,7 +513,7 @@
     "sourceBrickLink": "Pris från BrickLink",
     "loadingData": "Laddar prisdata...",
     "supportCta": "Sparade vi dig tid? Stöd gratis prissättning →",
-    "premiumCta": "Skip the collection step — go Premium →"
+    "premiumCta": "Hoppa över samlingssteget — bli Premium →"
   },
   "errors": {
     "notFound": "Ingat found",
@@ -657,9 +657,9 @@
       "forCollectorsSellers": "Inget konto krävs för att söka"
     },
     "identifyTeaser": {
-      "title": "New: AI Minifig Identifier",
-      "subtitle": "snap a photo, get the BrickLink ID + value instantly",
-      "cta": "Try it →"
+      "title": "Nytt: AI-identifiering av minifigurer",
+      "subtitle": "ta ett foto och få BrickLink-ID:t + värdet direkt",
+      "cta": "Testa →"
     }
   },
   "about": {
@@ -800,7 +800,7 @@
     "noSupporterYet": "Ingen supporter än",
     "donationSubtitle": "Tack till våra generösa supportrar detta kvartal ({season})",
     "items": "artiklar",
-    "exploreCommunity": "Explore Community →"
+    "exploreCommunity": "Utforska communityt →"
   },
   "footer": {
     "faq": "FAQ",
@@ -2678,89 +2678,89 @@
   },
   "premium": {
     "upgradeTeaser": {
-      "title": "This is a Premium feature",
-      "body": "Premium gets you instant listings with no collection step, plus an unlimited AI minifigure identifier.",
-      "cta": "Upgrade to Premium"
+      "title": "Detta är en Premium-funktion",
+      "body": "Med Premium får du direkta annonser utan samlingssteg, plus en obegränsad AI-identifiering av minifigurer.",
+      "cta": "Uppgradera till Premium"
     },
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Two tools. One subscription.",
-        "subtitle": "List anything instantly, and identify any minifigure from a photo."
+        "title": "Två verktyg. En prenumeration.",
+        "subtitle": "Skapa annonser direkt och identifiera vilken minifigur som helst från ett foto."
       },
       "features": {
-        "title": "What you get",
-        "subtitle": "One subscription, one less step between finding a set and listing it for sale.",
+        "title": "Det här får du",
+        "subtitle": "En prenumeration, ett steg mindre mellan att hitta ett set och lägga upp det till försäljning.",
         "skipStep": {
-          "title": "No collection step required",
-          "description": "Normally you'd add an item to your collection or inventory before generating a listing. Premium skips that entirely — go straight from any minifig or set's page to a ready-to-post listing."
+          "title": "Inget samlingssteg krävs",
+          "description": "Normalt behöver du lägga till en artikel i din samling eller ditt lager innan du kan skapa en annons. Med Premium hoppar du över det helt — gå direkt från en minifigurs eller ett sets sida till en färdig annons."
         },
         "minifigs": {
-          "title": "Works for minifigs",
-          "description": "Generate listings for any minifigure in the catalog, with live pricing pulled the moment you generate."
+          "title": "Fungerar för minifigurer",
+          "description": "Skapa annonser för vilken minifigur som helst i katalogen, med aktuella priser hämtade i samma stund som du skapar annonsen."
         },
         "sets": {
-          "title": "Works for sets",
-          "description": "Same instant listing generation for any LEGO set — box condition, completeness, and all the usual details included."
+          "title": "Fungerar för set",
+          "description": "Samma direkta annonsgenerering för vilket LEGO-set som helst — boxskick, fullständighet och alla vanliga detaljer ingår."
         },
         "sameQuality": {
-          "title": "Same great listings",
-          "description": "It's the exact same listing generator you already use — eBay, BrickLink, Facebook, and Vinted templates, just without the extra step."
+          "title": "Samma bra annonser",
+          "description": "Det är exakt samma annonsgenerator som du redan använder — mallar för eBay, BrickLink, Facebook och Vinted, bara utan det extra steget."
         },
         "identify": {
-          "title": "Unlimited AI minifigure identifier",
-          "description": "Snap or drag in a photo — AI finds the BrickLink ID and current value. No scan limit."
+          "title": "Obegränsad AI-identifiering av minifigurer",
+          "description": "Ta eller dra in ett foto — AI:n hittar BrickLink-ID:t och det aktuella värdet. Ingen gräns för antal skanningar."
         }
       },
       "cta": {
-        "title": "Ready to skip the busywork?",
-        "subtitle": "Upgrade in a minute — cancel any time.",
-        "button": "Upgrade to Premium"
+        "title": "Redo att slippa slöjjobbet?",
+        "subtitle": "Uppgradera på en minut — avsluta när du vill.",
+        "button": "Uppgradera till Premium"
       },
       "meta": {
         "title": "Premium",
-        "description": "Instant listings without the collection step, plus an unlimited AI minifigure identifier — $4.99/month."
+        "description": "Direkta annonser utan samlingssteg, plus en obegränsad AI-identifiering av minifigurer — $4.99/månad."
       },
       "price": "$4.99",
-      "priceSuffix": "/month",
-      "cancelAnytime": "Cancel anytime"
+      "priceSuffix": "/månad",
+      "cancelAnytime": "Avsluta när du vill"
     }
   },
   "identify": {
     "meta": {
-      "title": "Identify a Minifigure",
-      "description": "Snap or drag in a photo and let AI identify your LEGO minifigure's BrickLink ID and current value."
+      "title": "Identifiera en minifigur",
+      "description": "Ta eller dra in ett foto och låt AI:n identifiera din LEGO-minifigurs BrickLink-ID och aktuella värde."
     },
     "hero": {
-      "title": "Identify a Minifigure",
-      "subtitle": "Snap or drag in a photo — AI finds the BrickLink ID and current value."
+      "title": "Identifiera en minifigur",
+      "subtitle": "Ta eller dra in ett foto — AI:n hittar BrickLink-ID:t och det aktuella värdet."
     },
     "dropzone": {
-      "title": "Drag a photo here, or choose one below",
-      "subtitle": "Works best with a clear, well-lit photo of one minifigure",
-      "choosePhoto": "Choose Photo",
-      "takePhoto": "Take Photo"
+      "title": "Dra ett foto hit, eller välj ett nedan",
+      "subtitle": "Fungerar bäst med ett tydligt, väl upplyst foto av en minifigur",
+      "choosePhoto": "Välj foto",
+      "takePhoto": "Ta foto"
     },
-    "processing": "Identifying your minifigure...",
+    "processing": "Identifierar din minifigur...",
     "errors": {
-      "notImage": "Please choose an image file.",
-      "generic": "Something went wrong. Please try again.",
-      "dailyLimit": "You've hit today's scan limit. Try again tomorrow."
+      "notImage": "Välj en bildfil.",
+      "generic": "Något gick fel. Försök igen.",
+      "dailyLimit": "Du har nått dagens skanningsgräns. Försök igen imorgon."
     },
-    "tryAgain": "Try Again",
-    "noMatch": "Couldn't confidently identify this minifigure. Try a clearer or closer photo.",
-    "brickLinkId": "BrickLink ID",
-    "priceUnavailable": "Price unavailable right now",
+    "tryAgain": "Försök igen",
+    "noMatch": "Kunde inte identifiera minifiguren med säkerhet. Prova ett tydligare eller närmare foto.",
+    "brickLinkId": "BrickLink-ID",
+    "priceUnavailable": "Priset är inte tillgängligt just nu",
     "feedback": {
-      "isThisRight": "Is this right?",
-      "correct": "That's right",
-      "incorrect": "Not quite",
-      "correctionPlaceholder": "Correct BrickLink ID",
-      "submit": "Submit",
-      "thanks": "Thanks for the feedback!"
+      "isThisRight": "Stämmer det här?",
+      "correct": "Ja, det stämmer",
+      "incorrect": "Inte riktigt",
+      "correctionPlaceholder": "Rätt BrickLink-ID",
+      "submit": "Skicka",
+      "thanks": "Tack för din feedback!"
     },
-    "mixedBanner": "Looks like a custom figure — here's our best guess for each part.",
-    "aiEstimateUnverified": "AI estimate — unverified",
-    "scanAnother": "Scan Another"
+    "mixedBanner": "Det här ser ut som en anpassad figur — här är vår bästa gissning för varje del.",
+    "aiEstimateUnverified": "AI-uppskattning — overifierad",
+    "scanAnother": "Skanna en till"
   }
 }

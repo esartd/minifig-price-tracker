@@ -83,7 +83,7 @@
     "language": "Langue",
     "user": "Utilisateur",
     "premium": "Premium",
-    "resources": "Resources"
+    "resources": "Ressources"
   },
   "themes": {
     "browse_title": "Parcourir les thèmes de minifigurines LEGO",
@@ -486,19 +486,19 @@
     },
     "premium": {
       "title": "Premium",
-      "loading": "Loading...",
-      "pitch": "Generate listings for any minifig or set without adding it to your collection first.",
-      "upgradeMonthly": "Upgrade — Monthly",
-      "upgradeYearly": "Upgrade — Yearly",
-      "manageSubscription": "Manage Subscription",
-      "renewsAt": "Premium active — renews {date}",
-      "cancelsAt": "Premium active — access ends {date}",
-      "paymentIssue": "There was a problem with your last payment. Please update your billing details.",
+      "loading": "Chargement...",
+      "pitch": "Générez des annonces pour n'importe quelle minifig ou set sans avoir à l'ajouter d'abord à votre collection.",
+      "upgradeMonthly": "Passer à Premium — Mensuel",
+      "upgradeYearly": "Passer à Premium — Annuel",
+      "manageSubscription": "Gérer l'abonnement",
+      "renewsAt": "Premium actif — renouvellement le {date}",
+      "cancelsAt": "Premium actif — accès jusqu'au {date}",
+      "paymentIssue": "Un problème est survenu avec votre dernier paiement. Veuillez mettre à jour vos informations de facturation.",
       "messages": {
-        "upgradeSuccess": "Welcome to Premium!",
-        "upgradeCancelled": "Checkout was cancelled."
+        "upgradeSuccess": "Bienvenue dans Premium !",
+        "upgradeCancelled": "Le paiement a été annulé."
       },
-      "tryIdentifier": "Identify a Minifig"
+      "tryIdentifier": "Identifier une minifig"
     }
   },
   "search": {
@@ -570,7 +570,7 @@
     "sourceBrickLink": "Prix BrickLink",
     "loadingData": "Chargement des données de prix...",
     "supportCta": "On vous a fait gagner du temps ? Soutenez la tarification gratuite →",
-    "premiumCta": "Skip the collection step — go Premium →"
+    "premiumCta": "Passez l'étape de collection — optez pour Premium →"
   },
   "errors": {
     "notFound": "Non trouvé",
@@ -842,7 +842,7 @@
     "noSupporterYet": "Pas encore de supporter",
     "donationSubtitle": "Merci à nos généreux supporters ce trimestre ({season})",
     "items": "articles",
-    "exploreCommunity": "Explore Community →"
+    "exploreCommunity": "Explorer la communauté →"
   },
   "footer": {
     "faq": "FAQ",
@@ -2139,9 +2139,9 @@
       "forCollectorsSellers": "Pas de compte requis pour chercher"
     },
     "identifyTeaser": {
-      "title": "New: AI Minifig Identifier",
-      "subtitle": "snap a photo, get the BrickLink ID + value instantly",
-      "cta": "Try it →"
+      "title": "Nouveau : identificateur de minifig par IA",
+      "subtitle": "prenez une photo, obtenez l'ID BrickLink et la valeur instantanément",
+      "cta": "Essayer →"
     }
   },
   "articles": {
@@ -2735,89 +2735,89 @@
   },
   "premium": {
     "upgradeTeaser": {
-      "title": "This is a Premium feature",
-      "body": "Premium gets you instant listings with no collection step, plus an unlimited AI minifigure identifier.",
-      "cta": "Upgrade to Premium"
+      "title": "Ceci est une fonctionnalité Premium",
+      "body": "Premium vous donne des annonces instantanées sans étape de collection, ainsi qu'un identificateur de minifigurine par IA illimité.",
+      "cta": "Passer à Premium"
     },
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Two tools. One subscription.",
-        "subtitle": "List anything instantly, and identify any minifigure from a photo."
+        "title": "Deux outils. Un seul abonnement.",
+        "subtitle": "Publiez n'importe quoi instantanément, et identifiez n'importe quelle minifigurine à partir d'une photo."
       },
       "features": {
-        "title": "What you get",
-        "subtitle": "One subscription, one less step between finding a set and listing it for sale.",
+        "title": "Ce que vous obtenez",
+        "subtitle": "Un seul abonnement, une étape de moins entre trouver un set et le mettre en vente.",
         "skipStep": {
-          "title": "No collection step required",
-          "description": "Normally you'd add an item to your collection or inventory before generating a listing. Premium skips that entirely — go straight from any minifig or set's page to a ready-to-post listing."
+          "title": "Aucune étape de collection requise",
+          "description": "Normalement, vous devez ajouter un article à votre collection ou à votre inventaire avant de générer une annonce. Premium supprime totalement cette étape — passez directement de la page d'une minifig ou d'un set à une annonce prête à publier."
         },
         "minifigs": {
-          "title": "Works for minifigs",
-          "description": "Generate listings for any minifigure in the catalog, with live pricing pulled the moment you generate."
+          "title": "Fonctionne pour les minifigs",
+          "description": "Générez des annonces pour n'importe quelle minifigurine du catalogue, avec un prix en direct récupéré au moment de la génération."
         },
         "sets": {
-          "title": "Works for sets",
-          "description": "Same instant listing generation for any LEGO set — box condition, completeness, and all the usual details included."
+          "title": "Fonctionne pour les sets",
+          "description": "La même génération d'annonces instantanée pour n'importe quel set LEGO — état de la boîte, complétude et tous les détails habituels inclus."
         },
         "sameQuality": {
-          "title": "Same great listings",
-          "description": "It's the exact same listing generator you already use — eBay, BrickLink, Facebook, and Vinted templates, just without the extra step."
+          "title": "Les mêmes excellentes annonces",
+          "description": "C'est exactement le même générateur d'annonces que vous utilisez déjà — modèles eBay, BrickLink, Facebook et Vinted, simplement sans l'étape supplémentaire."
         },
         "identify": {
-          "title": "Unlimited AI minifigure identifier",
-          "description": "Snap or drag in a photo — AI finds the BrickLink ID and current value. No scan limit."
+          "title": "Identificateur de minifigurine par IA illimité",
+          "description": "Prenez une photo ou glissez-la — l'IA trouve l'ID BrickLink et la valeur actuelle. Aucune limite de scan."
         }
       },
       "cta": {
-        "title": "Ready to skip the busywork?",
-        "subtitle": "Upgrade in a minute — cancel any time.",
-        "button": "Upgrade to Premium"
+        "title": "Prêt à éviter les tâches fastidieuses ?",
+        "subtitle": "Passez à Premium en une minute — annulez à tout moment.",
+        "button": "Passer à Premium"
       },
       "meta": {
         "title": "Premium",
-        "description": "Instant listings without the collection step, plus an unlimited AI minifigure identifier — $4.99/month."
+        "description": "Des annonces instantanées sans étape de collection, ainsi qu'un identificateur de minifigurine par IA illimité — $4.99/mois."
       },
       "price": "$4.99",
-      "priceSuffix": "/month",
-      "cancelAnytime": "Cancel anytime"
+      "priceSuffix": "/mois",
+      "cancelAnytime": "Annulez à tout moment"
     }
   },
   "identify": {
     "meta": {
-      "title": "Identify a Minifigure",
-      "description": "Snap or drag in a photo and let AI identify your LEGO minifigure's BrickLink ID and current value."
+      "title": "Identifier une minifigurine",
+      "description": "Prenez une photo ou glissez-la, et laissez l'IA identifier l'ID BrickLink et la valeur actuelle de votre minifigurine LEGO."
     },
     "hero": {
-      "title": "Identify a Minifigure",
-      "subtitle": "Snap or drag in a photo — AI finds the BrickLink ID and current value."
+      "title": "Identifier une minifigurine",
+      "subtitle": "Prenez une photo ou glissez-la — l'IA trouve l'ID BrickLink et la valeur actuelle."
     },
     "dropzone": {
-      "title": "Drag a photo here, or choose one below",
-      "subtitle": "Works best with a clear, well-lit photo of one minifigure",
-      "choosePhoto": "Choose Photo",
-      "takePhoto": "Take Photo"
+      "title": "Glissez une photo ici, ou choisissez-en une ci-dessous",
+      "subtitle": "Fonctionne mieux avec une photo nette et bien éclairée d'une seule minifigurine",
+      "choosePhoto": "Choisir une photo",
+      "takePhoto": "Prendre une photo"
     },
-    "processing": "Identifying your minifigure...",
+    "processing": "Identification de votre minifigurine...",
     "errors": {
-      "notImage": "Please choose an image file.",
-      "generic": "Something went wrong. Please try again.",
-      "dailyLimit": "You've hit today's scan limit. Try again tomorrow."
+      "notImage": "Veuillez choisir un fichier image.",
+      "generic": "Une erreur s'est produite. Veuillez réessayer.",
+      "dailyLimit": "Vous avez atteint la limite de scans du jour. Réessayez demain."
     },
-    "tryAgain": "Try Again",
-    "noMatch": "Couldn't confidently identify this minifigure. Try a clearer or closer photo.",
-    "brickLinkId": "BrickLink ID",
-    "priceUnavailable": "Price unavailable right now",
+    "tryAgain": "Réessayer",
+    "noMatch": "Impossible d'identifier cette minifigurine avec certitude. Essayez une photo plus nette ou plus rapprochée.",
+    "brickLinkId": "ID BrickLink",
+    "priceUnavailable": "Prix indisponible pour le moment",
     "feedback": {
-      "isThisRight": "Is this right?",
-      "correct": "That's right",
-      "incorrect": "Not quite",
-      "correctionPlaceholder": "Correct BrickLink ID",
-      "submit": "Submit",
-      "thanks": "Thanks for the feedback!"
+      "isThisRight": "Est-ce correct ?",
+      "correct": "C'est correct",
+      "incorrect": "Pas tout à fait",
+      "correctionPlaceholder": "ID BrickLink correct",
+      "submit": "Envoyer",
+      "thanks": "Merci pour votre retour !"
     },
-    "mixedBanner": "Looks like a custom figure — here's our best guess for each part.",
-    "aiEstimateUnverified": "AI estimate — unverified",
-    "scanAnother": "Scan Another"
+    "mixedBanner": "Il semble s'agir d'une figurine personnalisée — voici notre meilleure estimation pour chaque pièce.",
+    "aiEstimateUnverified": "Estimation IA — non vérifiée",
+    "scanAnother": "Scanner une autre"
   }
 }
