@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslation } from '@/components/TranslationProvider';
+import ConfirmDeleteDialog from '@/components/ConfirmDeleteDialog';
 
 interface PriceAlert {
   id: string;
@@ -29,6 +30,7 @@ export default function AlertsPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editPrice, setEditPrice] = useState('');
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   // Add responsive styles
   useEffect(() => {
@@ -120,8 +122,6 @@ export default function AlertsPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm(t('accountAlerts.confirmDelete') || 'Are you sure you want to delete this alert?')) return;
-
     try {
       const response = await fetch(`/api/alerts?id=${id}`, {
         method: 'DELETE',
@@ -396,7 +396,7 @@ export default function AlertsPage() {
                   onEdit={startEditing}
                   onSave={saveEdit}
                   onCancel={cancelEditing}
-                  onDelete={handleDelete}
+                  onDelete={setPendingDeleteId}
                   onToggleActive={handleToggleActive}
                   setEditPrice={setEditPrice}
                   getCurrencySymbol={getCurrencySymbol}
@@ -434,7 +434,7 @@ export default function AlertsPage() {
                   onEdit={startEditing}
                   onSave={saveEdit}
                   onCancel={cancelEditing}
-                  onDelete={handleDelete}
+                  onDelete={setPendingDeleteId}
                   onToggleActive={handleToggleActive}
                   setEditPrice={setEditPrice}
                   getCurrencySymbol={getCurrencySymbol}
@@ -473,7 +473,7 @@ export default function AlertsPage() {
                   onEdit={startEditing}
                   onSave={saveEdit}
                   onCancel={cancelEditing}
-                  onDelete={handleDelete}
+                  onDelete={setPendingDeleteId}
                   onToggleActive={handleToggleActive}
                   setEditPrice={setEditPrice}
                   getCurrencySymbol={getCurrencySymbol}
@@ -484,6 +484,16 @@ export default function AlertsPage() {
           </div>
         )}
       </div>
+
+      <ConfirmDeleteDialog
+        isOpen={pendingDeleteId !== null}
+        onClose={() => setPendingDeleteId(null)}
+        onConfirm={() => {
+          if (pendingDeleteId) handleDelete(pendingDeleteId);
+          setPendingDeleteId(null);
+        }}
+        message={t('accountAlerts.confirmDelete') || 'Are you sure you want to delete this alert?'}
+      />
     </div>
   );
 }
