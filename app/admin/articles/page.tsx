@@ -8,7 +8,9 @@ export default async function AdminArticlesPage() {
     redirect('/');
   }
 
-  // TODO: Once Article model is added to database, restore full admin page
-  // For now, redirect to the working demo page
-  redirect('/cms-demo');
+  // The Article model has existed in the DB for a while now -- the real
+  // editor is /write (session-gated to the owner account). /cms-demo,
+  // this used to redirect to, no longer exists, so this was a dead-end
+  // 404 for any admin visiting /admin/articles.
+  redirect('/write');
 }
