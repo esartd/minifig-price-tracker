@@ -221,7 +221,7 @@ export default function LeaderboardsSection() {
             onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#d4d4d4'; e.currentTarget.style.background = '#fafafa'; }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#e5e5e5'; e.currentTarget.style.background = '#ffffff'; }}
           >
-            {t('leaderboards.exploreCommunity') || 'Explore the Full Community →'}
+            {t('leaderboards.exploreCommunity') || 'Explore Community →'}
           </Link>
         </div>
       </div>
