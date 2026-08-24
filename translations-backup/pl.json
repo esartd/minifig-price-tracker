@@ -799,7 +799,8 @@
     "beFirstToDonate": "Bądź pierwszym darczyńcą!",
     "noSupporterYet": "Jeszcze brak wspierających",
     "donationSubtitle": "Dziękujemy naszym hojnym wspierającym w tym kwartale ({season})",
-    "items": "przedmioty"
+    "items": "przedmioty",
+    "exploreCommunity": "Explore the Full Community →"
   },
   "footer": {
     "faq": "FAQ",

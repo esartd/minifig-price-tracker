@@ -155,7 +155,7 @@ export default function LeaderboardsSection() {
           }}
         >
           {activeTab === 'quarterly'
-            ? t('leaderboards.quarterlyDescription', { dateRange, season })
+            ? (dateRange && season ? t('leaderboards.quarterlyDescription', { dateRange, season }) : '')
             : t('leaderboards.alltimeDescription')
           }
         </p>
@@ -194,6 +194,35 @@ export default function LeaderboardsSection() {
 
           {/* Donors - Always show */}
           <DonorsColumn items={topDonors} t={t} />
+        </div>
+
+        {/* Bridge to the full collector community directory -- the columns
+            above only show the top 5 per category, this is where people go
+            to browse everyone. */}
+        <div style={{ textAlign: 'center', marginTop: '48px' }}>
+          <Link
+            href="/collectors"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              padding: '12px 28px',
+              fontSize: 'var(--text-sm)',
+              fontWeight: '600',
+              color: '#171717',
+              background: '#ffffff',
+              border: '1px solid #e5e5e5',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              lineHeight: 1.2,
+              transition: 'border-color 0.2s, background 0.2s',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#d4d4d4'; e.currentTarget.style.background = '#fafafa'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#e5e5e5'; e.currentTarget.style.background = '#ffffff'; }}
+          >
+            {t('leaderboards.exploreCommunity') || 'Explore the Full Community →'}
+          </Link>
         </div>
       </div>
     </section>

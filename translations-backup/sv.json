@@ -799,7 +799,8 @@
     "beFirstToDonate": "Var den första att donera!",
     "noSupporterYet": "Ingen supporter än",
     "donationSubtitle": "Tack till våra generösa supportrar detta kvartal ({season})",
-    "items": "artiklar"
+    "items": "artiklar",
+    "exploreCommunity": "Explore the Full Community →"
   },
   "footer": {
     "faq": "FAQ",

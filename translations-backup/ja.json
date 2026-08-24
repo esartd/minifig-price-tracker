@@ -799,7 +799,8 @@
     "beFirstToDonate": "最初に寄付しよう！",
     "noSupporterYet": "まだサポーターがいません",
     "donationSubtitle": "今四半期（{season}）にご支援いただいた皆さまに感謝します",
-    "items": "アイテム"
+    "items": "アイテム",
+    "exploreCommunity": "Explore the Full Community →"
   },
   "footer": {
     "faq": "FAQ",

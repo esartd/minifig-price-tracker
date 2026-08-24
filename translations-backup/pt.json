@@ -799,7 +799,8 @@
     "beFirstToDonate": "Seja o primeiro a doar!",
     "noSupporterYet": "Ainda não há apoiador",
     "donationSubtitle": "Obrigado aos nossos generosos apoiantes este trimestre ({season})",
-    "items": "itens"
+    "items": "itens",
+    "exploreCommunity": "Explore the Full Community →"
   },
   "footer": {
     "faq": "FAQ",

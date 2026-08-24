@@ -841,7 +841,8 @@
     "beFirstToDonate": "Soyez le premier à faire un don !",
     "noSupporterYet": "Pas encore de supporter",
     "donationSubtitle": "Merci à nos généreux supporters ce trimestre ({season})",
-    "items": "articles"
+    "items": "articles",
+    "exploreCommunity": "Explore the Full Community →"
   },
   "footer": {
     "faq": "FAQ",

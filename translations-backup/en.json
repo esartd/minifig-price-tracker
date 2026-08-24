@@ -799,7 +799,8 @@
     "beFirstToDonate": "Be the First to Donate!",
     "noSupporterYet": "No supporter yet",
     "donationSubtitle": "Thank you to our generous supporters this quarter ({season})",
-    "items": "items"
+    "items": "items",
+    "exploreCommunity": "Explore the Full Community →"
   },
   "footer": {
     "faq": "FAQ",
