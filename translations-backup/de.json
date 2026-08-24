@@ -778,7 +778,7 @@
     },
     "meta": {
       "title": "Über FigTracker - Jeden LEGO-Artikel in Sekunden bepreisen",
-      "description": "FigTracker wandelt 24 BrickLink-Datenpunkte in einen empfohlenen Preis für jede LEGO-Minifigur oder jedes Set um. Duales Inventar, 15+ Währungen, völlig kostenlos.",
+      "description": "FigTracker wandelt 24 BrickLink-Datenpunkte in einen empfohlenen Preis für jede LEGO-Minifigur oder jedes Set um. Duales Inventar, 20+ Währungen, völlig kostenlos.",
       "keywords": "über FigTracker, LEGO Preis-Tracker, Bricklink API Tool, Minifiguren-Preisgestaltung, LEGO Inventar-Tracker, kostenlose LEGO Preisgestaltung"
     },
     "catalogCount": {
@@ -1927,7 +1927,7 @@
       "button": "Bei LEGO.com Einkaufen",
       "disclaimer": "Wir verdienen eine Provision bei qualifizierten Käufen. Preise Stand 2. Mai 2026.",
       "features": {
-        "currencySupport": "✓ Unterstützung für 15+ Währungen",
+        "currencySupport": "✓ Unterstützung für 20+ Währungen",
         "minifigsTracked": "✓ 18.000+ verfolgte Minifiguren",
         "setsTracked": "✓ 20.000+ verfolgte Sets",
         "smartPricing": "✓ Intelligente Marktpreisgestaltung"
@@ -2134,7 +2134,7 @@
     "stats": {
       "minifigsTracked": "Minifiguren zum Bewerten",
       "setsInCatalog": "Sets im Katalog",
-      "realTime": "Echtzeit",
+      "realTime": "20+",
       "bricklinkPricing": "Unterstützte Währungen",
       "free": "Kostenlos",
       "forCollectorsSellers": "Kein Konto zum Suchen erforderlich"

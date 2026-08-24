@@ -642,17 +642,17 @@
     ],
     "meta": {
       "title": "FAQ - Veelgestelde Vragen | FigTracker",
-      "description": "Veelgestelde vragen over de LEGO minifiguur- en setprijstracker van FigTracker. Leer hoe je items prijst, je inventaris in 15+ valuta bijhoudt en Bricklink-gegevens effectief gebruikt.",
+      "description": "Veelgestelde vragen over de LEGO minifiguur- en setprijstracker van FigTracker. Leer hoe je items prijst, je inventaris in 20+ valuta bijhoudt en Bricklink-gegevens effectief gebruikt.",
       "keywords": "LEGO prijzen FAQ, Bricklink hulp, minifiguur prijsgids, FigTracker hulp, hoe LEGO te prijzen, LEGO set tracker",
       "ogTitle": "Veelgestelde Vragen | FigTracker",
-      "ogDescription": "Krijg antwoorden over het prijzen van LEGO minifiguren en sets met FigTracker. 15+ valuta, 18.000+ minifigs, 20.000+ sets."
+      "ogDescription": "Krijg antwoorden over het prijzen van LEGO minifiguren en sets met FigTracker. 20+ valuta, 18.000+ minifigs, 20.000+ sets."
     }
   },
   "homepage": {
     "stats": {
       "minifigsTracked": "Minifiguren die je kunt prijzen",
       "setsInCatalog": "Sets in de catalogus",
-      "realTime": "Realtime",
+      "realTime": "20+",
       "bricklinkPricing": "Ondersteunde valuta",
       "free": "Gratis",
       "forCollectorsSellers": "Geen account nodig om te zoeken"
@@ -736,7 +736,7 @@
     },
     "meta": {
       "title": "Over FigTracker - Prijs Elke LEGO Minifiguur of Set in Seconden",
-      "description": "FigTracker verandert 24 BrickLink datapunten in één voorgestelde prijs voor elke LEGO minifiguur of set. Dubbele inventaris, 15+ valuta, volledig gratis.",
+      "description": "FigTracker verandert 24 BrickLink datapunten in één voorgestelde prijs voor elke LEGO minifiguur of set. Dubbele inventaris, 20+ valuta, volledig gratis.",
       "keywords": "over FigTracker, LEGO prijstracker, BrickLink API tool, minifiguur prijzen, LEGO set prijzen, LEGO collectiebeheer, LEGO inventaris tracker, gratis LEGO prijzen, LEGO verkoper tool"
     },
     "catalogCount": {
@@ -1917,7 +1917,7 @@
         "minifigsTracked": "✓ 18.000+ minifiguren bijgehouden",
         "setsTracked": "✓ 20.000+ sets bijgehouden",
         "smartPricing": "✓ Slimme marktprijzen",
-        "currencySupport": "✓ Ondersteuning voor 15+ valuta's"
+        "currencySupport": "✓ Ondersteuning voor 20+ valuta's"
       }
     },
     "common": {

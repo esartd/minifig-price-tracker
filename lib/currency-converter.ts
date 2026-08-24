@@ -5,9 +5,12 @@
 
 import { PricingData } from '@/types';
 
-// Exchange rates (updated periodically, relative to 1 USD)
-// TODO: Could fetch from API like exchangerate-api.com for real-time rates
-const EXCHANGE_RATES: Record<string, number> = {
+// Static fallback rates (relative to 1 USD), last hand-updated 2026-06-08.
+// This is ONLY used if the live rates endpoint (/api/exchange-rates, backed
+// by lib/live-exchange-rates.ts) is unreachable -- normal operation fetches
+// current rates instead of relying on this frozen snapshot. Kept here as a
+// last-resort so conversion never hard-fails.
+export const FALLBACK_EXCHANGE_RATES: Record<string, number> = {
   'USD': 1.00,
   'EUR': 0.92,
   'GBP': 0.79,
@@ -53,18 +56,22 @@ const EXCHANGE_RATES: Record<string, number> = {
 };
 
 /**
- * Convert USD pricing data to target currency
+ * Convert USD pricing data to target currency.
+ *
+ * `rates` should come from fetchLiveExchangeRates() (current rates, cached
+ * server-side for 24h). Falls back to the static table above if omitted.
  */
 export function convertPricing(
   pricingUSD: PricingData,
-  targetCurrency: string
+  targetCurrency: string,
+  rates: Record<string, number> = FALLBACK_EXCHANGE_RATES
 ): PricingData {
   // If already in target currency or target is USD, return as-is
   if (pricingUSD.currencyCode === targetCurrency || targetCurrency === 'USD') {
     return pricingUSD;
   }
 
-  const rate = EXCHANGE_RATES[targetCurrency];
+  const rate = rates[targetCurrency];
 
   // If we don't have the exchange rate, return USD (better than failing)
   if (!rate) {
@@ -86,10 +93,14 @@ export function convertPricing(
 /**
  * Convert a single USD price to target currency
  */
-export function convertPrice(priceUSD: number, targetCurrency: string): number {
+export function convertPrice(
+  priceUSD: number,
+  targetCurrency: string,
+  rates: Record<string, number> = FALLBACK_EXCHANGE_RATES
+): number {
   if (targetCurrency === 'USD') return priceUSD;
 
-  const rate = EXCHANGE_RATES[targetCurrency];
+  const rate = rates[targetCurrency];
   if (!rate) return priceUSD;
 
   return parseFloat((priceUSD * rate).toFixed(2));
@@ -98,6 +109,48 @@ export function convertPrice(priceUSD: number, targetCurrency: string): number {
 /**
  * Get exchange rate for a currency (relative to USD)
  */
-export function getExchangeRate(currency: string): number {
-  return EXCHANGE_RATES[currency] || 1.0;
+export function getExchangeRate(
+  currency: string,
+  rates: Record<string, number> = FALLBACK_EXCHANGE_RATES
+): number {
+  return rates[currency] || 1.0;
+}
+
+// ---------------------------------------------------------------------------
+// Client-side fetch + cache for live rates
+// ---------------------------------------------------------------------------
+
+let clientCachedRates: Record<string, number> | null = null;
+let clientCachedAt = 0;
+const CLIENT_CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour -- avoid re-fetching our own endpoint on every page within a session
+
+/**
+ * Fetch current exchange rates from our server (which fetches live rates
+ * from an external provider and caches them for 24h -- see
+ * lib/live-exchange-rates.ts). Caches the result in memory for this browser
+ * session so multiple pages/components don't each trigger their own request.
+ * Falls back to the static table on any failure.
+ */
+export async function fetchLiveExchangeRates(): Promise<Record<string, number>> {
+  const now = Date.now();
+  if (clientCachedRates && now - clientCachedAt < CLIENT_CACHE_TTL_MS) {
+    return clientCachedRates;
+  }
+
+  try {
+    const response = await fetch('/api/exchange-rates');
+    if (!response.ok) throw new Error(`Exchange rate endpoint returned ${response.status}`);
+
+    const data = await response.json();
+    if (!data.rates || typeof data.rates !== 'object') {
+      throw new Error('Exchange rate endpoint returned unexpected payload');
+    }
+
+    clientCachedRates = data.rates;
+    clientCachedAt = now;
+    return clientCachedRates!;
+  } catch (error) {
+    console.warn('Failed to fetch live exchange rates, using fallback table:', error);
+    return FALLBACK_EXCHANGE_RATES;
+  }
 }

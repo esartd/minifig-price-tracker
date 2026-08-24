@@ -778,7 +778,7 @@
     },
     "meta": {
       "title": "À propos de FigTracker - Tarifez n'importe quel article LEGO en secondes",
-      "description": "FigTracker transforme 24 points de données BrickLink en un prix suggéré pour toute minifigurine ou set LEGO. Double inventaire, 15+ devises, entièrement gratuit.",
+      "description": "FigTracker transforme 24 points de données BrickLink en un prix suggéré pour toute minifigurine ou set LEGO. Double inventaire, 20+ devises, entièrement gratuit.",
       "keywords": "à propos de FigTracker, suivi prix LEGO, outil API Bricklink, tarification minifigurines, suivi inventaire LEGO, tarification LEGO gratuite"
     },
     "catalogCount": {
@@ -2134,7 +2134,7 @@
     "stats": {
       "minifigsTracked": "Minifigurines à évaluer",
       "setsInCatalog": "Sets dans le catalogue",
-      "realTime": "Temps réel",
+      "realTime": "20+",
       "bricklinkPricing": "Devises supportées",
       "free": "Gratuit",
       "forCollectorsSellers": "Pas de compte requis pour chercher"

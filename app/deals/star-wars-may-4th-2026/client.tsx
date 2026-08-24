@@ -940,7 +940,7 @@ export default function May4thDealsClient() {
               <li>{t('may4thDeals.cta.features.minifigsTracked') || '✓ 18,000+ minifigures tracked'}</li>
               <li>{t('may4thDeals.cta.features.setsTracked') || '✓ 20,000+ sets tracked'}</li>
               <li>{t('may4thDeals.cta.features.smartPricing') || '✓ Smart market pricing'}</li>
-              <li>{t('may4thDeals.cta.features.currencySupport') || '✓ 15+ currency support'}</li>
+              <li>{t('may4thDeals.cta.features.currencySupport') || '✓ 20+ currency support'}</li>
             </ul>
           </div>
 

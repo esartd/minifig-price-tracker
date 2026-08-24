@@ -15,7 +15,7 @@ import { calculateCollectionStats } from '@/lib/collection-stats';
 import CollectionToggle from '@/components/CollectionToggle';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import { useTranslation } from '@/components/TranslationProvider';
-import { convertPricing } from '@/lib/currency-converter';
+import { convertPricing, fetchLiveExchangeRates } from '@/lib/currency-converter';
 
 export default function CollectionPage() {
   const { t } = useTranslation();
@@ -92,9 +92,10 @@ export default function CollectionPage() {
       if (data.success) {
         // Convert all prices to user's preferred currency
         const userCurrency = session?.user?.preferredCurrency || 'USD';
+        const rates = await fetchLiveExchangeRates();
         const convertedData = data.data.map((item: CollectionItem) => ({
           ...item,
-          pricing: item.pricing ? convertPricing(item.pricing, userCurrency) : item.pricing,
+          pricing: item.pricing ? convertPricing(item.pricing, userCurrency, rates) : item.pricing,
         }));
 
         setCollection(convertedData);
@@ -169,7 +170,7 @@ export default function CollectionPage() {
                 const userCurrency = session?.user?.preferredCurrency || 'USD';
                 const convertedItem = {
                   ...result.data,
-                  pricing: result.data.pricing ? convertPricing(result.data.pricing, userCurrency) : result.data.pricing,
+                  pricing: result.data.pricing ? convertPricing(result.data.pricing, userCurrency, rates) : result.data.pricing,
                 };
                 setCollection(prev => prev.map(i =>
                   i.id === item.id ? convertedItem : i
