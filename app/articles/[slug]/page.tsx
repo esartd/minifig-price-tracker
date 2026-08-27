@@ -7,19 +7,7 @@ import { auth } from '@/auth';
 import { ArticleRenderer } from '@/components/article/ArticleRenderer';
 import { SocialShare } from '@/components/article/SocialShare';
 import { RelatedArticles } from '@/components/article/RelatedArticles';
-import translations from '@/translations-backup/en.json';
-import translationsDe from '@/translations-backup/de.json';
-import translationsFr from '@/translations-backup/fr.json';
-import translationsEs from '@/translations-backup/es.json';
-
-function getTranslations(locale: string): any {
-  switch (locale) {
-    case 'de': return translationsDe;
-    case 'fr': return translationsFr;
-    case 'es': return translationsEs;
-    default: return translations;
-  }
-}
+import { getTranslations, getLocaleFromHost } from '@/lib/i18n-subdomain';
 
 export async function generateMetadata({
   params
@@ -29,7 +17,25 @@ export async function generateMetadata({
   const { slug } = await params;
   const headersList = await headers();
   const host = headersList.get('host') || '';
-  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+  const locale = getLocaleFromHost(host);
+
+  const domains = {
+    en: 'https://figtracker.ericksu.com',
+    de: 'https://de.figtracker.ericksu.com',
+    fr: 'https://fr.figtracker.ericksu.com',
+    es: 'https://es.figtracker.ericksu.com',
+    it: 'https://it.figtracker.ericksu.com',
+    nl: 'https://nl.figtracker.ericksu.com',
+    pl: 'https://pl.figtracker.ericksu.com',
+    pt: 'https://pt.figtracker.ericksu.com',
+    sv: 'https://sv.figtracker.ericksu.com',
+    ja: 'https://ja.figtracker.ericksu.com',
+  };
+  const baseUrl = domains[locale as keyof typeof domains] || domains.en;
+  const canonicalUrl = `${baseUrl}/articles/${slug}`;
+  const languageAlternates = Object.fromEntries(
+    Object.entries(domains).map(([loc, d]) => [loc, `${d}/articles/${slug}`])
+  );
 
   // Try database first
   const dbArticle = await prisma.article.findUnique({
@@ -41,15 +47,41 @@ export async function generateMetadata({
     const translation = translations.find((t: any) => t.locale === locale) || translations[0];
 
     if (translation) {
+      let ogImage: string | undefined;
+      try {
+        const contentBlocks = JSON.parse(dbArticle.contentBlocks as string);
+        const firstImageBlock = contentBlocks.find((block: any) => block.type === 'image');
+        ogImage = firstImageBlock?.images?.[0]?.imageUrl || undefined;
+      } catch {
+        // no content blocks / no image — fall through with no OG image
+      }
+
       return {
         title: `${translation.title} | FigTracker`,
         description: translation.description,
+        openGraph: {
+          type: 'article',
+          title: translation.title,
+          description: translation.description,
+          url: canonicalUrl,
+          ...(ogImage ? { images: [{ url: ogImage }] } : {}),
+        },
+        twitter: {
+          card: ogImage ? 'summary_large_image' : 'summary',
+          title: translation.title,
+          description: translation.description,
+          ...(ogImage ? { images: [ogImage] } : {}),
+        },
+        alternates: {
+          canonical: canonicalUrl,
+          languages: { ...languageAlternates, 'x-default': `${domains.en}/articles/${slug}` },
+        },
       };
     }
   }
 
   // Fallback to translation files
-  const t = getTranslations(locale);
+  const t = await getTranslations(locale);
   const guideArticles = t.guideArticles as Record<string, any>;
   const guide = guideArticles[slug];
 
@@ -60,6 +92,21 @@ export async function generateMetadata({
   return {
     title: `${guide.title} | FigTracker`,
     description: guide.description,
+    openGraph: {
+      type: 'article',
+      title: guide.title,
+      description: guide.description,
+      url: canonicalUrl,
+    },
+    twitter: {
+      card: 'summary',
+      title: guide.title,
+      description: guide.description,
+    },
+    alternates: {
+      canonical: canonicalUrl,
+      languages: { ...languageAlternates, 'x-default': `${domains.en}/articles/${slug}` },
+    },
   };
 }
 
@@ -74,13 +121,13 @@ export default async function ArticlePage({
 
   const headersList = await headers();
   const host = headersList.get('host') || '';
-  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
-  const t = getTranslations(locale);
+  const locale = getLocaleFromHost(host);
+  const t = await getTranslations(locale);
 
   // Try database first
   const dbArticle = await prisma.article.findUnique({
     where: { slug },
-    
+
   });
 
   // Get all articles for related articles section
@@ -125,11 +172,17 @@ export default async function ArticlePage({
     const imageUrl = firstImageBlock?.images?.[0]?.imageUrl || null;
 
     const domains = {
-      en: 'https://figtracker.ericksu.com',
-      de: 'https://de.figtracker.ericksu.com',
-      fr: 'https://fr.figtracker.ericksu.com',
-      es: 'https://es.figtracker.ericksu.com',
-    };
+    en: 'https://figtracker.ericksu.com',
+    de: 'https://de.figtracker.ericksu.com',
+    fr: 'https://fr.figtracker.ericksu.com',
+    es: 'https://es.figtracker.ericksu.com',
+    it: 'https://it.figtracker.ericksu.com',
+    nl: 'https://nl.figtracker.ericksu.com',
+    pl: 'https://pl.figtracker.ericksu.com',
+    pt: 'https://pt.figtracker.ericksu.com',
+    sv: 'https://sv.figtracker.ericksu.com',
+    ja: 'https://ja.figtracker.ericksu.com',
+  };
     const baseUrl = domains[locale as keyof typeof domains] || domains.en;
 
     // Breadcrumb Schema (JSON-LD)

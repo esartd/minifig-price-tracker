@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import ArticlesPageClient from '@/components/articles-page-client';
 import { headers } from 'next/headers';
 import { prisma } from '@/lib/prisma';
+import { getLocaleFromHost } from '@/lib/i18n-subdomain';
 
 async function getTranslations(locale: string) {
   try {
@@ -16,7 +17,7 @@ async function getTranslations(locale: string) {
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const host = headersList.get('host') || '';
-  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+  const locale = getLocaleFromHost(host);
 
   const t = await getTranslations(locale);
 
@@ -25,6 +26,12 @@ export async function generateMetadata(): Promise<Metadata> {
     de: 'https://de.figtracker.ericksu.com',
     fr: 'https://fr.figtracker.ericksu.com',
     es: 'https://es.figtracker.ericksu.com',
+    it: 'https://it.figtracker.ericksu.com',
+    nl: 'https://nl.figtracker.ericksu.com',
+    pl: 'https://pl.figtracker.ericksu.com',
+    pt: 'https://pt.figtracker.ericksu.com',
+    sv: 'https://sv.figtracker.ericksu.com',
+    ja: 'https://ja.figtracker.ericksu.com',
   };
 
   return {
@@ -43,6 +50,12 @@ export async function generateMetadata(): Promise<Metadata> {
         'de': `${domains.de}/articles`,
         'fr': `${domains.fr}/articles`,
         'es': `${domains.es}/articles`,
+        'it': `${domains.it}/articles`,
+        'nl': `${domains.nl}/articles`,
+        'pl': `${domains.pl}/articles`,
+        'pt': `${domains.pt}/articles`,
+        'sv': `${domains.sv}/articles`,
+        'ja': `${domains.ja}/articles`,
         'x-default': `${domains.en}/articles`,
       },
     },
@@ -52,7 +65,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ArticlesPage() {
   const headersList = await headers();
   const host = headersList.get('host') || '';
-  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+  const locale = getLocaleFromHost(host);
 
   const t = await getTranslations(locale);
 
@@ -112,6 +125,12 @@ export default async function ArticlesPage() {
     de: 'https://de.figtracker.ericksu.com',
     fr: 'https://fr.figtracker.ericksu.com',
     es: 'https://es.figtracker.ericksu.com',
+    it: 'https://it.figtracker.ericksu.com',
+    nl: 'https://nl.figtracker.ericksu.com',
+    pl: 'https://pl.figtracker.ericksu.com',
+    pt: 'https://pt.figtracker.ericksu.com',
+    sv: 'https://sv.figtracker.ericksu.com',
+    ja: 'https://ja.figtracker.ericksu.com',
   };
 
   const jsonLd = {

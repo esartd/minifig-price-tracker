@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import DisclosurePageClient from '@/components/disclosure-page-client';
-import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
+import { getTranslations, getLocaleFromHost, type Locale } from '@/lib/i18n-subdomain';
 import { headers } from 'next/headers';
 
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const host = headersList.get('host') || '';
-  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+  const locale = getLocaleFromHost(host);
 
   const t = await getTranslations(locale as Locale);
 
@@ -15,6 +15,12 @@ export async function generateMetadata(): Promise<Metadata> {
     de: 'https://de.figtracker.ericksu.com',
     fr: 'https://fr.figtracker.ericksu.com',
     es: 'https://es.figtracker.ericksu.com',
+    it: 'https://it.figtracker.ericksu.com',
+    nl: 'https://nl.figtracker.ericksu.com',
+    pl: 'https://pl.figtracker.ericksu.com',
+    pt: 'https://pt.figtracker.ericksu.com',
+    sv: 'https://sv.figtracker.ericksu.com',
+    ja: 'https://ja.figtracker.ericksu.com',
   };
 
   const localeMap = {
@@ -22,6 +28,12 @@ export async function generateMetadata(): Promise<Metadata> {
     de: 'de_DE',
     fr: 'fr_FR',
     es: 'es_ES',
+    it: 'it_IT',
+    nl: 'nl_NL',
+    pl: 'pl_PL',
+    pt: 'pt_PT',
+    sv: 'sv_SE',
+    ja: 'ja_JP',
   };
 
   return {
@@ -33,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: t.disclosure.meta.description,
       url: `${domains[locale as keyof typeof domains]}/disclosure`,
       locale: localeMap[locale as keyof typeof localeMap],
-      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
+      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'nl_NL', 'pl_PL', 'pt_PT', 'sv_SE', 'ja_JP'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
     },
     alternates: {
       canonical: `${domains[locale as keyof typeof domains]}/disclosure`,
@@ -42,6 +54,12 @@ export async function generateMetadata(): Promise<Metadata> {
         'de': `${domains.de}/disclosure`,
         'fr': `${domains.fr}/disclosure`,
         'es': `${domains.es}/disclosure`,
+        'it': `${domains.it}/disclosure`,
+        'nl': `${domains.nl}/disclosure`,
+        'pl': `${domains.pl}/disclosure`,
+        'pt': `${domains.pt}/disclosure`,
+        'sv': `${domains.sv}/disclosure`,
+        'ja': `${domains.ja}/disclosure`,
         'x-default': `${domains.en}/disclosure`,
       },
     },

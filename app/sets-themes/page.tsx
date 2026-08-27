@@ -1,12 +1,12 @@
 import SetsThemesClient from './sets-themes-client';
 import type { Metadata } from 'next';
-import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
+import { getTranslations, getLocaleFromHost, type Locale } from '@/lib/i18n-subdomain';
 import { headers } from 'next/headers';
 
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const host = headersList.get('host') || '';
-  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+  const locale = getLocaleFromHost(host);
 
   const t = await getTranslations(locale as Locale);
 
@@ -15,6 +15,12 @@ export async function generateMetadata(): Promise<Metadata> {
     de: 'https://de.figtracker.ericksu.com',
     fr: 'https://fr.figtracker.ericksu.com',
     es: 'https://es.figtracker.ericksu.com',
+    it: 'https://it.figtracker.ericksu.com',
+    nl: 'https://nl.figtracker.ericksu.com',
+    pl: 'https://pl.figtracker.ericksu.com',
+    pt: 'https://pt.figtracker.ericksu.com',
+    sv: 'https://sv.figtracker.ericksu.com',
+    ja: 'https://ja.figtracker.ericksu.com',
   };
 
   const localeMap = {
@@ -22,6 +28,12 @@ export async function generateMetadata(): Promise<Metadata> {
     de: 'de_DE',
     fr: 'fr_FR',
     es: 'es_ES',
+    it: 'it_IT',
+    nl: 'nl_NL',
+    pl: 'pl_PL',
+    pt: 'pt_PT',
+    sv: 'sv_SE',
+    ja: 'ja_JP',
   };
 
   return {
@@ -33,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: t.setsThemePage.meta.ogDescription,
       url: `${domains[locale as keyof typeof domains]}/sets-themes`,
       locale: localeMap[locale as keyof typeof localeMap],
-      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
+      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'nl_NL', 'pl_PL', 'pt_PT', 'sv_SE', 'ja_JP'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
     },
     alternates: {
       canonical: `${domains[locale as keyof typeof domains]}/sets-themes`,
@@ -42,6 +54,12 @@ export async function generateMetadata(): Promise<Metadata> {
         'de': `${domains.de}/sets-themes`,
         'fr': `${domains.fr}/sets-themes`,
         'es': `${domains.es}/sets-themes`,
+        'it': `${domains.it}/sets-themes`,
+        'nl': `${domains.nl}/sets-themes`,
+        'pl': `${domains.pl}/sets-themes`,
+        'pt': `${domains.pt}/sets-themes`,
+        'sv': `${domains.sv}/sets-themes`,
+        'ja': `${domains.ja}/sets-themes`,
         'x-default': `${domains.en}/sets-themes`,
       },
     },
@@ -153,5 +171,47 @@ async function getThemes(): Promise<{ themes: Theme[]; currentThemes: Theme[] }>
 export default async function SetsThemesPage() {
   const { themes, currentThemes } = await getThemes();
 
-  return <SetsThemesClient themes={themes} currentThemes={currentThemes} />;
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  const locale = getLocaleFromHost(host);
+  const domains: Record<string, string> = {
+    en: 'https://figtracker.ericksu.com',
+    de: 'https://de.figtracker.ericksu.com',
+    fr: 'https://fr.figtracker.ericksu.com',
+    es: 'https://es.figtracker.ericksu.com',
+    it: 'https://it.figtracker.ericksu.com',
+    nl: 'https://nl.figtracker.ericksu.com',
+    pl: 'https://pl.figtracker.ericksu.com',
+    pt: 'https://pt.figtracker.ericksu.com',
+    sv: 'https://sv.figtracker.ericksu.com',
+    ja: 'https://ja.figtracker.ericksu.com',
+  };
+  const baseUrl = domains[locale] || domains.en;
+  const allThemes = [...currentThemes, ...themes];
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'LEGO Set Themes',
+    url: `${baseUrl}/sets-themes`,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: allThemes.map((theme, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: theme.parent,
+        url: `${baseUrl}/sets-themes/${encodeURIComponent(theme.parent.toLowerCase().replace(/\s+/g, '-'))}`,
+      })),
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <SetsThemesClient themes={themes} currentThemes={currentThemes} />
+    </>
+  );
 }

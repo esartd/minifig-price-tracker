@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import ThemePageClient from '@/components/theme-page-client';
-import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
+import { getTranslations, getLocaleFromHost, type Locale } from '@/lib/i18n-subdomain';
 
 // Replace {placeholder} tokens in a translated template with dynamic values
 function interpolate(template: string, vars: Record<string, string | number>): string {
@@ -21,7 +21,7 @@ export async function generateMetadata({
   const { headers } = await import('next/headers');
   const headersList = await headers();
   const host = headersList.get('host') || '';
-  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+  const locale = getLocaleFromHost(host);
 
   const t = await getTranslations(locale as Locale);
 
@@ -30,6 +30,12 @@ export async function generateMetadata({
     de: 'https://de.figtracker.ericksu.com',
     fr: 'https://fr.figtracker.ericksu.com',
     es: 'https://es.figtracker.ericksu.com',
+    it: 'https://it.figtracker.ericksu.com',
+    nl: 'https://nl.figtracker.ericksu.com',
+    pl: 'https://pl.figtracker.ericksu.com',
+    pt: 'https://pt.figtracker.ericksu.com',
+    sv: 'https://sv.figtracker.ericksu.com',
+    ja: 'https://ja.figtracker.ericksu.com',
   };
 
   const localeMap = {
@@ -37,6 +43,12 @@ export async function generateMetadata({
     de: 'de_DE',
     fr: 'fr_FR',
     es: 'es_ES',
+    it: 'it_IT',
+    nl: 'nl_NL',
+    pl: 'pl_PL',
+    pt: 'pt_PT',
+    sv: 'sv_SE',
+    ja: 'ja_JP',
   };
 
   // Fetch subcategories to get count
@@ -91,7 +103,7 @@ export async function generateMetadata({
       description,
       url: `${domains[locale as keyof typeof domains]}/themes/${theme}`,
       locale: localeMap[locale as keyof typeof localeMap],
-      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
+      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'nl_NL', 'pl_PL', 'pt_PT', 'sv_SE', 'ja_JP'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
       images: [
         {
           url: '/og-image.png',
@@ -113,6 +125,12 @@ export async function generateMetadata({
         'de': `${domains.de}/themes/${theme}`,
         'fr': `${domains.fr}/themes/${theme}`,
         'es': `${domains.es}/themes/${theme}`,
+        'it': `${domains.it}/themes/${theme}`,
+        'nl': `${domains.nl}/themes/${theme}`,
+        'pl': `${domains.pl}/themes/${theme}`,
+        'pt': `${domains.pt}/themes/${theme}`,
+        'sv': `${domains.sv}/themes/${theme}`,
+        'ja': `${domains.ja}/themes/${theme}`,
         'x-default': `${domains.en}/themes/${theme}`,
       },
     },

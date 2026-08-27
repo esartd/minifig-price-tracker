@@ -84,7 +84,9 @@
     "language": "Lingua",
     "user": "Utente",
     "premium": "Premium",
-    "resources": "Risorse"
+    "resources": "Risorse",
+    "retiringSoon": "In ritiro",
+    "identify": "Identifica con IA"
   },
   "themes": {
     "browse_title": "Sfoglia i Temi delle Minifigure LEGO",
@@ -473,7 +475,11 @@
     "unifiedPlaceholder": "Cerca minifigure e set...",
     "noResultsFound": "Nessun risultato trovato",
     "noResultsSubtitle": "Prova parole chiave diverse o sfoglia per tema",
-    "seeAll": "Vedi tutto →"
+    "seeAll": "Vedi tutto →",
+    "meta": {
+      "title": "Cerca minifigure e set LEGO",
+      "description": "Cerca qualsiasi minifigura o set LEGO per vedere il suo prezzo suggerito attuale, calcolato dai dati di BrickLink ed eBay."
+    }
   },
   "buyButtons": {
     "ebay": {
@@ -514,7 +520,8 @@
     "sourceBrickLink": "Prezzo da BrickLink",
     "loadingData": "Caricamento dati sui prezzi...",
     "supportCta": "Ti abbiamo fatto risparmiare tempo? Sostieni i prezzi gratuiti →",
-    "premiumCta": "Salta il passaggio della collezione — passa a Premium →"
+    "premiumCta": "Salta il passaggio della collezione — passa a Premium →",
+    "howWeCalculateCta": "Come lo calcoliamo →"
   },
   "errors": {
     "notFound": "Non trovato",
@@ -543,7 +550,11 @@
     "emptyMinifigs": "Nessuna minifigura nella lista dei desideri",
     "emptySets": "Nessun set nella lista dei desideri",
     "emptyMinifigsHint": "Clicca sull'icona del cuore di qualsiasi minifigura per aggiungerla qui",
-    "emptySetsHint": "Clicca sull'icona del cuore di qualsiasi set per aggiungerlo qui"
+    "emptySetsHint": "Clicca sull'icona del cuore di qualsiasi set per aggiungerlo qui",
+    "meta": {
+      "title": "Lista dei desideri LEGO",
+      "description": "Tieni traccia delle minifigure e dei set LEGO che vuoi comprare, con prezzi suggeriti in tempo reale."
+    }
   },
   "sets": {
     "browse": {
@@ -684,7 +695,8 @@
       "subtitle": "Valuta e monitora il tuo inventario in un unico posto.",
       "pricing": {
         "title": "Un Prezzo Suggerito",
-        "description": "Uniamo i dati di BrickLink ed eBay in un unico numero che puoi davvero usare. Niente fogli di calcolo. Niente calcoli a mente."
+        "description": "Uniamo i dati di BrickLink ed eBay in un unico numero che puoi davvero usare. Niente fogli di calcolo. Niente calcoli a mente.",
+        "learnMore": "Come lo calcoliamo →"
       },
       "inventory": {
         "title": "Vendita e Collezione, Separate",
@@ -743,6 +755,12 @@
       "thousandsOf": "migliaia di",
       "overPrefix": "oltre",
       "nearlyPrefix": "quasi"
+    },
+    "creator": {
+      "title": "Chi ha creato questo sito",
+      "body": "Ciao, sono Erick — fondatore di ES Art & D, uno studio di design UI/UX con sede nello Utah. Ho iniziato a collezionare LEGO da adulto e ho avviato FigTracker come progetto personale per organizzare dati sui prezzi sparsi. È diventato il sito che usi oggi. Negli ambienti LEGO, potresti conoscermi anche come Erix Figs.",
+      "badge": "LA PERSONA DIETRO FIGTRACKER",
+      "byline": "Erick Su · ES Art & D · Utah"
     }
   },
   "featured": {
@@ -801,7 +819,8 @@
     "noSupporterYet": "Ancora nessun sostenitore",
     "donationSubtitle": "Grazie ai nostri generosi sostenitori di questo trimestre ({season})",
     "items": "articoli",
-    "exploreCommunity": "Esplora la Community →"
+    "exploreCommunity": "Esplora la Community →",
+    "howRankingsWork": "Come funzionano le classifiche →"
   },
   "footer": {
     "faq": "FAQ",
@@ -2608,6 +2627,23 @@
     "bagCondition": {
       "noBag": "Senza sacchetto",
       "withBag": "Sacchetto incluso"
+    },
+    "meta": {
+      "title": "Generatore di annunci LEGO",
+      "description": "Genera annunci pronti da pubblicare per le tue minifigure e set LEGO — eBay, BrickLink, Facebook Marketplace e Vinted."
+    },
+    "hero": {
+      "title": "Scrivi il tuo annuncio in pochi secondi",
+      "subtitle": "Trasforma qualsiasi articolo della tua collezione in un annuncio pronto da pubblicare — titolo, descrizione e prezzo suggerito inclusi."
+    },
+    "howItWorks": {
+      "title": "Come funziona",
+      "paragraph1": "Poiché è costruito sui dati di catalogo del tuo articolo e sul prezzo suggerito attuale, il generatore di annunci si trova in ogni pagina di minifigura e set — deve sapere esattamente quale articolo stai vendendo.",
+      "paragraph2": "Cerca il tuo articolo qui sotto, apri la sua pagina, e cerca l'opzione \"Genera annuncio\" una volta aggiunto al tuo inventario."
+    },
+    "cta": {
+      "subtitle": "Trova l'articolo che vuoi vendere.",
+      "button": "Cerca una minifigura o un set"
     }
   },
   "priceAlert": {
@@ -2763,5 +2799,95 @@
     "mixedBanner": "Sembra una figure personalizzata — ecco la nostra migliore ipotesi per ogni parte.",
     "aiEstimateUnverified": "Stima AI — non verificata",
     "scanAnother": "Scansiona un'Altra"
+  },
+  "collectorsDirectory": {
+    "meta": {
+      "title": "Sfoglia i collezionisti LEGO",
+      "description": "Sfoglia le classifiche dei collezionisti LEGO e le collezioni pubbliche condivise dalla community di FigTracker."
+    }
+  },
+  "howWeCalculatePrices": {
+    "faqLinkText": "Vedi il dettaglio completo del calcolo del prezzo",
+    "meta": {
+      "title": "Come calcoliamo i prezzi LEGO",
+      "description": "Come FigTracker calcola un unico prezzo suggerito per minifigure e set LEGO, e come si confronta con BrickEconomy."
+    },
+    "hero": {
+      "title": "Come calcoliamo il tuo prezzo suggerito",
+      "subtitle": "Una spiegazione semplice della formula dietro ogni prezzo FigTracker — e come si confronta con altri strumenti come BrickEconomy."
+    },
+    "howItWorks": {
+      "title": "Come funziona la formula",
+      "paragraph1": "Il prezzo suggerito di FigTracker si basa principalmente su segnali BrickLink — un mix di transazioni vendute di recente, prezzi degli annunci attuali e il prezzo più basso attuale — con un piccolo controllo incrociato su eBay quando ci sono dati sufficienti.",
+      "paragraph2": "Non mostriamo mai direttamente i numeri grezzi di BrickLink o eBay — solo il risultato calcolato, aggiornato automaticamente per rimanere attuale senza che tu debba controllarlo manualmente."
+    },
+    "comparison": {
+      "title": "Confronto con BrickEconomy"
+    },
+    "differentiators": {
+      "blend": {
+        "title": "Un numero combinato, non un solo segnale",
+        "body": "Il tuo prezzo suggerito combina la cronologia delle vendite recenti, gli annunci BrickLink attuali, il prezzo più basso attuale e un controllo incrociato su eBay — non solo un dato che potrebbe essere un'anomalia."
+      },
+      "soldData": {
+        "title": "Include dati di vendita reali",
+        "body": "A differenza di un prezzo basato solo su ciò che chiedono i venditori, la nostra formula include transazioni realmente vendute di recente come uno dei suoi fattori."
+      },
+      "free": {
+        "title": "Gratis, nessun account richiesto",
+        "body": "Controlla qualsiasi prezzo suggerito senza registrarti o pagare un abbonamento."
+      },
+      "fresh": {
+        "title": "Sempre aggiornato automaticamente",
+        "body": "I prezzi si aggiornano automaticamente in background a intervalli regolari, senza che tu debba controllarli manualmente."
+      },
+      "simple": {
+        "title": "Un numero invece di dati grezzi da confrontare",
+        "body": "Invece di confrontare tu stesso più annunci e prezzi di vendita grezzi, ottieni un unico numero chiaro."
+      }
+    },
+    "cta": {
+      "subtitle": "Guardalo in azione su qualsiasi pagina di minifigura o set.",
+      "button": "Cerca una minifigura o un set"
+    }
+  },
+  "priceAlerts": {
+    "meta": {
+      "title": "Avvisi prezzo LEGO",
+      "description": "Ricevi una notifica non appena una minifigura o un set LEGO che desideri raggiunge il tuo prezzo obiettivo. Gratis, senza spam."
+    },
+    "hero": {
+      "title": "Non perdere mai più un calo di prezzo",
+      "subtitle": "Imposta un prezzo obiettivo su qualsiasi minifigura o set LEGO, e ti avviseremo non appena lo raggiunge."
+    },
+    "steps": {
+      "step1": {
+        "title": "Cerca una minifigura o un set",
+        "body": "Trova l'articolo che vuoi su FigTracker — oltre 18.000 minifigure e 20.000 set."
+      },
+      "step2": {
+        "title": "Imposta il tuo prezzo obiettivo",
+        "body": "Dicci il prezzo a cui compreresti."
+      },
+      "step3": {
+        "title": "Ti avviseremo via email quando raggiunge il tuo prezzo",
+        "body": "I prezzi si aggiornano automaticamente in background, quindi lo saprai non appena scende."
+      }
+    },
+    "cta": {
+      "subtitle": "È gratis e richiede circa 10 secondi.",
+      "button": "Imposta un avviso di prezzo"
+    }
+  },
+  "leaderboardsPage": {
+    "meta": {
+      "title": "Classifica dei collezionisti LEGO",
+      "description": "Scopri i migliori collezionisti di minifigure e set LEGO su FigTracker, classificati per dimensione della collezione."
+    },
+    "hero": {
+      "title": "Classifica dei collezionisti LEGO",
+      "subtitle": "Scopri chi ha le collezioni di minifigure e set LEGO più grandi su FigTracker, aggiornata ogni trimestre.",
+      "howToJoin": "La classifica si basa sugli articoli nel tuo inventario. Imposta un nome utente e attiva la visibilità in classifica nelle impostazioni del tuo account per apparire qui — è facoltativo."
+    }
   }
 }

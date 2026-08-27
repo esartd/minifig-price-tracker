@@ -170,9 +170,10 @@ export default async function MinifigPage({
   // Load description from database for current locale
   const { headers: getHeaders } = await import('next/headers');
   const { prisma } = await import('@/lib/prisma');
+  const { getLocaleFromHost: getDescLocale } = await import('@/lib/i18n-subdomain');
   const requestHeaders = await getHeaders();
   const requestHost = requestHeaders.get('host') || '';
-  const currentLocale = requestHost.startsWith('de.') ? 'de' : requestHost.startsWith('fr.') ? 'fr' : requestHost.startsWith('es.') ? 'es' : 'en';
+  const currentLocale = getDescLocale(requestHost);
 
   const minifigDescription = await prisma.minifigCatalog.findUnique({
     where: { minifigure_no: itemNo },
@@ -393,9 +394,8 @@ export default async function MinifigPage({
   const { headers } = await import('next/headers');
   const headersList = await headers();
   const host = headersList.get('host') || '';
-  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
-
-  const { getTranslations } = await import('@/lib/i18n-subdomain');
+  const { getTranslations, getLocaleFromHost } = await import('@/lib/i18n-subdomain');
+  const locale = getLocaleFromHost(host);
   const t = await getTranslations(locale);
 
   const domains = {

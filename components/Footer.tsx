@@ -90,6 +90,14 @@ export default function Footer() {
                 onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
                 onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
               >{t('footer.articles') || t('footer.guides')}</a>
+              <a href="/retiring-soon" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+              >{t('navigation.retiringSoon') || 'Retiring Soon'}</a>
+              <a href="/identify" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+              >{t('navigation.identify') || 'AI Identify'}</a>
               <a href="/support" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
                 onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
                 onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}

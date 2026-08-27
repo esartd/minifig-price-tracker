@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { prisma, prismaPublic } from '@/lib/prisma';
 import AboutPageClient from '@/components/about-page-client';
-import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
+import { getTranslations, getLocaleFromHost, type Locale } from '@/lib/i18n-subdomain';
 import { headers } from 'next/headers';
 
 // Force dynamic rendering to show current searchable catalog count
@@ -37,7 +37,7 @@ function formatCatalogCount(count: number, t: Record<string, any>): string {
 async function getRequestLocale(): Promise<Locale> {
   const headersList = await headers();
   const host = headersList.get('host') || '';
-  return (host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en') as Locale;
+  return (getLocaleFromHost(host)) as Locale;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -51,6 +51,12 @@ export async function generateMetadata(): Promise<Metadata> {
     de: 'https://de.figtracker.ericksu.com',
     fr: 'https://fr.figtracker.ericksu.com',
     es: 'https://es.figtracker.ericksu.com',
+    it: 'https://it.figtracker.ericksu.com',
+    nl: 'https://nl.figtracker.ericksu.com',
+    pl: 'https://pl.figtracker.ericksu.com',
+    pt: 'https://pt.figtracker.ericksu.com',
+    sv: 'https://sv.figtracker.ericksu.com',
+    ja: 'https://ja.figtracker.ericksu.com',
   };
 
   const localeMap = {
@@ -58,6 +64,12 @@ export async function generateMetadata(): Promise<Metadata> {
     de: 'de_DE',
     fr: 'fr_FR',
     es: 'es_ES',
+    it: 'it_IT',
+    nl: 'nl_NL',
+    pl: 'pl_PL',
+    pt: 'pt_PT',
+    sv: 'sv_SE',
+    ja: 'ja_JP',
   };
 
   return {
@@ -69,7 +81,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: t.about.meta.description,
       url: `${domains[locale as keyof typeof domains]}/about`,
       locale: localeMap[locale as keyof typeof localeMap],
-      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
+      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'nl_NL', 'pl_PL', 'pt_PT', 'sv_SE', 'ja_JP'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
     },
     alternates: {
       canonical: `${domains[locale as keyof typeof domains]}/about`,
@@ -78,6 +90,12 @@ export async function generateMetadata(): Promise<Metadata> {
         'de': `${domains.de}/about`,
         'fr': `${domains.fr}/about`,
         'es': `${domains.es}/about`,
+        'it': `${domains.it}/about`,
+        'nl': `${domains.nl}/about`,
+        'pl': `${domains.pl}/about`,
+        'pt': `${domains.pt}/about`,
+        'sv': `${domains.sv}/about`,
+        'ja': `${domains.ja}/about`,
         'x-default': `${domains.en}/about`,
       },
     },
@@ -86,9 +104,30 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AboutPage() {
   const catalogCount = await getSearchableCatalogCount();
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    mainEntity: {
+      '@type': 'Organization',
+      name: 'FigTracker',
+      url: 'https://figtracker.ericksu.com',
+      founder: {
+        '@type': 'Person',
+        name: 'Erick Su',
+      },
+    },
+  };
   const locale = await getRequestLocale();
   const t = await getTranslations(locale);
   const catalogCountText = formatCatalogCount(catalogCount, t);
 
-  return <AboutPageClient catalogCountText={catalogCountText} />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <AboutPageClient catalogCountText={catalogCountText} />
+    </>
+  );
 }

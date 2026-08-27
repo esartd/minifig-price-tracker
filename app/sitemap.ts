@@ -52,6 +52,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...createMultilingualEntry('/faq', 'monthly', 0.8),
     ...createMultilingualEntry('/privacy', 'monthly', 0.5),
     ...createMultilingualEntry('/disclosure', 'monthly', 0.5),
+    ...createMultilingualEntry('/premium', 'monthly', 0.6),
+    ...createMultilingualEntry('/identify', 'monthly', 0.7),
+    ...createMultilingualEntry('/support', 'monthly', 0.4),
+    ...createMultilingualEntry('/collectors', 'weekly', 0.7),
+    ...createMultilingualEntry('/price-alerts', 'monthly', 0.7),
+    ...createMultilingualEntry('/listing-generator', 'monthly', 0.7),
+    ...createMultilingualEntry('/leaderboards', 'weekly', 0.7),
+    ...createMultilingualEntry('/how-we-calculate-prices', 'monthly', 0.7),
   ]
 
   try {
@@ -186,9 +194,54 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }))
       })
 
-    console.log(`[SITEMAP] Generated ${staticPages.length} static + ${articlePages.length} articles + ${minifigPages.length} minifigs + ${themePages.length} themes + ${setThemePages.length} set themes + ${setPages.length} sets = ${staticPages.length + articlePages.length + minifigPages.length + themePages.length + setThemePages.length + setPages.length} total URLs`)
+    // Public collector profile pages - only users who are public AND have a
+    // username AND have enough items to be worth indexing (profilePublic
+    // defaults to true for everyone, so an unfiltered query would flood the
+    // sitemap with thousands of empty/near-empty "thin content" pages).
+    const MIN_ITEMS_FOR_SITEMAP = 5
+    const publicCollectors = await prisma.user.findMany({
+      where: { profilePublic: true, username: { not: null } },
+      select: {
+        username: true,
+        updatedAt: true,
+        _count: {
+          select: {
+            CollectionItem: true,
+            PersonalCollectionItem: true,
+            SetInventoryItem: true,
+            SetPersonalCollectionItem: true,
+          },
+        },
+      },
+    })
 
-    return [...staticPages, ...articlePages, ...themePages, ...setThemePages, ...minifigPages, ...setPages]
+    const collectorPages: MetadataRoute.Sitemap = publicCollectors
+      .filter(u => {
+        const total = u._count.CollectionItem + u._count.PersonalCollectionItem +
+          u._count.SetInventoryItem + u._count.SetPersonalCollectionItem
+        return u.username && total >= MIN_ITEMS_FOR_SITEMAP
+      })
+      .flatMap(u => {
+        const path = `/collectors/${u.username}`
+        return locales.map(locale => ({
+          url: `${domains[locale]}${path}`,
+          lastModified: u.updatedAt,
+          changeFrequency: 'weekly' as const,
+          priority: 0.5,
+          alternates: {
+            languages: {
+              ...Object.fromEntries(
+                locales.map(l => [l, `${domains[l]}${path}`])
+              ),
+              'x-default': `${domains.en}${path}`
+            }
+          }
+        }))
+      })
+
+    console.log(`[SITEMAP] Generated ${staticPages.length} static + ${articlePages.length} articles + ${minifigPages.length} minifigs + ${themePages.length} themes + ${setThemePages.length} set themes + ${setPages.length} sets + ${collectorPages.length} collector profiles = ${staticPages.length + articlePages.length + minifigPages.length + themePages.length + setThemePages.length + setPages.length + collectorPages.length} total URLs`)
+
+    return [...staticPages, ...articlePages, ...themePages, ...setThemePages, ...minifigPages, ...setPages, ...collectorPages]
   } catch (error) {
     console.error('[SITEMAP] Error generating dynamic URLs:', error)
     return staticPages

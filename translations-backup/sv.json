@@ -84,7 +84,9 @@
     "language": "Språk",
     "user": "Användare",
     "premium": "Premium",
-    "resources": "Resurser"
+    "resources": "Resurser",
+    "retiringSoon": "Snart utgående",
+    "identify": "AI-identifiering"
   },
   "themes": {
     "browse_title": "Bläddra bland LEGO Minifigur-teman",
@@ -473,7 +475,11 @@
     "unifiedPlaceholder": "Sök minifigurer och set...",
     "noResultsFound": "Inga resultat hittades",
     "noResultsSubtitle": "Prova andra sökord eller bläddra efter tema",
-    "seeAll": "Se alla →"
+    "seeAll": "Se alla →",
+    "meta": {
+      "title": "Sök LEGO-minifigurer & set",
+      "description": "Sök efter valfri LEGO-minifigur eller set för att se det aktuella föreslagna priset, beräknat från BrickLink- och eBay-data."
+    }
   },
   "buyButtons": {
     "ebay": {
@@ -514,7 +520,8 @@
     "sourceBrickLink": "Pris från BrickLink",
     "loadingData": "Laddar prisdata...",
     "supportCta": "Sparade vi dig tid? Stöd gratis prissättning →",
-    "premiumCta": "Hoppa över samlingssteget — bli Premium →"
+    "premiumCta": "Hoppa över samlingssteget — bli Premium →",
+    "howWeCalculateCta": "Så beräknar vi detta →"
   },
   "errors": {
     "notFound": "Ingat found",
@@ -543,7 +550,11 @@
     "emptyMinifigs": "Inga minifigurer i önskelistan",
     "emptySets": "Inga set i önskelistan",
     "emptyMinifigsHint": "Klicka på hjärtikonen på en minifigur för att lägga till den här",
-    "emptySetsHint": "Klicka på hjärtikonen på ett set för att lägga till det här"
+    "emptySetsHint": "Klicka på hjärtikonen på ett set för att lägga till det här",
+    "meta": {
+      "title": "LEGO-önskelista",
+      "description": "Håll koll på LEGO-minifigurer och set du vill köpa, med aktuella föreslagna priser."
+    }
   },
   "sets": {
     "browse": {
@@ -684,7 +695,8 @@
       "subtitle": "Prissätt och håll koll på din inventering på ett ställe.",
       "pricing": {
         "title": "Ett prisförslag",
-        "description": "Vi blandar data från BrickLink och eBay till en enda siffra du faktiskt kan använda. Inga kalkylblad. Ingen huvudräkning."
+        "description": "Vi blandar data från BrickLink och eBay till en enda siffra du faktiskt kan använda. Inga kalkylblad. Ingen huvudräkning.",
+        "learnMore": "Så beräknar vi detta →"
       },
       "inventory": {
         "title": "Sälja och behålla, separerat",
@@ -743,6 +755,12 @@
       "thousandsOf": "tusentals",
       "overPrefix": "över",
       "nearlyPrefix": "nästan"
+    },
+    "creator": {
+      "title": "Vem som byggde detta",
+      "body": "Hej, jag heter Erick — grundare av ES Art & D, en UI/UX-designstudio baserad i Utah. Jag började samla LEGO som vuxen och startade FigTracker som ett personligt projekt för att reda ut spridda prisdata. Det har vuxit till sajten du använder idag. I LEGO-kretsar kanske du också känner mig som Erix Figs.",
+      "badge": "PERSONEN BAKOM FIGTRACKER",
+      "byline": "Erick Su · ES Art & D · Utah"
     }
   },
   "featured": {
@@ -801,7 +819,8 @@
     "noSupporterYet": "Ingen supporter än",
     "donationSubtitle": "Tack till våra generösa supportrar detta kvartal ({season})",
     "items": "artiklar",
-    "exploreCommunity": "Utforska communityt →"
+    "exploreCommunity": "Utforska communityt →",
+    "howRankingsWork": "Så fungerar topplistorna →"
   },
   "footer": {
     "faq": "FAQ",
@@ -2608,6 +2627,23 @@
     "bagCondition": {
       "noBag": "Ingen påse",
       "withBag": "Påse ingår"
+    },
+    "meta": {
+      "title": "LEGO-annonsgenerator",
+      "description": "Skapa publiceringsklara annonser för dina LEGO-minifigurer och set — eBay, BrickLink, Facebook Marketplace och Vinted."
+    },
+    "hero": {
+      "title": "Skriv din annons på några sekunder",
+      "subtitle": "Gör vilket föremål som helst i din samling till en publiceringsklar annons — titel, beskrivning och föreslaget pris ingår."
+    },
+    "howItWorks": {
+      "title": "Så fungerar det",
+      "paragraph1": "Eftersom den bygger på ditt föremåls egna katalogdata och aktuella föreslagna pris finns annonsgeneratorn på varje minifigur- och setsida — den måste veta exakt vilket föremål du säljer.",
+      "paragraph2": "Sök efter ditt föremål nedan, öppna dess sida, och leta efter alternativet \"Skapa annons\" när det finns i ditt lager."
+    },
+    "cta": {
+      "subtitle": "Hitta föremålet du vill sälja.",
+      "button": "Sök en minifigur eller set"
     }
   },
   "priceAlert": {
@@ -2763,5 +2799,95 @@
     "mixedBanner": "Det här ser ut som en anpassad figur — här är vår bästa gissning för varje del.",
     "aiEstimateUnverified": "AI-uppskattning — overifierad",
     "scanAnother": "Skanna en till"
+  },
+  "collectorsDirectory": {
+    "meta": {
+      "title": "Bläddra bland LEGO-samlare",
+      "description": "Bläddra bland LEGO-samlartoplistor och offentliga samlingar delade av FigTracker-communityn."
+    }
+  },
+  "howWeCalculatePrices": {
+    "faqLinkText": "Se hela prisuppdelningen",
+    "meta": {
+      "title": "Så beräknar vi LEGO-priser",
+      "description": "Hur FigTracker beräknar ett enda föreslaget pris för LEGO-minifigurer och set, och hur det jämförs med BrickEconomy."
+    },
+    "hero": {
+      "title": "Så beräknar vi ditt föreslagna pris",
+      "subtitle": "En enkel förklaring av formeln bakom varje FigTracker-pris — och hur den jämförs med andra verktyg som BrickEconomy."
+    },
+    "howItWorks": {
+      "title": "Så fungerar formeln",
+      "paragraph1": "FigTrackers föreslagna pris bygger mest på BrickLink-signaler — en blandning av nyligen sålda transaktioner, aktuella annonspriser och det aktuellt lägsta priset — med en liten eBay-kontroll när det finns tillräckligt med ren data.",
+      "paragraph2": "Vi visar aldrig de råa BrickLink- eller eBay-siffrorna direkt — bara det beräknade resultatet, automatiskt uppdaterat så att det förblir aktuellt utan att du behöver kolla upp det själv."
+    },
+    "comparison": {
+      "title": "Jämförelse med BrickEconomy"
+    },
+    "differentiators": {
+      "blend": {
+        "title": "En kombinerad siffra, inte en enda signal",
+        "body": "Ditt föreslagna pris kombinerar nyligen sålda historik, aktuella BrickLink-annonser, det aktuellt lägsta priset och en eBay-kontroll — inte bara en datapunkt som kan vara en avvikelse."
+      },
+      "soldData": {
+        "title": "Inkluderar verklig försäljningshistorik",
+        "body": "Till skillnad från ett pris som bara bygger på vad säljare begär, inkluderar vår formel faktiska nyligen sålda transaktioner som en av sina faktorer."
+      },
+      "free": {
+        "title": "Gratis, inget konto krävs",
+        "body": "Kolla vilket föreslaget pris som helst utan att registrera dig eller betala för en prenumeration."
+      },
+      "fresh": {
+        "title": "Hålls aktuellt automatiskt",
+        "body": "Priser uppdateras automatiskt i bakgrunden regelbundet, så du behöver inte kolla upp dem manuellt."
+      },
+      "simple": {
+        "title": "En siffra istället för rådata att gå igenom",
+        "body": "Istället för att själv jämföra flera råa annonser och försäljningspriser får du en enda tydlig siffra."
+      }
+    },
+    "cta": {
+      "subtitle": "Se det i praktiken på vilken minifigur- eller setsida som helst.",
+      "button": "Sök en minifigur eller set"
+    }
+  },
+  "priceAlerts": {
+    "meta": {
+      "title": "LEGO-prisbevakning",
+      "description": "Få ett meddelande så snart en LEGO-minifigur eller set du vill ha når ditt målpris. Gratis, ingen spam."
+    },
+    "hero": {
+      "title": "Missa aldrig ett prisfall",
+      "subtitle": "Ställ in ett målpris för valfri LEGO-minifigur eller set, så meddelar vi dig så snart det nås."
+    },
+    "steps": {
+      "step1": {
+        "title": "Sök en minifigur eller set",
+        "body": "Hitta det du vill ha på FigTracker — över 18 000 minifigurer och 20 000 set."
+      },
+      "step2": {
+        "title": "Ställ in ditt målpris",
+        "body": "Berätta för oss vilket pris du skulle köpa till."
+      },
+      "step3": {
+        "title": "Vi mejlar dig när priset nås",
+        "body": "Priser uppdateras automatiskt i bakgrunden, så du får veta så snart det sjunker."
+      }
+    },
+    "cta": {
+      "subtitle": "Det är gratis och tar cirka 10 sekunder att ställa in.",
+      "button": "Skapa en prisbevakning"
+    }
+  },
+  "leaderboardsPage": {
+    "meta": {
+      "title": "LEGO-samlartopplista",
+      "description": "Se de bästa LEGO-minifigur- och setsamlarna på FigTracker, rankade efter samlingsstorlek."
+    },
+    "hero": {
+      "title": "LEGO-samlartopplista",
+      "subtitle": "Se vem som har de största minifigur- och setsamlingarna på FigTracker, uppdaterat varje kvartal.",
+      "howToJoin": "Topplistan baseras på föremålen i ditt lager. Ställ in ett användarnamn och slå på topplistesynlighet i dina kontoinställningar för att synas här — det är valfritt."
+    }
   }
 }

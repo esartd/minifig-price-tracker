@@ -84,7 +84,9 @@
     "language": "言語",
     "user": "ユーザー",
     "premium": "プレミアム",
-    "resources": "リソース"
+    "resources": "リソース",
+    "retiringSoon": "生産終了間近",
+    "identify": "AI識別"
   },
   "themes": {
     "browse_title": "LEGOミニフィグテーマを見る",
@@ -473,7 +475,11 @@
     "unifiedPlaceholder": "ミニフィグ・セットを検索...",
     "noResultsFound": "検索結果が見つかりません",
     "noResultsSubtitle": "別のキーワードを試すか、テーマから探してみてください",
-    "seeAll": "すべて見る →"
+    "seeAll": "すべて見る →",
+    "meta": {
+      "title": "LEGOミニフィギュア・セット検索",
+      "description": "LEGOのミニフィギュアやセットを検索して、BrickLinkとeBayのデータから算出された現在のおすすめ価格を確認できます。"
+    }
   },
   "buyButtons": {
     "ebay": {
@@ -514,7 +520,8 @@
     "sourceBrickLink": "BrickLinkの価格",
     "loadingData": "価格データを読み込み中...",
     "supportCta": "時間の節約になりましたか？無料の価格情報を支援する →",
-    "premiumCta": "コレクション登録をスキップ — プレミアムへ →"
+    "premiumCta": "コレクション登録をスキップ — プレミアムへ →",
+    "howWeCalculateCta": "計算方法を見る →"
   },
   "errors": {
     "notFound": "見つかりません",
@@ -543,7 +550,11 @@
     "emptyMinifigs": "ウィッシュリストにミニフィグなし",
     "emptySets": "ウィッシュリストにセットなし",
     "emptyMinifigsHint": "ミニフィグのハートアイコンをクリックして追加",
-    "emptySetsHint": "セットのハートアイコンをクリックして追加"
+    "emptySetsHint": "セットのハートアイコンをクリックして追加",
+    "meta": {
+      "title": "LEGOウィッシュリスト",
+      "description": "購入したいLEGOミニフィギュアやセットを、最新のおすすめ価格とともに管理できます。"
+    }
   },
   "sets": {
     "browse": {
@@ -684,7 +695,8 @@
       "subtitle": "価格チェックと在庫管理をひとつの場所で。",
       "pricing": {
         "title": "たった1つのおすすめ価格",
-        "description": "BrickLinkとeBayのデータをブレンドして、実際に使える1つの数字にまとめます。表計算も、頭の中の計算も不要です。"
+        "description": "BrickLinkとeBayのデータをブレンドして、実際に使える1つの数字にまとめます。表計算も、頭の中の計算も不要です。",
+        "learnMore": "計算方法を見る →"
       },
       "inventory": {
         "title": "「売る」と「保管」を分けて管理",
@@ -743,6 +755,12 @@
       "thousandsOf": "数千の",
       "overPrefix": "以上の",
       "nearlyPrefix": "もうすぐ"
+    },
+    "creator": {
+      "title": "運営者について",
+      "body": "こんにちは、Erickです — ユタ州を拠点とするUI/UXデザインスタジオ、ES Art & Dの創業者です。大人になってからLEGO収集を始め、散らばった価格データを整理するための個人プロジェクトとしてFigTrackerを立ち上げました。それが今日使っているサイトへと成長しました。LEGOコミュニティでは Erix Figs という名前でも知られています。",
+      "badge": "FIGTRACKERを作った人",
+      "byline": "Erick Su · ES Art & D · ユタ州"
     }
   },
   "featured": {
@@ -801,7 +819,8 @@
     "noSupporterYet": "まだサポーターがいません",
     "donationSubtitle": "今四半期（{season}）にご支援いただいた皆さまに感謝します",
     "items": "アイテム",
-    "exploreCommunity": "コミュニティを見る →"
+    "exploreCommunity": "コミュニティを見る →",
+    "howRankingsWork": "ランキングの仕組み →"
   },
   "footer": {
     "faq": "FAQ",
@@ -2608,6 +2627,23 @@
     "bagCondition": {
       "noBag": "袋なし",
       "withBag": "袋あり"
+    },
+    "meta": {
+      "title": "LEGO出品作成ツール",
+      "description": "LEGOミニフィギュアやセットの出品をすぐに作成できます — eBay、BrickLink、Facebookマーケットプレイス、Vinted対応。"
+    },
+    "hero": {
+      "title": "数秒で出品を作成",
+      "subtitle": "コレクション内のアイテムを、タイトル・説明文・おすすめ価格込みのすぐ使える出品に変換します。"
+    },
+    "howItWorks": {
+      "title": "仕組み",
+      "paragraph1": "出品作成ツールはアイテムのカタログデータと現在のおすすめ価格から作成されるため、各ミニフィギュア・セットのページに設置されています — どのアイテムを販売するか正確に把握する必要があるためです。",
+      "paragraph2": "下記でアイテムを検索してページを開き、インベントリに追加後「出品を作成」オプションを探してください。"
+    },
+    "cta": {
+      "subtitle": "出品したいアイテムを見つけましょう。",
+      "button": "ミニフィギュアやセットを検索"
     }
   },
   "priceAlert": {
@@ -2763,5 +2799,95 @@
     "mixedBanner": "カスタムフィギュアのようです — 各パーツについての推測結果をご覧ください。",
     "aiEstimateUnverified": "AI推定 — 未確認",
     "scanAnother": "もう一度スキャン"
+  },
+  "collectorsDirectory": {
+    "meta": {
+      "title": "LEGOコレクターを見る",
+      "description": "FigTrackerコミュニティのLEGOコレクターランキングと公開コレクションを閲覧できます。"
+    }
+  },
+  "howWeCalculatePrices": {
+    "faqLinkText": "価格の詳しい内訳を見る",
+    "meta": {
+      "title": "LEGO価格の計算方法",
+      "description": "FigTrackerがLEGOミニフィギュアとセットの単一のおすすめ価格をどのように算出しているか、またBrickEconomyとの比較について。"
+    },
+    "hero": {
+      "title": "おすすめ価格の計算方法",
+      "subtitle": "FigTrackerのすべての価格の背後にある計算式を分かりやすく解説し、BrickEconomyなど他のツールとの比較もご紹介します。"
+    },
+    "howItWorks": {
+      "title": "計算式の仕組み",
+      "paragraph1": "FigTrackerのおすすめ価格は主にBrickLinkのシグナル — 直近の販売実績、現在の出品価格、現在の最安値の組み合わせ — に、十分なクリーンなデータがある場合はeBayとの照合を少し加えて算出されます。",
+      "paragraph2": "BrickLinkやeBayの生データを直接表示することはなく、計算された単一の結果のみを表示します。自分で調べる必要がないよう自動的に更新されます。"
+    },
+    "comparison": {
+      "title": "BrickEconomyとの比較"
+    },
+    "differentiators": {
+      "blend": {
+        "title": "単一のシグナルではなく複合的な数値",
+        "body": "おすすめ価格は、直近の販売履歴、現在のBrickLinkの出品、現在の最安値、eBayとの照合を組み合わせています — 外れ値になりうる単一のデータポイントだけではありません。"
+      },
+      "soldData": {
+        "title": "実際の販売履歴を含む",
+        "body": "売り手の希望価格のみに基づく価格とは異なり、当社の計算式は実際に直近で売れた取引を要素の一つとして含んでいます。"
+      },
+      "free": {
+        "title": "無料、アカウント登録不要",
+        "body": "登録やサブスクリプションの支払いなしに、どのおすすめ価格でも確認できます。"
+      },
+      "fresh": {
+        "title": "自動的に最新の状態を保つ",
+        "body": "価格はバックグラウンドで定期的に自動更新されるため、手動で調べ直す必要がありません。"
+      },
+      "simple": {
+        "title": "生データを自分で整理する代わりに一つの数値",
+        "body": "複数の生の出品情報や販売価格を自分で比較する代わりに、明確な一つの数値が得られます。"
+      }
+    },
+    "cta": {
+      "subtitle": "任意のミニフィギュアやセットのページで実際にご覧ください。",
+      "button": "ミニフィギュアやセットを検索"
+    }
+  },
+  "priceAlerts": {
+    "meta": {
+      "title": "LEGO価格アラート",
+      "description": "欲しいLEGOミニフィギュアやセットが目標価格に達したらすぐに通知します。無料、スパムなし。"
+    },
+    "hero": {
+      "title": "値下げを見逃さない",
+      "subtitle": "任意のLEGOミニフィギュアやセットに目標価格を設定すると、達成した時点でお知らせします。"
+    },
+    "steps": {
+      "step1": {
+        "title": "ミニフィギュアやセットを検索",
+        "body": "FigTrackerで欲しいアイテムを見つけましょう — 18,000点以上のミニフィギュアと20,000点以上のセット。"
+      },
+      "step2": {
+        "title": "目標価格を設定",
+        "body": "購入したい価格を教えてください。"
+      },
+      "step3": {
+        "title": "目標価格に達したらメールでお知らせ",
+        "body": "価格はバックグラウンドで自動的に更新されるため、値下がりするとすぐに分かります。"
+      }
+    },
+    "cta": {
+      "subtitle": "無料で、設定にかかる時間は約10秒です。",
+      "button": "価格アラートを設定"
+    }
+  },
+  "leaderboardsPage": {
+    "meta": {
+      "title": "LEGOコレクターランキング",
+      "description": "FigTrackerのLEGOミニフィギュア・セットコレクターのトップランキングを、コレクションサイズ順にご覧いただけます。"
+    },
+    "hero": {
+      "title": "LEGOコレクターランキング",
+      "subtitle": "FigTrackerで最大のミニフィギュア・セットコレクションを持つユーザーを、四半期ごとに更新してご紹介します。",
+      "howToJoin": "ランキングはインベントリ内のアイテムに基づきます。アカウント設定でユーザー名を設定し、ランキング表示をオンにすると表示されます — 任意参加です。"
+    }
   }
 }

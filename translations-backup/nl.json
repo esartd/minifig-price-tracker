@@ -84,7 +84,9 @@
     "language": "Taal",
     "user": "Gebruiker",
     "premium": "Premium",
-    "resources": "Bronnen"
+    "resources": "Bronnen",
+    "retiringSoon": "Binnenkort uit assortiment",
+    "identify": "AI-herkenning"
   },
   "themes": {
     "browse_title": "Blader door LEGO Minifiguur Thema's",
@@ -473,7 +475,11 @@
     "unifiedPlaceholder": "Zoek minifiguren en sets...",
     "noResultsFound": "Geen resultaten gevonden",
     "noResultsSubtitle": "Probeer andere zoekwoorden of blader op thema",
-    "seeAll": "Alles bekijken →"
+    "seeAll": "Alles bekijken →",
+    "meta": {
+      "title": "Zoek LEGO minifiguren & sets",
+      "description": "Zoek elke LEGO-minifiguur of set om de huidige adviesprijs te zien, berekend uit BrickLink- en eBay-gegevens."
+    }
   },
   "buyButtons": {
     "ebay": {
@@ -514,7 +520,8 @@
     "sourceBrickLink": "Prijs van BrickLink",
     "loadingData": "Prijsgegevens laden...",
     "supportCta": "Tijd bespaard? Steun gratis prijsinformatie →",
-    "premiumCta": "Sla de collectiestap over — ga Premium →"
+    "premiumCta": "Sla de collectiestap over — ga Premium →",
+    "howWeCalculateCta": "Zo berekenen we dit →"
   },
   "errors": {
     "notFound": "Niet gevonden",
@@ -543,7 +550,11 @@
     "emptyMinifigs": "Geen minifiguren op de verlanglijst",
     "emptySets": "Geen sets op de verlanglijst",
     "emptyMinifigsHint": "Klik op het hartpictogram van een minifiguur om het hier toe te voegen",
-    "emptySetsHint": "Klik op het hartpictogram van een set om het hier toe te voegen"
+    "emptySetsHint": "Klik op het hartpictogram van een set om het hier toe te voegen",
+    "meta": {
+      "title": "LEGO-verlanglijst",
+      "description": "Houd LEGO-minifiguren en -sets bij die je wilt kopen, met actuele adviesprijzen."
+    }
   },
   "sets": {
     "browse": {
@@ -684,7 +695,8 @@
       "subtitle": "Prijs en beheer je inventaris op één plek.",
       "pricing": {
         "title": "Eén Voorgestelde Prijs",
-        "description": "We combineren BrickLink- en eBay-gegevens tot één getal dat je daadwerkelijk kunt gebruiken. Geen spreadsheets. Geen hoofdrekenen."
+        "description": "We combineren BrickLink- en eBay-gegevens tot één getal dat je daadwerkelijk kunt gebruiken. Geen spreadsheets. Geen hoofdrekenen.",
+        "learnMore": "Zo berekenen we dit →"
       },
       "inventory": {
         "title": "Verkopen en Houden, Gescheiden",
@@ -743,6 +755,12 @@
       "thousandsOf": "duizenden",
       "overPrefix": "meer dan",
       "nearlyPrefix": "bijna"
+    },
+    "creator": {
+      "title": "Wie dit heeft gebouwd",
+      "body": "Hoi, ik ben Erick — oprichter van ES Art & D, een UI/UX-designstudio in Utah. Ik ben als volwassene LEGO gaan verzamelen en ben FigTracker begonnen als persoonlijk project om verspreide prijsgegevens te ordenen. Het is uitgegroeid tot de site die je vandaag gebruikt. In LEGO-kringen ken je me misschien ook als Erix Figs.",
+      "badge": "DE PERSOON ACHTER FIGTRACKER",
+      "byline": "Erick Su · ES Art & D · Utah"
     }
   },
   "featured": {
@@ -801,7 +819,8 @@
     "noSupporterYet": "Nog geen supporter",
     "donationSubtitle": "Dank aan onze gulle supporters dit kwartaal ({season})",
     "items": "items",
-    "exploreCommunity": "Ontdek de community →"
+    "exploreCommunity": "Ontdek de community →",
+    "howRankingsWork": "Zo werken de ranglijsten →"
   },
   "footer": {
     "faq": "Veelgestelde Vragen",
@@ -2608,6 +2627,23 @@
     "bagCondition": {
       "noBag": "Geen zakje",
       "withBag": "Zakje inbegrepen"
+    },
+    "meta": {
+      "title": "LEGO-advertentiegenerator",
+      "description": "Genereer kant-en-klare marktplaatsadvertenties voor je LEGO-minifiguren en -sets — eBay, BrickLink, Facebook Marketplace en Vinted."
+    },
+    "hero": {
+      "title": "Schrijf je advertentie in seconden",
+      "subtitle": "Zet elk item uit je collectie om in een kant-en-klare advertentie — titel, beschrijving en adviesprijs inbegrepen."
+    },
+    "howItWorks": {
+      "title": "Hoe het werkt",
+      "paragraph1": "Omdat het is gebouwd op basis van de catalogusgegevens en huidige adviesprijs van jouw item, staat de advertentiegenerator op elke minifiguur- en setpagina — hij moet precies weten welk item je verkoopt.",
+      "paragraph2": "Zoek hieronder naar je item, open de pagina, en zoek naar de optie \"Advertentie genereren\" zodra het in je inventaris staat."
+    },
+    "cta": {
+      "subtitle": "Vind het item dat je wilt aanbieden.",
+      "button": "Zoek een minifiguur of set"
     }
   },
   "priceAlert": {
@@ -2763,5 +2799,95 @@
     "mixedBanner": "Dit lijkt een custom figuur — hier is onze beste inschatting voor elk onderdeel.",
     "aiEstimateUnverified": "AI-schatting — niet geverifieerd",
     "scanAnother": "Nog een scannen"
+  },
+  "collectorsDirectory": {
+    "meta": {
+      "title": "Blader door LEGO-verzamelaars",
+      "description": "Blader door LEGO-verzamelaarsranglijsten en openbare collecties van de FigTracker-community."
+    }
+  },
+  "howWeCalculatePrices": {
+    "faqLinkText": "Bekijk de volledige prijsuitsplitsing",
+    "meta": {
+      "title": "Zo berekenen we LEGO-prijzen",
+      "description": "Hoe FigTracker één adviesprijs berekent voor LEGO-minifiguren en -sets, en hoe dit zich verhoudt tot BrickEconomy."
+    },
+    "hero": {
+      "title": "Zo berekenen we jouw adviesprijs",
+      "subtitle": "Een eenvoudige uitleg van de formule achter elke FigTracker-prijs — en hoe deze zich verhoudt tot andere tools zoals BrickEconomy."
+    },
+    "howItWorks": {
+      "title": "Hoe de formule werkt",
+      "paragraph1": "De adviesprijs van FigTracker is grotendeels gebaseerd op BrickLink-signalen — een mix van recent verkochte transacties, huidige advertentieprijzen en de huidige laagste prijs — met een kleine eBay-controle wanneer er genoeg schone data beschikbaar is.",
+      "paragraph2": "We tonen nooit de ruwe BrickLink- of eBay-cijfers direct — alleen het berekende resultaat, automatisch bijgewerkt zodat het actueel blijft zonder dat je het zelf hoeft op te zoeken."
+    },
+    "comparison": {
+      "title": "Vergelijking met BrickEconomy"
+    },
+    "differentiators": {
+      "blend": {
+        "title": "Eén gecombineerd getal, geen enkel signaal",
+        "body": "Je adviesprijs combineert recente verkoopgeschiedenis, huidige BrickLink-advertenties, de huidige laagste prijs en een eBay-controle — niet slechts één datapunt dat een uitschieter kan zijn."
+      },
+      "soldData": {
+        "title": "Bevat echte verkoopgeschiedenis",
+        "body": "In tegenstelling tot een prijs die alleen is gebaseerd op wat verkopers vragen, bevat onze formule daadwerkelijke recent verkochte transacties als een van de factoren."
+      },
+      "free": {
+        "title": "Gratis, geen account nodig",
+        "body": "Bekijk elke adviesprijs zonder je aan te melden of te betalen voor een abonnement."
+      },
+      "fresh": {
+        "title": "Automatisch actueel gehouden",
+        "body": "Prijzen worden automatisch op de achtergrond regelmatig bijgewerkt, zodat je ze niet handmatig hoeft op te zoeken."
+      },
+      "simple": {
+        "title": "Eén getal in plaats van ruwe data om door te spitten",
+        "body": "In plaats van zelf meerdere ruwe advertenties en verkoopprijzen te vergelijken, krijg je één duidelijk getal."
+      }
+    },
+    "cta": {
+      "subtitle": "Bekijk het in actie op elke minifiguur- of setpagina.",
+      "button": "Zoek een minifiguur of set"
+    }
+  },
+  "priceAlerts": {
+    "meta": {
+      "title": "LEGO-prijsmeldingen",
+      "description": "Ontvang een melding zodra een gewenste LEGO-minifiguur of set jouw doelprijs bereikt. Gratis, geen spam."
+    },
+    "hero": {
+      "title": "Mis nooit meer een prijsdaling",
+      "subtitle": "Stel een doelprijs in voor elke LEGO-minifiguur of set, en we laten het je weten zodra deze wordt bereikt."
+    },
+    "steps": {
+      "step1": {
+        "title": "Zoek een minifiguur of set",
+        "body": "Vind het item dat je wilt op FigTracker — meer dan 18.000 minifiguren en 20.000 sets."
+      },
+      "step2": {
+        "title": "Stel je doelprijs in",
+        "body": "Vertel ons voor welke prijs je zou kopen."
+      },
+      "step3": {
+        "title": "We mailen je zodra je prijs is bereikt",
+        "body": "Prijzen worden automatisch op de achtergrond bijgewerkt, dus je hoort het meteen zodra de prijs daalt."
+      }
+    },
+    "cta": {
+      "subtitle": "Het is gratis en kost ongeveer 10 seconden.",
+      "button": "Prijsmelding instellen"
+    }
+  },
+  "leaderboardsPage": {
+    "meta": {
+      "title": "LEGO-verzamelaars ranglijst",
+      "description": "Bekijk de topverzamelaars van LEGO-minifiguren en -sets op FigTracker, gerangschikt op collectiegrootte."
+    },
+    "hero": {
+      "title": "LEGO-verzamelaars ranglijst",
+      "subtitle": "Bekijk wie de grootste minifiguren- en setcollecties heeft op FigTracker, elk kwartaal bijgewerkt.",
+      "howToJoin": "De ranglijst is gebaseerd op de items in je inventaris. Stel een gebruikersnaam in en zet ranglijstzichtbaarheid aan in je accountinstellingen om hier te verschijnen — dit is optioneel."
+    }
   }
 }

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { getAllCategories, getAllMinifigs } from '@/lib/catalog-static';
 import { THEME_OVERRIDES } from '@/lib/theme-main-characters';
-import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
+import { getTranslations, getLocaleFromHost, type Locale } from '@/lib/i18n-subdomain';
 
 // Replace {placeholder} tokens in a translated template with dynamic values
 function interpolate(template: string, vars: Record<string, string | number>): string {
@@ -31,7 +31,7 @@ export async function generateMetadata({
   const { headers } = await import('next/headers');
   const headersList = await headers();
   const host = headersList.get('host') || '';
-  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+  const locale = getLocaleFromHost(host);
 
   const t = await getTranslations(locale as Locale);
 
@@ -40,6 +40,12 @@ export async function generateMetadata({
     de: 'https://de.figtracker.ericksu.com',
     fr: 'https://fr.figtracker.ericksu.com',
     es: 'https://es.figtracker.ericksu.com',
+    it: 'https://it.figtracker.ericksu.com',
+    nl: 'https://nl.figtracker.ericksu.com',
+    pl: 'https://pl.figtracker.ericksu.com',
+    pt: 'https://pt.figtracker.ericksu.com',
+    sv: 'https://sv.figtracker.ericksu.com',
+    ja: 'https://ja.figtracker.ericksu.com',
   };
 
   const localeMap = {
@@ -47,6 +53,12 @@ export async function generateMetadata({
     de: 'de_DE',
     fr: 'fr_FR',
     es: 'es_ES',
+    it: 'it_IT',
+    nl: 'nl_NL',
+    pl: 'pl_PL',
+    pt: 'pt_PT',
+    sv: 'sv_SE',
+    ja: 'ja_JP',
   };
 
   // Get categories to find exact theme name
@@ -93,7 +105,7 @@ export async function generateMetadata({
       description: interpolate(t.themeMeta?.layoutOgDescription || 'Browse and price {count} {theme} LEGO minifigures with smart market pricing from multiple sources', { count, theme: exactThemeName }),
       url: `${domains[locale as keyof typeof domains]}/themes/${encodeURIComponent(themeName)}`,
       locale: localeMap[locale as keyof typeof localeMap],
-      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
+      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'nl_NL', 'pl_PL', 'pt_PT', 'sv_SE', 'ja_JP'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
       images: THEME_OVERRIDES[exactThemeName]
         ? [`https://img.bricklink.com/ItemImage/MN/0/${THEME_OVERRIDES[exactThemeName]}.png`]
         : [],
@@ -105,6 +117,12 @@ export async function generateMetadata({
         'de': `${domains.de}/themes/${encodeURIComponent(themeName)}`,
         'fr': `${domains.fr}/themes/${encodeURIComponent(themeName)}`,
         'es': `${domains.es}/themes/${encodeURIComponent(themeName)}`,
+        'it': `${domains.it}/themes/${encodeURIComponent(themeName)}`,
+        'nl': `${domains.nl}/themes/${encodeURIComponent(themeName)}`,
+        'pl': `${domains.pl}/themes/${encodeURIComponent(themeName)}`,
+        'pt': `${domains.pt}/themes/${encodeURIComponent(themeName)}`,
+        'sv': `${domains.sv}/themes/${encodeURIComponent(themeName)}`,
+        'ja': `${domains.ja}/themes/${encodeURIComponent(themeName)}`,
         'x-default': `${domains.en}/themes/${encodeURIComponent(themeName)}`,
       },
     },

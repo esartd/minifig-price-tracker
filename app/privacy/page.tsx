@@ -1,32 +1,26 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
-import translations from '@/translations-backup/en.json';
-import translationsDe from '@/translations-backup/de.json';
-import translationsFr from '@/translations-backup/fr.json';
-import translationsEs from '@/translations-backup/es.json';
-
-function getTranslations(locale: string) {
-  switch (locale) {
-    case 'de': return translationsDe;
-    case 'fr': return translationsFr;
-    case 'es': return translationsEs;
-    default: return translations;
-  }
-}
+import { getTranslations, getLocaleFromHost } from '@/lib/i18n-subdomain';
 
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const host = headersList.get('host') || '';
-  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+  const locale = getLocaleFromHost(host);
 
-  const t = getTranslations(locale);
+  const t = await getTranslations(locale);
 
   const domains = {
     en: 'https://figtracker.ericksu.com',
     de: 'https://de.figtracker.ericksu.com',
     fr: 'https://fr.figtracker.ericksu.com',
     es: 'https://es.figtracker.ericksu.com',
+    it: 'https://it.figtracker.ericksu.com',
+    nl: 'https://nl.figtracker.ericksu.com',
+    pl: 'https://pl.figtracker.ericksu.com',
+    pt: 'https://pt.figtracker.ericksu.com',
+    sv: 'https://sv.figtracker.ericksu.com',
+    ja: 'https://ja.figtracker.ericksu.com',
   };
 
   return {
@@ -44,6 +38,12 @@ export async function generateMetadata(): Promise<Metadata> {
         'de': `${domains.de}/privacy`,
         'fr': `${domains.fr}/privacy`,
         'es': `${domains.es}/privacy`,
+        'it': `${domains.it}/privacy`,
+        'nl': `${domains.nl}/privacy`,
+        'pl': `${domains.pl}/privacy`,
+        'pt': `${domains.pt}/privacy`,
+        'sv': `${domains.sv}/privacy`,
+        'ja': `${domains.ja}/privacy`,
         'x-default': `${domains.en}/privacy`,
       },
     },
@@ -53,9 +53,9 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function PrivacyPage() {
   const headersList = await headers();
   const host = headersList.get('host') || '';
-  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+  const locale = getLocaleFromHost(host);
 
-  const t = getTranslations(locale);
+  const t = await getTranslations(locale);
   const p = t.privacyPolicy;
   return (
     <article className="min-h-screen" style={{ backgroundColor: '#fafafa' }}>

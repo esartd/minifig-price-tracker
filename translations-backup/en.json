@@ -46,6 +46,8 @@
     "about": "About",
     "articles": "Articles",
     "support": "Support",
+    "retiringSoon": "Retiring Soon",
+    "identify": "AI Identify",
     "signIn": "Sign In",
     "signUp": "Sign Up",
     "signOut": "Sign Out",
@@ -446,6 +448,10 @@
     }
   },
   "search": {
+    "meta": {
+      "title": "Search LEGO Minifigures & Sets",
+      "description": "Search any LEGO minifigure or set to see its current suggested price, blended from BrickLink and eBay data."
+    },
     "placeholder": "Search for any LEGO minifigure or set...",
     "placeholderSets": "Search for LEGO sets...",
     "notFound": "Not found. Try different search terms.",
@@ -514,7 +520,8 @@
     "sourceBrickLink": "Price from BrickLink",
     "loadingData": "Loading pricing data...",
     "supportCta": "Saved you some time? Support free pricing →",
-    "premiumCta": "Skip the collection step — go Premium →"
+    "premiumCta": "Skip the collection step — go Premium →",
+    "howWeCalculateCta": "How we calculate this →"
   },
   "errors": {
     "notFound": "Not found",
@@ -525,6 +532,10 @@
     "requiredField": "This field is required"
   },
   "wishlist": {
+    "meta": {
+      "title": "LEGO Wishlist Tracker",
+      "description": "Track LEGO minifigures and sets you want to buy, with live suggested prices so you know when to grab them."
+    },
     "title": "My Wishlist",
     "signInTitle": "Save Your Favorite Minifigures",
     "signInDescription": "Create a free account to save minifigures to your wishlist, track your collection, and get price updates.",
@@ -684,7 +695,8 @@
       "subtitle": "Price and track your inventory in one place.",
       "pricing": {
         "title": "One Suggested Price",
-        "description": "We blend BrickLink and eBay data into a single number you can actually use. No spreadsheets. No mental math."
+        "description": "We blend BrickLink and eBay data into a single number you can actually use. No spreadsheets. No mental math.",
+        "learnMore": "How we calculate this →"
       },
       "inventory": {
         "title": "Sell and Keep, Separated",
@@ -722,6 +734,12 @@
       "secure": "Secure & Private",
       "fast": "Fast & Reliable",
       "free": "No Payment Required"
+    },
+    "creator": {
+      "badge": "THE PERSON BEHIND FIGTRACKER",
+      "title": "Who Built This",
+      "body": "Hi, I'm Erick — founder of ES Art & D, a UI/UX design studio based in Utah. I got into LEGO collecting as an adult and started FigTracker as a personal project to make sense of scattered pricing data. It's grown into the site you're using today. In LEGO circles, you might also know me as Erix Figs.",
+      "byline": "Erick Su · ES Art & D · Utah"
     },
     "support": {
       "title": "Need Help?",
@@ -801,7 +819,8 @@
     "noSupporterYet": "No supporter yet",
     "donationSubtitle": "Thank you to our generous supporters this quarter ({season})",
     "items": "items",
-    "exploreCommunity": "Explore Community →"
+    "exploreCommunity": "Explore Community →",
+    "howRankingsWork": "How rankings work →"
   },
   "footer": {
     "faq": "FAQ",
@@ -1992,6 +2011,234 @@
     "tierGreat30": "Great Deals - 30%+ Off",
     "tierGood20": "Good Deals - 20%+ Off"
   },
+  "collectorsDirectory": {
+    "meta": {
+      "title": "Browse LEGO Collectors",
+      "description": "Browse LEGO collector leaderboards and public collections shared by the FigTracker community."
+    }
+  },
+  "priceAlerts": {
+    "meta": {
+      "title": "LEGO Price Alerts",
+      "description": "Get notified the moment a LEGO minifigure or set you want drops to your target price. Free, no spam."
+    },
+    "hero": {
+      "title": "Never Miss a Price Drop",
+      "subtitle": "Set a target price on any LEGO minifigure or set, and we'll let you know the moment it gets there."
+    },
+    "steps": {
+      "step1": {
+        "title": "Search any minifigure or set",
+        "body": "Find the item you want on FigTracker — 18,000+ minifigures and 20,000+ sets."
+      },
+      "step2": {
+        "title": "Set your target price",
+        "body": "Tell us the price you'd buy at."
+      },
+      "step3": {
+        "title": "We'll email you when it hits your price",
+        "body": "Prices refresh automatically in the background, so you find out as soon as it drops."
+      }
+    },
+    "cta": {
+      "subtitle": "It's free, and takes about 10 seconds to set up.",
+      "button": "Set up a price alert"
+    }
+  },
+  "listingGenerator": {
+    "errors": {
+      "generateFailed": "Failed to generate listing"
+    },
+    "firstTimeBanner": {
+      "title": "First time?",
+      "body": "Use the settings icon to customize your listing preferences (platform, condition, etc). Generate Listing will remember them for next time!"
+    },
+    "quickGenerate": {
+      "loading": "Generating Listing..."
+    },
+    "generateListing": "Generate Listing",
+    "customizeOptionsTooltip": "Customize options",
+    "generatedListingHeading": "Generated Listing",
+    "adjustSettingsTooltip": "Adjust Settings",
+    "titleLabel": "Title:",
+    "copyTitle": "Copy Title",
+    "priceLabel": "Price:",
+    "copyPrice": "Copy Price",
+    "wholeNumber": "(whole number)",
+    "descriptionLabel": "Description:",
+    "copyDescription": "Copy Description",
+    "done": "Done",
+    "platformLabel": "Platform:",
+    "conditionLabel": "Condition:",
+    "platform": {
+      "ebay": "eBay",
+      "facebook": "Facebook Marketplace",
+      "bricklink": "BrickLink",
+      "vinted": "Vinted"
+    },
+    "condition": {
+      "facebook": {
+        "new": "New",
+        "likeNew": "Like new",
+        "good": "Good",
+        "fair": "Fair"
+      },
+      "ebay": {
+        "new": "New",
+        "likeNew": "Like New",
+        "veryGood": "Very Good",
+        "good": "Good",
+        "acceptable": "Acceptable"
+      },
+      "bricklink": {
+        "new": "New",
+        "likeNew": "Used - Like New",
+        "veryGood": "Used - Very Good",
+        "good": "Used - Good",
+        "acceptable": "Used - Acceptable"
+      },
+      "vinted": {
+        "new": "New with tags",
+        "likeNew": "Very good",
+        "good": "Good",
+        "fair": "Satisfactory"
+      }
+    },
+    "accessoriesLabel": "Accessories Included:",
+    "accessoriesPlaceholder": "Helmet, blasters, cape...",
+    "knownFlawsLabel": "Known Flaws (optional):",
+    "knownFlawsPlaceholder": "Minor print wear, loose joints...",
+    "boxConditionLabel": "Box Condition:",
+    "boxCondition": {
+      "sealed": "Sealed (never opened)",
+      "openedNew": "Opened (set still new/unbuilt)",
+      "noBox": "No box",
+      "withBox": "Box included"
+    },
+    "buildingStatusLabel": "Building Status:",
+    "buildingStatus": {
+      "unbuiltSealed": "Unbuilt (bags sealed)",
+      "unbuiltBagsOpened": "Unbuilt (bags opened)",
+      "unassembled": "Unassembled",
+      "partiallyBuilt": "Partially built",
+      "fullyBuilt": "Fully built",
+      "disassembled": "Built then disassembled"
+    },
+    "completenessLabel": "Completeness:",
+    "completeness": {
+      "verified": "100% complete (verified piece count)",
+      "appearsComplete": "Appears complete (not verified)",
+      "missingMinor": "Missing minor pieces",
+      "missingMajor": "Missing some pieces"
+    },
+    "instructionsIncluded": "Instructions included",
+    "minifiguresIncluded": "All minifigures included",
+    "additionalNotesLabel": "Additional Notes (optional):",
+    "additionalNotesPlaceholder": "Any other details about the set condition...",
+    "quantityLabel": "Quantity to List:",
+    "includeInListingLabel": "Include in listing:",
+    "preferences": {
+      "offersShipping": "I offer shipping",
+      "offersLocalPickup": "I offer local pickup",
+      "offersBundleDiscount": "Bundle discounts available",
+      "acceptsCash": "Accept cash",
+      "acceptsVenmo": "Accept Venmo",
+      "acceptsPayPal": "Accept PayPal",
+      "acceptsOffers": "Offers accepted - \"Make Offer\" enabled",
+      "fastShipping": "Ships fast and securely",
+      "carefulPackaging": {
+        "ebay": "Carefully packaged in protective material",
+        "bricklink": "Carefully packaged"
+      },
+      "messageWithQuestions": {
+        "ebay": "\"Feel free to message with any questions\"",
+        "bricklink": "\"Contact with questions before purchasing\""
+      },
+      "shipsWithTracking": "Shipped with tracking",
+      "smokeFreeHome": "From smoke-free home"
+    },
+    "cancel": "Cancel",
+    "generating": "Generating...",
+    "regenerate": "Regenerate",
+    "bagConditionLabel": "Bag Condition:",
+    "bagCondition": {
+      "noBag": "No bag",
+      "withBag": "Bag included"
+    },
+    "meta": {
+      "title": "LEGO Listing Generator",
+      "description": "Generate ready-to-post marketplace listings for your LEGO minifigures and sets — eBay, BrickLink, Facebook Marketplace, and Vinted."
+    },
+    "hero": {
+      "title": "Write Your Listing in Seconds",
+      "subtitle": "Turn any item in your collection into a ready-to-post listing — title, description, and suggested price included."
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "paragraph1": "Because it's built from your item's own catalog data and current suggested price, the listing generator lives on each minifigure and set page — it needs to know exactly which item you're selling.",
+      "paragraph2": "Search for your item below, open its page, and look for the \"Generate Listing\" option once you have added it to your inventory."
+    },
+    "cta": {
+      "subtitle": "Find the item you want to list.",
+      "button": "Search a minifigure or set"
+    }
+  },
+  "leaderboardsPage": {
+    "meta": {
+      "title": "LEGO Collector Leaderboards",
+      "description": "See the top LEGO minifigure and set collectors on FigTracker, ranked by collection size."
+    },
+    "hero": {
+      "title": "LEGO Collector Leaderboards",
+      "subtitle": "See who has the biggest minifigure and set collections on FigTracker, updated each quarter.",
+      "howToJoin": "Rankings are based on the items in your inventory. Set a username and turn on leaderboard visibility in your account settings to appear here — it's opt-in."
+    }
+  },
+  "howWeCalculatePrices": {
+    "faqLinkText": "See the full pricing breakdown",
+    "meta": {
+      "title": "How We Calculate LEGO Prices",
+      "description": "How FigTracker computes a single suggested price for LEGO minifigures and sets, and how it compares to BrickEconomy."
+    },
+    "hero": {
+      "title": "How We Calculate Your Suggested Price",
+      "subtitle": "A plain-language look at the formula behind every FigTracker price — and how it compares to other LEGO pricing tools like BrickEconomy."
+    },
+    "howItWorks": {
+      "title": "How the formula works",
+      "paragraph1": "FigTracker's suggested price is mostly built from BrickLink signals — a mix of recent sold transactions, current listing prices, and the current lowest price — with a small eBay cross-check added in when there's enough clean data to use it.",
+      "paragraph2": "We never show you raw BrickLink or eBay numbers directly — only the single computed result, refreshed automatically so it stays current without you having to look it up yourself."
+    },
+    "comparison": {
+      "title": "How this compares to BrickEconomy"
+    },
+    "differentiators": {
+      "blend": {
+        "title": "One blended number, not one signal",
+        "body": "Your suggested price combines recent sold history, current BrickLink listings, the current lowest price, and an eBay cross-check — not just one data point that could be an outlier."
+      },
+      "soldData": {
+        "title": "Includes real sold history",
+        "body": "Unlike a price built only from what sellers are asking, our formula includes actual recent sold transactions as one of its inputs."
+      },
+      "free": {
+        "title": "Free, no account required",
+        "body": "Check any suggested price without signing up or paying for a subscription."
+      },
+      "fresh": {
+        "title": "Kept fresh automatically",
+        "body": "Prices refresh automatically in the background on a regular schedule, so you don't have to manually look them up to get a current number."
+      },
+      "simple": {
+        "title": "One number instead of raw data to sort through",
+        "body": "Rather than cross-referencing multiple raw listings and sold prices yourself, you get a single, clear number."
+      }
+    },
+    "cta": {
+      "subtitle": "See it in action on any minifigure or set page.",
+      "button": "Search a minifigure or set"
+    }
+  },
   "retiringSoon": {
     "pageTitle": "LEGO Sets Retiring Soon 2026",
     "metaDescription": "Track LEGO sets retiring in 2026. Get retirement predictions, estimated dates, and price trends for Star Wars, Marvel, Creator Expert and more themes.",
@@ -2487,127 +2734,6 @@
     "noDataSubtext": "Check back in a few days to see price trends",
     "sixMonths": "6 Months",
     "allTime": "All Time"
-  },
-  "listingGenerator": {
-    "errors": {
-      "generateFailed": "Failed to generate listing"
-    },
-    "firstTimeBanner": {
-      "title": "First time?",
-      "body": "Use the settings icon to customize your listing preferences (platform, condition, etc). Generate Listing will remember them for next time!"
-    },
-    "quickGenerate": {
-      "loading": "Generating Listing..."
-    },
-    "generateListing": "Generate Listing",
-    "customizeOptionsTooltip": "Customize options",
-    "generatedListingHeading": "Generated Listing",
-    "adjustSettingsTooltip": "Adjust Settings",
-    "titleLabel": "Title:",
-    "copyTitle": "Copy Title",
-    "priceLabel": "Price:",
-    "copyPrice": "Copy Price",
-    "wholeNumber": "(whole number)",
-    "descriptionLabel": "Description:",
-    "copyDescription": "Copy Description",
-    "done": "Done",
-    "platformLabel": "Platform:",
-    "conditionLabel": "Condition:",
-    "platform": {
-      "ebay": "eBay",
-      "facebook": "Facebook Marketplace",
-      "bricklink": "BrickLink",
-      "vinted": "Vinted"
-    },
-    "condition": {
-      "facebook": {
-        "new": "New",
-        "likeNew": "Like new",
-        "good": "Good",
-        "fair": "Fair"
-      },
-      "ebay": {
-        "new": "New",
-        "likeNew": "Like New",
-        "veryGood": "Very Good",
-        "good": "Good",
-        "acceptable": "Acceptable"
-      },
-      "bricklink": {
-        "new": "New",
-        "likeNew": "Used - Like New",
-        "veryGood": "Used - Very Good",
-        "good": "Used - Good",
-        "acceptable": "Used - Acceptable"
-      },
-      "vinted": {
-        "new": "New with tags",
-        "likeNew": "Very good",
-        "good": "Good",
-        "fair": "Satisfactory"
-      }
-    },
-    "accessoriesLabel": "Accessories Included:",
-    "accessoriesPlaceholder": "Helmet, blasters, cape...",
-    "knownFlawsLabel": "Known Flaws (optional):",
-    "knownFlawsPlaceholder": "Minor print wear, loose joints...",
-    "boxConditionLabel": "Box Condition:",
-    "boxCondition": {
-      "sealed": "Sealed (never opened)",
-      "openedNew": "Opened (set still new/unbuilt)",
-      "noBox": "No box",
-      "withBox": "Box included"
-    },
-    "buildingStatusLabel": "Building Status:",
-    "buildingStatus": {
-      "unbuiltSealed": "Unbuilt (bags sealed)",
-      "unbuiltBagsOpened": "Unbuilt (bags opened)",
-      "unassembled": "Unassembled",
-      "partiallyBuilt": "Partially built",
-      "fullyBuilt": "Fully built",
-      "disassembled": "Built then disassembled"
-    },
-    "completenessLabel": "Completeness:",
-    "completeness": {
-      "verified": "100% complete (verified piece count)",
-      "appearsComplete": "Appears complete (not verified)",
-      "missingMinor": "Missing minor pieces",
-      "missingMajor": "Missing some pieces"
-    },
-    "instructionsIncluded": "Instructions included",
-    "minifiguresIncluded": "All minifigures included",
-    "additionalNotesLabel": "Additional Notes (optional):",
-    "additionalNotesPlaceholder": "Any other details about the set condition...",
-    "quantityLabel": "Quantity to List:",
-    "includeInListingLabel": "Include in listing:",
-    "preferences": {
-      "offersShipping": "I offer shipping",
-      "offersLocalPickup": "I offer local pickup",
-      "offersBundleDiscount": "Bundle discounts available",
-      "acceptsCash": "Accept cash",
-      "acceptsVenmo": "Accept Venmo",
-      "acceptsPayPal": "Accept PayPal",
-      "acceptsOffers": "Offers accepted - \"Make Offer\" enabled",
-      "fastShipping": "Ships fast and securely",
-      "carefulPackaging": {
-        "ebay": "Carefully packaged in protective material",
-        "bricklink": "Carefully packaged"
-      },
-      "messageWithQuestions": {
-        "ebay": "\"Feel free to message with any questions\"",
-        "bricklink": "\"Contact with questions before purchasing\""
-      },
-      "shipsWithTracking": "Shipped with tracking",
-      "smokeFreeHome": "From smoke-free home"
-    },
-    "cancel": "Cancel",
-    "generating": "Generating...",
-    "regenerate": "Regenerate",
-    "bagConditionLabel": "Bag Condition:",
-    "bagCondition": {
-      "noBag": "No bag",
-      "withBag": "Bag included"
-    }
   },
   "priceAlert": {
     "invalidPrice": "Please enter a valid price",

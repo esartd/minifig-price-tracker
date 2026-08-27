@@ -1,11 +1,13 @@
 'use client';
 
+import Link from 'next/link';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useRef } from 'react';
 
 interface FAQ {
   question: string;
   answer: string;
+  link?: { href: string; text: string };
 }
 
 interface FAQListProps {
@@ -47,6 +49,14 @@ export default function FAQList({ faqs }: FAQListProps) {
           <p style={{ marginTop: '16px', fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.7' }}>
             {faq.answer}
           </p>
+          {faq.link && (
+            <Link
+              href={faq.link.href}
+              style={{ display: 'inline-block', marginTop: '8px', fontSize: 'var(--text-sm)', color: '#3b82f6', textDecoration: 'none' }}
+            >
+              {faq.link.text} →
+            </Link>
+          )}
         </details>
       ))}
     </div>

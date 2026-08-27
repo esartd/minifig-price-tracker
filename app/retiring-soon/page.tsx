@@ -108,7 +108,67 @@ export default async function RetiringSoonPage({
     limit: 50
   });
 
+  const baseUrl = domains[locale];
+  const itemListJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'LEGO Sets Predicted to Retire Soon',
+    itemListElement: initialData.slice(0, 50).map((set, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: set.name,
+      url: `${baseUrl}/sets/${set.boxNo}`,
+    })),
+  };
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: t.retiringSoon?.faq?.howPredictQ || 'How do we predict retirements?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: t.retiringSoon?.faq?.howPredictA || 'We analyze set age, theme patterns, price trends, and community reports. UCS sets typically retire after 4-5 years, while licensed themes retire after 2-3 years.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: t.retiringSoon?.faq?.whyRetireQ || 'Why do LEGO sets retire?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: t.retiringSoon?.faq?.whyRetireA || 'LEGO retires sets to make room for new releases, due to licensing agreements ending, or when sales decline.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: t.retiringSoon?.faq?.shouldInvestQ || 'Should I buy retiring sets as investments?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: t.retiringSoon?.faq?.shouldInvestA || 'Retiring sets can appreciate in value, but not all do. Always buy sets you enjoy building, not just for investment.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: t.retiringSoon?.faq?.accuracyQ || 'How accurate are these predictions?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: t.retiringSoon?.faq?.accuracyA || 'Our predictions are estimates based on historical patterns. High confidence predictions are typically accurate within 3-6 months.',
+        },
+      },
+    ],
+  };
+
   return (
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+    />
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+    />
     <div style={{
       maxWidth: '1400px',
       margin: '0 auto',
@@ -243,5 +303,6 @@ export default async function RetiringSoonPage({
         </div>
       </section>
     </div>
+    </>
   );
 }

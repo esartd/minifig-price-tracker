@@ -859,6 +859,19 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
               </div>
             )}
 
+            {pricing && pricing.suggestedPrice > 0 && (
+              <div style={{ marginTop: '-16px', marginBottom: '16px', textAlign: 'left' }}>
+                <a
+                  href="/how-we-calculate-prices"
+                  style={{ fontSize: '11px', color: '#a3a3a3', textDecoration: 'none', transition: 'color 0.2s' }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#737373'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#a3a3a3'}
+                >
+                  {t('pricing.howWeCalculateCta') || 'How we calculate this →'}
+                </a>
+              </div>
+            )}
+
             <div style={{ height: '1px', background: '#e5e5e5', marginBottom: '16px' }}></div>
 
             <div>

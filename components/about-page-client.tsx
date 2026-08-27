@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+import Image from 'next/image';
 import { CurrencyDollarIcon, BriefcaseIcon, MagnifyingGlassIcon, ShieldCheckIcon, BuildingStorefrontIcon, SparklesIcon, UserGroupIcon, LockClosedIcon, BoltIcon, CreditCardIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from '@/components/TranslationProvider';
 
@@ -84,6 +86,9 @@ export default function AboutPageClient({ catalogCountText }: { catalogCountText
               </div>
               <h3>{t('about.features.pricing.title')}</h3>
               <p>{t('about.features.pricing.description')}</p>
+              <Link href="/how-we-calculate-prices" style={{ fontSize: 'var(--text-sm)', color: '#3b82f6', textDecoration: 'none' }}>
+                {t('about.features.pricing.learnMore') || 'How we calculate this →'}
+              </Link>
             </div>
 
             <div className="feature-card">
@@ -205,6 +210,33 @@ export default function AboutPageClient({ catalogCountText }: { catalogCountText
                 </div>
                 <div className="trust-label">{t('about.trust.free')}</div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Founder Bio Section */}
+      <section className="about-section about-founder-section">
+        <div className="about-page-container">
+          <div style={{ textAlign: 'center' }}>
+            <div className="founder-badge">
+              <span>{t('about.creator.badge') || 'THE PERSON BEHIND FIGTRACKER'}</span>
+            </div>
+          </div>
+          <div className="founder-bio-layout">
+            <div className="founder-photo-placeholder">
+              <Image
+                src="/about/erick-su.png"
+                alt="Erick Su, founder of FigTracker"
+                width={200}
+                height={200}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </div>
+            <div className="founder-bio-content">
+              <h2>{t('about.creator.title') || 'Who Built This'}</h2>
+              <p>{t('about.creator.body') || "Hi, I'm Erick — founder of ES Art & D, a UI/UX design studio based in Utah. I got into LEGO collecting as an adult and started FigTracker as a personal project to make sense of scattered pricing data. It's grown into the site you're using today. In LEGO circles, you might also know me as Erix Figs."}</p>
+              <p className="founder-byline">{t('about.creator.byline') || 'Erick Su · ES Art & D · Utah'}</p>
             </div>
           </div>
         </div>

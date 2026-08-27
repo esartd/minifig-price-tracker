@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import May4thDealsClient from './client';
-import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
+import { getTranslations, getLocaleFromHost, type Locale } from '@/lib/i18n-subdomain';
 
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const host = headersList.get('host') || '';
-  const locale = host.startsWith('de.') ? 'de' : host.startsWith('fr.') ? 'fr' : host.startsWith('es.') ? 'es' : 'en';
+  const locale = getLocaleFromHost(host);
 
   const t = await getTranslations(locale as Locale);
 
@@ -15,6 +15,12 @@ export async function generateMetadata(): Promise<Metadata> {
     de: 'https://de.figtracker.ericksu.com',
     fr: 'https://fr.figtracker.ericksu.com',
     es: 'https://es.figtracker.ericksu.com',
+    it: 'https://it.figtracker.ericksu.com',
+    nl: 'https://nl.figtracker.ericksu.com',
+    pl: 'https://pl.figtracker.ericksu.com',
+    pt: 'https://pt.figtracker.ericksu.com',
+    sv: 'https://sv.figtracker.ericksu.com',
+    ja: 'https://ja.figtracker.ericksu.com',
   };
 
   const baseUrl = domains[locale as keyof typeof domains];
@@ -34,9 +40,15 @@ export async function generateMetadata(): Promise<Metadata> {
       canonical: `${baseUrl}${path}`,
       languages: {
         en: `${domains.en}${path}`,
-        es: `${domains.es}${path}`,
         de: `${domains.de}${path}`,
         fr: `${domains.fr}${path}`,
+        es: `${domains.es}${path}`,
+        it: `${domains.it}${path}`,
+        nl: `${domains.nl}${path}`,
+        pl: `${domains.pl}${path}`,
+        pt: `${domains.pt}${path}`,
+        sv: `${domains.sv}${path}`,
+        ja: `${domains.ja}${path}`,
       },
     },
     robots: {

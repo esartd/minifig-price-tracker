@@ -578,6 +578,32 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                       {t('navigation.articles') || 'Articles'}
                     </Link>
+                    <Link href="/retiring-soon" onClick={() => setResourcesDropdownOpen(false)} style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#171717',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-sm)',
+                      borderBottom: '1px solid #f5f5f5',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                      {t('navigation.retiringSoon') || 'Retiring Soon'}
+                    </Link>
+                    <Link href="/identify" onClick={() => setResourcesDropdownOpen(false)} style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#171717',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-sm)',
+                      borderBottom: '1px solid #f5f5f5',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                      {t('navigation.identify') || 'AI Identify'}
+                    </Link>
                     <Link
                       href="/support"
                       onClick={async () => {
@@ -982,6 +1008,28 @@ export function HeaderClient({ user }: HeaderClientProps) {
                       minHeight: '44px'
                     }}>
                       {t('navigation.articles') || 'Articles'}
+                    </Link>
+                    <Link href="/retiring-soon" onClick={() => setMobileMenuOpen(false)} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '8px 0',
+                      color: '#525252',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-base)',
+                      minHeight: '44px'
+                    }}>
+                      {t('navigation.retiringSoon') || 'Retiring Soon'}
+                    </Link>
+                    <Link href="/identify" onClick={() => setMobileMenuOpen(false)} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '8px 0',
+                      color: '#525252',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-base)',
+                      minHeight: '44px'
+                    }}>
+                      {t('navigation.identify') || 'AI Identify'}
                     </Link>
                     <Link
                       href="/support"
@@ -1495,6 +1543,32 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                     {t('navigation.articles') || 'Articles'}
                   </Link>
+                  <Link href="/retiring-soon" onClick={() => setResourcesDropdownOpen(false)} style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#171717',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-sm)',
+                    borderBottom: '1px solid #f5f5f5',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    {t('navigation.retiringSoon') || 'Retiring Soon'}
+                  </Link>
+                  <Link href="/identify" onClick={() => setResourcesDropdownOpen(false)} style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#171717',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-sm)',
+                    borderBottom: '1px solid #f5f5f5',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    {t('navigation.identify') || 'AI Identify'}
+                  </Link>
                   <Link
                     href="/support"
                     onClick={async () => {
@@ -1956,6 +2030,28 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   minHeight: '44px'
                 }}>
                   {t('navigation.articles') || 'Articles'}
+                </Link>
+                <Link href="/retiring-soon" onClick={() => setMobileMenuOpen(false)} style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '8px 0',
+                  color: '#525252',
+                  textDecoration: 'none',
+                  fontSize: 'var(--text-base)',
+                  minHeight: '44px'
+                }}>
+                  {t('navigation.retiringSoon') || 'Retiring Soon'}
+                </Link>
+                <Link href="/identify" onClick={() => setMobileMenuOpen(false)} style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '8px 0',
+                  color: '#525252',
+                  textDecoration: 'none',
+                  fontSize: 'var(--text-base)',
+                  minHeight: '44px'
+                }}>
+                  {t('navigation.identify') || 'AI Identify'}
                 </Link>
                 <Link
                   href="/support"
