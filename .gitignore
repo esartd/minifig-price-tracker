@@ -74,3 +74,6 @@ vercel.json
 
 # VPS image cache (downloaded from BrickLink on demand)
 public/cache/
+
+# Marketplace export image mirror (downloaded from BrickLink on demand)
+public/listing-images/

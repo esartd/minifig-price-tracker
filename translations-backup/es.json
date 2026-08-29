@@ -2946,5 +2946,84 @@
       "subtitle": "Descubre quién tiene las colecciones de minifiguras y sets LEGO más grandes en FigTracker, actualizado cada trimestre.",
       "howToJoin": "La clasificación se basa en los artículos de tu inventario. Configura un nombre de usuario y activa la visibilidad en la clasificación en tu configuración de cuenta para aparecer aquí — es opcional."
     }
+  },
+  "whatnotExport": {
+    "meta": {
+      "title": "Exportación CSV de Whatnot para vendedores LEGO",
+      "description": "Convierte tu colección LEGO en un CSV de importación masiva para Whatnot con un clic. Precios, estados, perfiles de envío y fotos rellenados por ti. Gratis."
+    },
+    "hero": {
+      "title": "Publica en Whatnot con una sola subida",
+      "subtitle": "Whatnot permite importar anuncios en masa desde un CSV. FigTracker ya conoce tus artículos, sus precios y sus pesos, así que puede escribir ese archivo por ti."
+    },
+    "howItWorks": "Cómo funciona",
+    "steps": {
+      "step1": {
+        "title": "Elige lo que quieres vender",
+        "body": "Selecciona una de tus cuatro colecciones y marca los artículos que quieres publicar."
+      },
+      "step2": {
+        "title": "Configura precios y estados una vez",
+        "body": "Parte del precio sugerido de FigTracker, añade un margen si quieres y elige cómo se corresponden tus estados con los de Whatnot."
+      },
+      "step3": {
+        "title": "Descarga y sube",
+        "body": "Obtienes un CSV que coincide exactamente con la plantilla de Whatnot. Súbelo a tu inventario de Whatnot y tus borradores estarán listos."
+      }
+    },
+    "notes": {
+      "title": "Antes de subir",
+      "photos": "Las fotos vienen del catálogo LEGO. Para artículos usados, tus propias fotos venderán mucho mejor.",
+      "shipping": "Los perfiles de envío se estiman a partir del peso del catálogo más tu margen de embalaje. Pesa cualquier artículo inusual antes de publicarlo.",
+      "region": "Este archivo coincide con la plantilla de Estados Unidos de Whatnot. Los vendedores de otras regiones usan una distinta."
+    },
+    "pricingLink": {
+      "text": "¿Te preguntas de dónde salen los precios sugeridos?",
+      "linkText": "Mira cómo calculamos los precios"
+    },
+    "sources": {
+      "minifigInventory": "Minifiguras — En venta",
+      "setInventory": "Sets — En venta",
+      "minifigCollection": "Minifiguras — Mi colección",
+      "setCollection": "Sets — Mi colección"
+    },
+    "options": {
+      "title": "Ajustes del anuncio",
+      "show": "Mostrar",
+      "hide": "Ocultar",
+      "type": "Tipo de anuncio",
+      "markup": "Ajuste de precio (%)",
+      "rounding": "Redondear precios",
+      "roundingExact": "Exacto (12,34)",
+      "roundingWhole": "Dólares enteros (12)",
+      "roundingNinetyNine": "Termina en ,99 (12,99)",
+      "conditionNew": "Los artículos «nuevo» pasan a ser",
+      "conditionUsed": "Los artículos «usado» pasan a ser",
+      "packaging": "Peso del embalaje (oz)",
+      "packagingHelp": "Se suma al peso de cada artículo para elegir un perfil de envío. Whatnot cobra por el peso empaquetado.",
+      "includeImages": "Incluir fotos del catálogo",
+      "offerable": "Permitir ofertas de los compradores"
+    },
+    "searchPlaceholder": "Buscar por nombre o número",
+    "selectAll": "Seleccionar todo",
+    "selectNone": "Borrar selección",
+    "emptyCollection": "Todavía no hay nada en esta colección.",
+    "noMatches": "Ningún artículo coincide con tu búsqueda.",
+    "checking": "Comprobando tu selección…",
+    "readyCount": "{count} anuncios listos",
+    "selectedCount": "{count} seleccionados",
+    "skippedTitle": "{count} quedarán fuera",
+    "warningsTitle": "{count} conviene revisar",
+    "download": "Descargar CSV",
+    "building": "Creando tu CSV…",
+    "buildingHelp": "La primera vez que exportas un artículo tarda un momento mientras preparamos su foto. Las siguientes veces es instantáneo.",
+    "success": "Tu CSV se está descargando.",
+    "signInPrompt": "Inicia sesión para convertir tu colección de FigTracker en un CSV de Whatnot.",
+    "signIn": "Iniciar sesión",
+    "exportButton": "Exportar a Whatnot",
+    "errors": {
+      "loadFailed": "No pudimos cargar tu colección. Actualiza la página e inténtalo de nuevo.",
+      "exportFailed": "No pudimos crear tu CSV. Inténtalo de nuevo."
+    }
   }
 }

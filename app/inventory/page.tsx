@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { CollectionItem } from '@/types';
 import CollectionList from '@/components/CollectionList';
 import ShareCollectionButton from '@/components/ShareCollectionButton';
+import WhatnotExportButton from '@/components/WhatnotExportButton';
 import DatabaseLimitError from '@/components/DatabaseLimitError';
 import Link from 'next/link';
 import { ChevronDownIcon, PlusIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -432,6 +433,7 @@ export default function CollectionPage() {
                   <span className="add-button-text">{t('common.add')}</span>
                 </Link>
                 <ShareCollectionButton type="inventory" />
+                <WhatnotExportButton source="minifig-inventory" />
               </div>
             </div>
 
@@ -620,6 +622,7 @@ export default function CollectionPage() {
                 + {t('collection.addMinifigs')}
               </Link>
               <ShareCollectionButton type="inventory" />
+              <WhatnotExportButton source="minifig-inventory" />
             </div>
           </div>
         )}

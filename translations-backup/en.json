@@ -2888,5 +2888,84 @@
     "mixedBanner": "Looks like a custom figure — here's our best guess for each part.",
     "aiEstimateUnverified": "AI estimate — unverified",
     "scanAnother": "Scan Another"
+  },
+  "whatnotExport": {
+    "meta": {
+      "title": "Whatnot CSV Export for LEGO Sellers",
+      "description": "Turn your LEGO collection into a Whatnot bulk-import CSV in one click. Prices, conditions, shipping profiles and photos filled in for you. Free."
+    },
+    "hero": {
+      "title": "List on Whatnot in One Upload",
+      "subtitle": "Whatnot lets you bulk-import listings from a CSV. FigTracker already knows your items, their prices and their weights — so it can write that file for you."
+    },
+    "howItWorks": "How it works",
+    "steps": {
+      "step1": {
+        "title": "Pick what you want to sell",
+        "body": "Choose any of your four collections and tick the items you want to list."
+      },
+      "step2": {
+        "title": "Set your prices and conditions once",
+        "body": "Start from FigTracker’s suggested price, add a markup if you want, and choose how your conditions map to Whatnot’s."
+      },
+      "step3": {
+        "title": "Download and upload",
+        "body": "You get a CSV that matches Whatnot’s template exactly. Upload it to your Whatnot Inventory and your drafts are ready."
+      }
+    },
+    "notes": {
+      "title": "Before you upload",
+      "photos": "Photos come from the LEGO catalog. For used items, replacing them with your own pictures will sell better.",
+      "shipping": "Shipping profiles are estimated from catalog weight plus your packaging allowance. Weigh anything unusual before listing it.",
+      "region": "This file matches Whatnot’s United States template. Sellers in other regions use a different one."
+    },
+    "pricingLink": {
+      "text": "Curious where the suggested prices come from?",
+      "linkText": "See how we calculate prices"
+    },
+    "sources": {
+      "minifigInventory": "Minifigs — For Sale",
+      "setInventory": "Sets — For Sale",
+      "minifigCollection": "Minifigs — My Collection",
+      "setCollection": "Sets — My Collection"
+    },
+    "options": {
+      "title": "Listing settings",
+      "show": "Show",
+      "hide": "Hide",
+      "type": "Listing type",
+      "markup": "Price adjustment (%)",
+      "rounding": "Round prices",
+      "roundingExact": "Exact (12.34)",
+      "roundingWhole": "Whole dollars (12)",
+      "roundingNinetyNine": "Ends in .99 (12.99)",
+      "conditionNew": "Items marked \"new\" become",
+      "conditionUsed": "Items marked \"used\" become",
+      "packaging": "Packaging weight (oz)",
+      "packagingHelp": "Added to each item’s weight to pick a shipping profile. Whatnot bills on packed weight.",
+      "includeImages": "Include catalog photos",
+      "offerable": "Allow buyers to make offers"
+    },
+    "searchPlaceholder": "Search by name or number",
+    "selectAll": "Select all",
+    "selectNone": "Clear selection",
+    "emptyCollection": "Nothing in this collection yet.",
+    "noMatches": "No items match your search.",
+    "checking": "Checking your selection…",
+    "readyCount": "{count} listings ready",
+    "selectedCount": "{count} selected",
+    "skippedTitle": "{count} will be left out",
+    "warningsTitle": "{count} worth double-checking",
+    "download": "Download CSV",
+    "building": "Building your CSV…",
+    "buildingHelp": "First time exporting an item takes a moment while we prepare its photo. Later exports are instant.",
+    "success": "Your CSV is downloading.",
+    "signInPrompt": "Sign in to turn your FigTracker collection into a Whatnot CSV.",
+    "signIn": "Sign in",
+    "exportButton": "Export to Whatnot",
+    "errors": {
+      "loadFailed": "We couldn’t load your collection. Please refresh and try again.",
+      "exportFailed": "We couldn’t build your CSV. Please try again."
+    }
   }
 }

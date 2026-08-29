@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { SetInventoryItem } from '@/types';
 import SetInventoryList from '@/components/SetInventoryList';
 import ShareCollectionButton from '@/components/ShareCollectionButton';
+import WhatnotExportButton from '@/components/WhatnotExportButton';
 import Link from 'next/link';
 import { ChevronDownIcon, PlusIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
@@ -416,6 +417,7 @@ export default function SetsInventoryPage() {
                   <span className="add-button-text">{t('common.add')}</span>
                 </Link>
                 <ShareCollectionButton type="sets-inventory" />
+                <WhatnotExportButton source="set-inventory" />
               </div>
             </div>
 

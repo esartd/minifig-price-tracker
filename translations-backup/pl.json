@@ -2889,5 +2889,84 @@
       "subtitle": "Zobacz, kto ma największe kolekcje minifigurek i zestawów LEGO na FigTracker, aktualizowane co kwartał.",
       "howToJoin": "Ranking opiera się na przedmiotach w Twoim ekwipunku. Ustaw nazwę użytkownika i włącz widoczność w rankingu w ustawieniach konta, aby się tu pojawić — to opcjonalne."
     }
+  },
+  "whatnotExport": {
+    "meta": {
+      "title": "Eksport CSV do Whatnot dla sprzedawców LEGO",
+      "description": "Zamień swoją kolekcję LEGO w plik CSV do masowego importu na Whatnot jednym kliknięciem. Ceny, stany, profile wysyłki i zdjęcia wypełnione za Ciebie. Za darmo."
+    },
+    "hero": {
+      "title": "Wystaw na Whatnot jednym wgraniem",
+      "subtitle": "Whatnot pozwala masowo importować oferty z pliku CSV. FigTracker zna już Twoje przedmioty, ich ceny i wagi — więc może napisać ten plik za Ciebie."
+    },
+    "howItWorks": "Jak to działa",
+    "steps": {
+      "step1": {
+        "title": "Wybierz, co chcesz sprzedać",
+        "body": "Wybierz jedną z czterech kolekcji i zaznacz przedmioty, które chcesz wystawić."
+      },
+      "step2": {
+        "title": "Ustaw ceny i stany raz",
+        "body": "Zacznij od ceny sugerowanej przez FigTracker, dodaj marżę, jeśli chcesz, i wybierz, jak Twoje stany odpowiadają tym w Whatnot."
+      },
+      "step3": {
+        "title": "Pobierz i wgraj",
+        "body": "Otrzymasz plik CSV dokładnie zgodny z szablonem Whatnot. Wgraj go do swojego magazynu na Whatnot i wersje robocze są gotowe."
+      }
+    },
+    "notes": {
+      "title": "Zanim wgrasz",
+      "photos": "Zdjęcia pochodzą z katalogu LEGO. W przypadku używanych przedmiotów własne zdjęcia sprzedadzą się dużo lepiej.",
+      "shipping": "Profile wysyłki są szacowane na podstawie wagi katalogowej i Twojego zapasu na opakowanie. Zważ nietypowe przedmioty przed wystawieniem.",
+      "region": "Ten plik odpowiada amerykańskiemu szablonowi Whatnot. Sprzedawcy z innych regionów używają innego."
+    },
+    "pricingLink": {
+      "text": "Ciekawi Cię, skąd biorą się sugerowane ceny?",
+      "linkText": "Zobacz, jak obliczamy ceny"
+    },
+    "sources": {
+      "minifigInventory": "Minifigurki — Na sprzedaż",
+      "setInventory": "Zestawy — Na sprzedaż",
+      "minifigCollection": "Minifigurki — Moja kolekcja",
+      "setCollection": "Zestawy — Moja kolekcja"
+    },
+    "options": {
+      "title": "Ustawienia oferty",
+      "show": "Pokaż",
+      "hide": "Ukryj",
+      "type": "Typ oferty",
+      "markup": "Korekta ceny (%)",
+      "rounding": "Zaokrąglaj ceny",
+      "roundingExact": "Dokładnie (12,34)",
+      "roundingWhole": "Pełne dolary (12)",
+      "roundingNinetyNine": "Kończy się na ,99 (12,99)",
+      "conditionNew": "Przedmioty „nowe” stają się",
+      "conditionUsed": "Przedmioty „używane” stają się",
+      "packaging": "Waga opakowania (oz)",
+      "packagingHelp": "Dodawana do wagi każdego przedmiotu przy wyborze profilu wysyłki. Whatnot nalicza według wagi z opakowaniem.",
+      "includeImages": "Dołącz zdjęcia z katalogu",
+      "offerable": "Zezwól kupującym na składanie ofert"
+    },
+    "searchPlaceholder": "Szukaj po nazwie lub numerze",
+    "selectAll": "Zaznacz wszystko",
+    "selectNone": "Wyczyść zaznaczenie",
+    "emptyCollection": "W tej kolekcji nie ma jeszcze nic.",
+    "noMatches": "Żaden przedmiot nie pasuje do wyszukiwania.",
+    "checking": "Sprawdzanie wyboru…",
+    "readyCount": "Gotowych ofert: {count}",
+    "selectedCount": "Zaznaczono: {count}",
+    "skippedTitle": "Pominiętych: {count}",
+    "warningsTitle": "Do sprawdzenia: {count}",
+    "download": "Pobierz CSV",
+    "building": "Tworzenie pliku CSV…",
+    "buildingHelp": "Pierwszy eksport przedmiotu chwilę trwa, bo przygotowujemy jego zdjęcie. Kolejne są natychmiastowe.",
+    "success": "Twój plik CSV jest pobierany.",
+    "signInPrompt": "Zaloguj się, aby zamienić swoją kolekcję FigTracker w plik CSV dla Whatnot.",
+    "signIn": "Zaloguj się",
+    "exportButton": "Eksportuj do Whatnot",
+    "errors": {
+      "loadFailed": "Nie udało się wczytać Twojej kolekcji. Odśwież stronę i spróbuj ponownie.",
+      "exportFailed": "Nie udało się utworzyć pliku CSV. Spróbuj ponownie."
+    }
   }
 }

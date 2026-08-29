@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { SetPersonalCollectionItem } from '@/types';
 import SetPersonalCollectionList from '@/components/SetPersonalCollectionList';
 import ShareCollectionButton from '@/components/ShareCollectionButton';
+import WhatnotExportButton from '@/components/WhatnotExportButton';
 import Link from 'next/link';
 import { ChevronDownIcon, PlusIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { formatPrice } from '@/lib/format-price';
@@ -417,6 +418,7 @@ export default function SetsCollectionPage() {
                   <span className="add-button-text">{t('common.add')}</span>
                 </Link>
                 <ShareCollectionButton type="sets-collection" />
+                <WhatnotExportButton source="set-collection" />
               </div>
             </div>
 

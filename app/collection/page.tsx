@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { PersonalCollectionItem } from '@/types';
 import PersonalCollectionList from '@/components/PersonalCollectionList';
 import ShareCollectionButton from '@/components/ShareCollectionButton';
+import WhatnotExportButton from '@/components/WhatnotExportButton';
 import DatabaseLimitError from '@/components/DatabaseLimitError';
 import CollectionPagination from '@/components/CollectionPagination';
 import Link from 'next/link';
@@ -442,6 +443,7 @@ export default function PersonalCollectionPage() {
                   <span className="add-button-text">{t('common.add')}</span>
                 </Link>
                 <ShareCollectionButton type="collection" />
+                <WhatnotExportButton source="minifig-collection" />
               </div>
             </div>
 
@@ -630,6 +632,7 @@ export default function PersonalCollectionPage() {
                 + {t('collection.addMinifigs')}
               </Link>
               <ShareCollectionButton type="collection" />
+              <WhatnotExportButton source="minifig-collection" />
             </div>
           </div>
         )}

@@ -2889,5 +2889,84 @@
       "subtitle": "Se vem som har de största minifigur- och setsamlingarna på FigTracker, uppdaterat varje kvartal.",
       "howToJoin": "Topplistan baseras på föremålen i ditt lager. Ställ in ett användarnamn och slå på topplistesynlighet i dina kontoinställningar för att synas här — det är valfritt."
     }
+  },
+  "whatnotExport": {
+    "meta": {
+      "title": "Whatnot CSV-export för LEGO-säljare",
+      "description": "Förvandla din LEGO-samling till en CSV för massimport till Whatnot med ett klick. Priser, skick, fraktprofiler och foton ifyllda åt dig. Gratis."
+    },
+    "hero": {
+      "title": "Lägg upp på Whatnot med en enda uppladdning",
+      "subtitle": "Whatnot låter dig massimportera annonser från en CSV. FigTracker känner redan till dina föremål, deras priser och vikter — så det kan skriva filen åt dig."
+    },
+    "howItWorks": "Så fungerar det",
+    "steps": {
+      "step1": {
+        "title": "Välj vad du vill sälja",
+        "body": "Välj en av dina fyra samlingar och kryssa i de föremål du vill annonsera."
+      },
+      "step2": {
+        "title": "Ställ in priser och skick en gång",
+        "body": "Utgå från FigTrackers föreslagna pris, lägg på ett påslag om du vill, och välj hur ditt skick motsvarar Whatnots."
+      },
+      "step3": {
+        "title": "Ladda ner och ladda upp",
+        "body": "Du får en CSV som exakt matchar Whatnots mall. Ladda upp den till ditt Whatnot-lager så är dina utkast klara."
+      }
+    },
+    "notes": {
+      "title": "Innan du laddar upp",
+      "photos": "Bilderna kommer från LEGO-katalogen. För begagnade föremål säljer dina egna bilder betydligt bättre.",
+      "shipping": "Fraktprofiler uppskattas utifrån katalogvikt plus ditt emballagetillägg. Väg ovanliga föremål innan du annonserar dem.",
+      "region": "Den här filen följer Whatnots mall för USA. Säljare i andra regioner använder en annan."
+    },
+    "pricingLink": {
+      "text": "Undrar du var de föreslagna priserna kommer ifrån?",
+      "linkText": "Se hur vi räknar ut priser"
+    },
+    "sources": {
+      "minifigInventory": "Minifigurer — Till salu",
+      "setInventory": "Set — Till salu",
+      "minifigCollection": "Minifigurer — Min samling",
+      "setCollection": "Set — Min samling"
+    },
+    "options": {
+      "title": "Annonsinställningar",
+      "show": "Visa",
+      "hide": "Dölj",
+      "type": "Annonstyp",
+      "markup": "Prisjustering (%)",
+      "rounding": "Avrunda priser",
+      "roundingExact": "Exakt (12,34)",
+      "roundingWhole": "Hela dollar (12)",
+      "roundingNinetyNine": "Slutar på ,99 (12,99)",
+      "conditionNew": "Föremål märkta ”nytt” blir",
+      "conditionUsed": "Föremål märkta ”begagnat” blir",
+      "packaging": "Emballagevikt (oz)",
+      "packagingHelp": "Läggs till varje föremåls vikt för att välja fraktprofil. Whatnot debiterar efter paketerad vikt.",
+      "includeImages": "Inkludera katalogbilder",
+      "offerable": "Tillåt köpare att lägga bud"
+    },
+    "searchPlaceholder": "Sök på namn eller nummer",
+    "selectAll": "Markera alla",
+    "selectNone": "Rensa markering",
+    "emptyCollection": "Inget i den här samlingen ännu.",
+    "noMatches": "Inga föremål matchar din sökning.",
+    "checking": "Kontrollerar ditt urval…",
+    "readyCount": "{count} annonser klara",
+    "selectedCount": "{count} markerade",
+    "skippedTitle": "{count} utelämnas",
+    "warningsTitle": "{count} värda att dubbelkolla",
+    "download": "Ladda ner CSV",
+    "building": "Skapar din CSV…",
+    "buildingHelp": "Första gången du exporterar ett föremål tar det ett ögonblick medan vi förbereder bilden. Senare exporter går direkt.",
+    "success": "Din CSV laddas ner.",
+    "signInPrompt": "Logga in för att förvandla din FigTracker-samling till en Whatnot-CSV.",
+    "signIn": "Logga in",
+    "exportButton": "Exportera till Whatnot",
+    "errors": {
+      "loadFailed": "Vi kunde inte ladda din samling. Uppdatera sidan och försök igen.",
+      "exportFailed": "Vi kunde inte skapa din CSV. Försök igen."
+    }
   }
 }

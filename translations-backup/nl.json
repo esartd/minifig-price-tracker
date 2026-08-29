@@ -2889,5 +2889,84 @@
       "subtitle": "Bekijk wie de grootste minifiguren- en setcollecties heeft op FigTracker, elk kwartaal bijgewerkt.",
       "howToJoin": "De ranglijst is gebaseerd op de items in je inventaris. Stel een gebruikersnaam in en zet ranglijstzichtbaarheid aan in je accountinstellingen om hier te verschijnen — dit is optioneel."
     }
+  },
+  "whatnotExport": {
+    "meta": {
+      "title": "Whatnot CSV-export voor LEGO-verkopers",
+      "description": "Zet je LEGO-collectie met één klik om in een Whatnot-CSV voor bulkimport. Prijzen, staat, verzendprofielen en foto’s worden voor je ingevuld. Gratis."
+    },
+    "hero": {
+      "title": "Zet in één upload alles op Whatnot",
+      "subtitle": "Whatnot laat je advertenties in bulk importeren via een CSV. FigTracker kent je items, hun prijzen en gewichten al — dus kan dat bestand voor je schrijven."
+    },
+    "howItWorks": "Hoe het werkt",
+    "steps": {
+      "step1": {
+        "title": "Kies wat je wilt verkopen",
+        "body": "Kies een van je vier collecties en vink de items aan die je wilt aanbieden."
+      },
+      "step2": {
+        "title": "Stel prijzen en staat één keer in",
+        "body": "Begin bij de voorgestelde prijs van FigTracker, voeg desgewenst een marge toe en kies hoe jouw staat overeenkomt met die van Whatnot."
+      },
+      "step3": {
+        "title": "Downloaden en uploaden",
+        "body": "Je krijgt een CSV die exact overeenkomt met het sjabloon van Whatnot. Upload het naar je Whatnot-inventaris en je concepten staan klaar."
+      }
+    },
+    "notes": {
+      "title": "Voor je uploadt",
+      "photos": "De foto’s komen uit de LEGO-catalogus. Bij gebruikte items verkopen je eigen foto’s veel beter.",
+      "shipping": "Verzendprofielen worden geschat op basis van het catalogusgewicht plus je verpakkingstoeslag. Weeg ongebruikelijke items voordat je ze aanbiedt.",
+      "region": "Dit bestand volgt het Amerikaanse sjabloon van Whatnot. Verkopers in andere regio’s gebruiken een ander sjabloon."
+    },
+    "pricingLink": {
+      "text": "Benieuwd waar de voorgestelde prijzen vandaan komen?",
+      "linkText": "Bekijk hoe we prijzen berekenen"
+    },
+    "sources": {
+      "minifigInventory": "Minifiguren — Te koop",
+      "setInventory": "Sets — Te koop",
+      "minifigCollection": "Minifiguren — Mijn collectie",
+      "setCollection": "Sets — Mijn collectie"
+    },
+    "options": {
+      "title": "Advertentie-instellingen",
+      "show": "Tonen",
+      "hide": "Verbergen",
+      "type": "Type advertentie",
+      "markup": "Prijsaanpassing (%)",
+      "rounding": "Prijzen afronden",
+      "roundingExact": "Exact (12,34)",
+      "roundingWhole": "Hele dollars (12)",
+      "roundingNinetyNine": "Eindigt op ,99 (12,99)",
+      "conditionNew": "Items met «nieuw» worden",
+      "conditionUsed": "Items met «gebruikt» worden",
+      "packaging": "Verpakkingsgewicht (oz)",
+      "packagingHelp": "Wordt bij het gewicht van elk item opgeteld om een verzendprofiel te kiezen. Whatnot rekent met het verpakte gewicht.",
+      "includeImages": "Catalogusfoto’s toevoegen",
+      "offerable": "Biedingen van kopers toestaan"
+    },
+    "searchPlaceholder": "Zoek op naam of nummer",
+    "selectAll": "Alles selecteren",
+    "selectNone": "Selectie wissen",
+    "emptyCollection": "Nog niets in deze collectie.",
+    "noMatches": "Geen items komen overeen met je zoekopdracht.",
+    "checking": "Je selectie wordt gecontroleerd…",
+    "readyCount": "{count} advertenties klaar",
+    "selectedCount": "{count} geselecteerd",
+    "skippedTitle": "{count} worden overgeslagen",
+    "warningsTitle": "{count} om te controleren",
+    "download": "CSV downloaden",
+    "building": "Je CSV wordt gemaakt…",
+    "buildingHelp": "De eerste export van een item duurt even omdat we de foto klaarzetten. Latere exports gaan direct.",
+    "success": "Je CSV wordt gedownload.",
+    "signInPrompt": "Log in om je FigTracker-collectie om te zetten in een Whatnot-CSV.",
+    "signIn": "Inloggen",
+    "exportButton": "Exporteren naar Whatnot",
+    "errors": {
+      "loadFailed": "We konden je collectie niet laden. Ververs de pagina en probeer het opnieuw.",
+      "exportFailed": "We konden je CSV niet maken. Probeer het opnieuw."
+    }
   }
 }

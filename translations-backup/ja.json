@@ -2889,5 +2889,84 @@
       "subtitle": "FigTrackerで最大のミニフィギュア・セットコレクションを持つユーザーを、四半期ごとに更新してご紹介します。",
       "howToJoin": "ランキングはインベントリ内のアイテムに基づきます。アカウント設定でユーザー名を設定し、ランキング表示をオンにすると表示されます — 任意参加です。"
     }
+  },
+  "whatnotExport": {
+    "meta": {
+      "title": "LEGO出品者向け Whatnot CSVエクスポート",
+      "description": "LEGOコレクションをワンクリックでWhatnotの一括インポート用CSVに変換。価格・状態・配送プロファイル・写真まで自動で入力されます。無料。"
+    },
+    "hero": {
+      "title": "アップロード1回でWhatnotに出品",
+      "subtitle": "WhatnotはCSVから出品を一括インポートできます。FigTrackerはあなたのアイテム、価格、重量をすでに把握しているので、そのファイルを代わりに作成できます。"
+    },
+    "howItWorks": "使い方",
+    "steps": {
+      "step1": {
+        "title": "売りたいものを選ぶ",
+        "body": "4つのコレクションのいずれかを選び、出品したいアイテムにチェックを入れます。"
+      },
+      "step2": {
+        "title": "価格と状態をまとめて設定",
+        "body": "FigTrackerの提案価格を起点に、必要なら上乗せを加え、あなたの状態表記をWhatnotのどれに対応させるか選びます。"
+      },
+      "step3": {
+        "title": "ダウンロードしてアップロード",
+        "body": "Whatnotのテンプレートに完全に一致するCSVが手に入ります。Whatnotの在庫にアップロードすれば下書きの完成です。"
+      }
+    },
+    "notes": {
+      "title": "アップロードの前に",
+      "photos": "写真はLEGOカタログのものです。中古品はご自身で撮影した写真に差し替えたほうがよく売れます。",
+      "shipping": "配送プロファイルはカタログ重量に梱包分を加えて推定しています。特殊なアイテムは出品前に実際に計量してください。",
+      "region": "このファイルはWhatnotの米国向けテンプレートに対応しています。他地域の出品者は別のテンプレートを使用します。"
+    },
+    "pricingLink": {
+      "text": "提案価格の根拠が気になりますか？",
+      "linkText": "価格の算出方法を見る"
+    },
+    "sources": {
+      "minifigInventory": "ミニフィグ — 販売用",
+      "setInventory": "セット — 販売用",
+      "minifigCollection": "ミニフィグ — マイコレクション",
+      "setCollection": "セット — マイコレクション"
+    },
+    "options": {
+      "title": "出品設定",
+      "show": "表示",
+      "hide": "非表示",
+      "type": "出品形式",
+      "markup": "価格調整（%）",
+      "rounding": "価格の丸め",
+      "roundingExact": "そのまま（12.34）",
+      "roundingWhole": "整数ドル（12）",
+      "roundingNinetyNine": ".99で終わる（12.99）",
+      "conditionNew": "「新品」のアイテムを次にする",
+      "conditionUsed": "「中古」のアイテムを次にする",
+      "packaging": "梱包重量（オンス）",
+      "packagingHelp": "配送プロファイルを選ぶ際に各アイテムの重量に加算されます。Whatnotは梱包後の重量で課金します。",
+      "includeImages": "カタログ写真を含める",
+      "offerable": "購入者からのオファーを受け付ける"
+    },
+    "searchPlaceholder": "名前または番号で検索",
+    "selectAll": "すべて選択",
+    "selectNone": "選択を解除",
+    "emptyCollection": "このコレクションにはまだ何もありません。",
+    "noMatches": "検索に一致するアイテムはありません。",
+    "checking": "選択内容を確認しています…",
+    "readyCount": "{count}件の出品を準備しました",
+    "selectedCount": "{count}件を選択中",
+    "skippedTitle": "{count}件が除外されます",
+    "warningsTitle": "{count}件は確認をおすすめします",
+    "download": "CSVをダウンロード",
+    "building": "CSVを作成しています…",
+    "buildingHelp": "アイテムを初めてエクスポートするときは写真の準備に少し時間がかかります。2回目以降はすぐに完了します。",
+    "success": "CSVをダウンロードしています。",
+    "signInPrompt": "ログインすると、FigTrackerのコレクションをWhatnot用CSVに変換できます。",
+    "signIn": "ログイン",
+    "exportButton": "Whatnotにエクスポート",
+    "errors": {
+      "loadFailed": "コレクションを読み込めませんでした。ページを更新してもう一度お試しください。",
+      "exportFailed": "CSVを作成できませんでした。もう一度お試しください。"
+    }
   }
 }
