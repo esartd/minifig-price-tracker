@@ -26,9 +26,21 @@ const BRICKLINK_BASE = 'https://img.bricklink.com/ItemImage';
 /** Public URL prefix. Must stay outside /cache/ — see the note above. */
 export const LISTING_IMAGE_URL_PREFIX = '/listing-images';
 
+/**
+ * Singular on purpose — do NOT change these to "minifigs" / "sets".
+ *
+ * Cloudflare challenges any request whose path contains the segment `minifigs`
+ * or `sets` (they're the site's real catalog routes, protected against
+ * scrapers). That rule matches the segment anywhere in the path, so
+ * /listing-images/minifigs/x.png gets a "Just a moment…" interstitial and
+ * Whatnot's crawler would never reach the image. The singular forms are clear:
+ *
+ *   /listing-images/minifigs/nope.png -> 403 (challenged)
+ *   /listing-images/minifig/nope.png  -> 404 (reaches nginx)
+ */
 const SUBDIR: Record<CatalogItemType, string> = {
-  minifig: 'minifigs',
-  set: 'sets',
+  minifig: 'minifig',
+  set: 'set',
 };
 
 /**
