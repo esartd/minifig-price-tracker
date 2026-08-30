@@ -17,6 +17,18 @@ export type CatalogItemType = 'minifig' | 'set';
  */
 export type SourceCondition = 'new' | 'used';
 
+/**
+ * How complete a set is. Stored per set on the collection models, because
+ * BrickLink requires it on every set listing and it can't be derived from
+ * new/used.
+ */
+export const SET_COMPLETENESS = ['complete', 'incomplete', 'sealed'] as const;
+export type SetCompleteness = (typeof SET_COMPLETENESS)[number];
+
+export function isSetCompleteness(value: unknown): value is SetCompleteness {
+  return typeof value === 'string' && (SET_COMPLETENESS as readonly string[]).includes(value);
+}
+
 export const EXPORT_SOURCES = [
   'minifig-inventory',
   'minifig-collection',
@@ -59,8 +71,18 @@ export interface ExportItem {
   /** Catalog weight in grams, or null when the catalog doesn't know. */
   weightGrams: number | null;
   catalogDescription?: string;
-  /** Seller's own note on the item, when the model has one. */
+  /** Seller's own note on the item. */
   notes?: string;
+  /**
+   * What the seller paid, in USD. Fills Whatnot's "Cost Per Item" and
+   * BrickLink's MYCOST. Undefined when they haven't recorded it.
+   */
+  costUsd?: number;
+  /**
+   * Sets only. BrickLink requires this on every set; undefined means the seller
+   * hasn't recorded it, which adapters flag rather than guess.
+   */
+  completeness?: SetCompleteness;
   /**
    * Publicly-fetchable image URL. Filled in by the export route after mirroring,
    * and only for adapters whose `needsImages` is true.

@@ -14,6 +14,7 @@ import { parseCatalogWeight, themeFromCategory } from './catalog';
 import { cleanName } from './titles';
 import {
   isExportSource,
+  isSetCompleteness,
   itemTypeForSource,
   EXPORT_SOURCES,
   type CatalogItemType,
@@ -186,6 +187,8 @@ export async function collectExportItems(
       weightGrams: grams,
       catalogDescription: descriptions.get(itemNo),
       notes: item.notes,
+      costUsd: typeof item.cost === 'number' && item.cost > 0 ? item.cost : undefined,
+      completeness: isSetCompleteness(item.completeness) ? item.completeness : undefined,
     });
   }
 

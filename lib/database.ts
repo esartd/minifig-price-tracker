@@ -22,6 +22,8 @@ class DatabaseService {
         price_source: item.pricing_price_source || 'bricklink',
         confidence: item.pricing_confidence ?? 1.0,
       } : undefined,
+      cost: item.cost ?? undefined,
+      notes: item.notes || undefined,
       date_added: item.date_added.toISOString(),
       last_updated: item.last_updated.toISOString()
     };
@@ -48,6 +50,7 @@ class DatabaseService {
         confidence: item.pricing_confidence ?? 1.0,
       } : undefined,
       notes: item.notes || undefined,
+      cost: item.cost ?? undefined,
       acquisition_date: item.acquisition_date?.toISOString(),
       acquisition_notes: item.acquisition_notes || undefined,
       display_location: item.display_location || undefined,
@@ -555,6 +558,9 @@ class DatabaseService {
         price_source: item.pricing_price_source || 'bricklink',
         confidence: item.pricing_confidence ?? 1.0,
       } : undefined,
+      completeness: item.completeness || undefined,
+      cost: item.cost ?? undefined,
+      notes: item.notes || undefined,
       date_added: item.date_added.toISOString(),
       last_updated: item.last_updated.toISOString()
     };
@@ -585,6 +591,8 @@ class DatabaseService {
       acquisition_date: item.acquisition_date?.toISOString(),
       acquisition_notes: item.acquisition_notes || undefined,
       display_location: item.display_location || undefined,
+      completeness: item.completeness || undefined,
+      cost: item.cost ?? undefined,
       date_added: item.date_added.toISOString(),
       last_updated: item.last_updated.toISOString()
     };

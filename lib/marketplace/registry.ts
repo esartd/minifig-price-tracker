@@ -7,8 +7,12 @@
 
 import type { MarketplaceAdapter } from './types';
 import { whatnotAdapter } from './adapters/whatnot';
+import { bricklinkAdapter } from './adapters/bricklink';
 
-export const ADAPTERS: ReadonlyArray<MarketplaceAdapter<any, any>> = [whatnotAdapter];
+export const ADAPTERS: ReadonlyArray<MarketplaceAdapter<any, any>> = [
+  whatnotAdapter,
+  bricklinkAdapter,
+];
 
 export const MARKETPLACE_IDS = ADAPTERS.map((a) => a.id);
 

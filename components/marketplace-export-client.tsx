@@ -108,6 +108,22 @@ interface WhatnotOptions {
 
 const DEFAULT_SHARED: SharedOptions = { markupPercent: 0, rounding: 'exact' };
 
+interface BricklinkOptions {
+  defaultCompleteness: 'complete' | 'incomplete' | 'sealed';
+  includeCost: boolean;
+  stockroom: boolean;
+  retain: boolean;
+  includeNotes: boolean;
+}
+
+const DEFAULT_BRICKLINK: BricklinkOptions = {
+  defaultCompleteness: 'complete',
+  includeCost: true,
+  stockroom: false,
+  retain: false,
+  includeNotes: true,
+};
+
 const DEFAULT_WHATNOT: WhatnotOptions = {
   type: 'Buy it Now',
   conditionMapping: { new: 'New without box', used: 'Used - Good' },
@@ -224,6 +240,7 @@ export default function MarketplaceExportClient({
 
   const [shared, setShared] = useState<SharedOptions>(DEFAULT_SHARED);
   const [whatnot, setWhatnot] = useState<WhatnotOptions>(DEFAULT_WHATNOT);
+  const [bricklink, setBricklink] = useState<BricklinkOptions>(DEFAULT_BRICKLINK);
 
   const [preview, setPreview] = useState<PreviewData | null>(null);
   const [previewing, setPreviewing] = useState(false);
@@ -244,8 +261,9 @@ export default function MarketplaceExportClient({
   const optionsByMarketplace = useMemo(
     () => ({
       whatnot: { ...shared, ...whatnot },
+      bricklink: { ...shared, ...bricklink },
     }),
-    [shared, whatnot]
+    [shared, whatnot, bricklink]
   );
 
   // --- load items -----------------------------------------------------------
@@ -522,7 +540,16 @@ export default function MarketplaceExportClient({
       {/* Step 2 — destinations. Hidden when there's only one marketplace. */}
       {marketplaces.length > 1 && (
         <div style={card}>
-          <p style={sectionHeading}>
+          {/* Sentence case, not the uppercase micro-label used for the
+              settings groups — a full question in caps reads as shouting. */}
+          <p
+            style={{
+              fontSize: 'var(--text-base)',
+              fontWeight: 600,
+              color: '#171717',
+              margin: '0 0 12px',
+            }}
+          >
             {tr('marketplaceExport.destinations', 'Where do you want to list?')}
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
@@ -765,6 +792,102 @@ export default function MarketplaceExportClient({
                       />
                       {tr('whatnotExport.options.offerable', 'Allow buyers to make offers')}
                     </label>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {selectedMarketplaces.has('bricklink') && (
+              <div style={{ marginTop: '24px' }}>
+                <p style={sectionHeading}>BrickLink</p>
+                <div style={gridStyle}>
+                  {config.isSet && (
+                    <div>
+                      <label style={labelStyle} htmlFor="mx-bl-complete">
+                        {tr(
+                          'marketplaceExport.bricklink.defaultCompleteness',
+                          'Sets with no completeness recorded'
+                        )}
+                      </label>
+                      <select
+                        id="mx-bl-complete"
+                        style={controlStyle}
+                        value={bricklink.defaultCompleteness}
+                        onChange={(e) =>
+                          setBricklink((o) => ({
+                            ...o,
+                            defaultCompleteness: e.target
+                              .value as BricklinkOptions['defaultCompleteness'],
+                          }))
+                        }
+                      >
+                        <option value="complete">
+                          {tr('marketplaceExport.completeness.complete', 'Complete')}
+                        </option>
+                        <option value="incomplete">
+                          {tr('marketplaceExport.completeness.incomplete', 'Incomplete')}
+                        </option>
+                        <option value="sealed">
+                          {tr('marketplaceExport.completeness.sealed', 'Sealed')}
+                        </option>
+                      </select>
+                      <p
+                        style={{
+                          fontSize: 'var(--text-xs)',
+                          color: '#737373',
+                          margin: '6px 0 0',
+                        }}
+                      >
+                        {tr(
+                          'marketplaceExport.bricklink.completenessHelp',
+                          'BrickLink requires this on every set. Record it per set to stop being asked.'
+                        )}
+                      </p>
+                    </div>
+                  )}
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {(
+                      [
+                        [
+                          'includeCost',
+                          tr('marketplaceExport.bricklink.includeCost', 'Include what I paid'),
+                        ],
+                        [
+                          'includeNotes',
+                          tr('marketplaceExport.bricklink.includeNotes', 'Include my notes as remarks'),
+                        ],
+                        [
+                          'stockroom',
+                          tr('marketplaceExport.bricklink.stockroom', 'Put in stockroom, not on sale'),
+                        ],
+                        [
+                          'retain',
+                          tr('marketplaceExport.bricklink.retain', 'Keep listing after it sells'),
+                        ],
+                      ] as Array<[keyof BricklinkOptions, string]>
+                    ).map(([key, label]) => (
+                      <label
+                        key={key}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          fontSize: 'var(--text-sm)',
+                          color: '#404040',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={Boolean(bricklink[key])}
+                          onChange={(e) =>
+                            setBricklink((o) => ({ ...o, [key]: e.target.checked }))
+                          }
+                        />
+                        {label}
+                      </label>
+                    ))}
                   </div>
                 </div>
               </div>

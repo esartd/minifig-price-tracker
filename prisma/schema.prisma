@@ -50,6 +50,8 @@ model CollectionItem {
   pricing_suggested_price Float?
   pricing_currency_code   String?
   pricing_cached_at       DateTime?
+  cost                    Float?
+  notes                   String?
   userId                  String
   date_added              DateTime  @default(now())
   last_updated            DateTime  @updatedAt
@@ -168,6 +170,7 @@ model PersonalCollectionItem {
   pricing_currency_code   String?
   pricing_cached_at       DateTime?
   notes                   String?
+  cost                    Float?
   acquisition_date        DateTime?
   acquisition_notes       String?
   display_location        String?
@@ -258,6 +261,9 @@ model SetInventoryItem {
   pricing_suggested_price Float?
   pricing_currency_code   String?
   pricing_cached_at       DateTime?
+  completeness            String?
+  cost                    Float?
+  notes                   String?
   userId                  String
   date_added              DateTime  @default(now())
   last_updated            DateTime  @updatedAt
@@ -286,6 +292,8 @@ model SetPersonalCollectionItem {
   pricing_currency_code   String?
   pricing_cached_at       DateTime?
   notes                   String?
+  completeness            String?
+  cost                    Float?
   acquisition_date        DateTime?
   acquisition_notes       String?
   display_location        String?

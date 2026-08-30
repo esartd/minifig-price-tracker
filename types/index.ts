@@ -56,6 +56,8 @@ export interface CollectionItem {
   pricing?: PricingData;
   date_added: string;
   last_updated: string;
+  cost?: number;
+  notes?: string;
 }
 
 export interface PersonalCollectionItem {
@@ -74,6 +76,7 @@ export interface PersonalCollectionItem {
   date_added: string;
   last_updated: string;
   year_released?: string | null; // From MinifigCatalog join
+  cost?: number;
 }
 
 export interface MoveToCollectionRequest {
@@ -117,6 +120,9 @@ export interface SetInventoryItem {
   date_added: string;
   last_updated: string;
   year_released?: string | null; // From SetsCatalog join
+  completeness?: string;
+  cost?: number;
+  notes?: string;
 }
 
 // User's personal set collection (to keep)
@@ -137,4 +143,6 @@ export interface SetPersonalCollectionItem {
   date_added: string;
   last_updated: string;
   year_released?: string | null; // From SetsCatalog join
+  completeness?: string;
+  cost?: number;
 }

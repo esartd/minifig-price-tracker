@@ -293,7 +293,7 @@ export const whatnotAdapter: MarketplaceAdapter<WhatnotRow, WhatnotOptions> = {
         offerable: options.offerable && options.type === 'Buy it Now' ? 'TRUE' : 'FALSE',
         hazmat: WHATNOT_HAZMAT,
         condition,
-        costPerItem: '',
+        costPerItem: item.costUsd !== undefined ? item.costUsd.toFixed(2) : '',
         sku: item.itemNo,
         imageUrls: item.imageUrl ? [item.imageUrl] : [],
       },
