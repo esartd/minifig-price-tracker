@@ -13,7 +13,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 // ---------------------------------------------------------------------------
-// Types
+// Sources
 // ---------------------------------------------------------------------------
 
 type ExportSource =
@@ -61,7 +61,6 @@ const SOURCES: SourceConfig[] = [
   },
 ];
 
-/** One row of the picker, normalised across the four differently-shaped APIs. */
 interface PickerItem {
   id: string;
   itemNo: string;
@@ -70,6 +69,17 @@ interface PickerItem {
   condition: string;
   imageUrl: string;
   suggestedPrice: number;
+}
+
+// ---------------------------------------------------------------------------
+// Marketplaces
+// ---------------------------------------------------------------------------
+
+export interface MarketplaceInfo {
+  id: string;
+  label: string;
+  fileExtension: string;
+  needsImages: boolean;
 }
 
 const WHATNOT_CONDITIONS = [
@@ -82,36 +92,58 @@ const WHATNOT_CONDITIONS = [
   'Used - Poor',
 ];
 
-interface ExportOptions {
-  type: 'Auction' | 'Buy it Now' | 'Giveaway';
+/** Settings shared by every marketplace. */
+interface SharedOptions {
   markupPercent: number;
   rounding: 'exact' | 'whole' | 'ninetyNine';
+}
+
+interface WhatnotOptions {
+  type: 'Auction' | 'Buy it Now' | 'Giveaway';
   conditionMapping: { new: string; used: string };
   packagingOz: number;
   offerable: boolean;
   includeImages: boolean;
 }
 
-const DEFAULT_OPTIONS: ExportOptions = {
+const DEFAULT_SHARED: SharedOptions = { markupPercent: 0, rounding: 'exact' };
+
+const DEFAULT_WHATNOT: WhatnotOptions = {
   type: 'Buy it Now',
-  markupPercent: 0,
-  rounding: 'exact',
   conditionMapping: { new: 'New without box', used: 'Used - Good' },
   packagingOz: 2,
   offerable: true,
   includeImages: true,
 };
 
-interface PreviewData {
-  rows: Array<Record<string, any>>;
-  totalSelected: number;
+interface PreviewMarketplace {
+  marketplace: string;
+  label: string;
+  fileExtension: string;
   exportable: number;
   warnings: Array<{ itemNo: string; name: string; messages: string[] }>;
+}
+
+interface PreviewData {
+  totalSelected: number;
   skipped: Array<{ itemNo: string; name: string; reason: string }>;
+  marketplaces: PreviewMarketplace[];
+}
+
+interface ExportedFile {
+  marketplace: string;
+  label: string;
+  filename: string;
+  mimeType: string;
+  bytes: number;
+  rowCount: number;
+  partIndex: number;
+  partCount: number;
+  content: string;
 }
 
 // ---------------------------------------------------------------------------
-// Styles — matching the inline-style convention used across the app
+// Styles
 // ---------------------------------------------------------------------------
 
 const card: React.CSSProperties = {
@@ -140,12 +172,31 @@ const controlStyle: React.CSSProperties = {
   outline: 'none',
 };
 
+const sectionHeading: React.CSSProperties = {
+  fontSize: 'var(--text-xs)',
+  fontWeight: 700,
+  color: '#737373',
+  textTransform: 'uppercase',
+  letterSpacing: '0.5px',
+  margin: '4px 0 12px',
+};
+
+const gridStyle: React.CSSProperties = {
+  display: 'grid',
+  gap: '16px',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+};
+
 // ---------------------------------------------------------------------------
 
-export default function WhatnotExportClient({
+export default function MarketplaceExportClient({
+  marketplaces,
   initialSource,
+  initialMarketplace,
 }: {
+  marketplaces: MarketplaceInfo[];
   initialSource?: string;
+  initialMarketplace?: string;
 }) {
   const { t } = useTranslation();
   const { status } = useSession();
@@ -155,14 +206,30 @@ export default function WhatnotExportClient({
       ? (initialSource as ExportSource)
       : 'minifig-inventory'
   );
+  const [selectedMarketplaces, setSelectedMarketplaces] = useState<Set<string>>(
+    () =>
+      new Set(
+        initialMarketplace && marketplaces.some((m) => m.id === initialMarketplace)
+          ? [initialMarketplace]
+          : marketplaces.length === 1
+            ? [marketplaces[0].id]
+            : [marketplaces[0]?.id].filter(Boolean)
+      )
+  );
+
   const [items, setItems] = useState<PickerItem[]>([]);
   const [loadingItems, setLoadingItems] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [search, setSearch] = useState('');
-  const [options, setOptions] = useState<ExportOptions>(DEFAULT_OPTIONS);
+
+  const [shared, setShared] = useState<SharedOptions>(DEFAULT_SHARED);
+  const [whatnot, setWhatnot] = useState<WhatnotOptions>(DEFAULT_WHATNOT);
+
   const [preview, setPreview] = useState<PreviewData | null>(null);
   const [previewing, setPreviewing] = useState(false);
-  const [downloading, setDownloading] = useState(false);
+  const [building, setBuilding] = useState(false);
+  const [files, setFiles] = useState<ExportedFile[]>([]);
+  const [notes, setNotes] = useState<string[]>([]);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const [showOptions, setShowOptions] = useState(false);
 
@@ -171,9 +238,14 @@ export default function WhatnotExportClient({
     [source]
   );
 
-  const tr = useCallback(
-    (key: string, fallback: string) => t(key) || fallback,
-    [t]
+  const tr = useCallback((key: string, fallback: string) => t(key) || fallback, [t]);
+
+  /** Per-marketplace settings, in the shape the API expects. */
+  const optionsByMarketplace = useMemo(
+    () => ({
+      whatnot: { ...shared, ...whatnot },
+    }),
+    [shared, whatnot]
   );
 
   // --- load items -----------------------------------------------------------
@@ -186,6 +258,7 @@ export default function WhatnotExportClient({
     setItems([]);
     setSelected(new Set());
     setPreview(null);
+    setFiles([]);
 
     (async () => {
       try {
@@ -233,7 +306,7 @@ export default function WhatnotExportClient({
   const previewTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    if (selected.size === 0) {
+    if (selected.size === 0 || selectedMarketplaces.size === 0) {
       setPreview(null);
       return;
     }
@@ -243,13 +316,14 @@ export default function WhatnotExportClient({
     previewTimer.current = setTimeout(async () => {
       setPreviewing(true);
       try {
-        const response = await fetch('/api/whatnot-export/preview', {
+        const response = await fetch('/api/marketplace-export/preview', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             source,
             itemIds: Array.from(selected),
-            options,
+            marketplaces: Array.from(selectedMarketplaces),
+            optionsByMarketplace,
           }),
         });
         const json = await response.json();
@@ -264,7 +338,13 @@ export default function WhatnotExportClient({
     return () => {
       if (previewTimer.current) clearTimeout(previewTimer.current);
     };
-  }, [selected, options, source]);
+  }, [selected, selectedMarketplaces, optionsByMarketplace, source]);
+
+  // Any change invalidates already-built files.
+  useEffect(() => {
+    setFiles([]);
+    setNotes([]);
+  }, [selected, selectedMarketplaces, optionsByMarketplace, source]);
 
   // --- selection ------------------------------------------------------------
 
@@ -302,51 +382,45 @@ export default function WhatnotExportClient({
     });
   }, [visibleItems]);
 
-  // --- download -------------------------------------------------------------
+  const toggleMarketplace = useCallback((id: string) => {
+    setSelectedMarketplaces((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
 
-  const handleDownload = useCallback(async () => {
-    if (selected.size === 0) return;
+  // --- build ----------------------------------------------------------------
 
-    setDownloading(true);
+  const handleBuild = useCallback(async () => {
+    if (selected.size === 0 || selectedMarketplaces.size === 0) return;
+
+    setBuilding(true);
     try {
-      const response = await fetch('/api/whatnot-export', {
+      const response = await fetch('/api/marketplace-export', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ source, itemIds: Array.from(selected), options }),
+        body: JSON.stringify({
+          source,
+          itemIds: Array.from(selected),
+          marketplaces: Array.from(selectedMarketplaces),
+          optionsByMarketplace,
+        }),
       });
 
-      if (!response.ok) {
-        const json = await response.json().catch(() => null);
+      const json = await response.json();
+
+      if (!response.ok || !json?.success) {
         setAlertMessage(
           json?.error ||
-            tr('whatnotExport.errors.exportFailed', "We couldn't build your CSV. Please try again.")
+            tr('whatnotExport.errors.exportFailed', "We couldn't build your files. Please try again.")
         );
         return;
       }
 
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-      const anchor = document.createElement('a');
-      anchor.href = url;
-      anchor.download = `whatnot-${source}-${new Date().toISOString().split('T')[0]}.csv`;
-      document.body.appendChild(anchor);
-      anchor.click();
-      document.body.removeChild(anchor);
-      URL.revokeObjectURL(url);
-
-      const notes = response.headers.get('X-Export-Notes');
-      const rowCount = response.headers.get('X-Export-Rows');
-      setAlertMessage(
-        [
-          tr('whatnotExport.success', 'Your CSV is downloading.').replace(
-            '{count}',
-            rowCount || String(selected.size)
-          ),
-          notes ? decodeURIComponent(notes) : '',
-        ]
-          .filter(Boolean)
-          .join('\n\n')
-      );
+      setFiles(json.data.files);
+      setNotes(json.data.notes ?? []);
 
       fetch('/api/track-event', {
         method: 'POST',
@@ -355,12 +429,24 @@ export default function WhatnotExportClient({
       }).catch(() => {});
     } catch {
       setAlertMessage(
-        tr('whatnotExport.errors.exportFailed', "We couldn't build your CSV. Please try again.")
+        tr('whatnotExport.errors.exportFailed', "We couldn't build your files. Please try again.")
       );
     } finally {
-      setDownloading(false);
+      setBuilding(false);
     }
-  }, [selected, source, options, tr]);
+  }, [selected, selectedMarketplaces, optionsByMarketplace, source, tr]);
+
+  const downloadFile = useCallback((file: ExportedFile) => {
+    const blob = new Blob([file.content], { type: file.mimeType });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = file.filename;
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+    URL.revokeObjectURL(url);
+  }, []);
 
   // --- logged out -----------------------------------------------------------
 
@@ -370,11 +456,11 @@ export default function WhatnotExportClient({
         <p style={{ fontSize: 'var(--text-base)', color: '#525252', marginBottom: '20px' }}>
           {tr(
             'whatnotExport.signInPrompt',
-            'Sign in to turn your FigTracker collection into a Whatnot CSV.'
+            'Sign in to turn your FigTracker collection into a marketplace file.'
           )}
         </p>
         <Link
-          href="/auth/signin?callbackUrl=/whatnot-export"
+          href="/auth/signin?callbackUrl=/export"
           style={{
             display: 'inline-block',
             padding: '12px 24px',
@@ -399,11 +485,15 @@ export default function WhatnotExportClient({
     );
   }
 
+  const totalExportable = preview
+    ? Math.max(...preview.marketplaces.map((m) => m.exportable), 0)
+    : 0;
+
   // --- tool -----------------------------------------------------------------
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      {/* Source picker */}
+      {/* Step 1 — source */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
         {SOURCES.map((s) => {
           const active = s.key === source;
@@ -429,7 +519,49 @@ export default function WhatnotExportClient({
         })}
       </div>
 
-      {/* Options */}
+      {/* Step 2 — destinations. Hidden when there's only one marketplace. */}
+      {marketplaces.length > 1 && (
+        <div style={card}>
+          <p style={sectionHeading}>
+            {tr('marketplaceExport.destinations', 'Where do you want to list?')}
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+            {marketplaces.map((m) => {
+              const on = selectedMarketplaces.has(m.id);
+              return (
+                <label
+                  key={m.id}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '10px 16px',
+                    borderRadius: '8px',
+                    border: `1px solid ${on ? '#3b82f6' : '#e5e5e5'}`,
+                    background: on ? '#eff6ff' : '#ffffff',
+                    color: on ? '#1d4ed8' : '#525252',
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={on}
+                    onChange={() => toggleMarketplace(m.id)}
+                  />
+                  {m.label}
+                  <span style={{ fontWeight: 400, color: '#737373' }}>
+                    .{m.fileExtension}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Step 3 — settings */}
       <div style={card}>
         <button
           type="button"
@@ -457,186 +589,186 @@ export default function WhatnotExportClient({
         </button>
 
         {showOptions && (
-          <div
-            style={{
-              marginTop: '20px',
-              display: 'grid',
-              gap: '16px',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            }}
-          >
-            <div>
-              <label style={labelStyle} htmlFor="wn-type">
-                {tr('whatnotExport.options.type', 'Listing type')}
-              </label>
-              <select
-                id="wn-type"
-                style={controlStyle}
-                value={options.type}
-                onChange={(e) =>
-                  setOptions((o) => ({ ...o, type: e.target.value as ExportOptions['type'] }))
-                }
-              >
-                <option value="Buy it Now">Buy it Now</option>
-                <option value="Auction">Auction</option>
-                <option value="Giveaway">Giveaway</option>
-              </select>
-            </div>
-
-            <div>
-              <label style={labelStyle} htmlFor="wn-markup">
-                {tr('whatnotExport.options.markup', 'Price adjustment (%)')}
-              </label>
-              <input
-                id="wn-markup"
-                type="number"
-                style={controlStyle}
-                value={options.markupPercent}
-                min={-90}
-                max={500}
-                onChange={(e) =>
-                  setOptions((o) => ({ ...o, markupPercent: Number(e.target.value) || 0 }))
-                }
-              />
-            </div>
-
-            <div>
-              <label style={labelStyle} htmlFor="wn-rounding">
-                {tr('whatnotExport.options.rounding', 'Round prices')}
-              </label>
-              <select
-                id="wn-rounding"
-                style={controlStyle}
-                value={options.rounding}
-                onChange={(e) =>
-                  setOptions((o) => ({
-                    ...o,
-                    rounding: e.target.value as ExportOptions['rounding'],
-                  }))
-                }
-              >
-                <option value="exact">
-                  {tr('whatnotExport.options.roundingExact', 'Exact (12.34)')}
-                </option>
-                <option value="whole">
-                  {tr('whatnotExport.options.roundingWhole', 'Whole dollars (12)')}
-                </option>
-                <option value="ninetyNine">
-                  {tr('whatnotExport.options.roundingNinetyNine', 'Ends in .99 (12.99)')}
-                </option>
-              </select>
-            </div>
-
-            <div>
-              <label style={labelStyle} htmlFor="wn-cond-new">
-                {tr('whatnotExport.options.conditionNew', 'Items marked "new" become')}
-              </label>
-              <select
-                id="wn-cond-new"
-                style={controlStyle}
-                value={options.conditionMapping.new}
-                onChange={(e) =>
-                  setOptions((o) => ({
-                    ...o,
-                    conditionMapping: { ...o.conditionMapping, new: e.target.value },
-                  }))
-                }
-              >
-                {WHATNOT_CONDITIONS.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label style={labelStyle} htmlFor="wn-cond-used">
-                {tr('whatnotExport.options.conditionUsed', 'Items marked "used" become')}
-              </label>
-              <select
-                id="wn-cond-used"
-                style={controlStyle}
-                value={options.conditionMapping.used}
-                onChange={(e) =>
-                  setOptions((o) => ({
-                    ...o,
-                    conditionMapping: { ...o.conditionMapping, used: e.target.value },
-                  }))
-                }
-              >
-                {WHATNOT_CONDITIONS.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label style={labelStyle} htmlFor="wn-packaging">
-                {tr('whatnotExport.options.packaging', 'Packaging weight (oz)')}
-              </label>
-              <input
-                id="wn-packaging"
-                type="number"
-                style={controlStyle}
-                value={options.packagingOz}
-                min={0}
-                max={64}
-                step={0.5}
-                onChange={(e) =>
-                  setOptions((o) => ({ ...o, packagingOz: Number(e.target.value) || 0 }))
-                }
-              />
-              <p style={{ fontSize: 'var(--text-xs)', color: '#737373', margin: '6px 0 0' }}>
-                {tr(
-                  'whatnotExport.options.packagingHelp',
-                  'Added to each item’s weight to pick a shipping profile. Whatnot bills on packed weight.'
-                )}
-              </p>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <label
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  fontSize: 'var(--text-sm)',
-                  color: '#404040',
-                  cursor: 'pointer',
-                }}
-              >
+          <div style={{ marginTop: '20px' }}>
+            <p style={sectionHeading}>{tr('marketplaceExport.sharedSettings', 'All marketplaces')}</p>
+            <div style={gridStyle}>
+              <div>
+                <label style={labelStyle} htmlFor="mx-markup">
+                  {tr('whatnotExport.options.markup', 'Price adjustment (%)')}
+                </label>
                 <input
-                  type="checkbox"
-                  checked={options.includeImages}
+                  id="mx-markup"
+                  type="number"
+                  style={controlStyle}
+                  value={shared.markupPercent}
+                  min={-90}
+                  max={500}
                   onChange={(e) =>
-                    setOptions((o) => ({ ...o, includeImages: e.target.checked }))
+                    setShared((o) => ({ ...o, markupPercent: Number(e.target.value) || 0 }))
                   }
                 />
-                {tr('whatnotExport.options.includeImages', 'Include catalog photos')}
-              </label>
+              </div>
 
-              <label
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  fontSize: 'var(--text-sm)',
-                  color: options.type === 'Buy it Now' ? '#404040' : '#a3a3a3',
-                  cursor: options.type === 'Buy it Now' ? 'pointer' : 'not-allowed',
-                }}
-              >
-                <input
-                  type="checkbox"
-                  checked={options.offerable && options.type === 'Buy it Now'}
-                  disabled={options.type !== 'Buy it Now'}
-                  onChange={(e) => setOptions((o) => ({ ...o, offerable: e.target.checked }))}
-                />
-                {tr('whatnotExport.options.offerable', 'Allow buyers to make offers')}
-              </label>
+              <div>
+                <label style={labelStyle} htmlFor="mx-rounding">
+                  {tr('whatnotExport.options.rounding', 'Round prices')}
+                </label>
+                <select
+                  id="mx-rounding"
+                  style={controlStyle}
+                  value={shared.rounding}
+                  onChange={(e) =>
+                    setShared((o) => ({ ...o, rounding: e.target.value as SharedOptions['rounding'] }))
+                  }
+                >
+                  <option value="exact">
+                    {tr('whatnotExport.options.roundingExact', 'Exact (12.34)')}
+                  </option>
+                  <option value="whole">
+                    {tr('whatnotExport.options.roundingWhole', 'Whole dollars (12)')}
+                  </option>
+                  <option value="ninetyNine">
+                    {tr('whatnotExport.options.roundingNinetyNine', 'Ends in .99 (12.99)')}
+                  </option>
+                </select>
+              </div>
             </div>
+
+            {selectedMarketplaces.has('whatnot') && (
+              <div style={{ marginTop: '24px' }}>
+                <p style={sectionHeading}>Whatnot</p>
+                <div style={gridStyle}>
+                  <div>
+                    <label style={labelStyle} htmlFor="mx-wn-type">
+                      {tr('whatnotExport.options.type', 'Listing type')}
+                    </label>
+                    <select
+                      id="mx-wn-type"
+                      style={controlStyle}
+                      value={whatnot.type}
+                      onChange={(e) =>
+                        setWhatnot((o) => ({ ...o, type: e.target.value as WhatnotOptions['type'] }))
+                      }
+                    >
+                      <option value="Buy it Now">Buy it Now</option>
+                      <option value="Auction">Auction</option>
+                      <option value="Giveaway">Giveaway</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label style={labelStyle} htmlFor="mx-wn-new">
+                      {tr('whatnotExport.options.conditionNew', 'Items marked "new" become')}
+                    </label>
+                    <select
+                      id="mx-wn-new"
+                      style={controlStyle}
+                      value={whatnot.conditionMapping.new}
+                      onChange={(e) =>
+                        setWhatnot((o) => ({
+                          ...o,
+                          conditionMapping: { ...o.conditionMapping, new: e.target.value },
+                        }))
+                      }
+                    >
+                      {WHATNOT_CONDITIONS.map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label style={labelStyle} htmlFor="mx-wn-used">
+                      {tr('whatnotExport.options.conditionUsed', 'Items marked "used" become')}
+                    </label>
+                    <select
+                      id="mx-wn-used"
+                      style={controlStyle}
+                      value={whatnot.conditionMapping.used}
+                      onChange={(e) =>
+                        setWhatnot((o) => ({
+                          ...o,
+                          conditionMapping: { ...o.conditionMapping, used: e.target.value },
+                        }))
+                      }
+                    >
+                      {WHATNOT_CONDITIONS.map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label style={labelStyle} htmlFor="mx-wn-pack">
+                      {tr('whatnotExport.options.packaging', 'Packaging weight (oz)')}
+                    </label>
+                    <input
+                      id="mx-wn-pack"
+                      type="number"
+                      style={controlStyle}
+                      value={whatnot.packagingOz}
+                      min={0}
+                      max={64}
+                      step={0.5}
+                      onChange={(e) =>
+                        setWhatnot((o) => ({ ...o, packagingOz: Number(e.target.value) || 0 }))
+                      }
+                    />
+                    <p style={{ fontSize: 'var(--text-xs)', color: '#737373', margin: '6px 0 0' }}>
+                      {tr(
+                        'whatnotExport.options.packagingHelp',
+                        'Added to each item’s weight to pick a shipping profile. Whatnot bills on packed weight.'
+                      )}
+                    </p>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <label
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        fontSize: 'var(--text-sm)',
+                        color: '#404040',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={whatnot.includeImages}
+                        onChange={(e) =>
+                          setWhatnot((o) => ({ ...o, includeImages: e.target.checked }))
+                        }
+                      />
+                      {tr('whatnotExport.options.includeImages', 'Include catalog photos')}
+                    </label>
+
+                    <label
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        fontSize: 'var(--text-sm)',
+                        color: whatnot.type === 'Buy it Now' ? '#404040' : '#a3a3a3',
+                        cursor: whatnot.type === 'Buy it Now' ? 'pointer' : 'not-allowed',
+                      }}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={whatnot.offerable && whatnot.type === 'Buy it Now'}
+                        disabled={whatnot.type !== 'Buy it Now'}
+                        onChange={(e) => setWhatnot((o) => ({ ...o, offerable: e.target.checked }))}
+                      />
+                      {tr('whatnotExport.options.offerable', 'Allow buyers to make offers')}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -772,7 +904,7 @@ export default function WhatnotExportClient({
         )}
       </div>
 
-      {/* Summary + warnings */}
+      {/* Step 4 — review & download */}
       {selected.size > 0 && (
         <div style={card}>
           <p
@@ -790,7 +922,7 @@ export default function WhatnotExportClient({
             ) : preview ? (
               tr('whatnotExport.readyCount', '{count} listings ready').replace(
                 '{count}',
-                String(preview.exportable)
+                String(totalExportable)
               )
             ) : (
               tr('whatnotExport.selectedCount', '{count} selected').replace(
@@ -803,71 +935,126 @@ export default function WhatnotExportClient({
           {preview && preview.skipped.length > 0 && (
             <Notice
               tone="error"
-              title={tr(
-                'whatnotExport.skippedTitle',
-                '{count} will be left out'
-              ).replace('{count}', String(preview.skipped.length))}
+              title={tr('whatnotExport.skippedTitle', '{count} will be left out').replace(
+                '{count}',
+                String(preview.skipped.length)
+              )}
               lines={preview.skipped.map((s) => `${s.name} (${s.itemNo}) — ${s.reason}`)}
             />
           )}
 
-          {preview && preview.warnings.length > 0 && (
-            <Notice
-              tone="warning"
-              title={tr(
-                'whatnotExport.warningsTitle',
-                '{count} worth double-checking'
-              ).replace('{count}', String(preview.warnings.length))}
-              lines={preview.warnings.map(
-                (w) => `${w.name} (${w.itemNo}) — ${w.messages.join(' ')}`
-              )}
-            />
+          {preview?.marketplaces.map(
+            (m) =>
+              m.warnings.length > 0 && (
+                <Notice
+                  key={m.marketplace}
+                  tone="warning"
+                  title={`${m.label}: ${tr(
+                    'whatnotExport.warningsTitle',
+                    '{count} worth double-checking'
+                  ).replace('{count}', String(m.warnings.length))}`}
+                  lines={m.warnings.map(
+                    (w) => `${w.name} (${w.itemNo}) — ${w.messages.join(' ')}`
+                  )}
+                />
+              )
           )}
 
-          <button
-            type="button"
-            onClick={handleDownload}
-            disabled={downloading || previewing || (preview ? preview.exportable === 0 : false)}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              marginTop: '8px',
-              padding: '12px 24px',
-              fontSize: 'var(--text-base)',
-              fontWeight: 600,
-              color: '#ffffff',
-              background: '#3b82f6',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: downloading ? 'wait' : 'pointer',
-              opacity: downloading || previewing ? 0.6 : 1,
-            }}
-          >
-            {downloading ? (
-              <>
-                <ArrowPathIcon
-                  style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }}
-                />
-                {tr('whatnotExport.building', 'Building your CSV…')}
-              </>
-            ) : (
-              <>
-                <ArrowDownTrayIcon
-                  style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }}
-                />
-                {tr('whatnotExport.download', 'Download CSV')}
-              </>
-            )}
-          </button>
+          {files.length === 0 ? (
+            <>
+              <button
+                type="button"
+                onClick={handleBuild}
+                disabled={building || previewing || selectedMarketplaces.size === 0}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  marginTop: '8px',
+                  padding: '12px 24px',
+                  fontSize: 'var(--text-base)',
+                  fontWeight: 600,
+                  color: '#ffffff',
+                  background: '#3b82f6',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: building ? 'wait' : 'pointer',
+                  opacity: building || previewing ? 0.6 : 1,
+                }}
+              >
+                {building ? (
+                  <>
+                    <ArrowPathIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
+                    {tr('whatnotExport.building', 'Building your files…')}
+                  </>
+                ) : (
+                  <>
+                    <ArrowDownTrayIcon
+                      style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }}
+                    />
+                    {tr('marketplaceExport.build', 'Prepare files')}
+                  </>
+                )}
+              </button>
 
-          {downloading && options.includeImages && (
-            <p style={{ fontSize: 'var(--text-xs)', color: '#737373', margin: '10px 0 0' }}>
-              {tr(
-                'whatnotExport.buildingHelp',
-                'First time exporting an item takes a moment while we prepare its photo. Later exports are instant.'
+              {building && (
+                <p style={{ fontSize: 'var(--text-xs)', color: '#737373', margin: '10px 0 0' }}>
+                  {tr(
+                    'whatnotExport.buildingHelp',
+                    'First time exporting an item takes a moment while we prepare its photo. Later exports are instant.'
+                  )}
+                </p>
               )}
-            </p>
+            </>
+          ) : (
+            <div style={{ marginTop: '8px' }}>
+              <p style={sectionHeading}>
+                {tr('marketplaceExport.filesReady', 'Your files are ready')}
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                {files.map((file) => (
+                  <button
+                    key={file.filename}
+                    type="button"
+                    onClick={() => downloadFile(file)}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '12px 20px',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: 600,
+                      color: '#ffffff',
+                      background: '#3b82f6',
+                      border: 'none',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <ArrowDownTrayIcon
+                      style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }}
+                    />
+                    <span>
+                      {file.label}
+                      {file.partCount > 1 ? ` (${file.partIndex}/${file.partCount})` : ''}
+                      <span style={{ fontWeight: 400, opacity: 0.85 }}>
+                        {' '}
+                        · {file.rowCount} · {Math.max(1, Math.round(file.bytes / 1024))} KB
+                      </span>
+                    </span>
+                  </button>
+                ))}
+              </div>
+
+              {notes.map((note, i) => (
+                <p
+                  key={i}
+                  style={{ fontSize: 'var(--text-xs)', color: '#737373', margin: '12px 0 0' }}
+                >
+                  {note}
+                </p>
+              ))}
+            </div>
           )}
         </div>
       )}

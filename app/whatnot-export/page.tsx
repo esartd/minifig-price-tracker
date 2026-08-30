@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 import { getTranslations, getLocaleFromHost } from '@/lib/i18n-subdomain';
-import WhatnotExportClient from '@/components/whatnot-export-client';
+import MarketplaceExportClient from '@/components/marketplace-export-client';
+import { MARKETPLACES } from '@/lib/marketplace/registry';
 
 const locales = ['en', 'de', 'fr', 'es', 'it', 'nl', 'pl', 'pt', 'sv', 'ja'] as const;
 const domains = {
@@ -125,7 +126,11 @@ export default async function WhatnotExportPage({
         </p>
 
         <div style={{ marginBottom: '48px' }}>
-          <WhatnotExportClient initialSource={source} />
+          <MarketplaceExportClient
+            marketplaces={[...MARKETPLACES]}
+            initialSource={source}
+            initialMarketplace="whatnot"
+          />
         </div>
 
         <section style={{ marginBottom: '40px' }}>

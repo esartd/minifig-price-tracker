@@ -1,14 +1,14 @@
 /**
  * Publicly-fetchable catalog images for marketplace CSV exports.
  *
- * Whatnot's importer downloads each Image URL with its own crawler, which rules
- * out both of the image sources the app already uses:
+ * A marketplace importer downloads each image URL with its own crawler, which
+ * rules out both of the image sources the app already uses:
  *
  *  - img.bricklink.com is hotlink-protected (it needs a spoofed Referer), and
  *  - /api/images/... is behind middleware.ts's user-agent blocklist.
  *
  * So we mirror the image onto our own domain under public/listing-images/ and
- * hand Whatnot that URL instead. nginx serves everything under public/ directly,
+ * hand the marketplace that URL instead. nginx serves everything under public/,
  * which also keeps these requests clear of the middleware.
  *
  * Note we deliberately do NOT reuse public/cache/images/ — Cloudflare blocks the
@@ -19,7 +19,9 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 
-export type CatalogItemType = 'minifig' | 'set';
+import type { CatalogItemType } from './types';
+
+export type { CatalogItemType };
 
 const BRICKLINK_BASE = 'https://img.bricklink.com/ItemImage';
 
@@ -32,8 +34,8 @@ export const LISTING_IMAGE_URL_PREFIX = '/listing-images';
  * Cloudflare challenges any request whose path contains the segment `minifigs`
  * or `sets` (they're the site's real catalog routes, protected against
  * scrapers). That rule matches the segment anywhere in the path, so
- * /listing-images/minifigs/x.png gets a "Just a moment…" interstitial and
- * Whatnot's crawler would never reach the image. The singular forms are clear:
+ * /listing-images/minifigs/x.png gets a "Just a moment…" interstitial and a
+ * marketplace's crawler would never reach the image. The singular forms are clear:
  *
  *   /listing-images/minifigs/nope.png -> 403 (challenged)
  *   /listing-images/minifig/nope.png  -> 404 (reaches nginx)
@@ -148,7 +150,7 @@ export async function ensureListingImage(
   try {
     await fs.mkdir(path.dirname(filePath), { recursive: true });
     // Write to a temp file then rename, so a concurrent export never reads a
-    // half-written PNG and hands Whatnot a corrupt image.
+    // half-written PNG and hands a marketplace a corrupt image.
     const tmpPath = `${filePath}.${process.pid}.tmp`;
     await fs.writeFile(tmpPath, buffer);
     await fs.rename(tmpPath, filePath);
@@ -221,8 +223,8 @@ export async function warmListingImages(
 /**
  * Absolute base URL to prefix onto image paths.
  *
- * Whatnot fetches these from its own servers, so a relative path or a localhost
- * URL is useless — it has to be the real public origin. Locale subdomains are
+ * Marketplaces fetch these from their own servers, so a relative path or a
+ * localhost URL is useless — it has to be the real public origin. Locale subdomains are
  * folded back to the apex so every export emits the same canonical URL.
  *
  * Returns null when it can only determine a localhost origin, which lets the
