@@ -2999,5 +2999,65 @@
     "notes": "Anteckningar",
     "notesPlaceholder": "t.ex. ett tillbehör saknas, lätt blekt",
     "notesHelp": "Läggs till i annonstexten och sparas som din privata notering på BrickLink."
+  },
+  "exportTool": {
+    "buttonLabel": "Exportera för försäljning",
+    "meta": {
+      "title": "Lägg upp dina LEGO i bulk på Whatnot och BrickLink",
+      "description": "Förvandla din LEGO-samling till färdiga marknadsplatsfiler. Välj dina föremål en gång och exportera till Whatnot och BrickLink samtidigt. Gratis."
+    },
+    "hero": {
+      "title": "Lägg upp din samling överallt på en gång",
+      "subtitle": "Välj dina föremål en gång, bestäm var du vill sälja och få en färdig fil för varje marknadsplats."
+    },
+    "steps": {
+      "step1": {
+        "title": "Välj vad du vill sälja",
+        "body": "Välj en av dina fyra samlingar och kryssa i de föremål du vill annonsera."
+      },
+      "step2": {
+        "title": "Välj dina marknadsplatser",
+        "body": "Kryssa i så många du vill. Var och en får egna inställningar och en korrekt formaterad fil."
+      },
+      "step3": {
+        "title": "Ladda ner och ladda upp",
+        "body": "Du får en fil per marknadsplats, precis enligt deras mallar."
+      }
+    },
+    "notes": {
+      "checkWarnings": "Allt som är värt en extra titt markeras ovan innan du laddar ner.",
+      "perMarketplace": "Varje marknadsplats vill ha olika saker — Whatnot bilder och en fraktprofil, BrickLink setets fullständighet. Båda sköts åt dig.",
+      "region": "Filerna följer mallarna för USA. Säljare i andra regioner kan behöva en annan."
+    }
+  },
+  "bricklinkExport": {
+    "meta": {
+      "title": "BrickLink massuppladdningsfil för LEGO-säljare",
+      "description": "Förvandla din LEGO-samling till en BrickLink-XML för massuppladdning med ett klick. Priser, skick och setens fullständighet ifyllda åt dig. Gratis."
+    },
+    "hero": {
+      "title": "Fyll din BrickLink-butik med en enda uppladdning",
+      "subtitle": "BrickLink låter dig lägga till hela ditt lager från en XML-fil. Dina FigTracker-nummer är redan BrickLink-nummer, så det finns inget att slå upp."
+    },
+    "steps": {
+      "step1": {
+        "title": "Välj vad du vill sälja",
+        "body": "Välj en av dina fyra samlingar och kryssa i de föremål du vill annonsera."
+      },
+      "step2": {
+        "title": "Ställ in priserna en gång",
+        "body": "Utgå från FigTrackers föreslagna pris och lägg på ett påslag om du vill. Set bär även sin fullständighet, så BrickLink får det som behövs."
+      },
+      "step3": {
+        "title": "Ladda upp till din butik",
+        "body": "Gå till My Store på BrickLink, sedan Upload Inventory, och klistra in eller ladda upp XML-filen."
+      }
+    },
+    "notes": {
+      "noPhotos": "BrickLink använder sina egna katalogbilder, så inga bildlänkar behövs alls.",
+      "completeness": "Varje set måste markeras som Komplett, Ofullständig eller Förseglad. Registrera det per set så slutar filen gissa.",
+      "rollback": "BrickLink avvisar hela filen om en enda rad är fel — kontrollera varningarna ovan innan du laddar upp.",
+      "split": "BrickLink begränsar en uppladdning till 200 KB. Stora exporter kommer som flera numrerade filer — ladda upp varje."
+    }
   }
 }

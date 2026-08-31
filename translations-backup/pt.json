@@ -2999,5 +2999,65 @@
     "notes": "Notas",
     "notesPlaceholder": "ex. falta um acessório, ligeira descoloração",
     "notesHelp": "Adicionado à descrição do anúncio e guardado como a sua nota privada no BrickLink."
+  },
+  "exportTool": {
+    "buttonLabel": "Exportar para vender",
+    "meta": {
+      "title": "Anuncie os seus LEGO em massa no Whatnot e no BrickLink",
+      "description": "Transforme a sua coleção LEGO em ficheiros prontos a carregar. Escolha os artigos uma vez e exporte para o Whatnot e o BrickLink em conjunto. Grátis."
+    },
+    "hero": {
+      "title": "Anuncie a sua coleção em todo o lado de uma vez",
+      "subtitle": "Escolha os artigos uma só vez, decida onde quer vender e receba um ficheiro pronto a carregar para cada marketplace."
+    },
+    "steps": {
+      "step1": {
+        "title": "Escolha o que quer vender",
+        "body": "Selecione uma das suas quatro coleções e marque os artigos que quer anunciar."
+      },
+      "step2": {
+        "title": "Escolha os seus marketplaces",
+        "body": "Marque quantos quiser. Cada um tem as suas definições e o seu ficheiro no formato correto."
+      },
+      "step3": {
+        "title": "Descarregue e carregue",
+        "body": "Recebe um ficheiro por marketplace, conforme o modelo de cada um."
+      }
+    },
+    "notes": {
+      "checkWarnings": "Tudo o que merece uma segunda vista é assinalado acima antes de descarregar.",
+      "perMarketplace": "Cada marketplace pede coisas diferentes — o Whatnot quer fotos e um perfil de envio, o BrickLink a integridade dos sets. Ambos são tratados por si.",
+      "region": "Estes ficheiros seguem os modelos dos Estados Unidos. Vendedores noutras regiões podem precisar de outro."
+    }
+  },
+  "bricklinkExport": {
+    "meta": {
+      "title": "Ficheiro de carregamento em massa do BrickLink para vendedores LEGO",
+      "description": "Transforme a sua coleção LEGO num XML de carregamento em massa do BrickLink com um clique. Preços, estados e integridade dos sets preenchidos por si. Grátis."
+    },
+    "hero": {
+      "title": "Encha a sua loja BrickLink com um só carregamento",
+      "subtitle": "O BrickLink permite adicionar todo o seu inventário a partir de um ficheiro XML. Os seus números do FigTracker já são números do BrickLink — não há nada para procurar."
+    },
+    "steps": {
+      "step1": {
+        "title": "Escolha o que quer vender",
+        "body": "Selecione uma das suas quatro coleções e marque os artigos que quer anunciar."
+      },
+      "step2": {
+        "title": "Defina os preços uma vez",
+        "body": "Comece pelo preço sugerido do FigTracker e acrescente uma margem se quiser. Os sets levam também a sua integridade, para o BrickLink ter o que precisa."
+      },
+      "step3": {
+        "title": "Carregue na sua loja",
+        "body": "No BrickLink vá a My Store, depois Upload Inventory, e cole ou carregue o XML."
+      }
+    },
+    "notes": {
+      "noPhotos": "O BrickLink usa as suas próprias fotos de catálogo, por isso não são precisos links de imagem.",
+      "completeness": "Cada set tem de ser marcado como Completo, Incompleto ou Selado. Registe-o em cada set e o ficheiro deixa de adivinhar.",
+      "rollback": "O BrickLink rejeita o ficheiro inteiro se uma única linha estiver errada — verifique os avisos acima antes de carregar.",
+      "split": "O BrickLink limita cada carregamento a 200 KB. Exportações grandes chegam em vários ficheiros numerados — carregue todos."
+    }
   }
 }

@@ -261,7 +261,15 @@ See [PRICING_SYSTEM.md](PRICING_SYSTEM.md) for complete pricing documentation.
 
 ## Database
 
-**Provider**: Hostinger MySQL (production), PostgreSQL (local)
+**Provider**: Hostinger MySQL — **the same database for local and production**.
+`DATABASE_URL` points at the live Hostinger instance, so there is no separate
+local database to try a migration against. Consequences:
+- `npx prisma migrate dev` would run against production — **never use it**.
+  Write the migration SQL by hand under `prisma/migrations/<timestamp>_name/`
+  and let `prisma migrate deploy` apply it (deploy.sh already does).
+- Additive, nullable columns are safe to apply before deploying the code that
+  uses them; already-running code ignores columns it doesn't know about.
+- Local dev reads and writes real user data. Be careful with test values.
 
 **Connection Limits**:
 - Hostinger has strict connection limits

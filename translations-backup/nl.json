@@ -2999,5 +2999,65 @@
     "notes": "Notities",
     "notesPlaceholder": "bijv. één accessoire ontbreekt, licht verkleurd",
     "notesHelp": "Wordt toegevoegd aan de advertentietekst en blijft je privé-opmerking op BrickLink."
+  },
+  "exportTool": {
+    "buttonLabel": "Exporteren om te verkopen",
+    "meta": {
+      "title": "Zet je LEGO in bulk op Whatnot en BrickLink",
+      "description": "Zet je LEGO-collectie om in kant-en-klare marktplaatsbestanden. Kies je items één keer en exporteer tegelijk naar Whatnot en BrickLink. Gratis."
+    },
+    "hero": {
+      "title": "Zet je collectie overal tegelijk te koop",
+      "subtitle": "Kies je items één keer, bepaal waar je wilt verkopen en krijg voor elke marktplaats een kant-en-klaar bestand."
+    },
+    "steps": {
+      "step1": {
+        "title": "Kies wat je wilt verkopen",
+        "body": "Kies een van je vier collecties en vink de items aan die je wilt aanbieden."
+      },
+      "step2": {
+        "title": "Kies je marktplaatsen",
+        "body": "Vink er zoveel aan als je wilt. Elke marktplaats krijgt eigen instellingen en een correct opgemaakt bestand."
+      },
+      "step3": {
+        "title": "Downloaden en uploaden",
+        "body": "Je krijgt één bestand per marktplaats, precies volgens hun sjabloon."
+      }
+    },
+    "notes": {
+      "checkWarnings": "Alles wat een tweede blik verdient wordt hierboven gemarkeerd voordat je downloadt.",
+      "perMarketplace": "Elke marktplaats wil iets anders — Whatnot foto’s en een verzendprofiel, BrickLink de compleetheid van sets. Beide worden voor je geregeld.",
+      "region": "Deze bestanden volgen de Amerikaanse sjablonen. Verkopers in andere regio’s hebben mogelijk een ander sjabloon nodig."
+    }
+  },
+  "bricklinkExport": {
+    "meta": {
+      "title": "BrickLink bulk-uploadbestand voor LEGO-verkopers",
+      "description": "Zet je LEGO-collectie met één klik om in een BrickLink bulk-upload-XML. Prijzen, staat en compleetheid van sets worden voor je ingevuld. Gratis."
+    },
+    "hero": {
+      "title": "Vul je BrickLink-winkel met één upload",
+      "subtitle": "Met BrickLink voeg je je hele voorraad toe vanuit één XML-bestand. Je FigTracker-nummers zijn al BrickLink-nummers, dus er valt niets op te zoeken."
+    },
+    "steps": {
+      "step1": {
+        "title": "Kies wat je wilt verkopen",
+        "body": "Kies een van je vier collecties en vink de items aan die je wilt aanbieden."
+      },
+      "step2": {
+        "title": "Stel je prijzen één keer in",
+        "body": "Begin bij de voorgestelde prijs van FigTracker en voeg desgewenst een marge toe. Sets nemen ook hun compleetheid mee, zodat BrickLink alles heeft."
+      },
+      "step3": {
+        "title": "Upload naar je winkel",
+        "body": "Ga bij BrickLink naar My Store, dan Upload Inventory, en plak of upload de XML."
+      }
+    },
+    "notes": {
+      "noPhotos": "BrickLink gebruikt zijn eigen catalogusfoto’s, dus afbeeldingslinks zijn helemaal niet nodig.",
+      "completeness": "Elke set moet gemarkeerd worden als Compleet, Incompleet of Verzegeld. Leg het per set vast, dan hoeft je bestand niet meer te gokken.",
+      "rollback": "BrickLink weigert het hele bestand als één regel fout is. Controleer dus eerst de waarschuwingen hierboven.",
+      "split": "BrickLink begrenst een upload op 200 KB. Grote exports komen als meerdere genummerde bestanden — upload ze allemaal."
+    }
   }
 }

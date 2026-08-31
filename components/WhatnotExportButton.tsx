@@ -11,7 +11,11 @@ type ExportSource =
   | 'set-collection';
 
 /**
- * Sends the seller to the Whatnot export tool with this collection preselected.
+ * Sends the seller to the export tool with this collection preselected.
+ *
+ * Points at the neutral /export rather than a marketplace-specific page: the
+ * tool now covers more than one marketplace, and the seller picks which once
+ * they're there. The marketplace-branded pages exist for search traffic.
  *
  * Styled to match ShareCollectionButton, which it sits beside on all four
  * collection pages.
@@ -21,7 +25,7 @@ export default function WhatnotExportButton({ source }: { source: ExportSource }
 
   return (
     <Link
-      href={`/whatnot-export?source=${source}`}
+      href={`/export?source=${source}`}
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -39,7 +43,7 @@ export default function WhatnotExportButton({ source }: { source: ExportSource }
       }}
     >
       <ArrowUpTrayIcon style={{ width: '18px', height: '18px' }} />
-      <span>{t('whatnotExport.exportButton') || 'Export to Whatnot'}</span>
+      <span>{t('exportTool.buttonLabel') || 'Export for selling'}</span>
     </Link>
   );
 }

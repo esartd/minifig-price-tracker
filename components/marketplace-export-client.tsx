@@ -222,16 +222,17 @@ export default function MarketplaceExportClient({
       ? (initialSource as ExportSource)
       : 'minifig-inventory'
   );
-  const [selectedMarketplaces, setSelectedMarketplaces] = useState<Set<string>>(
-    () =>
-      new Set(
-        initialMarketplace && marketplaces.some((m) => m.id === initialMarketplace)
-          ? [initialMarketplace]
-          : marketplaces.length === 1
-            ? [marketplaces[0].id]
-            : [marketplaces[0]?.id].filter(Boolean)
-      )
-  );
+  const [selectedMarketplaces, setSelectedMarketplaces] = useState<Set<string>>(() => {
+    // A marketplace-branded landing page pre-ticks just that one. The neutral
+    // /export page ticks them all, matching its own promise — picking one
+    // arbitrarily there would risk someone downloading a Whatnot file thinking
+    // they'd got a generic one.
+    const preferred =
+      initialMarketplace && marketplaces.some((m) => m.id === initialMarketplace)
+        ? [initialMarketplace]
+        : marketplaces.map((m) => m.id);
+    return new Set(preferred);
+  });
 
   const [items, setItems] = useState<PickerItem[]>([]);
   const [loadingItems, setLoadingItems] = useState(false);

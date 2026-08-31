@@ -449,17 +449,45 @@ export default function AccountPage() {
     }
   };
 
+  /**
+   * Export everything the user owns.
+   *
+   * Previously this fetched `/api/inventory` with no `?all=true`, so it
+   * silently returned only the first 50 rows — and only of the minifig
+   * for-sale collection, ignoring the other three entirely. A "download your
+   * data" button that quietly hands back a fraction of it is worse than none.
+   */
   const handleExportData = async () => {
     try {
-      const response = await fetch('/api/inventory');
-      if (!response.ok) throw new Error('Failed to fetch collection');
+      const sources = [
+        { key: 'minifigsForSale', url: '/api/inventory?all=true' },
+        { key: 'minifigsToKeep', url: '/api/personal-collection?all=true' },
+        { key: 'setsForSale', url: '/api/set-inventory?all=true' },
+        { key: 'setsToKeep', url: '/api/set-personal-collection?all=true' },
+      ];
 
-      const data = await response.json();
+      const responses = await Promise.all(sources.map((s) => fetch(s.url)));
+      if (responses.some((r) => !r.ok)) throw new Error('Failed to fetch collection');
+
+      const payloads = await Promise.all(responses.map((r) => r.json()));
+
+      const data: Record<string, any> = {
+        exportedAt: new Date().toISOString(),
+        source: 'FigTracker',
+      };
+      sources.forEach((s, i) => {
+        data[s.key] = payloads[i]?.data ?? [];
+      });
+      data.totalItems = sources.reduce(
+        (sum, s) => sum + (data[s.key]?.length ?? 0),
+        0
+      );
+
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `minifig-collection-${new Date().toISOString().split('T')[0]}.json`;
+      a.download = `figtracker-collection-${new Date().toISOString().split('T')[0]}.json`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
