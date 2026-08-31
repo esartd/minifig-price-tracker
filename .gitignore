@@ -77,3 +77,6 @@ public/cache/
 
 # Marketplace export image mirror (downloaded from BrickLink on demand)
 public/listing-images/
+
+# Stray empty scratch file, not part of the translations
+translations-backup/all_nl_entries.txt
