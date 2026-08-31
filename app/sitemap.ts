@@ -63,6 +63,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...createMultilingualEntry('/export', 'monthly', 0.8),
     ...createMultilingualEntry('/whatnot-export', 'monthly', 0.7),
     ...createMultilingualEntry('/bricklink-export', 'monthly', 0.7),
+    ...createMultilingualEntry('/ebay-export', 'monthly', 0.7),
   ]
 
   try {

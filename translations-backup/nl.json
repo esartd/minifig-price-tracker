@@ -2986,7 +2986,27 @@
       "includeNotes": "Mijn notities als opmerkingen meesturen",
       "stockroom": "In het magazijn zetten, niet te koop",
       "retain": "Advertentie behouden na verkoop"
-    }
+    },
+    "ebay": {
+      "location": "Waar je vanaf verzendt",
+      "locationPlaceholder": "bijv. Utah, United States",
+      "locationHelp": "Staat en land. eBay vereist dit en weigert het bestand zonder.",
+      "format": "Advertentietype",
+      "fixedPrice": "Nu kopen (vaste prijs)",
+      "auction": "Veiling",
+      "duration": "Looptijd",
+      "gtc": "Tot annulering",
+      "days": "{n} dagen",
+      "dispatch": "Dagen tot verzending na betaling",
+      "shippingService": "Verzendmethode",
+      "shippingCost": "Vaste verzendkosten",
+      "returns": "Retouren accepteren"
+    },
+    "bulkCompletenessTitle": "{count} sets hebben geen compleetheid vastgelegd",
+    "bulkCompletenessSetAll": "Zet ze allemaal op",
+    "bulkCompletenessHelp": "Wordt per set opgeslagen, dus je doet dit maar één keer. Wijzig losse items met het potlood op je collectiepagina.",
+    "bulkCompletenessSaving": "Opslaan…",
+    "bulkCompletenessFailed": "Dat kon niet worden opgeslagen. Probeer het opnieuw."
   },
   "sellerDetails": {
     "title": "Verkoopgegevens",
@@ -3058,6 +3078,36 @@
       "completeness": "Elke set moet gemarkeerd worden als Compleet, Incompleet of Verzegeld. Leg het per set vast, dan hoeft je bestand niet meer te gokken.",
       "rollback": "BrickLink weigert het hele bestand als één regel fout is. Controleer dus eerst de waarschuwingen hierboven.",
       "split": "BrickLink begrenst een upload op 200 KB. Grote exports komen als meerdere genummerde bestanden — upload ze allemaal."
+    }
+  },
+  "ebayExport": {
+    "meta": {
+      "title": "eBay bulk-advertentiebestand voor LEGO-verkopers",
+      "description": "Zet je LEGO-collectie met één klik om in een eBay File Exchange-CSV. Categorieën, staatcodes, prijzen en foto’s worden voor je ingevuld. Gratis."
+    },
+    "hero": {
+      "title": "Zet je LEGO met één upload op eBay",
+      "subtitle": "Met eBay maak je advertenties in bulk vanuit een spreadsheet. FigTracker vult precies in wat meestal misgaat: de categorie en de staatcodes."
+    },
+    "steps": {
+      "step1": {
+        "title": "Kies wat je wilt verkopen",
+        "body": "Kies een van je vier collecties en vink de items aan die je wilt aanbieden."
+      },
+      "step2": {
+        "title": "Stel je voorwaarden één keer in",
+        "body": "Waar je vandaan verzendt, hoe lang de advertentie loopt, verzending en retouren. Ze gelden voor elke regel."
+      },
+      "step3": {
+        "title": "Upload naar Seller Hub",
+        "body": "Ga bij eBay naar Seller Hub, dan Reports, dan Upload. Kies de CSV en eBay meldt per regel wat niet klopt."
+      }
+    },
+    "notes": {
+      "categories": "Advertenties gaan naar eBay’s eigen LEGO-categorieën — Minifiguren voor minifiguren, Complete sets voor sets — met de bijbehorende numerieke staatcodes.",
+      "location": "Zonder verzendlocatie accepteert eBay het bestand niet, dus vul die in voor je downloadt.",
+      "photos": "De foto’s komen uit de LEGO-catalogus. Bij gebruikte items verkopen je eigen foto’s op eBay veel beter.",
+      "fees": "eBay rekent aanbiedings- en verkoopkosten. Controleer je limiet voordat je een grote partij uploadt."
     }
   }
 }

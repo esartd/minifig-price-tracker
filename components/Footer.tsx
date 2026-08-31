@@ -110,6 +110,10 @@ export default function Footer() {
                 onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
                 onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
               >{t('bricklinkExport.meta.title') || 'BrickLink Export'}</a>
+              <a href="/ebay-export" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+              >{t('ebayExport.meta.title') || 'eBay Export'}</a>
               <a href="/listing-generator" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
                 onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
                 onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}

@@ -124,6 +124,30 @@ const DEFAULT_BRICKLINK: BricklinkOptions = {
   includeNotes: true,
 };
 
+interface EbayOptions {
+  format: 'FixedPrice' | 'Auction';
+  duration: string;
+  location: string;
+  dispatchTimeMax: number;
+  returnsAccepted: boolean;
+  shippingService: string;
+  shippingCost: number;
+  includeImages: boolean;
+}
+
+const DEFAULT_EBAY: EbayOptions = {
+  format: 'FixedPrice',
+  duration: 'GTC',
+  location: '',
+  dispatchTimeMax: 3,
+  returnsAccepted: true,
+  shippingService: 'USPSFirstClass',
+  shippingCost: 4.99,
+  includeImages: true,
+};
+
+const EBAY_DURATIONS = ['1', '3', '5', '7', '10', '30', 'GTC'];
+
 const DEFAULT_WHATNOT: WhatnotOptions = {
   type: 'Buy it Now',
   conditionMapping: { new: 'New without box', used: 'Used - Good' },
@@ -242,6 +266,7 @@ export default function MarketplaceExportClient({
   const [shared, setShared] = useState<SharedOptions>(DEFAULT_SHARED);
   const [whatnot, setWhatnot] = useState<WhatnotOptions>(DEFAULT_WHATNOT);
   const [bricklink, setBricklink] = useState<BricklinkOptions>(DEFAULT_BRICKLINK);
+  const [ebay, setEbay] = useState<EbayOptions>(DEFAULT_EBAY);
 
   const [preview, setPreview] = useState<PreviewData | null>(null);
   const [previewing, setPreviewing] = useState(false);
@@ -263,8 +288,9 @@ export default function MarketplaceExportClient({
     () => ({
       whatnot: { ...shared, ...whatnot },
       bricklink: { ...shared, ...bricklink },
+      ebay: { ...shared, ...ebay },
     }),
-    [shared, whatnot, bricklink]
+    [shared, whatnot, bricklink, ebay]
   );
 
   // --- load items -----------------------------------------------------------
@@ -454,6 +480,70 @@ export default function MarketplaceExportClient({
       setBuilding(false);
     }
   }, [selected, selectedMarketplaces, optionsByMarketplace, source, tr]);
+
+  /**
+   * Items in the current selection whose completeness isn't recorded.
+   *
+   * Derived from BrickLink's own warnings rather than re-deriving the rule, so
+   * this can't drift from what the adapter actually complains about.
+   */
+  const setsMissingCompleteness = useMemo(() => {
+    if (!config.isSet || !preview) return [];
+    const bl = preview.marketplaces.find((m) => m.marketplace === 'bricklink');
+    if (!bl) return [];
+    const itemNos = new Set(
+      bl.warnings
+        .filter((w) => w.messages.some((m) => /complete, incomplete or sealed/i.test(m)))
+        .map((w) => w.itemNo)
+    );
+    return items.filter((i) => itemNos.has(i.itemNo) && selected.has(i.id));
+  }, [config.isSet, preview, items, selected]);
+
+  const [applyingCompleteness, setApplyingCompleteness] = useState(false);
+
+  /** Record one completeness value across every set that's missing it. */
+  const applyCompletenessToAll = useCallback(
+    async (value: string) => {
+      if (setsMissingCompleteness.length === 0) return;
+      setApplyingCompleteness(true);
+      try {
+        const endpoint =
+          source === 'set-inventory' ? '/api/set-inventory' : '/api/set-personal-collection';
+
+        // Sequential rather than parallel: this is a shared Hostinger database
+        // with tight connection limits, and 60+ concurrent writes is exactly
+        // the burst that causes 500s under load.
+        for (const item of setsMissingCompleteness) {
+          await fetch(`${endpoint}/${item.id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ completeness: value }),
+          });
+        }
+
+        // Re-run the preview so the warnings clear.
+        const response = await fetch('/api/marketplace-export/preview', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            source,
+            itemIds: Array.from(selected),
+            marketplaces: Array.from(selectedMarketplaces),
+            optionsByMarketplace,
+          }),
+        });
+        const json = await response.json();
+        if (json?.success) setPreview(json.data);
+      } catch {
+        setAlertMessage(
+          tr('marketplaceExport.bulkCompletenessFailed', "We couldn't save that. Please try again.")
+        );
+      } finally {
+        setApplyingCompleteness(false);
+      }
+    },
+    [setsMissingCompleteness, source, selected, selectedMarketplaces, optionsByMarketplace, tr]
+  );
 
   const downloadFile = useCallback((file: ExportedFile) => {
     const blob = new Blob([file.content], { type: file.mimeType });
@@ -893,6 +983,175 @@ export default function MarketplaceExportClient({
                 </div>
               </div>
             )}
+
+            {selectedMarketplaces.has('ebay') && (
+              <div style={{ marginTop: '24px' }}>
+                <p style={sectionHeading}>eBay</p>
+                <div style={gridStyle}>
+                  <div>
+                    <label style={labelStyle} htmlFor="mx-eb-location">
+                      {tr('marketplaceExport.ebay.location', 'Where you ship from')}
+                    </label>
+                    <input
+                      id="mx-eb-location"
+                      type="text"
+                      style={{
+                        ...controlStyle,
+                        // eBay rejects the upload without this, so make it obvious.
+                        borderColor: ebay.location.trim() ? '#e5e5e5' : '#fca5a5',
+                      }}
+                      value={ebay.location}
+                      maxLength={45}
+                      placeholder={tr(
+                        'marketplaceExport.ebay.locationPlaceholder',
+                        'e.g. Utah, United States'
+                      )}
+                      onChange={(e) => setEbay((o) => ({ ...o, location: e.target.value }))}
+                    />
+                    <p style={{ fontSize: 'var(--text-xs)', color: '#737373', margin: '6px 0 0' }}>
+                      {tr(
+                        'marketplaceExport.ebay.locationHelp',
+                        'State and country. eBay requires this and will reject the file without it.'
+                      )}
+                    </p>
+                  </div>
+
+                  <div>
+                    <label style={labelStyle} htmlFor="mx-eb-format">
+                      {tr('marketplaceExport.ebay.format', 'Listing format')}
+                    </label>
+                    <select
+                      id="mx-eb-format"
+                      style={controlStyle}
+                      value={ebay.format}
+                      onChange={(e) =>
+                        setEbay((o) => ({ ...o, format: e.target.value as EbayOptions['format'] }))
+                      }
+                    >
+                      <option value="FixedPrice">
+                        {tr('marketplaceExport.ebay.fixedPrice', 'Buy It Now (fixed price)')}
+                      </option>
+                      <option value="Auction">
+                        {tr('marketplaceExport.ebay.auction', 'Auction')}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label style={labelStyle} htmlFor="mx-eb-duration">
+                      {tr('marketplaceExport.ebay.duration', 'How long to run')}
+                    </label>
+                    <select
+                      id="mx-eb-duration"
+                      style={controlStyle}
+                      value={ebay.duration}
+                      onChange={(e) => setEbay((o) => ({ ...o, duration: e.target.value }))}
+                    >
+                      {EBAY_DURATIONS.filter(
+                        // GTC is fixed-price only; eBay rejects it on auctions.
+                        (d) => !(d === 'GTC' && ebay.format === 'Auction')
+                      ).map((d) => (
+                        <option key={d} value={d}>
+                          {d === 'GTC'
+                            ? tr('marketplaceExport.ebay.gtc', 'Until cancelled')
+                            : tr('marketplaceExport.ebay.days', '{n} days').replace('{n}', d)}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label style={labelStyle} htmlFor="mx-eb-dispatch">
+                      {tr('marketplaceExport.ebay.dispatch', 'Days to post after payment')}
+                    </label>
+                    <input
+                      id="mx-eb-dispatch"
+                      type="number"
+                      min={0}
+                      max={30}
+                      style={controlStyle}
+                      value={ebay.dispatchTimeMax}
+                      onChange={(e) =>
+                        setEbay((o) => ({ ...o, dispatchTimeMax: Number(e.target.value) || 0 }))
+                      }
+                    />
+                  </div>
+
+                  <div>
+                    <label style={labelStyle} htmlFor="mx-eb-shipservice">
+                      {tr('marketplaceExport.ebay.shippingService', 'Shipping service')}
+                    </label>
+                    <input
+                      id="mx-eb-shipservice"
+                      type="text"
+                      style={controlStyle}
+                      value={ebay.shippingService}
+                      onChange={(e) =>
+                        setEbay((o) => ({ ...o, shippingService: e.target.value }))
+                      }
+                    />
+                  </div>
+
+                  <div>
+                    <label style={labelStyle} htmlFor="mx-eb-shipcost">
+                      {tr('marketplaceExport.ebay.shippingCost', 'Flat shipping cost')}
+                    </label>
+                    <input
+                      id="mx-eb-shipcost"
+                      type="number"
+                      min={0}
+                      step="0.01"
+                      style={controlStyle}
+                      value={ebay.shippingCost}
+                      onChange={(e) =>
+                        setEbay((o) => ({ ...o, shippingCost: Number(e.target.value) || 0 }))
+                      }
+                    />
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <label
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        fontSize: 'var(--text-sm)',
+                        color: '#404040',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={ebay.returnsAccepted}
+                        onChange={(e) =>
+                          setEbay((o) => ({ ...o, returnsAccepted: e.target.checked }))
+                        }
+                      />
+                      {tr('marketplaceExport.ebay.returns', 'Accept returns')}
+                    </label>
+                    <label
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        fontSize: 'var(--text-sm)',
+                        color: '#404040',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={ebay.includeImages}
+                        onChange={(e) =>
+                          setEbay((o) => ({ ...o, includeImages: e.target.checked }))
+                        }
+                      />
+                      {tr('whatnotExport.options.includeImages', 'Include catalog photos')}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -1065,6 +1324,69 @@ export default function MarketplaceExportClient({
               )}
               lines={preview.skipped.map((s) => `${s.name} (${s.itemNo}) — ${s.reason}`)}
             />
+          )}
+
+          {/* Fixing 60+ sets one dialog at a time isn't realistic, so offer the
+              fix where the problem actually surfaces. Only touches sets with
+              nothing recorded — anything already set is left alone. */}
+          {setsMissingCompleteness.length > 0 && (
+            <div
+              style={{
+                background: '#eff6ff',
+                border: '1px solid #bfdbfe',
+                borderRadius: '8px',
+                padding: '14px',
+                marginBottom: '12px',
+              }}
+            >
+              <p
+                style={{
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: 600,
+                  color: '#1d4ed8',
+                  margin: '0 0 10px',
+                }}
+              >
+                {tr(
+                  'marketplaceExport.bulkCompletenessTitle',
+                  '{count} sets have no completeness recorded'
+                ).replace('{count}', String(setsMissingCompleteness.length))}
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
+                <span style={{ fontSize: 'var(--text-sm)', color: '#404040' }}>
+                  {tr('marketplaceExport.bulkCompletenessSetAll', 'Set them all to')}
+                </span>
+                {(['complete', 'incomplete', 'sealed'] as const).map((value) => (
+                  <button
+                    key={value}
+                    type="button"
+                    disabled={applyingCompleteness}
+                    onClick={() => applyCompletenessToAll(value)}
+                    style={{
+                      padding: '8px 14px',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: 600,
+                      color: '#1d4ed8',
+                      background: '#ffffff',
+                      border: '1px solid #bfdbfe',
+                      borderRadius: '8px',
+                      cursor: applyingCompleteness ? 'wait' : 'pointer',
+                      opacity: applyingCompleteness ? 0.6 : 1,
+                    }}
+                  >
+                    {tr(`marketplaceExport.completeness.${value}`, value)}
+                  </button>
+                ))}
+              </div>
+              <p style={{ fontSize: 'var(--text-xs)', color: '#525252', margin: '10px 0 0' }}>
+                {applyingCompleteness
+                  ? tr('marketplaceExport.bulkCompletenessSaving', 'Saving…')
+                  : tr(
+                      'marketplaceExport.bulkCompletenessHelp',
+                      'Saved against each set, so you only do this once. Change individual ones with the pencil button on your collection page.'
+                    )}
+              </p>
+            </div>
           )}
 
           {preview?.marketplaces.map(

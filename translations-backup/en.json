@@ -2985,7 +2985,27 @@
       "includeNotes": "Include my notes as remarks",
       "stockroom": "Put in stockroom, not on sale",
       "retain": "Keep listing after it sells"
-    }
+    },
+    "ebay": {
+      "location": "Where you ship from",
+      "locationPlaceholder": "e.g. Utah, United States",
+      "locationHelp": "State and country. eBay requires this and will reject the file without it.",
+      "format": "Listing format",
+      "fixedPrice": "Buy It Now (fixed price)",
+      "auction": "Auction",
+      "duration": "How long to run",
+      "gtc": "Until cancelled",
+      "days": "{n} days",
+      "dispatch": "Days to post after payment",
+      "shippingService": "Shipping service",
+      "shippingCost": "Flat shipping cost",
+      "returns": "Accept returns"
+    },
+    "bulkCompletenessTitle": "{count} sets have no completeness recorded",
+    "bulkCompletenessSetAll": "Set them all to",
+    "bulkCompletenessHelp": "Saved against each set, so you only do this once. Change individual ones with the pencil button on your collection page.",
+    "bulkCompletenessSaving": "Saving…",
+    "bulkCompletenessFailed": "We couldn’t save that. Please try again."
   },
   "sellerDetails": {
     "title": "Selling details",
@@ -3057,6 +3077,36 @@
       "completeness": "Every set needs to be marked Complete, Incomplete or Sealed. Record it on each set and your file stops guessing.",
       "rollback": "BrickLink rejects the whole file if any single row is wrong, so check the warnings above before uploading.",
       "split": "BrickLink caps an upload at 200KB. Large exports arrive as several numbered files — upload each one."
+    }
+  },
+  "ebayExport": {
+    "meta": {
+      "title": "eBay Bulk Listing File for LEGO Sellers",
+      "description": "Turn your LEGO collection into an eBay File Exchange CSV in one click. Categories, condition IDs, prices and photos filled in for you. Free."
+    },
+    "hero": {
+      "title": "List Your LEGO on eBay in One Upload",
+      "subtitle": "eBay lets you create listings in bulk from a spreadsheet. FigTracker fills in the parts people usually get wrong — the category and condition codes."
+    },
+    "steps": {
+      "step1": {
+        "title": "Pick what you want to sell",
+        "body": "Choose any of your four collections and tick the items you want to list."
+      },
+      "step2": {
+        "title": "Set your selling terms once",
+        "body": "Where you ship from, how long the listing runs, postage and returns. They apply to every row."
+      },
+      "step3": {
+        "title": "Upload to Seller Hub",
+        "body": "In eBay, go to Seller Hub, then Reports, then Upload. Choose the CSV and eBay will report anything it did not like row by row."
+      }
+    },
+    "notes": {
+      "categories": "Listings go to eBay’s own LEGO categories — Minifigures for minifigs, Complete Sets & Packs for sets — with the matching numeric condition codes.",
+      "location": "eBay will not accept the file without a shipping location, so fill that in before downloading.",
+      "photos": "Photos come from the LEGO catalog. For used items, your own pictures will sell far better on eBay.",
+      "fees": "eBay charges listing and final value fees. Check your allowance before uploading a large batch."
     }
   }
 }

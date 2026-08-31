@@ -3043,7 +3043,27 @@
       "includeNotes": "Meine Notizen als Bemerkungen mitsenden",
       "stockroom": "Ins Lager legen, nicht zum Verkauf",
       "retain": "Angebot nach dem Verkauf behalten"
-    }
+    },
+    "ebay": {
+      "location": "Versandort",
+      "locationPlaceholder": "z. B. Utah, United States",
+      "locationHelp": "Bundesland und Land. eBay verlangt dies und lehnt die Datei sonst ab.",
+      "format": "Angebotsformat",
+      "fixedPrice": "Sofort-Kaufen (Festpreis)",
+      "auction": "Auktion",
+      "duration": "Laufzeit",
+      "gtc": "Bis auf Widerruf",
+      "days": "{n} Tage",
+      "dispatch": "Tage bis zum Versand nach Zahlung",
+      "shippingService": "Versandart",
+      "shippingCost": "Pauschale Versandkosten",
+      "returns": "Rücknahme akzeptieren"
+    },
+    "bulkCompletenessTitle": "Bei {count} Sets ist die Vollständigkeit nicht erfasst",
+    "bulkCompletenessSetAll": "Alle setzen auf",
+    "bulkCompletenessHelp": "Wird pro Set gespeichert — du machst das nur einmal. Einzelne änderst du mit dem Stift-Symbol in deiner Sammlung.",
+    "bulkCompletenessSaving": "Wird gespeichert…",
+    "bulkCompletenessFailed": "Das konnte nicht gespeichert werden. Bitte versuche es erneut."
   },
   "sellerDetails": {
     "title": "Verkaufsangaben",
@@ -3115,6 +3135,36 @@
       "completeness": "Jedes Set muss als Vollständig, Unvollständig oder Versiegelt markiert sein. Erfasse es pro Set, dann muss deine Datei nicht mehr raten.",
       "rollback": "BrickLink lehnt die gesamte Datei ab, wenn eine einzige Zeile fehlerhaft ist. Prüfe daher vorher die Hinweise oben.",
       "split": "BrickLink begrenzt einen Upload auf 200 KB. Große Exporte kommen als mehrere nummerierte Dateien — lade jede einzeln hoch."
+    }
+  },
+  "ebayExport": {
+    "meta": {
+      "title": "eBay-Massenangebotsdatei für LEGO-Verkäufer",
+      "description": "Verwandle deine LEGO-Sammlung mit einem Klick in eine eBay-File-Exchange-CSV. Kategorien, Zustandscodes, Preise und Fotos werden für dich ausgefüllt. Kostenlos."
+    },
+    "hero": {
+      "title": "Stelle deine LEGO mit einem Upload bei eBay ein",
+      "subtitle": "Bei eBay kannst du Angebote per Tabelle massenhaft anlegen. FigTracker füllt genau die Felder aus, bei denen die meisten Fehler passieren — Kategorie und Zustandscode."
+    },
+    "steps": {
+      "step1": {
+        "title": "Wähle aus, was du verkaufen willst",
+        "body": "Wähle eine deiner vier Sammlungen und hake die Artikel an, die du einstellen möchtest."
+      },
+      "step2": {
+        "title": "Verkaufsbedingungen einmal festlegen",
+        "body": "Versandort, Laufzeit, Versand und Rücknahme. Sie gelten für jede Zeile."
+      },
+      "step3": {
+        "title": "Im Seller Hub hochladen",
+        "body": "Gehe bei eBay zu Seller Hub, dann Reports, dann Upload. Wähle die CSV — eBay meldet Zeile für Zeile, was nicht passt."
+      }
+    },
+    "notes": {
+      "categories": "Die Angebote landen in den LEGO-Kategorien von eBay — Minifiguren für Minifiguren, komplette Sets für Sets — mit den passenden numerischen Zustandscodes.",
+      "location": "Ohne Versandort akzeptiert eBay die Datei nicht. Trage ihn vor dem Herunterladen ein.",
+      "photos": "Die Fotos stammen aus dem LEGO-Katalog. Bei gebrauchten Artikeln verkaufen eigene Bilder auf eBay deutlich besser.",
+      "fees": "eBay berechnet Angebots- und Verkaufsprovisionen. Prüfe dein Kontingent, bevor du eine große Menge hochlädst."
     }
   }
 }

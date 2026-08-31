@@ -2986,7 +2986,27 @@
       "includeNotes": "Ta med mina anteckningar som noteringar",
       "stockroom": "Lägg i lager, inte till salu",
       "retain": "Behåll annonsen efter försäljning"
-    }
+    },
+    "ebay": {
+      "location": "Varifrån du skickar",
+      "locationPlaceholder": "t.ex. Utah, United States",
+      "locationHelp": "Delstat och land. eBay kräver detta och avvisar filen utan det.",
+      "format": "Annonstyp",
+      "fixedPrice": "Köp nu (fast pris)",
+      "auction": "Auktion",
+      "duration": "Löptid",
+      "gtc": "Tills avbruten",
+      "days": "{n} dagar",
+      "dispatch": "Dagar till leverans efter betalning",
+      "shippingService": "Frakttjänst",
+      "shippingCost": "Fast fraktkostnad",
+      "returns": "Acceptera returer"
+    },
+    "bulkCompletenessTitle": "{count} set saknar registrerad fullständighet",
+    "bulkCompletenessSetAll": "Sätt alla till",
+    "bulkCompletenessHelp": "Sparas på varje set, så du gör detta en gång. Ändra enskilda med pennan på din samlingssida.",
+    "bulkCompletenessSaving": "Sparar…",
+    "bulkCompletenessFailed": "Det gick inte att spara. Försök igen."
   },
   "sellerDetails": {
     "title": "Säljuppgifter",
@@ -3058,6 +3078,36 @@
       "completeness": "Varje set måste markeras som Komplett, Ofullständig eller Förseglad. Registrera det per set så slutar filen gissa.",
       "rollback": "BrickLink avvisar hela filen om en enda rad är fel — kontrollera varningarna ovan innan du laddar upp.",
       "split": "BrickLink begränsar en uppladdning till 200 KB. Stora exporter kommer som flera numrerade filer — ladda upp varje."
+    }
+  },
+  "ebayExport": {
+    "meta": {
+      "title": "eBay massannonsfil för LEGO-säljare",
+      "description": "Förvandla din LEGO-samling till en eBay File Exchange-CSV med ett klick. Kategorier, skickkoder, priser och bilder ifyllda åt dig. Gratis."
+    },
+    "hero": {
+      "title": "Lägg upp dina LEGO på eBay med en uppladdning",
+      "subtitle": "eBay låter dig skapa annonser i bulk från ett kalkylblad. FigTracker fyller i just det som brukar bli fel — kategorin och skickkoderna."
+    },
+    "steps": {
+      "step1": {
+        "title": "Välj vad du vill sälja",
+        "body": "Välj en av dina fyra samlingar och kryssa i de föremål du vill annonsera."
+      },
+      "step2": {
+        "title": "Ställ in dina villkor en gång",
+        "body": "Varifrån du skickar, hur länge annonsen gäller, frakt och returer. De gäller för varje rad."
+      },
+      "step3": {
+        "title": "Ladda upp i Seller Hub",
+        "body": "Gå till Seller Hub på eBay, sedan Reports och Upload. Välj CSV-filen så rapporterar eBay rad för rad vad som inte godtogs."
+      }
+    },
+    "notes": {
+      "categories": "Annonserna hamnar i eBays egna LEGO-kategorier — Minifigurer för minifigurer, Kompletta set för set — med matchande numeriska skickkoder.",
+      "location": "eBay accepterar inte filen utan en avsändarplats, så fyll i den innan du laddar ner.",
+      "photos": "Bilderna kommer från LEGO-katalogen. För begagnade föremål säljer dina egna bilder betydligt bättre på eBay.",
+      "fees": "eBay tar annonserings- och försäljningsavgifter. Kontrollera din gräns innan du laddar upp en stor omgång."
     }
   }
 }

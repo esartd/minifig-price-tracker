@@ -2986,7 +2986,27 @@
       "includeNotes": "メモを備考として含める",
       "stockroom": "販売せずストックルームに入れる",
       "retain": "売れた後も出品を残す"
-    }
+    },
+    "ebay": {
+      "location": "発送元",
+      "locationPlaceholder": "例：Utah, United States",
+      "locationHelp": "州と国。eBayでは必須で、未入力だとファイルが拒否されます。",
+      "format": "出品形式",
+      "fixedPrice": "即決（固定価格）",
+      "auction": "オークション",
+      "duration": "掲載期間",
+      "gtc": "キャンセルするまで",
+      "days": "{n}日",
+      "dispatch": "入金後の発送までの日数",
+      "shippingService": "配送サービス",
+      "shippingCost": "一律送料",
+      "returns": "返品を受け付ける"
+    },
+    "bulkCompletenessTitle": "{count}件のセットに完品状態が未登録です",
+    "bulkCompletenessSetAll": "すべて次に設定",
+    "bulkCompletenessHelp": "セットごとに保存されるので、この操作は一度だけです。個別に変更するにはコレクションページの鉛筆ボタンを使います。",
+    "bulkCompletenessSaving": "保存中…",
+    "bulkCompletenessFailed": "保存できませんでした。もう一度お試しください。"
   },
   "sellerDetails": {
     "title": "販売情報",
@@ -3058,6 +3078,36 @@
       "completeness": "すべてのセットに完品・欠品あり・未開封のいずれかの指定が必要です。セットごとに登録すれば、ファイルが推測しなくなります。",
       "rollback": "BrickLinkは1行でも誤りがあるとファイル全体を拒否します。アップロード前に上の警告を確認してください。",
       "split": "BrickLinkの1回のアップロード上限は200KBです。大きなエクスポートは番号付きの複数ファイルになります。すべてアップロードしてください。"
+    }
+  },
+  "ebayExport": {
+    "meta": {
+      "title": "LEGO出品者向け eBay一括出品ファイル",
+      "description": "LEGOコレクションをワンクリックでeBay File Exchange用CSVに変換。カテゴリ・状態コード・価格・写真まで自動で入力されます。無料。"
+    },
+    "hero": {
+      "title": "アップロード1回でLEGOをeBayに出品",
+      "subtitle": "eBayでは表計算ファイルからまとめて出品できます。FigTrackerは間違えやすいカテゴリと状態コードを自動で埋めます。"
+    },
+    "steps": {
+      "step1": {
+        "title": "売りたいものを選ぶ",
+        "body": "4つのコレクションのいずれかを選び、出品したいアイテムにチェックを入れます。"
+      },
+      "step2": {
+        "title": "販売条件をまとめて設定",
+        "body": "発送元、掲載期間、送料、返品。すべての行に適用されます。"
+      },
+      "step3": {
+        "title": "Seller Hubにアップロード",
+        "body": "eBayでSeller Hub、Reports、Uploadの順に進み、CSVを選びます。問題があればeBayが行ごとに知らせます。"
+      }
+    },
+    "notes": {
+      "categories": "出品はeBay独自のLEGOカテゴリ（ミニフィグはMinifigures、セットはComplete Sets & Packs）に、対応する数値の状態コード付きで登録されます。",
+      "location": "発送元がないとeBayはファイルを受け付けません。ダウンロード前に入力してください。",
+      "photos": "写真はLEGOカタログのものです。中古品はご自身の写真のほうがeBayでは格段によく売れます。",
+      "fees": "eBayには出品手数料と落札手数料があります。大量にアップロードする前に上限を確認してください。"
     }
   }
 }
