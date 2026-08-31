@@ -8,7 +8,8 @@ import { useSession } from 'next-auth/react';
 import MoveDialog from './MoveDialog';
 import ConfirmDeleteDialog from './ConfirmDeleteDialog';
 import AlertDialog from './AlertDialog';
-import { MinusIcon, PlusIcon, ArrowRightIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { MinusIcon, PlusIcon, ArrowRightIcon, TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
+import SellerDetailsDialog, { type SellerDetails } from './SellerDetailsDialog';
 import { formatPrice } from '@/lib/format-price';
 import { useTranslation } from '@/components/TranslationProvider';
 
@@ -44,6 +45,7 @@ export default function PersonalCollectionList({
   const [moveSuccess, setMoveSuccess] = useState(false);
   const [lastMovedItem, setLastMovedItem] = useState<{ id: string; minifigNo: string; condition: string } | null>(null);
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
+  const [detailsItem, setDetailsItem] = useState<any | null>(null);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
   const currency = session?.user?.preferredCurrency || 'USD';
@@ -508,6 +510,42 @@ export default function PersonalCollectionList({
                 </button>
               )}
 
+            {/* Selling details: cost, notes, and completeness for sets.
+                None of these can be derived, so they're recorded per item. */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setDetailsItem(item);
+              }}
+              title={t('sellerDetails.title') || 'Selling details'}
+              style={{
+                width: '44px',
+                height: '44px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#737373',
+                background: '#ffffff',
+                border: '1px solid #e5e5e5',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                padding: 0,
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#eff6ff';
+                e.currentTarget.style.color = '#3b82f6';
+                e.currentTarget.style.borderColor = '#bfdbfe';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#ffffff';
+                e.currentTarget.style.color = '#737373';
+                e.currentTarget.style.borderColor = '#e5e5e5';
+              }}
+            >
+              <PencilSquareIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
+            </button>
+
             {/* Delete Button */}
             <button
               onClick={(e) => {
@@ -561,6 +599,21 @@ export default function PersonalCollectionList({
       )}
 
       {/* Delete Confirmation Dialog */}
+      <SellerDetailsDialog
+        isOpen={detailsItem !== null}
+        onClose={() => setDetailsItem(null)}
+        itemName={detailsItem?.minifigure_name || ''}
+        showCompleteness={false}
+        initial={{
+          cost: detailsItem?.cost ?? null,
+          notes: detailsItem?.notes ?? null,
+          completeness: detailsItem?.completeness ?? null,
+        }}
+        onSave={(details: SellerDetails) => {
+          if (detailsItem) onItemUpdate(detailsItem.id, details as any);
+        }}
+      />
+
       <ConfirmDeleteDialog
         isOpen={pendingDeleteId !== null}
         onClose={() => setPendingDeleteId(null)}

@@ -3025,5 +3025,36 @@
       "loadFailed": "Impossible de charger votre collection. Veuillez actualiser la page.",
       "exportFailed": "Impossible de créer votre CSV. Veuillez réessayer."
     }
+  },
+  "marketplaceExport": {
+    "destinations": "Où voulez-vous vendre ?",
+    "sharedSettings": "Toutes les plateformes",
+    "build": "Préparer les fichiers",
+    "filesReady": "Vos fichiers sont prêts",
+    "completeness": {
+      "complete": "Complet",
+      "incomplete": "Incomplet",
+      "sealed": "Scellé"
+    },
+    "bricklink": {
+      "defaultCompleteness": "Sets sans état de complétude enregistré",
+      "completenessHelp": "BrickLink l’exige pour chaque set. Renseignez-le par set pour ne plus qu’on vous le demande.",
+      "includeCost": "Inclure mon prix d’achat",
+      "includeNotes": "Inclure mes notes en remarques",
+      "stockroom": "Mettre en réserve, pas en vente",
+      "retain": "Conserver l’annonce après la vente"
+    }
+  },
+  "sellerDetails": {
+    "title": "Détails de vente",
+    "completeness": "Complétude",
+    "notRecorded": "Non renseigné",
+    "completenessHelp": "BrickLink le demande pour chaque set. Renseignez-le une fois et vos exports cesseront de deviner.",
+    "cost": "Votre prix d’achat",
+    "costPlaceholder": "ex. 4,50",
+    "costHelp": "Transmis à Whatnot et BrickLink pour qu’ils affichent votre marge. Vous pouvez laisser vide.",
+    "notes": "Notes",
+    "notesPlaceholder": "ex. accessoire manquant, légère décoloration",
+    "notesHelp": "Ajouté à la description de l’annonce, et conservé comme remarque privée sur BrickLink."
   }
 }

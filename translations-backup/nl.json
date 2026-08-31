@@ -2968,5 +2968,36 @@
       "loadFailed": "We konden je collectie niet laden. Ververs de pagina en probeer het opnieuw.",
       "exportFailed": "We konden je CSV niet maken. Probeer het opnieuw."
     }
+  },
+  "marketplaceExport": {
+    "destinations": "Waar wil je verkopen?",
+    "sharedSettings": "Alle marktplaatsen",
+    "build": "Bestanden voorbereiden",
+    "filesReady": "Je bestanden staan klaar",
+    "completeness": {
+      "complete": "Compleet",
+      "incomplete": "Incompleet",
+      "sealed": "Verzegeld"
+    },
+    "bricklink": {
+      "defaultCompleteness": "Sets zonder vastgelegde compleetheid",
+      "completenessHelp": "BrickLink vraagt dit bij elke set. Leg het per set vast, dan wordt er niet meer om gevraagd.",
+      "includeCost": "Mijn inkoopprijs meesturen",
+      "includeNotes": "Mijn notities als opmerkingen meesturen",
+      "stockroom": "In het magazijn zetten, niet te koop",
+      "retain": "Advertentie behouden na verkoop"
+    }
+  },
+  "sellerDetails": {
+    "title": "Verkoopgegevens",
+    "completeness": "Compleetheid",
+    "notRecorded": "Niet vastgelegd",
+    "completenessHelp": "BrickLink vraagt dit bij elke set. Eén keer vastleggen en je export hoeft niet meer te gokken.",
+    "cost": "Wat je betaald hebt",
+    "costPlaceholder": "bijv. 4,50",
+    "costHelp": "Gaat mee naar Whatnot en BrickLink zodat zij je winst kunnen tonen. Leeg laten mag.",
+    "notes": "Notities",
+    "notesPlaceholder": "bijv. één accessoire ontbreekt, licht verkleurd",
+    "notesHelp": "Wordt toegevoegd aan de advertentietekst en blijft je privé-opmerking op BrickLink."
   }
 }

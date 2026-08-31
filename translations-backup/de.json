@@ -3025,5 +3025,36 @@
       "loadFailed": "Deine Sammlung konnte nicht geladen werden. Bitte lade die Seite neu.",
       "exportFailed": "Deine CSV konnte nicht erstellt werden. Bitte versuche es erneut."
     }
+  },
+  "marketplaceExport": {
+    "destinations": "Wo möchtest du verkaufen?",
+    "sharedSettings": "Alle Marktplätze",
+    "build": "Dateien erstellen",
+    "filesReady": "Deine Dateien sind fertig",
+    "completeness": {
+      "complete": "Vollständig",
+      "incomplete": "Unvollständig",
+      "sealed": "Versiegelt"
+    },
+    "bricklink": {
+      "defaultCompleteness": "Sets ohne erfasste Vollständigkeit",
+      "completenessHelp": "BrickLink verlangt diese Angabe für jedes Set. Erfasse sie pro Set, dann wirst du nicht mehr gefragt.",
+      "includeCost": "Einkaufspreis mitsenden",
+      "includeNotes": "Meine Notizen als Bemerkungen mitsenden",
+      "stockroom": "Ins Lager legen, nicht zum Verkauf",
+      "retain": "Angebot nach dem Verkauf behalten"
+    }
+  },
+  "sellerDetails": {
+    "title": "Verkaufsangaben",
+    "completeness": "Vollständigkeit",
+    "notRecorded": "Nicht erfasst",
+    "completenessHelp": "BrickLink fragt das bei jedem Set ab. Einmal erfasst, muss dein Export nicht mehr raten.",
+    "cost": "Dein Einkaufspreis",
+    "costPlaceholder": "z. B. 4,50",
+    "costHelp": "Wird an Whatnot und BrickLink übermittelt, damit sie deinen Gewinn anzeigen können. Kann leer bleiben.",
+    "notes": "Notizen",
+    "notesPlaceholder": "z. B. ein Zubehörteil fehlt, leicht ausgeblichen",
+    "notesHelp": "Erscheint in der Angebotsbeschreibung und bleibt auf BrickLink deine private Bemerkung."
   }
 }

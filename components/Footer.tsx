@@ -98,6 +98,18 @@ export default function Footer() {
                 onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
                 onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
               >{t('navigation.identify') || 'AI Identify'}</a>
+              {/* Both selling tools had no internal links anywhere, which
+                  undercut the SEO landing pages they were built to be. The
+                  in-app entry points stay on the collection pages, where the
+                  thought "I want to sell these" actually happens. */}
+              <a href="/whatnot-export" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+              >{t('whatnotExport.meta.title') || 'Whatnot CSV Export'}</a>
+              <a href="/listing-generator" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+              >{t('listingGenerator.meta.title') || 'Listing Generator'}</a>
               <a href="/support" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
                 onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
                 onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}

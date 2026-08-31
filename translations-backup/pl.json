@@ -2968,5 +2968,36 @@
       "loadFailed": "Nie udało się wczytać Twojej kolekcji. Odśwież stronę i spróbuj ponownie.",
       "exportFailed": "Nie udało się utworzyć pliku CSV. Spróbuj ponownie."
     }
+  },
+  "marketplaceExport": {
+    "destinations": "Gdzie chcesz wystawić?",
+    "sharedSettings": "Wszystkie platformy",
+    "build": "Przygotuj pliki",
+    "filesReady": "Twoje pliki są gotowe",
+    "completeness": {
+      "complete": "Kompletny",
+      "incomplete": "Niekompletny",
+      "sealed": "Zafoliowany"
+    },
+    "bricklink": {
+      "defaultCompleteness": "Zestawy bez zapisanej kompletności",
+      "completenessHelp": "BrickLink wymaga tego przy każdym zestawie. Zapisz to przy zestawie, a pytanie zniknie.",
+      "includeCost": "Dołącz cenę zakupu",
+      "includeNotes": "Dołącz moje notatki jako uwagi",
+      "stockroom": "Umieść w magazynie, nie na sprzedaż",
+      "retain": "Zachowaj ofertę po sprzedaży"
+    }
+  },
+  "sellerDetails": {
+    "title": "Szczegóły sprzedaży",
+    "completeness": "Kompletność",
+    "notRecorded": "Nie zapisano",
+    "completenessHelp": "BrickLink pyta o to przy każdym zestawie. Zapisz raz, a eksport przestanie zgadywać.",
+    "cost": "Ile zapłaciłeś",
+    "costPlaceholder": "np. 4,50",
+    "costHelp": "Wysyłane do Whatnot i BrickLink, aby pokazały Twój zysk. Możesz zostawić puste.",
+    "notes": "Notatki",
+    "notesPlaceholder": "np. brakuje jednego akcesorium, lekkie wyblaknięcie",
+    "notesHelp": "Dodawane do opisu oferty i zachowane jako Twoja prywatna uwaga na BrickLink."
   }
 }

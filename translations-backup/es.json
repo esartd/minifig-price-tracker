@@ -3025,5 +3025,36 @@
       "loadFailed": "No pudimos cargar tu colección. Actualiza la página e inténtalo de nuevo.",
       "exportFailed": "No pudimos crear tu CSV. Inténtalo de nuevo."
     }
+  },
+  "marketplaceExport": {
+    "destinations": "¿Dónde quieres vender?",
+    "sharedSettings": "Todos los mercados",
+    "build": "Preparar archivos",
+    "filesReady": "Tus archivos están listos",
+    "completeness": {
+      "complete": "Completo",
+      "incomplete": "Incompleto",
+      "sealed": "Precintado"
+    },
+    "bricklink": {
+      "defaultCompleteness": "Sets sin integridad registrada",
+      "completenessHelp": "BrickLink lo exige en cada set. Regístralo por set para dejar de que te lo pregunten.",
+      "includeCost": "Incluir lo que pagué",
+      "includeNotes": "Incluir mis notas como observaciones",
+      "stockroom": "Guardar en almacén, no a la venta",
+      "retain": "Mantener el anuncio tras venderse"
+    }
+  },
+  "sellerDetails": {
+    "title": "Detalles de venta",
+    "completeness": "Integridad",
+    "notRecorded": "Sin registrar",
+    "completenessHelp": "BrickLink lo pide en cada set. Regístralo una vez y tus exportaciones dejarán de suponer.",
+    "cost": "Lo que pagaste",
+    "costPlaceholder": "p. ej. 4,50",
+    "costHelp": "Se envía a Whatnot y BrickLink para que muestren tu beneficio. Puedes dejarlo en blanco.",
+    "notes": "Notas",
+    "notesPlaceholder": "p. ej. falta un accesorio, ligera decoloración",
+    "notesHelp": "Se añade a la descripción del anuncio y se guarda como tu nota privada en BrickLink."
   }
 }

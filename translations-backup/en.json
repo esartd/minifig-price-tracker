@@ -2967,5 +2967,36 @@
       "loadFailed": "We couldn’t load your collection. Please refresh and try again.",
       "exportFailed": "We couldn’t build your CSV. Please try again."
     }
+  },
+  "marketplaceExport": {
+    "destinations": "Where do you want to list?",
+    "sharedSettings": "All marketplaces",
+    "build": "Prepare files",
+    "filesReady": "Your files are ready",
+    "completeness": {
+      "complete": "Complete",
+      "incomplete": "Incomplete",
+      "sealed": "Sealed"
+    },
+    "bricklink": {
+      "defaultCompleteness": "Sets with no completeness recorded",
+      "completenessHelp": "BrickLink requires this on every set. Record it per set to stop being asked.",
+      "includeCost": "Include what I paid",
+      "includeNotes": "Include my notes as remarks",
+      "stockroom": "Put in stockroom, not on sale",
+      "retain": "Keep listing after it sells"
+    }
+  },
+  "sellerDetails": {
+    "title": "Selling details",
+    "completeness": "Completeness",
+    "notRecorded": "Not recorded",
+    "completenessHelp": "BrickLink asks for this on every set. Recording it once means your exports stop guessing.",
+    "cost": "What you paid",
+    "costPlaceholder": "e.g. 4.50",
+    "costHelp": "Sent to Whatnot and BrickLink so they can show your profit. Leave blank if you’d rather not.",
+    "notes": "Notes",
+    "notesPlaceholder": "e.g. missing one accessory, slight fading",
+    "notesHelp": "Added to the listing description, and kept as your private remark on BrickLink."
   }
 }

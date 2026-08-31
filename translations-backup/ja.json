@@ -2968,5 +2968,36 @@
       "loadFailed": "コレクションを読み込めませんでした。ページを更新してもう一度お試しください。",
       "exportFailed": "CSVを作成できませんでした。もう一度お試しください。"
     }
+  },
+  "marketplaceExport": {
+    "destinations": "どこに出品しますか？",
+    "sharedSettings": "すべてのマーケットプレイス",
+    "build": "ファイルを作成",
+    "filesReady": "ファイルの準備ができました",
+    "completeness": {
+      "complete": "完品",
+      "incomplete": "欠品あり",
+      "sealed": "未開封"
+    },
+    "bricklink": {
+      "defaultCompleteness": "完品状態が未登録のセット",
+      "completenessHelp": "BrickLinkではすべてのセットに必要です。セットごとに登録すれば、毎回聞かれなくなります。",
+      "includeCost": "購入価格を含める",
+      "includeNotes": "メモを備考として含める",
+      "stockroom": "販売せずストックルームに入れる",
+      "retain": "売れた後も出品を残す"
+    }
+  },
+  "sellerDetails": {
+    "title": "販売情報",
+    "completeness": "完品状態",
+    "notRecorded": "未登録",
+    "completenessHelp": "BrickLinkはセットごとにこれを求めます。一度登録すれば、エクスポートが推測しなくなります。",
+    "cost": "購入価格",
+    "costPlaceholder": "例：4.50",
+    "costHelp": "WhatnotとBrickLinkに送られ、利益が表示されます。空欄のままでも構いません。",
+    "notes": "メモ",
+    "notesPlaceholder": "例：付属品が1つ欠品、わずかに色あせ",
+    "notesHelp": "出品説明に追加され、BrickLinkでは非公開の備考として保存されます。"
   }
 }

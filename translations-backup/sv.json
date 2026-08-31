@@ -2968,5 +2968,36 @@
       "loadFailed": "Vi kunde inte ladda din samling. Uppdatera sidan och försök igen.",
       "exportFailed": "Vi kunde inte skapa din CSV. Försök igen."
     }
+  },
+  "marketplaceExport": {
+    "destinations": "Var vill du sälja?",
+    "sharedSettings": "Alla marknadsplatser",
+    "build": "Förbered filer",
+    "filesReady": "Dina filer är klara",
+    "completeness": {
+      "complete": "Komplett",
+      "incomplete": "Ofullständig",
+      "sealed": "Förseglad"
+    },
+    "bricklink": {
+      "defaultCompleteness": "Set utan registrerad fullständighet",
+      "completenessHelp": "BrickLink kräver detta för varje set. Registrera det per set så slipper du frågan.",
+      "includeCost": "Ta med vad jag betalade",
+      "includeNotes": "Ta med mina anteckningar som noteringar",
+      "stockroom": "Lägg i lager, inte till salu",
+      "retain": "Behåll annonsen efter försäljning"
+    }
+  },
+  "sellerDetails": {
+    "title": "Säljuppgifter",
+    "completeness": "Fullständighet",
+    "notRecorded": "Inte registrerat",
+    "completenessHelp": "BrickLink frågar om detta för varje set. Registrera en gång så slutar exporten gissa.",
+    "cost": "Vad du betalade",
+    "costPlaceholder": "t.ex. 4,50",
+    "costHelp": "Skickas till Whatnot och BrickLink så att de kan visa din vinst. Du kan lämna det tomt.",
+    "notes": "Anteckningar",
+    "notesPlaceholder": "t.ex. ett tillbehör saknas, lätt blekt",
+    "notesHelp": "Läggs till i annonstexten och sparas som din privata notering på BrickLink."
   }
 }

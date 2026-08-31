@@ -165,6 +165,9 @@ class DatabaseService {
     if (updates.condition !== undefined) data.condition = updates.condition;
     if (updates.image_url !== undefined) data.image_url = updates.image_url;
 
+    if (updates.cost !== undefined) data.cost = updates.cost;
+    if (updates.notes !== undefined) data.notes = updates.notes;
+
     if (updates.pricing) {
       data.pricing_six_month_avg = updates.pricing.sixMonthAverage;
       data.pricing_current_avg = updates.pricing.currentAverage;
@@ -332,6 +335,8 @@ class DatabaseService {
     if (updates.acquisition_date !== undefined) data.acquisition_date = updates.acquisition_date ? new Date(updates.acquisition_date) : null;
     if (updates.acquisition_notes !== undefined) data.acquisition_notes = updates.acquisition_notes;
     if (updates.display_location !== undefined) data.display_location = updates.display_location;
+
+    if (updates.cost !== undefined) data.cost = updates.cost;
 
     if (updates.pricing) {
       data.pricing_six_month_avg = updates.pricing.sixMonthAverage;
@@ -714,6 +719,10 @@ class DatabaseService {
     if (updates.image_url !== undefined) data.image_url = updates.image_url;
     if (updates.category_name !== undefined) data.category_name = updates.category_name;
 
+    if (updates.completeness !== undefined) data.completeness = updates.completeness;
+    if (updates.cost !== undefined) data.cost = updates.cost;
+    if (updates.notes !== undefined) data.notes = updates.notes;
+
     if (updates.pricing) {
       data.pricing_six_month_avg = updates.pricing.sixMonthAverage;
       data.pricing_current_avg = updates.pricing.currentAverage;
@@ -849,6 +858,9 @@ class DatabaseService {
     if (updates.acquisition_date !== undefined) data.acquisition_date = updates.acquisition_date ? new Date(updates.acquisition_date) : null;
     if (updates.acquisition_notes !== undefined) data.acquisition_notes = updates.acquisition_notes;
     if (updates.display_location !== undefined) data.display_location = updates.display_location;
+
+    if (updates.completeness !== undefined) data.completeness = updates.completeness;
+    if (updates.cost !== undefined) data.cost = updates.cost;
 
     if (updates.pricing) {
       data.pricing_six_month_avg = updates.pricing.sixMonthAverage;
