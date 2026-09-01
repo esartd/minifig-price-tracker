@@ -19,10 +19,19 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // Search both minifigures and sets in parallel - show ALL results (no limit)
+    // Cap the results. This used to ask for 10,000 of each ("effectively
+    // unlimited"), which meant typing a single character returned 11,888 items
+    // and a 4.2 MB response taking over a second — to render a handful on
+    // screen. Capping is safe because both searches score and sort before
+    // slicing: an exact ID match scores 1000 and short-circuits, so the item
+    // you're looking for is at the top, never truncated off the end.
+    const requested = Number(searchParams.get('limit'));
+    const limit =
+      Number.isFinite(requested) && requested > 0 ? Math.min(requested, 500) : 100;
+
     const [minifigs, sets] = await Promise.all([
-      searchMinifigs(query, 10000), // Effectively unlimited
-      Promise.resolve(searchBoxes(query, 10000)) // Effectively unlimited
+      searchMinifigs(query, limit),
+      Promise.resolve(searchBoxes(query, limit)),
     ]);
 
     return NextResponse.json({
