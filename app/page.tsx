@@ -150,15 +150,13 @@ function SearchPageContent() {
       setHasSearchedState(false);
       debounceTimer.current = setTimeout(() => {
         performSearch(searchQuery, categoryId, subcategory);
-        // 250ms rather than 50ms. At 50ms essentially every keystroke fired its
-        // own request, and short prefixes are by far the slowest: "6" matches
-        // ~11,900 items and takes over a second, while the full "662407"
-        // matches one and takes ~270ms. So the broad early request routinely
-        // landed last and overwrote the correct result — which is why a search
-        // would "not find" an item that plainly exists, then work on a retry.
-        // The sequence guard in performSearch is the real fix; this just stops
-        // us making six requests to answer one question.
-      }, 250);
+        // 150ms. It was 50ms, which meant essentially every keystroke fired
+        // its own request; the stale-response race that caused was fixed by
+        // the sequence guard in performSearch, not by waiting longer. This is
+        // only here to avoid making six requests to answer one question, and
+        // 150ms does that while keeping the search feeling responsive —
+        // every 100ms here is 100ms the user waits after they stop typing.
+      }, 150);
     } else {
       setSearchResultsState([]);
       setSearchResultState(null);
