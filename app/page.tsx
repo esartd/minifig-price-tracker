@@ -101,14 +101,14 @@ function SearchPageContent() {
   const { t } = useTranslation();
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [searchResults, setSearchResults] = useState<any[]>([]);
-  const [searchResult, setSearchResult] = useState<any>(null);
+  const [searchResults, setSearchResultsState] = useState<any[]>([]);
+  const [searchResult, setSearchResultState] = useState<any>(null);
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
   const [categoryId, setCategoryId] = useState<string | null>(searchParams.get('category'));
   const [subcategory, setSubcategory] = useState<string | null>(searchParams.get('subcategory'));
   const [categoryName, setCategoryName] = useState<string>('');
-  const [loading, setLoading] = useState(false);
-  const [hasSearched, setHasSearched] = useState(false);
+  const [loading, setLoadingState] = useState(false);
+  const [hasSearched, setHasSearchedState] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const debounceTimer = useRef<NodeJS.Timeout | undefined>(undefined);
 
@@ -129,7 +129,7 @@ function SearchPageContent() {
     if ((category || sub) && !q) {
       if (sub) setSubcategory(sub);
       if (category) setCategoryId(category);
-      setLoading(true);
+      setLoadingState(true);
       performSearch('', category, sub);
     }
   }, []);
@@ -146,16 +146,24 @@ function SearchPageContent() {
     }
 
     if (searchQuery.length >= 1) {
-      setLoading(true);
-      setHasSearched(false);
+      setLoadingState(true);
+      setHasSearchedState(false);
       debounceTimer.current = setTimeout(() => {
         performSearch(searchQuery, categoryId, subcategory);
-      }, 50); // Very minimal debounce for instant feel
+        // 250ms rather than 50ms. At 50ms essentially every keystroke fired its
+        // own request, and short prefixes are by far the slowest: "6" matches
+        // ~11,900 items and takes over a second, while the full "662407"
+        // matches one and takes ~270ms. So the broad early request routinely
+        // landed last and overwrote the correct result — which is why a search
+        // would "not find" an item that plainly exists, then work on a retry.
+        // The sequence guard in performSearch is the real fix; this just stops
+        // us making six requests to answer one question.
+      }, 250);
     } else {
-      setSearchResults([]);
-      setSearchResult(null);
-      setLoading(false);
-      setHasSearched(false);
+      setSearchResultsState([]);
+      setSearchResultState(null);
+      setLoadingState(false);
+      setHasSearchedState(false);
     }
 
     return () => {
@@ -176,7 +184,31 @@ function SearchPageContent() {
     router.push(`/${queryString ? '?' + queryString : ''}`, { scroll: false });
   }, [searchQuery, categoryId, subcategory]);
 
+  /**
+   * Only the most recently started search may write results.
+   *
+   * Without this, responses were applied in whatever order they arrived, so a
+   * slow broad query ("6" — ~11,900 matches, >1s) could land after the fast
+   * precise one ("662407" — 1 match, ~270ms) and replace the right answer with
+   * thousands of irrelevant rows. The item looked missing even though it was in
+   * the catalog, and retyping "fixed" it purely by changing the timing.
+   */
+  const searchSeq = useRef(0);
+
   const performSearch = async (term: string, category: string | null = null, sub: string | null = null) => {
+    const seq = ++searchSeq.current;
+    /** False once a newer search has started; stops this one clobbering it. */
+    const isCurrent = () => seq === searchSeq.current;
+
+    // Guarded shadows of the four state setters. Declared here so every
+    // write below — including the ones in catch/finally — is a no-op once a
+    // newer search has started, without having to remember to check at each
+    // of the ~20 call sites.
+    const setSearchResults = (v: any) => { if (isCurrent()) setSearchResultsState(v); };
+    const setSearchResult = (v: any) => { if (isCurrent()) setSearchResultState(v); };
+    const setLoading = (v: boolean) => { if (isCurrent()) setLoadingState(v); };
+    const setHasSearched = (v: boolean) => { if (isCurrent()) setHasSearchedState(v); };
+
     // Subcategory-only browsing (no search term)
     if (!term && sub) {
       try {
@@ -282,17 +314,17 @@ function SearchPageContent() {
   };
 
   const handleSelectMinifig = (minifig: any) => {
-    setSearchResult(minifig);
-    setSearchResults([]);
+    setSearchResultState(minifig);
+    setSearchResultsState([]);
   };
 
   const handleCancelSelection = () => {
-    setSearchResult(null);
+    setSearchResultState(null);
   };
 
   const handleClearSearch = () => {
-    setSearchResult(null);
-    setSearchResults([]);
+    setSearchResultState(null);
+    setSearchResultsState([]);
     setSearchQuery('');
     router.push('/');
   };
@@ -403,8 +435,8 @@ function SearchPageContent() {
             transition: 'margin 0.4s ease-out'
           }}>
             <SearchBar
-              onSearchResults={setSearchResults}
-              onSearchResult={setSearchResult}
+              onSearchResults={setSearchResultsState}
+              onSearchResult={setSearchResultState}
               searchQuery={searchQuery}
               onSearchQueryChange={handleSearchQueryChange}
             />
@@ -475,7 +507,7 @@ function SearchPageContent() {
                   setCategoryId(null);
                   setSubcategory(null);
                   setCategoryName('');
-                  setSearchResults([]);
+                  setSearchResultsState([]);
                   router.push('/');
                 }}
                 style={{

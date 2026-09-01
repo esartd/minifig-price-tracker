@@ -40,21 +40,34 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
     onSearchResults([]);
 
     try {
-      const response = await fetch(`/api/minifigs/search?q=${encodeURIComponent(term)}`);
+      // Searches minifigs AND sets. This used to hit /api/minifigs/search,
+      // which meant pressing Enter on any set number — 662407, 75192 — reported
+      // "No minifigures found", even though the set was right there in the
+      // catalog. Typing found it; pressing Enter said it did not exist.
+      const response = await fetch(`/api/search-all?q=${encodeURIComponent(term)}`);
       const data = await response.json();
 
-      if (data.success && data.data.length > 0) {
-        // If only 1 result, skip selection and go directly to Add to Collection form
-        if (data.data.length === 1) {
-          onSearchResult(data.data[0]);
+      const minifigs = data?.data?.minifigs || [];
+      const sets = data?.data?.sets || [];
+
+      // Tag each result with its type, matching what the page's own
+      // as-you-type search produces, so both paths render identically.
+      const combined = [
+        ...minifigs.map((m: any) => ({ ...m, resultType: 'minifig' })),
+        ...sets.map((s: any) => ({ ...s, resultType: 'set' })),
+      ];
+
+      if (data?.success && combined.length > 0) {
+        // A single hit goes straight through, skipping the selection list.
+        if (combined.length === 1) {
+          onSearchResult(combined[0]);
           onSearchResults([]);
         } else {
-          // Multiple results - show selection list
-          onSearchResults(data.data);
-          setSuccess(t('search.foundVariations', { count: data.data.length }));
+          onSearchResults(combined);
+          setSuccess(t('search.foundVariations', { count: combined.length }));
         }
       } else {
-        setError(data.error || t('search.notFound'));
+        setError(data?.error || t('search.notFound'));
       }
     } catch (err) {
       setError(t('search.failed'));
