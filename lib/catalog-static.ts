@@ -169,8 +169,10 @@ export async function searchMinifigs(query: string, limit = 50): Promise<Minifig
     const categoryLower = minifig.category_name.toLowerCase();
 
     // Normalize: remove hyphens/special chars for comparison (e.g., "N-1" → "n1")
-    const nameNormalized = nameLower.replace(/[\-']/g, '');
-    const queryNormalized = queryL.replace(/[\-']/g, '');
+    // Whitespace is stripped too, so the way someone types a name doesn't
+    // matter: "u wing", "u-wing" and "uwing" all normalise to "uwing".
+    const nameNormalized = nameLower.replace(/[\-'\s]/g, '');
+    const queryNormalized = queryL.replace(/[\-'\s]/g, '');
 
     // Exact matches
     if (nameLower === queryL || nameNormalized === queryNormalized) return 1000;
@@ -223,7 +225,20 @@ export async function searchMinifigs(query: string, limit = 50): Promise<Minifig
       if (categoryWords.some(word => word.startsWith(queryL) && word.length >= 8)) return 15;
     }
 
-    return 0; // NO substring matching
+    // Match the query against a run of consecutive words, anchored to a word
+    // start. "uwing" matches "Rebel [U] [Wing] Fighter" because the run
+    // "u"+"wing" begins at a word boundary, while "ewing" correctly does NOT
+    // match "Sewing Machine" or "The Winged Keys" — a plain substring test
+    // matched both, which is why unanchored substring matching was avoided
+    // here originally. Gated at 4+ characters so short queries stay precise.
+    if (queryNormalized.length >= 4) {
+      const normWords = nameWords.map(w => w.replace(/[\-']/g, ''));
+      for (let i = 0; i < normWords.length; i++) {
+        if (normWords.slice(i).join('').startsWith(queryNormalized)) return 120;
+      }
+    }
+
+    return 0; // NO unguarded substring matching
   }
 
   // 4. Score, filter, and sort

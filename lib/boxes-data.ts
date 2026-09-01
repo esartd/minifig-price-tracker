@@ -118,9 +118,13 @@ export function searchBoxes(query: string, limit: number = 50): LegoBox[] {
     const idL = box.box_no.toLowerCase();
     const categoryL = box.category_name.toLowerCase();
 
-    // Normalize: remove hyphens/special chars (e.g., "N-1" → "n1")
-    const nameNormalized = nameL.replace(/[\-']/g, '');
-    const queryNormalized = queryL.replace(/[\-']/g, '');
+    // Normalize away hyphens, apostrophes AND spaces, so the way someone types
+    // a name doesn't matter: "u wing", "u-wing" and "uwing" all become "uwing"
+    // and match "U-Wing". Spaces were previously left in the query while being
+    // stripped from nothing, so "u wing" matched nothing at all — which took
+    // out every Star Wars starfighter: X-wing, Y-wing, A-wing, V-wing.
+    const nameNormalized = nameL.replace(/[\-'\s]/g, '');
+    const queryNormalized = queryL.replace(/[\-'\s]/g, '');
 
     // Exact matches
     if (nameL === queryL || nameNormalized === queryNormalized) return 1000;
@@ -171,7 +175,20 @@ export function searchBoxes(query: string, limit: number = 50): LegoBox[] {
       if (categoryWords.some(w => w.startsWith(queryL) && w.length >= 8)) return 15;
     }
 
-    return 0; // NO substring matching
+    // Match the query against a run of consecutive words, anchored to a word
+    // start. "uwing" matches "Rebel [U] [Wing] Fighter" because the run
+    // "u"+"wing" begins at a word boundary, while "ewing" correctly does NOT
+    // match "Sewing Machine" or "The Winged Keys" — a plain substring test
+    // matched both, which is why unanchored substring matching was avoided
+    // here originally. Gated at 4+ characters so short queries stay precise.
+    if (queryNormalized.length >= 4) {
+      const normWords = nameWords.map(w => w.replace(/[\-']/g, ''));
+      for (let i = 0; i < normWords.length; i++) {
+        if (normWords.slice(i).join('').startsWith(queryNormalized)) return 120;
+      }
+    }
+
+    return 0; // NO unguarded substring matching
   }
 
   // 4. Score, filter, and sort
