@@ -2618,7 +2618,9 @@
         "bricklink": "\"購入前にご質問があればご連絡ください\""
       },
       "shipsWithTracking": "追跡付きで発送します",
-      "smokeFreeHome": "禁煙環境での保管品"
+      "smokeFreeHome": "禁煙環境での保管品",
+      "crossPromo": "他の出品にも触れる",
+      "crossPromoHelp": "説明の最後に追加されます。リンクは自動的に削除されます（多くのマーケットプレイスで禁止されているためです）。"
     },
     "cancel": "キャンセル",
     "generating": "生成中...",
@@ -3006,7 +3008,12 @@
     "bulkCompletenessSetAll": "すべて次に設定",
     "bulkCompletenessHelp": "セットごとに保存されるので、この操作は一度だけです。個別に変更するにはコレクションページの鉛筆ボタンを使います。",
     "bulkCompletenessSaving": "保存中…",
-    "bulkCompletenessFailed": "保存できませんでした。もう一度お試しください。"
+    "bulkCompletenessFailed": "保存できませんでした。もう一度お試しください。",
+    "crossPromo": "他の出品にも触れる",
+    "crossPromoHelp": "各説明の最後に追加されます。リンクは自動的に削除されます（多くのマーケットプレイスで禁止されているためです）。",
+    "crossPromoWhatnot": "Whatnotでは説明が出品中の商品のみに関するものであることが求められるため、下のWhatnot欄で有効にしない限りWhatnotのファイルには含まれません。",
+    "crossPromoBricklink": "BrickLinkのファイルには含まれません。あちらのメモは非公開で、購入者には表示されないためです。",
+    "whatnotAllowCrossPromo": "ここにも他の出品への言及を含める"
   },
   "sellerDetails": {
     "title": "販売情報",

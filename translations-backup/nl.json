@@ -2618,7 +2618,9 @@
         "bricklink": "\"Neem contact op bij vragen vóór aankoop\""
       },
       "shipsWithTracking": "Verzonden met tracking",
-      "smokeFreeHome": "Uit rookvrij huis"
+      "smokeFreeHome": "Uit rookvrij huis",
+      "crossPromo": "Mijn andere advertenties noemen",
+      "crossPromoHelp": "Wordt aan het eind van de beschrijving gezet. Links worden automatisch verwijderd — de meeste marktplaatsen staan ze niet toe."
     },
     "cancel": "Annuleren",
     "generating": "Bezig met genereren...",
@@ -3006,7 +3008,12 @@
     "bulkCompletenessSetAll": "Zet ze allemaal op",
     "bulkCompletenessHelp": "Wordt per set opgeslagen, dus je doet dit maar één keer. Wijzig losse items met het potlood op je collectiepagina.",
     "bulkCompletenessSaving": "Opslaan…",
-    "bulkCompletenessFailed": "Dat kon niet worden opgeslagen. Probeer het opnieuw."
+    "bulkCompletenessFailed": "Dat kon niet worden opgeslagen. Probeer het opnieuw.",
+    "crossPromo": "Mijn andere advertenties noemen",
+    "crossPromoHelp": "Wordt aan het eind van elke beschrijving gezet. Links worden automatisch verwijderd — de meeste marktplaatsen staan ze niet toe.",
+    "crossPromoWhatnot": "Whatnot vraagt dat een beschrijving alleen over het aangeboden item gaat, dus dit blijft uit Whatnot-bestanden tenzij je het hieronder bij Whatnot aanzet.",
+    "crossPromoBricklink": "BrickLink-bestanden bevatten dit niet — de enige notitie daar is privé en niet zichtbaar voor kopers.",
+    "whatnotAllowCrossPromo": "Mijn regel hier ook opnemen"
   },
   "sellerDetails": {
     "title": "Verkoopgegevens",

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useTranslation } from '@/components/TranslationProvider';
 import AlertDialog from '@/components/AlertDialog';
+import { DEFAULT_CROSS_PROMO_TEXT, CROSS_PROMO_MAX_LENGTH } from '@/lib/cross-promo';
 import {
   ArrowDownTrayIcon,
   ArrowPathIcon,
@@ -96,6 +97,13 @@ const WHATNOT_CONDITIONS = [
 interface SharedOptions {
   markupPercent: number;
   rounding: 'exact' | 'whole' | 'ninetyNine';
+  /**
+   * Cross-promo line. Shared across marketplaces, but each adapter decides
+   * whether to emit it — Whatnot defaults to off, and BrickLink has no
+   * buyer-facing field to put it in at all.
+   */
+  crossPromoEnabled: boolean;
+  crossPromoText: string;
 }
 
 interface WhatnotOptions {
@@ -104,9 +112,23 @@ interface WhatnotOptions {
   packagingOz: number;
   offerable: boolean;
   includeImages: boolean;
+  /**
+   * Separate opt-in, so enabling cross-promo globally does NOT switch it on
+   * for Whatnot. Their guidelines ask that a description refer only to the
+   * item for sale, so this one is a deliberate choice rather than a default.
+   */
+  allowCrossPromo: boolean;
 }
 
-const DEFAULT_SHARED: SharedOptions = { markupPercent: 0, rounding: 'exact' };
+const DEFAULT_SHARED: SharedOptions = {
+  markupPercent: 0,
+  rounding: 'exact',
+  crossPromoEnabled: false,
+  crossPromoText: DEFAULT_CROSS_PROMO_TEXT,
+};
+
+/** Shared with the per-item generator so the seller types their line once. */
+const CROSS_PROMO_STORAGE_KEY = 'listingCrossPromo';
 
 interface BricklinkOptions {
   defaultCompleteness: 'complete' | 'incomplete' | 'sealed';
@@ -154,6 +176,7 @@ const DEFAULT_WHATNOT: WhatnotOptions = {
   packagingOz: 2,
   offerable: true,
   includeImages: true,
+  allowCrossPromo: false,
 };
 
 interface PreviewMarketplace {
@@ -268,6 +291,27 @@ export default function MarketplaceExportClient({
   const [bricklink, setBricklink] = useState<BricklinkOptions>(DEFAULT_BRICKLINK);
   const [ebay, setEbay] = useState<EbayOptions>(DEFAULT_EBAY);
 
+  // Restore the seller's cross-promo line. Export settings are otherwise
+  // per-visit state, but retyping this every time defeats the point.
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(CROSS_PROMO_STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setShared((o) => ({
+          ...o,
+          crossPromoEnabled: Boolean(parsed.crossPromoEnabled),
+          crossPromoText:
+            typeof parsed.crossPromoText === 'string' && parsed.crossPromoText.trim()
+              ? parsed.crossPromoText
+              : o.crossPromoText,
+        }));
+      }
+    } catch {
+      // A corrupt blob shouldn't stop the tool loading.
+    }
+  }, []);
+
   const [preview, setPreview] = useState<PreviewData | null>(null);
   const [previewing, setPreviewing] = useState(false);
   const [building, setBuilding] = useState(false);
@@ -286,8 +330,16 @@ export default function MarketplaceExportClient({
   /** Per-marketplace settings, in the shape the API expects. */
   const optionsByMarketplace = useMemo(
     () => ({
-      whatnot: { ...shared, ...whatnot },
-      bricklink: { ...shared, ...bricklink },
+      // BrickLink deliberately gets no cross-promo: its only free-text field
+      // is REMARKS, which is a private seller note rather than something a
+      // buyer ever sees.
+      whatnot: {
+        ...shared,
+        ...whatnot,
+        // Requires both the global switch and Whatnot's own opt-in.
+        crossPromoEnabled: shared.crossPromoEnabled && whatnot.allowCrossPromo,
+      },
+      bricklink: { ...shared, ...bricklink, crossPromoEnabled: false },
       ebay: { ...shared, ...ebay },
     }),
     [shared, whatnot, bricklink, ebay]
@@ -384,6 +436,21 @@ export default function MarketplaceExportClient({
       if (previewTimer.current) clearTimeout(previewTimer.current);
     };
   }, [selected, selectedMarketplaces, optionsByMarketplace, source]);
+
+  // Persist just the cross-promo line, so it survives a reload.
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        CROSS_PROMO_STORAGE_KEY,
+        JSON.stringify({
+          crossPromoEnabled: shared.crossPromoEnabled,
+          crossPromoText: shared.crossPromoText,
+        })
+      );
+    } catch {
+      // Private browsing or a full quota shouldn't break the tool.
+    }
+  }, [shared.crossPromoEnabled, shared.crossPromoText]);
 
   // Any change invalidates already-built files.
   useEffect(() => {
@@ -752,6 +819,67 @@ export default function MarketplaceExportClient({
               </div>
             </div>
 
+            {/* Cross-promo. Shared across marketplaces, but each decides
+                whether to use it — see the per-marketplace notes below. */}
+            <div style={{ marginTop: '20px' }}>
+              <label
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontSize: 'var(--text-sm)',
+                  color: '#404040',
+                  cursor: 'pointer',
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={shared.crossPromoEnabled}
+                  onChange={(e) =>
+                    setShared((o) => ({ ...o, crossPromoEnabled: e.target.checked }))
+                  }
+                />
+                {tr('marketplaceExport.crossPromo', 'Mention my other listings')}
+              </label>
+
+              {shared.crossPromoEnabled && (
+                <div style={{ paddingLeft: '24px', marginTop: '8px' }}>
+                  <input
+                    type="text"
+                    value={shared.crossPromoText}
+                    maxLength={CROSS_PROMO_MAX_LENGTH}
+                    placeholder={DEFAULT_CROSS_PROMO_TEXT}
+                    onChange={(e) =>
+                      setShared((o) => ({ ...o, crossPromoText: e.target.value }))
+                    }
+                    style={{ ...controlStyle, maxWidth: '420px' }}
+                  />
+                  <p style={{ fontSize: 'var(--text-xs)', color: '#737373', margin: '6px 0 0' }}>
+                    {tr(
+                      'marketplaceExport.crossPromoHelp',
+                      'Added to the end of each description. Links are removed automatically — most marketplaces don’t allow them.'
+                    )}
+                  </p>
+                  {selectedMarketplaces.has('whatnot') && (
+                    <p style={{ fontSize: 'var(--text-xs)', color: '#92400e', margin: '6px 0 0' }}>
+                      {tr(
+                        'marketplaceExport.crossPromoWhatnot',
+                        'Whatnot asks that a description refer only to the item for sale, so this is left out of Whatnot files unless you turn it on in the Whatnot section below.'
+                      )}
+                    </p>
+                  )}
+                  {selectedMarketplaces.has('bricklink') && (
+                    <p style={{ fontSize: 'var(--text-xs)', color: '#737373', margin: '6px 0 0' }}>
+                      {tr(
+                        'marketplaceExport.crossPromoBricklink',
+                        'BrickLink files don’t include this — the only note they carry is private to you, not shown to buyers.'
+                      )}
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+
             {selectedMarketplaces.has('whatnot') && (
               <div style={{ marginTop: '24px' }}>
                 <p style={sectionHeading}>Whatnot</p>
@@ -883,6 +1011,31 @@ export default function MarketplaceExportClient({
                       />
                       {tr('whatnotExport.options.offerable', 'Allow buyers to make offers')}
                     </label>
+
+                    {shared.crossPromoEnabled && (
+                      <label
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          fontSize: 'var(--text-sm)',
+                          color: '#404040',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={whatnot.allowCrossPromo}
+                          onChange={(e) =>
+                            setWhatnot((o) => ({ ...o, allowCrossPromo: e.target.checked }))
+                          }
+                        />
+                        {tr(
+                          'marketplaceExport.whatnotAllowCrossPromo',
+                          'Include my other-listings line here too'
+                        )}
+                      </label>
+                    )}
                   </div>
                 </div>
               </div>

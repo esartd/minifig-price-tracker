@@ -4,6 +4,7 @@ import { isPremiumUser } from '@/lib/premium';
 import { findMinifigByNumber } from '@/lib/catalog-static';
 import { pricingOrchestrator, LOGGED_IN_TTL_HOURS, LOGGED_OUT_TTL_HOURS } from '@/lib/pricing-orchestrator';
 import { generateListing } from '@/lib/listing-templates';
+import { sanitizePreferences } from '@/lib/cross-promo';
 
 /**
  * POST /api/minifigs/[itemNo]/generate-listing
@@ -89,7 +90,7 @@ export async function POST(
       accessories,
       knownFlaws: known_flaws,
       quantity: quantity || 1,
-      preferences: preferences || {},
+      preferences: sanitizePreferences(preferences),
     });
 
     return NextResponse.json({

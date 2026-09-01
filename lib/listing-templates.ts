@@ -1,5 +1,7 @@
 // Free template-based listing generator (no AI, no API costs)
 
+import { crossPromoLine } from './cross-promo';
+
 interface ListingPreferences {
   // Facebook & Vinted
   offersShipping?: boolean;
@@ -18,6 +20,8 @@ interface ListingPreferences {
   // All platforms
   smokeFreeHome?: boolean;
   shipsWithTracking?: boolean;
+  crossPromoEnabled?: boolean;
+  crossPromoText?: string;
 }
 
 interface ListingData {
@@ -47,6 +51,18 @@ interface ListingData {
   instructionsIncluded?: boolean;
   minifigsIncluded?: boolean;
   setNotes?: string;
+}
+
+/**
+ * The seller's cross-promo line, appended to a finished description.
+ *
+ * Every generator below builds its own tail — there's no shared footer — so
+ * this keeps the sanitising and the "is it switched on" check in one place
+ * rather than repeating them five times.
+ */
+function appendCrossPromo(description: string, prefs: ListingPreferences): string {
+  const line = crossPromoLine(prefs.crossPromoEnabled, prefs.crossPromoText);
+  return line ? `${description}\n\n${line}` : description;
 }
 
 // Extract clean character name from full minifig name
@@ -169,6 +185,8 @@ Condition: ${formattedCondition}`;
     description += `\n\nOffers accepted - click "Make Offer" to negotiate!`;
   }
 
+  description = appendCrossPromo(description, prefs);
+
   return { title, description };
 }
 
@@ -228,6 +246,8 @@ Condition: ${formattedCondition}`;
     description += `\n\n${extraInfo.join('\n')}`;
   }
 
+  description = appendCrossPromo(description, prefs);
+
   return { title, description };
 }
 
@@ -275,6 +295,8 @@ Condition: ${formattedCondition}`;
     description += `\n\nContact with questions before purchasing.`;
   }
 
+  description = appendCrossPromo(description, prefs);
+
   return { title, description };
 }
 
@@ -314,6 +336,8 @@ Condition: ${formattedCondition}`;
   }
 
   description += `\n\nFeel free to message if you have any questions! 😊`;
+
+  description = appendCrossPromo(description, prefs);
 
   return { title, description };
 }
@@ -453,6 +477,8 @@ function generateSetListing(
   if (extraInfo.length > 0) {
     description += `\n\n${extraInfo.join('\n')}`;
   }
+
+  description = appendCrossPromo(description, prefs);
 
   return { title, description };
 }

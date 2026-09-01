@@ -4,6 +4,7 @@ import { isPremiumUser } from '@/lib/premium';
 import { getBoxByNumber } from '@/lib/boxes-data';
 import { pricingOrchestrator, LOGGED_IN_TTL_HOURS } from '@/lib/pricing-orchestrator';
 import { generateListing } from '@/lib/listing-templates';
+import { sanitizePreferences } from '@/lib/cross-promo';
 
 /**
  * POST /api/sets/[boxNo]/generate-listing
@@ -105,7 +106,7 @@ export async function POST(
       minifigsIncluded: minifigures_included,
       setNotes: set_notes,
       quantity: quantity || 1,
-      preferences: preferences || {},
+      preferences: sanitizePreferences(preferences),
       itemType: 'set',
     });
 

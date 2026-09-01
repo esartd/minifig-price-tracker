@@ -11,6 +11,7 @@
  */
 
 import { buildCsv } from '@/lib/csv';
+import { crossPromoLine, CROSS_PROMO_MAX_LENGTH } from '@/lib/cross-promo';
 import { buildTitle } from '../titles';
 import { displaySetNumber } from '../catalog';
 import { formatPrice, isPriceRounding, type PriceRounding } from '../pricing';
@@ -143,6 +144,18 @@ export interface WhatnotOptions {
   offerable: boolean;
   includeImages: boolean;
   titleMaxLength: number;
+  /**
+   * Off by default: Whatnot's listing guidelines say a description "must refer
+   * only to the item for sale", so this is opt-in rather than assumed.
+   */
+  crossPromoEnabled: boolean;
+  crossPromoText: string;
+  /**
+   * Whatnot's own opt-in, separate from the shared switch. Both must be true.
+   * Enforced here rather than only in the UI so the rule holds no matter who
+   * calls the API.
+   */
+  allowCrossPromo: boolean;
 }
 
 export const DEFAULT_WHATNOT_OPTIONS: WhatnotOptions = {
@@ -154,6 +167,9 @@ export const DEFAULT_WHATNOT_OPTIONS: WhatnotOptions = {
   offerable: true,
   includeImages: true,
   titleMaxLength: 80,
+  crossPromoEnabled: false,
+  crossPromoText: '',
+  allowCrossPromo: false,
 };
 
 function toNumber(value: unknown, fallback: number): number {
@@ -215,7 +231,11 @@ function buildWhatnotTitle(item: ExportItem, maxLength: number): string {
       );
 }
 
-function buildDescription(item: ExportItem, condition: WhatnotCondition): string {
+function buildDescription(
+  item: ExportItem,
+  condition: WhatnotCondition,
+  options: WhatnotOptions
+): string {
   const parts: string[] = [];
 
   parts.push(
@@ -227,6 +247,13 @@ function buildDescription(item: ExportItem, condition: WhatnotCondition): string
 
   parts.push(`Condition: ${condition}`);
   parts.push(`${item.itemType === 'minifig' ? 'Minifigure' : 'Set'} number: ${item.itemNo}`);
+
+  // Requires both switches: the seller's global one and Whatnot's own opt-in.
+  const promo = crossPromoLine(
+    options.crossPromoEnabled && options.allowCrossPromo,
+    options.crossPromoText
+  );
+  if (promo) parts.push(promo);
 
   return parts.join('\n\n');
 }
@@ -262,6 +289,14 @@ export const whatnotAdapter: MarketplaceAdapter<WhatnotRow, WhatnotOptions> = {
       offerable: typeof o.offerable === 'boolean' ? o.offerable : d.offerable,
       includeImages: typeof o.includeImages === 'boolean' ? o.includeImages : d.includeImages,
       titleMaxLength: clamp(toNumber(o.titleMaxLength, d.titleMaxLength), 20, 140),
+      crossPromoEnabled:
+        typeof o.crossPromoEnabled === 'boolean' ? o.crossPromoEnabled : d.crossPromoEnabled,
+      crossPromoText:
+        typeof o.crossPromoText === 'string'
+          ? o.crossPromoText.slice(0, CROSS_PROMO_MAX_LENGTH)
+          : d.crossPromoText,
+      allowCrossPromo:
+        typeof o.allowCrossPromo === 'boolean' ? o.allowCrossPromo : d.allowCrossPromo,
     };
   },
 
@@ -284,7 +319,7 @@ export const whatnotAdapter: MarketplaceAdapter<WhatnotRow, WhatnotOptions> = {
         subCategory:
           item.itemType === 'minifig' ? WHATNOT_SUBCATEGORY.minifig : WHATNOT_SUBCATEGORY.set,
         title: buildWhatnotTitle(item, options.titleMaxLength),
-        description: buildDescription(item, condition),
+        description: buildDescription(item, condition, options),
         quantity: item.quantity,
         type: options.type,
         price: formatPrice(item.priceUsd, options.markupPercent, options.rounding),

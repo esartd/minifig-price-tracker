@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { generateListing } from '@/lib/listing-templates';
+import { sanitizePreferences } from '@/lib/cross-promo';
 
 export async function POST(
   request: NextRequest,
@@ -85,7 +86,7 @@ export async function POST(
       minifigsIncluded: minifigures_included,
       setNotes: set_notes,
       quantity: quantity || 1,
-      preferences: preferences || {},
+      preferences: sanitizePreferences(preferences),
       itemType: 'set'
     });
 

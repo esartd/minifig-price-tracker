@@ -2675,7 +2675,9 @@
         "bricklink": "\"Contáctame con preguntas antes de comprar\""
       },
       "shipsWithTracking": "Enviado con seguimiento",
-      "smokeFreeHome": "De un hogar libre de humo"
+      "smokeFreeHome": "De un hogar libre de humo",
+      "crossPromo": "Mencionar mis otros anuncios",
+      "crossPromoHelp": "Se añade al final de la descripción. Los enlaces se eliminan automáticamente: la mayoría de los mercados no los permiten."
     },
     "cancel": "Cancelar",
     "generating": "Generando...",
@@ -3063,7 +3065,12 @@
     "bulkCompletenessSetAll": "Ponerlos todos en",
     "bulkCompletenessHelp": "Se guarda en cada set, así que solo lo haces una vez. Cambia los individuales con el lápiz en tu página de colección.",
     "bulkCompletenessSaving": "Guardando…",
-    "bulkCompletenessFailed": "No se pudo guardar. Inténtalo de nuevo."
+    "bulkCompletenessFailed": "No se pudo guardar. Inténtalo de nuevo.",
+    "crossPromo": "Mencionar mis otros anuncios",
+    "crossPromoHelp": "Se añade al final de cada descripción. Los enlaces se eliminan automáticamente: la mayoría de los mercados no los permiten.",
+    "crossPromoWhatnot": "Whatnot pide que la descripción hable solo del artículo en venta, así que esto se omite en los archivos de Whatnot salvo que lo actives en la sección de Whatnot.",
+    "crossPromoBricklink": "Los archivos de BrickLink no lo incluyen: su única nota es privada y no la ven los compradores.",
+    "whatnotAllowCrossPromo": "Incluir aquí también mi mención"
   },
   "sellerDetails": {
     "title": "Detalles de venta",

@@ -2155,7 +2155,9 @@
         "bricklink": "\"Contact with questions before purchasing\""
       },
       "shipsWithTracking": "Shipped with tracking",
-      "smokeFreeHome": "From smoke-free home"
+      "smokeFreeHome": "From smoke-free home",
+      "crossPromo": "Mention my other listings",
+      "crossPromoHelp": "Added to the end of the description. Links are removed automatically — most marketplaces don’t allow them."
     },
     "cancel": "Cancel",
     "generating": "Generating...",
@@ -3005,7 +3007,12 @@
     "bulkCompletenessSetAll": "Set them all to",
     "bulkCompletenessHelp": "Saved against each set, so you only do this once. Change individual ones with the pencil button on your collection page.",
     "bulkCompletenessSaving": "Saving…",
-    "bulkCompletenessFailed": "We couldn’t save that. Please try again."
+    "bulkCompletenessFailed": "We couldn’t save that. Please try again.",
+    "crossPromo": "Mention my other listings",
+    "crossPromoHelp": "Added to the end of each description. Links are removed automatically — most marketplaces don’t allow them.",
+    "crossPromoWhatnot": "Whatnot asks that a description refer only to the item for sale, so this is left out of Whatnot files unless you turn it on in the Whatnot section below.",
+    "crossPromoBricklink": "BrickLink files don’t include this — the only note they carry is private to you, not shown to buyers.",
+    "whatnotAllowCrossPromo": "Include my other-listings line here too"
   },
   "sellerDetails": {
     "title": "Selling details",

@@ -2618,7 +2618,9 @@
         "bricklink": "\"Kontakta mig med frågor innan köp\""
       },
       "shipsWithTracking": "Skickas med spårning",
-      "smokeFreeHome": "Från rökfritt hem"
+      "smokeFreeHome": "Från rökfritt hem",
+      "crossPromo": "Nämn mina andra annonser",
+      "crossPromoHelp": "Läggs till i slutet av beskrivningen. Länkar tas bort automatiskt — de flesta marknadsplatser tillåter dem inte."
     },
     "cancel": "Avbryt",
     "generating": "Skapar...",
@@ -3006,7 +3008,12 @@
     "bulkCompletenessSetAll": "Sätt alla till",
     "bulkCompletenessHelp": "Sparas på varje set, så du gör detta en gång. Ändra enskilda med pennan på din samlingssida.",
     "bulkCompletenessSaving": "Sparar…",
-    "bulkCompletenessFailed": "Det gick inte att spara. Försök igen."
+    "bulkCompletenessFailed": "Det gick inte att spara. Försök igen.",
+    "crossPromo": "Nämn mina andra annonser",
+    "crossPromoHelp": "Läggs till i slutet av varje beskrivning. Länkar tas bort automatiskt — de flesta marknadsplatser tillåter dem inte.",
+    "crossPromoWhatnot": "Whatnot ber om att en beskrivning bara handlar om föremålet som säljs, så detta utelämnas i Whatnot-filer om du inte slår på det i Whatnot-avsnittet nedan.",
+    "crossPromoBricklink": "BrickLink-filer innehåller inte detta — deras enda notering är privat och syns inte för köpare.",
+    "whatnotAllowCrossPromo": "Ta med min rad även här"
   },
   "sellerDetails": {
     "title": "Säljuppgifter",

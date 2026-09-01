@@ -2618,7 +2618,9 @@
         "bricklink": "„Skontaktuj się w razie pytań przed zakupem”"
       },
       "shipsWithTracking": "Wysyłka z numerem śledzenia",
-      "smokeFreeHome": "Z domu wolnego od dymu tytoniowego"
+      "smokeFreeHome": "Z domu wolnego od dymu tytoniowego",
+      "crossPromo": "Wspomnij o moich innych ofertach",
+      "crossPromoHelp": "Dodawane na końcu opisu. Linki są usuwane automatycznie — większość platform ich nie dopuszcza."
     },
     "cancel": "Anuluj",
     "generating": "Generowanie...",
@@ -3006,7 +3008,12 @@
     "bulkCompletenessSetAll": "Ustaw wszystkie na",
     "bulkCompletenessHelp": "Zapisywane przy każdym zestawie, więc robisz to raz. Pojedyncze zmienisz ołówkiem na stronie kolekcji.",
     "bulkCompletenessSaving": "Zapisywanie…",
-    "bulkCompletenessFailed": "Nie udało się zapisać. Spróbuj ponownie."
+    "bulkCompletenessFailed": "Nie udało się zapisać. Spróbuj ponownie.",
+    "crossPromo": "Wspomnij o moich innych ofertach",
+    "crossPromoHelp": "Dodawane na końcu każdego opisu. Linki są usuwane automatycznie — większość platform ich nie dopuszcza.",
+    "crossPromoWhatnot": "Whatnot wymaga, by opis dotyczył wyłącznie oferowanego przedmiotu, więc jest to pomijane w plikach Whatnot, chyba że włączysz to w sekcji Whatnot poniżej.",
+    "crossPromoBricklink": "Pliki BrickLink tego nie zawierają — jedyna notatka tam jest prywatna i niewidoczna dla kupujących.",
+    "whatnotAllowCrossPromo": "Dołącz moją wzmiankę także tutaj"
   },
   "sellerDetails": {
     "title": "Szczegóły sprzedaży",

@@ -2520,7 +2520,9 @@
       "offersLocalPickup": "Ich biete Abholung an",
       "offersShipping": "Ich biete Versand an",
       "shipsWithTracking": "Versand mit Sendungsverfolgung",
-      "smokeFreeHome": "Aus rauchfreiem Haushalt"
+      "smokeFreeHome": "Aus rauchfreiem Haushalt",
+      "crossPromo": "Auf meine anderen Angebote hinweisen",
+      "crossPromoHelp": "Wird ans Ende der Beschreibung gesetzt. Links werden automatisch entfernt — die meisten Marktplätze erlauben sie nicht."
     },
     "priceLabel": "Preis:",
     "quantityLabel": "Zu listende Menge:",
@@ -3063,7 +3065,12 @@
     "bulkCompletenessSetAll": "Alle setzen auf",
     "bulkCompletenessHelp": "Wird pro Set gespeichert — du machst das nur einmal. Einzelne änderst du mit dem Stift-Symbol in deiner Sammlung.",
     "bulkCompletenessSaving": "Wird gespeichert…",
-    "bulkCompletenessFailed": "Das konnte nicht gespeichert werden. Bitte versuche es erneut."
+    "bulkCompletenessFailed": "Das konnte nicht gespeichert werden. Bitte versuche es erneut.",
+    "crossPromo": "Auf meine anderen Angebote hinweisen",
+    "crossPromoHelp": "Wird ans Ende jeder Beschreibung gesetzt. Links werden automatisch entfernt — die meisten Marktplätze erlauben sie nicht.",
+    "crossPromoWhatnot": "Whatnot verlangt, dass sich eine Beschreibung nur auf den angebotenen Artikel bezieht. Daher bleibt dies in Whatnot-Dateien weg, sofern du es unten im Whatnot-Bereich nicht aktivierst.",
+    "crossPromoBricklink": "BrickLink-Dateien enthalten das nicht — die einzige Notiz dort ist privat und für Käufer nicht sichtbar.",
+    "whatnotAllowCrossPromo": "Hinweis auf andere Angebote auch hier einfügen"
   },
   "sellerDetails": {
     "title": "Verkaufsangaben",

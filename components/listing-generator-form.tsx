@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from '@/components/TranslationProvider';
 import AlertDialog from './AlertDialog';
+import { DEFAULT_CROSS_PROMO_TEXT, CROSS_PROMO_MAX_LENGTH } from '@/lib/cross-promo';
 
 interface CollectionItem {
   /** Real collection-row id -- absent when generating without adding to a
@@ -58,6 +59,8 @@ interface ListingPreferences {
   // All platforms
   smokeFreeHome: boolean;
   shipsWithTracking: boolean;
+  crossPromoEnabled: boolean;
+  crossPromoText: string;
 }
 
 const DEFAULT_PREFERENCES: ListingPreferences = {
@@ -78,6 +81,8 @@ const DEFAULT_PREFERENCES: ListingPreferences = {
   // All platforms
   smokeFreeHome: true,
   shipsWithTracking: true,
+  crossPromoEnabled: true,
+  crossPromoText: DEFAULT_CROSS_PROMO_TEXT,
 };
 
 export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType = 'minifig', hasMinifigs = true, categoryName, generateEndpoint }: ListingGeneratorFormProps) {
@@ -135,7 +140,11 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
   useEffect(() => {
     const saved = localStorage.getItem('listingPreferences');
     if (saved) {
-      setPreferences(JSON.parse(saved));
+      // Merge over the defaults rather than replacing. A blob saved before a
+      // new preference existed has no key for it, and `checked={undefined}`
+      // silently flips the input to uncontrolled — a React warning and a
+      // toggle that won't move until the user happens to save again.
+      setPreferences({ ...DEFAULT_PREFERENCES, ...JSON.parse(saved) });
     }
 
     const savedLastUsed = localStorage.getItem('listingLastUsed');
@@ -1097,6 +1106,45 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
                 />
                 {t('listingGenerator.preferences.smokeFreeHome') || 'From smoke-free home'}
               </label>
+
+              {/* Cross-promotion. Text only, never a link: eBay prohibits
+                  links to other sites in descriptions and Vinted bans them
+                  outright, so anything URL-shaped is stripped on the way out. */}
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: 'var(--text-sm)', cursor: 'pointer' }}>
+                <input
+                  type="checkbox"
+                  checked={preferences.crossPromoEnabled}
+                  onChange={(e) => setPreferences(prev => ({ ...prev, crossPromoEnabled: e.target.checked }))}
+                />
+                {t('listingGenerator.preferences.crossPromo') || 'Mention my other listings'}
+              </label>
+
+              {preferences.crossPromoEnabled && (
+                <div style={{ paddingLeft: '24px' }}>
+                  <input
+                    type="text"
+                    value={preferences.crossPromoText}
+                    maxLength={CROSS_PROMO_MAX_LENGTH}
+                    onChange={(e) => setPreferences(prev => ({ ...prev, crossPromoText: e.target.value }))}
+                    placeholder={DEFAULT_CROSS_PROMO_TEXT}
+                    style={{
+                      width: '100%',
+                      padding: '8px 10px',
+                      fontSize: 'var(--text-sm)',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      color: '#171717',
+                      background: '#ffffff',
+                      outline: 'none',
+                      boxSizing: 'border-box',
+                    }}
+                  />
+                  <p style={{ fontSize: 'var(--text-xs)', color: '#737373', margin: '6px 0 0' }}>
+                    {t('listingGenerator.preferences.crossPromoHelp') ||
+                      'Added to the end of the description. Links are removed automatically — most marketplaces don’t allow them.'}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 

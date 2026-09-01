@@ -3,6 +3,7 @@ import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { findMinifigByNumber } from '@/lib/catalog-static';
 import { generateListing, extractTheme } from '@/lib/listing-templates';
+import { sanitizePreferences } from '@/lib/cross-promo';
 
 export async function POST(
   request: NextRequest,
@@ -69,7 +70,7 @@ export async function POST(
       accessories,
       knownFlaws: known_flaws,
       quantity: quantity || 1,
-      preferences: preferences || {}
+      preferences: sanitizePreferences(preferences)
     });
 
     return NextResponse.json({

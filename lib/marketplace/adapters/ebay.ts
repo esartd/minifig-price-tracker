@@ -19,6 +19,7 @@
  */
 
 import { buildCsv } from '@/lib/csv';
+import { crossPromoLine, CROSS_PROMO_MAX_LENGTH } from '@/lib/cross-promo';
 import { buildTitle } from '../titles';
 import { displaySetNumber } from '../catalog';
 import { formatPrice, isPriceRounding, type PriceRounding } from '../pricing';
@@ -103,6 +104,9 @@ export interface EbayOptions {
   shippingCost: number;
   includeImages: boolean;
   titleMaxLength: number;
+  /** Text only — eBay prohibits links to other sites in a description. */
+  crossPromoEnabled: boolean;
+  crossPromoText: string;
 }
 
 export const DEFAULT_EBAY_OPTIONS: EbayOptions = {
@@ -117,6 +121,8 @@ export const DEFAULT_EBAY_OPTIONS: EbayOptions = {
   shippingCost: 4.99,
   includeImages: true,
   titleMaxLength: 80,
+  crossPromoEnabled: false,
+  crossPromoText: '',
 };
 
 function toNumber(value: unknown, fallback: number): number {
@@ -185,7 +191,7 @@ function escapeHtml(text: string): string {
  * eBay's Description field cannot contain line breaks — a raw newline breaks
  * the row apart. Paragraphs become <p> instead.
  */
-function buildEbayDescription(item: ExportItem): string {
+function buildEbayDescription(item: ExportItem, options: EbayOptions): string {
   const paragraphs: string[] = [];
 
   paragraphs.push(
@@ -204,6 +210,9 @@ function buildEbayDescription(item: ExportItem): string {
   paragraphs.push(
     `${item.itemType === 'minifig' ? 'Minifigure' : 'Set'} number: ${escapeHtml(item.itemNo)}`
   );
+
+  const promo = crossPromoLine(options.crossPromoEnabled, options.crossPromoText);
+  if (promo) paragraphs.push(escapeHtml(promo));
 
   return paragraphs.map((p) => `<p>${p}</p>`).join('');
 }
@@ -254,6 +263,12 @@ export const ebayAdapter: MarketplaceAdapter<EbayRow, EbayOptions> = {
       shippingCost: clamp(toNumber(o.shippingCost, d.shippingCost), 0, 999),
       includeImages: typeof o.includeImages === 'boolean' ? o.includeImages : d.includeImages,
       titleMaxLength: clamp(toNumber(o.titleMaxLength, d.titleMaxLength), 20, 80),
+      crossPromoEnabled:
+        typeof o.crossPromoEnabled === 'boolean' ? o.crossPromoEnabled : d.crossPromoEnabled,
+      crossPromoText:
+        typeof o.crossPromoText === 'string'
+          ? o.crossPromoText.slice(0, CROSS_PROMO_MAX_LENGTH)
+          : d.crossPromoText,
     };
   },
 
@@ -282,7 +297,7 @@ export const ebayAdapter: MarketplaceAdapter<EbayRow, EbayOptions> = {
         category:
           item.itemType === 'minifig' ? EBAY_CATEGORY.minifig : EBAY_CATEGORY.set,
         title: buildEbayTitle(item, options.titleMaxLength),
-        description: buildEbayDescription(item),
+        description: buildEbayDescription(item, options),
         conditionId: item.condition === 'new' ? EBAY_CONDITION.new : EBAY_CONDITION.used,
         picUrl: item.imageUrl ?? '',
         format: options.format,
