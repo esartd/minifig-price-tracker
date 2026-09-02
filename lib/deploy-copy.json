@@ -1,0 +1,102 @@
+{
+  "en": {
+    "updatingTitle": "Snapping in a few new bricks",
+    "updatingBody": "FigTracker is updating. This page will reload itself in a moment.",
+    "updatingSlow": "This is taking longer than usual. Hang tight.",
+    "reload": "Reload now",
+    "errorTitle": "Something went wrong",
+    "errorBody": "We hit an unexpected problem loading this page.",
+    "retry": "Try again",
+    "home": "Go home"
+  },
+  "de": {
+    "updatingTitle": "Wir setzen noch ein paar Steine ein",
+    "updatingBody": "FigTracker wird aktualisiert. Diese Seite lädt sich in einem Moment neu.",
+    "updatingSlow": "Das dauert länger als gewöhnlich. Einen Moment noch.",
+    "reload": "Jetzt neu laden",
+    "errorTitle": "Etwas ist schiefgelaufen",
+    "errorBody": "Beim Laden dieser Seite ist ein unerwarteter Fehler aufgetreten.",
+    "retry": "Erneut versuchen",
+    "home": "Zur Startseite"
+  },
+  "fr": {
+    "updatingTitle": "On ajoute quelques briques",
+    "updatingBody": "FigTracker est en cours de mise à jour. Cette page se rechargera dans un instant.",
+    "updatingSlow": "Cela prend plus de temps que d'habitude. Merci de patienter.",
+    "reload": "Recharger",
+    "errorTitle": "Une erreur s'est produite",
+    "errorBody": "Un problème inattendu est survenu lors du chargement de cette page.",
+    "retry": "Réessayer",
+    "home": "Accueil"
+  },
+  "es": {
+    "updatingTitle": "Estamos encajando unas piezas nuevas",
+    "updatingBody": "FigTracker se está actualizando. Esta página se recargará en un momento.",
+    "updatingSlow": "Esto está tardando más de lo normal. Un momento más.",
+    "reload": "Recargar ahora",
+    "errorTitle": "Algo ha salido mal",
+    "errorBody": "Se ha producido un problema inesperado al cargar esta página.",
+    "retry": "Reintentar",
+    "home": "Ir al inicio"
+  },
+  "it": {
+    "updatingTitle": "Stiamo incastrando qualche mattoncino",
+    "updatingBody": "FigTracker è in aggiornamento. Questa pagina si ricaricherà tra un istante.",
+    "updatingSlow": "Sta richiedendo più tempo del solito. Ancora un attimo.",
+    "reload": "Ricarica ora",
+    "errorTitle": "Qualcosa è andato storto",
+    "errorBody": "Si è verificato un problema inatteso durante il caricamento della pagina.",
+    "retry": "Riprova",
+    "home": "Vai alla home"
+  },
+  "nl": {
+    "updatingTitle": "We klikken er nog wat steentjes bij",
+    "updatingBody": "FigTracker wordt bijgewerkt. Deze pagina wordt zo automatisch opnieuw geladen.",
+    "updatingSlow": "Dit duurt langer dan gewoonlijk. Nog even geduld.",
+    "reload": "Nu opnieuw laden",
+    "errorTitle": "Er is iets misgegaan",
+    "errorBody": "Er is een onverwacht probleem opgetreden bij het laden van deze pagina.",
+    "retry": "Opnieuw proberen",
+    "home": "Naar de homepage"
+  },
+  "pl": {
+    "updatingTitle": "Dokładamy kilka nowych klocków",
+    "updatingBody": "FigTracker jest aktualizowany. Ta strona odświeży się za chwilę.",
+    "updatingSlow": "To trwa dłużej niż zwykle. Jeszcze chwilę.",
+    "reload": "Odśwież teraz",
+    "errorTitle": "Coś poszło nie tak",
+    "errorBody": "Podczas ładowania tej strony wystąpił nieoczekiwany problem.",
+    "retry": "Spróbuj ponownie",
+    "home": "Strona główna"
+  },
+  "pt": {
+    "updatingTitle": "A encaixar algumas peças novas",
+    "updatingBody": "O FigTracker está a ser atualizado. Esta página vai recarregar dentro de momentos.",
+    "updatingSlow": "Está a demorar mais do que o habitual. Só um momento.",
+    "reload": "Recarregar agora",
+    "errorTitle": "Algo deu errado",
+    "errorBody": "Ocorreu um problema inesperado ao carregar esta página.",
+    "retry": "Tentar novamente",
+    "home": "Ir para o início"
+  },
+  "sv": {
+    "updatingTitle": "Vi snäpper fast några nya bitar",
+    "updatingBody": "FigTracker uppdateras. Sidan laddas om av sig själv om en stund.",
+    "updatingSlow": "Det här tar längre tid än vanligt. Häng kvar.",
+    "reload": "Ladda om nu",
+    "errorTitle": "Något gick fel",
+    "errorBody": "Ett oväntat fel uppstod när sidan skulle laddas.",
+    "retry": "Försök igen",
+    "home": "Till startsidan"
+  },
+  "ja": {
+    "updatingTitle": "ブロックを組み直しています",
+    "updatingBody": "FigTracker を更新しています。このページはまもなく自動的に再読み込みされます。",
+    "updatingSlow": "通常よりも時間がかかっています。少しお待ちください。",
+    "reload": "今すぐ再読み込み",
+    "errorTitle": "問題が発生しました",
+    "errorBody": "このページの読み込み中に予期しない問題が発生しました。",
+    "retry": "再試行",
+    "home": "ホームへ"
+  }
+}

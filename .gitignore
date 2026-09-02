@@ -11,6 +11,9 @@
 
 # next.js
 /.next/
+# deploy scratch + rollback copies (see scripts/deploy-remote.sh)
+/.next-build/
+/.next-previous/
 /out/
 
 # production

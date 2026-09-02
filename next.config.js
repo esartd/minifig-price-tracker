@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Lets a deploy build into a scratch directory and swap it in when it is
+  // finished, instead of overwriting .next underneath the server that is
+  // still using it. Unset everywhere except during deploy, so both `next
+  // build` locally and `next start` in production resolve to plain `.next`.
+  distDir: process.env.NEXT_DIST_DIR || '.next',
+
   // Use database-backed cache handler for ISR (prevents API calls on every page view)
   cacheHandler: process.env.NODE_ENV === 'production'
     ? require.resolve('./cache-handler.js')
