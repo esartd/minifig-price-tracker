@@ -38,9 +38,16 @@
   document.getElementById('ft-body').textContent = t.updatingBody;
   document.getElementById('ft-reload').textContent = t.reload;
 
-  // This page is only ever served because the origin was down, so a single
-  // successful probe is genuine recovery. (The in-app boundary has to be
-  // more careful — see the note in app/global-error.tsx.)
+  // nginx serves this via error_page, so the address bar still shows the
+  // page the visitor actually wanted and reloading returns them to it.
+  // Someone who opens /maintenance.html directly has nothing to go back
+  // to, and polling would just reload this page every three seconds
+  // forever — so don't poll in that case.
+  if (location.pathname === '/maintenance.html') return;
+
+  // Being served at all means the origin was down, so one successful probe
+  // is genuine recovery. (The in-app boundary has to be more careful — see
+  // the note in app/global-error.tsx.)
   var startedAt = Date.now();
   setInterval(function () {
     if (Date.now() - startedAt > 90000) {
