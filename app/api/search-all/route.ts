@@ -92,13 +92,16 @@ export async function GET(request: NextRequest) {
     const query = searchParams.get('q') || '';
 
     if (!query.trim()) {
-      return NextResponse.json({
-        success: true,
-        data: {
-          minifigs: [],
-          sets: []
-        }
-      });
+      return NextResponse.json(
+        {
+          success: true,
+          data: {
+            minifigs: [],
+            sets: [],
+          },
+        },
+        { headers: { Vary: 'Accept-Encoding' } }
+      );
     }
 
     // Cap the results. This used to ask for 10,000 of each ("effectively
@@ -117,6 +120,18 @@ export async function GET(request: NextRequest) {
 
     const headers = {
       'Cache-Control': 'public, max-age=60, s-maxage=60',
+      /**
+       * Next adds `Vary: rsc, next-router-state-tree, ...` to every response,
+       * which are React Server Component negotiation headers. This route is a
+       * plain JSON API — nothing here varies on them.
+       *
+       * It has to be overridden because Cloudflare refuses to cache any
+       * response whose Vary header lists anything other than Accept-Encoding.
+       * With Next's default the edge returned `cf-cache-status: DYNAMIC` even
+       * though a cache rule matched the path, so the edge cache never
+       * engaged. Setting it explicitly is what makes that rule effective.
+       */
+      Vary: 'Accept-Encoding',
     };
 
     const cached = cacheGet(cacheKey);
