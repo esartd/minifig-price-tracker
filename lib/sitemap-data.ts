@@ -279,6 +279,26 @@ export async function renderShard(index: number): Promise<string | null> {
   return parts.join('');
 }
 
+/**
+ * Public origin for a request, resolved from the Host header.
+ *
+ * `request.nextUrl.origin` cannot be used: the app runs behind nginx on
+ * 127.0.0.1:3000, so it reports `https://localhost:3000` and the published
+ * index pointed every crawler at localhost.
+ *
+ * The header is mapped onto the known domain list rather than echoed back.
+ * A Host header is attacker-controlled, and reflecting it would let anyone
+ * serve a sitemap advertising their own URLs under our name.
+ */
+export function resolveOrigin(host: string | null): string {
+  if (!host) return DOMAINS.en;
+  const hostname = host.split(':')[0].toLowerCase();
+  const match = (Object.keys(DOMAINS) as Locale[]).find(
+    (locale) => new URL(DOMAINS[locale]).hostname === hostname
+  );
+  return match ? DOMAINS[match] : DOMAINS.en;
+}
+
 /** The index document that /sitemap.xml serves. */
 export async function renderIndex(origin: string): Promise<string> {
   const count = await getShardCount();

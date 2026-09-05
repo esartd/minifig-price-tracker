@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { renderIndex } from '@/lib/sitemap-data';
+import { renderIndex, resolveOrigin } from '@/lib/sitemap-data';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,7 +16,7 @@ export const dynamic = 'force-dynamic';
  */
 export async function GET(request: NextRequest) {
   try {
-    const origin = request.nextUrl.origin;
+    const origin = resolveOrigin(request.headers.get('host'));
     const xml = await renderIndex(origin);
 
     return new NextResponse(xml, {
