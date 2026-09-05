@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
-import { collectExportItems, parseExportRequest } from '@/lib/marketplace/export';
+import {
+  collectExportItems,
+  collectExportItemsFromRows,
+  guestRowsFromItems,
+  parseExportRequest,
+} from '@/lib/marketplace/export';
 import { getAdapter, MARKETPLACE_IDS } from '@/lib/marketplace/registry';
 
 /**
@@ -12,17 +17,23 @@ import { getAdapter, MARKETPLACE_IDS } from '@/lib/marketplace/registry';
 export async function POST(request: NextRequest) {
   try {
     const session = await auth();
-    if (!session?.user?.id) {
-      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
-    }
+    const body = await request.json();
 
-    const parsed = parseExportRequest(await request.json(), MARKETPLACE_IDS);
+    const parsed = parseExportRequest(body, MARKETPLACE_IDS);
     if (parsed.error || !parsed.value) {
       return NextResponse.json({ success: false, error: parsed.error }, { status: 400 });
     }
 
     const { source, itemIds, marketplaces, optionsByMarketplace } = parsed.value;
-    const collected = await collectExportItems(session.user.id, source, itemIds);
+
+    // Same guest path as the export route — see the note there.
+    const collected = session?.user?.id
+      ? await collectExportItems(session.user.id, source, itemIds)
+      : await collectExportItemsFromRows(
+          await guestRowsFromItems(Array.isArray(body?.guestItems) ? body.guestItems : [], source),
+          source,
+          itemIds
+        );
 
     const perMarketplace = marketplaces.map((id) => {
       const adapter = getAdapter(id);

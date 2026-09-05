@@ -105,6 +105,83 @@ export interface CollectResult {
   totalSelected: number;
 }
 
+/** One item as a signed-out visitor's browser stores it. */
+export interface GuestExportItem {
+  itemNo: string;
+  itemType: 'minifig' | 'set';
+  name: string;
+  quantity?: number;
+  condition?: string;
+  action?: 'sell' | 'keep';
+}
+
+/** Guest collections are capped at 100 items client-side; mirror that here. */
+export const MAX_GUEST_EXPORT_ITEMS = 100;
+
+/**
+ * Turn a guest's localStorage collection into rows the collector understands.
+ *
+ * Prices are read from the price cache rather than taken from the request.
+ * The client does hold a price — it stored one when the item was added — but
+ * that copy can be weeks stale, and a number posted from a browser has no
+ * business ending up in a file the seller will price real inventory from.
+ *
+ * Cache-only by design: a guest export must never trigger BrickLink fetches.
+ * CLAUDE.md records the daily budget being exhausted by 5am from exactly this
+ * kind of per-request call, and an unauthenticated endpoint is the last place
+ * to reintroduce it. Items with no cached price fall through to the collector,
+ * which skips them with a message explaining why.
+ */
+export async function guestRowsFromItems(
+  items: GuestExportItem[],
+  source: ExportSource
+): Promise<any[]> {
+  const itemType = itemTypeForSource(source);
+  const wantedAction = source.endsWith('-inventory') ? 'sell' : 'keep';
+
+  const mine = items
+    .filter((item) => item && typeof item.itemNo === 'string' && item.itemNo.trim())
+    .filter((item) => item.itemType === itemType)
+    // An item with no action recorded is treated as for-sale, matching how the
+    // guest badge presents them.
+    .filter((item) => (item.action ?? 'sell') === wantedAction)
+    .slice(0, MAX_GUEST_EXPORT_ITEMS);
+
+  if (mine.length === 0) return [];
+
+  const prices = new Map<string, number>();
+  try {
+    const rows = await prisma.priceCache.findMany({
+      where: {
+        item_no: { in: mine.map((item) => item.itemNo) },
+        item_type: itemType === 'minifig' ? 'MINIFIG' : 'SET',
+        price_source: 'figtracker',
+      },
+      select: { item_no: true, condition: true, suggested_price: true },
+    });
+    for (const row of rows) prices.set(`${row.item_no}::${row.condition}`, row.suggested_price);
+  } catch (error) {
+    console.error('[export] guest price lookup failed:', error);
+  }
+
+  return mine.map((item, index) => {
+    const condition = item.condition === 'new' ? 'new' : 'used';
+    const suggested =
+      prices.get(`${item.itemNo}::${condition}`) ?? prices.get(`${item.itemNo}::new`) ?? 0;
+
+    return {
+      id: `guest-${index}`,
+      minifigure_no: item.itemNo,
+      box_no: item.itemNo,
+      minifigure_name: item.name,
+      set_name: item.name,
+      quantity: Number.isFinite(item.quantity) && item.quantity! > 0 ? item.quantity : 1,
+      condition,
+      pricing: { suggestedPrice: suggested, currencyCode: 'USD' },
+    };
+  });
+}
+
 /**
  * Load and normalise the selected items.
  *
@@ -116,11 +193,31 @@ export async function collectExportItems(
   source: ExportSource,
   itemIds: string[]
 ): Promise<CollectResult> {
-  const itemType = itemTypeForSource(source);
-  const all = await loadItems(userId, source);
-
   // Ownership is implicit: loadItems only ever returns this user's rows, so an
   // id belonging to someone else simply doesn't match anything here.
+  return collectExportItemsFromRows(await loadItems(userId, source), source, itemIds);
+}
+
+/**
+ * The same normalisation, over rows the caller already has.
+ *
+ * Signed-out visitors keep their collection in localStorage — see
+ * lib/guestCollectionStorage.ts — so there is no user id to load from and no
+ * database row to own. They were previously turned away at the export page
+ * even after building a collection, which meant bouncing the visitors who had
+ * done the most work.
+ *
+ * Nothing here trusts the caller for anything that matters: prices are looked
+ * up server-side by item number, and the response only ever contains what was
+ * sent in. A forged row can produce a wrong file for the person who forged it
+ * and nothing else.
+ */
+export async function collectExportItemsFromRows(
+  all: any[],
+  source: ExportSource,
+  itemIds: string[]
+): Promise<CollectResult> {
+  const itemType = itemTypeForSource(source);
   const selected = itemIds.length > 0 ? all.filter((item) => itemIds.includes(item.id)) : all;
 
   const itemNos = Array.from(

@@ -2973,7 +2973,10 @@
     "errors": {
       "loadFailed": "Nie udało się wczytać Twojej kolekcji. Odśwież stronę i spróbuj ponownie.",
       "exportFailed": "Nie udało się utworzyć pliku CSV. Spróbuj ponownie."
-    }
+    },
+    "emptyGuestPrompt": "Dodaj kilka minifigurek lub zestawów, a przygotujemy plik za Ciebie — konto nie jest potrzebne.",
+    "emptyGuestHint": "Wyszukaj przedmiot i użyj opcji „Dodaj do kolekcji”.",
+    "startSearching": "Wyszukaj przedmiot"
   },
   "marketplaceExport": {
     "destinations": "Gdzie chcesz wystawić?",
@@ -3017,7 +3020,10 @@
     "crossPromoHelp": "Dodawane na końcu każdego opisu. Linki są usuwane automatycznie — większość platform ich nie dopuszcza.",
     "crossPromoWhatnot": "Whatnot wymaga, by opis dotyczył wyłącznie oferowanego przedmiotu, więc jest to pomijane w plikach Whatnot, chyba że włączysz to w sekcji Whatnot poniżej.",
     "crossPromoBricklink": "Pliki BrickLink tego nie zawierają — jedyna notatka tam jest prywatna i niewidoczna dla kupujących.",
-    "whatnotAllowCrossPromo": "Dołącz moją wzmiankę także tutaj"
+    "whatnotAllowCrossPromo": "Dołącz moją wzmiankę także tutaj",
+    "saveCollectionTitle": "Zachować tę kolekcję na przyszłość?",
+    "saveCollectionBody": "Twoje przedmioty są zapisane wyłącznie w tej przeglądarce — wyczyszczenie historii albo zmiana urządzenia oznacza ich utratę. Bezpłatne konto je zachowa, odświeży ceny i zadziała wszędzie.",
+    "saveCollectionCta": "Zapisz moją kolekcję — bezpłatnie"
   },
   "sellerDetails": {
     "title": "Szczegóły sprzedaży",

@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
-import { collectExportItems, parseExportRequest } from '@/lib/marketplace/export';
+import {
+  collectExportItems,
+  collectExportItemsFromRows,
+  guestRowsFromItems,
+  parseExportRequest,
+} from '@/lib/marketplace/export';
 import { getAdapter, MARKETPLACE_IDS } from '@/lib/marketplace/registry';
 import { resolvePublicBaseUrl, warmListingImages } from '@/lib/marketplace/images';
 import { itemTypeForSource } from '@/lib/marketplace/types';
@@ -17,17 +22,32 @@ import { itemTypeForSource } from '@/lib/marketplace/types';
 export async function POST(request: NextRequest) {
   try {
     const session = await auth();
-    if (!session?.user?.id) {
-      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
-    }
+    const body = await request.json();
 
-    const parsed = parseExportRequest(await request.json(), MARKETPLACE_IDS);
+    const parsed = parseExportRequest(body, MARKETPLACE_IDS);
     if (parsed.error || !parsed.value) {
       return NextResponse.json({ success: false, error: parsed.error }, { status: 400 });
     }
 
     const { source, itemIds, marketplaces, optionsByMarketplace } = parsed.value;
-    const collected = await collectExportItems(session.user.id, source, itemIds);
+
+    /**
+     * Signed-out visitors keep their collection in localStorage, so they post
+     * the rows with the request instead of us loading them by user id. There
+     * is nothing to authorise: the response contains only what the caller sent,
+     * and prices are re-read server-side rather than taken from the body.
+     *
+     * Turning these visitors away was costing us the warmest ones — someone who
+     * has already added items and reached the export page is as close to
+     * converting as a visitor gets.
+     */
+    const collected = session?.user?.id
+      ? await collectExportItems(session.user.id, source, itemIds)
+      : await collectExportItemsFromRows(
+          await guestRowsFromItems(Array.isArray(body?.guestItems) ? body.guestItems : [], source),
+          source,
+          itemIds
+        );
 
     if (collected.items.length === 0) {
       return NextResponse.json(

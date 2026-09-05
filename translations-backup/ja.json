@@ -2973,7 +2973,10 @@
     "errors": {
       "loadFailed": "コレクションを読み込めませんでした。ページを更新してもう一度お試しください。",
       "exportFailed": "CSVを作成できませんでした。もう一度お試しください。"
-    }
+    },
+    "emptyGuestPrompt": "ミニフィグやセットをいくつか追加していただければ、ファイルはこちらで作成します。アカウントは不要です。",
+    "emptyGuestHint": "アイテムを検索し、「コレクションに追加」を選んでください。",
+    "startSearching": "アイテムを検索"
   },
   "marketplaceExport": {
     "destinations": "どこに出品しますか？",
@@ -3017,7 +3020,10 @@
     "crossPromoHelp": "各説明の最後に追加されます。リンクは自動的に削除されます（多くのマーケットプレイスで禁止されているためです）。",
     "crossPromoWhatnot": "Whatnotでは説明が出品中の商品のみに関するものであることが求められるため、下のWhatnot欄で有効にしない限りWhatnotのファイルには含まれません。",
     "crossPromoBricklink": "BrickLinkのファイルには含まれません。あちらのメモは非公開で、購入者には表示されないためです。",
-    "whatnotAllowCrossPromo": "ここにも他の出品への言及を含める"
+    "whatnotAllowCrossPromo": "ここにも他の出品への言及を含める",
+    "saveCollectionTitle": "このコレクションを次回のために保存しますか？",
+    "saveCollectionBody": "現在、アイテムはこのブラウザーにのみ保存されています。履歴を消したり別の端末に変えたりすると失われます。無料アカウントなら保存され、価格も更新され、どの端末でも使えます。",
+    "saveCollectionCta": "コレクションを保存（無料）"
   },
   "sellerDetails": {
     "title": "販売情報",

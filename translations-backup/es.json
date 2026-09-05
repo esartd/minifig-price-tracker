@@ -3030,7 +3030,10 @@
     "errors": {
       "loadFailed": "No pudimos cargar tu colección. Actualiza la página e inténtalo de nuevo.",
       "exportFailed": "No pudimos crear tu CSV. Inténtalo de nuevo."
-    }
+    },
+    "emptyGuestPrompt": "Añade unas cuantas minifiguras o sets y escribiremos el archivo por ti, sin necesidad de cuenta.",
+    "emptyGuestHint": "Busca un artículo y usa «Añadir a la colección».",
+    "startSearching": "Buscar un artículo"
   },
   "marketplaceExport": {
     "destinations": "¿Dónde quieres vender?",
@@ -3074,7 +3077,10 @@
     "crossPromoHelp": "Se añade al final de cada descripción. Los enlaces se eliminan automáticamente: la mayoría de los mercados no los permiten.",
     "crossPromoWhatnot": "Whatnot pide que la descripción hable solo del artículo en venta, así que esto se omite en los archivos de Whatnot salvo que lo actives en la sección de Whatnot.",
     "crossPromoBricklink": "Los archivos de BrickLink no lo incluyen: su única nota es privada y no la ven los compradores.",
-    "whatnotAllowCrossPromo": "Incluir aquí también mi mención"
+    "whatnotAllowCrossPromo": "Incluir aquí también mi mención",
+    "saveCollectionTitle": "¿Quieres conservar esta colección para la próxima vez?",
+    "saveCollectionBody": "Ahora mismo tus artículos solo están guardados en este navegador: si borras el historial o cambias de dispositivo, los pierdes. Una cuenta gratuita los conserva, actualiza los precios y funciona en todas partes.",
+    "saveCollectionCta": "Guardar mi colección, es gratis"
   },
   "sellerDetails": {
     "title": "Detalles de venta",

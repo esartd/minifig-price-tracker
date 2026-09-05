@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { getGuestCollection, type GuestCollectionItem } from '@/lib/guestCollectionStorage';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useTranslation } from '@/components/TranslationProvider';
@@ -348,7 +349,7 @@ export default function MarketplaceExportClient({
   // --- load items -----------------------------------------------------------
 
   useEffect(() => {
-    if (status !== 'authenticated') return;
+    if (status === 'loading') return;
 
     let cancelled = false;
     setLoadingItems(true);
@@ -356,6 +357,37 @@ export default function MarketplaceExportClient({
     setSelected(new Set());
     setPreview(null);
     setFiles([]);
+
+    /**
+     * Signed-out visitors have a collection too — it lives in localStorage.
+     * Reading it here is what lets them reach a finished file; the server
+     * re-prices the rows, so the numbers below are only for display.
+     */
+    if (status === 'unauthenticated') {
+      const wantedAction = source.endsWith('-inventory') ? 'sell' : 'keep';
+      const wantedType = config.isSet ? 'set' : 'minifig';
+      const guestItems = getGuestCollection()
+        .filter((item) => item.itemType === wantedType)
+        .filter((item) => (item.action ?? 'sell') === wantedAction);
+
+      setItems(
+        guestItems.map((item, index) => ({
+          id: `guest-${index}`,
+          itemNo: item.itemNo,
+          name: item.name,
+          quantity: item.quantity ?? 1,
+          condition: item.condition ?? 'used',
+          imageUrl:
+            item.imageUrl ||
+            `https://img.bricklink.com/ItemImage/${config.isSet ? 'ON' : 'MN'}/0/${item.itemNo}.png`,
+          suggestedPrice: item.price ?? 0,
+        }))
+      );
+      setLoadingItems(false);
+      return () => {
+        cancelled = true;
+      };
+    }
 
     (async () => {
       try {
@@ -396,7 +428,7 @@ export default function MarketplaceExportClient({
     return () => {
       cancelled = true;
     };
-  }, [config, status, tr]);
+  }, [config, source, status, tr]);
 
   // --- preview (debounced) --------------------------------------------------
 
@@ -417,6 +449,9 @@ export default function MarketplaceExportClient({
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            // Signed-out visitors send their rows along; the server re-prices
+            // them and returns a file built only from what was sent.
+            guestItems: status === 'unauthenticated' ? getGuestCollection() : undefined,
             source,
             itemIds: Array.from(selected),
             marketplaces: Array.from(selectedMarketplaces),
@@ -435,7 +470,7 @@ export default function MarketplaceExportClient({
     return () => {
       if (previewTimer.current) clearTimeout(previewTimer.current);
     };
-  }, [selected, selectedMarketplaces, optionsByMarketplace, source]);
+  }, [selected, selectedMarketplaces, optionsByMarketplace, source, status]);
 
   // Persist just the cross-promo line, so it survives a reload.
   useEffect(() => {
@@ -456,7 +491,7 @@ export default function MarketplaceExportClient({
   useEffect(() => {
     setFiles([]);
     setNotes([]);
-  }, [selected, selectedMarketplaces, optionsByMarketplace, source]);
+  }, [selected, selectedMarketplaces, optionsByMarketplace, source, status]);
 
   // --- selection ------------------------------------------------------------
 
@@ -514,6 +549,7 @@ export default function MarketplaceExportClient({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          guestItems: status === 'unauthenticated' ? getGuestCollection() : undefined,
           source,
           itemIds: Array.from(selected),
           marketplaces: Array.from(selectedMarketplaces),
@@ -546,7 +582,7 @@ export default function MarketplaceExportClient({
     } finally {
       setBuilding(false);
     }
-  }, [selected, selectedMarketplaces, optionsByMarketplace, source, tr]);
+  }, [selected, selectedMarketplaces, optionsByMarketplace, source, status, tr]);
 
   /**
    * Items in the current selection whose completeness isn't recorded.
@@ -593,6 +629,9 @@ export default function MarketplaceExportClient({
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            // Signed-out visitors send their rows along; the server re-prices
+            // them and returns a file built only from what was sent.
+            guestItems: status === 'unauthenticated' ? getGuestCollection() : undefined,
             source,
             itemIds: Array.from(selected),
             marketplaces: Array.from(selectedMarketplaces),
@@ -626,17 +665,31 @@ export default function MarketplaceExportClient({
 
   // --- logged out -----------------------------------------------------------
 
-  if (status === 'unauthenticated') {
+  /**
+   * Only stop a signed-out visitor when there is genuinely nothing to export.
+   *
+   * This used to block every signed-out visitor, including ones who had
+   * already built a guest collection — turning away the people who had done
+   * the most work and were closest to converting. Signing up is still the
+   * better deal, but that case gets made after the file exists, not before.
+   */
+  if (status === 'unauthenticated' && !loadingItems && items.length === 0) {
     return (
       <div style={{ ...card, textAlign: 'center', padding: '40px 24px' }}>
-        <p style={{ fontSize: 'var(--text-base)', color: '#525252', marginBottom: '20px' }}>
+        <p style={{ fontSize: 'var(--text-base)', color: '#525252', marginBottom: '8px' }}>
           {tr(
-            'whatnotExport.signInPrompt',
-            'Sign in to turn your FigTracker collection into a marketplace file.'
+            'whatnotExport.emptyGuestPrompt',
+            'Add a few minifigures or sets and we can write the file for you — no account needed.'
+          )}
+        </p>
+        <p style={{ fontSize: 'var(--text-sm)', color: '#a3a3a3', marginBottom: '20px' }}>
+          {tr(
+            'whatnotExport.emptyGuestHint',
+            'Search for an item, then use Add to collection.'
           )}
         </p>
         <Link
-          href="/auth/signin?callbackUrl=/export"
+          href="/"
           style={{
             display: 'inline-block',
             padding: '12px 24px',
@@ -647,7 +700,7 @@ export default function MarketplaceExportClient({
             fontWeight: 600,
           }}
         >
-          {tr('whatnotExport.signIn', 'Sign in')}
+          {tr('whatnotExport.startSearching', 'Search for an item')}
         </Link>
       </div>
     );
@@ -1653,6 +1706,68 @@ export default function MarketplaceExportClient({
                   {note}
                 </p>
               ))}
+
+              {/*
+                The signup ask, placed after the file exists rather than in
+                front of it. A guest collection lives in localStorage, so it
+                dies with the browser — that is the honest reason to make an
+                account, and it only carries weight once they have something
+                worth losing. GuestCollectionMigrator moves it across on
+                sign-up, so nothing is retyped.
+              */}
+              {status === 'unauthenticated' && (
+                <div
+                  style={{
+                    marginTop: '20px',
+                    padding: '16px',
+                    background: '#f8fafc',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '8px',
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: 600,
+                      color: '#171717',
+                      margin: '0 0 4px',
+                    }}
+                  >
+                    {tr(
+                      'marketplaceExport.saveCollectionTitle',
+                      'Keep this collection for next time?'
+                    )}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: 'var(--text-sm)',
+                      color: '#525252',
+                      margin: '0 0 12px',
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    {tr(
+                      'marketplaceExport.saveCollectionBody',
+                      "Your items are only stored in this browser right now — clearing your history or switching device loses them. A free account keeps them, refreshes prices, and works everywhere."
+                    )}
+                  </p>
+                  <Link
+                    href="/auth/signin?callbackUrl=/export"
+                    style={{
+                      display: 'inline-block',
+                      padding: '10px 18px',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: 600,
+                      color: '#ffffff',
+                      background: '#3b82f6',
+                      borderRadius: '8px',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    {tr('marketplaceExport.saveCollectionCta', 'Save my collection — free')}
+                  </Link>
+                </div>
+              )}
             </div>
           )}
         </div>

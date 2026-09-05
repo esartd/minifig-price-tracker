@@ -2973,7 +2973,10 @@
     "errors": {
       "loadFailed": "Non siamo riusciti a caricare la tua collezione. Aggiorna la pagina e riprova.",
       "exportFailed": "Non siamo riusciti a creare il tuo CSV. Riprova."
-    }
+    },
+    "emptyGuestPrompt": "Aggiungi qualche minifigura o set e scriveremo il file al posto tuo, senza bisogno di un account.",
+    "emptyGuestHint": "Cerca un articolo e usa «Aggiungi alla collezione».",
+    "startSearching": "Cerca un articolo"
   },
   "marketplaceExport": {
     "destinations": "Dove vuoi vendere?",
@@ -3017,7 +3020,10 @@
     "crossPromoHelp": "Aggiunto in fondo a ogni descrizione. I link vengono rimossi automaticamente: la maggior parte dei marketplace non li consente.",
     "crossPromoWhatnot": "Whatnot chiede che la descrizione riguardi solo l’articolo in vendita, quindi questo resta fuori dai file Whatnot a meno che tu non lo attivi nella sezione Whatnot.",
     "crossPromoBricklink": "I file BrickLink non lo includono: la loro unica nota è privata e non visibile agli acquirenti.",
-    "whatnotAllowCrossPromo": "Includi anche qui la mia menzione"
+    "whatnotAllowCrossPromo": "Includi anche qui la mia menzione",
+    "saveCollectionTitle": "Vuoi conservare questa collezione per la prossima volta?",
+    "saveCollectionBody": "Al momento i tuoi articoli sono salvati solo in questo browser: se cancelli la cronologia o cambi dispositivo li perdi. Un account gratuito li conserva, aggiorna i prezzi e funziona ovunque.",
+    "saveCollectionCta": "Salva la mia collezione, è gratis"
   },
   "sellerDetails": {
     "title": "Dettagli di vendita",

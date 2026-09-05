@@ -3030,7 +3030,10 @@
     "errors": {
       "loadFailed": "Deine Sammlung konnte nicht geladen werden. Bitte lade die Seite neu.",
       "exportFailed": "Deine CSV konnte nicht erstellt werden. Bitte versuche es erneut."
-    }
+    },
+    "emptyGuestPrompt": "Fügen Sie ein paar Minifiguren oder Sets hinzu, dann schreiben wir die Datei für Sie – ganz ohne Konto.",
+    "emptyGuestHint": "Suchen Sie einen Artikel und nutzen Sie „Zur Sammlung hinzufügen“.",
+    "startSearching": "Artikel suchen"
   },
   "marketplaceExport": {
     "destinations": "Wo möchtest du verkaufen?",
@@ -3074,7 +3077,10 @@
     "crossPromoHelp": "Wird ans Ende jeder Beschreibung gesetzt. Links werden automatisch entfernt — die meisten Marktplätze erlauben sie nicht.",
     "crossPromoWhatnot": "Whatnot verlangt, dass sich eine Beschreibung nur auf den angebotenen Artikel bezieht. Daher bleibt dies in Whatnot-Dateien weg, sofern du es unten im Whatnot-Bereich nicht aktivierst.",
     "crossPromoBricklink": "BrickLink-Dateien enthalten das nicht — die einzige Notiz dort ist privat und für Käufer nicht sichtbar.",
-    "whatnotAllowCrossPromo": "Hinweis auf andere Angebote auch hier einfügen"
+    "whatnotAllowCrossPromo": "Hinweis auf andere Angebote auch hier einfügen",
+    "saveCollectionTitle": "Diese Sammlung für das nächste Mal behalten?",
+    "saveCollectionBody": "Ihre Artikel liegen derzeit nur in diesem Browser – beim Löschen des Verlaufs oder auf einem anderen Gerät sind sie weg. Ein kostenloses Konto bewahrt sie auf, aktualisiert die Preise und funktioniert überall.",
+    "saveCollectionCta": "Sammlung kostenlos sichern"
   },
   "sellerDetails": {
     "title": "Verkaufsangaben",

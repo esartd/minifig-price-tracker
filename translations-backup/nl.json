@@ -2973,7 +2973,10 @@
     "errors": {
       "loadFailed": "We konden je collectie niet laden. Ververs de pagina en probeer het opnieuw.",
       "exportFailed": "We konden je CSV niet maken. Probeer het opnieuw."
-    }
+    },
+    "emptyGuestPrompt": "Voeg een paar minifiguren of sets toe, dan schrijven wij het bestand voor je — geen account nodig.",
+    "emptyGuestHint": "Zoek een item en gebruik 'Toevoegen aan collectie'.",
+    "startSearching": "Zoek een item"
   },
   "marketplaceExport": {
     "destinations": "Waar wil je verkopen?",
@@ -3017,7 +3020,10 @@
     "crossPromoHelp": "Wordt aan het eind van elke beschrijving gezet. Links worden automatisch verwijderd — de meeste marktplaatsen staan ze niet toe.",
     "crossPromoWhatnot": "Whatnot vraagt dat een beschrijving alleen over het aangeboden item gaat, dus dit blijft uit Whatnot-bestanden tenzij je het hieronder bij Whatnot aanzet.",
     "crossPromoBricklink": "BrickLink-bestanden bevatten dit niet — de enige notitie daar is privé en niet zichtbaar voor kopers.",
-    "whatnotAllowCrossPromo": "Mijn regel hier ook opnemen"
+    "whatnotAllowCrossPromo": "Mijn regel hier ook opnemen",
+    "saveCollectionTitle": "Deze collectie bewaren voor de volgende keer?",
+    "saveCollectionBody": "Je items staan nu alleen in deze browser — je geschiedenis wissen of van apparaat wisselen en ze zijn weg. Een gratis account bewaart ze, ververst de prijzen en werkt overal.",
+    "saveCollectionCta": "Mijn collectie bewaren — gratis"
   },
   "sellerDetails": {
     "title": "Verkoopgegevens",

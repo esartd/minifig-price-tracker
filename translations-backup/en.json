@@ -2972,7 +2972,10 @@
     "errors": {
       "loadFailed": "We couldn’t load your collection. Please refresh and try again.",
       "exportFailed": "We couldn’t build your CSV. Please try again."
-    }
+    },
+    "emptyGuestPrompt": "Add a few minifigures or sets and we can write the file for you — no account needed.",
+    "emptyGuestHint": "Search for an item, then use Add to collection.",
+    "startSearching": "Search for an item"
   },
   "marketplaceExport": {
     "destinations": "Where do you want to list?",
@@ -3016,7 +3019,10 @@
     "crossPromoHelp": "Added to the end of each description. Links are removed automatically — most marketplaces don’t allow them.",
     "crossPromoWhatnot": "Whatnot asks that a description refer only to the item for sale, so this is left out of Whatnot files unless you turn it on in the Whatnot section below.",
     "crossPromoBricklink": "BrickLink files don’t include this — the only note they carry is private to you, not shown to buyers.",
-    "whatnotAllowCrossPromo": "Include my other-listings line here too"
+    "whatnotAllowCrossPromo": "Include my other-listings line here too",
+    "saveCollectionTitle": "Keep this collection for next time?",
+    "saveCollectionBody": "Your items are only stored in this browser right now — clearing your history or switching device loses them. A free account keeps them, refreshes prices, and works everywhere.",
+    "saveCollectionCta": "Save my collection — free"
   },
   "sellerDetails": {
     "title": "Selling details",

@@ -2973,7 +2973,10 @@
     "errors": {
       "loadFailed": "Vi kunde inte ladda din samling. Uppdatera sidan och försök igen.",
       "exportFailed": "Vi kunde inte skapa din CSV. Försök igen."
-    }
+    },
+    "emptyGuestPrompt": "Lägg till några minifigurer eller set, så skriver vi filen åt dig — inget konto behövs.",
+    "emptyGuestHint": "Sök efter ett föremål och välj ”Lägg till i samlingen”.",
+    "startSearching": "Sök efter ett föremål"
   },
   "marketplaceExport": {
     "destinations": "Var vill du sälja?",
@@ -3017,7 +3020,10 @@
     "crossPromoHelp": "Läggs till i slutet av varje beskrivning. Länkar tas bort automatiskt — de flesta marknadsplatser tillåter dem inte.",
     "crossPromoWhatnot": "Whatnot ber om att en beskrivning bara handlar om föremålet som säljs, så detta utelämnas i Whatnot-filer om du inte slår på det i Whatnot-avsnittet nedan.",
     "crossPromoBricklink": "BrickLink-filer innehåller inte detta — deras enda notering är privat och syns inte för köpare.",
-    "whatnotAllowCrossPromo": "Ta med min rad även här"
+    "whatnotAllowCrossPromo": "Ta med min rad även här",
+    "saveCollectionTitle": "Vill du behålla den här samlingen till nästa gång?",
+    "saveCollectionBody": "Dina föremål sparas just nu bara i den här webbläsaren — rensar du historiken eller byter enhet är de borta. Ett gratiskonto behåller dem, uppdaterar priserna och fungerar överallt.",
+    "saveCollectionCta": "Spara min samling — gratis"
   },
   "sellerDetails": {
     "title": "Säljuppgifter",
