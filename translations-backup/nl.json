@@ -104,7 +104,7 @@
     "moreCount": "+{count} meer",
     "searchPlaceholder": "Zoek thema's...",
     "currentThemes": "Huidige Thema's",
-    "currentThemesDesc": "Themas with sets released between {yearRange}",
+    "currentThemesDesc": "Thema's met sets die tussen {yearRange} zijn uitgekomen",
     "olderThemes": "Oudere Thema's",
     "olderThemesDesc": "Thema's uit voorgaande jaren",
     "showMore": "Toon {count} More Themas",
@@ -380,7 +380,7 @@
       "title": "Gegevensbeheer",
       "export": {
         "title": "Collectiegegevens Exporteren",
-        "subtitle": "Download uw volledige collectie als JSON-bestand",
+        "subtitle": "Download je volledige collectie als JSON-bestand",
         "button": "Gegevens Exporteren",
         "success": "Collectiegegevens succesvol geëxporteerd",
         "error": "Exporteren van collectiegegevens mislukt"
@@ -581,7 +581,7 @@
     "title": "Veelgestelde Vragen",
     "subtitle": "Alles wat je moet weten over het prijzen en bijhouden van LEGO minifiguren",
     "stillHaveQuestions": "Nog vragen?",
-    "cantFindAnswer": "Kun je het antwoord dat je zoekt niet vinden? Neem contact op met ons supportteam.",
+    "cantFindAnswer": "Vind je het antwoord niet dat je zoekt? Neem contact op met ons supportteam.",
     "contactSupport": "Contact Opnemen",
     "emailUs": "Mail ons met al je vragen of feedback",
     "cta": {
@@ -591,68 +591,68 @@
     },
     "items": [
       {
-        "q": "How does FigTracker calculate suggested prices?",
-        "a": "FigTracker looks at three things to suggest a fair price: (1) What people actually paid in the last 6 months, (2) What sellers are asking right now, and (3) The cheapest price currently available. We average these three numbers to give you a realistic price that reflects both recent sales and current market conditions."
+        "q": "Hoe berekent FigTracker de voorgestelde prijzen?",
+        "a": "FigTracker kijkt naar drie dingen om een eerlijke prijs voor te stellen: (1) wat mensen de afgelopen 6 maanden daadwerkelijk hebben betaald, (2) wat verkopers op dit moment vragen en (3) de laagste prijs die nu beschikbaar is. We middelen deze drie cijfers zodat je een realistische prijs krijgt die zowel recente verkopen als de huidige markt weerspiegelt."
       },
       {
-        "q": "Is FigTracker free to use?",
-        "a": "Yes! FigTracker is completely free to use. Search 18,000+ minifigures, browse 20,000+ LEGO sets, get real-time pricing in 15+ currencies, and track your inventory without any payment required."
+        "q": "Is FigTracker gratis te gebruiken?",
+        "a": "Ja! FigTracker is volledig gratis. Zoek in meer dan 18.000 minifiguren, blader door ruim 20.000 LEGO-sets, bekijk realtime prijzen in meer dan 15 valuta's en beheer je voorraad zonder te betalen."
       },
       {
-        "q": "Where does the pricing data come from?",
-        "a": "All pricing data comes directly from the official Bricklink API. We fetch prices from ALL worldwide sellers (not filtered by country) and Bricklink converts them to your selected currency. This ensures you see prices even for rare items that may not have local sellers. Note: This shows global market pricing, which may differ from your specific local market conditions."
+        "q": "Waar komen de prijsgegevens vandaan?",
+        "a": "FigTracker berekent een eigen marktprijs door gegevens uit meerdere bronnen te combineren — voornamelijk de BrickLink-marktplaats, aangevuld met gegevens uit actieve eBay-advertenties. Het resultaat is een FigTracker Market Price: een gewogen berekening die uniek is voor ons platform, geen ruwe data uit een van beide bronnen. BrickLink-gegevens halen we op via de officiële BrickLink-API; BrickLink is een handelsmerk van de LEGO Groep."
       },
       {
-        "q": "What currencies are supported?",
-        "a": "FigTracker supports 15+ currencies including USD, EUR, GBP, CAD, AUD, JPY, MXN, and more. Pricing data is fetched from global sellers and automatically converted to your selected currency using current exchange rates."
+        "q": "Welke valuta's worden ondersteund?",
+        "a": "FigTracker ondersteunt meer dan 15 valuta's, waaronder USD, EUR, GBP, CAD, AUD, JPY en MXN. Prijsgegevens worden opgehaald bij verkopers wereldwijd en automatisch omgerekend naar de door jou gekozen valuta met actuele wisselkoersen."
       },
       {
-        "q": "Can I browse and track LEGO sets?",
-        "a": "Yes! FigTracker includes 20,000+ LEGO sets from the complete Bricklink catalog. Browse sets by theme, view included minifigures, and see direct buy links to LEGO.com, Amazon, and BrickLink for both new and retired sets."
+        "q": "Kan ik LEGO-sets bekijken en bijhouden?",
+        "a": "Ja! FigTracker bevat meer dan 20.000 LEGO-sets uit de volledige Bricklink-catalogus. Blader door sets op thema, bekijk welke minifiguren erbij zitten en gebruik directe koopkoppelingen naar LEGO.com, Amazon en BrickLink, voor zowel nieuwe als uit productie genomen sets."
       },
       {
-        "q": "How many LEGO minifigures are in the database?",
-        "a": "FigTracker includes over 18,000 LEGO minifigures from the complete Bricklink catalog, covering Star Wars, Harry Potter, Marvel, DC, Ninjago, and 50+ other themes."
+        "q": "Hoeveel LEGO-minifiguren staan er in de database?",
+        "a": "FigTracker bevat ruim 18.000 LEGO-minifiguren uit de volledige Bricklink-catalogus, met onder meer Star Wars, Harry Potter, Marvel, DC, Ninjago en meer dan 50 andere thema's."
       },
       {
-        "q": "Can I track my inventory?",
-        "a": "Yes! Create a free account to track your minifigure inventory. You can maintain separate collections for items you're selling and your personal collection. Track quantities, conditions (New/Used), see total portfolio value, and refresh all prices with one click."
+        "q": "Kan ik mijn voorraad bijhouden?",
+        "a": "Ja! Maak een gratis account aan om je minifigurenvoorraad bij te houden. Je kunt aparte collecties aanhouden voor spullen die je verkoopt en voor je persoonlijke collectie. Houd aantallen en staat (Nieuw/Gebruikt) bij, bekijk de totale portefeuillewaarde en ververs alle prijzen met één klik."
       },
       {
-        "q": "How do I search for minifigures or sets?",
-        "a": "Search by exact Bricklink item number (e.g., \"sw1219\", \"75192-1\") or by name. Browse visually by theme to see minifigures and sets. Search supports partial matches and shows results with images and current pricing."
+        "q": "Hoe zoek ik naar minifiguren of sets?",
+        "a": "Zoek op het exacte Bricklink-artikelnummer (bijvoorbeeld \"sw1219\" of \"75192-1\") of op naam. Blader visueel op thema om minifiguren en sets te bekijken. De zoekfunctie ondersteunt gedeeltelijke overeenkomsten en toont resultaten met afbeeldingen en actuele prijzen."
       },
       {
-        "q": "What condition factors affect pricing?",
-        "a": "FigTracker shows prices for both New and Used conditions. New minifigs typically command higher prices, while Used condition prices reflect market values for previously owned items. You can toggle between conditions on each detail page."
+        "q": "Welke factoren rond de staat beïnvloeden de prijs?",
+        "a": "FigTracker toont prijzen voor zowel nieuwe als gebruikte staat. Nieuwe minifiguren brengen doorgaans meer op, terwijl prijzen voor gebruikte staat de marktwaarde van tweedehands items weergeven. Op elke detailpagina kun je tussen beide schakelen."
       },
       {
-        "q": "How often is pricing data updated?",
-        "a": "Pricing data is cached for 6 hours per Bricklink API terms. You can manually refresh prices anytime by clicking the refresh button on any minifig or set page, or use the \"Refresh All Prices\" button in your inventory to update your entire collection at once."
+        "q": "Hoe vaak worden de prijsgegevens bijgewerkt?",
+        "a": "FigTracker houdt prijzen automatisch actueel. Wanneer je je collectie bezoekt, worden prijzen die vernieuwd moeten worden op de achtergrond bijgewerkt terwijl je bladert."
       },
       {
-        "q": "Can I export my inventory?",
-        "a": "Yes! Go to your Account settings and click \"Export Your Data\" under Data Management. This downloads your complete minifig inventory as a JSON file that you can import into spreadsheets or other tools."
+        "q": "Kan ik mijn voorraad exporteren?",
+        "a": "Ja! Ga naar je accountinstellingen en klik op \"Exporteer je gegevens\" onder Gegevensbeheer. Je downloadt dan je volledige minifigurenvoorraad als JSON-bestand, dat je kunt importeren in spreadsheets of andere hulpmiddelen."
       },
       {
-        "q": "What if I find something that's not in the database?",
-        "a": "FigTracker syncs with the complete Bricklink catalog. If a minifig or set exists on Bricklink, it should be in our database. Contact us if you find a legitimate Bricklink item that's missing."
+        "q": "Wat als ik iets vind dat niet in de database staat?",
+        "a": "FigTracker synchroniseert met de volledige Bricklink-catalogus. Als een minifiguur of set op Bricklink bestaat, hoort die ook in onze database te staan. Neem contact op als je een echt Bricklink-item mist."
       },
       {
-        "q": "Is my inventory data private?",
-        "a": "Yes, your inventory is private by default and only visible to you when logged in. You can optionally generate a public share link in your Account settings to let others view your collection. You control sharing and can disable it anytime. We never share or sell your data to third parties."
+        "q": "Zijn mijn voorraadgegevens privé?",
+        "a": "Ja, je voorraad is standaard privé en alleen zichtbaar voor jou wanneer je bent ingelogd. Je kunt desgewenst een openbare deellink aanmaken in je accountinstellingen zodat anderen je collectie kunnen bekijken. Jij bepaalt het delen en kunt het altijd uitschakelen. We delen of verkopen je gegevens nooit aan derden."
       },
       {
-        "q": "What are the community leaderboards?",
-        "a": "FigTracker features quarterly leaderboards showing top collectors for minifigures, sets, and supporters. Leaderboards reset every 3 months (Q1, Q2, Q3, Q4) and only count items added during that quarter. You can opt-in or opt-out anytime in your Account settings."
+        "q": "Wat zijn de community-ranglijsten?",
+        "a": "FigTracker heeft ranglijsten per kwartaal met de beste verzamelaars van minifiguren en sets, en met de supporters. De ranglijsten worden elke 3 maanden opnieuw ingesteld (Q1, Q2, Q3, Q4) en tellen alleen items die in dat kwartaal zijn toegevoegd. Je kunt in je accountinstellingen altijd meedoen of afzien."
       },
       {
-        "q": "How do I appear on the leaderboards?",
-        "a": "Go to Account settings and check the boxes to show on the Minifig Collectors or Set Collectors leaderboards. You can customize your display name or leave it blank to use your first name and last initial. Only items you add during the current quarter count toward your rank."
+        "q": "Hoe kom ik op de ranglijsten?",
+        "a": "Ga naar je accountinstellingen en vink de vakjes aan om te verschijnen op de ranglijst voor minifiguur- of setverzamelaars. Je kunt je weergavenaam aanpassen of het veld leeg laten om je voornaam en de eerste letter van je achternaam te gebruiken. Alleen items die je in het huidige kwartaal toevoegt tellen mee voor je positie."
       },
       {
-        "q": "Can I share my collection publicly?",
-        "a": "Yes! You can generate a public share link for your collections in your Account settings. This allows others to view your minifigures and sets without needing to log in. You control what's shared and can disable sharing anytime."
+        "q": "Kan ik mijn collectie openbaar delen?",
+        "a": "Ja! Je kunt in je accountinstellingen een openbare deellink voor je collecties aanmaken. Daarmee kunnen anderen je minifiguren en sets bekijken zonder in te loggen. Jij bepaalt wat er wordt gedeeld en kunt het delen op elk moment uitschakelen."
       }
     ],
     "meta": {
@@ -708,7 +708,7 @@
       },
       "search": {
         "title": "Vind Elke Figuur in Seconden",
-        "description": "Search minifigures and sets by BrickLink ID or name. Browse by theme when you want to explore."
+        "description": "Zoek {catalogCountText} minifiguren en meer dan 20.000 sets op BrickLink-ID of naam. Blader op thema wanneer je wilt rondkijken."
       },
       "privacy": {
         "title": "Prijzen Die de Markt Weerspiegelen",
@@ -783,7 +783,7 @@
     "retiringSoon": "Binnenkort uit productie"
   },
   "supportPage": {
-    "title": "Support FigTracker",
+    "title": "Steun FigTracker",
     "subtitle": "Houd onze LEGO prijstracker gratis voor de community",
     "intro": "FigTracker biedt gratis LEGO prijstracking voor 18.000+ minifiguren en 20.000+ sets met slimme marktprijzen uit meerdere bronnen. We dekken kosten via affiliate-commissies wanneer je via onze links winkelt. Zo kun je helpen:",
     "shopLinksTitle": "Winkel via Onze Links",
@@ -854,7 +854,7 @@
     "copyright": "© {year} FigTracker. Alle rechten voorbehouden."
   },
   "disclosure": {
-    "title": "Affiliate Disclosure",
+    "title": "Affiliate-informatie",
     "lastUpdated": "Laatst Bijgewerkt",
     "affiliatePrograms": {
       "title": "Affiliateprogramma's",
@@ -946,74 +946,74 @@
       }
     },
     "cta": {
-      "title": "Ready to price your next listing?",
-      "subtitle": "Search any minifigure or set and get a suggested price in seconds.",
+      "title": "Niet gevonden wat je zocht?",
+      "subtitle": "Mail ons. We beantwoorden elk bericht.",
       "button": "Start Pricing →"
     },
     "items": [
       {
-        "title": "Most Valuable LEGO Minifigures in 2026",
-        "description": "Discover which LEGO minifigures command the highest prices. Learn what makes certain minifigs valuable and how to identify hidden gems.",
+        "title": "De waardevolste LEGO-minifiguren van 2026",
+        "description": "Ontdek welke LEGO-minifiguren de hoogste prijzen opleveren. Leer wat bepaalde minifiguren waardevol maakt en hoe je verborgen pareltjes herkent.",
         "slug": "most-valuable-lego-minifigures-2026",
         "status": "published",
         "topics": [
-          "Top 50 most valuable minifigs analyzed",
-          "Star Wars, Harry Potter, Marvel rarities",
-          "Investment potential and appreciation rates",
-          "Authentication and condition grading",
-          "Where to buy and sell valuable pieces"
+          "De 50 waardevolste minifiguren geanalyseerd",
+          "Zeldzaamheden uit Star Wars, Harry Potter en Marvel",
+          "Investeringspotentieel en waardestijging",
+          "Echtheid vaststellen en staat beoordelen",
+          "Waar je waardevolle stukken koopt en verkoopt"
         ]
       },
       {
-        "title": "FigTracker vs Bricklink: Which Should You Use?",
-        "description": "Compare FigTracker and Bricklink for LEGO pricing. Learn when to use each platform and how they complement each other.",
+        "title": "FigTracker of Bricklink: wat kun je het beste gebruiken?",
+        "description": "Vergelijk FigTracker en Bricklink voor LEGO-prijzen. Leer wanneer je welk platform gebruikt en hoe ze elkaar aanvullen.",
         "slug": "figtracker-vs-bricklink",
         "status": "published",
         "topics": [
-          "Side-by-side feature comparison",
-          "When to use each platform",
-          "Pricing philosophy differences",
-          "Best workflow: using both together",
-          "Time-saving strategies for sellers"
+          "Functies naast elkaar vergeleken",
+          "Wanneer je welk platform gebruikt",
+          "Verschillen in prijsfilosofie",
+          "De beste werkwijze: gebruik ze samen",
+          "Tijdbesparende strategieën voor verkopers"
         ]
       },
       {
-        "title": "LEGO Star Wars May the 4th Deals 2026",
-        "description": "Complete analysis of LEGO's May the 4th promotion. Get up to 35% total value with free gifts and cashback. Find the best deal tier for your budget.",
+        "title": "LEGO Star Wars May the 4th-aanbiedingen 2026",
+        "description": "Volledige analyse van de May the 4th-actie van LEGO. Tot 35% totale waarde met gratis cadeaus en cashback. Vind het aanbiedingsniveau dat bij je budget past.",
         "slug": "/deals/star-wars-may-4th-2026",
         "status": "published",
         "topics": [
-          "4 deal tiers analyzed (D, C, B, A)",
-          "Up to 35% total value on Star Wars sets",
-          "Free exclusive minifigures and builds",
-          "20% cashback with 4x Insiders Points",
-          "Valid May 1-6, 2026"
+          "4 aanbiedingsniveaus geanalyseerd (D, C, B, A)",
+          "Tot 35% totale waarde op Star Wars-sets",
+          "Gratis exclusieve minifiguren en bouwsels",
+          "20% cashback met 4x Insiders Points",
+          "Geldig van 1 tot en met 6 mei 2026"
         ]
       },
       {
-        "title": "How to Price LEGO Minifigures",
-        "description": "Learn the fundamentals of pricing LEGO minifigures using Bricklink marketplace data. Understand quantity-weighted averages, simple averages, and how to factor in condition.",
+        "title": "Zo bepaal je de prijs van LEGO-minifiguren",
+        "description": "Leer de basis van het prijzen van LEGO-minifiguren met marktgegevens van Bricklink. Begrijp gewogen gemiddelden, gewone gemiddelden en hoe je de staat meeweegt.",
         "slug": null,
         "status": "coming-soon",
         "topics": [
-          "Understanding Bricklink pricing metrics",
-          "New vs Used condition pricing",
-          "Accounting for rarity and demand",
-          "When to price above or below market average",
-          "Seasonal pricing trends"
+          "De prijsmaatstaven van Bricklink begrijpen",
+          "Prijzen voor nieuwe en gebruikte staat",
+          "Rekening houden met zeldzaamheid en vraag",
+          "Wanneer je boven of onder het marktgemiddelde prijst",
+          "Seizoensgebonden prijstrends"
         ]
       },
       {
-        "title": "Selling LEGO on Bricklink",
-        "description": "Complete guide to becoming a successful Bricklink seller. From creating your store to shipping best practices and customer service tips.",
+        "title": "LEGO verkopen op Bricklink",
+        "description": "Complete gids om een succesvolle Bricklink-verkoper te worden. Van het opzetten van je winkel tot verzendtips en klantenservice.",
         "slug": null,
         "status": "coming-soon",
         "topics": [
-          "Setting up your Bricklink store",
-          "Competitive pricing strategies",
-          "Writing effective item descriptions",
-          "Packaging and shipping minifigures safely",
-          "Building seller reputation"
+          "Je Bricklink-winkel opzetten",
+          "Concurrerende prijsstrategieën",
+          "Doeltreffende artikelbeschrijvingen schrijven",
+          "Minifiguren veilig verpakken en verzenden",
+          "Je reputatie als verkoper opbouwen"
         ]
       }
     ]
@@ -1025,7 +1025,7 @@
       "features": {
         "trackUnlimited": "Track unlimited items",
         "realtimePrices": "Real-time suggested prices",
-        "totalValue": "Know your total inventory value",
+        "totalValue": "Verkooplijst en collectie gescheiden",
         "dataPrivate": "Je gegevens blijven privé"
       },
       "name": "Naam",
@@ -1239,29 +1239,29 @@
         "title": "Accountinformatie",
         "intro": "Wanneer u een account aanmaakt, verzamelen wij:",
         "items": [
-          "Email address",
-          "Password (encrypted)",
-          "Optional profile information (name, avatar)"
+          "E-mailadres",
+          "Wachtwoord (versleuteld)",
+          "Optionele profielgegevens (naam, avatar)"
         ]
       },
       "inventoryData": {
         "title": "Inventarisgegevens",
         "intro": "Uw inventarisgegevens omvatten:",
         "items": [
-          "LEGO minifigure IDs you track",
-          "Quantities and conditions",
-          "Custom notes",
-          "Timestamps of additions/modifications"
+          "De ID's van LEGO-minifiguren die je bijhoudt",
+          "Aantallen en staat",
+          "Eigen notities",
+          "Tijdstempels van toevoegingen en wijzigingen"
         ]
       },
       "usageAnalytics": {
         "title": "Gebruiksanalyse",
         "intro": "Wij gebruiken Google Analytics om te begrijpen hoe gebruikers omgaan met FigTracker:",
         "items": [
-          "Pages visited",
-          "Search queries (minifigure searches only)",
-          "Device type and browser",
-          "General location (country/region)"
+          "Bezochte pagina's",
+          "Zoekopdrachten (alleen zoekopdrachten naar minifiguren)",
+          "Apparaattype en browser",
+          "Globale locatie (land/regio)"
         ]
       }
     },
@@ -1269,21 +1269,21 @@
       "title": "Hoe Wij Uw Informatie Gebruiken",
       "intro": "Wij gebruiken verzamelde informatie om:",
       "items": [
-        "Provide inventory tracking and pricing features",
-        "Fetch market pricing data from multiple sources",
-        "Improve our service through usage analytics",
-        "Send essential account notifications (password resets, etc.)",
-        "Build a searchable minifigure catalog based on user searches"
+        "Functies voor voorraadbeheer en prijsbepaling aanbieden",
+        "Marktprijzen ophalen uit meerdere bronnen",
+        "Onze dienst verbeteren aan de hand van gebruiksstatistieken",
+        "Noodzakelijke accountmeldingen versturen (wachtwoordherstel en dergelijke)",
+        "Een doorzoekbare minifigurencatalogus opbouwen op basis van zoekopdrachten van gebruikers"
       ]
     },
     "dataStorage": {
       "title": "Gegevensopslag en Beveiliging",
       "intro": "Uw gegevens worden veilig opgeslagen:",
       "items": [
-        "Passwords are encrypted using industry-standard bcrypt hashing",
-        "Data is stored in secure, encrypted databases",
-        "All connections use HTTPS encryption",
-        "We implement access controls to protect your data"
+        "Wachtwoorden worden versleuteld met bcrypt-hashing, de standaard in de sector",
+        "Gegevens worden opgeslagen in beveiligde, versleutelde databases",
+        "Alle verbindingen gebruiken HTTPS-versleuteling",
+        "We hanteren toegangscontroles om je gegevens te beschermen"
       ]
     },
     "thirdPartyServices": {
@@ -1294,7 +1294,7 @@
       },
       "googleAnalytics": {
         "title": "Google Analytics",
-        "content": "Wij gebruiken Google Analytics om het gebruik van de site te begrijpen. Google Analytics kan cookies gebruiken om uw activiteit bij te houden. Zie voor meer informatie",
+        "content": "We gebruiken Google Analytics om inzicht te krijgen in het gebruik van de site. Google Analytics kan cookies gebruiken om je activiteit te volgen. Zie voor meer informatie",
         "linkText": "Het Privacybeleid van Google"
       },
       "amazonAssociates": {
@@ -1308,11 +1308,11 @@
       "title": "Uw Rechten",
       "intro": "U heeft het recht om:",
       "items": [
-        "Access your personal data and inventory",
-        "Update or correct your information",
-        "Delete your account and all associated data",
-        "Export your inventory data",
-        "Opt out of analytics tracking (via browser settings)"
+        "Je persoonsgegevens en voorraad inzien",
+        "Je gegevens bijwerken of corrigeren",
+        "Je account en alle bijbehorende gegevens verwijderen",
+        "Je voorraadgegevens exporteren",
+        "Je afmelden voor analysetracking (via je browserinstellingen)"
       ],
       "footer": "Om deze rechten uit te oefenen, kunt u contact met ons opnemen via onderstaande informatie of de accountinstellingen in uw dashboard gebruiken."
     },
@@ -1490,14 +1490,14 @@
       "description": "We analyseerden 18.732 LEGO minifiguren om de meest waardevolle collector's items te vinden. Ontdek welke minifigs de hoogste prijzen behalen op de Bricklink marktplaats.",
       "author": "FigTracker Team",
       "readTime": "12 min. leestijd",
-      "content": "Na het analyseren van prijsgegevens van 18.732 LEGO minifiguren uit de volledige Bricklink-catalogus, hebben we de meest waardevolle collector's items op de markt van vandaag geïdentificeerd. Of je nu een serieuze verzamelaar, investeerder bent, of gewoon nieuwsgierig naar LEGO-waarden, deze uitgebreide gids onthult welke minifigs premiumprijzen behalen en waarom.\n\n## Wat Maakt een Minifiguur Waardevol?\n\nVoordat we in de ranglijst duiken, is het belangrijk om de belangrijkste factoren te begrijpen die de waarde van minifiguren bepalen:\n\n### 1. **Zeldzaamheid**\nBeperkte productieoplages, exclusieve sets of promotionele releases zorgen voor schaarste. Conventie-exclusieven en personeelscadeaus zijn bijzonder gewild.\n\n### 2. **Leeftijd**\nKlassieke minifigs uit de jaren 70-90 worden steeds zeldzamer naarmate ze slijten of kwijtraken. Vintage stukken in goede staat brengen premiumprijzen op.\n\n### 3. **Populariteit**\nPersonages uit geliefde franchises (Star Wars, Harry Potter, Marvel) behouden consequent hun waarde. Hoofdpersonages en schurken stijgen doorgaans sneller in waarde dan bijfiguren.\n\n### 4. **Conditie**\nMinifigs in nieuwstaat met alle originele accessoires zijn aanzienlijk meer waard dan gebruikte versies. Zelfs lichte slijtage kan de waarde met 30-50% verlagen.\n\n### 5. **Volledigheid**\nEen minifig met alle bedrukte onderdelen, accessoires en originele verpakking (indien van toepassing) is meer waard dan losse of incomplete figuren.\n\n## Star Wars Domineert de Top 10\n\n[**Star Wars minifiguren**](/themes/star-wars) behalen consequent de hoogste prijzen, door verschillende factoren die bijdragen aan hun waarde:\n\n- Gelicentieerde franchise met een enorme wereldwijde fanbase\n- Veel waren alleen verkrijgbaar in dure sets ($100-$500 winkelprijs)\n- Sommige zijn maar één of twee keer uitgebracht in 25+ jaar LEGO Star Wars\n- Personages uit de originele trilogie (1977-1983) zijn bijzonder waardevol\n\n### Meest Waardevolle Star Wars Minifiguren:\n\n**Cloud City Boba Fett (2003)** - Vaak genoemd als de heilige graal, deze exclusieve versie met bedrukkingsvarianten kan $3.000-$5.000 opbrengen in nieuwstaat.\n\n**Chrome Darth Vader** - Beperkte promotionele release, metallic chromen afwerking. Zeldzame varianten brengen $1.500-$2.500 op.\n\n**14k Gouden C-3PO** - Slechts 10.000 geproduceerd voor een promotie in 2007. Ondanks de hogere productieaantallen houden de gouden laag en de populariteit van Star Wars de waarde op $1.000-$2.000.\n\n**Mr. Gold** - Hoewel niet Star Wars, wordt deze ultrazeldzame promotionele figuur uit 2013 (slechts 5.000 gemaakt) regelmatig verkocht voor $3.000-$5.000.\n\n## Classic Space & Castle Zeldzaamheden\n\nNaast gelicentieerde thema's betalen verzamelaars ook premiumprijzen voor vintage LEGO-thema's:\n\n[**Classic Space minifigs**](/themes/space) (1978-1987) met complete helmen en zuurstoftanks in perfecte staat worden steeds waardevoller naarmate originele eigenaren stoppen met verzamelen.\n\n[**Castle-ridders**](/themes/castle) met bedrukte torso's en unieke helmen uit de jaren 80-90 zijn moeilijker te vinden, vooral in sets die minder goed verkochten.\n\n## Hoe Je Je Eigen Collectie Prijst\n\nAls je een van deze waardevolle minifiguren bezit, zo bepaal je een nauwkeurige prijs:\n\n### Stap 1: Verifieer Authenticiteit\nControleer op:\n- Officiële LEGO-markeringen op de noppen\n- Printkwaliteit (LEGO gebruikt tampondruk, geen stickers)\n- Kunststofkwaliteit en pasvorm\n\n### Stap 2: Beoordeel de Conditie\nWees eerlijk over:\n- Slijtage of vervaging van de bedrukking\n- Verkleuring van het plastic (vergeling)\n- Scheuren of tandafdrukken\n- Ontbrekende accessoires\n\n### Stap 3: Controleer Actuele Marktprijzen\nGebruik de [zoektool van FigTracker](/search) om:\n- Actuele Bricklink-marktgegevens te bekijken\n- Hoeveelheidsgewogen gemiddelden te vergelijken met de laagste prijzen\n- Prijstrends over tijd te volgen\n- Rekening te houden met verschillen in conditie\n\n### Stap 4: Houd Rekening met Timing\nPrijzen schommelen op basis van:\n- Filmreleases (Star Wars, Marvel, DC)\n- Uitfasering van sets (prijzen pieken vaak 6-12 maanden later)\n- Seizoensgebonden vraag (december = hogere prijzen)\n\n## Investeringspotentieel: Welke Minifigs Stijgen in Waarde?\n\nOp basis van meer dan 5 jaar aan prijsgegevens stijgen deze minifigs doorgaans in waarde:\n\n### Hoog Waardestijgingspotentieel:\n- **Hoofdpersonages uit populaire franchises** - Vooral eerste releases\n- **Beperkte promoties** - Conventie-exclusieven, personeelscadeaus\n- **Uitgefaseerde thema's** - Zodra LEGO stopt met een thema, neemt de schaarste toe\n- **Unieke bedrukking/varianten** - Misdrukken, prototypes of eerste-oplage-varianten\n\n### Stabiel maar Langzamere Groei:\n- **Bijfiguren** - Nog steeds waardevol maar stijgen langzamer in waarde\n- **Gangbare sets** - Breed verkrijgbaar tijdens de productieperiode\n- **Recente releases** - Hebben 3-5 jaar nodig om significant in waarde te stijgen\n\n### Slechte Investeringen:\n- **Massaal geproduceerde polybags** - Te veel in omloop\n- **Generieke minifigs** - Geen unieke bedrukking of characterwaarde\n- **Beschadigd/incompleet** - Zeer moeilijk te verkopen voor een redelijke prijs\n\n## Opvallende Minifiguren per Thema\n\n### Harry Potter\nDe heropleving van [Harry Potter](/themes/harry-potter)-sets in 2018 zorgde voor hernieuwde interesse, maar de originele releases uit 2001-2005 met unieke bedrukking blijven het meest waardevol:\n- Dumbledore (varianten met grijze baard)\n- Professor Snape (vroege versies)\n- Voldemort (variant met rode ogen)\n\nPrijzen: $50-$300, afhankelijk van variant en conditie\n\n### Marvel Super Heroes\nDe populariteit van de MCU stuwt de waarde van [Marvel](/themes/super-heroes) omhoog:\n- Loki (Avengers-tijdperk, bedrukte benen)\n- Deadpool (eerste release)\n- Spider-Man-varianten (symbiote, Iron Spider)\n\nPrijzen: $40-$200 voor felbegeerde varianten\n\n### DC Comics Super Heroes\nBatman-varianten zijn er in overvloed, maar zeldzame [DC Comics Super Heroes](/themes/super-heroes)-versies brengen premiumprijzen op:\n- Comic-Con-exclusieve Batman-figuren\n- Vroege Joker-varianten\n- Originele Superman uit 2012\n\n### Piraten & Kasteel\nVintage thema's uit de jaren 80-90 zijn erg gewild:\n- [Piraten](/sets-themes/Pirates) met unieke torso-bedrukkingen\n- [Kasteel](/sets-themes/Castle)-ridders met zeldzame helmen\n- Bosmannen met complete accessoires\n\nPrijzen: $30-$150 voor complete vintage minifigs\n\n## Waar Waardevolle Minifiguren Kopen en Verkopen\n\n### Beste Marktplaatsen:\n\n**Bricklink** - De gouden standaard voor LEGO-handel. Grootste aanbod, concurrerende prijzen, maar vereist onderzoek.\n\n**eBay** - Hogere prijzen maar een breder kopersbestand. Let op overprijsde \"zeldzame\" advertenties die dat niet daadwerkelijk zijn.\n\n**Facebookgroepen** - LEGO-verkoopgroepen hebben vaak gemotiveerde kopers die snel een eerlijke prijs willen betalen.\n\n**Lokale Conventies** - BrickCon, BrickFair, enz. Geweldig voor netwerken en het verkopen van high-end stukken.\n\n### Verkooptips:\n1. **Fotografeer goed** - Meerdere hoeken, helder licht, laat alle kanten zien\n2. **Wees eerlijk over de conditie** - Beter een lagere prijs dan een retour/geschil\n3. **Voeg alle accessoires toe** - Wapens, capes en helmen voegen aanzienlijke waarde toe\n4. **Time je listing** - Verkoop vóór feestdagen of filmreleases\n5. **Gebruik FigTracker** - Krijg een nauwkeurige voorgestelde prijs voordat je gaat listen\n\n## Bescherm Je Investering\n\nAls je waardevolle minifiguren bezit:\n\n### Beste Opslagpraktijken:\n- Houd ze uit direct zonlicht (voorkomt vergeling)\n- Bewaar ze in afgesloten containers of vitrinekasten\n- Vermijd vochtige omgevingen (kan verkleuring veroorzaken)\n- Stapel geen zware items erbovenop\n\n### Verzekering:\nCollecties ter waarde van $5.000+ moeten worden gedocumenteerd en verzekerd:\n- Fotografeer alles\n- Houd aankoopprijzen en -data bij\n- Bewaar verkoopbonnen\n- Overweeg een verzekering voor verzamelobjecten\n\n### Authenticatie:\nVoor ultrazeldzame stukken ($500+):\n- Koop bij betrouwbare verkopers met feedback\n- Vraag extra foto's aan bij online aankopen\n- Leer veelvoorkomende vervalsingen herkennen (vooral Chrome C-3PO, Mr. Gold)\n- Sluit je aan bij LEGO-communities om authenticiteit te verifiëren\n\n## Toekomstverwachting: 2026-2030\n\nOp basis van huidige trends voorspellen we:\n\n### Stijgende Waarden:\n- **Uitgefaseerde Star Wars-sets** - Personages uit Mandalorian, Bad Batch, Clone Wars\n- **Originele Marvel CMU-minifigs** - Naarmate films \"klassiek\" worden (eerste releases van Iron Man, Thor)\n- **LEGO Ideas-exclusieven** - Beperkte oplages zorgen voor schaarste\n- **Milieubewustzijn** - Vintage stukken worden steeds zeldzamer\n\n### Dalende Waarden:\n- **Massale herdrukken** - Als LEGO populaire minifigs opnieuw uitbrengt (zoals gebeurde met Han Solo)\n- **Franchisemoeheid** - Als de verzadiging van Marvel/Star Wars aanhoudt\n- **Economische factoren** - Een recessie kan de prijzen van luxe verzamelobjecten tijdelijk drukken\n\n## Begin Vandaag met het Bijhouden van Je Collectie\n\nOf je nu een van deze waardevolle minifigs bezit of een collectie aan het opbouwen bent, nauwkeurige prijsbepaling is essentieel. FigTracker biedt:\n\n- Actuele Bricklink-marktgegevens\n- Prijsgeschiedenis bijhouden\n- Conditie-specifieke prijzen (Nieuw vs Gebruikt)\n- Hulpmiddelen voor inventarisbeheer\n- 18.732+ minifiguren in de database\n\n**Klaar om te ontdekken wat jouw collectie waard is?**\n\n[Zoek Je Minifiguren →](/search)\n\n---\n\n*Prijsgegevens bijgewerkt in april 2026 op basis van Bricklink US-marktgemiddelden. Waarden schommelen - controleer altijd actuele prijzen voordat je koopt of verkoopt.*"
+      "content": "After analyzing pricing data from 18,732 LEGO minifigures across the entire Bricklink catalog, we've identified the most valuable collectibles on the market today. Whether you're a serious collector, investor, or just curious about LEGO values, this comprehensive guide reveals which minifigs command premium prices and why.\n\n## What Makes a Minifigure Valuable?\n\nBefore diving into the rankings, it's important to understand the key factors that drive minifigure values:\n\n### 1. **Rarity**\nLimited production runs, exclusive sets, or promotional releases create scarcity. Convention exclusives and employee gifts are particularly sought after.\n\n### 2. **Age**\nClassic minifigs from the 1970s-1990s are increasingly rare as they wear out or get lost. Vintage pieces in good condition command premiums.\n\n### 3. **Popularity**\nCharacters from beloved franchises (Star Wars, Harry Potter, Marvel) consistently hold value. Main characters and villains typically appreciate faster than side characters.\n\n### 4. **Condition**\nNew/mint condition minifigs with all original accessories are worth significantly more than used versions. Even minor wear can reduce value by 30-50%.\n\n### 5. **Completeness**\nA minifig with all printed parts, accessories, and original packaging (if applicable) is worth more than loose or incomplete figures.\n\n## Star Wars Dominates the Top 10\n\n[**Star Wars minifigures**](/themes/star-wars) consistently command the highest prices, with several factors contributing to their value:\n\n- Licensed franchise with massive global fanbase\n- Many were only available in expensive sets ($100-$500 retail)\n- Some were released only once or twice across 25+ years of LEGO Star Wars\n- Characters from the original trilogy (1977-1983) are especially valuable\n\n### Most Valuable Star Wars Minifigures:\n\n**Cloud City Boba Fett (2003)** - Often cited as the holy grail, this exclusive version with printing variations can fetch $3,000-$5,000 in mint condition.\n\n**Chrome Darth Vader** - Limited promotional release, metallic chrome finish. Rare variants command $1,500-$2,500.\n\n**14k Gold C-3PO** - Only 10,000 produced for a 2007 promotion. Despite higher production numbers, gold plating and Star Wars popularity keep values at $1,000-$2,000.\n\n**Mr. Gold** - While not Star Wars, this ultra-rare 2013 promotional figure (only 5,000 made) regularly sells for $3,000-$5,000.\n\n## Classic Space & Castle Rarities\n\nBeyond licensed themes, vintage LEGO themes have collectors paying premium prices:\n\n[**Classic Space minifigs**](/themes/space) (1978-1987) with complete helmets and air tanks in pristine condition are increasingly valuable as original owners age out of collecting.\n\n[**Castle knights**](/themes/castle) with printed torsos and unique helmets from the 1980s-1990s are harder to find, especially in sets that didn't sell as well.\n\n## How to Price Your Own Collection\n\nIf you own any of these valuable minifigures, here's how to determine accurate pricing:\n\n### Step 1: Verify Authenticity\nCheck for:\n- Official LEGO markings on studs\n- Print quality (LEGO uses pad printing, not stickers)\n- Plastic quality and fit\n\n### Step 2: Assess Condition\nBe honest about:\n- Print wear or fading\n- Plastic discoloration (yellowing)\n- Cracks or teeth marks\n- Missing accessories\n\n### Step 3: Check Current Market Prices\nUse [FigTracker's search tool](/search) to:\n- See real-time Bricklink marketplace data\n- Compare quantity-weighted averages vs lowest prices\n- Track price trends over time\n- Factor in condition differences\n\n### Step 4: Consider Timing\nPrices fluctuate based on:\n- Movie releases (Star Wars, Marvel, DC)\n- Set retirements (prices often spike 6-12 months after)\n- Seasonal demand (December = higher prices)\n\n## Investment Potential: Which Minifigs Appreciate?\n\nBased on 5+ years of pricing data, minifigs that tend to appreciate include:\n\n### High Appreciation Potential:\n- **Main characters from popular franchises** - First releases especially\n- **Limited promotions** - Convention exclusives, employee gifts\n- **Retired themes** - Once LEGO stops making a theme, scarcity increases\n- **Unique printing/variants** - Misprint, prototype, or first-run variations\n\n### Stable but Slower Growth:\n- **Side characters** - Still valuable but appreciate more slowly\n- **Common sets** - Widely available during production run\n- **Recent releases** - Need 3-5 years to see significant appreciation\n\n### Poor Investment Bets:\n- **Mass-produced polybags** - Too many in circulation\n- **Generic minifigs** - No unique printing or character value\n- **Damaged/incomplete** - Very hard to sell at reasonable prices\n\n## Notable Minifigures by Theme\n\n### Harry Potter\nThe revival of [Harry Potter](/themes/harry-potter) sets in 2018 created renewed interest, but original 2001-2005 releases with unique printing remain most valuable:\n- Dumbledore (gray beard variants)\n- Professor Snape (early versions)\n- Voldemort (red eyes variant)\n\nPrices: $50-$300 depending on variant and condition\n\n### Marvel Super Heroes\nMCU popularity drives [Marvel](/themes/super-heroes) values:\n- Loki (Avengers era, printed legs)\n- Deadpool (first release)\n- Spider-Man variants (symbiote, Iron Spider)\n\nPrices: $40-$200 for sought-after variants\n\n### DC Comics Super Heroes\nBatman variants are plentiful, but rare [DC Comics Super Heroes](/themes/super-heroes) versions command premiums:\n- Comic-Con exclusive Batman figures\n- Early Joker variants\n- Original Superman from 2012\n\n### Pirates & Castle\nVintage 1980s-1990s themes are hot:\n- [Pirates](/sets-themes/Pirates) with unique torso prints\n- [Castle](/sets-themes/Castle) knights with rare helmets\n- Forestmen with complete accessories\n\nPrices: $30-$150 for complete vintage minifigs\n\n## Where to Buy and Sell Valuable Minifigures\n\n### Best Marketplaces:\n\n**Bricklink** - The gold standard for LEGO trading. Largest selection, competitive prices, but requires research.\n\n**eBay** - Higher prices but wider buyer base. Watch for overpriced \"rare\" listings that aren't actually rare.\n\n**Facebook Groups** - LEGO selling groups often have motivated buyers willing to pay fair prices quickly.\n\n**Local Conventions** - BrickCon, BrickFair, etc. Great for networking and selling high-end pieces.\n\n### Selling Tips:\n1. **Photograph well** - Multiple angles, clear lighting, show all sides\n2. **Disclose condition honestly** - Better a lower price than a return/dispute\n3. **Include all accessories** - Weapons, capes, helmets add significant value\n4. **Time your listing** - Sell before holidays or movie releases\n5. **Use FigTracker** - Get accurate suggested pricing before listing\n\n## Protecting Your Investment\n\nIf you own valuable minifigures:\n\n### Storage Best Practices:\n- Keep away from direct sunlight (prevents yellowing)\n- Store in sealed containers or display cases\n- Avoid humid environments (can cause discoloration)\n- Don't stack heavy items on top\n\n### Insurance:\nCollections worth $5,000+ should be documented and insured:\n- Photograph everything\n- Track purchase prices and dates\n- Keep sales receipts\n- Consider collectibles insurance rider\n\n### Authentication:\nFor ultra-rare pieces ($500+):\n- Buy from reputable sellers with feedback\n- Request additional photos if buying online\n- Learn to spot common fakes (especially Chrome C-3PO, Mr. Gold)\n- Join LEGO communities to verify authenticity\n\n## Future Outlook: 2026-2030\n\nBased on current trends, we predict:\n\n### Rising Values:\n- **Retired Star Wars sets** - Mandalorian, Bad Batch, Clone Wars characters\n- **Original Marvel CMU minifigs** - As movies become \"classic\" (Iron Man, Thor first releases)\n- **LEGO Ideas exclusives** - Limited runs create scarcity\n- **Environmental awareness** - Vintage pieces become increasingly rare\n\n### Declining Values:\n- **Mass reissues** - If LEGO reprints popular minifigs (like they did with Han Solo)\n- **Franchise fatigue** - If Marvel/Star Wars oversaturation continues\n- **Economic factors** - Recession could temporarily suppress luxury collectible prices\n\n## Start Tracking Your Collection Today\n\nWhether you own one of these valuable minifigs or are building a collection, accurate pricing is essential. FigTracker provides:\n\n- Real-time Bricklink marketplace data\n- Price history tracking\n- Condition-specific pricing (New vs Used)\n- Inventory management tools\n- 18,732+ minifigures in database\n\n**Ready to discover what your collection is worth?**\n\n[Search Your Minifigures →](/search)\n\n---\n\n*Pricing data updated April 2026 based on Bricklink US marketplace averages. Values fluctuate - always verify current prices before buying or selling.*"
     },
     "figtracker-vs-bricklink": {
       "title": "FigTracker vs Bricklink: Welke Moet Je Gebruiken?",
       "description": "Vergelijk FigTracker en Bricklink voor het prijzen van LEGO minifiguren. Leer wanneer je elk platform gebruikt en hoe FigTracker het prijzen voor verkopers vereenvoudigt.",
       "author": "FigTracker Team",
       "readTime": "8 min. leestijd",
-      "content": "Als je serieus bezig bent met het kopen, verkopen of verzamelen van LEGO minifiguren, ben je waarschijnlijk Bricklink tegengekomen. Als grootste LEGO marktplaats is Bricklink de industriestandaard — maar het is niet altijd het makkelijkste hulpmiddel voor snelle prijsbeslissingen.\n\nDaar komt FigTracker om de hoek kijken.\n\n**Het korte antwoord:** Gebruik ze allebei. Bricklink voor kopen/verkopen, FigTracker voor directe prijzen.\n\n**Het uitgebreide antwoord:** Laten we ze naast elkaar vergelijken.\n\n## Wat is Bricklink?\n\nBricklink is 's werelds grootste marktplaats voor LEGO-onderdelen, sets en minifiguren. Opgericht in 2000 en overgenomen door LEGO Group in 2019, is het de plek waar serieuze verzamelaars en doorverkopers heen gaan om te kopen en verkopen.\n\n### Sterke Punten van Bricklink:\n✅ Enorme voorraad (miljoenen advertenties)\n✅ Wereldwijde marktplaats met verkopers in 100+ landen\n✅ Historische prijsgegevens\n✅ Wenslijsten en inventarisbeheer\n✅ Integratie met de officiële LEGO-catalogus\n\n### Uitdagingen van Bricklink:\n❌ Complexe prijsstelling (3+ statistieken om te interpreteren)\n❌ Overweldigend voor incidentele gebruikers\n❌ Geen voorgestelde \"eerlijke prijs\" - je doet het rekenwerk zelf\n❌ Je moet door meerdere pagina's spitten voor prijzen\n❌ Verouderd interface-ontwerp\n\n## Wat is FigTracker?\n\nFigTracker is een gratis prijstracker voor LEGO minifiguren, speciaal gebouwd voor verkopers en verzamelaars die snelle, nauwkeurige prijzen nodig hebben zonder de complexiteit.\n\n### Sterke Punten van FigTracker:\n✅ Eén voorgestelde prijs (geen hoofdrekenen nodig)\n✅ Actuele Bricklink-marktgegevens\n✅ Overzichtelijke, moderne interface\n✅ Inventarisbeheer met conditiebeheer\n✅ Snel zoeken op ID of naam\n✅ 18.732+ minifiguren in de database\n✅ 15+ ondersteunde valuta (USD, EUR, GBP, CAD en meer)\n\n### Beperkingen van FigTracker:\n❌ Verkoopt zelf niets (linkt naar marktplaatsen)\n❌ Nieuwer platform (minder historische data dan Bricklink)\n\n## Het Prijsprobleem: Waarom FigTracker Bestaat\n\nDit is de realiteit van prijzen op Bricklink:\n\n**Dit zie je:**\n- Hoeveelheidsgewogen Gemiddelde: $12,45\n- Eenvoudig Gemiddelde: $15,20\n- Laagste Prijs: $8,99\n\n**Dit denk je:**\n*\"Wacht... welke gebruik ik? Moet ik $12 vragen? $15? Het verschil splitsen? En de conditie dan?\"*\n\n**Dit doe je:**\nRekenmachine openen. De gemiddelden middelen. Laagste prijs controleren. Rekening houden met conditie. Aan jezelf twijfelen. Laptop dichtklappen.\n\n### De Oplossing van FigTracker\n\n**Dit zie je:**\n- Voorgestelde Prijs: $13,25 (Nieuw) | $9,75 (Gebruikt)\n\n**Dit denk je:**\n*\"Perfect. Klaar.\"*\n\nHet algoritme van FigTracker combineert alle drie de Bricklink-statistieken plus conditiegegevens tot één betrouwbaar getal. Je kunt de uitsplitsing nog steeds bekijken als je dat wilt, maar het hoeft niet.\n\n## Naast Elkaar Vergeleken\n\n| Functie | Bricklink | FigTracker |\n|---------|-----------|------------|\n| **Marktplaats** | ✅ Ja | ❌ Nee (linkt door) |\n| **Voorgestelde Prijzen** | ❌ Nee | ✅ Ja |\n| **Actuele Gegevens** | ✅ Ja | ✅ Ja (haalt data van Bricklink) |\n| **Inventarisbeheer** | ✅ Geavanceerd | ✅ Eenvoudig |\n| **Zoeksnelheid** | ⚠️ Gemiddeld | ✅ Snel |\n| **Gebruikersinterface** | ⚠️ Verouderd | ✅ Modern |\n| **Leercurve** | ⚠️ Steil | ✅ Zacht |\n| **Mobiele Ervaring** | ⚠️ Onhandig | ✅ Responsief |\n| **Prijs** | Gratis | Gratis |\n| **Het Beste Voor** | Kopen & verkopen | Snel prijzen & bijhouden |\n\n## Wanneer Gebruik Je Bricklink\n\nGebruik Bricklink wanneer je:\n\n**1. Minifiguren Wilt Kopen**\nBricklink heeft het grootste aanbod. Geen ander platform komt in de buurt.\n\n**2. Minifiguren Wilt Verkopen**\nAls je een serieuze verkoper bent, is het publiek van Bricklink enorm en gemotiveerd. Het is de moeite waard om het platform te leren kennen.\n\n**3. Zeldzame/Obscure Stukken Wilt Onderzoeken**\nDiepgaande historische gegevens en informatie over afgeronde verkopen.\n\n**4. Een Winkel Wilt Beheren**\nIngebouwde hulpmiddelen voor verkopers met grote voorraden.\n\n**5. Internationale Transacties Wilt Doen**\nWereldwijde marktplaats met valutaconversie.\n\n## Wanneer Gebruik Je FigTracker\n\nGebruik FigTracker wanneer je:\n\n**1. Snel Wilt Prijzen**\nJe hebt 20 minifigs om op eBay te listen. Krijg direct voorgestelde prijzen.\n\n**2. Je Collectie Wilt Bijhouden**\nEenvoudig inventarisbeheer zonder de complexiteit van Bricklink.\n\n**3. Prijzen per Conditie Wilt Vergelijken**\nZie Nieuw- vs Gebruikt-prijzen direct naast elkaar.\n\n**4. De Markt Wilt Leren Kennen**\nDe overzichtelijke interface maakt het makkelijker om prijstrends te begrijpen.\n\n**5. Wilt Beslissen Wat Je Koopt**\nControleer of die eBay-advertentie overprijsd is voordat je biedt.\n\n## De Beste Werkwijze: Gebruik Beide\n\nZo gebruiken slimme verkopers FigTracker + Bricklink samen:\n\n### Stap 1: Prijs op FigTracker\n[Zoek je minifig](/search) op ID (bijv. \"sw1219\"). Krijg binnen 5 seconden een voorgestelde prijs.\n\n### Stap 2: Controleer op Bricklink (indien nodig)\nVerifieer bij dure minifigs ($50+) op Bricklink om de daadwerkelijke advertenties te zien.\n\n### Stap 3: List op Jouw Platform\neBay, Facebook Marketplace, of je eigen Bricklink-winkel.\n\n### Stap 4: Houd Bij in FigTracker\nHoud je [inventaris georganiseerd](/inventory). Ververs prijzen maandelijks.\n\n**Bespaarde tijd:** 2-3 minuten per minifig × 50 minifigs = 2,5 uur per prijssessie.\n\n## Veelgestelde Vragen\n\n### \"Waarom niet gewoon Bricklink gebruiken?\"\n\nDat kan! Maar als je 20+ minifigs list, wordt het hoofdrekenen voor elk item al snel vervelend. FigTracker automatiseert de besluitvorming.\n\n### \"Is de prijsstelling van FigTracker nauwkeurig?\"\n\nJa. We halen actuele gegevens rechtstreeks uit de API van Bricklink. Onze voorgestelde prijs wordt berekend uit dezelfde gegevens die je op Bricklink zou zien — wij verwerken het gewoon voor je.\n\n### \"Kan ik verkopen op FigTracker?\"\n\nNiet rechtstreeks. FigTracker is een prijstool, geen marktplaats. We linken naar Bricklink en Amazon als je wilt kopen.\n\n### \"Vervangt FigTracker Bricklink?\"\n\nNee. Zie FigTracker als een aanvullend hulpmiddel dat Bricklink-gegevens makkelijker maakt te gebruiken voor snelle prijsbeslissingen.\n\n## Vergelijking van Prijsfilosofie\n\n**De Aanpak van Bricklink:**\n\"Hier is alle data. Jij bent slim genoeg - bedenk zelf wat je vraagt.\"\n\n**De Aanpak van FigTracker:**\n\"Hier is de beste prijs, gebaseerd op de huidige marktomstandigheden. Vertrouw ons, wij hebben het rekenwerk al gedaan.\"\n\nBeide zijn geldig. Bricklink geeft poweruser controle. FigTracker maakt snelle beslissingen mogelijk.\n\n## Met Welk Platform Moet Je Beginnen?\n\n### Begin met FigTracker als:\n- Je nieuw bent in het doorverkopen van LEGO\n- Je snel dingen moet prijzen\n- Je een kleine tot middelgrote collectie hebt (< 500 minifigs)\n- Je verkoopt op eBay/Facebook, niet op Bricklink\n\n### Begin met Bricklink als:\n- Je een serieuze verkoper bent (500+ advertenties)\n- Je een volledige LEGO-winkel wilt runnen\n- Je geavanceerd inventarisbeheer nodig hebt\n- Je internationaal koopt en verkoopt\n\n### Gebruik Beide als:\n- Je een professionele doorverkoper bent\n- Je snelheid + nauwkeurigheid waardeert\n- Je een moderne interface wilt voor dagelijks gebruik, maar Bricklink nodig hebt voor daadwerkelijke transacties\n\n## De Conclusie\n\n**Bricklink** is de standaard marktplaats in de branche met een ongeëvenaard aanbod en bereik. Onmisbaar voor serieus kopen en verkopen.\n\n**FigTracker** is de moderne prijsbegeleider die Bricklink-gegevens direct bruikbaar maakt. Onmisbaar voor snelle, zelfverzekerde prijsbepaling.\n\n**Je hoeft niet te kiezen.** Gebruik FigTracker voor prijzen en inventaris. Gebruik Bricklink voor transacties. Samen vormen ze de perfecte LEGO-toolkit.\n\n---\n\n**Klaar om FigTracker te proberen?**\n\n[Zoek Je Eerste Minifiguur →](/search)\n\nOf ontdek onze [complete prijsgids](/guides) om meer te leren over de waarde van LEGO minifiguren."
+      "content": "If you're serious about buying, selling, or collecting LEGO minifigures, you've probably encountered Bricklink. As the largest LEGO marketplace, Bricklink is the industry standard—but it's not always the easiest tool for quick pricing decisions.\n\nThat's where FigTracker comes in.\n\n**The short answer:** Use both. Bricklink for buying/selling, FigTracker for instant pricing.\n\n**The detailed answer:** Let's compare them side-by-side.\n\n## What is Bricklink?\n\nBricklink is the world's largest marketplace for LEGO parts, sets, and minifigures. Founded in 2000 and acquired by LEGO Group in 2019, it's where serious collectors and resellers go to buy and sell.\n\n### Bricklink Strengths:\n✅ Massive inventory (millions of listings)\n✅ Global marketplace with sellers in 100+ countries\n✅ Historical pricing data\n✅ Want lists and inventory management\n✅ Official LEGO catalog integration\n\n### Bricklink Challenges:\n❌ Complex pricing (3+ metrics to interpret)\n❌ Overwhelming for casual users\n❌ No suggested \"fair price\" - you do the math\n❌ Must dig through multiple pages for pricing\n❌ Dated interface design\n\n## What is FigTracker?\n\nFigTracker is a free LEGO minifigure price tracker built specifically for sellers and collectors who need quick, accurate pricing without the complexity.\n\n### FigTracker Strengths:\n✅ One suggested price (no mental math needed)\n✅ Real-time Bricklink marketplace data\n✅ Clean, modern interface\n✅ Inventory tracking with condition management\n✅ Fast search by ID or name\n✅ 18,732+ minifigures in database\n✅ 20+ currencies supported (USD, EUR, GBP, CAD, and more)\n\n### FigTracker Limitations:\n❌ Doesn't sell anything (links to marketplaces)\n❌ Newer platform (less historical data than Bricklink)\n\n## The Pricing Problem: Why FigTracker Exists\n\nHere's the reality of pricing on Bricklink:\n\n**You see this:**\n- Quantity-Weighted Average: $12.45\n- Simple Average: $15.20\n- Lowest Price: $8.99\n\n**You think this:**\n*\"Wait... which one do I use? Should I price at $12? $15? Split the difference? What about condition?\"*\n\n**You do this:**\nOpen calculator. Average the averages. Check lowest price. Factor in condition. Second-guess yourself. Close laptop.\n\n### FigTracker's Solution\n\n**You see this:**\n- Suggested Price: $13.25 (New) | $9.75 (Used)\n\n**You think this:**\n*\"Perfect. Done.\"*\n\nFigTracker's algorithm combines all three Bricklink metrics plus condition data to give you one confident number. You can still see the breakdown if you want it, but you don't need to.\n\n## Side-by-Side Comparison\n\n| Feature | Bricklink | FigTracker |\n|---------|-----------|------------|\n| **Marketplace** | ✅ Yes | ❌ No (links out) |\n| **Suggested Pricing** | ❌ No | ✅ Yes |\n| **Real-time Data** | ✅ Yes | ✅ Yes (pulls from Bricklink) |\n| **Inventory Management** | ✅ Advanced | ✅ Simple |\n| **Search Speed** | ⚠️ Moderate | ✅ Fast |\n| **User Interface** | ⚠️ Dated | ✅ Modern |\n| **Learning Curve** | ⚠️ Steep | ✅ Gentle |\n| **Mobile Experience** | ⚠️ Clunky | ✅ Responsive |\n| **Price** | Free | Free |\n| **Best For** | Buying & selling | Quick pricing & tracking |\n\n## When to Use Bricklink\n\nUse Bricklink when you need to:\n\n**1. Buy Minifigures**\nBricklink has the largest selection. No other platform comes close.\n\n**2. Sell Minifigures**\nIf you're a serious seller, Bricklink's audience is massive and motivated. Worth learning the platform.\n\n**3. Research Rare/Obscure Pieces**\nDeep historical data and completed sales info.\n\n**4. Manage a Store**\nBuilt-in tools for sellers with large inventories.\n\n**5. International Transactions**\nGlobal marketplace with currency conversion.\n\n## When to Use FigTracker\n\nUse FigTracker when you need to:\n\n**1. Price Quickly**\nYou have 20 minifigs to list on eBay. Get instant suggested prices.\n\n**2. Track Your Collection**\nSimple inventory management without Bricklink's complexity.\n\n**3. Compare Condition Pricing**\nSee New vs Used prices side-by-side instantly.\n\n**4. Learn the Market**\nClean interface makes it easier to understand pricing trends.\n\n**5. Decide What to Buy**\nCheck if that eBay listing is overpriced before bidding.\n\n## The Best Workflow: Use Both\n\nHere's how smart sellers use FigTracker + Bricklink together:\n\n### Step 1: Price on FigTracker\n[Search your minifig](/search) by ID (e.g., \"sw1219\"). Get suggested price in 5 seconds.\n\n### Step 2: Cross-check on Bricklink (if needed)\nFor expensive minifigs ($50+), verify on Bricklink to see actual listings.\n\n### Step 3: List on Your Platform\neBay, Facebook Marketplace, or your own Bricklink store.\n\n### Step 4: Track in FigTracker\nKeep your [inventory organized](/inventory). Refresh prices monthly.\n\n**Time saved:** 2-3 minutes per minifig × 50 minifigs = 2.5 hours per pricing session.\n\n## Common Questions\n\n### \"Why not just use Bricklink?\"\n\nYou can! But if you're listing 20+ minifigs, doing mental math for each one gets tedious. FigTracker automates the decision-making.\n\n### \"Is FigTracker's pricing accurate?\"\n\nYes. We pull real-time data directly from Bricklink's API. Our suggested price is calculated from the same data you'd see on Bricklink—we just process it for you.\n\n### \"Can I sell on FigTracker?\"\n\nNot directly. FigTracker is a pricing tool, not a marketplace. We link to Bricklink and Amazon if you want to buy.\n\n### \"Does FigTracker replace Bricklink?\"\n\nNo. Think of FigTracker as a companion tool that makes Bricklink data easier to use for quick pricing decisions.\n\n## Pricing Philosophy Comparison\n\n**Bricklink's Approach:**\n\"Here's all the data. You're smart—figure out what to charge.\"\n\n**FigTracker's Approach:**\n\"Here's the best price based on current market conditions. Trust us, we did the math.\"\n\nBoth are valid. Bricklink empowers power users. FigTracker empowers fast decision-making.\n\n## Which Platform Should You Start With?\n\n### Start with FigTracker if:\n- You're new to LEGO reselling\n- You need to price things quickly\n- You have a small-to-medium collection (< 500 minifigs)\n- You sell on eBay/Facebook, not Bricklink\n\n### Start with Bricklink if:\n- You're a serious seller (500+ listings)\n- You want to run a full LEGO store\n- You need advanced inventory management\n- You buy and sell internationally\n\n### Use Both if:\n- You're a professional reseller\n- You value speed + accuracy\n- You want a modern interface for daily use but need Bricklink for actual transactions\n\n## The Bottom Line\n\n**Bricklink** is the industry standard marketplace with unmatched inventory and reach. It's essential for serious buying and selling.\n\n**FigTracker** is the modern pricing companion that makes Bricklink data instantly actionable. It's essential for fast, confident pricing.\n\n**You don't have to choose.** Use FigTracker for pricing and inventory. Use Bricklink for transactions. Together, they're the perfect LEGO toolkit.\n\n---\n\n**Ready to try FigTracker?**\n\n[Search Your First Minifigure →](/search)\n\nOr explore our [complete pricing guide](/guides) to learn more about LEGO minifigure values."
     }
   },
   "adminStats": {
@@ -1557,10 +1557,10 @@
     "usedByBelow": "Sommige promotionele banners, aankondigingen van uitverkoop",
     "pros": "Voordelen:",
     "prosAbove": [
-      "Immediately visible - can't be missed",
-      "Standard web pattern users expect",
-      "Shows the banner is important/site-wide",
-      "Doesn't interfere with navigation clicks"
+      "Meteen zichtbaar – niet te missen",
+      "Standaardpatroon dat gebruikers verwachten",
+      "Laat zien dat de melding voor de hele site geldt",
+      "Zit klikken in de navigatie niet in de weg"
     ],
     "prosBelow": [
       "Logo/branding stays at very top",
@@ -1826,7 +1826,7 @@
       "badge": "TIER C",
       "title": "25% Rendement - Displaykeuze voor Verzamelaars",
       "whatYouGet": "Wat Je Krijgt:",
-      "item1": "2 gratis items: The Mandalorian and Grogu Display + De Darksaber (~$50 waarde)",
+      "item1": "2 gratis items: de The Mandalorian en Grogu-display + de Darksaber (waarde ca. $50)",
       "item2": "1x Insiders Points (~5% cashback = $12,50 op $249,99)",
       "item3": "Kwalificerende aankoop: 75442 N-1 Starfighter ($249,99)",
       "item4": "Totaal rendement: $62,50 = 25%",

@@ -70,7 +70,7 @@
     "contact": "お問い合わせ",
     "minifigureThemes": "Minifigure テーマ",
     "setThemes": "Set テーマ",
-    "setsInventory": "セット Inventory",
+    "setsInventory": "セット在庫",
     "setsCollection": "セット Collection",
     "browseThemes": "テーマ",
     "minifigsForSale": "ミニフィギュア（販売用）",
@@ -104,9 +104,9 @@
     "moreCount": "他{count}件",
     "searchPlaceholder": "検索 themes...",
     "currentThemes": "Current テーマ",
-    "currentThemesDesc": "テーマ with セット released between {yearRange}",
+    "currentThemesDesc": "{yearRange} に発売されたセットを含むテーマ",
     "olderThemes": "Older テーマ",
-    "olderThemesDesc": "テーマ from previous years",
+    "olderThemesDesc": "過去のテーマ",
     "showMore": "Show {count} More テーマ",
     "noThemesFound": "いいえ テーマ found",
     "tryAdjustSearch": "検索条件を変えてお試しください",
@@ -291,7 +291,7 @@
       "Znap": "LEGO® Znapで、新しいつながり方を発見しましょう!この1990年代の実験的なシステムは、伝統的なブロック組み立てとは異なる、フレキシブルなビームとパネルによる構造が特徴でした。Znapのセットは、ヒンジ式の接続を使って骨格構造、乗り物、生き物を作り出しました。商業的には成功しませんでしたが、Znapは標準的なブロックを超えた代替の組み立てシステムを模索するLEGOの意欲を示しました。LEGOの歴史家、失敗した実験のコレクター、そして標準ブロックを超えたLEGOの革新的な挑戦のファンにぴったりです。",
       "xtra": "LEGO® xtraで、あなたの世界をもっと豊かに!これらのアクセサリーセットには、既存の作品をカスタマイズするための追加要素、情景用パーツ、ディテールが含まれます。道路標識や植物から家具や装飾品まで、xtraのセットはLEGOの街やシーンに生命感とリアリティを加えます。ディスプレイにディテールを加えたいビルダー、リアリティを求める街づくりビルダー、そしてLEGOの世界を飾り付けるのが好きなすべての方にぴったりです。"
     },
-    "exploreCount": "Explore {themeCount} テーマ with {minifigCount} ミニフィギュア",
+    "exploreCount": "{themeCount} 個のテーマと {minifigCount} 体のミニフィグを見る",
     "minifigsCount": "{count} 体のミニフィギュア",
     "acrossSeries": "{count}シリーズにわたって",
     "seriesLabel": "シリーズ",
@@ -364,14 +364,14 @@
     },
     "sharing": {
       "title": "共有 Collection",
-      "subtitle": "共有 your コレクション with others via a public link (read-only)",
+      "subtitle": "公開リンクでコレクションを共有します（読み取り専用）",
       "publicSharing": "コレクションを公開",
-      "enabled": "Your コレクション is visible to anyone with the link",
+      "enabled": "リンクを知っている人は誰でもあなたのコレクションを閲覧できます",
       "disabled": "Your コレクション is private",
       "shareLink": "共有 Link",
       "copy": "コピー",
       "copied": "コピーしました",
-      "linkNote": "Anyone with this link can view your コレクション and 在庫 (read-only)",
+      "linkNote": "このリンクを知っている人は、あなたのコレクションと在庫を閲覧できます（読み取り専用）",
       "enableSuccess": "コレクションの共有を有効にしました",
       "disableSuccess": "コレクションの共有を無効にしました",
       "error": "共有設定の切り替えに失敗しました"
@@ -380,16 +380,16 @@
       "title": "データ管理",
       "export": {
         "title": "コレクションデータをエクスポート",
-        "subtitle": "Download your entire コレクション as a JSON file",
+        "subtitle": "コレクション全体を JSON ファイルとしてダウンロードします",
         "button": "データをエクスポート",
         "success": "コレクションデータのエクスポートが完了しました",
-        "error": "Failed to export コレクション data"
+        "error": "コレクションデータのエクスポートに失敗しました"
       },
       "delete": {
         "title": "削除 アカウント",
         "subtitle": "アカウントとすべての関連データを完全に削除します",
         "button": "削除 アカウント",
-        "confirm1": "Are you sure you want to delete your account? This action cannot be undone and will permanently delete all your コレクション data.",
+        "confirm1": "アカウントを削除してもよろしいですか？この操作は取り消せず、コレクションのデータはすべて完全に削除されます。",
         "confirm2": "これが最後の確認です。本当にアカウントとすべてのデータを削除してもよろしいですか？",
         "error": "アカウントの削除に失敗しました"
       }
@@ -538,11 +538,11 @@
   "wishlist": {
     "title": "My ウィッシュリスト",
     "signInTitle": "保存 Your Favorite ミニフィギュア",
-    "signInDescription": "Create a free account to save ミニフィギュア to your wishlist, track your collection, and get price updates.",
+    "signInDescription": "無料アカウントを作成すると、ミニフィグをウィッシュリストに保存し、コレクションを管理して価格の更新を受け取れます。",
     "createAccount": "Create Free アカウント",
     "itemsSaved": "{count}体のミニフィグを保存中",
     "emptyTitle": "ウィッシュリストは空です",
-    "emptyDescription": "閲覧 ミニフィギュア and click the heart icon to save them here",
+    "emptyDescription": "ミニフィグを閲覧し、ハートのアイコンをタップするとここに保存されます",
     "browseButton": "閲覧 ミニフィギュア",
     "buyBrickLink": "BrickLink",
     "buyAmazon": "Amazon",
@@ -569,7 +569,7 @@
       "clearFilter": "テーマの絞り込みを解除",
       "searching": "検索中...",
       "noSetsFound": "いいえ セット found",
-      "tryAdjusting": "Try adjusting your search or browse by テーマ",
+      "tryAdjusting": "検索条件を変えるか、テーマ別に閲覧してみてください",
       "foundSets": "Found {count} セット",
       "inTheme": "{theme}内",
       "year": "発売年",
@@ -591,68 +591,68 @@
     },
     "items": [
       {
-        "q": "How does FigTracker calculate suggested prices?",
-        "a": "FigTracker looks at three things to suggest a fair price: (1) What people actually paid in the last 6 months, (2) What sellers are asking right now, and (3) The cheapest price currently available. We average these three numbers to give you a realistic price that reflects both recent sales and current market conditions."
+        "q": "FigTracker はどのように参考価格を算出していますか？",
+        "a": "FigTracker は3つの要素をもとに妥当な価格を提案します。(1) 直近6か月に実際に取引された価格、(2) 現在の出品価格、(3) 現時点で最も安い価格です。この3つを平均することで、最近の販売実績と現在の市場状況の両方を反映した現実的な価格を提示します。"
       },
       {
-        "q": "Is FigTracker free to use?",
-        "a": "Yes! FigTracker is completely free to use. Search 18,000+ minifigures, browse 20,000+ LEGO sets, get real-time pricing in 15+ currencies, and track your inventory without any payment required."
+        "q": "FigTracker は無料で使えますか？",
+        "a": "はい。FigTracker は完全に無料です。18,000体以上のミニフィグを検索し、20,000以上の LEGO セットを閲覧し、15以上の通貨でリアルタイムの価格を確認しながら、費用をかけずに在庫を管理できます。"
       },
       {
-        "q": "Where does the pricing data come from?",
-        "a": "All pricing data comes directly from the official Bricklink API. We fetch prices from ALL worldwide sellers (not filtered by country) and Bricklink converts them to your selected currency. This ensures you see prices even for rare items that may not have local sellers. Note: This shows global market pricing, which may differ from your specific local market conditions."
+        "q": "価格データはどこから取得していますか？",
+        "a": "FigTracker は複数の情報源のデータを組み合わせて独自の市場価格を算出しています。主に BrickLink のマーケットプレイスを用い、eBay の出品中データで補完しています。結果として得られる FigTracker Market Price は当サイト独自の加重計算による価格であり、どちらか一方の生データではありません。BrickLink のデータは公式 API を通じて取得しています。BrickLink は LEGO グループの商標です。"
       },
       {
-        "q": "What currencies are supported?",
-        "a": "FigTracker supports 15+ currencies including USD, EUR, GBP, CAD, AUD, JPY, MXN, and more. Pricing data is fetched from global sellers and automatically converted to your selected currency using current exchange rates."
+        "q": "対応している通貨は何ですか？",
+        "a": "FigTracker は USD、EUR、GBP、CAD、AUD、JPY、MXN など15以上の通貨に対応しています。価格データは世界中の販売者から取得し、最新の為替レートで選択された通貨に自動換算されます。"
       },
       {
-        "q": "Can I browse and track LEGO sets?",
-        "a": "Yes! FigTracker includes 20,000+ LEGO sets from the complete Bricklink catalog. Browse sets by theme, view included minifigures, and see direct buy links to LEGO.com, Amazon, and BrickLink for both new and retired sets."
+        "q": "LEGO セットも閲覧・管理できますか？",
+        "a": "はい。FigTracker には Bricklink の全カタログから20,000以上の LEGO セットが登録されています。テーマ別にセットを閲覧し、付属するミニフィグを確認できるほか、新品・廃盤どちらのセットについても LEGO.com、Amazon、BrickLink への購入リンクをご利用いただけます。"
       },
       {
-        "q": "How many LEGO minifigures are in the database?",
-        "a": "FigTracker includes over 18,000 LEGO minifigures from the complete Bricklink catalog, covering Star Wars, Harry Potter, Marvel, DC, Ninjago, and 50+ other themes."
+        "q": "データベースには何体の LEGO ミニフィグがありますか？",
+        "a": "FigTracker には Bricklink の全カタログから18,000体を超える LEGO ミニフィグが登録されており、スター・ウォーズ、ハリー・ポッター、マーベル、DC、ニンジャゴーなど50以上のテーマを網羅しています。"
       },
       {
-        "q": "Can I track my inventory?",
-        "a": "Yes! Create a free account to track your ミニフィギュア inventory. You can maintain separate collections for items you're selling and your personal collection. Track quantities, conditions (New/Used), see total portfolio value, and refresh all prices with one click."
+        "q": "自分の在庫を管理できますか？",
+        "a": "はい。無料アカウントを作成すると、ミニフィグの在庫を管理できます。販売用のコレクションと個人のコレクションを分けて管理でき、数量や状態（新品／中古）を記録し、ポートフォリオの合計額を確認し、ワンクリックですべての価格を更新できます。"
       },
       {
-        "q": "How do I search for ミニフィギュア or sets?",
-        "a": "検索 by exact Bricklink item number (e.g., \"sw1219\", \"75192-1\") or by name. 閲覧 visually by テーマ to see ミニフィギュア and sets. 検索 supports partial matches and shows results with images and current pricing."
+        "q": "ミニフィグやセットはどのように検索しますか？",
+        "a": "Bricklink の正確なアイテム番号（例：「sw1219」「75192-1」）または名前で検索できます。テーマ別に視覚的に閲覧してミニフィグやセットを探すこともできます。検索は部分一致に対応しており、画像と現在の価格を添えて結果を表示します。"
       },
       {
-        "q": "What condition factors affect pricing?",
-        "a": "FigTracker shows prices for both New and Used conditions. New minifigs typically command higher prices, while Used condition prices reflect market values for previously owned items. You can toggle between conditions on each detail page."
+        "q": "価格に影響する状態の要素は何ですか？",
+        "a": "FigTracker は新品と中古の両方の価格を表示します。新品のミニフィグは一般に高値になりやすく、中古の価格は中古品の市場価値を反映します。各詳細ページで状態を切り替えられます。"
       },
       {
-        "q": "How often is pricing data updated?",
-        "a": "Pricing data is cached for 6 hours per Bricklink API terms. You can manually refresh prices anytime by clicking the refresh button on any minifig or セット page, or use the \"Refresh All Prices\" button in your 在庫 to update your entire コレクション at once."
+        "q": "価格データはどのくらいの頻度で更新されますか？",
+        "a": "FigTracker は価格を自動的に最新の状態に保ちます。コレクションを開くと、更新が必要な価格は閲覧中にバックグラウンドで更新されます。"
       },
       {
-        "q": "Can I export my inventory?",
-        "a": "Yes! Go to your アカウント settings and click \"Export Your Data\" under Data Management. This downloads your complete minifig 在庫 as a JSON file that you can import into spreadsheets or other tools."
+        "q": "在庫をエクスポートできますか？",
+        "a": "はい。アカウント設定を開き、「データ管理」の「データをエクスポート」をクリックしてください。ミニフィグの在庫全体が JSON ファイルとしてダウンロードされ、表計算ソフトなどに取り込めます。"
       },
       {
-        "q": "What if I find something that's not in the database?",
-        "a": "FigTracker syncs with the complete Bricklink catalog. If a minifig or set exists on Bricklink, it should be in our database. Contact us if you find a legitimate Bricklink item that's missing."
+        "q": "データベースに載っていないものを見つけた場合は？",
+        "a": "FigTracker は Bricklink の全カタログと同期しています。ミニフィグやセットが Bricklink に存在するなら、当サイトのデータベースにもあるはずです。実在する Bricklink のアイテムが見当たらない場合はご連絡ください。"
       },
       {
-        "q": "Is my 在庫 data private?",
-        "a": "Yes, your 在庫 is private by default and only visible to you when logged in. You can optionally generate a public share link in your アカウント settings to let others view your collection. You control sharing and can disable it anytime. We never share or sell your data to third parties."
+        "q": "在庫データは非公開ですか？",
+        "a": "はい。在庫は既定で非公開で、ログイン中のご本人にのみ表示されます。必要に応じてアカウント設定で公開用の共有リンクを作成し、コレクションを他の人に見せることもできます。共有はお客様が管理でき、いつでも無効にできます。当サイトがお客様のデータを第三者に共有・販売することは一切ありません。"
       },
       {
-        "q": "What are the community leaderboards?",
-        "a": "FigTracker features quarterly leaderboards showing top collectors for minifigures, sets, and supporters. Leaderboards reset every 3 months (Q1, Q2, Q3, Q4) and only count items added during that quarter. You can opt-in or opt-out anytime in your Account settings."
+        "q": "コミュニティのランキングとは何ですか？",
+        "a": "FigTracker では、ミニフィグ・セットのトップコレクターおよびサポーターを示す四半期ごとのランキングを掲載しています。ランキングは3か月ごと（Q1・Q2・Q3・Q4）にリセットされ、その四半期に追加されたアイテムのみが集計対象です。アカウント設定でいつでも参加・不参加を切り替えられます。"
       },
       {
-        "q": "How do I appear on the leaderboards?",
-        "a": "Go to アカウント settings and check the boxes to show on the Minifig Collectors or Set Collectors leaderboards. You can customize your display name or leave it blank to use your first name and last initial. Only items you add during the current quarter count toward your rank."
+        "q": "ランキングに載るにはどうすればよいですか？",
+        "a": "アカウント設定を開き、ミニフィグコレクターまたはセットコレクターのランキングに表示するチェックボックスをオンにしてください。表示名は自由に設定できるほか、空欄のままにすると名と姓のイニシャルが使われます。順位に反映されるのは現在の四半期に追加したアイテムのみです。"
       },
       {
-        "q": "Can I share my コレクション publicly?",
-        "a": "Yes! You can generate a public share link for your collections in your アカウント settings. This allows others to view your ミニフィギュア and セット without needing to log in. You control what's shared and can disable sharing anytime."
+        "q": "コレクションを公開して共有できますか？",
+        "a": "はい。アカウント設定でコレクション用の公開共有リンクを作成できます。これにより、ログインしていない人でもあなたのミニフィグやセットを閲覧できます。共有する内容はお客様が管理でき、共有はいつでも無効にできます。"
       }
     ],
     "meta": {
@@ -708,7 +708,7 @@
       },
       "search": {
         "title": "数秒でどんなフィグも見つかる",
-        "description": "Search minifigures and sets by BrickLink ID or name. Browse by theme when you want to explore."
+        "description": "{catalogCountText} 体のミニフィグと 20,000 以上のセットを BrickLink ID または名前で検索できます。じっくり探したいときはテーマ別に閲覧してください。"
       },
       "privacy": {
         "title": "市場を反映した価格",
@@ -734,7 +734,7 @@
     "trust": {
       "badge": "無料で使える",
       "title": "Free to use. いいえ hidden fees.",
-      "description": "Your 在庫 data is private and secure. Currently free with no payment required to track your collection.",
+      "description": "在庫データは非公開で安全に保護されます。コレクションの管理は現在すべて無料でご利用いただけます。",
       "secure": "安全・プライベート",
       "fast": "高速・安定",
       "free": "いいえ Payment Required"
@@ -946,74 +946,74 @@
       }
     },
     "cta": {
-      "title": "Ready to price your next listing?",
-      "subtitle": "Search any minifigure or set and get a suggested price in seconds.",
+      "title": "お探しの答えは見つかりましたか？",
+      "subtitle": "メールでお問い合わせください。いただいたご連絡にはすべてお返事します。",
       "button": "Start Pricing →"
     },
     "items": [
       {
-        "title": "Most Valuable LEGO Minifigures in 2026",
-        "description": "Discover which LEGO minifigures command the highest prices. Learn what makes certain minifigs valuable and how to identify hidden gems.",
+        "title": "2026年に最も価値の高い LEGO ミニフィグ",
+        "description": "どの LEGO ミニフィグが高値で取引されているかをご紹介します。価値を左右する要因と、隠れた掘り出し物の見分け方を解説します。",
         "slug": "most-valuable-lego-minifigures-2026",
         "status": "published",
         "topics": [
-          "Top 50 most valuable minifigs analyzed",
-          "Star Wars, Harry Potter, Marvel rarities",
-          "Investment potential and appreciation rates",
-          "Authentication and condition grading",
-          "Where to buy and sell valuable pieces"
+          "価値の高いミニフィグ上位50体を分析",
+          "スター・ウォーズ、ハリー・ポッター、マーベルの希少品",
+          "投資価値と値上がりの傾向",
+          "真贋の見極めと状態のグレーディング",
+          "価値ある品の売買ができる場所"
         ]
       },
       {
-        "title": "FigTracker vs Bricklink: Which Should You Use?",
-        "description": "Compare FigTracker and Bricklink for LEGO pricing. Learn when to use each platform and how they complement each other.",
+        "title": "FigTracker と Bricklink はどちらを使うべきか",
+        "description": "LEGO の価格調査における FigTracker と Bricklink を比較します。それぞれをいつ使うべきか、どのように補い合うのかを解説します。",
         "slug": "figtracker-vs-bricklink",
         "status": "published",
         "topics": [
-          "Side-by-side feature comparison",
-          "When to use each platform",
-          "Pricing philosophy differences",
-          "Best workflow: using both together",
-          "Time-saving strategies for sellers"
+          "機能の比較",
+          "それぞれを使うべき場面",
+          "価格の考え方の違い",
+          "最適な使い方：両方を併用する",
+          "出品者のための時短のコツ"
         ]
       },
       {
-        "title": "LEGO Star Wars May the 4th Deals 2026",
-        "description": "Complete analysis of LEGO's May the 4th promotion. Get up to 35% total value with free gifts and cashback. Find the best deal tier for your budget.",
+        "title": "LEGO スター・ウォーズ May the 4th セール 2026",
+        "description": "LEGO の May the 4th キャンペーンを徹底分析。無料ギフトとキャッシュバックで最大35%相当の価値を獲得できます。予算に合った特典ランクを見つけましょう。",
         "slug": "/deals/star-wars-may-4th-2026",
         "status": "published",
         "topics": [
-          "4 deal tiers analyzed (D, C, B, A)",
-          "Up to 35% total value on Star Wars セット",
-          "Free exclusive ミニフィギュア and builds",
-          "20% cashback with 4x Insiders Points",
-          "Valid May 1-6, 2026"
+          "4つの特典ランク（D・C・B・A）を分析",
+          "スター・ウォーズ セットで最大35%相当",
+          "限定ミニフィグとビルドが無料",
+          "Insiders ポイント4倍で20%還元",
+          "2026年5月1日〜6日まで有効"
         ]
       },
       {
-        "title": "How to Price LEGO Minifigures",
-        "description": "Learn the fundamentals of pricing LEGO minifigures using Bricklink marketplace data. Understand quantity-weighted averages, simple averages, and how to factor in condition.",
+        "title": "LEGO ミニフィグの価格の付け方",
+        "description": "Bricklink の市場データを使った LEGO ミニフィグの価格設定の基本を学びます。数量加重平均と単純平均の違い、状態をどう織り込むかを解説します。",
         "slug": null,
         "status": "coming-soon",
         "topics": [
-          "Understanding Bricklink pricing metrics",
-          "New vs Used condition pricing",
-          "Accounting for rarity and demand",
-          "When to price above or below market average",
-          "Seasonal pricing trends"
+          "Bricklink の価格指標を理解する",
+          "新品と中古の価格設定",
+          "希少性と需要を織り込む",
+          "相場より高く／安く付けるべき場面",
+          "季節ごとの価格の動き"
         ]
       },
       {
-        "title": "Selling LEGO on Bricklink",
-        "description": "Complete guide to becoming a successful Bricklink seller. From creating your store to shipping best practices and customer service tips.",
+        "title": "Bricklink で LEGO を売る",
+        "description": "Bricklink で成果を出す出品者になるための完全ガイド。ストアの開設から発送のベストプラクティス、顧客対応のコツまで。",
         "slug": null,
         "status": "coming-soon",
         "topics": [
-          "Setting up your Bricklink store",
-          "Competitive pricing strategies",
-          "Writing effective item descriptions",
-          "Packaging and shipping ミニフィギュア safely",
-          "Building seller reputation"
+          "Bricklink ストアを開設する",
+          "競争力のある価格戦略",
+          "効果的な商品説明の書き方",
+          "ミニフィグを安全に梱包・発送する",
+          "出品者としての評価を高める"
         ]
       }
     ]
@@ -1025,7 +1025,7 @@
       "features": {
         "trackUnlimited": "Track unlimited items",
         "realtimePrices": "Real-time suggested prices",
-        "totalValue": "Know your total 在庫 value",
+        "totalValue": "販売リストとコレクションを分けて管理",
         "dataPrivate": "データは非公開のまま安全に保たれます"
       },
       "name": "名前",
@@ -1051,7 +1051,7 @@
     },
     "signin": {
       "title": "Welcome 戻る",
-      "subtitle": "Sign in to access your 在庫",
+      "subtitle": "ログインして在庫を管理しましょう",
       "email": "メールアドレス",
       "password": "パスワード",
       "placeholders": {
@@ -1130,11 +1130,11 @@
       "generic": "問題が発生しました。もう一度お試しください。",
       "network": "通信エラーが発生しました。もう一度お試しください。"
     },
-    "privacy": "いいえ spam. Unsubscribe anytime. We respect your privacy."
+    "privacy": "迷惑メールは送りません。配信はいつでも解除できます。プライバシーを尊重します。"
   },
   "collection": {
     "title": "あなたのコレクション",
-    "subtitle": "Your personal コレクション — minifigs you're keeping, not selling",
+    "subtitle": "あなた個人のコレクション — 販売せず手元に残すミニフィグ",
     "inventory": "販売用アイテム",
     "addToCollection": "追加 to keep",
     "addToInventory": "追加 to sell",
@@ -1149,7 +1149,7 @@
     "items": "アイテム",
     "emptyState": "Your コレクション is empty",
     "noMinifigsYet": "いいえ minifigs yet",
-    "startAdding": "Start adding to your personal コレクション",
+    "startAdding": "個人のコレクションに追加してみましょう",
     "searchMinifigs": "検索 ミニフィグ",
     "noConditionMinifigs": "いいえ {condition} condition minifigs",
     "otherConditions": "他の状態のアイテムが{count}件あります",
@@ -1187,16 +1187,16 @@
       "loadingPrice": "価格を読み込み中..."
     },
     "inventoryTitle": "あなたの在庫",
-    "inventorySubtitle": "ミニフィグ you're selling or planning to sell with real-time pricing",
-    "startAddingInventory": "Start adding to your 在庫 by searching for minifigs",
+    "inventorySubtitle": "販売中または販売予定のミニフィグを、リアルタイム価格とあわせて表示します",
+    "startAddingInventory": "ミニフィグを検索して在庫に追加しましょう",
     "setsCollectionTitle": "Your セット to 保管",
-    "setsCollectionSubtitle": "Your personal コレクション — セット you're keeping, not selling",
+    "setsCollectionSubtitle": "あなた個人のコレクション — 販売せず手元に残すセット",
     "setsInventoryTitle": "Your セット for セール",
-    "setsInventorySubtitle": "セット you're selling or planning to sell with real-time pricing",
+    "setsInventorySubtitle": "販売中または販売予定のセットを、リアルタイム価格とあわせて表示します",
     "addSets": "追加 セット",
     "noSetsYet": "いいえ セット yet",
-    "startAddingSets": "Start adding to your personal コレクション",
-    "startAddingSetsInventory": "Start adding to your 在庫 by browsing セット",
+    "startAddingSets": "個人のコレクションに追加してみましょう",
+    "startAddingSetsInventory": "セットを閲覧して在庫に追加しましょう",
     "browseSets": "閲覧 セット",
     "noConditionSets": "いいえ {condition} condition セット",
     "priceUnavailable": "価格なし",
@@ -1236,32 +1236,32 @@
     "informationWeCollect": {
       "title": "収集する情報",
       "accountInformation": {
-        "title": "アカウント Information",
+        "title": "アカウント情報",
         "intro": "アカウント作成時に、以下の情報を収集します：",
         "items": [
-          "Email address",
-          "Password (encrypted)",
-          "Optional profile information (name, avatar)"
+          "メールアドレス",
+          "パスワード（暗号化されます）",
+          "任意のプロフィール情報（名前、アバター）"
         ]
       },
       "inventoryData": {
         "title": "在庫データ",
-        "intro": "Your 在庫 data includes:",
+        "intro": "在庫データには次のものが含まれます：",
         "items": [
-          "LEGO minifigure IDs you track",
-          "Quantities and conditions",
-          "Custom notes",
-          "Timestamps of additions/modifications"
+          "お客様が管理する LEGO ミニフィグの ID",
+          "数量と状態",
+          "任意のメモ",
+          "追加・変更の日時"
         ]
       },
       "usageAnalytics": {
         "title": "利用状況の分析",
         "intro": "ユーザーがFigTrackerをどのように利用しているかを把握するため、Google Analyticsを使用しています：",
         "items": [
-          "Pages visited",
-          "検索 queries (minifigure searches only)",
-          "Device type and browser",
-          "General location (country/region)"
+          "閲覧したページ",
+          "検索キーワード（ミニフィグの検索のみ）",
+          "デバイスの種類とブラウザ",
+          "おおよその所在地（国・地域）"
         ]
       }
     },
@@ -1269,32 +1269,32 @@
       "title": "情報の利用目的",
       "intro": "収集した情報は以下の目的で利用します：",
       "items": [
-        "Provide 在庫 tracking and pricing features",
-        "Fetch market pricing data from multiple sources",
-        "Improve our service through usage analytics",
-        "Send essential account notifications (password resets, etc.)",
-        "Build a searchable ミニフィギュア catalog based on user searches"
+        "在庫管理および価格表示機能の提供",
+        "複数の情報源からの市場価格データの取得",
+        "利用状況の分析によるサービスの改善",
+        "アカウントに関する重要な通知の送信（パスワードの再設定など）",
+        "ユーザーの検索内容にもとづく検索可能なミニフィグカタログの構築"
       ]
     },
     "dataStorage": {
       "title": "データの保管とセキュリティ",
       "intro": "お客様のデータは安全に保管されています：",
       "items": [
-        "Passwords are encrypted using industry-standard bcrypt hashing",
-        "Data is stored in secure, encrypted databases",
-        "All connections use HTTPS encryption",
-        "We implement access controls to protect your data"
+        "パスワードは業界標準の bcrypt ハッシュで暗号化されます",
+        "データは安全に暗号化されたデータベースに保管されます",
+        "すべての通信は HTTPS で暗号化されます",
+        "お客様のデータを保護するためアクセス制御を実施しています"
       ]
     },
     "thirdPartyServices": {
       "title": "第三者サービス",
       "bricklink": {
         "title": "Bricklink API",
-        "content": "We use the official Bricklink API to fetch ミニフィギュア pricing data. When you search for or add minifigures, we send ミニフィギュア IDs to Bricklink to retrieve current marketplace prices. いいえ personal information is shared with Bricklink."
+        "content": "ミニフィグの価格データの取得には Bricklink の公式 API を使用しています。ミニフィグを検索または追加すると、現在の市場価格を取得するためにミニフィグの ID を Bricklink に送信します。個人情報が Bricklink に共有されることはありません。"
       },
       "googleAnalytics": {
         "title": "Google Analytics",
-        "content": "サイトの利用状況を把握するため、Google Analyticsを使用しています。Google Analyticsはお客様の行動を追跡するためにCookieを使用する場合があります。詳細については以下をご覧ください：",
+        "content": "サイトの利用状況を把握するために Google Analytics を使用しています。Google Analytics は、お客様の行動を計測するために Cookie を使用する場合があります。詳しくは以下をご覧ください",
         "linkText": "Googleのプライバシーポリシー"
       },
       "amazonAssociates": {
@@ -1308,17 +1308,17 @@
       "title": "お客様の権利",
       "intro": "お客様には以下の権利があります：",
       "items": [
-        "Access your personal data and 在庫",
-        "Update or correct your information",
-        "削除 your account and all associated data",
-        "Export your 在庫 data",
-        "Opt out of analytics tracking (via browser settings)"
+        "個人データおよび在庫情報へのアクセス",
+        "情報の更新または訂正",
+        "アカウントと関連データすべての削除",
+        "在庫データのエクスポート",
+        "解析トラッキングの停止（ブラウザの設定から）"
       ],
       "footer": "これらの権利を行使する場合は、以下の連絡先までご連絡いただくか、ダッシュボードのアカウント設定をご利用ください。"
     },
     "dataRetention": {
       "title": "データの保持期間",
-      "content": "We retain your data as long as your account is active. If you delete your account, we will permanently delete your personal information and 在庫 data within 30 days, except where we are required by law to retain certain information."
+      "content": "アカウントが有効な間、お客様のデータを保持します。アカウントを削除された場合、法令により保持が義務付けられている情報を除き、個人情報および在庫データを30日以内に完全に削除します。"
     },
     "childrensPrivacy": {
       "title": "お子様のプライバシーについて",
@@ -1346,7 +1346,7 @@
       "currentAvg": "現在の平均",
       "lowest": "最安値",
       "suggested": "おすすめ",
-      "noSellersAvailable": "いいえ sellers available in your region"
+      "noSellersAvailable": "お住まいの地域に販売者が見つかりません"
     },
     "collection": {
       "checkingCollections": "コレクションを確認中...",
@@ -1355,7 +1355,7 @@
       "inYourInventory": "在庫にあります",
       "inYourCollection": "コレクションにあります",
       "addToYourCollection": "追加 to Your Collection?",
-      "addToYourInventory": "追加 to Your Inventory?"
+      "addToYourInventory": "在庫に追加しますか？"
     },
     "whereToBuy": {
       "title": "購入先",
@@ -1379,19 +1379,19 @@
       "addedToGuestCollection": "{quantity}個のセット{plural}をコレクションに追加しました！"
     },
     "errors": {
-      "failedToAdd": "Failed to add セット",
-      "failedToAddToInventory": "Failed to add to 在庫",
-      "failedToAddToCollection": "Failed to add to personal コレクション",
+      "failedToAdd": "セットを追加できませんでした",
+      "failedToAddToInventory": "在庫に追加できませんでした",
+      "failedToAddToCollection": "個人のコレクションに追加できませんでした",
       "failedToUpdate": "数量の更新に失敗しました",
-      "failedToRemoveInventory": "Failed to remove from 在庫",
-      "failedToRemoveCollection": "Failed to remove from コレクション",
+      "failedToRemoveInventory": "在庫から削除できませんでした",
+      "failedToRemoveCollection": "コレクションから削除できませんでした",
       "failedToMove": "アイテムの移動に失敗しました"
     },
     "delete": {
       "titleInventory": "在庫から削除しますか？",
       "titleCollection": "コレクションから削除しますか？",
-      "messageInventory": "This will permanently remove this セット from your inventory.",
-      "messageCollection": "This will permanently remove this セット from your collection.",
+      "messageInventory": "このセットを在庫から完全に削除します。",
+      "messageCollection": "このセットをコレクションから完全に削除します。",
       "cancel": "キャンセル",
       "confirm": "削除",
       "remove": "削除"
@@ -1490,14 +1490,14 @@
       "description": "18,732体のLEGOミニフィギュアを分析し、最も価値のあるコレクターズアイテムを調査しました。Bricklinkマーケットプレイスで最も高値が付いているミニフィグをご紹介します。",
       "author": "FigTrackerチーム",
       "readTime": "12分で読めます",
-      "content": "Bricklinkカタログ全体から18,732体のLEGOミニフィギュアの価格データを分析し、現在市場で最も価値のあるコレクターズアイテムを特定しました。本格的なコレクターの方も、投資家の方も、単にLEGOの価値が気になる方も、このガイドを読めば、どのミニフィグが高値で取引されているのか、その理由まで詳しく分かります。\n\n## ミニフィギュアの価値を左右する要素とは？\n\nランキングを見る前に、ミニフィギュアの価値を左右する主な要因を理解しておきましょう。\n\n### 1. **希少性**\n生産数が限られたもの、限定セット、プロモーション商品などは希少性が高くなります。特にコンベンション限定品や社員向けギフトは人気があります。\n\n### 2. **年代**\n1970年代〜1990年代のクラシックなミニフィグは、経年劣化や紛失によってますます希少になっています。状態の良いヴィンテージ品には高値が付きます。\n\n### 3. **人気度**\nStar Wars、Harry Potter、Marvelなど人気フランチャイズのキャラクターは、常に安定した価値を保っています。主人公や悪役キャラクターは、脇役キャラクターよりも早く値上がりする傾向があります。\n\n### 4. **状態**\n付属品がすべて揃った新品・未使用のミニフィグは、中古品よりもはるかに高い価値があります。わずかな傷や摩耗でも、価値が30〜50％下がることがあります。\n\n### 5. **完全性**\nプリントパーツ、付属品、（該当する場合は）オリジナルパッケージがすべて揃っているミニフィグは、バラ売り品や不完全な状態のものよりも高い価値があります。\n\n## トップ10を独占するStar Wars\n\n[**Star Warsミニフィギュア**](/themes/star-wars)は常に最も高値で取引されており、その価値にはいくつかの要因が関係しています。\n\n- 世界中に膨大なファン層を持つライセンスフランチャイズであること\n- 多くが高価なセット（定価100〜500ドル）でしか入手できなかったこと\n- LEGO Star Wars 25年以上の歴史の中で、1〜2回しか発売されなかったものもあること\n- オリジナル三部作（1977〜1983年）のキャラクターは特に価値が高いこと\n\n### 最も価値のあるStar Warsミニフィギュア\n\n**クラウドシティ ボバ・フェット（2003年）** - 「聖杯」とも呼ばれる存在で、プリントにバリエーションがあるこの限定版は、未使用品なら3,000〜5,000ドルで取引されることもあります。\n\n**クロームダース・ベイダー** - 限定プロモーション商品で、メタリッククローム仕上げが特徴です。希少なバリエーションは1,500〜2,500ドルで取引されます。\n\n**14金C-3PO** - 2007年のプロモーション用に10,000体のみ生産されました。生産数は比較的多いものの、金メッキとStar Warsの人気により、価値は1,000〜2,000ドルを維持しています。\n\n**Mr. Gold** - Star Warsではありませんが、2013年に発売されたこの超希少プロモーションフィギュア（生産数わずか5,000体）は、常時3,000〜5,000ドルで取引されています。\n\n## クラシックスペース＆キャッスルの希少品\n\nライセンステーマ以外にも、ヴィンテージのLEGOテーマにはコレクターが高値を支払うものがあります。\n\n[**クラシックスペースミニフィグ**](/themes/space)（1978〜1987年）は、ヘルメットとエアタンクが揃った完璧な状態のものが、当時のオーナーがコレクションを手放すにつれてますます価値を高めています。\n\n[**キャッスルナイト**](/themes/castle)は、1980〜1990年代のプリント入りトルソーやユニークなヘルメットを持つものが見つかりにくく、特に売れ行きが振るわなかったセットのものは希少です。\n\n## 自分のコレクションの価格を調べる方法\n\nこれらの価値あるミニフィギュアをお持ちの方は、以下の方法で正確な価格を調べることができます。\n\n### ステップ1：本物かどうかを確認する\n以下の点を確認しましょう。\n- スタッド部分の公式LEGOマーキング\n- プリントの品質（LEGOはシールではなくパッド印刷を使用）\n- プラスチックの質感とフィット感\n\n### ステップ2：状態を評価する\n以下について正直に評価しましょう。\n- プリントの摩耗や色あせ\n- プラスチックの変色（黄ばみ）\n- ひび割れや歯型（かじり跡）\n- 付属品の欠損\n\n### ステップ3：現在の市場価格を確認する\n[FigTrackerの検索ツール](/search)を使えば、以下のことができます。\n- Bricklinkマーケットプレイスのリアルタイムデータを確認する\n- 数量加重平均と最安値を比較する\n- 時系列の価格推移を追跡する\n- 状態による価格差を考慮する\n\n### ステップ4：タイミングを考える\n価格は以下の要因で変動します。\n- 映画の公開（Star Wars、Marvel、DC）\n- セットの生産終了（終了後6〜12ヶ月で価格が急騰することが多い）\n- 季節的な需要（12月は価格が上がる傾向）\n\n## 投資としての可能性：値上がりするミニフィグとは？\n\n5年以上の価格データに基づくと、値上がりしやすいミニフィグには次のような傾向があります。\n\n### 値上がりの可能性が高いもの\n- **人気フランチャイズの主人公キャラクター** - 特に初回リリース品\n- **限定プロモーション品** - コンベンション限定品、社員向けギフト\n- **生産終了したテーマ** - LEGOがそのテーマの生産をやめると希少性が高まる\n- **ユニークなプリント・バリエーション** - 誤印刷、試作品、初回ロットの違いなど\n\n### 安定しているが値上がりは緩やか\n- **脇役キャラクター** - 価値はあるものの値上がりのペースは緩やか\n- **一般的なセット** - 生産期間中は広く流通していたもの\n- **最近の発売品** - 大きく値上がりするまでに3〜5年が必要\n\n### 投資としてはおすすめできないもの\n- **大量生産のポリバッグ** - 流通量が多すぎる\n- **汎用ミニフィグ** - 独自のプリントやキャラクター価値がない\n- **破損・不完全なもの** - 妥当な価格で売るのが非常に難しい\n\n## テーマ別の注目ミニフィギュア\n\n### Harry Potter\n2018年の[Harry Potter](/themes/harry-potter)セット復活により関心が再燃しましたが、独自のプリントを持つ2001〜2005年のオリジナル発売品が今も最も価値が高いです。\n- ダンブルドア（グレーのひげバリエーション）\n- スネイプ教授（初期バージョン）\n- ヴォルデモート（赤い目のバリエーション）\n\n価格帯：バリエーションと状態により50〜300ドル\n\n### Marvel Super Heroes\nMCUの人気が[Marvel](/themes/super-heroes)の価値を押し上げています。\n- ロキ（アベンジャーズ期、プリント入りの脚）\n- デッドプール（初回リリース）\n- スパイダーマンのバリエーション（シンビオート、アイアン・スパイダー）\n\n価格帯：人気バリエーションで40〜200ドル\n\n### DC Comics Super Heroes\nバットマンのバリエーションは数多く存在しますが、希少な[DC Comics Super Heroes](/themes/super-heroes)版には高値が付きます。\n- コミコン限定バットマンフィギュア\n- 初期のジョーカーバリエーション\n- 2012年のオリジナルスーパーマン\n\n### Pirates & Castle\n1980〜1990年代のヴィンテージテーマは今人気です。\n- 独自のトルソープリントを持つ[Pirates](/sets-themes/Pirates)\n- 希少なヘルメットを持つ[Castle](/sets-themes/Castle)のナイト\n- 付属品が完全に揃ったフォレストマン\n\n価格帯：完全な状態のヴィンテージミニフィグで30〜150ドル\n\n## 価値あるミニフィギュアの売買はどこで？\n\n### おすすめのマーケットプレイス\n\n**Bricklink** - LEGO取引のゴールドスタンダードです。品揃えは最大級で価格も競争力がありますが、リサーチが必要です。\n\n**eBay** - 価格は高めですが、購入者層が広いです。実際には希少でないのに「レア」と謳って割高な出品には注意しましょう。\n\n**Facebookグループ** - LEGO販売グループには、公正な価格ですぐに購入してくれる意欲的な買い手がよくいます。\n\n**地域のコンベンション** - BrickCon、BrickFairなど。人脈作りや高額品の販売に最適です。\n\n### 販売のコツ\n1. **写真は丁寧に撮る** - 複数のアングル、明るい照明で全方向を見せる\n2. **状態を正直に伝える** - 返品やトラブルになるより、価格を下げた方がまし\n3. **付属品はすべて含める** - 武器、マント、ヘルメットは価値を大きく上げる\n4. **出品タイミングを見極める** - 祝日や映画公開の前に売る\n5. **FigTrackerを活用する** - 出品前に正確な価格の目安を確認する\n\n## 投資を守るために\n\n価値あるミニフィギュアをお持ちの方は、次の点に注意しましょう。\n\n### 保管のベストプラクティス\n- 直射日光を避ける（黄ばみ防止）\n- 密閉容器やディスプレイケースに保管する\n- 湿気の多い環境を避ける（変色の原因になる）\n- 上に重い物を積み重ねない\n\n### 保険について\n5,000ドル以上の価値があるコレクションは、記録を残し、保険をかけることをおすすめします。\n- すべて写真に残す\n- 購入価格と購入日を記録する\n- 領収書を保管する\n- コレクター品向けの保険特約を検討する\n\n### 真贋の確認\n500ドル以上の超希少品については、\n- 評価の高い信頼できる出品者から購入する\n- オンラインで購入する場合は追加の写真をリクエストする\n- よくある偽物の見分け方を学ぶ（特にクロームC-3PO、Mr. Gold）\n- LEGOコミュニティに参加して真贋を確認する\n\n## 今後の展望：2026〜2030年\n\n現在のトレンドをもとに、以下を予測します。\n\n### 値上がりが予想されるもの\n- **生産終了したStar Warsセット** - マンダロリアン、バッド・バッチ、クローン・ウォーズのキャラクター\n- **オリジナルのMarvel CMUミニフィグ** - 映画が「クラシック」となるにつれ価値が上がる（アイアンマン、ソーの初回リリース品）\n- **LEGO Ideas限定品** - 生産数の少なさが希少性を生む\n- **環境への配慮の高まり** - ヴィンテージ品がますます希少になる\n\n### 値下がりが予想されるもの\n- **大量再発売** - LEGOが人気ミニフィグを再生産する場合（ハン・ソロで実際に起きたように）\n- **フランチャイズ疲れ** - Marvel/Star Warsの供給過多が続く場合\n- **経済的要因** - 景気後退により、高級コレクター品の価格が一時的に抑えられる可能性\n\n## 今すぐコレクションの管理を始めましょう\n\nこれらの価値あるミニフィグをお持ちの方も、これからコレクションを築いていく方も、正確な価格情報は欠かせません。FigTrackerでは以下を提供しています。\n\n- Bricklinkマーケットプレイスのリアルタイムデータ\n- 価格履歴の追跡\n- 状態別の価格設定（新品 vs 中古）\n- インベントリ管理ツール\n- 18,732体以上のミニフィギュアを収録したデータベース\n\n**あなたのコレクションの価値を知る準備はできましたか？**\n\n[ミニフィギュアを検索 →](/search)\n\n---\n\n*価格データは2026年4月更新、Bricklink US マーケットプレイスの平均値に基づいています。価格は変動するため、売買前に必ず現在の価格をご確認ください。*"
+      "content": "After analyzing pricing data from 18,732 LEGO minifigures across the entire Bricklink catalog, we've identified the most valuable collectibles on the market today. Whether you're a serious collector, investor, or just curious about LEGO values, this comprehensive guide reveals which minifigs command premium prices and why.\n\n## What Makes a Minifigure Valuable?\n\nBefore diving into the rankings, it's important to understand the key factors that drive minifigure values:\n\n### 1. **Rarity**\nLimited production runs, exclusive sets, or promotional releases create scarcity. Convention exclusives and employee gifts are particularly sought after.\n\n### 2. **Age**\nClassic minifigs from the 1970s-1990s are increasingly rare as they wear out or get lost. Vintage pieces in good condition command premiums.\n\n### 3. **Popularity**\nCharacters from beloved franchises (Star Wars, Harry Potter, Marvel) consistently hold value. Main characters and villains typically appreciate faster than side characters.\n\n### 4. **Condition**\nNew/mint condition minifigs with all original accessories are worth significantly more than used versions. Even minor wear can reduce value by 30-50%.\n\n### 5. **Completeness**\nA minifig with all printed parts, accessories, and original packaging (if applicable) is worth more than loose or incomplete figures.\n\n## Star Wars Dominates the Top 10\n\n[**Star Wars minifigures**](/themes/star-wars) consistently command the highest prices, with several factors contributing to their value:\n\n- Licensed franchise with massive global fanbase\n- Many were only available in expensive sets ($100-$500 retail)\n- Some were released only once or twice across 25+ years of LEGO Star Wars\n- Characters from the original trilogy (1977-1983) are especially valuable\n\n### Most Valuable Star Wars Minifigures:\n\n**Cloud City Boba Fett (2003)** - Often cited as the holy grail, this exclusive version with printing variations can fetch $3,000-$5,000 in mint condition.\n\n**Chrome Darth Vader** - Limited promotional release, metallic chrome finish. Rare variants command $1,500-$2,500.\n\n**14k Gold C-3PO** - Only 10,000 produced for a 2007 promotion. Despite higher production numbers, gold plating and Star Wars popularity keep values at $1,000-$2,000.\n\n**Mr. Gold** - While not Star Wars, this ultra-rare 2013 promotional figure (only 5,000 made) regularly sells for $3,000-$5,000.\n\n## Classic Space & Castle Rarities\n\nBeyond licensed themes, vintage LEGO themes have collectors paying premium prices:\n\n[**Classic Space minifigs**](/themes/space) (1978-1987) with complete helmets and air tanks in pristine condition are increasingly valuable as original owners age out of collecting.\n\n[**Castle knights**](/themes/castle) with printed torsos and unique helmets from the 1980s-1990s are harder to find, especially in sets that didn't sell as well.\n\n## How to Price Your Own Collection\n\nIf you own any of these valuable minifigures, here's how to determine accurate pricing:\n\n### Step 1: Verify Authenticity\nCheck for:\n- Official LEGO markings on studs\n- Print quality (LEGO uses pad printing, not stickers)\n- Plastic quality and fit\n\n### Step 2: Assess Condition\nBe honest about:\n- Print wear or fading\n- Plastic discoloration (yellowing)\n- Cracks or teeth marks\n- Missing accessories\n\n### Step 3: Check Current Market Prices\nUse [FigTracker's search tool](/search) to:\n- See real-time Bricklink marketplace data\n- Compare quantity-weighted averages vs lowest prices\n- Track price trends over time\n- Factor in condition differences\n\n### Step 4: Consider Timing\nPrices fluctuate based on:\n- Movie releases (Star Wars, Marvel, DC)\n- Set retirements (prices often spike 6-12 months after)\n- Seasonal demand (December = higher prices)\n\n## Investment Potential: Which Minifigs Appreciate?\n\nBased on 5+ years of pricing data, minifigs that tend to appreciate include:\n\n### High Appreciation Potential:\n- **Main characters from popular franchises** - First releases especially\n- **Limited promotions** - Convention exclusives, employee gifts\n- **Retired themes** - Once LEGO stops making a theme, scarcity increases\n- **Unique printing/variants** - Misprint, prototype, or first-run variations\n\n### Stable but Slower Growth:\n- **Side characters** - Still valuable but appreciate more slowly\n- **Common sets** - Widely available during production run\n- **Recent releases** - Need 3-5 years to see significant appreciation\n\n### Poor Investment Bets:\n- **Mass-produced polybags** - Too many in circulation\n- **Generic minifigs** - No unique printing or character value\n- **Damaged/incomplete** - Very hard to sell at reasonable prices\n\n## Notable Minifigures by Theme\n\n### Harry Potter\nThe revival of [Harry Potter](/themes/harry-potter) sets in 2018 created renewed interest, but original 2001-2005 releases with unique printing remain most valuable:\n- Dumbledore (gray beard variants)\n- Professor Snape (early versions)\n- Voldemort (red eyes variant)\n\nPrices: $50-$300 depending on variant and condition\n\n### Marvel Super Heroes\nMCU popularity drives [Marvel](/themes/super-heroes) values:\n- Loki (Avengers era, printed legs)\n- Deadpool (first release)\n- Spider-Man variants (symbiote, Iron Spider)\n\nPrices: $40-$200 for sought-after variants\n\n### DC Comics Super Heroes\nBatman variants are plentiful, but rare [DC Comics Super Heroes](/themes/super-heroes) versions command premiums:\n- Comic-Con exclusive Batman figures\n- Early Joker variants\n- Original Superman from 2012\n\n### Pirates & Castle\nVintage 1980s-1990s themes are hot:\n- [Pirates](/sets-themes/Pirates) with unique torso prints\n- [Castle](/sets-themes/Castle) knights with rare helmets\n- Forestmen with complete accessories\n\nPrices: $30-$150 for complete vintage minifigs\n\n## Where to Buy and Sell Valuable Minifigures\n\n### Best Marketplaces:\n\n**Bricklink** - The gold standard for LEGO trading. Largest selection, competitive prices, but requires research.\n\n**eBay** - Higher prices but wider buyer base. Watch for overpriced \"rare\" listings that aren't actually rare.\n\n**Facebook Groups** - LEGO selling groups often have motivated buyers willing to pay fair prices quickly.\n\n**Local Conventions** - BrickCon, BrickFair, etc. Great for networking and selling high-end pieces.\n\n### Selling Tips:\n1. **Photograph well** - Multiple angles, clear lighting, show all sides\n2. **Disclose condition honestly** - Better a lower price than a return/dispute\n3. **Include all accessories** - Weapons, capes, helmets add significant value\n4. **Time your listing** - Sell before holidays or movie releases\n5. **Use FigTracker** - Get accurate suggested pricing before listing\n\n## Protecting Your Investment\n\nIf you own valuable minifigures:\n\n### Storage Best Practices:\n- Keep away from direct sunlight (prevents yellowing)\n- Store in sealed containers or display cases\n- Avoid humid environments (can cause discoloration)\n- Don't stack heavy items on top\n\n### Insurance:\nCollections worth $5,000+ should be documented and insured:\n- Photograph everything\n- Track purchase prices and dates\n- Keep sales receipts\n- Consider collectibles insurance rider\n\n### Authentication:\nFor ultra-rare pieces ($500+):\n- Buy from reputable sellers with feedback\n- Request additional photos if buying online\n- Learn to spot common fakes (especially Chrome C-3PO, Mr. Gold)\n- Join LEGO communities to verify authenticity\n\n## Future Outlook: 2026-2030\n\nBased on current trends, we predict:\n\n### Rising Values:\n- **Retired Star Wars sets** - Mandalorian, Bad Batch, Clone Wars characters\n- **Original Marvel CMU minifigs** - As movies become \"classic\" (Iron Man, Thor first releases)\n- **LEGO Ideas exclusives** - Limited runs create scarcity\n- **Environmental awareness** - Vintage pieces become increasingly rare\n\n### Declining Values:\n- **Mass reissues** - If LEGO reprints popular minifigs (like they did with Han Solo)\n- **Franchise fatigue** - If Marvel/Star Wars oversaturation continues\n- **Economic factors** - Recession could temporarily suppress luxury collectible prices\n\n## Start Tracking Your Collection Today\n\nWhether you own one of these valuable minifigs or are building a collection, accurate pricing is essential. FigTracker provides:\n\n- Real-time Bricklink marketplace data\n- Price history tracking\n- Condition-specific pricing (New vs Used)\n- Inventory management tools\n- 18,732+ minifigures in database\n\n**Ready to discover what your collection is worth?**\n\n[Search Your Minifigures →](/search)\n\n---\n\n*Pricing data updated April 2026 based on Bricklink US marketplace averages. Values fluctuate - always verify current prices before buying or selling.*"
     },
     "figtracker-vs-bricklink": {
       "title": "FigTracker と Bricklink：どちらを使うべき？",
       "description": "LEGOミニフィギュアの価格設定において、FigTrackerとBricklinkを比較します。それぞれのプラットフォームをいつ使うべきか、そしてFigTrackerが販売者の価格設定をどのように簡単にするかをご紹介します。",
       "author": "FigTrackerチーム",
       "readTime": "8分で読めます",
-      "content": "LEGOミニフィギュアの売買やコレクションに本気で取り組んでいる方なら、Bricklinkを一度は目にしたことがあるでしょう。最大のLEGOマーケットプレイスであるBricklinkは業界標準の存在ですが、素早く価格を判断するのに最適なツールとは限りません。\n\nそこで登場するのがFigTrackerです。\n\n**簡単に言うと：** 両方使いましょう。売買にはBricklink、瞬時の価格チェックにはFigTrackerです。\n\n**詳しく説明すると：** 両者を並べて比較してみましょう。\n\n## Bricklinkとは？\n\nBricklinkはLEGOパーツ、セット、ミニフィギュアを扱う世界最大のマーケットプレイスです。2000年に設立され、2019年にLEGOグループに買収されました。本格的なコレクターや転売業者が売買を行う場所です。\n\n### Bricklinkの強み\n✅ 膨大な在庫（数百万件の出品）\n✅ 100か国以上の販売者が参加するグローバルマーケットプレイス\n✅ 過去の価格データ\n✅ ウォントリストとインベントリ管理\n✅ 公式LEGOカタログとの連携\n\n### Bricklinkの課題\n❌ 価格情報が複雑（解釈すべき指標が3つ以上ある）\n❌ カジュアルユーザーには情報量が多すぎる\n❌ 「適正価格」の提案がなく、自分で計算する必要がある\n❌ 価格情報を探すために複数のページを掘り下げる必要がある\n❌ 古めかしいインターフェースデザイン\n\n## FigTrackerとは？\n\nFigTrackerは、複雑さを抜きにして素早く正確な価格を知りたい販売者やコレクターのために作られた、無料のLEGOミニフィギュア価格トラッカーです。\n\n### FigTrackerの強み\n✅ 提案価格はひとつだけ（暗算不要）\n✅ Bricklinkマーケットプレイスのリアルタイムデータ\n✅ すっきりとしたモダンなインターフェース\n✅ 状態管理付きのインベントリ追跡\n✅ IDまたは名前による高速検索\n✅ 18,732体以上のミニフィギュアを収録したデータベース\n✅ 15種類以上の通貨に対応（USD、EUR、GBP、CADなど）\n\n### FigTrackerの制限\n❌ 販売機能はない（マーケットプレイスへのリンクのみ）\n❌ 新しいプラットフォームのため、Bricklinkほどの過去データはない\n\n## 価格設定の問題：FigTrackerが生まれた理由\n\nBricklinkでの価格設定の現実はこうです。\n\n**目にするのはこれ：**\n- 数量加重平均：12.45ドル\n- 単純平均：15.20ドル\n- 最安値：8.99ドル\n\n**そして思うのはこれ：**\n*「待って……どれを使えばいいの？12ドル？15ドル？間を取る？状態はどう考慮するの？」*\n\n**やることはこれ：**\n電卓を開く。平均の平均を出す。最安値を確認する。状態を考慮する。自分の判断に迷う。パソコンを閉じる。\n\n### FigTrackerの解決策\n\n**目にするのはこれ：**\n- 提案価格：13.25ドル（新品）｜9.75ドル（中古）\n\n**そして思うのはこれ：**\n*「完璧。これで決まり」*\n\nFigTrackerのアルゴリズムは、Bricklinkの3つの指標すべてに状態データを組み合わせ、自信を持って使える一つの数字を導き出します。内訳を確認したければいつでも見られますが、見る必要はありません。\n\n## 徹底比較\n\n| 機能 | Bricklink | FigTracker |\n|---------|-----------|------------|\n| **マーケットプレイス** | ✅ あり | ❌ なし（外部リンク） |\n| **提案価格** | ❌ なし | ✅ あり |\n| **リアルタイムデータ** | ✅ あり | ✅ あり（Bricklinkから取得） |\n| **インベントリ管理** | ✅ 高機能 | ✅ シンプル |\n| **検索速度** | ⚠️ 普通 | ✅ 高速 |\n| **ユーザーインターフェース** | ⚠️ 古め | ✅ モダン |\n| **学習コスト** | ⚠️ 高い | ✅ 低い |\n| **モバイル対応** | ⚠️ 使いづらい | ✅ 快適 |\n| **料金** | 無料 | 無料 |\n| **最適な用途** | 売買 | 素早い価格チェックと管理 |\n\n## Bricklinkを使うべき場面\n\n以下のような場合はBricklinkを使いましょう。\n\n**1. ミニフィギュアを購入する**\nBricklinkは品揃えが最大級です。他のプラットフォームは足元にも及びません。\n\n**2. ミニフィギュアを販売する**\n本格的な販売者であれば、Bricklinkには膨大かつ意欲的な購入者層がいます。プラットフォームを学ぶ価値があります。\n\n**3. レア品やマイナーなアイテムを調べる**\n豊富な過去データと成約情報があります。\n\n**4. ストアを運営する**\n大量の在庫を抱える販売者向けの内蔵ツールがあります。\n\n**5. 国際取引を行う**\n通貨換算に対応したグローバルマーケットプレイスです。\n\n## FigTrackerを使うべき場面\n\n以下のような場合はFigTrackerを使いましょう。\n\n**1. 素早く価格を決める**\neBayに20体のミニフィグを出品する予定なら、即座に提案価格を取得できます。\n\n**2. コレクションを管理する**\nBricklinkのような複雑さがない、シンプルなインベントリ管理ができます。\n\n**3. 状態別の価格を比較する**\n新品と中古の価格を瞬時に並べて確認できます。\n\n**4. 市場を学ぶ**\nすっきりしたインターフェースで、価格のトレンドが理解しやすくなります。\n\n**5. 購入するかどうかを決める**\n入札前に、そのeBay出品が割高でないかを確認できます。\n\n## 最適なワークフロー：両方を使う\n\n賢い販売者はFigTrackerとBricklinkをこう組み合わせて使っています。\n\n### ステップ1：FigTrackerで価格を調べる\nIDで[あなたのミニフィグを検索](/search)します（例：「sw1219」）。5秒で提案価格が分かります。\n\n### ステップ2：必要に応じてBricklinkで確認する\n50ドル以上の高額なミニフィグの場合は、Bricklinkで実際の出品を確認しましょう。\n\n### ステップ3：自分のプラットフォームに出品する\neBay、Facebookマーケットプレイス、あるいは自分のBricklinkストアに出品します。\n\n### ステップ4：FigTrackerで管理する\n[インベントリを整理](/inventory)しておきましょう。価格は毎月更新するのがおすすめです。\n\n**節約できる時間：** ミニフィグ1体あたり2〜3分 × 50体 = 1回の価格設定セッションで2.5時間の節約になります。\n\n## よくある質問\n\n### 「Bricklinkだけ使えばいいのでは？」\n\nもちろんそれでも構いません！ただし、20体以上のミニフィグを出品する場合、1体ずつ暗算するのは面倒です。FigTrackerならその判断作業を自動化できます。\n\n### 「FigTrackerの価格は正確？」\n\nはい、正確です。BricklinkのAPIからリアルタイムデータを直接取得しています。提案価格は、Bricklinkで見られるのと同じデータをもとに算出しており、私たちがそれを代わりに処理しているだけです。\n\n### 「FigTrackerで販売できる？」\n\n直接販売はできません。FigTrackerは価格設定ツールであり、マーケットプレイスではありません。購入したい場合はBricklinkやAmazonへのリンクをご用意しています。\n\n### 「FigTrackerはBricklinkの代わりになる？」\n\nいいえ、なりません。FigTrackerは、Bricklinkのデータを使って素早く価格判断ができるようにする、いわば相棒ツールだと考えてください。\n\n## 価格設定の考え方を比較する\n\n**Bricklinkのアプローチ：**\n「データは全部揃っています。あなたなら賢く、いくらにするか自分で判断できるはずです」\n\n**FigTrackerのアプローチ：**\n「現在の市場状況に基づく最適な価格をご用意しました。計算は私たちにお任せください」\n\nどちらも正しいアプローチです。Bricklinkはパワーユーザーの力を引き出し、FigTrackerは素早い意思決定を後押しします。\n\n## どちらのプラットフォームから始めるべき？\n\n### こんな方はFigTrackerから始めましょう\n- LEGO転売を始めたばかりの方\n- 素早く価格を決めたい方\n- 中小規模のコレクション（500体未満）をお持ちの方\n- BricklinkではなくeBay/Facebookで販売している方\n\n### こんな方はBricklinkから始めましょう\n- 本格的な販売者（500件以上の出品）の方\n- 本格的なLEGOストアを運営したい方\n- 高度なインベントリ管理が必要な方\n- 国際的に売買を行う方\n\n### こんな方は両方使いましょう\n- プロの転売業者の方\n- スピードと正確さの両方を重視する方\n- 日常使いにはモダンなインターフェースが欲しいが、実際の取引にはBricklinkが必要な方\n\n## まとめ\n\n**Bricklink**は、比類ない在庫量とリーチを誇る業界標準のマーケットプレイスです。本格的な売買には欠かせません。\n\n**FigTracker**は、Bricklinkのデータを即座に活用できるようにする、モダンな価格設定の相棒です。素早く自信を持って価格を決めるには欠かせません。\n\n**どちらか一つを選ぶ必要はありません。** 価格設定とインベントリ管理にはFigTrackerを、実際の取引にはBricklinkを使いましょう。この2つを組み合わせれば、完璧なLEGOツールキットの完成です。\n\n---\n\n**FigTrackerを試してみませんか？**\n\n[最初のミニフィギュアを検索 →](/search)\n\nまたは[完全ガイド](/guides)で、LEGOミニフィギュアの価値についてさらに詳しく学びましょう。"
+      "content": "If you're serious about buying, selling, or collecting LEGO minifigures, you've probably encountered Bricklink. As the largest LEGO marketplace, Bricklink is the industry standard—but it's not always the easiest tool for quick pricing decisions.\n\nThat's where FigTracker comes in.\n\n**The short answer:** Use both. Bricklink for buying/selling, FigTracker for instant pricing.\n\n**The detailed answer:** Let's compare them side-by-side.\n\n## What is Bricklink?\n\nBricklink is the world's largest marketplace for LEGO parts, sets, and minifigures. Founded in 2000 and acquired by LEGO Group in 2019, it's where serious collectors and resellers go to buy and sell.\n\n### Bricklink Strengths:\n✅ Massive inventory (millions of listings)\n✅ Global marketplace with sellers in 100+ countries\n✅ Historical pricing data\n✅ Want lists and inventory management\n✅ Official LEGO catalog integration\n\n### Bricklink Challenges:\n❌ Complex pricing (3+ metrics to interpret)\n❌ Overwhelming for casual users\n❌ No suggested \"fair price\" - you do the math\n❌ Must dig through multiple pages for pricing\n❌ Dated interface design\n\n## What is FigTracker?\n\nFigTracker is a free LEGO minifigure price tracker built specifically for sellers and collectors who need quick, accurate pricing without the complexity.\n\n### FigTracker Strengths:\n✅ One suggested price (no mental math needed)\n✅ Real-time Bricklink marketplace data\n✅ Clean, modern interface\n✅ Inventory tracking with condition management\n✅ Fast search by ID or name\n✅ 18,732+ minifigures in database\n✅ 20+ currencies supported (USD, EUR, GBP, CAD, and more)\n\n### FigTracker Limitations:\n❌ Doesn't sell anything (links to marketplaces)\n❌ Newer platform (less historical data than Bricklink)\n\n## The Pricing Problem: Why FigTracker Exists\n\nHere's the reality of pricing on Bricklink:\n\n**You see this:**\n- Quantity-Weighted Average: $12.45\n- Simple Average: $15.20\n- Lowest Price: $8.99\n\n**You think this:**\n*\"Wait... which one do I use? Should I price at $12? $15? Split the difference? What about condition?\"*\n\n**You do this:**\nOpen calculator. Average the averages. Check lowest price. Factor in condition. Second-guess yourself. Close laptop.\n\n### FigTracker's Solution\n\n**You see this:**\n- Suggested Price: $13.25 (New) | $9.75 (Used)\n\n**You think this:**\n*\"Perfect. Done.\"*\n\nFigTracker's algorithm combines all three Bricklink metrics plus condition data to give you one confident number. You can still see the breakdown if you want it, but you don't need to.\n\n## Side-by-Side Comparison\n\n| Feature | Bricklink | FigTracker |\n|---------|-----------|------------|\n| **Marketplace** | ✅ Yes | ❌ No (links out) |\n| **Suggested Pricing** | ❌ No | ✅ Yes |\n| **Real-time Data** | ✅ Yes | ✅ Yes (pulls from Bricklink) |\n| **Inventory Management** | ✅ Advanced | ✅ Simple |\n| **Search Speed** | ⚠️ Moderate | ✅ Fast |\n| **User Interface** | ⚠️ Dated | ✅ Modern |\n| **Learning Curve** | ⚠️ Steep | ✅ Gentle |\n| **Mobile Experience** | ⚠️ Clunky | ✅ Responsive |\n| **Price** | Free | Free |\n| **Best For** | Buying & selling | Quick pricing & tracking |\n\n## When to Use Bricklink\n\nUse Bricklink when you need to:\n\n**1. Buy Minifigures**\nBricklink has the largest selection. No other platform comes close.\n\n**2. Sell Minifigures**\nIf you're a serious seller, Bricklink's audience is massive and motivated. Worth learning the platform.\n\n**3. Research Rare/Obscure Pieces**\nDeep historical data and completed sales info.\n\n**4. Manage a Store**\nBuilt-in tools for sellers with large inventories.\n\n**5. International Transactions**\nGlobal marketplace with currency conversion.\n\n## When to Use FigTracker\n\nUse FigTracker when you need to:\n\n**1. Price Quickly**\nYou have 20 minifigs to list on eBay. Get instant suggested prices.\n\n**2. Track Your Collection**\nSimple inventory management without Bricklink's complexity.\n\n**3. Compare Condition Pricing**\nSee New vs Used prices side-by-side instantly.\n\n**4. Learn the Market**\nClean interface makes it easier to understand pricing trends.\n\n**5. Decide What to Buy**\nCheck if that eBay listing is overpriced before bidding.\n\n## The Best Workflow: Use Both\n\nHere's how smart sellers use FigTracker + Bricklink together:\n\n### Step 1: Price on FigTracker\n[Search your minifig](/search) by ID (e.g., \"sw1219\"). Get suggested price in 5 seconds.\n\n### Step 2: Cross-check on Bricklink (if needed)\nFor expensive minifigs ($50+), verify on Bricklink to see actual listings.\n\n### Step 3: List on Your Platform\neBay, Facebook Marketplace, or your own Bricklink store.\n\n### Step 4: Track in FigTracker\nKeep your [inventory organized](/inventory). Refresh prices monthly.\n\n**Time saved:** 2-3 minutes per minifig × 50 minifigs = 2.5 hours per pricing session.\n\n## Common Questions\n\n### \"Why not just use Bricklink?\"\n\nYou can! But if you're listing 20+ minifigs, doing mental math for each one gets tedious. FigTracker automates the decision-making.\n\n### \"Is FigTracker's pricing accurate?\"\n\nYes. We pull real-time data directly from Bricklink's API. Our suggested price is calculated from the same data you'd see on Bricklink—we just process it for you.\n\n### \"Can I sell on FigTracker?\"\n\nNot directly. FigTracker is a pricing tool, not a marketplace. We link to Bricklink and Amazon if you want to buy.\n\n### \"Does FigTracker replace Bricklink?\"\n\nNo. Think of FigTracker as a companion tool that makes Bricklink data easier to use for quick pricing decisions.\n\n## Pricing Philosophy Comparison\n\n**Bricklink's Approach:**\n\"Here's all the data. You're smart—figure out what to charge.\"\n\n**FigTracker's Approach:**\n\"Here's the best price based on current market conditions. Trust us, we did the math.\"\n\nBoth are valid. Bricklink empowers power users. FigTracker empowers fast decision-making.\n\n## Which Platform Should You Start With?\n\n### Start with FigTracker if:\n- You're new to LEGO reselling\n- You need to price things quickly\n- You have a small-to-medium collection (< 500 minifigs)\n- You sell on eBay/Facebook, not Bricklink\n\n### Start with Bricklink if:\n- You're a serious seller (500+ listings)\n- You want to run a full LEGO store\n- You need advanced inventory management\n- You buy and sell internationally\n\n### Use Both if:\n- You're a professional reseller\n- You value speed + accuracy\n- You want a modern interface for daily use but need Bricklink for actual transactions\n\n## The Bottom Line\n\n**Bricklink** is the industry standard marketplace with unmatched inventory and reach. It's essential for serious buying and selling.\n\n**FigTracker** is the modern pricing companion that makes Bricklink data instantly actionable. It's essential for fast, confident pricing.\n\n**You don't have to choose.** Use FigTracker for pricing and inventory. Use Bricklink for transactions. Together, they're the perfect LEGO toolkit.\n\n---\n\n**Ready to try FigTracker?**\n\n[Search Your First Minifigure →](/search)\n\nOr explore our [complete pricing guide](/guides) to learn more about LEGO minifigure values."
     }
   },
   "adminStats": {
@@ -1557,10 +1557,10 @@
     "usedByBelow": "一部のプロモーションバナー、セール告知",
     "pros": "メリット：",
     "prosAbove": [
-      "Immediately visible - can't be missed",
-      "Standard web pattern users expect",
-      "Shows the banner is important/site-wide",
-      "Doesn't interfere with navigation clicks"
+      "すぐに目に入り、見落としがない",
+      "利用者が見慣れた標準的な表示形式",
+      "サイト全体に関わる重要な案内だと伝わる",
+      "ナビゲーションの操作を妨げない"
     ],
     "prosBelow": [
       "Logo/branding stays at very top",
@@ -1593,14 +1593,14 @@
     ],
     "userFlowTitle": "ユーザーの流れ：",
     "userFlow": [
-      "First visit from Sweden → Banner appears",
-      "Click \"Yes, use SEK\" → Currency セット to SEK, page reloads, all prices fetched in SEK",
-      "Click \"Keep USD\" → Banner dismissed forever, uses USD",
-      "Future visits → Banner never shows again (preference remembered)"
+      "スウェーデンからの初回訪問 → バナーが表示されます",
+      "「はい、SEK を使う」をクリック → 通貨が SEK に設定され、ページが再読み込みされ、すべての価格が SEK で取得されます",
+      "「USD のまま」をクリック → バナーは二度と表示されず、USD が使われます",
+      "以降の訪問 → バナーは表示されません（選択が保存されます）"
     ]
   },
   "setsDemo": {
-    "loadingText": "Loading セット catalog...",
+    "loadingText": "セットカタログを読み込んでいます...",
     "title": "LEGOセットカタログ デモ",
     "subtitle": "新しいセット機能のテスト - {count}個のLEGOセットを閲覧",
     "totalSets": "Total セット",
@@ -1892,8 +1892,8 @@
       "tierB": {
         "title": "こんな方にはティアBがおすすめ:",
         "item1": "$200以上使わずにしっかりお得を得たい方",
-        "item2": "The Razor Crest セット interests you",
-        "item3": "You prefer flexibility with 2x セット"
+        "item2": "レイザークレストのセットに興味がある",
+        "item3": "セット2点で柔軟に選びたい"
       },
       "tierC": {
         "title": "こんな方にはティアCがおすすめ:",
