@@ -390,6 +390,49 @@ const t = await getTranslations(locale);
 - Fix: Retroactively added translation support
 - Lesson: **Always build with i18n from day 1, never add it later**
 
+### Keeping translations from rotting:
+
+`translations-backup/` IS the runtime source — despite the name, it is not a
+backup. `lib/i18n-subdomain.ts` imports from it directly.
+
+Run the checker after any change to user-facing text:
+
+```bash
+npm run check:translations
+```
+
+It reports four things: keys missing from a locale, values that have become
+identical to English, values with English words left inside them, and — the
+important one — English strings that changed since translations were last
+reviewed.
+
+That last check needs a baseline, so **after updating translations, re-record
+it**:
+
+```bash
+npm run accept:translations
+```
+
+Skip that step and every key stays flagged forever, at which point the tool
+gets ignored and stops working. The baseline also stores which strings are
+deliberately identical to English ("Star Wars", "Premium"), so a clean tree
+reports zero rather than 255 non-problems.
+
+The build runs the check as a non-blocking warning; it prints in every deploy
+log but never stops a deploy.
+
+**September 2026:** 439 strings across it/ja/nl/pl/pt/sv were not translations
+at all. A word-level find-and-replace had been run over English text, giving
+"something that's net in the database" and "you've probably enantalered
+Bricklink". Separately, `guides.cta` was rewritten in English and no
+translation followed, in all nine locales. Neither surfaced on its own. That
+is what this checker exists to catch.
+
+**Article text lives in the database, not here.** `Article.translations` holds
+per-locale titles and descriptions; `Article.contentBlocks` holds the body and
+is English-only for every locale. Use `scripts/translate-article-metadata.mjs`
+to update the former.
+
 ### Testing Translations:
 
 **Before deploying UI changes:**

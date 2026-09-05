@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/validate-schema.js && node scripts/build-maintenance-page.js && next build",
+    "build": "node scripts/validate-schema.js && node scripts/build-maintenance-page.js && (node scripts/check-translations.js || true) && next build",
     "postinstall": "node scripts/postinstall.js",
     "analyze": "ANALYZE=true npm run build",
     "validate-schema": "node scripts/validate-schema.js",
@@ -24,7 +24,9 @@
     "populate-asins": "tsx scripts/populate-amazon-asins.ts",
     "check-catalog": "curl https://figtracker.ericksu.com/api/admin/check-catalog-changes",
     "upload-catalog": "curl -X POST https://figtracker.ericksu.com/api/admin/upload-catalog -H 'Authorization: Bearer $ADMIN_SECRET' -H 'Content-Type: text/plain' --data-binary @Minifigures.txt",
-    "test-catalog-download": "curl https://figtracker.ericksu.com/api/admin/test-catalog-download -H 'Authorization: Bearer $ADMIN_SECRET'"
+    "test-catalog-download": "curl https://figtracker.ericksu.com/api/admin/test-catalog-download -H 'Authorization: Bearer $ADMIN_SECRET'",
+    "check:translations": "node scripts/check-translations.js",
+    "accept:translations": "node scripts/check-translations.js --accept"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.96.0",
