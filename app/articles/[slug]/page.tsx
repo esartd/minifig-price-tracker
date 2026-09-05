@@ -143,9 +143,22 @@ export default async function ArticlePage({
   });
 
   if (dbArticle) {
-    const contentBlocks = JSON.parse(dbArticle.contentBlocks as string);
+    const englishBlocks = JSON.parse(dbArticle.contentBlocks as string);
     const translations = JSON.parse(dbArticle.translations as string);
     const translation = translations.find((t: any) => t.locale === locale) || translations[0];
+
+    /**
+     * A translated body if one exists for this locale, otherwise English.
+     *
+     * `contentBlocks` holds a single English body, so until now every
+     * language rendered English prose under a translated headline. A locale
+     * entry may now carry its own `blocks`; when it does not, English is the
+     * honest fallback rather than a blank page.
+     */
+    const contentBlocks =
+      Array.isArray(translation?.blocks) && translation.blocks.length > 0
+        ? translation.blocks
+        : englishBlocks;
 
     // Prepare related articles
     const relatedArticles = allArticles.map(article => {
