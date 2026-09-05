@@ -140,10 +140,15 @@ Required parameters in this exact format:
 
 ### Button Order (DO NOT CHANGE):
 
-**Minifig pages:** eBay (blue) → BrickLink (grey) → Amazon (grey)
-**Set pages:** eBay (blue) → Amazon (grey) → BrickLink (grey)
+**Minifig pages:** eBay (blue) → Whatnot (grey) → BrickLink (grey) → Amazon (grey)
+**Set pages:** eBay (blue) → Whatnot (grey) → Amazon (grey) → BrickLink (grey)
 
 Only the top button is colored to avoid visual competition.
+
+Whatnot was added second in September 2026. eBay keeps the top, colored slot
+because it is the proven earner; Whatnot is unproven and sits below it rather
+than displacing it. Revisit the order once there is real Whatnot revenue to
+compare — not before.
 
 ### Testing After Changes:
 
@@ -162,6 +167,35 @@ Only the top button is colored to avoid visual competition.
 - Lost commissions = lost revenue
 
 **If you need to modify:** Read the official docs first, test thoroughly, get user approval.
+
+---
+
+## Whatnot Affiliate Links
+
+**Files:** `lib/whatnot-affiliate-links.ts`, `app/marketplace/`, `app/api/marketplace/`
+**Partner ID:** 2875567 (via impact.com)
+**Env var:** `NEXT_PUBLIC_WHATNOT_AFFILIATE_URL` (default `https://whatnot.pxf.io/k4Jrdz`)
+
+Two facts that cost real time to establish — do not rediscover them:
+
+1. **The search parameter is `query`, not `q`.** `?q=` loads the search page
+   with an empty query and renders "There's nothing here at the moment" — it
+   looks like a working page with no stock. `/search/<terms>` as a path is a
+   404.
+2. **Deep links go through `?u=<url-encoded destination>`.** Without that
+   wrapper the visit is untracked and earns nothing. Verify any change by
+   following redirects and confirming `utm_partnerid=2875567` survives.
+
+**There is no Whatnot data feed.** The Seller API only manages your own store
+and is closed to new applicants; the affiliate program hands out links, not a
+catalog. The marketplace page is therefore built from our own catalog and deep
+links into Whatnot search. Do not "improve" it by scraping Whatnot — that was
+considered and rejected.
+
+Search queries deliberately include the full BrickLink name and item number.
+Sellers copy BrickLink names verbatim, so long names with `{2nd edition}`-style
+annotations still return exact matches; when nothing matches every word Whatnot
+falls back to partial results rather than an empty page.
 
 ---
 

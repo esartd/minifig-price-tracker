@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
-import { UserIcon, CubeIcon, StarIcon, CurrencyDollarIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { UserIcon, CubeIcon, StarIcon, CurrencyDollarIcon, UsersIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from './TranslationProvider';
 
@@ -367,12 +367,28 @@ export function HeaderClient({ user }: HeaderClientProps) {
                       color: '#171717',
                       textDecoration: 'none',
                       fontSize: 'var(--text-sm)',
+                      borderBottom: '1px solid #f5f5f5',
                       transition: 'background 0.2s'
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                       <CubeIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
                       <span>{t('navigation.themes.sets')}</span>
+                    </Link>
+                    <Link href="/marketplace" onClick={() => setBrowseDropdownOpen(false)} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '16px 20px',
+                      color: '#171717',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-sm)',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                      <ShoppingBagIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                      <span>{t('marketplace.navLabel') || 'Whatnot Marketplace'}</span>
                     </Link>
                   </div>
                 )}

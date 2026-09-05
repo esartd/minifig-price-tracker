@@ -499,6 +499,10 @@
     "bricklink": {
       "name": "BrickLink",
       "description": "最大級のLEGOマーケットプレイス"
+    },
+    "whatnot": {
+      "name": "Whatnot",
+      "description": "ライブオークションとショー"
     }
   },
   "pricing": {
@@ -854,7 +858,7 @@
     "lastUpdated": "最終更新日",
     "affiliatePrograms": {
       "title": "アフィリエイトプログラム",
-      "paragraph1": "FigTrackerはLEGO.comアフィリエイトプログラム、Amazonアソシエイト・プログラム、eBayパートナーネットワークに参加しています。掲載されている商品リンクをクリックしてご購入いただくと、お客様に追加費用が発生することなく、当サイトがわずかな手数料を得る場合があります。",
+      "paragraph1": "FigTrackerはLEGO.comアフィリエイトプログラム、Amazonアソシエイト・プログラム、eBayパートナーネットワーク、Whatnotアフィリエイトプログラムに参加しています。掲載されている商品リンクをクリックしてご購入いただくと、お客様に追加費用が発生することなく、当サイトがわずかな手数料を得る場合があります。",
       "paragraph2": "これらのアフィリエイト提携は、FigTrackerを無料で使い続けられるようにしながら、開発・運営を支えるために役立っています。"
     },
     "trademark": {
@@ -3115,6 +3119,34 @@
       "location": "発送元がないとeBayはファイルを受け付けません。ダウンロード前に入力してください。",
       "photos": "写真はLEGOカタログのものです。中古品はご自身の写真のほうがeBayでは格段によく売れます。",
       "fees": "eBayには出品手数料と落札手数料があります。大量にアップロードする前に上限を確認してください。"
+    }
+  },
+  "marketplace": {
+    "title": "Whatnot マーケットプレイス",
+    "subtitle": "18,000体のミニフィグと20,000種のセットを検索して、Whatnotの出品ページへ直接アクセスできます。",
+    "disclosure": "これらのリンク経由でのご購入により、当サイトが手数料を得る場合があります。",
+    "minifigs": "ミニフィグ",
+    "sets": "セット",
+    "searchPlaceholder": "名前またはアイテム番号で検索...",
+    "sortPopular": "コレクション数が多い順",
+    "sortNewest": "新しい順",
+    "sortName": "名前順",
+    "resultCount": "{count}件",
+    "viewOnWhatnot": "Whatnotで見る",
+    "loadMore": "もっと見る",
+    "loading": "読み込み中...",
+    "empty": "該当する結果がありませんでした。",
+    "error": "現在、出品情報を読み込めませんでした。しばらくしてからお試しください。",
+    "navLabel": "Whatnot マーケットプレイス",
+    "meta": {
+      "title": "WhatnotのLEGOマーケットプレイス | FigTracker",
+      "description": "18,000体のLEGOミニフィグと20,000種のセットを検索し、Whatnotの出品へ直接アクセスできます。",
+      "keywords": [
+        "LEGO Whatnot",
+        "LEGOミニフィグ 購入",
+        "Whatnot LEGO 出品",
+        "LEGO マーケットプレイス"
+      ]
     }
   }
 }

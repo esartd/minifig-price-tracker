@@ -22,6 +22,7 @@ import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 import { formatPrice } from '@/lib/format-price';
 import { generateAmazonMinifigLink, generateBrickLinkMinifigLink } from '@/lib/affiliate-links';
 import { generateEbayMinifigLink } from '@/lib/ebay-affiliate-links';
+import { buildWhatnotMinifigUrl } from '@/lib/whatnot-affiliate-links';
 import { trackAffiliateClick } from '@/lib/analytics';
 import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
@@ -2705,6 +2706,64 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                         </div>
                       </div>
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#E53238" style={{ width: '16px', height: '16px', flexShrink: 0 }}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                      </svg>
+                    </Link>
+
+                    {/* Whatnot Link */}
+                    <Link
+                      href={buildWhatnotMinifigUrl(minifig.no, minifig.name)}
+                      target="_blank"
+                      rel="noopener noreferrer sponsored nofollow"
+                      onClick={() => trackAffiliateClick('whatnot', minifig.no, 'detail-page')}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '10px 12px',
+                        background: '#ffffff',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '8px',
+                        textDecoration: 'none',
+                        transition: 'all 0.2s',
+                        cursor: 'pointer'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#fafafa';
+                        e.currentTarget.style.borderColor = '#d4d4d4';
+                        e.currentTarget.style.transform = 'translateY(-1px)';
+                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.06)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = '#ffffff';
+                        e.currentTarget.style.borderColor = '#e5e5e5';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFD200" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                          <path d="M3 6h18"></path>
+                          <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                        <div>
+                          <div style={{
+                            fontWeight: '600',
+                            color: '#171717',
+                            fontSize: '13px'
+                          }}>
+                            {t('buyButtons.whatnot.name') || 'Whatnot'}
+                          </div>
+                          <div style={{
+                            fontSize: '11px',
+                            color: '#737373'
+                          }}>
+                            {t('buyButtons.whatnot.description') || 'Live auctions & shows'}
+                          </div>
+                        </div>
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#a3a3a3" style={{ width: '16px', height: '16px', flexShrink: 0 }}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                       </svg>
                     </Link>

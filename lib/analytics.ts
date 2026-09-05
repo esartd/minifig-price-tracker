@@ -3,7 +3,7 @@
  */
 
 export async function trackAffiliateClick(
-  provider: 'amazon' | 'bricklink' | 'lego' | 'rakuten' | 'ebay',
+  provider: 'amazon' | 'bricklink' | 'lego' | 'rakuten' | 'ebay' | 'whatnot',
   itemNo: string,
   source: string,
   userId?: string

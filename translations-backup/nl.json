@@ -499,6 +499,10 @@
     "bricklink": {
       "name": "BrickLink",
       "description": "Grootste LEGO marktplaats"
+    },
+    "whatnot": {
+      "name": "Whatnot",
+      "description": "Live veilingen & shows"
     }
   },
   "pricing": {
@@ -854,7 +858,7 @@
     "lastUpdated": "Laatst Bijgewerkt",
     "affiliatePrograms": {
       "title": "Affiliateprogramma's",
-      "paragraph1": "FigTracker neemt deel aan het LEGO.com Affiliate Program, Amazon Associates Program en eBay Partner Network. Wanneer je op uitgelichte productlinks klikt en een aankoop doet, kunnen wij een kleine commissie verdienen zonder extra kosten voor jou.",
+      "paragraph1": "FigTracker neemt deel aan het LEGO.com Affiliate Program, het Amazon Associates Program, het eBay Partner Network en het Whatnot Affiliate Program. Wanneer je op uitgelichte productlinks klikt en een aankoop doet, kunnen wij een kleine commissie verdienen zonder extra kosten voor jou.",
       "paragraph2": "Deze affiliate-partnerschappen helpen de ontwikkeling en het onderhoud van FigTracker te ondersteunen, terwijl de tool gratis te gebruiken blijft."
     },
     "trademark": {
@@ -3115,6 +3119,34 @@
       "location": "Zonder verzendlocatie accepteert eBay het bestand niet, dus vul die in voor je downloadt.",
       "photos": "De foto’s komen uit de LEGO-catalogus. Bij gebruikte items verkopen je eigen foto’s op eBay veel beter.",
       "fees": "eBay rekent aanbiedings- en verkoopkosten. Controleer je limiet voordat je een grote partij uploadt."
+    }
+  },
+  "marketplace": {
+    "title": "Whatnot-marktplaats",
+    "subtitle": "Doorzoek 18.000 minifiguren en 20.000 sets en spring direct naar actuele Whatnot-aanbiedingen.",
+    "disclosure": "We kunnen een commissie verdienen op aankopen via deze links.",
+    "minifigs": "Minifiguren",
+    "sets": "Sets",
+    "searchPlaceholder": "Zoek op naam of artikelnummer...",
+    "sortPopular": "Meest verzameld",
+    "sortNewest": "Nieuwste eerst",
+    "sortName": "Naam A-Z",
+    "resultCount": "{count} artikelen",
+    "viewOnWhatnot": "Bekijk op Whatnot",
+    "loadMore": "Meer laden",
+    "loading": "Laden...",
+    "empty": "Geen resultaten voor die zoekopdracht.",
+    "error": "We konden de aanbiedingen nu niet laden. Probeer het zo opnieuw.",
+    "navLabel": "Whatnot-marktplaats",
+    "meta": {
+      "title": "LEGO-marktplaats op Whatnot | FigTracker",
+      "description": "Blader door 18.000 LEGO-minifiguren en 20.000 sets en spring direct naar Whatnot-aanbiedingen.",
+      "keywords": [
+        "LEGO Whatnot",
+        "LEGO minifiguren kopen",
+        "Whatnot LEGO aanbiedingen",
+        "LEGO marktplaats"
+      ]
     }
   }
 }

@@ -499,6 +499,10 @@
     "bricklink": {
       "name": "BrickLink",
       "description": "Största LEGO-marknadsplatsen"
+    },
+    "whatnot": {
+      "name": "Whatnot",
+      "description": "Liveauktioner och shower"
     }
   },
   "pricing": {
@@ -854,7 +858,7 @@
     "lastUpdated": "Senast uppdaterad",
     "affiliatePrograms": {
       "title": "Affiliateprogram",
-      "paragraph1": "FigTracker participates in the LEGO.com Affiliate Program, Amazon Associates Program, and eBay Partner Network. When you click on featured product links and make a purchase, we may earn a smalla commission at ne lägg tillitional cost to you.",
+      "paragraph1": "FigTracker deltar i LEGO.com Affiliate Program, Amazon Associates Program, eBay Partner Network och Whatnot Affiliate Program. När du klickar på utvalda produktlänkar och gör ett köp kan vi tjäna en liten provision utan extra kostnad för dig.",
       "paragraph2": "Dessa affiliatepartnerskap hjälper till att finansiera utveckling och underhåll av FigTracker samtidigt som verktyget förblir gratis att använda."
     },
     "trademark": {
@@ -3115,6 +3119,34 @@
       "location": "eBay accepterar inte filen utan en avsändarplats, så fyll i den innan du laddar ner.",
       "photos": "Bilderna kommer från LEGO-katalogen. För begagnade föremål säljer dina egna bilder betydligt bättre på eBay.",
       "fees": "eBay tar annonserings- och försäljningsavgifter. Kontrollera din gräns innan du laddar upp en stor omgång."
+    }
+  },
+  "marketplace": {
+    "title": "Whatnot-marknadsplats",
+    "subtitle": "Sök bland 18 000 minifigurer och 20 000 set och hoppa direkt till aktuella Whatnot-annonser.",
+    "disclosure": "Vi kan tjäna en provision på köp som görs via dessa länkar.",
+    "minifigs": "Minifigurer",
+    "sets": "Set",
+    "searchPlaceholder": "Sök på namn eller artikelnummer...",
+    "sortPopular": "Mest samlade",
+    "sortNewest": "Nyaste först",
+    "sortName": "Namn A-Ö",
+    "resultCount": "{count} artiklar",
+    "viewOnWhatnot": "Visa på Whatnot",
+    "loadMore": "Ladda fler",
+    "loading": "Laddar...",
+    "empty": "Inga träffar för den sökningen.",
+    "error": "Vi kunde inte ladda annonserna just nu. Försök igen om en stund.",
+    "navLabel": "Whatnot-marknadsplats",
+    "meta": {
+      "title": "LEGO-marknadsplats på Whatnot | FigTracker",
+      "description": "Bläddra bland 18 000 LEGO-minifigurer och 20 000 set och hoppa direkt till Whatnot-annonser.",
+      "keywords": [
+        "LEGO Whatnot",
+        "köpa LEGO-minifigurer",
+        "Whatnot LEGO-annonser",
+        "LEGO marknadsplats"
+      ]
     }
   }
 }

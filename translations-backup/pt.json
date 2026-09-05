@@ -499,6 +499,10 @@
     "bricklink": {
       "name": "BrickLink",
       "description": "O maior marketplace LEGO"
+    },
+    "whatnot": {
+      "name": "Whatnot",
+      "description": "Leilões ao vivo e shows"
     }
   },
   "pricing": {
@@ -854,7 +858,7 @@
     "lastUpdated": "Última Atualização",
     "affiliatePrograms": {
       "title": "Programas de Afiliados",
-      "paragraph1": "FigTracker participates em o LEGO.com Affiliate Program, Amazon Associates Program, e eBay Partner Network. When you click em apresentou product links e make a purchase, we may earn a small commission em no additional cost para you.",
+      "paragraph1": "O FigTracker participa no Programa de Afiliados da LEGO.com, no Programa Amazon Associates, na eBay Partner Network e no Programa de Afiliados da Whatnot. Quando clica em links de produtos em destaque e efetua uma compra, podemos ganhar uma pequena comissão sem custo adicional para si.",
       "paragraph2": "Estas affiliate partnerships help support FigTracker's development e maintenance while keeping o tool free para use."
     },
     "trademark": {
@@ -3115,6 +3119,34 @@
       "location": "O eBay não aceita o ficheiro sem um local de envio, por isso preencha-o antes de descarregar.",
       "photos": "As fotos vêm do catálogo LEGO. Para artigos usados, as suas próprias fotos vendem muito melhor no eBay.",
       "fees": "O eBay cobra comissões de anúncio e de venda. Verifique o seu limite antes de carregar um lote grande."
+    }
+  },
+  "marketplace": {
+    "title": "Marketplace Whatnot",
+    "subtitle": "Pesquise 18.000 minifiguras e 20.000 sets e salte diretamente para os anúncios ao vivo na Whatnot.",
+    "disclosure": "Podemos ganhar uma comissão sobre compras feitas através destes links.",
+    "minifigs": "Minifiguras",
+    "sets": "Sets",
+    "searchPlaceholder": "Pesquisar por nome ou número de artigo...",
+    "sortPopular": "Mais colecionados",
+    "sortNewest": "Mais recentes",
+    "sortName": "Nome A-Z",
+    "resultCount": "{count} artigos",
+    "viewOnWhatnot": "Ver na Whatnot",
+    "loadMore": "Carregar mais",
+    "loading": "A carregar...",
+    "empty": "Nenhum resultado para essa pesquisa.",
+    "error": "Não foi possível carregar os anúncios agora. Tente novamente dentro de momentos.",
+    "navLabel": "Marketplace Whatnot",
+    "meta": {
+      "title": "Marketplace LEGO na Whatnot | FigTracker",
+      "description": "Explore 18.000 minifiguras LEGO e 20.000 sets e salte diretamente para os anúncios na Whatnot.",
+      "keywords": [
+        "LEGO Whatnot",
+        "comprar minifiguras LEGO",
+        "anúncios LEGO Whatnot",
+        "marketplace LEGO"
+      ]
     }
   }
 }

@@ -556,6 +556,10 @@
     "bricklink": {
       "name": "BrickLink",
       "description": "Plus grand marché LEGO"
+    },
+    "whatnot": {
+      "name": "Whatnot",
+      "description": "Enchères et lives"
     }
   },
   "pricing": {
@@ -896,7 +900,7 @@
     "lastUpdated": "Dernière mise à jour",
     "affiliatePrograms": {
       "title": "Programmes d'affiliation",
-      "paragraph1": "FigTracker participe au Programme d'affiliation LEGO.com, au Programme Partenaires Amazon et au Réseau de Partenaires eBay. Lorsque vous cliquez sur des liens de produits recommandés et effectuez un achat, nous pouvons gagner une petite commission sans frais supplémentaires pour vous.",
+      "paragraph1": "FigTracker participe au Programme d'affiliation LEGO.com, au Programme Partenaires Amazon, au Réseau de Partenaires eBay et au Programme d'affiliation Whatnot. Lorsque vous cliquez sur des liens de produits recommandés et effectuez un achat, nous pouvons gagner une petite commission sans frais supplémentaires pour vous.",
       "paragraph2": "Ces partenariats d'affiliation aident à soutenir le développement et la maintenance de FigTracker tout en gardant l'outil gratuit."
     },
     "trademark": {
@@ -3172,6 +3176,34 @@
       "location": "eBay refuse le fichier sans lieu d’expédition : renseignez-le avant de télécharger.",
       "photos": "Les photos proviennent du catalogue LEGO. Pour l’occasion, vos propres photos vendront bien mieux sur eBay.",
       "fees": "eBay facture des frais d’insertion et de valeur finale. Vérifiez votre quota avant d’importer un gros lot."
+    }
+  },
+  "marketplace": {
+    "title": "Marketplace Whatnot",
+    "subtitle": "Parcourez 18 000 minifigurines et 20 000 sets, puis accédez directement aux annonces Whatnot en direct.",
+    "disclosure": "Nous pouvons percevoir une commission sur les achats effectués via ces liens.",
+    "minifigs": "Minifigurines",
+    "sets": "Sets",
+    "searchPlaceholder": "Rechercher par nom ou numéro d'article...",
+    "sortPopular": "Les plus collectionnés",
+    "sortNewest": "Les plus récents",
+    "sortName": "Nom A-Z",
+    "resultCount": "{count} articles",
+    "viewOnWhatnot": "Voir sur Whatnot",
+    "loadMore": "Charger plus",
+    "loading": "Chargement...",
+    "empty": "Aucun résultat pour cette recherche.",
+    "error": "Impossible de charger les annonces pour le moment. Réessayez dans un instant.",
+    "navLabel": "Marketplace Whatnot",
+    "meta": {
+      "title": "Marketplace LEGO sur Whatnot | FigTracker",
+      "description": "Parcourez 18 000 minifigurines LEGO et 20 000 sets, puis accédez directement aux annonces Whatnot.",
+      "keywords": [
+        "LEGO Whatnot",
+        "acheter des minifigurines LEGO",
+        "annonces LEGO Whatnot",
+        "marketplace LEGO"
+      ]
     }
   }
 }

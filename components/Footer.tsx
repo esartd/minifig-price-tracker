@@ -98,6 +98,13 @@ export default function Footer() {
                 onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
                 onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
               >{t('navigation.identify') || 'AI Identify'}</a>
+              {/* Buying, not selling — sits above the export tools rather than
+                  among them, since those are for people offloading a collection
+                  and this is for people building one. */}
+              <a href="/marketplace" style={{ color: '#525252', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#525252'}
+              >{t('marketplace.navLabel') || 'Whatnot Marketplace'}</a>
               {/* Both selling tools had no internal links anywhere, which
                   undercut the SEO landing pages they were built to be. The
                   in-app entry points stay on the collection pages, where the
