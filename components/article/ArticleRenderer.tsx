@@ -212,7 +212,7 @@ export function ArticleRenderer({ blocks }: ArticleRendererProps) {
                 key={idx}
                 href={`https://www.amazon.com/dp/${product.asin}?tag=ericksu0c-20`}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer sponsored"
                 style={{
                   textDecoration: 'none',
                   color: 'inherit',

@@ -64,6 +64,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...createMultilingualEntry('/whatnot-export', 'monthly', 0.7),
     ...createMultilingualEntry('/bricklink-export', 'monthly', 0.7),
     ...createMultilingualEntry('/ebay-export', 'monthly', 0.7),
+    // Weekly: the grid is ordered by what users collect, so it genuinely
+    // changes without the page being edited.
+    ...createMultilingualEntry('/marketplace', 'weekly', 0.8),
   ]
 
   try {

@@ -139,7 +139,7 @@ function SetCard({ set }: { set: LegoBox }) {
             <a
               href={amazonUrl}
               target="_blank"
-              rel="noopener noreferrer nofollow"
+              rel="noopener noreferrer nofollow sponsored"
               onClick={(e) => e.stopPropagation()}
               style={{
                 display: 'block',

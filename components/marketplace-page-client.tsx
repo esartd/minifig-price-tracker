@@ -14,6 +14,7 @@ interface MarketplaceCard {
   itemType: 'minifig' | 'set';
   ownerCount: number;
   whatnotUrl: string;
+  priceUsd: number | null;
 }
 
 type ItemType = 'minifig' | 'set';
@@ -290,10 +291,23 @@ export default function MarketplacePageClient() {
                   >
                     {card.name}
                   </p>
-                  <p style={{ fontSize: '12px', color: '#737373', margin: '0 0 12px' }}>
+                  <p style={{ fontSize: '12px', color: '#737373', margin: '0 0 8px' }}>
                     {card.categoryName}
                     {card.yearReleased ? ` · ${card.yearReleased}` : ''}
                   </p>
+
+                  {/* Our own blended estimate, not a Whatnot asking price —
+                      labelled so nobody reads it as what a seller is charging. */}
+                  {card.priceUsd !== null && (
+                    <p style={{ margin: '0 0 12px', display: 'flex', alignItems: 'baseline', gap: '5px' }}>
+                      <span style={{ fontSize: 'var(--text-sm)', fontWeight: 700, color: '#171717' }}>
+                        ${card.priceUsd.toFixed(2)}
+                      </span>
+                      <span style={{ fontSize: '11px', color: '#a3a3a3' }}>
+                        {t('marketplace.estimate') || 'est. value'}
+                      </span>
+                    </p>
+                  )}
                 </Link>
 
                 <a

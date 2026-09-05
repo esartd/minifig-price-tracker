@@ -2656,7 +2656,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                     <Link
                       href={generateEbayMinifigLink(minifig.no, minifig.name)}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="noopener noreferrer sponsored"
                       onClick={() => trackAffiliateClick('ebay', minifig.no, 'detail-page')}
                       style={{
                         display: 'flex',

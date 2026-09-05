@@ -1352,7 +1352,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                   <Link
                     href={ebayAffiliateUrl}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener noreferrer sponsored"
                     onClick={() => trackAffiliateClick('ebay', set.box_no, 'set-detail-page')}
                     style={{
                       display: 'flex',

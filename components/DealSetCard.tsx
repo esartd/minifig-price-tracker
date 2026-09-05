@@ -209,7 +209,7 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
         <a
           href={deal.amazonUrl}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer sponsored"
           style={{
             display: 'flex',
             alignItems: 'center',

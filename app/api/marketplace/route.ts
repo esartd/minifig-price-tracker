@@ -43,6 +43,8 @@ export interface MarketplaceCard {
   itemType: MarketplaceItemType;
   ownerCount: number;
   whatnotUrl: string;
+  /** Our blended estimate, or null when we have nothing cached for it. */
+  priceUsd: number | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -123,6 +125,7 @@ async function collectMinifigs(query: string): Promise<MarketplaceCard[]> {
     imageUrl: item.image_url || MINIFIG_IMAGE(item.minifigure_no),
     itemType: 'minifig' as const,
     ownerCount: 0,
+    priceUsd: null,
     whatnotUrl: buildWhatnotMinifigUrl(item.minifigure_no, item.name),
   }));
 }
@@ -138,6 +141,7 @@ function collectSets(query: string): MarketplaceCard[] {
     imageUrl: item.image_url || item.thumbnail_url || null,
     itemType: 'set' as const,
     ownerCount: 0,
+    priceUsd: null,
     whatnotUrl: buildWhatnotSetUrl(item.box_no, item.name),
   }));
 }
@@ -165,6 +169,43 @@ function sortCards(
   }
 
   return sorted;
+}
+
+/**
+ * Attach prices to one page of cards, reading only what is already cached.
+ *
+ * This deliberately does NOT go through pricingOrchestrator. The orchestrator
+ * will fetch from BrickLink on a miss, and a grid asks for 48 items at once —
+ * CLAUDE.md records an incident where one uncached call per page view burned
+ * the 5,000/day budget by 5am. A grid could do it far faster.
+ *
+ * Coverage is high enough that this is not much of a compromise: the cache
+ * holds a `figtracker` blended price for essentially the whole catalog. Items
+ * without one simply show no price rather than blocking the card.
+ */
+async function attachPrices(cards: MarketplaceCard[], type: MarketplaceItemType): Promise<void> {
+  if (cards.length === 0) return;
+
+  try {
+    const rows = await prisma.priceCache.findMany({
+      where: {
+        item_no: { in: cards.map((card) => card.itemNo) },
+        item_type: type === 'minifig' ? 'MINIFIG' : 'SET',
+        condition: 'new',
+        price_source: 'figtracker',
+      },
+      select: { item_no: true, suggested_price: true },
+    });
+
+    const prices = new Map(rows.map((row) => [row.item_no, row.suggested_price]));
+    for (const card of cards) {
+      const price = prices.get(card.itemNo);
+      if (typeof price === 'number' && price > 0) card.priceUsd = price;
+    }
+  } catch (error) {
+    // A grid without prices is still a useful grid.
+    console.error('[marketplace] price lookup failed, rendering without prices:', error);
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -253,6 +294,9 @@ export async function GET(request: NextRequest) {
 
     const sorted = sortCards(cards, sort, Boolean(query));
     const page = sorted.slice(offset, offset + limit);
+
+    // After slicing, so this is ~48 rows rather than 19,000.
+    await attachPrices(page, type);
 
     const body = JSON.stringify({
       success: true,
