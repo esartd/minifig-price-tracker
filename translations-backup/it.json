@@ -823,8 +823,7 @@
     "noSupporterYet": "Ancora nessun sostenitore",
     "donationSubtitle": "Grazie ai nostri generosi sostenitori di questo trimestre ({season})",
     "items": "articoli",
-    "exploreCommunity": "Esplora la Community →",
-    "howRankingsWork": "Come funzionano le classifiche →"
+    "exploreCommunity": "Esplora la Community →"
   },
   "footer": {
     "faq": "FAQ",

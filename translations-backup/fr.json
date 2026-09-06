@@ -865,8 +865,7 @@
     "noSupporterYet": "Pas encore de supporter",
     "donationSubtitle": "Merci à nos généreux supporters ce trimestre ({season})",
     "items": "articles",
-    "exploreCommunity": "Explorer la communauté →",
-    "howRankingsWork": "Comment fonctionnent les classements →"
+    "exploreCommunity": "Explorer la communauté →"
   },
   "footer": {
     "faq": "FAQ",

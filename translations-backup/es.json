@@ -865,8 +865,7 @@
     "noSupporterYet": "Aún no hay patrocinador",
     "donationSubtitle": "Gracias a nuestros generosos patrocinadores este trimestre ({season})",
     "items": "artículos",
-    "exploreCommunity": "Explorar comunidad →",
-    "howRankingsWork": "Cómo funcionan las clasificaciones →"
+    "exploreCommunity": "Explorar comunidad →"
   },
   "footer": {
     "faq": "Preguntas frecuentes",

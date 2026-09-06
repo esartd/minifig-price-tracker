@@ -223,18 +223,6 @@ export default function LeaderboardsSection() {
           >
             {t('leaderboards.exploreCommunity') || 'Explore Community →'}
           </Link>
-          <div style={{ marginTop: '12px' }}>
-            <Link
-              href="/leaderboards"
-              style={{
-                fontSize: 'var(--text-sm)',
-                color: '#737373',
-                textDecoration: 'none',
-              }}
-            >
-              {t('leaderboards.howRankingsWork') || 'How rankings work →'}
-            </Link>
-          </div>
         </div>
       </div>
     </section>

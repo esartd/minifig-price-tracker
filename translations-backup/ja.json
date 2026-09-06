@@ -823,8 +823,7 @@
     "noSupporterYet": "まだサポーターがいません",
     "donationSubtitle": "今四半期（{season}）にご支援いただいた皆さまに感謝します",
     "items": "アイテム",
-    "exploreCommunity": "コミュニティを見る →",
-    "howRankingsWork": "ランキングの仕組み →"
+    "exploreCommunity": "コミュニティを見る →"
   },
   "footer": {
     "faq": "FAQ",
