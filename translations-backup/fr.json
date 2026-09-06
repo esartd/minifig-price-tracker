@@ -3212,5 +3212,28 @@
       ]
     },
     "estimate": "valeur est."
+  },
+  "homeDash": {
+    "free": "Gratuit",
+    "premium": "Premium",
+    "list": {
+      "title": "Vous préparez une liste de vente ?",
+      "subtitle": "Ajoutez des articles, nous écrivons le fichier — Whatnot, BrickLink ou eBay.",
+      "empty": "Votre liste est vide",
+      "ready": "{count} articles · fichier prêt",
+      "cta": "Obtenir le fichier"
+    },
+    "buy": {
+      "title": "Envie d'en acheter une ?",
+      "subtitle": "Accédez directement aux annonces Whatnot.",
+      "cta": "Parcourir la marketplace"
+    },
+    "identify": {
+      "title": "Vous ne savez pas ce que c'est ?",
+      "subtitle": "Photographiez une minifigurine : nous l'identifions, l'évaluons et l'ajoutons à votre liste.",
+      "hint": "Une photo, une minifigurine",
+      "note": "Inclus avec Premium · 30 analyses par jour",
+      "cta": "Découvrir Premium"
+    }
   }
 }

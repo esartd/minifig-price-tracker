@@ -3155,5 +3155,28 @@
       ]
     },
     "estimate": "ungef. värde"
+  },
+  "homeDash": {
+    "free": "Gratis",
+    "premium": "Premium",
+    "list": {
+      "title": "Bygger du en säljlista?",
+      "subtitle": "Lägg till föremål så skriver vi filen — Whatnot, BrickLink eller eBay.",
+      "empty": "Inget i din lista än",
+      "ready": "{count} föremål · filen är klar",
+      "cta": "Hämta filen"
+    },
+    "buy": {
+      "title": "Vill du köpa en?",
+      "subtitle": "Gå direkt till aktuella Whatnot-annonser.",
+      "cta": "Bläddra på marknadsplatsen"
+    },
+    "identify": {
+      "title": "Vet du inte vad det är?",
+      "subtitle": "Fotografera en minifigur så namnger vi den, prissätter den och lägger den i din lista.",
+      "hint": "Foto in, minifigur ut",
+      "note": "Ingår i Premium · 30 skanningar om dagen",
+      "cta": "Se Premium"
+    }
   }
 }

@@ -3155,5 +3155,28 @@
       ]
     },
     "estimate": "gesch. waarde"
+  },
+  "homeDash": {
+    "free": "Gratis",
+    "premium": "Premium",
+    "list": {
+      "title": "Een verkooplijst aan het maken?",
+      "subtitle": "Voeg items toe en wij schrijven het bestand — Whatnot, BrickLink of eBay.",
+      "empty": "Nog niets op je lijst",
+      "ready": "{count} items · bestand klaar",
+      "cta": "Bestand ophalen"
+    },
+    "buy": {
+      "title": "Wil je er een kopen?",
+      "subtitle": "Ga direct naar actuele Whatnot-aanbiedingen.",
+      "cta": "Bekijk de marktplaats"
+    },
+    "identify": {
+      "title": "Weet je niet wat het is?",
+      "subtitle": "Fotografeer een minifiguur — wij benoemen hem, prijzen hem en zetten hem op je lijst.",
+      "hint": "Foto erin, minifiguur eruit",
+      "note": "Inbegrepen bij Premium · 30 scans per dag",
+      "cta": "Bekijk Premium"
+    }
   }
 }
