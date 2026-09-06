@@ -51,7 +51,7 @@ const CARD: React.CSSProperties = {
 };
 
 const HERO: React.CSSProperties = {
-  height: '110px',
+  height: '150px',
   display: 'flex',
   alignItems: 'flex-end',
   justifyContent: 'center',
@@ -149,7 +149,7 @@ function ListPreview({ items }: { items: MarketplaceCard[] }) {
         border: '1px solid #e5e5e5',
         borderBottom: 'none',
         borderRadius: '7px 7px 0 0',
-        padding: '7px 9px 0',
+        padding: '9px 11px 0',
         boxShadow: '0 1px 6px rgba(0,0,0,0.05)',
       }}
     >
@@ -160,9 +160,9 @@ function ListPreview({ items }: { items: MarketplaceCard[] }) {
             display: 'flex',
             alignItems: 'center',
             gap: '7px',
-            padding: '3px 0',
+            padding: '5px 0',
             borderBottom: i < 2 ? '1px solid #f5f5f5' : 'none',
-            fontSize: '10px',
+            fontSize: '11px',
             color: '#525252',
           }}
         >
@@ -172,10 +172,10 @@ function ListPreview({ items }: { items: MarketplaceCard[] }) {
               src={item.imageUrl}
               alt=""
               loading="lazy"
-              style={{ width: '14px', height: '15px', objectFit: 'contain', flexShrink: 0 }}
+              style={{ width: '18px', height: '20px', objectFit: 'contain', flexShrink: 0 }}
             />
           ) : (
-            <span style={{ width: '14px', height: '15px', background: '#eee', borderRadius: '2px', flexShrink: 0 }} />
+            <span style={{ width: '18px', height: '20px', background: '#eee', borderRadius: '2px', flexShrink: 0 }} />
           )}
           <span
             style={{
@@ -241,23 +241,23 @@ function ListingPreview({ items }: { items: MarketplaceCard[] }) {
             minWidth: 0,
           }}
         >
-          <div style={{ height: '34px', display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
+          <div style={{ height: '48px', display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
             {item?.imageUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={item.imageUrl}
                 alt=""
                 loading="lazy"
-                style={{ height: '34px', width: 'auto', objectFit: 'contain' }}
+                style={{ height: '48px', width: 'auto', objectFit: 'contain' }}
               />
             ) : (
-              <span style={{ width: '20px', height: '30px', background: '#eee', borderRadius: '2px' }} />
+              <span style={{ width: '28px', height: '42px', background: '#eee', borderRadius: '2px' }} />
             )}
           </div>
           <p
             style={{
               margin: '4px 0 0',
-              fontSize: '9px',
+              fontSize: '10px',
               color: '#525252',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
@@ -266,7 +266,7 @@ function ListingPreview({ items }: { items: MarketplaceCard[] }) {
           >
             {item?.name ?? '\u00a0'}
           </p>
-          <p style={{ margin: '1px 0 5px', fontSize: '11px', fontWeight: 700, color: '#171717' }}>
+          <p style={{ margin: '2px 0 7px', fontSize: '12px', fontWeight: 700, color: '#171717' }}>
             {item?.priceUsd != null ? `$${item.priceUsd.toFixed(2)}` : '\u00a0'}
           </p>
         </div>
@@ -297,7 +297,7 @@ function IdentifyPreview({ item, label }: { item: MarketplaceCard | null; label:
         border: '1px solid #e5e5e5',
         borderBottom: 'none',
         borderRadius: '7px 7px 0 0',
-        padding: '9px 10px 10px',
+        padding: '11px 12px 13px',
         boxShadow: '0 1px 6px rgba(0,0,0,0.05)',
         display: 'flex',
         alignItems: 'center',
@@ -310,10 +310,10 @@ function IdentifyPreview({ item, label }: { item: MarketplaceCard | null; label:
           src={item.imageUrl}
           alt=""
           loading="lazy"
-          style={{ height: '42px', width: 'auto', objectFit: 'contain', flexShrink: 0 }}
+          style={{ height: '58px', width: 'auto', objectFit: 'contain', flexShrink: 0 }}
         />
       ) : (
-        <span style={{ width: '26px', height: '42px', background: '#eee', borderRadius: '2px', flexShrink: 0 }} />
+        <span style={{ width: '36px', height: '58px', background: '#eee', borderRadius: '2px', flexShrink: 0 }} />
       )}
       <div style={{ minWidth: 0, flex: 1 }}>
         <span
@@ -337,7 +337,7 @@ function IdentifyPreview({ item, label }: { item: MarketplaceCard | null; label:
         <p
           style={{
             margin: '4px 0 0',
-            fontSize: '10px',
+            fontSize: '11px',
             color: '#525252',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -346,7 +346,7 @@ function IdentifyPreview({ item, label }: { item: MarketplaceCard | null; label:
         >
           {item?.name ?? '\u00a0'}
         </p>
-        <p style={{ margin: '1px 0 0', fontSize: '12px', fontWeight: 700, color: '#171717' }}>
+        <p style={{ margin: '2px 0 0', fontSize: '13px', fontWeight: 700, color: '#171717' }}>
           {item?.priceUsd != null ? `$${item.priceUsd.toFixed(2)}` : '\u00a0'}
         </p>
       </div>
