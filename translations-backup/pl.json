@@ -2884,17 +2884,6 @@
       "button": "Ustaw alert cenowy"
     }
   },
-  "leaderboardsPage": {
-    "meta": {
-      "title": "Ranking kolekcjonerów LEGO",
-      "description": "Zobacz najlepszych kolekcjonerów minifigurek i zestawów LEGO na FigTracker, uszeregowanych według wielkości kolekcji."
-    },
-    "hero": {
-      "title": "Ranking kolekcjonerów LEGO",
-      "subtitle": "Zobacz, kto ma największe kolekcje minifigurek i zestawów LEGO na FigTracker, aktualizowane co kwartał.",
-      "howToJoin": "Ranking opiera się na przedmiotach w Twoim ekwipunku. Ustaw nazwę użytkownika i włącz widoczność w rankingu w ustawieniach konta, aby się tu pojawić — to opcjonalne."
-    }
-  },
   "whatnotExport": {
     "meta": {
       "title": "Eksport CSV do Whatnot dla sprzedawców LEGO",

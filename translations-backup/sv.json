@@ -2884,17 +2884,6 @@
       "button": "Skapa en prisbevakning"
     }
   },
-  "leaderboardsPage": {
-    "meta": {
-      "title": "LEGO-samlartopplista",
-      "description": "Se de bästa LEGO-minifigur- och setsamlarna på FigTracker, rankade efter samlingsstorlek."
-    },
-    "hero": {
-      "title": "LEGO-samlartopplista",
-      "subtitle": "Se vem som har de största minifigur- och setsamlingarna på FigTracker, uppdaterat varje kvartal.",
-      "howToJoin": "Topplistan baseras på föremålen i ditt lager. Ställ in ett användarnamn och slå på topplistesynlighet i dina kontoinställningar för att synas här — det är valfritt."
-    }
-  },
   "whatnotExport": {
     "meta": {
       "title": "Whatnot CSV-export för LEGO-säljare",

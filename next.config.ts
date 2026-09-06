@@ -145,7 +145,16 @@ const nextConfig: NextConfig = {
     ];
   },
   async redirects() {
-    return []
+    return [
+      {
+        // /leaderboards was removed -- the leaderboards are a section of the
+        // community directory now. Permanent so the indexed URL passes its
+        // ranking on instead of 404ing.
+        source: '/leaderboards',
+        destination: '/collectors',
+        permanent: true,
+      },
+    ]
   },
 }
 

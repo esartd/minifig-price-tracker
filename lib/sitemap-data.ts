@@ -78,7 +78,6 @@ const STATIC_PATHS: Array<[string, ChangeFrequency, number]> = [
   ['/collectors', 'weekly', 0.7],
   ['/price-alerts', 'monthly', 0.7],
   ['/listing-generator', 'monthly', 0.7],
-  ['/leaderboards', 'weekly', 0.7],
   ['/how-we-calculate-prices', 'monthly', 0.7],
   ['/export', 'monthly', 0.8],
   ['/whatnot-export', 'monthly', 0.7],

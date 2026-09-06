@@ -2941,17 +2941,6 @@
       "button": "Preisalarm einrichten"
     }
   },
-  "leaderboardsPage": {
-    "meta": {
-      "title": "LEGO-Sammler-Rangliste",
-      "description": "Sieh dir die besten LEGO-Minifiguren- und Set-Sammler auf FigTracker an, nach Sammlungsgröße sortiert."
-    },
-    "hero": {
-      "title": "LEGO-Sammler-Rangliste",
-      "subtitle": "Sieh, wer die größten Minifiguren- und Set-Sammlungen auf FigTracker hat, vierteljährlich aktualisiert.",
-      "howToJoin": "Die Rangliste basiert auf den Artikeln in deinem Inventar. Lege einen Benutzernamen fest und aktiviere die Rangliste in deinen Kontoeinstellungen, um hier zu erscheinen — es ist optional."
-    }
-  },
   "whatnotExport": {
     "meta": {
       "title": "Whatnot-CSV-Export für LEGO-Verkäufer",

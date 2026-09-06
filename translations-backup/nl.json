@@ -2884,17 +2884,6 @@
       "button": "Prijsmelding instellen"
     }
   },
-  "leaderboardsPage": {
-    "meta": {
-      "title": "LEGO-verzamelaars ranglijst",
-      "description": "Bekijk de topverzamelaars van LEGO-minifiguren en -sets op FigTracker, gerangschikt op collectiegrootte."
-    },
-    "hero": {
-      "title": "LEGO-verzamelaars ranglijst",
-      "subtitle": "Bekijk wie de grootste minifiguren- en setcollecties heeft op FigTracker, elk kwartaal bijgewerkt.",
-      "howToJoin": "De ranglijst is gebaseerd op de items in je inventaris. Stel een gebruikersnaam in en zet ranglijstzichtbaarheid aan in je accountinstellingen om hier te verschijnen — dit is optioneel."
-    }
-  },
   "whatnotExport": {
     "meta": {
       "title": "Whatnot CSV-export voor LEGO-verkopers",

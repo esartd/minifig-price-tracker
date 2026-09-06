@@ -2884,17 +2884,6 @@
       "button": "価格アラートを設定"
     }
   },
-  "leaderboardsPage": {
-    "meta": {
-      "title": "LEGOコレクターランキング",
-      "description": "FigTrackerのLEGOミニフィギュア・セットコレクターのトップランキングを、コレクションサイズ順にご覧いただけます。"
-    },
-    "hero": {
-      "title": "LEGOコレクターランキング",
-      "subtitle": "FigTrackerで最大のミニフィギュア・セットコレクションを持つユーザーを、四半期ごとに更新してご紹介します。",
-      "howToJoin": "ランキングはインベントリ内のアイテムに基づきます。アカウント設定でユーザー名を設定し、ランキング表示をオンにすると表示されます — 任意参加です。"
-    }
-  },
   "whatnotExport": {
     "meta": {
       "title": "LEGO出品者向け Whatnot CSVエクスポート",

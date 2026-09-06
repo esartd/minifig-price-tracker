@@ -2188,17 +2188,6 @@
       "button": "Search a minifigure or set"
     }
   },
-  "leaderboardsPage": {
-    "meta": {
-      "title": "LEGO Collector Leaderboards",
-      "description": "See the top LEGO minifigure and set collectors on FigTracker, ranked by collection size."
-    },
-    "hero": {
-      "title": "LEGO Collector Leaderboards",
-      "subtitle": "See who has the biggest minifigure and set collections on FigTracker, updated each quarter.",
-      "howToJoin": "Rankings are based on the items in your inventory. Set a username and turn on leaderboard visibility in your account settings to appear here — it's opt-in."
-    }
-  },
   "howWeCalculatePrices": {
     "faqLinkText": "See the full pricing breakdown",
     "meta": {

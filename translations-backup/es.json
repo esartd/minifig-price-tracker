@@ -2941,17 +2941,6 @@
       "button": "Configurar una alerta de precio"
     }
   },
-  "leaderboardsPage": {
-    "meta": {
-      "title": "Clasificación de coleccionistas LEGO",
-      "description": "Descubre a los mejores coleccionistas de minifiguras y sets LEGO en FigTracker, clasificados por tamaño de colección."
-    },
-    "hero": {
-      "title": "Clasificación de coleccionistas LEGO",
-      "subtitle": "Descubre quién tiene las colecciones de minifiguras y sets LEGO más grandes en FigTracker, actualizado cada trimestre.",
-      "howToJoin": "La clasificación se basa en los artículos de tu inventario. Configura un nombre de usuario y activa la visibilidad en la clasificación en tu configuración de cuenta para aparecer aquí — es opcional."
-    }
-  },
   "whatnotExport": {
     "meta": {
       "title": "Exportación CSV de Whatnot para vendedores LEGO",
