@@ -3129,7 +3129,7 @@
   },
   "marketplace": {
     "title": "Whatnot-marknadsplats",
-    "subtitle": "Sök bland 18 000 minifigurer och 20 000 set och hoppa direkt till aktuella Whatnot-annonser.",
+    "subtitle": "Sök bland 18 000 minifigurer och 20 000 set, och sök sedan på Whatnot efter den du vill ha.",
     "disclosure": "Vi kan tjäna en provision på köp som görs via dessa länkar.",
     "minifigs": "Minifigurer",
     "sets": "Set",
@@ -3146,7 +3146,7 @@
     "navLabel": "Whatnot-marknadsplats",
     "meta": {
       "title": "LEGO-marknadsplats på Whatnot | FigTracker",
-      "description": "Bläddra bland 18 000 LEGO-minifigurer och 20 000 set och hoppa direkt till Whatnot-annonser.",
+      "description": "Bläddra bland 18 000 LEGO-minifigurer och 20 000 set, och sök sedan på Whatnot efter den du vill ha.",
       "keywords": [
         "LEGO Whatnot",
         "köpa LEGO-minifigurer",

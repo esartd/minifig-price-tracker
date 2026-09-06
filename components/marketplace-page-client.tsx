@@ -120,7 +120,7 @@ export default function MarketplacePageClient() {
       </h1>
       <p style={{ fontSize: 'var(--text-base)', color: '#737373', margin: '0 0 8px', lineHeight: 1.6 }}>
         {t('marketplace.subtitle') ||
-          'Search 18,000 minifigures and 20,000 sets, then jump straight to live Whatnot listings.'}
+          'Search 18,000 minifigures and 20,000 sets, then search Whatnot for the one you want.'}
       </p>
       <p style={{ fontSize: 'var(--text-sm)', color: '#a3a3a3', margin: '0 0 32px' }}>
         {t('marketplace.disclosure') ||

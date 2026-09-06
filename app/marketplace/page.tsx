@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = t.marketplace?.meta?.title || 'LEGO Marketplace on Whatnot | FigTracker';
   const description =
     t.marketplace?.meta?.description ||
-    'Browse 18,000 LEGO minifigures and 20,000 sets, then jump straight to live Whatnot listings.';
+    'Browse 18,000 LEGO minifigures and 20,000 sets, then search Whatnot for the one you want.';
 
   const path = '/marketplace';
   const canonical = `${domains[locale as keyof typeof domains]}${path}`;
