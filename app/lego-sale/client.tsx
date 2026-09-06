@@ -317,7 +317,7 @@ export default function LegoSaleClient() {
       }}>
         <strong>{t('legoSale.priceDisclaimerLabel') || 'Price Disclaimer:'}</strong>{' '}
         {t('legoSale.priceDisclaimerText') ||
-          'Product prices and availability are accurate as of the date/time indicated and are subject to change. Prices shown are from Amazon at the time of last refresh (updated every 6 hours). Any price and availability information displayed on Amazon at the time of purchase will apply to the purchase of this product. As an Amazon Associate, LEGO Affiliate, and eBay Partner, FigTracker earns from qualifying purchases.'}
+          'Product prices and availability are accurate as of the date/time indicated and are subject to change. Prices shown are from Amazon at the time of last refresh (updated every 6 hours). Any price and availability information displayed on Amazon at the time of purchase will apply to the purchase of this product. As an Amazon Associate, LEGO Affiliate, eBay Partner, and Whatnot Affiliate, FigTracker earns from qualifying purchases.'}
       </div>
 
       {/* Deals Content */}

@@ -845,7 +845,7 @@
     "browse": "Browse",
     "aboutFigTracker": "About FigTracker",
     "aboutDescription": "FigTracker gives you one suggested price for any LEGO minifigure or set, so you can list faster and sell with confidence.",
-    "affiliateDisclosure": "As an Amazon Associate, LEGO Affiliate, and eBay Partner, FigTracker earns from qualifying purchases.",
+    "affiliateDisclosure": "As an Amazon Associate, LEGO Affiliate, eBay Partner, and Whatnot Affiliate, FigTracker earns from qualifying purchases.",
     "bricklinkDisclosure": "Market data sourced from multiple marketplaces including BrickLink. The term \"BrickLink\" is a trademark of the LEGO Group. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.",
     "copyright": "© {year} FigTracker. All rights reserved.",
     "sell": "Sell",
@@ -877,8 +877,8 @@
     },
     "meta": {
       "title": "Affiliate Disclosure - FigTracker",
-      "description": "FigTracker participates in the LEGO.com Affiliate Program, Amazon Associates Program, and eBay Partner Network. Learn about our affiliate partnerships and how we earn commissions.",
-      "keywords": "FigTracker affiliate disclosure, LEGO affiliate program, Amazon Associates, eBay Partner Network, affiliate links disclaimer"
+      "description": "FigTracker participates in the LEGO.com Affiliate Program, Amazon Associates Program, eBay Partner Network, and Whatnot Affiliate Program. Learn about our affiliate partnerships and how we earn commissions.",
+      "keywords": "FigTracker affiliate disclosure, LEGO affiliate program, Amazon Associates, eBay Partner Network, affiliate links disclaimer, Whatnot affiliate program"
     }
   },
   "trending": {
@@ -2014,7 +2014,7 @@
     "searchThemesPlaceholder": "Search themes...",
     "allPrices": "All Prices",
     "priceDisclaimerLabel": "Price Disclaimer:",
-    "priceDisclaimerText": "Product prices and availability are accurate as of the date/time indicated and are subject to change. Prices shown are from Amazon at the time of last refresh (updated every 6 hours). Any price and availability information displayed on Amazon at the time of purchase will apply to the purchase of this product. As an Amazon Associate, LEGO Affiliate, and eBay Partner, FigTracker earns from qualifying purchases.",
+    "priceDisclaimerText": "Product prices and availability are accurate as of the date/time indicated and are subject to change. Prices shown are from Amazon at the time of last refresh (updated every 6 hours). Any price and availability information displayed on Amazon at the time of purchase will apply to the purchase of this product. As an Amazon Associate, LEGO Affiliate, eBay Partner, and Whatnot Affiliate, FigTracker earns from qualifying purchases.",
     "loadingDeals": "Loading deals...",
     "tierUnbelievable50": "Unbelievable Deals - 50%+ Off",
     "tierExcellent40": "Excellent Deals - 40%+ Off",

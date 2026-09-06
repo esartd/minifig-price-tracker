@@ -846,7 +846,7 @@
     "browse": "Bladeren",
     "aboutFigTracker": "Over FigTracker",
     "aboutDescription": "FigTracker geeft je één voorgestelde prijs voor elke LEGO minifiguur of set, zodat je sneller kunt listen en met vertrouwen kunt verkopen.",
-    "affiliateDisclosure": "Als Amazon Associate, LEGO Affiliate en eBay Partner verdient FigTracker aan in aanmerking komende aankopen.",
+    "affiliateDisclosure": "Als Amazon Associate, LEGO Affiliate, eBay Partner en Whatnot Affiliate verdient FigTracker aan in aanmerking komende aankopen.",
     "bricklinkDisclosure": "Marktgegevens afkomstig van meerdere marktplaatsen, waaronder BrickLink. De term \"BrickLink\" is een handelsmerk van de LEGO Group. Deze applicatie maakt gebruik van de BrickLink API maar wordt niet onderschreven of gecertificeerd door LEGO BrickLink, Inc.",
     "copyright": "© {year} FigTracker. Alle rechten voorbehouden.",
     "sell": "Verkopen",
@@ -878,8 +878,8 @@
     },
     "meta": {
       "title": "Affiliate Disclosure - FigTracker",
-      "description": "FigTracker neemt deel aan het LEGO.com Affiliate Program, Amazon Associates Program en eBay Partner Network. Lees meer over onze affiliate-partnerschappen en hoe we commissies verdienen.",
-      "keywords": "FigTracker affiliate disclosure, LEGO affiliateprogramma, Amazon Associates, eBay Partner Network, disclaimer affiliate links"
+      "description": "FigTracker neemt deel aan het LEGO.com-partnerprogramma, het Amazon Associates-programma, het eBay Partner Network en het Whatnot-partnerprogramma. Lees meer over onze partnerschappen en hoe wij commissie verdienen.",
+      "keywords": "FigTracker affiliate disclosure, LEGO affiliateprogramma, Amazon Associates, eBay Partner Network, disclaimer affiliate links, Whatnot affiliate program"
     }
   },
   "trending": {
@@ -2015,7 +2015,7 @@
     "searchThemesPlaceholder": "Zoek thema's...",
     "allPrices": "Alle Prijzen",
     "priceDisclaimerLabel": "Prijsdisclaimer:",
-    "priceDisclaimerText": "Productprijzen en beschikbaarheid zijn accuraat op de aangegeven datum/tijd en kunnen wijzigen. Getoonde prijzen zijn afkomstig van Amazon op het moment van de laatste vernieuwing (elke 6 uur bijgewerkt). Alle prijs- en beschikbaarheidsinformatie die op het moment van aankoop op Amazon wordt weergegeven, is van toepassing op de aankoop van dit product. Als Amazon Associate, LEGO Affiliate en eBay Partner verdient FigTracker aan in aanmerking komende aankopen.",
+    "priceDisclaimerText": "Productprijzen en beschikbaarheid zijn accuraat op de aangegeven datum/tijd en kunnen wijzigen. Getoonde prijzen zijn afkomstig van Amazon op het moment van de laatste vernieuwing (elke 6 uur bijgewerkt). Alle prijs- en beschikbaarheidsinformatie die op het moment van aankoop op Amazon wordt weergegeven, is van toepassing op de aankoop van dit product. Als Amazon Associate, LEGO Affiliate, eBay Partner en Whatnot Affiliate verdient FigTracker aan in aanmerking komende aankopen.",
     "loadingDeals": "Deals laden...",
     "tierUnbelievable50": "Ongelooflijke Deals - 50%+ Korting",
     "tierExcellent40": "Uitstekende Deals - 40%+ Korting",

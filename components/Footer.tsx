@@ -176,7 +176,7 @@ export default function Footer() {
           >
             <p style={{ margin: '0 0 8px 0' }}>
               {t('footer.affiliateDisclosure') ||
-                'As an Amazon Associate, LEGO Affiliate, and eBay Partner, FigTracker earns from qualifying purchases.'}
+                'As an Amazon Associate, LEGO Affiliate, eBay Partner, and Whatnot Affiliate, FigTracker earns from qualifying purchases.'}
             </p>
             <p style={{ margin: 0 }}>
               {t('footer.bricklinkDisclosure') ||

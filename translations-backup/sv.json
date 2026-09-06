@@ -846,7 +846,7 @@
     "browse": "Bläddra",
     "aboutFigTracker": "Om FigTracker",
     "aboutDescription": "FigTracker ger dig ett prisförslag för valfri LEGO-minifigur eller valfritt set, så att du kan lägga upp annonser snabbare och sälja med förtroende.",
-    "affiliateDisclosure": "Som Amazon Associate, LEGO Affiliate och eBay Partner tjänar FigTracker på kvalificerade köp.",
+    "affiliateDisclosure": "Som Amazon Associate, LEGO Affiliate, eBay Partner och Whatnot Affiliate tjänar FigTracker på kvalificerade köp.",
     "bricklinkDisclosure": "Marknadsdata hämtas från flera marknadsplatser, däribland BrickLink. Termen \"BrickLink\" är ett varumärke som tillhör LEGO Group. Den här applikationen använder BrickLink API men är inte godkänd eller certifierad av LEGO BrickLink, Inc.",
     "copyright": "© {year} FigTracker. Alla rättigheter förbehållna.",
     "sell": "Sälja",
@@ -878,8 +878,8 @@
     },
     "meta": {
       "title": "Information om affiliatelänkar – FigTracker",
-      "description": "FigTracker deltar i LEGO.com Affiliate Program, Amazon Associates Program och eBay Partner Network. Läs om våra affiliatesamarbeten och hur vi tjänar provision.",
-      "keywords": "FigTracker affiliateinformation, LEGO affiliateprogram, Amazon Associates, eBay Partner Network, ansvarsfriskrivning för affiliatelänkar"
+      "description": "FigTracker deltar i LEGO.com:s affiliateprogram, Amazon Associates-programmet, eBay Partner Network och Whatnots affiliateprogram. Läs om våra samarbeten och hur vi tjänar provision.",
+      "keywords": "FigTracker affiliateinformation, LEGO affiliateprogram, Amazon Associates, eBay Partner Network, ansvarsfriskrivning för affiliatelänkar, Whatnot affiliate program"
     }
   },
   "trending": {
@@ -2015,7 +2015,7 @@
     "searchThemesPlaceholder": "Sök teman...",
     "allPrices": "Alla priser",
     "priceDisclaimerLabel": "Prisreservation:",
-    "priceDisclaimerText": "Produktpriser och tillgänglighet är korrekta per angivet datum/tidpunkt och kan ändras. Visade priser kommer från Amazon vid senaste uppdatering (uppdateras var 6:e timme). Den pris- och tillgänglighetsinformation som visas på Amazon vid köptillfället gäller för köpet av denna produkt. Som Amazon Associate, LEGO Affiliate och eBay Partner tjänar FigTracker på kvalificerade köp.",
+    "priceDisclaimerText": "Produktpriser och tillgänglighet är korrekta per angivet datum/tidpunkt och kan ändras. Visade priser kommer från Amazon vid senaste uppdatering (uppdateras var 6:e timme). Den pris- och tillgänglighetsinformation som visas på Amazon vid köptillfället gäller för köpet av denna produkt. Som Amazon Associate, LEGO Affiliate, eBay Partner och Whatnot Affiliate tjänar FigTracker på kvalificerade köp.",
     "loadingDeals": "Laddar erbjudanden...",
     "tierUnbelievable50": "Otroliga erbjudanden - 50%+ rabatt",
     "tierExcellent40": "Utmärkta erbjudanden - 40%+ rabatt",

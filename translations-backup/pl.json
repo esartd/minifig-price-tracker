@@ -846,7 +846,7 @@
     "browse": "Przeglądaj",
     "aboutFigTracker": "O FigTracker",
     "aboutDescription": "FigTracker podaje Ci jedną sugerowaną cenę dla dowolnej minifigurki lub zestawu LEGO, dzięki czemu możesz szybciej wystawiać ogłoszenia i sprzedawać z pewnością siebie.",
-    "affiliateDisclosure": "Jako Amazon Associate, LEGO Affiliate i eBay Partner, FigTracker zarabia na kwalifikujących się zakupach.",
+    "affiliateDisclosure": "Jako Amazon Associate, LEGO Affiliate, eBay Partner i Whatnot Affiliate, FigTracker zarabia na kwalifikujących się zakupach.",
     "bricklinkDisclosure": "Dane rynkowe pochodzą z wielu platform handlowych, w tym BrickLink. Termin „BrickLink” jest znakiem towarowym grupy LEGO. Ta aplikacja korzysta z API BrickLink, ale nie jest zatwierdzona ani certyfikowana przez LEGO BrickLink, Inc.",
     "copyright": "© {year} FigTracker. Wszelkie prawa zastrzeżone.",
     "sell": "Sprzedaż",
@@ -878,8 +878,8 @@
     },
     "meta": {
       "title": "Affiliate Ujawnienie - FigTracker",
-      "description": "FigTracker uczestniczy w Programie Partnerskim LEGO.com, Programie Amazon Associates i sieci eBay Partner Network. Dowiedz się więcej o naszych współpracach afiliacyjnych i o tym, jak zarabiamy prowizje.",
-      "keywords": "FigTracker affiliate Ujawnienie, LEGO affiliate program, Amazon Associates, eBay Partner Network, affiliate links disclaimer"
+      "description": "FigTracker uczestniczy w programie partnerskim LEGO.com, programie Amazon Associates, eBay Partner Network oraz programie partnerskim Whatnot. Dowiedz się więcej o naszych partnerstwach i o tym, jak zarabiamy prowizje.",
+      "keywords": "FigTracker affiliate Ujawnienie, LEGO affiliate program, Amazon Associates, eBay Partner Network, affiliate links disclaimer, Whatnot affiliate program"
     }
   },
   "trending": {
@@ -2015,7 +2015,7 @@
     "searchThemesPlaceholder": "Szukaj motywów...",
     "allPrices": "Wszystkie ceny",
     "priceDisclaimerLabel": "Zastrzeżenie cenowe:",
-    "priceDisclaimerText": "Ceny i dostępność produktów są aktualne na wskazaną datę/godzinę i mogą ulec zmianie. Podane ceny pochodzą z Amazon w momencie ostatniego odświeżenia (aktualizacja co 6 godzin). Wszelkie informacje o cenie i dostępności widoczne na Amazon w momencie zakupu będą obowiązywać przy zakupie tego produktu. Jako uczestnik programów Amazon Associates, LEGO Affiliate i eBay Partner Network, FigTracker zarabia na kwalifikujących się zakupach.",
+    "priceDisclaimerText": "Ceny i dostępność produktów są aktualne na wskazaną datę/godzinę i mogą ulec zmianie. Podane ceny pochodzą z Amazon w momencie ostatniego odświeżenia (aktualizacja co 6 godzin). Wszelkie informacje o cenie i dostępności widoczne na Amazon w momencie zakupu będą obowiązywać przy zakupie tego produktu. Jako uczestnik programów Amazon Associates, LEGO Affiliate, eBay Partner Network i Whatnot Affiliate, FigTracker zarabia na kwalifikujących się zakupach.",
     "loadingDeals": "Ładowanie okazji...",
     "tierUnbelievable50": "Niesamowite okazje - rabat 50%+",
     "tierExcellent40": "Świetne okazje - rabat 40%+",

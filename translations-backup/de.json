@@ -888,7 +888,7 @@
     "browse": "Durchsuchen",
     "aboutFigTracker": "Über FigTracker",
     "aboutDescription": "FigTracker gibt dir einen empfohlenen Preis für jede LEGO-Minifigur oder jedes Set, damit du schneller listen und mit Zuversicht verkaufen kannst.",
-    "affiliateDisclosure": "Als Amazon-Partner, LEGO-Affiliate und eBay-Partner verdient FigTracker an qualifizierten Käufen.",
+    "affiliateDisclosure": "Als Amazon-Partner, LEGO-Affiliate, eBay-Partner und Whatnot-Affiliate verdient FigTracker an qualifizierten Käufen.",
     "bricklinkDisclosure": "Marktdaten stammen aus mehreren Marktplätzen, darunter BrickLink. Der Begriff \"BrickLink\" ist eine Marke der LEGO Group. Diese Anwendung verwendet die BrickLink-API, wird jedoch nicht von LEGO BrickLink, Inc. unterstützt oder zertifiziert.",
     "copyright": "© {year} FigTracker. Alle Rechte vorbehalten.",
     "sell": "Verkaufen",
@@ -920,8 +920,8 @@
     },
     "meta": {
       "title": "Affiliate-Offenlegung - FigTracker",
-      "description": "FigTracker nimmt am LEGO.com-Partnerprogramm, Amazon Associates-Programm und eBay Partner Network teil. Erfahren Sie mehr über unsere Partnerschaftsprogramme und wie wir Provisionen verdienen.",
-      "keywords": "FigTracker Affiliate-Offenlegung, LEGO-Partnerprogramm, Amazon Associates, eBay Partner Network, Affiliate-Links Haftungsausschluss"
+      "description": "FigTracker nimmt am LEGO.com-Partnerprogramm, am Amazon-Partnerprogramm, am eBay Partner Network und am Whatnot-Partnerprogramm teil. Erfahren Sie mehr über unsere Partnerschaften und wie wir Provisionen verdienen.",
+      "keywords": "FigTracker Affiliate-Offenlegung, LEGO-Partnerprogramm, Amazon Associates, eBay Partner Network, Affiliate-Links Haftungsausschluss, Whatnot affiliate program"
     }
   },
   "guides": {
@@ -2026,7 +2026,7 @@
       "twitterTitle": "LEGO® Angebote - Beste Amazon-Angebote"
     },
     "priceDisclaimerLabel": "Preishinweis:",
-    "priceDisclaimerText": "Produktpreise und Verfügbarkeit sind zum angegebenen Datum/Zeitpunkt korrekt und können sich ändern. Die angezeigten Preise stammen von Amazon zum Zeitpunkt der letzten Aktualisierung (alle 6 Stunden aktualisiert). Für den Kauf dieses Produkts gelten die Preis- und Verfügbarkeitsinformationen, die zum Zeitpunkt des Kaufs bei Amazon angezeigt werden. Als Amazon-Partner, LEGO-Affiliate und eBay-Partner verdient FigTracker an qualifizierten Käufen.",
+    "priceDisclaimerText": "Produktpreise und Verfügbarkeit sind zum angegebenen Datum/Zeitpunkt korrekt und können sich ändern. Die angezeigten Preise stammen von Amazon zum Zeitpunkt der letzten Aktualisierung (alle 6 Stunden aktualisiert). Für den Kauf dieses Produkts gelten die Preis- und Verfügbarkeitsinformationen, die zum Zeitpunkt des Kaufs bei Amazon angezeigt werden. Als Amazon-Partner, LEGO-Affiliate, eBay-Partner und Whatnot-Affiliate verdient FigTracker an qualifizierten Käufen.",
     "searchThemesPlaceholder": "Themen suchen...",
     "seoParagraph": "Entdecke die besten LEGO®-Angebote bei Amazon mit Rabatten von bis zu 50%. Unsere LEGO-Angebotsseite durchsucht automatisch Tausende von LEGO-Sets und hebt die größten Ersparnisse in beliebten Themen wie Star Wars, City, Creator, Technic und mehr hervor. Egal ob du seltene ausgelaufene Sets oder die neuesten Veröffentlichungen suchst, wir verfolgen die Amazon-Preise alle 6 Stunden, damit dir kein gutes Angebot entgeht. Filtere nach Thema, Preisspanne oder Rabattprozentsatz, um genau das zu finden, wonach du suchst. Alle Angebote beinhalten kostenlosen Versand mit Amazon Prime. Beginne noch heute, bei deinen LEGO-Lieblingssets zu sparen!",
     "subtitleUpdated": "Beste Amazon-Angebote - Alle 6 Stunden aktualisiert",

@@ -846,7 +846,7 @@
     "browse": "閲覧",
     "aboutFigTracker": "FigTrackerについて",
     "aboutDescription": "FigTrackerは、どんなLEGOミニフィグやセットにも1つのおすすめ価格を提示します。素早く出品して、自信を持って販売できます。",
-    "affiliateDisclosure": "Amazon Associate、LEGO Affiliate、eBay Partnerとして、FigTrackerは対象購入から収益を得ています。",
+    "affiliateDisclosure": "Amazon Associate、LEGO Affiliate、eBay Partner、Whatnot Affiliate として、FigTracker は対象購入から収益を得ています。",
     "bricklinkDisclosure": "市場データはBrickLinkを含む複数のマーケットプレイスから取得しています。「BrickLink」はLEGOグループの商標です。本アプリケーションはBrickLink APIを使用していますが、LEGO BrickLink, Inc.の承認や認定を受けたものではありません。",
     "copyright": "© {year} FigTracker. 無断転載禁止。",
     "sell": "売る",
@@ -878,8 +878,8 @@
     },
     "meta": {
       "title": "アフィリエイト開示 - FigTracker",
-      "description": "FigTrackerはLEGO.comアフィリエイトプログラム、Amazonアソシエイト・プログラム、eBayパートナーネットワークに参加しています。アフィリエイト提携と手数料の仕組みについてご紹介します。",
-      "keywords": "FigTracker アフィリエイト開示, LEGO アフィリエイトプログラム, Amazonアソシエイト, eBayパートナーネットワーク, アフィリエイトリンク 免責事項"
+      "description": "FigTracker は LEGO.com アフィリエイトプログラム、Amazon アソシエイト・プログラム、eBay パートナーネットワーク、Whatnot アフィリエイトプログラムに参加しています。提携内容と収益の仕組みをご確認ください。",
+      "keywords": "FigTracker アフィリエイト開示, LEGO アフィリエイトプログラム, Amazonアソシエイト, eBayパートナーネットワーク, アフィリエイトリンク 免責事項, Whatnot affiliate program"
     }
   },
   "trending": {
@@ -2015,7 +2015,7 @@
     "searchThemesPlaceholder": "テーマを検索...",
     "allPrices": "すべての価格",
     "priceDisclaimerLabel": "価格に関する免責事項：",
-    "priceDisclaimerText": "商品の価格および在庫状況は表示された日時時点のものであり、予告なく変更される場合があります。表示価格は最終更新時点（6時間ごとに更新）のAmazonの価格です。購入時にAmazonで表示される価格および在庫情報が実際の購入に適用されます。FigTrackerはAmazonアソシエイト、LEGOアフィリエイト、eBayパートナーとして、対象となる購入から収益を得ています。",
+    "priceDisclaimerText": "商品の価格および在庫状況は表示された日時時点のものであり、予告なく変更される場合があります。表示価格は最終更新時点（6時間ごとに更新）のAmazonの価格です。購入時にAmazonで表示される価格および在庫情報が実際の購入に適用されます。FigTrackerはAmazonアソシエイト、LEGOアフィリエイト、eBayパートナー、Whatnotアフィリエイトとして、対象となる購入から収益を得ています。",
     "loadingDeals": "お得情報を読み込み中...",
     "tierUnbelievable50": "信じられないお得情報 - 50%OFF以上",
     "tierExcellent40": "特大のお得情報 - 40%OFF以上",
