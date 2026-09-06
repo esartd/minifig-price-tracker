@@ -51,6 +51,16 @@ npx prisma generate
 # below, so clear it before starting rather than after.
 rm -rf "$BUILD_DIR"
 
+# tsconfig.json includes .next/types/**/*.ts, which is correct locally (there
+# .next IS the build being typechecked) but wrong here: we build into
+# .next-build, so .next/types always belongs to the PREVIOUS build. Delete a
+# page and the stale declaration still names it, and the typecheck fails with
+# "typeof import('../../../../app/<deleted>/page.js')" — a build that cannot
+# succeed until the file is gone. These are typechecker declarations only; the
+# running server serves out of .next/server and .next/static and never reads
+# them, so removing them mid-flight is safe.
+rm -rf "$LIVE_DIR/types"
+
 echo "==> Building into $BUILD_DIR (live site still served from $LIVE_DIR)"
 NEXT_DIST_DIR="$BUILD_DIR" npm run build
 
