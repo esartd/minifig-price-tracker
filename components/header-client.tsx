@@ -278,8 +278,12 @@ export function HeaderClient({ user }: HeaderClientProps) {
           {/* See the signed-in header below for why this is a 1fr auto 1fr
               grid rather than space-between. */}
           <div style={{
-            display: 'grid',
+            // Grid only on desktop. In the mobile layout the nav and auth blocks
+            // are display:none, which left the hamburger as the second grid
+            // child -- placed in the centre column instead of the right edge.
+            display: useMobileLayout ? 'flex' : 'grid',
             gridTemplateColumns: '1fr auto 1fr',
+            justifyContent: 'space-between',
             alignItems: 'center',
             height: '72px'
           }}>
@@ -1298,8 +1302,12 @@ export function HeaderClient({ user }: HeaderClientProps) {
             block happened to be the same width, and they are not (103px vs
             135px), which is why the links sat right of centre. */}
         <div style={{
-          display: 'grid',
+          // Grid only on desktop. In the mobile layout the nav and auth blocks
+          // are display:none, which left the hamburger as the second grid
+          // child -- placed in the centre column instead of the right edge.
+          display: useMobileLayout ? 'flex' : 'grid',
           gridTemplateColumns: '1fr auto 1fr',
+          justifyContent: 'space-between',
           alignItems: 'center',
           height: '72px'
         }}>
