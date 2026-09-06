@@ -494,7 +494,11 @@ export default function HomeFeatureDashboard() {
               <p style={{ fontSize: '12px', color: '#737373', margin: '0 0 10px' }}>
                 {t('homeDash.identify.note') || 'Included with Premium · unlimited scans'}
               </p>
-              <Link href="/premium" style={GHOST}>
+              {/* /identify, not /premium: the label promises the tool, so it has to
+                  land on the tool. That page shows the widget to subscribers and
+                  the upgrade teaser to everyone else, so the paywall still does
+                  its job without the button lying about where it goes. */}
+              <Link href="/identify" style={GHOST}>
                 {t('homeDash.identify.cta') || 'Try the identifier'}
                 <ArrowRightIcon style={{ width: '14px', height: '14px' }} />
               </Link>
