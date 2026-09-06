@@ -144,6 +144,11 @@ function ListPreview({ items }: { items: MarketplaceCard[] }) {
         position: 'absolute',
         left: '22px',
         right: '22px',
+        // Anchored to the top, not the bottom: hanging off the bottom left a
+        // band of dead tint above each mock-up whose height varied per card.
+        // Starting just under the tag shows more of the artwork and lines the
+        // three cards up with one another.
+        top: '42px',
         bottom: 0,
         background: '#ffffff',
         border: '1px solid #e5e5e5',
@@ -219,6 +224,11 @@ function ListingPreview({ items }: { items: MarketplaceCard[] }) {
         position: 'absolute',
         left: '22px',
         right: '22px',
+        // Anchored to the top, not the bottom: hanging off the bottom left a
+        // band of dead tint above each mock-up whose height varied per card.
+        // Starting just under the tag shows more of the artwork and lines the
+        // three cards up with one another.
+        top: '42px',
         bottom: 0,
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
@@ -292,6 +302,11 @@ function IdentifyPreview({ item, label }: { item: MarketplaceCard | null; label:
         position: 'absolute',
         left: '22px',
         right: '22px',
+        // Anchored to the top, not the bottom: hanging off the bottom left a
+        // band of dead tint above each mock-up whose height varied per card.
+        // Starting just under the tag shows more of the artwork and lines the
+        // three cards up with one another.
+        top: '42px',
         bottom: 0,
         background: '#ffffff',
         border: '1px solid #e5e5e5',
@@ -300,7 +315,7 @@ function IdentifyPreview({ item, label }: { item: MarketplaceCard | null; label:
         padding: '11px 12px 13px',
         boxShadow: '0 1px 6px rgba(0,0,0,0.05)',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         gap: '10px',
       }}
     >
@@ -310,10 +325,12 @@ function IdentifyPreview({ item, label }: { item: MarketplaceCard | null; label:
           src={item.imageUrl}
           alt=""
           loading="lazy"
-          style={{ height: '58px', width: 'auto', objectFit: 'contain', flexShrink: 0 }}
+          // Sized to fill the sheet: at 58px the identify card left 38px of
+          // blank sheet below it while the other two cards filled theirs.
+          style={{ height: '92px', width: 'auto', objectFit: 'contain', flexShrink: 0 }}
         />
       ) : (
-        <span style={{ width: '36px', height: '58px', background: '#eee', borderRadius: '2px', flexShrink: 0 }} />
+        <span style={{ width: '58px', height: '92px', background: '#eee', borderRadius: '2px', flexShrink: 0 }} />
       )}
       <div style={{ minWidth: 0, flex: 1 }}>
         <span
