@@ -2742,7 +2742,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFD200" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B08800" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                           <path d="M3 6h18"></path>
                           <path d="M16 10a4 4 0 0 1-8 0"></path>
@@ -2763,7 +2763,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                           </div>
                         </div>
                       </div>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#a3a3a3" style={{ width: '16px', height: '16px', flexShrink: 0 }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#B08800" style={{ width: '16px', height: '16px', flexShrink: 0 }}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                       </svg>
                     </Link>
