@@ -69,7 +69,9 @@ export async function generateMetadata({
     };
   }
 
-  const title = count
+  // Drop the count at 1 rather than carry plural forms for ten languages --
+  // "(1 sets)" in a title tag is worse than no count at all.
+  const title = count > 1
     ? interpolate(meta.title || '{theme} LEGO Sets — Prices and Values ({count} sets)', {
         theme: themeName,
         count: count.toLocaleString('en-US'),
