@@ -3160,21 +3160,21 @@
     "free": "Grátis",
     "premium": "Premium",
     "list": {
-      "title": "A sua lista de venda, pronta",
-      "subtitle": "Adicione os seus artigos — o ficheiro escrevemos nós.",
+      "title": "Venda 20 figuras sem escrever 20 anúncios",
+      "subtitle": "Adicione os seus artigos — escrevemos o ficheiro para Whatnot, BrickLink ou eBay.",
       "empty": "Ainda não há nada na sua lista",
       "ready": "{count} artigos · ficheiro pronto",
       "cta": "Obter o ficheiro",
       "ctaEmpty": "Criar a minha lista de venda"
     },
     "buy": {
-      "title": "Comprar na Whatnot",
-      "subtitle": "Anúncios ao vivo para qualquer minifigura.",
-      "cta": "Ver anúncios"
+      "title": "Encontre uma para comprar na Whatnot",
+      "subtitle": "Pesquise na Whatnot qualquer minifigura ou set.",
+      "cta": "Pesquisar na Whatnot"
     },
     "identify": {
       "title": "Identifique qualquer minifigura por foto",
-      "subtitle": "Identificamo-la, avaliamo-la e listamo-la.",
+      "subtitle": "Dizemos-lhe o que é e quanto vale.",
       "hint": "Entra uma foto, sai uma minifigura",
       "note": "Incluído no Premium · análises ilimitadas",
       "cta": "Experimentar a identificação",

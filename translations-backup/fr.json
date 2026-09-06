@@ -3217,21 +3217,21 @@
     "free": "Gratuit",
     "premium": "Premium",
     "list": {
-      "title": "Votre liste de vente, prête",
-      "subtitle": "Ajoutez vos articles — nous écrivons le fichier.",
+      "title": "Vendez 20 figurines sans taper 20 annonces",
+      "subtitle": "Ajoutez vos articles — nous écrivons le fichier pour Whatnot, BrickLink ou eBay.",
       "empty": "Votre liste est vide",
       "ready": "{count} articles · fichier prêt",
       "cta": "Obtenir le fichier",
       "ctaEmpty": "Créer ma liste de vente"
     },
     "buy": {
-      "title": "Acheter sur Whatnot",
-      "subtitle": "Des annonces en direct pour chaque minifigurine.",
-      "cta": "Voir les annonces"
+      "title": "En trouver une à acheter sur Whatnot",
+      "subtitle": "Cherchez sur Whatnot n'importe quelle minifigurine ou n'importe quel set.",
+      "cta": "Rechercher sur Whatnot"
     },
     "identify": {
       "title": "Identifier une minifigurine par photo",
-      "subtitle": "Nous l'identifions, l'évaluons, la listons.",
+      "subtitle": "Nous vous disons ce que c'est et ce que ça vaut.",
       "hint": "Une photo, une minifigurine",
       "note": "Inclus avec Premium · analyses illimitées",
       "cta": "Essayer l'identification",

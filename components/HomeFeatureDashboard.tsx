@@ -203,7 +203,12 @@ function ListPreview({ items }: { items: MarketplaceCard[] }) {
  *
  * Same reasoning as ListPreview: two minifigures floating on a tint said
  * nothing about what the card does. A "buy one" card should show something you
- * could buy, so this is a cropped pair of listing tiles with a live badge.
+ * could buy, so this is a cropped pair of result tiles.
+ *
+ * Deliberately NOT dressed as live Whatnot listings. The price is our own
+ * blend out of priceCache and the link is a Whatnot search, not a listing —
+ * there is no Whatnot feed to read (see CLAUDE.md). An earlier version carried
+ * a red LIVE badge, which promised seller inventory we cannot see.
  */
 function ListingPreview({ items }: { items: MarketplaceCard[] }) {
   const tiles = items.length ? items.slice(0, 2) : [null, null];
@@ -236,36 +241,6 @@ function ListingPreview({ items }: { items: MarketplaceCard[] }) {
             minWidth: 0,
           }}
         >
-          {i === 0 && (
-            <span
-              style={{
-                position: 'absolute',
-                top: '6px',
-                left: '6px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '3px',
-                fontSize: '8px',
-                fontWeight: 700,
-                letterSpacing: '0.06em',
-                color: '#dc2626',
-                background: '#fef2f2',
-                borderRadius: '20px',
-                padding: '1px 5px',
-              }}
-            >
-              <span
-                style={{
-                  width: '4px',
-                  height: '4px',
-                  borderRadius: '50%',
-                  background: '#dc2626',
-                  display: 'inline-block',
-                }}
-              />
-              LIVE
-            </span>
-          )}
           <div style={{ height: '34px', display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
             {item?.imageUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -428,10 +403,10 @@ export default function HomeFeatureDashboard() {
             <ListPreview items={popular} />
           </div>
           <div style={BODY}>
-            <p style={TITLE}>{t('homeDash.list.title') || 'Sell list, done for you'}</p>
+            <p style={TITLE}>{t('homeDash.list.title') || 'Sell 20 figures without typing 20 listings'}</p>
             <p style={SUB}>
               {t('homeDash.list.subtitle') ||
-                'Add your items — we write the upload file.'}
+                'Add your items — we write the upload file for Whatnot, BrickLink or eBay.'}
             </p>
 
             <div style={{ marginTop: 'auto' }}>
@@ -460,13 +435,13 @@ export default function HomeFeatureDashboard() {
             <ListingPreview items={popular.slice(3, 5)} />
           </div>
           <div style={BODY}>
-            <p style={TITLE}>{t('homeDash.buy.title') || 'Buy on Whatnot'}</p>
+            <p style={TITLE}>{t('homeDash.buy.title') || 'Find one to buy on Whatnot'}</p>
             <p style={SUB}>
-              {t('homeDash.buy.subtitle') || 'Live listings for any minifigure.'}
+              {t('homeDash.buy.subtitle') || 'Search Whatnot for any minifigure or set.'}
             </p>
 
             <Link href="/marketplace" style={{ ...GHOST, marginTop: 'auto' }}>
-              {t('homeDash.buy.cta') || 'Browse listings'}
+              {t('homeDash.buy.cta') || 'Search Whatnot'}
               <ArrowRightIcon style={{ width: '14px', height: '14px' }} />
             </Link>
           </div>
@@ -487,7 +462,7 @@ export default function HomeFeatureDashboard() {
             <p style={TITLE}>{t('homeDash.identify.title') || 'Name any minifigure from a photo'}</p>
             <p style={SUB}>
               {t('homeDash.identify.subtitle') ||
-                'We identify it, price it, list it.'}
+                'We tell you what it is and what it\'s worth.'}
             </p>
 
             <div style={{ marginTop: 'auto' }}>

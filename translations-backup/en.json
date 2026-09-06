@@ -3159,21 +3159,21 @@
     "free": "Free",
     "premium": "Premium",
     "list": {
-      "title": "Sell list, done for you",
-      "subtitle": "Add your items — we write the upload file.",
+      "title": "Sell 20 figures without typing 20 listings",
+      "subtitle": "Add your items — we write the upload file for Whatnot, BrickLink or eBay.",
       "empty": "Nothing in your list yet",
       "ready": "{count} items · file ready",
       "cta": "Get the file",
       "ctaEmpty": "Build my sell list"
     },
     "buy": {
-      "title": "Buy on Whatnot",
-      "subtitle": "Live listings for any minifigure.",
-      "cta": "Browse listings"
+      "title": "Find one to buy on Whatnot",
+      "subtitle": "Search Whatnot for any minifigure or set.",
+      "cta": "Search Whatnot"
     },
     "identify": {
       "title": "Name any minifigure from a photo",
-      "subtitle": "We identify it, price it, list it.",
+      "subtitle": "We tell you what it is and what it's worth.",
       "hint": "Photo in, minifigure out",
       "note": "Included with Premium · unlimited scans",
       "cta": "Try the identifier",

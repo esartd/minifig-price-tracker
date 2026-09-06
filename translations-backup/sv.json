@@ -3160,21 +3160,21 @@
     "free": "Gratis",
     "premium": "Premium",
     "list": {
-      "title": "Din säljlista, färdig",
-      "subtitle": "Lägg till dina föremål — vi skriver filen.",
+      "title": "Sälj 20 figurer utan att skriva 20 annonser",
+      "subtitle": "Lägg till dina föremål — vi skriver filen för Whatnot, BrickLink eller eBay.",
       "empty": "Inget i din lista än",
       "ready": "{count} föremål · filen är klar",
       "cta": "Hämta filen",
       "ctaEmpty": "Skapa min säljlista"
     },
     "buy": {
-      "title": "Köp på Whatnot",
-      "subtitle": "Aktuella annonser för varje minifigur.",
-      "cta": "Se annonser"
+      "title": "Hitta en att köpa på Whatnot",
+      "subtitle": "Sök på Whatnot efter vilken minifigur eller vilket set som helst.",
+      "cta": "Sök på Whatnot"
     },
     "identify": {
       "title": "Känn igen en minifigur från ett foto",
-      "subtitle": "Vi identifierar, prissätter och listar den.",
+      "subtitle": "Vi berättar vad det är och vad det är värt.",
       "hint": "Foto in, minifigur ut",
       "note": "Ingår i Premium · obegränsat antal skanningar",
       "cta": "Prova identifieringen",
