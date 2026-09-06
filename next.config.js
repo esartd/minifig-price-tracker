@@ -37,6 +37,19 @@ const nextConfig = {
     ],
     unoptimized: true, // Disabled for self-hosted VPS - avoids 400 errors when images don't exist
   },
+  async redirects() {
+    return [
+      {
+        // /leaderboards was removed -- the leaderboards render as a section of
+        // the community directory now. Permanent so the indexed URL passes its
+        // ranking on instead of 404ing.
+        source: '/leaderboards',
+        destination: '/collectors',
+        permanent: true,
+      },
+    ];
+  },
+
   // Add cache headers for static catalog files
   // BrickLink API Terms: "Display item Content or product information...
   // which is more than six hours older than such information is on the Website"
