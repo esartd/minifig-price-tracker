@@ -87,6 +87,16 @@ input[type="number"] {
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* Browsers give button/input/select/textarea their own UA font rather than
+     inheriting, so every <button> on the site rendered in Arial while every
+     link and all body text rendered in the system stack. Most visible in the
+     header, where Search/Community/Premium are links and Browse/Your LEGO/
+     Resources are buttons -- the two halves of one nav row were set in
+     different typefaces. */
+  button, input, select, textarea {
+    font-family: inherit;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
     font-weight: 600;

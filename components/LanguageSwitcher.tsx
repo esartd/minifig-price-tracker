@@ -36,7 +36,9 @@ export default function LanguageSwitcher() {
           alignItems: 'center',
           gap: '6px',
           padding: '8px 12px',
-          fontSize: 'var(--text-sm)',
+          // --text-xs, matching the nav items beside it; this was --text-sm,
+          // two pixels larger than everything else in the row.
+          fontSize: 'var(--text-xs)',
           fontWeight: '500',
           color: '#525252',
           background: 'transparent',

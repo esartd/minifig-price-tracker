@@ -319,7 +319,10 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     alignItems: 'center',
                     gap: '4px',
                     height: '36px',
-                    padding: 0,
+                    // Matches the 2px the sibling links reserve for their
+                    // active underline, so all six baselines line up.
+                    padding: '0 0 2px',
+                    lineHeight: '1',
                     whiteSpace: 'nowrap'
                   }}
                 >
@@ -409,7 +412,10 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     alignItems: 'center',
                     gap: '4px',
                     height: '36px',
-                    padding: 0,
+                    // Matches the 2px the sibling links reserve for their
+                    // active underline, so all six baselines line up.
+                    padding: '0 0 2px',
+                    lineHeight: '1',
                     whiteSpace: 'nowrap'
                   }}
                 >
@@ -544,7 +550,10 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     alignItems: 'center',
                     gap: '4px',
                     height: '36px',
-                    padding: 0,
+                    // Matches the 2px the sibling links reserve for their
+                    // active underline, so all six baselines line up.
+                    padding: '0 0 2px',
+                    lineHeight: '1',
                     whiteSpace: 'nowrap'
                   }}
                 >
