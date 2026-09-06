@@ -38,6 +38,21 @@ export function HeaderClient({ user }: HeaderClientProps) {
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const [useMobileLayout, setUseMobileLayout] = useState(false);
+  // The mobile menu used to be pinned at a hard-coded top: 73px, which is the
+  // desktop header's height. The mobile header is 65px, so the menu floated 8px
+  // below it and left a white band between the header's bottom border and the
+  // menu's own top border. Measure instead. headerRef moves between two
+  // <header> elements when the layout switches, hence the dependency below.
+  const [headerHeight, setHeaderHeight] = useState(73);
+
+  useEffect(() => {
+    const measure = () => {
+      if (headerRef.current) setHeaderHeight(headerRef.current.offsetHeight);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [useMobileLayout]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -774,16 +789,15 @@ export function HeaderClient({ user }: HeaderClientProps) {
         {mobileMenuOpen && (
           <nav ref={mobileMenuRef} style={{
             position: 'fixed',
-            top: '73px',
+            top: `${headerHeight}px`,
             left: '0px',
             right: '0px',
             bottom: '0px',
             width: '100%',
-            height: 'calc(100vh - 73px)',
+            height: `calc(100vh - ${headerHeight}px)`,
             background: '#ffffff',
-            padding: '16px 16px 32px',
-            borderTop: '1px solid #f5f5f5',
-            zIndex: 10000,
+            padding: '0 16px 32px',
+                        zIndex: 10000,
             overflowY: 'auto',
             WebkitOverflowScrolling: 'touch'
           }}>
@@ -1903,16 +1917,15 @@ export function HeaderClient({ user }: HeaderClientProps) {
       {mobileMenuOpen && (
         <nav ref={mobileMenuRef} style={{
           position: 'fixed',
-          top: '73px',
+          top: `${headerHeight}px`,
           left: '0px',
           right: '0px',
           bottom: '0px',
           width: '100%',
-          height: 'calc(100vh - 73px)',
+          height: `calc(100vh - ${headerHeight}px)`,
           background: '#ffffff',
-          padding: '16px 16px 32px',
-          borderTop: '1px solid #f5f5f5',
-          zIndex: 10000,
+          padding: '0 16px 32px',
+                    zIndex: 10000,
           overflowY: 'auto',
           WebkitOverflowScrolling: 'touch'
         }}>
