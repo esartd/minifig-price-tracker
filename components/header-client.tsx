@@ -972,8 +972,28 @@ export function HeaderClient({ user }: HeaderClientProps) {
 
             {/* Other Links */}
             <div style={{
-              marginTop: '32px'
+              // No gap: each row has a bottom border, so a bare 32px void
+              // between two of them read as a missing item rather than a
+              // group break. The icons already mark the second group.
+              marginTop: 0
             }}>
+              {/* Community -- desktop lists it between Your LEGO and Resources
+                  for logged-out visitors, but this menu omitted it entirely, so
+                  /collectors was unreachable from a signed-out phone. */}
+              <Link href="/collectors" onClick={() => setMobileMenuOpen(false)} style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '16px 0',
+                borderBottom: '1px solid #f5f5f5',
+                color: '#171717',
+                textDecoration: 'none',
+                fontSize: 'var(--text-base)',
+                fontWeight: '600',
+                minHeight: '44px'
+              }}>
+                {t('collectors.directory.badge') || 'Community'}
+              </Link>
+
               {/* Resources Dropdown for mobile logged-out users -- About, Articles, Support */}
               <div style={{ borderBottom: '1px solid #f5f5f5' }}>
                 <button
@@ -2263,26 +2283,11 @@ export function HeaderClient({ user }: HeaderClientProps) {
             )}
           </div>
 
-          {/* Community Link */}
-          <Link href="/collectors" onClick={() => setMobileMenuOpen(false)} style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-            padding: '16px 0',
-            borderBottom: '1px solid #f5f5f5',
-            color: '#171717',
-            textDecoration: 'none',
-            fontSize: 'var(--text-base)',
-            fontWeight: '600',
-            minHeight: '44px'
-          }}>
-            <UsersIcon style={{ width: '20px', height: '20px', color: '#737373', flexShrink: 0 }} />
-            {t('collectors.directory.badge') || 'Community'}
-          </Link>
-
           {/* Account & Personal Links */}
           <div style={{
-            marginTop: '32px'
+            // See above -- a bordered list cannot show an unlabelled gap
+            // without it looking broken.
+            marginTop: 0
           }}>
             <Link href="/account" onClick={() => setMobileMenuOpen(false)} style={{
               display: 'flex',
