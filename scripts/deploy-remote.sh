@@ -51,15 +51,29 @@ npx prisma generate
 # below, so clear it before starting rather than after.
 rm -rf "$BUILD_DIR"
 
-# tsconfig.json includes .next/types/**/*.ts, which is correct locally (there
-# .next IS the build being typechecked) but wrong here: we build into
-# .next-build, so .next/types always belongs to the PREVIOUS build. Delete a
-# page and the stale declaration still names it, and the typecheck fails with
-# "typeof import('../../../../app/<deleted>/page.js')" — a build that cannot
-# succeed until the file is gone. These are typechecker declarations only; the
-# running server serves out of .next/server and .next/static and never reads
-# them, so removing them mid-flight is safe.
-rm -rf "$LIVE_DIR/types"
+# tsconfig.json's include list names .next/types and .next/dev/types. That is
+# right locally, where .next IS the build being typechecked. It is wrong here:
+# we build into .next-build, so anything under .next/ belongs to the PREVIOUS
+# build. Delete a page and the stale declaration still names it, and the
+# typecheck dies on "typeof import('../../../../app/<deleted>/page.js')" — a
+# build that cannot succeed until that file is gone.
+#
+# Deleting the directories alone was not enough (they reappear, and there is
+# more than one of them), so drop the .next/ entries from the include list
+# outright. .next-build/types is already listed and is the only one that is
+# ever current on this machine. The `git checkout -- tsconfig.json` above
+# restores the file on the next deploy, so this edit never accumulates.
+echo "==> Excluding stale $LIVE_DIR types from the typecheck"
+node -e "
+  const fs = require('fs');
+  const path = 'tsconfig.json';
+  const cfg = JSON.parse(fs.readFileSync(path, 'utf8'));
+  const before = cfg.include.length;
+  cfg.include = cfg.include.filter((entry) => !entry.startsWith('.next/'));
+  fs.writeFileSync(path, JSON.stringify(cfg, null, 2) + '\n');
+  console.log('    dropped ' + (before - cfg.include.length) + ' stale include path(s)');
+"
+rm -rf "$LIVE_DIR/types" "$LIVE_DIR/dev"
 
 echo "==> Building into $BUILD_DIR (live site still served from $LIVE_DIR)"
 NEXT_DIST_DIR="$BUILD_DIR" npm run build
