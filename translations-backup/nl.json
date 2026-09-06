@@ -844,13 +844,20 @@
     "allRightsReserved": "Alle rechten voorbehouden.",
     "createdBy": "Gemaakt door",
     "browse": "Bladeren",
-    "resources": "Bronnen",
-    "accountLegal": "Account & Juridisch",
     "aboutFigTracker": "Over FigTracker",
     "aboutDescription": "FigTracker geeft je één voorgestelde prijs voor elke LEGO minifiguur of set, zodat je sneller kunt listen en met vertrouwen kunt verkopen.",
     "affiliateDisclosure": "Als Amazon Associate, LEGO Affiliate en eBay Partner verdient FigTracker aan in aanmerking komende aankopen.",
     "bricklinkDisclosure": "Marktgegevens afkomstig van meerdere marktplaatsen, waaronder BrickLink. De term \"BrickLink\" is een handelsmerk van de LEGO Group. Deze applicatie maakt gebruik van de BrickLink API maar wordt niet onderschreven of gecertificeerd door LEGO BrickLink, Inc.",
-    "copyright": "© {year} FigTracker. Alle rechten voorbehouden."
+    "copyright": "© {year} FigTracker. Alle rechten voorbehouden.",
+    "sell": "Verkopen",
+    "explore": "Ontdekken",
+    "company": "Bedrijf",
+    "tools": {
+      "whatnotExport": "Whatnot-export",
+      "bricklinkExport": "BrickLink-export",
+      "ebayExport": "eBay-export",
+      "listingGenerator": "Advertentiegenerator"
+    }
   },
   "disclosure": {
     "title": "Affiliate-informatie",

@@ -844,13 +844,20 @@
     "allRightsReserved": "Alla rights reserved.",
     "createdBy": "Skapad av",
     "browse": "Bläddra",
-    "resources": "Resurser",
-    "accountLegal": "Konto & Juridiskt",
     "aboutFigTracker": "Om FigTracker",
     "aboutDescription": "FigTracker ger dig ett prisförslag för valfri LEGO-minifigur eller valfritt set, så att du kan lägga upp annonser snabbare och sälja med förtroende.",
     "affiliateDisclosure": "Som Amazon Associate, LEGO Affiliate och eBay Partner tjänar FigTracker på kvalificerade köp.",
     "bricklinkDisclosure": "Marknadsdata hämtas från flera marknadsplatser, däribland BrickLink. Termen \"BrickLink\" är ett varumärke som tillhör LEGO Group. Den här applikationen använder BrickLink API men är inte godkänd eller certifierad av LEGO BrickLink, Inc.",
-    "copyright": "© {year} FigTracker. Alla rättigheter förbehållna."
+    "copyright": "© {year} FigTracker. Alla rättigheter förbehållna.",
+    "sell": "Sälja",
+    "explore": "Utforska",
+    "company": "Företag",
+    "tools": {
+      "whatnotExport": "Whatnot-export",
+      "bricklinkExport": "BrickLink-export",
+      "ebayExport": "eBay-export",
+      "listingGenerator": "Annonsgenerator"
+    }
   },
   "disclosure": {
     "title": "Information om affiliatelänkar",

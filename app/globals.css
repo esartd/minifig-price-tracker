@@ -2517,3 +2517,42 @@ select.custom-dropdown.condition-used {
    document.body instead of relying on CSS here - a card's overflow:
    hidden (for rounded corners) would otherwise clip it regardless of
    how it's positioned as a descendant. */
+
+/* Footer layout
+   ------------------------------------------------------------------
+   The brand block takes the extra width so its description sets on a few
+   short lines instead of a narrow ribbon; the four link groups share the
+   rest evenly. Inline styles cannot carry media queries and Footer.tsx has
+   no CSS module, so the breakpoints live here rather than in a JS resize
+   listener. */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.6fr repeat(4, 1fr);
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+/* Two-up rather than a single stacked column: five groups in one column made
+   the mobile footer extremely tall. The brand block spans the full width. */
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .footer-grid > :first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+.footer-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  /* The scroll-to-top button is fixed to the bottom-right of the viewport and
+     lands directly on top of the legal links once you reach the footer
+     (measured: button 1200-1248px, "Disclosure" 1185-1240px at a 1280px
+     viewport). Keep the row clear of it. */
+  padding-right: 64px;
+}

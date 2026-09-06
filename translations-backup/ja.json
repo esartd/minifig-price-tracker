@@ -844,13 +844,20 @@
     "allRightsReserved": "All rights reserved.",
     "createdBy": "制作",
     "browse": "閲覧",
-    "resources": "リソース",
-    "accountLegal": "アカウントと法的情報",
     "aboutFigTracker": "FigTrackerについて",
     "aboutDescription": "FigTrackerは、どんなLEGOミニフィグやセットにも1つのおすすめ価格を提示します。素早く出品して、自信を持って販売できます。",
     "affiliateDisclosure": "Amazon Associate、LEGO Affiliate、eBay Partnerとして、FigTrackerは対象購入から収益を得ています。",
     "bricklinkDisclosure": "市場データはBrickLinkを含む複数のマーケットプレイスから取得しています。「BrickLink」はLEGOグループの商標です。本アプリケーションはBrickLink APIを使用していますが、LEGO BrickLink, Inc.の承認や認定を受けたものではありません。",
-    "copyright": "© {year} FigTracker. 無断転載禁止。"
+    "copyright": "© {year} FigTracker. 無断転載禁止。",
+    "sell": "売る",
+    "explore": "見つける",
+    "company": "会社情報",
+    "tools": {
+      "whatnotExport": "Whatnot エクスポート",
+      "bricklinkExport": "BrickLink エクスポート",
+      "ebayExport": "eBay エクスポート",
+      "listingGenerator": "出品文の作成"
+    }
   },
   "disclosure": {
     "title": "アフィリエイト開示",

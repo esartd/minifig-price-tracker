@@ -886,13 +886,20 @@
     "allRightsReserved": "Alle Rechte vorbehalten.",
     "createdBy": "Erstellt von",
     "browse": "Durchsuchen",
-    "resources": "Ressourcen",
-    "accountLegal": "Konto & Recht",
     "aboutFigTracker": "Über FigTracker",
     "aboutDescription": "FigTracker gibt dir einen empfohlenen Preis für jede LEGO-Minifigur oder jedes Set, damit du schneller listen und mit Zuversicht verkaufen kannst.",
     "affiliateDisclosure": "Als Amazon-Partner, LEGO-Affiliate und eBay-Partner verdient FigTracker an qualifizierten Käufen.",
     "bricklinkDisclosure": "Marktdaten stammen aus mehreren Marktplätzen, darunter BrickLink. Der Begriff \"BrickLink\" ist eine Marke der LEGO Group. Diese Anwendung verwendet die BrickLink-API, wird jedoch nicht von LEGO BrickLink, Inc. unterstützt oder zertifiziert.",
-    "copyright": "© {year} FigTracker. Alle Rechte vorbehalten."
+    "copyright": "© {year} FigTracker. Alle Rechte vorbehalten.",
+    "sell": "Verkaufen",
+    "explore": "Entdecken",
+    "company": "Unternehmen",
+    "tools": {
+      "whatnotExport": "Whatnot-Export",
+      "bricklinkExport": "BrickLink-Export",
+      "ebayExport": "eBay-Export",
+      "listingGenerator": "Anzeigen-Generator"
+    }
   },
   "disclosure": {
     "title": "Affiliate-Offenlegung",
