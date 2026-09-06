@@ -3160,24 +3160,24 @@
     "free": "Gratis",
     "premium": "Premium",
     "list": {
-      "title": "Bygger du en säljlista?",
-      "subtitle": "Lägg till föremål så skriver vi filen — Whatnot, BrickLink eller eBay.",
+      "title": "Din säljlista, färdig",
+      "subtitle": "Lägg till dina föremål — vi skriver filen.",
       "empty": "Inget i din lista än",
       "ready": "{count} föremål · filen är klar",
       "cta": "Hämta filen",
-      "ctaEmpty": "Kom igång"
+      "ctaEmpty": "Skapa min säljlista"
     },
     "buy": {
-      "title": "Vill du köpa en?",
-      "subtitle": "Gå direkt till aktuella Whatnot-annonser.",
-      "cta": "Bläddra på marknadsplatsen"
+      "title": "Köp på Whatnot",
+      "subtitle": "Aktuella annonser för varje minifigur.",
+      "cta": "Se annonser"
     },
     "identify": {
-      "title": "Vet du inte vad det är?",
-      "subtitle": "Fotografera en minifigur så namnger vi den, prissätter den och lägger den i din lista.",
+      "title": "Känn igen en minifigur från ett foto",
+      "subtitle": "Vi identifierar, prissätter och listar den.",
       "hint": "Foto in, minifigur ut",
       "note": "Ingår i Premium · obegränsat antal skanningar",
-      "cta": "Se Premium",
+      "cta": "Prova identifieringen",
       "badge": "Identifierad"
     }
   }

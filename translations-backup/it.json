@@ -3160,24 +3160,24 @@
     "free": "Gratis",
     "premium": "Premium",
     "list": {
-      "title": "Stai preparando una lista di vendita?",
-      "subtitle": "Aggiungi articoli e scriviamo noi il file — Whatnot, BrickLink o eBay.",
+      "title": "La tua lista di vendita, pronta",
+      "subtitle": "Aggiungi i tuoi articoli: al file pensiamo noi.",
       "empty": "Nella tua lista non c'è ancora nulla",
       "ready": "{count} articoli · file pronto",
       "cta": "Scarica il file",
-      "ctaEmpty": "Inizia"
+      "ctaEmpty": "Crea la mia lista di vendita"
     },
     "buy": {
-      "title": "Vuoi comprarne una?",
-      "subtitle": "Vai dritto alle inserzioni su Whatnot.",
-      "cta": "Sfoglia il marketplace"
+      "title": "Compra su Whatnot",
+      "subtitle": "Inserzioni dal vivo per ogni minifigura.",
+      "cta": "Vedi le inserzioni"
     },
     "identify": {
-      "title": "Non sai di cosa si tratta?",
-      "subtitle": "Fotografa una minifigura: la riconosciamo, la valutiamo e la aggiungiamo alla tua lista.",
+      "title": "Riconosci una minifigura da una foto",
+      "subtitle": "La identifichiamo, la valutiamo, la mettiamo in lista.",
       "hint": "Entra una foto, esce una minifigura",
       "note": "Incluso in Premium · scansioni illimitate",
-      "cta": "Scopri Premium",
+      "cta": "Prova il riconoscimento",
       "badge": "Identificata"
     }
   }

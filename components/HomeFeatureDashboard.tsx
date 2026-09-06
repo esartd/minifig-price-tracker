@@ -96,15 +96,23 @@ const SUB: React.CSSProperties = {
   lineHeight: 1.5,
 };
 
+/**
+ * The site's button, not a new one.
+ *
+ * These cards previously used 20px pills in three one-off colours, which made
+ * them the only elements on the homepage not sharing its 8px radius, and gave
+ * three side-by-side actions equal visual weight — so none of them read as the
+ * primary one. Blue #3b82f6 at 8px is the same button as Sign Up in the header.
+ */
 const PRIMARY: React.CSSProperties = {
   display: 'inline-flex',
   alignItems: 'center',
   gap: '6px',
-  border: 'none',
-  background: '#171717',
+  border: '1px solid transparent',
+  background: '#3b82f6',
   color: '#ffffff',
-  borderRadius: '20px',
-  padding: '9px 16px',
+  borderRadius: '8px',
+  padding: '10px 18px',
   fontSize: 'var(--text-sm)',
   fontWeight: 600,
   cursor: 'pointer',
@@ -420,10 +428,10 @@ export default function HomeFeatureDashboard() {
             <ListPreview items={popular} />
           </div>
           <div style={BODY}>
-            <p style={TITLE}>{t('homeDash.list.title') || 'Building a sell list?'}</p>
+            <p style={TITLE}>{t('homeDash.list.title') || 'Sell list, done for you'}</p>
             <p style={SUB}>
               {t('homeDash.list.subtitle') ||
-                'Add items and we write the upload file — Whatnot, BrickLink or eBay.'}
+                'Add your items — we write the upload file.'}
             </p>
 
             <div style={{ marginTop: 'auto' }}>
@@ -435,10 +443,10 @@ export default function HomeFeatureDashboard() {
                   )}
                 </p>
               )}
-              <Link href="/export" style={{ ...PRIMARY, background: '#0F6E56' }}>
+              <Link href="/export" style={PRIMARY}>
                 {listCount > 0
                   ? t('homeDash.list.cta') || 'Get the file'
-                  : t('homeDash.list.ctaEmpty') || 'Get started'}
+                  : t('homeDash.list.ctaEmpty') || 'Build my sell list'}
                 <ArrowRightIcon style={{ width: '14px', height: '14px' }} />
               </Link>
             </div>
@@ -452,13 +460,13 @@ export default function HomeFeatureDashboard() {
             <ListingPreview items={popular.slice(3, 5)} />
           </div>
           <div style={BODY}>
-            <p style={TITLE}>{t('homeDash.buy.title') || 'Want to buy one?'}</p>
+            <p style={TITLE}>{t('homeDash.buy.title') || 'Buy on Whatnot'}</p>
             <p style={SUB}>
-              {t('homeDash.buy.subtitle') || 'Jump straight to live Whatnot listings.'}
+              {t('homeDash.buy.subtitle') || 'Live listings for any minifigure.'}
             </p>
 
             <Link href="/marketplace" style={{ ...GHOST, marginTop: 'auto' }}>
-              {t('homeDash.buy.cta') || 'Browse marketplace'}
+              {t('homeDash.buy.cta') || 'Browse listings'}
               <ArrowRightIcon style={{ width: '14px', height: '14px' }} />
             </Link>
           </div>
@@ -476,18 +484,18 @@ export default function HomeFeatureDashboard() {
             />
           </div>
           <div style={BODY}>
-            <p style={TITLE}>{t('homeDash.identify.title') || "Don't know what it is?"}</p>
+            <p style={TITLE}>{t('homeDash.identify.title') || 'Name any minifigure from a photo'}</p>
             <p style={SUB}>
               {t('homeDash.identify.subtitle') ||
-                'Photograph a minifigure and we name it, price it and add it to your list.'}
+                'We identify it, price it, list it.'}
             </p>
 
             <div style={{ marginTop: 'auto' }}>
               <p style={{ fontSize: '12px', color: '#737373', margin: '0 0 10px' }}>
                 {t('homeDash.identify.note') || 'Included with Premium · unlimited scans'}
               </p>
-              <Link href="/premium" style={PRIMARY}>
-                {t('homeDash.identify.cta') || 'See Premium'}
+              <Link href="/premium" style={GHOST}>
+                {t('homeDash.identify.cta') || 'Try the identifier'}
                 <ArrowRightIcon style={{ width: '14px', height: '14px' }} />
               </Link>
             </div>

@@ -3217,24 +3217,24 @@
     "free": "Kostenlos",
     "premium": "Premium",
     "list": {
-      "title": "Verkaufsliste im Aufbau?",
-      "subtitle": "Artikel hinzufügen, wir schreiben die Upload-Datei — Whatnot, BrickLink oder eBay.",
+      "title": "Ihre Verkaufsliste, fertig erstellt",
+      "subtitle": "Artikel hinzufügen — wir schreiben die Upload-Datei.",
       "empty": "Noch nichts auf Ihrer Liste",
       "ready": "{count} Artikel · Datei bereit",
       "cta": "Datei holen",
-      "ctaEmpty": "Loslegen"
+      "ctaEmpty": "Verkaufsliste erstellen"
     },
     "buy": {
-      "title": "Möchten Sie eine kaufen?",
-      "subtitle": "Direkt zu aktuellen Whatnot-Angeboten.",
-      "cta": "Marktplatz ansehen"
+      "title": "Auf Whatnot kaufen",
+      "subtitle": "Aktuelle Angebote für jede Minifigur.",
+      "cta": "Angebote ansehen"
     },
     "identify": {
-      "title": "Nicht sicher, was das ist?",
-      "subtitle": "Fotografieren Sie eine Minifigur — wir benennen sie, bewerten sie und legen sie auf Ihre Liste.",
+      "title": "Jede Minifigur per Foto bestimmen",
+      "subtitle": "Wir erkennen sie, bewerten sie, listen sie.",
       "hint": "Foto rein, Minifigur raus",
       "note": "In Premium enthalten · unbegrenzte Scans",
-      "cta": "Premium ansehen",
+      "cta": "Erkennung testen",
       "badge": "Erkannt"
     }
   }

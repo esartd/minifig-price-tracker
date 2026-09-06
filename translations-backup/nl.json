@@ -3160,24 +3160,24 @@
     "free": "Gratis",
     "premium": "Premium",
     "list": {
-      "title": "Een verkooplijst aan het maken?",
-      "subtitle": "Voeg items toe en wij schrijven het bestand — Whatnot, BrickLink of eBay.",
+      "title": "Je verkooplijst, kant-en-klaar",
+      "subtitle": "Voeg je items toe — wij schrijven het bestand.",
       "empty": "Nog niets op je lijst",
       "ready": "{count} items · bestand klaar",
       "cta": "Bestand ophalen",
-      "ctaEmpty": "Aan de slag"
+      "ctaEmpty": "Mijn verkooplijst maken"
     },
     "buy": {
-      "title": "Wil je er een kopen?",
-      "subtitle": "Ga direct naar actuele Whatnot-aanbiedingen.",
-      "cta": "Bekijk de marktplaats"
+      "title": "Kopen op Whatnot",
+      "subtitle": "Actuele advertenties voor elke minifiguur.",
+      "cta": "Bekijk advertenties"
     },
     "identify": {
-      "title": "Weet je niet wat het is?",
-      "subtitle": "Fotografeer een minifiguur — wij benoemen hem, prijzen hem en zetten hem op je lijst.",
+      "title": "Herken elke minifiguur van een foto",
+      "subtitle": "Wij herkennen, prijzen en noteren hem.",
       "hint": "Foto erin, minifiguur eruit",
       "note": "Inbegrepen bij Premium · onbeperkt scannen",
-      "cta": "Bekijk Premium",
+      "cta": "Herkenning proberen",
       "badge": "Herkend"
     }
   }

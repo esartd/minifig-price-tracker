@@ -3217,24 +3217,24 @@
     "free": "Gratuit",
     "premium": "Premium",
     "list": {
-      "title": "Vous préparez une liste de vente ?",
-      "subtitle": "Ajoutez des articles, nous écrivons le fichier — Whatnot, BrickLink ou eBay.",
+      "title": "Votre liste de vente, prête",
+      "subtitle": "Ajoutez vos articles — nous écrivons le fichier.",
       "empty": "Votre liste est vide",
       "ready": "{count} articles · fichier prêt",
       "cta": "Obtenir le fichier",
-      "ctaEmpty": "Commencer"
+      "ctaEmpty": "Créer ma liste de vente"
     },
     "buy": {
-      "title": "Envie d'en acheter une ?",
-      "subtitle": "Accédez directement aux annonces Whatnot.",
-      "cta": "Parcourir la marketplace"
+      "title": "Acheter sur Whatnot",
+      "subtitle": "Des annonces en direct pour chaque minifigurine.",
+      "cta": "Voir les annonces"
     },
     "identify": {
-      "title": "Vous ne savez pas ce que c'est ?",
-      "subtitle": "Photographiez une minifigurine : nous l'identifions, l'évaluons et l'ajoutons à votre liste.",
+      "title": "Identifier une minifigurine par photo",
+      "subtitle": "Nous l'identifions, l'évaluons, la listons.",
       "hint": "Une photo, une minifigurine",
       "note": "Inclus avec Premium · analyses illimitées",
-      "cta": "Découvrir Premium",
+      "cta": "Essayer l'identification",
       "badge": "Identifiée"
     }
   }
