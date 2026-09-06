@@ -11,7 +11,22 @@ import { findMinifigByNumber, searchMinifigs } from '@/lib/catalog-static';
 import { pricingOrchestrator, LOGGED_IN_TTL_HOURS } from '@/lib/pricing-orchestrator';
 import type { Prisma } from '@prisma/client';
 
-const DAILY_LIMIT = parseInt(process.env.SCAN_DAILY_LIMIT || '30', 10);
+/**
+ * A runaway-bill guard, not a product limit.
+ *
+ * Premium is sold as an unlimited identifier and the copy says so, so this
+ * ceiling has to sit far above anything a real seller reaches — someone
+ * photographing a whole bin in one sitting must never hit it. It exists only
+ * to stop a scripted account running up an open-ended Gemini bill overnight.
+ *
+ * The economics: a scan costs roughly a fifth of a cent, and a $4.99
+ * subscription nets about $4.55 after Stripe, so break-even is somewhere north
+ * of 1,500 scans a month. 500/day is well inside that and still bounded.
+ *
+ * Don't lower this to a number a customer could plausibly reach without also
+ * changing the Premium page, which currently promises no scan limit.
+ */
+const DAILY_LIMIT = parseInt(process.env.SCAN_DAILY_LIMIT || '500', 10);
 
 interface ResolvedGuess {
   itemNo: string;

@@ -23,7 +23,8 @@ import { getGuestCollection } from '@/lib/guestCollectionStorage';
  *
  * Two cards work in place and cost nothing to run. The third points at
  * Premium: the identifier calls a paid vision API, and app/api/scan/identify
- * already requires a subscription and caps usage at 30 scans a day. Letting
+ * already requires a subscription, and the daily ceiling behind it is an
+ * abuse guard set far above real use rather than a product limit. Letting
  * anyone try it from the homepage would be handing out someone else's money.
  *
  * Everything real: real prices, a real guest collection that persists to the
@@ -483,7 +484,7 @@ export default function HomeFeatureDashboard() {
 
             <div style={{ marginTop: 'auto' }}>
               <p style={{ fontSize: '12px', color: '#737373', margin: '0 0 10px' }}>
-                {t('homeDash.identify.note') || 'Included with Premium · 30 scans a day'}
+                {t('homeDash.identify.note') || 'Included with Premium · unlimited scans'}
               </p>
               <Link href="/premium" style={PRIMARY}>
                 {t('homeDash.identify.cta') || 'See Premium'}
