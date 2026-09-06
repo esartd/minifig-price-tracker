@@ -3164,7 +3164,8 @@
       "subtitle": "Voeg items toe en wij schrijven het bestand — Whatnot, BrickLink of eBay.",
       "empty": "Nog niets op je lijst",
       "ready": "{count} items · bestand klaar",
-      "cta": "Bestand ophalen"
+      "cta": "Bestand ophalen",
+      "ctaEmpty": "Aan de slag"
     },
     "buy": {
       "title": "Wil je er een kopen?",
@@ -3176,7 +3177,8 @@
       "subtitle": "Fotografeer een minifiguur — wij benoemen hem, prijzen hem en zetten hem op je lijst.",
       "hint": "Foto erin, minifiguur eruit",
       "note": "Inbegrepen bij Premium · 30 scans per dag",
-      "cta": "Bekijk Premium"
+      "cta": "Bekijk Premium",
+      "badge": "Herkend"
     }
   }
 }

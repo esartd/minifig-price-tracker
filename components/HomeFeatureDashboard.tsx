@@ -2,14 +2,10 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
-import {
-  PlusIcon,
-  ArrowRightIcon,
-  SparklesIcon,
-  CheckIcon,
-} from '@heroicons/react/24/outline';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { useTranslation } from '@/components/TranslationProvider';
-import { addToGuestCollection, getGuestCollection } from '@/lib/guestCollectionStorage';
+import { getGuestCollection } from '@/lib/guestCollectionStorage';
 
 /**
  * The homepage feature dashboard.
@@ -50,7 +46,7 @@ const CARD: React.CSSProperties = {
   border: '1px solid #e5e5e5',
   borderRadius: '14px',
   overflow: 'hidden',
-  minHeight: '300px',
+  minHeight: '264px',
 };
 
 const HERO: React.CSSProperties = {
@@ -122,23 +118,255 @@ const GHOST: React.CSSProperties = {
   border: '1px solid #d4d4d4',
 };
 
-/** A minifig image, or a soft placeholder while one is missing. */
-function Fig({ src, alt, height }: { src: string | null; alt: string; height: number }) {
-  if (!src) {
-    return (
-      <span
-        style={{ width: '34px', height: `${height}px`, borderRadius: '5px', background: '#e5e5e5' }}
-      />
-    );
-  }
+/**
+ * A miniature of the file this card writes.
+ *
+ * The header used to be two minifigures floating on a tint, which looked
+ * pleasant and said nothing — a sell-list card should show a sell list. This
+ * is a cropped sheet of rows, sitting slightly below the fold of the header so
+ * it reads as a document continuing past the edge rather than a widget.
+ */
+function ListPreview({ items }: { items: MarketplaceCard[] }) {
+  const rows = items.length ? items.slice(0, 3) : [null, null, null];
+
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={src}
-      alt={alt}
-      loading="lazy"
-      style={{ height: `${height}px`, width: 'auto', objectFit: 'contain' }}
-    />
+    <div
+      style={{
+        position: 'absolute',
+        left: '22px',
+        right: '22px',
+        bottom: 0,
+        background: '#ffffff',
+        border: '1px solid #e5e5e5',
+        borderBottom: 'none',
+        borderRadius: '7px 7px 0 0',
+        padding: '7px 9px 0',
+        boxShadow: '0 1px 6px rgba(0,0,0,0.05)',
+      }}
+    >
+      {rows.map((item, i) => (
+        <div
+          key={item?.itemNo ?? i}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '7px',
+            padding: '3px 0',
+            borderBottom: i < 2 ? '1px solid #f5f5f5' : 'none',
+            fontSize: '10px',
+            color: '#525252',
+          }}
+        >
+          {item?.imageUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={item.imageUrl}
+              alt=""
+              loading="lazy"
+              style={{ width: '14px', height: '15px', objectFit: 'contain', flexShrink: 0 }}
+            />
+          ) : (
+            <span style={{ width: '14px', height: '15px', background: '#eee', borderRadius: '2px', flexShrink: 0 }} />
+          )}
+          <span
+            style={{
+              flex: 1,
+              minWidth: 0,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {item?.name ?? '\u00a0'}
+          </span>
+          <span style={{ fontWeight: 600, color: '#171717', flexShrink: 0 }}>
+            {item?.priceUsd != null ? `$${item.priceUsd.toFixed(2)}` : ''}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+
+/**
+ * A miniature of a pair of marketplace listings.
+ *
+ * Same reasoning as ListPreview: two minifigures floating on a tint said
+ * nothing about what the card does. A "buy one" card should show something you
+ * could buy, so this is a cropped pair of listing tiles with a live badge.
+ */
+function ListingPreview({ items }: { items: MarketplaceCard[] }) {
+  const tiles = items.length ? items.slice(0, 2) : [null, null];
+
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: '22px',
+        right: '22px',
+        bottom: 0,
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: '8px',
+      }}
+    >
+      {tiles.map((item, i) => (
+        <div
+          key={item?.itemNo ?? i}
+          style={{
+            background: '#ffffff',
+            border: '1px solid #e5e5e5',
+            borderBottom: 'none',
+            borderRadius: '7px 7px 0 0',
+            padding: '7px 8px 0',
+            boxShadow: '0 1px 6px rgba(0,0,0,0.05)',
+            position: 'relative',
+            // Without this the nowrap name forces the grid column wider than
+            // 1fr and the two tiles overlap.
+            minWidth: 0,
+          }}
+        >
+          {i === 0 && (
+            <span
+              style={{
+                position: 'absolute',
+                top: '6px',
+                left: '6px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '3px',
+                fontSize: '8px',
+                fontWeight: 700,
+                letterSpacing: '0.06em',
+                color: '#dc2626',
+                background: '#fef2f2',
+                borderRadius: '20px',
+                padding: '1px 5px',
+              }}
+            >
+              <span
+                style={{
+                  width: '4px',
+                  height: '4px',
+                  borderRadius: '50%',
+                  background: '#dc2626',
+                  display: 'inline-block',
+                }}
+              />
+              LIVE
+            </span>
+          )}
+          <div style={{ height: '34px', display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
+            {item?.imageUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={item.imageUrl}
+                alt=""
+                loading="lazy"
+                style={{ height: '34px', width: 'auto', objectFit: 'contain' }}
+              />
+            ) : (
+              <span style={{ width: '20px', height: '30px', background: '#eee', borderRadius: '2px' }} />
+            )}
+          </div>
+          <p
+            style={{
+              margin: '4px 0 0',
+              fontSize: '9px',
+              color: '#525252',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {item?.name ?? '\u00a0'}
+          </p>
+          <p style={{ margin: '1px 0 5px', fontSize: '11px', fontWeight: 700, color: '#171717' }}>
+            {item?.priceUsd != null ? `$${item.priceUsd.toFixed(2)}` : '\u00a0'}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * A miniature of what a scan gives back.
+ *
+ * The header showed a lone minifigure, which is the *input* to the identifier,
+ * not the output — it looked identical to every other minifigure on the page.
+ * This is the result card instead: the match, its catalogue number and its
+ * price, which is the thing worth paying for. No confidence percentage: we
+ * would be inventing the number, and an invented accuracy claim is not
+ * decoration.
+ */
+function IdentifyPreview({ item, label }: { item: MarketplaceCard | null; label: string }) {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: '22px',
+        right: '22px',
+        bottom: 0,
+        background: '#ffffff',
+        border: '1px solid #e5e5e5',
+        borderBottom: 'none',
+        borderRadius: '7px 7px 0 0',
+        padding: '9px 10px 10px',
+        boxShadow: '0 1px 6px rgba(0,0,0,0.05)',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+      }}
+    >
+      {item?.imageUrl ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={item.imageUrl}
+          alt=""
+          loading="lazy"
+          style={{ height: '42px', width: 'auto', objectFit: 'contain', flexShrink: 0 }}
+        />
+      ) : (
+        <span style={{ width: '26px', height: '42px', background: '#eee', borderRadius: '2px', flexShrink: 0 }} />
+      )}
+      <div style={{ minWidth: 0, flex: 1 }}>
+        <span
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '3px',
+            fontSize: '8px',
+            fontWeight: 700,
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+            color: '#15803d',
+            background: '#f0fdf4',
+            borderRadius: '20px',
+            padding: '2px 6px',
+          }}
+        >
+          <CheckCircleIcon style={{ width: '9px', height: '9px' }} />
+          {label}
+        </span>
+        <p
+          style={{
+            margin: '4px 0 0',
+            fontSize: '10px',
+            color: '#525252',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {item?.name ?? '\u00a0'}
+        </p>
+        <p style={{ margin: '1px 0 0', fontSize: '12px', fontWeight: 700, color: '#171717' }}>
+          {item?.priceUsd != null ? `$${item.priceUsd.toFixed(2)}` : '\u00a0'}
+        </p>
+      </div>
+    </div>
   );
 }
 
@@ -147,14 +375,14 @@ export default function HomeFeatureDashboard() {
 
   const [popular, setPopular] = useState<MarketplaceCard[]>([]);
   const [listCount, setListCount] = useState(0);
-  const [listTotal, setListTotal] = useState(0);
-  const [added, setAdded] = useState<string | null>(null);
 
-  // Popular items feed the imagery and the quick-add rows, so one request
-  // covers all three cards.
+  // Popular items feed the imagery on all three cards, so one request covers
+  // the whole dashboard. They are illustration only — never something we ask
+  // the visitor to add, since nobody wants a stranger's minifigures on their
+  // own sell list.
   useEffect(() => {
     let cancelled = false;
-    fetch('/api/marketplace?limit=6')
+    fetch('/api/marketplace?limit=8')
       .then((r) => r.json())
       .then((json) => {
         if (!cancelled && json?.success) setPopular(json.data.items ?? []);
@@ -168,34 +396,10 @@ export default function HomeFeatureDashboard() {
   }, []);
 
   const refreshList = useCallback(() => {
-    const items = getGuestCollection();
-    setListCount(items.length);
-    setListTotal(items.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0));
+    setListCount(getGuestCollection().length);
   }, []);
 
   useEffect(refreshList, [refreshList]);
-
-  /** Adds to the same guest collection the export tool reads. */
-  const addToList = useCallback(
-    (card: MarketplaceCard) => {
-      addToGuestCollection({
-        itemNo: card.itemNo,
-        itemType: card.itemType,
-        name: card.name,
-        imageUrl: card.imageUrl || '',
-        price: card.priceUsd || 0,
-        condition: 'new',
-        quantity: 1,
-        action: 'sell',
-      });
-      setAdded(card.itemNo);
-      refreshList();
-      window.setTimeout(() => setAdded(null), 1600);
-    },
-    [refreshList]
-  );
-
-  const listCandidates = popular.slice(0, 3);
 
   return (
     <section style={{ padding: '8px 20px 56px', background: '#ffffff' }}>
@@ -210,16 +414,9 @@ export default function HomeFeatureDashboard() {
       >
         {/* 1 — build a sell list --------------------------------------------- */}
         <div style={CARD}>
-          <div style={{ ...HERO, background: '#edf6f1' }}>
-            <span style={TAG}>{t('homeDash.free') || 'Free'}</span>
-            {(popular.slice(3, 5).length ? popular.slice(3, 5) : [null, null]).map((item, i) => (
-              <Fig
-                key={item?.itemNo ?? i}
-                src={item?.imageUrl ?? null}
-                alt={item?.name ?? ''}
-                height={[70, 54][i]}
-              />
-            ))}
+          <div style={{ ...HERO, background: '#edf6f1', overflow: 'hidden' }}>
+            <span style={{ ...TAG, zIndex: 1 }}>{t('homeDash.free') || 'Free'}</span>
+            <ListPreview items={popular} />
           </div>
           <div style={BODY}>
             <p style={TITLE}>{t('homeDash.list.title') || 'Building a sell list?'}</p>
@@ -228,129 +425,36 @@ export default function HomeFeatureDashboard() {
                 'Add items and we write the upload file — Whatnot, BrickLink or eBay.'}
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginBottom: '12px' }}>
-              {listCandidates.map((item) => (
-                <button
-                  key={item.itemNo}
-                  type="button"
-                  onClick={() => addToList(item)}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '7px',
-                    padding: '6px 8px',
-                    fontSize: '12px',
-                    background: '#fafafa',
-                    border: '1px solid #f0f0f0',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                  }}
-                >
-                  {added === item.itemNo ? (
-                    <CheckIcon style={{ width: '14px', height: '14px', color: '#16a34a', flexShrink: 0 }} />
-                  ) : (
-                    <PlusIcon style={{ width: '14px', height: '14px', color: '#737373', flexShrink: 0 }} />
-                  )}
-                  <span
-                    style={{
-                      flex: 1,
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                      color: '#171717',
-                    }}
-                  >
-                    {item.name}
-                  </span>
-                  <span style={{ fontWeight: 600, color: '#171717' }}>
-                    ${item.priceUsd?.toFixed(2) ?? '—'}
-                  </span>
-                </button>
-              ))}
-            </div>
-
             <div style={{ marginTop: 'auto' }}>
-              <span
-                style={{
-                  fontSize: 'var(--text-2xl)',
-                  fontWeight: 700,
-                  color: '#171717',
-                  letterSpacing: '-0.02em',
-                }}
-              >
-                ${listTotal.toFixed(2)}
-              </span>
-              <p style={{ fontSize: '12px', color: '#737373', margin: '4px 0 10px' }}>
-                {listCount === 0
-                  ? t('homeDash.list.empty') || 'Nothing in your list yet'
-                  : (t('homeDash.list.ready') || '{count} items · file ready').replace(
-                      '{count}',
-                      String(listCount)
-                    )}
-              </p>
               {listCount > 0 && (
-                <Link href="/export" style={{ ...PRIMARY, background: '#0F6E56' }}>
-                  {t('homeDash.list.cta') || 'Get the file'}
-                  <ArrowRightIcon style={{ width: '14px', height: '14px' }} />
-                </Link>
+                <p style={{ fontSize: '12px', color: '#737373', margin: '0 0 10px' }}>
+                  {(t('homeDash.list.ready') || '{count} items · file ready').replace(
+                    '{count}',
+                    String(listCount)
+                  )}
+                </p>
               )}
+              <Link href="/export" style={{ ...PRIMARY, background: '#0F6E56' }}>
+                {listCount > 0
+                  ? t('homeDash.list.cta') || 'Get the file'
+                  : t('homeDash.list.ctaEmpty') || 'Get started'}
+                <ArrowRightIcon style={{ width: '14px', height: '14px' }} />
+              </Link>
             </div>
           </div>
         </div>
 
         {/* 2 — buy on Whatnot ------------------------------------------------ */}
         <div style={CARD}>
-          <div style={{ ...HERO, background: '#fbf2e8' }}>
-            <span style={TAG}>{t('homeDash.free') || 'Free'}</span>
-            {(popular.slice(1, 3).length ? popular.slice(1, 3) : [null, null]).map((item, i) => (
-              <Fig
-                key={item?.itemNo ?? i}
-                src={item?.imageUrl ?? null}
-                alt={item?.name ?? ''}
-                height={[66, 58][i]}
-              />
-            ))}
+          <div style={{ ...HERO, background: '#fbf2e8', overflow: 'hidden' }}>
+            <span style={{ ...TAG, zIndex: 1 }}>{t('homeDash.free') || 'Free'}</span>
+            <ListingPreview items={popular.slice(3, 5)} />
           </div>
           <div style={BODY}>
             <p style={TITLE}>{t('homeDash.buy.title') || 'Want to buy one?'}</p>
             <p style={SUB}>
               {t('homeDash.buy.subtitle') || 'Jump straight to live Whatnot listings.'}
             </p>
-
-            <div style={{ marginBottom: '12px' }}>
-              {popular.slice(0, 3).map((item) => (
-                <a
-                  key={item.itemNo}
-                  href={item.whatnotUrl}
-                  target="_blank"
-                  rel="sponsored nofollow noopener noreferrer"
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    gap: '8px',
-                    padding: '6px 0',
-                    fontSize: '12px',
-                    borderBottom: '1px solid #f5f5f5',
-                    textDecoration: 'none',
-                    color: '#171717',
-                  }}
-                >
-                  <span
-                    style={{
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    {item.name}
-                  </span>
-                  <span style={{ fontWeight: 600, flexShrink: 0 }}>
-                    ${item.priceUsd?.toFixed(2) ?? '—'}
-                  </span>
-                </a>
-              ))}
-            </div>
 
             <Link href="/marketplace" style={{ ...GHOST, marginTop: 'auto' }}>
               {t('homeDash.buy.cta') || 'Browse marketplace'}
@@ -361,14 +465,13 @@ export default function HomeFeatureDashboard() {
 
         {/* 3 — identify (Premium) -------------------------------------------- */}
         <div style={CARD}>
-          <div style={{ ...HERO, background: '#f4f1fb' }}>
-            <span style={{ ...TAG, background: '#fef3c7', color: '#92400e' }}>
+          <div style={{ ...HERO, background: '#f4f1fb', overflow: 'hidden' }}>
+            <span style={{ ...TAG, background: '#fef3c7', color: '#92400e', zIndex: 1 }}>
               {t('homeDash.premium') || 'Premium'}
             </span>
-            <Fig
-              src={popular[5]?.imageUrl ?? popular[0]?.imageUrl ?? null}
-              alt={popular[5]?.name ?? ''}
-              height={68}
+            <IdentifyPreview
+              item={popular[5] ?? popular[0] ?? null}
+              label={t('homeDash.identify.badge') || 'Identified'}
             />
           </div>
           <div style={BODY}>
@@ -377,25 +480,6 @@ export default function HomeFeatureDashboard() {
               {t('homeDash.identify.subtitle') ||
                 'Photograph a minifigure and we name it, price it and add it to your list.'}
             </p>
-
-            <div
-              style={{
-                border: '1px dashed #d4d4d4',
-                borderRadius: '9px',
-                padding: '18px 12px',
-                textAlign: 'center',
-                fontSize: '12px',
-                color: '#a3a3a3',
-                marginBottom: '12px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '7px',
-              }}
-            >
-              <SparklesIcon style={{ width: '15px', height: '15px' }} />
-              {t('homeDash.identify.hint') || 'Photo in, minifigure out'}
-            </div>
 
             <div style={{ marginTop: 'auto' }}>
               <p style={{ fontSize: '12px', color: '#737373', margin: '0 0 10px' }}>

@@ -3164,7 +3164,8 @@
       "subtitle": "Lägg till föremål så skriver vi filen — Whatnot, BrickLink eller eBay.",
       "empty": "Inget i din lista än",
       "ready": "{count} föremål · filen är klar",
-      "cta": "Hämta filen"
+      "cta": "Hämta filen",
+      "ctaEmpty": "Kom igång"
     },
     "buy": {
       "title": "Vill du köpa en?",
@@ -3176,7 +3177,8 @@
       "subtitle": "Fotografera en minifigur så namnger vi den, prissätter den och lägger den i din lista.",
       "hint": "Foto in, minifigur ut",
       "note": "Ingår i Premium · 30 skanningar om dagen",
-      "cta": "Se Premium"
+      "cta": "Se Premium",
+      "badge": "Identifierad"
     }
   }
 }

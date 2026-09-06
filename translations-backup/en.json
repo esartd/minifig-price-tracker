@@ -3163,7 +3163,8 @@
       "subtitle": "Add items and we write the upload file — Whatnot, BrickLink or eBay.",
       "empty": "Nothing in your list yet",
       "ready": "{count} items · file ready",
-      "cta": "Get the file"
+      "cta": "Get the file",
+      "ctaEmpty": "Get started"
     },
     "buy": {
       "title": "Want to buy one?",
@@ -3175,7 +3176,8 @@
       "subtitle": "Photograph a minifigure and we name it, price it and add it to your list.",
       "hint": "Photo in, minifigure out",
       "note": "Included with Premium · 30 scans a day",
-      "cta": "See Premium"
+      "cta": "See Premium",
+      "badge": "Identified"
     }
   }
 }

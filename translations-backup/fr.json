@@ -3221,7 +3221,8 @@
       "subtitle": "Ajoutez des articles, nous écrivons le fichier — Whatnot, BrickLink ou eBay.",
       "empty": "Votre liste est vide",
       "ready": "{count} articles · fichier prêt",
-      "cta": "Obtenir le fichier"
+      "cta": "Obtenir le fichier",
+      "ctaEmpty": "Commencer"
     },
     "buy": {
       "title": "Envie d'en acheter une ?",
@@ -3233,7 +3234,8 @@
       "subtitle": "Photographiez une minifigurine : nous l'identifions, l'évaluons et l'ajoutons à votre liste.",
       "hint": "Une photo, une minifigurine",
       "note": "Inclus avec Premium · 30 analyses par jour",
-      "cta": "Découvrir Premium"
+      "cta": "Découvrir Premium",
+      "badge": "Identifiée"
     }
   }
 }

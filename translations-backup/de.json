@@ -3221,7 +3221,8 @@
       "subtitle": "Artikel hinzufügen, wir schreiben die Upload-Datei — Whatnot, BrickLink oder eBay.",
       "empty": "Noch nichts auf Ihrer Liste",
       "ready": "{count} Artikel · Datei bereit",
-      "cta": "Datei holen"
+      "cta": "Datei holen",
+      "ctaEmpty": "Loslegen"
     },
     "buy": {
       "title": "Möchten Sie eine kaufen?",
@@ -3233,7 +3234,8 @@
       "subtitle": "Fotografieren Sie eine Minifigur — wir benennen sie, bewerten sie und legen sie auf Ihre Liste.",
       "hint": "Foto rein, Minifigur raus",
       "note": "In Premium enthalten · 30 Scans pro Tag",
-      "cta": "Premium ansehen"
+      "cta": "Premium ansehen",
+      "badge": "Erkannt"
     }
   }
 }
