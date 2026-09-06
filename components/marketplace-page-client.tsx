@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
-import { ShoppingBagIcon } from '@heroicons/react/24/solid';
 import { useTranslation } from '@/components/TranslationProvider';
 
 interface MarketplaceCard {
@@ -317,6 +316,14 @@ export default function MarketplacePageClient() {
                   // it labelled. noopener: never hand window.opener to a
                   // third-party tab.
                   rel="sponsored nofollow noopener noreferrer"
+                  // The site's outlined button, the same one the detail pages
+                  // and "Shop on Amazon" use. This was a solid #171717 with a
+                  // generic shopping-bag icon tinted #facc15 -- an invented
+                  // approximation of Whatnot's colours, not one of their brand
+                  // assets, and a third button style on a site that otherwise
+                  // uses blue-primary or white-outline at 8px. A grid of 20
+                  // solid black buttons also fought the rule in CLAUDE.md that
+                  // only the top buy button should be coloured.
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -326,13 +333,22 @@ export default function MarketplacePageClient() {
                     padding: '9px 12px',
                     fontSize: '13px',
                     fontWeight: 600,
-                    color: '#ffffff',
-                    background: '#171717',
+                    color: '#171717',
+                    background: '#ffffff',
+                    border: '1px solid #e5e5e5',
                     borderRadius: '8px',
                     textDecoration: 'none',
+                    transition: 'background 0.2s, border-color 0.2s',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#fafafa';
+                    e.currentTarget.style.borderColor = '#d4d4d4';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#ffffff';
+                    e.currentTarget.style.borderColor = '#e5e5e5';
                   }}
                 >
-                  <ShoppingBagIcon style={{ width: '15px', height: '15px', color: '#facc15' }} />
                   {t('marketplace.viewOnWhatnot') || 'View on Whatnot'}
                 </a>
               </div>
