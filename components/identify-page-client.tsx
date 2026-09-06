@@ -68,7 +68,10 @@ export default function IdentifyPageClient() {
         <div className="hero-decoration hero-decoration-2"></div>
       </header>
 
-      <section className="about-section">
+      {/* .about-section's 80px vertical padding is sized for long marketing
+          pages; here it left the single upload widget (or the upgrade card)
+          stranded far below the hero. */}
+      <section className="about-section" style={{ padding: '32px 0 64px' }}>
         <div className="about-page-container">
           <div className="section-content-narrow" style={{ maxWidth: '520px', margin: '0 auto' }}>
             {premiumChecked && (

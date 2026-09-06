@@ -41,7 +41,9 @@ export default function UpgradeTeaser() {
           fontSize: 'var(--text-sm)',
           fontWeight: 600,
           color: '#ffffff',
-          backgroundColor: '#171717',
+          // The site's primary button, same as Sign Up in the header. Black
+          // read as a third button style on a page that already has two.
+          backgroundColor: '#3b82f6',
           borderRadius: '8px',
           textDecoration: 'none',
           lineHeight: 1.2,
