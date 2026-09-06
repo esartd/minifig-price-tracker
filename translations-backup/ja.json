@@ -3175,5 +3175,11 @@
       "cta": "判定を試す",
       "badge": "判定済み"
     }
+  },
+  "setsThemeMeta": {
+    "title": "{theme} の LEGO セット — 価格と価値（{count}点）",
+    "titleNoCount": "{theme} の LEGO セット — 価格と価値",
+    "description": "{theme} の LEGO セット {count} 点を最新の市場価格で一覧できます。価値の推移、生産終了予定、売買の判断にお使いください。",
+    "notFoundTitle": "テーマが見つかりません"
   }
 }

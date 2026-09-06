@@ -3174,5 +3174,11 @@
       "cta": "Try the identifier",
       "badge": "Identified"
     }
+  },
+  "setsThemeMeta": {
+    "title": "{theme} LEGO Sets — Prices and Values ({count} sets)",
+    "titleNoCount": "{theme} LEGO Sets — Prices and Values",
+    "description": "Browse all {count} {theme} LEGO sets with current market prices. Track values, see what is retiring, and decide what to buy or sell.",
+    "notFoundTitle": "Theme Not Found"
   }
 }

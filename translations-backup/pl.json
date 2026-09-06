@@ -3175,5 +3175,11 @@
       "cta": "Wypróbuj rozpoznawanie",
       "badge": "Rozpoznano"
     }
+  },
+  "setsThemeMeta": {
+    "title": "Zestawy LEGO {theme} — ceny i wartości ({count} zestawów)",
+    "titleNoCount": "Zestawy LEGO {theme} — ceny i wartości",
+    "description": "Przeglądaj wszystkie {count} zestawów LEGO {theme} z aktualnymi cenami rynkowymi. Śledź wartości, sprawdzaj, które wycofywane, i decyduj, co kupić lub sprzedać.",
+    "notFoundTitle": "Nie znaleziono tematu"
   }
 }

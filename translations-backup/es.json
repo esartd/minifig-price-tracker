@@ -3232,5 +3232,11 @@
       "cta": "Probar el identificador",
       "badge": "Identificada"
     }
+  },
+  "setsThemeMeta": {
+    "title": "Sets LEGO {theme} — precios y valores ({count} sets)",
+    "titleNoCount": "Sets LEGO {theme} — precios y valores",
+    "description": "Explora los {count} sets LEGO de {theme} con precios de mercado actuales. Sigue los valores, mira cuáles se retiran y decide qué comprar o vender.",
+    "notFoundTitle": "Tema no encontrado"
   }
 }

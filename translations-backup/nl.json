@@ -3175,5 +3175,11 @@
       "cta": "Herkenning proberen",
       "badge": "Herkend"
     }
+  },
+  "setsThemeMeta": {
+    "title": "{theme} LEGO-sets — prijzen en waarden ({count} sets)",
+    "titleNoCount": "{theme} LEGO-sets — prijzen en waarden",
+    "description": "Bekijk alle {count} {theme} LEGO-sets met actuele marktprijzen. Volg waarden, zie welke uit productie gaan en bepaal wat je koopt of verkoopt.",
+    "notFoundTitle": "Thema niet gevonden"
   }
 }
