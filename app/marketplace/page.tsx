@@ -35,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = getLocaleFromHost(host);
   const t = await getTranslations(locale as Locale);
 
-  const title = t.marketplace?.meta?.title || 'LEGO Marketplace on Whatnot | FigTracker';
+  const title = t.marketplace?.meta?.title || 'LEGO Marketplace on Whatnot';
   const description =
     t.marketplace?.meta?.description ||
     'Browse 18,000 LEGO minifigures and 20,000 sets, then search Whatnot for the one you want.';
