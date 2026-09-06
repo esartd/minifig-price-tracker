@@ -275,13 +275,15 @@ export function HeaderClient({ user }: HeaderClientProps) {
           margin: '0 auto',
           padding: '0 32px'
         }}>
+          {/* See the signed-in header below for why this is a 1fr auto 1fr
+              grid rather than space-between. */}
           <div style={{
-            display: 'flex',
+            display: 'grid',
+            gridTemplateColumns: '1fr auto 1fr',
             alignItems: 'center',
-            justifyContent: 'space-between',
             height: '72px'
           }}>
-            <Link href="/" className="header-logo" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', height: '36px' }}>
+            <Link href="/" className="header-logo" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', height: '36px', justifySelf: 'start' }}>
               <div style={{
                 fontSize: 'var(--text-lg)',
                 fontWeight: '600',
@@ -311,8 +313,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   display: 'flex',
                   alignItems: 'center',
                   height: '36px',
-                  borderBottom: pathname === '/search' ? '2px solid #3b82f6' : 'none',
-                  paddingBottom: '2px',
+                  borderTop: '2px solid transparent',
+                  borderBottom: pathname === '/search' ? '2px solid #3b82f6' : '2px solid transparent',
                   whiteSpace: 'nowrap'
                 }}
               >
@@ -334,9 +336,11 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     alignItems: 'center',
                     gap: '4px',
                     height: '36px',
-                    // Matches the 2px the sibling links reserve for their
-                    // active underline, so all six baselines line up.
-                    padding: '0 0 2px',
+                    // Same 2px the sibling links reserve for their active underline,
+                    // so every item in the row has identical box metrics.
+                    borderTop: '2px solid transparent',
+                    borderBottom: '2px solid transparent',
+                    padding: 0,
                     lineHeight: '1',
                     whiteSpace: 'nowrap'
                   }}
@@ -427,9 +431,11 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     alignItems: 'center',
                     gap: '4px',
                     height: '36px',
-                    // Matches the 2px the sibling links reserve for their
-                    // active underline, so all six baselines line up.
-                    padding: '0 0 2px',
+                    // Same 2px the sibling links reserve for their active underline,
+                    // so every item in the row has identical box metrics.
+                    borderTop: '2px solid transparent',
+                    borderBottom: '2px solid transparent',
+                    padding: 0,
                     lineHeight: '1',
                     whiteSpace: 'nowrap'
                   }}
@@ -542,8 +548,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   display: 'flex',
                   alignItems: 'center',
                   height: '36px',
-                  borderBottom: pathname === '/collectors' || pathname.startsWith('/collectors/') ? '2px solid #3b82f6' : 'none',
-                  paddingBottom: '2px',
+                  borderTop: '2px solid transparent',
+                  borderBottom: pathname === '/collectors' || pathname.startsWith('/collectors/') ? '2px solid #3b82f6' : '2px solid transparent',
                   whiteSpace: 'nowrap'
                 }}
               >
@@ -565,9 +571,11 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     alignItems: 'center',
                     gap: '4px',
                     height: '36px',
-                    // Matches the 2px the sibling links reserve for their
-                    // active underline, so all six baselines line up.
-                    padding: '0 0 2px',
+                    // Same 2px the sibling links reserve for their active underline,
+                    // so every item in the row has identical box metrics.
+                    borderTop: '2px solid transparent',
+                    borderBottom: '2px solid transparent',
+                    padding: 0,
                     lineHeight: '1',
                     whiteSpace: 'nowrap'
                   }}
@@ -705,8 +713,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   display: 'flex',
                   alignItems: 'center',
                   height: '36px',
-                  borderBottom: pathname === '/premium' ? '2px solid #3b82f6' : 'none',
-                  paddingBottom: '2px',
+                  borderTop: '2px solid transparent',
+                  borderBottom: pathname === '/premium' ? '2px solid #3b82f6' : '2px solid transparent',
                   whiteSpace: 'nowrap'
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
@@ -714,12 +722,14 @@ export function HeaderClient({ user }: HeaderClientProps) {
               >
                 {t('navigation.premium') || 'Premium'}
               </Link>
+            </div>
 
-              <div className="desktop-auth" style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px'
-              }}>
+            <div className="desktop-auth" style={{
+              display: useMobileLayout ? 'none' : 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              justifySelf: 'end'
+            }}>
                 <LanguageSwitcher />
                 <Link
                   href="/auth/signin"
@@ -751,7 +761,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 >
                   {t('navigation.signUp')}
                 </Link>
-              </div>
             </div>
 
             <button
@@ -1284,13 +1293,17 @@ export function HeaderClient({ user }: HeaderClientProps) {
         margin: '0 auto',
         padding: '0 32px'
       }}>
+        {/* 1fr auto 1fr: the middle column is centred on the header itself.
+            space-between would only centre the nav if the logo and the auth
+            block happened to be the same width, and they are not (103px vs
+            135px), which is why the links sat right of centre. */}
         <div style={{
-          display: 'flex',
+          display: 'grid',
+          gridTemplateColumns: '1fr auto 1fr',
           alignItems: 'center',
-          justifyContent: 'space-between',
           height: '72px'
         }}>
-          <Link href="/" className="header-logo" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', height: '36px' }}>
+          <Link href="/" className="header-logo" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', height: '36px', justifySelf: 'start' }}>
             <div style={{
               fontSize: 'var(--text-lg)',
               fontWeight: '600',
@@ -1320,8 +1333,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 display: 'flex',
                 alignItems: 'center',
                 height: '36px',
-                borderBottom: pathname === '/search' ? '2px solid #3b82f6' : 'none',
-                paddingBottom: '2px',
+                borderTop: '2px solid transparent',
+                borderBottom: pathname === '/search' ? '2px solid #3b82f6' : '2px solid transparent',
                 whiteSpace: 'nowrap'
               }}
             >
@@ -1529,8 +1542,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 display: 'flex',
                 alignItems: 'center',
                 height: '36px',
-                borderBottom: pathname === '/collectors' || pathname.startsWith('/collectors/') ? '2px solid #3b82f6' : 'none',
-                paddingBottom: '2px',
+                borderTop: '2px solid transparent',
+                borderBottom: pathname === '/collectors' || pathname.startsWith('/collectors/') ? '2px solid #3b82f6' : '2px solid transparent',
                 whiteSpace: 'nowrap'
               }}
             >
@@ -1689,8 +1702,8 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 display: 'flex',
                 alignItems: 'center',
                 height: '36px',
-                borderBottom: pathname === '/premium' ? '2px solid #3b82f6' : 'none',
-                paddingBottom: '2px',
+                borderTop: '2px solid transparent',
+                borderBottom: pathname === '/premium' ? '2px solid #3b82f6' : '2px solid transparent',
                 whiteSpace: 'nowrap'
               }}
               onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
@@ -1698,12 +1711,18 @@ export function HeaderClient({ user }: HeaderClientProps) {
             >
               {t('navigation.premium') || 'Premium'}
             </Link>
+          </div>
 
-            <div className="desktop-auth" style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '16px'
-            }}>
+          {/* A sibling of .desktop-nav, not a child of it. Nested, it rode
+              along on the right-hand side and pushed the links off centre --
+              and checkNavigationFit double-counted its width, since
+              desktopNav.offsetWidth already contained it. */}
+          <div className="desktop-auth" style={{
+            display: useMobileLayout ? 'none' : 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            justifySelf: 'end'
+          }}>
               <LanguageSwitcher />
 
               <div style={{ position: 'relative' }} ref={dropdownRef}>
@@ -1887,7 +1906,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 </div>
               )}
               </div>
-            </div>
           </div>
 
           <button
