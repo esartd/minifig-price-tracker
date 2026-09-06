@@ -2308,8 +2308,8 @@
   },
   "themeMeta": {
     "nameLegoMinifigures": "Minifigure LEGO {name}",
-    "titleWithCount": "Sfoglia le Minifigure e i Set LEGO {theme} ({count} minifigure) | FigTracker",
-    "titleNoCount": "Sfoglia le Minifigure e i Set LEGO {theme} | FigTracker",
+    "titleWithCount": "Sfoglia le Minifigure e i Set LEGO {theme} ({count} minifigure)",
+    "titleNoCount": "Sfoglia le Minifigure e i Set LEGO {theme}",
     "descriptionWithCount": "Esplora {count} minifigure e set LEGO {theme} con un prezzo di mercato intelligente. Traccia i valori di mercato attuali, gestisci la tua collezione e organizza gli articoli da vendere e da tenere{seriesSuffix}.",
     "descriptionAllNoCount": "Esplora tutte le minifigure e i set LEGO {theme} con un prezzo di mercato intelligente. Traccia i valori di mercato attuali, gestisci la tua collezione e organizza gli articoli da vendere e da tenere{seriesSuffix}.",
     "acrossSeriesSuffix": " in {count} serie",
@@ -2324,7 +2324,7 @@
     "keywordTrackLegoPrices": "traccia i prezzi LEGO",
     "ogTitleThemeSets": "Minifigure e Set LEGO {theme} | FigTracker",
     "notFoundTitle": "Tema Non Trovato",
-    "layoutTitle": "Minifigure LEGO {theme} - Guida Prezzi e Collezione ({count} Minifigure) | FigTracker",
+    "layoutTitle": "Minifigure LEGO {theme} - Guida Prezzi e Collezione ({count} Minifigure)",
     "layoutDescription": "Sfoglia tutte le {count} minifigure LEGO {theme} con un prezzo di mercato intelligente. Traccia i valori, gestisci l'inventario e scopri le varianti dei personaggi. Guida completa alla collezione {theme}.",
     "layoutOgTitle": "Minifigure LEGO {theme} - {count} Minifigure",
     "layoutOgDescription": "Sfoglia e valuta {count} minifigure LEGO {theme} con un prezzo di mercato intelligente da più fonti",
@@ -2343,7 +2343,7 @@
   },
   "verifyHuman": {
     "meta": {
-      "title": "Controllo di Sicurezza | FigTracker",
+      "title": "Controllo di Sicurezza",
       "description": "Completa questo rapido controllo di sicurezza per continuare"
     },
     "errors": {

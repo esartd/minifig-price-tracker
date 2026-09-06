@@ -2526,8 +2526,8 @@
   },
   "themeMeta": {
     "nameLegoMinifigures": "{name} LEGO Minifigures",
-    "titleWithCount": "Browse {theme} LEGO Minifigures & Sets ({count} minifigs) | FigTracker",
-    "titleNoCount": "Browse {theme} LEGO Minifigures & Sets | FigTracker",
+    "titleWithCount": "Browse {theme} LEGO Minifigures & Sets ({count} minifigs)",
+    "titleNoCount": "Browse {theme} LEGO Minifigures & Sets",
     "descriptionWithCount": "Explore {count} {theme} LEGO minifigures and sets with smart market pricing. Track current market values, manage your collection, and organize items to sell and keep{seriesSuffix}.",
     "descriptionAllNoCount": "Explore all {theme} LEGO minifigures and sets with smart market pricing. Track current market values, manage your collection, and organize items to sell and keep{seriesSuffix}.",
     "acrossSeriesSuffix": " across {count} series",
@@ -2542,7 +2542,7 @@
     "keywordTrackLegoPrices": "track LEGO prices",
     "ogTitleThemeSets": "{theme} LEGO Minifigures & Sets | FigTracker",
     "notFoundTitle": "Theme Not Found",
-    "layoutTitle": "{theme} LEGO Minifigures - Price Guide & Collection ({count} Minifigs) | FigTracker",
+    "layoutTitle": "{theme} LEGO Minifigures - Price Guide & Collection ({count} Minifigs)",
     "layoutDescription": "Browse all {count} {theme} LEGO minifigures with smart market pricing. Track values, manage inventory, and discover character variants. Complete {theme} collection guide.",
     "layoutOgTitle": "{theme} LEGO Minifigures - {count} Minifigs",
     "layoutOgDescription": "Browse and price {count} {theme} LEGO minifigures with smart market pricing from multiple sources",
@@ -2561,7 +2561,7 @@
   },
   "verifyHuman": {
     "meta": {
-      "title": "Security Check | FigTracker",
+      "title": "Security Check",
       "description": "Please complete this quick security check to continue"
     },
     "errors": {

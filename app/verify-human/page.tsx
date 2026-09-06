@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations(locale);
 
   return {
-    title: t.verifyHuman?.meta?.title || 'Security Check | FigTracker',
+    title: t.verifyHuman?.meta?.title || 'Security Check',
     description: t.verifyHuman?.meta?.description || 'Please complete this quick security check to continue',
     robots: {
       index: false,

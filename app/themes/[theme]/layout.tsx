@@ -90,7 +90,7 @@ export async function generateMetadata({
   const count = themeMinifigs.length;
 
   return {
-    title: interpolate(t.themeMeta?.layoutTitle || '{theme} LEGO Minifigures - Price Guide & Collection ({count} Minifigs) | FigTracker', { theme: exactThemeName, count }),
+    title: interpolate(t.themeMeta?.layoutTitle || '{theme} LEGO Minifigures - Price Guide & Collection ({count} Minifigs)', { theme: exactThemeName, count }),
     description: interpolate(t.themeMeta?.layoutDescription || 'Browse all {count} {theme} LEGO minifigures with smart market pricing. Track values, manage inventory, and discover character variants. Complete {theme} collection guide.', { count, theme: exactThemeName }),
     keywords: [
       interpolate(t.themeMeta?.keywordThemeMinifigures || '{theme} LEGO minifigures', { theme: exactThemeName }),

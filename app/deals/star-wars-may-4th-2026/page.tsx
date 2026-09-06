@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const path = '/deals/star-wars-may-4th-2026';
 
   return {
-    title: `${t.may4thDeals.meta.title} | FigTracker`,
+    title: t.may4thDeals.meta.title,
     description: t.may4thDeals.meta.description,
     keywords: t.may4thDeals.meta.keywords.split(', '),
     openGraph: {

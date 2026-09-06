@@ -2308,8 +2308,8 @@
   },
   "themeMeta": {
     "nameLegoMinifigures": "Minifigurki LEGO {name}",
-    "titleWithCount": "Przeglądaj minifigurki i zestawy LEGO {theme} ({count} minifigurek) | FigTracker",
-    "titleNoCount": "Przeglądaj minifigurki i zestawy LEGO {theme} | FigTracker",
+    "titleWithCount": "Przeglądaj minifigurki i zestawy LEGO {theme} ({count} minifigurek)",
+    "titleNoCount": "Przeglądaj minifigurki i zestawy LEGO {theme}",
     "descriptionWithCount": "Odkryj {count} minifigurek i zestawów LEGO {theme} z inteligentną wyceną rynkową. Śledź aktualne wartości rynkowe, zarządzaj swoją kolekcją i organizuj przedmioty do sprzedania i zachowania{seriesSuffix}.",
     "descriptionAllNoCount": "Odkryj wszystkie minifigurki i zestawy LEGO {theme} z inteligentną wyceną rynkową. Śledź aktualne wartości rynkowe, zarządzaj swoją kolekcją i organizuj przedmioty do sprzedania i zachowania{seriesSuffix}.",
     "acrossSeriesSuffix": " w {count} seriach",
@@ -2324,7 +2324,7 @@
     "keywordTrackLegoPrices": "śledź ceny LEGO",
     "ogTitleThemeSets": "Minifigurki i zestawy LEGO {theme} | FigTracker",
     "notFoundTitle": "Nie znaleziono motywu",
-    "layoutTitle": "Minifigurki LEGO {theme} - Przewodnik cenowy i kolekcja ({count} minifigurek) | FigTracker",
+    "layoutTitle": "Minifigurki LEGO {theme} - Przewodnik cenowy i kolekcja ({count} minifigurek)",
     "layoutDescription": "Przeglądaj wszystkie {count} minifigurek LEGO {theme} z inteligentną wyceną rynkową. Śledź wartości, zarządzaj inwentarzem i odkrywaj warianty postaci. Kompletny przewodnik po kolekcji {theme}.",
     "layoutOgTitle": "Minifigurki LEGO {theme} - {count} minifigurek",
     "layoutOgDescription": "Przeglądaj i wyceniaj {count} minifigurek LEGO {theme} dzięki inteligentnej wycenie rynkowej z wielu źródeł",
@@ -2343,7 +2343,7 @@
   },
   "verifyHuman": {
     "meta": {
-      "title": "Weryfikacja bezpieczeństwa | FigTracker",
+      "title": "Weryfikacja bezpieczeństwa",
       "description": "Ukończ tę krótką weryfikację bezpieczeństwa, aby kontynuować"
     },
     "errors": {

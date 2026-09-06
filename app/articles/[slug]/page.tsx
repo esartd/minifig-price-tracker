@@ -57,7 +57,7 @@ export async function generateMetadata({
       }
 
       return {
-        title: `${translation.title} | FigTracker`,
+        title: translation.title,
         description: translation.description,
         openGraph: {
           type: 'article',
@@ -90,7 +90,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${guide.title} | FigTracker`,
+    title: guide.title,
     description: guide.description,
     openGraph: {
       type: 'article',

@@ -2753,7 +2753,7 @@
     "layoutDescription": "Durchsuche alle {count} {theme} LEGO-Minifiguren mit intelligenter Marktpreisgestaltung. Verfolge Werte, verwalte dein Inventar und entdecke Charaktervarianten. Der komplette {theme}-Sammlungsguide.",
     "layoutOgDescription": "Durchsuche und bepreise {count} {theme} LEGO-Minifiguren mit intelligenter Marktpreisgestaltung aus mehreren Quellen",
     "layoutOgTitle": "{theme} LEGO-Minifiguren - {count} Minifigs",
-    "layoutTitle": "{theme} LEGO-Minifiguren - Preisführer & Sammlung ({count} Minifigs) | FigTracker",
+    "layoutTitle": "{theme} LEGO-Minifiguren - Preisführer & Sammlung ({count} Minifigs)",
     "nameLegoMinifigures": "{name} LEGO-Minifiguren",
     "notFoundTitle": "Thema nicht gefunden",
     "ogTitleThemeSets": "{theme} LEGO-Minifiguren & Sets | FigTracker",
@@ -2761,8 +2761,8 @@
     "subDescriptionWithCount": "Durchsuche alle {count} {fullName} LEGO-Minifiguren mit intelligenter Marktpreisgestaltung. Verfolge Preise, verwalte deine Sammlung und entdecke seltene Varianten.",
     "subTitleNoCount": "{name} LEGO-Minifiguren | FigTracker",
     "subTitleWithCount": "{name} LEGO-Minifiguren ({count}) | FigTracker",
-    "titleNoCount": "Durchsuche {theme} LEGO-Minifiguren & Sets | FigTracker",
-    "titleWithCount": "Durchsuche {theme} LEGO-Minifiguren & Sets ({count} Minifigs) | FigTracker"
+    "titleNoCount": "Durchsuche {theme} LEGO-Minifiguren & Sets",
+    "titleWithCount": "Durchsuche {theme} LEGO-Minifiguren & Sets ({count} Minifigs)"
   },
   "verifyHuman": {
     "errors": {
@@ -2775,7 +2775,7 @@
     "learnMore": "Mehr erfahren",
     "meta": {
       "description": "Bitte schließe diese kurze Sicherheitsüberprüfung ab, um fortzufahren",
-      "title": "Sicherheitsüberprüfung | FigTracker"
+      "title": "Sicherheitsüberprüfung"
     },
     "poweredBy": "Geschützt durch Cloudflare Turnstile",
     "success": "Verifiziert! Du wirst weitergeleitet...",

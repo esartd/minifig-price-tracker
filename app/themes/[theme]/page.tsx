@@ -76,9 +76,16 @@ export async function generateMetadata({
     ? interpolate(t.themeMeta?.acrossSeriesSuffix || ' across {count} series', { count: seriesCount })
     : '';
 
+  // Title-case the slug for display: "star-wars" -> "Star Wars". No brand
+  // suffix here -- the root layout's title template appends "| FigTracker",
+  // and baking it in as well is how these pages rendered it twice.
+  const displayTheme = decodedTheme
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
   const title = totalMinifigs > 0
-    ? interpolate(t.themeMeta?.titleWithCount || 'Browse {theme} LEGO Minifigures & Sets ({count} minifigs) | FigTracker', { theme: decodedTheme, count: totalMinifigs.toLocaleString() })
-    : interpolate(t.themeMeta?.titleNoCount || 'Browse {theme} LEGO Minifigures & Sets | FigTracker', { theme: decodedTheme });
+    ? interpolate(t.themeMeta?.titleWithCount || 'Browse {theme} LEGO Minifigures & Sets ({count} minifigs)', { theme: displayTheme, count: totalMinifigs.toLocaleString() })
+    : interpolate(t.themeMeta?.titleNoCount || 'Browse {theme} LEGO Minifigures & Sets', { theme: displayTheme });
 
   const description = totalMinifigs > 0
     ? interpolate(t.themeMeta?.descriptionWithCount || 'Explore {count} {theme} LEGO minifigures and sets with smart market pricing. Track current market values, manage your collection, and organize items to sell and keep{seriesSuffix}.', { count: totalMinifigs.toLocaleString(), theme: decodedTheme, seriesSuffix })

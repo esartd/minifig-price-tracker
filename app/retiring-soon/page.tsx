@@ -38,8 +38,8 @@ export async function generateMetadata({ searchParams }: { searchParams?: Promis
   const theme = params?.theme;
 
   const title = theme
-    ? `${theme} ${t.retiringSoon?.pageTitle || 'LEGO Sets Retiring Soon 2026'} | FigTracker`
-    : `${t.retiringSoon?.pageTitle || 'LEGO Sets Retiring Soon 2026'} | FigTracker`;
+    ? `${theme} ${t.retiringSoon?.pageTitle || 'LEGO Sets Retiring Soon 2026'}`
+    : t.retiringSoon?.pageTitle || 'LEGO Sets Retiring Soon 2026';
 
   return {
     title,

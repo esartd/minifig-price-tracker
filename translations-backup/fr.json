@@ -2365,8 +2365,8 @@
   },
   "themeMeta": {
     "nameLegoMinifigures": "Minifigurines LEGO {name}",
-    "titleWithCount": "Parcourez les minifigurines et sets LEGO {theme} ({count} minifigs) | FigTracker",
-    "titleNoCount": "Parcourez les minifigurines et sets LEGO {theme} | FigTracker",
+    "titleWithCount": "Parcourez les minifigurines et sets LEGO {theme} ({count} minifigs)",
+    "titleNoCount": "Parcourez les minifigurines et sets LEGO {theme}",
     "descriptionWithCount": "Explorez {count} minifigurines et sets LEGO {theme} avec une tarification intelligente basée sur le marché. Suivez les valeurs marchandes actuelles, gérez votre collection et organisez les articles à vendre et à garder{seriesSuffix}.",
     "descriptionAllNoCount": "Explorez toutes les minifigurines et sets LEGO {theme} avec une tarification intelligente basée sur le marché. Suivez les valeurs marchandes actuelles, gérez votre collection et organisez les articles à vendre et à garder{seriesSuffix}.",
     "acrossSeriesSuffix": " sur {count} séries",
@@ -2381,7 +2381,7 @@
     "keywordTrackLegoPrices": "suivre les prix LEGO",
     "ogTitleThemeSets": "Minifigurines et sets LEGO {theme} | FigTracker",
     "notFoundTitle": "Thème introuvable",
-    "layoutTitle": "Minifigurines LEGO {theme} - Guide des prix et collection ({count} minifigs) | FigTracker",
+    "layoutTitle": "Minifigurines LEGO {theme} - Guide des prix et collection ({count} minifigs)",
     "layoutDescription": "Parcourez les {count} minifigurines LEGO {theme} avec une tarification intelligente basée sur le marché. Suivez les valeurs, gérez votre inventaire et découvrez les variantes de personnages. Guide complet de la collection {theme}.",
     "layoutOgTitle": "Minifigurines LEGO {theme} - {count} minifigs",
     "layoutOgDescription": "Parcourez et évaluez {count} minifigurines LEGO {theme} avec une tarification intelligente basée sur plusieurs sources",
@@ -2400,7 +2400,7 @@
   },
   "verifyHuman": {
     "meta": {
-      "title": "Vérification de sécurité | FigTracker",
+      "title": "Vérification de sécurité",
       "description": "Veuillez effectuer cette vérification de sécurité rapide pour continuer"
     },
     "errors": {

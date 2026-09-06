@@ -2365,8 +2365,8 @@
   },
   "themeMeta": {
     "nameLegoMinifigures": "Minifiguras LEGO de {name}",
-    "titleWithCount": "Explora minifiguras y sets LEGO de {theme} ({count} minifiguras) | FigTracker",
-    "titleNoCount": "Explora minifiguras y sets LEGO de {theme} | FigTracker",
+    "titleWithCount": "Explora minifiguras y sets LEGO de {theme} ({count} minifiguras)",
+    "titleNoCount": "Explora minifiguras y sets LEGO de {theme}",
     "descriptionWithCount": "Explora {count} minifiguras y sets LEGO de {theme} con precios de mercado inteligentes. Rastrea los valores de mercado actuales, gestiona tu colección y organiza artículos para vender y conservar{seriesSuffix}.",
     "descriptionAllNoCount": "Explora todas las minifiguras y sets LEGO de {theme} con precios de mercado inteligentes. Rastrea los valores de mercado actuales, gestiona tu colección y organiza artículos para vender y conservar{seriesSuffix}.",
     "acrossSeriesSuffix": " en {count} series",
@@ -2381,7 +2381,7 @@
     "keywordTrackLegoPrices": "rastrear precios LEGO",
     "ogTitleThemeSets": "Minifiguras y sets LEGO de {theme} | FigTracker",
     "notFoundTitle": "Tema no encontrado",
-    "layoutTitle": "Minifiguras LEGO de {theme} - Guía de precios y colección ({count} minifiguras) | FigTracker",
+    "layoutTitle": "Minifiguras LEGO de {theme} - Guía de precios y colección ({count} minifiguras)",
     "layoutDescription": "Explora las {count} minifiguras LEGO de {theme} con precios de mercado inteligentes. Rastrea valores, gestiona el inventario y descubre variantes de personajes. Guía completa de la colección de {theme}.",
     "layoutOgTitle": "Minifiguras LEGO de {theme} - {count} minifiguras",
     "layoutOgDescription": "Explora y pon precio a {count} minifiguras LEGO de {theme} con precios de mercado inteligentes de múltiples fuentes",
@@ -2400,7 +2400,7 @@
   },
   "verifyHuman": {
     "meta": {
-      "title": "Verificación de seguridad | FigTracker",
+      "title": "Verificación de seguridad",
       "description": "Completa esta rápida verificación de seguridad para continuar"
     },
     "errors": {

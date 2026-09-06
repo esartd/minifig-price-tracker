@@ -2308,8 +2308,8 @@
   },
   "themeMeta": {
     "nameLegoMinifigures": "{name} LEGO-minifigurer",
-    "titleWithCount": "Bläddra bland {theme} LEGO-minifigurer & set ({count} minifigurer) | FigTracker",
-    "titleNoCount": "Bläddra bland {theme} LEGO-minifigurer & set | FigTracker",
+    "titleWithCount": "Bläddra bland {theme} LEGO-minifigurer & set ({count} minifigurer)",
+    "titleNoCount": "Bläddra bland {theme} LEGO-minifigurer & set",
     "descriptionWithCount": "Utforska {count} {theme} LEGO-minifigurer och set med smart marknadsprissättning. Håll koll på aktuella marknadsvärden, hantera din samling och organisera artiklar att sälja och behålla{seriesSuffix}.",
     "descriptionAllNoCount": "Utforska alla {theme} LEGO-minifigurer och set med smart marknadsprissättning. Håll koll på aktuella marknadsvärden, hantera din samling och organisera artiklar att sälja och behålla{seriesSuffix}.",
     "acrossSeriesSuffix": " i {count} serier",
@@ -2324,7 +2324,7 @@
     "keywordTrackLegoPrices": "spåra LEGO-priser",
     "ogTitleThemeSets": "{theme} LEGO-minifigurer & set | FigTracker",
     "notFoundTitle": "Tema hittades inte",
-    "layoutTitle": "{theme} LEGO-minifigurer - Prisguide & samling ({count} minifigurer) | FigTracker",
+    "layoutTitle": "{theme} LEGO-minifigurer - Prisguide & samling ({count} minifigurer)",
     "layoutDescription": "Bläddra bland alla {count} {theme} LEGO-minifigurer med smart marknadsprissättning. Håll koll på värden, hantera inventeringen och upptäck karaktärsvarianter. Komplett samlingsguide för {theme}.",
     "layoutOgTitle": "{theme} LEGO-minifigurer - {count} minifigurer",
     "layoutOgDescription": "Bläddra och prissätt {count} {theme} LEGO-minifigurer med smart marknadsprissättning från flera källor",
@@ -2343,7 +2343,7 @@
   },
   "verifyHuman": {
     "meta": {
-      "title": "Säkerhetskontroll | FigTracker",
+      "title": "Säkerhetskontroll",
       "description": "Slutför den här snabba säkerhetskontrollen för att fortsätta"
     },
     "errors": {

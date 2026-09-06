@@ -35,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 
   return {
-    title: `${t.navigation?.guides || 'Articles'} | FigTracker`,
+    title: t.navigation?.guides || 'Articles',
     description: t.guides?.hero?.subtitle || 'Practical guides for pricing, listing, and managing your LEGO inventory.',
     keywords: t.guides?.meta?.keywords || ['LEGO guides', 'LEGO pricing', 'LEGO investing', 'LEGO selling tips', 'minifigure values'],
     openGraph: {

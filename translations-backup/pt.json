@@ -2308,8 +2308,8 @@
   },
   "themeMeta": {
     "nameLegoMinifigures": "Minifiguras LEGO de {name}",
-    "titleWithCount": "Ver minifiguras e sets LEGO de {theme} ({count} minifiguras) | FigTracker",
-    "titleNoCount": "Ver minifiguras e sets LEGO de {theme} | FigTracker",
+    "titleWithCount": "Ver minifiguras e sets LEGO de {theme} ({count} minifiguras)",
+    "titleNoCount": "Ver minifiguras e sets LEGO de {theme}",
     "descriptionWithCount": "Explore {count} minifiguras e sets LEGO de {theme} com preços de mercado calculados. Acompanhe os valores atuais, faça a gestão da sua coleção e organize o que quer vender e manter{seriesSuffix}.",
     "descriptionAllNoCount": "Explore todas as minifiguras e sets LEGO de {theme} com preços de mercado calculados. Acompanhe os valores atuais, faça a gestão da sua coleção e organize o que quer vender e manter{seriesSuffix}.",
     "acrossSeriesSuffix": " em {count} séries",
@@ -2324,7 +2324,7 @@
     "keywordTrackLegoPrices": "monitorizar preços LEGO",
     "ogTitleThemeSets": "Minifiguras e Sets LEGO de {theme} | FigTracker",
     "notFoundTitle": "Tema Não Encontrado",
-    "layoutTitle": "Minifiguras LEGO de {theme} - Guia de Preços e Coleção ({count} Minifiguras) | FigTracker",
+    "layoutTitle": "Minifiguras LEGO de {theme} - Guia de Preços e Coleção ({count} Minifiguras)",
     "layoutDescription": "Veja todas as {count} minifiguras LEGO de {theme} com preços de mercado calculados. Acompanhe valores, faça a gestão do inventário e descubra variantes de personagens. Guia completo da coleção {theme}.",
     "layoutOgTitle": "Minifiguras LEGO de {theme} - {count} Minifiguras",
     "layoutOgDescription": "Veja e avalie {count} minifiguras LEGO de {theme} com preços de mercado calculados a partir de várias fontes",
@@ -2343,7 +2343,7 @@
   },
   "verifyHuman": {
     "meta": {
-      "title": "Verificação de Segurança | FigTracker",
+      "title": "Verificação de Segurança",
       "description": "Complete esta rápida verificação de segurança para continuar"
     },
     "errors": {

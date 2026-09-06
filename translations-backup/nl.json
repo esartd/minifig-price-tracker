@@ -2308,8 +2308,8 @@
   },
   "themeMeta": {
     "nameLegoMinifigures": "{name} LEGO Minifiguren",
-    "titleWithCount": "Blader door {theme} LEGO Minifiguren & Sets ({count} minifigs) | FigTracker",
-    "titleNoCount": "Blader door {theme} LEGO Minifiguren & Sets | FigTracker",
+    "titleWithCount": "Blader door {theme} LEGO Minifiguren & Sets ({count} minifigs)",
+    "titleNoCount": "Blader door {theme} LEGO Minifiguren & Sets",
     "descriptionWithCount": "Ontdek {count} {theme} LEGO minifiguren en sets met slimme marktprijzen. Volg actuele marktwaarden, beheer je collectie en organiseer items om te verkopen en te houden{seriesSuffix}.",
     "descriptionAllNoCount": "Ontdek alle {theme} LEGO minifiguren en sets met slimme marktprijzen. Volg actuele marktwaarden, beheer je collectie en organiseer items om te verkopen en te houden{seriesSuffix}.",
     "acrossSeriesSuffix": " verspreid over {count} series",
@@ -2324,7 +2324,7 @@
     "keywordTrackLegoPrices": "LEGO prijzen bijhouden",
     "ogTitleThemeSets": "{theme} LEGO Minifiguren & Sets | FigTracker",
     "notFoundTitle": "Thema Niet Gevonden",
-    "layoutTitle": "{theme} LEGO Minifiguren - Prijsgids & Collectie ({count} Minifigs) | FigTracker",
+    "layoutTitle": "{theme} LEGO Minifiguren - Prijsgids & Collectie ({count} Minifigs)",
     "layoutDescription": "Blader door alle {count} {theme} LEGO minifiguren met slimme marktprijzen. Volg waarden, beheer je inventaris en ontdek personagevarianten. Complete {theme} collectiegids.",
     "layoutOgTitle": "{theme} LEGO Minifiguren - {count} Minifigs",
     "layoutOgDescription": "Blader door en prijs {count} {theme} LEGO minifiguren met slimme marktprijzen uit meerdere bronnen",
@@ -2343,7 +2343,7 @@
   },
   "verifyHuman": {
     "meta": {
-      "title": "Beveiligingscontrole | FigTracker",
+      "title": "Beveiligingscontrole",
       "description": "Voltooi deze snelle beveiligingscontrole om door te gaan"
     },
     "errors": {

@@ -2308,8 +2308,8 @@
   },
   "themeMeta": {
     "nameLegoMinifigures": "{name} LEGOミニフィグ",
-    "titleWithCount": "{theme} LEGOミニフィグ＆セットを見る（ミニフィグ{count}点）| FigTracker",
-    "titleNoCount": "{theme} LEGOミニフィグ＆セットを見る | FigTracker",
+    "titleWithCount": "{theme} LEGOミニフィグ＆セットを見る（ミニフィグ{count}点）",
+    "titleNoCount": "{theme} LEGOミニフィグ＆セットを見る",
     "descriptionWithCount": "{theme}のLEGOミニフィグ・セット{count}点をスマート市場価格でチェック。現在の市場価値を追跡し、コレクションを管理して、売却用・保管用アイテムを整理できます{seriesSuffix}。",
     "descriptionAllNoCount": "{theme}のLEGOミニフィグ・セットをすべてスマート市場価格でチェック。現在の市場価値を追跡し、コレクションを管理して、売却用・保管用アイテムを整理できます{seriesSuffix}。",
     "acrossSeriesSuffix": "（{count}シリーズ）",
@@ -2324,7 +2324,7 @@
     "keywordTrackLegoPrices": "LEGO 価格を追跡",
     "ogTitleThemeSets": "{theme} LEGOミニフィグ＆セット | FigTracker",
     "notFoundTitle": "テーマが見つかりません",
-    "layoutTitle": "{theme} LEGOミニフィグ - 価格ガイド＆コレクション（ミニフィグ{count}点）| FigTracker",
+    "layoutTitle": "{theme} LEGOミニフィグ - 価格ガイド＆コレクション（ミニフィグ{count}点）",
     "layoutDescription": "{theme}のLEGOミニフィグ全{count}点をスマート市場価格で閲覧。価値を追跡し、在庫を管理して、キャラクターバリアントを発見できます。{theme}コレクションの完全ガイドです。",
     "layoutOgTitle": "{theme} LEGOミニフィグ - {count}点",
     "layoutOgDescription": "複数の情報源によるスマート市場価格で、{theme}のLEGOミニフィグ{count}点を閲覧・価格チェック",
@@ -2343,7 +2343,7 @@
   },
   "verifyHuman": {
     "meta": {
-      "title": "セキュリティチェック | FigTracker",
+      "title": "セキュリティチェック",
       "description": "続行するには、簡単なセキュリティチェックを完了してください"
     },
     "errors": {
