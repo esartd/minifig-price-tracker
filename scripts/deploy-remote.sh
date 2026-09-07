@@ -53,6 +53,28 @@ if [ ! -f .env.production ]; then
   chmod 600 .env.production
 fi
 
+# AUTH_SECRET was in .env.production, which was tracked in a public repo for
+# roughly four months. Anyone holding it can mint a valid session cookie for any
+# account, including admin, without ever knowing a password. It has to change.
+#
+# Generated here on the server so the new value never enters git. Guarded by a
+# marker file so it rotates exactly once, not on every deploy. Rotating it
+# invalidates every existing session -- that is the point, since we cannot tell
+# a forged session from a real one.
+if [ ! -f .rotated-auth-secret ]; then
+  echo "==> Rotating leaked AUTH_SECRET (all sessions will be invalidated)"
+  NEW_AUTH_SECRET="$(openssl rand -base64 48 | tr -d '\n')"
+  for envfile in .env .env.production; do
+    [ -f "$envfile" ] || continue
+    if grep -q '^AUTH_SECRET=' "$envfile"; then
+      sed -i "s|^AUTH_SECRET=.*|AUTH_SECRET=\"$NEW_AUTH_SECRET\"|" "$envfile"
+      echo "    updated AUTH_SECRET in $envfile"
+    fi
+  done
+  unset NEW_AUTH_SECRET
+  touch .rotated-auth-secret
+fi
+
 echo "==> Installing dependencies"
 npm install --production
 
