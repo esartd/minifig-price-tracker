@@ -138,7 +138,7 @@ const contentBlocksEN: ArticleBlock[] = [
   {
     id: 'block-20',
     type: 'paragraph',
-    text: 'Every LEGO piece has a unique catalog number. Use Bricklink\'s catalog search or FigTracker to find the correct item ID. **Do not guess.** Wrong IDs lead to disputes and bad feedback.',
+    text: 'Every LEGO piece has a unique catalog number. Use Bricklink\'s catalog search or IntoBrick to find the correct item ID. **Do not guess.** Wrong IDs lead to disputes and bad feedback.',
   },
   {
     id: 'block-21',
@@ -242,7 +242,7 @@ const contentBlocksEN: ArticleBlock[] = [
     id: 'block-34a',
     type: 'callout',
     calloutType: 'info',
-    content: '**Speed up pricing:** Instead of manually checking Bricklink\'s price guide for every item (2-3 minutes each), [use FigTracker](/search) to get instant Bricklink-based suggested prices in seconds. Essential when listing large inventories.',
+    content: '**Speed up pricing:** Instead of manually checking Bricklink\'s price guide for every item (2-3 minutes each), [use IntoBrick](/search) to get instant Bricklink-based suggested prices in seconds. Essential when listing large inventories.',
   },
   {
     id: 'block-35',
@@ -479,7 +479,7 @@ const contentBlocksEN: ArticleBlock[] = [
     id: 'block-69',
     type: 'callout',
     calloutType: 'info',
-    content: '**Time-saver:** FigTracker gives you instant Bricklink-based pricing. Instead of manually checking price guides for every item, get suggested prices in seconds.',
+    content: '**Time-saver:** IntoBrick gives you instant Bricklink-based pricing. Instead of manually checking price guides for every item, get suggested prices in seconds.',
   },
   {
     id: 'block-70',
@@ -621,19 +621,19 @@ const contentBlocksEN: ArticleBlock[] = [
       'Use Bricklink\'s bulk upload tools for large inventories',
       'Set up automatic order confirmations and shipping notifications',
       'Use tools like BrickStore or BrickStock for offline inventory management',
-      'Use FigTracker for instant pricing instead of manual price guide lookups',
+      'Use IntoBrick for instant pricing instead of manual price guide lookups',
     ],
   },
   {
     id: 'block-91',
     type: 'heading',
     level: 2,
-    text: 'When to Use FigTracker as a Bricklink Seller',
+    text: 'When to Use IntoBrick as a Bricklink Seller',
   },
   {
     id: 'block-92',
     type: 'paragraph',
-    text: 'If you\'re listing inventory, you need accurate pricing. FigTracker pulls real-time Bricklink sales data and provides instant suggested prices.',
+    text: 'If you\'re listing inventory, you need accurate pricing. IntoBrick pulls real-time Bricklink sales data and provides instant suggested prices.',
   },
   {
     id: 'block-93',
@@ -646,7 +646,7 @@ const contentBlocksEN: ArticleBlock[] = [
     listType: 'ordered',
     items: [
       'Identify your minifigure ID',
-      'Search it on FigTracker to get instant Bricklink-based pricing',
+      'Search it on IntoBrick to get instant Bricklink-based pricing',
       'Adjust for condition, competition, or your pricing strategy',
       'List on Bricklink',
     ],
@@ -654,7 +654,7 @@ const contentBlocksEN: ArticleBlock[] = [
   {
     id: 'block-95',
     type: 'paragraph',
-    text: 'Instead of opening Bricklink price guides for every single item (which takes 2-3 minutes each), FigTracker gives you accurate prices in seconds. **Currently free to use.**',
+    text: 'Instead of opening Bricklink price guides for every single item (which takes 2-3 minutes each), IntoBrick gives you accurate prices in seconds. **Currently free to use.**',
   },
   {
     id: 'block-96',
@@ -725,7 +725,7 @@ const contentBlocksEN: ArticleBlock[] = [
   {
     id: 'block-108',
     type: 'paragraph',
-    text: '[Price your inventory with FigTracker](/search) — get instant Bricklink-based pricing to speed up your listings.',
+    text: '[Price your inventory with IntoBrick](/search) — get instant Bricklink-based pricing to speed up your listings.',
   },
 ];
 

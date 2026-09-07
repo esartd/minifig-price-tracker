@@ -4,7 +4,7 @@
 
 ## Current Architecture (WORKING - DO NOT CHANGE)
 
-FigTracker uses a **dual-database architecture**:
+IntoBrick uses a **dual-database architecture**:
 
 ### Database 1: MySQL (Hostinger Remote)
 **Purpose:** Minifig catalog, pricing, collection data  

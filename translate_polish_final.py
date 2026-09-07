@@ -78,7 +78,7 @@ def load_translations():
         "Top Supporters": "Najlepsi wspierający",
         "No supporter yet": "Jeszcze brak wspierających",
         "Be the First to Donate": "Bądź pierwszym ofiarodawcą",
-        "Support FigTracker": "Wesprzyj FigTracker",
+        "Support IntoBrick": "Wesprzyj IntoBrick",
         "Account Settings": "Ustawienia konta",
         "Subscribe Free": "Subskrybuj za darmo",
         "No spam": "Bez spamu",
@@ -210,7 +210,7 @@ def translate_string(text, phrases, words):
     # Skip URLs, emails, brand names when standalone
     if text.startswith(('http://', 'https://', 'www.', '/', '@')):
         return text
-    if text in ['LEGO', 'LEGO®', 'BrickLink', 'FigTracker', 'Amazon', 'eBay', 'PayPal']:
+    if text in ['LEGO', 'LEGO®', 'BrickLink', 'IntoBrick', 'Amazon', 'eBay', 'PayPal']:
         return text
 
     # Check for exact phrase match first
@@ -254,7 +254,7 @@ def translate_dict(obj, phrases, words, depth=0):
         return obj
 
 print("Loading English file...")
-with open('/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json', 'r', encoding='utf-8') as f:
+with open('/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json', 'r', encoding='utf-8') as f:
     en_data = json.load(f)
 
 print("Loading Polish translations...")
@@ -265,7 +265,7 @@ print(f"  - {len(words)} words")
 print("Translating...")
 pl_data = translate_dict(en_data, phrases, words)
 
-output_path = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/pl.json'
+output_path = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/pl.json'
 print(f"Writing to {output_path}...")
 
 with open(output_path, 'w', encoding='utf-8') as f:

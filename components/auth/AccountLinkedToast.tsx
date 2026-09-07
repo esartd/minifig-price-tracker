@@ -46,7 +46,7 @@ export function AccountLinkedToast() {
         <div>
           <div style={{ fontWeight: '600', marginBottom: '4px' }}>{t('auth.accountLinked.title') || 'Account Linked!'}</div>
           <div style={{ fontSize: '14px', opacity: 0.9 }}>
-            {t('auth.accountLinked.message') || 'Your Google account is now connected to FigTracker.'}
+            {t('auth.accountLinked.message') || 'Your Google account is now connected to IntoBrick.'}
           </div>
         </div>
       </div>

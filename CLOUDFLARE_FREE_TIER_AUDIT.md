@@ -1,9 +1,9 @@
-# Cloudflare Pages Free Tier Audit - FigTracker
+# Cloudflare Pages Free Tier Audit - IntoBrick
 **Date:** May 13, 2026
 
 ## Executive Summary
 
-**Can FigTracker run 100% free on Cloudflare Pages forever?**
+**Can IntoBrick run 100% free on Cloudflare Pages forever?**
 
 ✅ **YES** - with 2 minor caveats
 
@@ -107,7 +107,7 @@
 ### ⚠️ **Email Service (PAID - $0/month with limits)**
 
 **Current Setup:**
-- Resend API: `re_eigXZP9i_Gmmjc7a3pb8qmvo9LncrjxzP`
+- Resend API: `re_REDACTED_ROTATE_THIS_KEY`
 - Used for: Newsletter, notifications
 
 **Resend Pricing:**

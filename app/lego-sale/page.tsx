@@ -21,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   return {
-    title: t.legoSale?.meta?.title || 'LEGO® Sale: Best Amazon Deals Up to 50% Off | FigTracker',
+    title: t.legoSale?.meta?.title || 'LEGO® Sale: Best Amazon Deals Up to 50% Off | IntoBrick',
     description:
       t.legoSale?.meta?.description ||
       'Find the best LEGO deals on Amazon with discounts up to 50% off. Updated every 6 hours. Browse current LEGO sets from Star Wars, City, Creator, and more. Free shipping with Prime.',

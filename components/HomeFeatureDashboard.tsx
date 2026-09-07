@@ -14,7 +14,7 @@ import { getGuestCollection } from '@/lib/guestCollectionStorage';
  * the page.
  *
  * It exists because the seller tools — the export suite and the Whatnot
- * marketplace, the strongest thing FigTracker has after the price itself —
+ * marketplace, the strongest thing IntoBrick has after the price itself —
  * appeared nowhere on the homepage except the footer, 4,000 pixels down.
  *
  * There is deliberately no pricing card: the hero search directly above

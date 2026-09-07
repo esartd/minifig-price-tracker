@@ -1,5 +1,5 @@
 /**
- * Reading FigTracker's BrickLink-derived catalog data.
+ * Reading IntoBrick's BrickLink-derived catalog data.
  *
  * These are catalog concerns, not marketplace concerns — every adapter needs
  * them and none of them owns them.
@@ -25,7 +25,7 @@ export function parseCatalogWeight(weight: string | number | null | undefined): 
 /**
  * Strip a BrickLink variant suffix for display: "75192-1" reads as "75192" to a
  * buyer. The full number still goes in the SKU column so the seller can
- * reconcile the listing back to FigTracker.
+ * reconcile the listing back to IntoBrick.
  *
  * Never use this for a BrickLink export — BrickLink wants the full number.
  */

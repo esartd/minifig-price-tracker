@@ -111,7 +111,7 @@ These files are working correctly - **DO NOT MODIFY** without backup:
 
 ### Option 1: Rollback to Git Tag (Recommended)
 ```bash
-cd "/Users/erickkosysu/Code Projects/_Personal/FigTracker"
+cd "/Users/erickkosysu/Code Projects/_Personal/IntoBrick"
 git checkout working-2026-06-01-oauth-seo-fixed
 npm run build
 # Deploy to VPS

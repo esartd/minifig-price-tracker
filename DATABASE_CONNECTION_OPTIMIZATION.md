@@ -5,7 +5,7 @@
 
 ## Problem
 
-FigTracker was hitting Hostinger's database connection limits, causing cascading 500 errors:
+IntoBrick was hitting Hostinger's database connection limits, causing cascading 500 errors:
 - Multiple API routes calling database in parallel
 - Next.js dev mode hot-reloading creating connection leaks
 - Connection pool set too low (5 connections)

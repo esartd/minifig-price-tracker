@@ -72,7 +72,7 @@ async function detectItemNumberChanges(): Promise<ItemNumberChange[]> {
 
   const response = await fetch(url, {
     headers: {
-      'User-Agent': 'FigTracker-CatalogBot/1.0'
+      'User-Agent': 'IntoBrick-CatalogBot/1.0'
     }
   });
 

@@ -303,7 +303,7 @@
       "title": "Browse LEGO Minifigures by Theme - Star Wars, Harry Potter & More",
       "description": "Explore LEGO minifigures organized by theme. Browse Star Wars, Harry Potter, Marvel, DC, Ninjago, and 50+ other themes. Get pricing data and track your collection.",
       "keywords": "LEGO themes, Star Wars minifigures, Harry Potter LEGO, Marvel LEGO, DC LEGO, Ninjago minifigs, LEGO catalog by theme",
-      "ogTitle": "Browse LEGO Minifigures by Theme | FigTracker",
+      "ogTitle": "Browse LEGO Minifigures by Theme | IntoBrick",
       "ogDescription": "Explore minifigures from Star Wars, Harry Potter, Marvel, and 50+ other LEGO themes with real-time pricing."
     },
     "minifiguresHeading": "Minifigures",
@@ -414,7 +414,7 @@
     },
     "leaderboard": {
       "title": "Community Leaderboards",
-      "subtitle": "Control your visibility on the FigTracker homepage leaderboards",
+      "subtitle": "Control your visibility on the IntoBrick homepage leaderboards",
       "displayName": "Display Name",
       "displayNameDesc": "Shown on your public profile and the community leaderboards — also creates your profile link. Leave blank to use your initials. (3-30 characters)",
       "showMinifig": "Show me on Top Minifig Collectors leaderboard",
@@ -591,28 +591,28 @@
     },
     "items": [
       {
-        "q": "How does FigTracker calculate suggested prices?",
-        "a": "FigTracker looks at three things to suggest a fair price: (1) What people actually paid in the last 6 months, (2) What sellers are asking right now, and (3) The cheapest price currently available. We average these three numbers to give you a realistic price that reflects both recent sales and current market conditions."
+        "q": "How does IntoBrick calculate suggested prices?",
+        "a": "IntoBrick looks at three things to suggest a fair price: (1) What people actually paid in the last 6 months, (2) What sellers are asking right now, and (3) The cheapest price currently available. We average these three numbers to give you a realistic price that reflects both recent sales and current market conditions."
       },
       {
-        "q": "Is FigTracker free to use?",
-        "a": "Yes! FigTracker is completely free to use. Search 18,000+ minifigures, browse 20,000+ LEGO sets, get real-time pricing in 15+ currencies, and track your inventory without any payment required."
+        "q": "Is IntoBrick free to use?",
+        "a": "Yes! IntoBrick is completely free to use. Search 18,000+ minifigures, browse 20,000+ LEGO sets, get real-time pricing in 15+ currencies, and track your inventory without any payment required."
       },
       {
         "q": "Where does the pricing data come from?",
-        "a": "FigTracker calculates its own market price by blending data from multiple sources — primarily the BrickLink marketplace, supplemented by eBay active listing data. The result is a FigTracker Market Price: a weighted calculation unique to our platform, not raw data from either source. BrickLink data is accessed via the official BrickLink API; BrickLink is a trademark of the LEGO Group."
+        "a": "IntoBrick calculates its own market price by blending data from multiple sources — primarily the BrickLink marketplace, supplemented by eBay active listing data. The result is a IntoBrick Market Price: a weighted calculation unique to our platform, not raw data from either source. BrickLink data is accessed via the official BrickLink API; BrickLink is a trademark of the LEGO Group."
       },
       {
         "q": "What currencies are supported?",
-        "a": "FigTracker supports 15+ currencies including USD, EUR, GBP, CAD, AUD, JPY, MXN, and more. Pricing data is fetched from global sellers and automatically converted to your selected currency using current exchange rates."
+        "a": "IntoBrick supports 15+ currencies including USD, EUR, GBP, CAD, AUD, JPY, MXN, and more. Pricing data is fetched from global sellers and automatically converted to your selected currency using current exchange rates."
       },
       {
         "q": "Can I browse and track LEGO sets?",
-        "a": "Yes! FigTracker includes 20,000+ LEGO sets from the complete Bricklink catalog. Browse sets by theme, view included minifigures, and see direct buy links to LEGO.com, Amazon, and BrickLink for both new and retired sets."
+        "a": "Yes! IntoBrick includes 20,000+ LEGO sets from the complete Bricklink catalog. Browse sets by theme, view included minifigures, and see direct buy links to LEGO.com, Amazon, and BrickLink for both new and retired sets."
       },
       {
         "q": "How many LEGO minifigures are in the database?",
-        "a": "FigTracker includes over 18,000 LEGO minifigures from the complete Bricklink catalog, covering Star Wars, Harry Potter, Marvel, DC, Ninjago, and 50+ other themes."
+        "a": "IntoBrick includes over 18,000 LEGO minifigures from the complete Bricklink catalog, covering Star Wars, Harry Potter, Marvel, DC, Ninjago, and 50+ other themes."
       },
       {
         "q": "Can I track my inventory?",
@@ -624,11 +624,11 @@
       },
       {
         "q": "What condition factors affect pricing?",
-        "a": "FigTracker shows prices for both New and Used conditions. New minifigs typically command higher prices, while Used condition prices reflect market values for previously owned items. You can toggle between conditions on each detail page."
+        "a": "IntoBrick shows prices for both New and Used conditions. New minifigs typically command higher prices, while Used condition prices reflect market values for previously owned items. You can toggle between conditions on each detail page."
       },
       {
         "q": "How often is pricing data updated?",
-        "a": "FigTracker keeps prices up to date automatically. When you visit your collection, any prices that need refreshing will update in the background while you browse."
+        "a": "IntoBrick keeps prices up to date automatically. When you visit your collection, any prices that need refreshing will update in the background while you browse."
       },
       {
         "q": "Can I export my inventory?",
@@ -636,7 +636,7 @@
       },
       {
         "q": "What if I find something that's not in the database?",
-        "a": "FigTracker syncs with the complete Bricklink catalog. If a minifig or set exists on Bricklink, it should be in our database. Contact us if you find a legitimate Bricklink item that's missing."
+        "a": "IntoBrick syncs with the complete Bricklink catalog. If a minifig or set exists on Bricklink, it should be in our database. Contact us if you find a legitimate Bricklink item that's missing."
       },
       {
         "q": "Is my inventory data private?",
@@ -644,7 +644,7 @@
       },
       {
         "q": "What are the community leaderboards?",
-        "a": "FigTracker features quarterly leaderboards showing top collectors for minifigures, sets, and supporters. Leaderboards reset every 3 months (Q1, Q2, Q3, Q4) and only count items added during that quarter. You can opt-in or opt-out anytime in your Account settings."
+        "a": "IntoBrick features quarterly leaderboards showing top collectors for minifigures, sets, and supporters. Leaderboards reset every 3 months (Q1, Q2, Q3, Q4) and only count items added during that quarter. You can opt-in or opt-out anytime in your Account settings."
       },
       {
         "q": "How do I appear on the leaderboards?",
@@ -656,11 +656,11 @@
       }
     ],
     "meta": {
-      "title": "FAQ - Frequently Asked Questions | FigTracker",
-      "description": "Common questions about FigTracker LEGO minifigure and set price tracker. Learn how to price items, track inventory in 20+ currencies, and use Bricklink data effectively.",
-      "keywords": "LEGO pricing FAQ, Bricklink help, minifigure pricing guide, FigTracker help, how to price LEGO, LEGO set tracker",
-      "ogTitle": "Frequently Asked Questions | FigTracker",
-      "ogDescription": "Get answers about pricing LEGO minifigures and sets with FigTracker. 20+ currencies, 18,000+ minifigs, 20,000+ sets."
+      "title": "FAQ - Frequently Asked Questions | IntoBrick",
+      "description": "Common questions about IntoBrick LEGO minifigure and set price tracker. Learn how to price items, track inventory in 20+ currencies, and use Bricklink data effectively.",
+      "keywords": "LEGO pricing FAQ, Bricklink help, minifigure pricing guide, IntoBrick help, how to price LEGO, LEGO set tracker",
+      "ogTitle": "Frequently Asked Questions | IntoBrick",
+      "ogDescription": "Get answers about pricing LEGO minifigures and sets with IntoBrick. 20+ currencies, 18,000+ minifigs, 20,000+ sets."
     }
   },
   "homepage": {
@@ -679,7 +679,7 @@
     }
   },
   "about": {
-    "badge": "ABOUT FIGTRACKER",
+    "badge": "ABOUT INTOBRICK",
     "hero": {
       "title": "One Price. No Guesswork.",
       "subtitle": "The fastest way to price LEGO minifigures and sets. Free for every seller."
@@ -691,7 +691,7 @@
     },
     "stats": {
       "pricePoints": "Numbers from BrickLink",
-      "suggestedPrice": "Price from FigTracker",
+      "suggestedPrice": "Price from IntoBrick",
       "mentalMath": "Mental math"
     },
     "features": {
@@ -720,7 +720,7 @@
       "subtitle": "",
       "resellers": {
         "title": "Resellers",
-        "description": "You move volume. FigTracker prices your inventory so you can focus on sourcing and shipping."
+        "description": "You move volume. IntoBrick prices your inventory so you can focus on sourcing and shipping."
       },
       "partTime": {
         "title": "Part-time Sellers",
@@ -740,9 +740,9 @@
       "free": "No Payment Required"
     },
     "creator": {
-      "badge": "THE PERSON BEHIND FIGTRACKER",
+      "badge": "THE PERSON BEHIND INTOBRICK",
       "title": "Who Built This",
-      "body": "Hi, I'm Erick — founder of ES Art & D, a UI/UX design studio based in Utah. I got into LEGO collecting as an adult and started FigTracker as a personal project to make sense of scattered pricing data. It's grown into the site you're using today. In LEGO circles, you might also know me as Erix Figs.",
+      "body": "Hi, I'm Erick — founder of ES Art & D, a UI/UX design studio based in Utah. I got into LEGO collecting as an adult and started IntoBrick as a personal project to make sense of scattered pricing data. It's grown into the site you're using today. In LEGO circles, you might also know me as Erix Figs.",
       "byline": "Erick Su · ES Art & D · Utah"
     },
     "support": {
@@ -757,9 +757,9 @@
       "button": "Start Pricing →"
     },
     "meta": {
-      "title": "About FigTracker - Price Any LEGO Minifigure or Set in Seconds",
-      "description": "FigTracker turns 24 BrickLink data points into one suggested price for any LEGO minifigure or set. Dual inventory, 20+ currencies, completely free.",
-      "keywords": "about FigTracker, LEGO price tracker, BrickLink API tool, minifigure pricing, LEGO set pricing, LEGO collection manager, LEGO inventory tracker, free LEGO pricing, LEGO seller tool"
+      "title": "About IntoBrick - Price Any LEGO Minifigure or Set in Seconds",
+      "description": "IntoBrick turns 24 BrickLink data points into one suggested price for any LEGO minifigure or set. Dual inventory, 20+ currencies, completely free.",
+      "keywords": "about IntoBrick, LEGO price tracker, BrickLink API tool, minifigure pricing, LEGO set pricing, LEGO collection manager, LEGO inventory tracker, free LEGO pricing, LEGO seller tool"
     },
     "catalogCount": {
       "thousandsOf": "thousands of",
@@ -783,20 +783,20 @@
     "retiringSoon": "Retiring Soon"
   },
   "supportPage": {
-    "title": "Support FigTracker",
+    "title": "Support IntoBrick",
     "subtitle": "Keep our LEGO price tracker free for the community",
-    "intro": "FigTracker provides free LEGO price tracking for 18,000+ minifigures and 20,000+ sets with smart market pricing from multiple sources. We cover costs through affiliate commissions when you shop through our links. Here's how you can help:",
+    "intro": "IntoBrick provides free LEGO price tracking for 18,000+ minifigures and 20,000+ sets with smart market pricing from multiple sources. We cover costs through affiliate commissions when you shop through our links. Here's how you can help:",
     "shopLinksTitle": "Shop Through Our Links",
     "shopLinksDescription": "When you're ready to buy LEGO sets or minifigures, use the \"Buy on eBay\" or \"Buy on Amazon\" buttons on product pages (marked \"Sponsored\").",
     "shopLinksNote": "You pay the same price — we earn a small commission to keep the site running.",
     "donateLabel": "Or support us directly:",
     "donateLeaderboard": "Donors appear on the Top Supporters leaderboard on our homepage",
     "donateButton": "Donate via PayPal",
-    "thankYou": "Thank you for supporting FigTracker!",
+    "thankYou": "Thank you for supporting IntoBrick!",
     "meta": {
-      "title": "Support FigTracker - Help Keep It Free",
-      "description": "Help keep FigTracker free. Shop through our affiliate links or donate directly. Built by one LEGO seller for the community.",
-      "keywords": "support FigTracker, LEGO affiliate links, help FigTracker, support LEGO price tracker, donate to FigTracker"
+      "title": "Support IntoBrick - Help Keep It Free",
+      "description": "Help keep IntoBrick free. Shop through our affiliate links or donate directly. Built by one LEGO seller for the community.",
+      "keywords": "support IntoBrick, LEGO affiliate links, help IntoBrick, support LEGO price tracker, donate to IntoBrick"
     },
     "heroTitle": "Help Keep This Free",
     "pricingViews": "You've checked {count} prices — every check saved you time",
@@ -812,13 +812,13 @@
     "tabQuarterly": "This Quarter",
     "tabAllTime": "All-Time",
     "quarterlyDescription": "{dateRange} ({season}) • Resets quarterly",
-    "alltimeDescription": "Total items added since joining FigTracker",
+    "alltimeDescription": "Total items added since joining IntoBrick",
     "topMinifigCollectors": "Top Minifig Collectors",
     "topSetCollectors": "Top Set Collectors",
     "topSupporters": "Top Supporters",
     "minifigs": "minifigs",
     "sets": "sets",
-    "supportFigTracker": "Support FigTracker",
+    "supportIntoBrick": "Support IntoBrick",
     "beFirstToDonate": "Be the First to Donate!",
     "noSupporterYet": "No supporter yet",
     "donationSubtitle": "Thank you to our generous supporters this quarter ({season})",
@@ -843,11 +843,11 @@
     "allRightsReserved": "All rights reserved.",
     "createdBy": "Created by",
     "browse": "Browse",
-    "aboutFigTracker": "About FigTracker",
-    "aboutDescription": "FigTracker gives you one suggested price for any LEGO minifigure or set, so you can list faster and sell with confidence.",
-    "affiliateDisclosure": "As an Amazon Associate, LEGO Affiliate, eBay Partner, and Whatnot Affiliate, FigTracker earns from qualifying purchases.",
+    "aboutIntoBrick": "About IntoBrick",
+    "aboutDescription": "IntoBrick gives you one suggested price for any LEGO minifigure or set, so you can list faster and sell with confidence.",
+    "affiliateDisclosure": "As an Amazon Associate, LEGO Affiliate, eBay Partner, and Whatnot Affiliate, IntoBrick earns from qualifying purchases.",
     "bricklinkDisclosure": "Market data sourced from multiple marketplaces including BrickLink. The term \"BrickLink\" is a trademark of the LEGO Group. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.",
-    "copyright": "© {year} FigTracker. All rights reserved.",
+    "copyright": "© {year} IntoBrick. All rights reserved.",
     "sell": "Sell",
     "explore": "Explore",
     "company": "Company",
@@ -863,8 +863,8 @@
     "lastUpdated": "Last Updated",
     "affiliatePrograms": {
       "title": "Affiliate Programs",
-      "paragraph1": "FigTracker participates in the LEGO.com Affiliate Program, Amazon Associates Program, eBay Partner Network, and Whatnot Affiliate Program. When you click on featured product links and make a purchase, we may earn a small commission at no additional cost to you.",
-      "paragraph2": "These affiliate partnerships help support FigTracker's development and maintenance while keeping the tool free to use."
+      "paragraph1": "IntoBrick participates in the LEGO.com Affiliate Program, Amazon Associates Program, eBay Partner Network, and Whatnot Affiliate Program. When you click on featured product links and make a purchase, we may earn a small commission at no additional cost to you.",
+      "paragraph2": "These affiliate partnerships help support IntoBrick's development and maintenance while keeping the tool free to use."
     },
     "trademark": {
       "title": "LEGO® Trademark Notice",
@@ -876,14 +876,14 @@
       "aboutPage": "About page"
     },
     "meta": {
-      "title": "Affiliate Disclosure - FigTracker",
-      "description": "FigTracker participates in the LEGO.com Affiliate Program, Amazon Associates Program, eBay Partner Network, and Whatnot Affiliate Program. Learn about our affiliate partnerships and how we earn commissions.",
-      "keywords": "FigTracker affiliate disclosure, LEGO affiliate program, Amazon Associates, eBay Partner Network, affiliate links disclaimer, Whatnot affiliate program"
+      "title": "Affiliate Disclosure - IntoBrick",
+      "description": "IntoBrick participates in the LEGO.com Affiliate Program, Amazon Associates Program, eBay Partner Network, and Whatnot Affiliate Program. Learn about our affiliate partnerships and how we earn commissions.",
+      "keywords": "IntoBrick affiliate disclosure, LEGO affiliate program, Amazon Associates, eBay Partner Network, affiliate links disclaimer, Whatnot affiliate program"
     }
   },
   "trending": {
     "title": "Trending This Week",
-    "description": "Most tracked minifigures by FigTracker users",
+    "description": "Most tracked minifigures by IntoBrick users",
     "tracking": "{count} tracking"
   },
   "articles": {
@@ -907,12 +907,12 @@
     "allCategory": "All",
     "minRead": "{minutes} min read",
     "notFound": "Article Not Found",
-    "byline": "FigTracker Team",
+    "byline": "IntoBrick Team",
     "legacyFormatNotice": "Legacy article format - please migrate to new CMS"
   },
   "guides": {
     "meta": {
-      "title": "LEGO Pricing Guides for Sellers | FigTracker",
+      "title": "LEGO Pricing Guides for Sellers | IntoBrick",
       "description": "Practical guides for pricing and selling LEGO minifigures. Learn how to use BrickLink data, price by condition, and manage your inventory.",
       "keywords": [
         "LEGO pricing guide",
@@ -947,7 +947,7 @@
       },
       "tip3": {
         "title": "Use Multiple Data Points",
-        "description": "Don't rely on just one metric. FigTracker's suggested price balances quantity-weighted average, simple average, and lowest price."
+        "description": "Don't rely on just one metric. IntoBrick's suggested price balances quantity-weighted average, simple average, and lowest price."
       }
     },
     "cta": {
@@ -970,8 +970,8 @@
         ]
       },
       {
-        "title": "FigTracker vs Bricklink: Which Should You Use?",
-        "description": "Compare FigTracker and Bricklink for LEGO pricing. Learn when to use each platform and how they complement each other.",
+        "title": "IntoBrick vs Bricklink: Which Should You Use?",
+        "description": "Compare IntoBrick and Bricklink for LEGO pricing. Learn when to use each platform and how they complement each other.",
         "slug": "figtracker-vs-bricklink",
         "status": "published",
         "topics": [
@@ -1119,7 +1119,7 @@
     "footerText": "Price your inventory in seconds, not hours.",
     "accountLinked": {
       "title": "Account Linked!",
-      "message": "Your Google account is now connected to FigTracker."
+      "message": "Your Google account is now connected to IntoBrick."
     },
     "redirectingToGoogle": "Redirecting to Google...",
     "orDivider": "OR"
@@ -1229,14 +1229,14 @@
   "privacyPolicy": {
     "meta": {
       "title": "Privacy Policy",
-      "description": "Learn how FigTracker collects, uses, and protects your personal information and inventory data.",
+      "description": "Learn how IntoBrick collects, uses, and protects your personal information and inventory data.",
       "ogDescription": "Learn how we protect your privacy and handle your data."
     },
     "title": "Privacy Policy",
     "lastUpdated": "Last Updated: {date}",
     "introduction": {
       "title": "Introduction",
-      "content": "FigTracker (\"we,\" \"our,\" or \"us\") is operated by ES Art & D LLC. This Privacy Policy explains how we collect, use, and protect your information when you use our LEGO minifigure price tracking and inventory management service."
+      "content": "IntoBrick (\"we,\" \"our,\" or \"us\") is operated by ES Art & D LLC. This Privacy Policy explains how we collect, use, and protect your information when you use our LEGO minifigure price tracking and inventory management service."
     },
     "informationWeCollect": {
       "title": "Information We Collect",
@@ -1261,7 +1261,7 @@
       },
       "usageAnalytics": {
         "title": "Usage Analytics",
-        "intro": "We use Google Analytics to understand how users interact with FigTracker:",
+        "intro": "We use Google Analytics to understand how users interact with IntoBrick:",
         "items": [
           "Pages visited",
           "Search queries (minifigure searches only)",
@@ -1327,11 +1327,11 @@
     },
     "childrensPrivacy": {
       "title": "Children's Privacy",
-      "content": "FigTracker is not intended for children under 13. We do not knowingly collect personal information from children under 13. If you believe we have collected information from a child under 13, please contact us immediately."
+      "content": "IntoBrick is not intended for children under 13. We do not knowingly collect personal information from children under 13. If you believe we have collected information from a child under 13, please contact us immediately."
     },
     "changesToPolicy": {
       "title": "Changes to This Policy",
-      "content": "We may update this Privacy Policy from time to time. We will notify you of significant changes by posting a notice on FigTracker or sending you an email. Your continued use of FigTracker after changes indicates acceptance of the updated policy."
+      "content": "We may update this Privacy Policy from time to time. We will notify you of significant changes by posting a notice on IntoBrick or sending you an email. Your continued use of IntoBrick after changes indicates acceptance of the updated policy."
     },
     "contactUs": {
       "title": "Contact Us",
@@ -1456,7 +1456,7 @@
       "title": "Browse LEGO Sets by Theme - Star Wars, Harry Potter & More",
       "description": "Explore LEGO sets organized by theme. Browse Star Wars, Harry Potter, Friends, and 170+ other themes. Get pricing data and track your collection.",
       "keywords": "LEGO set themes, Star Wars sets, Harry Potter LEGO sets, Marvel LEGO sets, DC LEGO sets, Friends sets, LEGO sets catalog",
-      "ogTitle": "Browse LEGO Sets by Theme | FigTracker",
+      "ogTitle": "Browse LEGO Sets by Theme | IntoBrick",
       "ogDescription": "Explore LEGO sets from Star Wars, Harry Potter, Friends, and 170+ other themes with real-time pricing."
     },
     "themeTitle": "{theme} Sets"
@@ -1473,7 +1473,7 @@
     "qty": "Qty",
     "used": "used",
     "new": "new",
-    "trackYourCollection": "Track your LEGO minifigure collection with FigTracker",
+    "trackYourCollection": "Track your LEGO minifigure collection with IntoBrick",
     "startYourCollection": "Start Your Collection",
     "setsForSale": "Sets for Sale",
     "setsCollection": "Sets Collection",
@@ -1486,28 +1486,28 @@
       "articles": "Articles"
     },
     "startTracking": "Start Tracking Your Collection",
-    "startTrackingDesc": "Use FigTracker to price your LEGO minifigures accurately with smart market pricing",
+    "startTrackingDesc": "Use IntoBrick to price your LEGO minifigures accurately with smart market pricing",
     "searchMinifigures": "Search Minifigures →"
   },
   "guideArticles": {
     "most-valuable-lego-minifigures-2026": {
       "title": "Top 50 Most Valuable LEGO Minifigures in 2026",
       "description": "We analyzed 18,732 LEGO minifigures to find the most valuable collectibles. Discover which minifigs command the highest prices on Bricklink marketplace.",
-      "author": "FigTracker Team",
+      "author": "IntoBrick Team",
       "readTime": "12 min read",
-      "content": "After analyzing pricing data from 18,732 LEGO minifigures across the entire Bricklink catalog, we've identified the most valuable collectibles on the market today. Whether you're a serious collector, investor, or just curious about LEGO values, this comprehensive guide reveals which minifigs command premium prices and why.\n\n## What Makes a Minifigure Valuable?\n\nBefore diving into the rankings, it's important to understand the key factors that drive minifigure values:\n\n### 1. **Rarity**\nLimited production runs, exclusive sets, or promotional releases create scarcity. Convention exclusives and employee gifts are particularly sought after.\n\n### 2. **Age**\nClassic minifigs from the 1970s-1990s are increasingly rare as they wear out or get lost. Vintage pieces in good condition command premiums.\n\n### 3. **Popularity**\nCharacters from beloved franchises (Star Wars, Harry Potter, Marvel) consistently hold value. Main characters and villains typically appreciate faster than side characters.\n\n### 4. **Condition**\nNew/mint condition minifigs with all original accessories are worth significantly more than used versions. Even minor wear can reduce value by 30-50%.\n\n### 5. **Completeness**\nA minifig with all printed parts, accessories, and original packaging (if applicable) is worth more than loose or incomplete figures.\n\n## Star Wars Dominates the Top 10\n\n[**Star Wars minifigures**](/themes/star-wars) consistently command the highest prices, with several factors contributing to their value:\n\n- Licensed franchise with massive global fanbase\n- Many were only available in expensive sets ($100-$500 retail)\n- Some were released only once or twice across 25+ years of LEGO Star Wars\n- Characters from the original trilogy (1977-1983) are especially valuable\n\n### Most Valuable Star Wars Minifigures:\n\n**Cloud City Boba Fett (2003)** - Often cited as the holy grail, this exclusive version with printing variations can fetch $3,000-$5,000 in mint condition.\n\n**Chrome Darth Vader** - Limited promotional release, metallic chrome finish. Rare variants command $1,500-$2,500.\n\n**14k Gold C-3PO** - Only 10,000 produced for a 2007 promotion. Despite higher production numbers, gold plating and Star Wars popularity keep values at $1,000-$2,000.\n\n**Mr. Gold** - While not Star Wars, this ultra-rare 2013 promotional figure (only 5,000 made) regularly sells for $3,000-$5,000.\n\n## Classic Space & Castle Rarities\n\nBeyond licensed themes, vintage LEGO themes have collectors paying premium prices:\n\n[**Classic Space minifigs**](/themes/space) (1978-1987) with complete helmets and air tanks in pristine condition are increasingly valuable as original owners age out of collecting.\n\n[**Castle knights**](/themes/castle) with printed torsos and unique helmets from the 1980s-1990s are harder to find, especially in sets that didn't sell as well.\n\n## How to Price Your Own Collection\n\nIf you own any of these valuable minifigures, here's how to determine accurate pricing:\n\n### Step 1: Verify Authenticity\nCheck for:\n- Official LEGO markings on studs\n- Print quality (LEGO uses pad printing, not stickers)\n- Plastic quality and fit\n\n### Step 2: Assess Condition\nBe honest about:\n- Print wear or fading\n- Plastic discoloration (yellowing)\n- Cracks or teeth marks\n- Missing accessories\n\n### Step 3: Check Current Market Prices\nUse [FigTracker's search tool](/search) to:\n- See real-time Bricklink marketplace data\n- Compare quantity-weighted averages vs lowest prices\n- Track price trends over time\n- Factor in condition differences\n\n### Step 4: Consider Timing\nPrices fluctuate based on:\n- Movie releases (Star Wars, Marvel, DC)\n- Set retirements (prices often spike 6-12 months after)\n- Seasonal demand (December = higher prices)\n\n## Investment Potential: Which Minifigs Appreciate?\n\nBased on 5+ years of pricing data, minifigs that tend to appreciate include:\n\n### High Appreciation Potential:\n- **Main characters from popular franchises** - First releases especially\n- **Limited promotions** - Convention exclusives, employee gifts\n- **Retired themes** - Once LEGO stops making a theme, scarcity increases\n- **Unique printing/variants** - Misprint, prototype, or first-run variations\n\n### Stable but Slower Growth:\n- **Side characters** - Still valuable but appreciate more slowly\n- **Common sets** - Widely available during production run\n- **Recent releases** - Need 3-5 years to see significant appreciation\n\n### Poor Investment Bets:\n- **Mass-produced polybags** - Too many in circulation\n- **Generic minifigs** - No unique printing or character value\n- **Damaged/incomplete** - Very hard to sell at reasonable prices\n\n## Notable Minifigures by Theme\n\n### Harry Potter\nThe revival of [Harry Potter](/themes/harry-potter) sets in 2018 created renewed interest, but original 2001-2005 releases with unique printing remain most valuable:\n- Dumbledore (gray beard variants)\n- Professor Snape (early versions)\n- Voldemort (red eyes variant)\n\nPrices: $50-$300 depending on variant and condition\n\n### Marvel Super Heroes\nMCU popularity drives [Marvel](/themes/super-heroes) values:\n- Loki (Avengers era, printed legs)\n- Deadpool (first release)\n- Spider-Man variants (symbiote, Iron Spider)\n\nPrices: $40-$200 for sought-after variants\n\n### DC Comics Super Heroes\nBatman variants are plentiful, but rare [DC Comics Super Heroes](/themes/super-heroes) versions command premiums:\n- Comic-Con exclusive Batman figures\n- Early Joker variants\n- Original Superman from 2012\n\n### Pirates & Castle\nVintage 1980s-1990s themes are hot:\n- [Pirates](/sets-themes/Pirates) with unique torso prints\n- [Castle](/sets-themes/Castle) knights with rare helmets\n- Forestmen with complete accessories\n\nPrices: $30-$150 for complete vintage minifigs\n\n## Where to Buy and Sell Valuable Minifigures\n\n### Best Marketplaces:\n\n**Bricklink** - The gold standard for LEGO trading. Largest selection, competitive prices, but requires research.\n\n**eBay** - Higher prices but wider buyer base. Watch for overpriced \"rare\" listings that aren't actually rare.\n\n**Facebook Groups** - LEGO selling groups often have motivated buyers willing to pay fair prices quickly.\n\n**Local Conventions** - BrickCon, BrickFair, etc. Great for networking and selling high-end pieces.\n\n### Selling Tips:\n1. **Photograph well** - Multiple angles, clear lighting, show all sides\n2. **Disclose condition honestly** - Better a lower price than a return/dispute\n3. **Include all accessories** - Weapons, capes, helmets add significant value\n4. **Time your listing** - Sell before holidays or movie releases\n5. **Use FigTracker** - Get accurate suggested pricing before listing\n\n## Protecting Your Investment\n\nIf you own valuable minifigures:\n\n### Storage Best Practices:\n- Keep away from direct sunlight (prevents yellowing)\n- Store in sealed containers or display cases\n- Avoid humid environments (can cause discoloration)\n- Don't stack heavy items on top\n\n### Insurance:\nCollections worth $5,000+ should be documented and insured:\n- Photograph everything\n- Track purchase prices and dates\n- Keep sales receipts\n- Consider collectibles insurance rider\n\n### Authentication:\nFor ultra-rare pieces ($500+):\n- Buy from reputable sellers with feedback\n- Request additional photos if buying online\n- Learn to spot common fakes (especially Chrome C-3PO, Mr. Gold)\n- Join LEGO communities to verify authenticity\n\n## Future Outlook: 2026-2030\n\nBased on current trends, we predict:\n\n### Rising Values:\n- **Retired Star Wars sets** - Mandalorian, Bad Batch, Clone Wars characters\n- **Original Marvel CMU minifigs** - As movies become \"classic\" (Iron Man, Thor first releases)\n- **LEGO Ideas exclusives** - Limited runs create scarcity\n- **Environmental awareness** - Vintage pieces become increasingly rare\n\n### Declining Values:\n- **Mass reissues** - If LEGO reprints popular minifigs (like they did with Han Solo)\n- **Franchise fatigue** - If Marvel/Star Wars oversaturation continues\n- **Economic factors** - Recession could temporarily suppress luxury collectible prices\n\n## Start Tracking Your Collection Today\n\nWhether you own one of these valuable minifigs or are building a collection, accurate pricing is essential. FigTracker provides:\n\n- Real-time Bricklink marketplace data\n- Price history tracking\n- Condition-specific pricing (New vs Used)\n- Inventory management tools\n- 18,732+ minifigures in database\n\n**Ready to discover what your collection is worth?**\n\n[Search Your Minifigures →](/search)\n\n---\n\n*Pricing data updated April 2026 based on Bricklink US marketplace averages. Values fluctuate - always verify current prices before buying or selling.*"
+      "content": "After analyzing pricing data from 18,732 LEGO minifigures across the entire Bricklink catalog, we've identified the most valuable collectibles on the market today. Whether you're a serious collector, investor, or just curious about LEGO values, this comprehensive guide reveals which minifigs command premium prices and why.\n\n## What Makes a Minifigure Valuable?\n\nBefore diving into the rankings, it's important to understand the key factors that drive minifigure values:\n\n### 1. **Rarity**\nLimited production runs, exclusive sets, or promotional releases create scarcity. Convention exclusives and employee gifts are particularly sought after.\n\n### 2. **Age**\nClassic minifigs from the 1970s-1990s are increasingly rare as they wear out or get lost. Vintage pieces in good condition command premiums.\n\n### 3. **Popularity**\nCharacters from beloved franchises (Star Wars, Harry Potter, Marvel) consistently hold value. Main characters and villains typically appreciate faster than side characters.\n\n### 4. **Condition**\nNew/mint condition minifigs with all original accessories are worth significantly more than used versions. Even minor wear can reduce value by 30-50%.\n\n### 5. **Completeness**\nA minifig with all printed parts, accessories, and original packaging (if applicable) is worth more than loose or incomplete figures.\n\n## Star Wars Dominates the Top 10\n\n[**Star Wars minifigures**](/themes/star-wars) consistently command the highest prices, with several factors contributing to their value:\n\n- Licensed franchise with massive global fanbase\n- Many were only available in expensive sets ($100-$500 retail)\n- Some were released only once or twice across 25+ years of LEGO Star Wars\n- Characters from the original trilogy (1977-1983) are especially valuable\n\n### Most Valuable Star Wars Minifigures:\n\n**Cloud City Boba Fett (2003)** - Often cited as the holy grail, this exclusive version with printing variations can fetch $3,000-$5,000 in mint condition.\n\n**Chrome Darth Vader** - Limited promotional release, metallic chrome finish. Rare variants command $1,500-$2,500.\n\n**14k Gold C-3PO** - Only 10,000 produced for a 2007 promotion. Despite higher production numbers, gold plating and Star Wars popularity keep values at $1,000-$2,000.\n\n**Mr. Gold** - While not Star Wars, this ultra-rare 2013 promotional figure (only 5,000 made) regularly sells for $3,000-$5,000.\n\n## Classic Space & Castle Rarities\n\nBeyond licensed themes, vintage LEGO themes have collectors paying premium prices:\n\n[**Classic Space minifigs**](/themes/space) (1978-1987) with complete helmets and air tanks in pristine condition are increasingly valuable as original owners age out of collecting.\n\n[**Castle knights**](/themes/castle) with printed torsos and unique helmets from the 1980s-1990s are harder to find, especially in sets that didn't sell as well.\n\n## How to Price Your Own Collection\n\nIf you own any of these valuable minifigures, here's how to determine accurate pricing:\n\n### Step 1: Verify Authenticity\nCheck for:\n- Official LEGO markings on studs\n- Print quality (LEGO uses pad printing, not stickers)\n- Plastic quality and fit\n\n### Step 2: Assess Condition\nBe honest about:\n- Print wear or fading\n- Plastic discoloration (yellowing)\n- Cracks or teeth marks\n- Missing accessories\n\n### Step 3: Check Current Market Prices\nUse [IntoBrick's search tool](/search) to:\n- See real-time Bricklink marketplace data\n- Compare quantity-weighted averages vs lowest prices\n- Track price trends over time\n- Factor in condition differences\n\n### Step 4: Consider Timing\nPrices fluctuate based on:\n- Movie releases (Star Wars, Marvel, DC)\n- Set retirements (prices often spike 6-12 months after)\n- Seasonal demand (December = higher prices)\n\n## Investment Potential: Which Minifigs Appreciate?\n\nBased on 5+ years of pricing data, minifigs that tend to appreciate include:\n\n### High Appreciation Potential:\n- **Main characters from popular franchises** - First releases especially\n- **Limited promotions** - Convention exclusives, employee gifts\n- **Retired themes** - Once LEGO stops making a theme, scarcity increases\n- **Unique printing/variants** - Misprint, prototype, or first-run variations\n\n### Stable but Slower Growth:\n- **Side characters** - Still valuable but appreciate more slowly\n- **Common sets** - Widely available during production run\n- **Recent releases** - Need 3-5 years to see significant appreciation\n\n### Poor Investment Bets:\n- **Mass-produced polybags** - Too many in circulation\n- **Generic minifigs** - No unique printing or character value\n- **Damaged/incomplete** - Very hard to sell at reasonable prices\n\n## Notable Minifigures by Theme\n\n### Harry Potter\nThe revival of [Harry Potter](/themes/harry-potter) sets in 2018 created renewed interest, but original 2001-2005 releases with unique printing remain most valuable:\n- Dumbledore (gray beard variants)\n- Professor Snape (early versions)\n- Voldemort (red eyes variant)\n\nPrices: $50-$300 depending on variant and condition\n\n### Marvel Super Heroes\nMCU popularity drives [Marvel](/themes/super-heroes) values:\n- Loki (Avengers era, printed legs)\n- Deadpool (first release)\n- Spider-Man variants (symbiote, Iron Spider)\n\nPrices: $40-$200 for sought-after variants\n\n### DC Comics Super Heroes\nBatman variants are plentiful, but rare [DC Comics Super Heroes](/themes/super-heroes) versions command premiums:\n- Comic-Con exclusive Batman figures\n- Early Joker variants\n- Original Superman from 2012\n\n### Pirates & Castle\nVintage 1980s-1990s themes are hot:\n- [Pirates](/sets-themes/Pirates) with unique torso prints\n- [Castle](/sets-themes/Castle) knights with rare helmets\n- Forestmen with complete accessories\n\nPrices: $30-$150 for complete vintage minifigs\n\n## Where to Buy and Sell Valuable Minifigures\n\n### Best Marketplaces:\n\n**Bricklink** - The gold standard for LEGO trading. Largest selection, competitive prices, but requires research.\n\n**eBay** - Higher prices but wider buyer base. Watch for overpriced \"rare\" listings that aren't actually rare.\n\n**Facebook Groups** - LEGO selling groups often have motivated buyers willing to pay fair prices quickly.\n\n**Local Conventions** - BrickCon, BrickFair, etc. Great for networking and selling high-end pieces.\n\n### Selling Tips:\n1. **Photograph well** - Multiple angles, clear lighting, show all sides\n2. **Disclose condition honestly** - Better a lower price than a return/dispute\n3. **Include all accessories** - Weapons, capes, helmets add significant value\n4. **Time your listing** - Sell before holidays or movie releases\n5. **Use IntoBrick** - Get accurate suggested pricing before listing\n\n## Protecting Your Investment\n\nIf you own valuable minifigures:\n\n### Storage Best Practices:\n- Keep away from direct sunlight (prevents yellowing)\n- Store in sealed containers or display cases\n- Avoid humid environments (can cause discoloration)\n- Don't stack heavy items on top\n\n### Insurance:\nCollections worth $5,000+ should be documented and insured:\n- Photograph everything\n- Track purchase prices and dates\n- Keep sales receipts\n- Consider collectibles insurance rider\n\n### Authentication:\nFor ultra-rare pieces ($500+):\n- Buy from reputable sellers with feedback\n- Request additional photos if buying online\n- Learn to spot common fakes (especially Chrome C-3PO, Mr. Gold)\n- Join LEGO communities to verify authenticity\n\n## Future Outlook: 2026-2030\n\nBased on current trends, we predict:\n\n### Rising Values:\n- **Retired Star Wars sets** - Mandalorian, Bad Batch, Clone Wars characters\n- **Original Marvel CMU minifigs** - As movies become \"classic\" (Iron Man, Thor first releases)\n- **LEGO Ideas exclusives** - Limited runs create scarcity\n- **Environmental awareness** - Vintage pieces become increasingly rare\n\n### Declining Values:\n- **Mass reissues** - If LEGO reprints popular minifigs (like they did with Han Solo)\n- **Franchise fatigue** - If Marvel/Star Wars oversaturation continues\n- **Economic factors** - Recession could temporarily suppress luxury collectible prices\n\n## Start Tracking Your Collection Today\n\nWhether you own one of these valuable minifigs or are building a collection, accurate pricing is essential. IntoBrick provides:\n\n- Real-time Bricklink marketplace data\n- Price history tracking\n- Condition-specific pricing (New vs Used)\n- Inventory management tools\n- 18,732+ minifigures in database\n\n**Ready to discover what your collection is worth?**\n\n[Search Your Minifigures →](/search)\n\n---\n\n*Pricing data updated April 2026 based on Bricklink US marketplace averages. Values fluctuate - always verify current prices before buying or selling.*"
     },
     "figtracker-vs-bricklink": {
-      "title": "FigTracker vs Bricklink: Which Should You Use?",
-      "description": "Compare FigTracker and Bricklink for LEGO minifigure pricing. Learn when to use each platform and how FigTracker simplifies pricing for sellers.",
-      "author": "FigTracker Team",
+      "title": "IntoBrick vs Bricklink: Which Should You Use?",
+      "description": "Compare IntoBrick and Bricklink for LEGO minifigure pricing. Learn when to use each platform and how IntoBrick simplifies pricing for sellers.",
+      "author": "IntoBrick Team",
       "readTime": "8 min read",
-      "content": "If you're serious about buying, selling, or collecting LEGO minifigures, you've probably encountered Bricklink. As the largest LEGO marketplace, Bricklink is the industry standard—but it's not always the easiest tool for quick pricing decisions.\n\nThat's where FigTracker comes in.\n\n**The short answer:** Use both. Bricklink for buying/selling, FigTracker for instant pricing.\n\n**The detailed answer:** Let's compare them side-by-side.\n\n## What is Bricklink?\n\nBricklink is the world's largest marketplace for LEGO parts, sets, and minifigures. Founded in 2000 and acquired by LEGO Group in 2019, it's where serious collectors and resellers go to buy and sell.\n\n### Bricklink Strengths:\n✅ Massive inventory (millions of listings)\n✅ Global marketplace with sellers in 100+ countries\n✅ Historical pricing data\n✅ Want lists and inventory management\n✅ Official LEGO catalog integration\n\n### Bricklink Challenges:\n❌ Complex pricing (3+ metrics to interpret)\n❌ Overwhelming for casual users\n❌ No suggested \"fair price\" - you do the math\n❌ Must dig through multiple pages for pricing\n❌ Dated interface design\n\n## What is FigTracker?\n\nFigTracker is a free LEGO minifigure price tracker built specifically for sellers and collectors who need quick, accurate pricing without the complexity.\n\n### FigTracker Strengths:\n✅ One suggested price (no mental math needed)\n✅ Real-time Bricklink marketplace data\n✅ Clean, modern interface\n✅ Inventory tracking with condition management\n✅ Fast search by ID or name\n✅ 18,732+ minifigures in database\n✅ 20+ currencies supported (USD, EUR, GBP, CAD, and more)\n\n### FigTracker Limitations:\n❌ Doesn't sell anything (links to marketplaces)\n❌ Newer platform (less historical data than Bricklink)\n\n## The Pricing Problem: Why FigTracker Exists\n\nHere's the reality of pricing on Bricklink:\n\n**You see this:**\n- Quantity-Weighted Average: $12.45\n- Simple Average: $15.20\n- Lowest Price: $8.99\n\n**You think this:**\n*\"Wait... which one do I use? Should I price at $12? $15? Split the difference? What about condition?\"*\n\n**You do this:**\nOpen calculator. Average the averages. Check lowest price. Factor in condition. Second-guess yourself. Close laptop.\n\n### FigTracker's Solution\n\n**You see this:**\n- Suggested Price: $13.25 (New) | $9.75 (Used)\n\n**You think this:**\n*\"Perfect. Done.\"*\n\nFigTracker's algorithm combines all three Bricklink metrics plus condition data to give you one confident number. You can still see the breakdown if you want it, but you don't need to.\n\n## Side-by-Side Comparison\n\n| Feature | Bricklink | FigTracker |\n|---------|-----------|------------|\n| **Marketplace** | ✅ Yes | ❌ No (links out) |\n| **Suggested Pricing** | ❌ No | ✅ Yes |\n| **Real-time Data** | ✅ Yes | ✅ Yes (pulls from Bricklink) |\n| **Inventory Management** | ✅ Advanced | ✅ Simple |\n| **Search Speed** | ⚠️ Moderate | ✅ Fast |\n| **User Interface** | ⚠️ Dated | ✅ Modern |\n| **Learning Curve** | ⚠️ Steep | ✅ Gentle |\n| **Mobile Experience** | ⚠️ Clunky | ✅ Responsive |\n| **Price** | Free | Free |\n| **Best For** | Buying & selling | Quick pricing & tracking |\n\n## When to Use Bricklink\n\nUse Bricklink when you need to:\n\n**1. Buy Minifigures**\nBricklink has the largest selection. No other platform comes close.\n\n**2. Sell Minifigures**\nIf you're a serious seller, Bricklink's audience is massive and motivated. Worth learning the platform.\n\n**3. Research Rare/Obscure Pieces**\nDeep historical data and completed sales info.\n\n**4. Manage a Store**\nBuilt-in tools for sellers with large inventories.\n\n**5. International Transactions**\nGlobal marketplace with currency conversion.\n\n## When to Use FigTracker\n\nUse FigTracker when you need to:\n\n**1. Price Quickly**\nYou have 20 minifigs to list on eBay. Get instant suggested prices.\n\n**2. Track Your Collection**\nSimple inventory management without Bricklink's complexity.\n\n**3. Compare Condition Pricing**\nSee New vs Used prices side-by-side instantly.\n\n**4. Learn the Market**\nClean interface makes it easier to understand pricing trends.\n\n**5. Decide What to Buy**\nCheck if that eBay listing is overpriced before bidding.\n\n## The Best Workflow: Use Both\n\nHere's how smart sellers use FigTracker + Bricklink together:\n\n### Step 1: Price on FigTracker\n[Search your minifig](/search) by ID (e.g., \"sw1219\"). Get suggested price in 5 seconds.\n\n### Step 2: Cross-check on Bricklink (if needed)\nFor expensive minifigs ($50+), verify on Bricklink to see actual listings.\n\n### Step 3: List on Your Platform\neBay, Facebook Marketplace, or your own Bricklink store.\n\n### Step 4: Track in FigTracker\nKeep your [inventory organized](/inventory). Refresh prices monthly.\n\n**Time saved:** 2-3 minutes per minifig × 50 minifigs = 2.5 hours per pricing session.\n\n## Common Questions\n\n### \"Why not just use Bricklink?\"\n\nYou can! But if you're listing 20+ minifigs, doing mental math for each one gets tedious. FigTracker automates the decision-making.\n\n### \"Is FigTracker's pricing accurate?\"\n\nYes. We pull real-time data directly from Bricklink's API. Our suggested price is calculated from the same data you'd see on Bricklink—we just process it for you.\n\n### \"Can I sell on FigTracker?\"\n\nNot directly. FigTracker is a pricing tool, not a marketplace. We link to Bricklink and Amazon if you want to buy.\n\n### \"Does FigTracker replace Bricklink?\"\n\nNo. Think of FigTracker as a companion tool that makes Bricklink data easier to use for quick pricing decisions.\n\n## Pricing Philosophy Comparison\n\n**Bricklink's Approach:**\n\"Here's all the data. You're smart—figure out what to charge.\"\n\n**FigTracker's Approach:**\n\"Here's the best price based on current market conditions. Trust us, we did the math.\"\n\nBoth are valid. Bricklink empowers power users. FigTracker empowers fast decision-making.\n\n## Which Platform Should You Start With?\n\n### Start with FigTracker if:\n- You're new to LEGO reselling\n- You need to price things quickly\n- You have a small-to-medium collection (< 500 minifigs)\n- You sell on eBay/Facebook, not Bricklink\n\n### Start with Bricklink if:\n- You're a serious seller (500+ listings)\n- You want to run a full LEGO store\n- You need advanced inventory management\n- You buy and sell internationally\n\n### Use Both if:\n- You're a professional reseller\n- You value speed + accuracy\n- You want a modern interface for daily use but need Bricklink for actual transactions\n\n## The Bottom Line\n\n**Bricklink** is the industry standard marketplace with unmatched inventory and reach. It's essential for serious buying and selling.\n\n**FigTracker** is the modern pricing companion that makes Bricklink data instantly actionable. It's essential for fast, confident pricing.\n\n**You don't have to choose.** Use FigTracker for pricing and inventory. Use Bricklink for transactions. Together, they're the perfect LEGO toolkit.\n\n---\n\n**Ready to try FigTracker?**\n\n[Search Your First Minifigure →](/search)\n\nOr explore our [complete pricing guide](/guides) to learn more about LEGO minifigure values."
+      "content": "If you're serious about buying, selling, or collecting LEGO minifigures, you've probably encountered Bricklink. As the largest LEGO marketplace, Bricklink is the industry standard—but it's not always the easiest tool for quick pricing decisions.\n\nThat's where IntoBrick comes in.\n\n**The short answer:** Use both. Bricklink for buying/selling, IntoBrick for instant pricing.\n\n**The detailed answer:** Let's compare them side-by-side.\n\n## What is Bricklink?\n\nBricklink is the world's largest marketplace for LEGO parts, sets, and minifigures. Founded in 2000 and acquired by LEGO Group in 2019, it's where serious collectors and resellers go to buy and sell.\n\n### Bricklink Strengths:\n✅ Massive inventory (millions of listings)\n✅ Global marketplace with sellers in 100+ countries\n✅ Historical pricing data\n✅ Want lists and inventory management\n✅ Official LEGO catalog integration\n\n### Bricklink Challenges:\n❌ Complex pricing (3+ metrics to interpret)\n❌ Overwhelming for casual users\n❌ No suggested \"fair price\" - you do the math\n❌ Must dig through multiple pages for pricing\n❌ Dated interface design\n\n## What is IntoBrick?\n\nIntoBrick is a free LEGO minifigure price tracker built specifically for sellers and collectors who need quick, accurate pricing without the complexity.\n\n### IntoBrick Strengths:\n✅ One suggested price (no mental math needed)\n✅ Real-time Bricklink marketplace data\n✅ Clean, modern interface\n✅ Inventory tracking with condition management\n✅ Fast search by ID or name\n✅ 18,732+ minifigures in database\n✅ 20+ currencies supported (USD, EUR, GBP, CAD, and more)\n\n### IntoBrick Limitations:\n❌ Doesn't sell anything (links to marketplaces)\n❌ Newer platform (less historical data than Bricklink)\n\n## The Pricing Problem: Why IntoBrick Exists\n\nHere's the reality of pricing on Bricklink:\n\n**You see this:**\n- Quantity-Weighted Average: $12.45\n- Simple Average: $15.20\n- Lowest Price: $8.99\n\n**You think this:**\n*\"Wait... which one do I use? Should I price at $12? $15? Split the difference? What about condition?\"*\n\n**You do this:**\nOpen calculator. Average the averages. Check lowest price. Factor in condition. Second-guess yourself. Close laptop.\n\n### IntoBrick's Solution\n\n**You see this:**\n- Suggested Price: $13.25 (New) | $9.75 (Used)\n\n**You think this:**\n*\"Perfect. Done.\"*\n\nIntoBrick's algorithm combines all three Bricklink metrics plus condition data to give you one confident number. You can still see the breakdown if you want it, but you don't need to.\n\n## Side-by-Side Comparison\n\n| Feature | Bricklink | IntoBrick |\n|---------|-----------|------------|\n| **Marketplace** | ✅ Yes | ❌ No (links out) |\n| **Suggested Pricing** | ❌ No | ✅ Yes |\n| **Real-time Data** | ✅ Yes | ✅ Yes (pulls from Bricklink) |\n| **Inventory Management** | ✅ Advanced | ✅ Simple |\n| **Search Speed** | ⚠️ Moderate | ✅ Fast |\n| **User Interface** | ⚠️ Dated | ✅ Modern |\n| **Learning Curve** | ⚠️ Steep | ✅ Gentle |\n| **Mobile Experience** | ⚠️ Clunky | ✅ Responsive |\n| **Price** | Free | Free |\n| **Best For** | Buying & selling | Quick pricing & tracking |\n\n## When to Use Bricklink\n\nUse Bricklink when you need to:\n\n**1. Buy Minifigures**\nBricklink has the largest selection. No other platform comes close.\n\n**2. Sell Minifigures**\nIf you're a serious seller, Bricklink's audience is massive and motivated. Worth learning the platform.\n\n**3. Research Rare/Obscure Pieces**\nDeep historical data and completed sales info.\n\n**4. Manage a Store**\nBuilt-in tools for sellers with large inventories.\n\n**5. International Transactions**\nGlobal marketplace with currency conversion.\n\n## When to Use IntoBrick\n\nUse IntoBrick when you need to:\n\n**1. Price Quickly**\nYou have 20 minifigs to list on eBay. Get instant suggested prices.\n\n**2. Track Your Collection**\nSimple inventory management without Bricklink's complexity.\n\n**3. Compare Condition Pricing**\nSee New vs Used prices side-by-side instantly.\n\n**4. Learn the Market**\nClean interface makes it easier to understand pricing trends.\n\n**5. Decide What to Buy**\nCheck if that eBay listing is overpriced before bidding.\n\n## The Best Workflow: Use Both\n\nHere's how smart sellers use IntoBrick + Bricklink together:\n\n### Step 1: Price on IntoBrick\n[Search your minifig](/search) by ID (e.g., \"sw1219\"). Get suggested price in 5 seconds.\n\n### Step 2: Cross-check on Bricklink (if needed)\nFor expensive minifigs ($50+), verify on Bricklink to see actual listings.\n\n### Step 3: List on Your Platform\neBay, Facebook Marketplace, or your own Bricklink store.\n\n### Step 4: Track in IntoBrick\nKeep your [inventory organized](/inventory). Refresh prices monthly.\n\n**Time saved:** 2-3 minutes per minifig × 50 minifigs = 2.5 hours per pricing session.\n\n## Common Questions\n\n### \"Why not just use Bricklink?\"\n\nYou can! But if you're listing 20+ minifigs, doing mental math for each one gets tedious. IntoBrick automates the decision-making.\n\n### \"Is IntoBrick's pricing accurate?\"\n\nYes. We pull real-time data directly from Bricklink's API. Our suggested price is calculated from the same data you'd see on Bricklink—we just process it for you.\n\n### \"Can I sell on IntoBrick?\"\n\nNot directly. IntoBrick is a pricing tool, not a marketplace. We link to Bricklink and Amazon if you want to buy.\n\n### \"Does IntoBrick replace Bricklink?\"\n\nNo. Think of IntoBrick as a companion tool that makes Bricklink data easier to use for quick pricing decisions.\n\n## Pricing Philosophy Comparison\n\n**Bricklink's Approach:**\n\"Here's all the data. You're smart—figure out what to charge.\"\n\n**IntoBrick's Approach:**\n\"Here's the best price based on current market conditions. Trust us, we did the math.\"\n\nBoth are valid. Bricklink empowers power users. IntoBrick empowers fast decision-making.\n\n## Which Platform Should You Start With?\n\n### Start with IntoBrick if:\n- You're new to LEGO reselling\n- You need to price things quickly\n- You have a small-to-medium collection (< 500 minifigs)\n- You sell on eBay/Facebook, not Bricklink\n\n### Start with Bricklink if:\n- You're a serious seller (500+ listings)\n- You want to run a full LEGO store\n- You need advanced inventory management\n- You buy and sell internationally\n\n### Use Both if:\n- You're a professional reseller\n- You value speed + accuracy\n- You want a modern interface for daily use but need Bricklink for actual transactions\n\n## The Bottom Line\n\n**Bricklink** is the industry standard marketplace with unmatched inventory and reach. It's essential for serious buying and selling.\n\n**IntoBrick** is the modern pricing companion that makes Bricklink data instantly actionable. It's essential for fast, confident pricing.\n\n**You don't have to choose.** Use IntoBrick for pricing and inventory. Use Bricklink for transactions. Together, they're the perfect LEGO toolkit.\n\n---\n\n**Ready to try IntoBrick?**\n\n[Search Your First Minifigure →](/search)\n\nOr explore our [complete pricing guide](/guides) to learn more about LEGO minifigure values."
     }
   },
   "adminStats": {
     "title": "Admin Dashboard",
-    "subtitle": "Overview of your FigTracker platform",
+    "subtitle": "Overview of your IntoBrick platform",
     "emailAllUsers": "Email All Users ({count})",
     "totalUsers": "Total Users",
     "userCollections": "User Collections",
@@ -1552,7 +1552,7 @@
     "currencyBanner": "We detected you're in Sweden. Show prices in SEK?",
     "yesSEK": "Yes, use SEK",
     "keepUSD": "Keep USD",
-    "logoText": "FigTracker",
+    "logoText": "IntoBrick",
     "navSearch": "Search",
     "navCollection": "Collection",
     "navInventory": "Inventory",
@@ -1586,7 +1586,7 @@
   "testBanner": {
     "showBannerAgain": "Show Banner Again",
     "title": "Currency Banner Preview",
-    "subtitle": "This is what new users will see when they first visit FigTracker from a non-US country.",
+    "subtitle": "This is what new users will see when they first visit IntoBrick from a non-US country.",
     "featuresTitle": "Features:",
     "features": [
       "Auto-detects country from browser locale",
@@ -1594,7 +1594,7 @@
       "Dismissible - never shows again after choice",
       "Saves to localStorage (anonymous) or database (logged in)",
       "Smooth slide-down animation",
-      "Purple gradient design matches FigTracker branding"
+      "Purple gradient design matches IntoBrick branding"
     ],
     "userFlowTitle": "User Flow:",
     "userFlow": [
@@ -1989,7 +1989,7 @@
     "seoDescription": "Discover the best LEGO® deals on Amazon with discounts up to 50% off. We track prices across thousands of sets and update every 6 hours to bring you the biggest savings. All deals are eligible for Amazon Prime free shipping. Whether you're looking for Star Wars, City, Creator, or any other theme, find your next LEGO set at an unbeatable price.",
     "meta": {
       "notFoundTitle": "Page Not Found",
-      "title": "LEGO® Sale: Best Amazon Deals Up to 50% Off | FigTracker",
+      "title": "LEGO® Sale: Best Amazon Deals Up to 50% Off | IntoBrick",
       "description": "Find the best LEGO deals on Amazon with discounts up to 50% off. Updated every 6 hours. Browse current LEGO sets from Star Wars, City, Creator, and more. Free shipping with Prime.",
       "keywords": [
         "LEGO sale",
@@ -2014,7 +2014,7 @@
     "searchThemesPlaceholder": "Search themes...",
     "allPrices": "All Prices",
     "priceDisclaimerLabel": "Price Disclaimer:",
-    "priceDisclaimerText": "Product prices and availability are accurate as of the date/time indicated and are subject to change. Prices shown are from Amazon at the time of last refresh (updated every 6 hours). Any price and availability information displayed on Amazon at the time of purchase will apply to the purchase of this product. As an Amazon Associate, LEGO Affiliate, eBay Partner, and Whatnot Affiliate, FigTracker earns from qualifying purchases.",
+    "priceDisclaimerText": "Product prices and availability are accurate as of the date/time indicated and are subject to change. Prices shown are from Amazon at the time of last refresh (updated every 6 hours). Any price and availability information displayed on Amazon at the time of purchase will apply to the purchase of this product. As an Amazon Associate, LEGO Affiliate, eBay Partner, and Whatnot Affiliate, IntoBrick earns from qualifying purchases.",
     "loadingDeals": "Loading deals...",
     "tierUnbelievable50": "Unbelievable Deals - 50%+ Off",
     "tierExcellent40": "Excellent Deals - 40%+ Off",
@@ -2024,7 +2024,7 @@
   "collectorsDirectory": {
     "meta": {
       "title": "Browse LEGO Collectors",
-      "description": "Browse LEGO collector leaderboards and public collections shared by the FigTracker community."
+      "description": "Browse LEGO collector leaderboards and public collections shared by the IntoBrick community."
     }
   },
   "priceAlerts": {
@@ -2039,7 +2039,7 @@
     "steps": {
       "step1": {
         "title": "Search any minifigure or set",
-        "body": "Find the item you want on FigTracker — 18,000+ minifigures and 20,000+ sets."
+        "body": "Find the item you want on IntoBrick — 18,000+ minifigures and 20,000+ sets."
       },
       "step2": {
         "title": "Set your target price",
@@ -2199,15 +2199,15 @@
     "faqLinkText": "See the full pricing breakdown",
     "meta": {
       "title": "How We Calculate LEGO Prices",
-      "description": "How FigTracker computes a single suggested price for LEGO minifigures and sets, and how it compares to BrickEconomy."
+      "description": "How IntoBrick computes a single suggested price for LEGO minifigures and sets, and how it compares to BrickEconomy."
     },
     "hero": {
       "title": "How We Calculate Your Suggested Price",
-      "subtitle": "A plain-language look at the formula behind every FigTracker price — and how it compares to other LEGO pricing tools like BrickEconomy."
+      "subtitle": "A plain-language look at the formula behind every IntoBrick price — and how it compares to other LEGO pricing tools like BrickEconomy."
     },
     "howItWorks": {
       "title": "How the formula works",
-      "paragraph1": "FigTracker's suggested price is mostly built from BrickLink signals — a mix of recent sold transactions, current listing prices, and the current lowest price — with a small eBay cross-check added in when there's enough clean data to use it.",
+      "paragraph1": "IntoBrick's suggested price is mostly built from BrickLink signals — a mix of recent sold transactions, current listing prices, and the current lowest price — with a small eBay cross-check added in when there's enough clean data to use it.",
       "paragraph2": "We never show you raw BrickLink or eBay numbers directly — only the single computed result, refreshed automatically so it stays current without you having to look it up yourself."
     },
     "comparison": {
@@ -2490,7 +2490,7 @@
     "savedYouTime": "Saved you some time? Support quick, accurate pricing →"
   },
   "metadata": {
-    "title": "FigTracker - One Price for Any LEGO Minifigure or Set",
+    "title": "IntoBrick - One Price for Any LEGO Minifigure or Set",
     "description": "Price any LEGO minifigure or set in seconds. One suggested price from BrickLink and eBay data. Track your inventory free. 18,000+ minifigs, 20,000+ sets.",
     "twitterDescription": "Price any LEGO minifigure or set in seconds. One suggested price from BrickLink and eBay data. Track your inventory free.",
     "keywords": [
@@ -2508,7 +2508,7 @@
       "LEGO pricing tool",
       "minifig suggested price"
     ],
-    "ogImageAlt": "FigTracker - LEGO Minifigure Price Tracker",
+    "ogImageAlt": "IntoBrick - LEGO Minifigure Price Tracker",
     "webAppDescription": "Price any LEGO minifigure or set in seconds. One suggested price, no mental math.",
     "featureList": [
       "One suggested price per minifigure or set",
@@ -2517,7 +2517,7 @@
       "Collection tracking",
       "18,000+ LEGO minifigures, 20,000+ sets"
     ],
-    "organizationDescription": "FigTracker gives you one suggested price for any LEGO minifigure or set, so you can list faster and sell with confidence.",
+    "organizationDescription": "IntoBrick gives you one suggested price for any LEGO minifigure or set, so you can list faster and sell with confidence.",
     "siteAlternateName": "LEGO Minifigure Price Tracker",
     "ogImage": {
       "subtitle": "LEGO Minifigure Price Tracker",
@@ -2540,7 +2540,7 @@
     "keywordBricklinkPrices": "BrickLink prices",
     "keywordLegoPriceGuide": "LEGO price guide",
     "keywordTrackLegoPrices": "track LEGO prices",
-    "ogTitleThemeSets": "{theme} LEGO Minifigures & Sets | FigTracker",
+    "ogTitleThemeSets": "{theme} LEGO Minifigures & Sets | IntoBrick",
     "notFoundTitle": "Theme Not Found",
     "layoutTitle": "{theme} LEGO Minifigures - Price Guide & Collection ({count} Minifigs)",
     "layoutDescription": "Browse all {count} {theme} LEGO minifigures with smart market pricing. Track values, manage inventory, and discover character variants. Complete {theme} collection guide.",
@@ -2550,8 +2550,8 @@
     "keywordThemeBricklink": "{theme} Bricklink",
     "keywordThemeLegoCollection": "{theme} LEGO collection",
     "keywordMinifigureValueTracker": "minifigure value tracker",
-    "subTitleWithCount": "{name} LEGO Minifigures ({count}) | FigTracker",
-    "subTitleNoCount": "{name} LEGO Minifigures | FigTracker",
+    "subTitleWithCount": "{name} LEGO Minifigures ({count}) | IntoBrick",
+    "subTitleNoCount": "{name} LEGO Minifigures | IntoBrick",
     "subDescriptionWithCount": "Browse all {count} {fullName} LEGO minifigures with smart market pricing. Track prices, manage your collection, and discover rare variants.",
     "subDescriptionNoCount": "Browse {fullName} LEGO minifigures with smart market pricing. Track prices and manage your collection.",
     "keywordFullNameMinifigures": "{fullName} LEGO minifigures",
@@ -2579,12 +2579,12 @@
   },
   "claimDonation": {
     "meta": {
-      "title": "Claim Your Donation - FigTracker",
-      "description": "Add your donation to the FigTracker supporters leaderboard"
+      "title": "Claim Your Donation - IntoBrick",
+      "description": "Add your donation to the IntoBrick supporters leaderboard"
     },
     "hero": {
       "title": "Claim Your Donation",
-      "subtitle": "Join our supporters leaderboard and let the community know you helped keep FigTracker free"
+      "subtitle": "Join our supporters leaderboard and let the community know you helped keep IntoBrick free"
     },
     "success": {
       "title": "Thank you for helping keep LEGO pricing free for everyone",
@@ -2897,7 +2897,7 @@
     },
     "hero": {
       "title": "List on Whatnot in One Upload",
-      "subtitle": "Whatnot lets you bulk-import listings from a CSV. FigTracker already knows your items, their prices and their weights — so it can write that file for you."
+      "subtitle": "Whatnot lets you bulk-import listings from a CSV. IntoBrick already knows your items, their prices and their weights — so it can write that file for you."
     },
     "howItWorks": "How it works",
     "steps": {
@@ -2907,7 +2907,7 @@
       },
       "step2": {
         "title": "Set your prices and conditions once",
-        "body": "Start from FigTracker’s suggested price, add a markup if you want, and choose how your conditions map to Whatnot’s."
+        "body": "Start from IntoBrick’s suggested price, add a markup if you want, and choose how your conditions map to Whatnot’s."
       },
       "step3": {
         "title": "Download and upload",
@@ -2961,7 +2961,7 @@
     "building": "Building your CSV…",
     "buildingHelp": "First time exporting an item takes a moment while we prepare its photo. Later exports are instant.",
     "success": "Your CSV is downloading.",
-    "signInPrompt": "Sign in to turn your FigTracker collection into a Whatnot CSV.",
+    "signInPrompt": "Sign in to turn your IntoBrick collection into a Whatnot CSV.",
     "signIn": "Sign in",
     "exportButton": "Export to Whatnot",
     "errors": {
@@ -3068,7 +3068,7 @@
     },
     "hero": {
       "title": "Fill Your BrickLink Store in One Upload",
-      "subtitle": "BrickLink lets you add your whole inventory from one XML file. Your FigTracker item numbers are already BrickLink numbers, so there is nothing to look up."
+      "subtitle": "BrickLink lets you add your whole inventory from one XML file. Your IntoBrick item numbers are already BrickLink numbers, so there is nothing to look up."
     },
     "steps": {
       "step1": {
@@ -3077,7 +3077,7 @@
       },
       "step2": {
         "title": "Set your prices once",
-        "body": "Start from FigTracker’s suggested price and add a markup if you want. Sets also carry their completeness, so BrickLink gets what it needs."
+        "body": "Start from IntoBrick’s suggested price and add a markup if you want. Sets also carry their completeness, so BrickLink gets what it needs."
       },
       "step3": {
         "title": "Upload to your store",
@@ -3098,7 +3098,7 @@
     },
     "hero": {
       "title": "List Your LEGO on eBay in One Upload",
-      "subtitle": "eBay lets you create listings in bulk from a spreadsheet. FigTracker fills in the parts people usually get wrong — the category and condition codes."
+      "subtitle": "eBay lets you create listings in bulk from a spreadsheet. IntoBrick fills in the parts people usually get wrong — the category and condition codes."
     },
     "steps": {
       "step1": {

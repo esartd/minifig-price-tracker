@@ -46,7 +46,7 @@ export default async function PriceAlertsPage() {
     '@type': 'Service',
     name: p.meta?.title || 'LEGO Price Alerts',
     description: p.meta?.description || 'Get notified when a LEGO minifigure or set drops to your target price.',
-    provider: { '@type': 'Organization', name: 'FigTracker' },
+    provider: { '@type': 'Organization', name: 'IntoBrick' },
     url: `${baseUrl}/price-alerts`,
   };
 
@@ -66,7 +66,7 @@ export default async function PriceAlertsPage() {
 
         <section style={{ marginBottom: '40px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           {[
-            { title: p.steps?.step1?.title || 'Search any minifigure or set', body: p.steps?.step1?.body || 'Find the item you want on FigTracker — 18,000+ minifigures and 20,000+ sets.' },
+            { title: p.steps?.step1?.title || 'Search any minifigure or set', body: p.steps?.step1?.body || 'Find the item you want on IntoBrick — 18,000+ minifigures and 20,000+ sets.' },
             { title: p.steps?.step2?.title || 'Set your target price', body: p.steps?.step2?.body || "Tell us the price you'd buy at." },
             { title: p.steps?.step3?.title || "We'll email you when it hits your price", body: p.steps?.step3?.body || 'Prices refresh automatically in the background, so you find out as soon as it drops.' },
           ].map((step, i) => (

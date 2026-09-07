@@ -1,4 +1,4 @@
-# Swedish Translation Setup for FigTracker
+# Swedish Translation Setup for IntoBrick
 
 ## Current Status
 
@@ -41,7 +41,7 @@ python3 translate_to_swedish_v2.py
    - All UI strings
    - All guide content
 3. Preserves:
-   - Brand names: "LEGO®", "BrickLink", "FigTracker"
+   - Brand names: "LEGO®", "BrickLink", "IntoBrick"
    - Variables: `{count}`, `{theme}`, etc.
    - URLs
 4. Applies Swedish LEGO terminology:

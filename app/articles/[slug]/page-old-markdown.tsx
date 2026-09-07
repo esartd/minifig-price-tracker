@@ -78,7 +78,7 @@ export async function generateMetadata({
   };
 
   return {
-    title: `${guide.title} | FigTracker`,
+    title: `${guide.title} | IntoBrick`,
     description: guide.description,
     keywords: guide.title.split(' ').concat(['LEGO', 'minifigures', 'Bricklink', 'price guide', 'collecting']),
     authors: [{ name: guide.author }],
@@ -135,7 +135,7 @@ export default async function GuidePage({
     },
     publisher: {
       '@type': 'Organization',
-      name: 'FigTracker',
+      name: 'IntoBrick',
       logo: {
         '@type': 'ImageObject',
         url: 'https://figtracker.ericksu.com/favicon.svg'

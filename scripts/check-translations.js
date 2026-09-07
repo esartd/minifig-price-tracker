@@ -44,7 +44,7 @@ const SOURCE = 'en';
  * English" is not evidence of anything. Mostly proper nouns.
  */
 const SAME_IS_FINE = [
-  /^(FigTracker|LEGO|eBay|Whatnot|BrickLink|Bricklink|Amazon|Google|Discord|Instagram|YouTube|Reddit)$/i,
+  /^(IntoBrick|LEGO|eBay|Whatnot|BrickLink|Bricklink|Amazon|Google|Discord|Instagram|YouTube|Reddit)$/i,
   /^(Star Wars|Harry Potter|Ninjago|Marvel|DC|Minecraft|Disney|Friends|City|Super Heroes|Technic|Duplo|Creator)$/i,
   /^(Amazon Associates|Google Analytics|Bricklink API|Premium|Prime|Avatar|Beta|OK|Email|E-Mail|API|CSV|XML|JSON|HTTPS|USD|EUR|GBP|SEO|FAQ|ID|URL)$/i,
   /^[\s\d\W]*$/,              // numbers, punctuation, placeholders only

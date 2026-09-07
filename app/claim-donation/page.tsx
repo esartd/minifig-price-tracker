@@ -10,8 +10,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations(locale);
 
   return {
-    title: t.claimDonation?.meta?.title || 'Claim Your Donation - FigTracker',
-    description: t.claimDonation?.meta?.description || 'Add your donation to the FigTracker supporters leaderboard',
+    title: t.claimDonation?.meta?.title || 'Claim Your Donation - IntoBrick',
+    description: t.claimDonation?.meta?.description || 'Add your donation to the IntoBrick supporters leaderboard',
     robots: 'noindex', // Don't index this page
   };
 }

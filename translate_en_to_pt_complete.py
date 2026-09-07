@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Complete Portuguese Translation for FigTracker
+Complete Portuguese Translation for IntoBrick
 Translates en.json to pt.json with ALL content including 179 theme descriptions
 
 Uses comprehensive dictionary-based translation for European Portuguese (formal)
@@ -179,7 +179,7 @@ def translate_text(text, preserve_brands=True):
 
     # Preserve these exactly
     if preserve_brands:
-        if text in ['LEGO®', 'LEGO', 'BrickLink', 'FigTracker', 'Amazon', 'eBay']:
+        if text in ['LEGO®', 'LEGO', 'BrickLink', 'IntoBrick', 'Amazon', 'eBay']:
             return text
         if text.startswith('http'):
             return text
@@ -245,12 +245,12 @@ def translate_dict(obj, depth=0, max_depth=20):
 def main():
     """Main translation function"""
 
-    base_dir = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup'
+    base_dir = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup'
     en_file = os.path.join(base_dir, 'en.json')
     pt_file = os.path.join(base_dir, 'pt.json')
 
     print("=" * 80)
-    print("FigTracker: Complete Portuguese Translation Generator")
+    print("IntoBrick: Complete Portuguese Translation Generator")
     print("=" * 80)
     print(f"\nSource: {en_file}")
     print(f"Target: {pt_file}")

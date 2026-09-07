@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Complete Polish Translation Script for FigTracker
+Complete Polish Translation Script for IntoBrick
 Translates ALL 1698 lines from en.json to pl.json including 100+ theme descriptions
 """
 
@@ -102,13 +102,13 @@ TRANSLATIONS = {
 def translate_text(text, context=""):
     """
     Translate English text to Polish with context awareness.
-    Preserves: LEGO®, BrickLink, FigTracker, URLs, variables like {count}, {query}
+    Preserves: LEGO®, BrickLink, IntoBrick, URLs, variables like {count}, {query}
     """
     if not isinstance(text, str):
         return text
 
     # Preserve special terms
-    if any(term in text for term in ["LEGO®", "BrickLink", "FigTracker", "http://", "https://", "www."]):
+    if any(term in text for term in ["LEGO®", "BrickLink", "IntoBrick", "http://", "https://", "www."]):
         # Keep these terms but translate around them
         pass
 
@@ -199,7 +199,7 @@ def translate_json_recursive(obj, path=""):
 
     elif isinstance(obj, str):
         # Skip translation for keys that should remain English
-        if any(term in obj for term in ["LEGO®", "BrickLink", "FigTracker"]):
+        if any(term in obj for term in ["LEGO®", "BrickLink", "IntoBrick"]):
             # Keep brand names
             pass
 
@@ -236,8 +236,8 @@ THEME_DESCRIPTIONS_PL = {
 def load_and_translate_complete():
     """Load en.json and create complete pl.json translation"""
 
-    input_file = "/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json"
-    output_file = "/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/pl.json"
+    input_file = "/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json"
+    output_file = "/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/pl.json"
 
     print("Loading English source file...")
     with open(input_file, 'r', encoding='utf-8') as f:

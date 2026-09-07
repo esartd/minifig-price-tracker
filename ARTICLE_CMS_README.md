@@ -76,7 +76,7 @@ Click **"+ Add Block"** to choose block types:
 - Side-by-side pros/cons
 - Perfect for "vs" articles
 - Add multiple comparison items
-- Example: FigTracker vs BrickLink
+- Example: IntoBrick vs BrickLink
 
 #### Divider Block
 - Horizontal line separator
@@ -111,15 +111,15 @@ Each block has controls (visible when selected):
 
 ### Writing
 - **Short paragraphs**: 3-5 sentences max
-- **Active voice**: "FigTracker tracks prices" not "Prices are tracked"
+- **Active voice**: "IntoBrick tracks prices" not "Prices are tracked"
 - **Show, don't tell**: Use screenshots and examples
 - **Clear headings**: Describe what's in the section
 
 ## Example Article Flow
 
 ```
-[Heading H2] What is FigTracker?
-[Paragraph] FigTracker is a free LEGO price tracker...
+[Heading H2] What is IntoBrick?
+[Paragraph] IntoBrick is a free LEGO price tracker...
 [Image] Screenshot of dashboard
 [Paragraph] Unlike other tools...
 
@@ -131,21 +131,21 @@ Each block has controls (visible when selected):
 
 [Image] Feature comparison chart
 
-[Heading H2] FigTracker vs BrickLink
+[Heading H2] IntoBrick vs BrickLink
 [Comparison]
-- FigTracker: Pros/Cons
+- IntoBrick: Pros/Cons
 - BrickLink: Pros/Cons
 
 [Callout - Tip] Pro Tip: Use both tools together!
 
 [Heading H2] Getting Started
-[Paragraph] To start using FigTracker...
+[Paragraph] To start using IntoBrick...
 [Image] Sign-up flow
 
 [Divider]
 
 [Heading H2] Conclusion
-[Paragraph] FigTracker makes LEGO collecting...
+[Paragraph] IntoBrick makes LEGO collecting...
 [Callout - Info] Ready to start? Visit /search to begin
 ```
 
@@ -211,7 +211,7 @@ It will also appear on the `/articles` page automatically.
 
 Questions? Check:
 - Apple Newsroom for inspiration: https://www.apple.com/newsroom/
-- Existing FigTracker articles: `/articles`
+- Existing IntoBrick articles: `/articles`
 - Component examples: `/app/articles/templates/example-article-template.tsx`
 
 ---

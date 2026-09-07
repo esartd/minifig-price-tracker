@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = domains[locale];
 
   const title = t.howWeCalculatePrices?.meta?.title || 'How We Calculate LEGO Prices';
-  const description = t.howWeCalculatePrices?.meta?.description || 'How FigTracker computes a single suggested price for LEGO minifigures and sets, and how it compares to BrickEconomy.';
+  const description = t.howWeCalculatePrices?.meta?.description || 'How IntoBrick computes a single suggested price for LEGO minifigures and sets, and how it compares to BrickEconomy.';
 
   return {
     title,
@@ -45,7 +45,7 @@ export default async function HowWeCalculatePricesPage() {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     name: h.meta?.title || 'How We Calculate LEGO Prices',
-    description: h.meta?.description || 'How FigTracker computes a single suggested price for LEGO minifigures and sets.',
+    description: h.meta?.description || 'How IntoBrick computes a single suggested price for LEGO minifigures and sets.',
     url: `${baseUrl}/how-we-calculate-prices`,
   };
 
@@ -89,7 +89,7 @@ export default async function HowWeCalculatePricesPage() {
           {h.hero?.title || 'How We Calculate Your Suggested Price'}
         </h1>
         <p style={{ fontSize: 'var(--text-lg)', color: '#525252', marginBottom: '40px', lineHeight: '1.6' }}>
-          {h.hero?.subtitle || 'A plain-language look at the formula behind every FigTracker price — and how it compares to other LEGO pricing tools like BrickEconomy.'}
+          {h.hero?.subtitle || 'A plain-language look at the formula behind every IntoBrick price — and how it compares to other LEGO pricing tools like BrickEconomy.'}
         </p>
 
         <section style={{ marginBottom: '48px' }}>
@@ -97,7 +97,7 @@ export default async function HowWeCalculatePricesPage() {
             {h.howItWorks?.title || 'How the formula works'}
           </h2>
           <p style={{ fontSize: 'var(--text-base)', color: '#404040', lineHeight: '1.7', marginBottom: '16px' }}>
-            {h.howItWorks?.paragraph1 || 'FigTracker’s suggested price is mostly built from BrickLink signals — a mix of recent sold transactions, current listing prices, and the current lowest price — with a small eBay cross-check added in when there’s enough clean data to use it.'}
+            {h.howItWorks?.paragraph1 || 'IntoBrick’s suggested price is mostly built from BrickLink signals — a mix of recent sold transactions, current listing prices, and the current lowest price — with a small eBay cross-check added in when there’s enough clean data to use it.'}
           </p>
           <p style={{ fontSize: 'var(--text-base)', color: '#404040', lineHeight: '1.7' }}>
             {h.howItWorks?.paragraph2 || 'We never show you raw BrickLink or eBay numbers directly — only the single computed result, refreshed automatically so it stays current without you having to look it up yourself.'}

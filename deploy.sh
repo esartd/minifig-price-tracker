@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# FigTracker VPS Deployment Script
+# IntoBrick VPS Deployment Script
 # Run this script after committing and pushing changes to GitHub
 # Usage: ./deploy.sh
 
 set -e  # Exit on any error
 
-echo "🚀 Starting FigTracker deployment..."
+echo "🚀 Starting IntoBrick deployment..."
 echo ""
 
 # Check if we're on main branch

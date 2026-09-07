@@ -59,7 +59,7 @@ export async function downloadBricklinkFile(file: BricklinkFile): Promise<Downlo
       console.log(`  Trying: ${url}`);
       const response = await fetch(url, {
         headers: {
-          'User-Agent': 'FigTracker-CatalogSync/1.0',
+          'User-Agent': 'IntoBrick-CatalogSync/1.0',
           'Accept': 'text/plain, text/tab-separated-values, application/octet-stream',
         },
         redirect: 'follow'
@@ -91,7 +91,7 @@ export async function downloadBricklinkFile(file: BricklinkFile): Promise<Downlo
       console.log(`  Trying custom URL from ${envVar}`);
       const response = await fetch(customUrl, {
         headers: {
-          'User-Agent': 'FigTracker-CatalogSync/1.0'
+          'User-Agent': 'IntoBrick-CatalogSync/1.0'
         }
       });
 

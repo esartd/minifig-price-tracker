@@ -220,14 +220,14 @@ export default function AboutPageClient({ catalogCountText }: { catalogCountText
         <div className="about-page-container">
           <div style={{ textAlign: 'center' }}>
             <div className="founder-badge">
-              <span>{t('about.creator.badge') || 'THE PERSON BEHIND FIGTRACKER'}</span>
+              <span>{t('about.creator.badge') || 'THE PERSON BEHIND INTOBRICK'}</span>
             </div>
           </div>
           <div className="founder-bio-layout">
             <div className="founder-photo-placeholder">
               <Image
                 src="/about/erick-su.png"
-                alt="Erick Su, founder of FigTracker"
+                alt="Erick Su, founder of IntoBrick"
                 width={200}
                 height={200}
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
@@ -235,7 +235,7 @@ export default function AboutPageClient({ catalogCountText }: { catalogCountText
             </div>
             <div className="founder-bio-content">
               <h2>{t('about.creator.title') || 'Who Built This'}</h2>
-              <p>{t('about.creator.body') || "Hi, I'm Erick — founder of ES Art & D, a UI/UX design studio based in Utah. I got into LEGO collecting as an adult and started FigTracker as a personal project to make sense of scattered pricing data. It's grown into the site you're using today. In LEGO circles, you might also know me as Erix Figs."}</p>
+              <p>{t('about.creator.body') || "Hi, I'm Erick — founder of ES Art & D, a UI/UX design studio based in Utah. I got into LEGO collecting as an adult and started IntoBrick as a personal project to make sense of scattered pricing data. It's grown into the site you're using today. In LEGO circles, you might also know me as Erix Figs."}</p>
               <p className="founder-byline">{t('about.creator.byline') || 'Erick Su · ES Art & D · Utah'}</p>
             </div>
           </div>

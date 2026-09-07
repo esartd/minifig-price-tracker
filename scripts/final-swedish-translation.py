@@ -224,8 +224,8 @@ def translate_value(value):
 
 
 def main():
-    en_file = "/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json"
-    sv_file = "/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/sv.json"
+    en_file = "/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json"
+    sv_file = "/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/sv.json"
 
     print("Reading English translation file...")
     with open(en_file, 'r', encoding='utf-8') as f:

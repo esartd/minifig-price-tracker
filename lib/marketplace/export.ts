@@ -241,7 +241,7 @@ export async function collectExportItemsFromRows(
         itemNo,
         name,
         reason:
-          'No price available yet — FigTracker has no recent BrickLink data for this item. Refresh its price, then export again.',
+          'No price available yet — IntoBrick has no recent BrickLink data for this item. Refresh its price, then export again.',
       });
       continue;
     }

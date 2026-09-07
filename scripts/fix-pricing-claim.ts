@@ -34,7 +34,7 @@ async function main() {
     if (block.type === 'paragraph' && block.text.includes('100% free')) {
       return {
         ...block,
-        text: 'FigTracker is currently free to use with no subscription required. While BrickEconomy requires a paid subscription to access full features, FigTracker provides honest, transparent LEGO pricing data without paywalls or hidden pricing tiers.'
+        text: 'IntoBrick is currently free to use with no subscription required. While BrickEconomy requires a paid subscription to access full features, IntoBrick provides honest, transparent LEGO pricing data without paywalls or hidden pricing tiers.'
       };
     }
 
@@ -47,7 +47,7 @@ async function main() {
       return {
         ...block,
         items: block.items.map((item: any) => {
-          if (item.title === 'FigTracker') {
+          if (item.title === 'IntoBrick') {
             return {
               ...item,
               pros: item.pros.map((pro: string) => {

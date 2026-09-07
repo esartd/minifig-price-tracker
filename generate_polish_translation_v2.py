@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate complete Polish translation for FigTracker - Version 2
+Generate complete Polish translation for IntoBrick - Version 2
 Improved handling of partial translations and context
 """
 
@@ -80,7 +80,7 @@ def load_comprehensive_translations():
         "Top Supporters": "Najlepsi wspierający",
         "No supporter yet": "Jeszcze brak wspierających",
         "Be the First to Donate": "Bądź pierwszym ofiarodawcą",
-        "Support FigTracker": "Wesprzyj FigTracker",
+        "Support IntoBrick": "Wesprzyj IntoBrick",
         "Account Settings": "Ustawienia konta",
         "Subscribe Free": "Subskrybuj za darmo",
         "No spam": "Bez spamu",
@@ -248,7 +248,7 @@ def should_skip_translation(text):
         return True
 
     # Skip brand names when standalone
-    if text in ['LEGO', 'LEGO®', 'BrickLink', 'FigTracker', 'Amazon', 'eBay', 'PayPal', 'Netflix', 'Disney']:
+    if text in ['LEGO', 'LEGO®', 'BrickLink', 'IntoBrick', 'Amazon', 'eBay', 'PayPal', 'Netflix', 'Disney']:
         return True
 
     return False
@@ -313,7 +313,7 @@ def translate_dict(obj, translations, path=""):
 def main():
     print("Loading English translation file...")
 
-    en_path = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json'
+    en_path = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json'
     with open(en_path, 'r', encoding='utf-8') as f:
         en_data = json.load(f)
 
@@ -327,7 +327,7 @@ def main():
     pl_data = translate_dict(en_data, translations)
 
     # Write output
-    output_path = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/pl.json'
+    output_path = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/pl.json'
     print(f"Writing to {output_path}...")
 
     with open(output_path, 'w', encoding='utf-8') as f:

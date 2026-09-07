@@ -2,7 +2,7 @@
  * eBay Browse API pricing client
  *
  * Returns raw listing prices (avg, lowest) for the orchestrator to blend
- * into the unified FigTracker Market Price formula.
+ * into the unified IntoBrick Market Price formula.
  *
  * Auth: OAuth2 Client Credentials flow (Application Access Token, no user login needed)
  * API: eBay Browse API v1 — public listings search, no personal data involved
@@ -172,7 +172,7 @@ export interface EbayListingPrices {
 }
 
 /**
- * Fetch raw eBay listing prices for blending into FigTracker Market Price.
+ * Fetch raw eBay listing prices for blending into IntoBrick Market Price.
  *
  * Returns { avg, lowest } from current active listings, or null if < 3 clean results.
  * Does NOT write to PriceCache — the orchestrator owns cache writes.

@@ -8,7 +8,7 @@
 
 ## 🎯 Executive Summary
 
-Completed comprehensive SEO overhaul of FigTracker to improve Google search rankings, click-through rates, and user experience. All 7 planned fixes deployed successfully.
+Completed comprehensive SEO overhaul of IntoBrick to improve Google search rankings, click-through rates, and user experience. All 7 planned fixes deployed successfully.
 
 **Key Achievements:**
 - ✅ Rich snippets enabled (pricing + FAQ)
@@ -203,7 +203,7 @@ https://search.google.com/test/rich-results?url=https://figtracker.ericksu.com/m
       "name": "How do I price my LEGO minifigures?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "FigTracker provides real-time..."
+        "text": "IntoBrick provides real-time..."
       }
     }
   ]
@@ -507,7 +507,7 @@ Non-popular pages (on-demand ISR):
 
 ## 🎉 Conclusion
 
-All 7 SEO fixes successfully deployed on June 4, 2026. FigTracker now has:
+All 7 SEO fixes successfully deployed on June 4, 2026. IntoBrick now has:
 - ✅ Complete structured data (Schema.org)
 - ✅ Fast page loads (ISR + caching)
 - ✅ Rich snippet eligibility (pricing + FAQ)

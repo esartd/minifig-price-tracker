@@ -1,4 +1,4 @@
-# FigTracker Deployment Guide
+# IntoBrick Deployment Guide
 
 ## 🚀 Quick Deploy (Zero Downtime)
 
@@ -37,7 +37,7 @@ PM2 cluster mode (2 instances):
 ### Step 1: Make Changes Locally
 
 ```bash
-cd /Users/erickkosysu/Code\ Projects/_Personal/FigTracker
+cd /Users/erickkosysu/Code\ Projects/_Personal/IntoBrick
 
 # Make your code changes
 # Test locally: npm run dev

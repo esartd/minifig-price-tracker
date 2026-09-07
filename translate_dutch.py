@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Complete Dutch (nl.json) Translation Script for FigTracker
+Complete Dutch (nl.json) Translation Script for IntoBrick
 
 This script translates ALL sections from en.json to Dutch:
 - 35 top-level sections
 - 179 theme descriptions
 - 1700+ lines total
 
-Preserves: LEGO®, BrickLink, FigTracker, URLs, {variables}
+Preserves: LEGO®, BrickLink, IntoBrick, URLs, {variables}
 Uses formal Dutch (u form) and correct LEGO terminology.
 """
 
@@ -191,7 +191,7 @@ def preserve_special_terms(text: str) -> str:
     special_patterns = [
         (r'LEGO®', '__LEGO__'),
         (r'BrickLink', '__BRICKLINK__'),
-        (r'FigTracker', '__FIGTRACKER__'),
+        (r'IntoBrick', '__INTOBRICK__'),
         (r'https?://[^\s]+', '__URL__'),
         (r'\{[^}]+\}', '__VAR__'),  # Variables like {count}, {theme}
         (r'\bStar Wars™\b', '__STARWARS__'),
@@ -277,8 +277,8 @@ def translate_value(value: Any) -> Any:
 
 def main():
     """Main translation function."""
-    en_path = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json'
-    nl_path = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/nl.json'
+    en_path = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json'
+    nl_path = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/nl.json'
 
     print("🇳🇱 Starting Dutch translation...")
     print(f"Reading: {en_path}")

@@ -33,7 +33,7 @@ async function main() {
       console.log('✓ Updated "100% free" paragraph');
       return {
         ...block,
-        text: 'FigTracker is currently free to use with no subscription required. While BrickEconomy requires a paid subscription to access full features, FigTracker provides honest, transparent LEGO pricing data without paywalls.'
+        text: 'IntoBrick is currently free to use with no subscription required. While BrickEconomy requires a paid subscription to access full features, IntoBrick provides honest, transparent LEGO pricing data without paywalls.'
       };
     }
 
@@ -43,7 +43,7 @@ async function main() {
       return {
         ...block,
         items: block.items.map((item: any) => {
-          if (item.title === 'FigTracker') {
+          if (item.title === 'IntoBrick') {
             return {
               ...item,
               pros: item.pros.map((pro: string) => {
@@ -70,7 +70,7 @@ async function main() {
       };
     }
 
-    // 4. Update "When to Use FigTracker" list
+    // 4. Update "When to Use IntoBrick" list
     if (block.type === 'list' && block.items && block.items.some((item: string) => item.includes('free tool'))) {
       console.log('✓ Updated "When to Use" list');
       return {
@@ -85,17 +85,17 @@ async function main() {
     }
 
     // 5. Update FAQ heading
-    if (block.type === 'heading' && block.text === 'Is FigTracker really free?') {
+    if (block.type === 'heading' && block.text === 'Is IntoBrick really free?') {
       console.log('✓ Updated FAQ heading');
-      return { ...block, text: 'Is FigTracker free to use?' };
+      return { ...block, text: 'Is IntoBrick free to use?' };
     }
 
     // 6. Update FAQ answer
-    if (block.type === 'paragraph' && block.text.includes('FigTracker is 100% free with no subscription required')) {
+    if (block.type === 'paragraph' && block.text.includes('IntoBrick is 100% free with no subscription required')) {
       console.log('✓ Updated FAQ answer');
       return {
         ...block,
-        text: 'Yes! FigTracker is currently free to use with no subscription required. We believe accurate LEGO pricing should be accessible to everyone.'
+        text: 'Yes! IntoBrick is currently free to use with no subscription required. We believe accurate LEGO pricing should be accessible to everyone.'
       };
     }
 

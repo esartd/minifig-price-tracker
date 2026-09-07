@@ -87,7 +87,7 @@ INDEX (description_status)
 
 **How to run:**
 ```bash
-cd /Users/erickkosysu/Code\ Projects/_Personal/FigTracker
+cd /Users/erickkosysu/Code\ Projects/_Personal/IntoBrick
 npx ts-node scripts/generate-all-descriptions-batch.ts
 ```
 

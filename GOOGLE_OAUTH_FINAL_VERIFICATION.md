@@ -160,7 +160,7 @@
 - [ ] **HTTPS redirect URLs work** (not HTTP)
 - [ ] **All 10 subdomains work** (de, fr, es, it, ja, nl, pl, pt, sv, en)
 - [ ] **Production environment variables loaded** correctly
-- [ ] **OAuth consent screen shows FigTracker branding** (not "test app")
+- [ ] **OAuth consent screen shows IntoBrick branding** (not "test app")
 - [ ] **Mobile works on production domain** (not localhost)
 
 ---
@@ -176,7 +176,7 @@
 3. Verify: Email/password login STILL WORKS
 4. Restore correct credentials
 
-**Why:** If Google OAuth breaks (their API down, credentials revoked, etc.), users must still access FigTracker
+**Why:** If Google OAuth breaks (their API down, credentials revoked, etc.), users must still access IntoBrick
 
 ---
 

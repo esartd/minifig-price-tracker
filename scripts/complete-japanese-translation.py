@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Complete Japanese translation for FigTracker
+Complete Japanese translation for IntoBrick
 Translates all missing content from en.json to ja.json
 Uses deep-translator library for translation
 """
@@ -20,7 +20,7 @@ JA_PATH = os.path.join(TRANSLATIONS_DIR, 'ja.json')
 
 # Terms to preserve (case-sensitive)
 PRESERVE_TERMS = [
-    'LEGO®', 'LEGO', 'BrickLink', 'FigTracker',
+    'LEGO®', 'LEGO', 'BrickLink', 'IntoBrick',
     'Star Wars', 'Marvel', 'DC', 'Harry Potter',
     'Spider-Man', 'Batman', 'Superman',
     'Nintendo', 'Disney', 'Pixar',
@@ -122,7 +122,7 @@ def translate_dict(en_dict, ja_dict, translator, path=""):
     return result
 
 def main():
-    print("FigTracker Japanese Translation Completion")
+    print("IntoBrick Japanese Translation Completion")
     print("=" * 60)
 
     # Load English source

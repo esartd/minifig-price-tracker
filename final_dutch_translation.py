@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Final Professional Dutch Translation for FigTracker
+Final Professional Dutch Translation for IntoBrick
 Comprehensive translation of all 1700+ lines with proper theme descriptions
 """
 
@@ -201,8 +201,8 @@ def translate_theme_description(english_text):
     return result
 
 def main():
-    en_path = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json'
-    nl_path = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/nl.json'
+    en_path = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json'
+    nl_path = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/nl.json'
 
     print("🇳🇱 Starting comprehensive Dutch translation...")
 

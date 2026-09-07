@@ -11,7 +11,7 @@ def fix_italian_themes():
     """Fix Italian theme descriptions that contain English"""
     print("Fixing Italian theme descriptions...")
 
-    with open('/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/it.json', 'r', encoding='utf-8') as f:
+    with open('/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/it.json', 'r', encoding='utf-8') as f:
         it_data = json.load(f)
 
     # Common English-to-Italian translations for theme descriptions
@@ -91,7 +91,7 @@ def fix_italian_themes():
 
                 it_data['themeDescriptions'][theme_name] = fixed_desc
 
-    with open('/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/it.json', 'w', encoding='utf-8') as f:
+    with open('/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/it.json', 'w', encoding='utf-8') as f:
         json.dump(it_data, f, ensure_ascii=False, indent=2)
 
     print("✓ Italian theme descriptions fixed")
@@ -100,7 +100,7 @@ def fix_dutch_themes():
     """Fix Dutch theme descriptions that contain English"""
     print("Fixing Dutch theme descriptions...")
 
-    with open('/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/nl.json', 'r', encoding='utf-8') as f:
+    with open('/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/nl.json', 'r', encoding='utf-8') as f:
         nl_data = json.load(f)
 
     # Common English-to-Dutch translations
@@ -180,7 +180,7 @@ def fix_dutch_themes():
 
                 nl_data['themeDescriptions'][theme_name] = fixed_desc
 
-    with open('/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/nl.json', 'w', encoding='utf-8') as f:
+    with open('/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/nl.json', 'w', encoding='utf-8') as f:
         json.dump(nl_data, f, ensure_ascii=False, indent=2)
 
     print("✓ Dutch theme descriptions fixed")
@@ -197,7 +197,7 @@ if __name__ == "__main__":
 
     import os
     for lang in ['it', 'nl']:
-        path = f'/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/{lang}.json'
+        path = f'/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/{lang}.json'
         size = os.path.getsize(path) / 1024
         with open(path, 'r') as f:
             lines = len(f.readlines())

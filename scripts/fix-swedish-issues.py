@@ -116,7 +116,7 @@ def fix_dict(obj):
 
 
 def main():
-    sv_file = "/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/sv.json"
+    sv_file = "/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/sv.json"
 
     print("Reading Swedish file...")
     with open(sv_file, 'r', encoding='utf-8') as f:

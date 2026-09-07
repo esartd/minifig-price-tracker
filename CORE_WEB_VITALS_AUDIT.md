@@ -1,4 +1,4 @@
-# Core Web Vitals Audit - FigTracker
+# Core Web Vitals Audit - IntoBrick
 
 **Date:** June 4, 2026  
 **Auditor:** Claude Code  

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Complete Portuguese (Portugal) translation for FigTracker
+Complete Portuguese (Portugal) translation for IntoBrick
 This script loads en.json and creates a complete pt.json with all sections fully translated
 """
 
@@ -99,7 +99,7 @@ def translate_value(value, en_value=None):
         return value
 
     # Keep brand names and technical terms
-    keep_as_is = ['LEGO®', 'BrickLink', 'FigTracker', 'Amazon', 'eBay']
+    keep_as_is = ['LEGO®', 'BrickLink', 'IntoBrick', 'Amazon', 'eBay']
     if value in keep_as_is:
         return value
 
@@ -125,9 +125,9 @@ def translate_value(value, en_value=None):
         "Search themes...": "Pesquisar temas...",
 
         # About page
-        "About FigTracker": "Sobre FigTracker",
+        "About IntoBrick": "Sobre IntoBrick",
         "Your ultimate tool for managing LEGO collections": "Sua ferramenta definitiva para gerenciar coleções LEGO",
-        "FigTracker helps you track, organize, and value your LEGO minifigure and set collection. Whether you're a casual collector or dedicated enthusiast, we have the tools you need.": "FigTracker ajuda você a rastrear, organizar e valorizar sua coleção de minifiguras e conjuntos LEGO. Quer você seja um colecionador casual ou um entusiasta dedicado, temos as ferramentas que você precisa.",
+        "IntoBrick helps you track, organize, and value your LEGO minifigure and set collection. Whether you're a casual collector or dedicated enthusiast, we have the tools you need.": "IntoBrick ajuda você a rastrear, organizar e valorizar sua coleção de minifiguras e conjuntos LEGO. Quer você seja um colecionador casual ou um entusiasta dedicado, temos as ferramentas que você precisa.",
         "Features": "Recursos",
         "Collection Tracking": "Rastreamento de Coleção",
         "Manage your collection and inventory with easy-to-use tools": "Gerencie sua coleção e inventário com ferramentas fáceis de usar",
@@ -204,7 +204,7 @@ def merge_translations(en_data, pt_partial):
 
 
 def main():
-    base_dir = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup'
+    base_dir = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup'
 
     en_file = os.path.join(base_dir, 'en.json')
     pt_file_current = os.path.join(base_dir, 'pt.json')

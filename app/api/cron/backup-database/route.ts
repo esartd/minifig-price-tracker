@@ -105,7 +105,7 @@ export async function GET(request: Request) {
 
         // Configure git
         await execAsync('git config user.email "backup-bot@figtracker.com"');
-        await execAsync('git config user.name "FigTracker Backup Bot"');
+        await execAsync('git config user.name "IntoBrick Backup Bot"');
 
         // Add backup files
         await execAsync(`git add ${backupDir}/*`);

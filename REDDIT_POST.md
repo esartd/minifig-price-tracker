@@ -11,7 +11,7 @@
 
 Hey r/lego! 
 
-I've been building a free LEGO minifigure price tracker ([FigTracker](https://figtracker.ericksu.com)) that pulls real-time data from Bricklink. While analyzing the pricing data across 18,732 minifigures, I got curious: **which ones are actually the most valuable?**
+I've been building a free LEGO minifigure price tracker ([IntoBrick](https://figtracker.ericksu.com)) that pulls real-time data from Bricklink. While analyzing the pricing data across 18,732 minifigures, I got curious: **which ones are actually the most valuable?**
 
 Here are the top 10:
 
@@ -51,7 +51,7 @@ Happy to answer questions about the data or minifig values!
 ## For r/legomarket
 
 ### Title:
-"Free tool: FigTracker - Instant Bricklink pricing for your minifigs"
+"Free tool: IntoBrick - Instant Bricklink pricing for your minifigs"
 
 ### Post Body:
 
@@ -59,7 +59,7 @@ Fellow sellers,
 
 I built a free tool to solve the annoying Bricklink pricing problem: seeing 3 different averages and having to do mental math to figure out what to charge.
 
-**FigTracker** ([link](https://figtracker.ericksu.com)):
+**IntoBrick** ([link](https://figtracker.ericksu.com)):
 - Pulls real-time Bricklink data
 - Gives you ONE suggested price (no calculator needed)
 - Tracks your inventory
@@ -69,7 +69,7 @@ Example: Instead of seeing "Qty-weighted: $12.45 | Simple avg: $15.20 | Lowest: 
 
 It's free, no account needed for pricing (optional for inventory tracking).
 
-I also wrote a comparison guide: [FigTracker vs Bricklink](https://figtracker.ericksu.com/guides/figtracker-vs-bricklink) - TL;DR: use both together.
+I also wrote a comparison guide: [IntoBrick vs Bricklink](https://figtracker.ericksu.com/guides/figtracker-vs-bricklink) - TL;DR: use both together.
 
 Hope this saves you time! Let me know if you have feedback.
 
@@ -82,7 +82,7 @@ Hope this saves you time! Let me know if you have feedback.
 
 ### Post Body:
 
-When negotiating trades, I always had to tab between Bricklink and a calculator to figure out fair values. Made a tool to automate it: [FigTracker](https://figtracker.ericksu.com)
+When negotiating trades, I always had to tab between Bricklink and a calculator to figure out fair values. Made a tool to automate it: [IntoBrick](https://figtracker.ericksu.com)
 
 Quick features:
 - Real-time Bricklink prices

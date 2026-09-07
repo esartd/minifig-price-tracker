@@ -1,6 +1,6 @@
 # Google OAuth & Account Linking Implementation Plan
 
-**Project:** FigTracker  
+**Project:** IntoBrick  
 **Date:** June 1, 2026  
 **Status:** Planning Phase - For Review  
 
@@ -185,7 +185,7 @@ model User {
 **Risk Mitigation:**
 - ✅ **CRITICAL:** Only allow verified Google emails (`email_verified: true`)
 - ✅ Log all account linking events for audit trail
-- ✅ **NEW:** Show success message: "Welcome back! We linked your Google account to your existing FigTracker account"
+- ✅ **NEW:** Show success message: "Welcome back! We linked your Google account to your existing IntoBrick account"
 - ✅ Monitor for suspicious activity (multiple accounts linked to same Google ID)
 
 ---
@@ -347,7 +347,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 #### Step 3: Get Google OAuth Credentials
 **Process:**
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create new project: "FigTracker Production"
+2. Create new project: "IntoBrick Production"
 3. Enable Google+ API
 4. Create OAuth 2.0 Client ID
    - Application type: Web application
@@ -429,7 +429,7 @@ export default function SignIn() {
       {linked === 'true' && (
         <MessageAlert 
           type="success" 
-          message="Welcome back! We linked your Google account to your existing FigTracker account." 
+          message="Welcome back! We linked your Google account to your existing IntoBrick account." 
         />
       )}
       
@@ -542,7 +542,7 @@ export function AccountLinkedToast() {
         <div>
           <div style={{ fontWeight: '600', marginBottom: '4px' }}>Account Linked!</div>
           <div style={{ fontSize: '14px', opacity: 0.9 }}>
-            Your Google account is now connected to FigTracker.
+            Your Google account is now connected to IntoBrick.
           </div>
         </div>
       </div>
@@ -720,7 +720,7 @@ export async function POST(request: Request) {
 
 **Threat 1: Google Account Compromise**
 - Attacker gains access to victim's Google account
-- Attacker signs in with Google → gets FigTracker access
+- Attacker signs in with Google → gets IntoBrick access
 - **Mitigation:** This is true with or without account linking. If Google account is compromised, user has bigger problems.
 
 **Threat 2: Email Takeover**
@@ -810,7 +810,7 @@ npm run build
 
 2. **Email Notifications:**
    - Should we email users when Google account is linked?
-   - Template: "Your Google account (john@gmail.com) was linked to FigTracker"
+   - Template: "Your Google account (john@gmail.com) was linked to IntoBrick"
 
 3. **Password Requirements:**
    - Can users remove their password after linking Google?

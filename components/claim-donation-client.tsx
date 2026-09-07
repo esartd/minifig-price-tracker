@@ -86,7 +86,7 @@ export default function ClaimDonationClient() {
             marginBottom: '0',
           }}
         >
-          {t('claimDonation.hero.subtitle') || 'Join our supporters leaderboard and let the community know you helped keep FigTracker free'}
+          {t('claimDonation.hero.subtitle') || 'Join our supporters leaderboard and let the community know you helped keep IntoBrick free'}
         </p>
       </div>
 

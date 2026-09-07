@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Complete Swedish translation for FigTracker
+Complete Swedish translation for IntoBrick
 Translates ALL sections from en.json to sv.json
 """
 
@@ -10,15 +10,15 @@ from pathlib import Path
 from deep_translator import GoogleTranslator
 
 # Constants
-EN_PATH = Path("/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json")
-SV_PATH = Path("/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/sv.json")
+EN_PATH = Path("/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json")
+SV_PATH = Path("/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/sv.json")
 
 # Terms to preserve
 PRESERVE_TERMS = [
     "LEGO®",
     "LEGO",
     "BrickLink",
-    "FigTracker",
+    "IntoBrick",
     "eBay",
     "Amazon",
     "USD",
@@ -156,7 +156,7 @@ def apply_swedish_lego_terms(data):
 
 def main():
     print("=" * 60)
-    print("FigTracker Swedish Translation Generator")
+    print("IntoBrick Swedish Translation Generator")
     print("=" * 60)
     print()
 

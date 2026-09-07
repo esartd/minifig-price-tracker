@@ -349,7 +349,7 @@ export default function WriteArticlePage() {
 
       <div style={{ maxWidth: '1400px', margin: '32px auto', padding: '0 24px' }}>
         {showPreview ? (
-          <ArticlePreview blocks={contentBlocks} title={title} author="FigTracker Team" />
+          <ArticlePreview blocks={contentBlocks} title={title} author="IntoBrick Team" />
         ) : (
           <div>
             <div style={{ marginBottom: '24px' }}>

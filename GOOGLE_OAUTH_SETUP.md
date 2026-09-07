@@ -1,11 +1,11 @@
 # Google OAuth Setup Guide
 
-This document explains how to configure Google OAuth credentials for FigTracker authentication.
+This document explains how to configure Google OAuth credentials for IntoBrick authentication.
 
 ## Prerequisites
 
 - Google Cloud Console access
-- Admin access to FigTracker deployment environment (for environment variables)
+- Admin access to IntoBrick deployment environment (for environment variables)
 
 ---
 
@@ -13,7 +13,7 @@ This document explains how to configure Google OAuth credentials for FigTracker 
 
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
 2. Click "Select a project" → "New Project"
-3. Enter project name: **"FigTracker Production"**
+3. Enter project name: **"IntoBrick Production"**
 4. Click "Create"
 
 ---
@@ -34,9 +34,9 @@ This document explains how to configure Google OAuth credentials for FigTracker 
 3. Click "Create"
 
 **App Information:**
-- App name: **FigTracker**
+- App name: **IntoBrick**
 - User support email: **Your email**
-- App logo: (Optional - upload FigTracker logo)
+- App logo: (Optional - upload IntoBrick logo)
 
 **App Domain:**
 - Application home page: `https://figtracker.ericksu.com`
@@ -73,7 +73,7 @@ This document explains how to configure Google OAuth credentials for FigTracker 
 3. Select **"Web application"**
 
 **Configuration:**
-- Name: **FigTracker Web Client**
+- Name: **IntoBrick Web Client**
 
 **Authorized JavaScript origins:**
 - `http://localhost:3000` (development)
@@ -171,7 +171,7 @@ GOOGLE_CLIENT_SECRET=your-production-client-secret
 ### Error: "redirect_uri_mismatch"
 **Solution:** Check that the redirect URI in Google Console exactly matches your app's URL, including the `/api/auth/callback/google` path.
 
-### Error: "Access blocked: FigTracker has not completed the Google verification process"
+### Error: "Access blocked: IntoBrick has not completed the Google verification process"
 **Solution:** For development, add yourself as a test user in OAuth consent screen. For production, submit app for verification (only needed if >100 users).
 
 ### Error: "Invalid client"
@@ -245,4 +245,4 @@ Before launching to production:
 If you encounter issues:
 - Check [NextAuth.js Google Provider docs](https://next-auth.js.org/providers/google)
 - Review [Google OAuth 2.0 documentation](https://developers.google.com/identity/protocols/oauth2)
-- Check FigTracker server logs for detailed error messages
+- Check IntoBrick server logs for detailed error messages

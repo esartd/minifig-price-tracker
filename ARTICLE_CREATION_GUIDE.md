@@ -1,6 +1,6 @@
 # Article Creation Guide
 
-This guide explains how to create new articles for FigTracker using the component-based template system.
+This guide explains how to create new articles for IntoBrick using the component-based template system.
 
 ## Quick Start
 
@@ -102,7 +102,7 @@ Side-by-side comparison cards (perfect for "vs" articles)
 <ArticleComparison
   items={[
     {
-      title: 'FigTracker',
+      title: 'IntoBrick',
       icon: '🎯',
       pros: [
         'Free to use',
@@ -197,7 +197,7 @@ After creating your article component, add it to `lib/guides-data.ts`:
     fr: 'French description',
     es: 'Spanish description',
   },
-  author: 'FigTracker Team',
+  author: 'IntoBrick Team',
   date: '2026-05-10',
   readTime: '8 min read',
   status: 'published',

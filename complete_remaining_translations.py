@@ -12,10 +12,10 @@ def create_polish_translation():
     print("Creating Polish translation...")
 
     # Read English and German for structure
-    with open('/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json', 'r', encoding='utf-8') as f:
+    with open('/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json', 'r', encoding='utf-8') as f:
         en_data = json.load(f)
 
-    with open('/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/de.json', 'r', encoding='utf-8') as f:
+    with open('/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/de.json', 'r', encoding='utf-8') as f:
         de_data = json.load(f)
 
     # Basic Polish translations
@@ -48,7 +48,7 @@ def create_polish_translation():
     pl_data = translate_recursive(en_data, polish_map)
 
     # Write Polish translation
-    with open('/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/pl.json', 'w', encoding='utf-8') as f:
+    with open('/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/pl.json', 'w', encoding='utf-8') as f:
         json.dump(pl_data, f, ensure_ascii=False, indent=2)
 
     print(f"✓ Polish translation created")
@@ -57,7 +57,7 @@ def create_swedish_translation():
     """Create complete Swedish translation"""
     print("Creating Swedish translation...")
 
-    with open('/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json', 'r', encoding='utf-8') as f:
+    with open('/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json', 'r', encoding='utf-8') as f:
         en_data = json.load(f)
 
     swedish_map = {
@@ -87,7 +87,7 @@ def create_swedish_translation():
 
     sv_data = translate_recursive(en_data, swedish_map)
 
-    with open('/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/sv.json', 'w', encoding='utf-8') as f:
+    with open('/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/sv.json', 'w', encoding='utf-8') as f:
         json.dump(sv_data, f, ensure_ascii=False, indent=2)
 
     print(f"✓ Swedish translation created")
@@ -96,7 +96,7 @@ def create_japanese_translation():
     """Create complete Japanese translation"""
     print("Creating Japanese translation...")
 
-    with open('/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json', 'r', encoding='utf-8') as f:
+    with open('/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json', 'r', encoding='utf-8') as f:
         en_data = json.load(f)
 
     japanese_map = {
@@ -126,7 +126,7 @@ def create_japanese_translation():
 
     ja_data = translate_recursive(en_data, japanese_map)
 
-    with open('/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/ja.json', 'w', encoding='utf-8') as f:
+    with open('/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/ja.json', 'w', encoding='utf-8') as f:
         json.dump(ja_data, f, ensure_ascii=False, indent=2)
 
     print(f"✓ Japanese translation created")
@@ -139,7 +139,7 @@ def translate_recursive(data, translation_map):
         return [translate_recursive(item, translation_map) for item in data]
     elif isinstance(data, str):
         # Don't translate if it's a URL, variable, or brand name
-        if data.startswith('http') or data.startswith('{') or 'LEGO' in data or 'BrickLink' in data or 'FigTracker' in data:
+        if data.startswith('http') or data.startswith('{') or 'LEGO' in data or 'BrickLink' in data or 'IntoBrick' in data:
             return data
 
         # Try exact match
@@ -167,7 +167,7 @@ if __name__ == "__main__":
 
     import os
     for lang in ['pl', 'sv', 'ja']:
-        path = f'/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/{lang}.json'
+        path = f'/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/{lang}.json'
         if os.path.exists(path):
             size = os.path.getsize(path) / 1024
             with open(path, 'r') as f:

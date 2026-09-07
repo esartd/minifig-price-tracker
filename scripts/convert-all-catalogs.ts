@@ -5,7 +5,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const CATALOG_SOURCE_DIR = '/Users/erickkosysu/Code Projects/FigTracker/Bricklink Catalog txt/2026/4';
+const CATALOG_SOURCE_DIR = '/Users/erickkosysu/Code Projects/IntoBrick/Bricklink Catalog txt/2026/4';
 const OUTPUT_DIR = path.join(process.cwd(), 'public', 'catalog');
 
 interface CatalogItem {

@@ -155,7 +155,7 @@ git push origin --force --all
 git push origin --force --tags
 
 # Update local repo
-cd "/Users/erickkosysu/Code Projects/_Personal/FigTracker"
+cd "/Users/erickkosysu/Code Projects/_Personal/IntoBrick"
 git fetch origin
 git reset --hard origin/main
 ```

@@ -78,7 +78,7 @@ export default function TrendingMinifigs() {
         marginBottom: '32px',
         marginTop: '8px'
       }}>
-        {t('trending.description') || 'Most tracked minifigures by FigTracker users'}
+        {t('trending.description') || 'Most tracked minifigures by IntoBrick users'}
       </p>
       <div style={{
         display: 'grid',

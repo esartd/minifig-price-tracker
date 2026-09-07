@@ -451,7 +451,7 @@ export function ArticlePreview({ blocks, title, author }: ArticlePreviewProps) {
             paddingRight: 0,
           }}
         >
-          {author || 'FigTracker Team'} · {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} · 5 min read
+          {author || 'IntoBrick Team'} · {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} · 5 min read
         </div>
 
         <SocialShare

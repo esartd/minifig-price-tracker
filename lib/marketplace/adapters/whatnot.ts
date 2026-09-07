@@ -107,7 +107,7 @@ export interface WhatnotConditionMapping {
 }
 
 /**
- * FigTracker only records `new` / `used`, while Whatnot wants one of seven.
+ * IntoBrick only records `new` / `used`, while Whatnot wants one of seven.
  * These defaults are the conservative reading of each: a loose minifig sold as
  * "new" is almost never boxed, and "used" claims no better than Good so the
  * buyer isn't disappointed.

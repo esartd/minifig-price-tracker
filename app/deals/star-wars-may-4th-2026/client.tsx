@@ -898,7 +898,7 @@ export default function May4thDealsClient() {
         </div>
       </section>
 
-      {/* FigTracker Promotion */}
+      {/* IntoBrick Promotion */}
       <section style={{ padding: '80px 20px', background: 'linear-gradient(135deg, #005C97 0%, #363795 100%)' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{

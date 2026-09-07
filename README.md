@@ -127,7 +127,7 @@ GitHub Actions runs the **incremental update** automatically on the 1st of every
 
 ## Monetization (Optional)
 
-FigTracker supports **Amazon Associates** and **Rakuten Advertising** (LEGO.com) to help you earn commissions from set purchases!
+IntoBrick supports **Amazon Associates** and **Rakuten Advertising** (LEGO.com) to help you earn commissions from set purchases!
 
 See [AMAZON_RAKUTEN_AFFILIATE_SETUP.md](./AMAZON_RAKUTEN_AFFILIATE_SETUP.md) for complete setup instructions.
 

@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
           imageId: 'mobile-happy',
           imageUrl: `${baseUrl}/uploads/articles/happy-mobile-user.jpg`,
           alt: 'Happy user using mobile pricing app',
-          caption: 'FigTracker\'s mobile-first approach for quick pricing',
+          caption: 'IntoBrick\'s mobile-first approach for quick pricing',
         }],
         columns: 1,
       },
@@ -107,11 +107,11 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      // Add mobile happy before "What is FigTracker?"
-      if (block.type === 'heading' && block.text?.includes('What is FigTracker')) {
+      // Add mobile happy before "What is IntoBrick?"
+      if (block.type === 'heading' && block.text?.includes('What is IntoBrick')) {
         updatedBlocks.push(images[1]);
         addedCount++;
-        addedPositions.push('Happy mobile user before FigTracker section');
+        addedPositions.push('Happy mobile user before IntoBrick section');
       }
 
       // Add desktop before "What is Bricklink?"

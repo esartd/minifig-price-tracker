@@ -58,7 +58,7 @@ Create these endpoints:
 **IMPORTANT**: Run this only when you're ready to update your local database.
 
 ```bash
-cd "/Users/erickkosysu/Code Projects/FigTracker"
+cd "/Users/erickkosysu/Code Projects/IntoBrick"
 
 # Create and apply the migration
 npx prisma migrate dev --name add_sets_support

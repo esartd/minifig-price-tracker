@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Professional Italian Translation for FigTracker
+Professional Italian Translation for IntoBrick
 Complete manual translation database for high-quality output
 """
 
@@ -140,8 +140,8 @@ def load_source_and_translate():
     For entries not in our translation database, keep English as placeholder
     (to be manually translated later if needed).
     """
-    source_file = "/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json"
-    target_file = "/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/it.json"
+    source_file = "/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json"
+    target_file = "/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/it.json"
 
     print(f"Loading: {source_file}")
     with open(source_file, 'r', encoding='utf-8') as f:

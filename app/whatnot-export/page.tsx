@@ -46,13 +46,13 @@ export default async function WhatnotExportPage({
         operatingSystem: 'Web',
         url: `${baseUrl}/whatnot-export`,
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-        provider: { '@type': 'Organization', name: 'FigTracker' },
+        provider: { '@type': 'Organization', name: 'IntoBrick' },
       }}
       copy={{
         title: w.hero?.title || 'List on Whatnot in One Upload',
         subtitle:
           w.hero?.subtitle ||
-          'Whatnot lets you bulk-import listings from a CSV. FigTracker already knows your items, their prices and their weights — so it can write that file for you.',
+          'Whatnot lets you bulk-import listings from a CSV. IntoBrick already knows your items, their prices and their weights — so it can write that file for you.',
         howItWorks: w.howItWorks || 'How it works',
         steps: [
           {
@@ -65,7 +65,7 @@ export default async function WhatnotExportPage({
             title: w.steps?.step2?.title || 'Set your prices and conditions once',
             body:
               w.steps?.step2?.body ||
-              'Start from FigTracker’s suggested price, add a markup if you want, and choose how your conditions map to Whatnot’s.',
+              'Start from IntoBrick’s suggested price, add a markup if you want, and choose how your conditions map to Whatnot’s.',
           },
           {
             title: w.steps?.step3?.title || 'Download and upload',

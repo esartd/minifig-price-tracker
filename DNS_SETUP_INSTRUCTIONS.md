@@ -76,4 +76,4 @@ curl -I https://staging.figtracker.ericksu.com
 
 Once DNS is configured, visit: **https://staging.figtracker.ericksu.com**
 
-You should see FigTracker running (same as production for now).
+You should see IntoBrick running (same as production for now).

@@ -182,7 +182,7 @@ def translate_all_text(text, context=""):
         return text
 
     # Keep certain things unchanged
-    if text in ['LEGO®', 'LEGO', 'BrickLink', 'FigTracker', 'Amazon', 'eBay']:
+    if text in ['LEGO®', 'LEGO', 'BrickLink', 'IntoBrick', 'Amazon', 'eBay']:
         return text
     if text.startswith('http') or text.startswith('{'):
         return text
@@ -224,7 +224,7 @@ def translate_json_recursive(obj, path=""):
 def main():
     """Main function"""
 
-    base = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup'
+    base = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup'
 
     print("\n" + "=" * 80)
     print("Complete Portuguese Translation Generator (v2)")

@@ -19,7 +19,7 @@ const articleBlocks: ArticleBlock[] = [
   {
     id: 'block-2',
     type: 'paragraph',
-    text: 'That\'s where **FigTracker** comes in. Built specifically for sellers and collectors who need fast, accurate pricing based on *real* marketplace data, FigTracker solves many of the problems that BrickEconomy users complain about most.',
+    text: 'That\'s where **IntoBrick** comes in. Built specifically for sellers and collectors who need fast, accurate pricing based on *real* marketplace data, IntoBrick solves many of the problems that BrickEconomy users complain about most.',
   },
   {
     id: 'block-3',
@@ -103,12 +103,12 @@ const articleBlocks: ArticleBlock[] = [
     id: 'block-17',
     type: 'heading',
     level: 2,
-    text: 'How FigTracker Solves These Problems',
+    text: 'How IntoBrick Solves These Problems',
   },
   {
     id: 'block-18',
     type: 'paragraph',
-    text: 'FigTracker was built to address the exact pain points that BrickEconomy users complain about. Here\'s how:',
+    text: 'IntoBrick was built to address the exact pain points that BrickEconomy users complain about. Here\'s how:',
   },
   {
     id: 'block-19',
@@ -119,7 +119,7 @@ const articleBlocks: ArticleBlock[] = [
   {
     id: 'block-20',
     type: 'paragraph',
-    text: 'FigTracker pulls pricing data directly from the **BrickLink API**, including both current marketplace listings (stock) and historical sales (sold). When you see a suggested price on FigTracker, it\'s based on:',
+    text: 'IntoBrick pulls pricing data directly from the **BrickLink API**, including both current marketplace listings (stock) and historical sales (sold). When you see a suggested price on IntoBrick, it\'s based on:',
   },
   {
     id: 'block-21',
@@ -134,13 +134,13 @@ const articleBlocks: ArticleBlock[] = [
   {
     id: 'block-22',
     type: 'paragraph',
-    text: 'Unlike sites that rely on listing prices (what sellers hope to get), FigTracker shows you **what buyers are actually paying**. This means you get realistic, trustworthy pricing for making sell/buy decisions.',
+    text: 'Unlike sites that rely on listing prices (what sellers hope to get), IntoBrick shows you **what buyers are actually paying**. This means you get realistic, trustworthy pricing for making sell/buy decisions.',
   },
   {
     id: 'block-23',
     type: 'callout',
     calloutType: 'tip',
-    content: '**Pro Tip:** FigTracker\'s algorithm combines sold data, current marketplace averages, and lowest prices to give you one confident suggested price. No guesswork, no inflated values.',
+    content: '**Pro Tip:** IntoBrick\'s algorithm combines sold data, current marketplace averages, and lowest prices to give you one confident suggested price. No guesswork, no inflated values.',
   },
   {
     id: 'block-24',
@@ -151,7 +151,7 @@ const articleBlocks: ArticleBlock[] = [
   {
     id: 'block-25',
     type: 'paragraph',
-    text: 'FigTracker doesn\'t pretend to predict the future. We don\'t tell you that every set will appreciate 300% or that your collection is an investment goldmine. Instead, we show you:',
+    text: 'IntoBrick doesn\'t pretend to predict the future. We don\'t tell you that every set will appreciate 300% or that your collection is an investment goldmine. Instead, we show you:',
   },
   {
     id: 'block-26',
@@ -166,7 +166,7 @@ const articleBlocks: ArticleBlock[] = [
   {
     id: 'block-27',
     type: 'paragraph',
-    text: 'Our philosophy: **Show you reality, not fantasies.** If you want honest pricing for selling minifigures, FigTracker gives you the truth.',
+    text: 'Our philosophy: **Show you reality, not fantasies.** If you want honest pricing for selling minifigures, IntoBrick gives you the truth.',
   },
   {
     id: 'block-28',
@@ -177,7 +177,7 @@ const articleBlocks: ArticleBlock[] = [
   {
     id: 'block-29',
     type: 'paragraph',
-    text: 'FigTracker is built mobile-first. Whether you\'re pricing at home, at a LEGO convention, or browsing a local marketplace, the site works beautifully on your phone. Fast search, clean interface, instant results.',
+    text: 'IntoBrick is built mobile-first. Whether you\'re pricing at home, at a LEGO convention, or browsing a local marketplace, the site works beautifully on your phone. Fast search, clean interface, instant results.',
   },
   {
     id: 'block-30',
@@ -188,7 +188,7 @@ const articleBlocks: ArticleBlock[] = [
   {
     id: 'block-31',
     type: 'paragraph',
-    text: 'FigTracker is currently free to use with no subscription required. While BrickEconomy requires a paid subscription to access full features, FigTracker provides honest, transparent LEGO pricing data without paywalls.',
+    text: 'IntoBrick is currently free to use with no subscription required. While BrickEconomy requires a paid subscription to access full features, IntoBrick provides honest, transparent LEGO pricing data without paywalls.',
   },
   {
     id: 'block-32',
@@ -199,7 +199,7 @@ const articleBlocks: ArticleBlock[] = [
   {
     id: 'block-33',
     type: 'paragraph',
-    text: 'While BrickEconomy tries to do everything (sets, parts, instructions, boxes), FigTracker focuses on what matters most to sellers: **minifigures and sets**. Our features include:',
+    text: 'While BrickEconomy tries to do everything (sets, parts, instructions, boxes), IntoBrick focuses on what matters most to sellers: **minifigures and sets**. Our features include:',
   },
   {
     id: 'block-34',
@@ -217,14 +217,14 @@ const articleBlocks: ArticleBlock[] = [
     id: 'block-35',
     type: 'heading',
     level: 2,
-    text: 'Side-by-Side Comparison: FigTracker vs BrickEconomy',
+    text: 'Side-by-Side Comparison: IntoBrick vs BrickEconomy',
   },
   {
     id: 'block-36',
     type: 'comparison',
     items: [
       {
-        title: 'FigTracker',
+        title: 'IntoBrick',
         icon: '🚀',
         pros: [
           'Uses real BrickLink sold data',
@@ -265,12 +265,12 @@ const articleBlocks: ArticleBlock[] = [
     id: 'block-37',
     type: 'heading',
     level: 2,
-    text: 'When to Use FigTracker',
+    text: 'When to Use IntoBrick',
   },
   {
     id: 'block-38',
     type: 'paragraph',
-    text: 'FigTracker is perfect for you if:',
+    text: 'IntoBrick is perfect for you if:',
   },
   {
     id: 'block-39',
@@ -321,13 +321,13 @@ const articleBlocks: ArticleBlock[] = [
   {
     id: 'block-45',
     type: 'paragraph',
-    text: 'FigTracker solves this by pulling **real BrickLink sold data** and giving you transparent, honest pricing. No fake appreciation predictions. No subscription paywalls. Just fast, accurate market data you can trust.',
+    text: 'IntoBrick solves this by pulling **real BrickLink sold data** and giving you transparent, honest pricing. No fake appreciation predictions. No subscription paywalls. Just fast, accurate market data you can trust.',
   },
   {
     id: 'block-46',
     type: 'callout',
     calloutType: 'tip',
-    content: '**Ready to try FigTracker?** Search any LEGO minifigure or set to see real marketplace pricing based on actual sales data. It\'s free, fast, and honest.',
+    content: '**Ready to try IntoBrick?** Search any LEGO minifigure or set to see real marketplace pricing based on actual sales data. It\'s free, fast, and honest.',
   },
   {
     id: 'block-47',
@@ -343,18 +343,18 @@ const articleBlocks: ArticleBlock[] = [
     id: 'block-49',
     type: 'heading',
     level: 3,
-    text: 'Is FigTracker free to use?',
+    text: 'Is IntoBrick free to use?',
   },
   {
     id: 'block-50',
     type: 'paragraph',
-    text: 'Yes! FigTracker is currently free to use with no subscription required. We believe accurate LEGO pricing should be accessible to everyone.',
+    text: 'Yes! IntoBrick is currently free to use with no subscription required. We believe accurate LEGO pricing should be accessible to everyone.',
   },
   {
     id: 'block-51',
     type: 'heading',
     level: 3,
-    text: 'Where does FigTracker get its pricing data?',
+    text: 'Where does IntoBrick get its pricing data?',
   },
   {
     id: 'block-52',
@@ -365,39 +365,39 @@ const articleBlocks: ArticleBlock[] = [
     id: 'block-53',
     type: 'heading',
     level: 3,
-    text: 'Does FigTracker work for LEGO sets or just minifigures?',
+    text: 'Does IntoBrick work for LEGO sets or just minifigures?',
   },
   {
     id: 'block-54',
     type: 'paragraph',
-    text: 'FigTracker covers both minifigures and LEGO sets. While our focus is on minifigures (since that\'s where BrickLink data is strongest), you can track and price sets as well.',
+    text: 'IntoBrick covers both minifigures and LEGO sets. While our focus is on minifigures (since that\'s where BrickLink data is strongest), you can track and price sets as well.',
   },
   {
     id: 'block-55',
     type: 'heading',
     level: 3,
-    text: 'Can I use FigTracker to manage my selling inventory?',
+    text: 'Can I use IntoBrick to manage my selling inventory?',
   },
   {
     id: 'block-56',
     type: 'paragraph',
-    text: 'Absolutely! FigTracker has inventory management features specifically for sellers. Track condition (New/Used), quantities, and refresh pricing with one click. Perfect for eBay and BrickLink sellers who need to price listings quickly.',
+    text: 'Absolutely! IntoBrick has inventory management features specifically for sellers. Track condition (New/Used), quantities, and refresh pricing with one click. Perfect for eBay and BrickLink sellers who need to price listings quickly.',
   },
   {
     id: 'block-57',
     type: 'heading',
     level: 3,
-    text: 'Is FigTracker more accurate than BrickEconomy?',
+    text: 'Is IntoBrick more accurate than BrickEconomy?',
   },
   {
     id: 'block-58',
     type: 'paragraph',
-    text: 'For minifigure pricing, yes. FigTracker uses real BrickLink sold data (actual transactions) while BrickEconomy relies more on listing prices (asking prices). For sellers who need to know what items will *actually* sell for, FigTracker provides more realistic pricing.',
+    text: 'For minifigure pricing, yes. IntoBrick uses real BrickLink sold data (actual transactions) while BrickEconomy relies more on listing prices (asking prices). For sellers who need to know what items will *actually* sell for, IntoBrick provides more realistic pricing.',
   },
 ];
 
 async function main() {
-  console.log('📝 Creating SEO article: FigTracker vs BrickEconomy\n');
+  console.log('📝 Creating SEO article: IntoBrick vs BrickEconomy\n');
 
   const slug = 'figtracker-vs-brickeconomy';
 
@@ -409,23 +409,23 @@ async function main() {
   const translations = [
     {
       locale: 'en',
-      title: 'FigTracker vs BrickEconomy: Which LEGO Pricing Tool is Better?',
-      description: 'Comparing FigTracker and BrickEconomy for LEGO pricing. Learn why FigTracker uses real sold data instead of listing prices, and which tool is best for minifigure sellers.',
+      title: 'IntoBrick vs BrickEconomy: Which LEGO Pricing Tool is Better?',
+      description: 'Comparing IntoBrick and BrickEconomy for LEGO pricing. Learn why IntoBrick uses real sold data instead of listing prices, and which tool is best for minifigure sellers.',
     },
     {
       locale: 'de',
-      title: 'FigTracker vs BrickEconomy: Welches LEGO-Preistool ist besser?',
-      description: 'Vergleich von FigTracker und BrickEconomy für LEGO-Preise. Erfahren Sie, warum FigTracker echte Verkaufsdaten verwendet.',
+      title: 'IntoBrick vs BrickEconomy: Welches LEGO-Preistool ist besser?',
+      description: 'Vergleich von IntoBrick und BrickEconomy für LEGO-Preise. Erfahren Sie, warum IntoBrick echte Verkaufsdaten verwendet.',
     },
     {
       locale: 'fr',
-      title: 'FigTracker vs BrickEconomy: Quel outil de tarification LEGO est le meilleur?',
-      description: 'Comparaison de FigTracker et BrickEconomy pour la tarification LEGO. Découvrez pourquoi FigTracker utilise de vraies données de vente.',
+      title: 'IntoBrick vs BrickEconomy: Quel outil de tarification LEGO est le meilleur?',
+      description: 'Comparaison de IntoBrick et BrickEconomy pour la tarification LEGO. Découvrez pourquoi IntoBrick utilise de vraies données de vente.',
     },
     {
       locale: 'es',
-      title: 'FigTracker vs BrickEconomy: ¿Qué herramienta de precios LEGO es mejor?',
-      description: 'Comparación de FigTracker y BrickEconomy para precios de LEGO. Descubre por qué FigTracker usa datos de ventas reales.',
+      title: 'IntoBrick vs BrickEconomy: ¿Qué herramienta de precios LEGO es mejor?',
+      description: 'Comparación de IntoBrick y BrickEconomy para precios de LEGO. Descubre por qué IntoBrick usa datos de ventas reales.',
     },
   ];
 
@@ -461,7 +461,7 @@ async function main() {
 
   console.log(`✅ Article created: /articles/${slug}\n`);
   console.log('SEO Keywords targeted:');
-  console.log('- FigTracker vs BrickEconomy');
+  console.log('- IntoBrick vs BrickEconomy');
   console.log('- LEGO pricing tool');
   console.log('- BrickLink sold data');
   console.log('- Minifigure pricing');

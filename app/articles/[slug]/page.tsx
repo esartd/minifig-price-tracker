@@ -216,12 +216,12 @@ export default async function ArticlePage({
       dateModified: dbArticle.updatedAt.toISOString(),
       author: {
         '@type': 'Organization',
-        name: 'FigTracker',
+        name: 'IntoBrick',
         url: baseUrl,
       },
       publisher: {
         '@type': 'Organization',
-        name: 'FigTracker',
+        name: 'IntoBrick',
         url: baseUrl,
         logo: {
           '@type': 'ImageObject',
@@ -318,7 +318,7 @@ export default async function ArticlePage({
             color: '#737373',
             marginBottom: '12px'
           }}>
-            <span>{t.articles?.byline || 'FigTracker Team'}</span>
+            <span>{t.articles?.byline || 'IntoBrick Team'}</span>
             <span> · </span>
             <span>{new Date(dbArticle.publishedAt || dbArticle.createdAt).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
             <span> · </span>

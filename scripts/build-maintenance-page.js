@@ -42,7 +42,7 @@ const html = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>FigTracker</title>
+<title>IntoBrick</title>
 <style>
   body { margin:0; min-height:100vh; background:#fff; font-family: system-ui, -apple-system, "Segoe UI", sans-serif }
   .ft-wrap { max-width:600px; margin:0 auto; padding:96px 16px; text-align:center }

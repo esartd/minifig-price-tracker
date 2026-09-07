@@ -100,7 +100,7 @@ export default async function AboutPage() {
     '@type': 'AboutPage',
     mainEntity: {
       '@type': 'Organization',
-      name: 'FigTracker',
+      name: 'IntoBrick',
       url: 'https://figtracker.ericksu.com',
       founder: {
         '@type': 'Person',

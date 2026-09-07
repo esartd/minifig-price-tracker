@@ -18,7 +18,7 @@ import { Client } from 'basic-ftp';
 
 // Get catalog source directory from command line argument or use current date
 const getCatalogSourceDir = () => {
-  const baseDir = '/Users/erickkosysu/Code Projects/FigTracker/Bricklink Catalog txt';
+  const baseDir = '/Users/erickkosysu/Code Projects/IntoBrick/Bricklink Catalog txt';
 
   // If date provided as argument (e.g., "2026/5"), use it
   if (process.argv[2]) {

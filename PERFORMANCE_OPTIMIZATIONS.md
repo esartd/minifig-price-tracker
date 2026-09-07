@@ -1,4 +1,4 @@
-# Performance Optimization Plan for FigTracker
+# Performance Optimization Plan for IntoBrick
 
 ## Current Performance Analysis
 

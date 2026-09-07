@@ -13,7 +13,7 @@
 1. Go to: https://developer.paypal.com/dashboard/
 2. Log in with your PayPal Business account
 3. Click **"Create App"** under "REST API apps"
-4. Name it: "FigTracker Donations"
+4. Name it: "IntoBrick Donations"
 5. Select app type: **Merchant**
 6. Click **"Create App"**
 
