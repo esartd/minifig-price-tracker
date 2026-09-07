@@ -37,6 +37,22 @@ echo "==> Pulling latest code"
 git checkout -- tsconfig.json 2>/dev/null || true
 git pull
 
+# .env.production used to be tracked in git, which is how 35 live credentials
+# ended up in a public repo. Untracking it was correct -- but the server was
+# getting the file FROM that git pull, so the very next deploy deleted it and
+# took RESEND_API_KEY, CRON_SECRET and all four BrickLink credentials with it.
+# Next.js loads .env.production automatically in production, so the build died.
+#
+# Restore it once from the last commit that still had it. It is gitignored now,
+# so it stays local and never goes back to GitHub. These secrets are all pending
+# rotation; once rotated, edit this file in place on the server and this block
+# becomes a no-op.
+if [ ! -f .env.production ]; then
+  echo "==> .env.production missing -- restoring from history (stays untracked)"
+  git show 7313b958:.env.production > .env.production
+  chmod 600 .env.production
+fi
+
 echo "==> Installing dependencies"
 npm install --production
 
