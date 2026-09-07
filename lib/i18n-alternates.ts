@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { locales, type Locale } from '@/lib/i18n-subdomain';
+import { originFor } from '@/lib/site-domain';
 
 /**
  * Canonical and hreflang for a given path, across all ten locale subdomains.
@@ -16,18 +17,10 @@ import { locales, type Locale } from '@/lib/i18n-subdomain';
  * does and what app/sets-themes/[theme] now does too.
  */
 
-export const DOMAINS: Record<Locale, string> = {
-  en: 'https://figtracker.ericksu.com',
-  de: 'https://de.figtracker.ericksu.com',
-  fr: 'https://fr.figtracker.ericksu.com',
-  es: 'https://es.figtracker.ericksu.com',
-  it: 'https://it.figtracker.ericksu.com',
-  nl: 'https://nl.figtracker.ericksu.com',
-  pl: 'https://pl.figtracker.ericksu.com',
-  pt: 'https://pt.figtracker.ericksu.com',
-  sv: 'https://sv.figtracker.ericksu.com',
-  ja: 'https://ja.figtracker.ericksu.com',
-};
+/** Derived from lib/site-domain.ts -- do not hand-write hostnames here. */
+export const DOMAINS: Record<Locale, string> = Object.fromEntries(
+  locales.map((locale) => [locale, originFor(locale)])
+) as Record<Locale, string>;
 
 /**
  * @param pathname Leading slash, no trailing slash. Pass '' for the site root.

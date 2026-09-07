@@ -1,4 +1,6 @@
 import { MetadataRoute } from 'next'
+import { locales } from '@/lib/i18n-subdomain';
+import { originFor } from '@/lib/site-domain';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -67,17 +69,7 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: [
-      'https://figtracker.ericksu.com/sitemap.xml',
-      'https://de.figtracker.ericksu.com/sitemap.xml',
-      'https://fr.figtracker.ericksu.com/sitemap.xml',
-      'https://es.figtracker.ericksu.com/sitemap.xml',
-      'https://it.figtracker.ericksu.com/sitemap.xml',
-      'https://nl.figtracker.ericksu.com/sitemap.xml',
-      'https://pl.figtracker.ericksu.com/sitemap.xml',
-      'https://pt.figtracker.ericksu.com/sitemap.xml',
-      'https://sv.figtracker.ericksu.com/sitemap.xml',
-      'https://ja.figtracker.ericksu.com/sitemap.xml',
-    ],
+    // One sitemap per locale, hostnames from lib/site-domain.ts.
+    sitemap: locales.map((locale) => `${originFor(locale)}/sitemap.xml`),
   }
 }

@@ -1,4 +1,6 @@
 // Subdomain-based i18n configuration
+import { hostFor } from '@/lib/site-domain';
+
 export const locales = ['en', 'de', 'fr', 'es', 'it', 'nl', 'pl', 'sv', 'pt', 'ja'] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = 'en';
@@ -16,18 +18,10 @@ export const localeNames: Record<Locale, string> = {
   ja: '日本語'
 };
 
-export const subdomains: Record<Locale, string> = {
-  en: 'figtracker.ericksu.com',
-  de: 'de.figtracker.ericksu.com',
-  fr: 'fr.figtracker.ericksu.com',
-  es: 'es.figtracker.ericksu.com',
-  it: 'it.figtracker.ericksu.com',
-  nl: 'nl.figtracker.ericksu.com',
-  pl: 'pl.figtracker.ericksu.com',
-  sv: 'sv.figtracker.ericksu.com',
-  pt: 'pt.figtracker.ericksu.com',
-  ja: 'ja.figtracker.ericksu.com'
-};
+/** Derived from lib/site-domain.ts -- do not hand-write hostnames here. */
+export const subdomains: Record<Locale, string> = Object.fromEntries(
+  locales.map((locale) => [locale, hostFor(locale)])
+) as Record<Locale, string>;
 
 /**
  * Extract locale from subdomain

@@ -8,6 +8,7 @@ import { ArticleRenderer } from '@/components/article/ArticleRenderer';
 import { SocialShare } from '@/components/article/SocialShare';
 import { RelatedArticles } from '@/components/article/RelatedArticles';
 import { getTranslations, getLocaleFromHost } from '@/lib/i18n-subdomain';
+import { DOMAINS } from '@/lib/i18n-alternates';
 
 export async function generateMetadata({
   params
@@ -19,18 +20,8 @@ export async function generateMetadata({
   const host = headersList.get('host') || '';
   const locale = getLocaleFromHost(host);
 
-  const domains = {
-    en: 'https://figtracker.ericksu.com',
-    de: 'https://de.figtracker.ericksu.com',
-    fr: 'https://fr.figtracker.ericksu.com',
-    es: 'https://es.figtracker.ericksu.com',
-    it: 'https://it.figtracker.ericksu.com',
-    nl: 'https://nl.figtracker.ericksu.com',
-    pl: 'https://pl.figtracker.ericksu.com',
-    pt: 'https://pt.figtracker.ericksu.com',
-    sv: 'https://sv.figtracker.ericksu.com',
-    ja: 'https://ja.figtracker.ericksu.com',
-  };
+  // Hostnames come from lib/site-domain.ts via lib/i18n-alternates.ts.
+  const domains = DOMAINS;
   const baseUrl = domains[locale as keyof typeof domains] || domains.en;
   const canonicalUrl = `${baseUrl}/articles/${slug}`;
   const languageAlternates = Object.fromEntries(
@@ -184,18 +175,8 @@ export default async function ArticlePage({
     const firstImageBlock = contentBlocks.find((block: any) => block.type === 'image');
     const imageUrl = firstImageBlock?.images?.[0]?.imageUrl || null;
 
-    const domains = {
-    en: 'https://figtracker.ericksu.com',
-    de: 'https://de.figtracker.ericksu.com',
-    fr: 'https://fr.figtracker.ericksu.com',
-    es: 'https://es.figtracker.ericksu.com',
-    it: 'https://it.figtracker.ericksu.com',
-    nl: 'https://nl.figtracker.ericksu.com',
-    pl: 'https://pl.figtracker.ericksu.com',
-    pt: 'https://pt.figtracker.ericksu.com',
-    sv: 'https://sv.figtracker.ericksu.com',
-    ja: 'https://ja.figtracker.ericksu.com',
-  };
+    // Hostnames come from lib/site-domain.ts via lib/i18n-alternates.ts.
+  const domains = DOMAINS;
     const baseUrl = domains[locale as keyof typeof domains] || domains.en;
 
     // Breadcrumb Schema (JSON-LD)

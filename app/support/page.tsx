@@ -4,6 +4,7 @@ import { getTranslations, getLocaleFromHost, type Locale } from '@/lib/i18n-subd
 import { headers } from 'next/headers';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
+import { DOMAINS } from '@/lib/i18n-alternates';
 
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
@@ -12,18 +13,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const t = await getTranslations(locale as Locale);
 
-  const domains = {
-    en: 'https://figtracker.ericksu.com',
-    de: 'https://de.figtracker.ericksu.com',
-    fr: 'https://fr.figtracker.ericksu.com',
-    es: 'https://es.figtracker.ericksu.com',
-    it: 'https://it.figtracker.ericksu.com',
-    nl: 'https://nl.figtracker.ericksu.com',
-    pl: 'https://pl.figtracker.ericksu.com',
-    pt: 'https://pt.figtracker.ericksu.com',
-    sv: 'https://sv.figtracker.ericksu.com',
-    ja: 'https://ja.figtracker.ericksu.com',
-  };
+  // Hostnames come from lib/site-domain.ts via lib/i18n-alternates.ts.
+  const domains = DOMAINS;
 
   const localeMap = {
     en: 'en_US',

@@ -3,6 +3,7 @@ import { prisma, prismaPublic } from '@/lib/prisma';
 import AboutPageClient from '@/components/about-page-client';
 import { getTranslations, getLocaleFromHost, type Locale } from '@/lib/i18n-subdomain';
 import { headers } from 'next/headers';
+import { DOMAINS } from '@/lib/i18n-alternates';
 
 // Force dynamic rendering to show current searchable catalog count
 export const dynamic = 'force-dynamic';
@@ -46,18 +47,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations(locale);
   const catalogCountText = formatCatalogCount(catalogCount, t);
 
-  const domains = {
-    en: 'https://figtracker.ericksu.com',
-    de: 'https://de.figtracker.ericksu.com',
-    fr: 'https://fr.figtracker.ericksu.com',
-    es: 'https://es.figtracker.ericksu.com',
-    it: 'https://it.figtracker.ericksu.com',
-    nl: 'https://nl.figtracker.ericksu.com',
-    pl: 'https://pl.figtracker.ericksu.com',
-    pt: 'https://pt.figtracker.ericksu.com',
-    sv: 'https://sv.figtracker.ericksu.com',
-    ja: 'https://ja.figtracker.ericksu.com',
-  };
+  // Hostnames come from lib/site-domain.ts via lib/i18n-alternates.ts.
+  const domains = DOMAINS;
 
   const localeMap = {
     en: 'en_US',

@@ -2,6 +2,7 @@ import { getAllMinifigs, getAllCategories } from '@/lib/catalog-static';
 import { loadAllBoxes } from '@/lib/boxes-data';
 import { prisma } from '@/lib/prisma';
 import { escapeXmlText } from '@/lib/xml';
+import { originFor } from '@/lib/site-domain';
 
 /**
  * Sitemap source data, sharded.
@@ -25,18 +26,10 @@ import { escapeXmlText } from '@/lib/xml';
 export const LOCALES = ['en', 'de', 'fr', 'es', 'it', 'nl', 'pl', 'pt', 'sv', 'ja'] as const;
 export type Locale = (typeof LOCALES)[number];
 
-export const DOMAINS: Record<Locale, string> = {
-  en: 'https://figtracker.ericksu.com',
-  de: 'https://de.figtracker.ericksu.com',
-  fr: 'https://fr.figtracker.ericksu.com',
-  es: 'https://es.figtracker.ericksu.com',
-  it: 'https://it.figtracker.ericksu.com',
-  nl: 'https://nl.figtracker.ericksu.com',
-  pl: 'https://pl.figtracker.ericksu.com',
-  pt: 'https://pt.figtracker.ericksu.com',
-  sv: 'https://sv.figtracker.ericksu.com',
-  ja: 'https://ja.figtracker.ericksu.com',
-};
+/** Derived from lib/site-domain.ts -- do not hand-write hostnames here. */
+export const DOMAINS: Record<Locale, string> = Object.fromEntries(
+  LOCALES.map((locale) => [locale, originFor(locale)])
+) as Record<Locale, string>;
 
 /**
  * Paths per shard. Each becomes 10 URLs, so this is 10,000 URLs and roughly

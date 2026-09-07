@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { findMinifigByNumber, getMinifigsByCategoryId } from '@/lib/catalog-static';
 import MinifigDetailClient from '@/components/minifig-detail-client';
 import { POPULAR_MINIFIGS } from '@/lib/popular-minifigs';
+import { DOMAINS } from '@/lib/i18n-alternates';
 
 // ISR: Pre-render popular pages, revalidate every 6 hours
 export const revalidate = 21600; // 6 hours in seconds
@@ -40,18 +41,8 @@ export async function generateMetadata({
     };
   }
 
-  const domains = {
-    en: 'https://figtracker.ericksu.com',
-    de: 'https://de.figtracker.ericksu.com',
-    fr: 'https://fr.figtracker.ericksu.com',
-    es: 'https://es.figtracker.ericksu.com',
-    it: 'https://it.figtracker.ericksu.com',
-    nl: 'https://nl.figtracker.ericksu.com',
-    pl: 'https://pl.figtracker.ericksu.com',
-    pt: 'https://pt.figtracker.ericksu.com',
-    sv: 'https://sv.figtracker.ericksu.com',
-    ja: 'https://ja.figtracker.ericksu.com',
-  };
+  // Hostnames come from lib/site-domain.ts via lib/i18n-alternates.ts.
+  const domains = DOMAINS;
 
   const localeMap = {
     en: 'en_US',
@@ -398,12 +389,8 @@ export default async function MinifigPage({
   const locale = getLocaleFromHost(host);
   const t = await getTranslations(locale);
 
-  const domains = {
-    en: 'https://figtracker.ericksu.com',
-    de: 'https://de.figtracker.ericksu.com',
-    fr: 'https://fr.figtracker.ericksu.com',
-    es: 'https://es.figtracker.ericksu.com',
-  };
+  // Was a 4-locale copy; the shared map covers all ten.
+  const domains = DOMAINS;
 
   const localeMap = {
     en: 'en-US',

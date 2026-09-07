@@ -3,6 +3,7 @@ import ArticlesPageClient from '@/components/articles-page-client';
 import { headers } from 'next/headers';
 import { prisma } from '@/lib/prisma';
 import { getLocaleFromHost } from '@/lib/i18n-subdomain';
+import { DOMAINS } from '@/lib/i18n-alternates';
 
 async function getTranslations(locale: string) {
   try {
@@ -21,18 +22,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const t = await getTranslations(locale);
 
-  const domains = {
-    en: 'https://figtracker.ericksu.com',
-    de: 'https://de.figtracker.ericksu.com',
-    fr: 'https://fr.figtracker.ericksu.com',
-    es: 'https://es.figtracker.ericksu.com',
-    it: 'https://it.figtracker.ericksu.com',
-    nl: 'https://nl.figtracker.ericksu.com',
-    pl: 'https://pl.figtracker.ericksu.com',
-    pt: 'https://pt.figtracker.ericksu.com',
-    sv: 'https://sv.figtracker.ericksu.com',
-    ja: 'https://ja.figtracker.ericksu.com',
-  };
+  // Hostnames come from lib/site-domain.ts via lib/i18n-alternates.ts.
+  const domains = DOMAINS;
 
   return {
     title: t.navigation?.guides || 'Articles',
@@ -120,18 +111,8 @@ export default async function ArticlesPage() {
 
   const allArticles = [...articles, ...legacyArticles];
 
-  const domains = {
-    en: 'https://figtracker.ericksu.com',
-    de: 'https://de.figtracker.ericksu.com',
-    fr: 'https://fr.figtracker.ericksu.com',
-    es: 'https://es.figtracker.ericksu.com',
-    it: 'https://it.figtracker.ericksu.com',
-    nl: 'https://nl.figtracker.ericksu.com',
-    pl: 'https://pl.figtracker.ericksu.com',
-    pt: 'https://pt.figtracker.ericksu.com',
-    sv: 'https://sv.figtracker.ericksu.com',
-    ja: 'https://ja.figtracker.ericksu.com',
-  };
+  // Hostnames come from lib/site-domain.ts via lib/i18n-alternates.ts.
+  const domains = DOMAINS;
 
   const jsonLd = {
     '@context': 'https://schema.org',

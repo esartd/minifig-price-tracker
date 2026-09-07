@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getBoxByNumber, loadAllBoxes } from '@/lib/boxes-data';
 import SetDetailClient from '@/components/set-detail-client';
 import { POPULAR_SETS } from '@/lib/popular-sets';
+import { DOMAINS } from '@/lib/i18n-alternates';
 
 // ISR: Pre-render popular pages, revalidate every 6 hours
 export const revalidate = 21600; // 6 hours in seconds
@@ -40,18 +41,8 @@ export async function generateMetadata({
     };
   }
 
-  const domains = {
-    en: 'https://figtracker.ericksu.com',
-    de: 'https://de.figtracker.ericksu.com',
-    fr: 'https://fr.figtracker.ericksu.com',
-    es: 'https://es.figtracker.ericksu.com',
-    it: 'https://it.figtracker.ericksu.com',
-    nl: 'https://nl.figtracker.ericksu.com',
-    pl: 'https://pl.figtracker.ericksu.com',
-    pt: 'https://pt.figtracker.ericksu.com',
-    sv: 'https://sv.figtracker.ericksu.com',
-    ja: 'https://ja.figtracker.ericksu.com',
-  };
+  // Hostnames come from lib/site-domain.ts via lib/i18n-alternates.ts.
+  const domains = DOMAINS;
 
   const localeMap = {
     en: 'en_US',
@@ -149,6 +140,9 @@ export default async function SetPage({
   const { getLocaleFromHost, getTranslations } = await import('@/lib/i18n-subdomain');
   const locale = getLocaleFromHost(host);
   const t = await getTranslations(locale);
+  // Breadcrumb JSON-LD used to hard-code the English origin, so every locale
+  // advertised English breadcrumb URLs to Google.
+  const origin = DOMAINS[locale];
 
   // Get localized description
   const descriptionKey = `description_${locale}` as 'description_en' | 'description_de' | 'description_fr' | 'description_es';
@@ -304,25 +298,25 @@ export default async function SetPage({
         '@type': 'ListItem',
         position: 1,
         name: t.navigation?.home || 'Home',
-        item: 'https://figtracker.ericksu.com'
+        item: origin
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: t.navigation?.sets || 'Sets',
-        item: 'https://figtracker.ericksu.com/sets/browse'
+        item: `${origin}/sets/browse`
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: parentTheme,
-        item: `https://figtracker.ericksu.com/sets-themes/${encodeURIComponent(parentTheme.toLowerCase().replace(/\s+/g, '-'))}`
+        item: `${origin}/sets-themes/${encodeURIComponent(parentTheme.toLowerCase().replace(/\s+/g, '-'))}`
       },
       {
         '@type': 'ListItem',
         position: 4,
         name: set.name,
-        item: `https://figtracker.ericksu.com/sets/${set.box_no}`
+        item: `${origin}/sets/${set.box_no}`
       }
     ]
   };

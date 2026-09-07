@@ -9,6 +9,7 @@ import { formatPrice } from '@/lib/format-price';
 import { useTranslation } from '@/components/TranslationProvider';
 import ConfirmDeleteDialog from '@/components/ConfirmDeleteDialog';
 import AlertDialog from '@/components/AlertDialog';
+import { hostFor } from '@/lib/site-domain';
 
 export default function AccountPage() {
   const { t, locale } = useTranslation();
@@ -1868,13 +1869,9 @@ export default function AccountPage() {
                 const newLocale = e.target.value as 'en' | 'de' | 'fr' | 'es';
                 const protocol = window.location.protocol;
                 const currentPath = window.location.pathname;
-                const subdomainMap = {
-                  en: 'figtracker.ericksu.com',
-                  de: 'de.figtracker.ericksu.com',
-                  fr: 'fr.figtracker.ericksu.com',
-                  es: 'es.figtracker.ericksu.com'
-                };
-                window.location.href = `${protocol}//${subdomainMap[newLocale]}${currentPath}`;
+                // hostFor() covers all ten locales; this map had only four
+                // hard-coded, so picking any other language did nothing.
+                window.location.href = `${protocol}//${hostFor(newLocale)}${currentPath}`;
               }}
               disabled={loading}
               style={{

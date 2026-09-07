@@ -2,19 +2,10 @@ import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { getTranslations, getLocaleFromHost } from '@/lib/i18n-subdomain';
 import SearchPageClient from './search-page-client';
+import { DOMAINS } from '@/lib/i18n-alternates';
 
-const domains: Record<string, string> = {
-  en: 'https://figtracker.ericksu.com',
-  de: 'https://de.figtracker.ericksu.com',
-  fr: 'https://fr.figtracker.ericksu.com',
-  es: 'https://es.figtracker.ericksu.com',
-  it: 'https://it.figtracker.ericksu.com',
-  nl: 'https://nl.figtracker.ericksu.com',
-  pl: 'https://pl.figtracker.ericksu.com',
-  pt: 'https://pt.figtracker.ericksu.com',
-  sv: 'https://sv.figtracker.ericksu.com',
-  ja: 'https://ja.figtracker.ericksu.com',
-};
+// Hostnames come from lib/site-domain.ts via lib/i18n-alternates.ts.
+  const domains = DOMAINS;
 
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();

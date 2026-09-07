@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import IdentifyPageClient from '@/components/identify-page-client';
 import { getTranslations, getLocaleFromHost, type Locale } from '@/lib/i18n-subdomain';
 import { headers } from 'next/headers';
+import { DOMAINS } from '@/lib/i18n-alternates';
 
 // Detect locale from the request host, matching the pattern used across the app
 async function getRequestLocale(): Promise<Locale> {
@@ -14,18 +15,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
   const t = await getTranslations(locale);
 
-  const domains = {
-    en: 'https://figtracker.ericksu.com',
-    de: 'https://de.figtracker.ericksu.com',
-    fr: 'https://fr.figtracker.ericksu.com',
-    es: 'https://es.figtracker.ericksu.com',
-    it: 'https://it.figtracker.ericksu.com',
-    nl: 'https://nl.figtracker.ericksu.com',
-    pl: 'https://pl.figtracker.ericksu.com',
-    pt: 'https://pt.figtracker.ericksu.com',
-    sv: 'https://sv.figtracker.ericksu.com',
-    ja: 'https://ja.figtracker.ericksu.com',
-  };
+  // Hostnames come from lib/site-domain.ts via lib/i18n-alternates.ts.
+  const domains = DOMAINS;
 
   const localeMap = {
     en: 'en_US',
