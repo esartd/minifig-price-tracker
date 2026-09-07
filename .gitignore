@@ -28,9 +28,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env*.local
+# local env files -- ALL of them. Seven .env files were tracked in this public
+# repo and leaked 35 live credentials, including the production database
+# password. Never commit an env file, not even a ".backup" or ".example".
 .env
+.env.*
+!.env.example.template
 
 # vercel
 .vercel
