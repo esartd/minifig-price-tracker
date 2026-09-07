@@ -47,6 +47,18 @@ const nextConfig = {
         destination: '/collectors',
         permanent: true,
       },
+      // Two comparison articles carried the old brand in their slug, which is a
+      // URL. Renamed with the rebrand; these keep the indexed versions alive.
+      {
+        source: '/articles/figtracker-vs-bricklink',
+        destination: '/articles/intobrick-vs-bricklink',
+        permanent: true,
+      },
+      {
+        source: '/articles/figtracker-vs-brickeconomy',
+        destination: '/articles/intobrick-vs-brickeconomy',
+        permanent: true,
+      },
     ];
   },
 
