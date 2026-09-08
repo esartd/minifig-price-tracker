@@ -942,14 +942,15 @@ input[type="number"] {
 .inventory-actions-container {
   display: flex;
   flex-direction: row;
+  /* Centre, not stretch: the row holds fixed-size circles beside a stepper,
+     and stretching is what turned the circles into capsules. */
+  align-items: center;
   gap: 12px;
   width: 100%;
 }
 
 /* The detail pages' stepper. Pill, matching the one in the collection lists:
-   the wrapper carries the shape and clips the -/+ inside it. This one is
-   flex: 1 so it spans the column, which means its end caps are far wider than
-   the 22px corner arc and the glyphs sit nowhere near the curve. */
+   the wrapper carries the shape and clips the -/+ inside it. */
 .quantity-stepper {
   display: flex;
   align-items: center;
@@ -958,14 +959,26 @@ input[type="number"] {
   border-radius: 999px;
   overflow: hidden;
   background: #ffffff;
-  flex: 1;
+  /* Sized to its content. flex: 1 stretched every stepper across its column --
+     measured at 517px on the minifig page, with 429px of empty number field
+     between the two marks, at which point it stops reading as a stepper. */
+  flex: 0 0 auto;
+  width: fit-content;
   min-width: 0;
 }
 
 .inventory-delete-btn {
+  /* height, not just min-height. Without it this button is a flex child with a
+     fixed width and an elastic height, so align-items: stretch pulls it to
+     whatever the tallest thing in the row is -- 44 wide by something taller,
+     which a 999px radius draws as a capsule standing on end rather than the
+     circle it is meant to be. Same bug the mobile action buttons had. */
+  height: 44px;
   min-height: 44px;
+  max-height: 44px;
   width: 44px;
   min-width: 44px;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;

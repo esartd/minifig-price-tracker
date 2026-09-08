@@ -23,7 +23,7 @@ import { generateEbaySetLink } from '@/lib/ebay-affiliate-links';
 import { buildWhatnotSetUrl } from '@/lib/whatnot-affiliate-links';
 import { trackAffiliateClick } from '@/lib/analytics';
 import SetDescription from '@/components/SetDescription';
-import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline';
+import { HeartIcon as HeartOutline, MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
 import PriceAlertButton from '@/components/PriceAlertButton';
 import BadgeTooltip from '@/components/BadgeTooltip';
@@ -885,7 +885,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                               borderRight: '1px solid #e5e5e5', cursor: quantity > 1 ? 'pointer' : 'not-allowed',
                               color: quantity > 1 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
                               fontWeight: '600', padding: 0, flexShrink: 0, transition: 'all 0.2s'
-                            }}>−</button>
+                            }}><MinusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} /></button>
                           <input type="number" min="1" max="9999" value={quantity}
                             onChange={(e) => { const val = parseInt(e.target.value);
                               if (!isNaN(val) && val >= 1 && val <= 9999) setQuantity(val); }}
@@ -901,7 +901,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                               borderLeft: '1px solid #e5e5e5', cursor: quantity < 9999 ? 'pointer' : 'not-allowed',
                               color: quantity < 9999 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
                               fontWeight: '600', padding: 0, flexShrink: 0, transition: 'all 0.2s'
-                            }}>+</button>
+                            }}><PlusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} /></button>
                         </div>
                       </div>
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
@@ -972,7 +972,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                               cursor: inventoryItem.quantity > 1 ? 'pointer' : 'not-allowed',
                               color: inventoryItem.quantity > 1 ? '#171717' : '#a3a3a3', transition: 'all 0.2s',
                               fontSize: 'var(--text-lg)', fontWeight: '600', padding: 0, flexShrink: 0
-                            }}>−</button>
+                            }}><MinusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} /></button>
                           <input type="number" min="1" max="9999" value={inventoryItem.quantity}
                             onChange={(e) => { const val = parseInt(e.target.value);
                               if (!isNaN(val) && val >= 1 && val <= 9999) handleUpdateInventoryQuantity(val); }}
@@ -989,7 +989,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                               cursor: inventoryItem.quantity < 9999 ? 'pointer' : 'not-allowed',
                               color: inventoryItem.quantity < 9999 ? '#171717' : '#a3a3a3', transition: 'all 0.2s',
                               fontSize: 'var(--text-lg)', fontWeight: '600', padding: 0, flexShrink: 0
-                            }}>+</button>
+                            }}><PlusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} /></button>
                         </div>
                         <button onClick={async (e) => {
                           e.stopPropagation();
@@ -1100,7 +1100,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                               cursor: addToCollectionQty > 1 ? 'pointer' : 'not-allowed',
                               color: addToCollectionQty > 1 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
                               fontWeight: '600', padding: 0, flexShrink: 0, transition: 'all 0.2s'
-                            }}>−</button>
+                            }}><MinusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} /></button>
                           <input type="number" min="1" max="9999" value={addToCollectionQty}
                             onChange={(e) => { const val = parseInt(e.target.value);
                               if (!isNaN(val) && val >= 1 && val <= 9999) setAddToCollectionQty(val); }}
@@ -1116,7 +1116,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                               cursor: addToCollectionQty < 9999 ? 'pointer' : 'not-allowed',
                               color: addToCollectionQty < 9999 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
                               fontWeight: '600', padding: 0, flexShrink: 0, transition: 'all 0.2s'
-                            }}>+</button>
+                            }}><PlusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} /></button>
                         </div>
                       </div>
                       <button onClick={handleAddToCollectionFromSection} disabled={addToCollectionLoading}
@@ -1147,7 +1147,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                               cursor: personalCollectionItem.quantity > 1 ? 'pointer' : 'not-allowed',
                               color: personalCollectionItem.quantity > 1 ? '#171717' : '#a3a3a3', transition: 'all 0.2s',
                               fontSize: 'var(--text-lg)', fontWeight: '600', padding: 0, flexShrink: 0
-                            }}>−</button>
+                            }}><MinusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} /></button>
                           <input type="number" min="1" max="9999" value={personalCollectionItem.quantity}
                             onChange={(e) => { const val = parseInt(e.target.value);
                               if (!isNaN(val) && val >= 1 && val <= 9999) handleUpdatePersonalQuantity(val); }}
@@ -1164,7 +1164,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                               cursor: personalCollectionItem.quantity < 9999 ? 'pointer' : 'not-allowed',
                               color: personalCollectionItem.quantity < 9999 ? '#171717' : '#a3a3a3', transition: 'all 0.2s',
                               fontSize: 'var(--text-lg)', fontWeight: '600', padding: 0, flexShrink: 0
-                            }}>+</button>
+                            }}><PlusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} /></button>
                         </div>
                         <button onClick={async (e) => {
                           e.stopPropagation();
@@ -1257,7 +1257,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                               cursor: addToInventoryQty > 1 ? 'pointer' : 'not-allowed',
                               color: addToInventoryQty > 1 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
                               fontWeight: '600', padding: 0, flexShrink: 0, transition: 'all 0.2s'
-                            }}>−</button>
+                            }}><MinusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} /></button>
                           <input type="number" min="1" max="9999" value={addToInventoryQty}
                             onChange={(e) => { const val = parseInt(e.target.value);
                               if (!isNaN(val) && val >= 1 && val <= 9999) setAddToInventoryQty(val); }}
@@ -1273,7 +1273,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                               cursor: addToInventoryQty < 9999 ? 'pointer' : 'not-allowed',
                               color: addToInventoryQty < 9999 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
                               fontWeight: '600', padding: 0, flexShrink: 0, transition: 'all 0.2s'
-                            }}>+</button>
+                            }}><PlusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} /></button>
                         </div>
                       </div>
                       <button onClick={handleAddToInventoryFromSection} disabled={addToInventoryLoading}

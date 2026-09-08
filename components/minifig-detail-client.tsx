@@ -24,7 +24,7 @@ import { generateAmazonMinifigLink, generateBrickLinkMinifigLink } from '@/lib/a
 import { generateEbayMinifigLink } from '@/lib/ebay-affiliate-links';
 import { buildWhatnotMinifigUrl } from '@/lib/whatnot-affiliate-links';
 import { trackAffiliateClick } from '@/lib/analytics';
-import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline';
+import { HeartIcon as HeartOutline, MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
 import { useTranslation } from '@/components/TranslationProvider';
 import AlertDialog from './AlertDialog';
@@ -1468,7 +1468,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   if (quantity > 1) e.currentTarget.style.background = '#ffffff';
                                 }}
                               >
-                                −
+                                <MinusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
                               </button>
 
                               <input
@@ -1532,7 +1532,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   if (quantity < 9999) e.currentTarget.style.background = '#ffffff';
                                 }}
                               >
-                                +
+                                <PlusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
                               </button>
                             </div>
                           </div>
@@ -1650,7 +1650,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                               if (collectionItem.quantity > 1) e.currentTarget.style.background = '#ffffff';
                             }}
                           >
-                            −
+                            <MinusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
                           </button>
 
                           <input
@@ -1716,7 +1716,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                               if (collectionItem.quantity < 9999) e.currentTarget.style.background = '#ffffff';
                             }}
                           >
-                            +
+                            <PlusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
                           </button>
                         </div>
 
@@ -1950,7 +1950,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   if (addToCollectionQty > 1) e.currentTarget.style.background = '#ffffff';
                                 }}
                               >
-                                −
+                                <MinusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
                               </button>
 
                               <input
@@ -2010,7 +2010,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   if (addToCollectionQty < 9999) e.currentTarget.style.background = '#ffffff';
                                 }}
                               >
-                                +
+                                <PlusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
                               </button>
                             </div>
                           </div>
@@ -2149,7 +2149,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   if (personalCollectionItem.quantity > 1) e.currentTarget.style.background = '#ffffff';
                                 }}
                               >
-                                −
+                                <MinusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
                               </button>
 
                               <input
@@ -2215,7 +2215,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   if (personalCollectionItem.quantity < 9999) e.currentTarget.style.background = '#ffffff';
                                 }}
                               >
-                                +
+                                <PlusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
                               </button>
                             </div>
 
@@ -2403,7 +2403,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   if (addToInventoryQty > 1) e.currentTarget.style.background = '#ffffff';
                                 }}
                               >
-                                −
+                                <MinusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
                               </button>
 
                               <input
@@ -2463,7 +2463,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   if (addToInventoryQty < 9999) e.currentTarget.style.background = '#ffffff';
                                 }}
                               >
-                                +
+                                <PlusIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
                               </button>
                             </div>
                           </div>

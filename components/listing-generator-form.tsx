@@ -391,7 +391,14 @@ export default function ListingGeneratorForm({ item, onSuccess, onOpen, itemType
           }}
           title={t('listingGenerator.customizeOptionsTooltip') || 'Customize options'}
           style={{
-            padding: '14px 16px',
+            /* Square box, so the pill radius gives a circle. It was
+               padding: 14px 16px around an 18px icon -- asymmetric padding on
+               an icon-only button can never be square. 48px matches the height
+               of the Generate Listing button beside it. */
+            width: '48px',
+            height: '48px',
+            flexShrink: 0,
+            padding: 0,
             backgroundColor: '#ffffff',
             color: '#525252',
             border: '1px solid #e5e5e5',
