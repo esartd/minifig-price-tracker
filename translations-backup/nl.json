@@ -455,7 +455,7 @@
     }
   },
   "search": {
-    "placeholder": "Zoek naar een LEGO minifiguur of set...",
+    "placeholder": "Zoek op naam of BrickLink-ID",
     "placeholderSets": "Zoek naar LEGO sets...",
     "notFound": "Niet gevonden. Probeer andere zoektermen.",
     "results": "{count} resultaten gevonden",
@@ -486,6 +486,17 @@
     "meta": {
       "title": "Zoek LEGO minifiguren & sets",
       "description": "Zoek elke LEGO-minifiguur of set om de huidige adviesprijs te zien, berekend uit BrickLink- en eBay-gegevens."
+    },
+    "header": {
+      "placeholder": "Zoek op naam of BrickLink-ID",
+      "ariaLabel": "Zoek LEGO minifiguren en sets op naam of BrickLink-ID",
+      "clear": "Zoekopdracht wissen",
+      "suggestions": "Zoeksuggesties",
+      "seeAll": "Bekijk alle resultaten voor ‘{query}’",
+      "noResults": "Niets gevonden. Je kunt ook op BrickLink-ID zoeken, zoals sw0001.",
+      "oneResultAvailable": "1 suggestie beschikbaar",
+      "resultsAvailable": "{count} suggesties beschikbaar",
+      "idHint": "Probeer een naam, of een BrickLink-ID zoals sw0001 of 75192-1"
     }
   },
   "buyButtons": {
@@ -2657,12 +2668,29 @@
     },
     "howItWorks": {
       "title": "Hoe het werkt",
-      "paragraph1": "Omdat het is gebouwd op basis van de catalogusgegevens en huidige adviesprijs van jouw item, staat de advertentiegenerator op elke minifiguur- en setpagina — hij moet precies weten welk item je verkoopt.",
-      "paragraph2": "Zoek hieronder naar je item, open de pagina, en zoek naar de optie \"Advertentie genereren\" zodra het in je inventaris staat."
+      "paragraph1": "De generator schrijft op basis van de catalogusgegevens van het artikel en de huidige prijssuggestie, dus hij moet precies weten wat je verkoopt. Daarom staat hij op elke minifiguur- en setpagina en niet op een eigen pagina."
     },
     "cta": {
       "subtitle": "Vind het item dat je wilt aanbieden.",
       "button": "Zoek een minifiguur of set"
+    },
+    "steps": {
+      "step1": {
+        "title": "Zoek het artikel en open de pagina",
+        "body": "Zoek op naam of BrickLink-ID — zowel sw0001 als 75192-1 werkt — en open het resultaat."
+      },
+      "step2": {
+        "title": "Zet het bij je artikelen te koop",
+        "body": "De generator verschijnt zodra het artikel op een van je lijsten staat. Dit is de gratis route: voeg het toe aan je voorraad en de knop komt op die pagina. Premium-leden slaan deze stap over en genereren direct vanaf elke artikelpagina."
+      },
+      "step3": {
+        "title": "Klik op \"Advertentie genereren\"",
+        "body": "Je krijgt een titel, een voorgestelde prijs en een volledige beschrijving, elk met een eigen kopieerknop. Met het instellingenicoon ernaast kies je platform en staat, en die worden onthouden."
+      },
+      "step4": {
+        "title": "Plak het in eBay, BrickLink, Facebook of Vinted",
+        "body": "Elk platform krijgt tekst zoals daar verwacht wordt, zodat hetzelfde artikel overal goed leest."
+      }
     }
   },
   "priceAlert": {
@@ -2882,16 +2910,24 @@
     },
     "steps": {
       "step1": {
-        "title": "Zoek een minifiguur of set",
-        "body": "Vind het item dat je wilt op IntoBrick — meer dan 18.000 minifiguren en 20.000 sets."
+        "title": "Meld je eerst aan",
+        "body": "Meldingen hangen aan je e-mailadres, dus de knop verschijnt pas als je bent aangemeld. Dat is gratis en zo gedaan."
       },
       "step2": {
-        "title": "Stel je doelprijs in",
-        "body": "Vertel ons voor welke prijs je zou kopen."
+        "title": "Open de minifiguur of set die je wilt",
+        "body": "Zoek op naam of BrickLink-ID en open de artikelpagina. Er zijn ruim 18.000 minifiguren en 20.000 sets."
       },
       "step3": {
-        "title": "We mailen je zodra je prijs is bereikt",
-        "body": "Prijzen worden automatisch op de achtergrond bijgewerkt, dus je hoort het meteen zodra de prijs daalt."
+        "title": "Klik op \"Prijsmelding\" op die pagina",
+        "body": "Je vindt hem bij de knoppen naast de prijs. Er opent een klein venster met de vraag wat je wilt betalen."
+      },
+      "step4": {
+        "title": "Vul een prijs onder de huidige in",
+        "body": "Het doel moet lager zijn dan de prijs van vandaag — een melding voor een al bereikte prijs zou meteen afgaan, dus vragen we om een echt doel."
+      },
+      "step5": {
+        "title": "We mailen je zodra de prijs daalt",
+        "body": "Prijzen verversen op de achtergrond, dus je hoort het zodra het artikel jouw bedrag haalt. Meldingen kun je later in je account aanpassen of verwijderen."
       }
     },
     "cta": {
@@ -3201,5 +3237,40 @@
     "invalidBody": "Deze uitschrijflink is niet geldig. Mogelijk is hij al gebruikt of is het adres gewijzigd.",
     "resubscribeHint": "Toch weer meedoen? Je kunt aankondigingen weer inschakelen in je accountinstellingen.",
     "backHome": "Terug naar IntoBrick"
-  }
+  },
+  "homeGroups": {
+    "more": "Meer manieren om IntoBrick te gebruiken",
+    "tryIt": "Probeer het nu — geen account nodig",
+    "tryItSignedIn": "Wat je nu kunt doen"
+  },
+  "homeMore": {
+    "listing": {
+      "title": "Schrijf de advertentie voor mij",
+      "body": "Kies een minifiguur en krijg een kant-en-klare advertentie voor eBay, Facebook, BrickLink of Vinted, geschreven zoals dat platform het verwacht.",
+      "cta": "Advertentiegenerator openen"
+    },
+    "collection": {
+      "title": "Weet wat je collectie waard is",
+      "body": "Voeg je minifiguren en sets één keer toe en wij houden het totaal bij, zodat je altijd weet waar je staat zonder iets op te zoeken.",
+      "note": "Stel een prijsmelding in op elk item en we laten het weten zodra de prijs verandert.",
+      "cta": "Collectie beginnen"
+    },
+    "deals": {
+      "title": "Pak sets voordat ze uit productie gaan",
+      "body": "Wij bepalen welke sets het dichtst bij het einde van de productie zijn, op basis van leeftijd en prijsverloop.",
+      "cta": "Bekijk wat verdwijnt"
+    }
+  },
+  "navPrimary": {
+    "minifigures": "Minifiguren",
+    "sets": "Sets",
+    "retiring": "Uitlopend",
+    "listings": "Advertenties",
+    "identify": "Herkennen",
+    "export": "Export",
+    "whatnot": "Whatnot",
+    "community": "Community",
+    "tools": "Tools"
+  },
+  "listingGeneratorPage": null
 }

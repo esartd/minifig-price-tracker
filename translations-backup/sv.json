@@ -455,7 +455,7 @@
     }
   },
   "search": {
-    "placeholder": "Sök for any LEGO minifigur or set...",
+    "placeholder": "Sök på namn eller BrickLink-ID",
     "placeholderSets": "Sök for LEGO set...",
     "notFound": "Hittades inte. Prova andra sökord.",
     "results": "{count} resultat hittades",
@@ -486,6 +486,17 @@
     "meta": {
       "title": "Sök LEGO-minifigurer & set",
       "description": "Sök efter valfri LEGO-minifigur eller set för att se det aktuella föreslagna priset, beräknat från BrickLink- och eBay-data."
+    },
+    "header": {
+      "placeholder": "Sök på namn eller BrickLink-ID",
+      "ariaLabel": "Sök LEGO minifigurer och set på namn eller BrickLink-ID",
+      "clear": "Rensa sökningen",
+      "suggestions": "Sökförslag",
+      "seeAll": "Visa alla resultat för ”{query}”",
+      "noResults": "Inget hittades. Du kan även söka på BrickLink-ID, som sw0001.",
+      "oneResultAvailable": "1 förslag tillgängligt",
+      "resultsAvailable": "{count} förslag tillgängliga",
+      "idHint": "Testa ett namn, eller ett BrickLink-ID som sw0001 eller 75192-1"
     }
   },
   "buyButtons": {
@@ -2657,12 +2668,29 @@
     },
     "howItWorks": {
       "title": "Så fungerar det",
-      "paragraph1": "Eftersom den bygger på ditt föremåls egna katalogdata och aktuella föreslagna pris finns annonsgeneratorn på varje minifigur- och setsida — den måste veta exakt vilket föremål du säljer.",
-      "paragraph2": "Sök efter ditt föremål nedan, öppna dess sida, och leta efter alternativet \"Skapa annons\" när det finns i ditt lager."
+      "paragraph1": "Generatorn skriver utifrån varans katalogdata och dess aktuella prisförslag, så den måste veta exakt vilken vara du säljer. Därför finns den på varje minifigur- och setsida i stället för på en egen sida."
     },
     "cta": {
       "subtitle": "Hitta föremålet du vill sälja.",
       "button": "Sök en minifigur eller set"
+    },
+    "steps": {
+      "step1": {
+        "title": "Hitta varan och öppna dess sida",
+        "body": "Sök på namn eller BrickLink-ID — både sw0001 och 75192-1 fungerar — och öppna resultatet."
+      },
+      "step2": {
+        "title": "Lägg den bland dina varor till försäljning",
+        "body": "Generatorn visas när varan finns på någon av dina listor. Det är den kostnadsfria vägen: lägg den i lagret och knappen dyker upp på sidan. Premium-medlemmar hoppar över steget och genererar direkt från vilken varusida som helst."
+      },
+      "step3": {
+        "title": "Tryck på \"Skapa annons\"",
+        "body": "Du får en rubrik, ett prisförslag och en fullständig beskrivning, var och en med egen kopieringsknapp. Inställningsikonen intill väljer plattform och skick, och minns dem till nästa gång."
+      },
+      "step4": {
+        "title": "Klistra in i eBay, BrickLink, Facebook eller Vinted",
+        "body": "Varje plattform får text skriven som den förväntar sig, så att samma vara läser rätt överallt."
+      }
     }
   },
   "priceAlert": {
@@ -2882,16 +2910,24 @@
     },
     "steps": {
       "step1": {
-        "title": "Sök en minifigur eller set",
-        "body": "Hitta det du vill ha på IntoBrick — över 18 000 minifigurer och 20 000 set."
+        "title": "Logga in först",
+        "body": "Bevakningar hänger på din e-postadress, så knappen visas först när du är inloggad. Det är gratis och går snabbt."
       },
       "step2": {
-        "title": "Ställ in ditt målpris",
-        "body": "Berätta för oss vilket pris du skulle köpa till."
+        "title": "Öppna minifiguren eller setet du vill ha",
+        "body": "Sök på namn eller BrickLink-ID och öppna varans sida. Det finns över 18 000 minifigurer och 20 000 set."
       },
       "step3": {
-        "title": "Vi mejlar dig när priset nås",
-        "body": "Priser uppdateras automatiskt i bakgrunden, så du får veta så snart det sjunker."
+        "title": "Tryck på \"Prisbevakning\" på den sidan",
+        "body": "Den ligger bland knapparna vid priset. Det öppnas en liten ruta som frågar vad du vill betala."
+      },
+      "step4": {
+        "title": "Ange ett pris under det nuvarande",
+        "body": "Målpriset måste vara lägre än dagens pris — en bevakning för ett pris som redan nåtts skulle utlösas direkt, så vi ber om ett verkligt mål."
+      },
+      "step5": {
+        "title": "Vi mejlar när priset sjunker",
+        "body": "Priserna uppdateras i bakgrunden, så du hör av oss så snart varan når din siffra. Du kan ändra eller ta bort bevakningar i ditt konto."
       }
     },
     "cta": {
@@ -3201,5 +3237,40 @@
     "invalidBody": "Den här avregistreringslänken är inte giltig. Den kan redan ha använts, eller så har adressen ändrats.",
     "resubscribeHint": "Ändrat dig? Du kan slå på nyheter igen i dina kontoinställningar.",
     "backHome": "Tillbaka till IntoBrick"
-  }
+  },
+  "homeGroups": {
+    "more": "Fler sätt att använda IntoBricks tjänster",
+    "tryIt": "Testa nu — inget konto behövs",
+    "tryItSignedIn": "Vad du kan göra just nu"
+  },
+  "homeMore": {
+    "listing": {
+      "title": "Skriv annonsen åt mig",
+      "body": "Välj en minifigur och få en färdig annons för eBay, Facebook, BrickLink eller Vinted — var och en skriven som plattformen förväntar sig.",
+      "cta": "Öppna annonsgeneratorn"
+    },
+    "collection": {
+      "title": "Vet vad din samling är värd",
+      "body": "Lägg in dina minifigurer och set en gång, vi håller summan uppdaterad — du vet alltid var du står utan att slå upp något.",
+      "note": "Sätt en prisbevakning på valfri vara så hör vi av oss när priset ändras.",
+      "cta": "Skapa en samling"
+    },
+    "deals": {
+      "title": "Hinn före set som utgår",
+      "body": "Vi räknar ut vilka set som är närmast slutet av produktionen, utifrån ålder och hur priset har rört sig.",
+      "cta": "Se vad som utgår"
+    }
+  },
+  "navPrimary": {
+    "minifigures": "Minifigurer",
+    "sets": "Set",
+    "retiring": "Utgår snart",
+    "listings": "Annonser",
+    "identify": "Identifiera",
+    "export": "Export",
+    "whatnot": "Whatnot",
+    "community": "Community",
+    "tools": "Verktyg"
+  },
+  "listingGeneratorPage": null
 }

@@ -459,7 +459,7 @@
       "title": "Search LEGO Minifigures & Sets",
       "description": "Search any LEGO minifigure or set to see its current suggested price, blended from BrickLink and eBay data."
     },
-    "placeholder": "Search for any LEGO minifigure or set...",
+    "placeholder": "Search by name or BrickLink ID",
     "placeholderSets": "Search for LEGO sets...",
     "notFound": "Not found. Try different search terms.",
     "results": "{count} results found",
@@ -486,7 +486,18 @@
     "unifiedPlaceholder": "Search minifigures and sets...",
     "noResultsFound": "No results found",
     "noResultsSubtitle": "Try different keywords or browse by theme",
-    "seeAll": "See all →"
+    "seeAll": "See all →",
+    "header": {
+      "placeholder": "Search by name or BrickLink ID",
+      "ariaLabel": "Search LEGO minifigures and sets by name or BrickLink ID",
+      "clear": "Clear search",
+      "suggestions": "Search suggestions",
+      "seeAll": "See all results for “{query}”",
+      "noResults": "Nothing found. You can also search by BrickLink ID, like sw0001.",
+      "oneResultAvailable": "1 suggestion available",
+      "resultsAvailable": "{count} suggestions available",
+      "idHint": "Try a name, or a BrickLink ID like sw0001 or 75192-1"
+    }
   },
   "buyButtons": {
     "ebay": {
@@ -2045,16 +2056,24 @@
     },
     "steps": {
       "step1": {
-        "title": "Search any minifigure or set",
-        "body": "Find the item you want on IntoBrick — 18,000+ minifigures and 20,000+ sets."
+        "title": "Sign in first",
+        "body": "Alerts are tied to your email address, so the button only appears once you are signed in. It is free and takes a moment."
       },
       "step2": {
-        "title": "Set your target price",
-        "body": "Tell us the price you'd buy at."
+        "title": "Open the minifigure or set you want",
+        "body": "Search by name or BrickLink ID, then open the item page. There are 18,000+ minifigures and 20,000+ sets to choose from."
       },
       "step3": {
-        "title": "We'll email you when it hits your price",
-        "body": "Prices refresh automatically in the background, so you find out as soon as it drops."
+        "title": "Press \"Price Alert\" on that page",
+        "body": "You will find it among the buttons beside the price. It opens a small box asking what you want to pay."
+      },
+      "step4": {
+        "title": "Enter a price below the current one",
+        "body": "The target has to be lower than what the item costs today — an alert for a price it has already reached would fire instantly, so we ask for a real target."
+      },
+      "step5": {
+        "title": "We email you when it drops",
+        "body": "Prices refresh in the background, so you hear from us as soon as the item reaches your number. You can change or delete any alert later from your account."
       }
     },
     "cta": {
@@ -2194,12 +2213,29 @@
     },
     "howItWorks": {
       "title": "How it works",
-      "paragraph1": "Because it's built from your item's own catalog data and current suggested price, the listing generator lives on each minifigure and set page — it needs to know exactly which item you're selling.",
-      "paragraph2": "Search for your item below, open its page, and look for the \"Generate Listing\" option once you have added it to your inventory."
+      "paragraph1": "The generator writes from the item's own catalog data and its current suggested price, so it has to know exactly which item you are selling. That is why it lives on each minifigure and set page rather than on a page of its own."
     },
     "cta": {
       "subtitle": "Find the item you want to list.",
       "button": "Search a minifigure or set"
+    },
+    "steps": {
+      "step1": {
+        "title": "Find the item and open its page",
+        "body": "Search by name or BrickLink ID — sw0001 and 75192-1 both work — then open the result."
+      },
+      "step2": {
+        "title": "Add it to your items for sale",
+        "body": "The generator appears once the item is on one of your lists. This is the free route: add it to your inventory and the button shows up on that page. Premium members can skip this step and generate straight from any item page."
+      },
+      "step3": {
+        "title": "Press \"Generate Listing\"",
+        "body": "You get a title, a suggested price and a full description, each with its own copy button. The settings icon beside it sets your platform and condition, and it remembers them for next time."
+      },
+      "step4": {
+        "title": "Paste it into eBay, BrickLink, Facebook or Vinted",
+        "body": "Each platform gets wording written the way that platform expects, so the same item reads correctly wherever you list it."
+      }
     }
   },
   "howWeCalculatePrices": {
@@ -3200,5 +3236,40 @@
     "invalidBody": "This unsubscribe link is not valid. It may have already been used, or the address may have been changed.",
     "resubscribeHint": "Changed your mind? You can turn announcements back on in your account settings.",
     "backHome": "Back to IntoBrick"
-  }
+  },
+  "homeGroups": {
+    "more": "More ways to use IntoBrick",
+    "tryIt": "Try it now — no account needed",
+    "tryItSignedIn": "What you can do right now"
+  },
+  "homeMore": {
+    "listing": {
+      "title": "Write the listing for me",
+      "body": "Pick a minifigure and get a finished listing for eBay, Facebook, BrickLink or Vinted — each one written the way that platform expects.",
+      "cta": "Open the listing generator"
+    },
+    "collection": {
+      "title": "Know what your collection is worth",
+      "body": "Add your minifigures and sets once and we keep a running total, so you always know where you stand without looking anything up.",
+      "note": "Set a price alert on any item and we will tell you when it moves.",
+      "cta": "Start a collection"
+    },
+    "deals": {
+      "title": "Catch sets before they retire",
+      "body": "We work out which sets are closest to leaving production, from their age and how their price has been moving.",
+      "cta": "See what is retiring"
+    }
+  },
+  "navPrimary": {
+    "minifigures": "Minifigures",
+    "sets": "Sets",
+    "retiring": "Retiring Soon",
+    "listings": "Listings",
+    "identify": "Identify",
+    "export": "Export",
+    "whatnot": "Whatnot",
+    "community": "Community",
+    "tools": "Tools"
+  },
+  "listingGeneratorPage": null
 }

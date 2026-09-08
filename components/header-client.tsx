@@ -7,7 +7,67 @@ import { signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { UserIcon, CubeIcon, StarIcon, CurrencyDollarIcon, UsersIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import LanguageSwitcher from './LanguageSwitcher';
+import HeaderSearch from './HeaderSearch';
 import { useTranslation } from './TranslationProvider';
+
+/** Narrowest the header search box is allowed to get before the header
+ *  collapses. Mirrored by minWidth on .header-search-slot. */
+const MIN_SEARCH_WIDTH = 240;
+/** The two 24px flex gaps in header row 1. */
+const ROW_ONE_GAPS = 48;
+
+/**
+ * The nav row, in priority order.
+ *
+ * The list is short on purpose. An eleven-item flat row was tried first, on
+ * the theory that Amazon and Walmart carry about that many -- but they carry
+ * eleven department-scale categories, and this site has roughly six things
+ * that genuinely deserve the top level. Padding the row out to match only
+ * diluted them, so the occasional-use tools moved into TOOLS_NAV below.
+ *
+ * Listings is not here either, and for a different reason: /listing-generator
+ * is an SEO landing page, not the tool. The real generator is
+ * listing-generator-form.tsx and it lives on each minifigure and set page,
+ * because it needs to know which item you are selling. A nav entry labelled
+ * "Listings" promised a tool and delivered a brochure, so it sits under
+ * Resources with the other explainers.
+ *
+ * Whatnot in particular is deliberately NOT top-level. See the affiliate note
+ * in CLAUDE.md: it is unproven next to eBay and should not displace anything
+ * until there is real revenue to compare. Top-level nav is exactly the kind of
+ * promotion that note rules out, and it points off-site from the most valuable
+ * real estate on the page.
+ *
+ * The labels stay terse because checkNavigationFit collapses the entire header
+ * to a hamburger when this row will not fit, so the longest locale sets the
+ * breakpoint for everyone. Measured at 1024px, Polish and French are the
+ * binding cases -- not English, and not German as you would expect. Measure
+ * those two before adding an entry or a longer word.
+ */
+const PLAIN_NAV: Array<{ href: string; key: string; fallback: string }> = [
+  { href: '/themes',            key: 'navPrimary.minifigures', fallback: 'Minifigures' },
+  { href: '/sets-themes',       key: 'navPrimary.sets',        fallback: 'Sets' },
+  { href: '/retiring-soon',     key: 'navPrimary.retiring',    fallback: 'Retiring Soon' },
+  { href: '/collectors',        key: 'navPrimary.community',   fallback: 'Community' },
+];
+
+/** Real tools, but occasional-use -- they earn a menu, not a headline slot. */
+const TOOLS_NAV: Array<{ href: string; key: string; fallback: string }> = [
+  { href: '/identify',    key: 'navPrimary.identify', fallback: 'Identify' },
+  { href: '/export',      key: 'navPrimary.export',   fallback: 'Export' },
+  { href: '/marketplace', key: 'navPrimary.whatnot',  fallback: 'Whatnot' },
+];
+
+/**
+ * Where the "Your LEGO" menu sits, by sign-in state.
+ *
+ * A returning signed-in user comes back for their own collection, so it leads.
+ * A first-time visitor arriving from a search engine has no collection at all,
+ * and leading with an empty room says nothing about what this site does -- so
+ * for them the catalog comes first and Your LEGO follows it as an invitation.
+ * Costing nothing, because the two header trees below are already separate.
+ */
+const YOUR_LEGO_INDEX = { signedIn: 0, signedOut: 2 } as const;
 
 interface HeaderClientProps {
   user: {
@@ -24,6 +84,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
   const [browseDropdownOpen, setBrowseDropdownOpen] = useState(false);
   const [legoDropdownOpen, setLegoDropdownOpen] = useState(false);
   const [resourcesDropdownOpen, setResourcesDropdownOpen] = useState(false);
+  const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileBrowseOpen, setMobileBrowseOpen] = useState(false);
   const [mobileLegoOpen, setMobileLegoOpen] = useState(false);
@@ -34,10 +95,21 @@ export function HeaderClient({ user }: HeaderClientProps) {
   const browseDropdownRef = useRef<HTMLDivElement>(null);
   const legoDropdownRef = useRef<HTMLDivElement>(null);
   const resourcesDropdownRef = useRef<HTMLDivElement>(null);
+  const toolsDropdownRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLElement>(null);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const [useMobileLayout, setUseMobileLayout] = useState(false);
+  const navIntrinsicWidth = useRef(0);
+  const authIntrinsicWidth = useRef(0);
+  /**
+   * The search text lives here, not inside HeaderSearch, for two reasons: the
+   * desktop slot and the mobile row are two separate instances (one is always
+   * display:none) and must agree, and if useMobileLayout flips mid-typing the
+   * surviving instance keeps what was typed. One useState serves both header
+   * trees below -- they are two returns from this same function.
+   */
+  const [searchQuery, setSearchQuery] = useState('');
   // The mobile menu used to be pinned at a hard-coded top: 73px, which is the
   // desktop header's height. The mobile header is 65px, so the menu floated 8px
   // below it and left a white band between the header's bottom border and the
@@ -67,6 +139,9 @@ export function HeaderClient({ user }: HeaderClientProps) {
       }
       if (resourcesDropdownRef.current && !resourcesDropdownRef.current.contains(event.target as Node)) {
         setResourcesDropdownOpen(false);
+      }
+      if (toolsDropdownRef.current && !toolsDropdownRef.current.contains(event.target as Node)) {
+        setToolsDropdownOpen(false);
       }
       // Mobile menu click-outside handler - only run when menu is open
       if (mobileMenuOpen && mobileMenuRef.current && mobileMenuButtonRef.current) {
@@ -114,18 +189,30 @@ export function HeaderClient({ user }: HeaderClientProps) {
       const desktopNav = header.querySelector('.desktop-nav') as HTMLElement;
       const authSection = header.querySelector('.desktop-auth') as HTMLElement;
 
-      if (!logo || !desktopNav || !authSection) return;
+      if (!logo) return;
 
-      const logoWidth = logo.offsetWidth;
-      const navWidth = desktopNav.offsetWidth;
-      const authWidth = authSection.offsetWidth;
+      // Cache the last non-zero widths. The nav and auth blocks are
+      // display:none while collapsed and report 0, so re-entering desktop mode
+      // would otherwise measure zero for a frame, conclude "it fits", and flip
+      // straight back -- a strobing header on every resize.
+      if (desktopNav?.offsetWidth) navIntrinsicWidth.current = desktopNav.offsetWidth;
+      if (authSection?.offsetWidth) authIntrinsicWidth.current = authSection.offsetWidth;
 
-      // Calculate total width needed with 40px gap between logo and nav
-      const totalNeeded = logoWidth + 40 + navWidth + 40 + authWidth;
+      // The header is two rows now, so the old single formula
+      // (logo + nav + auth vs header width) no longer describes anything real:
+      // those three no longer share a row. Worse, the search box is flex:1, so
+      // row 1 always exactly fills the header and the sum would always say
+      // "too wide". The two rows fail independently, so measure them that way.
+      const rowOneFits =
+        logo.offsetWidth + MIN_SEARCH_WIDTH + authIntrinsicWidth.current + ROW_ONE_GAPS <= headerWidth;
 
-      // Switch to mobile if content doesn't fit with 20px safety margin
-      const shouldUseMobile = totalNeeded + 20 > headerWidth;
-      setUseMobileLayout(shouldUseMobile);
+      // .desktop-nav is display:inline-flex specifically so this stays the
+      // content's width. As a plain flex child on its own full-width row it
+      // would report the row's width instead, which is always >= headerWidth,
+      // and the header would collapse to a hamburger on a 27-inch monitor.
+      const navFits = navIntrinsicWidth.current <= headerWidth;
+
+      setUseMobileLayout(!(rowOneFits && navFits));
     };
 
     // Check on mount and resize
@@ -259,6 +346,64 @@ export function HeaderClient({ user }: HeaderClientProps) {
     await signOut({ redirectTo: '/auth/signin' });
   };
 
+  /**
+   * One renderer for every plain nav link, used by both header trees. The row
+   * used to be hand-written per tree, which meant each label change was two
+   * edits and drift was invisible until someone signed in.
+   */
+  const renderNavLink = ({ href, key, fallback }: { href: string; key: string; fallback: string }) => {
+    const active = pathname === href || pathname.startsWith(`${href}/`);
+    return (
+      <Link
+        key={href}
+        href={href}
+        style={{
+          fontSize: 'var(--text-xs)',
+          fontWeight: active ? '600' : '500',
+          color: active ? '#171717' : '#525252',
+          textDecoration: 'none',
+          transition: 'color 0.2s',
+          lineHeight: '1',
+          display: 'flex',
+          alignItems: 'center',
+          height: '36px',
+          borderTop: '2px solid transparent',
+          borderBottom: active ? '2px solid #3b82f6' : '2px solid transparent',
+          whiteSpace: 'nowrap'
+        }}
+      >
+        {t(key) || fallback}
+      </Link>
+    );
+  };
+
+  /**
+   * Mobile menu rows, from the same PLAIN_NAV/TOOLS_NAV arrays the desktop row
+   * uses, so the two can no longer drift apart. The mobile menu used to be a
+   * separate hand-written list and had quietly fallen a whole restructure
+   * behind the desktop nav.
+   */
+  const renderMobileNavLink = ({ href, key, fallback }: { href: string; key: string; fallback: string }) => (
+    <Link
+      key={href}
+      href={href}
+      onClick={() => setMobileMenuOpen(false)}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        padding: '16px 0',
+        borderBottom: '1px solid #f5f5f5',
+        color: '#171717',
+        textDecoration: 'none',
+        fontSize: 'var(--text-base)',
+        fontWeight: '600',
+        minHeight: '44px'
+      }}
+    >
+      {t(key) || fallback}
+    </Link>
+  );
+
   if (!user) {
     return (
       <header ref={headerRef} style={{
@@ -275,18 +420,29 @@ export function HeaderClient({ user }: HeaderClientProps) {
           margin: '0 auto',
           padding: '0 32px'
         }}>
-          {/* See the signed-in header below for why this is a 1fr auto 1fr
-              grid rather than space-between. */}
-          <div style={{
-            // Grid only on desktop. In the mobile layout the nav and auth blocks
-            // are display:none, which left the hamburger as the second grid
-            // child -- placed in the centre column instead of the right edge.
-            display: useMobileLayout ? 'flex' : 'grid',
-            gridTemplateColumns: '1fr auto 1fr',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            height: '72px'
-          }}>
+            {/* Two rows, the way Amazon, Walmart and eBay do it: logo + search +
+                account on top, category nav underneath. It was a single 1fr auto 1fr
+                grid at 72px, which centred the nav between the logo and the auth
+                block -- but a search box in row 1 grows to absorb every spare pixel,
+                so there is no slack left to centre anything against and the grid
+                stopped earning its keep. Splitting the rows is also what keeps the
+                nav from competing with the search box for width: dropping a 280px
+                box into the old single row would have moved the collapse-to-hamburger
+                point from ~1000px to ~1300px, putting ordinary laptops on the mobile
+                menu. German, Dutch and Portuguese labels are already what push it. */}
+            <div className="header-row-main" style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '24px',
+              height: '64px',
+              // The divider between the two rows lives here, not on .desktop-nav.
+              // That nav is inline-flex so checkNavigationFit can measure its own
+              // content width -- which means a border on it stops where the labels
+              // stop, roughly half way across the header. Suppressed on mobile,
+              // where the row below is the search box rather than the nav.
+              borderBottom: useMobileLayout ? 'none' : '1px solid #f5f5f5'
+            }}>
             <Link href="/" className="header-logo" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', height: '36px', justifySelf: 'start' }}>
               <div style={{
                 fontSize: 'var(--text-lg)',
@@ -300,125 +456,106 @@ export function HeaderClient({ user }: HeaderClientProps) {
               </div>
             </Link>
 
-            <div className="desktop-nav" style={{
+            <div className="header-search-slot" style={{
+              display: useMobileLayout ? 'none' : 'block',
+              flex: '1 1 auto',
+              /* Mirrors MIN_SEARCH_WIDTH in checkNavigationFit above. */
+              minWidth: '240px',
+              maxWidth: '720px'
+            }}>
+              <HeaderSearch value={searchQuery} onValueChange={setSearchQuery} variant="desktop" />
+            </div>
+
+            <div className="desktop-auth" style={{
               display: useMobileLayout ? 'none' : 'flex',
               alignItems: 'center',
-              gap: '24px'
+              gap: '12px',
+              justifySelf: 'end'
             }}>
-              <Link
-                href="/"
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: pathname === '/search' ? '600' : '500',
-                  color: pathname === '/search' ? '#171717' : '#525252',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s',
-                  lineHeight: '1',
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: '36px',
-                  borderTop: '2px solid transparent',
-                  borderBottom: pathname === '/search' ? '2px solid #3b82f6' : '2px solid transparent',
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                {t('navigation.search')}
-              </Link>
-
-              {/* Browse Dropdown */}
-              <div style={{ position: 'relative' }} ref={browseDropdownRef}>
-                <button
-                  onClick={() => setBrowseDropdownOpen(!browseDropdownOpen)}
+                <LanguageSwitcher />
+                <Link
+                  href="/auth/signin"
                   style={{
+                    padding: '10px 16px',
                     fontSize: 'var(--text-xs)',
                     fontWeight: '500',
                     color: '#525252',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    height: '36px',
-                    // Same 2px the sibling links reserve for their active underline,
-                    // so every item in the row has identical box metrics.
-                    borderTop: '2px solid transparent',
-                    borderBottom: '2px solid transparent',
-                    padding: 0,
-                    lineHeight: '1',
+                    textDecoration: 'none',
+                    transition: 'color 0.2s',
                     whiteSpace: 'nowrap'
                   }}
                 >
-                  {t('navigation.browse')}
-                  <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
+                  {t('navigation.signIn')}
+                </Link>
+                <Link
+                  href="/auth/signup"
+                  style={{
+                    padding: '10px 16px',
+                    fontSize: 'var(--text-xs)',
+                    fontWeight: '600',
+                    color: '#ffffff',
+                    background: '#3b82f6',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  {t('navigation.signUp')}
+                </Link>
+            </div>
 
-                {browseDropdownOpen && (
-                  <div style={{
-                    position: 'absolute',
-                    top: '100%',
-                    left: 0,
-                    marginTop: '12px',
-                    background: 'white',
-                    borderRadius: '12px',
-                    boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
-                    border: '1px solid #e5e5e5',
-                    minWidth: '220px',
-                    overflow: 'hidden',
-                    zIndex: 1000
-                  }}>
-                    <Link href="/themes" onClick={() => setBrowseDropdownOpen(false)} style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '12px',
-                      padding: '16px 20px',
-                      color: '#171717',
-                      textDecoration: 'none',
-                      fontSize: 'var(--text-sm)',
-                      borderBottom: '1px solid #f5f5f5',
-                      transition: 'background 0.2s'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
-                      <UserIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                      <span>{t('navigation.themes.minifigures')}</span>
-                    </Link>
-                    <Link href="/sets-themes" onClick={() => setBrowseDropdownOpen(false)} style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '12px',
-                      padding: '16px 20px',
-                      color: '#171717',
-                      textDecoration: 'none',
-                      fontSize: 'var(--text-sm)',
-                      borderBottom: '1px solid #f5f5f5',
-                      transition: 'background 0.2s'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
-                      <CubeIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                      <span>{t('navigation.themes.sets')}</span>
-                    </Link>
-                    <Link href="/marketplace" onClick={() => setBrowseDropdownOpen(false)} style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '12px',
-                      padding: '16px 20px',
-                      color: '#171717',
-                      textDecoration: 'none',
-                      fontSize: 'var(--text-sm)',
-                      transition: 'background 0.2s'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
-                      <ShoppingBagIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                      <span>{t('marketplace.navLabel') || 'Whatnot Marketplace'}</span>
-                    </Link>
-                  </div>
+            <button
+              ref={mobileMenuButtonRef}
+              className="mobile-menu-btn"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Hamburger clicked, current state:', mobileMenuOpen);
+                const newState = !mobileMenuOpen;
+                console.log('Setting mobile menu to:', newState);
+                setMobileMenuOpen(newState);
+              }}
+              style={{
+                display: useMobileLayout ? 'block' : 'none',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '8px',
+                color: '#171717',
+                zIndex: 1001
+              }}
+            >
+              <svg style={{ width: 'var(--icon-lg)', height: 'var(--icon-lg)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M4 6h16M4 12h16M4 18h16" />
                 )}
-              </div>
+              </svg>
+            </button>
+          </div>
+
+            {/* Row 2: the nav that used to share row 1 with the logo.
+            
+                display:inline-flex is load-bearing. checkNavigationFit reads this
+                element's offsetWidth to decide whether long translated labels
+                overflow, and a plain flex element on its own full-width row reports
+                the row's width rather than its content's -- which is always wider
+                than the header, so the check would collapse to a hamburger on a
+                27-inch monitor. inline-flex keeps the measurement intrinsic. */}
+            <nav className="desktop-nav" style={{
+              display: useMobileLayout ? 'none' : 'inline-flex',
+              alignItems: 'center',
+              // 20px, not 24: eleven items at 24px put Polish 15px over the usable
+              // width at 1024px, which would have collapsed the header to a hamburger.
+              gap: '20px',
+              height: '44px'
+            }}>
+              {/* Catalog first for a stranger: someone arriving from a search engine
+                  has no collection yet, so leading with an empty room would say nothing
+                  about what this site is. Your LEGO follows it as an invitation. */}
+              {PLAIN_NAV.slice(0, YOUR_LEGO_INDEX.signedOut).map(renderNavLink)}
 
               {/* Your LEGO Dropdown for logged-out users */}
               <div style={{ position: 'relative' }} ref={legoDropdownRef}>
@@ -540,25 +677,76 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 )}
               </div>
 
-              <Link
-                href="/collectors"
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: pathname === '/collectors' || pathname.startsWith('/collectors/') ? '600' : '500',
-                  color: pathname === '/collectors' || pathname.startsWith('/collectors/') ? '#171717' : '#525252',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s',
-                  lineHeight: '1',
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: '36px',
-                  borderTop: '2px solid transparent',
-                  borderBottom: pathname === '/collectors' || pathname.startsWith('/collectors/') ? '2px solid #3b82f6' : '2px solid transparent',
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                {t('collectors.directory.badge') || 'Collectors'}
-              </Link>
+              {PLAIN_NAV.slice(YOUR_LEGO_INDEX.signedOut).map(renderNavLink)}
+
+
+              {/* Tools: real features, but occasional-use, so they get a menu rather
+                  than a headline slot. Whatnot lives here deliberately -- see the note on
+                  TOOLS_NAV and the affiliate section of CLAUDE.md. */}
+              <div style={{ position: 'relative' }} ref={toolsDropdownRef}>
+                <button
+                  onClick={() => setToolsDropdownOpen(!toolsDropdownOpen)}
+                  style={{
+                    fontSize: 'var(--text-xs)',
+                    fontWeight: '500',
+                    color: '#525252',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    height: '36px',
+                    borderTop: '2px solid transparent',
+                    borderBottom: '2px solid transparent',
+                    padding: 0,
+                    lineHeight: '1',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  {t('navPrimary.tools') || 'Tools'}
+                  <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {toolsDropdownOpen && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    marginTop: '12px',
+                    background: 'white',
+                    borderRadius: '12px',
+                    boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                    border: '1px solid #e5e5e5',
+                    minWidth: '200px',
+                    overflow: 'hidden',
+                    zIndex: 1000
+                  }}>
+                    {TOOLS_NAV.map(({ href, key, fallback }, idx) => (
+                      <Link
+                        key={href}
+                        href={href}
+                        onClick={() => setToolsDropdownOpen(false)}
+                        style={{
+                          display: 'block',
+                          padding: '14px 20px',
+                          color: '#171717',
+                          textDecoration: 'none',
+                          fontSize: 'var(--text-sm)',
+                          borderBottom: idx < TOOLS_NAV.length - 1 ? '1px solid #f5f5f5' : 'none',
+                          transition: 'background 0.2s'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
+                      >
+                        {t(key) || fallback}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
 
               {/* Resources Dropdown -- About, Articles, Support (Community/Premium stay standalone) */}
               <div style={{ position: 'relative' }} ref={resourcesDropdownRef}>
@@ -630,7 +818,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
                       {t('navigation.articles') || 'Articles'}
                     </Link>
-                    <Link href="/retiring-soon" onClick={() => setResourcesDropdownOpen(false)} style={{
+                    <Link href="/listing-generator" onClick={() => setResourcesDropdownOpen(false)} style={{
                       display: 'block',
                       padding: '12px 20px',
                       color: '#171717',
@@ -641,20 +829,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
-                      {t('navigation.retiringSoon') || 'Retiring Soon'}
-                    </Link>
-                    <Link href="/identify" onClick={() => setResourcesDropdownOpen(false)} style={{
-                      display: 'block',
-                      padding: '12px 20px',
-                      color: '#171717',
-                      textDecoration: 'none',
-                      fontSize: 'var(--text-sm)',
-                      borderBottom: '1px solid #f5f5f5',
-                      transition: 'background 0.2s'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
-                      {t('navigation.identify') || 'AI Identify'}
+                      {t('navPrimary.listings') || 'Listings'}
                     </Link>
                     <Link
                       href="/support"
@@ -726,77 +901,18 @@ export function HeaderClient({ user }: HeaderClientProps) {
               >
                 {t('navigation.premium') || 'Premium'}
               </Link>
-            </div>
+            </nav>
 
-            <div className="desktop-auth" style={{
-              display: useMobileLayout ? 'none' : 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              justifySelf: 'end'
+            {/* Row 2 on mobile: search, permanently visible rather than buried in
+                the hamburger. Rendered unconditionally in mobile mode so the header's
+                offsetHeight stays constant -- headerHeight is measured from it to
+                position the fixed mobile menu. */}
+            <div className="mobile-search-row" style={{
+              display: useMobileLayout ? 'block' : 'none',
+              paddingBottom: '12px'
             }}>
-                <LanguageSwitcher />
-                <Link
-                  href="/auth/signin"
-                  style={{
-                    padding: '10px 16px',
-                    fontSize: 'var(--text-xs)',
-                    fontWeight: '500',
-                    color: '#525252',
-                    textDecoration: 'none',
-                    transition: 'color 0.2s',
-                    whiteSpace: 'nowrap'
-                  }}
-                >
-                  {t('navigation.signIn')}
-                </Link>
-                <Link
-                  href="/auth/signup"
-                  style={{
-                    padding: '10px 16px',
-                    fontSize: 'var(--text-xs)',
-                    fontWeight: '600',
-                    color: '#ffffff',
-                    background: '#3b82f6',
-                    borderRadius: '8px',
-                    textDecoration: 'none',
-                    transition: 'all 0.2s',
-                    whiteSpace: 'nowrap'
-                  }}
-                >
-                  {t('navigation.signUp')}
-                </Link>
+              <HeaderSearch value={searchQuery} onValueChange={setSearchQuery} variant="mobile" />
             </div>
-
-            <button
-              ref={mobileMenuButtonRef}
-              className="mobile-menu-btn"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('Hamburger clicked, current state:', mobileMenuOpen);
-                const newState = !mobileMenuOpen;
-                console.log('Setting mobile menu to:', newState);
-                setMobileMenuOpen(newState);
-              }}
-              style={{
-                display: useMobileLayout ? 'block' : 'none',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '8px',
-                color: '#171717',
-                zIndex: 1001
-              }}
-            >
-              <svg style={{ width: 'var(--icon-lg)', height: 'var(--icon-lg)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {mobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="var(--icon-stroke)" d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
-          </div>
         </div>
 
         {mobileMenuOpen && (
@@ -814,87 +930,11 @@ export function HeaderClient({ user }: HeaderClientProps) {
             overflowY: 'auto',
             WebkitOverflowScrolling: 'touch'
           }}>
-            <Link href="/" onClick={() => setMobileMenuOpen(false)} style={{
-              display: 'flex',
-              alignItems: 'center',
-              padding: '16px 0',
-              borderBottom: '1px solid #f5f5f5',
-              color: '#171717',
-              textDecoration: 'none',
-              fontSize: 'var(--text-base)',
-              fontWeight: '600',
-              minHeight: '44px'
-            }}>
-              {t('navigation.search')}
-            </Link>
-
-            {/* Browse Dropdown */}
-            <div style={{ borderBottom: '1px solid #f5f5f5' }}>
-              <button
-                onClick={() => setMobileBrowseOpen(!mobileBrowseOpen)}
-                style={{
-                  width: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '16px 0',
-                  background: 'none',
-                  border: 'none',
-                  color: '#171717',
-                  fontSize: 'var(--text-base)',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                  minHeight: '44px'
-                }}
-              >
-                <span>{t('navigation.browse')}</span>
-                <svg
-                  style={{
-                    width: '20px',
-                    height: '20px',
-                    transition: 'transform 0.2s',
-                    transform: mobileBrowseOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                    flexShrink: 0
-                  }}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {mobileBrowseOpen && (
-                <div style={{ paddingLeft: '16px', paddingBottom: '16px' }}>
-                  <Link href="/themes" onClick={() => setMobileMenuOpen(false)} style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    padding: '8px 0',
-                    color: '#525252',
-                    textDecoration: 'none',
-                    fontSize: 'var(--text-base)',
-                    minHeight: '44px'
-                  }}>
-                    <UserIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
-                    <span>{t('navigation.themes.minifigures')}</span>
-                  </Link>
-                  <Link href="/sets-themes" onClick={() => setMobileMenuOpen(false)} style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    padding: '8px 0',
-                    color: '#525252',
-                    textDecoration: 'none',
-                    fontSize: 'var(--text-base)',
-                    minHeight: '44px'
-                  }}>
-                    <CubeIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
-                    <span>{t('navigation.themes.sets')}</span>
-                  </Link>
-                </div>
-              )}
-            </div>
+            {/* Same order as the desktop row, from the same array. Tools items are
+                flat here rather than behind a menu: the desktop grouping exists to save
+                horizontal width, which a vertical phone menu does not need, and flat
+                rows are one tap instead of two. */}
+            {PLAIN_NAV.slice(0, YOUR_LEGO_INDEX.signedOut).map(renderMobileNavLink)}
 
             {/* Your LEGO Dropdown for mobile logged-out users */}
             <div style={{ borderBottom: '1px solid #f5f5f5' }}>
@@ -996,6 +1036,10 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 </div>
               )}
             </div>
+            {/* Retiring Soon and Community follow Your LEGO, matching the
+                signed-out desktop order. */}
+            {PLAIN_NAV.slice(YOUR_LEGO_INDEX.signedOut).map(renderMobileNavLink)}
+
 
             {/* Other Links */}
             <div style={{
@@ -1007,22 +1051,12 @@ export function HeaderClient({ user }: HeaderClientProps) {
               {/* Community -- desktop lists it between Your LEGO and Resources
                   for logged-out visitors, but this menu omitted it entirely, so
                   /collectors was unreachable from a signed-out phone. */}
-              <Link href="/collectors" onClick={() => setMobileMenuOpen(false)} style={{
-                display: 'flex',
-                alignItems: 'center',
-                padding: '16px 0',
-                borderBottom: '1px solid #f5f5f5',
-                color: '#171717',
-                textDecoration: 'none',
-                fontSize: 'var(--text-base)',
-                fontWeight: '600',
-                minHeight: '44px'
-              }}>
-                {t('collectors.directory.badge') || 'Community'}
-              </Link>
 
               {/* Resources Dropdown for mobile logged-out users -- About, Articles, Support */}
               <div style={{ borderBottom: '1px solid #f5f5f5' }}>
+              {/* TOOLS_MOBILE_DONE -- Identify, Export, Whatnot. */}
+              {TOOLS_NAV.map(renderMobileNavLink)}
+
                 <button
                   onClick={() => setMobileResourcesOpen(!mobileResourcesOpen)}
                   style={{
@@ -1080,28 +1114,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
                       minHeight: '44px'
                     }}>
                       {t('navigation.articles') || 'Articles'}
-                    </Link>
-                    <Link href="/retiring-soon" onClick={() => setMobileMenuOpen(false)} style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      padding: '8px 0',
-                      color: '#525252',
-                      textDecoration: 'none',
-                      fontSize: 'var(--text-base)',
-                      minHeight: '44px'
-                    }}>
-                      {t('navigation.retiringSoon') || 'Retiring Soon'}
-                    </Link>
-                    <Link href="/identify" onClick={() => setMobileMenuOpen(false)} style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      padding: '8px 0',
-                      color: '#525252',
-                      textDecoration: 'none',
-                      fontSize: 'var(--text-base)',
-                      minHeight: '44px'
-                    }}>
-                      {t('navigation.identify') || 'AI Identify'}
                     </Link>
                     <Link
                       href="/support"
@@ -1297,20 +1309,29 @@ export function HeaderClient({ user }: HeaderClientProps) {
         margin: '0 auto',
         padding: '0 32px'
       }}>
-        {/* 1fr auto 1fr: the middle column is centred on the header itself.
-            space-between would only centre the nav if the logo and the auth
-            block happened to be the same width, and they are not (103px vs
-            135px), which is why the links sat right of centre. */}
-        <div style={{
-          // Grid only on desktop. In the mobile layout the nav and auth blocks
-          // are display:none, which left the hamburger as the second grid
-          // child -- placed in the centre column instead of the right edge.
-          display: useMobileLayout ? 'flex' : 'grid',
-          gridTemplateColumns: '1fr auto 1fr',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          height: '72px'
-        }}>
+          {/* Two rows, the way Amazon, Walmart and eBay do it: logo + search +
+              account on top, category nav underneath. It was a single 1fr auto 1fr
+              grid at 72px, which centred the nav between the logo and the auth
+              block -- but a search box in row 1 grows to absorb every spare pixel,
+              so there is no slack left to centre anything against and the grid
+              stopped earning its keep. Splitting the rows is also what keeps the
+              nav from competing with the search box for width: dropping a 280px
+              box into the old single row would have moved the collapse-to-hamburger
+              point from ~1000px to ~1300px, putting ordinary laptops on the mobile
+              menu. German, Dutch and Portuguese labels are already what push it. */}
+          <div className="header-row-main" style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '24px',
+            height: '64px',
+            // The divider between the two rows lives here, not on .desktop-nav.
+            // That nav is inline-flex so checkNavigationFit can measure its own
+            // content width -- which means a border on it stops where the labels
+            // stop, roughly half way across the header. Suppressed on mobile,
+            // where the row below is the search box rather than the nav.
+            borderBottom: useMobileLayout ? 'none' : '1px solid #f5f5f5'
+          }}>
           <Link href="/" className="header-logo" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', height: '36px', justifySelf: 'start' }}>
             <div style={{
               fontSize: 'var(--text-lg)',
@@ -1324,401 +1345,14 @@ export function HeaderClient({ user }: HeaderClientProps) {
             </div>
           </Link>
 
-          <div className="desktop-nav" style={{
-            display: useMobileLayout ? 'none' : 'flex',
-            alignItems: 'center',
-            gap: '24px'
+          <div className="header-search-slot" style={{
+            display: useMobileLayout ? 'none' : 'block',
+            flex: '1 1 auto',
+            /* Mirrors MIN_SEARCH_WIDTH in checkNavigationFit above. */
+            minWidth: '240px',
+            maxWidth: '720px'
           }}>
-            <Link
-              href="/"
-              style={{
-                fontSize: 'var(--text-xs)',
-                fontWeight: pathname === '/search' ? '600' : '500',
-                color: pathname === '/search' ? '#171717' : '#525252',
-                textDecoration: 'none',
-                transition: 'color 0.2s',
-                lineHeight: '1',
-                display: 'flex',
-                alignItems: 'center',
-                height: '36px',
-                borderTop: '2px solid transparent',
-                borderBottom: pathname === '/search' ? '2px solid #3b82f6' : '2px solid transparent',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              {t('navigation.search')}
-            </Link>
-
-            {/* Browse Dropdown */}
-            <div style={{ position: 'relative' }} ref={browseDropdownRef}>
-              <button
-                onClick={() => setBrowseDropdownOpen(!browseDropdownOpen)}
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: '500',
-                  color: '#525252',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                  height: '36px',
-                  padding: 0,
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                {t('navigation.browse')}
-                <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-
-              {browseDropdownOpen && (
-                <div style={{
-                  position: 'absolute',
-                  top: '100%',
-                  left: 0,
-                  marginTop: '12px',
-                  background: 'white',
-                  borderRadius: '12px',
-                  boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
-                  border: '1px solid #e5e5e5',
-                  minWidth: '220px',
-                  overflow: 'hidden',
-                  zIndex: 1000
-                }}>
-                  <Link href="/themes" onClick={() => setBrowseDropdownOpen(false)} style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    padding: '16px 20px',
-                    color: '#171717',
-                    textDecoration: 'none',
-                    fontSize: 'var(--text-sm)',
-                    borderBottom: '1px solid #f5f5f5',
-                    transition: 'background 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
-                    <UserIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                    <span>{t('navigation.themes.minifigures')}</span>
-                  </Link>
-                  <Link href="/sets-themes" onClick={() => setBrowseDropdownOpen(false)} style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    padding: '16px 20px',
-                    color: '#171717',
-                    textDecoration: 'none',
-                    fontSize: 'var(--text-sm)',
-                    transition: 'background 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
-                    <CubeIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                    <span>{t('navigation.themes.sets')}</span>
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Your LEGO Dropdown */}
-            <div style={{ position: 'relative' }} ref={legoDropdownRef}>
-              <button
-                onClick={() => setLegoDropdownOpen(!legoDropdownOpen)}
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: '500',
-                  color: '#525252',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                  height: '36px',
-                  padding: 0,
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                {t('navigation.yourLego')}
-                <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-
-              {legoDropdownOpen && (
-                <div style={{
-                  position: 'absolute',
-                  top: '100%',
-                  left: 0,
-                  marginTop: '12px',
-                  background: 'white',
-                  borderRadius: '12px',
-                  boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
-                  border: '1px solid #e5e5e5',
-                  minWidth: '240px',
-                  overflow: 'hidden',
-                  zIndex: 1000
-                }}>
-                  {/* Minifigures Section */}
-                  <div style={{ padding: '12px 20px 8px', fontSize: '11px', fontWeight: '600', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                    {t('navigation.minifigures')}
-                  </div>
-                  <Link href="/inventory" onClick={() => setLegoDropdownOpen(false)} style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    padding: '12px 20px',
-                    color: '#171717',
-                    textDecoration: 'none',
-                    fontSize: 'var(--text-sm)',
-                    borderBottom: '1px solid #f5f5f5',
-                    transition: 'background 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
-                    <CurrencyDollarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                    <span>{t('navigation.minifigsForSale')}</span>
-                  </Link>
-                  <Link href="/collection" onClick={() => setLegoDropdownOpen(false)} style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    padding: '12px 20px',
-                    color: '#171717',
-                    textDecoration: 'none',
-                    fontSize: 'var(--text-sm)',
-                    borderBottom: '1px solid #f5f5f5',
-                    transition: 'background 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
-                    <StarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                    <span>{t('navigation.minifigsToKeep')}</span>
-                  </Link>
-
-                  {/* Sets Section */}
-                  <div style={{ padding: '12px 20px 8px', fontSize: '11px', fontWeight: '600', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                    {t('navigation.sets')}
-                  </div>
-                  <Link href="/sets-inventory" onClick={() => setLegoDropdownOpen(false)} style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    padding: '12px 20px',
-                    color: '#171717',
-                    textDecoration: 'none',
-                    fontSize: 'var(--text-sm)',
-                    borderBottom: '1px solid #f5f5f5',
-                    transition: 'background 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
-                    <CurrencyDollarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                    <span>{t('navigation.setsForSale')}</span>
-                  </Link>
-                  <Link href="/sets-collection" onClick={() => setLegoDropdownOpen(false)} style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    padding: '12px 20px',
-                    color: '#171717',
-                    textDecoration: 'none',
-                    fontSize: 'var(--text-sm)',
-                    transition: 'background 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
-                    <StarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
-                    <span>{t('navigation.setsToKeep')}</span>
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            <Link
-              href="/collectors"
-              style={{
-                fontSize: 'var(--text-xs)',
-                fontWeight: pathname === '/collectors' || pathname.startsWith('/collectors/') ? '600' : '500',
-                color: pathname === '/collectors' || pathname.startsWith('/collectors/') ? '#171717' : '#525252',
-                textDecoration: 'none',
-                transition: 'color 0.2s',
-                lineHeight: '1',
-                display: 'flex',
-                alignItems: 'center',
-                height: '36px',
-                borderTop: '2px solid transparent',
-                borderBottom: pathname === '/collectors' || pathname.startsWith('/collectors/') ? '2px solid #3b82f6' : '2px solid transparent',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              {t('collectors.directory.badge') || 'Community'}
-            </Link>
-
-            {/* Resources Dropdown -- About, Articles, Support (Community/Premium stay standalone) */}
-            <div style={{ position: 'relative' }} ref={resourcesDropdownRef}>
-              <button
-                onClick={() => setResourcesDropdownOpen(!resourcesDropdownOpen)}
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: (pathname === '/about' || pathname === '/articles' || pathname.startsWith('/articles/') || pathname === '/support') ? '600' : '500',
-                  color: (pathname === '/about' || pathname === '/articles' || pathname.startsWith('/articles/') || pathname === '/support') ? '#171717' : '#525252',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                  height: '36px',
-                  padding: 0,
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                {t('navigation.resources') || 'Resources'}
-                <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-
-              {resourcesDropdownOpen && (
-                <div style={{
-                  position: 'absolute',
-                  top: '100%',
-                  left: 0,
-                  marginTop: '12px',
-                  background: 'white',
-                  borderRadius: '12px',
-                  boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
-                  border: '1px solid #e5e5e5',
-                  minWidth: '180px',
-                  overflow: 'hidden',
-                  zIndex: 1000
-                }}>
-                  <Link href="/about" onClick={() => setResourcesDropdownOpen(false)} style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#171717',
-                    textDecoration: 'none',
-                    fontSize: 'var(--text-sm)',
-                    borderBottom: '1px solid #f5f5f5',
-                    transition: 'background 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
-                    {t('navigation.about')}
-                  </Link>
-                  <Link href="/articles" onClick={() => setResourcesDropdownOpen(false)} style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#171717',
-                    textDecoration: 'none',
-                    fontSize: 'var(--text-sm)',
-                    borderBottom: '1px solid #f5f5f5',
-                    transition: 'background 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
-                    {t('navigation.articles') || 'Articles'}
-                  </Link>
-                  <Link href="/retiring-soon" onClick={() => setResourcesDropdownOpen(false)} style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#171717',
-                    textDecoration: 'none',
-                    fontSize: 'var(--text-sm)',
-                    borderBottom: '1px solid #f5f5f5',
-                    transition: 'background 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
-                    {t('navigation.retiringSoon') || 'Retiring Soon'}
-                  </Link>
-                  <Link href="/identify" onClick={() => setResourcesDropdownOpen(false)} style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#171717',
-                    textDecoration: 'none',
-                    fontSize: 'var(--text-sm)',
-                    borderBottom: '1px solid #f5f5f5',
-                    transition: 'background 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
-                    {t('navigation.identify') || 'AI Identify'}
-                  </Link>
-                  <Link
-                    href="/support"
-                    onClick={async () => {
-                      setResourcesDropdownOpen(false);
-                      try {
-                        await fetch('/api/track-event', {
-                          method: 'POST',
-                          headers: { 'Content-Type': 'application/json' },
-                          body: JSON.stringify({
-                            event: 'nav_support_click',
-                            properties: { location: 'desktop_logged_in' }
-                          })
-                        });
-                      } catch (error) {
-                        console.error('Failed to track support click:', error);
-                      }
-                    }}
-                    style={{
-                      display: 'block',
-                      padding: '12px 20px',
-                      color: '#171717',
-                      textDecoration: 'none',
-                      fontSize: 'var(--text-sm)',
-                      transition: 'background 0.2s'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
-                  >
-                    {t('navigation.support') || 'Support'}
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Premium Link */}
-            <Link
-              href="/premium"
-              onClick={async () => {
-                try {
-                  await fetch('/api/track-event', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                      event: 'nav_premium_click',
-                      properties: { location: 'desktop_logged_in' }
-                    })
-                  });
-                } catch (error) {
-                  console.error('Failed to track premium click:', error);
-                }
-              }}
-              style={{
-                fontSize: 'var(--text-xs)',
-                fontWeight: pathname === '/premium' ? '600' : '500',
-                color: pathname === '/premium' ? '#171717' : '#525252',
-                textDecoration: 'none',
-                transition: 'color 0.2s',
-                lineHeight: '1',
-                display: 'flex',
-                alignItems: 'center',
-                height: '36px',
-                borderTop: '2px solid transparent',
-                borderBottom: pathname === '/premium' ? '2px solid #3b82f6' : '2px solid transparent',
-                whiteSpace: 'nowrap'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
-              onMouseLeave={(e) => e.currentTarget.style.color = pathname === '/premium' ? '#171717' : '#525252'}
-            >
-              {t('navigation.premium') || 'Premium'}
-            </Link>
+            <HeaderSearch value={searchQuery} onValueChange={setSearchQuery} variant="desktop" />
           </div>
 
           {/* A sibling of .desktop-nav, not a child of it. Nested, it rode
@@ -1938,6 +1572,371 @@ export function HeaderClient({ user }: HeaderClientProps) {
             </svg>
           </button>
         </div>
+
+          {/* Row 2: the nav that used to share row 1 with the logo.
+          
+              display:inline-flex is load-bearing. checkNavigationFit reads this
+              element's offsetWidth to decide whether long translated labels
+              overflow, and a plain flex element on its own full-width row reports
+              the row's width rather than its content's -- which is always wider
+              than the header, so the check would collapse to a hamburger on a
+              27-inch monitor. inline-flex keeps the measurement intrinsic. */}
+          <nav className="desktop-nav" style={{
+            display: useMobileLayout ? 'none' : 'inline-flex',
+            alignItems: 'center',
+            // 20px, not 24: eleven items at 24px put Polish 15px over the usable
+            // width at 1024px, which would have collapsed the header to a hamburger.
+            gap: '20px',
+            height: '44px'
+          }}>
+            {/* Your LEGO Dropdown */}
+            <div style={{ position: 'relative' }} ref={legoDropdownRef}>
+              <button
+                onClick={() => setLegoDropdownOpen(!legoDropdownOpen)}
+                style={{
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: '500',
+                  color: '#525252',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  height: '36px',
+                  padding: 0,
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                {t('navigation.yourLego')}
+                <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {legoDropdownOpen && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  marginTop: '12px',
+                  background: 'white',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                  border: '1px solid #e5e5e5',
+                  minWidth: '240px',
+                  overflow: 'hidden',
+                  zIndex: 1000
+                }}>
+                  {/* Minifigures Section */}
+                  <div style={{ padding: '12px 20px 8px', fontSize: '11px', fontWeight: '600', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    {t('navigation.minifigures')}
+                  </div>
+                  <Link href="/inventory" onClick={() => setLegoDropdownOpen(false)} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '12px 20px',
+                    color: '#171717',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-sm)',
+                    borderBottom: '1px solid #f5f5f5',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    <CurrencyDollarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                    <span>{t('navigation.minifigsForSale')}</span>
+                  </Link>
+                  <Link href="/collection" onClick={() => setLegoDropdownOpen(false)} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '12px 20px',
+                    color: '#171717',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-sm)',
+                    borderBottom: '1px solid #f5f5f5',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    <StarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                    <span>{t('navigation.minifigsToKeep')}</span>
+                  </Link>
+
+                  {/* Sets Section */}
+                  <div style={{ padding: '12px 20px 8px', fontSize: '11px', fontWeight: '600', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    {t('navigation.sets')}
+                  </div>
+                  <Link href="/sets-inventory" onClick={() => setLegoDropdownOpen(false)} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '12px 20px',
+                    color: '#171717',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-sm)',
+                    borderBottom: '1px solid #f5f5f5',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    <CurrencyDollarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                    <span>{t('navigation.setsForSale')}</span>
+                  </Link>
+                  <Link href="/sets-collection" onClick={() => setLegoDropdownOpen(false)} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '12px 20px',
+                    color: '#171717',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-sm)',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    <StarIcon style={{ width: '20px', height: '20px', color: '#525252' }} />
+                    <span>{t('navigation.setsToKeep')}</span>
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Your LEGO leads here: a signed-in visitor came back for their own
+                collection. */}
+            {PLAIN_NAV.map(renderNavLink)}
+
+
+            {/* Tools: real features, but occasional-use, so they get a menu rather
+                than a headline slot. Whatnot lives here deliberately -- see the note on
+                TOOLS_NAV and the affiliate section of CLAUDE.md. */}
+            <div style={{ position: 'relative' }} ref={toolsDropdownRef}>
+              <button
+                onClick={() => setToolsDropdownOpen(!toolsDropdownOpen)}
+                style={{
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: '500',
+                  color: '#525252',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  height: '36px',
+                  borderTop: '2px solid transparent',
+                  borderBottom: '2px solid transparent',
+                  padding: 0,
+                  lineHeight: '1',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                {t('navPrimary.tools') || 'Tools'}
+                <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {toolsDropdownOpen && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  marginTop: '12px',
+                  background: 'white',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                  border: '1px solid #e5e5e5',
+                  minWidth: '200px',
+                  overflow: 'hidden',
+                  zIndex: 1000
+                }}>
+                  {TOOLS_NAV.map(({ href, key, fallback }, idx) => (
+                    <Link
+                      key={href}
+                      href={href}
+                      onClick={() => setToolsDropdownOpen(false)}
+                      style={{
+                        display: 'block',
+                        padding: '14px 20px',
+                        color: '#171717',
+                        textDecoration: 'none',
+                        fontSize: 'var(--text-sm)',
+                        borderBottom: idx < TOOLS_NAV.length - 1 ? '1px solid #f5f5f5' : 'none',
+                        transition: 'background 0.2s'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
+                    >
+                      {t(key) || fallback}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Resources Dropdown -- About, Articles, Support (Community/Premium stay standalone) */}
+            <div style={{ position: 'relative' }} ref={resourcesDropdownRef}>
+              <button
+                onClick={() => setResourcesDropdownOpen(!resourcesDropdownOpen)}
+                style={{
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: (pathname === '/about' || pathname === '/articles' || pathname.startsWith('/articles/') || pathname === '/support') ? '600' : '500',
+                  color: (pathname === '/about' || pathname === '/articles' || pathname.startsWith('/articles/') || pathname === '/support') ? '#171717' : '#525252',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  height: '36px',
+                  padding: 0,
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                {t('navigation.resources') || 'Resources'}
+                <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {resourcesDropdownOpen && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  marginTop: '12px',
+                  background: 'white',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                  border: '1px solid #e5e5e5',
+                  minWidth: '180px',
+                  overflow: 'hidden',
+                  zIndex: 1000
+                }}>
+                  <Link href="/about" onClick={() => setResourcesDropdownOpen(false)} style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#171717',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-sm)',
+                    borderBottom: '1px solid #f5f5f5',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    {t('navigation.about')}
+                  </Link>
+                  <Link href="/articles" onClick={() => setResourcesDropdownOpen(false)} style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#171717',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-sm)',
+                    borderBottom: '1px solid #f5f5f5',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                    {t('navigation.articles') || 'Articles'}
+                  </Link>
+                    <Link href="/listing-generator" onClick={() => setResourcesDropdownOpen(false)} style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#171717',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-sm)',
+                      borderBottom: '1px solid #f5f5f5',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}>
+                      {t('navPrimary.listings') || 'Listings'}
+                    </Link>
+                  <Link
+                    href="/support"
+                    onClick={async () => {
+                      setResourcesDropdownOpen(false);
+                      try {
+                        await fetch('/api/track-event', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({
+                            event: 'nav_support_click',
+                            properties: { location: 'desktop_logged_in' }
+                          })
+                        });
+                      } catch (error) {
+                        console.error('Failed to track support click:', error);
+                      }
+                    }}
+                    style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#171717',
+                      textDecoration: 'none',
+                      fontSize: 'var(--text-sm)',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
+                  >
+                    {t('navigation.support') || 'Support'}
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Premium Link */}
+            <Link
+              href="/premium"
+              onClick={async () => {
+                try {
+                  await fetch('/api/track-event', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      event: 'nav_premium_click',
+                      properties: { location: 'desktop_logged_in' }
+                    })
+                  });
+                } catch (error) {
+                  console.error('Failed to track premium click:', error);
+                }
+              }}
+              style={{
+                fontSize: 'var(--text-xs)',
+                fontWeight: pathname === '/premium' ? '600' : '500',
+                color: pathname === '/premium' ? '#171717' : '#525252',
+                textDecoration: 'none',
+                transition: 'color 0.2s',
+                lineHeight: '1',
+                display: 'flex',
+                alignItems: 'center',
+                height: '36px',
+                borderTop: '2px solid transparent',
+                borderBottom: pathname === '/premium' ? '2px solid #3b82f6' : '2px solid transparent',
+                whiteSpace: 'nowrap'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
+              onMouseLeave={(e) => e.currentTarget.style.color = pathname === '/premium' ? '#171717' : '#525252'}
+            >
+              {t('navigation.premium') || 'Premium'}
+            </Link>
+          </nav>
+
+          {/* Row 2 on mobile: search, permanently visible rather than buried in
+              the hamburger. Rendered unconditionally in mobile mode so the header's
+              offsetHeight stays constant -- headerHeight is measured from it to
+              position the fixed mobile menu. */}
+          <div className="mobile-search-row" style={{
+            display: useMobileLayout ? 'block' : 'none',
+            paddingBottom: '12px'
+          }}>
+            <HeaderSearch value={searchQuery} onValueChange={setSearchQuery} variant="mobile" />
+          </div>
       </div>
 
       {mobileMenuOpen && (
@@ -1955,254 +1954,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
           overflowY: 'auto',
           WebkitOverflowScrolling: 'touch'
         }}>
-          <Link href="/" onClick={() => setMobileMenuOpen(false)} style={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '16px 0',
-            borderBottom: '1px solid #f5f5f5',
-            color: '#171717',
-            textDecoration: 'none',
-            fontSize: 'var(--text-base)',
-            fontWeight: '600',
-            minHeight: '44px'
-          }}>
-            {t('navigation.search')}
-          </Link>
-
-          {/* Browse Dropdown */}
-          <div style={{ borderBottom: '1px solid #f5f5f5' }}>
-            <button
-              onClick={() => {
-                setMobileBrowseOpen(!mobileBrowseOpen);
-                if (!mobileBrowseOpen) setMobileLegoOpen(false); // Close other dropdown
-              }}
-              style={{
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '16px 0',
-                background: 'none',
-                border: 'none',
-                color: '#171717',
-                fontSize: 'var(--text-base)',
-                fontWeight: '600',
-                cursor: 'pointer',
-                textAlign: 'left',
-                minHeight: '44px'
-              }}
-            >
-              <span>{t('navigation.browse')}</span>
-              <svg
-                style={{
-                  width: '20px',
-                  height: '20px',
-                  transition: 'transform 0.2s',
-                  transform: mobileBrowseOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                  flexShrink: 0
-                }}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            {mobileBrowseOpen && (
-              <div style={{ paddingLeft: '16px', paddingBottom: '16px' }}>
-                <Link href="/themes" onClick={() => setMobileMenuOpen(false)} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  padding: '8px 0',
-                  color: '#525252',
-                  textDecoration: 'none',
-                  fontSize: 'var(--text-base)',
-                  minHeight: '44px'
-                }}>
-                  <UserIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
-                  <span>{t('navigation.themes.minifigures')}</span>
-                </Link>
-                <Link href="/sets-themes" onClick={() => setMobileMenuOpen(false)} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  padding: '8px 0',
-                  color: '#525252',
-                  textDecoration: 'none',
-                  fontSize: 'var(--text-base)',
-                  minHeight: '44px'
-                }}>
-                  <CubeIcon style={{ width: '20px', height: '20px', flexShrink: 0 }} />
-                  <span>{t('navigation.themes.sets')}</span>
-                </Link>
-              </div>
-            )}
-          </div>
-
-          {/* Collectors Link */}
-          <Link href="/collectors" onClick={() => setMobileMenuOpen(false)} style={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '16px 0',
-            borderBottom: '1px solid #f5f5f5',
-            color: '#171717',
-            textDecoration: 'none',
-            fontSize: 'var(--text-base)',
-            fontWeight: '600',
-            minHeight: '44px'
-          }}>
-            {t('collectors.directory.badge') || 'Collectors'}
-          </Link>
-
-          {/* Resources Dropdown for mobile logged-in users -- About, Articles, Support */}
-          <div style={{ borderBottom: '1px solid #f5f5f5' }}>
-            <button
-              onClick={() => setMobileResourcesOpen(!mobileResourcesOpen)}
-              style={{
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '16px 0',
-                background: 'none',
-                border: 'none',
-                color: '#171717',
-                fontSize: 'var(--text-base)',
-                fontWeight: '600',
-                cursor: 'pointer',
-                textAlign: 'left',
-                minHeight: '44px'
-              }}
-            >
-              <span>{t('navigation.resources') || 'Resources'}</span>
-              <svg
-                style={{
-                  width: '20px',
-                  height: '20px',
-                  transition: 'transform 0.2s',
-                  transform: mobileResourcesOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                  flexShrink: 0
-                }}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            {mobileResourcesOpen && (
-              <div style={{ paddingLeft: '16px', paddingBottom: '16px' }}>
-                <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '8px 0',
-                  color: '#525252',
-                  textDecoration: 'none',
-                  fontSize: 'var(--text-base)',
-                  minHeight: '44px'
-                }}>
-                  {t('navigation.about')}
-                </Link>
-                <Link href="/articles" onClick={() => setMobileMenuOpen(false)} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '8px 0',
-                  color: '#525252',
-                  textDecoration: 'none',
-                  fontSize: 'var(--text-base)',
-                  minHeight: '44px'
-                }}>
-                  {t('navigation.articles') || 'Articles'}
-                </Link>
-                <Link href="/retiring-soon" onClick={() => setMobileMenuOpen(false)} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '8px 0',
-                  color: '#525252',
-                  textDecoration: 'none',
-                  fontSize: 'var(--text-base)',
-                  minHeight: '44px'
-                }}>
-                  {t('navigation.retiringSoon') || 'Retiring Soon'}
-                </Link>
-                <Link href="/identify" onClick={() => setMobileMenuOpen(false)} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '8px 0',
-                  color: '#525252',
-                  textDecoration: 'none',
-                  fontSize: 'var(--text-base)',
-                  minHeight: '44px'
-                }}>
-                  {t('navigation.identify') || 'AI Identify'}
-                </Link>
-                <Link
-                  href="/support"
-                  onClick={async () => {
-                    setMobileMenuOpen(false);
-                    try {
-                      await fetch('/api/track-event', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                          event: 'nav_support_click',
-                          properties: { location: 'mobile_logged_in' }
-                        })
-                      });
-                    } catch (error) {
-                      console.error('Failed to track support click:', error);
-                    }
-                  }}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: '8px 0',
-                    color: '#525252',
-                    textDecoration: 'none',
-                    fontSize: 'var(--text-base)',
-                    minHeight: '44px'
-                  }}
-                >
-                  {t('navigation.support') || 'Support'}
-                </Link>
-              </div>
-            )}
-          </div>
-
-          {/* Premium Link */}
-          <Link
-            href="/premium"
-            onClick={async () => {
-              setMobileMenuOpen(false);
-              try {
-                await fetch('/api/track-event', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    event: 'nav_premium_click',
-                    properties: { location: 'mobile_logged_in' }
-                  })
-                });
-              } catch (error) {
-                console.error('Failed to track premium click:', error);
-              }
-            }}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              padding: '16px 0',
-              borderBottom: '1px solid #f5f5f5',
-              color: '#171717',
-              textDecoration: 'none',
-              fontSize: 'var(--text-base)',
-              fontWeight: '600',
-              minHeight: '44px'
-            }}
-          >
-            {t('navigation.premium') || 'Premium'}
-          </Link>
-
           {/* Your LEGO Dropdown */}
           <div style={{ borderBottom: '1px solid #f5f5f5' }}>
             <button
@@ -2321,6 +2072,143 @@ export function HeaderClient({ user }: HeaderClientProps) {
               </div>
             )}
           </div>
+
+          {/* Same order as the desktop row, from the same array. Tools items are
+              flat here rather than behind a menu: the desktop grouping exists to save
+              horizontal width, which a vertical phone menu does not need, and flat
+              rows are one tap instead of two. */}
+          {PLAIN_NAV.map(renderMobileNavLink)}
+
+          {/* Collectors Link */}
+
+          {/* Resources Dropdown for mobile logged-in users -- About, Articles, Support */}
+          <div style={{ borderBottom: '1px solid #f5f5f5' }}>
+          {/* TOOLS_MOBILE_DONE -- Identify, Export, Whatnot. */}
+          {TOOLS_NAV.map(renderMobileNavLink)}
+
+            <button
+              onClick={() => setMobileResourcesOpen(!mobileResourcesOpen)}
+              style={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '16px 0',
+                background: 'none',
+                border: 'none',
+                color: '#171717',
+                fontSize: 'var(--text-base)',
+                fontWeight: '600',
+                cursor: 'pointer',
+                textAlign: 'left',
+                minHeight: '44px'
+              }}
+            >
+              <span>{t('navigation.resources') || 'Resources'}</span>
+              <svg
+                style={{
+                  width: '20px',
+                  height: '20px',
+                  transition: 'transform 0.2s',
+                  transform: mobileResourcesOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                  flexShrink: 0
+                }}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {mobileResourcesOpen && (
+              <div style={{ paddingLeft: '16px', paddingBottom: '16px' }}>
+                <Link href="/about" onClick={() => setMobileMenuOpen(false)} style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '8px 0',
+                  color: '#525252',
+                  textDecoration: 'none',
+                  fontSize: 'var(--text-base)',
+                  minHeight: '44px'
+                }}>
+                  {t('navigation.about')}
+                </Link>
+                <Link href="/articles" onClick={() => setMobileMenuOpen(false)} style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '8px 0',
+                  color: '#525252',
+                  textDecoration: 'none',
+                  fontSize: 'var(--text-base)',
+                  minHeight: '44px'
+                }}>
+                  {t('navigation.articles') || 'Articles'}
+                </Link>
+                <Link
+                  href="/support"
+                  onClick={async () => {
+                    setMobileMenuOpen(false);
+                    try {
+                      await fetch('/api/track-event', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          event: 'nav_support_click',
+                          properties: { location: 'mobile_logged_in' }
+                        })
+                      });
+                    } catch (error) {
+                      console.error('Failed to track support click:', error);
+                    }
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '8px 0',
+                    color: '#525252',
+                    textDecoration: 'none',
+                    fontSize: 'var(--text-base)',
+                    minHeight: '44px'
+                  }}
+                >
+                  {t('navigation.support') || 'Support'}
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Premium Link */}
+          <Link
+            href="/premium"
+            onClick={async () => {
+              setMobileMenuOpen(false);
+              try {
+                await fetch('/api/track-event', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    event: 'nav_premium_click',
+                    properties: { location: 'mobile_logged_in' }
+                  })
+                });
+              } catch (error) {
+                console.error('Failed to track premium click:', error);
+              }
+            }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '16px 0',
+              borderBottom: '1px solid #f5f5f5',
+              color: '#171717',
+              textDecoration: 'none',
+              fontSize: 'var(--text-base)',
+              fontWeight: '600',
+              minHeight: '44px'
+            }}
+          >
+            {t('navigation.premium') || 'Premium'}
+          </Link>
 
           {/* Account & Personal Links */}
           <div style={{

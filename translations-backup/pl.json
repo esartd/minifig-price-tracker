@@ -455,7 +455,7 @@
     }
   },
   "search": {
-    "placeholder": "Szukaj for any LEGO minifigurka or zestaw...",
+    "placeholder": "Szukaj po nazwie lub ID BrickLink",
     "placeholderSets": "Szukaj for LEGO Zestawy...",
     "notFound": "Nie znaleziono. Spróbuj innych słów.",
     "results": "Znaleziono {count} wyników",
@@ -486,6 +486,17 @@
     "meta": {
       "title": "Szukaj minifigurek i zestawów LEGO",
       "description": "Wyszukaj dowolną minifigurkę lub zestaw LEGO, aby zobaczyć aktualną sugerowaną cenę, obliczoną na podstawie danych BrickLink i eBay."
+    },
+    "header": {
+      "placeholder": "Szukaj po nazwie lub ID BrickLink",
+      "ariaLabel": "Szukaj minifigurek i zestawów LEGO po nazwie lub ID BrickLink",
+      "clear": "Wyczyść wyszukiwanie",
+      "suggestions": "Podpowiedzi wyszukiwania",
+      "seeAll": "Pokaż wszystkie wyniki dla „{query}”",
+      "noResults": "Nic nie znaleziono. Możesz też szukać po ID BrickLink, na przykład sw0001.",
+      "oneResultAvailable": "1 dostępna podpowiedź",
+      "resultsAvailable": "Dostępne podpowiedzi: {count}",
+      "idHint": "Wpisz nazwę albo ID BrickLink, na przykład sw0001 lub 75192-1"
     }
   },
   "buyButtons": {
@@ -2657,12 +2668,29 @@
     },
     "howItWorks": {
       "title": "Jak to działa",
-      "paragraph1": "Ponieważ generator ofert jest zbudowany na podstawie danych katalogowych przedmiotu i aktualnej sugerowanej ceny, znajduje się na każdej stronie minifigurki i zestawu — musi wiedzieć dokładnie, który przedmiot sprzedajesz.",
-      "paragraph2": "Wyszukaj swój przedmiot poniżej, otwórz jego stronę i poszukaj opcji „Generuj ofertę” po dodaniu go do swojego ekwipunku."
+      "paragraph1": "Generator korzysta z danych katalogowych przedmiotu i jego aktualnej sugerowanej ceny, więc musi wiedzieć dokładnie, co sprzedajesz. Dlatego znajduje się na stronie każdej minifigurki i zestawu, a nie na osobnej stronie."
     },
     "cta": {
       "subtitle": "Znajdź przedmiot, który chcesz wystawić.",
       "button": "Wyszukaj minifigurkę lub zestaw"
+    },
+    "steps": {
+      "step1": {
+        "title": "Znajdź przedmiot i otwórz jego stronę",
+        "body": "Szukaj po nazwie albo ID BrickLink — działa zarówno sw0001, jak i 75192-1 — a potem otwórz wynik."
+      },
+      "step2": {
+        "title": "Dodaj go do swoich przedmiotów na sprzedaż",
+        "body": "Generator pojawia się, gdy przedmiot jest na jednej z Twoich list. To darmowa droga: dodaj go do magazynu, a przycisk pokaże się na tej stronie. Osoby z Premium pomijają ten krok i generują wprost z dowolnej strony przedmiotu."
+      },
+      "step3": {
+        "title": "Naciśnij „Wygeneruj ogłoszenie\"",
+        "body": "Otrzymasz tytuł, sugerowaną cenę i pełny opis, każde z własnym przyciskiem kopiowania. Ikona ustawień obok wybiera platformę i stan — i zapamiętuje je na przyszłość."
+      },
+      "step4": {
+        "title": "Wklej to na eBay, BrickLink, Facebooka lub Vinted",
+        "body": "Każda platforma dostaje tekst napisany tak, jak tam się tego oczekuje, więc ten sam przedmiot czyta się dobrze wszędzie."
+      }
     }
   },
   "priceAlert": {
@@ -2882,16 +2910,24 @@
     },
     "steps": {
       "step1": {
-        "title": "Wyszukaj minifigurkę lub zestaw",
-        "body": "Znajdź przedmiot, którego szukasz na IntoBrick — ponad 18 000 minifigurek i 20 000 zestawów."
+        "title": "Najpierw się zaloguj",
+        "body": "Alerty są powiązane z Twoim adresem e-mail, więc przycisk pojawia się dopiero po zalogowaniu. Jest bezpłatny i zajmuje chwilę."
       },
       "step2": {
-        "title": "Ustaw docelową cenę",
-        "body": "Powiedz nam, po jakiej cenie byś kupił."
+        "title": "Otwórz wybraną minifigurkę lub zestaw",
+        "body": "Szukaj po nazwie albo ID BrickLink, a potem otwórz stronę produktu. Do wyboru jest ponad 18 000 minifigurek i 20 000 zestawów."
       },
       "step3": {
-        "title": "Wyślemy e-mail, gdy cena zostanie osiągnięta",
-        "body": "Ceny są automatycznie aktualizowane w tle, więc dowiesz się od razu, gdy cena spadnie."
+        "title": "Naciśnij „Alert cenowy\" na tej stronie",
+        "body": "Znajdziesz go wśród przycisków obok ceny. Otworzy się okienko z pytaniem, ile chcesz zapłacić."
+      },
+      "step4": {
+        "title": "Podaj cenę niższą od obecnej",
+        "body": "Cena docelowa musi być niższa od dzisiejszej — alert dla ceny już osiągniętej zadziałałby natychmiast, dlatego prosimy o realny cel."
+      },
+      "step5": {
+        "title": "Napiszemy, gdy cena spadnie",
+        "body": "Ceny odświeżają się w tle, więc dowiesz się, gdy produkt osiągnie Twoją kwotę. Alerty możesz później zmienić lub usunąć na swoim koncie."
       }
     },
     "cta": {
@@ -3201,5 +3237,40 @@
     "invalidBody": "Ten link anulujący subskrypcję jest nieprawidłowy. Mógł już zostać użyty albo adres uległ zmianie.",
     "resubscribeHint": "Zmiana zdania? Ogłoszenia możesz ponownie włączyć w ustawieniach konta.",
     "backHome": "Powrót do IntoBricka"
-  }
+  },
+  "homeGroups": {
+    "more": "Więcej możliwości w IntoBricku",
+    "tryIt": "Wypróbuj teraz — bez konta",
+    "tryItSignedIn": "Co możesz teraz zrobić"
+  },
+  "homeMore": {
+    "listing": {
+      "title": "Napisz ogłoszenie za mnie",
+      "body": "Wybierz minifigurkę i otrzymaj gotowe ogłoszenie na eBay, Facebooka, BrickLink lub Vinted — każde napisane tak, jak oczekuje dana platforma.",
+      "cta": "Otwórz generator ogłoszeń"
+    },
+    "collection": {
+      "title": "Poznaj wartość swojej kolekcji",
+      "body": "Dodaj minifigurki i zestawy raz, a my liczymy sumę na bieżąco — zawsze wiesz, na czym stoisz, bez szukania.",
+      "note": "Ustaw alert cenowy na dowolnej pozycji, a powiadomimy Cię, gdy cena się zmieni.",
+      "cta": "Załóż kolekcję"
+    },
+    "deals": {
+      "title": "Zdąż przed wycofaniem zestawu",
+      "body": "Ustalamy, które zestawy są najbliżej końca produkcji, na podstawie ich wieku i tego, jak zmieniała się cena.",
+      "cta": "Zobacz, co jest wycofywane"
+    }
+  },
+  "navPrimary": {
+    "minifigures": "Minifigurki",
+    "sets": "Zestawy",
+    "retiring": "Wycofywane",
+    "listings": "Ogłoszenia",
+    "identify": "Rozpoznaj",
+    "export": "Eksport",
+    "whatnot": "Whatnot",
+    "community": "Społeczność",
+    "tools": "Narzędzia"
+  },
+  "listingGeneratorPage": null
 }

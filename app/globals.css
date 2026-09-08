@@ -609,13 +609,66 @@ input[type="number"] {
   }
 }
 
+/* Header collapse, single source of truth.
+
+   Below 1000px the header is always in its collapsed form: logo + hamburger on
+   row 1, a permanent full-width search row beneath it, and everything else in
+   the fixed mobile menu.
+
+   This used to be decided by JavaScript alone (useMobileLayout in
+   header-client.tsx), which starts false -- so the server-rendered HTML and
+   the first paint showed the DESKTOP header at every width, including 375px,
+   until the measuring effect ran. .desktop-nav and .mobile-menu-btn already
+   had !important rules covering that; .desktop-auth never did, which is why
+   the sign-in buttons flashed on phones. A full-width search box in row 1
+   turns that flash into a visible jump, so all four elements are pinned here
+   and JavaScript is left deciding only the >=1000px question (whether long
+   German or Polish nav labels overflow row 2). */
+@media (max-width: 999px) {
+  .desktop-nav { display: none !important; }
+  .desktop-auth { display: none !important; }
+  .header-search-slot { display: none !important; }
+  .mobile-search-row { display: block !important; }
+  .mobile-menu-btn { display: block !important; }
+}
+
+@media (min-width: 1000px) {
+  /* Above 1000px visibility is JavaScript's call, so assert nothing here
+     except that the mobile-only search row stays hidden. */
+  .mobile-search-row { display: none !important; }
+}
+
+/* The homepage hero search box on small screens.
+
+   The "try sw0001 or 75192-1" hint is hidden here on purpose: stacked under a
+   full-width box on a phone it read as clutter rather than help, and the
+   header already carries the same message in its placeholder.
+
+   The font drop is a clipping fix, not taste. The hero placeholder is set in
+   --text-lg, and the longer translations ("Nach Name oder BrickLink-ID
+   suchen") overflowed the box by ~34px at 375px and got cut mid-word. 16px is
+   the floor, not a round number: anything smaller makes iOS Safari zoom the
+   whole page when the field takes focus. */
+@media (max-width: 767px) {
+  .hero-search-hint { display: none !important; }
+  .hero-search-input { font-size: 16px !important; }
+  /* Buys back 16px of text width. At 16px -- the iOS floor -- the longest
+     translations were still 4-8px too wide, and the padding was the only
+     space left to take it from. */
+  .hero-search-form { padding: 0 12px !important; }
+}
+
 /* Mobile header padding adjustments */
 @media (max-width: 767px) {
   header > div {
     padding: 0 16px !important;
   }
 
-  header > div > div {
+  /* Was `header > div > div`, which was written when the header had exactly
+     one row inside its wrapper. The header now has two, and that selector
+     matched both -- forcing the search row to 64px with !important, beating
+     its own inline height. Scope it to the row it was actually written for. */
+  header .header-row-main {
     height: 64px !important;
   }
 
