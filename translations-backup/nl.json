@@ -3026,7 +3026,10 @@
     "whatnotAllowCrossPromo": "Mijn regel hier ook opnemen",
     "saveCollectionTitle": "Deze collectie bewaren voor de volgende keer?",
     "saveCollectionBody": "Je items staan nu alleen in deze browser — je geschiedenis wissen of van apparaat wisselen en ze zijn weg. Een gratis account bewaart ze, ververst de prijzen en werkt overal.",
-    "saveCollectionCta": "Mijn collectie bewaren — gratis"
+    "saveCollectionCta": "Mijn collectie bewaren — gratis",
+    "warningsOne": "1 ding om te controleren",
+    "warningsMany": "{count} dingen om te controleren",
+    "warningsAndMore": " en nog {count}"
   },
   "sellerDetails": {
     "title": "Verkoopgegevens",

@@ -3083,7 +3083,10 @@
     "whatnotAllowCrossPromo": "Hinweis auf andere Angebote auch hier einfügen",
     "saveCollectionTitle": "Diese Sammlung für das nächste Mal behalten?",
     "saveCollectionBody": "Ihre Artikel liegen derzeit nur in diesem Browser – beim Löschen des Verlaufs oder auf einem anderen Gerät sind sie weg. Ein kostenloses Konto bewahrt sie auf, aktualisiert die Preise und funktioniert überall.",
-    "saveCollectionCta": "Sammlung kostenlos sichern"
+    "saveCollectionCta": "Sammlung kostenlos sichern",
+    "warningsOne": "1 Sache zu prüfen",
+    "warningsMany": "{count} Dinge zu prüfen",
+    "warningsAndMore": " und {count} weitere"
   },
   "sellerDetails": {
     "title": "Verkaufsangaben",

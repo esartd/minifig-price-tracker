@@ -3026,7 +3026,10 @@
     "whatnotAllowCrossPromo": "Dołącz moją wzmiankę także tutaj",
     "saveCollectionTitle": "Zachować tę kolekcję na przyszłość?",
     "saveCollectionBody": "Twoje przedmioty są zapisane wyłącznie w tej przeglądarce — wyczyszczenie historii albo zmiana urządzenia oznacza ich utratę. Bezpłatne konto je zachowa, odświeży ceny i zadziała wszędzie.",
-    "saveCollectionCta": "Zapisz moją kolekcję — bezpłatnie"
+    "saveCollectionCta": "Zapisz moją kolekcję — bezpłatnie",
+    "warningsOne": "1 rzecz do sprawdzenia",
+    "warningsMany": "Rzeczy do sprawdzenia: {count}",
+    "warningsAndMore": " i jeszcze {count}"
   },
   "sellerDetails": {
     "title": "Szczegóły sprzedaży",

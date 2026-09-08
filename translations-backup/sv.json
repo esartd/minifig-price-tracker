@@ -3026,7 +3026,10 @@
     "whatnotAllowCrossPromo": "Ta med min rad även här",
     "saveCollectionTitle": "Vill du behålla den här samlingen till nästa gång?",
     "saveCollectionBody": "Dina föremål sparas just nu bara i den här webbläsaren — rensar du historiken eller byter enhet är de borta. Ett gratiskonto behåller dem, uppdaterar priserna och fungerar överallt.",
-    "saveCollectionCta": "Spara min samling — gratis"
+    "saveCollectionCta": "Spara min samling — gratis",
+    "warningsOne": "1 sak att kolla",
+    "warningsMany": "{count} saker att kolla",
+    "warningsAndMore": " och {count} till"
   },
   "sellerDetails": {
     "title": "Säljuppgifter",

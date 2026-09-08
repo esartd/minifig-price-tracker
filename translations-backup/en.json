@@ -3025,7 +3025,10 @@
     "whatnotAllowCrossPromo": "Include my other-listings line here too",
     "saveCollectionTitle": "Keep this collection for next time?",
     "saveCollectionBody": "Your items are only stored in this browser right now — clearing your history or switching device loses them. A free account keeps them, refreshes prices, and works everywhere.",
-    "saveCollectionCta": "Save my collection — free"
+    "saveCollectionCta": "Save my collection — free",
+    "warningsOne": "1 thing to check",
+    "warningsMany": "{count} things to check",
+    "warningsAndMore": " and {count} more"
   },
   "sellerDetails": {
     "title": "Selling details",

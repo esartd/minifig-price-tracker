@@ -3026,7 +3026,10 @@
     "whatnotAllowCrossPromo": "Incluir também aqui a minha menção",
     "saveCollectionTitle": "Quer guardar esta coleção para a próxima vez?",
     "saveCollectionBody": "Neste momento os seus artigos estão guardados apenas neste navegador — limpar o histórico ou mudar de dispositivo faz com que se percam. Uma conta gratuita guarda-os, atualiza os preços e funciona em qualquer lado.",
-    "saveCollectionCta": "Guardar a minha coleção — é grátis"
+    "saveCollectionCta": "Guardar a minha coleção — é grátis",
+    "warningsOne": "1 coisa a verificar",
+    "warningsMany": "{count} coisas a verificar",
+    "warningsAndMore": " e mais {count}"
   },
   "sellerDetails": {
     "title": "Detalhes de venda",

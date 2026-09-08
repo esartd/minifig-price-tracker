@@ -3026,7 +3026,10 @@
     "whatnotAllowCrossPromo": "ここにも他の出品への言及を含める",
     "saveCollectionTitle": "このコレクションを次回のために保存しますか？",
     "saveCollectionBody": "現在、アイテムはこのブラウザーにのみ保存されています。履歴を消したり別の端末に変えたりすると失われます。無料アカウントなら保存され、価格も更新され、どの端末でも使えます。",
-    "saveCollectionCta": "コレクションを保存（無料）"
+    "saveCollectionCta": "コレクションを保存（無料）",
+    "warningsOne": "確認したい点が1つ",
+    "warningsMany": "確認したい点が{count}つ",
+    "warningsAndMore": "　ほか{count}件"
   },
   "sellerDetails": {
     "title": "販売情報",

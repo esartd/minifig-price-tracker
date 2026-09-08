@@ -188,6 +188,38 @@ interface PreviewMarketplace {
   warnings: Array<{ itemNo: string; name: string; messages: string[] }>;
 }
 
+/**
+ * Collapses per-item warnings into one line per distinct problem.
+ *
+ * Warnings are produced per row, so a single unset option -- "eBay needs to
+ * know where the item ships from" -- came out once per listing. Five items
+ * meant reading the same sentence five times to learn there was one thing to
+ * fix, and the fix was never per-item anyway.
+ *
+ * When a message applies to every exportable row the item names are dropped
+ * entirely: naming all of them says nothing that "all of them" does not.
+ */
+function groupWarnings(
+  warnings: Array<{ itemNo: string; name: string; messages: string[] }>,
+  exportable: number
+): Array<{ message: string; items: string[]; affectsAll: boolean }> {
+  const byMessage = new Map<string, string[]>();
+
+  for (const warning of warnings) {
+    for (const message of warning.messages) {
+      const items = byMessage.get(message) || [];
+      items.push(`${warning.name} (${warning.itemNo})`);
+      byMessage.set(message, items);
+    }
+  }
+
+  return Array.from(byMessage.entries()).map(([message, items]) => ({
+    message,
+    items,
+    affectsAll: exportable > 0 && items.length >= exportable,
+  }));
+}
+
 interface PreviewData {
   totalSelected: number;
   skipped: Array<{ itemNo: string; name: string; reason: string }>;
@@ -1595,22 +1627,44 @@ export default function MarketplaceExportClient({
             </div>
           )}
 
-          {preview?.marketplaces.map(
-            (m) =>
-              m.warnings.length > 0 && (
-                <Notice
-                  key={m.marketplace}
-                  tone="warning"
-                  title={`${m.label}: ${tr(
-                    'whatnotExport.warningsTitle',
-                    '{count} worth double-checking'
-                  ).replace('{count}', String(m.warnings.length))}`}
-                  lines={m.warnings.map(
-                    (w) => `${w.name} (${w.itemNo}) — ${w.messages.join(' ')}`
-                  )}
-                />
-              )
-          )}
+          {preview?.marketplaces.map((m) => {
+            if (m.warnings.length === 0) return null;
+
+            // One line per distinct problem, not per affected row.
+            const groups = groupWarnings(m.warnings, m.exportable);
+
+            return (
+              <Notice
+                key={m.marketplace}
+                tone="warning"
+                title={`${m.label}: ${
+                  groups.length === 1
+                    ? tr('marketplaceExport.warningsOne', '1 thing to check')
+                    : tr('marketplaceExport.warningsMany', '{count} things to check').replace(
+                        '{count}',
+                        String(groups.length)
+                      )
+                }`}
+                lines={groups.map((g) => {
+                  // Applies to everything -- listing the names adds length
+                  // without adding information.
+                  if (g.affectsAll) return g.message;
+
+                  const shown = g.items.slice(0, 3).join(', ');
+                  const extra = g.items.length - 3;
+                  const suffix =
+                    extra > 0
+                      ? `${shown}${tr('marketplaceExport.warningsAndMore', ' and {count} more').replace(
+                          '{count}',
+                          String(extra)
+                        )}`
+                      : shown;
+
+                  return `${g.message} — ${suffix}`;
+                })}
+              />
+            );
+          })}
 
           {files.length === 0 ? (
             <>

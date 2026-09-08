@@ -3026,7 +3026,10 @@
     "whatnotAllowCrossPromo": "Includi anche qui la mia menzione",
     "saveCollectionTitle": "Vuoi conservare questa collezione per la prossima volta?",
     "saveCollectionBody": "Al momento i tuoi articoli sono salvati solo in questo browser: se cancelli la cronologia o cambi dispositivo li perdi. Un account gratuito li conserva, aggiorna i prezzi e funziona ovunque.",
-    "saveCollectionCta": "Salva la mia collezione, è gratis"
+    "saveCollectionCta": "Salva la mia collezione, è gratis",
+    "warningsOne": "1 cosa da controllare",
+    "warningsMany": "{count} cose da controllare",
+    "warningsAndMore": " e altri {count}"
   },
   "sellerDetails": {
     "title": "Dettagli di vendita",

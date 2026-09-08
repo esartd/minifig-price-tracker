@@ -3083,7 +3083,10 @@
     "whatnotAllowCrossPromo": "Inclure aussi ma mention ici",
     "saveCollectionTitle": "Conserver cette collection pour la prochaine fois ?",
     "saveCollectionBody": "Vos articles ne sont enregistrés que dans ce navigateur : effacer votre historique ou changer d'appareil les fait disparaître. Un compte gratuit les conserve, actualise les prix et vous suit partout.",
-    "saveCollectionCta": "Enregistrer ma collection, c'est gratuit"
+    "saveCollectionCta": "Enregistrer ma collection, c'est gratuit",
+    "warningsOne": "1 point à vérifier",
+    "warningsMany": "{count} points à vérifier",
+    "warningsAndMore": " et {count} de plus"
   },
   "sellerDetails": {
     "title": "Détails de vente",
