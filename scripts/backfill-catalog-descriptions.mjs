@@ -16,39 +16,37 @@
  * an interrupted run resumes where it stopped and a second run is a no-op.
  * Nothing is overwritten -- a description someone wrote by hand stays.
  *
- * Run it on the VPS (the database is Hostinger, and the deploy key is locked to
- * a forced command, so this needs the hPanel web console):
+ * Plain JavaScript, and that is not a style choice: the VPS installs with
+ * `npm install --production`, so tsx and typescript are NOT on that machine.
+ * A .ts script simply cannot be run there. This runs on the node that is
+ * already installed.
  *
- *   cd /var/www/figtracker && npx tsx scripts/backfill-catalog-descriptions.ts
+ * Run it on the VPS (the database is Hostinger, and the deploy key is locked to
+ * a forced command, so this needs the hPanel browser terminal):
+ *
+ *   cd /var/www/figtracker && node scripts/backfill-catalog-descriptions.mjs
  *
  * Add --dry-run to print what it would write and touch nothing.
  */
 
 import { PrismaClient } from '@prisma/client';
-import { buildDescriptions, LOCALES } from '../lib/catalog-descriptions';
+import { buildDescriptions, LOCALES } from '../lib/catalog-descriptions.mjs';
 
 const prisma = new PrismaClient();
 const DRY_RUN = process.argv.includes('--dry-run');
 const BATCH = 200;
 
 /** Columns we ask for and may write. */
-const COLUMNS = LOCALES.map((l) => `description_${l}` as const);
+const COLUMNS = LOCALES.map((l) => `description_${l}`);
 
-function missingLocales(row: Record<string, unknown>): string[] {
+function missingLocales(row) {
   return COLUMNS.filter((c) => {
     const v = row[c];
     return typeof v !== 'string' || v.trim().length === 0;
   });
 }
 
-async function backfill(
-  label: string,
-  findMany: (skip: number) => Promise<any[]>,
-  update: (key: string, data: Record<string, string>) => Promise<unknown>,
-  keyOf: (row: any) => string,
-  nameOf: (row: any) => string,
-  themeOf: (row: any) => string
-) {
+async function backfill(label, findMany, update, keyOf, nameOf, themeOf) {
   let skip = 0;
   let seen = 0;
   let written = 0;
@@ -68,7 +66,7 @@ async function backfill(
 
       const all = buildDescriptions(nameOf(row), themeOf(row));
       // Only the empty ones. A hand-written description is never replaced.
-      const data: Record<string, string> = {};
+      const data = {};
       for (const c of missing) data[c] = all[c];
 
       if (DRY_RUN) {
@@ -79,7 +77,7 @@ async function backfill(
       } else {
         try {
           await update(keyOf(row), data);
-        } catch (error: any) {
+        } catch (error) {
           if (error?.code !== 'P2025') throw error; // row vanished; skip it
           continue;
         }

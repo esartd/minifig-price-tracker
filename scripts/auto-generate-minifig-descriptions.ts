@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import * as fs from 'fs';
 import * as path from 'path';
-import { buildDescriptions } from '../lib/catalog-descriptions';
+import { buildDescriptions } from '../lib/catalog-descriptions.mjs';
 
 const prisma = new PrismaClient({
   datasourceUrl: process.env.DATABASE_URL
@@ -59,7 +59,7 @@ function getTheme(minifigNo: string): string {
 
 // Generate description templates based on minifig data
 /**
- * Templates live in lib/catalog-descriptions.ts, one entry per locale.
+ * Templates live in lib/catalog-descriptions.mjs, one entry per locale.
  *
  * They used to be four copy-pasted blocks right here, which is precisely why
  * the six locales added after this script was written never got descriptions:
