@@ -2779,7 +2779,8 @@
       },
       "price": "$4.99",
       "priceSuffix": "／月",
-      "cancelAnytime": "いつでもキャンセル可能"
+      "cancelAnytime": "いつでもキャンセル可能",
+      "billedInUsd": "概算です。請求は米ドル（{amount}）で行われます。"
     }
   },
   "identify": {

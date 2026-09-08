@@ -2,8 +2,9 @@
 
 import { BoltIcon, CameraIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from '@/components/TranslationProvider';
+import type { PremiumPrice } from '@/lib/premium-price';
 
-export default function PremiumPageClient() {
+export default function PremiumPageClient({ price }: { price?: PremiumPrice }) {
   const { t } = useTranslation();
 
   return (
@@ -56,11 +57,24 @@ export default function PremiumPageClient() {
               boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
             }}>
               <p style={{ margin: '0 0 4px', fontSize: '40px', fontWeight: '800', color: '#171717', letterSpacing: '-0.02em' }}>
-                {t('premium.page.price') || '$4.99'}
+                {price?.display || t('premium.page.price') || '$4.99'}
                 <span style={{ fontSize: 'var(--text-base)', fontWeight: '500', color: '#737373' }}>
                   {t('premium.page.priceSuffix') || '/month'}
                 </span>
               </p>
+
+              {/* Stripe bills in dollars. When the figure above has been
+                  converted it is an estimate, and saying so here is cheaper
+                  than the chargeback that follows an unexpected currency on a
+                  card statement. */}
+              {price?.isConverted && (
+                <p style={{ margin: '0 0 8px', fontSize: 'var(--text-xs)', color: '#a3a3a3' }}>
+                  {(t('premium.page.billedInUsd') || 'Approximate. Billed in US dollars ({amount}).').replace(
+                    '{amount}',
+                    price.billedDisplay
+                  )}
+                </p>
+              )}
               <p style={{ margin: '0 0 28px', fontSize: 'var(--text-sm)', color: '#737373' }}>
                 {t('premium.page.cancelAnytime') || 'Cancel anytime'}
               </p>

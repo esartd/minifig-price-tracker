@@ -2836,7 +2836,8 @@
       },
       "price": "$4.99",
       "priceSuffix": "/mes",
-      "cancelAnytime": "Cancela cuando quieras"
+      "cancelAnytime": "Cancela cuando quieras",
+      "billedInUsd": "Importe aproximado. Se cobra en dólares estadounidenses ({amount})."
     }
   },
   "identify": {

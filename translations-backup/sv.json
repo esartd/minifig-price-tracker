@@ -2779,7 +2779,8 @@
       },
       "price": "$4.99",
       "priceSuffix": "/månad",
-      "cancelAnytime": "Avsluta när du vill"
+      "cancelAnytime": "Avsluta när du vill",
+      "billedInUsd": "Ungefärligt belopp. Debiteras i amerikanska dollar ({amount})."
     }
   },
   "identify": {

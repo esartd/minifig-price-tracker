@@ -2857,7 +2857,8 @@
       },
       "price": "$4.99",
       "priceSuffix": "/month",
-      "cancelAnytime": "Cancel anytime"
+      "cancelAnytime": "Cancel anytime",
+      "billedInUsd": "Approximate. Billed in US dollars ({amount})."
     }
   },
   "identify": {

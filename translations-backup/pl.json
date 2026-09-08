@@ -2779,7 +2779,8 @@
       },
       "price": "$4.99",
       "priceSuffix": "/miesiąc",
-      "cancelAnytime": "Anuluj w każdej chwili"
+      "cancelAnytime": "Anuluj w każdej chwili",
+      "billedInUsd": "Kwota orientacyjna. Płatność pobierana w dolarach amerykańskich ({amount})."
     }
   },
   "identify": {

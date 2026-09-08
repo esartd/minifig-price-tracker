@@ -3,6 +3,7 @@ import PremiumPageClient from '@/components/premium-page-client';
 import { getTranslations, getLocaleFromHost, type Locale } from '@/lib/i18n-subdomain';
 import { headers } from 'next/headers';
 import { DOMAINS } from '@/lib/i18n-alternates';
+import { getPremiumPrice } from '@/lib/premium-price';
 
 // Detect locale from the request host, matching the pattern used across the app
 async function getRequestLocale(): Promise<Locale> {
@@ -63,6 +64,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function PremiumPage() {
-  return <PremiumPageClient />;
+// Reads the session, so it cannot be statically rendered -- the price shown
+// depends on who is asking.
+export const dynamic = 'force-dynamic';
+
+export default async function PremiumPage() {
+  const locale = await getRequestLocale();
+  const price = await getPremiumPrice(locale);
+  return <PremiumPageClient price={price} />;
 }
