@@ -1282,86 +1282,14 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                     </div>
                   )}
 
-                  {/* Support Link - Subtle, always visible */}
+                  {/* The one link under the price, and it belongs to the price:
+                      it explains the number above it. The support and Premium
+                      links that used to stack under here were asks, not
+                      explanations, and the Premium one was already made by the
+                      teaser card further down the same page. */}
                   {!pricing.loading && pricing.suggestedPrice > 0 && (
                     <div style={{
-                      marginTop: '16px',
-                      textAlign: 'left'
-                    }}>
-                      <a
-                        href="/support"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={async (e) => {
-                          // Track the click (fire-and-forget)
-                          try {
-                            await fetch('/api/track-event', {
-                              method: 'POST',
-                              headers: { 'Content-Type': 'application/json' },
-                              body: JSON.stringify({
-                                eventType: 'inline_link_clicked',
-                                metadata: { item_no: minifig.no, item_name: minifig.name }
-                              })
-                            });
-                          } catch (err) {
-                            console.error('Failed to track click:', err);
-                          }
-                        }}
-                        style={{
-                          fontSize: '11px',
-                          color: '#a3a3a3',
-                          textDecoration: 'none',
-                          transition: 'color 0.2s'
-                        }}
-                        onMouseEnter={(e) => e.currentTarget.style.color = '#737373'}
-                        onMouseLeave={(e) => e.currentTarget.style.color = '#a3a3a3'}
-                      >
-                        {t('supportLink.savedYouTime') || 'Saved you some time? Support quick, accurate pricing →'}
-                      </a>
-                    </div>
-                  )}
-
-                  {/* Premium Link - Subtle, always visible */}
-                  {!pricing.loading && pricing.suggestedPrice > 0 && (
-                    <div style={{
-                      marginTop: '8px',
-                      textAlign: 'left'
-                    }}>
-                      <a
-                        href="/premium"
-                        onClick={async (e) => {
-                          // Track the click (fire-and-forget)
-                          try {
-                            await fetch('/api/track-event', {
-                              method: 'POST',
-                              headers: { 'Content-Type': 'application/json' },
-                              body: JSON.stringify({
-                                eventType: 'inline_link_clicked',
-                                metadata: { item_no: minifig.no, item_name: minifig.name, link: 'premium' }
-                              })
-                            });
-                          } catch (err) {
-                            console.error('Failed to track click:', err);
-                          }
-                        }}
-                        style={{
-                          fontSize: '11px',
-                          color: '#a3a3a3',
-                          textDecoration: 'none',
-                          transition: 'color 0.2s'
-                        }}
-                        onMouseEnter={(e) => e.currentTarget.style.color = '#737373'}
-                        onMouseLeave={(e) => e.currentTarget.style.color = '#a3a3a3'}
-                      >
-                        {t('pricing.premiumCta') || 'Skip the collection step — go Premium →'}
-                      </a>
-                    </div>
-                  )}
-
-                  {/* How We Calculate This Link - Subtle, always visible */}
-                  {!pricing.loading && pricing.suggestedPrice > 0 && (
-                    <div style={{
-                      marginTop: '8px',
+                      marginTop: '12px',
                       textAlign: 'left'
                     }}>
                       <a
