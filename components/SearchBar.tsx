@@ -139,7 +139,7 @@ export default function SearchBar({ onSearchResults, onSearchResult, searchQuery
           value={searchQuery}
           onChange={(e) => onSearchQueryChange(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={t('search.placeholder')}
+          placeholder={t('search.placeholder') || 'Search by name or BrickLink ID'}
           disabled={loading}
           autoComplete="off"
           style={{

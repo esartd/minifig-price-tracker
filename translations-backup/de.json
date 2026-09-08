@@ -512,7 +512,7 @@
     }
   },
   "search": {
-    "placeholder": "Suche nach LEGO Minifiguren oder Sets...",
+    "placeholder": "Nach Name oder BrickLink-ID suchen",
     "placeholderSets": "Suche nach LEGO Sets...",
     "notFound": "Nicht gefunden. Versuche andere Suchbegriffe.",
     "results": "{count} Ergebnisse gefunden",
@@ -543,6 +543,17 @@
     "meta": {
       "title": "LEGO Minifiguren & Sets suchen",
       "description": "Suche jede LEGO-Minifigur oder jedes Set, um den aktuellen Vorschlagspreis zu sehen, berechnet aus BrickLink- und eBay-Daten."
+    },
+    "header": {
+      "placeholder": "Nach Name oder BrickLink-ID suchen",
+      "ariaLabel": "LEGO Minifiguren und Sets nach Name oder BrickLink-ID suchen",
+      "clear": "Suche löschen",
+      "suggestions": "Suchvorschläge",
+      "seeAll": "Alle Ergebnisse für „{query}“ anzeigen",
+      "noResults": "Nichts gefunden. Du kannst auch nach einer BrickLink-ID suchen, etwa sw0001.",
+      "oneResultAvailable": "1 Vorschlag verfügbar",
+      "resultsAvailable": "{count} Vorschläge verfügbar",
+      "idHint": "Probiere einen Namen oder eine BrickLink-ID wie sw0001 oder 75192-1"
     }
   },
   "buyButtons": {
@@ -2564,12 +2575,29 @@
     },
     "howItWorks": {
       "title": "So funktioniert es",
-      "paragraph1": "Da der Anzeigengenerator auf den Katalogdaten und dem aktuellen Vorschlagspreis deines Artikels basiert, findest du ihn auf jeder Minifiguren- und Set-Seite — er muss genau wissen, welchen Artikel du verkaufst.",
-      "paragraph2": "Suche unten nach deinem Artikel, öffne seine Seite und suche nach der Option \"Anzeige erstellen\", sobald er in deinem Inventar ist."
+      "paragraph1": "Der Generator schreibt aus den Katalogdaten des Artikels und dem aktuellen Preisvorschlag, er muss also genau wissen, welchen Artikel du verkaufst. Deshalb sitzt er auf jeder Minifiguren- und Set-Seite und nicht auf einer eigenen Seite."
     },
     "cta": {
       "subtitle": "Finde den Artikel, den du anbieten möchtest.",
       "button": "Minifigur oder Set suchen"
+    },
+    "steps": {
+      "step1": {
+        "title": "Artikel suchen und seine Seite öffnen",
+        "body": "Suche nach Name oder BrickLink-ID — sw0001 und 75192-1 funktionieren beide — und öffne das Ergebnis."
+      },
+      "step2": {
+        "title": "Zu deinen Verkaufsartikeln hinzufügen",
+        "body": "Der Generator erscheint, sobald der Artikel auf einer deiner Listen steht. Das ist der kostenlose Weg: in dein Inventar aufnehmen, dann zeigt sich der Button auf der Seite. Premium-Mitglieder überspringen diesen Schritt und erzeugen direkt von jeder Artikelseite."
+      },
+      "step3": {
+        "title": "Auf „Anzeige erstellen\" klicken",
+        "body": "Du erhältst Titel, Preisvorschlag und eine vollständige Beschreibung, jeweils mit eigenem Kopier-Button. Über das Zahnrad daneben legst du Plattform und Zustand fest — beides wird für das nächste Mal gemerkt."
+      },
+      "step4": {
+        "title": "In eBay, BrickLink, Facebook oder Vinted einfügen",
+        "body": "Jede Plattform bekommt Formulierungen, wie sie dort erwartet werden, damit derselbe Artikel überall richtig klingt."
+      }
     }
   },
   "metadata": {
@@ -2939,16 +2967,24 @@
     },
     "steps": {
       "step1": {
-        "title": "Suche eine Minifigur oder ein Set",
-        "body": "Finde den gewünschten Artikel auf IntoBrick — über 18.000 Minifiguren und 20.000 Sets."
+        "title": "Zuerst anmelden",
+        "body": "Alarme hängen an deiner E-Mail-Adresse, deshalb erscheint der Button erst, wenn du angemeldet bist. Das ist kostenlos und schnell erledigt."
       },
       "step2": {
-        "title": "Lege deinen Zielpreis fest",
-        "body": "Sag uns, zu welchem Preis du kaufen würdest."
+        "title": "Die gewünschte Minifigur oder das Set öffnen",
+        "body": "Suche nach Name oder BrickLink-ID und öffne die Artikelseite. Es stehen über 18.000 Minifiguren und über 20.000 Sets zur Auswahl."
       },
       "step3": {
-        "title": "Wir benachrichtigen dich per E-Mail",
-        "body": "Preise werden automatisch im Hintergrund aktualisiert, sodass du sofort erfährst, wenn er fällt."
+        "title": "Auf der Seite auf „Preisalarm\" klicken",
+        "body": "Der Button steht bei den Schaltflächen neben dem Preis. Es öffnet sich ein kleines Feld, in dem du deinen Wunschpreis einträgst."
+      },
+      "step4": {
+        "title": "Einen Preis unter dem aktuellen eintragen",
+        "body": "Der Zielpreis muss unter dem heutigen Preis liegen — ein Alarm für einen bereits erreichten Preis würde sofort auslösen, deshalb fragen wir nach einem echten Ziel."
+      },
+      "step5": {
+        "title": "Wir melden uns, sobald der Preis fällt",
+        "body": "Die Preise werden im Hintergrund aktualisiert, du erfährst es also, sobald dein Wunschpreis erreicht ist. Alarme kannst du später in deinem Konto ändern oder löschen."
       }
     },
     "cta": {
@@ -3258,5 +3294,40 @@
     "invalidBody": "Dieser Abmeldelink ist ungültig. Möglicherweise wurde er bereits verwendet oder die Adresse wurde geändert.",
     "resubscribeHint": "Meinung geändert? Du kannst Ankündigungen in deinen Kontoeinstellungen wieder aktivieren.",
     "backHome": "Zurück zu IntoBrick"
-  }
+  },
+  "homeGroups": {
+    "more": "Weitere Möglichkeiten mit IntoBrick",
+    "tryIt": "Jetzt ausprobieren – ohne Konto",
+    "tryItSignedIn": "Was du jetzt tun kannst"
+  },
+  "homeMore": {
+    "listing": {
+      "title": "Das Angebot für mich schreiben",
+      "body": "Wähle eine Minifigur und erhalte ein fertiges Angebot für eBay, Facebook, BrickLink oder Vinted – jeweils so formuliert, wie es die Plattform erwartet.",
+      "cta": "Angebotsgenerator öffnen"
+    },
+    "collection": {
+      "title": "Wisse, was deine Sammlung wert ist",
+      "body": "Trage deine Minifiguren und Sets einmal ein, wir führen die Summe laufend mit — du weißt jederzeit, wo du stehst, ohne nachzuschlagen.",
+      "note": "Lege für jeden Artikel einen Preisalarm fest und wir melden uns, sobald sich etwas ändert.",
+      "cta": "Sammlung anlegen"
+    },
+    "deals": {
+      "title": "Sets erwischen, bevor sie auslaufen",
+      "body": "Wir ermitteln aus Alter und Preisentwicklung, welche Sets der Einstellung am nächsten sind.",
+      "cta": "Auslaufende Sets ansehen"
+    }
+  },
+  "navPrimary": {
+    "minifigures": "Minifiguren",
+    "sets": "Sets",
+    "retiring": "Auslaufend",
+    "listings": "Anzeigen",
+    "identify": "Erkennen",
+    "export": "Export",
+    "whatnot": "Whatnot",
+    "community": "Community",
+    "tools": "Tools"
+  },
+  "listingGeneratorPage": null
 }

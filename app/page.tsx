@@ -1,16 +1,31 @@
 'use client';
 
-import { useState, useEffect, useRef, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import SearchBar from '@/components/SearchBar';
-import { SearchResults } from '@/components/search';
-import { CollectionItem } from '@/types';
+import HeaderSearch from '@/components/HeaderSearch';
 import RecommendedSets from '@/components/RecommendedSets';
 import LeaderboardsSection from '@/components/LeaderboardsSection';
 import TrendingMinifigs from '@/components/TrendingMinifigs';
 import HomeFeatureDashboard from '@/components/HomeFeatureDashboard';
+import HomeMoreFeatures from '@/components/HomeMoreFeatures';
 import { useTranslation } from '@/components/TranslationProvider';
-import Link from 'next/link';
+
+/**
+ * The homepage.
+ *
+ * This used to BE the search page -- a component literally named
+ * SearchPageContent that ran queries, rendered a result grid, and unmounted
+ * every promotional section the moment anyone typed a single character. That
+ * was defensible while the hero box was the only way to search the site. It
+ * is not any more: there is a search box in the header of every page now, so
+ * the homepage is free to do a homepage's job and say what this thing does.
+ *
+ * The hero box stays, because a big obvious search box is what a first-time
+ * visitor looks for. It just navigates to /search instead of taking the page
+ * over -- and it is the same component as the header's, so it gets the same
+ * autocomplete, keyboard handling and screen-reader wiring rather than a
+ * second, worse implementation of all three.
+ */
 
 // Diverse minifigures from multiple themes (verified to exist in catalog)
 const MINIFIG_POOL = [
@@ -97,21 +112,11 @@ function generateFireworkPositions(count: number) {
 
   return positions;
 }
-
-function SearchPageContent() {
+function HomePageContent() {
   const { t } = useTranslation();
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [searchResults, setSearchResultsState] = useState<any[]>([]);
-  const [searchResult, setSearchResultState] = useState<any>(null);
-  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
-  const [categoryId, setCategoryId] = useState<string | null>(searchParams.get('category'));
-  const [subcategory, setSubcategory] = useState<string | null>(searchParams.get('subcategory'));
-  const [categoryName, setCategoryName] = useState<string>('');
-  const [loading, setLoadingState] = useState(false);
-  const [hasSearched, setHasSearchedState] = useState(false);
-  const [isSearchActive, setIsSearchActive] = useState(false);
-  const debounceTimer = useRef<NodeJS.Timeout | undefined>(undefined);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Generate random minifig positions on client side only (after mount)
   const [minifigPositions, setMinifigPositions] = useState<any[]>([]);
@@ -121,232 +126,40 @@ function SearchPageContent() {
     setMinifigPositions(generateFireworkPositions(12));
   }, []);
 
-  // Load category/subcategory browsing on mount
-  useEffect(() => {
-    const category = searchParams.get('category');
-    const sub = searchParams.get('subcategory');
-    const q = searchParams.get('q');
-
-    if ((category || sub) && !q) {
-      if (sub) setSubcategory(sub);
-      if (category) setCategoryId(category);
-      setLoadingState(true);
-      performSearch('', category, sub);
-    }
-  }, []);
-
-  // Track if search is active (has query or results)
-  useEffect(() => {
-    setIsSearchActive(searchQuery.length > 0 || searchResults.length > 0 || !!searchResult);
-  }, [searchQuery, searchResults, searchResult]);
-
-  // Execute search as user types (instant)
-  useEffect(() => {
-    if (debounceTimer.current) {
-      clearTimeout(debounceTimer.current);
-    }
-
-    if (searchQuery.length >= 1) {
-      setLoadingState(true);
-      setHasSearchedState(false);
-      debounceTimer.current = setTimeout(() => {
-        performSearch(searchQuery, categoryId, subcategory);
-        // 150ms. It was 50ms, which meant essentially every keystroke fired
-        // its own request; the stale-response race that caused was fixed by
-        // the sequence guard in performSearch, not by waiting longer. This is
-        // only here to avoid making six requests to answer one question, and
-        // 150ms does that while keeping the search feeling responsive —
-        // every 100ms here is 100ms the user waits after they stop typing.
-      }, 150);
-    } else {
-      setSearchResultsState([]);
-      setSearchResultState(null);
-      setLoadingState(false);
-      setHasSearchedState(false);
-    }
-
-    return () => {
-      if (debounceTimer.current) {
-        clearTimeout(debounceTimer.current);
-      }
-    };
-  }, [searchQuery]);
-
-  // Update URL with query params
-  useEffect(() => {
-    const params = new URLSearchParams();
-    if (searchQuery) params.set('q', searchQuery);
-    if (categoryId) params.set('category', categoryId);
-    if (subcategory) params.set('subcategory', subcategory);
-
-    const queryString = params.toString();
-    router.push(`/${queryString ? '?' + queryString : ''}`, { scroll: false });
-  }, [searchQuery, categoryId, subcategory]);
-
   /**
-   * Only the most recently started search may write results.
+   * Forward the old query URLs to /search.
    *
-   * Without this, responses were applied in whatever order they arrived, so a
-   * slow broad query ("6" — ~11,900 matches, >1s) could land after the fast
-   * precise one ("662407" — 1 match, ~270ms) and replace the right answer with
-   * thousands of irrelevant rows. The item looked missing even though it was in
-   * the catalog, and retyping "fixed" it purely by changing the timing.
+   * While this page ran searches it answered /?q=, /?category= and
+   * /?subcategory= itself. Nothing in the app links to those any more, but
+   * they are sitting in browser histories, bookmarks and anything already
+   * shared, and /search understands all three verbatim. replace, not push, so
+   * Back does not bounce off the redirect.
    */
-  const searchSeq = useRef(0);
-
-  const performSearch = async (term: string, category: string | null = null, sub: string | null = null) => {
-    const seq = ++searchSeq.current;
-    /** False once a newer search has started; stops this one clobbering it. */
-    const isCurrent = () => seq === searchSeq.current;
-
-    // Guarded shadows of the four state setters. Declared here so every
-    // write below — including the ones in catch/finally — is a no-op once a
-    // newer search has started, without having to remember to check at each
-    // of the ~20 call sites.
-    const setSearchResults = (v: any) => { if (isCurrent()) setSearchResultsState(v); };
-    const setSearchResult = (v: any) => { if (isCurrent()) setSearchResultState(v); };
-    const setLoading = (v: boolean) => { if (isCurrent()) setLoadingState(v); };
-    const setHasSearched = (v: boolean) => { if (isCurrent()) setHasSearchedState(v); };
-
-    // Subcategory-only browsing (no search term)
-    if (!term && sub) {
-      try {
-        const response = await fetch(`/api/minifigs/search?subcategory=${encodeURIComponent(sub)}`);
-        const data = await response.json();
-
-        if (data.success && data.data.length > 0) {
-          setSearchResults(data.data);
-          setSearchResult(null);
-          setCategoryName(data.category || '');
-        } else {
-          setSearchResults([]);
-          setSearchResult(null);
-        }
-      } catch (error) {
-        console.error('Subcategory browse failed:', error);
-        setSearchResults([]);
-        setSearchResult(null);
-      } finally {
-        setLoading(false);
-        setHasSearched(true);
-      }
-      return;
+  useEffect(() => {
+    if (searchParams.get('q') || searchParams.get('category') || searchParams.get('subcategory')) {
+      router.replace(`/search?${searchParams.toString()}`);
     }
-
-    // Category-only browsing (no search term)
-    if (!term && category) {
-      try {
-        const response = await fetch(`/api/minifigs/search?category=${encodeURIComponent(category)}`);
-        const data = await response.json();
-
-        if (data.success && data.data.length > 0) {
-          setSearchResults(data.data);
-          setSearchResult(null);
-          setCategoryName(data.category || '');
-        } else {
-          setSearchResults([]);
-          setSearchResult(null);
-        }
-      } catch (error) {
-        console.error('Category browse failed:', error);
-        setSearchResults([]);
-        setSearchResult(null);
-      } finally {
-        setLoading(false);
-        setHasSearched(true);
-      }
-      return;
-    }
-
-    if (!term || term.length < 1) {
-      setSearchResults([]);
-      setSearchResult(null);
-      setLoading(false);
-      setHasSearched(false);
-      return;
-    }
-
-    try {
-      // Use unified search that returns both minifigs and sets
-      const params = new URLSearchParams({ q: term });
-      if (category) params.set('category', category);
-
-      const response = await fetch(`/api/search-all?${params.toString()}`);
-      const data = await response.json();
-
-      if (data.success) {
-        const minifigs = data.data.minifigs || [];
-        const sets = data.data.sets || [];
-
-        // Combine results with type indicator
-        const combinedResults = [
-          ...minifigs.map((m: any) => ({ ...m, resultType: 'minifig' })),
-          ...sets.map((s: any) => ({ ...s, resultType: 'set' }))
-        ];
-
-        if (combinedResults.length === 1) {
-          setSearchResult(combinedResults[0]);
-          setSearchResults([]);
-        } else if (combinedResults.length > 0) {
-          setSearchResults(combinedResults);
-          setSearchResult(null);
-        } else {
-          setSearchResults([]);
-          setSearchResult(null);
-        }
-      } else {
-        setSearchResults([]);
-        setSearchResult(null);
-      }
-    } catch (error) {
-      console.error('Search failed:', error);
-      setSearchResults([]);
-      setSearchResult(null);
-    } finally {
-      setLoading(false);
-      setHasSearched(true);
-    }
-  };
-
-  const handleSearchQueryChange = (query: string) => {
-    setSearchQuery(query);
-  };
-
-  const handleSelectMinifig = (minifig: any) => {
-    setSearchResultState(minifig);
-    setSearchResultsState([]);
-  };
-
-  const handleCancelSelection = () => {
-    setSearchResultState(null);
-  };
-
-  const handleClearSearch = () => {
-    setSearchResultState(null);
-    setSearchResultsState([]);
-    setSearchQuery('');
-    router.push('/');
-  };
-
-  const handleItemAdded = (newItem: CollectionItem) => {
-    // After adding, redirect to inventory page
-    router.push('/inventory');
-  };
+  }, [searchParams, router]);
 
   return (
-    <div className="min-h-screen" style={{
-      overflowX: 'hidden',
-      backgroundColor: '#ffffff',
-      background: '#ffffff',
-      transition: 'background 0.4s ease-out'
+    <div style={{
+      minHeight: '100vh',
+      background: '#ffffff'
     }}>
       {/* Floating Background Minifigures - Only in hero section */}
       <div style={{
         position: 'absolute',
-        top: '72px',
+        // Clears the header rather than tucking under it. This was 72px, the
+        // height of the old single-row header; the two-row header is 109px on
+        // desktop and 121px on mobile, so the topmost figures -- placed at
+        // 3-8% of this container -- ended up behind a sticky, opaque header and
+        // looked sliced off at the nav's bottom edge. 136px clears the taller
+        // of the two with room for the figure's head.
+        top: '136px',
         left: 0,
         right: 0,
-        height: 'calc(100vh - 272px)',
+        // Bottom edge stays where it was: 136 + (100vh - 336) == 100vh - 200.
+        height: 'calc(100vh - 336px)',
         zIndex: 0,
         pointerEvents: 'none',
         overflow: 'hidden'
@@ -357,7 +170,7 @@ function SearchPageContent() {
             src={`/api/images/minifig/${pos.id}`}
             alt=""
             loading="lazy"
-            className={`${pos.reverse ? 'floating-emoji-reverse' : 'floating-emoji'} ${isSearchActive ? 'hidden' : ''}`}
+            className={pos.reverse ? 'floating-emoji-reverse' : 'floating-emoji'}
             style={{
               position: 'absolute',
               top: `${pos.y}%`,
@@ -376,14 +189,10 @@ function SearchPageContent() {
           position: 'relative',
           zIndex: 1,
           overflow: 'hidden',
-          minHeight: isSearchActive ? 'calc(100vh - 72px)' : 'calc(100vh - 200px)',
+          minHeight: 'calc(100vh - 200px)',
           display: 'flex',
-          alignItems: isSearchActive ? 'flex-start' : 'center',
-          paddingTop: isSearchActive ? '60px' : '0px',
-          paddingBottom: isSearchActive ? '80px' : '0px',
-          transition: 'all 0.4s ease-out',
-          width: '100%',
-          backgroundColor: isSearchActive ? '#fafafa' : 'transparent'
+          alignItems: 'center',
+          width: '100%'
         }}>
         <div className="search-page-container" style={{
           width: '100%',
@@ -392,180 +201,75 @@ function SearchPageContent() {
           padding: '0 16px',
           boxSizing: 'border-box'
         }}>
-          {/* Header Section - Only show when not searching */}
-          {!isSearchActive && (
-            <div className="search-header-section" style={{
-              textAlign: 'center',
-              marginBottom: '56px',
-              transition: 'all 0.4s ease-out'
+          <div className="search-header-section" style={{
+            textAlign: 'center',
+            marginBottom: '56px'
+          }}>
+            <h1 className="fun-header-title" style={{
+              fontSize: 'var(--text-3xl)',
+              fontWeight: '600',
+              letterSpacing: '-0.02em',
+              lineHeight: '1.1',
+              marginBottom: '20px',
+              background: 'linear-gradient(135deg, #005C97 0%, #363795 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
             }}>
-              <h1 className="fun-header-title" style={{
-                fontSize: 'var(--text-3xl)',
-                fontWeight: '600',
-                letterSpacing: '-0.02em',
-                lineHeight: '1.1',
-                marginBottom: '20px',
-                background: 'linear-gradient(135deg, #005C97 0%, #363795 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}>
-                {t('about.hero.title')}
-              </h1>
-              <p className="fun-header-subtitle" style={{
-                fontSize: 'var(--text-lg)',
-                lineHeight: '1.6',
-                maxWidth: '600px',
-                margin: '0 auto',
-                color: '#171717'
-              }}>
-                {t('about.hero.subtitle')}
-              </p>
-            </div>
-          )}
+              {t('about.hero.title')}
+            </h1>
+            <p className="fun-header-subtitle" style={{
+              fontSize: 'var(--text-lg)',
+              lineHeight: '1.6',
+              maxWidth: '600px',
+              margin: '0 auto',
+              color: '#171717'
+            }}>
+              {t('about.hero.subtitle')}
+            </p>
+          </div>
 
-          {/* Search Bar */}
+          {/* The hero box. Same component as the header's, so Enter goes to
+              /search and the dropdown behaves identically -- and, unlike the
+              old one, typing in it no longer unmounts the entire page below. */}
           <div style={{
-            margin: isSearchActive ? '0 auto 40px auto' : '0 auto 64px auto',
+            margin: '0 auto 64px auto',
             padding: '0',
             width: '100%',
             maxWidth: '640px',
-            boxSizing: 'border-box',
-            transition: 'margin 0.4s ease-out'
+            boxSizing: 'border-box'
           }}>
-            <SearchBar
-              onSearchResults={setSearchResultsState}
-              onSearchResult={setSearchResultState}
-              searchQuery={searchQuery}
-              onSearchQueryChange={handleSearchQueryChange}
+            <HeaderSearch
+              value={searchQuery}
+              onValueChange={setSearchQuery}
+              variant="hero"
             />
+
+            {/* Says out loud that a BrickLink item number works here. Sellers
+                arrive with an ID in the clipboard far more often than a name,
+                and nothing on the page admitted that was allowed. Deliberately
+                a line under the box rather than placeholder text: a
+                placeholder is gone the moment you start typing, and it got
+                clipped mid-word in this box below about 500px wide. */}
+            <p className="hero-search-hint" style={{
+              margin: '12px 0 0',
+              textAlign: 'center',
+              fontSize: 'var(--text-sm)',
+              color: '#737373'
+            }}>
+              {t('search.header.idHint') || 'Try a name, or a BrickLink ID like sw0001 or 75192-1'}
+            </p>
           </div>
-
-          {/* Category/Subcategory Browsing Header */}
-          {(categoryId || subcategory) && categoryName && !searchQuery && (
-            <div style={{
-              maxWidth: '800px',
-              margin: '0 auto 32px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '16px'
-            }}>
-              <div>
-                <h2 style={{
-                  fontSize: 'var(--text-xl)',
-                  fontWeight: '600',
-                  color: '#171717',
-                  letterSpacing: '-0.01em',
-                  marginBottom: '8px'
-                }}>
-                  {categoryName}
-                </h2>
-                <p style={{
-                  fontSize: 'var(--text-sm)',
-                  color: '#737373'
-                }}>
-                  {t('common.minifigCount', { count: searchResults.length })}
-                </p>
-              </div>
-              <button
-                onClick={() => {
-                  setCategoryId(null);
-                  setSubcategory(null);
-                  setCategoryName('');
-                  setSearchResultsState([]);
-                  router.push('/');
-                }}
-                style={{
-                  padding: '8px 16px',
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: '500',
-                  color: '#737373',
-                  background: '#ffffff',
-                  border: '1px solid #e5e5e5',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                  whiteSpace: 'nowrap'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#f5f5f5';
-                  e.currentTarget.style.borderColor = '#d4d4d4';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#ffffff';
-                  e.currentTarget.style.borderColor = '#e5e5e5';
-                }}
-              >
-                {t('common.clearFilter')}
-              </button>
-            </div>
-          )}
-
-          {/* Loading State */}
-          {loading && (
-            <div className="fun-search-card" style={{
-              textAlign: 'center',
-              padding: '80px 16px'
-            }}>
-              <div style={{
-                width: '40px',
-                height: '40px',
-                margin: '0 auto 24px',
-                border: '3px solid rgba(0, 92, 151, 0.2)',
-                borderTop: '3px solid #005C97',
-                borderRadius: '50%',
-                animation: 'spin 0.8s linear infinite'
-              }}></div>
-              <p style={{
-                fontSize: 'var(--text-base)',
-                color: '#737373'
-              }}>
-                {t('common.searching')}
-              </p>
-            </div>
-          )}
-
-          {/* No Results State */}
-          {!loading && hasSearched && searchQuery.length >= 3 && !searchResult && searchResults.length === 0 && (
-            <div className="fun-search-card" style={{
-              textAlign: 'center',
-              padding: '80px 16px'
-            }}>
-              <p style={{
-                fontSize: 'var(--text-base)',
-                color: '#737373'
-              }}>
-                {t('common.noResultsFor', { query: searchQuery })}
-              </p>
-            </div>
-          )}
-
-          {/* Search Results Section */}
-          {!loading && (searchResults.length > 0 || searchResult) && (
-            <div style={{
-              animation: 'fadeIn 0.3s ease-out'
-            }}>
-              <SearchResults
-                searchResults={searchResults}
-                searchResult={searchResult}
-                onSelectMinifig={handleSelectMinifig}
-                onAddToCollection={handleItemAdded}
-                onCancelSelection={handleCancelSelection}
-                onClearSearch={handleClearSearch}
-              />
-            </div>
-          )}
         </div>
       </section>
 
-      {/* Features Section - Outside hero, only show when not searching */}
-      {!isSearchActive && (
-        <div style={{
-          maxWidth: '1000px',
-          margin: '-32px auto 48px',
-          padding: '0 16px'
-        }}>
+      {/* Stats. Always mounted now -- this whole block used to be torn down
+          the moment anyone typed a character into the hero box. */}
+      <div style={{
+        maxWidth: '1000px',
+        margin: '-32px auto 48px',
+        padding: '0 16px'
+      }}>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
@@ -643,25 +347,27 @@ function SearchPageContent() {
             </div>
           </div>
         </div>
-      )}
 
-      {/* Homepage sections - Only show when not actively searching */}
-      {!isSearchActive && (
-        <>
-          {/* First, because it is the only thing here a first-time visitor can
-              act on. Leaderboards and recommendations both assume a collection
-              they do not have yet. */}
-          <HomeFeatureDashboard />
-          <TrendingMinifigs />
-          <LeaderboardsSection />
-          <RecommendedSets />
-        </>
-      )}
+      {/* Two labelled groups, in the order a stranger reads them.
+
+          First, the things that work with no account at all -- the guest sell
+          list, Whatnot search and the photo identifier. Those are what someone
+          who has never heard of this site can actually try, so they lead.
+
+          Then the reasons to come back. Leaderboards and recommended sets go
+          last on purpose: both rank or suggest against a collection the
+          first-time visitor has not built yet, so they mean nothing until the
+          groups above have done their job. */}
+      <HomeFeatureDashboard />
+      <HomeMoreFeatures />
+      <TrendingMinifigs />
+      <LeaderboardsSection />
+      <RecommendedSets />
     </div>
   );
 }
 
-export default function SearchPage() {
+export default function HomePage() {
   return (
     <Suspense fallback={
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -675,7 +381,7 @@ export default function SearchPage() {
         }}></div>
       </div>
     }>
-      <SearchPageContent />
+      <HomePageContent />
     </Suspense>
   );
 }

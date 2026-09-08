@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
@@ -373,6 +374,14 @@ function IdentifyPreview({ item, label }: { item: MarketplaceCard | null; label:
 
 export default function HomeFeatureDashboard() {
   const { t } = useTranslation();
+  /**
+   * The heading claims "no account needed", which is a selling point to a
+   * stranger and simply untrue once you are signed in -- it read as though the
+   * site had forgotten who you were. Same three cards either way; only the
+   * framing changes.
+   */
+  const { status } = useSession();
+  const signedIn = status === 'authenticated';
 
   const [popular, setPopular] = useState<MarketplaceCard[]>([]);
   const [listCount, setListCount] = useState(0);
@@ -404,15 +413,32 @@ export default function HomeFeatureDashboard() {
 
   return (
     <section style={{ padding: '8px 20px 56px', background: '#ffffff' }}>
-      <div
-        style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '14px',
-        }}
-      >
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        {/* All three cards below work signed out -- the sell list is kept in
+            guest storage, Whatnot search is a deep link, and the identifier
+            has a free tier. That is worth saying out loud: it is the reason
+            this group leads and the account-shaped features come after it. */}
+        <h2
+          style={{
+            margin: '0 0 20px',
+            fontSize: 'var(--text-xl)',
+            fontWeight: 600,
+            color: '#171717',
+            letterSpacing: '-0.01em',
+          }}
+        >
+          {signedIn
+            ? t('homeGroups.tryItSignedIn') || 'What you can do right now'
+            : t('homeGroups.tryIt') || 'Try it now — no account needed'}
+        </h2>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '14px',
+          }}
+        >
         {/* 1 — build a sell list --------------------------------------------- */}
         <div style={CARD}>
           <div style={{ ...HERO, background: '#edf6f1', overflow: 'hidden' }}>
@@ -496,6 +522,7 @@ export default function HomeFeatureDashboard() {
               </Link>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </section>

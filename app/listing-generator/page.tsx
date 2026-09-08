@@ -59,6 +59,14 @@ export default async function ListingGeneratorPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      {/* A guide to a feature that lives somewhere else, so it goes stale
+          silently. The steps below describe components/listing-generator-form.tsx
+          as rendered by minifig-detail-client.tsx and set-detail-client.tsx:
+          the "Generate Listing" label, the fact that the form only appears once
+          the item is on one of your lists, and the Premium bypass that skips
+          that requirement (non-Premium visitors see UpgradeTeaser instead).
+          Change any of those and the steps here are wrong, with no build
+          failure to warn you. */}
       <div style={{ maxWidth: '860px', margin: '0 auto', padding: '48px 16px' }}>
         <h1 style={{ fontSize: 'var(--text-3xl)', fontWeight: '700', color: '#171717', marginBottom: '16px', letterSpacing: '-0.02em' }}>
           {lg.hero?.title || 'Write Your Listing in Seconds'}
@@ -86,12 +94,27 @@ export default async function ListingGeneratorPage() {
           <h2 style={{ fontSize: 'var(--text-2xl)', fontWeight: '600', color: '#171717', marginBottom: '16px' }}>
             {lg.howItWorks?.title || 'How it works'}
           </h2>
-          <p style={{ fontSize: 'var(--text-base)', color: '#404040', lineHeight: '1.7', marginBottom: '16px' }}>
-            {lg.howItWorks?.paragraph1 || "Because it's built from your item's own catalog data and current suggested price, the listing generator lives on each minifigure and set page — it needs to know exactly which item you're selling."}
+          <p style={{ fontSize: 'var(--text-base)', color: '#404040', lineHeight: '1.7', marginBottom: '24px' }}>
+            {lg.howItWorks?.paragraph1 || "The generator writes from the item's own catalog data and its current suggested price, so it has to know exactly which item you are selling. That is why it lives on each minifigure and set page rather than on a page of its own."}
           </p>
-          <p style={{ fontSize: 'var(--text-base)', color: '#404040', lineHeight: '1.7' }}>
-            {lg.howItWorks?.paragraph2 || 'Search for your item below, open its page, and look for the "Generate Listing" option once you\'ve added it to your inventory.'}
-          </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {[
+              { title: lg.steps?.step1?.title || 'Find the item and open its page', body: lg.steps?.step1?.body || 'Search by name or BrickLink ID — sw0001 and 75192-1 both work — then open the result.' },
+              { title: lg.steps?.step2?.title || 'Add it to your items for sale', body: lg.steps?.step2?.body || 'The generator appears once the item is on one of your lists. This is the free route: add it to your inventory and the button shows up on that page. Premium members can skip this step and generate straight from any item page.' },
+              { title: lg.steps?.step3?.title || 'Press "Generate Listing"', body: lg.steps?.step3?.body || 'You get a title, a suggested price and a full description, each with its own copy button. The settings icon beside it sets your platform and condition, and it remembers them for next time.' },
+              { title: lg.steps?.step4?.title || 'Paste it into eBay, BrickLink, Facebook or Vinted', body: lg.steps?.step4?.body || 'Each platform gets wording written the way that platform expects, so the same item reads correctly wherever you list it.' },
+            ].map((step, i) => (
+              <div key={i} style={{ background: '#ffffff', border: '1px solid #e5e5e5', borderRadius: '12px', padding: '20px 24px' }}>
+                <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', color: '#171717', marginBottom: '8px' }}>
+                  {i + 1}. {step.title}
+                </h3>
+                <p style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.6', margin: 0 }}>
+                  {step.body}
+                </p>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section style={{ textAlign: 'center', padding: '32px', background: '#fafafa', borderRadius: '12px' }}>
@@ -99,7 +122,11 @@ export default async function ListingGeneratorPage() {
             {lg.cta?.subtitle || 'Find the item you want to list.'}
           </p>
           <Link
-            href="/"
+            /* /search, not /. This button said "Search a minifigure or set" and
+               pointed at the homepage, which was correct while the homepage WAS
+               the search page. It is a promotional page now, so this landed
+               people somewhere with no search results and no explanation. */
+            href="/search"
             style={{ display: 'inline-block', padding: '12px 24px', background: '#3b82f6', color: '#ffffff', borderRadius: '8px', textDecoration: 'none', fontWeight: '600' }}
           >
             {lg.cta?.button || 'Search a minifigure or set'}

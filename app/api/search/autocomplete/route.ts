@@ -14,7 +14,13 @@ export async function GET(request: NextRequest) {
     const query = request.nextUrl.searchParams.get('q') || '';
 
     if (query.length < 2) {
-      return NextResponse.json({ success: true, suggestions: [] });
+      // Same shape as the success case, just empty. This used to return an
+      // array here and an object below, so every caller had to check the type
+      // before reading .minifigs.
+      return NextResponse.json({
+        success: true,
+        suggestions: { synonyms: [], minifigs: [], sets: [] },
+      });
     }
 
     // Get synonym suggestions
