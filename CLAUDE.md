@@ -2,38 +2,86 @@
 
 **READ THIS FIRST BEFORE ANY CODE CHANGES**
 
-## 🚨 REBRAND IN PROGRESS: FigTracker → IntoBrick 🚨
+## 🚨 THE DOMAIN IS intobrick.com — DO NOT UNDO THIS 🚨
 
-The product was renamed to **IntoBrick** and will move to **intobrick.com**.
-The rename has shipped; the domain move has not.
-
-**The domain still lives on `figtracker.ericksu.com` and that is correct for
-now.** Do not "finish the job" by search-and-replacing the domain — the new
-host is not serving yet, and pointing canonicals at it would break SEO.
+The rename from FigTracker to IntoBrick and the move to **intobrick.com** are
+both complete (8 September 2026). The old host redirects. Several pieces of
+that setup look wrong at a glance and will get "fixed" by someone who does not
+know why they are the way they are. Read this before touching any of them.
 
 - **One place owns the hostname:** `lib/site-domain.ts`. All ten locale origins
   derive from a single string via `hostFor()` / `originFor()`. Nothing else may
-  hand-write a hostname. Thirty-three files used to; that is why the map is
-  centralised now.
-- **The cutover is an env change**, not a code change: set
-  `NEXT_PUBLIC_SITE_DOMAIN=intobrick.com`. See the migration plan for the full
-  sequence, including the permanent Cloudflare redirect from the old host.
+  hand-write a hostname. Thirty-three files used to; that is why it is
+  centralised. The live value comes from `NEXT_PUBLIC_SITE_DOMAIN` in
+  `.env.production` on the VPS. The fallback in the source is still the OLD
+  domain, deliberately — it is a fallback, not a default to "correct".
+
+### The old domain must keep redirecting. Forever.
+
+`/etc/nginx/sites-enabled/figtracker` on the VPS serves nothing but 301s. A
+`map` block turns each old host into its counterpart, so
+`de.figtracker.ericksu.com/x` lands on `de.intobrick.com/x` rather than on the
+apex — collapsing the locales onto one hostname is a soft 404 to Google.
+
+This is not a temporary shim. Old links live in forum posts, BrickLink threads
+and in email already sent to users. The day it stops answering, every one of
+them becomes a dead end. Keep `ericksu.com` registered and on auto-renew.
+
+Two details that are load-bearing and look like mistakes:
+
+- **Port 80 redirects STRAIGHT to intobrick.com, not to https on the same
+  host.** The two-hop version is more conventional and still ends up in the
+  right place, but Google's Change of Address validator only inspects the first
+  hop — it saw the old domain again and refused the move for the English
+  property until this was changed.
+- **`figtracker.ericksu.com` is DNS-only in Cloudflare (grey cloud), unlike
+  most hosts.** The `ericksu.com` zone carries five WAF rules from when that
+  domain served real content, including one that managed-challenges any request
+  to `/minifigs/` or `/sets/` without a referer. On a redirect-only host those
+  rules protect nothing and actively blocked Google's own migration tooling.
+  Re-proxying it would silently break crawling of the redirects. The nine
+  locale subdomains were already DNS-only; this just matches them.
+
+Search side is done: ~420,000 URLs across 42 sitemap shards, all ten sitemaps
+submitted, and Change of Address filed and validated for all ten old hosts.
 
 ### Two lowercase strings that must NOT be renamed
 
 The rename only touched capitalised forms (`FigTracker`, `FIGTRACKER`). Two
-lowercase strings are functional and are deliberately untouched:
+lowercase strings are functional:
 
 - `figtracker-cron` in `middleware.ts` — the real user-agent the cron sends. It
-  can only change when the cron's own UA changes, or the cron gets rate-limited.
-- `figtracker.ericksu.com` — the live domain, per above.
+  can only change when the crontab's own UA changes, or the cron gets
+  rate-limited.
+- `figtracker.ericksu.com` — still the redirect source, and still the fallback
+  in `lib/site-domain.ts`.
 
 ### The brand declines in some languages
 
-`FigTracker` appeared in six grammatical forms. Polish declines it and Swedish
-takes a genitive `-s`. When editing brand copy, note that a `-k` stem in Polish
-takes `-u` in the locative: **"w IntoBricku"**, not "IntoBrickze". Check the
-rendered page, not just the JSON.
+`IntoBrick` appears in six grammatical forms. Polish declines it and Swedish
+takes a genitive `-s`. A `-k` stem in Polish takes `-u` in the locative:
+**"w IntoBricku"**, not "IntoBrickze". Check the rendered page, not just the
+JSON.
+
+---
+
+## 🚨 The ISR cache is namespaced by build ID — leave it that way 🚨
+
+`cache-handler.js` stores rendered routes in MySQL, so the cache outlives the
+`.next` directory that produced it. Two things keep that from serving stale
+bytes, and both were added after it did exactly that:
+
+1. **Keys are prefixed with the build ID**, so a deploy invalidates everything
+   for free and rows from older builds are pruned on first request.
+2. **Every entry gets an expiry.** Next.js omits `revalidate` for fully static
+   routes; storing those with `expires_at = null` means "never expires", which
+   is how `/robots.txt`, `/icon.svg` and `/favicon.ico` kept serving
+   months-old content through a clean rebuild and repeated PM2 restarts. It
+   took a manual `DELETE` to clear, twice in one day, before the cause was
+   found — the files on disk were correct the whole time.
+
+If you are ever debugging "I deployed and the old version is still live",
+check `isrCache` before you touch anything else.
 
 ---
 
