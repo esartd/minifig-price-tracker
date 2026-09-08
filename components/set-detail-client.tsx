@@ -27,6 +27,7 @@ import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
 import PriceAlertButton from '@/components/PriceAlertButton';
 import BadgeTooltip from '@/components/BadgeTooltip';
+import SegmentedControl from '@/components/ui/SegmentedControl';
 
 interface SetData {
   box_no: string;
@@ -791,33 +792,20 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
             )}
 
             {/* Condition Toggle with counts */}
-            <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', padding: '4px',
-              background: '#f5f5f5', borderRadius: '8px', width: 'fit-content' }}>
+            <div style={{ marginBottom: '16px' }}>
               {(() => {
                 const newCount = session ? [...allInventoryItems, ...allCollectionItems].filter(item => item.condition === 'new').reduce((sum, item) => sum + item.quantity, 0) : 0;
                 const usedCount = session ? [...allInventoryItems, ...allCollectionItems].filter(item => item.condition === 'used').reduce((sum, item) => sum + item.quantity, 0) : 0;
-
                 return (
-                  <>
-                    <button onClick={() => setCondition('new')} style={{
-                      padding: '8px 16px', fontSize: 'var(--text-sm)', fontWeight: '600',
-                      color: condition === 'new' ? '#ffffff' : '#525252',
-                      background: condition === 'new' ? '#3b82f6' : 'transparent',
-                      border: 'none', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.2s',
-                      whiteSpace: 'nowrap'
-                    }}>
-                      {t('setDetail.condition.new')}{newCount > 0 ? ` (${newCount})` : ''}
-                    </button>
-                    <button onClick={() => setCondition('used')} style={{
-                      padding: '8px 16px', fontSize: 'var(--text-sm)', fontWeight: '600',
-                      color: condition === 'used' ? '#ffffff' : '#525252',
-                      background: condition === 'used' ? '#3b82f6' : 'transparent',
-                      border: 'none', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.2s',
-                      whiteSpace: 'nowrap'
-                    }}>
-                      {t('setDetail.condition.used')}{usedCount > 0 ? ` (${usedCount})` : ''}
-                    </button>
-                  </>
+                  <SegmentedControl
+                    ariaLabel={t('setDetail.condition.new')}
+                    value={condition}
+                    onChange={(v) => setCondition(v as 'new' | 'used')}
+                    options={[
+                      { value: 'new', label: t('setDetail.condition.new'), ...(newCount > 0 ? { count: newCount } : {}) },
+                      { value: 'used', label: t('setDetail.condition.used'), ...(usedCount > 0 ? { count: usedCount } : {}) },
+                    ]}
+                  />
                 );
               })()}
             </div>

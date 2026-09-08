@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { useTranslation } from '@/components/TranslationProvider';
 import { useSession } from 'next-auth/react';
+import FilterChips from '@/components/ui/FilterChips';
 
 interface Article {
   title: string;
@@ -147,47 +148,15 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
             />
 
             {categories.length > 0 && (
-              <div style={{
-                display: 'flex',
-                gap: '12px',
-                flexWrap: 'wrap',
-              }}>
-                <button
-                  onClick={() => setSelectedCategory('all')}
-                  style={{
-                    padding: '8px 16px',
-                    fontSize: '14px',
-                    fontWeight: '600',
-                    border: selectedCategory === 'all' ? '2px solid #3b82f6' : '1px solid #e5e5e5',
-                    borderRadius: '8px',
-                    background: selectedCategory === 'all' ? '#eff6ff' : '#ffffff',
-                    color: selectedCategory === 'all' ? '#3b82f6' : '#737373',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                  }}
-                >
-                  {translations.themes?.allThemes || 'All'}
-                </button>
-                {categories.map(category => (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    style={{
-                      padding: '8px 16px',
-                      fontSize: '14px',
-                      fontWeight: '600',
-                      border: selectedCategory === category ? '2px solid #3b82f6' : '1px solid #e5e5e5',
-                      borderRadius: '8px',
-                      background: selectedCategory === category ? '#eff6ff' : '#ffffff',
-                      color: selectedCategory === category ? '#3b82f6' : '#737373',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s',
-                    }}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
+              <FilterChips
+                ariaLabel={translations.themes?.allThemes || 'Categories'}
+                value={selectedCategory}
+                onChange={setSelectedCategory}
+                options={[
+                  { value: 'all', label: translations.themes?.allThemes || 'All' },
+                  ...categories.map((category) => ({ value: category, label: category })),
+                ]}
+              />
             )}
           </div>
         </div>

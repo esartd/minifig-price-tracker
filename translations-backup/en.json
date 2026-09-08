@@ -1242,7 +1242,8 @@
     "searchPlaceholder": "Search by name or item number...",
     "clearSearch": "Clear search",
     "noSearchResults": "No matches for \"{query}\"",
-    "tryDifferentSearch": "Try a different name or item number"
+    "tryDifferentSearch": "Try a different name or item number",
+    "decimals": "Decimal places"
   },
   "privacyPolicy": {
     "meta": {

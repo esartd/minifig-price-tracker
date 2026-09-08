@@ -12,6 +12,7 @@ import {
 } from '@heroicons/react/24/outline';
 import PublicCollectionList from '@/components/PublicCollectionList';
 import { useTranslation } from '@/components/TranslationProvider';
+import UnderlineTabs from '@/components/ui/UnderlineTabs';
 
 function tx(translations: Record<string, any>, path: string): string | undefined {
   return path.split('.').reduce((obj: any, key) => obj?.[key], translations) as string | undefined;
@@ -214,51 +215,21 @@ export default function CollectorProfilePage({ params }: { params: Promise<{ use
       </div>
 
       {/* Tabs */}
-      <div style={{ backgroundColor: '#fff', borderBottom: '1px solid #e5e5e5', position: 'sticky', top: 0, zIndex: 10 }}>
-        <div style={{ maxWidth: '860px', margin: '0 auto', padding: '0 24px', display: 'flex', gap: '0', overflowX: 'auto' }}>
-          {tabs.map((tab) => {
-            const count = collections[tab.key]?.length ?? 0;
-            return (
-              <button
-                key={tab.key}
-                onClick={() => setActiveTab(tab.key)}
-                style={{
-                  padding: '14px 16px',
-                  border: 'none',
-                  borderBottom: activeTab === tab.key ? '2px solid #171717' : '2px solid transparent',
-                  backgroundColor: 'transparent',
-                  cursor: 'pointer',
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: activeTab === tab.key ? 600 : 400,
-                  color: activeTab === tab.key ? '#171717' : '#737373',
-                  whiteSpace: 'nowrap',
-                  transition: 'color 0.15s',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                }}
-              >
-                {tab.label}
-                <span
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    minWidth: '20px',
-                    height: '20px',
-                    padding: '0 6px',
-                    borderRadius: '10px',
-                    backgroundColor: activeTab === tab.key ? '#171717' : '#f5f5f5',
-                    color: activeTab === tab.key ? '#fff' : '#737373',
-                    fontSize: '11px',
-                    fontWeight: 600,
-                  }}
-                >
-                  {count}
-                </span>
-              </button>
-            );
-          })}
+      <div style={{ backgroundColor: '#fff', position: 'sticky', top: 0, zIndex: 10 }}>
+        <div style={{ maxWidth: '860px', margin: '0 auto', padding: '0 24px' }}>
+          <UnderlineTabs
+            // Near-black rather than the accent blue: these sit directly under
+            // the profile header and a blue row there reads as a second brand.
+            activeColor="#171717"
+            ariaLabel={t('collectors.profile.tabs.minifigInventory') || 'Collections'}
+            value={activeTab}
+            onChange={(v) => setActiveTab(v as Tab)}
+            options={tabs.map((tab) => ({
+              value: tab.key,
+              label: tab.label,
+              count: collections[tab.key]?.length ?? 0,
+            }))}
+          />
         </div>
       </div>
 

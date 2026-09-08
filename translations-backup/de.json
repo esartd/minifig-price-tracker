@@ -1256,7 +1256,8 @@
     "searchPlaceholder": "Nach Name oder Artikelnummer suchen...",
     "clearSearch": "Suche löschen",
     "noSearchResults": "Keine Treffer für \"{query}\"",
-    "tryDifferentSearch": "Versuche einen anderen Namen oder eine andere Artikelnummer"
+    "tryDifferentSearch": "Versuche einen anderen Namen oder eine andere Artikelnummer",
+    "decimals": "Nachkommastellen"
   },
   "privacyPolicy": {
     "meta": {

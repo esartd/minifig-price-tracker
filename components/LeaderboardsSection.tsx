@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { UserIcon, CubeIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from './TranslationProvider';
+import SegmentedControl from '@/components/ui/SegmentedControl';
 
 interface Collector {
   displayName: string;
@@ -78,71 +79,19 @@ export default function LeaderboardsSection() {
           {t('leaderboards.title')}
         </h2>
 
-        {/* Tabs */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '8px',
-            marginBottom: '32px',
-          }}
-        >
-          <button
-            onClick={() => setActiveTab('quarterly')}
-            style={{
-              padding: '10px 24px',
-              fontSize: 'var(--text-sm)',
-              fontWeight: '600',
-              color: activeTab === 'quarterly' ? '#3b82f6' : '#737373',
-              background: activeTab === 'quarterly' ? '#eff6ff' : 'transparent',
-              border: activeTab === 'quarterly' ? '1px solid #3b82f6' : '1px solid #e5e5e5',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              if (activeTab !== 'quarterly') {
-                e.currentTarget.style.borderColor = '#d4d4d4';
-                e.currentTarget.style.background = '#fafafa';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (activeTab !== 'quarterly') {
-                e.currentTarget.style.borderColor = '#e5e5e5';
-                e.currentTarget.style.background = 'transparent';
-              }
-            }}
-          >
-            {t('leaderboards.tabQuarterly')}
-          </button>
-          <button
-            onClick={() => setActiveTab('alltime')}
-            style={{
-              padding: '10px 24px',
-              fontSize: 'var(--text-sm)',
-              fontWeight: '600',
-              color: activeTab === 'alltime' ? '#3b82f6' : '#737373',
-              background: activeTab === 'alltime' ? '#eff6ff' : 'transparent',
-              border: activeTab === 'alltime' ? '1px solid #3b82f6' : '1px solid #e5e5e5',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              if (activeTab !== 'alltime') {
-                e.currentTarget.style.borderColor = '#d4d4d4';
-                e.currentTarget.style.background = '#fafafa';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (activeTab !== 'alltime') {
-                e.currentTarget.style.borderColor = '#e5e5e5';
-                e.currentTarget.style.background = 'transparent';
-              }
-            }}
-          >
-            {t('leaderboards.tabAllTime')}
-          </button>
+        {/* One segmented control instead of two hand-styled buttons. This
+            was the only toggle on the site using a tinted fill with a coloured
+            border; there were eleven such designs in total. */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '32px' }}>
+          <SegmentedControl
+            ariaLabel={t('leaderboards.title') || 'Leaderboard period'}
+            value={activeTab}
+            onChange={(v) => setActiveTab(v as typeof activeTab)}
+            options={[
+              { value: 'quarterly', label: t('leaderboards.tabQuarterly') || 'This Quarter' },
+              { value: 'alltime', label: t('leaderboards.tabAllTime') || 'All-Time' },
+            ]}
+          />
         </div>
 
         {/* Period Info */}

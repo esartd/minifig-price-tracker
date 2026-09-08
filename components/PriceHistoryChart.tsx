@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslation } from '@/components/TranslationProvider';
+import SegmentedControl from '@/components/ui/SegmentedControl';
 
 interface PriceHistoryData {
   id: string;
@@ -156,65 +157,18 @@ export default function PriceHistoryChart({ minifigure_no, condition }: PriceHis
         }}>
           {t('pricing.priceHistory') || 'Price History'}
         </h2>
-        <div style={{
-          display: 'flex',
-          gap: '8px'
-        }}>
-        <button
-          onClick={() => setTimeframe('6months')}
-          style={{
-            padding: '8px 16px',
-            fontSize: 'var(--text-sm)',
-            fontWeight: '500',
-            color: timeframe === '6months' ? '#ffffff' : '#737373',
-            background: timeframe === '6months' ? '#3b82f6' : '#ffffff',
-            border: '1px solid',
-            borderColor: timeframe === '6months' ? '#3b82f6' : '#e5e5e5',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            transition: 'all 0.2s'
-          }}
-          onMouseEnter={(e) => {
-            if (timeframe !== '6months') {
-              e.currentTarget.style.borderColor = '#d4d4d4';
-            }
-          }}
-          onMouseLeave={(e) => {
-            if (timeframe !== '6months') {
-              e.currentTarget.style.borderColor = '#e5e5e5';
-            }
-          }}
-        >
-          {t('priceHistory.sixMonths') || '6 Months'}
-        </button>
-        <button
-          onClick={() => setTimeframe('all')}
-          style={{
-            padding: '8px 16px',
-            fontSize: 'var(--text-sm)',
-            fontWeight: '500',
-            color: timeframe === 'all' ? '#ffffff' : '#737373',
-            background: timeframe === 'all' ? '#3b82f6' : '#ffffff',
-            border: '1px solid',
-            borderColor: timeframe === 'all' ? '#3b82f6' : '#e5e5e5',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            transition: 'all 0.2s'
-          }}
-          onMouseEnter={(e) => {
-            if (timeframe !== 'all') {
-              e.currentTarget.style.borderColor = '#d4d4d4';
-            }
-          }}
-          onMouseLeave={(e) => {
-            if (timeframe !== 'all') {
-              e.currentTarget.style.borderColor = '#e5e5e5';
-            }
-          }}
-        >
-          {t('priceHistory.allTime') || 'All Time'}
-        </button>
-        </div>
+        {/* Was the only toggle on the site at fontWeight 500 while every
+            other used 600 -- one of eleven separate designs. */}
+        <SegmentedControl
+          size="small"
+          ariaLabel={t('pricing.priceHistory') || 'Price history range'}
+          value={timeframe}
+          onChange={(v) => setTimeframe(v as typeof timeframe)}
+          options={[
+            { value: '6months', label: t('priceHistory.sixMonths') || '6 Months' },
+            { value: 'all', label: t('priceHistory.allTime') || 'All Time' },
+          ]}
+        />
       </div>
 
       {/* Chart */}

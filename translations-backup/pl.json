@@ -1243,7 +1243,8 @@
     "searchPlaceholder": "Szukaj po nazwie lub numerze przedmiotu...",
     "clearSearch": "Wyczyść wyszukiwanie",
     "noSearchResults": "Brak wyników dla \"{query}\"",
-    "tryDifferentSearch": "Spróbuj innej nazwy lub numeru przedmiotu"
+    "tryDifferentSearch": "Spróbuj innej nazwy lub numeru przedmiotu",
+    "decimals": "Miejsca dziesiętne"
   },
   "privacyPolicy": {
     "meta": {

@@ -17,6 +17,7 @@ import CollectionToggle from '@/components/CollectionToggle';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import { useTranslation } from '@/components/TranslationProvider';
 import { convertPricing, fetchLiveExchangeRates } from '@/lib/currency-converter';
+import SegmentedControl from '@/components/ui/SegmentedControl';
 
 export default function CollectionPage() {
   const { t } = useTranslation();
@@ -661,64 +662,17 @@ export default function CollectionPage() {
                   {t('collection.items')}
                 </h2>
 
-                <div className="condition-filters-mobile" style={{
-                  display: 'flex',
-                  gap: '8px',
-                  flex: '1 1 auto',
-                  justifyContent: 'flex-end'
-                }}>
-                  <button
-                    onClick={() => setConditionFilter('all')}
-                    style={{
-                      padding: '8px 16px',
-                      fontSize: 'var(--text-sm)',
-                      fontWeight: '600',
-                      color: conditionFilter === 'all' ? '#171717' : '#737373',
-                      background: conditionFilter === 'all' ? '#f5f5f5' : '#ffffff',
-                      border: conditionFilter === 'all' ? '2px solid #3b82f6' : '1px solid #e5e5e5',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s',
-                      whiteSpace: 'nowrap'
-                    }}
-                  >
-                    {t('collection.filters.all')}
-                  </button>
-                  <button
-                    onClick={() => setConditionFilter('new')}
-                    style={{
-                      padding: '8px 16px',
-                      fontSize: 'var(--text-sm)',
-                      fontWeight: '600',
-                      color: conditionFilter === 'new' ? '#171717' : '#737373',
-                      background: conditionFilter === 'new' ? '#f5f5f5' : '#ffffff',
-                      border: conditionFilter === 'new' ? '2px solid #3b82f6' : '1px solid #e5e5e5',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s',
-                      whiteSpace: 'nowrap'
-                    }}
-                  >
-                    {t('collection.filters.new')}
-                  </button>
-                  <button
-                    onClick={() => setConditionFilter('used')}
-                    style={{
-                      padding: '8px 16px',
-                      fontSize: 'var(--text-sm)',
-                      fontWeight: '600',
-                      color: conditionFilter === 'used' ? '#171717' : '#737373',
-                      background: conditionFilter === 'used' ? '#f5f5f5' : '#ffffff',
-                      border: conditionFilter === 'used' ? '2px solid #3b82f6' : '1px solid #e5e5e5',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s',
-                      whiteSpace: 'nowrap'
-                    }}
-                  >
-                    {t('collection.filters.used')}
-                  </button>
-                </div>
+                <SegmentedControl
+                  className="condition-filters-mobile"
+                  ariaLabel={t('collection.condition') || 'Condition'}
+                  value={conditionFilter}
+                  onChange={(v) => setConditionFilter(v as typeof conditionFilter)}
+                  options={[
+                    { value: 'all', label: t('collection.filters.all') || 'All' },
+                    { value: 'new', label: t('collection.filters.new') || 'New' },
+                    { value: 'used', label: t('collection.filters.used') || 'Used' },
+                  ]}
+                />
 
                 {/* Sort Dropdown (desktop) */}
                 <div className="sort-dropdown-desktop" style={{
@@ -731,8 +685,8 @@ export default function CollectionPage() {
                     onChange={(e) => handleSortOrderChange(e.target.value as any)}
                     style={{
                       width: '100%',
-                      padding: '8px 16px',
-                      paddingRight: '36px',
+                      height: '40px',
+                      padding: '0 36px 0 16px',
                       fontSize: 'var(--text-sm)',
                       fontWeight: '600',
                       color: '#171717',
@@ -773,37 +727,16 @@ export default function CollectionPage() {
                 </div>
 
                 {/* Decimal Toggle Button (desktop) */}
-                <button
+                <SegmentedControl
                   className="decimal-toggle-desktop"
-                  onClick={handleToggleDecimals}
-                  style={{
-                    padding: '8px 12px',
-                    fontSize: 'var(--text-sm)',
-                    fontWeight: '600',
-                    color: showDecimals ? '#ffffff' : '#737373',
-                    background: showDecimals ? '#3b82f6' : '#ffffff',
-                    border: showDecimals ? '2px solid #3b82f6' : '1px solid #e5e5e5',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                    outline: 'none',
-                    boxSizing: 'border-box',
-                    whiteSpace: 'nowrap',
-                    flex: '0 0 auto'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!showDecimals) {
-                      e.currentTarget.style.background = '#f5f5f5';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!showDecimals) {
-                      e.currentTarget.style.background = '#ffffff';
-                    }
-                  }}
-                >
-                  {showDecimals ? '.00' : '.0'}
-                </button>
+                  ariaLabel={t('collection.decimals') || 'Decimal places'}
+                  value={showDecimals ? 'two' : 'one'}
+                  onChange={(v) => { if ((v === 'two') !== showDecimals) handleToggleDecimals(); }}
+                  options={[
+                    { value: 'one', label: '.0' },
+                    { value: 'two', label: '.00' },
+                  ]}
+                />
               </div>
             )}
 
@@ -894,8 +827,8 @@ export default function CollectionPage() {
                     onChange={(e) => handleSortOrderChange(e.target.value as any)}
                     style={{
                       width: '100%',
-                      padding: '8px 16px',
-                      paddingRight: '36px',
+                      height: '40px',
+                      padding: '0 36px 0 16px',
                       fontSize: 'inherit',
                       fontWeight: '600',
                       color: '#171717',
@@ -934,37 +867,16 @@ export default function CollectionPage() {
                     pointerEvents: 'none'
                   }} />
                 </div>
-                <button
+                <SegmentedControl
                   className="decimal-toggle-mobile"
-                  onClick={handleToggleDecimals}
-                  style={{
-                    padding: '8px 12px',
-                    fontSize: 'var(--text-sm)',
-                    fontWeight: '600',
-                    color: showDecimals ? '#ffffff' : '#737373',
-                    background: showDecimals ? '#3b82f6' : '#ffffff',
-                    border: showDecimals ? '2px solid #3b82f6' : '1px solid #e5e5e5',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                    outline: 'none',
-                    boxSizing: 'border-box',
-                    whiteSpace: 'nowrap',
-                    flex: '0 0 auto'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!showDecimals) {
-                      e.currentTarget.style.background = '#f5f5f5';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!showDecimals) {
-                      e.currentTarget.style.background = '#ffffff';
-                    }
-                  }}
-                >
-                  {showDecimals ? '.00' : '.0'}
-                </button>
+                  ariaLabel={t('collection.decimals') || 'Decimal places'}
+                  value={showDecimals ? 'two' : 'one'}
+                  onChange={(v) => { if ((v === 'two') !== showDecimals) handleToggleDecimals(); }}
+                  options={[
+                    { value: 'one', label: '.0' },
+                    { value: 'two', label: '.00' },
+                  ]}
+                />
               </div>
             )}
           </div>

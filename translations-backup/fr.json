@@ -1256,7 +1256,8 @@
     "searchPlaceholder": "Rechercher par nom ou numéro d'article...",
     "clearSearch": "Effacer la recherche",
     "noSearchResults": "Aucun résultat pour « {query} »",
-    "tryDifferentSearch": "Essayez un autre nom ou numéro d'article"
+    "tryDifferentSearch": "Essayez un autre nom ou numéro d'article",
+    "decimals": "Décimales"
   },
   "privacyPolicy": {
     "meta": {

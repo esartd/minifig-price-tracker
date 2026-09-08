@@ -5,6 +5,7 @@ import { CollectionItem } from '@/types';
 import ThemeFilters from './ThemeFilters';
 import MinifigCard from './MinifigCard';
 import { useTranslation } from '@/components/TranslationProvider';
+import UnderlineTabs from '@/components/ui/UnderlineTabs';
 
 interface SearchResultsProps {
   searchResults: any[];
@@ -196,70 +197,21 @@ export default function SearchResults({
           {t('search.searchResults')}
         </h2>
 
-        {/* Tabs */}
+        {/* These switch which VIEW of the results you are looking at, so
+            they are UnderlineTabs rather than a SegmentedControl.
+            hideWhenEmpty reproduces the old conditional rendering: a type tab
+            only appeared when that type had matches. */}
         {searchResults.length > 0 && (
-          <div style={{
-            display: 'flex',
-            gap: '8px',
-            borderBottom: '2px solid #e5e5e5',
-            paddingBottom: '0'
-          }}>
-            <button
-              onClick={() => setActiveTab(null)}
-              style={{
-                padding: '12px 20px',
-                fontSize: 'var(--text-sm)',
-                fontWeight: '600',
-                color: activeTab === null ? '#3b82f6' : '#737373',
-                background: 'transparent',
-                border: 'none',
-                borderBottom: activeTab === null ? '2px solid #3b82f6' : '2px solid transparent',
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-                marginBottom: '-2px'
-              }}
-            >
-              {allLabel} ({minifigs.length + sets.length})
-            </button>
-            {minifigs.length > 0 && (
-              <button
-                onClick={() => setActiveTab('minifigs')}
-                style={{
-                  padding: '12px 20px',
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: '600',
-                  color: activeTab === 'minifigs' ? '#3b82f6' : '#737373',
-                  background: 'transparent',
-                  border: 'none',
-                  borderBottom: activeTab === 'minifigs' ? '2px solid #3b82f6' : '2px solid transparent',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                  marginBottom: '-2px'
-                }}
-              >
-                {minifiguresLabel} ({minifigs.length})
-              </button>
-            )}
-            {sets.length > 0 && (
-              <button
-                onClick={() => setActiveTab('sets')}
-                style={{
-                  padding: '12px 20px',
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: '600',
-                  color: activeTab === 'sets' ? '#3b82f6' : '#737373',
-                  background: 'transparent',
-                  border: 'none',
-                  borderBottom: activeTab === 'sets' ? '2px solid #3b82f6' : '2px solid transparent',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                  marginBottom: '-2px'
-                }}
-              >
-                {setsLabel} ({sets.length})
-              </button>
-            )}
-          </div>
+          <UnderlineTabs
+            ariaLabel={t('search.searchResults') || 'Search results'}
+            value={activeTab ?? 'all'}
+            onChange={(v) => setActiveTab(v === 'all' ? null : (v as 'minifigs' | 'sets'))}
+            options={[
+              { value: 'all', label: allLabel, count: minifigs.length + sets.length },
+              { value: 'minifigs', label: minifiguresLabel, count: minifigs.length, hideWhenEmpty: true },
+              { value: 'sets', label: setsLabel, count: sets.length, hideWhenEmpty: true },
+            ]}
+          />
         )}
       </div>
 

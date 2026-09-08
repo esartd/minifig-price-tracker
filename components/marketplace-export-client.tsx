@@ -13,6 +13,7 @@ import {
   ExclamationTriangleIcon,
   MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
+import SegmentedControl from '@/components/ui/SegmentedControl';
 
 // ---------------------------------------------------------------------------
 // Sources
@@ -755,30 +756,15 @@ export default function MarketplaceExportClient({
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       {/* Step 1 — source */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-        {SOURCES.map((s) => {
-          const active = s.key === source;
-          return (
-            <button
-              key={s.key}
-              type="button"
-              onClick={() => setSource(s.key)}
-              style={{
-                padding: '10px 16px',
-                fontSize: 'var(--text-sm)',
-                fontWeight: 600,
-                borderRadius: '8px',
-                cursor: 'pointer',
-                border: `1px solid ${active ? '#3b82f6' : '#e5e5e5'}`,
-                background: active ? '#3b82f6' : '#ffffff',
-                color: active ? '#ffffff' : '#525252',
-              }}
-            >
-              {tr(s.labelKey, s.fallbackLabel)}
-            </button>
-          );
-        })}
-      </div>
+      {/* Four separate pills became one joined control. It did the same job
+          as the marketplace type switcher and the collection toggle, and all
+          three looked different. */}
+      <SegmentedControl
+        ariaLabel={tr('whatnotExport.sourceLabel', 'What are you exporting?')}
+        value={source}
+        onChange={(v) => setSource(v as typeof source)}
+        options={SOURCES.map((s) => ({ value: s.key, label: tr(s.labelKey, s.fallbackLabel) }))}
+      />
 
       {/* Step 2 — destinations. Hidden when there's only one marketplace. */}
       {marketplaces.length > 1 && (
