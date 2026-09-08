@@ -192,7 +192,7 @@ export default function SetsDemoPage() {
                 padding: '16px 20px',
                 fontSize: '16px',
                 border: '2px solid #e5e5e5',
-                borderRadius: '12px',
+                borderRadius: '999px',
                 outline: 'none',
                 transition: 'border-color 0.2s'
               }}

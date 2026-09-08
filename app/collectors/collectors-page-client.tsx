@@ -450,7 +450,7 @@ export default function CollectorsPage() {
               placeholder={tx(translations, 'collectors.directory.searchPlaceholder') || 'Search by name or username…'}
               style={{
                 width: '100%', padding: '15px 20px 15px 48px',
-                borderRadius: '14px', border: '1px solid rgba(255,255,255,0.14)',
+                borderRadius: '999px', border: '1px solid rgba(255,255,255,0.14)',
                 backgroundColor: 'rgba(255,255,255,0.08)', color: '#fff',
                 fontSize: '15px', outline: 'none', boxSizing: 'border-box',
               }}

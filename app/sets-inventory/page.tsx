@@ -814,7 +814,7 @@ export default function SetsInventoryPage() {
                     color: '#171717',
                     background: '#ffffff',
                     border: '1px solid #e5e5e5',
-                    borderRadius: '8px',
+                    borderRadius: '999px',
                     outline: 'none',
                     boxSizing: 'border-box',
                     fontFamily: 'inherit'

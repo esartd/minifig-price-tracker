@@ -198,7 +198,7 @@ function SetsBrowseContent() {
                   padding: '12px 16px',
                   fontSize: '15px',
                   border: '1px solid #e5e5e5',
-                  borderRadius: '8px',
+                  borderRadius: '999px',
                   outline: 'none'
                 }}
                 onFocus={(e) => e.target.style.borderColor = '#3b82f6'}

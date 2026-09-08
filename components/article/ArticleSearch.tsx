@@ -58,7 +58,7 @@ export function ArticleSearch({ articles, categories = [] }: ArticleSearchProps)
             padding: '14px 20px',
             fontSize: '16px',
             border: '1px solid #e5e5e5',
-            borderRadius: '12px',
+            borderRadius: '999px',
             background: '#ffffff',
             outline: 'none',
           }}
