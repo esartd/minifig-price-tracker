@@ -1375,7 +1375,7 @@
     },
     "collection": {
       "checkingCollections": "Checking samlings...",
-      "addThisSet": "Lägg till This Set",
+      "addThisSet": "Lägg till det här setet i din samling",
       "quantity": "Antal",
       "inYourInventory": "In Your Inventering",
       "inYourCollection": "In Your Samling",
@@ -2196,7 +2196,7 @@
     "yearUnknown": "År okänt",
     "loadingPricing": "Laddar priser...",
     "checkingCollections": "Kontrollerar samlingar...",
-    "addThisMinifigure": "Lägg till denna minifigur",
+    "addThisMinifigure": "Lägg till den här minifiguren i din samling",
     "quantity": "Antal",
     "toSell": "+ Till salu",
     "toKeep": "+ Att behålla",

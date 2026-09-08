@@ -145,7 +145,7 @@ export default function MoveDialog({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: quantity > 1 ? '#ffffff' : '#f5f5f5',
+                background: '#ffffff',
                 border: 'none',
                 borderRight: '1px solid #e5e5e5',
                 cursor: quantity > 1 ? 'pointer' : 'not-allowed',

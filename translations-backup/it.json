@@ -1375,7 +1375,7 @@
     },
     "collection": {
       "checkingCollections": "Checking colleziones...",
-      "addThisSet": "Aggiungi Questo Set",
+      "addThisSet": "Aggiungi questo set alla tua collezione",
       "quantity": "Quantità",
       "inYourInventory": "Nel Tuo Inventario",
       "inYourCollection": "In Your collezione",
@@ -2196,7 +2196,7 @@
     "yearUnknown": "Anno sconosciuto",
     "loadingPricing": "Caricamento prezzi...",
     "checkingCollections": "Controllo collezioni...",
-    "addThisMinifigure": "Aggiungi questa minifigura",
+    "addThisMinifigure": "Aggiungi questa minifigure alla tua collezione",
     "quantity": "Quantità",
     "toSell": "+ Da vendere",
     "toKeep": "+ Da tenere",

@@ -1375,7 +1375,7 @@
     },
     "collection": {
       "checkingCollections": "Collecties controleren...",
-      "addThisSet": "Deze Set Toevoegen",
+      "addThisSet": "Voeg deze set toe aan je collectie",
       "quantity": "Aantal",
       "inYourInventory": "In Jouw Inventaris",
       "inYourCollection": "In Jouw Collectie",
@@ -2196,7 +2196,7 @@
     "yearUnknown": "Jaar onbekend",
     "loadingPricing": "Prijzen laden...",
     "checkingCollections": "Collecties controleren...",
-    "addThisMinifigure": "Voeg deze minifiguur toe",
+    "addThisMinifigure": "Voeg deze minifiguur toe aan je collectie",
     "quantity": "Hoeveelheid",
     "toSell": "+ Te verkopen",
     "toKeep": "+ Om te bewaren",

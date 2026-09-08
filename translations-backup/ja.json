@@ -1375,7 +1375,7 @@
     },
     "collection": {
       "checkingCollections": "コレクションを確認中...",
-      "addThisSet": "追加 This Set",
+      "addThisSet": "このセットをコレクションに追加",
       "quantity": "数量",
       "inYourInventory": "在庫にあります",
       "inYourCollection": "コレクションにあります",
@@ -2196,7 +2196,7 @@
     "yearUnknown": "年不明",
     "loadingPricing": "価格を読み込み中...",
     "checkingCollections": "コレクションを確認中...",
-    "addThisMinifigure": "このミニフィグを追加",
+    "addThisMinifigure": "このミニフィギュアをコレクションに追加",
     "quantity": "数量",
     "toSell": "+ 売却用",
     "toKeep": "+ 保管用",

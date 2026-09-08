@@ -1422,7 +1422,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             marginTop: 0,
                             marginBottom: '16px'
                           }}>
-                            {t('minifigDetail.addThisMinifigure')}
+                            {t('minifigDetail.addThisMinifigure') || 'Add this minifigure to your collection'}
                           </h2>
 
                           {/* Quantity Selector */}
@@ -1436,7 +1436,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             }}>
                               {t('minifigDetail.quantity')}
                             </label>
-                            <div className="quantity-stepper" style={{ flex: 1 }}>
+                            <div className="quantity-stepper" style={{ flex: '0 0 auto', width: 'fit-content' }}>
                               <button
                                 type="button"
                                 onClick={() => {
@@ -1450,7 +1450,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  background: quantity > 1 ? '#ffffff' : '#f5f5f5',
+                                  background: '#ffffff',
                                   border: 'none',
                                   borderRight: '1px solid #e5e5e5',
                                   cursor: quantity > 1 ? 'pointer' : 'not-allowed',
@@ -1514,7 +1514,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  background: quantity < 9999 ? '#ffffff' : '#f5f5f5',
+                                  background: '#ffffff',
                                   border: 'none',
                                   borderLeft: '1px solid #e5e5e5',
                                   cursor: quantity < 9999 ? 'pointer' : 'not-allowed',
@@ -1632,7 +1632,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              background: collectionItem.quantity > 1 ? '#ffffff' : '#f5f5f5',
+                              background: '#ffffff',
                               border: 'none',
                               borderRight: '1px solid #e5e5e5',
                               cursor: collectionItem.quantity > 1 ? 'pointer' : 'not-allowed',
@@ -1698,7 +1698,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              background: collectionItem.quantity < 9999 ? '#ffffff' : '#f5f5f5',
+                              background: '#ffffff',
                               border: 'none',
                               borderLeft: '1px solid #e5e5e5',
                               cursor: collectionItem.quantity < 9999 ? 'pointer' : 'not-allowed',
@@ -1932,7 +1932,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  background: addToCollectionQty > 1 ? '#ffffff' : '#f5f5f5',
+                                  background: '#ffffff',
                                   border: 'none',
                                   borderRight: '1px solid #e5e5e5',
                                   cursor: addToCollectionQty > 1 ? 'pointer' : 'not-allowed',
@@ -1992,7 +1992,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  background: addToCollectionQty < 9999 ? '#ffffff' : '#f5f5f5',
+                                  background: '#ffffff',
                                   border: 'none',
                                   borderLeft: '1px solid #e5e5e5',
                                   cursor: addToCollectionQty < 9999 ? 'pointer' : 'not-allowed',
@@ -2131,7 +2131,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  background: personalCollectionItem.quantity > 1 ? '#ffffff' : '#f5f5f5',
+                                  background: '#ffffff',
                                   border: 'none',
                                   borderRight: '1px solid #e5e5e5',
                                   cursor: personalCollectionItem.quantity > 1 ? 'pointer' : 'not-allowed',
@@ -2197,7 +2197,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  background: personalCollectionItem.quantity < 9999 ? '#ffffff' : '#f5f5f5',
+                                  background: '#ffffff',
                                   border: 'none',
                                   borderLeft: '1px solid #e5e5e5',
                                   cursor: personalCollectionItem.quantity < 9999 ? 'pointer' : 'not-allowed',
@@ -2385,7 +2385,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  background: addToInventoryQty > 1 ? '#ffffff' : '#f5f5f5',
+                                  background: '#ffffff',
                                   border: 'none',
                                   borderRight: '1px solid #e5e5e5',
                                   cursor: addToInventoryQty > 1 ? 'pointer' : 'not-allowed',
@@ -2445,7 +2445,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  background: addToInventoryQty < 9999 ? '#ffffff' : '#f5f5f5',
+                                  background: '#ffffff',
                                   border: 'none',
                                   borderLeft: '1px solid #e5e5e5',
                                   cursor: addToInventoryQty < 9999 ? 'pointer' : 'not-allowed',

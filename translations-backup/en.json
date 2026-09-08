@@ -1374,7 +1374,7 @@
     },
     "collection": {
       "checkingCollections": "Checking collections...",
-      "addThisSet": "Add This Set",
+      "addThisSet": "Add this set to your collection",
       "quantity": "Quantity",
       "inYourInventory": "In Your Inventory",
       "inYourCollection": "In Your Collection",
@@ -2439,7 +2439,7 @@
     "yearUnknown": "Year Unknown",
     "loadingPricing": "Loading pricing...",
     "checkingCollections": "Checking collections...",
-    "addThisMinifigure": "Add This Minifigure",
+    "addThisMinifigure": "Add this minifigure to your collection",
     "quantity": "Quantity",
     "toSell": "+ To sell",
     "toKeep": "+ To keep",

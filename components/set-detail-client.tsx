@@ -872,16 +872,16 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                   {!inventoryItem && !personalCollectionItem && (
                     <div>
                       <h2 style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717',
-                        marginTop: 0, marginBottom: '16px' }}>{t('setDetail.collection.addThisSet')}</h2>
+                        marginTop: 0, marginBottom: '16px' }}>{t('setDetail.collection.addThisSet') || 'Add this set to your collection'}</h2>
                       <div style={{ marginBottom: '12px' }}>
                         <label style={{ display: 'block', fontSize: 'var(--text-sm)', fontWeight: '500',
                           color: '#525252', marginBottom: '8px' }}>{t('setDetail.collection.quantity')}</label>
-                        <div className="quantity-stepper" style={{ flex: 1 }}>
+                        <div className="quantity-stepper" style={{ flex: '0 0 auto', width: 'fit-content' }}>
                           <button type="button" onClick={() => { if (quantity > 1) setQuantity(quantity - 1); }}
                             disabled={quantity <= 1} style={{
                               width: '44px', minWidth: '44px', height: '44px', display: 'flex',
                               alignItems: 'center', justifyContent: 'center',
-                              background: quantity > 1 ? '#ffffff' : '#f5f5f5', border: 'none',
+                              background: '#ffffff', border: 'none',
                               borderRight: '1px solid #e5e5e5', cursor: quantity > 1 ? 'pointer' : 'not-allowed',
                               color: quantity > 1 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
                               fontWeight: '600', padding: 0, flexShrink: 0, transition: 'all 0.2s'
@@ -897,7 +897,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                             disabled={quantity >= 9999} style={{
                               width: '44px', minWidth: '44px', height: '44px', display: 'flex',
                               alignItems: 'center', justifyContent: 'center',
-                              background: quantity < 9999 ? '#ffffff' : '#f5f5f5', border: 'none',
+                              background: '#ffffff', border: 'none',
                               borderLeft: '1px solid #e5e5e5', cursor: quantity < 9999 ? 'pointer' : 'not-allowed',
                               color: quantity < 9999 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
                               fontWeight: '600', padding: 0, flexShrink: 0, transition: 'all 0.2s'
@@ -967,7 +967,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                             onClick={() => { if (inventoryItem.quantity > 1) handleUpdateInventoryQuantity(inventoryItem.quantity - 1); }}
                             disabled={inventoryItem.quantity <= 1} style={{
                               width: '44px', minWidth: '44px', height: '44px', display: 'flex', alignItems: 'center',
-                              justifyContent: 'center', background: inventoryItem.quantity > 1 ? '#ffffff' : '#f5f5f5',
+                              justifyContent: 'center', background: '#ffffff',
                               border: 'none', borderRight: '1px solid #e5e5e5',
                               cursor: inventoryItem.quantity > 1 ? 'pointer' : 'not-allowed',
                               color: inventoryItem.quantity > 1 ? '#171717' : '#a3a3a3', transition: 'all 0.2s',
@@ -984,7 +984,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                             onClick={() => { if (inventoryItem.quantity < 9999) handleUpdateInventoryQuantity(inventoryItem.quantity + 1); }}
                             disabled={inventoryItem.quantity >= 9999} style={{
                               width: '44px', minWidth: '44px', height: '44px', display: 'flex', alignItems: 'center',
-                              justifyContent: 'center', background: inventoryItem.quantity < 9999 ? '#ffffff' : '#f5f5f5',
+                              justifyContent: 'center', background: '#ffffff',
                               border: 'none', borderLeft: '1px solid #e5e5e5',
                               cursor: inventoryItem.quantity < 9999 ? 'pointer' : 'not-allowed',
                               color: inventoryItem.quantity < 9999 ? '#171717' : '#a3a3a3', transition: 'all 0.2s',
@@ -1095,7 +1095,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           <button type="button" onClick={() => setAddToCollectionQty(Math.max(1, addToCollectionQty - 1))}
                             disabled={addToCollectionQty <= 1} style={{
                               width: '44px', minWidth: '44px', height: '44px', display: 'flex', alignItems: 'center',
-                              justifyContent: 'center', background: addToCollectionQty > 1 ? '#ffffff' : '#f5f5f5',
+                              justifyContent: 'center', background: '#ffffff',
                               border: 'none', borderRight: '1px solid #e5e5e5',
                               cursor: addToCollectionQty > 1 ? 'pointer' : 'not-allowed',
                               color: addToCollectionQty > 1 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
@@ -1111,7 +1111,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           <button type="button" onClick={() => setAddToCollectionQty(Math.min(9999, addToCollectionQty + 1))}
                             disabled={addToCollectionQty >= 9999} style={{
                               width: '44px', minWidth: '44px', height: '44px', display: 'flex', alignItems: 'center',
-                              justifyContent: 'center', background: addToCollectionQty < 9999 ? '#ffffff' : '#f5f5f5',
+                              justifyContent: 'center', background: '#ffffff',
                               border: 'none', borderLeft: '1px solid #e5e5e5',
                               cursor: addToCollectionQty < 9999 ? 'pointer' : 'not-allowed',
                               color: addToCollectionQty < 9999 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
@@ -1142,7 +1142,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                             onClick={() => { if (personalCollectionItem.quantity > 1) handleUpdatePersonalQuantity(personalCollectionItem.quantity - 1); }}
                             disabled={personalCollectionItem.quantity <= 1} style={{
                               width: '44px', minWidth: '44px', height: '44px', display: 'flex', alignItems: 'center',
-                              justifyContent: 'center', background: personalCollectionItem.quantity > 1 ? '#ffffff' : '#f5f5f5',
+                              justifyContent: 'center', background: '#ffffff',
                               border: 'none', borderRight: '1px solid #e5e5e5',
                               cursor: personalCollectionItem.quantity > 1 ? 'pointer' : 'not-allowed',
                               color: personalCollectionItem.quantity > 1 ? '#171717' : '#a3a3a3', transition: 'all 0.2s',
@@ -1159,7 +1159,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                             onClick={() => { if (personalCollectionItem.quantity < 9999) handleUpdatePersonalQuantity(personalCollectionItem.quantity + 1); }}
                             disabled={personalCollectionItem.quantity >= 9999} style={{
                               width: '44px', minWidth: '44px', height: '44px', display: 'flex', alignItems: 'center',
-                              justifyContent: 'center', background: personalCollectionItem.quantity < 9999 ? '#ffffff' : '#f5f5f5',
+                              justifyContent: 'center', background: '#ffffff',
                               border: 'none', borderLeft: '1px solid #e5e5e5',
                               cursor: personalCollectionItem.quantity < 9999 ? 'pointer' : 'not-allowed',
                               color: personalCollectionItem.quantity < 9999 ? '#171717' : '#a3a3a3', transition: 'all 0.2s',
@@ -1252,7 +1252,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           <button type="button" onClick={() => setAddToInventoryQty(Math.max(1, addToInventoryQty - 1))}
                             disabled={addToInventoryQty <= 1} style={{
                               width: '44px', minWidth: '44px', height: '44px', display: 'flex', alignItems: 'center',
-                              justifyContent: 'center', background: addToInventoryQty > 1 ? '#ffffff' : '#f5f5f5',
+                              justifyContent: 'center', background: '#ffffff',
                               border: 'none', borderRight: '1px solid #e5e5e5',
                               cursor: addToInventoryQty > 1 ? 'pointer' : 'not-allowed',
                               color: addToInventoryQty > 1 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
@@ -1268,7 +1268,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           <button type="button" onClick={() => setAddToInventoryQty(Math.min(9999, addToInventoryQty + 1))}
                             disabled={addToInventoryQty >= 9999} style={{
                               width: '44px', minWidth: '44px', height: '44px', display: 'flex', alignItems: 'center',
-                              justifyContent: 'center', background: addToInventoryQty < 9999 ? '#ffffff' : '#f5f5f5',
+                              justifyContent: 'center', background: '#ffffff',
                               border: 'none', borderLeft: '1px solid #e5e5e5',
                               cursor: addToInventoryQty < 9999 ? 'pointer' : 'not-allowed',
                               color: addToInventoryQty < 9999 ? '#171717' : '#a3a3a3', fontSize: 'var(--text-lg)',
