@@ -295,11 +295,18 @@ export default function HeaderSearch({ value, onValueChange, variant }: HeaderSe
           display: 'flex',
           alignItems: 'center',
           gap: '10px',
-          height: isHero ? '56px' : isMobile ? '44px' : '40px',
-          padding: isHero ? '0 20px' : '0 12px',
+          // Two heights, not three. 40px in the desktop header, 44px anywhere
+          // a thumb has to hit it -- which is the design system's touch
+          // minimum. The hero used to be 56px; its prominence comes from being
+          // 640px wide and centred on an empty page, not from extra height.
+          height: isHero || isMobile ? '44px' : '40px',
+          padding: '0 16px',
           background: '#ffffff',
           border: `1px solid ${focused ? '#3b82f6' : '#e5e5e5'}`,
-          borderRadius: isHero ? '28px' : '8px',
+          // Fully rounded everywhere. The hero was a 28px pill while the
+          // header was an 8px rectangle -- the same component contradicting
+          // itself on one screen.
+          borderRadius: '999px',
           boxShadow: focused ? '0 0 0 3px rgba(59, 130, 246, 0.15)' : 'none',
           transition: 'border-color 0.15s, box-shadow 0.15s',
           boxSizing: 'border-box',
@@ -308,12 +315,7 @@ export default function HeaderSearch({ value, onValueChange, variant }: HeaderSe
         <svg
           aria-hidden="true"
           focusable="false"
-          style={{
-            width: isHero ? 'var(--icon-lg)' : 'var(--icon-base)',
-            height: isHero ? 'var(--icon-lg)' : 'var(--icon-base)',
-            flexShrink: 0,
-            color: '#737373',
-          }}
+          style={{ width: 'var(--icon-base)', height: 'var(--icon-base)', flexShrink: 0, color: '#737373' }}
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
@@ -373,7 +375,7 @@ export default function HeaderSearch({ value, onValueChange, variant }: HeaderSe
             // focused input's font-size is smaller, and the user then has to
             // pinch back out. --text-sm is clamp(14px, 1.75vw, 15px), which
             // would trigger it; --text-base is a flat 16px.
-            fontSize: isHero ? 'var(--text-lg)' : 'var(--text-base)',
+            fontSize: 'var(--text-base)',
             fontFamily: 'inherit',
             color: '#171717',
           }}

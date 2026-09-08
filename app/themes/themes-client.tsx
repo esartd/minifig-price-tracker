@@ -259,22 +259,28 @@ export default function ThemesClient({ themes }: ThemesClientProps) {
               gap: '12px',
               padding: '14px 16px',
               background: '#ffffff',
-              border: '1px solid #dfe1e5',
-              borderRadius: '24px',
+              // Same grey and same pill as every other search box. This was
+              // #dfe1e5 at 24px -- a Google-styled one-off shared only with
+              // the other browse page.
+              border: '1px solid #e5e5e5',
+              borderRadius: '999px',
               transition: 'box-shadow 0.2s, border-color 0.2s',
               width: '100%',
               maxWidth: '720px'
             }}
+            /* Focus matches the rest of the site. The old handler set the
+               border transparent and added a drop shadow, but the blur handler
+               only cleared the shadow -- so after one focus the border stayed
+               invisible for the rest of the page's life. */
             onFocus={(e) => {
-              e.currentTarget.style.borderColor = 'transparent';
-              e.currentTarget.style.boxShadow = '0 1px 6px rgba(32,33,36,.28)';
+              e.currentTarget.style.borderColor = '#3b82f6';
             }}
             onBlur={(e) => {
-              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.borderColor = '#e5e5e5';
             }}
           >
             {/* Search Icon */}
-            <svg style={{ width: 'var(--icon-base)', height: 'var(--icon-base)', flexShrink: 0, color: '#9aa0a6' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="var(--icon-stroke)">
+            <svg style={{ width: 'var(--icon-base)', height: 'var(--icon-base)', flexShrink: 0, color: '#737373' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="var(--icon-stroke)">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
 

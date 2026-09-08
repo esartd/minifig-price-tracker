@@ -175,7 +175,7 @@ export default function ThemeFilters({
                   padding: '10px 12px',
                   fontSize: 'var(--text-sm)',
                   border: '1px solid #e5e5e5',
-                  borderRadius: '8px',
+                  borderRadius: '999px',
                   outline: 'none',
                   width: '100%',
                   boxSizing: 'border-box'

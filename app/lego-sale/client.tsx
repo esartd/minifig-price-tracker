@@ -170,7 +170,7 @@ export default function LegoSaleClient() {
                 width: '100%',
                 padding: '10px 12px',
                 border: '1px solid #e5e5e5',
-                borderRadius: '8px',
+                borderRadius: '999px',
                 fontSize: '14px',
                 outline: 'none',
               }}

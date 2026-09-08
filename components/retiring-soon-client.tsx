@@ -129,7 +129,7 @@ export default function RetiringSoonClient({
                 justifyContent: 'space-between',
                 padding: '0.5rem 1rem',
                 fontSize: 'var(--text-sm)',
-                border: '1px solid #d4d4d4',
+                border: '1px solid #e5e5e5',
                 borderRadius: '8px',
                 background: '#ffffff',
                 cursor: 'pointer',
@@ -162,7 +162,7 @@ export default function RetiringSoonClient({
                 left: 0,
                 right: 0,
                 background: '#ffffff',
-                border: '1px solid #d4d4d4',
+                border: '1px solid #e5e5e5',
                 borderRadius: '8px',
                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
                 zIndex: 1000,
@@ -183,12 +183,15 @@ export default function RetiringSoonClient({
                       width: '100%',
                       padding: '0.5rem',
                       fontSize: 'var(--text-sm)',
-                      border: '1px solid #d4d4d4',
-                      borderRadius: '6px',
+                      // Matches every other search box on the site: same grey,
+                      // same pill. This was #d4d4d4 at 6px -- the only place
+                      // using either value.
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '999px',
                       outline: 'none'
                     }}
                     onFocus={e => e.target.style.borderColor = '#3b82f6'}
-                    onBlur={e => e.target.style.borderColor = '#d4d4d4'}
+                    onBlur={e => e.target.style.borderColor = '#e5e5e5'}
                   />
                 </div>
 

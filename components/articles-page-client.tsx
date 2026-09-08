@@ -132,7 +132,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
                 padding: '14px 20px',
                 fontSize: '16px',
                 border: '1px solid #e5e5e5',
-                borderRadius: '12px',
+                borderRadius: '999px',
                 background: '#fafafa',
                 outline: 'none',
               }}

@@ -161,7 +161,7 @@ export default function MarketplacePageClient() {
             padding: '10px 14px',
             fontSize: 'var(--text-base)',
             border: '1px solid #e5e5e5',
-            borderRadius: '8px',
+            borderRadius: '999px',
             outline: 'none',
           }}
         />
