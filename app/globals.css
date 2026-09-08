@@ -1651,7 +1651,11 @@ input[type="number"] {
   align-items: center;
   gap: 10px;
   padding: 18px 36px;
-  background: linear-gradient(135deg, #005C97 0%, #363795 100%);
+  /* Flat accent, not the hero's gradient. A gradient on a button reads as a
+     different KIND of button, and there were three of them across the site
+     against a flat blue everywhere else. The gradient still belongs on the
+     hero and the feature icons -- those are surfaces, not controls. */
+  background: #3b82f6;
   color: #ffffff;
   font-size: var(--text-base);
   font-weight: 600;

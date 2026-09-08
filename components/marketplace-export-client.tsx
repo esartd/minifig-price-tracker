@@ -728,7 +728,7 @@ export default function MarketplaceExportClient({
             padding: '12px 24px',
             background: '#3b82f6',
             color: '#ffffff',
-            borderRadius: '8px',
+            borderRadius: '999px',
             textDecoration: 'none',
             fontWeight: 600,
           }}
@@ -1674,7 +1674,7 @@ export default function MarketplaceExportClient({
                   color: '#ffffff',
                   background: '#3b82f6',
                   border: 'none',
-                  borderRadius: '8px',
+                  borderRadius: '999px',
                   cursor: building ? 'wait' : 'pointer',
                   opacity: building || previewing ? 0.6 : 1,
                 }}
@@ -1724,7 +1724,7 @@ export default function MarketplaceExportClient({
                       color: '#ffffff',
                       background: '#3b82f6',
                       border: 'none',
-                      borderRadius: '8px',
+                      borderRadius: '999px',
                       cursor: 'pointer',
                     }}
                   >
@@ -1805,7 +1805,7 @@ export default function MarketplaceExportClient({
                       fontWeight: 600,
                       color: '#ffffff',
                       background: '#3b82f6',
-                      borderRadius: '8px',
+                      borderRadius: '999px',
                       textDecoration: 'none',
                     }}
                   >

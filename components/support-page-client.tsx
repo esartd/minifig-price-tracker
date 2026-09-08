@@ -162,8 +162,10 @@ export default function SupportPageClient({ totalPricingViews }: SupportPageClie
                     fontSize: '15px',
                     fontWeight: '600',
                     cursor: 'pointer',
-                    transition: 'all 0.2s',
-                    boxShadow: '0 4px 12px rgba(0, 112, 186, 0.3)'
+                    transition: 'all 0.2s'
+                    /* PayPal's own blue stays, on the same rule as the eBay and
+                       Whatnot buttons: a third-party action wears its brand. The
+                       drop shadow does not -- nothing else on the site has one. */
                   }}
                   onMouseOver={(e) => e.currentTarget.style.background = '#005ea6'}
                   onMouseOut={(e) => e.currentTarget.style.background = '#0070ba'}

@@ -263,7 +263,7 @@ export default function SearchResults({
                           color: '#ffffff',
                           background: '#3b82f6',
                           border: 'none',
-                          borderRadius: '8px',
+                          borderRadius: '999px',
                           cursor: 'pointer',
                           transition: 'all 0.2s',
                           boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
@@ -326,7 +326,7 @@ export default function SearchResults({
                           color: '#ffffff',
                           background: '#3b82f6',
                           border: 'none',
-                          borderRadius: '8px',
+                          borderRadius: '999px',
                           cursor: 'pointer',
                           transition: 'all 0.2s',
                           boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
@@ -397,7 +397,7 @@ export default function SearchResults({
                       color: '#ffffff',
                       background: '#3b82f6',
                       border: 'none',
-                      borderRadius: '8px',
+                      borderRadius: '999px',
                       cursor: 'pointer',
                       transition: 'all 0.2s',
                       boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'

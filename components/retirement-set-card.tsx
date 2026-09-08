@@ -264,7 +264,7 @@ export default function RetirementSetCard({ set, translations, showConfidence = 
           textAlign: 'center',
           background: '#3b82f6',
           color: '#ffffff',
-          borderRadius: '8px',
+          borderRadius: '999px',
           boxSizing: 'border-box'
         }}>
           {translations?.setCard?.viewDetails || 'View Details'}{' '}

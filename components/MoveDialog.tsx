@@ -131,7 +131,7 @@ export default function MoveDialog({
             display: 'flex',
             alignItems: 'center',
             border: '1px solid #e5e5e5',
-            borderRadius: '8px',
+            borderRadius: '999px',
             overflow: 'hidden',
             background: '#ffffff',
             width: 'fit-content'
@@ -140,7 +140,7 @@ export default function MoveDialog({
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
               disabled={quantity <= 1 || loading}
               style={{
-                width: '44px',
+                width: '48px',
                 height: '44px',
                 display: 'flex',
                 alignItems: 'center',
@@ -183,7 +183,7 @@ export default function MoveDialog({
               onClick={() => setQuantity(Math.min(maxQuantity, quantity + 1))}
               disabled={quantity >= maxQuantity || loading}
               style={{
-                width: '44px',
+                width: '48px',
                 height: '44px',
                 display: 'flex',
                 alignItems: 'center',

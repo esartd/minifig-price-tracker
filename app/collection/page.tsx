@@ -671,82 +671,89 @@ export default function PersonalCollectionPage() {
                 }}>
                   {t('collection.items')}
                 </h2>
-
-                <SegmentedControl
-                  className="condition-filters-mobile"
-                  ariaLabel={t('collection.condition') || 'Condition'}
-                  value={conditionFilter}
-                  onChange={(v) => setConditionFilter(v as typeof conditionFilter)}
-                  options={[
-                    { value: 'all', label: t('collection.filters.all') || 'All' },
-                    { value: 'new', label: t('collection.filters.new') || 'New' },
-                    { value: 'used', label: t('collection.filters.used') || 'Used' },
-                  ]}
-                />
-
-                {/* Sort Dropdown (desktop) */}
-                <div className="sort-dropdown-desktop" style={{
-                  position: 'relative',
-                  flex: '0 1 250px',
-                  minWidth: '200px'
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  flexWrap: 'wrap',
                 }}>
-                  <select
-                    value={sortOrder}
-                    onChange={(e) => handleSortOrderChange(e.target.value as any)}
-                    style={{
-                      width: '100%',
-                      height: '40px',
-                      padding: '0 36px 0 16px',
-                      fontSize: 'var(--text-sm)',
-                      fontWeight: '600',
-                      color: '#171717',
-                      background: '#ffffff',
-                      border: '1px solid #e5e5e5',
-                      borderRadius: '999px',
-                      cursor: 'pointer',
-                      outline: 'none',
-                      transition: 'all 0.2s',
-                      appearance: 'none',
-                      boxSizing: 'border-box',
-                      fontFamily: 'inherit'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#f5f5f5'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = '#ffffff'}
-                  >
-                    <option value="date-newest">{t('collection.sort.dateNewest')}</option>
-                    <option value="date-oldest">{t('collection.sort.dateOldest')}</option>
-                    <option value="price-high">{t('collection.sort.priceHigh')}</option>
-                    <option value="price-low">{t('collection.sort.priceLow')}</option>
-                    <option value="name-az">{t('collection.sort.nameAZ')}</option>
-                    <option value="name-za">{t('collection.sort.nameZA')}</option>
-                    <option value="id-low-high">{t('collection.sort.idLowHigh')}</option>
-                    <option value="id-high-low">{t('collection.sort.idHighLow')}</option>
-                    <option value="year-newest">{t('collection.sort.yearNewest')}</option>
-                    <option value="year-oldest">{t('collection.sort.yearOldest')}</option>
-                  </select>
-                  <ChevronDownIcon style={{
-                    position: 'absolute',
-                    right: '12px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    width: 'var(--icon-sm)',
-                    height: 'var(--icon-sm)',
-                    color: '#737373',
-                    pointerEvents: 'none'
-                  }} />
-                </div>
 
-                {/* Decimal Toggle Button (desktop) */}
-                <SegmentedControl
-                  className="decimal-toggle-desktop"
-                  ariaLabel={t('collection.decimals') || 'Decimal places'}
-                  value={showDecimals ? 'two' : 'one'}
-                  onChange={(v) => { if ((v === 'two') !== showDecimals) handleToggleDecimals(); }}
-                  options={[
-                    { value: 'one', label: '.0' },
-                    { value: 'two', label: '.00' },
-                  ]}
-                />
+                  <SegmentedControl
+                    className="condition-filters-mobile"
+                    ariaLabel={t('collection.condition') || 'Condition'}
+                    value={conditionFilter}
+                    onChange={(v) => setConditionFilter(v as typeof conditionFilter)}
+                    options={[
+                      { value: 'all', label: t('collection.filters.all') || 'All' },
+                      { value: 'new', label: t('collection.filters.new') || 'New' },
+                      { value: 'used', label: t('collection.filters.used') || 'Used' },
+                    ]}
+                  />
+
+                  {/* Sort Dropdown (desktop) */}
+                  <div className="sort-dropdown-desktop" style={{
+                    position: 'relative',
+                    flex: '0 1 250px',
+                    minWidth: '200px'
+                  }}>
+                    <select
+                      value={sortOrder}
+                      onChange={(e) => handleSortOrderChange(e.target.value as any)}
+                      style={{
+                        width: '100%',
+                        height: '40px',
+                        padding: '0 36px 0 16px',
+                        fontSize: 'var(--text-sm)',
+                        fontWeight: '600',
+                        color: '#171717',
+                        background: '#ffffff',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '999px',
+                        cursor: 'pointer',
+                        outline: 'none',
+                        transition: 'all 0.2s',
+                        appearance: 'none',
+                        boxSizing: 'border-box',
+                        fontFamily: 'inherit'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = '#f5f5f5'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = '#ffffff'}
+                    >
+                      <option value="date-newest">{t('collection.sort.dateNewest')}</option>
+                      <option value="date-oldest">{t('collection.sort.dateOldest')}</option>
+                      <option value="price-high">{t('collection.sort.priceHigh')}</option>
+                      <option value="price-low">{t('collection.sort.priceLow')}</option>
+                      <option value="name-az">{t('collection.sort.nameAZ')}</option>
+                      <option value="name-za">{t('collection.sort.nameZA')}</option>
+                      <option value="id-low-high">{t('collection.sort.idLowHigh')}</option>
+                      <option value="id-high-low">{t('collection.sort.idHighLow')}</option>
+                      <option value="year-newest">{t('collection.sort.yearNewest')}</option>
+                      <option value="year-oldest">{t('collection.sort.yearOldest')}</option>
+                    </select>
+                    <ChevronDownIcon style={{
+                      position: 'absolute',
+                      right: '12px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      width: 'var(--icon-sm)',
+                      height: 'var(--icon-sm)',
+                      color: '#737373',
+                      pointerEvents: 'none'
+                    }} />
+                  </div>
+
+                  {/* Decimal Toggle Button (desktop) */}
+                  <SegmentedControl
+                    className="decimal-toggle-desktop"
+                    ariaLabel={t('collection.decimals') || 'Decimal places'}
+                    value={showDecimals ? 'two' : 'one'}
+                    onChange={(v) => { if ((v === 'two') !== showDecimals) handleToggleDecimals(); }}
+                    options={[
+                      { value: 'one', label: '.0' },
+                      { value: 'two', label: '.00' },
+                    ]}
+                  />
+                </div>
               </div>
             )}
 
@@ -767,7 +774,7 @@ export default function PersonalCollectionPage() {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder={t('collection.searchPlaceholder') || 'Search by name or item number...'}
+                  placeholder={t('collection.searchPlaceholder') || 'Search in collection'}
                   style={{
                     width: '100%',
                     padding: '10px 40px',

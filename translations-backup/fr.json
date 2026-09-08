@@ -1253,7 +1253,7 @@
     "searchSetsToGetStarted": "Recherchez des sets pour commencer",
     "noSetsInPersonalCollection": "Aucun set dans votre collection personnelle pour l'instant",
     "trackPersonalSetsSeparately": "Suivez vos sets LEGO personnels séparément des articles à vendre",
-    "searchPlaceholder": "Rechercher par nom ou numéro d'article...",
+    "searchPlaceholder": "Rechercher dans la collection",
     "clearSearch": "Effacer la recherche",
     "noSearchResults": "Aucun résultat pour « {query} »",
     "tryDifferentSearch": "Essayez un autre nom ou numéro d'article",

@@ -279,7 +279,7 @@ export default function MinifigIdentifierWidget() {
                     fontWeight: 600,
                     color: '#ffffff',
                     background: '#3b82f6',
-                    borderRadius: '8px',
+                    borderRadius: '999px',
                     cursor: 'pointer',
                   }}
                 >

@@ -112,7 +112,7 @@ const PRIMARY: React.CSSProperties = {
   border: '1px solid transparent',
   background: '#3b82f6',
   color: '#ffffff',
-  borderRadius: '8px',
+  borderRadius: '999px',
   padding: '10px 18px',
   fontSize: 'var(--text-sm)',
   fontWeight: 600,

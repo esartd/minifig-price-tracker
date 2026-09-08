@@ -165,7 +165,7 @@ export function CTAButtonBlockEditor({ block, onChange }: CTAButtonBlockEditorPr
             fontSize: block.size === 'small' ? '14px' : block.size === 'medium' ? '15px' : '17px',
             background: block.style === 'primary' ? '#3b82f6' : '#f3f4f6',
             color: block.style === 'primary' ? '#ffffff' : '#171717',
-            borderRadius: '12px',
+            borderRadius: '999px',
             fontWeight: '600',
           }}>
             {block.text || 'Button Text'}
