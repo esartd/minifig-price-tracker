@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useTranslation } from '@/components/TranslationProvider';
 import { BellIcon } from '@heroicons/react/24/outline';
+import { BellIcon as BellSolidIcon } from '@heroicons/react/24/solid';
 
 interface PriceAlertButtonProps {
   itemNo: string;
@@ -182,7 +183,9 @@ export default function PriceAlertButton({
         }}
         title={t('priceAlert.buttonTooltip') || 'Set price alert'}
       >
-        <BellIcon style={{ width: '16px', height: '16px' }} />
+        {hasAlert
+          ? <BellSolidIcon style={{ width: '16px', height: '16px' }} />
+          : <BellIcon style={{ width: '16px', height: '16px' }} />}
         <span>{t('priceAlert.buttonLabel') || 'Price Alert'}</span>
       </button>
 
@@ -456,7 +459,7 @@ export default function PriceAlertButton({
                         gap: '8px',
                         marginBottom: '12px'
                       }}>
-                        <BellIcon style={{ width: '18px', height: '18px' }} />
+                        <BellSolidIcon style={{ width: '18px', height: '18px', color: '#2563eb' }} />
                         <div style={{
                           fontSize: '13px',
                           fontWeight: '600',

@@ -1358,7 +1358,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <ShoppingCartIcon style={{ width: '18px', height: '18px' }} />
+                      <ShoppingCartIcon style={{ width: '18px', height: '18px', color: '#E53238' }} />
                       <div>
                         <div style={{
                           fontWeight: '600',
@@ -1470,7 +1470,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <ShoppingCartIcon style={{ width: '18px', height: '18px' }} />
+                      <ShoppingCartIcon style={{ width: '18px', height: '18px', color: '#FF9900' }} />
                       <div>
                         <div style={{
                           fontWeight: '600',

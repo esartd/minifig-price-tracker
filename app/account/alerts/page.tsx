@@ -320,7 +320,7 @@ export default function AlertsPage() {
             padding: '64px 32px',
             textAlign: 'center'
           }}>
-            <BellIcon style={{ width: '64px', height: '64px' }} />
+            <BellIcon style={{ width: '64px', height: '64px', color: '#d4d4d4' }} />
             <h3 style={{
               fontSize: '18px',
               fontWeight: '600',

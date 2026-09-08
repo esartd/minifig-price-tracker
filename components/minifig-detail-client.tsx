@@ -2559,7 +2559,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <ShoppingCartIcon style={{ width: '16px', height: '16px' }} />
+                        <ShoppingCartIcon style={{ width: '16px', height: '16px', color: '#E53238' }} />
                         <div>
                           <div style={{
                             fontWeight: '600',
@@ -2730,7 +2730,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <ShoppingCartIcon style={{ width: '16px', height: '16px' }} />
+                        <ShoppingCartIcon style={{ width: '16px', height: '16px', color: '#FF9900' }} />
                         <div>
                           <div style={{
                             fontWeight: '600',
