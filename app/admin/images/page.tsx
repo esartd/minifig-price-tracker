@@ -38,7 +38,7 @@ export default function AdminImagesPage() {
             background: '#3b82f6',
             color: 'white',
             border: 'none',
-            borderRadius: '6px',
+            borderRadius: '999px',
             cursor: loading ? 'not-allowed' : 'pointer',
             fontSize: '16px',
           }}
@@ -54,7 +54,7 @@ export default function AdminImagesPage() {
             background: '#10b981',
             color: 'white',
             border: 'none',
-            borderRadius: '6px',
+            borderRadius: '999px',
             cursor: loading ? 'not-allowed' : 'pointer',
             fontSize: '16px',
           }}

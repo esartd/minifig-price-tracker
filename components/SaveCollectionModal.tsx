@@ -190,7 +190,7 @@ export default function SaveCollectionModal({
               color: 'white',
               background: '#3b82f6',
               border: 'none',
-              borderRadius: '8px',
+              borderRadius: '999px',
               cursor: 'pointer',
               transition: 'all 0.2s'
             }}
@@ -210,7 +210,7 @@ export default function SaveCollectionModal({
               color: '#737373',
               background: 'white',
               border: '1px solid #e5e7eb',
-              borderRadius: '8px',
+              borderRadius: '999px',
               cursor: 'pointer',
               transition: 'all 0.2s'
             }}

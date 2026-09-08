@@ -432,7 +432,7 @@ export default function PersonalCollectionPage() {
                     fontWeight: '600',
                     color: 'white',
                     background: '#3b82f6',
-                    borderRadius: '8px',
+                    borderRadius: '999px',
                     textDecoration: 'none',
                     transition: 'all 0.2s',
                     border: '1px solid transparent',
@@ -621,7 +621,7 @@ export default function PersonalCollectionPage() {
                   fontWeight: '600',
                   color: 'white',
                   background: '#3b82f6',
-                  borderRadius: '12px',
+                  borderRadius: '999px',
                   textDecoration: 'none',
                   transition: 'all 0.2s',
                   border: 'none',
@@ -1010,7 +1010,7 @@ export default function PersonalCollectionPage() {
                       fontWeight: '600',
                       color: 'white',
                       background: '#3b82f6',
-                      borderRadius: '12px',
+                      borderRadius: '999px',
                       textDecoration: 'none',
                       transition: 'all 0.2s'
                     }}
@@ -1046,7 +1046,7 @@ export default function PersonalCollectionPage() {
                       color: '#3b82f6',
                       background: '#ffffff',
                       border: '1px solid #e5e5e5',
-                      borderRadius: '8px',
+                      borderRadius: '999px',
                       cursor: 'pointer'
                     }}
                   >

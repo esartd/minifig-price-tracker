@@ -356,7 +356,7 @@ export default function AlertsPage() {
                 color: '#ffffff',
                 background: '#3b82f6',
                 border: 'none',
-                borderRadius: '8px',
+                borderRadius: '999px',
                 textDecoration: 'none',
                 transition: 'background 0.2s'
               }}
@@ -632,7 +632,7 @@ function AlertCard({
                       background: 'none',
                       border: 'none',
                       cursor: 'pointer',
-                      borderRadius: '4px',
+                      borderRadius: '999px',
                       display: 'flex',
                       alignItems: 'center',
                       transition: 'background 0.2s'
@@ -652,7 +652,7 @@ function AlertCard({
                       background: 'none',
                       border: 'none',
                       cursor: 'pointer',
-                      borderRadius: '4px',
+                      borderRadius: '999px',
                       display: 'flex',
                       alignItems: 'center',
                       transition: 'background 0.2s'
@@ -679,7 +679,7 @@ function AlertCard({
                       background: 'none',
                       border: 'none',
                       cursor: 'pointer',
-                      borderRadius: '4px',
+                      borderRadius: '999px',
                       display: 'flex',
                       alignItems: 'center',
                       transition: 'all 0.2s'
@@ -731,7 +731,7 @@ function AlertCard({
                 color: '#3b82f6',
                 background: '#eff6ff',
                 border: 'none',
-                borderRadius: '6px',
+                borderRadius: '999px',
                 cursor: 'pointer',
                 transition: 'background 0.2s'
               }}
@@ -751,7 +751,7 @@ function AlertCard({
                 color: alert.active ? '#737373' : '#3b82f6',
                 background: alert.active ? '#fafafa' : '#eff6ff',
                 border: 'none',
-                borderRadius: '6px',
+                borderRadius: '999px',
                 cursor: 'pointer',
                 transition: 'background 0.2s'
               }}
@@ -774,7 +774,7 @@ function AlertCard({
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              borderRadius: '6px',
+              borderRadius: '999px',
               display: 'flex',
               alignItems: 'center',
               gap: '6px',

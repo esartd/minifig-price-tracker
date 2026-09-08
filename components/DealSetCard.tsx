@@ -220,7 +220,7 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
             background: '#3b82f6',
             color: '#ffffff',
             border: 'none',
-            borderRadius: '8px',
+            borderRadius: '999px',
             fontSize: '15px',
             fontWeight: '600',
             textAlign: 'center',

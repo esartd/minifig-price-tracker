@@ -502,7 +502,7 @@ function SearchPageContent() {
                   color: '#737373',
                   background: '#ffffff',
                   border: '1px solid #e5e5e5',
-                  borderRadius: '8px',
+                  borderRadius: '999px',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
                   whiteSpace: 'nowrap'

@@ -48,7 +48,7 @@ export default function NotFound() {
           color: '#ffffff',
           background: '#3b82f6',
           border: 'none',
-          borderRadius: '8px',
+          borderRadius: '999px',
           textDecoration: 'none',
           display: 'inline-block',
           transition: 'all 0.2s'

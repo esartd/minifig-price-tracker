@@ -38,7 +38,7 @@ export default function LoadMoreButton({ onLoadMore, loading, hasMore, currentCo
           color: '#ffffff',
           background: loading ? '#a3a3a3' : '#3b82f6',
           border: 'none',
-          borderRadius: '8px',
+          borderRadius: '999px',
           cursor: loading ? 'not-allowed' : 'pointer',
           transition: 'all 0.2s',
           boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'

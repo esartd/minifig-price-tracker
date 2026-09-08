@@ -26,7 +26,7 @@ export function CalloutBlockEditor({ block, onChange }: CalloutBlockEditorProps)
               background: block.calloutType === type.value ? type.color : '#f3f4f6',
               color: block.calloutType === type.value ? '#ffffff' : '#374151',
               border: 'none',
-              borderRadius: '6px',
+              borderRadius: '999px',
               fontSize: '13px',
               fontWeight: '600',
               cursor: 'pointer',

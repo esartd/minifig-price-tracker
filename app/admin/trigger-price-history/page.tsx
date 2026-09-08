@@ -35,7 +35,7 @@ export default function TriggerPriceHistory() {
           background: loading ? '#d4d4d4' : '#3b82f6',
           color: '#ffffff',
           border: 'none',
-          borderRadius: '8px',
+          borderRadius: '999px',
           cursor: loading ? 'not-allowed' : 'pointer',
           fontSize: '16px',
           fontWeight: '600'

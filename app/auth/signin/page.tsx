@@ -124,7 +124,7 @@ export default function SignIn() {
             color: 'white',
             background: loading ? '#a3a3a3' : '#3b82f6',
             border: 'none',
-            borderRadius: '8px',
+            borderRadius: '999px',
             cursor: loading ? 'not-allowed' : 'pointer',
             opacity: loading ? 0.5 : 1,
             transition: 'all 0.2s'

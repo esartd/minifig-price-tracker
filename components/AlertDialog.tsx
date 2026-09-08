@@ -70,7 +70,7 @@ export default function AlertDialog({ isOpen, onClose, message }: AlertDialogPro
             color: '#ffffff',
             backgroundColor: '#3b82f6',
             border: 'none',
-            borderRadius: '8px',
+            borderRadius: '999px',
             cursor: 'pointer',
             transition: 'all 0.2s'
           }}

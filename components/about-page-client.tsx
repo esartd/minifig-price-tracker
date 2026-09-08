@@ -293,7 +293,7 @@ export default function AboutPageClient({ catalogCountText }: { catalogCountText
                   color: '#ffffff',
                   background: '#3b82f6',
                   border: 'none',
-                  borderRadius: '8px',
+                  borderRadius: '999px',
                   textDecoration: 'none',
                   transition: 'all 0.2s'
                 }}

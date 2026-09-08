@@ -252,7 +252,7 @@ export default function MoveDialog({
               color: '#171717',
               backgroundColor: '#ffffff',
               border: '1px solid #e5e5e5',
-              borderRadius: '8px',
+              borderRadius: '999px',
               cursor: loading ? 'not-allowed' : 'pointer',
               transition: 'all 0.2s'
             }}
@@ -270,7 +270,7 @@ export default function MoveDialog({
               color: '#ffffff',
               backgroundColor: loading ? '#a3a3a3' : '#171717',
               border: 'none',
-              borderRadius: '8px',
+              borderRadius: '999px',
               cursor: loading ? 'not-allowed' : 'pointer',
               transition: 'all 0.2s'
             }}

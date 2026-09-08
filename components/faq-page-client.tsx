@@ -92,7 +92,7 @@ export default function FAQPageClient({ faqs }: { faqs: Array<{ question: string
                   color: '#ffffff',
                   background: '#3b82f6',
                   border: 'none',
-                  borderRadius: '8px',
+                  borderRadius: '999px',
                   textDecoration: 'none',
                   transition: 'all 0.2s'
                 }}

@@ -347,7 +347,7 @@ export default function May4thDealsClient() {
                     fontWeight: '600',
                     color: '#ffffff',
                     background: 'linear-gradient(135deg, #005C97 0%, #363795 100%)',
-                    borderRadius: '8px',
+                    borderRadius: '999px',
                     textAlign: 'center',
                     textDecoration: 'none',
                     marginTop: 'auto',
@@ -953,7 +953,7 @@ export default function May4thDealsClient() {
               fontWeight: '600',
               color: '#005C97',
               background: '#ffffff',
-              borderRadius: '12px',
+              borderRadius: '999px',
               textDecoration: 'none',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
               transition: 'all 0.2s'
@@ -1087,7 +1087,7 @@ function SetCard({ set, tierColor, isBest, t }: SetCardProps) {
           background: isBest
             ? 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)'
             : 'linear-gradient(135deg, #005C97 0%, #363795 100%)',
-          borderRadius: '8px',
+          borderRadius: '999px',
           textAlign: 'center',
           textDecoration: 'none',
           marginTop: 'auto',

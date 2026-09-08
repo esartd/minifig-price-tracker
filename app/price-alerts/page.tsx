@@ -96,7 +96,7 @@ export default async function PriceAlertsPage() {
           </p>
           <Link
             href="/account/alerts"
-            style={{ display: 'inline-block', padding: '12px 24px', background: '#3b82f6', color: '#ffffff', borderRadius: '8px', textDecoration: 'none', fontWeight: '600' }}
+            style={{ display: 'inline-block', padding: '12px 24px', background: '#3b82f6', color: '#ffffff', borderRadius: '999px', textDecoration: 'none', fontWeight: '600' }}
           >
             {p.cta?.button || 'Set up a price alert'}
           </Link>

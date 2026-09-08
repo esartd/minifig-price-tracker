@@ -156,7 +156,7 @@ export default function AuthRequiredModal({ isOpen, onClose, itemName, itemType 
               color: 'white',
               background: '#3b82f6',
               border: 'none',
-              borderRadius: '8px',
+              borderRadius: '999px',
               cursor: 'pointer',
               transition: 'all 0.2s'
             }}

@@ -432,7 +432,7 @@ export default function ThemesClient({ themes }: ThemesClientProps) {
                     color: '#3b82f6',
                     background: '#ffffff',
                     border: '2px solid #3b82f6',
-                    borderRadius: '12px',
+                    borderRadius: '999px',
                     cursor: 'pointer',
                     transition: 'all 0.2s',
                     boxShadow: '0 2px 8px rgba(59, 130, 246, 0.1)'

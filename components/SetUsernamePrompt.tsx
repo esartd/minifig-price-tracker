@@ -225,7 +225,7 @@ export default function SetUsernamePrompt({ onSaved }: SetUsernamePromptProps) {
                   gap: '6px',
                   padding: '10px 14px',
                   border: '1px solid #e5e5e5',
-                  borderRadius: '8px',
+                  borderRadius: '999px',
                   backgroundColor: '#fff',
                   cursor: 'pointer',
                   fontSize: 'var(--text-sm)',
@@ -244,7 +244,7 @@ export default function SetUsernamePrompt({ onSaved }: SetUsernamePromptProps) {
               disabled={saving || !isValid || available === false}
               style={{
                 padding: '10px 20px',
-                borderRadius: '8px',
+                borderRadius: '999px',
                 border: 'none',
                 backgroundColor: isValid && available !== false ? '#171717' : '#e5e5e5',
                 color: isValid && available !== false ? '#fff' : '#a3a3a3',

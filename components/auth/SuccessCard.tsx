@@ -52,7 +52,7 @@ export default function SuccessCard({ title, message, actionText, actionHref }: 
           color: '#ffffff',
           background: '#3b82f6',
           border: 'none',
-          borderRadius: '8px',
+          borderRadius: '999px',
           textDecoration: 'none',
           textAlign: 'center',
           cursor: 'pointer',

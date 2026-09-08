@@ -197,7 +197,7 @@ export default function MinifigIdentifierWidget() {
               color: '#ffffff',
               background: correctionValue.trim() ? '#171717' : '#a3a3a3',
               border: 'none',
-              borderRadius: '6px',
+              borderRadius: '999px',
               cursor: correctionValue.trim() ? 'pointer' : 'not-allowed',
             }}
           >
@@ -218,7 +218,7 @@ export default function MinifigIdentifierWidget() {
             color: '#171717',
             background: '#ffffff',
             border: '1px solid #e5e5e5',
-            borderRadius: '6px',
+            borderRadius: '999px',
             cursor: 'pointer',
           }}
         >
@@ -233,7 +233,7 @@ export default function MinifigIdentifierWidget() {
             color: '#171717',
             background: '#ffffff',
             border: '1px solid #e5e5e5',
-            borderRadius: '6px',
+            borderRadius: '999px',
             cursor: 'pointer',
           }}
         >
@@ -278,7 +278,7 @@ export default function MinifigIdentifierWidget() {
                     fontSize: 'var(--text-sm)',
                     fontWeight: 600,
                     color: '#ffffff',
-                    background: '#171717',
+                    background: '#3b82f6',
                     borderRadius: '8px',
                     cursor: 'pointer',
                   }}
@@ -319,7 +319,7 @@ export default function MinifigIdentifierWidget() {
               color: '#171717',
               background: '#ffffff',
               border: '1px solid #e5e5e5',
-              borderRadius: '8px',
+              borderRadius: '999px',
               cursor: 'pointer',
             }}
           >
@@ -335,7 +335,7 @@ export default function MinifigIdentifierWidget() {
               <p style={{ margin: '0 0 16px', fontSize: 'var(--text-sm)', color: '#737373' }}>
                 {result.message || t('identify.noMatch') || "Couldn't confidently identify this minifigure. Try a clearer or closer photo."}
               </p>
-              <button onClick={reset} style={{ padding: '8px 16px', fontSize: 'var(--text-sm)', fontWeight: 600, color: '#ffffff', background: '#171717', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
+              <button onClick={reset} style={{ padding: '8px 16px', fontSize: 'var(--text-sm)', fontWeight: 600, color: '#ffffff', background: '#3b82f6', border: 'none', borderRadius: '999px', cursor: 'pointer' }}>
                 {t('identify.tryAgain') || 'Try Again'}
               </button>
             </div>
@@ -382,7 +382,7 @@ export default function MinifigIdentifierWidget() {
                   color: '#171717',
                   background: '#fafafa',
                   border: '1px solid #e5e5e5',
-                  borderRadius: '8px',
+                  borderRadius: '999px',
                   cursor: 'pointer',
                 }}
               >
@@ -453,7 +453,7 @@ export default function MinifigIdentifierWidget() {
                   color: '#171717',
                   background: '#fafafa',
                   border: '1px solid #e5e5e5',
-                  borderRadius: '8px',
+                  borderRadius: '999px',
                   cursor: 'pointer',
                 }}
               >

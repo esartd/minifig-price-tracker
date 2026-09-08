@@ -36,7 +36,7 @@ export default function WhatnotExportButton({ source }: { source: ExportSource }
         color: '#525252',
         background: '#ffffff',
         border: '1px solid #e5e5e5',
-        borderRadius: '8px',
+        borderRadius: '999px',
         cursor: 'pointer',
         textDecoration: 'none',
         whiteSpace: 'nowrap',

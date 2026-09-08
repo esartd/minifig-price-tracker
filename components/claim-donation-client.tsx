@@ -148,7 +148,7 @@ export default function ClaimDonationClient() {
                   color: '#ffffff',
                   background: '#3b82f6',
                   border: 'none',
-                  borderRadius: '8px',
+                  borderRadius: '999px',
                   textDecoration: 'none',
                   transition: 'all 0.2s',
                 }}
@@ -356,9 +356,9 @@ export default function ClaimDonationClient() {
                   fontSize: '16px',
                   fontWeight: '600',
                   color: '#ffffff',
-                  background: loading ? '#9ca3af' : '#3b82f6',
+                  background: loading ? '#a3a3a3' : '#3b82f6',
                   border: 'none',
-                  borderRadius: '8px',
+                  borderRadius: '999px',
                   cursor: loading ? 'not-allowed' : 'pointer',
                   transition: 'all 0.2s',
                 }}
