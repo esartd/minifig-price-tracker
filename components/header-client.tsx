@@ -112,22 +112,29 @@ export function HeaderClient({ user }: HeaderClientProps) {
   const [searchQuery, setSearchQuery] = useState('');
 
   /**
-   * On /search, seed the box from ?q= so the results page shows what was
-   * searched for and stays editable.
+   * Keep the box showing a term only while the page is actually about it.
    *
-   * That page used to carry its own search input; it was removed because the
-   * header now has one on every page and two inputs for one job, 200px apart,
-   * is worse than none. But removing it left the results with no visible
-   * record of the query at all -- you could not see or refine what you had
-   * typed. This puts it back in the one box that remains.
+   * On /search, seed from ?q= so the results show what was searched for and
+   * stay editable -- that page dropped its own input once the header gained
+   * one, and without this the results carried no visible record of the query.
    *
-   * Reads window.location rather than useSearchParams(): this component lives
-   * in the root layout, and useSearchParams() there opts every page into
+   * Everywhere else, clear it. The box lives in the layout, so its value used
+   * to survive navigation: searching "Din Djarin" and then clicking Retiring
+   * Soon left the term sitting above a page with no relationship to it, which
+   * reads as though the results are filtered by it. Clearing also covers
+   * arriving on an item page from the dropdown -- you have got where you were
+   * going, and the search that took you there is spent.
+   *
+   * Reads window.location rather than useSearchParams(): this component is in
+   * the root layout, and useSearchParams() there opts every page into
    * client-side rendering. Keyed on pathname only, so typing in the box while
-   * already on /search is never overwritten by its own URL update.
+   * already on /search is never clobbered by that page's own URL updates.
    */
   useEffect(() => {
-    if (pathname !== '/search') return;
+    if (pathname !== '/search') {
+      setSearchQuery((current) => (current === '' ? current : ''));
+      return;
+    }
     const fromUrl = new URLSearchParams(window.location.search).get('q') || '';
     setSearchQuery((current) => (current === fromUrl ? current : fromUrl));
   }, [pathname]);
