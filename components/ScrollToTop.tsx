@@ -50,6 +50,9 @@ export default function ScrollToTop() {
         // icon-only button on the site.
         borderRadius: '999px',
         background: '#3b82f6',
+        // The icon inherits this. Heroicons draw with currentColor, where the
+        // hand-drawn SVG this replaced hard-coded stroke="white".
+        color: '#ffffff',
         border: 'none',
         boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)',
         cursor: 'pointer',

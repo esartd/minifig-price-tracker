@@ -1695,6 +1695,9 @@ input[type="number"] {
   padding: 0 28px;
   background: #3b82f6;
   color: #ffffff;
+  /* One size at every breakpoint. Two media queries used to push this to
+     --text-lg, which is 18px -- a button label does not grow with the
+     viewport, and at 18 it read as a heading with a background behind it. */
   font-size: var(--text-base);
   font-weight: 600;
   line-height: 1;
@@ -1902,9 +1905,6 @@ input[type="number"] {
     margin-bottom: 56px;
   }
 
-  .cta-button {
-    font-size: var(--text-lg);
-  }
 }
 
 /* Desktop (1024px+) - 2x scaling */
@@ -2003,11 +2003,6 @@ input[type="number"] {
     padding: 40px 32px;
   }
 
-  .cta-button {
-    /* Height, not padding -- the base rule pins it to 48px, and re-declaring
-       vertical padding here just fought that and left the label off-centre. */
-    font-size: var(--text-lg);
-  }
 }
 
 /* ============================================ */
