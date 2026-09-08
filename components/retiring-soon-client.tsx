@@ -3,13 +3,18 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import type { RetirementPrediction } from '@/lib/retiring-soon-algorithm';
-import RetirementSetCard from './retirement-set-card';
+import RetirementYearSection from './RetirementYearSection';
+import { groupByRetirementYear } from '@/lib/retirement-years';
 
 interface Props {
   initialData: RetirementPrediction[];
   themes: string[];
   initialTheme: string;
-  initialTimeline: string;
+  /**
+   * Passed from the server rather than read from the clock here, so the SSR
+   * render and hydration agree on which years count as overdue.
+   */
+  currentYear: number;
   translations: any;
 }
 
@@ -17,11 +22,10 @@ export default function RetiringSoonClient({
   initialData,
   themes,
   initialTheme = 'all',
-  initialTimeline = 'all',
+  currentYear,
   translations
 }: Props) {
   const [selectedTheme, setSelectedTheme] = useState(initialTheme);
-  const [timelineTab, setTimelineTab] = useState(initialTimeline);
   const [retiringSets, setRetiringSets] = useState(initialData);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -66,7 +70,6 @@ export default function RetiringSoonClient({
     setLoading(true);
     const params = new URLSearchParams();
     if (selectedTheme !== 'all') params.set('theme', selectedTheme);
-    if (timelineTab !== 'all') params.set('timeline', timelineTab);
 
     // Update URL
     const newUrl = params.toString() ? `/retiring-soon?${params.toString()}` : '/retiring-soon';
@@ -82,7 +85,7 @@ export default function RetiringSoonClient({
       .catch(() => {
         setLoading(false);
       });
-  }, [selectedTheme, timelineTab, router]);
+  }, [selectedTheme, router]);
 
   return (
     <>
@@ -277,146 +280,6 @@ export default function RetiringSoonClient({
         </p>
       </div>
 
-      {/* Timeline tabs */}
-      <div style={{
-        display: 'flex',
-        gap: '0.5rem',
-        marginBottom: '2rem',
-        overflowX: 'auto',
-        padding: '0.25rem',
-        flexWrap: 'wrap'
-      }}>
-        <button
-          onClick={() => setTimelineTab('all')}
-          style={{
-            padding: '0.75rem 1.5rem',
-            fontSize: 'var(--text-sm)',
-            fontWeight: '600',
-            background: timelineTab === 'all' ? '#3b82f6' : '#ffffff',
-            color: timelineTab === 'all' ? '#ffffff' : '#525252',
-            border: '1px solid ' + (timelineTab === 'all' ? '#3b82f6' : '#e5e5e5'),
-            borderRadius: '8px',
-            cursor: 'pointer',
-            transition: 'all 0.2s',
-            whiteSpace: 'nowrap'
-          }}
-          onMouseEnter={e => {
-            if (timelineTab !== 'all') {
-              e.currentTarget.style.background = '#fafafa';
-            }
-          }}
-          onMouseLeave={e => {
-            if (timelineTab !== 'all') {
-              e.currentTarget.style.background = '#ffffff';
-            }
-          }}
-        >
-          {translations?.timeline?.allPredictions || 'All Predictions'}
-        </button>
-
-        <button
-          onClick={() => setTimelineTab('0-3')}
-          style={{
-            padding: '0.75rem 1.5rem',
-            fontSize: 'var(--text-sm)',
-            fontWeight: '600',
-            background: timelineTab === '0-3' ? '#ef4444' : '#ffffff',
-            color: timelineTab === '0-3' ? '#ffffff' : '#525252',
-            border: '1px solid ' + (timelineTab === '0-3' ? '#ef4444' : '#e5e5e5'),
-            borderRadius: '8px',
-            cursor: 'pointer',
-            transition: 'all 0.2s',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            whiteSpace: 'nowrap'
-          }}
-          onMouseEnter={e => {
-            if (timelineTab !== '0-3') {
-              e.currentTarget.style.background = '#fafafa';
-            }
-          }}
-          onMouseLeave={e => {
-            if (timelineTab !== '0-3') {
-              e.currentTarget.style.background = '#ffffff';
-            }
-          }}
-        >
-          <span>{translations?.timeline?.retiring0to3 || 'Retiring in 0-3 months'}</span>
-          <span style={{ fontSize: 'var(--text-xs)', opacity: 0.8 }}>
-            {translations?.timeline?.highUrgency || 'HIGH URGENCY'}
-          </span>
-        </button>
-
-        <button
-          onClick={() => setTimelineTab('3-9')}
-          style={{
-            padding: '0.75rem 1.5rem',
-            fontSize: 'var(--text-sm)',
-            fontWeight: '600',
-            background: timelineTab === '3-9' ? '#f59e0b' : '#ffffff',
-            color: timelineTab === '3-9' ? '#ffffff' : '#525252',
-            border: '1px solid ' + (timelineTab === '3-9' ? '#f59e0b' : '#e5e5e5'),
-            borderRadius: '8px',
-            cursor: 'pointer',
-            transition: 'all 0.2s',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            whiteSpace: 'nowrap'
-          }}
-          onMouseEnter={e => {
-            if (timelineTab !== '3-9') {
-              e.currentTarget.style.background = '#fafafa';
-            }
-          }}
-          onMouseLeave={e => {
-            if (timelineTab !== '3-9') {
-              e.currentTarget.style.background = '#ffffff';
-            }
-          }}
-        >
-          <span>{translations?.timeline?.retiring3to9 || 'Retiring in 3-9 months'}</span>
-          <span style={{ fontSize: 'var(--text-xs)', opacity: 0.8 }}>
-            {translations?.timeline?.mediumUrgency || 'MEDIUM URGENCY'}
-          </span>
-        </button>
-
-        <button
-          onClick={() => setTimelineTab('9-18')}
-          style={{
-            padding: '0.75rem 1.5rem',
-            fontSize: 'var(--text-sm)',
-            fontWeight: '600',
-            background: timelineTab === '9-18' ? '#84cc16' : '#ffffff',
-            color: timelineTab === '9-18' ? '#ffffff' : '#525252',
-            border: '1px solid ' + (timelineTab === '9-18' ? '#84cc16' : '#e5e5e5'),
-            borderRadius: '8px',
-            cursor: 'pointer',
-            transition: 'all 0.2s',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            whiteSpace: 'nowrap'
-          }}
-          onMouseEnter={e => {
-            if (timelineTab !== '9-18') {
-              e.currentTarget.style.background = '#fafafa';
-            }
-          }}
-          onMouseLeave={e => {
-            if (timelineTab !== '9-18') {
-              e.currentTarget.style.background = '#ffffff';
-            }
-          }}
-        >
-          <span>{translations?.timeline?.retiring9to18 || 'Retiring in 9-18 months'}</span>
-          <span style={{ fontSize: 'var(--text-xs)', opacity: 0.8 }}>
-            {translations?.timeline?.lowUrgency || 'LOW URGENCY'}
-          </span>
-        </button>
-      </div>
-
       {/* Set grid or empty state */}
       {loading ? (
         <div style={{
@@ -463,15 +326,11 @@ export default function RetiringSoonClient({
           </p>
         </div>
       ) : (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-          gap: '1.5rem'
-        }}>
-          {retiringSets.map(set => (
-            <RetirementSetCard
-              key={set.boxNo}
-              set={set}
+        <div>
+          {groupByRetirementYear(retiringSets, currentYear).map(group => (
+            <RetirementYearSection
+              key={group.key}
+              group={group}
               translations={translations}
             />
           ))}

@@ -3,20 +3,34 @@
 import Link from 'next/link';
 import type { RetirementPrediction } from '@/lib/retiring-soon-algorithm';
 
+/**
+ * Exported so RetirementYearSection can tint its header chip from the same
+ * source. When a whole section shares one confidence the chip replaces the
+ * per-card badges, and the two must not drift apart.
+ */
+export const CONFIDENCE_COLORS: Record<
+  RetirementPrediction['confidence'],
+  { bg: string; text: string; border: string }
+> = {
+  high: { bg: '#dcfce7', text: '#166534', border: '#86efac' },
+  medium: { bg: '#fef3c7', text: '#92400e', border: '#fde047' },
+  low: { bg: '#f3f4f6', text: '#4b5563', border: '#d1d5db' }
+};
+
 interface Props {
   set: RetirementPrediction;
   translations: any;
+  /**
+   * False when the surrounding section already states the confidence in its
+   * header -- every card in it agrees, so repeating the badge on each one is
+   * the noise this redesign exists to remove. Defaults true so the card is
+   * still correct on its own.
+   */
+  showConfidence?: boolean;
 }
 
-export default function RetirementSetCard({ set, translations }: Props) {
-  // Confidence badge colors
-  const confidenceColors = {
-    high: { bg: '#dcfce7', text: '#166534', border: '#86efac' },
-    medium: { bg: '#fef3c7', text: '#92400e', border: '#fde047' },
-    low: { bg: '#f3f4f6', text: '#4b5563', border: '#d1d5db' }
-  };
-
-  const colors = confidenceColors[set.confidence];
+export default function RetirementSetCard({ set, translations, showConfidence = true }: Props) {
+  const colors = CONFIDENCE_COLORS[set.confidence];
 
   return (
     <Link
@@ -75,21 +89,24 @@ export default function RetirementSetCard({ set, translations }: Props) {
           </div>
         )}
 
-        {/* Confidence badge (top right) */}
-        <div style={{
-          position: 'absolute',
-          top: '0.75rem',
-          right: '0.75rem',
-          padding: '0.25rem 0.75rem',
-          fontSize: 'var(--text-xs)',
-          fontWeight: '600',
-          background: colors.bg,
-          color: colors.text,
-          border: `1px solid ${colors.border}`,
-          borderRadius: '6px'
-        }}>
-          {translations?.confidence?.[set.confidence] || set.confidence}
-        </div>
+        {/* Hidden when the whole section shares one confidence and the
+            section header states it once instead. */}
+        {showConfidence && (
+          <div style={{
+            position: 'absolute',
+            top: '0.75rem',
+            right: '0.75rem',
+            padding: '0.25rem 0.75rem',
+            fontSize: 'var(--text-xs)',
+            fontWeight: '600',
+            background: colors.bg,
+            color: colors.text,
+            border: `1px solid ${colors.border}`,
+            borderRadius: '6px'
+          }}>
+            {translations?.confidence?.[set.confidence] || set.confidence}
+          </div>
+        )}
       </div>
 
       {/* Card content */}
@@ -154,9 +171,11 @@ export default function RetirementSetCard({ set, translations }: Props) {
             fontSize: 'var(--text-sm)',
             color: '#525252'
           }}>
+            {/* Just the release year. The age used to be appended here too
+                ("Released 2023 • 3 years old"), which now repeats the age line
+                below it ("3 of an expected 2.5 years"). That line says more,
+                because it carries the comparison. */}
             {(translations?.setCard?.released || 'Released {year}').replace('{year}', String(set.yearReleased))}
-            {' • '}
-            {(translations?.setCard?.ageYears || '{age} years old').replace('{age}', String(set.ageYears))}
           </span>
         </div>
 
@@ -195,47 +214,24 @@ export default function RetirementSetCard({ set, translations }: Props) {
           </div>
         )}
 
-        {/* Estimated retirement */}
-        <div style={{
-          padding: '0.75rem',
-          background: '#fef3c7',
-          border: '1px solid #fde047',
-          borderRadius: '8px',
-          marginBottom: '0.75rem'
-        }}>
-          <p style={{
-            fontSize: 'var(--text-sm)',
-            fontWeight: '600',
-            color: '#92400e',
-            margin: 0
-          }}>
-            {(translations?.setCard?.estimatedRetirement || 'Est. retirement: {quarter}')
-              .replace('{quarter}', set.estimatedRetirementQuarter || 'Unknown')}
-          </p>
-        </div>
+        {/* How far through its expected life this set is.
 
-        {/* Retirement score (progress bar) */}
+            This replaced "Retirement Score N/100". That score is
+            Math.min(100, ageScore + priceScore + availabilityScore), and
+            ageScore alone already reaches 100 for anything at or past its
+            lifespan -- so it read exactly 100 on most cards and could not
+            separate them, which is misleading on a list sorted by it. The
+            ratio below is the uncapped input and genuinely differs per set. */}
         <div style={{ marginBottom: '0.5rem' }}>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '0.25rem'
+          <p style={{
+            fontSize: 'var(--text-xs)',
+            color: '#525252',
+            margin: '0 0 0.25rem'
           }}>
-            <span style={{
-              fontSize: 'var(--text-xs)',
-              color: '#737373'
-            }}>
-              {translations?.setCard?.retirementScore || 'Retirement Score'}
-            </span>
-            <span style={{
-              fontSize: 'var(--text-xs)',
-              fontWeight: '600',
-              color: '#171717'
-            }}>
-              {Math.round(set.retirementScore)}/100
-            </span>
-          </div>
+            {(translations?.setCard?.ageOfExpected || '{age} of an expected {expected} years')
+              .replace('{age}', String(Math.round(set.ageYears * 10) / 10))
+              .replace('{expected}', String(Math.round(set.expectedLifespanYears * 10) / 10))}
+          </p>
           <div style={{
             width: '100%',
             height: '4px',
@@ -244,36 +240,36 @@ export default function RetirementSetCard({ set, translations }: Props) {
             overflow: 'hidden'
           }}>
             <div style={{
-              width: `${set.retirementScore}%`,
+              width: `${Math.min(100, (set.ageYears / Math.max(set.expectedLifespanYears, 0.1)) * 100)}%`,
               height: '100%',
-              background: set.retirementScore > 70 ? '#ef4444' : set.retirementScore > 50 ? '#f59e0b' : '#84cc16',
+              background: set.ageYears >= set.expectedLifespanYears ? '#ef4444'
+                : set.ageYears >= set.expectedLifespanYears * 0.75 ? '#f59e0b' : '#84cc16',
               transition: 'width 0.3s'
             }}></div>
           </div>
         </div>
 
-        {/* CTA button */}
-        <button style={{
+        {/* A span, not a button. The whole card is already a <Link>, and a
+            <button> inside an <a> is invalid HTML that the parser does not
+            repair: it survived to the DOM as a second tab stop per card that
+            swallowed the anchor's activation semantics for keyboard and
+            screen-reader users. Same look, no nested interactive element. */}
+        <span style={{
+          display: 'block',
           width: '100%',
           padding: '0.75rem',
           marginTop: '0.75rem',
           fontSize: 'var(--text-sm)',
           fontWeight: '600',
+          textAlign: 'center',
           background: '#3b82f6',
           color: '#ffffff',
-          border: 'none',
           borderRadius: '8px',
-          cursor: 'pointer',
-          transition: 'all 0.2s'
-        }}
-        onMouseEnter={e => {
-          e.currentTarget.style.background = '#2563eb';
-        }}
-        onMouseLeave={e => {
-          e.currentTarget.style.background = '#3b82f6';
+          boxSizing: 'border-box'
         }}>
-          {translations?.setCard?.viewDetails || 'View Details'}
-        </button>
+          {translations?.setCard?.viewDetails || 'View Details'}{' '}
+          <span aria-hidden="true">→</span>
+        </span>
       </div>
     </Link>
   );

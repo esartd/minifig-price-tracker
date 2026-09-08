@@ -2055,15 +2055,6 @@
       "searchThemes": "Pesquisar temas...",
       "noThemesFound": "Nenhum tema encontrado"
     },
-    "timeline": {
-      "retiring0to3": "Saída em 0-3 meses",
-      "retiring3to9": "Saída em 3-9 meses",
-      "retiring9to18": "Saída em 9-18 meses",
-      "allPredictions": "Todas as Previsões",
-      "highUrgency": "URGÊNCIA ALTA",
-      "mediumUrgency": "URGÊNCIA MÉDIA",
-      "lowUrgency": "URGÊNCIA BAIXA"
-    },
     "confidence": {
       "high": "Alta confiança",
       "medium": "Confiança média",
@@ -2071,13 +2062,13 @@
     },
     "setCard": {
       "released": "Lançado em {year}",
-      "ageYears": "{age} anos",
-      "estimatedRetirement": "Retirada estimada: {quarter}",
       "priceIncrease": "+{percent}% nos últimos 90 dias",
       "priceDecrease": "{percent}% nos últimos 90 dias",
       "currentPrice": "Média atual: ${price}",
       "viewDetails": "Ver Detalhes",
-      "trackThisSet": "Acompanhar Este Conjunto"
+      "trackThisSet": "Acompanhar Este Conjunto",
+      "ageOfExpected": "{age} dos {expected} anos previstos",
+      "noImage": "Sem imagem"
     },
     "faq": {
       "title": "Perguntas Frequentes",
@@ -2093,6 +2084,13 @@
     "empty": {
       "noSets": "Nenhum conjunto saindo encontrado",
       "tryDifferentFilter": "Tente selecionar um tema ou linha do tempo diferente"
+    },
+    "yearGroups": {
+      "heading": "Retirada prevista em {year}",
+      "overdue": "Provavelmente já retirado",
+      "unknown": "Data não estimada",
+      "setCount": "{count} conjuntos",
+      "setCountOne": "1 conjunto"
     }
   },
   "collectors": {
@@ -2664,11 +2662,11 @@
     },
     "hero": {
       "title": "Escreva seu anúncio em segundos",
-      "subtitle": "Transforme qualquer item da sua coleção em um anúncio pronto para publicar — título, descrição e preço sugerido incluídos."
+      "subtitle": "Qualquer artigo que tenhas, transformado num anúncio pronto a publicar — título, descrição, preço."
     },
     "howItWorks": {
       "title": "Como funciona",
-      "paragraph1": "O gerador escreve a partir dos dados de catálogo do artigo e do preço sugerido atual, por isso precisa de saber exatamente qual estás a vender. É por isso que vive em cada página de minifigura e set, e não numa página própria."
+      "paragraph1": "É escrito a partir dos dados do artigo e do preço de hoje, por isso precisa de saber exatamente o que vendes. É por isso que vive na página do artigo, não aqui."
     },
     "cta": {
       "subtitle": "Encontre o item que você quer anunciar.",

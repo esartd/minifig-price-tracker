@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import SearchBar from '@/components/SearchBar';
 import { SearchResults } from '@/components/search';
 import { CollectionItem } from '@/types';
 import RecommendedSets from '@/components/RecommendedSets';
@@ -329,10 +328,6 @@ function SearchPageContent() {
     }
   };
 
-  const handleSearchQueryChange = (query: string) => {
-    setSearchQuery(query);
-  };
-
   const handleSelectMinifig = (minifig: any) => {
     setSearchResultState(minifig);
     setSearchResultsState([]);
@@ -444,22 +439,26 @@ function SearchPageContent() {
             </div>
           )}
 
-          {/* Search Bar */}
-          <div style={{
-            margin: isSearchActive ? '0 auto 40px auto' : '0 auto 64px auto',
-            padding: '0',
-            width: '100%',
-            maxWidth: '640px',
-            boxSizing: 'border-box',
-            transition: 'margin 0.4s ease-out'
-          }}>
-            <SearchBar
-              onSearchResults={setSearchResultsState}
-              onSearchResult={setSearchResultState}
-              searchQuery={searchQuery}
-              onSearchQueryChange={handleSearchQueryChange}
-            />
-          </div>
+          {/* No search box of its own any more.
+
+              The header carries one on every page now, so this page was
+              showing two inputs for the same job, stacked about 200px apart.
+              The query arrives via ?q= (see the searchParams sync effect
+              above), so typing in the header box still drives this page.
+
+              Arriving with no query at all is the one case that needs a
+              pointer, since there is nothing to type into below the fold. */}
+          {!searchQuery && (
+            <p style={{
+              textAlign: 'center',
+              fontSize: 'var(--text-base)',
+              color: '#525252',
+              margin: '0 auto 64px',
+              maxWidth: '640px'
+            }}>
+              {t('search.emptySubtitle') || 'Try searching by name, number, or theme'}
+            </p>
+          )}
 
           {/* Category/Subcategory Browsing Header */}
           {(categoryId || subcategory) && categoryName && !searchQuery && (

@@ -3,6 +3,20 @@ import { headers } from 'next/headers';
 import Link from 'next/link';
 import { getTranslations, getLocaleFromHost } from '@/lib/i18n-subdomain';
 import { DOMAINS } from '@/lib/i18n-alternates';
+import {
+  MagnifyingGlassIcon,
+  InboxArrowDownIcon,
+  SparklesIcon,
+  ClipboardDocumentIcon,
+} from '@heroicons/react/24/outline';
+
+/** One per step, in order. Tints match the card set on the homepage. */
+const STEP_ICONS = [
+  { Icon: MagnifyingGlassIcon,   tint: '#eff6ff', color: '#3b82f6' },
+  { Icon: InboxArrowDownIcon,    tint: '#ecfdf5', color: '#059669' },
+  { Icon: SparklesIcon,          tint: '#eef2ff', color: '#4f46e5' },
+  { Icon: ClipboardDocumentIcon, tint: '#fff7ed', color: '#ea580c' },
+];
 
 const locales = ['en', 'de', 'fr', 'es', 'it', 'nl', 'pl', 'pt', 'sv', 'ja'] as const;
 // Hostnames come from lib/site-domain.ts via lib/i18n-alternates.ts.
@@ -72,7 +86,7 @@ export default async function ListingGeneratorPage() {
           {lg.hero?.title || 'Write Your Listing in Seconds'}
         </h1>
         <p style={{ fontSize: 'var(--text-lg)', color: '#525252', marginBottom: '24px', lineHeight: '1.6' }}>
-          {lg.hero?.subtitle || 'Turn any item in your collection into a ready-to-post listing — title, description, and suggested price included.'}
+          {lg.hero?.subtitle || 'Any item you own, turned into a ready-to-post listing — title, description, price.'}
         </p>
 
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '40px' }}>
@@ -95,7 +109,7 @@ export default async function ListingGeneratorPage() {
             {lg.howItWorks?.title || 'How it works'}
           </h2>
           <p style={{ fontSize: 'var(--text-base)', color: '#404040', lineHeight: '1.7', marginBottom: '24px' }}>
-            {lg.howItWorks?.paragraph1 || "The generator writes from the item's own catalog data and its current suggested price, so it has to know exactly which item you are selling. That is why it lives on each minifigure and set page rather than on a page of its own."}
+            {lg.howItWorks?.paragraph1 || "It writes from the item's own data and today's price, so it needs to know exactly what you're selling. That is why it lives on each item's page, not here."}
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -105,13 +119,38 @@ export default async function ListingGeneratorPage() {
               { title: lg.steps?.step3?.title || 'Press "Generate Listing"', body: lg.steps?.step3?.body || 'You get a title, a suggested price and a full description, each with its own copy button. The settings icon beside it sets your platform and condition, and it remembers them for next time.' },
               { title: lg.steps?.step4?.title || 'Paste it into eBay, BrickLink, Facebook or Vinted', body: lg.steps?.step4?.body || 'Each platform gets wording written the way that platform expects, so the same item reads correctly wherever you list it.' },
             ].map((step, i) => (
-              <div key={i} style={{ background: '#ffffff', border: '1px solid #e5e5e5', borderRadius: '12px', padding: '20px 24px' }}>
+              <div key={i} style={{
+                display: 'flex',
+                gap: '18px',
+                alignItems: 'flex-start',
+                background: '#ffffff',
+                border: '1px solid #e5e5e5',
+                borderRadius: '12px',
+                padding: '20px 24px',
+              }}>
+                <span style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '44px',
+                  height: '44px',
+                  flexShrink: 0,
+                  borderRadius: '10px',
+                  background: STEP_ICONS[i].tint,
+                }}>
+                  {(() => {
+                    const { Icon, color } = STEP_ICONS[i];
+                    return <Icon aria-hidden="true" style={{ width: 'var(--icon-lg)', height: 'var(--icon-lg)', color }} />;
+                  })()}
+                </span>
+                <div style={{ minWidth: 0 }}>
                 <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '600', color: '#171717', marginBottom: '8px' }}>
                   {i + 1}. {step.title}
                 </h3>
                 <p style={{ fontSize: 'var(--text-base)', color: '#525252', lineHeight: '1.6', margin: 0 }}>
                   {step.body}
                 </p>
+                </div>
               </div>
             ))}
           </div>

@@ -3,6 +3,7 @@ import { loadAllBoxes } from '@/lib/boxes-data';
 import type { LegoBox } from '@/types';
 import { prisma } from '@/lib/prisma';
 import { getExpectedLifespan } from '@/lib/set-lifespan-data';
+import { parseRetirementYear, takeBalancedByYear } from '@/lib/retirement-years';
 
 export interface RetirementPrediction {
   boxNo: string;
@@ -22,6 +23,14 @@ export interface RetirementPrediction {
   estimatedRetirementDate?: Date;
   reasoning: string;
   ageYears: number;
+  /**
+   * The lifespan this set was scored against, in years, after the price
+   * adjustment. Exposed so the UI can show the real signal -- "3 of an
+   * expected 3 years" -- instead of retirementScore, which is clamped by
+   * Math.min(100, ...) and therefore reads 100 for every set at or past its
+   * lifespan, telling the reader nothing about which is closest.
+   */
+  expectedLifespanYears: number;
   priceIncrease?: number | null; // Percentage price increase in last 90 days
 }
 
@@ -418,10 +427,15 @@ export async function getRetiringSoonSets(options: {
     return true;
   });
 
-  // Limit candidates to reduce DB load (only analyze top 100 by age score)
-  const topCandidates = candidatePredictions
-    .sort((a, b) => b.baseScore - a.baseScore)
-    .slice(0, 100);
+  // Limit candidates to reduce DB load, but spread the budget across
+  // retirement years rather than spending all 100 on the most overdue.
+  // Taking the top 100 by age score returned a single year every time, which
+  // left the page with one section and 100 identical red bars.
+  const topCandidates = takeBalancedByYear(
+    candidatePredictions.sort((a, b) => b.baseScore - a.baseScore),
+    p => parseRetirementYear(p.quarter),
+    100
+  );
 
   // Add price trend analysis + availability checking for top candidates (async)
   const predictions: RetirementPrediction[] = await Promise.all(
@@ -493,6 +507,7 @@ export async function getRetiringSoonSets(options: {
         estimatedRetirementDate: pred.date,
         reasoning,
         ageYears: pred.ageYears,
+        expectedLifespanYears: priceAdjustedLifespan,
         priceIncrease // Add for display
       } as RetirementPrediction & { priceIncrease?: number | null };
     })
@@ -505,7 +520,13 @@ export async function getRetiringSoonSets(options: {
   const filteredPredictions = filterByTimeline(predictions, timeline);
 
   // Return top N
-  return filteredPredictions.slice(0, limit);
+  // Balanced again at the end: sorting by final score and slicing would undo
+  // the spread above, because the most overdue year outranks every other.
+  return takeBalancedByYear(
+    filteredPredictions,
+    p => parseRetirementYear(p.estimatedRetirementQuarter),
+    limit
+  );
 }
 
 // Get count of retiring sets by theme

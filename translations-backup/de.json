@@ -2068,15 +2068,6 @@
       "searchThemes": "Themen suchen...",
       "noThemesFound": "Keine Themen gefunden"
     },
-    "timeline": {
-      "retiring0to3": "Auslauf in 0-3 Monaten",
-      "retiring3to9": "Auslauf in 3-9 Monaten",
-      "retiring9to18": "Auslauf in 9-18 Monaten",
-      "allPredictions": "Alle Prognosen",
-      "highUrgency": "HOHE DRINGLICHKEIT",
-      "mediumUrgency": "MITTLERE DRINGLICHKEIT",
-      "lowUrgency": "GERINGE DRINGLICHKEIT"
-    },
     "confidence": {
       "high": "Hohe Sicherheit",
       "medium": "Mittlere Sicherheit",
@@ -2084,13 +2075,13 @@
     },
     "setCard": {
       "released": "Erschienen {year}",
-      "ageYears": "{age} Jahre alt",
-      "estimatedRetirement": "Geschätzter Auslauf: {quarter}",
       "priceIncrease": "+{percent}% in den letzten 90 Tagen",
       "priceDecrease": "{percent}% in den letzten 90 Tagen",
       "currentPrice": "Aktueller Durchschnitt: ${price}",
       "viewDetails": "Details ansehen",
-      "trackThisSet": "Dieses Set verfolgen"
+      "trackThisSet": "Dieses Set verfolgen",
+      "ageOfExpected": "{age} von erwarteten {expected} Jahren",
+      "noImage": "Kein Bild"
     },
     "faq": {
       "title": "Häufig gestellte Fragen",
@@ -2106,6 +2097,13 @@
     "empty": {
       "noSets": "Keine auslaufenden Sets gefunden",
       "tryDifferentFilter": "Versuchen Sie, ein anderes Thema oder einen anderen Zeitraum auszuwählen"
+    },
+    "yearGroups": {
+      "heading": "Voraussichtlicher Rückzug {year}",
+      "overdue": "Wahrscheinlich schon aus dem Sortiment",
+      "unknown": "Datum nicht geschätzt",
+      "setCount": "{count} Sets",
+      "setCountOne": "1 Set"
     }
   },
   "collectors": {
@@ -2571,11 +2569,11 @@
     },
     "hero": {
       "title": "Schreibe deine Anzeige in Sekunden",
-      "subtitle": "Verwandle jeden Artikel deiner Sammlung in eine fertige Anzeige — Titel, Beschreibung und Vorschlagspreis inklusive."
+      "subtitle": "Jeder Artikel, den du besitzt, wird zur fertigen Anzeige — Titel, Beschreibung, Preis."
     },
     "howItWorks": {
       "title": "So funktioniert es",
-      "paragraph1": "Der Generator schreibt aus den Katalogdaten des Artikels und dem aktuellen Preisvorschlag, er muss also genau wissen, welchen Artikel du verkaufst. Deshalb sitzt er auf jeder Minifiguren- und Set-Seite und nicht auf einer eigenen Seite."
+      "paragraph1": "Sie entsteht aus den Daten des Artikels und dem heutigen Preis, muss also genau wissen, was du verkaufst. Deshalb sitzt sie auf der Seite des Artikels, nicht hier."
     },
     "cta": {
       "subtitle": "Finde den Artikel, den du anbieten möchtest.",
