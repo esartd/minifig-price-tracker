@@ -41,16 +41,19 @@ git pull
 # ended up in a public repo. Untracking it was correct -- but the server was
 # getting the file FROM that git pull, so the very next deploy deleted it and
 # took RESEND_API_KEY, CRON_SECRET and all four BrickLink credentials with it.
-# Next.js loads .env.production automatically in production, so the build died.
 #
-# Restore it once from the last commit that still had it. It is gitignored now,
-# so it stays local and never goes back to GitHub. These secrets are all pending
-# rotation; once rotated, edit this file in place on the server and this block
-# becomes a no-op.
+# This block used to restore it from commit 7313b958. That is now the WRONG
+# thing to do: every credential in that commit has since been rotated, so
+# restoring it would silently reinstate a file full of dead-and-leaked values,
+# and the site would come back up authenticating against nothing. Fail loudly
+# instead -- a missing .env.production is an operator problem, not something a
+# deploy script should paper over.
 if [ ! -f .env.production ]; then
-  echo "==> .env.production missing -- restoring from history (stays untracked)"
-  git show 7313b958:.env.production > .env.production
-  chmod 600 .env.production
+  echo "!!  .env.production is missing."
+  echo "!!  Do NOT restore it from git history -- every secret in that commit"
+  echo "!!  was leaked publicly and has been rotated. Recreate it by hand from"
+  echo "!!  the live values in each provider's dashboard."
+  exit 1
 fi
 
 # AUTH_SECRET was in .env.production, which was tracked in a public repo for
@@ -61,6 +64,10 @@ fi
 # marker file so it rotates exactly once, not on every deploy. Rotating it
 # invalidates every existing session -- that is the point, since we cannot tell
 # a forged session from a real one.
+#
+# Already fired (September 2026); the marker file on the server keeps this a
+# no-op. Kept so a rebuilt server rotates on first deploy rather than shipping
+# whatever AUTH_SECRET it was seeded with.
 if [ ! -f .rotated-auth-secret ]; then
   echo "==> Rotating leaked AUTH_SECRET (all sessions will be invalidated)"
   NEW_AUTH_SECRET="$(openssl rand -base64 48 | tr -d '\n')"
