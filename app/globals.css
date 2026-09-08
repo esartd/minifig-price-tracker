@@ -1663,38 +1663,50 @@ input[type="number"] {
   margin-bottom: 48px;
 }
 
+/* Quantity beside the actions it applies to, the way a shop puts a quantity
+   next to "add to cart". Stacked, a 148px stepper sitting above two full-width
+   buttons has nothing to line either edge up with and reads as an orphan.
+   flex-wrap lets it stack again when the column gets too narrow for both. */
+.qty-and-actions {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+/* The site's `large` primary button: a page's one main action.
+   Same treatment as every other primary button -- flat accent, pill, white
+   label -- just at 48px rather than 40.
+
+   justify-content is not decoration. One call site sets display: block inline,
+   which outranks the inline-flex here; centring both axes means the label
+   stays put instead of dropping to the top-left of a 48px box that has no
+   vertical padding to hold it.
+
+   No drop shadow and no hover lift. Nothing else on the site has either, and a
+   button that rises off the page reads as a different component. */
 .cta-button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  /* The `large` tier: 48px, the same as Generate Listing. This was the site's
-     only ~56px control. */
   height: 48px;
   padding: 0 28px;
-  /* Flat accent, not the hero's gradient. A gradient on a button reads as a
-     different KIND of button, and there were three of them across the site
-     against a flat blue everywhere else. The gradient still belongs on the
-     hero and the feature icons -- those are surfaces, not controls. */
   background: #3b82f6;
   color: #ffffff;
   font-size: var(--text-base);
   font-weight: 600;
-  /* Pill, like every other standalone button. This was the site's only 14px
-     radius, and being set in CSS rather than inline is why it survived the
-     first pass. */
+  line-height: 1;
+  white-space: nowrap;
+  box-sizing: border-box;
   border-radius: 999px;
   text-decoration: none;
-  transition: all 300ms var(--ease-premium);
-  box-shadow: 0 4px 16px rgba(0, 92, 151, 0.25);
+  transition: background 0.2s;
 }
 
 .cta-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 28px rgba(0, 92, 151, 0.35);
-}
-
-.cta-button:active {
-  transform: translateY(-1px);
+  background: #2563eb;
 }
 
 /* Small Mobile (min 375px) */
@@ -1891,7 +1903,6 @@ input[type="number"] {
   }
 
   .cta-button {
-    padding: 20px 40px;
     font-size: var(--text-lg);
   }
 }
@@ -1993,7 +2004,8 @@ input[type="number"] {
   }
 
   .cta-button {
-    padding: 22px 48px;
+    /* Height, not padding -- the base rule pins it to 48px, and re-declaring
+       vertical padding here just fought that and left the label off-centre. */
     font-size: var(--text-lg);
   }
 }

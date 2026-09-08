@@ -105,7 +105,9 @@ export default function PremiumPageClient({ price }: { price?: PremiumPrice }) {
                 </div>
               </div>
 
-              <a href="/account#premium" className="cta-button" style={{ display: 'block', marginTop: '28px' }}>
+              {/* display: flex, not block -- the class already centres its label with
+                  inline-flex, and overriding the display is what broke it. */}
+              <a href="/account#premium" className="cta-button" style={{ display: 'flex', width: '100%', marginTop: '28px' }}>
                 {t('premium.page.cta.button') || 'Upgrade to Premium'}
               </a>
             </div>

@@ -1425,8 +1425,11 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             {t('minifigDetail.addThisMinifigure') || 'Add this minifigure to your collection'}
                           </h2>
 
-                          {/* Quantity Selector */}
-                          <div style={{ marginBottom: '12px' }}>
+                          {/* Quantity sits on the same row as the two actions
+                              below -- see the wrapper's flexWrap, which lets it
+                              stack again when the column is too narrow. */}
+                          <div className="qty-and-actions">
+                          <div>
                             <label style={{
                               display: 'block',
                               fontSize: 'var(--text-sm)',
@@ -1541,7 +1544,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                           <div style={{
                             display: 'grid',
                             gridTemplateColumns: '1fr 1fr',
-                            gap: '12px'
+                            gap: '12px',
+                            flex: '1 1 260px'
                           }}>
                             <button
                               onClick={() => handleAddToCollection(quantity)}
@@ -1598,6 +1602,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             >
                               {t('minifigDetail.toKeep')}
                             </button>
+                          </div>
                           </div>
                         </div>
                       )}

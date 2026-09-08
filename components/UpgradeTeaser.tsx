@@ -40,10 +40,14 @@ export default function UpgradeTeaser() {
           padding: '8px 16px',
           fontSize: 'var(--text-sm)',
           fontWeight: 600,
-          color: '#ffffff',
-          // The site's primary button, same as Sign Up in the header. Black
-          // read as a third button style on a page that already has two.
-          backgroundColor: '#3b82f6',
+          // Secondary, not primary. This sits directly under "+ To sell" and
+          // "+ To keep", which are the actions the page is FOR -- three solid
+          // blue buttons in a stack means none of them is primary, and the one
+          // that wins by position is the upsell rather than the task. Same
+          // shape and size, quieter fill.
+          color: '#3b82f6',
+          backgroundColor: '#ffffff',
+          border: '1px solid #3b82f6',
           borderRadius: '999px',
           textDecoration: 'none',
           lineHeight: 1.2,
