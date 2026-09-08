@@ -21,6 +21,19 @@ export default async function AdminAnnouncementsPage() {
 
   return (
     <div style={{ maxWidth: '900px', margin: '0 auto', padding: '40px 24px' }}>
+      <a
+        href="/admin/stats"
+        style={{
+          display: 'inline-block',
+          fontSize: '14px',
+          color: '#737373',
+          textDecoration: 'none',
+          marginBottom: '16px',
+        }}
+      >
+        &larr; Admin dashboard
+      </a>
+
       <h1
         style={{
           fontSize: '28px',

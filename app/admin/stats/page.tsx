@@ -266,8 +266,15 @@ export default async function AdminStatsPage() {
               {t.subtitle}
             </p>
           </div>
+          {/* Was a mailto: with every user in BCC. Two problems: 64 addresses
+              URL-encoded overflows what mail clients accept, and the overflow
+              is silent -- some users just never receive it and nothing reports
+              an error. It also sent from a personal address rather than the
+              authenticated hello@intobrick.com. This goes to the compose page
+              instead, which sends one message per person with its own
+              unsubscribe link. */}
           <a
-            href={`mailto:${ADMIN_EMAIL}?bcc=${encodeURIComponent(allUsers.map((u: any) => u.email).join(','))}`}
+            href="/admin/announcements"
             style={{
               display: 'flex',
               alignItems: 'center',
