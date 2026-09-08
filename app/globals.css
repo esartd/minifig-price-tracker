@@ -732,6 +732,14 @@ input[type="number"] {
   .ib-chips button {
     height: 44px !important;
   }
+
+  /* Inputs and selects sitting in a control row take the touch floor too. The
+     rule below only reaches buttons and links, so a row that mixed a toggle
+     with a search box ended up 44 / 40 / 40. */
+  .ib-control-row input,
+  .ib-control-row select {
+    height: 44px !important;
+  }
 }
 
 /* Ensure touch targets are at least 44px on mobile */

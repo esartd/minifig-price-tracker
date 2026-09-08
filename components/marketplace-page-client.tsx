@@ -133,8 +133,13 @@ export default function MarketplacePageClient() {
           radius. They did not: all three were 41.5px tall with the same
           border, but 8px / 999px / 8px corners -- one pill between two
           rectangles. alignItems is explicit because the default (stretch) was
-          also pulling the native <select> off its natural height. */}
-      <div style={{
+          also pulling the native <select> off its natural height.
+
+          ib-control-row carries the same rule to mobile: globals.css puts a
+          44px touch floor on buttons but not on inputs or selects, so without
+          it the toggle grows to 44 under 768px and its two row-mates stay at
+          40. See the rule in globals.css. */}
+      <div className="ib-control-row" style={{
         display: 'flex',
         alignItems: 'center',
         gap: '12px',
