@@ -15,7 +15,7 @@ const contentBlocksDE: ArticleBlock[] = [
   {
     id: 'block-2',
     type: 'paragraph',
-    text: 'Hier kommt **FigTracker** ins Spiel. Speziell für Verkäufer und Sammler entwickelt, die schnelle, präzise Preise basierend auf *echten* Marktplatzdaten benötigen, löst FigTracker viele der Probleme, über die BrickEconomy-Nutzer am meisten klagen.',
+    text: 'Hier kommt **IntoBrick** ins Spiel. Speziell für Verkäufer und Sammler entwickelt, die schnelle, präzise Preise basierend auf *echten* Marktplatzdaten benötigen, löst IntoBrick viele der Probleme, über die BrickEconomy-Nutzer am meisten klagen.',
   },
   {
     id: 'block-3',
@@ -99,12 +99,12 @@ const contentBlocksDE: ArticleBlock[] = [
     id: 'block-17',
     type: 'heading',
     level: 2,
-    text: 'Wie FigTracker diese Probleme löst',
+    text: 'Wie IntoBrick diese Probleme löst',
   },
   {
     id: 'block-18',
     type: 'paragraph',
-    text: 'FigTracker wurde entwickelt, um genau die Probleme anzugehen, über die BrickEconomy-Nutzer klagen. So geht\'s:',
+    text: 'IntoBrick wurde entwickelt, um genau die Probleme anzugehen, über die BrickEconomy-Nutzer klagen. So geht\'s:',
   },
   {
     id: 'block-19',
@@ -115,7 +115,7 @@ const contentBlocksDE: ArticleBlock[] = [
   {
     id: 'block-20',
     type: 'paragraph',
-    text: 'FigTracker zieht Preisdaten direkt aus der **BrickLink-API**, einschließlich aktueller Marktplatzeinträge (Lagerbestand) und historischer Verkäufe (verkauft). Wenn Sie einen vorgeschlagenen Preis auf FigTracker sehen, basiert er auf:',
+    text: 'IntoBrick zieht Preisdaten direkt aus der **BrickLink-API**, einschließlich aktueller Marktplatzeinträge (Lagerbestand) und historischer Verkäufe (verkauft). Wenn Sie einen vorgeschlagenen Preis auf IntoBrick sehen, basiert er auf:',
   },
   {
     id: 'block-21',
@@ -130,13 +130,13 @@ const contentBlocksDE: ArticleBlock[] = [
   {
     id: 'block-22',
     type: 'paragraph',
-    text: 'Im Gegensatz zu Websites, die sich auf Angebotspreise verlassen (was Verkäufer hoffen zu bekommen), zeigt Ihnen FigTracker **was Käufer tatsächlich zahlen**. Das bedeutet, Sie erhalten realistische, vertrauenswürdige Preise für Kauf-/Verkaufsentscheidungen.',
+    text: 'Im Gegensatz zu Websites, die sich auf Angebotspreise verlassen (was Verkäufer hoffen zu bekommen), zeigt Ihnen IntoBrick **was Käufer tatsächlich zahlen**. Das bedeutet, Sie erhalten realistische, vertrauenswürdige Preise für Kauf-/Verkaufsentscheidungen.',
   },
   {
     id: 'block-23',
     type: 'callout',
     calloutType: 'tip',
-    content: '**Profi-Tipp:** Der Algorithmus von FigTracker kombiniert Verkaufsdaten, aktuelle Marktplatzdurchschnitte und niedrigste Preise, um Ihnen einen zuverlässigen vorgeschlagenen Preis zu geben. Kein Rätselraten, keine überhöhten Werte.',
+    content: '**Profi-Tipp:** Der Algorithmus von IntoBrick kombiniert Verkaufsdaten, aktuelle Marktplatzdurchschnitte und niedrigste Preise, um Ihnen einen zuverlässigen vorgeschlagenen Preis zu geben. Kein Rätselraten, keine überhöhten Werte.',
   },
   {
     id: 'block-24',
@@ -147,7 +147,7 @@ const contentBlocksDE: ArticleBlock[] = [
   {
     id: 'block-25',
     type: 'paragraph',
-    text: 'FigTracker gibt nicht vor, die Zukunft vorherzusagen. Wir sagen Ihnen nicht, dass jedes Set um 300% steigen wird oder dass Ihre Sammlung eine Goldmine ist. Stattdessen zeigen wir Ihnen:',
+    text: 'IntoBrick gibt nicht vor, die Zukunft vorherzusagen. Wir sagen Ihnen nicht, dass jedes Set um 300% steigen wird oder dass Ihre Sammlung eine Goldmine ist. Stattdessen zeigen wir Ihnen:',
   },
   {
     id: 'block-26',
@@ -162,7 +162,7 @@ const contentBlocksDE: ArticleBlock[] = [
   {
     id: 'block-27',
     type: 'paragraph',
-    text: 'Unsere Philosophie: **Zeigen Sie die Realität, keine Fantasien.** Wenn Sie ehrliche Preise für den Verkauf von Minifiguren wollen, gibt Ihnen FigTracker die Wahrheit.',
+    text: 'Unsere Philosophie: **Zeigen Sie die Realität, keine Fantasien.** Wenn Sie ehrliche Preise für den Verkauf von Minifiguren wollen, gibt Ihnen IntoBrick die Wahrheit.',
   },
   {
     id: 'block-28',
@@ -173,7 +173,7 @@ const contentBlocksDE: ArticleBlock[] = [
   {
     id: 'block-29',
     type: 'paragraph',
-    text: 'FigTracker ist Mobile-First entwickelt. Ob Sie zu Hause, auf einer LEGO-Convention oder beim Durchsuchen eines lokalen Marktplatzes Preise prüfen, die Website funktioniert wunderbar auf Ihrem Handy. Schnelle Suche, saubere Oberfläche, sofortige Ergebnisse.',
+    text: 'IntoBrick ist Mobile-First entwickelt. Ob Sie zu Hause, auf einer LEGO-Convention oder beim Durchsuchen eines lokalen Marktplatzes Preise prüfen, die Website funktioniert wunderbar auf Ihrem Handy. Schnelle Suche, saubere Oberfläche, sofortige Ergebnisse.',
   },
   {
     id: 'block-30',
@@ -184,7 +184,7 @@ const contentBlocksDE: ArticleBlock[] = [
   {
     id: 'block-31',
     type: 'paragraph',
-    text: 'BrickEconomy erfordert ein Abonnement für den vollen Funktionsumfang. FigTracker ist **100% kostenlos**. Keine Paywalls, keine Premium-Stufen, keine versteckten Preisdaten. Nur ehrliche, transparente LEGO-Preise für alle.',
+    text: 'BrickEconomy erfordert ein Abonnement für den vollen Funktionsumfang. IntoBrick ist **100% kostenlos**. Keine Paywalls, keine Premium-Stufen, keine versteckten Preisdaten. Nur ehrliche, transparente LEGO-Preise für alle.',
   },
   {
     id: 'block-32',
@@ -195,7 +195,7 @@ const contentBlocksDE: ArticleBlock[] = [
   {
     id: 'block-33',
     type: 'paragraph',
-    text: 'Während BrickEconomy versucht, alles abzudecken (Sets, Teile, Anleitungen, Kartons), konzentriert sich FigTracker auf das Wichtigste für Verkäufer: **Minifiguren und Sets**. Unsere Funktionen umfassen:',
+    text: 'Während BrickEconomy versucht, alles abzudecken (Sets, Teile, Anleitungen, Kartons), konzentriert sich IntoBrick auf das Wichtigste für Verkäufer: **Minifiguren und Sets**. Unsere Funktionen umfassen:',
   },
   {
     id: 'block-34',
@@ -214,14 +214,14 @@ const contentBlocksDE: ArticleBlock[] = [
     id: 'block-35',
     type: 'heading',
     level: 2,
-    text: 'Vergleich: FigTracker vs BrickEconomy',
+    text: 'Vergleich: IntoBrick vs BrickEconomy',
   },
   {
     id: 'block-36',
     type: 'comparison',
     items: [
       {
-        title: 'FigTracker',
+        title: 'IntoBrick',
         icon: '🚀',
         pros: [
           'Verwendet echte BrickLink-Verkaufsdaten',
@@ -272,7 +272,7 @@ const contentBlocksDE: ArticleBlock[] = [
   {
     id: 'block-45',
     type: 'paragraph',
-    text: 'FigTracker löst dies, indem es **echte BrickLink-Verkaufsdaten** zieht und Ihnen transparente, ehrliche Preise gibt. Keine falschen Wertsteigerungsprognosen. Keine Abonnement-Paywalls. Nur schnelle, genaue Marktdaten, denen Sie vertrauen können.',
+    text: 'IntoBrick löst dies, indem es **echte BrickLink-Verkaufsdaten** zieht und Ihnen transparente, ehrliche Preise gibt. Keine falschen Wertsteigerungsprognosen. Keine Abonnement-Paywalls. Nur schnelle, genaue Marktdaten, denen Sie vertrauen können.',
   },
 ];
 
@@ -286,7 +286,7 @@ const contentBlocksFR: ArticleBlock[] = [
   {
     id: 'block-2',
     type: 'paragraph',
-    text: 'C\'est là qu\'intervient **FigTracker**. Conçu spécifiquement pour les vendeurs et collectionneurs qui ont besoin de tarifs rapides et précis basés sur de *vraies* données de marché, FigTracker résout de nombreux problèmes dont les utilisateurs de BrickEconomy se plaignent le plus.',
+    text: 'C\'est là qu\'intervient **IntoBrick**. Conçu spécifiquement pour les vendeurs et collectionneurs qui ont besoin de tarifs rapides et précis basés sur de *vraies* données de marché, IntoBrick résout de nombreux problèmes dont les utilisateurs de BrickEconomy se plaignent le plus.',
   },
   {
     id: 'block-3',
@@ -348,12 +348,12 @@ const contentBlocksFR: ArticleBlock[] = [
     id: 'block-17',
     type: 'heading',
     level: 2,
-    text: 'Comment FigTracker résout ces problèmes',
+    text: 'Comment IntoBrick résout ces problèmes',
   },
   {
     id: 'block-18',
     type: 'paragraph',
-    text: 'FigTracker a été conçu pour répondre exactement aux points de douleur dont les utilisateurs de BrickEconomy se plaignent. Voici comment:',
+    text: 'IntoBrick a été conçu pour répondre exactement aux points de douleur dont les utilisateurs de BrickEconomy se plaignent. Voici comment:',
   },
   {
     id: 'block-19',
@@ -364,7 +364,7 @@ const contentBlocksFR: ArticleBlock[] = [
   {
     id: 'block-20',
     type: 'paragraph',
-    text: 'FigTracker extrait les données de prix directement de l\'**API BrickLink**, y compris les annonces actuelles du marché (stock) et les ventes historiques (vendues). Lorsque vous voyez un prix suggéré sur FigTracker, il est basé sur:',
+    text: 'IntoBrick extrait les données de prix directement de l\'**API BrickLink**, y compris les annonces actuelles du marché (stock) et les ventes historiques (vendues). Lorsque vous voyez un prix suggéré sur IntoBrick, il est basé sur:',
   },
   {
     id: 'block-21',
@@ -379,7 +379,7 @@ const contentBlocksFR: ArticleBlock[] = [
   {
     id: 'block-22',
     type: 'paragraph',
-    text: 'Contrairement aux sites qui se basent sur les prix d\'offre (ce que les vendeurs espèrent obtenir), FigTracker vous montre **ce que les acheteurs paient réellement**. Cela signifie que vous obtenez des prix réalistes et fiables pour prendre des décisions d\'achat/vente.',
+    text: 'Contrairement aux sites qui se basent sur les prix d\'offre (ce que les vendeurs espèrent obtenir), IntoBrick vous montre **ce que les acheteurs paient réellement**. Cela signifie que vous obtenez des prix réalistes et fiables pour prendre des décisions d\'achat/vente.',
   },
   {
     id: 'block-43',
@@ -395,7 +395,7 @@ const contentBlocksFR: ArticleBlock[] = [
   {
     id: 'block-45',
     type: 'paragraph',
-    text: 'FigTracker résout ce problème en extrayant **de vraies données de vente BrickLink** et en vous donnant des prix transparents et honnêtes. Pas de fausses prédictions d\'appréciation. Pas de paywall d\'abonnement. Juste des données de marché rapides et précises auxquelles vous pouvez faire confiance.',
+    text: 'IntoBrick résout ce problème en extrayant **de vraies données de vente BrickLink** et en vous donnant des prix transparents et honnêtes. Pas de fausses prédictions d\'appréciation. Pas de paywall d\'abonnement. Juste des données de marché rapides et précises auxquelles vous pouvez faire confiance.',
   },
 ];
 
@@ -409,7 +409,7 @@ const contentBlocksES: ArticleBlock[] = [
   {
     id: 'block-2',
     type: 'paragraph',
-    text: 'Ahí es donde entra **FigTracker**. Construido específicamente para vendedores y coleccionistas que necesitan precios rápidos y precisos basados en datos de mercado *reales*, FigTracker resuelve muchos de los problemas de los que más se quejan los usuarios de BrickEconomy.',
+    text: 'Ahí es donde entra **IntoBrick**. Construido específicamente para vendedores y coleccionistas que necesitan precios rápidos y precisos basados en datos de mercado *reales*, IntoBrick resuelve muchos de los problemas de los que más se quejan los usuarios de BrickEconomy.',
   },
   {
     id: 'block-3',
@@ -471,12 +471,12 @@ const contentBlocksES: ArticleBlock[] = [
     id: 'block-17',
     type: 'heading',
     level: 2,
-    text: 'Cómo FigTracker resuelve estos problemas',
+    text: 'Cómo IntoBrick resuelve estos problemas',
   },
   {
     id: 'block-18',
     type: 'paragraph',
-    text: 'FigTracker fue construido para abordar exactamente los puntos de dolor de los que se quejan los usuarios de BrickEconomy. Así es cómo:',
+    text: 'IntoBrick fue construido para abordar exactamente los puntos de dolor de los que se quejan los usuarios de BrickEconomy. Así es cómo:',
   },
   {
     id: 'block-19',
@@ -487,7 +487,7 @@ const contentBlocksES: ArticleBlock[] = [
   {
     id: 'block-20',
     type: 'paragraph',
-    text: 'FigTracker extrae datos de precios directamente de la **API de BrickLink**, incluyendo listados actuales del mercado (stock) y ventas históricas (vendidas). Cuando ves un precio sugerido en FigTracker, está basado en:',
+    text: 'IntoBrick extrae datos de precios directamente de la **API de BrickLink**, incluyendo listados actuales del mercado (stock) y ventas históricas (vendidas). Cuando ves un precio sugerido en IntoBrick, está basado en:',
   },
   {
     id: 'block-21',
@@ -502,7 +502,7 @@ const contentBlocksES: ArticleBlock[] = [
   {
     id: 'block-22',
     type: 'paragraph',
-    text: 'A diferencia de sitios que dependen de precios de listado (lo que los vendedores esperan obtener), FigTracker te muestra **lo que los compradores realmente están pagando**. Esto significa que obtienes precios realistas y confiables para tomar decisiones de compra/venta.',
+    text: 'A diferencia de sitios que dependen de precios de listado (lo que los vendedores esperan obtener), IntoBrick te muestra **lo que los compradores realmente están pagando**. Esto significa que obtienes precios realistas y confiables para tomar decisiones de compra/venta.',
   },
   {
     id: 'block-43',
@@ -518,7 +518,7 @@ const contentBlocksES: ArticleBlock[] = [
   {
     id: 'block-45',
     type: 'paragraph',
-    text: 'FigTracker resuelve esto extrayendo **datos de ventas reales de BrickLink** y dándote precios transparentes y honestos. Sin predicciones falsas de apreciación. Sin muros de pago de suscripción. Solo datos de mercado rápidos y precisos en los que puedes confiar.',
+    text: 'IntoBrick resuelve esto extrayendo **datos de ventas reales de BrickLink** y dándote precios transparentes y honestos. Sin predicciones falsas de apreciación. Sin muros de pago de suscripción. Solo datos de mercado rápidos y precisos en los que puedes confiar.',
   },
 ];
 

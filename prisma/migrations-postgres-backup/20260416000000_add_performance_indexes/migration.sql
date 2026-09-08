@@ -1,4 +1,4 @@
--- Performance indexes for FigTracker
+-- Performance indexes for IntoBrick
 -- CreateIndex for minifig catalog searches by category (theme pages)
 CREATE INDEX IF NOT EXISTS "idx_minifig_catalog_category" ON "MinifigCatalog"("category_name");
 

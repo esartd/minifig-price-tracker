@@ -7,7 +7,7 @@
 
 ## Overview
 
-FigTracker uses **tiered rate limiting** where different endpoints have different limits based on their actual cost to the system. This prevents abuse while allowing normal users to browse freely.
+IntoBrick uses **tiered rate limiting** where different endpoints have different limits based on their actual cost to the system. This prevents abuse while allowing normal users to browse freely.
 
 **Key principle:** Rate limits should reflect request cost, not treat all endpoints equally.
 

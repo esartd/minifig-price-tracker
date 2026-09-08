@@ -101,11 +101,11 @@ export default function Footer() {
                 letterSpacing: '-0.01em',
               }}
             >
-              FigTracker
+              IntoBrick
             </p>
             <p style={{ fontSize: '14px', color: '#525252', lineHeight: '1.6', margin: 0 }}>
               {t('footer.aboutDescription') ||
-                'FigTracker gives you one suggested price for any LEGO minifigure or set, so you can list faster and sell with confidence.'}
+                'IntoBrick gives you one suggested price for any LEGO minifigure or set, so you can list faster and sell with confidence.'}
             </p>
           </div>
 
@@ -176,7 +176,7 @@ export default function Footer() {
           >
             <p style={{ margin: '0 0 8px 0' }}>
               {t('footer.affiliateDisclosure') ||
-                'As an Amazon Associate, LEGO Affiliate, eBay Partner, and Whatnot Affiliate, FigTracker earns from qualifying purchases.'}
+                'As an Amazon Associate, LEGO Affiliate, eBay Partner, and Whatnot Affiliate, IntoBrick earns from qualifying purchases.'}
             </p>
             <p style={{ margin: 0 }}>
               {t('footer.bricklinkDisclosure') ||
@@ -186,7 +186,7 @@ export default function Footer() {
 
           <div className="footer-bottom-row">
             <p style={{ margin: 0, fontSize: '11px', color: '#a3a3a3' }}>
-              {(t('footer.copyright') || '© {year} FigTracker. All rights reserved.').replace(
+              {(t('footer.copyright') || '© {year} IntoBrick. All rights reserved.').replace(
                 '{year}',
                 new Date().getFullYear().toString()
               )}

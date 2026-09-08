@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Enhanced Italian Translation Script for FigTracker
+Enhanced Italian Translation Script for IntoBrick
 Complete translation with proper handling of all content
 """
 
@@ -366,8 +366,8 @@ def translate_value(value):
 
 
 def main():
-    source_file = "/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json"
-    target_file = "/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/it.json"
+    source_file = "/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json"
+    target_file = "/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/it.json"
 
     print("Reading source file...")
     with open(source_file, 'r', encoding='utf-8') as f:

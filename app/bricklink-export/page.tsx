@@ -46,13 +46,13 @@ export default async function BricklinkExportPage({
         operatingSystem: 'Web',
         url: `${baseUrl}/bricklink-export`,
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-        provider: { '@type': 'Organization', name: 'FigTracker' },
+        provider: { '@type': 'Organization', name: 'IntoBrick' },
       }}
       copy={{
         title: b.hero?.title || 'Fill Your BrickLink Store in One Upload',
         subtitle:
           b.hero?.subtitle ||
-          'BrickLink lets you add your whole inventory from one XML file. Your FigTracker item numbers are already BrickLink numbers, so there is nothing to look up.',
+          'BrickLink lets you add your whole inventory from one XML file. Your IntoBrick item numbers are already BrickLink numbers, so there is nothing to look up.',
         howItWorks: t.whatnotExport?.howItWorks || 'How it works',
         steps: [
           {
@@ -65,7 +65,7 @@ export default async function BricklinkExportPage({
             title: b.steps?.step2?.title || 'Set your prices once',
             body:
               b.steps?.step2?.body ||
-              'Start from FigTracker’s suggested price and add a markup if you want. Sets also carry their completeness, so BrickLink gets what it needs.',
+              'Start from IntoBrick’s suggested price and add a markup if you want. Sets also carry their completeness, so BrickLink gets what it needs.',
           },
           {
             title: b.steps?.step3?.title || 'Upload to your store',

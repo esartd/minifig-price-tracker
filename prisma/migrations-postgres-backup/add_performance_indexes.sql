@@ -1,4 +1,4 @@
--- Performance indexes for FigTracker
+-- Performance indexes for IntoBrick
 -- Run this manually or via prisma migrate
 
 -- Minifig catalog searches by category (theme pages)

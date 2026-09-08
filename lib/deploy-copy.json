@@ -1,7 +1,7 @@
 {
   "en": {
     "updatingTitle": "Snapping in a few new bricks",
-    "updatingBody": "FigTracker is updating. This page will reload itself in a moment.",
+    "updatingBody": "IntoBrick is updating. This page will reload itself in a moment.",
     "updatingSlow": "This is taking longer than usual. Hang tight.",
     "reload": "Reload now",
     "errorTitle": "Something went wrong",
@@ -11,7 +11,7 @@
   },
   "de": {
     "updatingTitle": "Wir setzen noch ein paar Steine ein",
-    "updatingBody": "FigTracker wird aktualisiert. Diese Seite lädt sich in einem Moment neu.",
+    "updatingBody": "IntoBrick wird aktualisiert. Diese Seite lädt sich in einem Moment neu.",
     "updatingSlow": "Das dauert länger als gewöhnlich. Einen Moment noch.",
     "reload": "Jetzt neu laden",
     "errorTitle": "Etwas ist schiefgelaufen",
@@ -21,7 +21,7 @@
   },
   "fr": {
     "updatingTitle": "On ajoute quelques briques",
-    "updatingBody": "FigTracker est en cours de mise à jour. Cette page se rechargera dans un instant.",
+    "updatingBody": "IntoBrick est en cours de mise à jour. Cette page se rechargera dans un instant.",
     "updatingSlow": "Cela prend plus de temps que d'habitude. Merci de patienter.",
     "reload": "Recharger",
     "errorTitle": "Une erreur s'est produite",
@@ -31,7 +31,7 @@
   },
   "es": {
     "updatingTitle": "Estamos encajando unas piezas nuevas",
-    "updatingBody": "FigTracker se está actualizando. Esta página se recargará en un momento.",
+    "updatingBody": "IntoBrick se está actualizando. Esta página se recargará en un momento.",
     "updatingSlow": "Esto está tardando más de lo normal. Un momento más.",
     "reload": "Recargar ahora",
     "errorTitle": "Algo ha salido mal",
@@ -41,7 +41,7 @@
   },
   "it": {
     "updatingTitle": "Stiamo incastrando qualche mattoncino",
-    "updatingBody": "FigTracker è in aggiornamento. Questa pagina si ricaricherà tra un istante.",
+    "updatingBody": "IntoBrick è in aggiornamento. Questa pagina si ricaricherà tra un istante.",
     "updatingSlow": "Sta richiedendo più tempo del solito. Ancora un attimo.",
     "reload": "Ricarica ora",
     "errorTitle": "Qualcosa è andato storto",
@@ -51,7 +51,7 @@
   },
   "nl": {
     "updatingTitle": "We klikken er nog wat steentjes bij",
-    "updatingBody": "FigTracker wordt bijgewerkt. Deze pagina wordt zo automatisch opnieuw geladen.",
+    "updatingBody": "IntoBrick wordt bijgewerkt. Deze pagina wordt zo automatisch opnieuw geladen.",
     "updatingSlow": "Dit duurt langer dan gewoonlijk. Nog even geduld.",
     "reload": "Nu opnieuw laden",
     "errorTitle": "Er is iets misgegaan",
@@ -61,7 +61,7 @@
   },
   "pl": {
     "updatingTitle": "Dokładamy kilka nowych klocków",
-    "updatingBody": "FigTracker jest aktualizowany. Ta strona odświeży się za chwilę.",
+    "updatingBody": "IntoBrick jest aktualizowany. Ta strona odświeży się za chwilę.",
     "updatingSlow": "To trwa dłużej niż zwykle. Jeszcze chwilę.",
     "reload": "Odśwież teraz",
     "errorTitle": "Coś poszło nie tak",
@@ -71,7 +71,7 @@
   },
   "pt": {
     "updatingTitle": "A encaixar algumas peças novas",
-    "updatingBody": "O FigTracker está a ser atualizado. Esta página vai recarregar dentro de momentos.",
+    "updatingBody": "O IntoBrick está a ser atualizado. Esta página vai recarregar dentro de momentos.",
     "updatingSlow": "Está a demorar mais do que o habitual. Só um momento.",
     "reload": "Recarregar agora",
     "errorTitle": "Algo deu errado",
@@ -81,7 +81,7 @@
   },
   "sv": {
     "updatingTitle": "Vi snäpper fast några nya bitar",
-    "updatingBody": "FigTracker uppdateras. Sidan laddas om av sig själv om en stund.",
+    "updatingBody": "IntoBrick uppdateras. Sidan laddas om av sig själv om en stund.",
     "updatingSlow": "Det här tar längre tid än vanligt. Häng kvar.",
     "reload": "Ladda om nu",
     "errorTitle": "Något gick fel",
@@ -91,7 +91,7 @@
   },
   "ja": {
     "updatingTitle": "ブロックを組み直しています",
-    "updatingBody": "FigTracker を更新しています。このページはまもなく自動的に再読み込みされます。",
+    "updatingBody": "IntoBrick を更新しています。このページはまもなく自動的に再読み込みされます。",
     "updatingSlow": "通常よりも時間がかかっています。少しお待ちください。",
     "reload": "今すぐ再読み込み",
     "errorTitle": "問題が発生しました",

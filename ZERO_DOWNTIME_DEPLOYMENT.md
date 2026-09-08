@@ -1,6 +1,6 @@
 # Zero-Downtime Deployment Setup Complete ✅
 
-This document summarizes the new deployment architecture for FigTracker.
+This document summarizes the new deployment architecture for IntoBrick.
 
 ## 🎯 What Changed
 
@@ -492,7 +492,7 @@ curl http://localhost:3000/api/health  # Verify
 
 ## 🎉 Summary
 
-You now have a **production-grade deployment system** for FigTracker:
+You now have a **production-grade deployment system** for IntoBrick:
 
 ✅ **Staging environment** - Test safely before production  
 ✅ **Zero-downtime deployments** - Site never goes down  

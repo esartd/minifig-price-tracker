@@ -296,7 +296,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 transition: 'color 0.2s',
                 lineHeight: '1'
               }}>
-                FigTracker
+                IntoBrick
               </div>
             </Link>
 
@@ -1320,7 +1320,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               transition: 'color 0.2s',
               lineHeight: '1'
             }}>
-              FigTracker
+              IntoBrick
             </div>
           </Link>
 

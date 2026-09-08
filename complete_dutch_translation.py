@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Complete Dutch Translation for FigTracker - Professional Quality
+Complete Dutch Translation for IntoBrick - Professional Quality
 Translates all 1700+ lines from en.json to formal Dutch
 """
 
@@ -8,8 +8,8 @@ import json
 import sys
 
 def main():
-    en_path = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json'
-    nl_path = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/nl.json'
+    en_path = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json'
+    nl_path = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/nl.json'
 
     # Read English source
     with open(en_path, 'r', encoding='utf-8') as f:

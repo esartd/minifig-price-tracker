@@ -1,5 +1,5 @@
 /**
- * Search synonyms and aliases for FigTracker
+ * Search synonyms and aliases for IntoBrick
  * Maps common user queries to canonical search terms
  */
 

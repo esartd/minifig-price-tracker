@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description: t.guides?.hero?.subtitle || 'Practical guides for pricing, listing, and managing your LEGO inventory.',
     keywords: t.guides?.meta?.keywords || ['LEGO guides', 'LEGO pricing', 'LEGO investing', 'LEGO selling tips', 'minifigure values'],
     openGraph: {
-      title: t.guides?.meta?.ogTitle || 'LEGO Articles & Guides | FigTracker',
+      title: t.guides?.meta?.ogTitle || 'LEGO Articles & Guides | IntoBrick',
       description: t.guides?.meta?.ogDescription || 'Practical guides for pricing and selling LEGO. Learn how to price by condition, read BrickLink data, and manage your inventory.',
       url: `${domains[locale as keyof typeof domains]}/articles`,
     },

@@ -1,4 +1,4 @@
-# FigTracker Growth Strategy - Implementation Complete ✅
+# IntoBrick Growth Strategy - Implementation Complete ✅
 
 ## What Was Built (You Can Check When Done)
 
@@ -132,7 +132,7 @@ CREATE INDEX IF NOT EXISTS "NewsletterSubscriber_email_idx" ON "NewsletterSubscr
    const resend = new Resend(process.env.RESEND_API_KEY);
    
    await resend.emails.send({
-     from: 'FigTracker <hello@figtracker.ericksu.com>',
+     from: 'IntoBrick <hello@figtracker.ericksu.com>',
      to: email,
      subject: 'Confirm your subscription',
      html: '<p>Thanks for subscribing!</p>',

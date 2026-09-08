@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = domains[locale] || domains.en;
 
   const title = t.collectorsDirectory?.meta?.title || 'Browse LEGO Collectors';
-  const description = t.collectorsDirectory?.meta?.description || 'Browse LEGO collector leaderboards and public collections shared by the FigTracker community.';
+  const description = t.collectorsDirectory?.meta?.description || 'Browse LEGO collector leaderboards and public collections shared by the IntoBrick community.';
 
   return {
     title,
@@ -36,8 +36,8 @@ export default function CollectorsPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: 'LEGO Collectors on FigTracker',
-    description: 'Browse LEGO collector leaderboards and public collections shared by the FigTracker community.',
+    name: 'LEGO Collectors on IntoBrick',
+    description: 'Browse LEGO collector leaderboards and public collections shared by the IntoBrick community.',
     url: 'https://figtracker.ericksu.com/collectors',
   };
 

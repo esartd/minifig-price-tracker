@@ -1,4 +1,4 @@
-# FigTracker SEO Audit - May 13, 2026
+# IntoBrick SEO Audit - May 13, 2026
 
 ## ✅ EXCELLENT (What's Working)
 

@@ -189,7 +189,7 @@ const readTime = Math.ceil(words / 225);
 
 **Smart Sharing:**
 - Pre-filled text with article title
-- Include via @FigTracker handle
+- Include via @IntoBrick handle
 - Track shares in analytics
 
 ### 16. Newsletter Integration

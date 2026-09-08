@@ -302,7 +302,7 @@ function DonorsColumn({ items, t }: { items: Donor[]; t: any }) {
             e.currentTarget.style.boxShadow = '0 2px 8px rgba(20, 136, 204, 0.3)';
           }}
         >
-          {isEmpty ? t('leaderboards.beFirstToDonate') : t('leaderboards.supportFigTracker')}
+          {isEmpty ? t('leaderboards.beFirstToDonate') : t('leaderboards.supportIntoBrick')}
         </a>
       </div>
     </div>

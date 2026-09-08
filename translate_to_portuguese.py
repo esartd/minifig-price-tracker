@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Complete Portuguese (Portugal) translation for FigTracker
+Complete Portuguese (Portugal) translation for IntoBrick
 Translates en.json to pt.json with full theme descriptions
 """
 
@@ -18,10 +18,10 @@ def translate_to_portuguese(text):
         return text
 
     # Keep LEGO brand terms as-is
-    if text in ['LEGO®', 'BrickLink', 'FigTracker', 'LEGO', 'BrickLink®']:
+    if text in ['LEGO®', 'BrickLink', 'IntoBrick', 'LEGO', 'BrickLink®']:
         return text
 
-    # Translation dictionary for FigTracker-specific terms
+    # Translation dictionary for IntoBrick-specific terms
     translations = {
         # Common UI
         "Search": "Pesquisar",
@@ -194,8 +194,8 @@ def translate_dict(obj, depth=0):
 def main():
     """Load en.json, translate comprehensively, save to pt.json"""
 
-    input_file = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json'
-    output_file = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/pt.json'
+    input_file = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json'
+    output_file = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/pt.json'
 
     print("Loading en.json...")
     with open(input_file, 'r', encoding='utf-8') as f:

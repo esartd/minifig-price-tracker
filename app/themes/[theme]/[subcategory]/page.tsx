@@ -71,10 +71,10 @@ export async function generateMetadata({
   const fullName = isUncategorized ? decodedTheme : `${decodedTheme} ${decodedSubcategory}`;
 
   const nameLegoMinifigures = t.themeMeta?.nameLegoMinifigures || '{name} LEGO Minifigures';
-  const subTitleNoCount = t.themeMeta?.subTitleNoCount || '{name} LEGO Minifigures | FigTracker';
+  const subTitleNoCount = t.themeMeta?.subTitleNoCount || '{name} LEGO Minifigures | IntoBrick';
 
   const title = minifigCount > 0
-    ? interpolate(t.themeMeta?.subTitleWithCount || '{name} LEGO Minifigures ({count}) | FigTracker', { name: displayName, count: minifigCount.toLocaleString() })
+    ? interpolate(t.themeMeta?.subTitleWithCount || '{name} LEGO Minifigures ({count}) | IntoBrick', { name: displayName, count: minifigCount.toLocaleString() })
     : interpolate(subTitleNoCount, { name: displayName });
   const description = minifigCount > 0
     ? interpolate(t.themeMeta?.subDescriptionWithCount || 'Browse all {count} {fullName} LEGO minifigures with smart market pricing. Track prices, manage your collection, and discover rare variants.', { count: minifigCount.toLocaleString(), fullName })

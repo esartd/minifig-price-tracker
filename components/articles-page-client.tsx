@@ -239,7 +239,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
                     />
                   ) : (
                     <svg width="280" height="80" viewBox="0 0 280 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <text x="140" y="50" fontFamily="system-ui, -apple-system, sans-serif" fontSize="32" fontWeight="600" fill="white" textAnchor="middle" letterSpacing="-0.32">FigTracker</text>
+                      <text x="140" y="50" fontFamily="system-ui, -apple-system, sans-serif" fontSize="32" fontWeight="600" fill="white" textAnchor="middle" letterSpacing="-0.32">IntoBrick</text>
                     </svg>
                   )}
                 </div>
@@ -382,7 +382,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
                     />
                   ) : (
                     <svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <text x="100" y="38" fontFamily="system-ui, -apple-system, sans-serif" fontSize="24" fontWeight="600" fill="white" textAnchor="middle" letterSpacing="-0.24">FigTracker</text>
+                      <text x="100" y="38" fontFamily="system-ui, -apple-system, sans-serif" fontSize="24" fontWeight="600" fill="white" textAnchor="middle" letterSpacing="-0.24">IntoBrick</text>
                     </svg>
                   )}
                 </div>

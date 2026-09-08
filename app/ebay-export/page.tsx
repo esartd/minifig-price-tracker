@@ -46,13 +46,13 @@ export default async function EbayExportPage({
         operatingSystem: 'Web',
         url: `${baseUrl}/ebay-export`,
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-        provider: { '@type': 'Organization', name: 'FigTracker' },
+        provider: { '@type': 'Organization', name: 'IntoBrick' },
       }}
       copy={{
         title: e.hero?.title || 'List Your LEGO on eBay in One Upload',
         subtitle:
           e.hero?.subtitle ||
-          'eBay lets you create listings in bulk from a spreadsheet. FigTracker fills in the parts people usually get wrong — the category and condition codes.',
+          'eBay lets you create listings in bulk from a spreadsheet. IntoBrick fills in the parts people usually get wrong — the category and condition codes.',
         howItWorks: t.whatnotExport?.howItWorks || 'How it works',
         steps: [
           {

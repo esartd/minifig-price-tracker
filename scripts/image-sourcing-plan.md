@@ -43,7 +43,7 @@ Each article needs 3 unique images placed strategically within content. Images s
    - Alt: "Inspecting LEGO minifigure condition for pricing"
    - Search terms: "examining toy carefully", "quality inspection"
 
-3. **Before "How FigTracker Simplifies Pricing"**
+3. **Before "How IntoBrick Simplifies Pricing"**
    - Subject: Mobile phone with scanning/app interface
    - Alt: "Using mobile app for LEGO pricing"
    - Search terms: "mobile app scanning", "smartphone inventory"
@@ -81,7 +81,7 @@ Each article needs 3 unique images placed strategically within content. Images s
    - Alt: "Closely inspecting LEGO minifigure for defects"
    - Search terms: "magnifying glass inspection", "quality control examination"
 
-3. **Before "Using FigTracker for Condition-Specific Pricing"**
+3. **Before "Using IntoBrick for Condition-Specific Pricing"**
    - Subject: Person using tool/app for assessment
    - Alt: "Using grading tools for LEGO condition assessment"
    - Search terms: "using mobile app", "digital tools smartphone"

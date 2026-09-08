@@ -655,7 +655,7 @@ const contentBlocksEN: ArticleBlock[] = [
     id: 'block-91',
     type: 'heading',
     level: 2,
-    text: 'Using FigTracker for Condition-Specific Pricing',
+    text: 'Using IntoBrick for Condition-Specific Pricing',
   },
   {
     id: 'block-92',
@@ -665,7 +665,7 @@ const contentBlocksEN: ArticleBlock[] = [
   {
     id: 'block-93',
     type: 'paragraph',
-    text: '[FigTracker](/search) pulls real-time Bricklink pricing data separated by condition (new vs used), so you can instantly see what your minifigs or sets are worth at their actual condition level.',
+    text: '[IntoBrick](/search) pulls real-time Bricklink pricing data separated by condition (new vs used), so you can instantly see what your minifigs or sets are worth at their actual condition level.',
   },
   {
     id: 'block-94',
@@ -752,7 +752,7 @@ const contentBlocksEN: ArticleBlock[] = [
   {
     id: 'block-108',
     type: 'paragraph',
-    text: 'Ready to price your accurately-graded collection? [Use FigTracker\'s instant pricing tool](/search) to get condition-specific Bricklink pricing in seconds.',
+    text: 'Ready to price your accurately-graded collection? [Use IntoBrick\'s instant pricing tool](/search) to get condition-specific Bricklink pricing in seconds.',
   },
 ];
 

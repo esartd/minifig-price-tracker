@@ -12,7 +12,7 @@
 export type CatalogItemType = 'minifig' | 'set';
 
 /**
- * The only condition FigTracker actually records. Every marketplace has its own
+ * The only condition IntoBrick actually records. Every marketplace has its own
  * richer vocabulary; adapters map outward from these two values.
  */
 export type SourceCondition = 'new' | 'used';

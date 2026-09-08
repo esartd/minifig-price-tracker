@@ -44,7 +44,7 @@ export async function generateMetadata({
 
   const displayName = user.leaderboardDisplayName || user.name || user.username || 'This collector';
   const title = `${displayName}'s LEGO Collection`;
-  const description = `See ${displayName}'s LEGO minifigure and set collection on FigTracker, with live suggested prices.`;
+  const description = `See ${displayName}'s LEGO minifigure and set collection on IntoBrick, with live suggested prices.`;
 
   return {
     title,

@@ -30,7 +30,7 @@ export async function downloadBricklinkCatalog(): Promise<DownloadResult> {
       console.log(`📥 Attempting download from custom URL: ${customUrl}`);
       const response = await fetch(customUrl, {
         headers: {
-          'User-Agent': 'FigTracker-CatalogSync/1.0'
+          'User-Agent': 'IntoBrick-CatalogSync/1.0'
         }
       });
 
@@ -62,7 +62,7 @@ export async function downloadBricklinkCatalog(): Promise<DownloadResult> {
       console.log(`📥 Trying: ${url}`);
       const response = await fetch(url, {
         headers: {
-          'User-Agent': 'FigTracker-CatalogSync/1.0',
+          'User-Agent': 'IntoBrick-CatalogSync/1.0',
           'Accept': 'text/plain, text/tab-separated-values, application/octet-stream',
         },
         redirect: 'follow'
@@ -90,7 +90,7 @@ export async function downloadBricklinkCatalog(): Promise<DownloadResult> {
     console.log('📥 Attempting to parse Bricklink download page...');
     const response = await fetch('https://www.bricklink.com/catalogDownload.asp', {
       headers: {
-        'User-Agent': 'FigTracker-CatalogSync/1.0'
+        'User-Agent': 'IntoBrick-CatalogSync/1.0'
       }
     });
 
@@ -122,7 +122,7 @@ export async function downloadBricklinkCatalog(): Promise<DownloadResult> {
           // Try to fetch it
           const fileResponse = await fetch(fileUrl, {
             headers: {
-              'User-Agent': 'FigTracker-CatalogSync/1.0'
+              'User-Agent': 'IntoBrick-CatalogSync/1.0'
             }
           });
 

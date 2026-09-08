@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Complete Italian Translation Script for FigTracker
+Complete Italian Translation Script for IntoBrick
 Translates all 1698 lines from en.json to it.json
 Uses formal Italian (Lei form)
 """
@@ -10,8 +10,8 @@ import re
 
 def translate_to_italian(text):
     """
-    Comprehensive translation mapping for FigTracker.
-    Preserves: LEGO®, BrickLink, FigTracker, URLs, variables {count}, {query}, etc.
+    Comprehensive translation mapping for IntoBrick.
+    Preserves: LEGO®, BrickLink, IntoBrick, URLs, variables {count}, {query}, etc.
     Uses formal Italian (Lei form).
     """
 
@@ -506,8 +506,8 @@ def translate_value(value):
 
 def main():
     """Main translation function."""
-    source_file = "/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json"
-    target_file = "/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/it.json"
+    source_file = "/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json"
+    target_file = "/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/it.json"
 
     print("Starting Italian translation...")
     print(f"Reading: {source_file}")

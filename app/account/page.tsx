@@ -474,7 +474,7 @@ export default function AccountPage() {
 
       const data: Record<string, any> = {
         exportedAt: new Date().toISOString(),
-        source: 'FigTracker',
+        source: 'IntoBrick',
       };
       sources.forEach((s, i) => {
         data[s.key] = payloads[i]?.data ?? [];

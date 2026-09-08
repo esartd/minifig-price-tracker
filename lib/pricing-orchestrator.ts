@@ -1,7 +1,7 @@
 /**
  * Pricing Orchestrator
  *
- * Single entry point for all pricing. Computes a unified "FigTracker Market Price"
+ * Single entry point for all pricing. Computes a unified "IntoBrick Market Price"
  * by blending BrickLink data (95%) and eBay listings (5%).
  *
  * Formula:

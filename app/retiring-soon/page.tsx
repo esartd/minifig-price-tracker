@@ -45,7 +45,7 @@ export async function generateMetadata({ searchParams }: { searchParams?: Promis
       title,
       description: t.retiringSoon?.metaDescription || 'Track LEGO sets retiring in 2026',
       url: `${domains[locale]}/retiring-soon`,
-      siteName: 'FigTracker',
+      siteName: 'IntoBrick',
       type: 'website',
       images: [{
         url: `${domains[locale]}/og-image.png`,

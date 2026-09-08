@@ -1,5 +1,5 @@
 /**
- * Turning FigTracker's suggested price into the number a marketplace wants.
+ * Turning IntoBrick's suggested price into the number a marketplace wants.
  */
 
 export type PriceRounding = 'exact' | 'whole' | 'ninetyNine';

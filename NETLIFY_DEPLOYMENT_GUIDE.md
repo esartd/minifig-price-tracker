@@ -1,4 +1,4 @@
-# Netlify Deployment Guide - FigTracker
+# Netlify Deployment Guide - IntoBrick
 
 ## Why Netlify Instead of Cloudflare?
 
@@ -71,7 +71,7 @@ NEXT_PUBLIC_BASE_URL = https://[your-netlify-url].netlify.app
 
 **Optional:**
 ```
-RESEND_API_KEY = re_eigXZP9i_Gmmjc7a3pb8qmvo9LncrjxzP
+RESEND_API_KEY = re_REDACTED_ROTATE_THIS_KEY
 AMAZON_ACCESS_KEY_ID = AKPA7WBUJF1778079109
 AMAZON_SECRET_ACCESS_KEY = cGQ0nW6NxdeaGUA6Sm0h1NfOYerZOj6th2Ow
 AMAZON_ASSOCIATE_TAG = ericksu0c-20

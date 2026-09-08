@@ -44,7 +44,7 @@ export default async function ListingGeneratorPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: lg.meta?.title || 'FigTracker Listing Generator',
+    name: lg.meta?.title || 'IntoBrick Listing Generator',
     applicationCategory: 'BusinessApplication',
     description: lg.meta?.description || 'Generate ready-to-post marketplace listings for LEGO minifigures and sets.',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },

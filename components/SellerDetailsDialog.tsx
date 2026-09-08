@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from './TranslationProvider';
 
 /**
- * Edits the per-item details a marketplace listing needs but FigTracker can't
+ * Edits the per-item details a marketplace listing needs but IntoBrick can't
  * work out on its own.
  *
  * None of these can be derived or fetched: completeness is a fact about the

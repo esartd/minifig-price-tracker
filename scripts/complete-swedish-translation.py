@@ -814,8 +814,8 @@ def main():
     import sys
 
     # Read English translation file
-    en_path = "/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json"
-    sv_path = "/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/sv.json"
+    en_path = "/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json"
+    sv_path = "/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/sv.json"
 
     print("Reading English translations...")
     with open(en_path, 'r', encoding='utf-8') as f:

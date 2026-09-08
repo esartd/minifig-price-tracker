@@ -2,7 +2,7 @@
 
 **Status**: ✅ COMPLIANT - Ready for public launch
 
-This document verifies FigTracker's compliance with [BrickLink API Terms of Use](https://www.bricklink.com/v3/api.page?page=terms).
+This document verifies IntoBrick's compliance with [BrickLink API Terms of Use](https://www.bricklink.com/v3/api.page?page=terms).
 
 ## Required Elements
 

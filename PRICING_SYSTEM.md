@@ -3,7 +3,7 @@
 **⚠️ CRITICAL SYSTEM — DO NOT MODIFY WITHOUT READING THIS ENTIRE DOCUMENT ⚠️**
 
 **Last Updated**: 2026-06-17
-**Status**: STABLE — unified FigTracker Market Price active
+**Status**: STABLE — unified IntoBrick Market Price active
 
 **🚨 VIOLATING BRICKLINK API RULES CAN GET US BANNED — TAKE THIS SERIOUSLY 🚨**
 
@@ -11,7 +11,7 @@
 
 ## Overview
 
-FigTracker computes a single **"FigTracker Market Price"** by blending BrickLink API data (95%) with
+IntoBrick computes a single **"IntoBrick Market Price"** by blending BrickLink API data (95%) with
 eBay active listing data (5%). The result is cached and served to all users — logged in or not.
 
 **No raw BrickLink or eBay data is ever displayed.** Users see only the computed blend. This is not
@@ -222,7 +222,7 @@ Used for: price trend charts, the background anchor refresh check.
 
 No 6 Mo Avg tile (eBay has no sold history; hiding it keeps the display honest).
 No eBay badge, no amber coloring, no BrickLink attribution per price. All prices are labeled
-"FigTracker Market Price" implicitly by the UI context.
+"IntoBrick Market Price" implicitly by the UI context.
 
 The footer trademark notice still includes:
 > "Market data sourced from multiple marketplaces including BrickLink. The term 'BrickLink' is a

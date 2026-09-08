@@ -18,7 +18,7 @@ import path from 'path';
 
 // Get catalog destination directory
 const getCatalogDir = () => {
-  const baseDir = '/Users/erickkosysu/Code Projects/FigTracker/Bricklink Catalog txt';
+  const baseDir = '/Users/erickkosysu/Code Projects/IntoBrick/Bricklink Catalog txt';
 
   // Use date from CLI argument or current date
   if (process.argv[2]) {

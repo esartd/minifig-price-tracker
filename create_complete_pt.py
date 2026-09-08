@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Complete Portuguese (Portugal) Translation Generator for FigTracker
+Complete Portuguese (Portugal) Translation Generator for IntoBrick
 This script creates a COMPLETE pt.json file with ALL sections translated,
 including the massive theme descriptions (179 themes with long descriptions).
 
@@ -14,12 +14,12 @@ import sys
 def main():
     """Main translation function"""
 
-    base_dir = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup'
+    base_dir = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup'
     en_file = os.path.join(base_dir, 'en.json')
     pt_file = os.path.join(base_dir, 'pt.json')
 
     print("=" * 70)
-    print("FigTracker Portuguese Translation Generator")
+    print("IntoBrick Portuguese Translation Generator")
     print("=" * 70)
     print(f"\nLoading English source: {en_file}")
 
@@ -92,7 +92,7 @@ def create_translation_data_file():
     print("Creating complete_pt_translations.py with ALL translations...")
 
     # Load en.json to extract all text
-    base_dir = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup'
+    base_dir = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup'
     with open(os.path.join(base_dir, 'en.json'), 'r', encoding='utf-8') as f:
         en_data = json.load(f)
 
@@ -115,7 +115,7 @@ def create_translation_data_file():
         f.write('#!/usr/bin/env python3\n')
         f.write('# -*- coding: utf-8 -*-\n')
         f.write('"""\n')
-        f.write('Complete Portuguese (Portugal) translations for FigTracker\n')
+        f.write('Complete Portuguese (Portugal) translations for IntoBrick\n')
         f.write('Auto-generated translation data\n')
         f.write('"""\n\n')
         f.write('def get_all_portuguese_translations():\n')
@@ -189,7 +189,7 @@ def translate_text(text, context=""):
         return text
 
     # Keep LEGO brands
-    if text in ['LEGO®', 'LEGO', 'BrickLink', 'FigTracker', 'Amazon', 'eBay']:
+    if text in ['LEGO®', 'LEGO', 'BrickLink', 'IntoBrick', 'Amazon', 'eBay']:
         return text
 
     # Keep URLs
@@ -281,7 +281,7 @@ def quick_translate_to_portuguese():
     This is the main entry point
     """
     import json
-    base = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup'
+    base = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup'
 
     with open(f'{base}/en.json', 'r', encoding='utf-8') as f:
         en = json.load(f)

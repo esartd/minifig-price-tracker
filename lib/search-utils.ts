@@ -1,5 +1,5 @@
 /**
- * Shared search utilities for FigTracker
+ * Shared search utilities for IntoBrick
  * Used across minifigs and sets search
  */
 

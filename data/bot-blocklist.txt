@@ -1,4 +1,4 @@
-# FigTracker Historical Bot Blocklist
+# IntoBrick Historical Bot Blocklist
 # Generated: 2026-06-09
 # Source: Server logs analysis (CAPTCHA failures, suspicious patterns)
 #

@@ -227,7 +227,7 @@ export const PriceAlertEmail = ({
 
             <div className="cta-section">
               <a href={itemUrl} className="cta-button">
-                View on FigTracker
+                View on IntoBrick
               </a>
             </div>
 
@@ -257,7 +257,7 @@ export const PriceAlertEmail = ({
               <a href={unsubscribeUrl}>Unsubscribe</a> from price alerts
             </p>
             <p style={{ margin: '8px 0', color: '#9ca3af' }}>
-              © {new Date().getFullYear()} FigTracker. All rights reserved.
+              © {new Date().getFullYear()} IntoBrick. All rights reserved.
             </p>
           </div>
         </div>

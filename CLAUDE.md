@@ -1,6 +1,41 @@
-# Claude Code Instructions for FigTracker
+# Claude Code Instructions for IntoBrick
 
 **READ THIS FIRST BEFORE ANY CODE CHANGES**
+
+## 🚨 REBRAND IN PROGRESS: FigTracker → IntoBrick 🚨
+
+The product was renamed to **IntoBrick** and will move to **intobrick.com**.
+The rename has shipped; the domain move has not.
+
+**The domain still lives on `figtracker.ericksu.com` and that is correct for
+now.** Do not "finish the job" by search-and-replacing the domain — the new
+host is not serving yet, and pointing canonicals at it would break SEO.
+
+- **One place owns the hostname:** `lib/site-domain.ts`. All ten locale origins
+  derive from a single string via `hostFor()` / `originFor()`. Nothing else may
+  hand-write a hostname. Thirty-three files used to; that is why the map is
+  centralised now.
+- **The cutover is an env change**, not a code change: set
+  `NEXT_PUBLIC_SITE_DOMAIN=intobrick.com`. See the migration plan for the full
+  sequence, including the permanent Cloudflare redirect from the old host.
+
+### Two lowercase strings that must NOT be renamed
+
+The rename only touched capitalised forms (`FigTracker`, `FIGTRACKER`). Two
+lowercase strings are functional and are deliberately untouched:
+
+- `figtracker-cron` in `middleware.ts` — the real user-agent the cron sends. It
+  can only change when the cron's own UA changes, or the cron gets rate-limited.
+- `figtracker.ericksu.com` — the live domain, per above.
+
+### The brand declines in some languages
+
+`FigTracker` appeared in six grammatical forms. Polish declines it and Swedish
+takes a genitive `-s`. When editing brand copy, note that a `-k` stem in Polish
+takes `-u` in the locative: **"w IntoBricku"**, not "IntoBrickze". Check the
+rendered page, not just the JSON.
+
+---
 
 ## ⏰ TIMEZONE: Always Use Mountain Time
 

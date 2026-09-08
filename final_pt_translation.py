@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Final Complete Portuguese Translation for FigTracker
+Final Complete Portuguese Translation for IntoBrick
 
 This script creates a COMPLETE pt.json by:
 1. Loading the complete en.json (1698 lines, 326KB)
@@ -17,7 +17,7 @@ import os
 import sys
 
 # Comprehensive Portuguese translations
-# This massive dictionary covers ALL FigTracker text
+# This massive dictionary covers ALL IntoBrick text
 PT_COMPLETE = {
     "common": {
         "search": "Pesquisar",
@@ -100,7 +100,7 @@ def auto_translate(text, context=""):
         return text
 
     # Keep brands and special values
-    keep_as_is = ['LEGO®', 'LEGO', 'BrickLink', 'FigTracker', 'Amazon', 'eBay', 'Netflix', 'Disney', 'Marvel', 'DC']
+    keep_as_is = ['LEGO®', 'LEGO', 'BrickLink', 'IntoBrick', 'Amazon', 'eBay', 'Netflix', 'Disney', 'Marvel', 'DC']
     if text in keep_as_is or text.startswith('http') or text.startswith('{'):
         return text
 
@@ -229,10 +229,10 @@ def translate_recursive(obj, context=""):
 def main():
     """Generate complete Portuguese translation"""
 
-    base = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup'
+    base = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup'
 
     print("\n" + "=" * 80)
-    print(" FigTracker: Complete Portuguese Translation Generator")
+    print(" IntoBrick: Complete Portuguese Translation Generator")
     print("=" * 80)
 
     # Load English source

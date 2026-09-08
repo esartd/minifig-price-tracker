@@ -28,7 +28,7 @@
 
 **Steps:**
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Select your FigTracker project
+2. Select your IntoBrick project
 3. Go to **APIs & Services → Credentials**
 4. Create **NEW** OAuth 2.0 Client ID for production (separate from development)
 
@@ -90,7 +90,7 @@ https://ja.figtracker.ericksu.com/api/auth/callback/google
 2. Verify these settings:
 
 **App Information:**
-- ✅ App name: FigTracker
+- ✅ App name: IntoBrick
 - ✅ User support email: Your email
 - ✅ App logo: (Optional but recommended)
 
@@ -218,7 +218,7 @@ if (typeof window !== 'undefined' && window.gtag) {
 
 The `AccountLinkedToast` component shows:
 - "Account Linked!" heading
-- "Your Google account is now connected to FigTracker."
+- "Your Google account is now connected to IntoBrick."
 - Auto-dismisses after 5 seconds
 - Green success styling
 
@@ -280,7 +280,7 @@ The `AccountLinkedToast` component shows:
 
 - **NextAuth Google Docs:** https://next-auth.js.org/providers/google
 - **Google OAuth Docs:** https://developers.google.com/identity/protocols/oauth2
-- **FigTracker Setup Guide:** See `GOOGLE_OAUTH_SETUP.md`
+- **IntoBrick Setup Guide:** See `GOOGLE_OAUTH_SETUP.md`
 
 ---
 

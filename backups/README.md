@@ -1,4 +1,4 @@
-# FigTracker Code Backups
+# IntoBrick Code Backups
 
 ## Purpose
 These are full backups of working code to ensure we always have a restore point.
@@ -36,14 +36,14 @@ If you need to restore from this backup:
 
 ```bash
 # 1. Rename current code (just in case)
-cd "/Users/erickkosysu/Code Projects/_Personal/FigTracker"
-mv FigTracker FigTracker-broken-$(date +%Y%m%d)
+cd "/Users/erickkosysu/Code Projects/_Personal/IntoBrick"
+mv IntoBrick IntoBrick-broken-$(date +%Y%m%d)
 
 # 2. Copy backup to main location
-cp -r backups/2026-06-02-working-code FigTracker
+cp -r backups/2026-06-02-working-code IntoBrick
 
 # 3. Reinstall dependencies
-cd FigTracker
+cd IntoBrick
 npm install
 
 # 4. Rebuild

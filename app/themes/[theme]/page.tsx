@@ -68,7 +68,7 @@ export async function generateMetadata({
     : '';
 
   // Title-case the slug for display: "star-wars" -> "Star Wars". No brand
-  // suffix here -- the root layout's title template appends "| FigTracker",
+  // suffix here -- the root layout's title template appends "| IntoBrick",
   // and baking it in as well is how these pages rendered it twice.
   const displayTheme = decodedTheme
     .split('-')
@@ -97,7 +97,7 @@ export async function generateMetadata({
       t.themeMeta?.keywordTrackLegoPrices || 'track LEGO prices'
     ],
     openGraph: {
-      title: interpolate(t.themeMeta?.ogTitleThemeSets || '{theme} LEGO Minifigures & Sets | FigTracker', { theme: decodedTheme }),
+      title: interpolate(t.themeMeta?.ogTitleThemeSets || '{theme} LEGO Minifigures & Sets | IntoBrick', { theme: decodedTheme }),
       description,
       url: `${domains[locale as keyof typeof domains]}/themes/${theme}`,
       locale: localeMap[locale as keyof typeof localeMap],

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate complete Polish translation for FigTracker
+Generate complete Polish translation for IntoBrick
 Translates all 1698 lines from en.json to pl.json
 """
 
@@ -299,7 +299,7 @@ POLISH_TRANSLATIONS = {
     "Resets quarterly": "Resetuje się co kwartał",
     "No supporter yet": "Jeszcze brak wspierających",
     "Be the First to Donate": "Bądź pierwszym, który przekaże darowiznę",
-    "Support FigTracker": "Wesprzyj FigTracker",
+    "Support IntoBrick": "Wesprzyj IntoBrick",
 
     # Common phrases
     "Free to use": "Darmowy w użyciu",
@@ -366,8 +366,8 @@ def translate_text(text):
             result = result.replace(eng, pol)
         return result
 
-    # Preserve LEGO®, BrickLink, FigTracker, brand names
-    if any(brand in text for brand in ['LEGO®', 'LEGO', 'BrickLink', 'FigTracker', 'Amazon', 'eBay', 'PayPal']):
+    # Preserve LEGO®, BrickLink, IntoBrick, brand names
+    if any(brand in text for brand in ['LEGO®', 'LEGO', 'BrickLink', 'IntoBrick', 'Amazon', 'eBay', 'PayPal']):
         result = text
         for eng, pol in POLISH_TRANSLATIONS.items():
             # Only replace whole words
@@ -439,7 +439,7 @@ def translate_meta_text(text):
 def main():
     print("Loading English translation file...")
 
-    with open('/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json', 'r', encoding='utf-8') as f:
+    with open('/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json', 'r', encoding='utf-8') as f:
         en_data = json.load(f)
 
     print(f"Loaded {len(json.dumps(en_data))} bytes of English data")
@@ -500,7 +500,7 @@ def main():
             pl_data[section].update(translations)
 
     # Write Polish translation
-    output_path = '/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/pl.json'
+    output_path = '/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/pl.json'
     print(f"Writing to {output_path}...")
 
     with open(output_path, 'w', encoding='utf-8') as f:

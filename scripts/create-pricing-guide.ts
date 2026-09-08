@@ -167,7 +167,7 @@ const contentBlocksEN: ArticleBlock[] = [
   {
     id: 'block-27',
     type: 'paragraph',
-    text: 'Every LEGO minifigure has a unique ID (e.g., "sw1219" for Mace Windu). You can find it on Bricklink by searching the set number or character name, or use FigTracker\'s search to identify it quickly.',
+    text: 'Every LEGO minifigure has a unique ID (e.g., "sw1219" for Mace Windu). You can find it on Bricklink by searching the set number or character name, or use IntoBrick\'s search to identify it quickly.',
   },
   {
     id: 'block-28',
@@ -194,7 +194,7 @@ const contentBlocksEN: ArticleBlock[] = [
     id: 'block-30a',
     type: 'callout',
     calloutType: 'info',
-    content: '**Time-saver:** This manual process takes 3-5 minutes per minifigure. [FigTracker](/search) does all this analysis instantly, pulling real-time Bricklink data and giving you a suggested price in seconds.',
+    content: '**Time-saver:** This manual process takes 3-5 minutes per minifigure. [IntoBrick](/search) does all this analysis instantly, pulling real-time Bricklink data and giving you a suggested price in seconds.',
   },
   {
     id: 'block-31',
@@ -401,7 +401,7 @@ const contentBlocksEN: ArticleBlock[] = [
     id: 'block-60',
     type: 'heading',
     level: 2,
-    text: 'How FigTracker Simplifies Pricing',
+    text: 'How IntoBrick Simplifies Pricing',
   },
   {
     id: 'block-61',
@@ -411,7 +411,7 @@ const contentBlocksEN: ArticleBlock[] = [
   {
     id: 'block-62',
     type: 'paragraph',
-    text: 'This is where **FigTracker** helps. We pull real-time Bricklink data and provide a single suggested price based on:',
+    text: 'This is where **IntoBrick** helps. We pull real-time Bricklink data and provide a single suggested price based on:',
   },
   {
     id: 'block-63',
@@ -433,7 +433,7 @@ const contentBlocksEN: ArticleBlock[] = [
     id: 'block-65',
     type: 'callout',
     calloutType: 'info',
-    content: '**Best workflow:** Use FigTracker for quick pricing on most minifigs. For high-value pieces ($50+), cross-check on Bricklink to verify recent sales and understand price trends.',
+    content: '**Best workflow:** Use IntoBrick for quick pricing on most minifigs. For high-value pieces ($50+), cross-check on Bricklink to verify recent sales and understand price trends.',
   },
   {
     id: 'block-66',
@@ -562,12 +562,12 @@ const contentBlocksEN: ArticleBlock[] = [
     id: 'block-81',
     type: 'heading',
     level: 3,
-    text: '"Can I trust FigTracker\'s prices?"',
+    text: '"Can I trust IntoBrick\'s prices?"',
   },
   {
     id: 'block-82',
     type: 'paragraph',
-    text: 'Yes. FigTracker pulls real-time data directly from Bricklink\'s API. Our suggested prices are calculated from the same sales data you\'d manually analyze on Bricklink—we just process it instantly.',
+    text: 'Yes. IntoBrick pulls real-time data directly from Bricklink\'s API. Our suggested prices are calculated from the same sales data you\'d manually analyze on Bricklink—we just process it instantly.',
   },
   {
     id: 'block-83',
@@ -583,12 +583,12 @@ const contentBlocksEN: ArticleBlock[] = [
   {
     id: 'block-85',
     type: 'paragraph',
-    text: 'Whether you price manually on Bricklink or use FigTracker\'s instant suggestions, the goal is the same: **fair market value that moves inventory while maximizing profit.**',
+    text: 'Whether you price manually on Bricklink or use IntoBrick\'s instant suggestions, the goal is the same: **fair market value that moves inventory while maximizing profit.**',
   },
   {
     id: 'block-86',
     type: 'paragraph',
-    text: '[Start pricing your collection on FigTracker](/search) — get instant Bricklink-based prices in seconds.',
+    text: '[Start pricing your collection on IntoBrick](/search) — get instant Bricklink-based prices in seconds.',
   },
 ];
 

@@ -1,4 +1,4 @@
-# Subdomain Setup Guide for FigTracker (10 Languages)
+# Subdomain Setup Guide for IntoBrick (10 Languages)
 
 Your site uses **subdomain-based i18n routing** where each language has its own subdomain:
 

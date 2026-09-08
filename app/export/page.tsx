@@ -50,7 +50,7 @@ export default async function ExportPage({
         operatingSystem: 'Web',
         url: `${baseUrl}/export`,
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-        provider: { '@type': 'Organization', name: 'FigTracker' },
+        provider: { '@type': 'Organization', name: 'IntoBrick' },
       }}
       copy={{
         title: e.hero?.title || 'List Your Collection Everywhere at Once',

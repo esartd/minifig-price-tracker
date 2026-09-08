@@ -1,7 +1,7 @@
 -- Seller fields needed by the marketplace bulk export.
 --
 -- `completeness` (sets only): BrickLink's mass upload requires SUBCONDITION on
---   every set — Complete / Incomplete / Sealed. FigTracker only recorded
+--   every set — Complete / Incomplete / Sealed. IntoBrick only recorded
 --   new/used, so there was nothing to map from. NULL means "not recorded yet"
 --   and is flagged in the export preview rather than guessed at.
 --

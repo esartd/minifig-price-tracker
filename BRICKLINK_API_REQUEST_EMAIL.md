@@ -1,17 +1,17 @@
 # Email to BrickLink API Support
 
 **To:** apisupport@bricklink.com  
-**Subject:** Request for Bulk Minifigure Catalog Access - FigTracker Inventory Tool
+**Subject:** Request for Bulk Minifigure Catalog Access - IntoBrick Inventory Tool
 
 ---
 
 Hi BrickLink API Team,
 
-I'm reaching out to request assistance with catalog access for **FigTracker** (https://figtracker.ericksu.com), a tool I've built to help LEGO minifigure resellers manage their inventory and pricing.
+I'm reaching out to request assistance with catalog access for **IntoBrick** (https://figtracker.ericksu.com), a tool I've built to help LEGO minifigure resellers manage their inventory and pricing.
 
-## About FigTracker
+## About IntoBrick
 
-FigTracker helps sellers:
+IntoBrick helps sellers:
 - Track minifigure inventory with quantities and conditions
 - See real-time BrickLink marketplace pricing (suggested price from current listings)
 - Generate platform-specific listings (Facebook, eBay, BrickLink formats)
@@ -64,7 +64,7 @@ I'd like to offer better search UX while maintaining full compliance. Would any 
 
 ## Why This Benefits BrickLink
 
-1. **Drives Traffic:** Users discover minifigs on FigTracker → visit BrickLink to buy/sell
+1. **Drives Traffic:** Users discover minifigs on IntoBrick → visit BrickLink to buy/sell
 2. **Helps Sellers:** Makes it easier for sellers to list on BrickLink marketplace
 3. **Responsible Usage:** I've proven compliance and responsible API usage
 4. **Ecosystem Value:** Tool serves the LEGO reseller community and promotes BrickLink as the pricing source
@@ -79,7 +79,7 @@ Best regards,
 
 **Erick Su**  
 **[Your Email]**  
-**FigTracker:** https://figtracker.ericksu.com  
+**IntoBrick:** https://figtracker.ericksu.com  
 **GitHub:** https://github.com/esartd/minifig-price-tracker
 
 ---

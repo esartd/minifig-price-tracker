@@ -146,7 +146,7 @@ async function main() {
       }
     },
     {
-      heading: 'How FigTracker Simplifies Pricing',
+      heading: 'How IntoBrick Simplifies Pricing',
       position: 'before',
       image: {
         id: `img-pricing-happy-${Date.now()}`,
@@ -244,7 +244,7 @@ async function main() {
       }
     },
     {
-      heading: 'Using FigTracker for Condition-Specific Pricing',
+      heading: 'Using IntoBrick for Condition-Specific Pricing',
       position: 'before',
       image: {
         id: `img-grading-mobile-${Date.now()}`,
@@ -253,7 +253,7 @@ async function main() {
           imageId: 'mobile-couch',
           imageUrl: `${baseUrl}/uploads/articles/mobile-couch-woman.jpg`,
           alt: 'Pricing LEGO by condition',
-          caption: 'Get instant condition-specific pricing with FigTracker',
+          caption: 'Get instant condition-specific pricing with IntoBrick',
         }],
         columns: 1,
       }

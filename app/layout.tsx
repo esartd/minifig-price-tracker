@@ -40,14 +40,14 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(domains[locale as keyof typeof domains]),
     title: {
-      default: t.metadata?.title || 'FigTracker - One Price for Any LEGO Minifigure or Set',
-      template: '%s | FigTracker'
+      default: t.metadata?.title || 'IntoBrick - One Price for Any LEGO Minifigure or Set',
+      template: '%s | IntoBrick'
     },
     description: t.metadata?.description || 'Price any LEGO minifigure or set in seconds. One suggested price from BrickLink and eBay data. Track your inventory free. 18,000+ minifigs, 20,000+ sets.',
     keywords: t.metadata?.keywords || ['LEGO minifigure prices', 'LEGO set prices', 'BrickLink price tracker', 'LEGO collection manager', 'minifig value tracker', 'LEGO seller tool', 'LEGO price guide', 'minifigure collection tracker', 'LEGO set tracker', 'LEGO inventory tracker', 'track LEGO prices', 'LEGO pricing tool', 'minifig suggested price'],
-    authors: [{ name: 'FigTracker', url: 'https://figtracker.ericksu.com' }],
-    creator: 'FigTracker',
-    publisher: 'FigTracker',
+    authors: [{ name: 'IntoBrick', url: 'https://figtracker.ericksu.com' }],
+    creator: 'IntoBrick',
+    publisher: 'IntoBrick',
     verification: {
       google: 'Q_SG-OFVZAL1wgpz58lt_DRWEOa0lSN_ISMhFg6TpuE',
     },
@@ -67,21 +67,21 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: localeMap[locale as keyof typeof localeMap],
       alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'nl_NL', 'pl_PL', 'pt_PT', 'sv_SE', 'ja_JP'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
       url: domains[locale as keyof typeof domains],
-      siteName: 'FigTracker',
-      title: t.metadata?.title || 'FigTracker - One Price for Any LEGO Minifigure or Set',
+      siteName: 'IntoBrick',
+      title: t.metadata?.title || 'IntoBrick - One Price for Any LEGO Minifigure or Set',
       description: t.metadata?.description || 'Price any LEGO minifigure or set in seconds. One suggested price from BrickLink and eBay data. Track your inventory free. 18,000+ minifigs, 20,000+ sets.',
       images: [
         {
           url: `/api/og?locale=${locale}`,
           width: 1200,
           height: 630,
-          alt: t.metadata?.ogImageAlt || 'FigTracker - LEGO Minifigure Price Tracker',
+          alt: t.metadata?.ogImageAlt || 'IntoBrick - LEGO Minifigure Price Tracker',
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: t.metadata?.title || 'FigTracker - One Price for Any LEGO Minifigure or Set',
+      title: t.metadata?.title || 'IntoBrick - One Price for Any LEGO Minifigure or Set',
       description: t.metadata?.twitterDescription || 'Price any LEGO minifigure or set in seconds. One suggested price from BrickLink and eBay data. Track your inventory free.',
       images: [`/api/og?locale=${locale}`],
     },
@@ -142,7 +142,7 @@ export default async function RootLayout({
   const webAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: 'FigTracker',
+    name: 'IntoBrick',
     description: translations.metadata?.webAppDescription || 'Price any LEGO minifigure or set in seconds. One suggested price, no mental math.',
     url: baseUrl,
     inLanguage: localeCodeMap[locale as keyof typeof localeCodeMap],
@@ -165,10 +165,10 @@ export default async function RootLayout({
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'FigTracker',
+    name: 'IntoBrick',
     url: 'https://figtracker.ericksu.com',
     logo: 'https://figtracker.ericksu.com/favicon.svg',
-    description: translations.metadata?.organizationDescription || 'FigTracker gives you one suggested price for any LEGO minifigure or set, so you can list faster and sell with confidence.',
+    description: translations.metadata?.organizationDescription || 'IntoBrick gives you one suggested price for any LEGO minifigure or set, so you can list faster and sell with confidence.',
     foundingDate: '2024',
     sameAs: [],
   };
@@ -177,7 +177,7 @@ export default async function RootLayout({
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'FigTracker',
+    name: 'IntoBrick',
     alternateName: translations.metadata?.siteAlternateName || 'LEGO Minifigure Price Tracker',
     url: baseUrl,
     inLanguage: localeCodeMap[locale as keyof typeof localeCodeMap],

@@ -186,8 +186,8 @@ def translate_json_value(value):
 
 def main():
     """Main translation."""
-    en_path = "/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/en.json"
-    sv_path = "/Users/erickkosysu/Code Projects/_Personal/FigTracker/translations-backup/sv.json"
+    en_path = "/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/en.json"
+    sv_path = "/Users/erickkosysu/Code Projects/_Personal/IntoBrick/translations-backup/sv.json"
 
     print("Loading English...")
     with open(en_path, encoding='utf-8') as f:

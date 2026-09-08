@@ -1,4 +1,4 @@
-# Cloudflare WAF Setup Guide for FigTracker
+# Cloudflare WAF Setup Guide for IntoBrick
 
 **Date:** June 9, 2026  
 **Purpose:** Block bot traffic at Cloudflare edge (before reaching server)

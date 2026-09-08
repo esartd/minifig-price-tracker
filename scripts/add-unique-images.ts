@@ -223,7 +223,7 @@ async function main() {
       }
     },
     {
-      heading: 'How FigTracker Simplifies Pricing',
+      heading: 'How IntoBrick Simplifies Pricing',
       position: 'before',
       image: {
         id: `img-pricing-smartphone-${Date.now()}`,
@@ -232,7 +232,7 @@ async function main() {
           imageId: 'person-using-smartphone',
           imageUrl: `${baseUrl}/uploads/articles/person-using-smartphone.jpg`,
           alt: 'Using mobile app for instant LEGO pricing',
-          caption: 'Get instant pricing with mobile-first tools like FigTracker',
+          caption: 'Get instant pricing with mobile-first tools like IntoBrick',
         }],
         columns: 1,
       }
@@ -321,7 +321,7 @@ async function main() {
       }
     },
     {
-      heading: 'Using FigTracker for Condition-Specific Pricing',
+      heading: 'Using IntoBrick for Condition-Specific Pricing',
       position: 'before',
       image: {
         id: `img-grading-android-${Date.now()}`,
@@ -330,7 +330,7 @@ async function main() {
           imageId: 'android-smartphone-hand',
           imageUrl: `${baseUrl}/uploads/articles/android-smartphone-hand.jpg`,
           alt: 'Using smartphone app for condition-based pricing',
-          caption: 'Get instant condition-specific pricing with FigTracker',
+          caption: 'Get instant condition-specific pricing with IntoBrick',
         }],
         columns: 1,
       }

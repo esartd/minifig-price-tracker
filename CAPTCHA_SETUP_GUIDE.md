@@ -54,7 +54,7 @@ Following industry best practices for CAPTCHA UX:
 1. Go to: https://dash.cloudflare.com/turnstile
 2. Log in with your Cloudflare account (same one managing figtracker.ericksu.com DNS)
 3. Click **"Add Site"**
-4. **Site Name:** FigTracker Bot Protection
+4. **Site Name:** IntoBrick Bot Protection
 5. **Domain:** `figtracker.ericksu.com`
 6. **Widget Mode:** Managed (Recommended)
 7. Click **Create**

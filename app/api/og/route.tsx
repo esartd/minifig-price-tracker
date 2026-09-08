@@ -38,7 +38,7 @@ export async function GET(request: Request) {
             marginBottom: 20,
           }}
         >
-          FigTracker
+          IntoBrick
         </div>
 
         {/* Subtitle */}

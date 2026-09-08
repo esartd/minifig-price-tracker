@@ -15,10 +15,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const domains = DOMAINS;
 
   return {
-    title: `${t.privacyPolicy.meta.title} - FigTracker`,
+    title: `${t.privacyPolicy.meta.title} - IntoBrick`,
     description: t.privacyPolicy.meta.description,
     openGraph: {
-      title: `${t.privacyPolicy.meta.title} - FigTracker`,
+      title: `${t.privacyPolicy.meta.title} - IntoBrick`,
       description: t.privacyPolicy.meta.ogDescription,
       url: `${domains[locale as keyof typeof domains]}/privacy`,
     },
