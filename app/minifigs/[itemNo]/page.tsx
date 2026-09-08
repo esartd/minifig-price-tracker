@@ -64,11 +64,19 @@ export async function generateMetadata({
   const { prisma } = await import('@/lib/prisma');
   const minifigDescription = await prisma.minifigCatalog.findUnique({
     where: { minifigure_no: itemNo },
+    // All ten. Selecting only four is what made the other six fall through to
+    // the English `|| description_en` below on every page.
     select: {
       description_en: true,
       description_de: true,
       description_fr: true,
       description_es: true,
+      description_it: true,
+      description_ja: true,
+      description_nl: true,
+      description_pl: true,
+      description_pt: true,
+      description_sv: true,
     }
   });
 
@@ -168,11 +176,19 @@ export default async function MinifigPage({
 
   const minifigDescription = await prisma.minifigCatalog.findUnique({
     where: { minifigure_no: itemNo },
+    // All ten. Selecting only four is what made the other six fall through to
+    // the English `|| description_en` below on every page.
     select: {
       description_en: true,
       description_de: true,
       description_fr: true,
       description_es: true,
+      description_it: true,
+      description_ja: true,
+      description_nl: true,
+      description_pl: true,
+      description_pt: true,
+      description_sv: true,
     }
   });
 

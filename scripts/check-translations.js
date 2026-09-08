@@ -65,8 +65,26 @@ const ENGLISH_ONLY = /\b(the|your|you|with|when|which|these|their|through|about|
 /** Official names that contain English articles and must not trip the check. */
 const PROPER_NOUNS = /(May the 4th|Star Wars|The Lord of the Rings|The Hobbit|The LEGO Movie|The Simpsons|The Batman|The Lone Ranger|Back to the Future|Pirates of the Caribbean|The Mandalorian|Sonic the Hedgehog|The Next Generation|The Last Airbender|The Way of Water|and the Wasp|The Rise Of Gru|The Legend of Zelda|Winnie the Pooh|Toy Story|Day of the|March of the|Master of the|Rise of the|Secrets of the|The Battle of|Top Supporters|My Store|Upload Inventory)/gi;
 
-/** Sections whose keys are not rendered anywhere; noise if reported. */
-const IGNORED_SECTIONS = /^(themeDescriptions|themes\.descriptions|guideArticles)\./;
+/**
+ * Sections this checker skips.
+ *
+ * There used to be three here, described as "keys that are not rendered
+ * anywhere", and all three claims were false:
+ *
+ *   themeDescriptions   rendered by components/ThemeDescription.tsx on every
+ *                       /themes/<x> and /sets-themes/<x> page
+ *   guideArticles       read by app/articles/[slug]/page.tsx
+ *   themes.descriptions genuinely dead -- and now deleted rather than skipped,
+ *                       along with 1,961 duplicate strings
+ *
+ * That exemption is the whole reason 605 mangled strings sat in the live
+ * theme descriptions without this tool ever mentioning them: it had been told
+ * not to look. A checker with a silent blind spot over real content is worse
+ * than no checker, because it reports "No problems found" either way.
+ *
+ * Empty on purpose. Anything added back needs proof it renders nowhere.
+ */
+const IGNORED_SECTIONS = /^$/;
 
 function flatten(value, prefix = '') {
   const out = {};
