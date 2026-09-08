@@ -3032,13 +3032,11 @@
       "subtitle": "Cerca su Whatnot qualsiasi minifigura o set.",
       "cta": "Cerca su Whatnot"
     },
-    "identify": {
-      "title": "Riconosci una minifigura da una foto",
-      "subtitle": "Ti diciamo che cos'è e quanto vale.",
-      "hint": "Entra una foto, esce una minifigura",
-      "note": "Incluso in Premium · scansioni illimitate",
-      "cta": "Prova il riconoscimento",
-      "badge": "Identificata"
+    "collection": {
+      "title": "Scopri quanto vale la tua collezione",
+      "subtitle": "Aggiungi minifigure e set una volta e teniamo il totale aggiornato.",
+      "note": "Funziona prima ancora di registrarti: lo teniamo su questo dispositivo.",
+      "cta": "Inizia una collezione"
     }
   },
   "setsThemeMeta": {
@@ -3067,16 +3065,16 @@
       "body": "Scegli una minifigure e ottieni un annuncio pronto per eBay, Facebook, BrickLink o Vinted, scritto come si aspetta ogni piattaforma.",
       "cta": "Apri il generatore di annunci"
     },
-    "collection": {
-      "title": "Scopri quanto vale la tua collezione",
-      "body": "Aggiungi le tue minifigure e i tuoi set una volta sola: teniamo il totale aggiornato, così sai sempre come stai senza cercare nulla.",
-      "note": "Imposta un avviso di prezzo su qualsiasi articolo e ti avvertiremo quando cambia.",
-      "cta": "Crea una collezione"
-    },
     "deals": {
       "title": "Prendi i set prima che escano di produzione",
       "body": "Calcoliamo quali set sono più vicini al ritiro, in base all'età e all'andamento del prezzo.",
       "cta": "Vedi quali stanno per uscire"
+    },
+    "identify": {
+      "title": "Riconosci una minifigure da una foto",
+      "body": "Inquadra una minifigure e ti diciamo qual è e quanto vale.",
+      "note": "Incluso con Premium · scansioni illimitate",
+      "cta": "Scopri come funziona"
     }
   },
   "navPrimary": {

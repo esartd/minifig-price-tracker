@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import {
+  CameraIcon,
   DocumentTextIcon,
-  RectangleStackIcon,
   TagIcon,
 } from '@heroicons/react/24/outline';
 import { useTranslation } from './TranslationProvider';
@@ -11,16 +11,24 @@ import { useTranslation } from './TranslationProvider';
 /**
  * The three things the homepage was not promoting.
  *
- * HomeFeatureDashboard already covers the guest sell list, Whatnot search and
- * the photo identifier -- all of which work without an account, which is why
- * it sits above this under the "try it now" heading. What it left out was
- * everything a returning seller actually comes back for. This fills that in
- * without repeating any card that already exists up there.
+ * HomeFeatureDashboard covers the guest sell list and Whatnot search -- both
+ * genuinely work with no account, which is why that group sits above this one
+ * under the "try it now" heading. What it left out was everything a returning
+ * seller actually comes back for. This fills that in without repeating any
+ * card that already exists up there.
  *
- * Price alerts deliberately do NOT get their own card. They are a feature of
- * tracking a collection rather than a separate reason to visit, so they read
- * as a supporting line on the collection card. A fourth equal-weight tile
- * would have meant four things competing and none standing out.
+ * The photo identifier lives HERE, not up there. It was in the "no account
+ * needed" group with a comment claiming it "has a free tier" -- it does not:
+ * app/api/scan/identify returns PREMIUM_REQUIRED to anyone without a
+ * subscription. Inviting a stranger to "try the identifier" under a heading
+ * that promises no account is a paywall with extra steps, and the fact that
+ * the card also carried a Premium tag does not undo the heading above it.
+ *
+ * The collection card moved UP into HomeFeatureDashboard, swapping places
+ * with the identifier. A guest collection is held in localStorage
+ * (lib/guestCollectionStorage.ts) and carries through to the export tool, so
+ * it belongs under "no account needed" far better than a Premium-gated
+ * feature did.
  */
 
 const CARD = {
@@ -91,23 +99,21 @@ export default function HomeMoreFeatures() {
       cta: t('homeMore.listing.cta') || 'Open the listing generator',
     },
     {
-      href: '/collection',
-      icon: RectangleStackIcon,
-      tint: '#ecfdf5',
-      iconColor: '#059669',
-      // Deliberately not "price everything at once". That framing put this
-      // card next to the dashboard's "Sell 20 figures without typing 20
-      // listings" and both read as the same bulk promise. This one is about
-      // knowing what things are worth over time; that one is about shifting
-      // stock. Keep the two distinct.
-      title: t('homeMore.collection.title') || 'Know what your collection is worth',
+      // Premium, and labelled as such. The CTA says "see how it works" rather
+      // than "try it": /identify shows the widget to subscribers and the
+      // upgrade teaser to everyone else, so promising a try would be a promise
+      // the page cannot keep for most of the people who read it.
+      href: '/identify',
+      icon: CameraIcon,
+      tint: '#f4f1fb',
+      iconColor: '#7c3aed',
+      premium: true,
+      title: t('homeMore.identify.title') || 'Name any minifigure from a photo',
       body:
-        t('homeMore.collection.body') ||
-        'Add your minifigures and sets once and we keep a running total, so you always know where you stand without looking anything up.',
-      note:
-        t('homeMore.collection.note') ||
-        'Set a price alert on any item and we will tell you when it moves.',
-      cta: t('homeMore.collection.cta') || 'Start a collection',
+        t('homeMore.identify.body') ||
+        'Point your camera at a minifigure and we tell you which one it is and what it is worth.',
+      note: t('homeMore.identify.note') || 'Included with Premium · unlimited scans',
+      cta: t('homeMore.identify.cta') || 'See how it works',
     },
     {
       // /retiring-soon, not /deals -- app/deals has no page.tsx, only a
@@ -147,7 +153,7 @@ export default function HomeMoreFeatures() {
             gap: '14px',
           }}
         >
-          {cards.map(({ href, icon: Icon, tint, iconColor, title, body, note, cta }) => (
+          {cards.map(({ href, icon: Icon, tint, iconColor, premium, title, body, note, cta }) => (
             <Link
               key={href}
               href={href}
@@ -163,11 +169,29 @@ export default function HomeMoreFeatures() {
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
-              <span style={{ ...ICON_WRAP, background: tint }}>
-                <Icon
-                  aria-hidden="true"
-                  style={{ width: 'var(--icon-base)', height: 'var(--icon-base)', color: iconColor }}
-                />
+              <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{ ...ICON_WRAP, background: tint }}>
+                  <Icon
+                    aria-hidden="true"
+                    style={{ width: 'var(--icon-base)', height: 'var(--icon-base)', color: iconColor }}
+                  />
+                </span>
+                {premium && (
+                  <span
+                    style={{
+                      padding: '3px 10px',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      letterSpacing: '0.04em',
+                      textTransform: 'uppercase',
+                      color: '#92400e',
+                      background: '#fef3c7',
+                      borderRadius: '999px',
+                    }}
+                  >
+                    {t('homeDash.premium') || 'Premium'}
+                  </span>
+                )}
               </span>
               <p style={TITLE}>{title}</p>
               <p style={BODY}>{body}</p>

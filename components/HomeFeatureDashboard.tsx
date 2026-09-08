@@ -22,11 +22,11 @@ import { getGuestCollection } from '@/lib/guestCollectionStorage';
  * already does that, and a second search box would just be the same control
  * twice.
  *
- * Two cards work in place and cost nothing to run. The third points at
- * Premium: the identifier calls a paid vision API, and app/api/scan/identify
- * already requires a subscription, and the daily ceiling behind it is an
- * abuse guard set far above real use rather than a product limit. Letting
- * anyone try it from the homepage would be handing out someone else's money.
+ * All three cards work in place, signed out, and cost nothing to run. That is
+ * the entry condition for this group, not a nice-to-have: the heading says no
+ * account is needed, so a card that needs one cannot go here. The photo
+ * identifier is Premium-only and lives in HomeMoreFeatures for exactly that
+ * reason; the collection card took its place.
  *
  * Everything real: real prices, a real guest collection that persists to the
  * export tool, real affiliate links. Nothing here is a mock-up of the product.
@@ -199,6 +199,120 @@ function ListPreview({ items }: { items: MarketplaceCard[] }) {
           </span>
         </div>
       ))}
+    </div>
+  );
+}
+
+
+/**
+ * A miniature of the collection page's running total.
+ *
+ * Deliberately NOT ListPreview, which the sell-list card uses. Both cards are
+ * about "your items", so sharing one mock-up made them read as the same
+ * feature twice -- the same three rows, the same tint, two different headings.
+ * The collection page's actual subject is the total across everything you own,
+ * so that is what this shows: the stat row from app/collection/page.tsx, with
+ * a couple of rows beneath to say what is being counted.
+ *
+ * The figures are summed from the same real prices the other cards use, so the
+ * number is arithmetic on live data rather than a designed-in placeholder.
+ */
+function CollectionPreview({ items, labels }: {
+  items: MarketplaceCard[];
+  labels: { total: string; count: string; avg: string };
+}) {
+  const priced = items.filter((i) => i.priceUsd != null);
+  const total = priced.reduce((sum, i) => sum + (i.priceUsd ?? 0), 0);
+  const avg = priced.length ? total / priced.length : 0;
+  const rows = items.slice(0, 2);
+
+  // With no priced items this used to render "TOTAL VALUE $0.00", which reads
+  // as "your collection is worth nothing" rather than "we have not priced
+  // anything yet". /api/marketplace returns priceUsd: null whenever the price
+  // cache is cold or the BrickLink budget is spent, so this is a state the
+  // homepage really can hit. An em dash says "no figure" without asserting a
+  // figure.
+  const money = (n: number) => (priced.length ? `$${n.toFixed(2)}` : '—');
+
+  const STAT_LABEL = {
+    margin: 0,
+    fontSize: '8px',
+    fontWeight: 600,
+    letterSpacing: '0.05em',
+    textTransform: 'uppercase' as const,
+    color: '#737373',
+  };
+
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: '22px',
+        right: '22px',
+        top: '42px',
+        bottom: 0,
+        background: '#ffffff',
+        border: '1px solid #e5e5e5',
+        borderBottom: 'none',
+        borderRadius: '7px 7px 0 0',
+        padding: '10px 12px 0',
+        boxShadow: '0 1px 6px rgba(0,0,0,0.05)',
+      }}
+    >
+      <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-end' }}>
+        <div style={{ flex: '1 1 auto' }}>
+          <p style={STAT_LABEL}>{labels.total}</p>
+          <p style={{ margin: '1px 0 0', fontSize: '20px', fontWeight: 700, color: '#171717', lineHeight: 1.1 }}>
+            {money(total)}
+          </p>
+        </div>
+        <div style={{ textAlign: 'right' }}>
+          <p style={STAT_LABEL}>{labels.count}</p>
+          <p style={{ margin: '1px 0 0', fontSize: '12px', fontWeight: 700, color: '#171717' }}>
+            {priced.length || '—'}
+          </p>
+        </div>
+        <div style={{ textAlign: 'right' }}>
+          <p style={STAT_LABEL}>{labels.avg}</p>
+          <p style={{ margin: '1px 0 0', fontSize: '12px', fontWeight: 700, color: '#171717' }}>
+            {money(avg)}
+          </p>
+        </div>
+      </div>
+
+      <div style={{ marginTop: '8px', borderTop: '1px solid #f5f5f5', paddingTop: '6px' }}>
+        {rows.map((item, i) => (
+          <div
+            key={item?.itemNo ?? i}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '7px',
+              padding: '3px 0',
+              fontSize: '10px',
+              color: '#525252',
+            }}
+          >
+            {item?.imageUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={item.imageUrl}
+                alt=""
+                loading="lazy"
+                style={{ width: '15px', height: '17px', objectFit: 'contain', flexShrink: 0 }}
+              />
+            ) : (
+              <span style={{ width: '15px', height: '17px', background: '#eee', borderRadius: '2px', flexShrink: 0 }} />
+            )}
+            <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {item?.name ?? '\u00a0'}
+            </span>
+            <span style={{ fontWeight: 600, color: '#171717', flexShrink: 0 }}>
+              {item?.priceUsd != null ? `$${item.priceUsd.toFixed(2)}` : ''}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -414,10 +528,16 @@ export default function HomeFeatureDashboard() {
   return (
     <section style={{ padding: '8px 20px 56px', background: '#ffffff' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        {/* All three cards below work signed out -- the sell list is kept in
-            guest storage, Whatnot search is a deep link, and the identifier
-            has a free tier. That is worth saying out loud: it is the reason
-            this group leads and the account-shaped features come after it. */}
+        {/* All three cards below genuinely work signed out: the sell list and
+            the collection are both held in guest storage, and Whatnot search
+            is a deep link. That is the whole basis for the heading, so nothing
+            may be added here that needs an account.
+
+            The photo identifier used to be a third card, under a comment
+            claiming it "has a free tier". It does not -- app/api/scan/identify
+            returns PREMIUM_REQUIRED without a subscription -- so it now lives
+            in HomeMoreFeatures. A Premium tag on the card does not license a
+            heading that promises no account is needed. */}
         <h2
           style={{
             margin: '0 0 20px',
@@ -490,34 +610,43 @@ export default function HomeFeatureDashboard() {
           </div>
         </div>
 
-        {/* 3 — identify (Premium) -------------------------------------------- */}
+        {/* 3 — build a collection --------------------------------------------
+            Swapped in where the Premium identifier used to be. This one
+            actually meets the heading's promise: a guest collection lives in
+            localStorage via lib/guestCollectionStorage.ts and carries through
+            to the export tool, so a stranger can build one and get something
+            out of it before deciding whether to sign up. */}
         <div style={CARD}>
-          <div style={{ ...HERO, background: '#f4f1fb', overflow: 'hidden' }}>
-            <span style={{ ...TAG, background: '#fef3c7', color: '#92400e', zIndex: 1 }}>
-              {t('homeDash.premium') || 'Premium'}
-            </span>
-            <IdentifyPreview
-              item={popular[5] ?? popular[0] ?? null}
-              label={t('homeDash.identify.badge') || 'Identified'}
+          {/* Indigo, not another green. The sell-list card is #edf6f1 and this
+              was #ecfdf5 -- two tints four hex digits apart, side by side, on
+              the two cards that already shared a mock-up. */}
+          <div style={{ ...HERO, background: '#eef2ff', overflow: 'hidden' }}>
+            <span style={{ ...TAG, zIndex: 1 }}>{t('homeDash.free') || 'Free'}</span>
+            <CollectionPreview
+              items={popular.slice(5, 8)}
+              labels={{
+                total: t('collection.totalValue') || 'Total Value',
+                count: t('collection.totalItems') || 'Total Items',
+                avg: t('collection.avgValue') || 'Avg Value',
+              }}
             />
           </div>
           <div style={BODY}>
-            <p style={TITLE}>{t('homeDash.identify.title') || 'Name any minifigure from a photo'}</p>
+            <p style={TITLE}>
+              {t('homeDash.collection.title') || 'Know what your collection is worth'}
+            </p>
             <p style={SUB}>
-              {t('homeDash.identify.subtitle') ||
-                'We tell you what it is and what it\'s worth.'}
+              {t('homeDash.collection.subtitle') ||
+                'Add your minifigures and sets once and we keep a running total.'}
             </p>
 
             <div style={{ marginTop: 'auto' }}>
               <p style={{ fontSize: '12px', color: '#737373', margin: '0 0 10px' }}>
-                {t('homeDash.identify.note') || 'Included with Premium · unlimited scans'}
+                {t('homeDash.collection.note') ||
+                  'Starts working before you sign up — we keep it on this device.'}
               </p>
-              {/* /identify, not /premium: the label promises the tool, so it has to
-                  land on the tool. That page shows the widget to subscribers and
-                  the upgrade teaser to everyone else, so the paywall still does
-                  its job without the button lying about where it goes. */}
-              <Link href="/identify" style={GHOST}>
-                {t('homeDash.identify.cta') || 'Try the identifier'}
+              <Link href="/collection" style={GHOST}>
+                {t('homeDash.collection.cta') || 'Start a collection'}
                 <ArrowRightIcon style={{ width: '14px', height: '14px' }} />
               </Link>
             </div>

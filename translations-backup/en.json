@@ -3031,13 +3031,11 @@
       "subtitle": "Search Whatnot for any minifigure or set.",
       "cta": "Search Whatnot"
     },
-    "identify": {
-      "title": "Name any minifigure from a photo",
-      "subtitle": "We tell you what it is and what it's worth.",
-      "hint": "Photo in, minifigure out",
-      "note": "Included with Premium · unlimited scans",
-      "cta": "Try the identifier",
-      "badge": "Identified"
+    "collection": {
+      "title": "Know what your collection is worth",
+      "subtitle": "Add your minifigures and sets once and we keep a running total.",
+      "note": "Starts working before you sign up — we keep it on this device.",
+      "cta": "Start a collection"
     }
   },
   "setsThemeMeta": {
@@ -3066,16 +3064,16 @@
       "body": "Pick a minifigure and get a finished listing for eBay, Facebook, BrickLink or Vinted — each one written the way that platform expects.",
       "cta": "Open the listing generator"
     },
-    "collection": {
-      "title": "Know what your collection is worth",
-      "body": "Add your minifigures and sets once and we keep a running total, so you always know where you stand without looking anything up.",
-      "note": "Set a price alert on any item and we will tell you when it moves.",
-      "cta": "Start a collection"
-    },
     "deals": {
       "title": "Catch sets before they retire",
       "body": "We work out which sets are closest to leaving production, from their age and how their price has been moving.",
       "cta": "See what is retiring"
+    },
+    "identify": {
+      "title": "Name any minifigure from a photo",
+      "body": "Point your camera at a minifigure and we tell you which one it is and what it is worth.",
+      "note": "Included with Premium · unlimited scans",
+      "cta": "See how it works"
     }
   },
   "navPrimary": {

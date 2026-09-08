@@ -3032,13 +3032,11 @@
       "subtitle": "Sök på Whatnot efter vilken minifigur eller vilket set som helst.",
       "cta": "Sök på Whatnot"
     },
-    "identify": {
-      "title": "Känn igen en minifigur från ett foto",
-      "subtitle": "Vi berättar vad det är och vad det är värt.",
-      "hint": "Foto in, minifigur ut",
-      "note": "Ingår i Premium · obegränsat antal skanningar",
-      "cta": "Prova identifieringen",
-      "badge": "Identifierad"
+    "collection": {
+      "title": "Se vad din samling är värd",
+      "subtitle": "Lägg till dina minifigurer och set en gång, så håller vi summan uppdaterad.",
+      "note": "Fungerar redan innan du skapar konto — vi sparar det på den här enheten.",
+      "cta": "Starta en samling"
     }
   },
   "setsThemeMeta": {
@@ -3067,16 +3065,16 @@
       "body": "Välj en minifigur och få en färdig annons för eBay, Facebook, BrickLink eller Vinted — var och en skriven som plattformen förväntar sig.",
       "cta": "Öppna annonsgeneratorn"
     },
-    "collection": {
-      "title": "Vet vad din samling är värd",
-      "body": "Lägg in dina minifigurer och set en gång, vi håller summan uppdaterad — du vet alltid var du står utan att slå upp något.",
-      "note": "Sätt en prisbevakning på valfri vara så hör vi av oss när priset ändras.",
-      "cta": "Skapa en samling"
-    },
     "deals": {
       "title": "Hinn före set som utgår",
       "body": "Vi räknar ut vilka set som är närmast slutet av produktionen, utifrån ålder och hur priset har rört sig.",
       "cta": "Se vad som utgår"
+    },
+    "identify": {
+      "title": "Känn igen vilken minifigur som helst från ett foto",
+      "body": "Rikta kameran mot en minifigur så säger vi vilken det är och vad den är värd.",
+      "note": "Ingår i Premium · obegränsat med skanningar",
+      "cta": "Se hur det fungerar"
     }
   },
   "navPrimary": {

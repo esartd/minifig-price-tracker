@@ -3032,13 +3032,11 @@
       "subtitle": "Durchsuchen Sie Whatnot nach jeder Minifigur und jedem Set.",
       "cta": "Whatnot durchsuchen"
     },
-    "identify": {
-      "title": "Jede Minifigur per Foto bestimmen",
-      "subtitle": "Wir sagen Ihnen, was es ist und was es wert ist.",
-      "hint": "Foto rein, Minifigur raus",
-      "note": "In Premium enthalten · unbegrenzte Scans",
-      "cta": "Erkennung testen",
-      "badge": "Erkannt"
+    "collection": {
+      "title": "Wisse, was deine Sammlung wert ist",
+      "subtitle": "Füge deine Minifiguren und Sets einmal hinzu, wir führen die Summe mit.",
+      "note": "Funktioniert schon vor der Anmeldung — wir speichern es auf diesem Gerät.",
+      "cta": "Sammlung starten"
     }
   },
   "setsThemeMeta": {
@@ -3067,16 +3065,16 @@
       "body": "Wähle eine Minifigur und erhalte ein fertiges Angebot für eBay, Facebook, BrickLink oder Vinted – jeweils so formuliert, wie es die Plattform erwartet.",
       "cta": "Angebotsgenerator öffnen"
     },
-    "collection": {
-      "title": "Wisse, was deine Sammlung wert ist",
-      "body": "Trage deine Minifiguren und Sets einmal ein, wir führen die Summe laufend mit — du weißt jederzeit, wo du stehst, ohne nachzuschlagen.",
-      "note": "Lege für jeden Artikel einen Preisalarm fest und wir melden uns, sobald sich etwas ändert.",
-      "cta": "Sammlung anlegen"
-    },
     "deals": {
       "title": "Sets erwischen, bevor sie auslaufen",
       "body": "Wir ermitteln aus Alter und Preisentwicklung, welche Sets der Einstellung am nächsten sind.",
       "cta": "Auslaufende Sets ansehen"
+    },
+    "identify": {
+      "title": "Jede Minifigur per Foto bestimmen",
+      "body": "Richte die Kamera auf eine Minifigur und wir sagen dir, welche es ist und was sie wert ist.",
+      "note": "In Premium enthalten · unbegrenzte Scans",
+      "cta": "So funktioniert es"
     }
   },
   "navPrimary": {

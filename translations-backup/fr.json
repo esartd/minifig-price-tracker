@@ -3032,13 +3032,11 @@
       "subtitle": "Cherchez sur Whatnot n'importe quelle minifigurine ou n'importe quel set.",
       "cta": "Rechercher sur Whatnot"
     },
-    "identify": {
-      "title": "Identifier une minifigurine par photo",
-      "subtitle": "Nous vous disons ce que c'est et ce que ça vaut.",
-      "hint": "Une photo, une minifigurine",
-      "note": "Inclus avec Premium · analyses illimitées",
-      "cta": "Essayer l'identification",
-      "badge": "Identifiée"
+    "collection": {
+      "title": "Sachez ce que vaut votre collection",
+      "subtitle": "Ajoutez vos minifigurines et sets une fois, nous tenons le total à jour.",
+      "note": "Fonctionne avant même de créer un compte — conservé sur cet appareil.",
+      "cta": "Commencer une collection"
     }
   },
   "setsThemeMeta": {
@@ -3067,16 +3065,16 @@
       "body": "Choisissez une minifigurine et obtenez une annonce prête pour eBay, Facebook, BrickLink ou Vinted, rédigée comme chaque plateforme l'attend.",
       "cta": "Ouvrir le générateur d'annonces"
     },
-    "collection": {
-      "title": "Sachez ce que vaut votre collection",
-      "body": "Ajoutez vos minifigurines et sets une seule fois : nous tenons le total à jour, vous savez donc toujours où vous en êtes sans rien chercher.",
-      "note": "Définissez une alerte de prix sur n'importe quel article et nous vous préviendrons dès qu'il bouge.",
-      "cta": "Créer une collection"
-    },
     "deals": {
       "title": "Attrapez les sets avant leur retrait",
       "body": "Nous déterminons quels sets sont les plus proches de la fin de production, d'après leur âge et l'évolution de leur prix.",
       "cta": "Voir les sets bientôt retirés"
+    },
+    "identify": {
+      "title": "Identifier une minifigurine à partir d’une photo",
+      "body": "Pointez l’appareil photo vers une minifigurine et nous vous disons laquelle c’est et ce qu’elle vaut.",
+      "note": "Inclus avec Premium · scans illimités",
+      "cta": "Voir comment ça marche"
     }
   },
   "navPrimary": {

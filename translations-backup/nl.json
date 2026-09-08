@@ -3032,13 +3032,11 @@
       "subtitle": "Zoek op Whatnot naar elke minifiguur of set.",
       "cta": "Zoek op Whatnot"
     },
-    "identify": {
-      "title": "Herken elke minifiguur van een foto",
-      "subtitle": "Wij vertellen je wat het is en wat het waard is.",
-      "hint": "Foto erin, minifiguur eruit",
-      "note": "Inbegrepen bij Premium · onbeperkt scannen",
-      "cta": "Herkenning proberen",
-      "badge": "Herkend"
+    "collection": {
+      "title": "Weet wat je collectie waard is",
+      "subtitle": "Voeg je minifiguren en sets één keer toe en wij houden het totaal bij.",
+      "note": "Werkt al voordat je een account maakt — we bewaren het op dit apparaat.",
+      "cta": "Begin een collectie"
     }
   },
   "setsThemeMeta": {
@@ -3067,16 +3065,16 @@
       "body": "Kies een minifiguur en krijg een kant-en-klare advertentie voor eBay, Facebook, BrickLink of Vinted, geschreven zoals dat platform het verwacht.",
       "cta": "Advertentiegenerator openen"
     },
-    "collection": {
-      "title": "Weet wat je collectie waard is",
-      "body": "Voeg je minifiguren en sets één keer toe en wij houden het totaal bij, zodat je altijd weet waar je staat zonder iets op te zoeken.",
-      "note": "Stel een prijsmelding in op elk item en we laten het weten zodra de prijs verandert.",
-      "cta": "Collectie beginnen"
-    },
     "deals": {
       "title": "Pak sets voordat ze uit productie gaan",
       "body": "Wij bepalen welke sets het dichtst bij het einde van de productie zijn, op basis van leeftijd en prijsverloop.",
       "cta": "Bekijk wat verdwijnt"
+    },
+    "identify": {
+      "title": "Herken elke minifiguur van een foto",
+      "body": "Richt je camera op een minifiguur en wij vertellen welke het is en wat hij waard is.",
+      "note": "Inbegrepen bij Premium · onbeperkt scannen",
+      "cta": "Bekijk hoe het werkt"
     }
   },
   "navPrimary": {

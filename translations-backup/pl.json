@@ -3032,13 +3032,11 @@
       "subtitle": "Szukaj na Whatnot dowolnej minifigurki lub zestawu.",
       "cta": "Szukaj na Whatnot"
     },
-    "identify": {
-      "title": "Rozpoznaj minifigurkę ze zdjęcia",
-      "subtitle": "Powiemy Ci, co to jest i ile jest warte.",
-      "hint": "Zdjęcie na wejściu, minifigurka na wyjściu",
-      "note": "W pakiecie Premium · nieograniczona liczba skanów",
-      "cta": "Wypróbuj rozpoznawanie",
-      "badge": "Rozpoznano"
+    "collection": {
+      "title": "Sprawdź, ile warta jest Twoja kolekcja",
+      "subtitle": "Dodaj minifigurki i zestawy raz, a my będziemy liczyć sumę na bieżąco.",
+      "note": "Działa jeszcze przed założeniem konta — zapisujemy to na tym urządzeniu.",
+      "cta": "Załóż kolekcję"
     }
   },
   "setsThemeMeta": {
@@ -3067,16 +3065,16 @@
       "body": "Wybierz minifigurkę i otrzymaj gotowe ogłoszenie na eBay, Facebooka, BrickLink lub Vinted — każde napisane tak, jak oczekuje dana platforma.",
       "cta": "Otwórz generator ogłoszeń"
     },
-    "collection": {
-      "title": "Poznaj wartość swojej kolekcji",
-      "body": "Dodaj minifigurki i zestawy raz, a my liczymy sumę na bieżąco — zawsze wiesz, na czym stoisz, bez szukania.",
-      "note": "Ustaw alert cenowy na dowolnej pozycji, a powiadomimy Cię, gdy cena się zmieni.",
-      "cta": "Załóż kolekcję"
-    },
     "deals": {
       "title": "Zdąż przed wycofaniem zestawu",
       "body": "Ustalamy, które zestawy są najbliżej końca produkcji, na podstawie ich wieku i tego, jak zmieniała się cena.",
       "cta": "Zobacz, co jest wycofywane"
+    },
+    "identify": {
+      "title": "Rozpoznaj minifigurkę ze zdjęcia",
+      "body": "Skieruj aparat na minifigurkę, a powiemy Ci, która to i ile jest warta.",
+      "note": "W ramach Premium · bez limitu skanów",
+      "cta": "Zobacz, jak to działa"
     }
   },
   "navPrimary": {
