@@ -46,7 +46,7 @@ export default function FilterChips<V extends string>({
     <div
       role="group"
       aria-label={ariaLabel}
-      className={className}
+      className={['ib-chips', className].filter(Boolean).join(' ')}
       style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}
     >
       {options.map((option) => {
@@ -69,9 +69,12 @@ export default function FilterChips<V extends string>({
               whiteSpace: 'nowrap',
               // Standalone controls, so each carries its own pill.
               borderRadius: Radius.pill,
-              border: `1px solid ${active ? 'transparent' : Colors.border}`,
-              background: active ? Colors.accent : Colors.surface,
-              color: active ? '#ffffff' : Colors.textMuted,
+              // Neutral, like the segmented control's thumb: blue is reserved
+              // for things you can act on. A chip row is a filter, not a call
+              // to action, and it should not outshout the page's one button.
+              border: `1px solid ${active ? Colors.text : Colors.border}`,
+              background: active ? Colors.text : Colors.surface,
+              color: active ? '#ffffff' : Colors.textSubtle,
               cursor: 'pointer',
               transition: 'background 0.2s, color 0.2s, border-color 0.2s',
               boxSizing: 'border-box',

@@ -14,6 +14,10 @@ import { Colors } from '@/lib/design-system';
  *
  * No radius here at all: the active state is an underline, so there is no
  * filled shape to round. That is why the pill rule does not reach these.
+ *
+ * The underline is near-black, matching the segmented control's neutral
+ * selection. Blue on this site means "you can act on this" -- a button, a
+ * link -- and a tab strip marking its own current position is not that.
  */
 
 export interface TabOption<V extends string> {
@@ -30,7 +34,7 @@ interface Props<V extends string> {
   options: TabOption<V>[];
   value: V;
   onChange?: (value: V) => void;
-  /** The collector profile uses near-black rather than the accent blue. */
+  /** Override the near-black default -- nothing does yet. */
   activeColor?: string;
   ariaLabel?: string;
   className?: string;
@@ -40,7 +44,7 @@ export default function UnderlineTabs<V extends string>({
   options,
   value,
   onChange,
-  activeColor = Colors.accent,
+  activeColor = Colors.text,
   ariaLabel,
   className,
 }: Props<V>) {

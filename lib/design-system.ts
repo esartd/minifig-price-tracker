@@ -55,6 +55,8 @@ export const Colors = {
   /** Destructive. One red, not the two that were in use. */
   danger: '#ef4444',
   dangerHover: '#dc2626',
+  /** The recessed track a segmented control's thumb slides on. */
+  trackBg: '#f5f5f5',
   /** The one disabled grey, replacing five. */
   disabled: '#a3a3a3',
   disabledBg: '#f5f5f5',
@@ -70,6 +72,13 @@ export const Colors = {
  * zIndex at all).
  */
 export const PANEL_SHADOW = '0 10px 40px rgba(0, 0, 0, 0.1)';
+
+/**
+ * The lift on a segmented control's selected thumb. Selection is shown by
+ * elevation rather than by hue, so blue stays reserved for things you can act
+ * on and a screen full of filters does not shout over its one real button.
+ */
+export const THUMB_SHADOW = '0 1px 3px rgba(0, 0, 0, 0.12)';
 export const PANEL_Z_INDEX = 1000;
 
 /** A floating dropdown / menu surface. */

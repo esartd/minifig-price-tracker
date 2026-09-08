@@ -218,9 +218,6 @@ export default function CollectorProfilePage({ params }: { params: Promise<{ use
       <div style={{ backgroundColor: '#fff', position: 'sticky', top: 0, zIndex: 10 }}>
         <div style={{ maxWidth: '860px', margin: '0 auto', padding: '0 24px' }}>
           <UnderlineTabs
-            // Near-black rather than the accent blue: these sit directly under
-            // the profile header and a blue row there reads as a second brand.
-            activeColor="#171717"
             ariaLabel={t('collectors.profile.tabs.minifigInventory') || 'Collections'}
             value={activeTab}
             onChange={(v) => setActiveTab(v as Tab)}

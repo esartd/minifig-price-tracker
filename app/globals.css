@@ -717,6 +717,23 @@ input[type="number"] {
   }
 }
 
+/* Joined controls take the touch floor on the TRACK, not on each segment.
+   The rule below sets min-height: 44px on every button under 768px, which a
+   40px track then clips by 4px -- pushing every label 2px below centre and
+   leaving the toggle a different height from the buttons beside it. Sizing the
+   track to 44 makes the segments fit exactly. */
+@media (max-width: 767px) {
+  /* !important because the component sets its 40px desktop height inline,
+     and an inline style outranks a plain class rule. */
+  .ib-segmented {
+    height: 44px !important;
+  }
+
+  .ib-chips button {
+    height: 44px !important;
+  }
+}
+
 /* Ensure touch targets are at least 44px on mobile */
 @media (max-width: 767px) {
   button,
@@ -2357,6 +2374,14 @@ select.custom-dropdown.condition-used {
   height: 44px !important;
 }
 
+/* ...except a segmented control's segments, which are sized by their own
+   track. The blanket rule above predates the component: it forces a 44px
+   child into a track that has 36px of room inside its border and padding, so
+   the thumb spills over both edges and swallows the track. */
+.collection-controls .ib-segmented button {
+  height: auto !important;
+}
+
 /* Email button hover effect */
 .email-button:hover {
   background: #2563eb !important;
@@ -2493,10 +2518,15 @@ select.custom-dropdown.condition-used {
     display: none;
   }
 
+  /* Icon-only on mobile, so they must be CIRCLES. The touch floor above
+     forces 44px of height; without a matching width they came out 40x44 --
+     a capsule standing on end, which is what a 999px radius does to a
+     rectangle. */
   .collection-add-button,
   button:has(.share-button-text) {
-    padding: 10px !important;
-    min-width: 40px;
+    width: 44px;
+    padding: 0 !important;
+    justify-content: center;
   }
 
   /* Make toggles more compact on mobile */
