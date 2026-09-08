@@ -438,17 +438,6 @@ model SetWishlistItem {
   @@index([box_no])
 }
 
-model NewsletterSubscriber {
-  id             String    @id @default(cuid())
-  email          String    @unique
-  subscribedAt   DateTime  @default(now())
-  confirmed      Boolean   @default(false)
-  confirmedAt    DateTime?
-  unsubscribedAt DateTime?
-
-  @@index([email])
-  @@index([confirmed])
-}
 
 model Donation {
   id                String   @id @default(cuid())
