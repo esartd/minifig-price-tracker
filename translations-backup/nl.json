@@ -445,6 +445,13 @@
         "upgradeCancelled": "Afrekenen is geannuleerd."
       },
       "tryIdentifier": "Identificeer een minifig"
+    },
+    "email": {
+      "title": "Productaankondigingen",
+      "on": "Af en toe een e-mail over nieuwe functies en wijzigingen",
+      "off": "Je ontvangt geen aankondigingsmails",
+      "transactionalNote": "Wachtwoordherstel en je eigen prijsmeldingen worden hoe dan ook verstuurd.",
+      "error": "Kan e-mailvoorkeur niet bijwerken"
     }
   },
   "search": {
@@ -3181,5 +3188,14 @@
     "titleNoCount": "{theme} LEGO-sets — prijzen en waarden",
     "description": "Bekijk alle {count} {theme} LEGO-sets met actuele marktprijzen. Volg waarden, zie welke uit productie gaan en bepaal wat je koopt of verkoopt.",
     "notFoundTitle": "Thema niet gevonden"
+  },
+  "unsubscribe": {
+    "doneTitle": "Je bent uitgeschreven",
+    "doneBody": "Je ontvangt geen aankondigingsmails meer van IntoBrick. E-mails over je eigen account — wachtwoordherstel en prijsmeldingen die je zelf hebt ingesteld — werken gewoon zoals voorheen.",
+    "alreadyBody": "Je was al uitgeschreven. Er is verder niets te doen.",
+    "invalidTitle": "Die link werkte niet",
+    "invalidBody": "Deze uitschrijflink is niet geldig. Mogelijk is hij al gebruikt of is het adres gewijzigd.",
+    "resubscribeHint": "Toch weer meedoen? Je kunt aankondigingen weer inschakelen in je accountinstellingen.",
+    "backHome": "Terug naar IntoBrick"
   }
 }

@@ -445,6 +445,13 @@
         "upgradeCancelled": "Kassan avbröts."
       },
       "tryIdentifier": "Identifiera en minifigur"
+    },
+    "email": {
+      "title": "Produktnyheter",
+      "on": "Enstaka mejl om nya funktioner och ändringar",
+      "off": "Du kommer inte att få nyhetsmejl",
+      "transactionalNote": "Lösenordsåterställningar och dina egna prisbevakningar skickas oavsett.",
+      "error": "Det gick inte att uppdatera e-postinställningen"
     }
   },
   "search": {
@@ -3181,5 +3188,14 @@
     "titleNoCount": "{theme} LEGO-set — priser och värden",
     "description": "Bläddra bland alla {count} {theme} LEGO-set med aktuella marknadspriser. Följ värden, se vilka som utgår och avgör vad du ska köpa eller sälja.",
     "notFoundTitle": "Temat hittades inte"
+  },
+  "unsubscribe": {
+    "doneTitle": "Du är avregistrerad",
+    "doneBody": "Du kommer inte att få fler nyhetsmejl från IntoBrick. Mejl om ditt eget konto — lösenordsåterställningar och prisbevakningar du själv har skapat — fungerar som tidigare.",
+    "alreadyBody": "Du hade redan avregistrerat dig. Inget mer behöver göras.",
+    "invalidTitle": "Länken fungerade inte",
+    "invalidBody": "Den här avregistreringslänken är inte giltig. Den kan redan ha använts, eller så har adressen ändrats.",
+    "resubscribeHint": "Ändrat dig? Du kan slå på nyheter igen i dina kontoinställningar.",
+    "backHome": "Tillbaka till IntoBrick"
   }
 }

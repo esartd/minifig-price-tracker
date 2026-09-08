@@ -445,6 +445,13 @@
         "upgradeCancelled": "O checkout foi cancelado."
       },
       "tryIdentifier": "Identificar uma Minifigura"
+    },
+    "email": {
+      "title": "Anúncios do produto",
+      "on": "E-mails ocasionais sobre novidades e alterações",
+      "off": "Não vais receber e-mails de anúncio",
+      "transactionalNote": "As reposições de palavra-passe e os teus alertas de preço são enviados de qualquer forma.",
+      "error": "Não foi possível atualizar a preferência de e-mail"
     }
   },
   "search": {
@@ -3181,5 +3188,14 @@
     "titleNoCount": "Sets LEGO {theme} — preços e valores",
     "description": "Explore todos os {count} sets LEGO {theme} com preços de mercado atuais. Acompanhe valores, veja quais vão sair de produção e decida o que comprar ou vender.",
     "notFoundTitle": "Tema não encontrado"
+  },
+  "unsubscribe": {
+    "doneTitle": "Subscrição cancelada",
+    "doneBody": "Não vais receber mais e-mails de anúncio da IntoBrick. Os e-mails sobre a tua conta — reposições de palavra-passe e alertas de preço que criaste — continuam a funcionar como antes.",
+    "alreadyBody": "Já tinhas cancelado a subscrição. Não há mais nada a fazer.",
+    "invalidTitle": "Esse link não funcionou",
+    "invalidBody": "Este link de cancelamento não é válido. Pode já ter sido usado ou o endereço pode ter mudado.",
+    "resubscribeHint": "Mudaste de ideias? Podes voltar a ativar os anúncios nas definições da tua conta.",
+    "backHome": "Voltar à IntoBrick"
   }
 }

@@ -502,6 +502,13 @@
         "upgradeCancelled": "Le paiement a été annulé."
       },
       "tryIdentifier": "Identifier une minifig"
+    },
+    "email": {
+      "title": "Annonces produit",
+      "on": "Des e-mails occasionnels sur les nouveautés et les changements",
+      "off": "Vous ne recevrez pas d’e-mails d’annonce",
+      "transactionalNote": "Les réinitialisations de mot de passe et vos propres alertes de prix sont envoyées dans tous les cas.",
+      "error": "Impossible de mettre à jour la préférence e-mail"
     }
   },
   "search": {
@@ -3238,5 +3245,14 @@
     "titleNoCount": "Sets LEGO {theme} — prix et valeurs",
     "description": "Parcourez les {count} sets LEGO {theme} avec les prix actuels du marché. Suivez les valeurs, repérez les sets bientôt retirés et décidez quoi acheter ou vendre.",
     "notFoundTitle": "Thème introuvable"
+  },
+  "unsubscribe": {
+    "doneTitle": "Vous êtes désabonné",
+    "doneBody": "Vous ne recevrez plus d’e-mails d’annonce d’IntoBrick. Les e-mails concernant votre compte — réinitialisations de mot de passe et alertes de prix que vous avez créées — continuent de fonctionner comme avant.",
+    "alreadyBody": "Vous étiez déjà désabonné. Il n’y a rien de plus à faire.",
+    "invalidTitle": "Ce lien n’a pas fonctionné",
+    "invalidBody": "Ce lien de désabonnement n’est pas valide. Il a peut-être déjà été utilisé, ou l’adresse a été modifiée.",
+    "resubscribeHint": "Vous avez changé d’avis ? Vous pouvez réactiver les annonces dans les paramètres de votre compte.",
+    "backHome": "Retour à IntoBrick"
   }
 }

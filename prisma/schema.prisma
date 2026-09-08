@@ -336,6 +336,14 @@ model User {
   showOnMinifigLeaderboard   Boolean?                    @default(true)
   showOnSetLeaderboard       Boolean?                    @default(true)
   leaderboardDisplayName     String?
+  // Newsletter / announcement email. Opt-OUT: existing users are subscribed by
+  // default because they already receive transactional mail from us, and the
+  // first announcement is the rename notice they need. The token is what makes
+  // one-click unsubscribe work without a login -- a recipient clicking a link
+  // in an email is not signed in, and asking them to sign in to leave is a
+  // dark pattern that earns spam complaints instead of unsubscribes.
+  emailSubscribed            Boolean                     @default(true)
+  unsubscribeToken           String?                     @unique
   shareToken                 String?                     @unique
   shareEnabled               Boolean                     @default(false)
   shareTokenInventory        String?                     @unique
