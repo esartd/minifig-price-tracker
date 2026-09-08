@@ -77,6 +77,8 @@ export default function AccountPage() {
 
   // Public profile states
   const [profilePublic, setProfilePublic] = useState(true);
+  const [emailSubscribed, setEmailSubscribed] = useState(true);
+  const [savingEmailSubscribed, setSavingEmailSubscribed] = useState(false);
   const [savingProfileVisibility, setSavingProfileVisibility] = useState(false);
 
   // Premium subscription states
@@ -234,6 +236,9 @@ export default function AccountPage() {
             showOnSetLeaderboard: data.data.showOnSetLeaderboard ?? true,
             leaderboardDisplayName: data.data.leaderboardDisplayName || '',
           });
+          if (typeof data.data.emailSubscribed === 'boolean') {
+            setEmailSubscribed(data.data.emailSubscribed);
+          }
           if (typeof data.data.profilePublic === 'boolean') {
             setProfilePublic(data.data.profilePublic);
           }
@@ -657,6 +662,29 @@ export default function AccountPage() {
       showMessage('error', t('account.leaderboard.networkError') || 'Network error. Please try again.');
     } finally {
       setSavingProfileVisibility(false);
+    }
+  };
+
+  const handleEmailSubscribedToggle = async (newValue: boolean) => {
+    // Flip first so the switch feels instant, roll back if the save fails.
+    setEmailSubscribed(newValue);
+    setSavingEmailSubscribed(true);
+    try {
+      const response = await fetch('/api/user/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...leaderboardSettings, profilePublic, emailSubscribed: newValue }),
+      });
+      const data = await response.json();
+      if (!data.success) {
+        setEmailSubscribed(!newValue);
+        showMessage('error', data.error || t('account.email.error') || 'Failed to update email preference');
+      }
+    } catch {
+      setEmailSubscribed(!newValue);
+      showMessage('error', t('account.leaderboard.networkError') || 'Network error. Please try again.');
+    } finally {
+      setSavingEmailSubscribed(false);
     }
   };
 
@@ -1378,6 +1406,63 @@ export default function AccountPage() {
                     position: 'absolute',
                     top: '3px',
                     left: profilePublic ? '23px' : '3px',
+                    width: '22px',
+                    height: '22px',
+                    borderRadius: '50%',
+                    backgroundColor: '#fff',
+                    transition: 'left 0.2s',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+                  }} />
+                </button>
+              </div>
+
+              {/* Announcement emails. Sits next to the other account toggles so
+                  it is somewhere people would think to look, rather than only
+                  reachable from a link inside an email they may have deleted. */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '16px',
+                backgroundColor: '#fafafa',
+                borderRadius: '10px',
+                border: '1px solid #e5e5e5',
+                marginBottom: '24px',
+              }}>
+                <div>
+                  <p style={{ margin: '0 0 4px 0', fontSize: 'var(--text-sm)', fontWeight: 600, color: '#171717' }}>
+                    {t('account.email.title') || 'Product announcements'}
+                  </p>
+                  <p style={{ margin: 0, fontSize: 'var(--text-xs)', color: '#737373' }}>
+                    {emailSubscribed
+                      ? (t('account.email.on') || 'Occasional emails about new features and changes')
+                      : (t('account.email.off') || "You won't receive announcement emails")}
+                  </p>
+                  <p style={{ margin: '4px 0 0 0', fontSize: 'var(--text-xs)', color: '#a3a3a3' }}>
+                    {t('account.email.transactionalNote') || 'Password resets and your own price alerts are sent either way.'}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleEmailSubscribedToggle(!emailSubscribed)}
+                  disabled={savingEmailSubscribed}
+                  aria-label={t('account.email.title') || 'Product announcements'}
+                  style={{
+                    width: '48px',
+                    height: '28px',
+                    borderRadius: '14px',
+                    border: 'none',
+                    backgroundColor: emailSubscribed ? '#171717' : '#e5e5e5',
+                    cursor: savingEmailSubscribed ? 'not-allowed' : 'pointer',
+                    position: 'relative',
+                    transition: 'background-color 0.2s',
+                    flexShrink: 0,
+                  }}
+                >
+                  <span style={{
+                    position: 'absolute',
+                    top: '3px',
+                    left: emailSubscribed ? '23px' : '3px',
                     width: '22px',
                     height: '22px',
                     borderRadius: '50%',

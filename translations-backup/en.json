@@ -445,6 +445,13 @@
         "upgradeCancelled": "Checkout was cancelled."
       },
       "tryIdentifier": "Identify a Minifig"
+    },
+    "email": {
+      "title": "Product announcements",
+      "on": "Occasional emails about new features and changes",
+      "off": "You won't receive announcement emails",
+      "transactionalNote": "Password resets and your own price alerts are sent either way.",
+      "error": "Failed to update email preference"
     }
   },
   "search": {
@@ -3180,5 +3187,14 @@
     "titleNoCount": "{theme} LEGO Sets — Prices and Values",
     "description": "Browse all {count} {theme} LEGO sets with current market prices. Track values, see what is retiring, and decide what to buy or sell.",
     "notFoundTitle": "Theme Not Found"
+  },
+  "unsubscribe": {
+    "doneTitle": "You're unsubscribed",
+    "doneBody": "You will not receive any more announcement emails from IntoBrick. Emails about your own account — password resets and price alerts you set up — still work as before.",
+    "alreadyBody": "You had already unsubscribed. Nothing more to do.",
+    "invalidTitle": "That link did not work",
+    "invalidBody": "This unsubscribe link is not valid. It may have already been used, or the address may have been changed.",
+    "resubscribeHint": "Changed your mind? You can turn announcements back on in your account settings.",
+    "backHome": "Back to IntoBrick"
   }
 }

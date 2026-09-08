@@ -14,7 +14,11 @@
       "Bash(tail *)",
       "Bash(wc *)",
       "Bash(curl -s -I \"https://figtracker.ericksu.com/_next/image?url=%2Fapi%2Fimages%2Fminifig%2Fsw1398&w=640&q=75\")",
-      "Bash(dig www.ericksu.com CNAME +short)"
+      "Bash(dig www.ericksu.com CNAME +short)",
+      "Bash(npx tsc *)",
+      "Bash(echo \"EXIT:$?\")",
+      "Read(//tmp/**)",
+      "Bash(grep -n \"Added \\\\${\" components/set-detail-client.tsx)"
     ],
     "additionalDirectories": [
       "/Users/erickkosysu/Code Projects/minifig-price-tracker/app/api/auth"

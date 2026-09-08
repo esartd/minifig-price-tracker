@@ -398,6 +398,11 @@
     "account.premium.messages.upgradeSuccess": "503dfef8c2a3",
     "account.premium.messages.upgradeCancelled": "a26919549604",
     "account.premium.tryIdentifier": "b946535d2121",
+    "account.email.title": "67a48bdc698d",
+    "account.email.on": "720ec23c80b3",
+    "account.email.off": "ba39eb642bb9",
+    "account.email.transactionalNote": "5ea149153faa",
+    "account.email.error": "431e1f5b68fd",
     "search.meta.title": "d85ef59b8a15",
     "search.meta.description": "1661fa12acb7",
     "search.placeholder": "e8814268f80f",
@@ -2248,7 +2253,14 @@
     "setsThemeMeta.title": "dbb4be51faac",
     "setsThemeMeta.titleNoCount": "3cb5915e7d1f",
     "setsThemeMeta.description": "4eccebc7e054",
-    "setsThemeMeta.notFoundTitle": "3c0cbf63c80d"
+    "setsThemeMeta.notFoundTitle": "3c0cbf63c80d",
+    "unsubscribe.doneTitle": "45e563e7488c",
+    "unsubscribe.doneBody": "4996feaeee4d",
+    "unsubscribe.alreadyBody": "29ed67ec38c4",
+    "unsubscribe.invalidTitle": "ad4f8b57a9e7",
+    "unsubscribe.invalidBody": "bf39856c2cb6",
+    "unsubscribe.resubscribeHint": "5305c413b0cc",
+    "unsubscribe.backHome": "570f894584c6"
   },
   "acceptedIdentical": [
     "de:about.creator.byline",

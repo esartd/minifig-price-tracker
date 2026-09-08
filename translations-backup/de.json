@@ -502,6 +502,13 @@
         "upgradeCancelled": "Der Bezahlvorgang wurde abgebrochen."
       },
       "tryIdentifier": "Minifigur identifizieren"
+    },
+    "email": {
+      "title": "Produktankündigungen",
+      "on": "Gelegentliche E-Mails über neue Funktionen und Änderungen",
+      "off": "Du erhältst keine Ankündigungs-E-Mails",
+      "transactionalNote": "Passwort-Zurücksetzungen und deine eigenen Preisalarme werden in jedem Fall verschickt.",
+      "error": "E-Mail-Einstellung konnte nicht aktualisiert werden"
     }
   },
   "search": {
@@ -3238,5 +3245,14 @@
     "titleNoCount": "{theme} LEGO Sets — Preise und Werte",
     "description": "Alle {count} {theme} LEGO Sets mit aktuellen Marktpreisen. Werte verfolgen, auslaufende Sets erkennen und entscheiden, was Sie kaufen oder verkaufen.",
     "notFoundTitle": "Thema nicht gefunden"
+  },
+  "unsubscribe": {
+    "doneTitle": "Du hast dich abgemeldet",
+    "doneBody": "Du erhältst keine Ankündigungs-E-Mails mehr von IntoBrick. E-Mails zu deinem eigenen Konto — Passwort-Zurücksetzungen und von dir eingerichtete Preisalarme — funktionieren weiterhin wie bisher.",
+    "alreadyBody": "Du hattest dich bereits abgemeldet. Es ist nichts weiter zu tun.",
+    "invalidTitle": "Dieser Link hat nicht funktioniert",
+    "invalidBody": "Dieser Abmeldelink ist ungültig. Möglicherweise wurde er bereits verwendet oder die Adresse wurde geändert.",
+    "resubscribeHint": "Meinung geändert? Du kannst Ankündigungen in deinen Kontoeinstellungen wieder aktivieren.",
+    "backHome": "Zurück zu IntoBrick"
   }
 }

@@ -47,6 +47,7 @@ export async function GET() {
         leaderboardDisplayName: true,
         profilePublic: true,
         username: true,
+        emailSubscribed: true,
       },
     });
 
@@ -77,7 +78,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const { showOnMinifigLeaderboard, showOnSetLeaderboard, leaderboardDisplayName, profilePublic } = body;
+    const { showOnMinifigLeaderboard, showOnSetLeaderboard, leaderboardDisplayName, profilePublic, emailSubscribed } = body;
 
     // Validate display name if provided and user is opting-in to any leaderboard
     if ((showOnMinifigLeaderboard || showOnSetLeaderboard) && leaderboardDisplayName) {
@@ -107,6 +108,11 @@ export async function POST(request: NextRequest) {
         showOnSetLeaderboard: showOnSetLeaderboard || false,
         leaderboardDisplayName: trimmedDisplayName,
         ...(typeof profilePublic === 'boolean' ? { profilePublic } : {}),
+        // Only written when the caller actually sent it. The leaderboard
+        // flags above default to false when omitted, which is fine for a form
+        // that always posts every field -- but silently unsubscribing someone
+        // because a future caller left this out is not a mistake worth risking.
+        ...(typeof emailSubscribed === 'boolean' ? { emailSubscribed } : {}),
         ...(username && username !== existingUser?.username ? { username } : {}),
       },
     });
