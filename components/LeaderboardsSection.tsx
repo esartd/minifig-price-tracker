@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { UserIcon, CubeIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from './TranslationProvider';
 import SegmentedControl from '@/components/ui/SegmentedControl';
+import { Colors, ControlHeight, Radius } from '@/lib/design-system';
 
 interface Collector {
   displayName: string;
@@ -156,15 +157,17 @@ export default function LeaderboardsSection() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '8px',
-              padding: '12px 28px',
+              height: ControlHeight.standard,
+              padding: '0 28px',
               fontSize: 'var(--text-sm)',
               fontWeight: '600',
-              color: '#171717',
-              background: '#ffffff',
-              border: '1px solid #e5e5e5',
-              borderRadius: '8px',
+              color: Colors.text,
+              background: Colors.surface,
+              border: `1px solid ${Colors.border}`,
+              borderRadius: Radius.pill,
               textDecoration: 'none',
-              lineHeight: 1.2,
+              lineHeight: 1,
+              boxSizing: 'border-box',
               transition: 'border-color 0.2s, background 0.2s',
             }}
             onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#d4d4d4'; e.currentTarget.style.background = '#fafafa'; }}
@@ -229,27 +232,27 @@ function DonorsColumn({ items, t }: { items: Donor[]; t: any }) {
         <a
           href="/support"
           style={{
-            display: 'block',
+            // Primary, standard size. This was the last gradient button on the
+            // site, and the only one still lifting on hover behind a coloured
+            // drop shadow -- three things that made it read as a different
+            // component from every other button on the page.
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: ControlHeight.standard,
             marginTop: '12px',
-            padding: '14px 24px',
-            background: 'linear-gradient(135deg, #1488cc 0%, #2b32b2 100%)',
+            padding: '0 24px',
+            background: Colors.accent,
             color: '#ffffff',
             fontSize: 'var(--text-sm)',
             fontWeight: '600',
-            textAlign: 'center',
-            borderRadius: '8px',
+            borderRadius: Radius.pill,
             textDecoration: 'none',
-            transition: 'transform 0.2s, box-shadow 0.2s',
-            boxShadow: '0 2px 8px rgba(20, 136, 204, 0.3)',
+            boxSizing: 'border-box',
+            transition: 'background 0.2s',
           }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '0 4px 12px rgba(20, 136, 204, 0.4)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 2px 8px rgba(20, 136, 204, 0.3)';
-          }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = Colors.accentHover; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = Colors.accent; }}
         >
           {isEmpty ? t('leaderboards.beFirstToDonate') : t('leaderboards.supportIntoBrick')}
         </a>

@@ -346,12 +346,11 @@ export default function May4thDealsClient() {
                     fontSize: 'var(--text-base)',
                     fontWeight: '600',
                     color: '#ffffff',
-                    background: 'linear-gradient(135deg, #005C97 0%, #363795 100%)',
+                    background: '#3b82f6',
                     borderRadius: '999px',
                     textAlign: 'center',
                     textDecoration: 'none',
-                    marginTop: 'auto',
-                    boxShadow: '0 2px 8px rgba(0, 92, 151, 0.3)'
+                    marginTop: 'auto'
                   }}
                 >
                   {t('may4thDeals.common.buyOnLego')}
