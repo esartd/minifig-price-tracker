@@ -623,7 +623,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     marginTop: '12px',
                     background: 'white',
                     borderRadius: '12px',
-                    boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
                     border: '1px solid #e5e5e5',
                     minWidth: '240px',
                     overflow: 'hidden',
@@ -746,7 +746,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     marginTop: '12px',
                     background: 'white',
                     borderRadius: '12px',
-                    boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
                     border: '1px solid #e5e5e5',
                     minWidth: '200px',
                     overflow: 'hidden',
@@ -814,7 +814,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     marginTop: '12px',
                     background: 'white',
                     borderRadius: '12px',
-                    boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
                     border: '1px solid #e5e5e5',
                     minWidth: '180px',
                     overflow: 'hidden',
@@ -1419,9 +1419,13 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   minWidth: '220px',
                   background: '#ffffff',
                   borderRadius: '12px',
-                  boxShadow: '0 4px 24px rgba(0, 0, 0, 0.1)',
+                  boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
                   border: '1px solid #e5e5e5',
                   padding: '8px',
+                  // The only floating panel on the site with no zIndex. Every
+                  // other menu sets 1000; this one relied on source order and
+                  // would fall behind any positioned content it overlapped.
+                  zIndex: 1000,
                   animation: 'fadeIn 0.15s ease-out'
                 }}>
                   <div style={{
@@ -1650,7 +1654,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   marginTop: '12px',
                   background: 'white',
                   borderRadius: '12px',
-                  boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                  boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
                   border: '1px solid #e5e5e5',
                   minWidth: '240px',
                   overflow: 'hidden',
@@ -1775,7 +1779,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   marginTop: '12px',
                   background: 'white',
                   borderRadius: '12px',
-                  boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                  boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
                   border: '1px solid #e5e5e5',
                   minWidth: '200px',
                   overflow: 'hidden',
@@ -1838,7 +1842,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   marginTop: '12px',
                   background: 'white',
                   borderRadius: '12px',
-                  boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+                  boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
                   border: '1px solid #e5e5e5',
                   minWidth: '180px',
                   overflow: 'hidden',

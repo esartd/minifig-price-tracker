@@ -116,24 +116,40 @@ export default function RetiringSoonClient({
 
           {/* Searchable dropdown */}
           <div ref={dropdownRef} style={{ position: 'relative', minWidth: '280px' }}>
-            <div
+            {/* A button, not a div. This was a plain <div onClick> with no
+                tabIndex, no role and no key handler -- reachable only with a
+                mouse. */}
+            <button
+              type="button"
+              aria-haspopup="listbox"
+              aria-expanded={isDropdownOpen}
               onClick={() => {
                 setIsDropdownOpen(!isDropdownOpen);
                 if (!isDropdownOpen) {
                   setTimeout(() => inputRef.current?.focus(), 0);
                 }
               }}
+              onKeyDown={e => {
+                if (e.key === 'Escape' && isDropdownOpen) {
+                  e.preventDefault();
+                  setIsDropdownOpen(false);
+                }
+              }}
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '0.5rem 1rem',
+                width: '100%',
+                height: '40px',
+                padding: '0 16px',
                 fontSize: 'var(--text-sm)',
+                textAlign: 'left',
                 border: '1px solid #e5e5e5',
-                borderRadius: '8px',
+                borderRadius: '999px',
                 background: '#ffffff',
                 cursor: 'pointer',
-                transition: 'all 0.2s'
+                transition: 'all 0.2s',
+                boxSizing: 'border-box'
               }}
             >
               <span style={{ color: '#171717' }}>{getDisplayTheme()}</span>
@@ -153,7 +169,7 @@ export default function RetiringSoonClient({
               >
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
-            </div>
+            </button>
 
             {isDropdownOpen && (
               <div style={{
@@ -163,8 +179,8 @@ export default function RetiringSoonClient({
                 right: 0,
                 background: '#ffffff',
                 border: '1px solid #e5e5e5',
-                borderRadius: '8px',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                borderRadius: '12px',
+                boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
                 zIndex: 1000,
                 maxHeight: '400px',
                 overflow: 'hidden',
@@ -200,9 +216,15 @@ export default function RetiringSoonClient({
                   overflowY: 'auto',
                   maxHeight: '320px'
                 }}>
-                  <div
+                  <button
+                    type="button"
                     onClick={() => handleThemeSelect('all')}
                     style={{
+                      width: '100%',
+                      border: 'none',
+                      borderRadius: '0',
+                      textAlign: 'left',
+                      font: 'inherit',
                       padding: '0.75rem 1rem',
                       fontSize: 'var(--text-sm)',
                       cursor: 'pointer',
@@ -223,7 +245,7 @@ export default function RetiringSoonClient({
                     }}
                   >
                     {translations?.filters?.allThemes || 'All Themes'}
-                  </div>
+                  </button>
 
                   {filteredThemes.length === 0 ? (
                     <div style={{
@@ -236,10 +258,16 @@ export default function RetiringSoonClient({
                     </div>
                   ) : (
                     filteredThemes.map(theme => (
-                      <div
+                      <button
+                        type="button"
                         key={theme}
                         onClick={() => handleThemeSelect(theme)}
                         style={{
+                          width: '100%',
+                          border: 'none',
+                          borderRadius: '0',
+                          textAlign: 'left',
+                          font: 'inherit',
                           padding: '0.75rem 1rem',
                           fontSize: 'var(--text-sm)',
                           cursor: 'pointer',
@@ -260,7 +288,7 @@ export default function RetiringSoonClient({
                         }}
                       >
                         {theme}
-                      </div>
+                      </button>
                     ))
                   )}
                 </div>

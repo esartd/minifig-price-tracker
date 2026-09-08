@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { useTranslation } from '@/components/TranslationProvider';
+import { Radius, Colors, ControlHeight, triggerStyle, controlFocusHandlers } from '@/lib/design-system';
 
 interface MarketplaceCard {
   itemNo: string;
@@ -127,21 +128,41 @@ export default function MarketplacePageClient() {
       </p>
 
       {/* Controls */}
-      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '28px' }}>
-        <div style={{ display: 'flex', border: '1px solid #e5e5e5', borderRadius: '8px', overflow: 'hidden' }}>
+      {/* Toggle, search and sort share this row, so they share a height and a
+          radius. They did not: all three were 41.5px tall with the same
+          border, but 8px / 999px / 8px corners -- one pill between two
+          rectangles. alignItems is explicit because the default (stretch) was
+          also pulling the native <select> off its natural height. */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        flexWrap: 'wrap',
+        marginBottom: '28px'
+      }}>
+        {/* The wrapper owns the shape; the two buttons inside stay square and
+            are clipped by it, so the pair still reads as one control. */}
+        <div style={{
+          display: 'flex',
+          height: ControlHeight.standard,
+          border: `1px solid ${Colors.border}`,
+          borderRadius: Radius.pill,
+          overflow: 'hidden'
+        }}>
           {(['minifig', 'set'] as ItemType[]).map((option) => (
             <button
               key={option}
               type="button"
               onClick={() => setItemType(option)}
               style={{
-                padding: '10px 20px',
+                padding: '0 20px',
                 fontSize: 'var(--text-sm)',
                 fontWeight: 600,
                 border: 'none',
+                borderRadius: Radius.none,
                 cursor: 'pointer',
-                background: itemType === option ? '#3b82f6' : '#ffffff',
-                color: itemType === option ? '#ffffff' : '#171717',
+                background: itemType === option ? Colors.accent : Colors.surface,
+                color: itemType === option ? '#ffffff' : Colors.text,
               }}
             >
               {option === 'minifig'
@@ -158,25 +179,47 @@ export default function MarketplacePageClient() {
           placeholder={t('marketplace.searchPlaceholder') || 'Search by name or item number...'}
           style={{
             flex: '1 1 240px',
-            padding: '10px 14px',
+            height: ControlHeight.standard,
+            padding: '0 16px',
             fontSize: 'var(--text-base)',
-            border: '1px solid #e5e5e5',
-            borderRadius: '999px',
+            border: `1px solid ${Colors.border}`,
+            borderRadius: Radius.pill,
             outline: 'none',
+            boxSizing: 'border-box',
           }}
         />
 
         <select
           value={sort}
           onChange={(event) => setSort(event.target.value as SortOption)}
+          /* Three things were wrong here, and none of them was clipping --
+             the row never overflows at any width.
+
+             1. The input is the only flex-grow item, so it took every spare
+                pixel and pinned this select against the container edge: the
+                gap to that edge measured exactly 0.0px at every width from
+                640px up. flexShrink:0 plus marginLeft:auto now parks it at the
+                right with the gap coming from the page gutter instead.
+             2. It was the only select on the site keeping the NATIVE arrow
+                with just 14px of right padding, where the other twenty
+                reserve 36-48px. In WebKit the native arrow pins to the
+                border-box edge, so the glyph sat on the boundary. Now
+                appearance:none with the same inline chevron the other selects
+                use.
+             3. The row stretched it off its natural height; the row now sets
+                alignItems:center. */
           style={{
-            padding: '10px 14px',
-            fontSize: 'var(--text-sm)',
-            border: '1px solid #e5e5e5',
-            borderRadius: '8px',
-            background: '#ffffff',
-            cursor: 'pointer',
+            ...triggerStyle,
+            flexShrink: 0,
+            marginLeft: 'auto',
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23737373' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E\")",
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'right 14px center',
+            backgroundSize: '16px',
           }}
+          onFocus={controlFocusHandlers.onFocus}
+          onBlur={controlFocusHandlers.onBlur}
         >
           <option value="popular">{t('marketplace.sortPopular') || 'Most collected'}</option>
           <option value="newest">{t('marketplace.sortNewest') || 'Newest first'}</option>

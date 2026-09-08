@@ -260,9 +260,15 @@ export default function LegoSaleClient() {
               onChange={(e) => setPriceRange(e.target.value)}
               style={{
                 width: '100%',
-                padding: '10px 12px',
+                padding: '10px 40px 10px 16px',
                 border: '1px solid #e5e5e5',
-                borderRadius: '8px',
+                borderRadius: '999px',
+                appearance: 'none',
+                backgroundImage:
+                  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23737373' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E\")",
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'right 14px center',
+                backgroundSize: '16px',
                 fontSize: '14px',
                 background: '#ffffff',
                 cursor: 'pointer',
@@ -287,9 +293,15 @@ export default function LegoSaleClient() {
               onChange={(e) => setSortBy(e.target.value)}
               style={{
                 width: '100%',
-                padding: '10px 12px',
+                padding: '10px 40px 10px 16px',
                 border: '1px solid #e5e5e5',
-                borderRadius: '8px',
+                borderRadius: '999px',
+                appearance: 'none',
+                backgroundImage:
+                  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23737373' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E\")",
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'right 14px center',
+                backgroundSize: '16px',
                 fontSize: '14px',
                 background: '#ffffff',
                 cursor: 'pointer',
