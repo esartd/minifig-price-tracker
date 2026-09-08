@@ -389,8 +389,8 @@ export default function VisitorAnalyticsDashboard() {
               style={{
                 width: '100%',
                 padding: '8px 12px',
-                borderRadius: '8px',
-                border: '1px solid #d4d4d4',
+                borderRadius: '999px',
+                border: '1px solid #e5e5e5',
                 fontSize: '14px',
               }}
             >
@@ -413,8 +413,8 @@ export default function VisitorAnalyticsDashboard() {
               style={{
                 width: '100%',
                 padding: '8px 12px',
-                borderRadius: '8px',
-                border: '1px solid #d4d4d4',
+                borderRadius: '999px',
+                border: '1px solid #e5e5e5',
                 fontSize: '14px',
               }}
             >
@@ -433,7 +433,7 @@ export default function VisitorAnalyticsDashboard() {
               disabled={loading}
               style={{
                 padding: '8px 16px',
-                borderRadius: '8px',
+                borderRadius: '999px',
                 background: '#3b82f6',
                 color: 'white',
                 border: 'none',

@@ -30,6 +30,8 @@ export default function LanguageSwitcher() {
   return (
     <div ref={dropdownRef} style={{ position: 'relative' }}>
       <button
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
         onClick={() => setIsOpen(!isOpen)}
         style={{
           display: 'flex',
@@ -43,7 +45,7 @@ export default function LanguageSwitcher() {
           color: '#525252',
           background: 'transparent',
           border: '1px solid #e5e5e5',
-          borderRadius: '8px',
+          borderRadius: '999px',
           cursor: 'pointer',
           transition: 'all 0.2s'
         }}
@@ -93,7 +95,7 @@ export default function LanguageSwitcher() {
             background: '#ffffff',
             border: '1px solid #e5e5e5',
             borderRadius: '12px',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
             minWidth: '160px',
             zIndex: 1000,
             overflow: 'hidden'
