@@ -113,9 +113,40 @@ function load(locale) {
   return flatten(JSON.parse(fs.readFileSync(path.join(DIR, `${locale}.json`), 'utf8')));
 }
 
-function looksEnglish(text) {
+/**
+ * Names that stay English in every language, stripped before the check.
+ *
+ * Built from en.json rather than hand-listed: every key of themeDescriptions
+ * IS a proper noun (Star Wars, Fortnite, The Lone Ranger, Monkie Kid), and a
+ * description of a theme unavoidably contains its own name. Hand-listing them
+ * was how "the" inside "The Mandalorian(tm)" got a fully-translated German
+ * paragraph flagged as English, 294 times over.
+ *
+ * Also strips any capitalised run ending in (tm) or (r), which catches the
+ * franchise titles inside a description that are not themes themselves.
+ */
+let PROPER_NOUN_NAMES = null;
+function properNounNames(english) {
+  if (PROPER_NOUN_NAMES) return PROPER_NOUN_NAMES;
+  const names = new Set();
+  for (const key of Object.keys(english)) {
+    const name = key.startsWith('themeDescriptions.') ? key.slice('themeDescriptions.'.length) : null;
+    if (name && name.length > 2) names.add(name);
+  }
+  // Longest first, so "The LEGO NINJAGO Movie" is removed before "NINJAGO".
+  PROPER_NOUN_NAMES = [...names]
+    .sort((a, b) => b.length - a.length)
+    .map((n) => new RegExp(n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'));
+  return PROPER_NOUN_NAMES;
+}
+
+const TRADEMARKED_TITLE = /\b(?:[A-Z][\w'-]*\s+){0,5}[A-Z][\w'-]*\s*[™®]/g;
+
+function looksEnglish(text, english) {
   if (typeof text !== 'string' || text.length < 12) return false;
-  return (text.replace(PROPER_NOUNS, '').match(ENGLISH_ONLY) || []).length >= 2;
+  let stripped = text.replace(PROPER_NOUNS, '').replace(TRADEMARKED_TITLE, '');
+  if (english) for (const re of properNounNames(english)) stripped = stripped.replace(re, '');
+  return (stripped.match(ENGLISH_ONLY) || []).length >= 2;
 }
 
 function sameIsFine(text) {
@@ -183,7 +214,7 @@ function main() {
         problems.missing.push(`${locale}  ${key}`);
       } else if (value === source && !sameIsFine(source) && !accepted.has(`${locale}:${key}`)) {
         problems.english.push(`${locale}  ${key}`);
-      } else if (value !== source && looksEnglish(value)) {
+      } else if (value !== source && looksEnglish(value, english)) {
         problems.mangled.push(`${locale}  ${key}`);
       }
     }
