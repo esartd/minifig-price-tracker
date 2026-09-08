@@ -57,12 +57,35 @@ export async function generateMetadata({
     ja: 'ja_JP',
   };
 
-  // Use localized description from boxes.json (generated SEO content)
-  const descriptionKey = `description_${locale}` as 'description_en' | 'description_de' | 'description_fr' | 'description_es';
+  // Descriptions come from SetsCatalog in the database, NOT from boxes.json.
+  // The comment here used to say boxes.json and the code read `set`, which is
+  // the boxes.json record -- and that file has no description fields at all
+  // (it is regenerated from BrickLink twice a month, which is exactly why
+  // descriptions were moved to the database in the first place). So every set
+  // page in every language fell through to the fallback template below and had
+  // done since the field was added. Matches what the minifig page does.
+  const { prisma } = await import('@/lib/prisma');
+  const setDescription = await prisma.setsCatalog.findUnique({
+    where: { box_no: boxNo },
+    select: {
+      description_en: true,
+      description_de: true,
+      description_fr: true,
+      description_es: true,
+      description_it: true,
+      description_ja: true,
+      description_nl: true,
+      description_pl: true,
+      description_pt: true,
+      description_sv: true,
+    },
+  }).catch(() => null);
+
+  const descriptionKey = `description_${locale}` as keyof NonNullable<typeof setDescription>;
   const descriptionFallbackTemplate = t.setDetail?.meta?.descriptionFallback ||
                       '{category} - {name}. Track current BrickLink prices and manage your LEGO set inventory. Released {year}.';
-  const description = (set as any)[descriptionKey] ||
-                      (set as any).description_en ||
+  const description = setDescription?.[descriptionKey] ||
+                      setDescription?.description_en ||
                       descriptionFallbackTemplate
                         .replace('{category}', set.category_name)
                         .replace('{name}', set.name)
