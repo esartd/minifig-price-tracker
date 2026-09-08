@@ -24,7 +24,7 @@ import { generateAmazonMinifigLink, generateBrickLinkMinifigLink } from '@/lib/a
 import { generateEbayMinifigLink } from '@/lib/ebay-affiliate-links';
 import { buildWhatnotMinifigUrl } from '@/lib/whatnot-affiliate-links';
 import { trackAffiliateClick } from '@/lib/analytics';
-import { HeartIcon as HeartOutline, MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { HeartIcon as HeartOutline, MinusIcon, PlusIcon, ChevronRightIcon, ShoppingCartIcon, TrashIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
 import { useTranslation } from '@/components/TranslationProvider';
 import AlertDialog from './AlertDialog';
@@ -1773,9 +1773,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             e.currentTarget.style.color = '#737373';
                           }}
                         >
-                          <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                          </svg>
+                          <ChevronRightIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
                         </button>
                         <button
                           onClick={(e) => {
@@ -1785,10 +1783,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                           }}
                           className="inventory-delete-btn"
                         >
-                          <svg width="var(--icon-base)" height="var(--icon-base)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="3 6 5 6 21 6"></polyline>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                          </svg>
+                          <TrashIcon style={{ width: 'var(--icon-base)', height: 'var(--icon-base)' }} />
                           <span className="inventory-delete-text">{t('minifigDetail.removeFromInventory')}</span>
                         </button>
                       </div>
@@ -1835,10 +1830,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                               }}
                               title={t('common.close') || 'Close'}
                             >
-                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                              </svg>
+                              <XMarkIcon style={{ width: '16px', height: '16px' }} />
                             </button>
                           </div>
                         )}
@@ -2090,10 +2082,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                 }}
                                 title={t('common.close') || 'Close'}
                               >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                                </svg>
+                                <XMarkIcon style={{ width: '16px', height: '16px' }} />
                               </button>
                             </div>
                           )}
@@ -2272,9 +2261,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                 e.currentTarget.style.color = '#737373';
                               }}
                             >
-                              <svg width="var(--icon-sm)" height="var(--icon-sm)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="9 18 15 12 9 6"></polyline>
-                              </svg>
+                              <ChevronRightIcon style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }} />
                             </button>
                             <button
                               onClick={(e) => {
@@ -2284,10 +2271,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                               }}
                               className="inventory-delete-btn"
                             >
-                              <svg width="var(--icon-base)" height="var(--icon-base)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="var(--icon-stroke)" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="3 6 5 6 21 6"></polyline>
-                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                              </svg>
+                              <TrashIcon style={{ width: 'var(--icon-base)', height: 'var(--icon-base)' }} />
                               <span className="inventory-delete-text">{t('minifigDetail.removeFromCollection')}</span>
                             </button>
                           </div>
@@ -2334,10 +2318,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                 }}
                                 title={t('common.close') || 'Close'}
                               >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                                </svg>
+                                <XMarkIcon style={{ width: '16px', height: '16px' }} />
                               </button>
                             </div>
                           )}
@@ -2539,10 +2520,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                 }}
                                 title={t('common.close') || 'Close'}
                               >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                                </svg>
+                                <XMarkIcon style={{ width: '16px', height: '16px' }} />
                               </button>
                             </div>
                           )}
@@ -2648,11 +2626,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E53238" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <circle cx="9" cy="21" r="1"></circle>
-                          <circle cx="20" cy="21" r="1"></circle>
-                          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                        </svg>
+                        <ShoppingCartIcon style={{ width: '16px', height: '16px' }} />
                         <div>
                           <div style={{
                             fontWeight: '600',
@@ -2823,11 +2797,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <circle cx="9" cy="21" r="1"></circle>
-                          <circle cx="20" cy="21" r="1"></circle>
-                          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                        </svg>
+                        <ShoppingCartIcon style={{ width: '16px', height: '16px' }} />
                         <div>
                           <div style={{
                             fontWeight: '600',

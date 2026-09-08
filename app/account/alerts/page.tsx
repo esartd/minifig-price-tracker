@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslation } from '@/components/TranslationProvider';
 import ConfirmDeleteDialog from '@/components/ConfirmDeleteDialog';
+import { BellIcon } from '@heroicons/react/24/outline';
 
 interface PriceAlert {
   id: string;
@@ -319,18 +320,7 @@ export default function AlertsPage() {
             padding: '64px 32px',
             textAlign: 'center'
           }}>
-            <svg
-              width="64"
-              height="64"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#d4d4d4"
-              strokeWidth="1.5"
-              style={{ margin: '0 auto 24px' }}
-            >
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-            </svg>
+            <BellIcon style={{ width: '64px', height: '64px' }} />
             <h3 style={{
               fontSize: '18px',
               fontWeight: '600',
@@ -380,10 +370,7 @@ export default function AlertsPage() {
               alignItems: 'center',
               gap: '8px'
             }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{ color: '#3b82f6' }}>
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-              </svg>
+              <BellIcon style={{ width: '20px', height: '20px' }} />
               {(t('accountAlerts.activeAlerts', { count: activeAlerts.length }) || `Active Alerts (${activeAlerts.length})`)}
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -457,10 +444,7 @@ export default function AlertsPage() {
               alignItems: 'center',
               gap: '8px'
             }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#a3a3a3' }}>
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-              </svg>
+              <BellIcon style={{ width: '20px', height: '20px' }} />
               {(t('accountAlerts.pausedAlerts', { count: pausedAlerts.length }) || `Paused Alerts (${pausedAlerts.length})`)}
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>

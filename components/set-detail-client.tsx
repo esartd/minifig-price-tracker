@@ -23,7 +23,7 @@ import { generateEbaySetLink } from '@/lib/ebay-affiliate-links';
 import { buildWhatnotSetUrl } from '@/lib/whatnot-affiliate-links';
 import { trackAffiliateClick } from '@/lib/analytics';
 import SetDescription from '@/components/SetDescription';
-import { HeartIcon as HeartOutline, MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { HeartIcon as HeartOutline, MinusIcon, PlusIcon, ChevronRightIcon, ShoppingCartIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
 import PriceAlertButton from '@/components/PriceAlertButton';
 import BadgeTooltip from '@/components/BadgeTooltip';
@@ -1016,16 +1016,11 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           color: '#737373', background: '#ffffff', border: '1px solid #e5e5e5', borderRadius: '999px',
                           cursor: 'pointer', padding: 0, transition: 'all 0.2s'
                         }} title={t('minifigDetail.moveToCollection')}>
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                          </svg>
+                          <ChevronRightIcon style={{ width: '20px', height: '20px' }} />
                         </button>
                         <button onClick={(e) => { e.stopPropagation(); setDeleteTarget('inventory'); setShowDeleteDialog(true); }}
                           className="inventory-delete-btn">
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <polyline points="3 6 5 6 21 6"></polyline>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                          </svg>
+                          <TrashIcon style={{ width: '20px', height: '20px' }} />
                         </button>
                       </div>
 
@@ -1191,16 +1186,11 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           color: '#737373', background: '#ffffff', border: '1px solid #e5e5e5', borderRadius: '999px',
                           cursor: 'pointer', padding: 0, transition: 'all 0.2s'
                         }} title={t('minifigDetail.moveToInventory')}>
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                          </svg>
+                          <ChevronRightIcon style={{ width: '20px', height: '20px' }} />
                         </button>
                         <button onClick={(e) => { e.stopPropagation(); setDeleteTarget('collection'); setShowDeleteDialog(true); }}
                           className="inventory-delete-btn">
-                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <polyline points="3 6 5 6 21 6"></polyline>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                          </svg>
+                          <TrashIcon style={{ width: '20px', height: '20px' }} />
                         </button>
                       </div>
 
@@ -1368,11 +1358,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E53238" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                      </svg>
+                      <ShoppingCartIcon style={{ width: '18px', height: '18px' }} />
                       <div>
                         <div style={{
                           fontWeight: '600',
@@ -1484,11 +1470,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                      </svg>
+                      <ShoppingCartIcon style={{ width: '18px', height: '18px' }} />
                       <div>
                         <div style={{
                           fontWeight: '600',

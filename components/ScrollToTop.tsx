@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslation } from '@/components/TranslationProvider';
+import { ArrowUpIcon } from '@heroicons/react/24/outline';
 
 export default function ScrollToTop() {
   const { t } = useTranslation();
@@ -68,18 +69,7 @@ export default function ScrollToTop() {
         e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.3)';
       }}
     >
-      <svg
-        width="var(--icon-base)"
-        height="var(--icon-base)"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="white"
-        strokeWidth="var(--icon-stroke)"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12 19V5M5 12l7-7 7 7" />
-      </svg>
+      <ArrowUpIcon style={{ width: 'var(--icon-base)', height: 'var(--icon-base)' }} />
     </button>
   );
 }

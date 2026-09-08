@@ -26,7 +26,22 @@ import { Colors, ControlHeight, Radius } from '@/lib/design-system';
  */
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
-export type ButtonSize = 'standard' | 'small';
+/**
+ * Three, and only three.
+ *
+ * Counted across the site before this was written down: 28, 32, 36, 40, 42,
+ * 44, 48 and 56px, which is not a scale, it is whatever each call site needed
+ * that day. The three below cover every real case:
+ *
+ *   small     32px  dense rows, secondary actions inside a card
+ *   standard  40px  the default; 44px below 768px, where globals.css puts a
+ *                   touch floor on every button
+ *   large     48px  one per screen at most -- the page's main action
+ *                   (Generate Listing, Start Pricing, Upgrade to Premium)
+ *
+ * 44 is not a fourth size. It is `standard` at its touch minimum.
+ */
+export type ButtonSize = 'standard' | 'small' | 'large';
 
 interface BaseProps {
   variant?: ButtonVariant;
@@ -53,6 +68,7 @@ export type ButtonProps = ButtonAsButton | ButtonAsLink;
 const SIZES: Record<ButtonSize, { height: string; padding: string; fontSize: string; gap: string; iconBox: string }> = {
   standard: { height: ControlHeight.standard, padding: '0 20px', fontSize: 'var(--text-sm)', gap: '8px', iconBox: '40px' },
   small: { height: '32px', padding: '0 14px', fontSize: 'var(--text-xs)', gap: '6px', iconBox: '32px' },
+  large: { height: '48px', padding: '0 28px', fontSize: 'var(--text-base)', gap: '10px', iconBox: '48px' },
 };
 
 const VARIANTS: Record<ButtonVariant, React.CSSProperties> = {
