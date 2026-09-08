@@ -89,8 +89,11 @@ export async function generateMetadata({
   const yearText = minifig.year_released || (t.minifigDetail?.meta?.dateUnknown || 'date unknown');
   const metaDescriptionTemplate = t.minifigDetail?.meta?.description ||
     '{category} - {fullName}. Track current BrickLink prices, see market value, and manage your collection. Add to sell or keep. Released {year}.';
+  const descriptionSentences = description ? description.split('. ') : [];
   const metaDescription = description
-    ? description.split('. ').slice(0, 2).join('. ') + '.'
+    ? (descriptionSentences.length > 2
+        ? descriptionSentences.slice(0, 2).join('. ') + '.'
+        : description)
     : metaDescriptionTemplate
         .replace('{category}', minifig.category_name)
         .replace('{fullName}', fullName)

@@ -91,8 +91,12 @@ export async function generateMetadata({
                         .replace('{name}', set.name)
                         .replace('{year}', set.year_released || 'date unknown');
 
-  // Use first 2 sentences for meta description (Google truncates at ~155 chars)
-  const metaDescription = description.split('. ').slice(0, 2).join('. ') + '.';
+  // Two sentences, and only add the period back if trimming removed one.
+  // `'x.'.split('. ')` yields ['x.'], so the old unconditional `+ '.'` turned
+  // a one-sentence description into "released in 2023.." on every set page.
+  const sentences = description.split('. ');
+  const metaDescription =
+    sentences.length > 2 ? sentences.slice(0, 2).join('. ') + '.' : description;
 
   return {
     title: `${set.name} (${set.box_no}) - ${t.setDetail?.meta?.titleSuffix || 'LEGO Set Price Guide'}`,
