@@ -34,6 +34,18 @@ import { buildDescriptions, LOCALES } from '../lib/catalog-descriptions.mjs';
 
 const prisma = new PrismaClient();
 const DRY_RUN = process.argv.includes('--dry-run');
+
+/**
+ * Rewrite the six added locale columns on SetsCatalog even when they are
+ * already filled.
+ *
+ * Needed once: the first backfill used the minifigure wording for sets, so
+ * every set page in it/ja/nl/pl/pt/sv said "this minifigure is a unique
+ * variant" about a set. Scoped to those six columns on that one table --
+ * description_en/de/fr/es are older, correct, and never touched.
+ */
+const REWRITE_SETS = process.argv.includes('--rewrite-sets');
+const ADDED_LOCALES = ['it', 'ja', 'nl', 'pl', 'pt', 'sv'];
 const BATCH = 200;
 
 /** Columns we ask for and may write. */
@@ -46,7 +58,8 @@ function missingLocales(row) {
   });
 }
 
-async function backfill(label, findMany, update, keyOf, nameOf, themeOf) {
+async function backfill(label, findMany, update, keyOf, nameOf, themeOf, isSet = false) {
+  const rewriting = isSet && REWRITE_SETS;
   let skip = 0;
   let seen = 0;
   let written = 0;
@@ -58,13 +71,15 @@ async function backfill(label, findMany, update, keyOf, nameOf, themeOf) {
 
     for (const row of rows) {
       seen++;
-      const missing = missingLocales(row);
+      const missing = rewriting
+        ? ADDED_LOCALES.map((l) => `description_${l}`)
+        : missingLocales(row);
       if (missing.length === 0) {
         alreadyComplete++;
         continue;
       }
 
-      const all = buildDescriptions(nameOf(row), themeOf(row));
+      const all = buildDescriptions(nameOf(row), themeOf(row), { isSet });
       // Only the empty ones. A hand-written description is never replaced.
       const data = {};
       for (const c of missing) data[c] = all[c];
@@ -105,6 +120,11 @@ async function main() {
       ? 'Dry run -- nothing will be written.\n'
       : 'Backfilling catalog descriptions for all ten locales.\n'
   );
+  if (REWRITE_SETS) {
+    console.log(
+      `Rewriting ${ADDED_LOCALES.join(', ')} on SetsCatalog even where already filled.\n`
+    );
+  }
 
   const select = Object.fromEntries(COLUMNS.map((c) => [c, true]));
 
@@ -136,7 +156,8 @@ async function main() {
     (key, data) => prisma.setsCatalog.update({ where: { box_no: key }, data }),
     (r) => r.box_no,
     (r) => r.name,
-    (r) => r.category_name
+    (r) => r.category_name,
+    true
   );
 
   console.log(`\nDone. ${minifigs + sets} row(s) ${DRY_RUN ? 'would be' : ''} written in total.`);
