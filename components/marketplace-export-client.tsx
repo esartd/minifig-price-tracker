@@ -1422,7 +1422,12 @@ export default function MarketplaceExportClient({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={tr('whatnotExport.searchPlaceholder', 'Search by name or number')}
-              style={{ ...controlStyle, paddingLeft: '36px' }}
+              /* Pill, like every other search box on the site. It borrows
+                 controlStyle for colour and padding, but not its 8px radius:
+                 controlStyle is the shared shape for the export form's inputs
+                 and selects further down the page, and this is a search box
+                 sitting in its own toolbar row beside a button. */
+              style={{ ...controlStyle, paddingLeft: '36px', borderRadius: '999px' }}
             />
           </div>
 
