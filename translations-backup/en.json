@@ -2209,11 +2209,11 @@
     },
     "hero": {
       "title": "Write Your Listing in Seconds",
-      "subtitle": "Turn any item in your collection into a ready-to-post listing — title, description, and suggested price included."
+      "subtitle": "Any item you own, turned into a ready-to-post listing — title, description, price."
     },
     "howItWorks": {
       "title": "How it works",
-      "paragraph1": "The generator writes from the item's own catalog data and its current suggested price, so it has to know exactly which item you are selling. That is why it lives on each minifigure and set page rather than on a page of its own."
+      "paragraph1": "It writes from the item's own data and today's price, so it needs to know exactly what you're selling. That is why it lives on each item's page, not here."
     },
     "cta": {
       "subtitle": "Find the item you want to list.",
@@ -2298,15 +2298,6 @@
       "searchThemes": "Search themes...",
       "noThemesFound": "No themes found"
     },
-    "timeline": {
-      "retiring0to3": "Retiring in 0-3 months",
-      "retiring3to9": "Retiring in 3-9 months",
-      "retiring9to18": "Retiring in 9-18 months",
-      "allPredictions": "All Predictions",
-      "highUrgency": "HIGH URGENCY",
-      "mediumUrgency": "MEDIUM URGENCY",
-      "lowUrgency": "LOW URGENCY"
-    },
     "confidence": {
       "high": "High confidence",
       "medium": "Medium confidence",
@@ -2314,13 +2305,13 @@
     },
     "setCard": {
       "released": "Released {year}",
-      "ageYears": "{age} years old",
-      "estimatedRetirement": "Est. retirement: {quarter}",
       "priceIncrease": "+{percent}% in last 90 days",
       "priceDecrease": "{percent}% in last 90 days",
       "currentPrice": "Current avg: ${price}",
       "viewDetails": "View Details",
-      "trackThisSet": "Track This Set"
+      "trackThisSet": "Track This Set",
+      "ageOfExpected": "{age} of an expected {expected} years",
+      "noImage": "No image"
     },
     "faq": {
       "title": "Frequently Asked Questions",
@@ -2336,6 +2327,13 @@
     "empty": {
       "noSets": "No retiring sets found",
       "tryDifferentFilter": "Try selecting a different theme or timeline"
+    },
+    "yearGroups": {
+      "heading": "Expected to retire in {year}",
+      "overdue": "Likely already retired",
+      "unknown": "Date not estimated",
+      "setCount": "{count} sets",
+      "setCountOne": "1 set"
     }
   },
   "collectors": {

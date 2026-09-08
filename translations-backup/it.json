@@ -2055,15 +2055,6 @@
       "searchThemes": "Cerca temi...",
       "noThemesFound": "Nessun tema trovato"
     },
-    "timeline": {
-      "retiring0to3": "Ritiro in 0-3 mesi",
-      "retiring3to9": "Ritiro in 3-9 mesi",
-      "retiring9to18": "Ritiro in 9-18 mesi",
-      "allPredictions": "Tutte le Previsioni",
-      "highUrgency": "URGENZA ALTA",
-      "mediumUrgency": "URGENZA MEDIA",
-      "lowUrgency": "URGENZA BASSA"
-    },
     "confidence": {
       "high": "Alta affidabilità",
       "medium": "Media affidabilità",
@@ -2071,13 +2062,13 @@
     },
     "setCard": {
       "released": "Rilasciato nel {year}",
-      "ageYears": "{age} anni",
-      "estimatedRetirement": "Ritiro stimato: {quarter}",
       "priceIncrease": "+{percent}% negli ultimi 90 giorni",
       "priceDecrease": "{percent}% negli ultimi 90 giorni",
       "currentPrice": "Media attuale: ${price}",
       "viewDetails": "Visualizza Dettagli",
-      "trackThisSet": "Tieni Traccia di Questo Set"
+      "trackThisSet": "Tieni Traccia di Questo Set",
+      "ageOfExpected": "{age} sui {expected} anni previsti",
+      "noImage": "Nessuna immagine"
     },
     "faq": {
       "title": "Domande Frequenti",
@@ -2093,6 +2084,13 @@
     "empty": {
       "noSets": "Nessun set in dismissione trovato",
       "tryDifferentFilter": "Prova a selezionare un tema o una timeline diversa"
+    },
+    "yearGroups": {
+      "heading": "Ritiro previsto nel {year}",
+      "overdue": "Probabilmente già ritirato",
+      "unknown": "Data non stimata",
+      "setCount": "{count} set",
+      "setCountOne": "1 set"
     }
   },
   "collectors": {
@@ -2664,11 +2662,11 @@
     },
     "hero": {
       "title": "Scrivi il tuo annuncio in pochi secondi",
-      "subtitle": "Trasforma qualsiasi articolo della tua collezione in un annuncio pronto da pubblicare — titolo, descrizione e prezzo suggerito inclusi."
+      "subtitle": "Qualsiasi articolo tu abbia, trasformato in un'inserzione pronta — titolo, descrizione, prezzo."
     },
     "howItWorks": {
       "title": "Come funziona",
-      "paragraph1": "Il generatore scrive partendo dai dati di catalogo dell'articolo e dal prezzo suggerito attuale, quindi deve sapere esattamente quale stai vendendo. Per questo si trova su ogni pagina di minifigure e set, e non su una pagina a sé."
+      "paragraph1": "Nasce dai dati dell'articolo e dal prezzo di oggi, quindi deve sapere esattamente cosa vendi. Per questo si trova sulla pagina dell'articolo, non qui."
     },
     "cta": {
       "subtitle": "Trova l'articolo che vuoi vendere.",

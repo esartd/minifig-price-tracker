@@ -2055,15 +2055,6 @@
       "searchThemes": "Zoek thema's...",
       "noThemesFound": "Geen thema's gevonden"
     },
-    "timeline": {
-      "retiring0to3": "Verdwijnt in 0-3 maanden",
-      "retiring3to9": "Verdwijnt in 3-9 maanden",
-      "retiring9to18": "Verdwijnt in 9-18 maanden",
-      "allPredictions": "Alle Voorspellingen",
-      "highUrgency": "HOGE URGENTIE",
-      "mediumUrgency": "GEMIDDELDE URGENTIE",
-      "lowUrgency": "LAGE URGENTIE"
-    },
     "confidence": {
       "high": "Hoge betrouwbaarheid",
       "medium": "Gemiddelde betrouwbaarheid",
@@ -2071,13 +2062,13 @@
     },
     "setCard": {
       "released": "Uitgebracht in {year}",
-      "ageYears": "{age} jaar oud",
-      "estimatedRetirement": "Geschatte stopzetting: {quarter}",
       "priceIncrease": "+{percent}% in de afgelopen 90 dagen",
       "priceDecrease": "{percent}% in de afgelopen 90 dagen",
       "currentPrice": "Huidig gemiddelde: ${price}",
       "viewDetails": "Bekijk Details",
-      "trackThisSet": "Volg Deze Set"
+      "trackThisSet": "Volg Deze Set",
+      "ageOfExpected": "{age} van de verwachte {expected} jaar",
+      "noImage": "Geen afbeelding"
     },
     "faq": {
       "title": "Veelgestelde Vragen",
@@ -2093,6 +2084,13 @@
     "empty": {
       "noSets": "Geen sets die stoppen gevonden",
       "tryDifferentFilter": "Probeer een ander thema of tijdlijn te selecteren"
+    },
+    "yearGroups": {
+      "heading": "Verwacht uit productie in {year}",
+      "overdue": "Waarschijnlijk al uit productie",
+      "unknown": "Datum niet geschat",
+      "setCount": "{count} sets",
+      "setCountOne": "1 set"
     }
   },
   "collectors": {
@@ -2664,11 +2662,11 @@
     },
     "hero": {
       "title": "Schrijf je advertentie in seconden",
-      "subtitle": "Zet elk item uit je collectie om in een kant-en-klare advertentie — titel, beschrijving en adviesprijs inbegrepen."
+      "subtitle": "Elk artikel dat je hebt, omgezet in een kant-en-klare advertentie — titel, beschrijving, prijs."
     },
     "howItWorks": {
       "title": "Hoe het werkt",
-      "paragraph1": "De generator schrijft op basis van de catalogusgegevens van het artikel en de huidige prijssuggestie, dus hij moet precies weten wat je verkoopt. Daarom staat hij op elke minifiguur- en setpagina en niet op een eigen pagina."
+      "paragraph1": "Hij schrijft op basis van de gegevens van het artikel en de prijs van vandaag, dus moet hij precies weten wat je verkoopt. Daarom staat hij op de pagina van het artikel, niet hier."
     },
     "cta": {
       "subtitle": "Vind het item dat je wilt aanbieden.",

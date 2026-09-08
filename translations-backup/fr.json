@@ -2068,15 +2068,6 @@
       "searchThemes": "Rechercher des thèmes...",
       "noThemesFound": "Aucun thème trouvé"
     },
-    "timeline": {
-      "retiring0to3": "Retrait dans 0-3 mois",
-      "retiring3to9": "Retrait dans 3-9 mois",
-      "retiring9to18": "Retrait dans 9-18 mois",
-      "allPredictions": "Toutes les Prévisions",
-      "highUrgency": "URGENCE ÉLEVÉE",
-      "mediumUrgency": "URGENCE MOYENNE",
-      "lowUrgency": "URGENCE FAIBLE"
-    },
     "confidence": {
       "high": "Confiance élevée",
       "medium": "Confiance moyenne",
@@ -2084,13 +2075,13 @@
     },
     "setCard": {
       "released": "Sorti en {year}",
-      "ageYears": "{age} ans",
-      "estimatedRetirement": "Retrait estimé : {quarter}",
       "priceIncrease": "+{percent}% au cours des 90 derniers jours",
       "priceDecrease": "{percent}% au cours des 90 derniers jours",
       "currentPrice": "Moyenne actuelle : ${price}",
       "viewDetails": "Voir les Détails",
-      "trackThisSet": "Suivre ce Set"
+      "trackThisSet": "Suivre ce Set",
+      "ageOfExpected": "{age} sur {expected} années prévues",
+      "noImage": "Aucune image"
     },
     "faq": {
       "title": "Questions Fréquemment Posées",
@@ -2106,6 +2097,13 @@
     "empty": {
       "noSets": "Aucun set en cours de retrait trouvé",
       "tryDifferentFilter": "Essayez de sélectionner un thème ou une chronologie différente"
+    },
+    "yearGroups": {
+      "heading": "Retrait prévu en {year}",
+      "overdue": "Probablement déjà retiré",
+      "unknown": "Date non estimée",
+      "setCount": "{count} sets",
+      "setCountOne": "1 set"
     }
   },
   "collectors": {
@@ -2721,11 +2719,11 @@
     },
     "hero": {
       "title": "Rédigez votre annonce en quelques secondes",
-      "subtitle": "Transformez n'importe quel article de votre collection en annonce prête à publier — titre, description et prix suggéré inclus."
+      "subtitle": "N'importe quel article que vous possédez devient une annonce prête à publier — titre, description, prix."
     },
     "howItWorks": {
       "title": "Comment ça marche",
-      "paragraph1": "Le générateur s'appuie sur les données catalogue de l'article et son prix suggéré actuel : il doit donc savoir précisément lequel vous vendez. C'est pourquoi il se trouve sur chaque fiche de minifigurine et de set, et non sur une page à part."
+      "paragraph1": "Elle s'appuie sur les données de l'article et le prix du jour : il lui faut donc savoir exactement ce que vous vendez. D'où sa place sur la fiche de l'article, et non ici."
     },
     "cta": {
       "subtitle": "Trouvez l'article que vous voulez vendre.",

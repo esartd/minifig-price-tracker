@@ -2055,15 +2055,6 @@
       "searchThemes": "Szukaj motywów...",
       "noThemesFound": "Nie znaleziono motywów"
     },
-    "timeline": {
-      "retiring0to3": "Wycofanie za 0-3 miesiące",
-      "retiring3to9": "Wycofanie za 3-9 miesięcy",
-      "retiring9to18": "Wycofanie za 9-18 miesięcy",
-      "allPredictions": "Wszystkie Prognozy",
-      "highUrgency": "WYSOKA PILNOŚĆ",
-      "mediumUrgency": "ŚREDNIA PILNOŚĆ",
-      "lowUrgency": "NISKA PILNOŚĆ"
-    },
     "confidence": {
       "high": "Wysoka pewność",
       "medium": "Średnia pewność",
@@ -2071,13 +2062,13 @@
     },
     "setCard": {
       "released": "Wydany w {year}",
-      "ageYears": "{age} lat",
-      "estimatedRetirement": "Szacowane wycofanie: {quarter}",
       "priceIncrease": "+{percent}% w ciągu ostatnich 90 dni",
       "priceDecrease": "{percent}% w ciągu ostatnich 90 dni",
       "currentPrice": "Aktualna średnia: ${price}",
       "viewDetails": "Zobacz Szczegóły",
-      "trackThisSet": "Śledź Ten Zestaw"
+      "trackThisSet": "Śledź Ten Zestaw",
+      "ageOfExpected": "{age} z przewidywanych {expected} lat",
+      "noImage": "Brak zdjęcia"
     },
     "faq": {
       "title": "Często Zadawane Pytania",
@@ -2093,6 +2084,13 @@
     "empty": {
       "noSets": "Nie znaleziono wycofywanych zestawów",
       "tryDifferentFilter": "Spróbuj wybrać inny motyw lub oś czasu"
+    },
+    "yearGroups": {
+      "heading": "Przewidywane wycofanie w {year}",
+      "overdue": "Prawdopodobnie już wycofane",
+      "unknown": "Data nieoszacowana",
+      "setCount": "Zestawy: {count}",
+      "setCountOne": "1 zestaw"
     }
   },
   "collectors": {
@@ -2664,11 +2662,11 @@
     },
     "hero": {
       "title": "Napisz ofertę w kilka sekund",
-      "subtitle": "Zamień dowolny przedmiot ze swojej kolekcji w gotową do publikacji ofertę — tytuł, opis i sugerowaną cenę."
+      "subtitle": "Każdy przedmiot, który masz, zamieniony w gotowe ogłoszenie — tytuł, opis, cena."
     },
     "howItWorks": {
       "title": "Jak to działa",
-      "paragraph1": "Generator korzysta z danych katalogowych przedmiotu i jego aktualnej sugerowanej ceny, więc musi wiedzieć dokładnie, co sprzedajesz. Dlatego znajduje się na stronie każdej minifigurki i zestawu, a nie na osobnej stronie."
+      "paragraph1": "Powstaje z danych przedmiotu i dzisiejszej ceny, więc musi wiedzieć dokładnie, co sprzedajesz. Dlatego znajduje się na stronie przedmiotu, a nie tutaj."
     },
     "cta": {
       "subtitle": "Znajdź przedmiot, który chcesz wystawić.",

@@ -2055,15 +2055,6 @@
       "searchThemes": "Sök teman...",
       "noThemesFound": "Inga teman hittades"
     },
-    "timeline": {
-      "retiring0to3": "Försvinner om 0-3 månader",
-      "retiring3to9": "Försvinner om 3-9 månader",
-      "retiring9to18": "Försvinner om 9-18 månader",
-      "allPredictions": "Alla Prognoser",
-      "highUrgency": "HÖG BRÅDSKA",
-      "mediumUrgency": "MEDELHÖG BRÅDSKA",
-      "lowUrgency": "LÅG BRÅDSKA"
-    },
     "confidence": {
       "high": "Hög säkerhet",
       "medium": "Medelhög säkerhet",
@@ -2071,13 +2062,13 @@
     },
     "setCard": {
       "released": "Lanserat {year}",
-      "ageYears": "{age} år gammalt",
-      "estimatedRetirement": "Uppskattat utfasning: {quarter}",
       "priceIncrease": "+{percent}% senaste 90 dagarna",
       "priceDecrease": "{percent}% senaste 90 dagarna",
       "currentPrice": "Nuvarande medel: ${price}",
       "viewDetails": "Visa Detaljer",
-      "trackThisSet": "Följ Detta Set"
+      "trackThisSet": "Följ Detta Set",
+      "ageOfExpected": "{age} av förväntade {expected} år",
+      "noImage": "Ingen bild"
     },
     "faq": {
       "title": "Vanliga Frågor",
@@ -2093,6 +2084,13 @@
     "empty": {
       "noSets": "Inga set som fasas ut hittades",
       "tryDifferentFilter": "Prova att välja ett annat tema eller tidslinje"
+    },
+    "yearGroups": {
+      "heading": "Beräknas utgå {year}",
+      "overdue": "Sannolikt redan utgången",
+      "unknown": "Datum ej uppskattat",
+      "setCount": "{count} set",
+      "setCountOne": "1 set"
     }
   },
   "collectors": {
@@ -2664,11 +2662,11 @@
     },
     "hero": {
       "title": "Skriv din annons på några sekunder",
-      "subtitle": "Gör vilket föremål som helst i din samling till en publiceringsklar annons — titel, beskrivning och föreslaget pris ingår."
+      "subtitle": "Vilken vara du än äger blir en färdig annons — rubrik, beskrivning, pris."
     },
     "howItWorks": {
       "title": "Så fungerar det",
-      "paragraph1": "Generatorn skriver utifrån varans katalogdata och dess aktuella prisförslag, så den måste veta exakt vilken vara du säljer. Därför finns den på varje minifigur- och setsida i stället för på en egen sida."
+      "paragraph1": "Den skrivs utifrån varans data och dagens pris, så den måste veta exakt vad du säljer. Därför finns den på varans egen sida, inte här."
     },
     "cta": {
       "subtitle": "Hitta föremålet du vill sälja.",

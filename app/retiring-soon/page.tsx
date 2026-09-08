@@ -195,7 +195,10 @@ export default async function RetiringSoonPage({
         initialData={initialData}
         themes={themes}
         initialTheme={theme || 'all'}
-        initialTimeline={timeline}
+        /* Read on the server so SSR and hydration agree on which years are
+           already past. Calling new Date() inside the client component could
+           disagree with the server across the New Year in another timezone. */
+        currentYear={new Date().getFullYear()}
         translations={t.retiringSoon}
       />
 

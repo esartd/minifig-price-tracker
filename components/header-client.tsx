@@ -110,6 +110,27 @@ export function HeaderClient({ user }: HeaderClientProps) {
    * trees below -- they are two returns from this same function.
    */
   const [searchQuery, setSearchQuery] = useState('');
+
+  /**
+   * On /search, seed the box from ?q= so the results page shows what was
+   * searched for and stays editable.
+   *
+   * That page used to carry its own search input; it was removed because the
+   * header now has one on every page and two inputs for one job, 200px apart,
+   * is worse than none. But removing it left the results with no visible
+   * record of the query at all -- you could not see or refine what you had
+   * typed. This puts it back in the one box that remains.
+   *
+   * Reads window.location rather than useSearchParams(): this component lives
+   * in the root layout, and useSearchParams() there opts every page into
+   * client-side rendering. Keyed on pathname only, so typing in the box while
+   * already on /search is never overwritten by its own URL update.
+   */
+  useEffect(() => {
+    if (pathname !== '/search') return;
+    const fromUrl = new URLSearchParams(window.location.search).get('q') || '';
+    setSearchQuery((current) => (current === fromUrl ? current : fromUrl));
+  }, [pathname]);
   // The mobile menu used to be pinned at a hard-coded top: 73px, which is the
   // desktop header's height. The mobile header is 65px, so the menu floated 8px
   // below it and left a white band between the header's bottom border and the

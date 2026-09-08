@@ -2055,15 +2055,6 @@
       "searchThemes": "テーマを検索...",
       "noThemesFound": "テーマが見つかりません"
     },
-    "timeline": {
-      "retiring0to3": "0〜3ヶ月以内に廃盤",
-      "retiring3to9": "3〜9ヶ月以内に廃盤",
-      "retiring9to18": "9〜18ヶ月以内に廃盤",
-      "allPredictions": "すべての予測",
-      "highUrgency": "緊急度：高",
-      "mediumUrgency": "緊急度：中",
-      "lowUrgency": "緊急度：低"
-    },
     "confidence": {
       "high": "信頼度：高",
       "medium": "信頼度：中",
@@ -2071,13 +2062,13 @@
     },
     "setCard": {
       "released": "{year}年発売",
-      "ageYears": "発売から{age}年",
-      "estimatedRetirement": "廃盤予定：{quarter}",
       "priceIncrease": "過去90日間で+{percent}%",
       "priceDecrease": "過去90日間で{percent}%",
       "currentPrice": "現在の平均価格：${price}",
       "viewDetails": "詳細を見る",
-      "trackThisSet": "このセットを追跡"
+      "trackThisSet": "このセットを追跡",
+      "ageOfExpected": "想定{expected}年のうち{age}年",
+      "noImage": "画像なし"
     },
     "faq": {
       "title": "よくある質問",
@@ -2093,6 +2084,13 @@
     "empty": {
       "noSets": "廃盤予定のセットが見つかりません",
       "tryDifferentFilter": "別のテーマまたはタイムラインを選択してみてください"
+    },
+    "yearGroups": {
+      "heading": "{year}年に生産終了の見込み",
+      "overdue": "すでに生産終了の可能性",
+      "unknown": "推定日未定",
+      "setCount": "{count}件",
+      "setCountOne": "1件"
     }
   },
   "collectors": {
@@ -2664,11 +2662,11 @@
     },
     "hero": {
       "title": "数秒で出品を作成",
-      "subtitle": "コレクション内のアイテムを、タイトル・説明文・おすすめ価格込みのすぐ使える出品に変換します。"
+      "subtitle": "手持ちのどのアイテムも、そのまま出品できる文章に — タイトル・説明・価格。"
     },
     "howItWorks": {
       "title": "仕組み",
-      "paragraph1": "ジェネレーターは商品のカタログ情報と現在の参考価格から文章を作るため、どの商品を売るのかを正確に知る必要があります。だからこそ専用ページではなく、各ミニフィグ・セットのページ上にあります。"
+      "paragraph1": "アイテムのデータと当日の価格から作るため、何を売るのかを正確に知る必要があります。だからここではなく、各アイテムのページにあります。"
     },
     "cta": {
       "subtitle": "出品したいアイテムを見つけましょう。",
