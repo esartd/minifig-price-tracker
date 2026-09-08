@@ -225,7 +225,7 @@ export default function LegoSaleClient() {
                     background: '#3b82f6',
                     color: '#ffffff',
                     padding: '6px 12px',
-                    borderRadius: '6px',
+                    borderRadius: '999px',
                     fontSize: '13px',
                     fontWeight: '500',
                   }}

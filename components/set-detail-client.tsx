@@ -1630,7 +1630,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           right: '8px',
                           background: '#3b82f6',
                           color: 'white',
-                          borderRadius: '12px',
+                          borderRadius: '999px',
                           padding: '4px 10px',
                           fontSize: '12px',
                           fontWeight: '700',

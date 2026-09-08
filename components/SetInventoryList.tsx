@@ -367,12 +367,16 @@ export default function SetInventoryList({
             flexShrink: 0,
             gridColumn: '3'
           }}>
-            {/* Quantity Stepper */}
+            {/* Quantity Stepper. Pill, not a rounded rectangle: it sits in a row
+                of circular icon buttons, and a joined pill is what tells you the
+                three parts belong together while the three beside them do not.
+                The -/+ are 48px wide so the pill's 22px corner arc curves away
+                from the glyph rather than through it. */}
             <div onClick={(e) => e.stopPropagation()} style={{
               display: 'flex',
               alignItems: 'center',
               border: '1px solid #e5e5e5',
-              borderRadius: '8px',
+              borderRadius: '999px',
               overflow: 'hidden',
               background: '#ffffff'
             }}>
@@ -386,7 +390,7 @@ export default function SetInventoryList({
                 }}
                 disabled={item.quantity <= 1}
                 style={{
-                  width: '44px',
+                  width: '48px',
                   height: '44px',
                   display: 'flex',
                   alignItems: 'center',
@@ -455,7 +459,7 @@ export default function SetInventoryList({
                 }}
                 disabled={item.quantity >= 9999}
                 style={{
-                  width: '44px',
+                  width: '48px',
                   height: '44px',
                   display: 'flex',
                   alignItems: 'center',
@@ -646,7 +650,7 @@ export default function SetInventoryList({
           background: '#3b82f6',
           color: '#ffffff',
           padding: '16px 24px',
-          borderRadius: '8px',
+          borderRadius: '999px',
           boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
           fontSize: 'var(--text-sm)',
           fontWeight: '600',

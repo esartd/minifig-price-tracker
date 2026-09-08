@@ -523,7 +523,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     fontWeight: '600',
                     color: '#ffffff',
                     background: '#3b82f6',
-                    borderRadius: '8px',
+                    borderRadius: '999px',
                     textDecoration: 'none',
                     transition: 'all 0.2s',
                     whiteSpace: 'nowrap'
@@ -1309,7 +1309,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               background: '#3b82f6',
               color: '#fff',
               textAlign: 'center',
-              borderRadius: '8px',
+              borderRadius: '999px',
               textDecoration: 'none',
               fontSize: 'var(--text-base)',
               fontWeight: '600'

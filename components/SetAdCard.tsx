@@ -154,7 +154,7 @@ export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUr
           color: '#ffffff',
           background: '#3b82f6',
           border: 'none',
-          borderRadius: '6px',
+          borderRadius: '999px',
           textAlign: 'center',
           textDecoration: 'none',
           transition: 'all 0.2s',

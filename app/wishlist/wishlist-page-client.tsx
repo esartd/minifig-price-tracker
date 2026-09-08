@@ -196,7 +196,7 @@ export default function WishlistPage() {
                 color: '#ffffff',
                 background: '#3b82f6',
                 border: 'none',
-                borderRadius: '8px',
+                borderRadius: '999px',
                 textDecoration: 'none',
                 transition: 'all 0.2s'
               }}
@@ -333,7 +333,7 @@ export default function WishlistPage() {
               color: '#ffffff',
               background: '#3b82f6',
               border: 'none',
-              borderRadius: '8px',
+              borderRadius: '999px',
               textDecoration: 'none',
               transition: 'all 0.2s'
             }}
@@ -448,7 +448,7 @@ export default function WishlistPage() {
                       color: '#ffffff',
                       background: '#3b82f6',
                       border: 'none',
-                      borderRadius: '6px',
+                      borderRadius: '999px',
                       cursor: 'pointer',
                       transition: 'all 0.2s',
                       display: 'flex',
@@ -649,7 +649,7 @@ export default function WishlistPage() {
                       color: '#ffffff',
                       background: '#3b82f6',
                       border: 'none',
-                      borderRadius: '6px',
+                      borderRadius: '999px',
                       cursor: 'pointer',
                       transition: 'all 0.2s',
                       display: 'flex',

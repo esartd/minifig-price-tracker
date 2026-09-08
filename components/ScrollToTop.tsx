@@ -45,7 +45,9 @@ export default function ScrollToTop() {
         right: '32px',
         width: 'var(--icon-2xl)',
         height: 'var(--icon-2xl)',
-        borderRadius: '12px',
+        // Square box, pill radius -- so this is a circle, like every other
+        // icon-only button on the site.
+        borderRadius: '999px',
         background: '#3b82f6',
         border: 'none',
         boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)',

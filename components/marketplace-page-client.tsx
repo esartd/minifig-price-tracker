@@ -363,7 +363,7 @@ export default function MarketplacePageClient() {
                     color: '#171717',
                     background: '#ffffff',
                     border: '1px solid #e5e5e5',
-                    borderRadius: '8px',
+                    borderRadius: '999px',
                     textDecoration: 'none',
                     transition: 'background 0.2s, border-color 0.2s',
                   }}
