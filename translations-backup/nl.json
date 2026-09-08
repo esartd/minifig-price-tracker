@@ -1243,7 +1243,8 @@
     "searchPlaceholder": "Zoek op naam of itemnummer...",
     "clearSearch": "Zoekopdracht wissen",
     "noSearchResults": "Geen resultaten voor \"{query}\"",
-    "tryDifferentSearch": "Probeer een andere naam of itemnummer"
+    "tryDifferentSearch": "Probeer een andere naam of itemnummer",
+    "decimals": "Decimalen"
   },
   "privacyPolicy": {
     "meta": {

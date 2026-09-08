@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { useTranslation } from '@/components/TranslationProvider';
 import { Radius, Colors, ControlHeight, triggerStyle, controlFocusHandlers } from '@/lib/design-system';
+import SegmentedControl from '@/components/ui/SegmentedControl';
 
 interface MarketplaceCard {
   itemNo: string;
@@ -140,37 +141,15 @@ export default function MarketplacePageClient() {
         flexWrap: 'wrap',
         marginBottom: '28px'
       }}>
-        {/* The wrapper owns the shape; the two buttons inside stay square and
-            are clipped by it, so the pair still reads as one control. */}
-        <div style={{
-          display: 'flex',
-          height: ControlHeight.standard,
-          border: `1px solid ${Colors.border}`,
-          borderRadius: Radius.pill,
-          overflow: 'hidden'
-        }}>
-          {(['minifig', 'set'] as ItemType[]).map((option) => (
-            <button
-              key={option}
-              type="button"
-              onClick={() => setItemType(option)}
-              style={{
-                padding: '0 20px',
-                fontSize: 'var(--text-sm)',
-                fontWeight: 600,
-                border: 'none',
-                borderRadius: Radius.none,
-                cursor: 'pointer',
-                background: itemType === option ? Colors.accent : Colors.surface,
-                color: itemType === option ? '#ffffff' : Colors.text,
-              }}
-            >
-              {option === 'minifig'
-                ? t('marketplace.minifigs') || 'Minifigures'
-                : t('marketplace.sets') || 'Sets'}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl
+          ariaLabel={t('marketplace.minifigs') || 'Item type'}
+          value={itemType}
+          onChange={(v) => setItemType(v as ItemType)}
+          options={[
+            { value: 'minifig', label: t('marketplace.minifigs') || 'Minifigures' },
+            { value: 'set', label: t('marketplace.sets') || 'Sets' },
+          ]}
+        />
 
         <input
           type="text"

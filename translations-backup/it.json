@@ -1243,7 +1243,8 @@
     "searchPlaceholder": "Cerca per nome o numero articolo...",
     "clearSearch": "Cancella ricerca",
     "noSearchResults": "Nessun risultato per \"{query}\"",
-    "tryDifferentSearch": "Prova un nome o numero articolo diverso"
+    "tryDifferentSearch": "Prova un nome o numero articolo diverso",
+    "decimals": "Cifre decimali"
   },
   "privacyPolicy": {
     "meta": {

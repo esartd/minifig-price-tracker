@@ -609,6 +609,17 @@ input[type="number"] {
   }
 }
 
+/* SegmentedControl label swap.
+
+   Some toggles need a shorter word on narrow screens -- "Minifigures" becomes
+   "Minifigs", "For Sale" becomes "Sale". This replaces the per-call-site
+   .toggle-text-mobile / .toggle-text-desktop pairs that did the same thing. */
+.segmented-label-short { display: none; }
+@media (max-width: 767px) {
+  .segmented-label-full { display: none; }
+  .segmented-label-short { display: inline; }
+}
+
 /* Header collapse, single source of truth.
 
    Below 1000px the header is always in its collapsed form: logo + hamburger on
@@ -2516,9 +2527,11 @@ select.custom-dropdown.condition-used {
     gap: 8px !important;
   }
 
-  /* Condition filter buttons - smaller padding on mobile */
+  /* Condition filter: tighter on mobile. Horizontal padding only -- the
+     segmented track owns the height, and vertical padding here would fight it. */
   .condition-filters-mobile button {
-    padding: 6px 12px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
     font-size: 13px !important;
   }
 

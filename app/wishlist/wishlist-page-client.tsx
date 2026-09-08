@@ -9,6 +9,7 @@ import { HeartIcon, TrashIcon, ShoppingCartIcon } from '@heroicons/react/24/outl
 import { generateAmazonMinifigLink, generateBrickLinkMinifigLink, generateAmazonLegoSetLink, generateBrickLinkAffiliateLink } from '@/lib/affiliate-links';
 import { generateEbaySetLink } from '@/lib/ebay-affiliate-links';
 import { useTranslation } from '@/components/TranslationProvider';
+import SegmentedControl from '@/components/ui/SegmentedControl';
 
 interface MinifigWishlistItem {
   id: string;
@@ -277,47 +278,16 @@ export default function WishlistPage() {
       </div>
 
       {/* Tabs */}
-      <div style={{
-        display: 'flex',
-        gap: '8px',
-        marginBottom: '24px',
-        padding: '4px',
-        background: '#f5f5f5',
-        borderRadius: '8px',
-        width: 'fit-content'
-      }}>
-        <button
-          onClick={() => setActiveTab('minifigs')}
-          style={{
-            padding: '10px 20px',
-            fontSize: 'var(--text-sm)',
-            fontWeight: '600',
-            color: activeTab === 'minifigs' ? '#ffffff' : '#525252',
-            background: activeTab === 'minifigs' ? '#3b82f6' : 'transparent',
-            border: 'none',
-            borderRadius: '6px',
-            cursor: 'pointer',
-            transition: 'all 0.2s'
-          }}
-        >
-          {t('wishlist.tabs.minifigures')} ({minifigWishlist.length})
-        </button>
-        <button
-          onClick={() => setActiveTab('sets')}
-          style={{
-            padding: '10px 20px',
-            fontSize: 'var(--text-sm)',
-            fontWeight: '600',
-            color: activeTab === 'sets' ? '#ffffff' : '#525252',
-            background: activeTab === 'sets' ? '#3b82f6' : 'transparent',
-            border: 'none',
-            borderRadius: '6px',
-            cursor: 'pointer',
-            transition: 'all 0.2s'
-          }}
-        >
-          {t('wishlist.tabs.sets')} ({setWishlist.length})
-        </button>
+      <div style={{ marginBottom: '24px' }}>
+        <SegmentedControl
+          ariaLabel={t('wishlist.tabs.minifigures')}
+          value={activeTab}
+          onChange={(v) => setActiveTab(v as 'minifigs' | 'sets')}
+          options={[
+            { value: 'minifigs', label: t('wishlist.tabs.minifigures'), count: minifigWishlist.length },
+            { value: 'sets', label: t('wishlist.tabs.sets'), count: setWishlist.length },
+          ]}
+        />
       </div>
 
       {/* Empty state */}

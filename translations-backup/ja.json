@@ -1243,7 +1243,8 @@
     "searchPlaceholder": "名前または品番で検索...",
     "clearSearch": "検索をクリア",
     "noSearchResults": "「{query}」に一致する項目はありません",
-    "tryDifferentSearch": "別の名前または品番をお試しください"
+    "tryDifferentSearch": "別の名前または品番をお試しください",
+    "decimals": "小数点以下の桁数"
   },
   "privacyPolicy": {
     "meta": {

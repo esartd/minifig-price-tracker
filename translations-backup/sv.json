@@ -1243,7 +1243,8 @@
     "searchPlaceholder": "Sök efter namn eller artikelnummer...",
     "clearSearch": "Rensa sökning",
     "noSearchResults": "Inga träffar för \"{query}\"",
-    "tryDifferentSearch": "Prova ett annat namn eller artikelnummer"
+    "tryDifferentSearch": "Prova ett annat namn eller artikelnummer",
+    "decimals": "Decimaler"
   },
   "privacyPolicy": {
     "meta": {

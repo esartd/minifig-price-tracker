@@ -30,6 +30,7 @@ import { useTranslation } from '@/components/TranslationProvider';
 import AlertDialog from './AlertDialog';
 import PriceAlertButton from '@/components/PriceAlertButton';
 import BadgeTooltip from '@/components/BadgeTooltip';
+import SegmentedControl from '@/components/ui/SegmentedControl';
 
 // Lazy load PriceHistoryChart (only loads when in inventory)
 function ChartLoadingFallback() {
@@ -1122,62 +1123,25 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                   )}
 
                   {/* Condition Toggle with counts */}
-                  <div style={{
-                    display: 'flex',
-                    gap: '8px',
-                    marginBottom: '16px',
-                    padding: '4px',
-                    background: '#f5f5f5',
-                    borderRadius: '8px',
-                    width: 'fit-content'
-                  }}>
+                  <div style={{ marginBottom: '16px' }}>
                     {(() => {
                       const newCount = session ? [...allInventoryItems, ...allCollectionItems].filter(item => item.condition === 'new').reduce((sum, item) => sum + item.quantity, 0) : 0;
                       const usedCount = session ? [...allInventoryItems, ...allCollectionItems].filter(item => item.condition === 'used').reduce((sum, item) => sum + item.quantity, 0) : 0;
 
                       return (
-                        <>
-                          <button
-                            onClick={() => {
-                              setCondition('new');
-                              router.push(`/minifigs/${minifig.no}?condition=new`, { scroll: false });
-                            }}
-                            style={{
-                              padding: '8px 16px',
-                              fontSize: 'var(--text-sm)',
-                              fontWeight: '600',
-                              color: condition === 'new' ? '#ffffff' : '#525252',
-                              background: condition === 'new' ? '#3b82f6' : 'transparent',
-                              border: 'none',
-                              borderRadius: '6px',
-                              cursor: 'pointer',
-                              transition: 'all 0.2s',
-                              whiteSpace: 'nowrap'
-                            }}
-                          >
-                            {t('common.new')}{newCount > 0 ? ` (${newCount})` : ''}
-                          </button>
-                          <button
-                            onClick={() => {
-                              setCondition('used');
-                              router.push(`/minifigs/${minifig.no}?condition=used`, { scroll: false });
-                            }}
-                            style={{
-                              padding: '8px 16px',
-                              fontSize: 'var(--text-sm)',
-                              fontWeight: '600',
-                              color: condition === 'used' ? '#ffffff' : '#525252',
-                              background: condition === 'used' ? '#3b82f6' : 'transparent',
-                              border: 'none',
-                              borderRadius: '6px',
-                              cursor: 'pointer',
-                              transition: 'all 0.2s',
-                              whiteSpace: 'nowrap'
-                            }}
-                          >
-                            {t('common.used')}{usedCount > 0 ? ` (${usedCount})` : ''}
-                          </button>
-                        </>
+                        <SegmentedControl
+                          ariaLabel={t('common.new')}
+                          value={condition}
+                          onChange={(v) => {
+                            const next = v as 'new' | 'used';
+                            setCondition(next);
+                            router.push(`/minifigs/${minifig.no}?condition=${next}`, { scroll: false });
+                          }}
+                          options={[
+                            { value: 'new', label: t('common.new'), ...(newCount > 0 ? { count: newCount } : {}) },
+                            { value: 'used', label: t('common.used'), ...(usedCount > 0 ? { count: usedCount } : {}) },
+                          ]}
+                        />
                       );
                     })()}
                   </div>
