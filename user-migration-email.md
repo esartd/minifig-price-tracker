@@ -1,9 +1,9 @@
-# Email to existing users about the IntoBrick move
+# Email to existing users: the rename, plus what's new
 
-Draft only — nothing has been sent. 64 registered users.
+Draft only — nothing sent. 64 registered users, all currently subscribed.
 
-Send from `hello@intobrick.com` (the domain is verified in Resend, SPF/DKIM/DMARC
-are in place, so this will not spam-folder the way `onboarding@resend.dev` would have).
+Send from the compose page: intobrick.com/admin/stats → "Email all users".
+Send yourself a test first.
 
 ---
 
@@ -11,23 +11,22 @@ are in place, so this will not spam-folder the way `onboarding@resend.dev` would
 
 **Body:**
 
-Hi there,
+Hi,
 
-FigTracker has a new name and a new home: **IntoBrick**, at
-[intobrick.com](https://intobrick.com).
+FigTracker has a new name and a new home: **IntoBrick**, at intobrick.com.
 
-Nothing about your account changes. Same login, same collection, same prices —
-just a different name above the door.
+Nothing about your account changes. Same login, same collection, same prices — just a different name above the door.
 
-**Why the change.** Two reasons. Another company was already running a product
-called FigTracker, which was only going to get more confusing over time. And
-"fig" undersold what the site actually covers: there are more LEGO sets in the
-catalogue (21,668) than minifigures (19,147), and no name built around "fig" was
-ever going to say that.
+**Why the change.** Another company was already running a product called FigTracker, and that was only going to get more confusing. "Fig" also undersold what the site covers: there are more LEGO sets in the catalogue (21,668) than minifigures (19,147).
 
-**What you need to do.** Nothing, really. Your old links still work — every
-figtracker.ericksu.com address redirects to the matching page on intobrick.com,
-and it will keep doing so. The only thing worth doing is updating your bookmark.
+**A few things you may not have seen:**
+
+- **Bulk export for sellers.** Price your collection, then export it straight into Whatnot, BrickLink or eBay as a ready-to-upload file. No retyping.
+- **Listing generator.** Turns an item into a written listing in a couple of seconds.
+- **Whatnot marketplace.** Search the catalogue, then jump to that exact figure or set on Whatnot.
+- **Photo identifier.** Snap a photo of a minifigure and it finds the BrickLink ID and current value. This one is part of Premium.
+
+**Your old links still work.** Every figtracker.ericksu.com address redirects to the matching page on intobrick.com, and it will keep doing so. Worth updating your bookmark, but nothing will break if you don't.
 
 Thanks for using it. More to come.
 
@@ -35,13 +34,11 @@ Erick
 
 ---
 
-## Notes before sending
+## Notes
 
-- Old links redirect permanently and that will not be switched off, so this
-  email is a courtesy rather than a deadline. Say so — it reads better than
-  urgency you do not actually need.
-- If you send via Resend Broadcasts, add an unsubscribe link; bulk mail without
-  one hurts deliverability and, depending on jurisdiction, breaks the rules.
-- Send yourself a copy first and confirm it lands in the inbox rather than
-  Promotions or Spam. It is the first mail this domain has ever sent, so it has
-  no sending reputation yet.
+- The photo identifier is flagged as Premium on purpose. Sending people to a
+  paywall they were not expecting reads as a bait-and-switch and costs more
+  goodwill than the click is worth.
+- Old links redirect permanently, so there is no deadline to manufacture. The
+  copy deliberately does not invent urgency.
+- An unsubscribe link is added automatically to every copy — do not add one.

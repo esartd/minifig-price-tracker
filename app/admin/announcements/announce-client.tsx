@@ -10,6 +10,43 @@ type Result = {
   errors?: string[];
 };
 
+
+// Mirrors renderBody() in the send route so what you see here is what goes
+// out. If the two ever drift, the preview is the one that is lying.
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function inline(text: string): string {
+  return escapeHtml(text)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+}
+
+function renderPreview(text: string): string {
+  return text
+    .split(/\n{2,}/)
+    .map((b) => b.trim())
+    .filter(Boolean)
+    .map((block) => {
+      const lines = block.split('\n').map((l) => l.trim());
+      const isList = lines.length > 0 && lines.every((l) => /^[-*]\s+/.test(l));
+      if (isList) {
+        const items = lines
+          .map((l) => l.replace(/^[-*]\s+/, ''))
+          .map((i) => `<li style="margin:0 0 8px">${inline(i)}</li>`)
+          .join('');
+        return `<ul style="margin:0 0 16px;padding-left:22px">${items}</ul>`;
+      }
+      return `<p style="margin:0 0 16px">${inline(block)}</p>`;
+    })
+    .join('');
+}
+
 export default function AnnounceClient({ subscriberCount }: { subscriberCount: number }) {
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
@@ -90,9 +127,30 @@ export default function AnnounceClient({ subscriberCount }: { subscriberCount: n
           style={{ ...field, resize: 'vertical', lineHeight: 1.6 }}
         />
       </div>
-      <p style={{ fontSize: '12px', color: '#737373', margin: '0 0 24px' }}>
-        Plain text. Blank lines become paragraphs. An unsubscribe link is added automatically.
+      <p style={{ fontSize: '12px', color: '#737373', margin: '0 0 20px' }}>
+        Blank line = new paragraph. Start a line with <code>-</code> for a bullet.
+        Wrap words in <code>**stars**</code> for bold. An unsubscribe link is added automatically.
       </p>
+
+      {body.trim() && (
+        <div style={{ marginBottom: '24px' }}>
+          <p style={{ fontSize: '13px', fontWeight: 600, color: '#171717', margin: '0 0 8px' }}>
+            Preview
+          </p>
+          <div
+            style={{
+              border: '1px solid #e5e5e5',
+              borderRadius: '10px',
+              padding: '20px 22px',
+              background: '#ffffff',
+              fontSize: '16px',
+              lineHeight: 1.6,
+              color: '#171717',
+            }}
+            dangerouslySetInnerHTML={{ __html: renderPreview(body) }}
+          />
+        </div>
+      )}
 
       {error && (
         <p style={{ fontSize: '14px', color: '#dc2626', margin: '0 0 16px' }}>{error}</p>

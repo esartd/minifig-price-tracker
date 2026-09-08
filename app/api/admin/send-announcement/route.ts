@@ -32,18 +32,51 @@ function escapeHtml(value: string): string {
     .replace(/"/g, '&quot;');
 }
 
-/** Turns the admin's plain text into paragraphs. Never trust it as markup. */
+/**
+ * Turns the admin's plain text into HTML.
+ *
+ * Escaping happens FIRST, then our own markup is added — so a subject or body
+ * containing < or & renders as text rather than becoming live markup. Doing it
+ * the other way round would let anything typed into the box inject HTML into
+ * an email sent to every user.
+ *
+ * Supports only what someone writing an announcement actually reaches for:
+ * blank line for a paragraph, "- " for a bullet, **text** for bold. Not a
+ * markdown parser, and deliberately not one — every extra rule is another way
+ * for a message going to everybody to render wrong.
+ */
+function inline(text: string): string {
+  return escapeHtml(text)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+}
+
 function renderBody(text: string): string {
   return text
     .split(/\n{2,}/)
-    .map((para) => para.trim())
+    .map((block) => block.trim())
     .filter(Boolean)
-    .map(
-      (para) =>
-        `<p style="font-size:16px;line-height:1.6;color:#171717;margin:0 0 20px">${escapeHtml(
-          para
-        ).replace(/\n/g, '<br>')}</p>`
-    )
+    .map((block) => {
+      const lines = block.split('\n').map((l) => l.trim());
+      const isList = lines.length > 0 && lines.every((l) => /^[-*]\s+/.test(l));
+
+      if (isList) {
+        const items = lines
+          .map((l) => l.replace(/^[-*]\s+/, ''))
+          .map(
+            (item) =>
+              `<li style="font-size:16px;line-height:1.6;color:#171717;margin:0 0 8px">${inline(
+                item
+              )}</li>`
+          )
+          .join('');
+        return `<ul style="margin:0 0 20px;padding-left:22px">${items}</ul>`;
+      }
+
+      return `<p style="font-size:16px;line-height:1.6;color:#171717;margin:0 0 20px">${inline(
+        block
+      )}</p>`;
+    })
     .join('');
 }
 
