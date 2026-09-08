@@ -26,7 +26,7 @@ export async function sendPasswordResetEmail(email: string, resetToken: string) 
     await client.emails.send({
       from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
       to: email,
-      subject: 'Reset Your Password - Minifig Price Tracker',
+      subject: 'Reset Your Password - IntoBrick',
       html: `
         <!DOCTYPE html>
         <html>
@@ -91,7 +91,7 @@ export async function sendPasswordResetEmail(email: string, resetToken: string) 
             <div class="container">
               <div class="card">
                 <h1>Reset Your Password</h1>
-                <p>You recently requested to reset your password for your Minifig Price Tracker account. Click the button below to reset it.</p>
+                <p>You recently requested to reset your password for your IntoBrick account. Click the button below to reset it.</p>
                 <p>
                   <a href="${resetUrl}" class="button">Reset Password</a>
                 </p>
@@ -126,7 +126,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
     await client.emails.send({
       from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
       to: email,
-      subject: 'Welcome to Minifig Price Tracker!',
+      subject: 'Welcome to IntoBrick!',
       html: `
         <!DOCTYPE html>
         <html>
@@ -180,7 +180,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
           <body>
             <div class="container">
               <div class="card">
-                <h1>Welcome to Minifig Price Tracker, ${name}!</h1>
+                <h1>Welcome to IntoBrick, ${name}!</h1>
                 <p>Thanks for signing up! You can now start tracking your LEGO minifigure collection with real-time Bricklink pricing.</p>
                 <p>Get started by searching for your favorite minifigures and adding them to your collection.</p>
                 <p>
