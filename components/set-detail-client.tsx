@@ -907,15 +907,15 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                         <button onClick={() => handleAddToInventory(quantity)} disabled={addLoading}
                           style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            gap: '8px', background: addLoading ? '#a3a3a3' : '#3b82f6', color: '#ffffff',
-                            border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
+                            gap: '8px', background: addLoading ? '#e5e5e5' : '#3b82f6', color: '#ffffff',
+                            border: 'none', borderRadius: '999px', fontSize: 'var(--text-sm)', fontWeight: '600',
                             cursor: addLoading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
                           {t('minifigDetail.toSell')}
                         </button>
                         <button onClick={() => handleAddToPersonalCollection(quantity)} disabled={addPersonalLoading}
                           style={{ height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            gap: '8px', background: addPersonalLoading ? '#a3a3a3' : '#3b82f6', color: '#ffffff',
-                            border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
+                            gap: '8px', background: addPersonalLoading ? '#e5e5e5' : '#3b82f6', color: '#ffffff',
+                            border: 'none', borderRadius: '999px', fontSize: 'var(--text-sm)', fontWeight: '600',
                             cursor: addPersonalLoading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
                           {t('minifigDetail.toKeep')}
                         </button>
@@ -1013,7 +1013,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           }
                         }} style={{
                           width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          color: '#737373', background: '#ffffff', border: '1px solid #e5e5e5', borderRadius: '8px',
+                          color: '#737373', background: '#ffffff', border: '1px solid #e5e5e5', borderRadius: '999px',
                           cursor: 'pointer', padding: 0, transition: 'all 0.2s'
                         }} title={t('minifigDetail.moveToCollection')}>
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -1122,9 +1122,9 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                       <button onClick={handleAddToCollectionFromSection} disabled={addToCollectionLoading}
                         style={{ width: '100%', height: '44px', display: 'flex', alignItems: 'center',
                           justifyContent: 'center', gap: '8px', background: '#ffffff',
-                          color: addToCollectionLoading ? '#a3a3a3' : '#3b82f6',
+                          color: addToCollectionLoading ? '#e5e5e5' : '#3b82f6',
                           border: addToCollectionLoading ? '2px solid #d4d4d4' : '2px solid #3b82f6',
-                          borderRadius: '8px', fontSize: 'var(--text-sm)', fontWeight: '600',
+                          borderRadius: '999px', fontSize: 'var(--text-sm)', fontWeight: '600',
                           cursor: addToCollectionLoading ? 'not-allowed' : 'pointer',
                           transition: 'all 0.2s' }}>
                         {addToCollectionLoading ? t('setDetail.buttons.adding') : t('setDetail.buttons.addCollection')}
@@ -1188,7 +1188,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                           }
                         }} style={{
                           width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          color: '#737373', background: '#ffffff', border: '1px solid #e5e5e5', borderRadius: '8px',
+                          color: '#737373', background: '#ffffff', border: '1px solid #e5e5e5', borderRadius: '999px',
                           cursor: 'pointer', padding: 0, transition: 'all 0.2s'
                         }} title={t('minifigDetail.moveToInventory')}>
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -1278,7 +1278,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                       </div>
                       <button onClick={handleAddToInventoryFromSection} disabled={addToInventoryLoading}
                         style={{ width: '100%', height: '44px', background: addToInventoryLoading ? '#a3a3a3' : '#3b82f6',
-                          color: '#ffffff', border: 'none', borderRadius: '8px', fontSize: 'var(--text-sm)',
+                          color: '#ffffff', border: 'none', borderRadius: '999px', fontSize: 'var(--text-sm)',
                           fontWeight: '600', cursor: addToInventoryLoading ? 'not-allowed' : 'pointer',
                           transition: 'all 0.2s' }}>
                         {addToInventoryLoading ? t('setDetail.buttons.adding') : t('setDetail.buttons.addInventory')}

@@ -946,12 +946,16 @@ input[type="number"] {
   width: 100%;
 }
 
+/* The detail pages' stepper. Pill, matching the one in the collection lists:
+   the wrapper carries the shape and clips the -/+ inside it. This one is
+   flex: 1 so it spans the column, which means its end caps are far wider than
+   the 22px corner arc and the glyphs sit nowhere near the curve. */
 .quantity-stepper {
   display: flex;
   align-items: center;
   gap: 0;
   border: 1px solid #e5e5e5;
-  border-radius: 8px;
+  border-radius: 999px;
   overflow: hidden;
   background: #ffffff;
   flex: 1;
