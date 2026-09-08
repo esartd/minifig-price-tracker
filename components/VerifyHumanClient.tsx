@@ -228,7 +228,7 @@ export default function VerifyHumanClient() {
                   background: '#3b82f6',
                   color: 'white',
                   border: 'none',
-                  borderRadius: '8px',
+                  borderRadius: '999px',
                   padding: '10px 20px',
                   fontSize: '14px',
                   fontWeight: '600',

@@ -106,7 +106,7 @@ export default async function UnsubscribePage({
           color: '#ffffff',
           textDecoration: 'none',
           padding: '11px 20px',
-          borderRadius: '8px',
+          borderRadius: '999px',
           fontSize: '15px',
           fontWeight: '500',
         }}

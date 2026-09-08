@@ -489,7 +489,7 @@ export default function CollectionList({
                     color: '#737373',
                     background: '#ffffff',
                     border: '1px solid #e5e5e5',
-                    borderRadius: '8px',
+                    borderRadius: '999px',
                     cursor: 'pointer',
                     padding: 0,
                     transition: 'all 0.2s'
@@ -525,7 +525,7 @@ export default function CollectionList({
                 color: '#737373',
                 background: '#ffffff',
                 border: '1px solid #e5e5e5',
-                borderRadius: '8px',
+                borderRadius: '999px',
                 cursor: 'pointer',
                 padding: 0,
                 transition: 'all 0.2s'
@@ -559,7 +559,7 @@ export default function CollectionList({
                 color: '#737373',
                 background: '#ffffff',
                 border: '1px solid #e5e5e5',
-                borderRadius: '8px',
+                borderRadius: '999px',
                 cursor: 'pointer',
                 padding: 0,
                 transition: 'all 0.2s'
@@ -684,7 +684,7 @@ export default function CollectionList({
               border: '1px solid rgba(255, 255, 255, 0.4)',
               color: '#ffffff',
               padding: '6px 12px',
-              borderRadius: '6px',
+              borderRadius: '999px',
               cursor: 'pointer',
               fontSize: 'var(--text-sm)',
               fontWeight: '600',

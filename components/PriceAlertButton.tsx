@@ -166,7 +166,7 @@ export default function PriceAlertButton({
           color: hasAlert ? '#2563eb' : '#525252',
           background: '#ffffff',
           border: '1px solid #e5e5e5',
-          borderRadius: '8px',
+          borderRadius: '999px',
           cursor: 'pointer',
           transition: 'all 0.2s',
           outline: 'none'
@@ -367,7 +367,7 @@ export default function PriceAlertButton({
                       color: '#525252',
                       background: '#ffffff',
                       border: '1px solid #e5e5e5',
-                      borderRadius: '8px',
+                      borderRadius: '999px',
                       cursor: 'pointer',
                       transition: 'all 0.2s'
                     }}
@@ -391,7 +391,7 @@ export default function PriceAlertButton({
                       color: '#ffffff',
                       background: isLoading ? '#93c5fd' : '#3b82f6',
                       border: 'none',
-                      borderRadius: '8px',
+                      borderRadius: '999px',
                       cursor: isLoading ? 'not-allowed' : 'pointer',
                       transition: 'all 0.2s'
                     }}
@@ -652,7 +652,7 @@ export default function PriceAlertButton({
                           color: '#dc2626',
                           background: '#ffffff',
                           border: '1px solid #fca5a5',
-                          borderRadius: '8px',
+                          borderRadius: '999px',
                           cursor: isLoading ? 'not-allowed' : 'pointer',
                           transition: 'all 0.2s',
                           display: 'flex',
@@ -688,7 +688,7 @@ export default function PriceAlertButton({
                           color: '#ffffff',
                           background: '#3b82f6',
                           border: 'none',
-                          borderRadius: '8px',
+                          borderRadius: '999px',
                           cursor: 'pointer',
                           transition: 'all 0.2s',
                           display: 'flex',
@@ -726,7 +726,7 @@ export default function PriceAlertButton({
                           color: '#525252',
                           background: '#ffffff',
                           border: '1px solid #e5e5e5',
-                          borderRadius: '8px',
+                          borderRadius: '999px',
                           cursor: 'pointer',
                           transition: 'all 0.2s'
                         }}
@@ -754,7 +754,7 @@ export default function PriceAlertButton({
                           color: '#ffffff',
                           background: isLoading ? '#93c5fd' : '#3b82f6',
                           border: 'none',
-                          borderRadius: '8px',
+                          borderRadius: '999px',
                           cursor: isLoading ? 'not-allowed' : 'pointer',
                           transition: 'all 0.2s'
                         }}

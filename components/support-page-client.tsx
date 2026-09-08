@@ -157,7 +157,7 @@ export default function SupportPageClient({ totalPricingViews }: SupportPageClie
                     background: '#0070ba',
                     color: '#ffffff',
                     border: 'none',
-                    borderRadius: '8px',
+                    borderRadius: '999px',
                     padding: '12px 24px',
                     fontSize: '15px',
                     fontWeight: '600',

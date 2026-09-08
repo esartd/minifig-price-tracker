@@ -71,7 +71,7 @@ export default function ConfirmDeleteDialog({ isOpen, onClose, onConfirm, messag
               color: '#171717',
               backgroundColor: '#ffffff',
               border: '1px solid #e5e5e5',
-              borderRadius: '8px',
+              borderRadius: '999px',
               cursor: 'pointer',
               transition: 'all 0.2s'
             }}
@@ -88,7 +88,7 @@ export default function ConfirmDeleteDialog({ isOpen, onClose, onConfirm, messag
               color: '#ffffff',
               backgroundColor: '#ef4444',
               border: 'none',
-              borderRadius: '8px',
+              borderRadius: '999px',
               cursor: 'pointer',
               transition: 'all 0.2s'
             }}

@@ -148,7 +148,7 @@ function SetCard({ set }: { set: LegoBox }) {
                 background: '#ffffff',
                 color: '#525252',
                 border: '1px solid #e5e5e5',
-                borderRadius: '6px',
+                borderRadius: '999px',
                 fontSize: '13px',
                 fontWeight: '600',
                 textAlign: 'center',

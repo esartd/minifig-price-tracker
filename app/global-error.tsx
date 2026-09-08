@@ -234,7 +234,7 @@ export default function GlobalError({
                   color: '#ffffff',
                   background: '#3b82f6',
                   border: 'none',
-                  borderRadius: '8px',
+                  borderRadius: '999px',
                   cursor: 'pointer',
                 }}
               >
@@ -252,7 +252,7 @@ export default function GlobalError({
                     color: '#171717',
                     background: '#ffffff',
                     border: '1px solid #e5e5e5',
-                    borderRadius: '8px',
+                    borderRadius: '999px',
                     textDecoration: 'none',
                     display: 'inline-block',
                   }}

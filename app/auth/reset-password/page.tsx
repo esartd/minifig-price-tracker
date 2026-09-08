@@ -139,7 +139,7 @@ function ResetPasswordForm() {
             color: 'white',
             background: (loading || !token) ? '#a3a3a3' : '#3b82f6',
             border: 'none',
-            borderRadius: '8px',
+            borderRadius: '999px',
             cursor: (loading || !token) ? 'not-allowed' : 'pointer',
             opacity: (loading || !token) ? 0.5 : 1,
             transition: 'all 0.2s',

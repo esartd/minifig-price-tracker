@@ -166,7 +166,7 @@ export default async function ListingGeneratorPage() {
                the search page. It is a promotional page now, so this landed
                people somewhere with no search results and no explanation. */
             href="/search"
-            style={{ display: 'inline-block', padding: '12px 24px', background: '#3b82f6', color: '#ffffff', borderRadius: '8px', textDecoration: 'none', fontWeight: '600' }}
+            style={{ display: 'inline-block', padding: '12px 24px', background: '#3b82f6', color: '#ffffff', borderRadius: '999px', textDecoration: 'none', fontWeight: '600' }}
           >
             {lg.cta?.button || 'Search a minifigure or set'}
           </Link>

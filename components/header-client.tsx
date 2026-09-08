@@ -2311,7 +2311,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             width: '100%',
             marginTop: '20px',
             padding: '15px',
-            background: '#dc2626',
+            background: '#ef4444',
             color: '#fff',
             borderRadius: '8px',
             border: 'none',

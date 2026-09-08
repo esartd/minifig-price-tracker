@@ -153,7 +153,7 @@ export default function CurrencyBanner() {
               color: '#3b82f6',
               background: 'white',
               border: 'none',
-              borderRadius: '6px',
+              borderRadius: '999px',
               cursor: 'pointer',
               transition: 'all 0.2s',
               whiteSpace: 'nowrap'
@@ -172,7 +172,7 @@ export default function CurrencyBanner() {
               color: 'white',
               background: 'rgba(255, 255, 255, 0.2)',
               border: '1px solid rgba(255, 255, 255, 0.3)',
-              borderRadius: '6px',
+              borderRadius: '999px',
               cursor: 'pointer',
               transition: 'all 0.2s',
               whiteSpace: 'nowrap'

@@ -297,7 +297,7 @@ export default async function ArticlePage({
                   padding: '8px 14px',
                   background: '#3b82f6',
                   color: '#ffffff',
-                  borderRadius: '8px',
+                  borderRadius: '999px',
                   fontSize: '13px',
                   fontWeight: '600',
                   textDecoration: 'none',

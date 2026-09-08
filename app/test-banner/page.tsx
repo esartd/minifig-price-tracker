@@ -45,7 +45,7 @@ export default function TestBanner() {
             background: '#667eea',
             color: 'white',
             border: 'none',
-            borderRadius: '8px',
+            borderRadius: '999px',
             fontSize: '16px',
             cursor: 'pointer'
           }}
@@ -103,7 +103,7 @@ export default function TestBanner() {
                 color: '#667eea',
                 background: 'white',
                 border: 'none',
-                borderRadius: '6px',
+                borderRadius: '999px',
                 cursor: 'pointer',
                 transition: 'all 0.2s',
                 whiteSpace: 'nowrap'
@@ -122,7 +122,7 @@ export default function TestBanner() {
                 color: 'white',
                 background: 'rgba(255, 255, 255, 0.2)',
                 border: '1px solid rgba(255, 255, 255, 0.3)',
-                borderRadius: '6px',
+                borderRadius: '999px',
                 cursor: 'pointer',
                 transition: 'all 0.2s',
                 whiteSpace: 'nowrap'

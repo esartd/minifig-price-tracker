@@ -160,7 +160,7 @@ export function ArticleEditor({ initialBlocks, onChange }: ArticleEditorProps) {
                     padding: '4px 8px',
                     background: '#f3f4f6',
                     border: 'none',
-                    borderRadius: '4px',
+                    borderRadius: '999px',
                     cursor: index === 0 ? 'not-allowed' : 'pointer',
                     opacity: index === 0 ? 0.5 : 1,
                   }}
@@ -174,7 +174,7 @@ export function ArticleEditor({ initialBlocks, onChange }: ArticleEditorProps) {
                     padding: '4px 8px',
                     background: '#f3f4f6',
                     border: 'none',
-                    borderRadius: '4px',
+                    borderRadius: '999px',
                     cursor: index === blocks.length - 1 ? 'not-allowed' : 'pointer',
                     opacity: index === blocks.length - 1 ? 0.5 : 1,
                   }}
@@ -188,7 +188,7 @@ export function ArticleEditor({ initialBlocks, onChange }: ArticleEditorProps) {
                     background: '#fee2e2',
                     color: '#b91c1c',
                     border: 'none',
-                    borderRadius: '4px',
+                    borderRadius: '999px',
                     cursor: 'pointer',
                   }}
                 >

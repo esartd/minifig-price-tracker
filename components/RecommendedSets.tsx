@@ -260,7 +260,7 @@ export default function RecommendedSets() {
                           fontWeight: '600',
                           color: '#ffffff',
                           background: 'linear-gradient(135deg, #FF9900 0%, #FF6B00 100%)',
-                          borderRadius: '8px',
+                          borderRadius: '999px',
                           border: 'none',
                           cursor: 'pointer',
                           textAlign: 'center',

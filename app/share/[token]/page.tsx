@@ -131,7 +131,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
               padding: '12px 24px',
               background: '#3b82f6',
               color: '#ffffff',
-              borderRadius: '8px',
+              borderRadius: '999px',
               textDecoration: 'none',
               fontWeight: '600'
             }}
@@ -343,7 +343,7 @@ export default function SharedCollectionPage({ params }: { params: Promise<{ tok
             padding: '12px 24px',
             background: '#3b82f6',
             color: '#ffffff',
-            borderRadius: '8px',
+            borderRadius: '999px',
             textDecoration: 'none',
             fontWeight: '600'
           }}

@@ -66,7 +66,7 @@ export default function CollectionPagination({
             color: '#ffffff',
             background: '#3b82f6',
             border: 'none',
-            borderRadius: '8px',
+            borderRadius: '999px',
             cursor: 'pointer',
             transition: 'all 0.2s',
             boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
@@ -128,7 +128,7 @@ export default function CollectionPagination({
           color: currentPage === 1 ? '#a3a3a3' : '#171717',
           background: 'transparent',
           border: '1px solid #e5e5e5',
-          borderRadius: '8px',
+          borderRadius: '999px',
           cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
           transition: 'all 0.2s'
         }}
@@ -166,7 +166,7 @@ export default function CollectionPagination({
               color: isActive ? '#ffffff' : '#171717',
               background: isActive ? '#3b82f6' : 'transparent',
               border: `1px solid ${isActive ? '#3b82f6' : '#e5e5e5'}`,
-              borderRadius: '8px',
+              borderRadius: '999px',
               cursor: 'pointer',
               minWidth: '40px',
               transition: 'all 0.2s'
@@ -194,7 +194,7 @@ export default function CollectionPagination({
           color: currentPage === totalPages ? '#a3a3a3' : '#171717',
           background: 'transparent',
           border: '1px solid #e5e5e5',
-          borderRadius: '8px',
+          borderRadius: '999px',
           cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
           transition: 'all 0.2s'
         }}

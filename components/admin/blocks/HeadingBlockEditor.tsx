@@ -20,7 +20,7 @@ export function HeadingBlockEditor({ block, onChange }: HeadingBlockEditorProps)
               background: block.level === level ? '#3b82f6' : '#f3f4f6',
               color: block.level === level ? '#ffffff' : '#374151',
               border: 'none',
-              borderRadius: '4px',
+              borderRadius: '999px',
               fontSize: '12px',
               fontWeight: '600',
               cursor: 'pointer',
