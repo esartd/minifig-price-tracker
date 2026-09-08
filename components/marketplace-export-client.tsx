@@ -64,6 +64,15 @@ const SOURCES: SourceConfig[] = [
   },
 ];
 
+/**
+ * The four source keys are a type x list grid, so the two toggles map onto
+ * them rather than the other way round.
+ */
+function sourceKeyFor(isSet: boolean, isCollection: boolean): ExportSource {
+  if (isSet) return isCollection ? 'set-collection' : 'set-inventory';
+  return isCollection ? 'minifig-collection' : 'minifig-inventory';
+}
+
 interface PickerItem {
   id: string;
   itemNo: string;
@@ -358,6 +367,10 @@ export default function MarketplaceExportClient({
     () => SOURCES.find((s) => s.key === source) as SourceConfig,
     [source]
   );
+
+  // The two toggles read the grid off the current key.
+  const isSetSource = config.isSet;
+  const isCollectionSource = source.endsWith('-collection');
 
   const tr = useCallback((key: string, fallback: string) => t(key) || fallback, [t]);
 
@@ -759,12 +772,44 @@ export default function MarketplaceExportClient({
       {/* Four separate pills became one joined control. It did the same job
           as the marketplace type switcher and the collection toggle, and all
           three looked different. */}
-      <SegmentedControl
-        ariaLabel={tr('whatnotExport.sourceLabel', 'What are you exporting?')}
-        value={source}
-        onChange={(v) => setSource(v as typeof source)}
-        options={SOURCES.map((s) => ({ value: s.key, label: tr(s.labelKey, s.fallbackLabel) }))}
-      />
+      {/* Two toggles, type and list, exactly as the collection pages present
+          the same four choices via components/CollectionToggle.tsx. One
+          four-option control with combined labels ("Minifigs - For Sale") is a
+          different control for an identical decision, and it grows by
+          multiplication: a fifth list would make it eight options. */}
+      <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-3)', flexWrap: 'nowrap', alignItems: 'center' }}>
+        <SegmentedControl
+          ariaLabel={tr('navigation.browse', 'Item type')}
+          value={isSetSource ? 'sets' : 'minifigs'}
+          onChange={(v) => setSource(sourceKeyFor(v === 'sets', isCollectionSource))}
+          options={[
+            {
+              value: 'minifigs',
+              label: tr('navigation.minifigures', 'Minifigures'),
+              shortLabel: tr('navigation.minifigs', 'Minifigs'),
+            },
+            { value: 'sets', label: tr('navigation.sets', 'Sets') },
+          ]}
+        />
+
+        <SegmentedControl
+          ariaLabel={tr('whatnotExport.sourceLabel', 'What are you exporting?')}
+          value={isCollectionSource ? 'keep' : 'sale'}
+          onChange={(v) => setSource(sourceKeyFor(isSetSource, v === 'keep'))}
+          options={[
+            {
+              value: 'sale',
+              label: tr('navigation.forSale', 'For Sale'),
+              shortLabel: tr('navigation.sale', 'Sale'),
+            },
+            {
+              value: 'keep',
+              label: tr('navigation.toKeep', 'To Keep'),
+              shortLabel: tr('navigation.keep', 'Keep'),
+            },
+          ]}
+        />
+      </div>
 
       {/* Step 2 — destinations. Hidden when there's only one marketplace. */}
       {marketplaces.length > 1 && (
