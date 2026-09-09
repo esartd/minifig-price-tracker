@@ -372,7 +372,12 @@ function SearchPageContent() {
             src={`/api/images/minifig/${pos.id}`}
             alt=""
             loading="lazy"
-            className={`${pos.reverse ? 'floating-emoji-reverse' : 'floating-emoji'} ${isSearchActive ? 'hidden' : ''}`}
+            // Hidden on this page in both states now. These float around a
+            // central hero search box -- which /search no longer has -- so
+            // with nothing in the middle they read as figures scattered at
+            // random across an empty screen. app/page.tsx still has the box,
+            // and still has them.
+            className={`${pos.reverse ? 'floating-emoji-reverse' : 'floating-emoji'} hidden`}
             style={{
               position: 'absolute',
               top: `${pos.y}%`,
@@ -391,7 +396,11 @@ function SearchPageContent() {
           position: 'relative',
           zIndex: 1,
           overflow: 'hidden',
-          minHeight: isSearchActive ? 'calc(100vh - 72px)' : 'calc(100vh - 200px)',
+          // The empty state is two lines of text now, not a hero with a search
+          // box and floating minifigures in it, so it no longer reserves most
+          // of the viewport. calc(100vh - 200px) left ~700px of blank screen
+          // between the heading and the sections below it.
+          minHeight: isSearchActive ? 'calc(100vh - 72px)' : '300px',
           display: 'flex',
           alignItems: isSearchActive ? 'flex-start' : 'center',
           paddingTop: isSearchActive ? '60px' : '0px',
@@ -411,7 +420,7 @@ function SearchPageContent() {
           {!isSearchActive && (
             <div className="search-header-section" style={{
               textAlign: 'center',
-              marginBottom: '56px',
+              marginBottom: '0',
               transition: 'all 0.4s ease-out'
             }}>
               <h1 className="fun-header-title" style={{
@@ -425,7 +434,7 @@ function SearchPageContent() {
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text'
               }}>
-                {t('about.hero.title')}
+                {t('search.emptyTitle') || 'Search for Minifigures and Sets'}
               </h1>
               <p className="fun-header-subtitle" style={{
                 fontSize: 'var(--text-lg)',
@@ -434,7 +443,7 @@ function SearchPageContent() {
                 margin: '0 auto',
                 color: '#171717'
               }}>
-                {t('about.hero.subtitle')}
+                {t('search.emptySubtitle') || 'Try searching by name, number, or theme'}
               </p>
             </div>
           )}
@@ -446,19 +455,13 @@ function SearchPageContent() {
               The query arrives via ?q= (see the searchParams sync effect
               above), so typing in the header box still drives this page.
 
-              Arriving with no query at all is the one case that needs a
-              pointer, since there is nothing to type into below the fold. */}
-          {!searchQuery && (
-            <p style={{
-              textAlign: 'center',
-              fontSize: 'var(--text-base)',
-              color: '#525252',
-              margin: '0 auto 64px',
-              maxWidth: '640px'
-            }}>
-              {t('search.emptySubtitle') || 'Try searching by name, number, or theme'}
-            </p>
-          )}
+              The empty state used to print search.emptySubtitle here AND the
+              homepage's hero copy above it -- so /search opened on "One
+              Price. No Guesswork.", which is the homepage's headline and
+              promise, over a 700px block with no input in it. It now uses
+              search.emptyTitle / search.emptySubtitle, which already existed
+              and are translated in all ten locales, and this duplicate line
+              is gone. */}
 
           {/* Category/Subcategory Browsing Header */}
           {(categoryId || subcategory) && categoryName && !searchQuery && (
@@ -578,13 +581,22 @@ function SearchPageContent() {
         </div>
       </section>
 
-      {/* Homepage sections - Only show when not actively searching */}
+      {/* Homepage sections - Only show when not actively searching.
+
+          Wrapped in .home-bands (app/globals.css) for the same reason
+          app/page.tsx is: these three carry their own inline background, and
+          two of them default to white, so on this page Leaderboards and
+          Trending ran together with nothing between them. They used to be
+          separated by a 1px borderTop, which was removed when the homepage
+          started alternating tone instead -- correct there, but this page had
+          no alternation to inherit. The rule keys off DOM position, so it
+          works here unchanged. */}
       {!isSearchActive && (
-        <>
+        <div className="home-bands">
           <LeaderboardsSection />
           <TrendingMinifigs />
           <RecommendedSets />
-        </>
+        </div>
       )}
     </div>
   );
