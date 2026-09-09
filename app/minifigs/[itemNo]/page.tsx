@@ -421,15 +421,14 @@ export default async function MinifigPage({
   const baseUrl = domains[locale as keyof typeof domains];
 
   // Fetch pricing data for schema.org rich snippets — use orchestrator so cache is respected
-  const { pricingOrchestrator, LOGGED_OUT_TTL_HOURS } = await import('@/lib/pricing-orchestrator');
-  let pricingData = null;
-  try {
-    pricingData = await pricingOrchestrator.getMinifigPrice(
-      itemNo, 'new', 'US', '', undefined, 'minifig-page-render', false, undefined, LOGGED_OUT_TTL_HOURS
-    );
-  } catch (error) {
-    console.error('[MINIFIG PAGE] Failed to fetch pricing for schema:', error);
-  }
+  // Cache-only, for the same reason as app/sets/[boxNo]/page.tsx: the
+  // fetching path sleeps 3s twice for BrickLink rate-limit compliance, which
+  // showed up as ~6s of streaming on any minifig whose price was not cached.
+  // The June 2026 fix moved this off bricklinkAPI and onto the orchestrator to
+  // stop burning the daily budget; this goes the rest of the way and stops it
+  // blocking the render at all.
+  const { pricingOrchestrator } = await import('@/lib/pricing-orchestrator');
+  const pricingData = await pricingOrchestrator.getCachedPriceOnly(itemNo, 'MINIFIG');
 
   // highPrice must be >= lowPrice or the range is nonsense. currentHighest is
   // occasionally missing, so it is clamped rather than trusted.
@@ -439,11 +438,20 @@ export default async function MinifigPage({
         priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
         lowPrice: pricingData.currentLowest.toFixed(2),
-        highPrice: Math.max(
-          pricingData.currentHighest || 0,
-          pricingData.currentLowest
-        ).toFixed(2),
-        offerCount: pricingData.totalQuantity || 1,
+        // No highPrice and no offerCount on purpose.
+        //
+        // These previously read pricingData.currentHighest and
+        // .totalQuantity -- neither of which exists on PricingData. They were
+        // silently undefined, so highPrice collapsed to lowPrice and
+        // offerCount always emitted the literal 1. Verified in the live
+        // markup before this fix.
+        //
+        // The real shape gives sixMonthAverage, currentAverage, currentLowest
+        // and suggestedPrice. None of those is "the highest offer", and an
+        // average dressed up as a maximum is exactly the kind of overclaim
+        // this site's whole pitch is against. Search Console lists both as
+        // recommended, not required; leaving them absent keeps two
+        // non-critical warnings and says nothing untrue.
         url: `https://www.bricklink.com/v2/catalog/catalogitem.page?M=${minifig.minifigure_no}`,
       }
     : null;

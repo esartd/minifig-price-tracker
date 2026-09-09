@@ -299,15 +299,14 @@ export default async function SetPage({
   // Via the orchestrator, never bricklinkAPI directly: it serves the 7-day
   // logged-out cache and enforces the daily budget, which is exactly what the
   // June 2026 incident on the minifig page was about.
-  const { pricingOrchestrator, LOGGED_OUT_TTL_HOURS } = await import('@/lib/pricing-orchestrator');
-  let setPricing = null;
-  try {
-    setPricing = await pricingOrchestrator.getSetPrice(
-      boxNo, 'new', 'US', '', undefined, false, set.name, LOGGED_OUT_TTL_HOURS
-    );
-  } catch (error) {
-    console.error('[SET PAGE] Failed to fetch pricing for schema:', error);
-  }
+  // getCachedPriceOnly, NOT getSetPrice. getSetPrice falls through to a live
+  // BrickLink call on a cache miss, and that path sleeps 3s twice for rate-limit
+  // compliance -- measured 4-9s of TTFB on cold set pages, with a real person
+  // waiting on it after clicking a search result. Nothing here is worth making
+  // someone wait; if the price is not cached the page ships without `offers`
+  // and the next crawl picks it up once a visitor has warmed the cache.
+  const { pricingOrchestrator } = await import('@/lib/pricing-orchestrator');
+  const setPricing = await pricingOrchestrator.getCachedPriceOnly(boxNo, 'SET');
 
   // No price, no offer node. An empty AggregateOffer is worse than none.
   const setOffer = setPricing && setPricing.currentLowest > 0
@@ -316,11 +315,20 @@ export default async function SetPage({
         priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
         lowPrice: setPricing.currentLowest.toFixed(2),
-        highPrice: Math.max(
-          setPricing.currentHighest || 0,
-          setPricing.currentLowest
-        ).toFixed(2),
-        offerCount: setPricing.totalQuantity || 1,
+        // No highPrice and no offerCount on purpose.
+        //
+        // These previously read pricingData.currentHighest and
+        // .totalQuantity -- neither of which exists on PricingData. They were
+        // silently undefined, so highPrice collapsed to lowPrice and
+        // offerCount always emitted the literal 1. Verified in the live
+        // markup before this fix.
+        //
+        // The real shape gives sixMonthAverage, currentAverage, currentLowest
+        // and suggestedPrice. None of those is "the highest offer", and an
+        // average dressed up as a maximum is exactly the kind of overclaim
+        // this site's whole pitch is against. Search Console lists both as
+        // recommended, not required; leaving them absent keeps two
+        // non-critical warnings and says nothing untrue.
         url: `https://www.bricklink.com/v2/catalog/catalogitem.page?S=${set.box_no}`,
       }
     : null;

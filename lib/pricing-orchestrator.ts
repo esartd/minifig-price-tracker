@@ -117,6 +117,42 @@ class PricingOrchestrator {
   }
 
   /**
+   * Read an already-cached price. NEVER fetches, never sleeps, never spends
+   * budget. Returns null when nothing is cached.
+   *
+   * This exists for page server components rendering schema.org markup.
+   * getMinifigPrice/getSetPrice fall through to computeAndCache on a miss,
+   * which calls BrickLink -- and lib/bricklink.ts enforces the mandatory 3s
+   * compliance delay twice per compute. Measured on production: a set page
+   * whose price was not cached took 4-9 SECONDS of TTFB, and a minifig page
+   * streamed for ~6s, because a person clicking a search result was waiting
+   * on two deliberate rate-limit sleeps so that a <script type="ld+json">
+   * block could carry a price.
+   *
+   * That is the wrong trade. A crawler landing on a cold page simply gets no
+   * `offers` that visit -- which is the same honest outcome already used when
+   * an item genuinely has no price -- and the detail page's own client-side
+   * fetch warms the cache, so the next crawl gets one.
+   *
+   * Use this, not getMinifigPrice/getSetPrice, anywhere a HUMAN is waiting on
+   * the response.
+   */
+  async getCachedPriceOnly(
+    itemNo: string,
+    itemType: 'MINIFIG' | 'SET',
+    condition: 'new' | 'used' = 'new',
+    cacheTtlHours: number = LOGGED_OUT_TTL_HOURS,
+  ): Promise<PricingData | null> {
+    try {
+      return await this.getFreshCache(itemNo, itemType, condition, cacheTtlHours);
+    } catch (error) {
+      // Structured data is a nice-to-have; never fail a page render for it.
+      console.error('[Orchestrator] getCachedPriceOnly failed:', error);
+      return null;
+    }
+  }
+
+  /**
    * Fetch BrickLink + eBay data, compute blended price, write to PriceCache.
    * If BrickLink budget is exhausted, tries to use last stale cache entry.
    */
