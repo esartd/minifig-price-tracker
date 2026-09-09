@@ -6,8 +6,12 @@ import type { RetirementPrediction } from '@/lib/retiring-soon-algorithm';
 import RetirementYearSection from './RetirementYearSection';
 import { groupByRetirementYear } from '@/lib/retirement-years';
 
+const PAGE_SIZE = 50;
+
 interface Props {
   initialData: RetirementPrediction[];
+  /** Every qualifying set, not just the first page. */
+  totalRetiring: number;
   themes: string[];
   initialTheme: string;
   /**
@@ -20,6 +24,7 @@ interface Props {
 
 export default function RetiringSoonClient({
   initialData,
+  totalRetiring,
   themes,
   initialTheme = 'all',
   currentYear,
@@ -27,6 +32,8 @@ export default function RetiringSoonClient({
 }: Props) {
   const [selectedTheme, setSelectedTheme] = useState(initialTheme);
   const [retiringSets, setRetiringSets] = useState(initialData);
+  const [total, setTotal] = useState(totalRetiring);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -80,12 +87,37 @@ export default function RetiringSoonClient({
       .then(res => res.json())
       .then(data => {
         setRetiringSets(data.data || []);
+        setTotal(data.meta?.total ?? (data.data?.length || 0));
         setLoading(false);
       })
       .catch(() => {
         setLoading(false);
       });
   }, [selectedTheme, router]);
+
+  const handleLoadMore = () => {
+    setLoadingMore(true);
+    const params = new URLSearchParams();
+    if (selectedTheme !== 'all') params.set('theme', selectedTheme);
+    params.set('offset', String(retiringSets.length));
+    params.set('limit', String(PAGE_SIZE));
+
+    fetch(`/api/sets/retiring-soon?${params}`)
+      .then(res => res.json())
+      .then(data => {
+        // Append. The server pages over one stable ordering, so a set cannot
+        // arrive twice, and the year grouping re-runs over the whole list.
+        setRetiringSets(prev => [...prev, ...(data.data || [])]);
+        if (typeof data.meta?.total === 'number') setTotal(data.meta.total);
+        setLoadingMore(false);
+      })
+      .catch(() => setLoadingMore(false));
+  };
+
+  const remaining = Math.max(0, total - retiringSets.length);
+  // Only say "50 of 694" while some are still unloaded. Once everything is on
+  // the page "694 of 694" is just noise.
+  const countLabel = remaining > 0 ? `${retiringSets.length} of ${total}` : String(retiringSets.length);
 
   return (
     <>
@@ -303,9 +335,10 @@ export default function RetiringSoonClient({
           margin: 0
         }}>
           {selectedTheme === 'all'
-            ? (translations?.filters?.showingCount || 'Showing {count} sets retiring soon').replace('{count}', String(retiringSets.length))
+            ? (translations?.filters?.showingCount || 'Showing {count} sets retiring soon')
+                .replace('{count}', countLabel)
             : (translations?.filters?.showingCountInTheme || 'Showing {count} sets retiring soon in {theme}')
-              .replace('{count}', String(retiringSets.length))
+              .replace('{count}', countLabel)
               .replace('{theme}', selectedTheme)
           }
         </p>
@@ -365,6 +398,37 @@ export default function RetiringSoonClient({
               translations={translations}
             />
           ))}
+
+          {remaining > 0 && (
+            <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+              <button
+                type="button"
+                onClick={handleLoadMore}
+                disabled={loadingMore}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '40px',
+                  padding: '0 24px',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: 600,
+                  fontFamily: 'inherit',
+                  color: loadingMore ? '#a3a3a3' : '#171717',
+                  background: '#ffffff',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '999px',
+                  cursor: loadingMore ? 'not-allowed' : 'pointer',
+                  boxSizing: 'border-box',
+                }}
+              >
+                {loadingMore
+                  ? (translations?.filters?.loading || 'Loading...')
+                  : (translations?.filters?.loadMore || 'Show more ({remaining} left)')
+                      .replace('{remaining}', String(remaining))}
+              </button>
+            </div>
+          )}
         </div>
       )}
     </>

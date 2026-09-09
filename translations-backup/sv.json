@@ -1873,7 +1873,9 @@
       "showingCount": "Visar {count} set som försvinner snart",
       "showingCountInTheme": "Visar {count} set som försvinner snart i {theme}",
       "searchThemes": "Sök teman...",
-      "noThemesFound": "Inga teman hittades"
+      "noThemesFound": "Inga teman hittades",
+      "loadMore": "Visa fler ({remaining} kvar)",
+      "loading": "Laddar..."
     },
     "confidence": {
       "high": "Hög säkerhet",

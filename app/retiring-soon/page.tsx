@@ -93,7 +93,7 @@ export default async function RetiringSoonPage({
   const params = await searchParams;
   const theme = params?.theme;
   const timeline = params?.timeline || 'all';
-  const initialData = await getRetiringSoonSets({
+  const { items: initialData, total: totalRetiring } = await getRetiringSoonSets({
     theme,
     timeline,
     limit: 50
@@ -193,6 +193,7 @@ export default async function RetiringSoonPage({
       {/* Client component for filters + dynamic updates */}
       <RetiringSoonClient
         initialData={initialData}
+        totalRetiring={totalRetiring}
         themes={themes}
         initialTheme={theme || 'all'}
         /* Read on the server so SSR and hydration agree on which years are

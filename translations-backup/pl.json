@@ -1873,7 +1873,9 @@
       "showingCount": "Pokazuje {count} zestawów wycofywanych wkrótce",
       "showingCountInTheme": "Pokazuje {count} zestawów wycofywanych wkrótce w {theme}",
       "searchThemes": "Szukaj motywów...",
-      "noThemesFound": "Nie znaleziono motywów"
+      "noThemesFound": "Nie znaleziono motywów",
+      "loadMore": "Pokaż więcej (pozostało {remaining})",
+      "loading": "Ładowanie..."
     },
     "confidence": {
       "high": "Wysoka pewność",

@@ -1873,7 +1873,9 @@
       "showingCount": "Mostrando {count} conjuntos saindo em breve",
       "showingCountInTheme": "Mostrando {count} conjuntos saindo em breve em {theme}",
       "searchThemes": "Pesquisar temas...",
-      "noThemesFound": "Nenhum tema encontrado"
+      "noThemesFound": "Nenhum tema encontrado",
+      "loadMore": "Mostrar mais ({remaining} restantes)",
+      "loading": "A carregar..."
     },
     "confidence": {
       "high": "Alta confiança",

@@ -2116,7 +2116,9 @@
       "showingCount": "Showing {count} sets retiring soon",
       "showingCountInTheme": "Showing {count} sets retiring soon in {theme}",
       "searchThemes": "Search themes...",
-      "noThemesFound": "No themes found"
+      "noThemesFound": "No themes found",
+      "loadMore": "Show more ({remaining} left)",
+      "loading": "Loading..."
     },
     "confidence": {
       "high": "High confidence",

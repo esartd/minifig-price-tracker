@@ -1873,7 +1873,9 @@
       "showingCount": "Mostrando {count} set in dismissione presto",
       "showingCountInTheme": "Mostrando {count} set in dismissione presto in {theme}",
       "searchThemes": "Cerca temi...",
-      "noThemesFound": "Nessun tema trovato"
+      "noThemesFound": "Nessun tema trovato",
+      "loadMore": "Mostra altri ({remaining} rimanenti)",
+      "loading": "Caricamento..."
     },
     "confidence": {
       "high": "Alta affidabilità",

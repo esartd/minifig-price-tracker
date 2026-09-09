@@ -1829,7 +1829,9 @@
       "showingCount": "{count} Sets, die bald auslaufen",
       "showingCountInTheme": "{count} Sets in {theme}, die bald auslaufen",
       "searchThemes": "Themen suchen...",
-      "noThemesFound": "Keine Themen gefunden"
+      "noThemesFound": "Keine Themen gefunden",
+      "loadMore": "Mehr anzeigen (noch {remaining})",
+      "loading": "Wird geladen..."
     },
     "confidence": {
       "high": "Hohe Sicherheit",

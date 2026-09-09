@@ -1873,7 +1873,9 @@
       "showingCount": "{count}件の廃盤予定セットを表示中",
       "showingCountInTheme": "{theme}で{count}件の廃盤予定セットを表示中",
       "searchThemes": "テーマを検索...",
-      "noThemesFound": "テーマが見つかりません"
+      "noThemesFound": "テーマが見つかりません",
+      "loadMore": "さらに表示（残り{remaining}件）",
+      "loading": "読み込み中..."
     },
     "confidence": {
       "high": "信頼度：高",

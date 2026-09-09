@@ -1873,7 +1873,9 @@
       "showingCount": "{count} sets die binnenkort verdwijnen",
       "showingCountInTheme": "{count} sets die binnenkort verdwijnen in {theme}",
       "searchThemes": "Zoek thema's...",
-      "noThemesFound": "Geen thema's gevonden"
+      "noThemesFound": "Geen thema's gevonden",
+      "loadMore": "Meer tonen (nog {remaining})",
+      "loading": "Laden..."
     },
     "confidence": {
       "high": "Hoge betrouwbaarheid",

@@ -1829,7 +1829,9 @@
       "showingCount": "Mostrando {count} sets que se retirarán pronto",
       "showingCountInTheme": "Mostrando {count} sets que se retirarán pronto en {theme}",
       "searchThemes": "Buscar temas...",
-      "noThemesFound": "No se encontraron temas"
+      "noThemesFound": "No se encontraron temas",
+      "loadMore": "Mostrar más ({remaining} restantes)",
+      "loading": "Cargando..."
     },
     "confidence": {
       "high": "Confianza alta",

@@ -367,17 +367,46 @@ function filterByTimeline(
 }
 
 // Main function to get retiring soon sets
+export interface RetiringSoonPage {
+  items: RetirementPrediction[];
+  /** Every set that qualifies, not just the ones on this page. */
+  total: number;
+  offset: number;
+  limit: number;
+}
+
+/**
+ * One page of retiring-soon sets.
+ *
+ * The expensive half of this function is the per-set price and availability
+ * lookup, so it used to enrich a fixed 100 candidates and hand back the best
+ * 50 -- which meant the other ~4,900 qualifying sets were unreachable at any
+ * cost, and raising the page size raised the database load with it.
+ *
+ * Now the cheap half (age against expected lifespan, which is pure catalogue
+ * arithmetic) runs over every set, the result is ordered and balanced across
+ * retirement years, and only the requested slice is enriched. Page ten costs
+ * the same as page one.
+ *
+ * The ordering is therefore by base score rather than by the enriched score.
+ * That is a deliberate trade: enriching everything to sort exactly would mean
+ * thousands of queries per request, and age-against-lifespan is the dominant
+ * term anyway -- price and availability adjust a set's position, they rarely
+ * decide it.
+ */
 export async function getRetiringSoonSets(options: {
   theme?: string;
   timeline?: string;
   limit?: number;
+  offset?: number;
   minScore?: number;
   includePriceTrends?: boolean;
-}): Promise<RetirementPrediction[]> {
+}): Promise<RetiringSoonPage> {
   const {
     theme,
     timeline = 'all',
     limit = 50,
+    offset = 0,
     minScore = 50,
     includePriceTrends = true
   } = options;
@@ -427,15 +456,20 @@ export async function getRetiringSoonSets(options: {
     return true;
   });
 
-  // Limit candidates to reduce DB load, but spread the budget across
-  // retirement years rather than spending all 100 on the most overdue.
-  // Taking the top 100 by age score returned a single year every time, which
-  // left the page with one section and 100 identical red bars.
-  const topCandidates = takeBalancedByYear(
+  // Order every qualifying set, spread across retirement years rather than
+  // letting the most overdue year fill the list. Taking the top N by age score
+  // returned a single year every time, which left the page with one section
+  // and a wall of identical red bars.
+  const ordered = takeBalancedByYear(
     candidatePredictions.sort((a, b) => b.baseScore - a.baseScore),
     p => parseRetirementYear(p.quarter),
-    100
+    candidatePredictions.length
   );
+
+  const total = ordered.length;
+
+  // Only this page gets the per-set price and availability queries.
+  const topCandidates = ordered.slice(offset, offset + limit);
 
   // Add price trend analysis + availability checking for top candidates (async)
   const predictions: RetirementPrediction[] = await Promise.all(
@@ -517,20 +551,19 @@ export async function getRetiringSoonSets(options: {
   predictions.sort((a, b) => b.retirementScore - a.retirementScore);
 
   // Filter by timeline if specified
-  const filteredPredictions = filterByTimeline(predictions, timeline);
+  // Timeline filtering happens after enrichment because it reads the adjusted
+  // retirement date. It can therefore shrink a page below `limit`; `total`
+  // still describes the unfiltered pool, which is what the "load more" control
+  // needs in order to know whether to keep going.
+  const items = filterByTimeline(predictions, timeline);
 
-  // Return top N
-  // Balanced again at the end: sorting by final score and slicing would undo
-  // the spread above, because the most overdue year outranks every other.
-  return takeBalancedByYear(
-    filteredPredictions,
-    p => parseRetirementYear(p.estimatedRetirementQuarter),
-    limit
-  );
+  return { items, total, offset, limit };
 }
 
 // Get count of retiring sets by theme
 export async function getRetiringCountByTheme(theme: string): Promise<number> {
-  const predictions = await getRetiringSoonSets({ theme, minScore: 60 });
-  return predictions.length;
+  // limit: 0 so nothing is enriched -- this only ever wanted the count, and
+  // it used to pay for fifty price lookups to find out.
+  const { total } = await getRetiringSoonSets({ theme, minScore: 60, limit: 0 });
+  return total;
 }
