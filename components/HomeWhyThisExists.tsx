@@ -22,9 +22,9 @@ const QUOTE_MARK = { color: '#525252', fontWeight: 400 } as const;
  *
  * German and Polish open low; Swedish uses the right-pointing mark on both
  * sides; French, Spanish, Italian and Portuguese take guillemets; Japanese
- * takes corner brackets. The inner NO-BREAK SPACE on the guillemet locales is
- * the French typographic rule and is deliberate -- a normal space there lets
- * the mark wrap onto its own line.
+ * takes corner brackets. French alone puts a NO-BREAK SPACE inside its
+ * guillemets -- it must be no-break, or the mark wraps onto its own line --
+ * while Spanish, Italian and Portuguese set the same marks tight.
  *
  * The marks live here rather than inside the translated string so that a
  * translator cannot accidentally ship the sentence unquoted, which would turn
@@ -36,10 +36,13 @@ const QUOTES: Record<string, [string, string]> = {
   pl: ['\u201E', '\u201D'],
   sv: ['\u201D', '\u201D'],
   nl: ['\u201C', '\u201D'],
+  // French is the only one of the four that sets a space inside the
+  // guillemets. Spanish (RAE), Italian and Portuguese set them tight, and
+  // « like this » reads as a French page in those languages.
   fr: ['\u00AB\u00A0', '\u00A0\u00BB'],
-  es: ['\u00AB\u00A0', '\u00A0\u00BB'],
-  it: ['\u00AB\u00A0', '\u00A0\u00BB'],
-  pt: ['\u00AB\u00A0', '\u00A0\u00BB'],
+  es: ['\u00AB', '\u00BB'],
+  it: ['\u00AB', '\u00BB'],
+  pt: ['\u00AB', '\u00BB'],
   ja: ['\u300C', '\u300D'],
 };
 
