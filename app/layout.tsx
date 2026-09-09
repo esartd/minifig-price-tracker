@@ -14,6 +14,7 @@ import { AccountLinkedToast } from '@/components/auth/AccountLinkedToast'
 import { getLocaleFromHost, getTranslations } from '@/lib/i18n-subdomain'
 import { headers } from 'next/headers'
 import { DOMAINS } from '@/lib/i18n-alternates';
+import { SITE_DOMAIN } from '@/lib/site-domain';
 
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
@@ -216,21 +217,42 @@ export default async function RootLayout({
         />
       </head>
       <body className="antialiased" style={{ margin: 0, padding: 0 }}>
-        {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-PXLF7KRTSB"
-          strategy="afterInteractive"
-        />
+        {/* Google Analytics.
+
+            Gated on hostname, and that is not belt-and-braces. This same build
+            runs as `figtracker-staging` on the production VPS, reachable at an
+            easypanel.host address on the same IP -- so every page view on
+            staging was landing in the live property. GA's own tag diagnostics
+            is what surfaced it: it listed that host under "additional domains
+            detected" alongside the real one.
+
+            The loader is injected rather than rendered, so a non-production
+            host does not even fetch gtag.js. SITE_DOMAIN comes from
+            lib/site-domain.ts, so this follows the domain automatically
+            instead of hard-coding a hostname that would need finding again on
+            the next move. */}
         <Script id="google-analytics" strategy="afterInteractive">
           {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+            (function () {
+              var root = ${JSON.stringify(SITE_DOMAIN)};
+              var h = window.location.hostname;
+              // The apex, or any locale subdomain of it. Nothing else.
+              if (h !== root && h.indexOf('.' + root) !== h.length - root.length - 1) return;
 
-            gtag('config', 'G-PXLF7KRTSB', {
-              send_page_view: true,
-              cookie_flags: 'SameSite=None;Secure'
-            });
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              window.gtag = gtag;
+              gtag('js', new Date());
+              gtag('config', 'G-PXLF7KRTSB', {
+                send_page_view: true,
+                cookie_flags: 'SameSite=None;Secure'
+              });
+
+              var s = document.createElement('script');
+              s.async = true;
+              s.src = 'https://www.googletagmanager.com/gtag/js?id=G-PXLF7KRTSB';
+              document.head.appendChild(s);
+            })();
           `}
         </Script>
 
