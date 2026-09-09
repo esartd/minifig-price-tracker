@@ -10,11 +10,66 @@ import { LegoBox } from '@/types';
 // In-memory cache with expiration
 let cachedBoxes: LegoBox[] | null = null;
 let cacheTimestamp: number = 0;
-const CACHE_TTL = 15 * 60 * 1000; // 15 minutes - matches minifigs cache
+// 24 hours, matching lib/catalog-static.ts. This said 15 minutes and claimed
+// to match minifigs, which is 24h -- so the 8.7MB boxes.json was re-read and
+// re-parsed four times an hour for a file the catalog job rewrites twice a
+// MONTH. CACHE_VERSION below is the real invalidation mechanism.
+const CACHE_TTL = 24 * 60 * 60 * 1000;
 const CACHE_VERSION = '2026-05-02'; // Increment to bust cache after catalog updates
 
+
 /**
- * Load all boxes from boxes.json (cached with 15min TTL)
+ * Per-box strings searchBoxes() needs, computed once per load rather than once
+ * per box per keystroke. Mirrors SearchIndexEntry in lib/catalog-static.ts --
+ * see the long note there for the measurements behind it.
+ */
+interface BoxSearchIndexEntry {
+  nameL: string;
+  idL: string;
+  categoryL: string;
+  nameNormalized: string;
+  nameWords: string[];
+  categoryWords: string[];
+  normWords: string[];
+  normJoined: string;
+  wordOffsets: number[];
+}
+
+let boxSearchIndex: BoxSearchIndexEntry[] | null = null;
+
+function getBoxSearchIndex(boxes: LegoBox[]): BoxSearchIndexEntry[] {
+  if (boxSearchIndex && boxSearchIndex.length === boxes.length) return boxSearchIndex;
+
+  boxSearchIndex = boxes.map((b) => {
+    const nameL = b.name.toLowerCase();
+    const nameWords = nameL.split(/[\s\/\-]+/);
+    const normWords = nameWords.map((w) => w.replace(/[\-']/g, ''));
+
+    const wordOffsets: number[] = [];
+    let offset = 0;
+    for (const w of normWords) {
+      wordOffsets.push(offset);
+      offset += w.length;
+    }
+
+    const categoryL = b.category_name.toLowerCase();
+    return {
+      nameL,
+      idL: b.box_no.toLowerCase(),
+      categoryL,
+      nameNormalized: nameL.replace(/[\-'\s]/g, ''),
+      nameWords,
+      categoryWords: categoryL.split(/[\s\/\-]+/),
+      normWords,
+      normJoined: normWords.join(''),
+      wordOffsets,
+    };
+  });
+  return boxSearchIndex;
+}
+
+/**
+ * Load all boxes from boxes.json (cached; see CACHE_TTL)
  */
 export function loadAllBoxes(): LegoBox[] {
   const now = Date.now();
@@ -31,6 +86,7 @@ export function loadAllBoxes(): LegoBox[] {
     const fileContent = fs.readFileSync(boxesPath, 'utf-8');
     cachedBoxes = JSON.parse(fileContent);
     cacheTimestamp = now;
+    boxSearchIndex = null; // boxes replaced -- rebuild lazily
     return cachedBoxes!;
   } catch (error) {
     console.error('Error loading boxes.json:', error);
@@ -112,19 +168,20 @@ export function searchBoxes(query: string, limit: number = 50): LegoBox[] {
     if (exact) return [exact];
   }
 
-  // 3. Scoring function (same logic as minifigs)
-  function calculateScore(box: LegoBox): number {
-    const nameL = box.name.toLowerCase();
-    const idL = box.box_no.toLowerCase();
-    const categoryL = box.category_name.toLowerCase();
+  // 3. Scoring function (same logic as minifigs).
+  //
+  // Query-derived values hoisted out of the loop; item-derived values come
+  // from the prebuilt index. Same ladder, same scores -- see the note on
+  // BoxSearchIndexEntry above.
+  const queryNormalized = queryL.replace(/[\-'\s]/g, '');
+  const queryWords = queryL.split(/\s+/).filter(w => w.length >= 2);
+  const queryWordsNormalized = queryWords.map(w => w.replace(/[\-']/g, ''));
+  const isMultiWord = queryWords.length > 1;
+  const checkCategory = queryL.length > 6;
+  const checkWordRun = queryNormalized.length >= 4;
 
-    // Normalize away hyphens, apostrophes AND spaces, so the way someone types
-    // a name doesn't matter: "u wing", "u-wing" and "uwing" all become "uwing"
-    // and match "U-Wing". Spaces were previously left in the query while being
-    // stripped from nothing, so "u wing" matched nothing at all — which took
-    // out every Star Wars starfighter: X-wing, Y-wing, A-wing, V-wing.
-    const nameNormalized = nameL.replace(/[\-'\s]/g, '');
-    const queryNormalized = queryL.replace(/[\-'\s]/g, '');
+  function calculateScore(idx: BoxSearchIndexEntry): number {
+    const { nameL, idL, nameNormalized, nameWords, categoryWords } = idx;
 
     // Exact matches
     if (nameL === queryL || nameNormalized === queryNormalized) return 1000;
@@ -132,10 +189,6 @@ export function searchBoxes(query: string, limit: number = 50): LegoBox[] {
 
     // Name starts with
     if (nameL.startsWith(queryL) || nameNormalized.startsWith(queryNormalized)) return 500;
-
-    // Tokenize
-    const nameWords = nameL.split(/[\s\/\-]+/);
-    const categoryWords = categoryL.split(/[\s\/\-]+/);
 
     // Word boundary exact
     if (nameWords.some(w => w === queryL)) return 400;
@@ -151,18 +204,14 @@ export function searchBoxes(query: string, limit: number = 50): LegoBox[] {
     if (idL.includes(queryL)) return 200;
 
     // Multi-word queries
-    const queryWords = queryL.split(/\s+/).filter(w => w.length >= 2);
-    if (queryWords.length > 1) {
-      // Try normalized matching (handles "n1" matching "n-1")
-      const queryWordsNormalized = queryWords.map(w => w.replace(/[\-']/g, ''));
-      const nameWordsNormalized = nameWords.map(w => w.replace(/[\-']/g, ''));
+    if (isMultiWord) {
+      const nameWordsNormalized = idx.normWords;
 
       const allMatchNormalized = queryWordsNormalized.every(qWord =>
         nameWordsNormalized.some(nWord => nWord.includes(qWord) || qWord.includes(nWord))
       );
       if (allMatchNormalized) return 85;
 
-      // Fallback to regular matching
       const allMatch = queryWords.every(qWord =>
         nameWords.some(nWord => nWord.startsWith(qWord))
       );
@@ -170,31 +219,33 @@ export function searchBoxes(query: string, limit: number = 50): LegoBox[] {
     }
 
     // Category matching ONLY if query is specific (>6 chars) to avoid pollution
-    if (queryL.length > 6) {
+    if (checkCategory) {
       if (categoryWords.some(w => w === queryL)) return 30;
       if (categoryWords.some(w => w.startsWith(queryL) && w.length >= 8)) return 15;
     }
 
-    // Match the query against a run of consecutive words, anchored to a word
-    // start. "uwing" matches "Rebel [U] [Wing] Fighter" because the run
-    // "u"+"wing" begins at a word boundary, while "ewing" correctly does NOT
-    // match "Sewing Machine" or "The Winged Keys" — a plain substring test
-    // matched both, which is why unanchored substring matching was avoided
-    // here originally. Gated at 4+ characters so short queries stay precise.
-    if (queryNormalized.length >= 4) {
-      const normWords = nameWords.map(w => w.replace(/[\-']/g, ''));
-      for (let i = 0; i < normWords.length; i++) {
-        if (normWords.slice(i).join('').startsWith(queryNormalized)) return 120;
+    // Anchored run-of-words match. Identical test to
+    // normWords.slice(i).join('').startsWith(q), without the allocations.
+    if (checkWordRun) {
+      const { normJoined, wordOffsets } = idx;
+      for (let i = 0; i < wordOffsets.length; i++) {
+        if (normJoined.startsWith(queryNormalized, wordOffsets[i])) return 120;
       }
     }
 
     return 0; // NO unguarded substring matching
   }
 
-  // 4. Score, filter, and sort
-  const matches = boxes
-    .map(b => ({ ...b, score: calculateScore(b) }))
-    .filter(b => b.score > 0)
+  // 4. Score, filter, and sort. One pass, allocating only for boxes that
+  // actually score -- the old .map(spread) copied all 21,668 objects first.
+  const boxIndex = getBoxSearchIndex(boxes);
+  const scored: Array<LegoBox & { score: number }> = [];
+  for (let i = 0; i < boxes.length; i++) {
+    const score = calculateScore(boxIndex[i]);
+    if (score > 0) scored.push({ ...boxes[i], score });
+  }
+
+  const matches = scored
     .sort((a, b) => {
       // Primary: Score
       if (b.score !== a.score) return b.score - a.score;

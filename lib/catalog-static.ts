@@ -19,6 +19,74 @@ export interface MinifigCatalogItem {
 let catalogCache: MinifigCatalogItem[] | null = null;
 let cacheTimestamp: number = 0;
 const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours - catalog rarely changes
+
+/**
+ * Per-item strings that searchMinifigs() needs, computed once per catalog load
+ * instead of once per item per keystroke.
+ *
+ * Measured before this existed: searchMinifigs() took 18-49ms per call on a
+ * fast laptop, and the autocomplete endpoint spent 0.25-0.85s of server time
+ * per request on the VPS. calculateScore() was doing three .toLowerCase()
+ * calls, a .replace(), and two .split() calls on EVERY one of 19,147 items,
+ * for every keystroke -- roughly 150k throwaway strings per request. None of
+ * it depends on the query, so none of it needed to be in the loop.
+ *
+ * `normJoined` and `wordOffsets` exist to kill the one quadratic step:
+ * the scorer used to run `normWords.slice(i).join('')` for every word
+ * position, allocating a fresh array and a fresh string each time. That is
+ * exactly `normJoined.startsWith(query, wordOffsets[i])`, which allocates
+ * nothing.
+ */
+interface SearchIndexEntry {
+  nameLower: string;
+  idLower: string;
+  categoryLower: string;
+  nameNormalized: string;
+  nameWords: string[];
+  categoryWords: string[];
+  normWords: string[];
+  /** normWords joined; with wordOffsets, replaces slice().join() entirely. */
+  normJoined: string;
+  /** Start of each normWords entry inside normJoined. */
+  wordOffsets: number[];
+}
+
+let searchIndex: SearchIndexEntry[] | null = null;
+
+function buildSearchIndex(catalog: MinifigCatalogItem[]): SearchIndexEntry[] {
+  return catalog.map((m) => {
+    const nameLower = m.name.toLowerCase();
+    const nameWords = nameLower.split(/[\s\/\-]+/);
+    const normWords = nameWords.map((w) => w.replace(/[\-']/g, ''));
+
+    const wordOffsets: number[] = [];
+    let offset = 0;
+    for (const w of normWords) {
+      wordOffsets.push(offset);
+      offset += w.length;
+    }
+
+    return {
+      nameLower,
+      idLower: m.minifigure_no.toLowerCase(),
+      categoryLower: m.category_name.toLowerCase(),
+      nameNormalized: nameLower.replace(/[\-'\s]/g, ''),
+      nameWords,
+      categoryWords: m.category_name.toLowerCase().split(/[\s\/\-]+/),
+      normWords,
+      normJoined: normWords.join(''),
+      wordOffsets,
+    };
+  });
+}
+
+/** The index, built on first use and thrown away whenever the catalog reloads. */
+function getSearchIndex(catalog: MinifigCatalogItem[]): SearchIndexEntry[] {
+  if (!searchIndex || searchIndex.length !== catalog.length) {
+    searchIndex = buildSearchIndex(catalog);
+  }
+  return searchIndex;
+}
 let categoriesCache: Map<number, { name: string; count: number }> | null = null;
 
 /**
@@ -55,6 +123,7 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
           const content = fs.readFileSync(filePath, 'utf-8');
           catalogCache = JSON.parse(content);
           cacheTimestamp = now;
+          searchIndex = null; // catalog replaced -- rebuild lazily
           console.log('[CATALOG] Loaded from filesystem:', catalogCache?.length || 0, 'minifigs');
           return catalogCache!;
         }
@@ -90,6 +159,7 @@ async function loadCatalog(): Promise<MinifigCatalogItem[]> {
       }));
 
       cacheTimestamp = now;
+      searchIndex = null; // catalog replaced -- rebuild lazily
       console.log('[CATALOG] Loaded from database fallback:', catalogCache.length, 'minifigs');
       return catalogCache;
 
@@ -162,17 +232,27 @@ export async function searchMinifigs(query: string, limit = 50): Promise<Minifig
     }
   }
 
-  // 3. Scoring function with word boundary matching
-  function calculateScore(minifig: MinifigCatalogItem): number {
-    const nameLower = minifig.name.toLowerCase();
-    const idLower = minifig.minifigure_no.toLowerCase();
-    const categoryLower = minifig.category_name.toLowerCase();
+  // 3. Scoring function with word boundary matching.
+  //
+  // Everything derived from the QUERY is computed once, here, instead of once
+  // per item inside the loop -- queryNormalized alone was being recomputed
+  // 19,147 times per keystroke to produce the same string every time.
+  //
+  // Everything derived from the ITEM comes from the prebuilt search index
+  // (see SearchIndexEntry above), so the loop does comparisons only and
+  // allocates nothing.
+  //
+  // Scores and their order are unchanged; this is the same ladder, reading
+  // precomputed strings.
+  const queryNormalized = queryL.replace(/[\-'\s]/g, '');
+  const queryWords = queryL.split(/\s+/).filter(w => w.length >= 2);
+  const queryWordsNormalized = queryWords.map(w => w.replace(/[\-']/g, ''));
+  const isMultiWord = queryWords.length > 1;
+  const checkCategory = queryL.length > 6;
+  const checkWordRun = queryNormalized.length >= 4;
 
-    // Normalize: remove hyphens/special chars for comparison (e.g., "N-1" → "n1")
-    // Whitespace is stripped too, so the way someone types a name doesn't
-    // matter: "u wing", "u-wing" and "uwing" all normalise to "uwing".
-    const nameNormalized = nameLower.replace(/[\-'\s]/g, '');
-    const queryNormalized = queryL.replace(/[\-'\s]/g, '');
+  function calculateScore(idx: SearchIndexEntry): number {
+    const { nameLower, idLower, nameNormalized, nameWords, categoryWords } = idx;
 
     // Exact matches
     if (nameLower === queryL || nameNormalized === queryNormalized) return 1000;
@@ -180,10 +260,6 @@ export async function searchMinifigs(query: string, limit = 50): Promise<Minifig
 
     // Name starts with query
     if (nameLower.startsWith(queryL) || nameNormalized.startsWith(queryNormalized)) return 500;
-
-    // Tokenize and check word boundaries
-    const nameWords = nameLower.split(/[\s\/\-]+/);
-    const categoryWords = categoryLower.split(/[\s\/\-]+/);
 
     // Word boundary exact match (prevents "din" matching "riding")
     if (nameWords.some(word => word === queryL)) return 400;
@@ -200,18 +276,14 @@ export async function searchMinifigs(query: string, limit = 50): Promise<Minifig
     if (idLower.includes(queryL)) return 200;
 
     // Multi-word queries: all words must match
-    const queryWords = queryL.split(/\s+/).filter(w => w.length >= 2);
-    if (queryWords.length > 1) {
-      // Try matching against normalized name (handles "n1" matching "n-1")
-      const queryWordsNormalized = queryWords.map(w => w.replace(/[\-']/g, ''));
-      const nameWordsNormalized = nameWords.map(w => w.replace(/[\-']/g, ''));
+    if (isMultiWord) {
+      const nameWordsNormalized = idx.normWords;
 
       const allMatchNormalized = queryWordsNormalized.every(qWord =>
         nameWordsNormalized.some(nWord => nWord.includes(qWord) || qWord.includes(nWord))
       );
       if (allMatchNormalized) return 85;
 
-      // Fallback to regular word matching
       const allMatch = queryWords.every(qWord =>
         nameWords.some(nWord => nWord.startsWith(qWord))
       );
@@ -220,7 +292,7 @@ export async function searchMinifigs(query: string, limit = 50): Promise<Minifig
 
     // Category matching ONLY if nothing else matched - prevents pollution
     // Only match if query is very specific (>6 chars) to avoid "clone" matching "Clone Wars" series
-    if (queryL.length > 6) {
+    if (checkCategory) {
       if (categoryWords.some(word => word === queryL)) return 30;
       if (categoryWords.some(word => word.startsWith(queryL) && word.length >= 8)) return 15;
     }
@@ -228,23 +300,36 @@ export async function searchMinifigs(query: string, limit = 50): Promise<Minifig
     // Match the query against a run of consecutive words, anchored to a word
     // start. "uwing" matches "Rebel [U] [Wing] Fighter" because the run
     // "u"+"wing" begins at a word boundary, while "ewing" correctly does NOT
-    // match "Sewing Machine" or "The Winged Keys" — a plain substring test
+    // match "Sewing Machine" or "The Winged Keys" -- a plain substring test
     // matched both, which is why unanchored substring matching was avoided
     // here originally. Gated at 4+ characters so short queries stay precise.
-    if (queryNormalized.length >= 4) {
-      const normWords = nameWords.map(w => w.replace(/[\-']/g, ''));
-      for (let i = 0; i < normWords.length; i++) {
-        if (normWords.slice(i).join('').startsWith(queryNormalized)) return 120;
+    //
+    // Was `normWords.slice(i).join('').startsWith(q)` per position, which
+    // built a new array and a new string each time. normJoined.startsWith at
+    // the word's offset is the identical test with no allocation.
+    if (checkWordRun) {
+      const { normJoined, wordOffsets } = idx;
+      for (let i = 0; i < wordOffsets.length; i++) {
+        if (normJoined.startsWith(queryNormalized, wordOffsets[i])) return 120;
       }
     }
 
     return 0; // NO unguarded substring matching
   }
 
-  // 4. Score, filter, and sort
-  const results = catalog
-    .map(m => ({ ...m, score: calculateScore(m) }))
-    .filter(m => m.score > 0)
+  // 4. Score, filter, and sort.
+  //
+  // One pass that only allocates for items that actually score. The old
+  // `.map(m => ({ ...m, score }))` spread all 19,147 catalog objects into
+  // copies and then threw away the ~19,140 that scored zero.
+  const index = getSearchIndex(catalog);
+  const scored: Array<MinifigCatalogItem & { score: number }> = [];
+  for (let i = 0; i < catalog.length; i++) {
+    const score = calculateScore(index[i]);
+    if (score > 0) scored.push({ ...catalog[i], score });
+  }
+
+  const results = scored
     .sort((a, b) => {
       // Primary: Score
       if (b.score !== a.score) return b.score - a.score;
