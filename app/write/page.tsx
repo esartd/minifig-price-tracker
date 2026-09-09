@@ -8,6 +8,7 @@ import { ArticlePreview } from '@/components/admin/ArticlePreview';
 import { ArticleBlock } from '@/types/article';
 import pako from 'pako';
 import AlertDialog from '@/components/AlertDialog';
+import { isAdminEmail } from '@/lib/admin-auth';
 
 const DEFAULT_TEMPLATE: ArticleBlock[] = [
   {
@@ -92,7 +93,7 @@ export default function WriteArticlePage() {
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/');
-    } else if (status === 'authenticated' && session?.user?.email !== 'erickkosysu@gmail.com') {
+    } else if (status === 'authenticated' && !isAdminEmail(session?.user?.email)) {
       router.push('/');
     }
   }, [status, session, router]);
@@ -259,7 +260,7 @@ export default function WriteArticlePage() {
   }
 
   // Don't render if not authenticated
-  if (!session || session.user?.email !== 'erickkosysu@gmail.com') {
+  if (!session || !isAdminEmail(session.user?.email)) {
     return null;
   }
 

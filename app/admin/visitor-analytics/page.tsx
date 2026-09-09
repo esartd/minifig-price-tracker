@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import VisitorAnalyticsDashboard from '@/components/admin/VisitorAnalyticsDashboard';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
+import { isAdminEmail } from '@/lib/admin-auth';
 
 export const metadata: Metadata = {
   title: 'Visitor Analytics | Admin',
@@ -15,7 +16,7 @@ export default async function VisitorAnalyticsPage() {
   const session = await auth();
 
   // Admin only
-  if (!session?.user?.email || session.user.email !== 'ericksu0c@gmail.com') {
+  if (!session?.user?.email || !isAdminEmail(session.user.email)) {
     redirect('/');
   }
 

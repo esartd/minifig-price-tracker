@@ -2,9 +2,9 @@ import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import AnnounceClient from './announce-client';
+import { ADMIN_EMAIL } from '@/lib/admin-auth';
 
 // Same gate as the other admin pages.
-const ADMIN_EMAIL = 'erickkosysu@gmail.com';
 
 export const dynamic = 'force-dynamic';
 

@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma, prismaPublic } from '@/lib/prisma';
+import { ADMIN_EMAIL } from '@/lib/admin-auth';
 
-const ADMIN_EMAIL = 'erickkosysu@gmail.com';
 
 export async function GET() {
   const session = await auth();

@@ -1,13 +1,14 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
+import { isAdminEmail } from '@/lib/admin-auth';
 
 export async function GET() {
   try {
     const session = await auth();
 
     // Only allow admin users
-    if (!session?.user?.email || session.user.email !== 'ericksu0c@gmail.com') {
+    if (!session?.user?.email || !isAdminEmail(session.user.email)) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }

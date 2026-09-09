@@ -9,6 +9,7 @@ import { SocialShare } from '@/components/article/SocialShare';
 import { RelatedArticles } from '@/components/article/RelatedArticles';
 import { getTranslations, getLocaleFromHost } from '@/lib/i18n-subdomain';
 import { DOMAINS } from '@/lib/i18n-alternates';
+import { isAdminEmail } from '@/lib/admin-auth';
 
 export async function generateMetadata({
   params
@@ -108,7 +109,7 @@ export default async function ArticlePage({
 }) {
   const { slug } = await params;
   const session = await auth();
-  const isAdmin = session?.user?.email === 'erickkosysu@gmail.com';
+  const isAdmin = isAdminEmail(session?.user?.email);
 
   const headersList = await headers();
   const host = headersList.get('host') || '';

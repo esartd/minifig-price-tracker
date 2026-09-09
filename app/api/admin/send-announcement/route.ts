@@ -4,6 +4,7 @@ import { Resend } from 'resend';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { originFor } from '@/lib/site-domain';
+import { ADMIN_EMAIL } from '@/lib/admin-auth';
 
 /**
  * Sends an announcement to subscribed users.
@@ -16,7 +17,6 @@ import { originFor } from '@/lib/site-domain';
  * the overflow is silent.
  */
 
-const ADMIN_EMAIL = 'erickkosysu@gmail.com';
 
 // Resend's free tier allows 2 requests/second. Anything faster gets 429s and
 // a partially-sent announcement, which is worse than a slow one.

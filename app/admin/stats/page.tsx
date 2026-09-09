@@ -10,6 +10,7 @@ import translationsFr from '@/translations-backup/fr.json';
 import translationsEs from '@/translations-backup/es.json';
 import { formatCompactNumberSmart } from '@/lib/format-number';
 import AffiliateDashboardButtons from '@/components/AffiliateDashboardButtons';
+import { ADMIN_EMAIL } from '@/lib/admin-auth';
 
 function getTranslations(locale: string) {
   switch (locale) {
@@ -21,7 +22,6 @@ function getTranslations(locale: string) {
 }
 
 // Admin email - only this user can access
-const ADMIN_EMAIL = 'erickkosysu@gmail.com';
 
 export default async function AdminStatsPage() {
   const session = await auth();

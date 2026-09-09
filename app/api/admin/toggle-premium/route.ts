@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
+import { ADMIN_EMAIL } from '@/lib/admin-auth';
 
 // Same hardcoded admin email used elsewhere in the codebase (app/admin/stats,
 // app/api/admin/popular-themes, the article/articles-page "isAdmin" checks).
-const ADMIN_EMAIL = 'erickkosysu@gmail.com';
 
 /**
  * POST /api/admin/toggle-premium

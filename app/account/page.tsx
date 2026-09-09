@@ -11,6 +11,7 @@ import ConfirmDeleteDialog from '@/components/ConfirmDeleteDialog';
 import AlertDialog from '@/components/AlertDialog';
 import { hostFor } from '@/lib/site-domain';
 import { BellIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import { isAdminEmail } from '@/lib/admin-auth';
 
 export default function AccountPage() {
   const { t, locale } = useTranslation();
@@ -335,7 +336,7 @@ export default function AccountPage() {
   // and Free with zero Stripe involvement and zero charge, so both
   // experiences can be tested without paying. Locked server-side too
   // (app/api/admin/toggle-premium) so this button is purely cosmetic gating.
-  const isAdminAccount = session?.user?.email === 'erickkosysu@gmail.com';
+  const isAdminAccount = isAdminEmail(session?.user?.email);
   const [togglingPremium, setTogglingPremium] = useState(false);
   const handleToggleTestPremium = async () => {
     setTogglingPremium(true);
