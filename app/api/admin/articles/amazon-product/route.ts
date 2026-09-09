@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/admin-auth';
 
 export async function POST(request: NextRequest) {
+  // Fetches Amazon product data on demand; open, it is someone else's
+  // scraping budget.
+  const { authorized, error } = await requireAdmin();
+  if (!authorized) {
+    return NextResponse.json({ error }, { status: error === 'Unauthorized' ? 401 : 403 });
+  }
+
   try {
     const { url } = await request.json();
 

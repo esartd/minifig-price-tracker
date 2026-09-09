@@ -1,8 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
+import { requireAdmin } from '@/lib/admin-auth';
 
 export async function POST(request: NextRequest) {
+  // Rewrites a published article's content blocks. This imported `auth` and
+  // then never called it, so the write was open to anyone who found the URL.
+  const { authorized, error } = await requireAdmin();
+  if (!authorized) {
+    return NextResponse.json({ error }, { status: error === 'Unauthorized' ? 401 : 403 });
+  }
+
   try {
     console.log('🔧 Article update triggered by:', request.headers.get('user-agent'));
     const slug = 'figtracker-vs-brickeconomy';

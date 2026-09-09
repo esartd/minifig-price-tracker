@@ -1,9 +1,17 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { requireAdmin } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
+  // Runs ALTER TABLE against User. Idempotent, but an unauthenticated GET
+  // that executes DDL is reachable by a crawler or a link prefetch.
+  const { authorized, error } = await requireAdmin();
+  if (!authorized) {
+    return NextResponse.json({ error }, { status: error === 'Unauthorized' ? 401 : 403 });
+  }
+
   try {
     // Run each ALTER TABLE separately to handle existing columns gracefully
     const migrations = [
