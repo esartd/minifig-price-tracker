@@ -6,6 +6,7 @@ import {
   DocumentTextIcon,
   TagIcon,
 } from '@heroicons/react/24/outline';
+import { useSession } from 'next-auth/react';
 import { useTranslation } from './TranslationProvider';
 import { Section, sectionHeadingStyle } from '@/lib/design-system';
 
@@ -85,6 +86,8 @@ const CTA = {
 
 export default function HomeMoreFeatures() {
   const { t } = useTranslation();
+  const { status } = useSession();
+  const signedIn = status === 'authenticated';
 
   const cards = [
     {
@@ -99,11 +102,13 @@ export default function HomeMoreFeatures() {
       note: null,
       cta: t('homeMore.listing.cta') || 'Open the listing generator',
     },
+    // Premium, and shown to signed-in visitors only -- see `signedIn` below.
+    //
+    // The CTA says "see how it works" rather than "try it": /identify shows
+    // the widget to subscribers and the upgrade teaser to everyone else, so
+    // promising a try would be a promise the page cannot keep for most of the
+    // people who read it.
     {
-      // Premium, and labelled as such. The CTA says "see how it works" rather
-      // than "try it": /identify shows the widget to subscribers and the
-      // upgrade teaser to everyone else, so promising a try would be a promise
-      // the page cannot keep for most of the people who read it.
       href: '/identify',
       icon: CameraIcon,
       tint: '#f4f1fb',
@@ -115,6 +120,7 @@ export default function HomeMoreFeatures() {
         'Point your camera at a minifigure and we tell you which one it is and what it is worth.',
       note: t('homeMore.identify.note') || 'Included with Premium · unlimited scans',
       cta: t('homeMore.identify.cta') || 'See how it works',
+      signedInOnly: true,
     },
     {
       // /retiring-soon, not /deals -- app/deals has no page.tsx, only a
@@ -146,7 +152,9 @@ export default function HomeMoreFeatures() {
             gap: '14px',
           }}
         >
-          {cards.map(({ href, icon: Icon, tint, iconColor, premium, title, body, note, cta }) => (
+          {cards
+            .filter(card => !card.signedInOnly || signedIn)
+            .map(({ href, icon: Icon, tint, iconColor, premium, title, body, note, cta }) => (
             <Link
               key={href}
               href={href}

@@ -893,42 +893,13 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 )}
               </div>
 
-              {/* Premium Link */}
-              <Link
-                href="/premium"
-                onClick={async () => {
-                  try {
-                    await fetch('/api/track-event', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({
-                        event: 'nav_premium_click',
-                        properties: { location: 'desktop_logged_out' }
-                      })
-                    });
-                  } catch (error) {
-                    console.error('Failed to track premium click:', error);
-                  }
-                }}
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: pathname === '/premium' ? '600' : '500',
-                  color: pathname === '/premium' ? '#171717' : '#525252',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s',
-                  lineHeight: '1',
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: '36px',
-                  borderTop: '2px solid transparent',
-                  borderBottom: pathname === '/premium' ? '2px solid #3b82f6' : '2px solid transparent',
-                  whiteSpace: 'nowrap'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#171717'}
-                onMouseLeave={(e) => e.currentTarget.style.color = pathname === '/premium' ? '#171717' : '#525252'}
-              >
-                {t('navigation.premium') || 'Premium'}
-              </Link>
+              {/* No Premium link here on purpose.
+                  Premium is not sold to logged-out visitors any more -- the
+                  goal for a stranger is to get them to sign up, and the
+                  logged-in header (location: desktop_logged_in /
+                  mobile_logged_in) still carries it for people who have. Same
+                  reason the identifier card is hidden from the logged-out
+                  homepage in components/HomeMoreFeatures.tsx. */}
             </nav>
 
             {/* Row 2 on mobile: search, permanently visible rather than buried in
@@ -1175,39 +1146,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   </div>
                 )}
               </div>
-
-              {/* Premium Link */}
-              <Link
-                href="/premium"
-                onClick={async () => {
-                  setMobileMenuOpen(false);
-                  try {
-                    await fetch('/api/track-event', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({
-                        event: 'nav_premium_click',
-                        properties: { location: 'mobile_logged_out' }
-                      })
-                    });
-                  } catch (error) {
-                    console.error('Failed to track premium click:', error);
-                  }
-                }}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '16px 0',
-                  borderBottom: '1px solid #f5f5f5',
-                  color: '#171717',
-                  textDecoration: 'none',
-                  fontSize: 'var(--text-base)',
-                  fontWeight: '500',
-                  minHeight: '44px'
-                }}
-              >
-                {t('navigation.premium') || 'Premium'}
-              </Link>
 
               <Link href="/auth/signin" onClick={() => setMobileMenuOpen(false)} style={{
                 display: 'flex',
