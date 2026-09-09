@@ -205,34 +205,32 @@ function ListPreview({ items }: { items: MarketplaceCard[] }) {
 
 
 /**
- * A miniature of the collection page's running total.
+ * A miniature of the collection page.
  *
  * Deliberately NOT ListPreview, which the sell-list card uses. Both cards are
  * about "your items", so sharing one mock-up made them read as the same
- * feature twice -- the same three rows, the same tint, two different headings.
- * The collection page's actual subject is the total across everything you own,
- * so that is what this shows: the stat row from app/collection/page.tsx, with
- * a couple of rows beneath to say what is being counted.
+ * feature twice -- same three rows, same tint, two different headings. What
+ * makes /collection recognisable is the stat row across the top and the
+ * quantity chips down the side, so that is what this draws.
  *
- * The figures are summed from the same real prices the other cards use, so the
- * number is arithmetic on live data rather than a designed-in placeholder.
+ * The figures are illustrative and fixed. They are a picture of the page, not
+ * a readout: a real total would be summed from whatever eight items the
+ * marketplace API happened to return, which is not this visitor's collection
+ * either, and on a cold price cache it summed to $0.00 -- "your collection is
+ * worth nothing" rather than "nothing has been priced yet".
+ *
+ * The rows carry a quantity chip rather than a price on purpose. The names are
+ * real minifigures, and printing an invented price beside a named item would
+ * be asserting a specific figure that is not true. A quantity says "you own
+ * some of these" without claiming what any of them is worth.
  */
 function CollectionPreview({ items, labels }: {
   items: MarketplaceCard[];
   labels: { total: string; count: string; avg: string };
 }) {
-  const priced = items.filter((i) => i.priceUsd != null);
-  const total = priced.reduce((sum, i) => sum + (i.priceUsd ?? 0), 0);
-  const avg = priced.length ? total / priced.length : 0;
   const rows = items.slice(0, 2);
-
-  // With no priced items this used to render "TOTAL VALUE $0.00", which reads
-  // as "your collection is worth nothing" rather than "we have not priced
-  // anything yet". /api/marketplace returns priceUsd: null whenever the price
-  // cache is cold or the BrickLink budget is spent, so this is a state the
-  // homepage really can hit. An em dash says "no figure" without asserting a
-  // figure.
-  const money = (n: number) => (priced.length ? `$${n.toFixed(2)}` : '—');
+  const STATS = { total: '$482.15', count: '37', avg: '$13.03' };
+  const QTY = ['x2', 'x1'];
 
   const STAT_LABEL = {
     margin: 0,
@@ -263,20 +261,16 @@ function CollectionPreview({ items, labels }: {
         <div style={{ flex: '1 1 auto' }}>
           <p style={STAT_LABEL}>{labels.total}</p>
           <p style={{ margin: '1px 0 0', fontSize: '20px', fontWeight: 700, color: '#171717', lineHeight: 1.1 }}>
-            {money(total)}
+            {STATS.total}
           </p>
         </div>
         <div style={{ textAlign: 'right' }}>
           <p style={STAT_LABEL}>{labels.count}</p>
-          <p style={{ margin: '1px 0 0', fontSize: '12px', fontWeight: 700, color: '#171717' }}>
-            {priced.length || '—'}
-          </p>
+          <p style={{ margin: '1px 0 0', fontSize: '12px', fontWeight: 700, color: '#171717' }}>{STATS.count}</p>
         </div>
         <div style={{ textAlign: 'right' }}>
           <p style={STAT_LABEL}>{labels.avg}</p>
-          <p style={{ margin: '1px 0 0', fontSize: '12px', fontWeight: 700, color: '#171717' }}>
-            {money(avg)}
-          </p>
+          <p style={{ margin: '1px 0 0', fontSize: '12px', fontWeight: 700, color: '#171717' }}>{STATS.avg}</p>
         </div>
       </div>
 
@@ -307,8 +301,18 @@ function CollectionPreview({ items, labels }: {
             <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {item?.name ?? '\u00a0'}
             </span>
-            <span style={{ fontWeight: 600, color: '#171717', flexShrink: 0 }}>
-              {item?.priceUsd != null ? `$${item.priceUsd.toFixed(2)}` : ''}
+            <span
+              style={{
+                flexShrink: 0,
+                padding: '1px 6px',
+                borderRadius: '999px',
+                background: '#f5f5f5',
+                fontSize: '9px',
+                fontWeight: 700,
+                color: '#525252',
+              }}
+            >
+              {QTY[i] ?? 'x1'}
             </span>
           </div>
         ))}
