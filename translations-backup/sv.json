@@ -513,6 +513,13 @@
       "title": "Nytt: AI-identifiering av minifigurer",
       "subtitle": "ta ett foto och få BrickLink-ID:t + värdet direkt",
       "cta": "Testa →"
+    },
+    "whyThisExists": {
+      "complaint": "Priserna är alldeles för höga.",
+      "subline": "Den vanligaste invändningen mot LEGO-prisguider — en värdering som ser strålande ut, ända fram till att du annonserar för den.",
+      "method": "IntoBrick väger sålda affärer, aktuella annonser och det just nu lägsta priset till ett enda tal. Inga tillväxtprognoser, inget framtida värde.",
+      "close": "Ett pris för att sälja, inte för att beundra.",
+      "link": "Så räknar vi ut priser"
     }
   },
   "about": {
@@ -522,9 +529,9 @@
       "subtitle": "Det snabbaste sättet att prissätta LEGO-minifigurer och set. Gratis för alla säljare."
     },
     "problem": {
-      "title": "Att prissätta LEGO-set och minifigurer ska inte kännas som läxor.",
-      "paragraph1": "Du öppnar BrickLink och ser sålda priser och annonser. Nytt och begagnat. Vart och ett med ett minimum, ett snitt, ett kvantitetsviktat snitt och ett maximum. Det blir 24 olika siffror att gå igenom innan du kan prissätta en enda artikel.",
-      "paragraph2": "Sedan gör du huvudräkningen och försöker landa i något rättvist. <strong>Varje. Enda. Gång.</strong>"
+      "title": "En värdering ingen köper för är inte värd mycket.",
+      "paragraph1": "På de flesta prisguider får du ett tal som känns härligt — ända fram till att du annonserar för det och ingenting händer. Talet var inte direkt fel. Det var bara inte ett pris som någon betalade.",
+      "paragraph2": "Alternativet är att göra det själv på BrickLink: sålda objekt och aktuella annonser, Nytt och Använt, var och en med minimum, medel, kvantitetsviktat medel och maximum. Det blir 24 tal att väga mot varandra för att prissätta ett enda objekt — <strong>varje gång</strong>."
     },
     "stats": {
       "pricePoints": "Siffror från BrickLink",
@@ -599,7 +606,7 @@
     },
     "creator": {
       "title": "Vem som byggde detta",
-      "body": "Hej, jag heter Erick — grundare av ES Art & D, en UI/UX-designstudio baserad i Utah. Jag började samla LEGO som vuxen och startade IntoBrick som ett personligt projekt för att reda ut spridda prisdata. Det har vuxit till sajten du använder idag. I LEGO-kretsar kanske du också känner mig som Erix Figs.",
+      "body": "Hej, jag heter Erick och är grundare av ES Art & D, en UI/UX-designstudio i Utah. Jag började samla LEGO som vuxen, och jag byggde IntoBrick efter att ha värderat min egen samling i en annan prisguide och upptäckt, när jag skulle sälja, att summorna inte var i närheten. Jag ville ha ett tal som jag kunde annonsera utifrån och lita på. Det har vuxit till den sida du använder nu. I LEGO-kretsar känner du kanske igen mig som Erix Figs.",
       "badge": "PERSONEN BAKOM INTOBRICK",
       "byline": "Erick Su · ES Art & D · Utah"
     }

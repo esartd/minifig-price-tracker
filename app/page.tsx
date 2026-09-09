@@ -6,6 +6,7 @@ import HeaderSearch from '@/components/HeaderSearch';
 import RecommendedSets from '@/components/RecommendedSets';
 import LeaderboardsSection from '@/components/LeaderboardsSection';
 import TrendingMinifigs from '@/components/TrendingMinifigs';
+import HomeWhyThisExists from '@/components/HomeWhyThisExists';
 import HomeFeatureDashboard from '@/components/HomeFeatureDashboard';
 import HomeMoreFeatures from '@/components/HomeMoreFeatures';
 import { useTranslation } from '@/components/TranslationProvider';
@@ -358,6 +359,11 @@ function HomePageContent() {
           last on purpose: both rank or suggest against a collection the
           first-time visitor has not built yet, so they mean nothing until the
           groups above have done their job. */}
+      {/* Why any of this exists, before the features it explains. A stranger
+          has no reason to care that we compute a price until they know what
+          is wrong with the price they have been using. */}
+      <HomeWhyThisExists />
+
       <HomeFeatureDashboard />
       <HomeMoreFeatures />
       <TrendingMinifigs />

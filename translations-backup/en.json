@@ -513,6 +513,13 @@
       "title": "New: AI Minifig Identifier",
       "subtitle": "snap a photo, get the BrickLink ID + value instantly",
       "cta": "Try it →"
+    },
+    "whyThisExists": {
+      "complaint": "The prices are too high.",
+      "subline": "The most common complaint about LEGO price guides — a valuation that looks great until you list at it.",
+      "method": "IntoBrick weights sold history, live listings and the current lowest into one number. No growth projections, no future value.",
+      "close": "Priced to list, not to admire.",
+      "link": "How we calculate prices"
     }
   },
   "about": {
@@ -522,9 +529,9 @@
       "subtitle": "The fastest way to price LEGO minifigures and sets. Free for every seller."
     },
     "problem": {
-      "title": "Pricing LEGO sets and minifigures shouldn't feel like homework.",
-      "paragraph1": "You open BrickLink and see sold prices and listings. New and Used. Each with a minimum, average, quantity-weighted average, and maximum. That's 24 different numbers to sort through before you can price a single item.",
-      "paragraph2": "Then you do the mental math, trying to land on something fair. <strong>Every. Single. Time.</strong>"
+      "title": "A valuation you can't sell at isn't worth much.",
+      "paragraph1": "Look up your collection on most price guides and you get a number that feels wonderful — until you list at it and nothing moves. The figure was never wrong, exactly. It just wasn't a price anyone was paying.",
+      "paragraph2": "The alternative is doing it yourself on BrickLink: sold prices and listings, New and Used, each with a minimum, average, quantity-weighted average and maximum. That's 24 numbers to weigh up before you can price one item — <strong>every single time</strong>."
     },
     "stats": {
       "pricePoints": "Numbers from BrickLink",
@@ -579,7 +586,7 @@
     "creator": {
       "badge": "THE PERSON BEHIND INTOBRICK",
       "title": "Who Built This",
-      "body": "Hi, I'm Erick — founder of ES Art & D, a UI/UX design studio based in Utah. I got into LEGO collecting as an adult and started IntoBrick as a personal project to make sense of scattered pricing data. It's grown into the site you're using today. In LEGO circles, you might also know me as Erix Figs.",
+      "body": "Hi, I'm Erick — founder of ES Art & D, a UI/UX design studio based in Utah. I got into LEGO collecting as an adult, and I built IntoBrick after valuing my own collection on another price guide and discovering, when I went to sell, that the numbers weren't close. I wanted one number I could list against and trust. It's grown into the site you're using today. In LEGO circles, you might also know me as Erix Figs.",
       "byline": "Erick Su · ES Art & D · Utah"
     },
     "support": {

@@ -513,6 +513,13 @@
       "title": "Nowość: Rozpoznawanie minifigurek AI",
       "subtitle": "zrób zdjęcie i od razu poznaj ID BrickLink oraz wartość",
       "cta": "Wypróbuj →"
+    },
+    "whyThisExists": {
+      "complaint": "Ceny są zdecydowanie za wysokie.",
+      "subline": "Najczęstsze zastrzeżenie wobec cenników LEGO — wycena, która wygląda świetnie, dopóki nie wystawisz za tyle.",
+      "method": "IntoBrick waży historię sprzedaży, aktualne oferty i obecną najniższą cenę do jednej liczby. Bez prognoz wzrostu, bez przyszłej wartości.",
+      "close": "Cena do wystawienia, nie do podziwiania.",
+      "link": "Jak wyliczamy ceny"
     }
   },
   "about": {
@@ -522,9 +529,9 @@
       "subtitle": "Najszybszy sposób na wycenę minifigurek i zestawów LEGO. Bezpłatny dla każdego sprzedawcy."
     },
     "problem": {
-      "title": "Wycena zestawów i minifigurek LEGO nie powinna przypominać odrabiania lekcji.",
-      "paragraph1": "Otwierasz BrickLink i widzisz ceny sprzedanych przedmiotów oraz aktualne oferty. Nowe i używane. Każda kategoria ma cenę minimalną, średnią, średnią ważoną ilością i maksymalną. To 24 różne liczby, które trzeba przeanalizować, zanim wycenisz choć jeden przedmiot.",
-      "paragraph2": "Potem liczysz w głowie, próbując znaleźć uczciwą cenę. <strong>Za. Każdym. Razem.</strong>"
+      "title": "Wycena, za którą nikt nie kupi, niewiele daje.",
+      "paragraph1": "Większość cenników pokaże ci liczbę, która cieszy — dopóki nie wystawisz za tyle i nic się nie ruszy. Ta liczba nie była właściwie błędna. Po prostu nie była ceną, którą ktokolwiek płacił.",
+      "paragraph2": "Alternatywa to robienie tego ręcznie w BrickLinku: sprzedane i aktualne oferty, Nowe i Używane, każde z minimum, średnią, średnią ważoną ilością i maksimum. To 24 liczby do rozważenia, żeby wycenić jedną rzecz — <strong>i tak za każdym razem</strong>."
     },
     "stats": {
       "pricePoints": "Liczb z BrickLink",
@@ -599,7 +606,7 @@
     },
     "creator": {
       "title": "Kto to stworzył",
-      "body": "Cześć, jestem Erick — założyciel ES Art & D, studia projektowego UI/UX z siedzibą w Utah. Zacząłem kolekcjonować LEGO jako dorosły i uruchomiłem IntoBrick jako osobisty projekt, aby uporządkować rozproszone dane o cenach. Wyrósł na stronę, z której korzystasz dzisiaj. W kręgach LEGO możesz mnie też znać jako Erix Figs.",
+      "body": "Cześć, jestem Erick — założyciel ES Art & D, studia projektowego UI/UX z Utah. Kolekcjonowanie LEGO zacząłem już jako dorosły, a IntoBrick powstał po tym, jak wyceniłem własną kolekcję w innym cenniku i przy sprzedaży odkryłem, że kwoty nie były nawet zbliżone. Chciałem jednej liczby, na której mogę oprzeć ofertę i której mogę zaufać. Z tego wyrosła strona, z której właśnie korzystasz. W środowisku LEGO możesz mnie znać także jako Erix Figs.",
       "badge": "OSOBA STOJĄCA ZA INTOBRICK",
       "byline": "Erick Su · ES Art & D · Utah"
     }

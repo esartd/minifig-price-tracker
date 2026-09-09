@@ -513,6 +513,13 @@
       "title": "Novità: Identificatore di Minifigure AI",
       "subtitle": "scatta una foto e ottieni subito l'ID BrickLink e il valore",
       "cta": "Provalo →"
+    },
+    "whyThisExists": {
+      "complaint": "I prezzi sono troppo alti.",
+      "subline": "La critica più diffusa alle guide ai prezzi LEGO: una valutazione che sembra ottima, finché non provi a venderci davvero.",
+      "method": "IntoBrick pondera vendite concluse, inserzioni attive e prezzo più basso del momento in un unico numero. Nessuna proiezione di crescita, nessun valore futuro.",
+      "close": "Un prezzo per vendere, non per sognare.",
+      "link": "Come calcoliamo i prezzi"
     }
   },
   "about": {
@@ -522,9 +529,9 @@
       "subtitle": "Il modo più veloce per valutare minifigure e set LEGO. Gratis per ogni venditore."
     },
     "problem": {
-      "title": "Valutare set e minifigure LEGO non dovrebbe sembrare un compito a casa.",
-      "paragraph1": "Apri BrickLink e vedi prezzi di vendita e annunci. Nuovo e Usato. Ognuno con un minimo, una media, una media ponderata per quantità e un massimo. Sono 24 numeri diversi da analizzare prima di poter valutare un solo articolo.",
-      "paragraph2": "Poi fai i calcoli a mente, cercando di arrivare a qualcosa di equo. <strong>Ogni. Singola. Volta.</strong>"
+      "title": "Una valutazione a cui nessuno compra vale poco.",
+      "paragraph1": "Sulla maggior parte delle guide ai prezzi ottieni un numero che fa piacere, finché non lo usi in un'inserzione e non si muove nulla. Quel numero non era propriamente sbagliato: semplicemente non era un prezzo che qualcuno stava pagando.",
+      "paragraph2": "L'alternativa è farlo a mano su BrickLink: venduti e inserzioni attive, Nuovo e Usato, ognuno con minimo, media, media ponderata per quantità e massimo. Sono 24 numeri da valutare per dare un prezzo a un solo pezzo, <strong>ogni singola volta</strong>."
     },
     "stats": {
       "pricePoints": "Numeri da BrickLink",
@@ -599,7 +606,7 @@
     },
     "creator": {
       "title": "Chi ha creato questo sito",
-      "body": "Ciao, sono Erick — fondatore di ES Art & D, uno studio di design UI/UX con sede nello Utah. Ho iniziato a collezionare LEGO da adulto e ho avviato IntoBrick come progetto personale per organizzare dati sui prezzi sparsi. È diventato il sito che usi oggi. Negli ambienti LEGO, potresti conoscermi anche come Erix Figs.",
+      "body": "Ciao, sono Erick, fondatore di ES Art & D, uno studio di design UI/UX con sede nello Utah. Ho iniziato a collezionare LEGO da adulto e ho creato IntoBrick dopo aver valutato la mia collezione su un'altra guida ai prezzi e aver scoperto, al momento di vendere, che le cifre non erano nemmeno vicine. Volevo un numero solo, su cui basare un'inserzione e di cui potermi fidare. È diventato il sito che stai usando adesso. Nel mondo LEGO forse mi conosci come Erix Figs.",
       "badge": "LA PERSONA DIETRO INTOBRICK",
       "byline": "Erick Su · ES Art & D · Utah"
     }

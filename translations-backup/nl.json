@@ -513,6 +513,13 @@
       "title": "Nieuw: AI-minifig-identificatie",
       "subtitle": "maak een foto, ontvang direct het BrickLink ID + de waarde",
       "cta": "Probeer het →"
+    },
+    "whyThisExists": {
+      "complaint": "De prijzen zijn veel te hoog.",
+      "subline": "De meestgehoorde klacht over LEGO-prijsgidsen — een waardering die er prachtig uitziet, tot je er voor te koop zet.",
+      "method": "IntoBrick weegt verkoopgeschiedenis, actuele aanbiedingen en de huidige laagste prijs samen tot één getal. Geen groeiprognoses, geen toekomstige waarde.",
+      "close": "Een prijs om te verkopen, niet om te bewonderen.",
+      "link": "Hoe wij prijzen berekenen"
     }
   },
   "about": {
@@ -522,9 +529,9 @@
       "subtitle": "De snelste manier om LEGO minifiguren en sets te prijzen. Gratis voor elke verkoper."
     },
     "problem": {
-      "title": "Het prijzen van LEGO sets en minifiguren zou geen huiswerk moeten aanvoelen.",
-      "paragraph1": "Je opent BrickLink en ziet verkochte prijzen en advertenties. Nieuw en Gebruikt. Elk met een minimum, gemiddelde, hoeveelheidsgewogen gemiddelde en maximum. Dat zijn 24 verschillende getallen om doorheen te spitten voordat je één item kunt prijzen.",
-      "paragraph2": "Dan doe je het rekenwerk in je hoofd, in een poging iets eerlijks te bepalen. <strong>Elke. Keer. Weer.</strong>"
+      "title": "Een waardering waarvoor niemand koopt, is niet veel waard.",
+      "paragraph1": "Op de meeste prijsgidsen krijg je een getal waar je blij van wordt — tot je er voor te koop zet en er niets gebeurt. Dat getal was niet echt verkeerd. Het was alleen geen prijs die iemand betaalde.",
+      "paragraph2": "Het alternatief is het zelf uitzoeken op BrickLink: verkochte items en actuele aanbiedingen, Nieuw en Gebruikt, elk met een minimum, gemiddelde, hoeveelheidsgewogen gemiddelde en maximum. Dat zijn 24 getallen om af te wegen voor de prijs van één item — <strong>elke keer opnieuw</strong>."
     },
     "stats": {
       "pricePoints": "Getallen van BrickLink",
@@ -599,7 +606,7 @@
     },
     "creator": {
       "title": "Wie dit heeft gebouwd",
-      "body": "Hoi, ik ben Erick — oprichter van ES Art & D, een UI/UX-designstudio in Utah. Ik ben als volwassene LEGO gaan verzamelen en ben IntoBrick begonnen als persoonlijk project om verspreide prijsgegevens te ordenen. Het is uitgegroeid tot de site die je vandaag gebruikt. In LEGO-kringen ken je me misschien ook als Erix Figs.",
+      "body": "Hoi, ik ben Erick — oprichter van ES Art & D, een UI/UX-designstudio in Utah. Ik ben als volwassene LEGO gaan verzamelen, en ik bouwde IntoBrick nadat ik mijn eigen collectie via een andere prijsgids had gewaardeerd en bij het verkopen ontdekte dat de bedragen er niet eens in de buurt kwamen. Ik wilde één getal waarmee ik kon adverteren en dat ik kon vertrouwen. Dat is uitgegroeid tot de site die je nu gebruikt. In LEGO-kringen ken je me misschien ook als Erix Figs.",
       "badge": "DE PERSOON ACHTER INTOBRICK",
       "byline": "Erick Su · ES Art & D · Utah"
     }
