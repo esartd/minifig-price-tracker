@@ -520,6 +520,10 @@
       "method": "IntoBrick pondera vendite concluse, inserzioni attive e prezzo più basso del momento in un unico numero. Nessuna proiezione di crescita, nessun valore futuro.",
       "close": "Un prezzo per vendere, non per sognare.",
       "link": "Come calcoliamo i prezzi"
+    },
+    "closing": {
+      "title": "Valuta la tua prima minifigure",
+      "subtitle": "Un solo numero, in pochi secondi. Nessun account, niente da installare."
     }
   },
   "about": {

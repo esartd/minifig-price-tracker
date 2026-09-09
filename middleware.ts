@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { themeSlug } from '@/lib/theme-slug'
 import { getLocaleFromHost } from '@/lib/i18n-subdomain'
 import { tieredRateLimit, getTierForPath } from '@/lib/tiered-rate-limit'
 
@@ -65,6 +66,51 @@ const BLOCKED_USER_AGENTS = [
   'bot',
 ]
 
+/**
+ * The canonical path for a theme URL, or null when it is already canonical.
+ *
+ * Only the theme segment is rewritten; the subcategory segment and anything
+ * else in the path are left alone (see the note inside). themeSlug() is
+ * idempotent, so a redirect can only fire once and cannot loop.
+ */
+function canonicalThemePath(pathname: string): string | null {
+  const parts = pathname.split('/')
+  // ['', 'themes', '<theme>'] or ['', 'themes', '<theme>', '<sub>']
+  const isThemes = parts[1] === 'themes' && parts.length >= 3 && parts.length <= 4
+  const isSetsThemes = parts[1] === 'sets-themes' && parts.length === 3
+  if (!isThemes && !isSetsThemes) return null
+
+  // ONLY the theme segment (parts[2]). The subcategory segment is left
+  // exactly as requested, for two reasons found by checking rather than
+  // guessing:
+  //
+  // 1. app/themes/[theme]/[subcategory] renders its segment verbatim as the
+  //    display name, so forcing it through a slug retitled the page
+  //    "episode-1 LEGO Minifigures". The parent theme page title-cases its
+  //    own slug, which is why it survives the same treatment.
+  // 2. lib/sitemap-data.ts submits no subcategory URLs at all, so unlike the
+  //    theme pages there is no split ranking credit to recover there.
+  //
+  // Slugs are not losslessly reversible for display anyway -- "dc-comics"
+  // title-cases back to "Dc Comics" -- so this is not a transform to apply
+  // to a segment the page shows to a reader.
+  const segment = parts[2]
+  if (!segment) return null
+
+  let canonical: string
+  try {
+    canonical = themeSlug(decodeURIComponent(segment))
+  } catch {
+    // Malformed percent-encoding. Leave it and let the route 404 rather than
+    // redirecting somewhere invented.
+    return null
+  }
+  if (canonical === segment) return null
+
+  parts[2] = canonical
+  return parts.join('/')
+}
+
 export function middleware(request: NextRequest) {
   const { hostname, pathname } = request.nextUrl
   const userAgent = request.headers.get('user-agent')?.toLowerCase() || ''
@@ -75,6 +121,27 @@ export function middleware(request: NextRequest) {
   // otherwise trip rate limiting or a bot-detection rule below)
   if (pathname === '/api/health' || pathname === '/robots.txt' || pathname === '/api/stripe/webhook') {
     return NextResponse.next()
+  }
+
+  // Collapse theme pages onto one address.
+  //
+  // /themes/star-wars and /themes/Star%20Wars both returned 200 with byte-for
+  // -byte identical content, as did the /sets-themes pair, so every theme page
+  // existed at two URLs and split whatever ranking credit it earned. Verified
+  // on production before this shipped: both spellings resolve the same counts
+  // for Star Wars, Harry Potter, Bionicle, Super Mario and Gabby's Dollhouse,
+  // so nobody sees different content after the redirect.
+  //
+  // The slug form wins because lib/sitemap-data.ts has always submitted it.
+  //
+  // THIS MUST STAY ABOVE THE BOT CHECKS BELOW. Verified crawlers get an early
+  // NextResponse.next(), so a redirect placed after that block would be
+  // invisible to Googlebot -- which is the only visitor this is for.
+  const canonicalPath = canonicalThemePath(pathname)
+  if (canonicalPath) {
+    const url = request.nextUrl.clone()
+    url.pathname = canonicalPath
+    return NextResponse.redirect(url, 301)
   }
 
   // Block empty user agents — no real browser omits this

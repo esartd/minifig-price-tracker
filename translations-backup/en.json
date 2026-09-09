@@ -520,6 +520,10 @@
       "method": "IntoBrick weights sold history, live listings and the current lowest into one number. No growth projections, no future value.",
       "close": "Priced to list, not to admire.",
       "link": "How we calculate prices"
+    },
+    "closing": {
+      "title": "Price your first minifigure",
+      "subtitle": "One number, in a couple of seconds. No account, nothing to install."
     }
   },
   "about": {

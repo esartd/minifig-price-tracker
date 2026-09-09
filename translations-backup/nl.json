@@ -520,6 +520,10 @@
       "method": "IntoBrick weegt verkoopgeschiedenis, actuele aanbiedingen en de huidige laagste prijs samen tot één getal. Geen groeiprognoses, geen toekomstige waarde.",
       "close": "Een prijs om te verkopen, niet om te bewonderen.",
       "link": "Hoe wij prijzen berekenen"
+    },
+    "closing": {
+      "title": "Bepaal de prijs van je eerste minifiguur",
+      "subtitle": "Eén getal, binnen een paar seconden. Geen account, niets te installeren."
     }
   },
   "about": {

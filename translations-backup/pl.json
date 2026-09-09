@@ -520,6 +520,10 @@
       "method": "IntoBrick waży historię sprzedaży, aktualne oferty i obecną najniższą cenę do jednej liczby. Bez prognoz wzrostu, bez przyszłej wartości.",
       "close": "Cena do wystawienia, nie do podziwiania.",
       "link": "Jak wyliczamy ceny"
+    },
+    "closing": {
+      "title": "Wyceń swoją pierwszą minifigurkę",
+      "subtitle": "Jedna liczba w kilka sekund. Bez konta i bez instalowania czegokolwiek."
     }
   },
   "about": {

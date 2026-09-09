@@ -1960,6 +1960,10 @@
       "method": "IntoBrick pondère ventes réalisées, annonces en cours et prix le plus bas du moment en un seul chiffre. Aucune projection de plus-value, aucune valeur future.",
       "close": "Un prix pour vendre, pas pour rêver.",
       "link": "Comment nous calculons les prix"
+    },
+    "closing": {
+      "title": "Estimez votre première minifigurine",
+      "subtitle": "Un seul chiffre, en quelques secondes. Sans compte, sans rien à installer."
     }
   },
   "articles": {

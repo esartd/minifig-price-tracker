@@ -3,6 +3,7 @@ import { headers } from 'next/headers';
 import { loadAllBoxes } from '@/lib/boxes-data';
 import { getTranslations, getLocaleFromHost, type Locale } from '@/lib/i18n-subdomain';
 import { buildAlternates } from '@/lib/i18n-alternates';
+import { normalizeThemeSlug as normalize } from '@/lib/theme-slug';
 
 /**
  * Metadata for /sets-themes/<theme>.
@@ -22,10 +23,8 @@ function interpolate(template: string, vars: Record<string, string | number>): s
   );
 }
 
-/** Mirrors themeSlug() in lib/sitemap-data.ts, so the canonical matches the sitemap. */
-function normalize(value: string): string {
-  return value.toLowerCase().replace(/\s+/g, '-');
-}
+// normalize() used to be copied in here with a comment asking the reader to
+// keep it in step with lib/sitemap-data.ts. Both now import the one source.
 
 export async function generateMetadata({
   params,

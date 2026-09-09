@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import SubcategoryPageClient from '@/components/subcategory-page-client';
 import { getTranslations, getLocaleFromHost, type Locale } from '@/lib/i18n-subdomain';
 import { DOMAINS } from '@/lib/i18n-alternates';
+import { themeSlug } from '@/lib/theme-slug';
 
 // Replace {placeholder} tokens in a translated template with dynamic values
 function interpolate(template: string, vars: Record<string, string | number>): string {
@@ -19,6 +20,14 @@ export async function generateMetadata({
   const { theme, subcategory } = await params;
   const decodedTheme = decodeURIComponent(theme);
   const decodedSubcategory = decodeURIComponent(subcategory);
+
+  // The theme segment is normalised, matching the middleware redirect and
+  // the parent page. The subcategory segment is NOT: this page renders it
+  // verbatim as the display name, and the sitemap does not submit these URLs,
+  // so there is nothing to deduplicate and slugging it only retitles the page
+  // to "episode-1". See canonicalThemePath() in middleware.ts.
+  const canonicalSlug = themeSlug(decodedTheme);
+  const canonicalSub = subcategory;
 
   const { headers } = await import('next/headers');
   const headersList = await headers();
@@ -95,7 +104,7 @@ export async function generateMetadata({
     openGraph: {
       title: interpolate(subTitleNoCount, { name: displayName }),
       description,
-      url: `${baseUrl}/themes/${theme}/${subcategory}`,
+      url: `${baseUrl}/themes/${canonicalSlug}/${canonicalSub}`,
       locale: localeMap[locale as keyof typeof localeMap],
       alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'nl_NL', 'pl_PL', 'pt_PT', 'sv_SE', 'ja_JP'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
       images: [
@@ -113,19 +122,19 @@ export async function generateMetadata({
       description,
     },
     alternates: {
-      canonical: `${baseUrl}/themes/${theme}/${subcategory}`,
+      canonical: `${baseUrl}/themes/${canonicalSlug}/${canonicalSub}`,
       languages: {
-        'en': `${domains.en}/themes/${theme}/${subcategory}`,
-        'de': `${domains.de}/themes/${theme}/${subcategory}`,
-        'fr': `${domains.fr}/themes/${theme}/${subcategory}`,
-        'es': `${domains.es}/themes/${theme}/${subcategory}`,
-        'it': `${domains.it}/themes/${theme}/${subcategory}`,
-        'nl': `${domains.nl}/themes/${theme}/${subcategory}`,
-        'pl': `${domains.pl}/themes/${theme}/${subcategory}`,
-        'pt': `${domains.pt}/themes/${theme}/${subcategory}`,
-        'sv': `${domains.sv}/themes/${theme}/${subcategory}`,
-        'ja': `${domains.ja}/themes/${theme}/${subcategory}`,
-        'x-default': `${domains.en}/themes/${theme}/${subcategory}`,
+        'en': `${domains.en}/themes/${canonicalSlug}/${canonicalSub}`,
+        'de': `${domains.de}/themes/${canonicalSlug}/${canonicalSub}`,
+        'fr': `${domains.fr}/themes/${canonicalSlug}/${canonicalSub}`,
+        'es': `${domains.es}/themes/${canonicalSlug}/${canonicalSub}`,
+        'it': `${domains.it}/themes/${canonicalSlug}/${canonicalSub}`,
+        'nl': `${domains.nl}/themes/${canonicalSlug}/${canonicalSub}`,
+        'pl': `${domains.pl}/themes/${canonicalSlug}/${canonicalSub}`,
+        'pt': `${domains.pt}/themes/${canonicalSlug}/${canonicalSub}`,
+        'sv': `${domains.sv}/themes/${canonicalSlug}/${canonicalSub}`,
+        'ja': `${domains.ja}/themes/${canonicalSlug}/${canonicalSub}`,
+        'x-default': `${domains.en}/themes/${canonicalSlug}/${canonicalSub}`,
       },
     },
   };

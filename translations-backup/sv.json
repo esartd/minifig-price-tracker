@@ -520,6 +520,10 @@
       "method": "IntoBrick väger sålda affärer, aktuella annonser och det just nu lägsta priset till ett enda tal. Inga tillväxtprognoser, inget framtida värde.",
       "close": "Ett pris för att sälja, inte för att beundra.",
       "link": "Så räknar vi ut priser"
+    },
+    "closing": {
+      "title": "Prissätt din första minifigur",
+      "subtitle": "Ett tal, på ett par sekunder. Inget konto, inget att installera."
     }
   },
   "about": {

@@ -7,6 +7,7 @@ import RecommendedSets from '@/components/RecommendedSets';
 import LeaderboardsSection from '@/components/LeaderboardsSection';
 import TrendingMinifigs from '@/components/TrendingMinifigs';
 import HomeWhyThisExists from '@/components/HomeWhyThisExists';
+import HomeClosing from '@/components/HomeClosing';
 import HomeFeatureDashboard from '@/components/HomeFeatureDashboard';
 import HomeMoreFeatures from '@/components/HomeMoreFeatures';
 import { useTranslation } from '@/components/TranslationProvider';
@@ -376,6 +377,12 @@ function HomePageContent() {
         <LeaderboardsSection />
         <RecommendedSets />
       </div>
+
+      {/* The page's ending. Outside .home-bands on purpose: it shares the
+          statement band's tint rather than joining the white/#fafafa
+          alternation, so the two sections that ask something of the reader
+          bookend the six that inform. */}
+      <HomeClosing />
     </div>
   );
 }

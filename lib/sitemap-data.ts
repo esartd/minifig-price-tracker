@@ -3,6 +3,7 @@ import { loadAllBoxes } from '@/lib/boxes-data';
 import { prisma } from '@/lib/prisma';
 import { escapeXmlText } from '@/lib/xml';
 import { originFor } from '@/lib/site-domain';
+import { themeSlug } from '@/lib/theme-slug';
 
 /**
  * Sitemap source data, sharded.
@@ -82,9 +83,8 @@ const STATIC_PATHS: Array<[string, ChangeFrequency, number]> = [
 /** Only public profiles with real content — thin pages hurt more than they help. */
 const MIN_ITEMS_FOR_SITEMAP = 5;
 
-function themeSlug(theme: string): string {
-  return encodeURIComponent(theme.toLowerCase().replace(/\s+/g, '-'));
-}
+// Was defined here; moved to lib/theme-slug.ts so the page canonicals and
+// this sitemap cannot drift apart by a byte.
 
 interface PathCache {
   paths: SitemapPath[];

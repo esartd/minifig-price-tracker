@@ -520,6 +520,10 @@
       "method": "A IntoBrick pondera vendas concluídas, anúncios ativos e o preço mais baixo atual num só número. Sem projeções de valorização, sem valor futuro.",
       "close": "Um preço para vender, não para admirar.",
       "link": "Como calculamos os preços"
+    },
+    "closing": {
+      "title": "Avalie a sua primeira minifigura",
+      "subtitle": "Um número, em poucos segundos. Sem conta e sem instalar nada."
     }
   },
   "about": {

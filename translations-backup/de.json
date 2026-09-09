@@ -1960,6 +1960,10 @@
       "method": "IntoBrick gewichtet Verkaufshistorie, laufende Angebote und den derzeit niedrigsten Preis zu einer Zahl. Keine Wertsteigerungsprognosen, kein künftiger Wert.",
       "close": "Ein Preis zum Verkaufen, nicht zum Bewundern.",
       "link": "So berechnen wir Preise"
+    },
+    "closing": {
+      "title": "Bewerte deine erste Minifigur",
+      "subtitle": "Eine Zahl, in wenigen Sekunden. Kein Konto, keine Installation."
     }
   },
   "articles": {
