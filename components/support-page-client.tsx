@@ -2,13 +2,14 @@
 
 import { ShoppingCartIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from '@/components/TranslationProvider';
+import { originFor } from '@/lib/site-domain';
 
 interface SupportPageClientProps {
   totalPricingViews: number | null;
 }
 
 export default function SupportPageClient({ totalPricingViews }: SupportPageClientProps) {
-  const { translations } = useTranslation();
+  const { translations, locale } = useTranslation();
   const sp = translations.supportPage || {};
 
   return (
@@ -150,7 +151,7 @@ export default function SupportPageClient({ totalPricingViews }: SupportPageClie
                 <input type="hidden" name="business" value="W2LZ3TNF2X88C" />
                 <input type="hidden" name="no_recurring" value="0" />
                 <input type="hidden" name="currency_code" value="USD" />
-                <input type="hidden" name="return" value="https://figtracker.ericksu.com/claim-donation" />
+                <input type="hidden" name="return" value={`${originFor(locale)}/claim-donation`} />
                 <button
                   type="submit"
                   style={{

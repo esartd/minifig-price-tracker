@@ -4,6 +4,7 @@ import AboutPageClient from '@/components/about-page-client';
 import { getTranslations, getLocaleFromHost, type Locale } from '@/lib/i18n-subdomain';
 import { headers } from 'next/headers';
 import { DOMAINS } from '@/lib/i18n-alternates';
+import { originFor } from '@/lib/site-domain';
 
 // Force dynamic rendering to show current searchable catalog count
 export const dynamic = 'force-dynamic';
@@ -95,20 +96,20 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AboutPage() {
   const catalogCount = await getSearchableCatalogCount();
+  const locale = await getRequestLocale();
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'AboutPage',
     mainEntity: {
       '@type': 'Organization',
       name: 'IntoBrick',
-      url: 'https://figtracker.ericksu.com',
+      url: originFor(locale),
       founder: {
         '@type': 'Person',
         name: 'Erick Su',
       },
     },
   };
-  const locale = await getRequestLocale();
   const t = await getTranslations(locale);
   const catalogCountText = formatCatalogCount(catalogCount, t);
 

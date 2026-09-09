@@ -676,7 +676,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
 
       <div style={{ background: 'white', borderBottom: '1px solid #e5e5e5', padding: '16px' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <Breadcrumbs items={[
+          <Breadcrumbs jsonLd={false} items={[
             { label: t('setDetail.breadcrumbs.home'), href: '/' },
             { label: t('setDetail.breadcrumbs.setThemes'), href: '/sets-themes' },
             { label: parentTheme, href: `/sets-themes/${encodeURIComponent(parentTheme)}` },

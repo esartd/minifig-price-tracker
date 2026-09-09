@@ -32,13 +32,19 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function CollectorsPage() {
+export default async function CollectorsPage() {
+  // The page body needs the origin too, and generateMetadata's locals are not
+  // in scope here -- this used to be the hard-coded old hostname instead.
+  const headersList = await headers();
+  const locale = getLocaleFromHost(headersList.get('host') || '');
+  const baseUrl = domains[locale] || domains.en;
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: 'LEGO Collectors on IntoBrick',
     description: 'Browse LEGO collector leaderboards and public collections shared by the IntoBrick community.',
-    url: 'https://figtracker.ericksu.com/collectors',
+    url: `${baseUrl}/collectors`,
   };
 
   return (

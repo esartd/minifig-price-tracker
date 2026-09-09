@@ -1,6 +1,7 @@
 /**
  * Authentication utility functions
  */
+import { SITE_DOMAIN } from '@/lib/site-domain';
 
 /**
  * Validates callback URL to prevent open redirect attacks
@@ -29,9 +30,13 @@ export function isValidCallbackUrl(url: string): boolean {
     // Allow exact origin match
     if (parsedUrl.origin === currentOrigin) return true;
 
-    // Allow all figtracker.ericksu.com subdomains (for language sites)
-    const allowedDomain = 'figtracker.ericksu.com';
-    if (parsedUrl.hostname === allowedDomain || parsedUrl.hostname.endsWith(`.${allowedDomain}`)) {
+    // Allow the site's own subdomains (the nine language sites), plus the
+    // retired host, whose links are still live in email and forum posts and
+    // still 301 here. SITE_DOMAIN was missing from this list entirely, so a
+    // callbackUrl aimed at de.intobrick.com from another locale was refused
+    // and silently fell back.
+    const allowedDomains = [SITE_DOMAIN, 'figtracker.ericksu.com'];
+    if (allowedDomains.some(d => parsedUrl.hostname === d || parsedUrl.hostname.endsWith(`.${d}`))) {
       return parsedUrl.protocol === 'https:';
     }
 

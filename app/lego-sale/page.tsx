@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import LegoSaleClient from './client';
 import { triggerRefreshIfStale } from '@/lib/amazon-deals-refresh';
 import { getTranslations, getLocaleFromHost } from '@/lib/i18n-subdomain';
+import { originFor } from '@/lib/site-domain';
 
 // Feature flag check
 const ENABLED = process.env.ENABLE_LEGO_SALE === 'true';
@@ -44,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
         t.legoSale?.meta?.ogDescription ||
         'Discover the best LEGO deals on Amazon. Updated every 6 hours with discounts from 20% to 50% off.',
       type: 'website',
-      url: 'https://figtracker.ericksu.com/lego-sale',
+      url: `${originFor(locale)}/lego-sale`,
     },
     twitter: {
       card: 'summary_large_image',
@@ -66,13 +67,17 @@ export default async function LegoSalePage() {
     console.error('[LEGO Sale] Background refresh error:', error);
   });
 
+  // Origin for the schema below; generateMetadata's copy is out of scope here.
+  const { headers: readHeaders } = await import('next/headers');
+  const locale = getLocaleFromHost((await readHeaders()).get('host') || '');
+
   // Schema.org structured data for SEO
   const offerCatalogSchema = {
     '@context': 'https://schema.org',
     '@type': 'OfferCatalog',
     name: 'LEGO® Sale on Amazon',
     description: 'Best LEGO deals with discounts up to 50% off',
-    url: 'https://figtracker.ericksu.com/lego-sale',
+    url: `${originFor(locale)}/lego-sale`,
     itemListElement: [
       {
         '@type': 'Offer',

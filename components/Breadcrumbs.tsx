@@ -1,8 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from '@/components/TranslationProvider';
+import { originFor } from '@/lib/site-domain';
 
 interface BreadcrumbItem {
   label: string;
@@ -11,24 +13,50 @@ interface BreadcrumbItem {
 
 interface BreadcrumbsProps {
   items: BreadcrumbItem[];
+  /**
+   * Set false on pages whose own server component already emits a
+   * BreadcrumbList. Two lists on one page are a conflict, not a bonus: Google
+   * picked whichever it read first, and the set and minifig detail pages were
+   * shipping a correct server-side trail alongside the one below.
+   */
+  jsonLd?: boolean;
 }
 
-export default function Breadcrumbs({ items }: BreadcrumbsProps) {
-  const { t } = useTranslation();
+export default function Breadcrumbs({ items, jsonLd: emitJsonLd = true }: BreadcrumbsProps) {
+  const { t, locale } = useTranslation();
+  const pathname = usePathname();
   const [visibleItems, setVisibleItems] = useState(items);
   const containerRef = useRef<HTMLElement>(null);
   const itemsRef = useRef<(HTMLLIElement | null)[]>([]);
 
-  // Schema.org BreadcrumbList for SEO
-  const jsonLd = {
+  // Schema.org BreadcrumbList for SEO.
+  //
+  // Two things were wrong here and Search Console reported both.
+  //
+  // The origin was the hard-coded old hostname, so every locale subdomain
+  // advertised a breadcrumb trail on a domain that now only answers with 301s
+  // -- and one that does not match the page it was emitted on. It comes from
+  // originFor(locale) now, like everything else; see lib/site-domain.ts.
+  //
+  // The final crumb carried no `item` at all, because the current page is
+  // passed without an href (nothing to link to). Google reads `item` as the
+  // node identity, and a ListItem without one is "Missing field item". The
+  // last crumb is this page, so it points at this page.
+  const origin = originFor(locale);
+  const absolute = (href: string) => new URL(href, origin).toString();
+
+  const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: item.label,
-      ...(item.href && { item: `https://figtracker.ericksu.com${item.href}` })
-    }))
+    itemListElement: items.map((item, index) => {
+      const href = item.href ?? (index === items.length - 1 ? pathname : undefined);
+      return {
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.label,
+        ...(href && { item: absolute(href) }),
+      };
+    })
   };
 
   useEffect(() => {
@@ -79,10 +107,12 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {emitJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        />
+      )}
       <nav
         ref={containerRef}
         aria-label={t('breadcrumb.ariaLabel') || 'Breadcrumb'}

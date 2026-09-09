@@ -288,6 +288,43 @@ export default async function SetPage({
     // Continue without minifigs if error
   }
 
+  // Pricing for the Product snippet.
+  //
+  // This page used to emit `offers: { '@type': 'AggregateOffer' }` carrying a
+  // currency and an availability and no price whatsoever -- on all ~19,600 set
+  // pages. lowPrice is a required field, so every one of them was a critical
+  // "Missing field lowPrice" in Search Console and none were eligible for a
+  // product snippet.
+  //
+  // Via the orchestrator, never bricklinkAPI directly: it serves the 7-day
+  // logged-out cache and enforces the daily budget, which is exactly what the
+  // June 2026 incident on the minifig page was about.
+  const { pricingOrchestrator, LOGGED_OUT_TTL_HOURS } = await import('@/lib/pricing-orchestrator');
+  let setPricing = null;
+  try {
+    setPricing = await pricingOrchestrator.getSetPrice(
+      boxNo, 'new', 'US', '', undefined, false, set.name, LOGGED_OUT_TTL_HOURS
+    );
+  } catch (error) {
+    console.error('[SET PAGE] Failed to fetch pricing for schema:', error);
+  }
+
+  // No price, no offer node. An empty AggregateOffer is worse than none.
+  const setOffer = setPricing && setPricing.currentLowest > 0
+    ? {
+        '@type': 'AggregateOffer' as const,
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+        lowPrice: setPricing.currentLowest.toFixed(2),
+        highPrice: Math.max(
+          setPricing.currentHighest || 0,
+          setPricing.currentLowest
+        ).toFixed(2),
+        offerCount: setPricing.totalQuantity || 1,
+        url: `https://www.bricklink.com/v2/catalog/catalogitem.page?S=${set.box_no}`,
+      }
+    : null;
+
   // Schema.org structured data for rich search results
   const productSchema = {
     '@context': 'https://schema.org',
@@ -301,19 +338,19 @@ export default async function SetPage({
     },
     category: set.category_name,
     identifier: set.box_no,
-    weight: {
-      '@type': 'QuantitativeValue',
-      value: set.weight,
-      unitCode: 'GRM'
-    },
+    // Guarded: a QuantitativeValue with a null value is an invalid node, and
+    // the catalog does not carry a weight for every set.
+    ...(set.weight && {
+      weight: {
+        '@type': 'QuantitativeValue',
+        value: set.weight,
+        unitCode: 'GRM'
+      }
+    }),
     ...(set.year_released && {
       releaseDate: set.year_released
     }),
-    offers: {
-      '@type': 'AggregateOffer',
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock'
-    }
+    ...(setOffer && { offers: setOffer })
   };
 
   // BreadcrumbList schema for SEO

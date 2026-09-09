@@ -14,7 +14,7 @@ import { AccountLinkedToast } from '@/components/auth/AccountLinkedToast'
 import { getLocaleFromHost, getTranslations } from '@/lib/i18n-subdomain'
 import { headers } from 'next/headers'
 import { DOMAINS } from '@/lib/i18n-alternates';
-import { SITE_DOMAIN } from '@/lib/site-domain';
+import { SITE_DOMAIN, originFor } from '@/lib/site-domain';
 
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
@@ -46,7 +46,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description: t.metadata?.description || 'Price any LEGO minifigure or set in seconds. One suggested price from BrickLink and eBay data. Track your inventory free. 18,000+ minifigs, 20,000+ sets.',
     keywords: t.metadata?.keywords || ['LEGO minifigure prices', 'LEGO set prices', 'BrickLink price tracker', 'LEGO collection manager', 'minifig value tracker', 'LEGO seller tool', 'LEGO price guide', 'minifigure collection tracker', 'LEGO set tracker', 'LEGO inventory tracker', 'track LEGO prices', 'LEGO pricing tool', 'minifig suggested price'],
-    authors: [{ name: 'IntoBrick', url: 'https://figtracker.ericksu.com' }],
+    authors: [{ name: 'IntoBrick', url: originFor(locale) }],
     creator: 'IntoBrick',
     publisher: 'IntoBrick',
     verification: {
@@ -167,8 +167,10 @@ export default async function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'IntoBrick',
-    url: 'https://figtracker.ericksu.com',
-    logo: 'https://figtracker.ericksu.com/favicon.svg',
+    // Was the retired hostname, on every page of the site. That told
+    // Google the organisation lives on a host that now only 301s.
+    url: originFor(locale),
+    logo: `${originFor(locale)}/favicon.svg`,
     description: translations.metadata?.organizationDescription || 'IntoBrick gives you one suggested price for any LEGO minifigure or set, so you can list faster and sell with confidence.',
     foundingDate: '2024',
     sameAs: [],

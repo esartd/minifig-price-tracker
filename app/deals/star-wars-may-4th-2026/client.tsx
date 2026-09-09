@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useTranslation } from '@/components/TranslationProvider';
+import { originFor } from '@/lib/site-domain';
 
 interface DealSet {
   setNumber: string;
@@ -79,7 +80,7 @@ const DEAL_SETS: DealSet[] = [
 ];
 
 export default function May4thDealsClient() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const tierAsets = DEAL_SETS.filter(s => s.tier === 'A'); // 4x points (39%)
   const tierBsets = DEAL_SETS.filter(s => s.tier === 'B'); // 2x points (32%)
   const tierDsets = DEAL_SETS.filter(s => s.tier === 'D'); // minimum (22.5%)
@@ -89,7 +90,7 @@ export default function May4thDealsClient() {
     '@type': 'OfferCatalog',
     name: 'LEGO Star Wars May the 4th Deals 2026',
     description: 'Exclusive LEGO Star Wars deals with up to 35% total value including free gifts and cashback',
-    url: 'https://figtracker.ericksu.com/deals/star-wars-may-4th-2026',
+    url: `${originFor(locale)}/deals/star-wars-may-4th-2026`,
     validFrom: '2026-05-01',
     validThrough: '2026-05-06',
     itemListElement: [

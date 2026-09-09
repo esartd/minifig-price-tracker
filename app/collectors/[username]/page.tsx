@@ -76,6 +76,9 @@ export default async function CollectorProfilePage({
     select: { username: true, name: true, leaderboardDisplayName: true },
   });
 
+  const profileLocale = getLocaleFromHost((await headers()).get('host') || '');
+  const profileOrigin = domains[profileLocale] || domains.en;
+
   const jsonLd = user
     ? {
         '@context': 'https://schema.org',
@@ -84,7 +87,7 @@ export default async function CollectorProfilePage({
           '@type': 'Person',
           name: user.leaderboardDisplayName || user.name || user.username,
         },
-        url: `https://figtracker.ericksu.com/collectors/${username}`,
+        url: `${profileOrigin}/collectors/${username}`,
       }
     : null;
 

@@ -888,59 +888,25 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
     return { title: fullName.trim() };
   };
 
-  // Product schema for SEO
-  const productSchema = pricing.suggestedPrice > 0 ? {
-    '@context': 'https://schema.org',
-    '@type': 'Product',
-    name: `LEGO ${minifig.name} Minifigure`,
-    description: minifig.description || t('minifigDetail.schemaDescription', {
-      name: minifig.name,
-      no: minifig.no,
-      category: minifig.category_name
-    }) || `LEGO ${minifig.name} Minifigure ${minifig.no} from ${minifig.category_name} theme. Track current BrickLink prices and manage your LEGO collection.`,
-    image: [minifig.image_url],
-    sku: minifig.no,
-    mpn: minifig.no,
-    brand: {
-      '@type': 'Brand',
-      name: 'LEGO'
-    },
-    category: minifig.category_name,
-    ...(minifig.year_released && { releaseDate: `${minifig.year_released}-01-01` }),
-    offers: {
-      '@type': 'AggregateOffer',
-      priceCurrency: 'USD',
-      lowPrice: pricing.currentLowest.toFixed(2),
-      highPrice: pricing.sixMonthAverage.toFixed(2),
-      offerCount: 1,
-      availability: 'https://schema.org/InStock',
-      priceValidUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      url: `https://figtracker.ericksu.com/minifigs/${minifig.no}`,
-      seller: {
-        '@type': 'Organization',
-        name: 'BrickLink Marketplace'
-      }
-    },
-  } : null;
+  // No Product schema here on purpose.
+  //
+  // app/minifigs/[itemNo]/page.tsx already emits one from the server, and two
+  // Product nodes on a single page do not add up -- Google honours one and
+  // reports the other. The copy that used to live here was the worse of the
+  // two anyway: its offers.url pointed at the retired hostname, and its
+  // highPrice was the six-month average, which sits BELOW currentLowest
+  // whenever a figure is appreciating and made the range read backwards.
 
   const displayName = getDisplayName(minifig.name);
 
   return (
     <div className="min-h-screen minifig-detail-page" style={{ backgroundColor: '#fafafa', paddingBottom: '80px' }}>
-      {/* Product Schema JSON-LD */}
-      {productSchema && (
-        <Script
-          id="product-schema"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
-        />
-      )}
-
       {/* Navigation */}
       <div style={{ padding: '0 16px' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '24px' }}>
           {/* Breadcrumbs */}
           <Breadcrumbs
+            jsonLd={false}
             items={(() => {
               const breadcrumbs: Array<{ label: string; href?: string }> = [
                 { label: t('navigation.home') || 'Home', href: '/' },

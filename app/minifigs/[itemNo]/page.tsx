@@ -431,6 +431,23 @@ export default async function MinifigPage({
     console.error('[MINIFIG PAGE] Failed to fetch pricing for schema:', error);
   }
 
+  // highPrice must be >= lowPrice or the range is nonsense. currentHighest is
+  // occasionally missing, so it is clamped rather than trusted.
+  const offer = pricingData && pricingData.currentLowest > 0
+    ? {
+        '@type': 'AggregateOffer' as const,
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+        lowPrice: pricingData.currentLowest.toFixed(2),
+        highPrice: Math.max(
+          pricingData.currentHighest || 0,
+          pricingData.currentLowest
+        ).toFixed(2),
+        offerCount: pricingData.totalQuantity || 1,
+        url: `https://www.bricklink.com/v2/catalog/catalogitem.page?M=${minifig.minifigure_no}`,
+      }
+    : null;
+
   // Schema.org structured data for rich search results
   const productDescriptionTemplate = t.minifigDetail?.meta?.productDescription ||
     '{category} LEGO minifigure {itemNo}. Track current BrickLink prices and market value.';
@@ -453,17 +470,14 @@ export default async function MinifigPage({
     ...(minifig.year_released && {
       releaseDate: minifig.year_released
     }),
-    offers: {
-      '@type': 'AggregateOffer',
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-      ...(pricingData && pricingData.currentLowest > 0 && {
-        lowPrice: pricingData.currentLowest.toFixed(2),
-        highPrice: (pricingData.currentHighest || pricingData.currentLowest * 2).toFixed(2),
-        offerCount: pricingData.totalQuantity || 1,
-      }),
-      url: `https://www.bricklink.com/v2/catalog/catalogitem.page?M=${minifig.minifigure_no}`
-    }
+    // An AggregateOffer is only emitted when there is a real price to put in
+    // it. lowPrice is required, and spreading it in conditionally meant that
+    // every figure without a cached price still shipped the wrapper -- an
+    // offer node advertising a currency, availability and nothing to buy.
+    // That is the "Missing field lowPrice" Search Console reports. No price,
+    // no offer: the page loses its product snippet until the price caches,
+    // which is the honest outcome and not an error.
+    ...(offer && { offers: offer })
   };
 
   // Breadcrumb schema
