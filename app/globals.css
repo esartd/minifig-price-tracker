@@ -2714,3 +2714,26 @@ select.custom-dropdown.condition-used {
      viewport). Keep the row clear of it. */
   padding-right: 64px;
 }
+
+/* Homepage tonal banding.
+   ------------------------------------------------------------------
+   Measured before this existed: ~2,400px of unbroken #ffffff across four
+   consecutive sections, on a ~5,200px page. Nearly half the homepage in one
+   tone, which is what made a designed page read as a stack of widgets.
+
+   Keyed off DOM POSITION rather than set per component, and that is the whole
+   point: TrendingMinifigs and RecommendedSets both `return null` when they
+   have no data, so a tone hard-coded into each component left two identical
+   bands touching the moment one dropped out. nth-of-type lets whatever
+   survives re-alternate on its own.
+
+   !important because each of these components carries its own inline
+   background as a standalone default -- they are also rendered on /search,
+   where this rule does not apply and their own tone should win. */
+.home-bands > section:nth-of-type(odd) {
+  background: #ffffff !important;
+}
+
+.home-bands > section:nth-of-type(even) {
+  background: #fafafa !important;
+}

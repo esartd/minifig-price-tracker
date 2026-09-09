@@ -7,6 +7,7 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { useTranslation } from '@/components/TranslationProvider';
 import { getGuestCollection } from '@/lib/guestCollectionStorage';
+import { Section, sectionHeadingStyle } from '@/lib/design-system';
 
 /**
  * The homepage feature dashboard.
@@ -530,7 +531,7 @@ export default function HomeFeatureDashboard() {
   useEffect(refreshList, [refreshList]);
 
   return (
-    <section style={{ padding: '8px 20px 56px', background: '#ffffff' }}>
+    <section style={{ padding: Section.padding, background: Section.bg.base }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         {/* All three cards below genuinely work signed out: the sell list and
             the collection are both held in guest storage, and Whatnot search
@@ -542,15 +543,7 @@ export default function HomeFeatureDashboard() {
             returns PREMIUM_REQUIRED without a subscription -- so it now lives
             in HomeMoreFeatures. A Premium tag on the card does not license a
             heading that promises no account is needed. */}
-        <h2
-          style={{
-            margin: '0 0 20px',
-            fontSize: 'var(--text-xl)',
-            fontWeight: 600,
-            color: '#171717',
-            letterSpacing: '-0.01em',
-          }}
-        >
+        <h2 style={sectionHeadingStyle}>
           {signedIn
             ? t('homeGroups.tryItSignedIn') || 'What you can do right now'
             : t('homeGroups.tryIt') || 'Try it now — no account needed'}

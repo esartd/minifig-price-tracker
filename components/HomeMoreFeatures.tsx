@@ -7,6 +7,7 @@ import {
   TagIcon,
 } from '@heroicons/react/24/outline';
 import { useTranslation } from './TranslationProvider';
+import { Section, sectionHeadingStyle } from '@/lib/design-system';
 
 /**
  * The three things the homepage was not promoting.
@@ -132,17 +133,9 @@ export default function HomeMoreFeatures() {
   ];
 
   return (
-    <section style={{ padding: '8px 20px 56px', background: '#ffffff' }}>
+    <section style={{ padding: Section.padding, background: Section.bg.base }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <h2
-          style={{
-            margin: '0 0 20px',
-            fontSize: 'var(--text-xl)',
-            fontWeight: 600,
-            color: '#171717',
-            letterSpacing: '-0.01em',
-          }}
-        >
+        <h2 style={sectionHeadingStyle}>
           {t('homeGroups.more') || 'More ways to use IntoBrick'}
         </h2>
 

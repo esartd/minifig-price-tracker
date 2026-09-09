@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useTranslation } from './TranslationProvider';
 import type { RecommendedSet } from '@/app/api/trending/sets/route';
+import { Section, sectionHeadingStyle } from '@/lib/design-system';
 
 const AFFILIATE_TAG = 'ericksu0c-20';
 
@@ -132,25 +133,16 @@ export default function RecommendedSets() {
         }
       `}</style>
       <section style={{
-        padding: '60px 20px 80px',
-        backgroundColor: '#fafafa',
-        borderTop: '1px solid #e5e5e5',
+        padding: Section.padding,
+        backgroundColor: Section.bg.alt,
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <h2 style={{
-            fontSize: 'var(--text-2xl)',
-            fontWeight: '600',
-            color: '#171717',
-            letterSpacing: '-0.01em',
-            marginBottom: '12px',
-            textAlign: 'center',
-          }}>
+          <h2 style={{ ...sectionHeadingStyle, marginBottom: '12px' }}>
             {title}
           </h2>
           <p style={{
             fontSize: 'var(--text-base)',
             color: '#737373',
-            textAlign: 'center',
             marginBottom: '40px',
           }}>
             {subtitle}

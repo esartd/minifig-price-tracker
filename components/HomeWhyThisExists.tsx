@@ -3,13 +3,18 @@
 import Link from 'next/link';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from './TranslationProvider';
+import { Section } from '@/lib/design-system';
 
 /**
  * Lighter than the words so they do not compete with the sentence, but not so
- * light that they vanish -- at #d4d4d4 they were invisible at a glance, and an
- * unquoted version of this line is our accusation rather than a collector's.
+ * light that they vanish -- an unquoted version of this line is our
+ * accusation rather than a collector's, so the marks have to be legible.
+ * #525252 is the site's existing secondary text colour: 7:1 on the tinted
+ * ground, and still clearly lighter than the #171717 words. A cooler
+ * #94a3b8 looked better and measured 2.3:1, which is not a trade to make on
+ * punctuation that changes who is speaking.
  */
-const QUOTE_MARK = { color: '#a3a3a3', fontWeight: 400 } as const;
+const QUOTE_MARK = { color: '#525252', fontWeight: 400 } as const;
 
 /**
  * Quotation marks per locale, because they are not the same characters
@@ -51,39 +56,37 @@ const QUOTES: Record<string, [string, string]> = {
  * order is why it worked: the complaint (quoted, and belonging to collectors
  * rather than to us) -> why it matters -> the mechanism -> confidence.
  *
- * ON THE DARK BAND, which is the only non-white section on the page.
+ * ON THE TINTED BAND, and why it is not the black one it started as.
  *
  * Measured: every section after the hero was rgb(255,255,255) -- five in a
- * row. This one is centred prose and the other four are left-aligned card
- * grids, so on white it read as an orphan rather than as a change of subject,
- * and it got skipped. Two earlier attempts failed for the same reason: a
- * #fafafa box with four paragraphs (a third bordered box in a column of
- * bordered boxes), then a bare centred quote (no signal at all).
+ * row, ~2,400px of it. This section is centred prose among left-aligned card
+ * grids, so on white it read as an orphan rather than a change of subject and
+ * got skipped. Two earlier attempts failed the same way: a #fafafa box with
+ * four paragraphs (a third bordered box in a column of bordered boxes), then
+ * a bare centred quote with no signal at all.
  *
- * A full-bleed band fixes it because the tone change IS the signal -- the
- * same move Stripe makes for its one mid-page statement, and the reason
- * Linear alternates section tone at all. #171717 is not a new colour: it is
- * the site's existing text colour, so the page gains a register without
- * gaining a palette.
+ * So it needs its own ground -- but #171717 was the wrong ground. On a page
+ * whose hero is a blue gradient over near-white and whose other six sections
+ * alternate #ffffff and #fafafa, a black slab is the only heavy thing
+ * anywhere and reads as pasted on. Section.bg.statement is a soft cool tint
+ * instead: distinct from the neutral #fafafa beside it, still in the same
+ * light family as the rest of the page, and dark-on-light so the #3b82f6
+ * accent behaves here exactly as it does everywhere else.
  *
- * Two details that follow from the dark ground and will look arbitrary:
+ * Two type details that are easy to undo by accident:
  *
- * - The link is #60a5fa, not the site accent #3b82f6. The accent hits about
- *   3.6:1 on #171717, under the 4.5:1 body-text floor; #60a5fa clears 6.5:1.
- *   Use the accent anywhere on white, never here.
- * - The greys are #d4d4d4 (subline) and #a3a3a3 (method and the quote
- *   marks), NOT the #525252/#737373 this file used on white. On #171717
- *   those land at 2.2:1 and 3.5:1 -- under the 4.5:1 body floor, so the
- *   mechanism line was the least legible text in the section that exists to
- *   make the mechanism legible. Hierarchy still reads, because the quote
- *   above them is pure white.
- * - The quote is weight 500, not 600. Large-and-light reads as speech;
- *   large-and-bold reads as a headline, which is what the previous version
- *   looked like and part of why it sat oddly above a real headline.
+ * - The quote is var(--text-2xl) (40px), NOT --text-3xl. It was 3xl at first,
+ *   which is 56px -- the exact size of the hero h1. Two 56px lines on one
+ *   page means neither is the headline, and it was a large part of why this
+ *   section felt like too much. 40px sits deliberately between the hero
+ *   (56px) and the section headings (30px).
+ * - Weight 500, not 600. Large-and-light reads as speech; large-and-bold
+ *   reads as a headline, which is what it looked like sitting above a real
+ *   one.
  *
- * Padding is clamp(72px, 10vw, 112px). Linear runs 128px on sections this
- * important and the old 16px/56px here was the tightest on the page -- the
- * statement had less air than the card grids around it.
+ * Padding comes from Section.paddingFeature. This is the one section allowed
+ * more air than its neighbours' 80px; the first version had 16px/56px, less
+ * air than the card grids around it.
  *
  * TWO THINGS HERE ARE LOAD-BEARING AND WILL LOOK LIKE TIMIDITY.
  *
@@ -120,8 +123,8 @@ export default function HomeWhyThisExists() {
       style={{
         // Full-bleed band. The tone change is what tells a reader this is a
         // different kind of content from the card grids above and below it.
-        padding: 'clamp(72px, 10vw, 112px) 20px',
-        background: '#171717',
+        padding: Section.paddingFeature,
+        background: Section.bg.statement,
       }}
     >
       <div
@@ -135,9 +138,9 @@ export default function HomeWhyThisExists() {
         <p
           style={{
             margin: '0 0 20px',
-            fontSize: 'var(--text-3xl)',
+            fontSize: 'var(--text-2xl)',
             fontWeight: 500,
-            color: '#ffffff',
+            color: '#171717',
             letterSpacing: '-0.025em',
             lineHeight: 1.15,
             textWrap: 'balance',
@@ -155,7 +158,7 @@ export default function HomeWhyThisExists() {
             maxWidth: '54ch',
             fontSize: 'var(--text-lg)',
             lineHeight: 1.6,
-            color: '#d4d4d4',
+            color: '#525252',
             textWrap: 'pretty',
           }}
         >
@@ -171,7 +174,7 @@ export default function HomeWhyThisExists() {
             maxWidth: '54ch',
             fontSize: 'var(--text-sm)',
             lineHeight: 1.65,
-            color: '#a3a3a3',
+            color: '#737373',
             textWrap: 'pretty',
           }}
         >
@@ -186,11 +189,11 @@ export default function HomeWhyThisExists() {
             display: 'inline-block',
             margin: '0 0 24px',
             paddingTop: '28px',
-            borderTop: '1px solid #404040',
+            borderTop: '1px solid #d7e0ee',
             fontSize: 'var(--text-xl)',
             fontWeight: 600,
             lineHeight: 1.35,
-            color: '#ffffff',
+            color: '#171717',
             letterSpacing: '-0.015em',
           }}
         >
@@ -206,8 +209,7 @@ export default function HomeWhyThisExists() {
               gap: '6px',
               fontSize: 'var(--text-sm)',
               fontWeight: 600,
-              // Not the #3b82f6 accent: it fails contrast on this ground.
-              color: '#60a5fa',
+              color: '#3b82f6',
               textDecoration: 'none',
             }}
           >

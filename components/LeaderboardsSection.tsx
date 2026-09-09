@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { UserIcon, CubeIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from './TranslationProvider';
 import SegmentedControl from '@/components/ui/SegmentedControl';
-import { Colors, ControlHeight, Radius } from '@/lib/design-system';
+import { Colors, ControlHeight, Radius, Section, sectionHeadingStyle } from '@/lib/design-system';
 
 interface Collector {
   displayName: string;
@@ -60,30 +60,20 @@ export default function LeaderboardsSection() {
   return (
     <section
       style={{
-        padding: '60px 20px 80px',
-        backgroundColor: '#ffffff',
-        borderTop: '1px solid #e5e5e5',
+        padding: Section.padding,
+        backgroundColor: Section.bg.base,
       }}
     >
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         {/* Section Title */}
-        <h2
-          style={{
-            fontSize: 'var(--text-2xl)',
-            fontWeight: '700',
-            color: '#171717',
-            textAlign: 'center',
-            marginBottom: '24px',
-            letterSpacing: '-0.01em',
-          }}
-        >
+        <h2 style={sectionHeadingStyle}>
           {t('leaderboards.title')}
         </h2>
 
         {/* One segmented control instead of two hand-styled buttons. This
             was the only toggle on the site using a tinted fill with a coloured
             border; there were eleven such designs in total. */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '32px' }}>
+        <div style={{ display: 'flex', marginBottom: '32px' }}>
           <SegmentedControl
             ariaLabel={t('leaderboards.title') || 'Leaderboard period'}
             value={activeTab}
@@ -100,7 +90,6 @@ export default function LeaderboardsSection() {
           style={{
             fontSize: 'var(--text-sm)',
             color: '#737373',
-            textAlign: 'center',
             marginBottom: '40px',
           }}
         >
@@ -203,10 +192,8 @@ function DonorsColumn({ items, t }: { items: Donor[]; t: any }) {
           fontWeight: '700',
           color: '#171717',
           marginBottom: '20px',
-          textAlign: 'center',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
           gap: '8px',
         }}
       >
@@ -327,10 +314,8 @@ function LeaderboardColumn({
           fontWeight: '700',
           color: '#171717',
           marginBottom: '20px',
-          textAlign: 'center',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
           gap: '8px',
         }}
       >

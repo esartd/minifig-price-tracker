@@ -364,11 +364,18 @@ function HomePageContent() {
           is wrong with the price they have been using. */}
       <HomeWhyThisExists />
 
-      <HomeFeatureDashboard />
-      <HomeMoreFeatures />
-      <TrendingMinifigs />
-      <LeaderboardsSection />
-      <RecommendedSets />
+      {/* Tonal banding is positional, not per-component -- see .home-bands in
+          globals.css. TrendingMinifigs and RecommendedSets both return null
+          when they have no data, so hard-coding a tone into each component
+          left two identical bands touching whenever one dropped out. Keyed off
+          DOM position, the survivors just re-alternate. */}
+      <div className="home-bands">
+        <HomeFeatureDashboard />
+        <HomeMoreFeatures />
+        <TrendingMinifigs />
+        <LeaderboardsSection />
+        <RecommendedSets />
+      </div>
     </div>
   );
 }

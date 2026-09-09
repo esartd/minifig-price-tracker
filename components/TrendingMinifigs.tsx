@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FireIcon } from '@heroicons/react/24/solid';
 import { useTranslation } from './TranslationProvider';
+import { Section, sectionHeadingStyle } from '@/lib/design-system';
 
 interface TrendingMinifig {
   no: string;
@@ -50,9 +51,8 @@ export default function TrendingMinifigs() {
   return (
     <section
       style={{
-        padding: '60px 20px 80px',
-        backgroundColor: '#ffffff',
-        borderTop: '1px solid #e5e5e5',
+        padding: Section.padding,
+        backgroundColor: Section.bg.base,
       }}
     >
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -63,12 +63,7 @@ export default function TrendingMinifigs() {
           marginBottom: '8px'
         }}>
           <FireIcon style={{ width: '28px', height: '28px', color: '#f59e0b' }} />
-          <h2 style={{
-            fontSize: 'var(--text-2xl)',
-            fontWeight: 700,
-            color: '#171717',
-            margin: 0
-          }}>
+          <h2 style={{ ...sectionHeadingStyle, margin: 0 }}>
             {t('trending.title') || 'Trending This Week'}
           </h2>
         </div>

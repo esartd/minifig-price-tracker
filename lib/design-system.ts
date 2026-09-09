@@ -23,6 +23,82 @@
  *    between two rectangles.
  */
 
+/**
+ * PAGE RHYTHM -- section padding, tone and heading treatment.
+ *
+ * Measured on the homepage before this existed, at 1280px, top to bottom:
+ *
+ *   section            heading            padding    background
+ *   hero               56px / 600 / ctr   0 / 0      --
+ *   why this exists    --                 112 / 112  #171717
+ *   what you can do    28px / 600 / left  8 / 56     #ffffff
+ *   more ways          28px / 600 / left  8 / 56     #ffffff
+ *   trending           40px / 700 / left  60 / 80    #ffffff
+ *   leaderboards       40px / 700 / ctr   60 / 80    #ffffff
+ *   recommended        40px / 600 / ctr   60 / 80    #fafafa
+ *
+ * Four different heading treatments for sections that are all peers, and the
+ * hierarchy ran BACKWARDS: the two groups a first-time visitor is meant to
+ * act on had the smallest headings, while trending, leaderboards and
+ * recommended -- which rank or suggest against a collection that visitor has
+ * not built yet -- shouted at 40px/700.
+ *
+ * The padding had no scale either. Two sections opened on 8px, so they were
+ * glued to whatever sat above them, while others got 60px.
+ *
+ * And nearly half the page was one tone: ~2,400px of unbroken #ffffff between
+ * the dark band and `recommended`, across four consecutive sections. That is
+ * what made the page read as a stack of separate widgets.
+ *
+ * So: one heading rule, one padding rule, and alternating tone. Import these
+ * rather than hand-writing a section header, or the four treatments come back.
+ */
+export const Section = {
+  /** Default vertical rhythm for a homepage-level section. */
+  padding: '80px 20px',
+  /**
+   * The statement band only. It carries the page's single tone change and is
+   * the one section allowed more air than its neighbours.
+   */
+  paddingFeature: 'clamp(72px, 8vw, 96px) 20px',
+  /** Content width shared by every section below the hero. */
+  maxWidth: '1200px',
+  /** Alternating ground. No more than two adjacent sections share a tone. */
+  bg: {
+    base: '#ffffff',
+    alt: '#fafafa',
+    /**
+     * The statement band. A soft cool tint, NOT a dark slab.
+     *
+     * This was #171717 first. It separated the section, but on a page whose
+     * hero is a blue gradient over near-white and whose other six sections
+     * are #ffffff / #fafafa, a black band is the only heavy thing on the page
+     * -- it reads as pasted in rather than as part of the system. This tint is
+     * cool enough to be clearly distinct from the neutral #fafafa next to it
+     * while staying in the same light family as everything else, and it keeps
+     * the text dark, so the #3b82f6 accent works here like it does elsewhere.
+     */
+    statement: '#f2f6fc',
+  },
+} as const;
+
+/**
+ * One treatment for every peer section heading: 30px, weight 600, left.
+ *
+ * Left-aligned because the content under these headings is left-aligned card
+ * grids; centring the heading over a left-aligned grid was half the reason
+ * the page looked assembled rather than designed.
+ */
+export const sectionHeadingStyle: React.CSSProperties = {
+  margin: '0 0 24px',
+  fontSize: '30px',
+  fontWeight: 600,
+  lineHeight: 1.2,
+  letterSpacing: '-0.02em',
+  color: '#171717',
+  textAlign: 'left',
+};
+
 /** Corner radii. `pill` is the default for any standalone control. */
 export const Radius = {
   /** Standalone controls: buttons, inputs, dropdown triggers, toggles. */
