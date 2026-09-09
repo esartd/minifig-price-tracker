@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { SearchResults } from '@/components/search';
+import HeaderSearch from '@/components/HeaderSearch';
 import { CollectionItem } from '@/types';
 import RecommendedSets from '@/components/RecommendedSets';
 import LeaderboardsSection from '@/components/LeaderboardsSection';
@@ -400,11 +401,14 @@ function SearchPageContent() {
           // box and floating minifigures in it, so it no longer reserves most
           // of the viewport. calc(100vh - 200px) left ~700px of blank screen
           // between the heading and the sections below it.
-          minHeight: isSearchActive ? 'calc(100vh - 72px)' : '300px',
+          // 300px was sized for a heading and one line of text. The search
+          // box is back in the empty state, and it needs room under it or it
+          // sits flush against Community Leaderboards.
+          minHeight: isSearchActive ? 'calc(100vh - 72px)' : '380px',
           display: 'flex',
           alignItems: isSearchActive ? 'flex-start' : 'center',
           paddingTop: isSearchActive ? '60px' : '0px',
-          paddingBottom: isSearchActive ? '80px' : '0px',
+          paddingBottom: isSearchActive ? '80px' : '56px',
           transition: 'all 0.4s ease-out',
           width: '100%',
           backgroundColor: isSearchActive ? '#fafafa' : 'transparent'
@@ -448,20 +452,30 @@ function SearchPageContent() {
             </div>
           )}
 
-          {/* No search box of its own any more.
+          {/* The search box, empty state only.
+              
+              This page had one, then lost it when the header gained one on
+              every page -- two inputs for one job, about 200px apart. But
+              removing it left the empty state with nothing to act on: a
+              heading pointing at a box somewhere else, which is what made
+              this page look broken.
 
-              The header carries one on every page now, so this page was
-              showing two inputs for the same job, stacked about 200px apart.
-              The query arrives via ?q= (see the searchParams sync effect
-              above), so typing in the header box still drives this page.
-
-              The empty state used to print search.emptySubtitle here AND the
-              homepage's hero copy above it -- so /search opened on "One
-              Price. No Guesswork.", which is the homepage's headline and
-              promise, over a 700px block with no input in it. It now uses
-              search.emptyTitle / search.emptySubtitle, which already existed
-              and are translated in all ten locales, and this duplicate line
-              is gone. */}
+              It is back for the no-query case ONLY. Once there are results
+              the header box is the one in view and this would be the
+              duplicate again. Same component as the header's and the
+              homepage's, so it inherits the autocomplete, keyboard handling
+              and screen-reader wiring rather than being a fourth
+              implementation. Typing here still drives the page through ?q=
+              (see the searchParams sync effect above). */}
+          {!isSearchActive && (
+            <div style={{ maxWidth: '640px', margin: '32px auto 0', width: '100%' }}>
+              <HeaderSearch
+                value={searchQuery}
+                onValueChange={setSearchQuery}
+                variant="hero"
+              />
+            </div>
+          )}
 
           {/* Category/Subcategory Browsing Header */}
           {(categoryId || subcategory) && categoryName && !searchQuery && (
