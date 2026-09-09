@@ -53,9 +53,15 @@ interface SetDetailClientProps {
   sameYearSets: Array<{ box_no: string; name: string; image_url: string }>;
   closeRangeSets?: Array<{ box_no: string; name: string; image_url: string }>;
   minifigs?: MinifigData[];
+  /**
+   * True when this set's contents have never been fetched from BrickLink.
+   * The server no longer does that fetch -- it blocked the render behind a
+   * 3-second rate-limit wait -- so this component does it after mount.
+   */
+  contentsPending?: boolean;
 }
 
-export default function SetDetailClient({ set, themeSets, sameYearSets, closeRangeSets = [], minifigs = [] }: SetDetailClientProps) {
+export default function SetDetailClient({ set, themeSets, sameYearSets, closeRangeSets = [], minifigs: initialMinifigs = [], contentsPending = false }: SetDetailClientProps) {
   const { t, translations } = useTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -67,6 +73,35 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
   // rather than baked into the server-rendered props.
   const [ownedMinifigQuantities, setOwnedMinifigQuantities] = useState<Record<string, number>>({});
   const [ownedSetQuantities, setOwnedSetQuantities] = useState<Record<string, number>>({});
+
+  // Set contents, filled in after the page is already on screen.
+  //
+  // The server used to await this, which meant a BrickLink call and its
+  // mandatory 3-second delay before anything rendered at all. It reads the
+  // database only now, so a set nobody has opened before arrives with an empty
+  // list and `contentsPending` set; the fetch happens here instead, with the
+  // page already visible and interactive.
+  //
+  // Gated on contentsPending rather than on the list being empty, so a set
+  // that genuinely contains no minifigures does not re-request on every view.
+  const [minifigs, setMinifigs] = useState<MinifigData[]>(initialMinifigs);
+  const [loadingContents, setLoadingContents] = useState(contentsPending);
+
+  useEffect(() => {
+    if (!contentsPending) return;
+    let cancelled = false;
+
+    fetch(`/api/sets/${encodeURIComponent(set.box_no)}/contents`)
+      .then(res => res.json())
+      .then(data => {
+        if (cancelled) return;
+        setMinifigs(data.minifigs || []);
+        setLoadingContents(false);
+      })
+      .catch(() => { if (!cancelled) setLoadingContents(false); });
+
+    return () => { cancelled = true; };
+  }, [contentsPending, set.box_no]);
 
   useEffect(() => {
     if (!session?.user) return;
@@ -1555,6 +1590,31 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
             </div>
           </div>
         </div>
+
+        {/* Placeholder while the contents fetch above is in flight. Without it
+            the section is simply absent and then appears, which on a set with
+            a lot of minifigures shifts everything below it down. */}
+        {loadingContents && minifigs.length === 0 && (
+          <div style={{ marginTop: '48px', marginBottom: '48px' }}>
+            <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: '24px', color: '#171717' }}>
+              {translations.set_detail?.included_minifigs || 'Included Minifigures'}
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: '20px' }}>
+              {[0, 1, 2, 3].map(i => (
+                <div
+                  key={i}
+                  aria-hidden="true"
+                  style={{
+                    height: '210px',
+                    background: '#fafafa',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '12px',
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        )}
 
         {minifigs && minifigs.length > 0 && (
           <div style={{ marginTop: '48px', marginBottom: '48px' }}>

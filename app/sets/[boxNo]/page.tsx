@@ -264,17 +264,36 @@ export default async function SetPage({
     image_url: b.image_url
   }));
 
-  // Fetch set contents (minifigs in this set)
-  const { fetchSetContents } = await import('@/lib/set-contents');
+  // Set contents, READ ONLY -- never fetched here.
+  //
+  // This used to call fetchSetContents(), which hits BrickLink on a miss and
+  // goes through the same 3-second rate limiter as pricing. Stacked on the
+  // pricing call it gave cold set pages 4-9s of TTFB: the page rendered
+  // nothing at all while a person waited for two different BrickLink calls.
+  //
+  // getMinifigsInSet() is a plain indexed database read. Sets already fetched
+  // (18,603 of 19,603) still render their minifigs server-side, so the common
+  // case keeps its SEO and costs a few milliseconds. For the rest the page
+  // ships immediately and SetDetailClient fills the list in from
+  // /api/sets/[boxNo]/contents once it has mounted -- which is what actually
+  // performs the BrickLink call, off the critical path.
+  //
+  // hasSetContents() is what makes that safe to repeat: without it the client
+  // could not tell "not fetched yet" from "fetched, genuinely has no
+  // minifigs", and would re-request forever on every minifig-less set.
+  const { getMinifigsInSet, hasSetContents } = await import('@/lib/set-contents');
   let setMinifigs: Array<{ minifig_no: string; quantity: number; name?: string; image_url?: string }> = [];
+  let contentsFetched = true;
 
   try {
-    const result = await fetchSetContents(boxNo, 'user_view');
-    const minifigsData = result.minifigs;
+    const [stored, fetched] = await Promise.all([
+      getMinifigsInSet(boxNo),
+      hasSetContents(boxNo),
+    ]);
+    contentsFetched = fetched;
 
-    // Enrich with minifig details from catalog
     const { findMinifigByNumber } = await import('@/lib/catalog-static');
-    const enriched = await Promise.all(minifigsData.map(async m => {
+    setMinifigs = await Promise.all(stored.map(async m => {
       const minifig = await findMinifigByNumber(m.minifig_no);
       return {
         ...m,
@@ -282,10 +301,10 @@ export default async function SetPage({
         image_url: minifig ? `https://img.bricklink.com/ItemImage/MN/0/${minifig.minifigure_no}.png` : undefined
       };
     }));
-    setMinifigs = enriched;
   } catch (error) {
-    console.error('[SET PAGE] Error fetching minifigs:', error);
-    // Continue without minifigs if error
+    console.error('[SET PAGE] Error reading set contents:', error);
+    // Leave contentsFetched true on an error: better to show no minifigs than
+    // to send every visitor into a retry loop against BrickLink.
   }
 
   // Pricing for the Product snippet.
@@ -409,6 +428,7 @@ export default async function SetPage({
         sameYearSets={sameYearData}
         closeRangeSets={closeRangeSetsData}
         minifigs={setMinifigs}
+        contentsPending={!contentsFetched}
       />
     </>
   );
