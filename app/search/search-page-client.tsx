@@ -481,7 +481,11 @@ function SearchPageContent() {
           minHeight: isSearchActive ? 'calc(100vh - 72px)' : '380px',
           display: 'flex',
           alignItems: isSearchActive ? 'flex-start' : 'center',
-          paddingTop: isSearchActive ? '60px' : '0px',
+          // The empty state had paddingTop 0, so the heading sat hard against
+          // the header -- most obvious on mobile, where the content is taller
+          // than the 380px minHeight and so is not vertically centred by the
+          // alignItems below. Matched to the bottom padding.
+          paddingTop: isSearchActive ? '60px' : '56px',
           paddingBottom: isSearchActive ? '80px' : '56px',
           transition: 'all 0.4s ease-out',
           width: '100%',
