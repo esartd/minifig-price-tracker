@@ -3,7 +3,7 @@ import { loadAllBoxes } from '@/lib/boxes-data';
 import type { LegoBox } from '@/types';
 import { prisma } from '@/lib/prisma';
 import { getExpectedLifespan } from '@/lib/set-lifespan-data';
-import { parseRetirementYear, takeBalancedByYear } from '@/lib/retirement-years';
+import { parseRetirementYear } from '@/lib/retirement-years';
 
 export interface RetirementPrediction {
   boxNo: string;
@@ -456,15 +456,33 @@ export async function getRetiringSoonSets(options: {
     return true;
   });
 
-  // Order every qualifying set, spread across retirement years rather than
-  // letting the most overdue year fill the list. Taking the top N by age score
-  // returned a single year every time, which left the page with one section
-  // and a wall of identical red bars.
-  const ordered = takeBalancedByYear(
-    candidatePredictions.sort((a, b) => b.baseScore - a.baseScore),
-    p => parseRetirementYear(p.quarter),
-    candidatePredictions.length
-  );
+  // Soonest year first, and within a year the most likely to retire first.
+  //
+  // This used to round-robin across years via takeBalancedByYear, so that a
+  // single 50-item list showed more than one year instead of a wall of
+  // identical red bars. That reasoning died with the "show more" button: the
+  // list is paginated now, so variety across the whole list no longer has to
+  // be crammed into the first 50.
+  //
+  // Worse, the round-robin was actively misfiling sets. 2027 holds only 13
+  // qualifying sets, so interleaving drained that bucket inside the first 26
+  // items -- putting all 13 of the LEAST urgent sets on page 1, ahead of ~640
+  // more urgent 2026 ones, while pages 2-14 came out pure 2026 regardless. It
+  // paid the full cost of burying the urgent sets and bought no variety at all
+  // beyond page 1.
+  //
+  // Undated sets sort last: "we cannot estimate when this retires" is the
+  // weakest possible reason to look at something on a page about urgency.
+  const ordered = [...candidatePredictions].sort((a, b) => {
+    const yearA = parseRetirementYear(a.quarter);
+    const yearB = parseRetirementYear(b.quarter);
+    if (yearA !== yearB) {
+      if (yearA === null) return 1;
+      if (yearB === null) return -1;
+      return yearA - yearB;
+    }
+    return b.baseScore - a.baseScore;
+  });
 
   const total = ordered.length;
 
