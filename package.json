@@ -21,6 +21,7 @@
     "fix-names": "tsx scripts/fix-minifig-names.ts",
     "import-catalog": "tsx scripts/import-catalog.ts",
     "update-catalog": "tsx scripts/auto-catalog-update.ts",
+    "catalog:update": "tsx scripts/catalog-update.ts",
     "populate-asins": "tsx scripts/populate-amazon-asins.ts",
     "check-catalog": "curl https://figtracker.ericksu.com/api/admin/check-catalog-changes",
     "upload-catalog": "curl -X POST https://figtracker.ericksu.com/api/admin/upload-catalog -H 'Authorization: Bearer $ADMIN_SECRET' -H 'Content-Type: text/plain' --data-binary @Minifigures.txt",

@@ -86,3 +86,9 @@ public/listing-images/
 
 # Stray empty scratch file, not part of the translations
 translations-backup/all_nl_entries.txt
+
+# scripts/catalog-update.ts working directories.
+# .catalog-session holds a real Chrome profile with a signed-in BrickLink
+# session -- it must never be committed.
+.catalog-download/
+.catalog-session/
