@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { generateDefaultDisplayName } from '@/lib/leaderboards'
 import { THEME_OVERRIDES } from '@/lib/theme-main-characters'
+import { POPULAR_THEMES } from '@/lib/popular-themes';
 
 function themeImageFor(theme: string): string | null {
   const minifigNo = THEME_OVERRIDES[theme]
@@ -268,13 +269,6 @@ export async function GET() {
       userThemeMapAll.get(row.userId)!.set(theme, count)
     }
 
-    // Exact top-level category names as stored in MinifigCatalog
-    const POPULAR_THEMES = [
-      'Star Wars', 'Harry Potter', 'Super Heroes', 'NINJAGO', 'Town', 'Technic',
-      'Disney', 'Jurassic World', 'SPEED CHAMPIONS', 'Minecraft', 'Indiana Jones',
-      'Pirates', 'Castle', 'Space', 'Collectible Minifigures', 'Friends',
-      'The Hobbit and The Lord of the Rings', 'Avatar', 'Batman I',
-    ]
 
     const themeLeaders: { theme: string; themeImage: string | null; user: ReturnType<typeof toCard>; count: number }[] = []
     for (const [theme, { userId, count }] of themeTopMap.entries()) {

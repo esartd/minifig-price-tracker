@@ -316,7 +316,10 @@
       "oneResultAvailable": "1 förslag tillgängligt",
       "resultsAvailable": "{count} förslag tillgängliga",
       "idHint": "Testa ett namn, eller ett BrickLink-ID som sw0001 eller 75192-1"
-    }
+    },
+    "recentSearches": "Senaste sökningar",
+    "clearRecent": "Rensa",
+    "browseByTheme": "Bläddra efter tema"
   },
   "buyButtons": {
     "ebay": {

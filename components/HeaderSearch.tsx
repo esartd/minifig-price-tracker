@@ -3,6 +3,7 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useTranslation } from './TranslationProvider';
+import { addRecentSearch } from '@/lib/recent-searches';
 
 /**
  * The search box in the site header.
@@ -207,6 +208,10 @@ export default function HeaderSearch({ value, onValueChange, variant }: HeaderSe
     setOpen(false);
     setActiveIndex(-1);
     inputRef.current?.blur();
+    // Recorded here and in activate() below, so both routes into a search are
+    // captured: pressing Enter, and picking a suggestion. The /search empty
+    // state reads these back. See lib/recent-searches.ts.
+    addRecentSearch(term);
     router.push(`/search?q=${encodeURIComponent(term)}`);
   };
 
@@ -220,6 +225,9 @@ export default function HeaderSearch({ value, onValueChange, variant }: HeaderSe
     setOpen(false);
     setActiveIndex(-1);
     inputRef.current?.blur();
+    // What they typed, not the item they landed on -- coming back to
+    // "darth" is more useful than coming back to "sw1502".
+    addRecentSearch(term);
     router.push(s.kind === 'set' ? `/sets/${encodeURIComponent(s.id)}` : `/minifigs/${encodeURIComponent(s.id)}`);
   };
 

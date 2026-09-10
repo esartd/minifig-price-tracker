@@ -3,10 +3,12 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { SearchResults } from '@/components/search';
+import Link from 'next/link';
 import HeaderSearch from '@/components/HeaderSearch';
+import { POPULAR_THEMES } from '@/lib/popular-themes';
+import { themeSlug } from '@/lib/theme-slug';
+import { getRecentSearches, clearRecentSearches, addRecentSearch } from '@/lib/recent-searches';
 import { CollectionItem } from '@/types';
-import RecommendedSets from '@/components/RecommendedSets';
-import LeaderboardsSection from '@/components/LeaderboardsSection';
 import TrendingMinifigs from '@/components/TrendingMinifigs';
 import { useTranslation } from '@/components/TranslationProvider';
 
@@ -109,6 +111,14 @@ function SearchPageContent() {
   const [loading, setLoadingState] = useState(false);
   const [hasSearched, setHasSearchedState] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
+
+  /**
+   * Read after mount, never during render: localStorage does not exist on the
+   * server, so seeding this in useState would hydrate-mismatch on anyone who
+   * has a history.
+   */
+  const [recent, setRecent] = useState<string[]>([]);
+  useEffect(() => { setRecent(getRecentSearches()); }, []);
   const debounceTimer = useRef<NodeJS.Timeout | undefined>(undefined);
 
   // Generate random minifig positions on client side only (after mount)
@@ -148,6 +158,24 @@ function SearchPageContent() {
   useEffect(() => {
     const fromUrl = searchParams.get('q') || '';
     setSearchQuery((current) => (current === fromUrl ? current : fromUrl));
+  }, [searchParams]);
+
+  /**
+   * Record the committed query, not what is being typed.
+   *
+   * components/HeaderSearch.tsx records on submit, which covers the header box
+   * and the dropdown. It does NOT cover this page's own box: typing here
+   * updates searchQuery, and the effect below writes that back into the URL,
+   * so nothing ever passes through submitQuery. Verified -- searching from
+   * /search left localStorage empty.
+   *
+   * Keying off the URL's ?q= instead catches every route into a result set,
+   * including someone arriving on a shared link, and only fires when the
+   * query actually settles rather than on each keystroke.
+   */
+  useEffect(() => {
+    const committed = searchParams.get('q') || '';
+    if (committed.trim().length >= 2) addRecentSearch(committed);
   }, [searchParams]);
 
   // Track if search is active (has query or results)
@@ -477,6 +505,89 @@ function SearchPageContent() {
             </div>
           )}
 
+          {/* Says out loud that a BrickLink ID works here. Sellers arrive
+              with an ID in the clipboard more often than a name, and nothing
+              on this page admitted that was allowed. Same string the homepage
+              uses under its box. */}
+          {!isSearchActive && (
+            <p style={{
+              margin: '12px 0 0',
+              textAlign: 'center',
+              fontSize: 'var(--text-sm)',
+              color: '#737373'
+            }}>
+              {t('search.header.idHint') || 'Try a name, or a BrickLink ID like sw0001 or 75192-1'}
+            </p>
+          )}
+
+          {/* Recent searches. The most useful thing on a search page: people
+              searching a catalogue are usually back for something near what
+              they looked up last time. Only rendered when there is a history,
+              so a first-time visitor sees nothing. */}
+          {!isSearchActive && recent.length > 0 && (
+            <div style={{ maxWidth: '640px', margin: '32px auto 0', width: '100%' }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '12px' }}>
+                <h2 style={{ margin: 0, fontSize: 'var(--text-sm)', fontWeight: 600, color: '#525252' }}>
+                  {t('search.recentSearches') || 'Recent searches'}
+                </h2>
+                <button
+                  type="button"
+                  onClick={() => { clearRecentSearches(); setRecent([]); }}
+                  style={{
+                    background: 'none', border: 'none', padding: 0, cursor: 'pointer',
+                    fontSize: 'var(--text-sm)', color: '#737373', fontFamily: 'inherit'
+                  }}
+                >
+                  {t('search.clearRecent') || 'Clear'}
+                </button>
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {recent.map(term => (
+                  <Link
+                    key={term}
+                    href={`/search?q=${encodeURIComponent(term)}`}
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', height: '32px',
+                      padding: '0 14px', borderRadius: '999px', background: '#ffffff',
+                      border: '1px solid #e5e5e5', fontSize: 'var(--text-sm)',
+                      color: '#171717', textDecoration: 'none'
+                    }}
+                  >
+                    {term}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Browse by theme -- the way in for someone who cannot name what
+              they are after. POPULAR_THEMES is shared with the community
+              stats endpoint; themeSlug keeps these on the canonical URL form
+              so they do not take the 301 added in middleware.ts. */}
+          {!isSearchActive && (
+            <div style={{ maxWidth: '640px', margin: '32px auto 0', width: '100%' }}>
+              <h2 style={{ margin: '0 0 12px', fontSize: 'var(--text-sm)', fontWeight: 600, color: '#525252' }}>
+                {t('search.browseByTheme') || 'Browse by theme'}
+              </h2>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {POPULAR_THEMES.slice(0, 12).map(theme => (
+                  <Link
+                    key={theme}
+                    href={`/themes/${themeSlug(theme)}`}
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', height: '32px',
+                      padding: '0 14px', borderRadius: '999px', background: '#ffffff',
+                      border: '1px solid #e5e5e5', fontSize: 'var(--text-sm)',
+                      color: '#171717', textDecoration: 'none'
+                    }}
+                  >
+                    {theme}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Category/Subcategory Browsing Header */}
           {(categoryId || subcategory) && categoryName && !searchQuery && (
             <div style={{
@@ -595,23 +706,26 @@ function SearchPageContent() {
         </div>
       </section>
 
-      {/* Homepage sections - Only show when not actively searching.
+      {/* Trending only.
 
-          Wrapped in .home-bands (app/globals.css) for the same reason
-          app/page.tsx is: these three carry their own inline background, and
-          two of them default to white, so on this page Leaderboards and
-          Trending ran together with nothing between them. They used to be
-          separated by a 1px borderTop, which was removed when the homepage
-          started alternating tone instead -- correct there, but this page had
-          no alternation to inherit. The rule keys off DOM position, so it
-          works here unchanged. */}
+          This used to render LeaderboardsSection, TrendingMinifigs and
+          RecommendedSets -- inherited from when /search WAS the homepage.
+          Measured before removing them: the page was 3,767px, of which the
+          search part was 300px. 92% of a search page was homepage.
+
+          Leaderboards ranks collectors by collection size and Recommended
+          suggests sets to buy. Neither answers the question someone on this
+          page is asking, which is "where is this one figure". Both still
+          exist on app/page.tsx, which is where they belong.
+
+          Trending stays because "what other people are looking up" is a real
+          answer to "I do not know what to type". */}
       {!isSearchActive && (
         <div className="home-bands">
-          <LeaderboardsSection />
           <TrendingMinifigs />
-          <RecommendedSets />
         </div>
       )}
+
     </div>
   );
 }

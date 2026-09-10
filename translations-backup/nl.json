@@ -316,7 +316,10 @@
       "oneResultAvailable": "1 suggestie beschikbaar",
       "resultsAvailable": "{count} suggesties beschikbaar",
       "idHint": "Probeer een naam, of een BrickLink-ID zoals sw0001 of 75192-1"
-    }
+    },
+    "recentSearches": "Recente zoekopdrachten",
+    "clearRecent": "Wissen",
+    "browseByTheme": "Bladeren op thema"
   },
   "buyButtons": {
     "ebay": {

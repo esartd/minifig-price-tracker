@@ -316,7 +316,10 @@
       "oneResultAvailable": "1 件の候補",
       "resultsAvailable": "{count} 件の候補",
       "idHint": "名前のほか、sw0001 や 75192-1 のような BrickLink ID でも検索できます"
-    }
+    },
+    "recentSearches": "最近の検索",
+    "clearRecent": "消去",
+    "browseByTheme": "テーマから探す"
   },
   "buyButtons": {
     "ebay": {

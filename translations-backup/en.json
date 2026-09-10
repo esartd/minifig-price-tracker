@@ -316,7 +316,10 @@
       "oneResultAvailable": "1 suggestion available",
       "resultsAvailable": "{count} suggestions available",
       "idHint": "Try a name, or a BrickLink ID like sw0001 or 75192-1"
-    }
+    },
+    "recentSearches": "Recent searches",
+    "clearRecent": "Clear",
+    "browseByTheme": "Browse by theme"
   },
   "buyButtons": {
     "ebay": {
