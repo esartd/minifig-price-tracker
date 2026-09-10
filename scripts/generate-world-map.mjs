@@ -15,17 +15,21 @@
  * with no map dependency at all. d3-geo, topojson-client, world-atlas and
  * i18n-iso-countries are all devDependencies and never reach the bundle.
  *
- * Equirectangular projection: a plain flat rectangle, longitude straight to x
- * and latitude straight to y. Natural Earth 1 was here first and looked like a
- * globe someone had flattened -- curved top and bottom edges, tapering sides.
- * Handsome in an atlas, but on a page of rectangular cards it read as an odd
- * bulging blob rather than a map.
+ * Miller cylindrical: rectangular, and it keeps country shapes recognisable.
+ * Two projections were tried and rejected first, for opposite reasons:
  *
- * Not Mercator, which is the other obvious flat option and the wrong one: it
- * inflates high latitudes so badly that Greenland outranks Africa. On a map
- * whose whole job is "look how many places our visitors are", a projection
- * that lies about size is a bad start. Equirectangular stretches the poles
- * too, but far less, and it gives the clean rectangle this layout wants.
+ * - Natural Earth 1 curved the top and bottom edges and tapered the sides.
+ *   Handsome in an atlas; against a page of rectangular cards it read as a
+ *   bulging blob rather than a map.
+ * - Equirectangular is a clean rectangle but draws one degree of longitude at
+ *   the same width everywhere, while on the globe a degree narrows towards the
+ *   poles. At 40 north -- the United States, Europe, Japan, most of the
+ *   traffic -- a degree is only about 70% as wide as at the equator, so those
+ *   countries came out stretched sideways. The USA looked squashed flat.
+ *
+ * Miller compresses latitude before projecting, which restores the proportions
+ * at those latitudes without Mercator's blow-up: Mercator is the other obvious
+ * rectangle and inflates the poles so hard that Greenland outranks Africa.
  *
  * 110m is the coarsest Natural Earth resolution and the right one here. The
  * map renders about 900px wide; 50m would quadruple the file for detail no one
@@ -33,7 +37,8 @@
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
-import { geoEquirectangular, geoPath } from 'd3-geo';
+import { geoPath } from 'd3-geo';
+import { geoMiller } from 'd3-geo-projection';
 import { feature } from 'topojson-client';
 import countries from 'i18n-iso-countries';
 
@@ -41,13 +46,28 @@ const require = createRequire(import.meta.url);
 const topo = require('world-atlas/countries-110m.json');
 
 const WIDTH = 900;
-// Equirectangular is exactly 2:1 -- 360 degrees of longitude over 180 of
-// latitude -- so the viewBox matches and there is no letterboxing.
+// With Antarctica gone the remaining land is close to 2:1. fitSize letterboxes
+// into whatever box it is given, so this only has to be near -- too tall and
+// the map floats in vertical whitespace.
 const HEIGHT = 450;
 
-const geo = feature(topo, topo.objects.countries);
+const all = feature(topo, topo.objects.countries);
 
-const projection = geoEquirectangular().fitSize([WIDTH, HEIGHT], geo);
+/**
+ * Antarctica is dropped, not just left unfilled.
+ *
+ * Under Miller it is a 900px-wide white band across the bottom of the map --
+ * about a fifth of the height -- for a continent that will never appear in a
+ * visitor report. Keeping it meant the map either wasted that space or shrank
+ * the inhabited world to make room for it. Removing it before fitSize lets the
+ * projection scale the parts anyone will actually look at.
+ */
+const geo = {
+  ...all,
+  features: all.features.filter((f) => f.properties?.name !== 'Antarctica'),
+};
+
+const projection = geoMiller().fitSize([WIDTH, HEIGHT], geo);
 // 2 decimal places: at 900px wide, a hundredth of a pixel is invisible, and
 // full float precision triples the file size for nothing.
 const toPath = geoPath(projection).pointRadius(2);
@@ -78,7 +98,7 @@ const out = `/**
  * Run \`node scripts/generate-world-map.mjs\` to rebuild.
  *
  * One SVG path per country, keyed by ISO 3166-1 alpha-2 (what the GA4 Data
- * API's \`countryId\` dimension returns). Equirectangular projection fitted to
+ * API's \`countryId\` dimension returns). Miller cylindrical projection fitted to
  * a ${WIDTH}x${HEIGHT} viewBox, from Natural Earth 110m data (public domain).
  */
 
