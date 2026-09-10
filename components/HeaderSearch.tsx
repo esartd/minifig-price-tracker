@@ -323,7 +323,18 @@ export default function HeaderSearch({ value, onValueChange, variant }: HeaderSe
         <svg
           aria-hidden="true"
           focusable="false"
-          style={{ width: 'var(--icon-base)', height: 'var(--icon-base)', flexShrink: 0, color: '#737373' }}
+          // width/height as ATTRIBUTES, not only CSS.
+          //
+          // The size came solely from var(--icon-base), which is defined in
+          // app/globals.css. Until that stylesheet applies the variable does
+          // not resolve, the width declaration is dropped, and an inline SVG
+          // with no width fills its flex parent -- so on a slow first paint
+          // this icon rendered several hundred pixels wide across the whole
+          // page. The attributes give it a real intrinsic size with no CSS at
+          // all, and the inline style still wins once the variable exists.
+          width={20}
+          height={20}
+          style={{ width: 'var(--icon-base, 20px)', height: 'var(--icon-base, 20px)', flexShrink: 0, color: '#737373' }}
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
@@ -408,7 +419,7 @@ export default function HeaderSearch({ value, onValueChange, variant }: HeaderSe
               color: '#737373',
             }}
           >
-            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor" style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)' }}>
+            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor" width={16} height={16} style={{ width: 'var(--icon-sm, 16px)', height: 'var(--icon-sm, 16px)' }}>
               <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
             </svg>
           </button>
