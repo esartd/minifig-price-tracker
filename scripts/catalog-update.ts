@@ -82,6 +82,19 @@ function ask(question: string): Promise<void> {
   return new Promise(resolve => rl.question(question, () => { rl.close(); resolve(); }));
 }
 
+type CatalogItem = Record<string, string | number | null>;
+
+function readExisting(jsonFile: string): CatalogItem[] {
+  const p = path.join(CATALOG_DIR, jsonFile);
+  if (!fs.existsSync(p)) return [];
+  try {
+    const parsed = JSON.parse(fs.readFileSync(p, 'utf-8'));
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
 function readExistingIds(jsonFile: string, idField: string): Set<string> {
   const p = path.join(CATALOG_DIR, jsonFile);
   if (!fs.existsSync(p)) return new Set();
@@ -121,12 +134,29 @@ function validate(txtPath: string, expectedMin: number, label: string): string[]
   return rows;
 }
 
-function toJson(rows: string[], idField: string, imagePrefix: string) {
+/**
+ * Convert rows to catalog JSON, carrying `updated_at` forward for items whose
+ * data has not actually changed.
+ *
+ * This used to stamp every item with the current time on every run, which
+ * meant the output always differed from the file on disk even when BrickLink
+ * had published nothing. The "already current, stop here" check could
+ * therefore never fire: every run rewrote 17MB, re-ran the backfill, rebuilt
+ * and deployed for no reason, and every git diff was 40,000 changed lines
+ * with the real changes buried in it.
+ *
+ * Now only genuinely new or edited items get a fresh timestamp, so an
+ * unchanged catalog produces a byte-identical file and a changed one produces
+ * a diff you can read.
+ */
+function toJson(rows: string[], idField: string, imagePrefix: string, existing: CatalogItem[]) {
   const now = new Date().toISOString();
+  const previous = new Map(existing.map(e => [String(e[idField]), e]));
+
   return rows.map(line => {
     const p = line.split('\t');
     const id = p[2]?.trim() || '';
-    return {
+    const item: CatalogItem = {
       [idField]: id,
       name: p[3]?.trim() || '',
       category_id: parseInt(p[0]?.trim() || '0'),
@@ -137,6 +167,15 @@ function toJson(rows: string[], idField: string, imagePrefix: string) {
       thumbnail_url: id ? `https://img.bricklink.com/ItemImage/TN/0/${id}.png` : null,
       updated_at: now,
     };
+
+    const before = previous.get(id);
+    if (before) {
+      const unchanged = (Object.keys(item) as string[])
+        .filter(k => k !== 'updated_at')
+        .every(k => item[k] === before[k]);
+      if (unchanged && before.updated_at) item.updated_at = before.updated_at;
+    }
+    return item;
   }).filter(x => x[idField]);
 }
 
@@ -238,11 +277,12 @@ async function convertAndShip() {
 
   const summary: string[] = [];
   for (const d of DOWNLOADS) {
+    const existingItems = readExisting(d.json);
     const existing = readExistingIds(d.json, d.idField);
     const floor = existing.size ? Math.floor(existing.size * MIN_RATIO) : 1000;
     const rows = validate(path.join(DOWNLOAD_DIR, d.file), floor, d.label);
 
-    const items = toJson(rows, d.idField, d.imagePrefix);
+    const items = toJson(rows, d.idField, d.imagePrefix, existingItems);
     const incoming = new Set(items.map(i => i[d.idField] as string));
     const added = [...incoming].filter(id => !existing.has(id));
     const removed = [...existing].filter(id => !incoming.has(id));
