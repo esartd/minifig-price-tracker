@@ -70,6 +70,35 @@ interface CommunityStats {
   recentActivity: RecentActivityItem[];
 }
 
+/**
+ * Grid and list tokens shared by every section below.
+ *
+ * auto-FIT, not auto-fill. The page used auto-fill throughout, which keeps
+ * empty tracks alive: with four cards in a container wide enough for five, the
+ * cards were squeezed to a fifth of the width and a blank column sat at the
+ * end. auto-fit collapses the empty track and lets the real cards take the
+ * room.
+ */
+const GRID_CARDS: React.CSSProperties = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(230px,1fr))',
+  gap: '16px',
+};
+
+/** One bordered container holding rows. Used by all four list sections so a
+ *  pair placed side by side ends at roughly the same height. */
+const LIST_BOX: React.CSSProperties = {
+  backgroundColor: '#fff',
+  border: '1px solid #e5e5e5',
+  borderRadius: '16px',
+  padding: '6px 4px',
+};
+
+/** Rows per side in the two paired sections. Equal caps are what keep the two
+ *  columns level; the ragged version had six on one side and five on the
+ *  other, in different card treatments. */
+const PAIR_ROWS = 5;
+
 const PALETTE = ['#3b82f6','#8b5cf6','#ec4899','#f59e0b','#10b981','#f97316','#06b6d4','#6366f1'];
 function avatarColor(slug: string) {
   let hash = 0;
@@ -275,32 +304,36 @@ function ThemeLeaderCard({ leader }: { leader: ThemeLeader }) {
   );
 }
 
-function SpecialistCard({ specialist }: { specialist: Specialist }) {
+/**
+ * A specialist as a row inside LIST_BOX, matching RankRow and MiniRow.
+ *
+ * This was SpecialistCard: its own bordered, lifting card, six of them stacked
+ * in a flex column. Beside "Being Added Right Now" -- five rows in one box --
+ * the two columns were built from different materials and ended hundreds of
+ * pixels apart, leaving a hole under the shorter one. Six bordered cards also
+ * meant six more borders on a page that already has plenty.
+ */
+function SpecialistRow({ specialist }: { specialist: Specialist }) {
   const color = avatarColor(specialist.user.profileSlug);
   return (
     <Link href={`/collectors/${specialist.user.profileSlug}`} style={{ textDecoration: 'none' }}>
       <div
-        style={{
-          backgroundColor: '#fff', border: '1px solid #e5e5e5', borderRadius: '14px',
-          padding: '16px', display: 'flex', alignItems: 'center', gap: '12px',
-          cursor: 'pointer', transition: 'transform 0.12s, box-shadow 0.12s',
-        }}
-        onMouseEnter={e => { const el = e.currentTarget as HTMLDivElement; el.style.transform = 'translateY(-2px)'; el.style.boxShadow = '0 6px 20px rgba(0,0,0,0.08)'; }}
-        onMouseLeave={e => { const el = e.currentTarget as HTMLDivElement; el.style.transform = ''; el.style.boxShadow = ''; }}
+        style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 14px', borderRadius: '10px', transition: 'background 0.1s' }}
+        onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.backgroundColor = '#fafafa'; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.backgroundColor = ''; }}
       >
-        <Avatar user={specialist.user} size={40} />
+        <Avatar user={specialist.user} size={32} />
         <div style={{ flex: 1, minWidth: 0 }}>
           <p style={{ margin: '0 0 2px', fontSize: '13px', fontWeight: 700, color: '#171717', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {specialist.user.displayName}
           </p>
           <p style={{ margin: 0, fontSize: '12px', color: '#737373', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            {specialist.pct}% {specialist.theme}
+            {specialist.theme}
           </p>
         </div>
-        {/* Pct bar */}
         <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
-          <span style={{ fontSize: '14px', fontWeight: 800, color }}>{specialist.pct}%</span>
-          <div style={{ width: 48, height: 4, borderRadius: '2px', backgroundColor: '#f0f0f0', overflow: 'hidden' }}>
+          <span style={{ fontSize: '13px', fontWeight: 800, color }}>{specialist.pct}%</span>
+          <div style={{ width: 40, height: 4, borderRadius: '2px', backgroundColor: '#f0f0f0', overflow: 'hidden' }}>
             <div style={{ width: `${specialist.pct}%`, height: '100%', backgroundColor: color, borderRadius: '2px' }} />
           </div>
         </div>
@@ -496,27 +529,30 @@ export default function CollectorsPage({ worldMap }: { worldMap?: React.ReactNod
       {!isSearching && (
         <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '48px 24px 64px' }}>
 
-          {/* Spotlight */}
+          {/* Order is deliberate: cards, then the map, then cards, then two
+              paired list rows. It used to run Featured / Rising Stars /
+              Leaderboards / map / Themes / (Specialists + Activity) / Recently
+              Joined -- six sections that were all "a list of names", in three
+              different treatments, and the map (the only genuinely different
+              thing on the page) sat 2,000px down where most readers never
+              reached it. The map is now the second thing you see, and the four
+              name-lists are paired into two rows instead of stacked into
+              four. */}
+
+          {/* Featured Collectors */}
           {!statsLoading && stats && stats.spotlight.length > 0 && (
             <section style={{ marginBottom: '56px' }}>
               <SectionHeader icon={<SparklesIcon style={{ width: 18, height: 18 }} />} color="#8b5cf6" title={tx(translations, 'collectors.directory.featuredCollectors') || 'Featured Collectors'} sub={tx(translations, 'collectors.directory.featuredSub') || 'Changes each visit'} />
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(230px,1fr))', gap: '16px' }}>
+              <div style={GRID_CARDS}>
                 {stats.spotlight.map(u => <SpotlightCard key={u.profileSlug} user={u} />)}
               </div>
             </section>
           )}
 
-          {/* Rising Stars */}
-          {!statsLoading && stats && stats.risingStars.length > 0 && (
-            <section style={{ marginBottom: '56px' }}>
-              <SectionHeader icon={<BoltIcon style={{ width: 18, height: 18 }} />} color="#f59e0b" title={tx(translations, 'collectors.directory.risingStars') || 'Rising Stars'} sub={tx(translations, 'collectors.directory.risingStarsSub') || 'Joined in the last 60 days · already building fast'} />
-              <div style={{ backgroundColor: '#fff', border: '1px solid #e5e5e5', borderRadius: '16px', padding: '8px 4px' }}>
-                {stats.risingStars.map((u, i) => (
-                  <RankRow key={u.profileSlug} user={u} rank={i + 1} suffix={(tx(translations, 'collectors.directory.items') || '{count} items').replace('{count}', String(u.stats.totalItems))} />
-                ))}
-              </div>
-            </section>
-          )}
+          {/* The map, high up. It is the one section that is a picture rather
+              than a list, so it breaks the rhythm exactly where the page would
+              otherwise start to look repetitive. */}
+          {worldMap}
 
           {/* Leaderboards */}
           {!statsLoading && stats && (stats.longestTenured.length > 0 || stats.biggestCollections.length > 0 || stats.mostDiverse.length > 0) && (
@@ -540,60 +576,75 @@ export default function CollectorsPage({ worldMap }: { worldMap?: React.ReactNod
             </section>
           )}
 
-          {/* Where visitors come from. Sits after the leaderboards because
-              those are about individuals and this is about the whole
-              community -- it widens out rather than interrupting. */}
-          {worldMap}
-
           {/* Theme Leaders */}
           {!statsLoading && stats && stats.themeLeaders.length > 0 && (
             <section style={{ marginBottom: '56px' }}>
               <SectionHeader icon={<TagIcon style={{ width: 18, height: 18 }} />} color="#ec4899" title={tx(translations, 'collectors.directory.topCollectorByTheme') || 'Top Collector by Theme'} sub={tx(translations, 'collectors.directory.topCollectorByThemeSub') || 'Who has the most minifigs per theme'} />
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px,1fr))', gap: '12px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px,1fr))', gap: '12px' }}>
                 {stats.themeLeaders.map(l => <ThemeLeaderCard key={l.theme} leader={l} />)}
               </div>
             </section>
           )}
 
-          {/* Specialists + What's Being Added — side by side on wide screens */}
-          {!statsLoading && stats && (stats.specialists.length > 0 || stats.recentActivity.length > 0) && (
-            <section style={{ marginBottom: '56px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px,1fr))', gap: '32px' }}>
+          {/* Being Added + Specialists. Both sides are now one bordered box of
+              rows: they used to be a box of rows beside a stack of six
+              individually-bordered cards, which is why the right column ran
+              out several hundred pixels before the left and left a hole. Equal
+              treatment and an equal row cap keeps the bottoms close. */}
+          {!statsLoading && stats && (stats.recentActivity.length > 0 || stats.specialists.length > 0) && (
+            <section style={{ marginBottom: '56px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px,1fr))', gap: '32px', alignItems: 'start' }}>
 
-              {/* The Specialists */}
-              {stats.specialists.length > 0 && (
+              {stats.recentActivity.length > 0 && (
                 <div>
-                  <SectionHeader icon={<PuzzlePieceIcon style={{ width: 18, height: 18 }} />} color="#06b6d4" title={tx(translations, 'collectors.directory.theSpecialists') || 'The Specialists'} sub={tx(translations, 'collectors.directory.theSpecialistsSub') || '80%+ of their collection is one theme'} />
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    {stats.specialists.map(s => <SpecialistCard key={s.user.profileSlug} specialist={s} />)}
+                  <SectionHeader icon={<FireIcon style={{ width: 18, height: 18 }} />} color="#f97316" title={tx(translations, 'collectors.directory.beingAddedNow') || 'Being Added Right Now'} sub={tx(translations, 'collectors.directory.beingAddedNowSub') || 'Latest minifigs across the community'} />
+                  <div style={LIST_BOX}>
+                    {stats.recentActivity.slice(0, PAIR_ROWS).map((item, i) => (
+                      <RecentActivityRow key={`${item.itemNo}-${i}`} item={item} />
+                    ))}
                   </div>
                 </div>
               )}
 
-              {/* What's Being Added Right Now */}
-              {stats.recentActivity.length > 0 && (
+              {stats.specialists.length > 0 && (
                 <div>
-                  <SectionHeader icon={<FireIcon style={{ width: 18, height: 18 }} />} color="#f97316" title={tx(translations, 'collectors.directory.beingAddedNow') || 'Being Added Right Now'} sub={tx(translations, 'collectors.directory.beingAddedNowSub') || 'Latest minifigs across the community'} />
-                  <div style={{ backgroundColor: '#fff', border: '1px solid #e5e5e5', borderRadius: '16px', padding: '6px 4px' }}>
-                    {stats.recentActivity.map((item, i) => (
-                      <RecentActivityRow key={`${item.itemNo}-${i}`} item={item} />
-                    ))}
+                  <SectionHeader icon={<PuzzlePieceIcon style={{ width: 18, height: 18 }} />} color="#06b6d4" title={tx(translations, 'collectors.directory.theSpecialists') || 'The Specialists'} sub={tx(translations, 'collectors.directory.theSpecialistsSub') || '80%+ of their collection is one theme'} />
+                  <div style={LIST_BOX}>
+                    {stats.specialists.slice(0, PAIR_ROWS).map(s => <SpecialistRow key={s.user.profileSlug} specialist={s} />)}
                   </div>
                 </div>
               )}
             </section>
           )}
 
-          {/* Recently Joined */}
-          {!statsLoading && stats && stats.newestMembers.length > 0 && (
-            <section>
-              <SectionHeader icon={<UsersIcon style={{ width: 18, height: 18 }} />} color="#10b981" title={tx(translations, 'collectors.directory.recentlyJoined') || 'Recently Joined'} />
-              <div style={{
-                backgroundColor: '#fff', border: '1px solid #e5e5e5', borderRadius: '16px',
-                padding: '8px 4px',
-                display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px,1fr))',
-              }}>
-                {stats.newestMembers.map(u => <MiniRow key={u.profileSlug} user={u} />)}
-              </div>
+          {/* Rising Stars + Recently Joined. Paired because they are the same
+              idea -- people who arrived recently -- and stacking them full
+              width made the page end on two near-identical lists. */}
+          {!statsLoading && stats && (stats.risingStars.length > 0 || stats.newestMembers.length > 0) && (
+            <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px,1fr))', gap: '32px', alignItems: 'start' }}>
+
+              {stats.risingStars.length > 0 && (
+                <div>
+                  <SectionHeader icon={<BoltIcon style={{ width: 18, height: 18 }} />} color="#f59e0b" title={tx(translations, 'collectors.directory.risingStars') || 'Rising Stars'} sub={tx(translations, 'collectors.directory.risingStarsSub') || 'Joined in the last 60 days · already building fast'} />
+                  <div style={LIST_BOX}>
+                    {stats.risingStars.slice(0, PAIR_ROWS).map((u, i) => (
+                      <RankRow key={u.profileSlug} user={u} rank={i + 1} suffix={(tx(translations, 'collectors.directory.items') || '{count} items').replace('{count}', String(u.stats.totalItems))} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {stats.newestMembers.length > 0 && (
+                <div>
+                  <SectionHeader icon={<UsersIcon style={{ width: 18, height: 18 }} />} color="#10b981" title={tx(translations, 'collectors.directory.recentlyJoined') || 'Recently Joined'} />
+                  {/* Was a gapless grid of minmax(240px) inside one box: four
+                      columns for five people, so the fifth sat alone on a
+                      second row with no gutter above it. A list has no orphan
+                      row to get wrong. */}
+                  <div style={LIST_BOX}>
+                    {stats.newestMembers.slice(0, PAIR_ROWS).map(u => <MiniRow key={u.profileSlug} user={u} />)}
+                  </div>
+                </div>
+              )}
             </section>
           )}
 
