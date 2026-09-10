@@ -516,15 +516,20 @@ export default function CollectorsPage() {
           {!statsLoading && stats && (stats.longestTenured.length > 0 || stats.biggestCollections.length > 0 || stats.mostDiverse.length > 0) && (
             <section style={{ marginBottom: '56px' }}>
               <SectionHeader icon={<TrophyIcon style={{ width: 18, height: 18 }} />} color="#f59e0b" title={tx(translations, 'collectors.directory.leaderboards') || 'Leaderboards'} />
+              {/* Ordered most to least interesting, left to right. Longest
+                  Members went last: every row of it reads "since 2026" because
+                  the site only opened in 2026, so the ranking is invisible --
+                  five names in an order the reader cannot see a reason for.
+                  The other two put a number that varies beside every name. */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px,1fr))', gap: '16px' }}>
-                <RankCard title={tx(translations, 'collectors.directory.longestMembers') || 'Longest Members'} icon={<ClockIcon style={{ width: 15, height: 15 }} />} color="#3b82f6"
-                  users={stats.longestTenured} />
                 <RankCard title={tx(translations, 'collectors.directory.biggestCollections') || 'Biggest Collections'} icon={<TrophyIcon style={{ width: 15, height: 15 }} />} color="#f59e0b"
                   users={stats.biggestCollections} getSuffix={u => (tx(translations, 'collectors.directory.items') || '{count} items').replace('{count}', u.stats.totalItems.toLocaleString())} />
                 {stats.mostDiverse.length > 0 && (
                   <RankCard title={tx(translations, 'collectors.directory.mostDiverse') || 'Most Diverse'} icon={<SparklesIcon style={{ width: 15, height: 15 }} />} color="#8b5cf6"
                     users={stats.mostDiverse} getSuffix={u => (tx(translations, 'collectors.directory.themeCount') || '{count} themes').replace('{count}', String(u.themeCount ?? 0))} />
                 )}
+                <RankCard title={tx(translations, 'collectors.directory.longestMembers') || 'Longest Members'} icon={<ClockIcon style={{ width: 15, height: 15 }} />} color="#3b82f6"
+                  users={stats.longestTenured} />
               </div>
             </section>
           )}
