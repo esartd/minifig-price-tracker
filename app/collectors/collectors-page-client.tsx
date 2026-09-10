@@ -305,7 +305,7 @@ function ThemeLeaderCard({ leader }: { leader: ThemeLeader }) {
 }
 
 /**
- * A specialist as a row inside LIST_BOX, matching RankRow and MiniRow.
+ * A specialist as a row inside LIST_BOX, matching RankRow.
  *
  * This was SpecialistCard: its own bordered, lifting card, six of them stacked
  * in a flex column. Beside "Being Added Right Now" -- five rows in one box --
@@ -616,35 +616,23 @@ export default function CollectorsPage({ worldMap }: { worldMap?: React.ReactNod
             </section>
           )}
 
-          {/* Rising Stars + Recently Joined. Paired because they are the same
-              idea -- people who arrived recently -- and stacking them full
-              width made the page end on two near-identical lists. */}
-          {!statsLoading && stats && (stats.risingStars.length > 0 || stats.newestMembers.length > 0) && (
-            <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px,1fr))', gap: '32px', alignItems: 'start' }}>
-
-              {stats.risingStars.length > 0 && (
-                <div>
-                  <SectionHeader icon={<BoltIcon style={{ width: 18, height: 18 }} />} color="#f59e0b" title={tx(translations, 'collectors.directory.risingStars') || 'Rising Stars'} sub={tx(translations, 'collectors.directory.risingStarsSub') || 'Joined in the last 60 days · already building fast'} />
-                  <div style={LIST_BOX}>
-                    {stats.risingStars.slice(0, PAIR_ROWS).map((u, i) => (
-                      <RankRow key={u.profileSlug} user={u} rank={i + 1} suffix={(tx(translations, 'collectors.directory.items') || '{count} items').replace('{count}', String(u.stats.totalItems))} />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {stats.newestMembers.length > 0 && (
-                <div>
-                  <SectionHeader icon={<UsersIcon style={{ width: 18, height: 18 }} />} color="#10b981" title={tx(translations, 'collectors.directory.recentlyJoined') || 'Recently Joined'} />
-                  {/* Was a gapless grid of minmax(240px) inside one box: four
-                      columns for five people, so the fifth sat alone on a
-                      second row with no gutter above it. A list has no orphan
-                      row to get wrong. */}
-                  <div style={LIST_BOX}>
-                    {stats.newestMembers.slice(0, PAIR_ROWS).map(u => <MiniRow key={u.profileSlug} user={u} />)}
-                  </div>
-                </div>
-              )}
+          {/* Rising Stars closes the page.
+              "Recently Joined" used to sit beside it and was removed: four of
+              its five rows read "0 items" -- people who signed up and never
+              added anything. As the last thing on a page selling an active
+              community, a list of empty accounts is the wrong closing note,
+              and Rising Stars already covers new arrivals with the useful
+              half of the story (joined recently AND actually collecting).
+              stats.newestMembers is still returned by the API and unused here,
+              should it ever be wanted somewhere it reads better. */}
+          {!statsLoading && stats && stats.risingStars.length > 0 && (
+            <section>
+              <SectionHeader icon={<BoltIcon style={{ width: 18, height: 18 }} />} color="#f59e0b" title={tx(translations, 'collectors.directory.risingStars') || 'Rising Stars'} sub={tx(translations, 'collectors.directory.risingStarsSub') || 'Joined in the last 60 days · already building fast'} />
+              <div style={LIST_BOX}>
+                {stats.risingStars.slice(0, PAIR_ROWS).map((u, i) => (
+                  <RankRow key={u.profileSlug} user={u} rank={i + 1} suffix={(tx(translations, 'collectors.directory.items') || '{count} items').replace('{count}', String(u.stats.totalItems))} />
+                ))}
+              </div>
             </section>
           )}
 
@@ -674,22 +662,3 @@ function SectionHeader({ icon, color, title, sub }: { icon: React.ReactNode; col
   );
 }
 
-function MiniRow({ user }: { user: CollectorCard }) {
-  const { translations } = useTranslation();
-  return (
-    <Link href={`/collectors/${user.profileSlug}`} style={{ textDecoration: 'none' }}>
-      <div
-        style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', borderRadius: '10px', transition: 'background 0.1s' }}
-        onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.backgroundColor = '#fafafa'; }}
-        onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.backgroundColor = ''; }}
-      >
-        <Avatar user={user} size={32} />
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <p style={{ margin: 0, fontSize: '13px', fontWeight: 600, color: '#171717', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user.displayName}</p>
-          <p style={{ margin: 0, fontSize: '11px', color: '#a3a3a3' }}>{user.username ? `@${user.username}` : (tx(translations, 'collectors.directory.collector') || 'Collector')}</p>
-        </div>
-        <span style={{ fontSize: '11px', color: '#a3a3a3', flexShrink: 0 }}>{(tx(translations, 'collectors.directory.items') || '{count} items').replace('{count}', String(user.stats.totalItems))}</span>
-      </div>
-    </Link>
-  );
-}

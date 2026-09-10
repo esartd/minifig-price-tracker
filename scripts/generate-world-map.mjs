@@ -15,10 +15,17 @@
  * with no map dependency at all. d3-geo, topojson-client, world-atlas and
  * i18n-iso-countries are all devDependencies and never reach the bundle.
  *
- * Natural Earth 1 projection: Mercator would be the obvious choice and is the
- * wrong one -- it inflates high latitudes so badly that Greenland reads larger
- * than Africa. On a map whose entire job is "look how many places our visitors
- * are", a projection that lies about area is a bad start.
+ * Equirectangular projection: a plain flat rectangle, longitude straight to x
+ * and latitude straight to y. Natural Earth 1 was here first and looked like a
+ * globe someone had flattened -- curved top and bottom edges, tapering sides.
+ * Handsome in an atlas, but on a page of rectangular cards it read as an odd
+ * bulging blob rather than a map.
+ *
+ * Not Mercator, which is the other obvious flat option and the wrong one: it
+ * inflates high latitudes so badly that Greenland outranks Africa. On a map
+ * whose whole job is "look how many places our visitors are", a projection
+ * that lies about size is a bad start. Equirectangular stretches the poles
+ * too, but far less, and it gives the clean rectangle this layout wants.
  *
  * 110m is the coarsest Natural Earth resolution and the right one here. The
  * map renders about 900px wide; 50m would quadruple the file for detail no one
@@ -26,7 +33,7 @@
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
-import { geoNaturalEarth1, geoPath } from 'd3-geo';
+import { geoEquirectangular, geoPath } from 'd3-geo';
 import { feature } from 'topojson-client';
 import countries from 'i18n-iso-countries';
 
@@ -34,11 +41,13 @@ const require = createRequire(import.meta.url);
 const topo = require('world-atlas/countries-110m.json');
 
 const WIDTH = 900;
-const HEIGHT = 460;
+// Equirectangular is exactly 2:1 -- 360 degrees of longitude over 180 of
+// latitude -- so the viewBox matches and there is no letterboxing.
+const HEIGHT = 450;
 
 const geo = feature(topo, topo.objects.countries);
 
-const projection = geoNaturalEarth1().fitSize([WIDTH, HEIGHT], geo);
+const projection = geoEquirectangular().fitSize([WIDTH, HEIGHT], geo);
 // 2 decimal places: at 900px wide, a hundredth of a pixel is invisible, and
 // full float precision triples the file size for nothing.
 const toPath = geoPath(projection).pointRadius(2);
@@ -69,7 +78,7 @@ const out = `/**
  * Run \`node scripts/generate-world-map.mjs\` to rebuild.
  *
  * One SVG path per country, keyed by ISO 3166-1 alpha-2 (what the GA4 Data
- * API's \`countryId\` dimension returns). Natural Earth 1 projection fitted to
+ * API's \`countryId\` dimension returns). Equirectangular projection fitted to
  * a ${WIDTH}x${HEIGHT} viewBox, from Natural Earth 110m data (public domain).
  */
 
