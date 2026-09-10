@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import type { RetirementPrediction } from '@/lib/retiring-soon-algorithm';
 import RetirementYearSection from './RetirementYearSection';
+import Pagination from './Pagination';
 import { groupByRetirementYear } from '@/lib/retirement-years';
 
 const PAGE_SIZE = 50;
@@ -33,12 +34,17 @@ export default function RetiringSoonClient({
   const [selectedTheme, setSelectedTheme] = useState(initialTheme);
   const [retiringSets, setRetiringSets] = useState(initialData);
   const [total, setTotal] = useState(totalRetiring);
-  const [loadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
+  const wantsScroll = useRef(false);
+  // The server already rendered page 1, so the first run of the fetch effect
+  // would only re-request what is on screen.
+  const isFirstRun = useRef(true);
   const router = useRouter();
 
   // Close dropdown when clicking outside
@@ -62,6 +68,10 @@ export default function RetiringSoonClient({
 
   const handleThemeSelect = (theme: string) => {
     setSelectedTheme(theme);
+    // Page 4 of Star Wars is not page 4 of everything. Both setState calls are
+    // batched into one render, so the fetch effect below runs once, with the
+    // new theme and page 1 together -- not once per changed dependency.
+    setPage(1);
     setSearchQuery('');
     setIsDropdownOpen(false);
   };
@@ -73,56 +83,91 @@ export default function RetiringSoonClient({
     return selectedTheme;
   };
 
+  /**
+   * One page of results at a time, replacing what is on screen.
+   *
+   * This used to append: "Show more" fetched the next 50 and added them to the
+   * list. It worked -- the request succeeded and the count went up -- but it
+   * read as a dead button, because the sets are grouped by retirement year and
+   * almost all of them land in the current year's section, which sits at the
+   * TOP of the page. Measured on production: clicking it moved the button from
+   * y=25052 to y=48017. The 50 new cards were inserted 23,000px above where
+   * the click happened, the button shot out from under the cursor, and the
+   * viewport showed the same grid of cards it had a moment earlier.
+   *
+   * Grouped lists cannot grow downward, so they cannot use "load more". Paging
+   * replaces the contents instead, which keeps the new sets where the reader is
+   * looking. Same component the four collection pages use, so it behaves the
+   * way the rest of the site already does.
+   */
   useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
+    }
+
     setLoading(true);
     const params = new URLSearchParams();
     if (selectedTheme !== 'all') params.set('theme', selectedTheme);
+    params.set('offset', String((page - 1) * PAGE_SIZE));
+    params.set('limit', String(PAGE_SIZE));
 
-    // Update URL
-    const newUrl = params.toString() ? `/retiring-soon?${params.toString()}` : '/retiring-soon';
+    // Only the theme goes in the URL. The page number stays local state: every
+    // ?page= value would be a new crawlable URL serving near-identical cards,
+    // and nothing here emits rel=next/prev or a per-page canonical to tell
+    // Google how they relate.
+    const themeParams = new URLSearchParams();
+    if (selectedTheme !== 'all') themeParams.set('theme', selectedTheme);
+    const newUrl = themeParams.toString() ? `/retiring-soon?${themeParams}` : '/retiring-soon';
     router.push(newUrl, { scroll: false });
 
-    // Fetch new data
     fetch(`/api/sets/retiring-soon?${params}`)
       .then(res => res.json())
       .then(data => {
         setRetiringSets(data.data || []);
         setTotal(data.meta?.total ?? (data.data?.length || 0));
         setLoading(false);
+        // Actually scrolling is left to the effect below. Calling
+        // scrollIntoView here does nothing: it runs in the same tick as these
+        // setState calls, before React has committed the new cards, so it
+        // measures the spinner-height page and lands nowhere. Verified -- the
+        // page stayed at y=7774 across a page change.
+        wantsScroll.current = true;
       })
       .catch(() => {
         setLoading(false);
       });
-  }, [selectedTheme, router]);
+  }, [selectedTheme, page, router]);
 
-  const handleLoadMore = () => {
-    setLoadingMore(true);
-    const params = new URLSearchParams();
-    if (selectedTheme !== 'all') params.set('theme', selectedTheme);
-    params.set('offset', String(retiringSets.length));
-    params.set('limit', String(PAGE_SIZE));
+  // Runs after the new page is committed to the DOM, so there is something to
+  // scroll to. Without this, page 2 opens at whatever offset page 1's
+  // pagination control happened to sit at -- thousands of pixels down, showing
+  // the middle of a grid the reader has not seen the top of.
+  useEffect(() => {
+    if (loading || !wantsScroll.current) return;
+    wantsScroll.current = false;
+    // Instant, not smooth. From the bottom of page 1 this is a ~7,000px trip;
+    // animating it is a long disorienting ride through cards the reader has
+    // already dismissed, and the animation was measured being interrupted by
+    // the re-render anyway -- it crawled 654px and stopped, leaving the reader
+    // stranded mid-grid. A page change should just be somewhere new.
+    resultsRef.current?.scrollIntoView({ behavior: 'auto', block: 'start' });
+  }, [loading, retiringSets]);
 
-    fetch(`/api/sets/retiring-soon?${params}`)
-      .then(res => res.json())
-      .then(data => {
-        // Append. The server pages over one stable ordering, so a set cannot
-        // arrive twice, and the year grouping re-runs over the whole list.
-        setRetiringSets(prev => [...prev, ...(data.data || [])]);
-        if (typeof data.meta?.total === 'number') setTotal(data.meta.total);
-        setLoadingMore(false);
-      })
-      .catch(() => setLoadingMore(false));
-  };
-
-  const remaining = Math.max(0, total - retiringSets.length);
-  // Only say "50 of 694" while some are still unloaded. Once everything is on
-  // the page "694 of 694" is just noise.
-  const countLabel = remaining > 0 ? `${retiringSets.length} of ${total}` : String(retiringSets.length);
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  // "Showing 51-100 of 694" -- where you are in the whole list, not just how
+  // many cards happen to be rendered.
+  const rangeStart = total === 0 ? 0 : (page - 1) * PAGE_SIZE + 1;
+  const rangeEnd = Math.min(page * PAGE_SIZE, total);
+  const countLabel = totalPages > 1 ? `${rangeStart}-${rangeEnd} of ${total}` : String(total);
 
   return (
     <>
-      {/* Filters section */}
-      <div style={{
+      {/* Filters section. Also the scroll target for a page change: it ends
+          with the "Showing 51-100 of 694" line, which is the confirmation that
+          the page actually changed, so landing here puts that line and the
+          first row of new cards on screen together. */}
+      <div ref={resultsRef} style={{
         display: 'flex',
         flexDirection: 'column',
         gap: '1rem',
@@ -130,7 +175,11 @@ export default function RetiringSoonClient({
         padding: '1.5rem',
         background: '#ffffff',
         border: '1px solid #e5e5e5',
-        borderRadius: '12px'
+        borderRadius: '12px',
+        // Clears the sticky header, measured at 109px, plus a little air.
+        // Without it the header lands on top of the "Showing 51-100 of 694"
+        // line -- the one thing confirming the page changed.
+        scrollMarginTop: '125px'
       }}>
         <div style={{
           display: 'flex',
@@ -399,36 +448,11 @@ export default function RetiringSoonClient({
             />
           ))}
 
-          {remaining > 0 && (
-            <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-              <button
-                type="button"
-                onClick={handleLoadMore}
-                disabled={loadingMore}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '40px',
-                  padding: '0 24px',
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: 600,
-                  fontFamily: 'inherit',
-                  color: loadingMore ? '#a3a3a3' : '#171717',
-                  background: '#ffffff',
-                  border: '1px solid #e5e5e5',
-                  borderRadius: '999px',
-                  cursor: loadingMore ? 'not-allowed' : 'pointer',
-                  boxSizing: 'border-box',
-                }}
-              >
-                {loadingMore
-                  ? (translations?.filters?.loading || 'Loading...')
-                  : (translations?.filters?.loadMore || 'Show more ({remaining} left)')
-                      .replace('{remaining}', String(remaining))}
-              </button>
-            </div>
-          )}
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+          />
         </div>
       )}
     </>
