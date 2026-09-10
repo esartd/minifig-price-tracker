@@ -485,7 +485,11 @@ function SearchPageContent() {
           paddingBottom: isSearchActive ? '80px' : '56px',
           transition: 'all 0.4s ease-out',
           width: '100%',
-          backgroundColor: isSearchActive ? '#fafafa' : 'transparent'
+          // Tinted in the empty state so the search block -- heading, box,
+          // hint and this person's own recent searches -- reads as one panel,
+          // separate from browsing the catalogue below it. Everything used to
+          // sit on one flat background, so the two ran together.
+          backgroundColor: '#fafafa'
         }}>
         <div className="search-page-container" style={{
           width: '100%',
@@ -604,26 +608,6 @@ function SearchPageContent() {
                 {recent.map(term => (
                   <Link key={term} href={`/search?q=${encodeURIComponent(term)}`} style={chipStyle} {...chipHover}>
                     {term}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Browse by theme -- the way in for someone who cannot name what
-              they are after. POPULAR_THEMES is shared with the community
-              stats endpoint; themeSlug keeps these on the canonical URL form
-              so they do not take the 301 added in middleware.ts. */}
-          {!isSearchActive && (
-            <div style={{ maxWidth: '640px', margin: '40px auto 0', width: '100%' }}>
-              <h2 style={groupLabelStyle}>
-                <Squares2X2Icon style={{ width: '16px', height: '16px', color: '#737373' }} aria-hidden="true" />
-                {t('search.browseByTheme') || 'Browse by theme'}
-              </h2>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                {POPULAR_THEMES.slice(0, 12).map(theme => (
-                  <Link key={theme} href={`/themes/${themeSlug(theme)}`} style={chipStyle} {...chipHover}>
-                    {theme}
                   </Link>
                 ))}
               </div>
@@ -764,6 +748,26 @@ function SearchPageContent() {
           answer to "I do not know what to type". */}
       {!isSearchActive && (
         <div className="home-bands">
+          {/* Its own section, not part of the search panel above.
+              Inside .home-bands so the positional rule in globals.css tints
+              it against Trending -- otherwise both would render white and run
+              together, which is the same bug the borders used to hide. */}
+          <section style={{ padding: '48px 20px' }}>
+            <div style={{ maxWidth: '640px', margin: '0 auto', width: '100%' }}>
+              <h2 style={groupLabelStyle}>
+                <Squares2X2Icon style={{ width: '16px', height: '16px', color: '#737373' }} aria-hidden="true" />
+                {t('search.browseByTheme') || 'Browse by theme'}
+              </h2>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {POPULAR_THEMES.slice(0, 12).map(theme => (
+                  <Link key={theme} href={`/themes/${themeSlug(theme)}`} style={chipStyle} {...chipHover}>
+                    {theme}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+
           <TrendingMinifigs />
         </div>
       )}
