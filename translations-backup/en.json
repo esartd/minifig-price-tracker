@@ -2240,6 +2240,10 @@
       "private": "Profile is Private",
       "publicDescription": "Your collection is visible at your public profile",
       "privateDescription": "Your collection is hidden from the public"
+    },
+    "map": {
+      "title": "Collectors in {count} countries",
+      "subtitle": "Everywhere IntoBrick has been used"
     }
   },
   "directory": {

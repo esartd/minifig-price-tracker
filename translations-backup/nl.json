@@ -1997,6 +1997,10 @@
       "private": "Profiel is Privé",
       "publicDescription": "Uw verzameling is zichtbaar op uw openbare profiel",
       "privateDescription": "Uw verzameling is verborgen voor het publiek"
+    },
+    "map": {
+      "title": "Verzamelaars in {count} landen",
+      "subtitle": "Overal waar IntoBrick wordt gebruikt"
     }
   },
   "directory": {

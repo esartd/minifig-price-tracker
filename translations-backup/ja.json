@@ -1997,6 +1997,10 @@
       "private": "プロフィールは非公開",
       "publicDescription": "あなたのコレクションは公開プロフィールで見られます",
       "privateDescription": "あなたのコレクションは非公開です"
+    },
+    "map": {
+      "title": "{count} か国のコレクター",
+      "subtitle": "IntoBrick が使われている国ぐに"
     }
   },
   "directory": {

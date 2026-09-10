@@ -1942,6 +1942,10 @@
       "private": "El perfil es Privado",
       "publicDescription": "Tu colección es visible en tu perfil público",
       "privateDescription": "Tu colección está oculta del público"
+    },
+    "map": {
+      "title": "Coleccionistas en {count} países",
+      "subtitle": "En todos los lugares donde se usa IntoBrick"
     }
   },
   "homepage": {

@@ -1997,6 +1997,10 @@
       "private": "Il profilo è Privato",
       "publicDescription": "La tua collezione è visibile sul tuo profilo pubblico",
       "privateDescription": "La tua collezione è nascosta al pubblico"
+    },
+    "map": {
+      "title": "Collezionisti in {count} paesi",
+      "subtitle": "Ovunque venga usato IntoBrick"
     }
   },
   "directory": {

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { getTranslations, getLocaleFromHost } from '@/lib/i18n-subdomain';
 import CollectorsPageClient from './collectors-page-client';
+import VisitorWorldMap from '@/components/VisitorWorldMap';
 import { DOMAINS } from '@/lib/i18n-alternates';
 
 // Hostnames come from lib/site-domain.ts via lib/i18n-alternates.ts.
@@ -53,7 +54,10 @@ export default async function CollectorsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <CollectorsPageClient />
+      {/* Rendered here, on the server, and handed down as a slot. The map
+          carries 139KB of SVG country paths; importing it inside the client
+          component would ship every byte as JavaScript. */}
+      <CollectorsPageClient worldMap={<VisitorWorldMap locale={locale} />} />
     </>
   );
 }

@@ -368,7 +368,13 @@ function SearchResultCard({ user }: { user: CollectorCard }) {
   return <SpotlightCard user={user} />;
 }
 
-export default function CollectorsPage() {
+/**
+ * `worldMap` is a rendered server component passed down as a slot, not
+ * imported here. It carries 139KB of SVG country paths; importing it into this
+ * client component would ship all of it as JavaScript. Handed in as an element
+ * it arrives as plain markup instead, and this file never sees the data.
+ */
+export default function CollectorsPage({ worldMap }: { worldMap?: React.ReactNode }) {
   const { translations } = useTranslation();
 
   const [stats, setStats] = useState<CommunityStats | null>(null);
@@ -533,6 +539,11 @@ export default function CollectorsPage() {
               </div>
             </section>
           )}
+
+          {/* Where visitors come from. Sits after the leaderboards because
+              those are about individuals and this is about the whole
+              community -- it widens out rather than interrupting. */}
+          {worldMap}
 
           {/* Theme Leaders */}
           {!statsLoading && stats && stats.themeLeaders.length > 0 && (
