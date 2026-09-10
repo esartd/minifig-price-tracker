@@ -1893,7 +1893,8 @@
       "viewProfile": "Profil ansehen",
       "newestMembers": "Neueste Mitglieder",
       "items": "{count} Artikel",
-      "topCollectorByTheme": "Top Minifig-Sammler nach Thema"
+      "topCollectorByTheme": "Top Minifig-Sammler nach Thema",
+      "themeCount": "{count} Themen"
     },
     "profile": {
       "title": "{name}s Sammlung",

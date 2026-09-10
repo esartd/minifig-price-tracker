@@ -1948,7 +1948,8 @@
       "viewProfile": "Se Profil",
       "newestMembers": "Nyaste Medlemmar",
       "items": "{count} föremål",
-      "topCollectorByTheme": "Bästa minifigursamlare per tema"
+      "topCollectorByTheme": "Bästa minifigursamlare per tema",
+      "themeCount": "{count} teman"
     },
     "profile": {
       "title": "{name}s Samling",

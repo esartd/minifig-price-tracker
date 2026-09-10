@@ -31,6 +31,8 @@ interface CollectorCard {
   image: string | null;
   memberSince: string;
   stats: { totalMinifigs: number; totalSets: number; totalItems: number };
+  /** Distinct themes collected. Only the Most Diverse board sends it. */
+  themeCount?: number;
 }
 
 interface ThemeLeader {
@@ -521,7 +523,7 @@ export default function CollectorsPage() {
                   users={stats.biggestCollections} getSuffix={u => (tx(translations, 'collectors.directory.items') || '{count} items').replace('{count}', u.stats.totalItems.toLocaleString())} />
                 {stats.mostDiverse.length > 0 && (
                   <RankCard title={tx(translations, 'collectors.directory.mostDiverse') || 'Most Diverse'} icon={<SparklesIcon style={{ width: 15, height: 15 }} />} color="#8b5cf6"
-                    users={stats.mostDiverse} getSuffix={u => `${u.stats.totalMinifigs}f + ${u.stats.totalSets}s`} />
+                    users={stats.mostDiverse} getSuffix={u => (tx(translations, 'collectors.directory.themeCount') || '{count} themes').replace('{count}', String(u.themeCount ?? 0))} />
                 )}
               </div>
             </section>

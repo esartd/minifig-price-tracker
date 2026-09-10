@@ -1948,7 +1948,8 @@
       "viewProfile": "Ver Perfil",
       "newestMembers": "Membros Mais Recentes",
       "items": "{count} itens",
-      "topCollectorByTheme": "Melhor colecionador de minifiguras por tema"
+      "topCollectorByTheme": "Melhor colecionador de minifiguras por tema",
+      "themeCount": "{count} temas"
     },
     "profile": {
       "title": "Coleção de {name}",

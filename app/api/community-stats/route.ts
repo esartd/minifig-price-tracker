@@ -360,17 +360,35 @@ export async function GET() {
       .slice(0, 5)
       .map(toCard)
 
-    // Most diverse: collectors who have both minifigs AND sets, sorted by total quantity
+    // Most diverse: how many different themes a collector spans.
+    //
+    // This used to sort by `minifigs + sets` -- the exact expression
+    // biggestCollections sorts by, four lines up. The only difference was a
+    // filter dropping anyone who owned just one of the two types, so on any
+    // normal day the two cards listed the same five people in the same order,
+    // and the suffix gave the game away: "826f + 176s" beside "1,002 items"
+    // for the same person. Two cards, one metric, no reason to read the second.
+    //
+    // Distinct themes is what the card has always been called, and it ranks
+    // genuinely differently: someone with 200 Star Wars minifigs places below
+    // someone with 40 spread over a dozen themes. userThemeMapAll is already
+    // built above for Specialists and is keyed theme -> count across minifigs
+    // AND sets, so .size is the answer for free -- no extra query.
+    //
+    // Ties break on total items, otherwise every collector sitting on the same
+    // theme count would be ordered by whatever Map iteration returns.
     const mostDiverse = [...allPublicUsers]
       .map(u => ({
         ...u,
-        minifigs: qtyByUser.get(u.id)?.minifigs ?? 0,
-        sets: qtyByUser.get(u.id)?.sets ?? 0,
+        themeCount: userThemeMapAll.get(u.id)?.size ?? 0,
+        total: (qtyByUser.get(u.id)?.minifigs ?? 0) + (qtyByUser.get(u.id)?.sets ?? 0),
       }))
-      .filter(u => u.minifigs > 0 && u.sets > 0)
-      .sort((a, b) => (b.minifigs + b.sets) - (a.minifigs + a.sets))
+      // Two themes is the floor for "diverse" -- one theme is a specialist,
+      // and that is a different card further down the page.
+      .filter(u => u.themeCount >= 2)
+      .sort((a, b) => b.themeCount - a.themeCount || b.total - a.total)
       .slice(0, 5)
-      .map(toCard)
+      .map(u => ({ ...toCard(u), themeCount: u.themeCount }))
 
     let totalItemsTracked = 0
     for (const [, qty] of qtyByUser) {

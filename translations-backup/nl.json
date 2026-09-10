@@ -1948,7 +1948,8 @@
       "viewProfile": "Profiel Bekijken",
       "newestMembers": "Nieuwste Leden",
       "items": "{count} artikelen",
-      "topCollectorByTheme": "Beste minifiguur-verzamelaar per thema"
+      "topCollectorByTheme": "Beste minifiguur-verzamelaar per thema",
+      "themeCount": "{count} thema's"
     },
     "profile": {
       "title": "Verzameling van {name}",

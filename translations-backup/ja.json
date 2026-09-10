@@ -1948,7 +1948,8 @@
       "viewProfile": "プロフィールを見る",
       "newestMembers": "新規メンバー",
       "items": "{count}アイテム",
-      "topCollectorByTheme": "テーマ別トップミニフィグコレクター"
+      "topCollectorByTheme": "テーマ別トップミニフィグコレクター",
+      "themeCount": "{count} テーマ"
     },
     "profile": {
       "title": "{name}のコレクション",

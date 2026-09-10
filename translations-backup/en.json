@@ -2191,7 +2191,8 @@
       "viewProfile": "View Profile",
       "newestMembers": "Newest Members",
       "items": "{count} items",
-      "topCollectorByTheme": "Top Minifig Collector by Theme"
+      "topCollectorByTheme": "Top Minifig Collector by Theme",
+      "themeCount": "{count} themes"
     },
     "profile": {
       "title": "{name}'s Collection",

@@ -1893,7 +1893,8 @@
       "viewProfile": "Ver Perfil",
       "newestMembers": "Miembros Más Nuevos",
       "items": "{count} artículos",
-      "topCollectorByTheme": "Mejor coleccionista de minifiguras por tema"
+      "topCollectorByTheme": "Mejor coleccionista de minifiguras por tema",
+      "themeCount": "{count} temas"
     },
     "profile": {
       "title": "Colección de {name}",
