@@ -2643,6 +2643,10 @@
       "priceSuffix": "/månad",
       "cancelAnytime": "Avsluta när du vill",
       "billedInUsd": "Ungefärligt belopp. Debiteras i amerikanska dollar ({amount})."
+    },
+    "listingNote": {
+      "body": "Tänker du sälja den? Premium genererar annonsen direkt från den här sidan, utan omvägen via samlingen.",
+      "cta": "Upptäck Premium"
     }
   },
   "identify": {

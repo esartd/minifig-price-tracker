@@ -2643,6 +2643,10 @@
       "priceSuffix": "/mes",
       "cancelAnytime": "Cancela cuando quieras",
       "billedInUsd": "Importe aproximado. Se cobra en dólares estadounidenses ({amount})."
+    },
+    "listingNote": {
+      "body": "¿Vas a venderla? Premium genera el anuncio desde esta misma página, sin pasar por tu colección.",
+      "cta": "Ver Premium"
     }
   },
   "identify": {

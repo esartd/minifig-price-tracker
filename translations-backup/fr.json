@@ -2643,6 +2643,10 @@
       "priceSuffix": "/mois",
       "cancelAnytime": "Annulez à tout moment",
       "billedInUsd": "Montant approximatif. Facturé en dollars américains ({amount})."
+    },
+    "listingNote": {
+      "body": "Vous la vendez ? Premium génère l'annonce directement depuis cette page, sans passer par votre collection.",
+      "cta": "Découvrir Premium"
     }
   },
   "identify": {

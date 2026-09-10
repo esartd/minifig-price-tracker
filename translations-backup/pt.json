@@ -2643,6 +2643,10 @@
       "priceSuffix": "/mês",
       "cancelAnytime": "Cancela quando quiseres",
       "billedInUsd": "Valor aproximado. A cobrança é feita em dólares americanos ({amount})."
+    },
+    "listingNote": {
+      "body": "Vais vendê-la? Premium gera o anúncio diretamente a partir desta página, sem passar pela tua coleção.",
+      "cta": "Ver Premium"
     }
   },
   "identify": {

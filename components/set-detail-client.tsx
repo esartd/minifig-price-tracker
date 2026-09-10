@@ -11,7 +11,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import SetAdCard from '@/components/SetAdCard';
 import MoveDialog from '@/components/MoveDialog';
 import ListingGeneratorForm from '@/components/listing-generator-form';
-import UpgradeTeaser from '@/components/UpgradeTeaser';
+import PremiumListingNote from '@/components/PremiumListingNote';
 import SetCardImage from '@/components/SetCard';
 import AuthRequiredModal from '@/components/AuthRequiredModal';
 import SaveCollectionModal from '@/components/SaveCollectionModal';
@@ -988,7 +988,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                         />
                       </div>
                     ) : (
-                      <UpgradeTeaser />
+                      <PremiumListingNote />
                     )
                   )}
 

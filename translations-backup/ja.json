@@ -2643,6 +2643,10 @@
       "priceSuffix": "／月",
       "cancelAnytime": "いつでもキャンセル可能",
       "billedInUsd": "概算です。請求は米ドル（{amount}）で行われます。"
+    },
+    "listingNote": {
+      "body": "このミニフィギュアを売りますか？ Premium なら、コレクションに追加せずにこのページから出品文をそのまま生成できます。",
+      "cta": "Premium を見る"
     }
   },
   "identify": {

@@ -2729,6 +2729,10 @@
       "priceSuffix": "/month",
       "cancelAnytime": "Cancel anytime",
       "billedInUsd": "Approximate. Billed in US dollars ({amount})."
+    },
+    "listingNote": {
+      "body": "Selling this one? Premium generates the listing straight from this page, skipping the collection step.",
+      "cta": "See Premium"
     }
   },
   "identify": {

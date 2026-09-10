@@ -4,12 +4,21 @@ import Link from 'next/link';
 import { useTranslation } from '@/components/TranslationProvider';
 
 /**
- * Shown in place of a Premium feature (the listing generator on minifig/set
- * detail pages, or the AI identifier on /identify) when the viewer isn't a
- * premium subscriber (or isn't logged in) -- keeps Premium discoverable
- * without duplicating the Checkout flow on every page. Copy describes both
- * Premium perks generically rather than whichever one triggered it, since
- * this same component renders on pages for either feature.
+ * The /identify gate: shown in place of the AI minifigure identifier when the
+ * viewer isn't a premium subscriber (or isn't logged in) -- keeps Premium
+ * discoverable without duplicating the Checkout flow on every page.
+ *
+ * This used to serve the minifig and set detail pages too, which is why the
+ * copy describes Premium's perks generically instead of naming the one that
+ * triggered it. Those pages now use PremiumListingNote, because a card reading
+ * "This is a Premium feature" sat directly under the collection buttons and
+ * made adding to a collection look paid -- and because listing generation is
+ * not actually subscriber-only, so the claim was false there. See that
+ * component for the full account.
+ *
+ * The card is right HERE, though: the AI identifier genuinely is
+ * subscriber-only, this is the entire content of the page, and there is no
+ * neighbouring feature for it to be confused with.
  */
 export default function UpgradeTeaser() {
   const { t } = useTranslation();
@@ -40,11 +49,12 @@ export default function UpgradeTeaser() {
           padding: '8px 16px',
           fontSize: 'var(--text-sm)',
           fontWeight: 600,
-          // Secondary, not primary. This sits directly under "+ To sell" and
-          // "+ To keep", which are the actions the page is FOR -- three solid
-          // blue buttons in a stack means none of them is primary, and the one
-          // that wins by position is the upsell rather than the task. Same
-          // shape and size, quieter fill.
+          // Secondary, not primary. Kept from when this also rendered on the
+          // detail pages, beneath "+ To sell" and "+ To keep" -- three solid
+          // blue buttons in a stack meant none of them was primary, and the one
+          // winning by position was the upsell rather than the task. It is the
+          // only button on /identify now, so it could go solid; leaving it
+          // quiet suits a page whose job is to explain before it sells.
           color: '#3b82f6',
           backgroundColor: '#ffffff',
           border: '1px solid #3b82f6',

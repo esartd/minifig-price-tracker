@@ -78,7 +78,7 @@ export default async function ListingGeneratorPage() {
           as rendered by minifig-detail-client.tsx and set-detail-client.tsx:
           the "Generate Listing" label, the fact that the form only appears once
           the item is on one of your lists, and the Premium bypass that skips
-          that requirement (non-Premium visitors see UpgradeTeaser instead).
+          that requirement (non-Premium visitors see PremiumListingNote there).
           Change any of those and the steps here are wrong, with no build
           failure to warn you. */}
       <div style={{ maxWidth: '860px', margin: '0 auto', padding: '48px 16px' }}>

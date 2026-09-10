@@ -2643,6 +2643,10 @@
       "priceSuffix": "/mese",
       "cancelAnytime": "Annulla quando vuoi",
       "billedInUsd": "Importo approssimativo. L’addebito avviene in dollari statunitensi ({amount})."
+    },
+    "listingNote": {
+      "body": "La stai vendendo? Premium genera l'annuncio direttamente da questa pagina, senza passare dalla collezione.",
+      "cta": "Scopri Premium"
     }
   },
   "identify": {

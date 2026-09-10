@@ -2643,6 +2643,10 @@
       "priceSuffix": "/miesiąc",
       "cancelAnytime": "Anuluj w każdej chwili",
       "billedInUsd": "Kwota orientacyjna. Płatność pobierana w dolarach amerykańskich ({amount})."
+    },
+    "listingNote": {
+      "body": "Sprzedajesz tę figurkę? Premium generuje opis oferty wprost na tej stronie – bez dodawania jej do kolekcji.",
+      "cta": "Zobacz Premium"
     }
   },
   "identify": {

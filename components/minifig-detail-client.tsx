@@ -9,7 +9,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import AddToCollectionForm from '@/components/search/AddToCollectionForm';
 import ListingGeneratorForm from '@/components/listing-generator-form';
-import UpgradeTeaser from '@/components/UpgradeTeaser';
+import PremiumListingNote from '@/components/PremiumListingNote';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SetAdCard from '@/components/SetAdCard';
 import MoveDialog from '@/components/MoveDialog';
@@ -1778,7 +1778,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                             />
                           </div>
                         ) : (
-                          <UpgradeTeaser />
+                          <PremiumListingNote />
                         )
                       )}
 
