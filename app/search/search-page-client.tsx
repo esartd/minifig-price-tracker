@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { SearchResults } from '@/components/search';
 import Link from 'next/link';
+import { ClockIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
 import HeaderSearch from '@/components/HeaderSearch';
 import { POPULAR_THEMES } from '@/lib/popular-themes';
 import { themeSlug } from '@/lib/theme-slug';
@@ -377,6 +378,51 @@ function SearchPageContent() {
     router.push('/inventory');
   };
 
+  /**
+   * The two chip groups on the empty state.
+   *
+   * Recent searches and themes are different kinds of thing -- one is this
+   * person's own history, the other is the catalogue's taxonomy -- and they
+   * were rendered identically, so "darth" and "Star Wars" looked like members
+   * of one list. The icon and the tint are what separate them.
+   */
+  const groupLabelStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '7px',
+    margin: '0 0 12px',
+    fontSize: 'var(--text-sm)',
+    fontWeight: 600,
+    // Was #525252 at 15px, which read as a caption rather than a heading.
+    color: '#171717',
+    letterSpacing: '-0.01em',
+  };
+
+  const chipStyle: React.CSSProperties = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    height: '34px',
+    padding: '0 14px',
+    borderRadius: '999px',
+    background: '#ffffff',
+    border: '1px solid #e5e5e5',
+    fontSize: 'var(--text-sm)',
+    color: '#171717',
+    textDecoration: 'none',
+    transition: 'border-color 0.15s, background 0.15s',
+  };
+
+  const chipHover = {
+    onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
+      e.currentTarget.style.borderColor = '#d4d4d4';
+      e.currentTarget.style.background = '#fafafa';
+    },
+    onMouseLeave: (e: React.MouseEvent<HTMLElement>) => {
+      e.currentTarget.style.borderColor = '#e5e5e5';
+      e.currentTarget.style.background = '#ffffff';
+    },
+  };
+
   return (
     <div className="min-h-screen" style={{
       overflowX: 'hidden',
@@ -452,11 +498,21 @@ function SearchPageContent() {
           {!isSearchActive && (
             <div className="search-header-section" style={{
               textAlign: 'center',
+              // Same 640px column as the box and the lists below. The heading
+              // used to span the full 1248px while everything under it sat in
+              // a 640px column, so the eye went centre, centre, centre, then
+              // hard left.
+              maxWidth: '640px',
+              margin: '0 auto',
               marginBottom: '0',
               transition: 'all 0.4s ease-out'
             }}>
               <h1 className="fun-header-title" style={{
-                fontSize: 'var(--text-3xl)',
+                // --text-2xl (40px), not --text-3xl (56px). 56 is the
+                // homepage hero's size; using it here made the h1 four times
+                // the size of the section labels under it, with nothing in
+                // between, and this page is a utility not a landing page.
+                fontSize: 'var(--text-2xl)',
                 fontWeight: '600',
                 letterSpacing: '-0.02em',
                 lineHeight: '1.1',
@@ -525,9 +581,10 @@ function SearchPageContent() {
               they looked up last time. Only rendered when there is a history,
               so a first-time visitor sees nothing. */}
           {!isSearchActive && recent.length > 0 && (
-            <div style={{ maxWidth: '640px', margin: '32px auto 0', width: '100%' }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '12px' }}>
-                <h2 style={{ margin: 0, fontSize: 'var(--text-sm)', fontWeight: 600, color: '#525252' }}>
+            <div style={{ maxWidth: '640px', margin: '40px auto 0', width: '100%' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+                <h2 style={groupLabelStyle}>
+                  <ClockIcon style={{ width: '16px', height: '16px', color: '#737373' }} aria-hidden="true" />
                   {t('search.recentSearches') || 'Recent searches'}
                 </h2>
                 <button
@@ -537,22 +594,15 @@ function SearchPageContent() {
                     background: 'none', border: 'none', padding: 0, cursor: 'pointer',
                     fontSize: 'var(--text-sm)', color: '#737373', fontFamily: 'inherit'
                   }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#171717'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = '#737373'; }}
                 >
                   {t('search.clearRecent') || 'Clear'}
                 </button>
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                 {recent.map(term => (
-                  <Link
-                    key={term}
-                    href={`/search?q=${encodeURIComponent(term)}`}
-                    style={{
-                      display: 'inline-flex', alignItems: 'center', height: '32px',
-                      padding: '0 14px', borderRadius: '999px', background: '#ffffff',
-                      border: '1px solid #e5e5e5', fontSize: 'var(--text-sm)',
-                      color: '#171717', textDecoration: 'none'
-                    }}
-                  >
+                  <Link key={term} href={`/search?q=${encodeURIComponent(term)}`} style={chipStyle} {...chipHover}>
                     {term}
                   </Link>
                 ))}
@@ -565,22 +615,14 @@ function SearchPageContent() {
               stats endpoint; themeSlug keeps these on the canonical URL form
               so they do not take the 301 added in middleware.ts. */}
           {!isSearchActive && (
-            <div style={{ maxWidth: '640px', margin: '32px auto 0', width: '100%' }}>
-              <h2 style={{ margin: '0 0 12px', fontSize: 'var(--text-sm)', fontWeight: 600, color: '#525252' }}>
+            <div style={{ maxWidth: '640px', margin: '40px auto 0', width: '100%' }}>
+              <h2 style={groupLabelStyle}>
+                <Squares2X2Icon style={{ width: '16px', height: '16px', color: '#737373' }} aria-hidden="true" />
                 {t('search.browseByTheme') || 'Browse by theme'}
               </h2>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                 {POPULAR_THEMES.slice(0, 12).map(theme => (
-                  <Link
-                    key={theme}
-                    href={`/themes/${themeSlug(theme)}`}
-                    style={{
-                      display: 'inline-flex', alignItems: 'center', height: '32px',
-                      padding: '0 14px', borderRadius: '999px', background: '#ffffff',
-                      border: '1px solid #e5e5e5', fontSize: 'var(--text-sm)',
-                      color: '#171717', textDecoration: 'none'
-                    }}
-                  >
+                  <Link key={theme} href={`/themes/${themeSlug(theme)}`} style={chipStyle} {...chipHover}>
                     {theme}
                   </Link>
                 ))}
