@@ -295,8 +295,28 @@ async function convertAndShip() {
     summary.push(line);
   }
 
-  // metadata.json claimed 2026-04-19 while the files were rewritten in
-  // August, so it could not be used to tell when the catalog last changed.
+  // Change detection runs on the CATALOG FILES ONLY, before metadata is
+  // touched.
+  //
+  // metadata.json used to be stamped first, with the current time. That made
+  // the working tree dirty on every run, so the "already current" check below
+  // could never fire and the script committed and deployed a no-op every time
+  // it ran -- which it did, twice, during its own testing.
+  //
+  // lastUpdated also has to mean "when the catalog data changed", not "when
+  // this script last ran". Stamping it on a no-change run left it claiming an
+  // update that had not happened, which is worse than the stale value it
+  // replaced.
+  const catalogChanged = execSync(
+    'git status --porcelain public/catalog/minifigs.json public/catalog/boxes.json',
+    { cwd: ROOT }
+  ).toString().trim() !== '';
+
+  if (!catalogChanged) {
+    console.log('\n✨ Catalog is already current — nothing changed. Stopping here.\n');
+    return;
+  }
+
   const metaPath = path.join(CATALOG_DIR, 'metadata.json');
   const meta = fs.existsSync(metaPath) ? JSON.parse(fs.readFileSync(metaPath, 'utf-8')) : {};
   const minifigs = JSON.parse(fs.readFileSync(path.join(CATALOG_DIR, 'minifigs.json'), 'utf-8'));
@@ -307,13 +327,8 @@ async function convertAndShip() {
     totalBoxes: boxes.length,
     lastUpdated: new Date().toISOString(),
     source: 'BrickLink Catalog Download',
-  }, null, 2));
+  }, null, 2) + '\n');
   console.log('   ✅ metadata.json stamped');
-
-  if (execSync('git status --porcelain public/catalog', { cwd: ROOT }).toString().trim() === '') {
-    console.log('\n✨ Catalog is already current — nothing changed. Stopping here.\n');
-    return;
-  }
 
   if (DRY_RUN) {
     console.log('\n⏹  --dry-run: public/catalog written, stopping before build/commit/deploy.');
