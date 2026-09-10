@@ -522,10 +522,28 @@ export default async function MinifigPage({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
-      />
+      {/* Product schema, only when there is a price to put in it.
+          
+          Google requires a Product to carry at least ONE of offers, review or
+          aggregateRating. This morning's fix stopped emitting an `offers`
+          block with no lowPrice in it -- correct as far as it went, and 51
+          pages were validated clean -- but on pages with no cached price it
+          left a Product with none of the three, which is the same critical
+          severity under a different name: "Either offers, review, or
+          aggregateRating should be specified".
+          
+          We have no reviews and no ratings, and inventing them is a
+          manual-action risk. So a page with no price has nothing truthful to
+          put in a Product, and a Product that cannot be eligible for a
+          product snippet should not be claimed at all. The page keeps its
+          BreadcrumbList and the site-level schemas; only this one is
+          conditional, and it returns as soon as the price caches. */}
+      {offer && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+        />
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
