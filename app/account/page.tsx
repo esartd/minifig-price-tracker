@@ -1040,6 +1040,14 @@ export default function AccountPage() {
                       title={t('account.profile.avatar.useGoogle') || 'Use my Google photo'}
                       style={{
                         padding: '8px',
+                        // Square, or border-radius:999px gives a pill. The grid
+                        // column sets the width and the content sets the
+                        // height, so they never matched on their own -- these
+                        // measured 81x78 and read as visibly not-round.
+                        aspectRatio: '1 / 1',
+                        justifySelf: 'center',
+                        width: '100%',
+                        maxWidth: '78px',
                         background: selectedAvatar === session.user.googleImage ? '#eff6ff' : '#ffffff',
                         border: selectedAvatar === session.user.googleImage ? '2px solid #3b82f6' : '1px solid #e5e5e5',
                         borderRadius: '999px',
@@ -1068,6 +1076,12 @@ export default function AccountPage() {
                       disabled={loading}
                       style={{
                         padding: '8px',
+                        // See the Google button above: square keeps
+                        // border-radius:999px a circle rather than a pill.
+                        aspectRatio: '1 / 1',
+                        justifySelf: 'center',
+                        width: '100%',
+                        maxWidth: '78px',
                         background: selectedAvatar === avatar.id ? '#eff6ff' : '#ffffff',
                         border: selectedAvatar === avatar.id ? '2px solid #3b82f6' : '1px solid #e5e5e5',
                         borderRadius: '999px',
