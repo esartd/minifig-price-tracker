@@ -1048,6 +1048,12 @@ export default function AccountPage() {
                         justifySelf: 'center',
                         width: '100%',
                         maxWidth: '78px',
+                        // Without border-box the selected item is the only oval
+                        // in the grid: it takes a 2px border instead of 1px, and
+                        // that extra pixel per side grows the height while
+                        // maxWidth pins the width. Measured 78x80 against 78x78
+                        // for every sibling.
+                        boxSizing: 'border-box',
                         background: selectedAvatar === session.user.googleImage ? '#eff6ff' : '#ffffff',
                         border: selectedAvatar === session.user.googleImage ? '2px solid #3b82f6' : '1px solid #e5e5e5',
                         borderRadius: '999px',
@@ -1082,6 +1088,12 @@ export default function AccountPage() {
                         justifySelf: 'center',
                         width: '100%',
                         maxWidth: '78px',
+                        // Without border-box the selected item is the only oval
+                        // in the grid: it takes a 2px border instead of 1px, and
+                        // that extra pixel per side grows the height while
+                        // maxWidth pins the width. Measured 78x80 against 78x78
+                        // for every sibling.
+                        boxSizing: 'border-box',
                         background: selectedAvatar === avatar.id ? '#eff6ff' : '#ffffff',
                         border: selectedAvatar === avatar.id ? '2px solid #3b82f6' : '1px solid #e5e5e5',
                         borderRadius: '999px',
