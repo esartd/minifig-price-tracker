@@ -1999,8 +1999,8 @@
       "privateDescription": "Din samling är dold för allmänheten"
     },
     "map": {
-      "title": "Samlare i {count} länder",
-      "subtitle": "Överallt där IntoBrick används",
+      "title": "Besökare från {count} länder",
+      "subtitle": "Överallt där IntoBrick har öppnats",
       "legend": "Besökare",
       "none": "inga"
     }

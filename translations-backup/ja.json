@@ -1999,8 +1999,8 @@
       "privateDescription": "あなたのコレクションは非公開です"
     },
     "map": {
-      "title": "{count} か国のコレクター",
-      "subtitle": "IntoBrick が使われている国ぐに",
+      "title": "{count} か国からの訪問者",
+      "subtitle": "IntoBrick が開かれた国ぐに",
       "legend": "訪問者",
       "none": "なし"
     }

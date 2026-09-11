@@ -1944,8 +1944,8 @@
       "privateDescription": "Tu colección está oculta del público"
     },
     "map": {
-      "title": "Coleccionistas en {count} países",
-      "subtitle": "En todos los lugares donde se usa IntoBrick",
+      "title": "Visitantes de {count} países",
+      "subtitle": "En todos los lugares donde se ha abierto IntoBrick",
       "legend": "Visitantes",
       "none": "ninguno"
     }

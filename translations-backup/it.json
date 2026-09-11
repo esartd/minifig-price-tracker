@@ -1999,8 +1999,8 @@
       "privateDescription": "La tua collezione è nascosta al pubblico"
     },
     "map": {
-      "title": "Collezionisti in {count} paesi",
-      "subtitle": "Ovunque venga usato IntoBrick",
+      "title": "Visitatori da {count} paesi",
+      "subtitle": "Ovunque IntoBrick sia stato aperto",
       "legend": "Visitatori",
       "none": "nessuno"
     }

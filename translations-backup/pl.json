@@ -1999,8 +1999,8 @@
       "privateDescription": "Twoja kolekcja jest ukryta przed opinią publiczną"
     },
     "map": {
-      "title": "Kolekcjonerzy w {count} krajach",
-      "subtitle": "Wszędzie tam, gdzie korzysta się z IntoBricka",
+      "title": "Odwiedzający z {count} krajów",
+      "subtitle": "Wszędzie tam, gdzie otwierano IntoBricka",
       "legend": "Odwiedzający",
       "none": "brak"
     }

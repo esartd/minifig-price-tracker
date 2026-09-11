@@ -1944,8 +1944,8 @@
       "privateDescription": "Deine Sammlung ist für die Öffentlichkeit verborgen"
     },
     "map": {
-      "title": "Sammler in {count} Ländern",
-      "subtitle": "Überall, wo IntoBrick genutzt wird",
+      "title": "Besucher aus {count} Ländern",
+      "subtitle": "Überall, wo IntoBrick geöffnet wurde",
       "legend": "Besucher",
       "none": "keine"
     }

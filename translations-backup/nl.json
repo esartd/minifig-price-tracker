@@ -1999,8 +1999,8 @@
       "privateDescription": "Uw verzameling is verborgen voor het publiek"
     },
     "map": {
-      "title": "Verzamelaars in {count} landen",
-      "subtitle": "Overal waar IntoBrick wordt gebruikt",
+      "title": "Bezoekers uit {count} landen",
+      "subtitle": "Overal waar IntoBrick is geopend",
       "legend": "Bezoekers",
       "none": "geen"
     }

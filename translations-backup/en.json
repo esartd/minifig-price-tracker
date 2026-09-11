@@ -2242,8 +2242,8 @@
       "privateDescription": "Your collection is hidden from the public"
     },
     "map": {
-      "title": "Collectors in {count} countries",
-      "subtitle": "Everywhere IntoBrick has been used",
+      "title": "Visitors from {count} countries",
+      "subtitle": "Everywhere IntoBrick has been opened",
       "legend": "Visitors",
       "none": "none"
     }

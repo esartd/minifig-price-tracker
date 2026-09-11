@@ -68,15 +68,22 @@ export default async function VisitorWorldMap({ locale }: { locale: Locale }) {
   const countryUsers = new Map(data.countries.map((c) => [c.code, c.users]));
   const stateUsers = new Map((stateData?.states ?? []).map((s) => [s.name, s.users]));
 
+  // "Visitors", not "Collectors". This said "Collectors in 98 countries" and
+  // that was an overclaim: the number is GA totalUsers -- anyone who loaded a
+  // page, crawlers included -- while a collector is someone with an actual
+  // collection, of which there are around sixty. Nothing here can tell you
+  // which country a registered collector is in; GA only knows page views, and
+  // the account records have no country on them.
+  //
   // The heading counts what GA reports; the map draws what Natural Earth 110m
   // has a shape for. Those differ slightly -- Hong Kong, Singapore, Malta and
   // friends are either absent from a 110m world or smaller than a pixel at
   // this size. The GA number is the true claim and stays in the heading; the
   // map is the illustration, and nobody counts 45 shapes to check.
   const heading = (
-    t.collectors?.map?.title || 'Collectors in {count} countries'
+    t.collectors?.map?.title || 'Visitors from {count} countries'
   ).replace('{count}', String(data.totalCountries));
-  const sub = t.collectors?.map?.subtitle || 'Everywhere IntoBrick has been used';
+  const sub = t.collectors?.map?.subtitle || 'Everywhere IntoBrick has been opened';
 
   // The alt text carries the same fact as the heading, because a screen reader
   // gets nothing from 174 <path> elements.
