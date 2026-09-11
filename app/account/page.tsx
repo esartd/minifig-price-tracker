@@ -16,6 +16,13 @@ import { isAdminEmail } from '@/lib/admin-auth';
 export default function AccountPage() {
   const { t, locale } = useTranslation();
   const { data: session, status, update } = useSession();
+  // Premium price in the reader's own currency, fetched because this page is a
+  // client component and the pricing module is server-only. Null until it
+  // arrives (and if it never does), in which case the dollar price is shown --
+  // always correct, since that is what Stripe actually charges.
+  const [premiumPrice, setPremiumPrice] = useState<{
+    display: string; isConverted: boolean; billedDisplay: string;
+  } | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
@@ -101,6 +108,15 @@ export default function AccountPage() {
       setSelectedAvatar(session.user.image);
     }
   }, [session]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/premium/price')
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (!cancelled && d?.success && d.price) setPremiumPrice(d.price); })
+      .catch(() => { /* keep the dollar fallback */ });
+    return () => { cancelled = true; };
+  }, []);
 
   const renderAvatar = (avatarId: string | null, size: number = 100) => {
     if (!avatarId || avatarId === 'initials') {
@@ -1428,12 +1444,23 @@ export default function AccountPage() {
               <p style={{ fontSize: 'var(--text-sm)', color: '#737373', marginBottom: '4px', lineHeight: '1.5' }}>
                 {t('account.premium.pitch') || 'Instant listings without the collection step, plus an unlimited AI minifigure identifier.'}
               </p>
-              <p style={{ fontSize: 'var(--text-lg)', fontWeight: '700', color: '#171717', marginBottom: '16px' }}>
-                {t('premium.page.price') || '$4.99'}
+              <p style={{ fontSize: 'var(--text-lg)', fontWeight: '700', color: '#171717', marginBottom: premiumPrice?.isConverted ? '4px' : '16px' }}>
+                {premiumPrice?.display || t('premium.page.price') || '$4.99'}
                 <span style={{ fontSize: 'var(--text-sm)', fontWeight: '500', color: '#737373' }}>
                   {t('premium.page.priceSuffix') || '/month'}
                 </span>
               </p>
+              {/* Same note /premium carries, and for the same reason: Stripe
+                  has one USD price and no currency_options, so a converted
+                  figure is an estimate and the card statement will say
+                  dollars. This is the page with the upgrade button on it, so
+                  it is the more important of the two places to say so. */}
+              {premiumPrice?.isConverted && (
+                <p style={{ fontSize: 'var(--text-xs)', color: '#a3a3a3', marginBottom: '16px' }}>
+                  {(t('premium.page.billedInUsd') || 'Approximate. Billed in US dollars ({amount}).')
+                    .replace('{amount}', premiumPrice.billedDisplay)}
+                </p>
+              )}
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                 <button
                   onClick={() => handleUpgrade('monthly')}
