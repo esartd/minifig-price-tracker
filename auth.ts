@@ -220,10 +220,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
 
     async jwt({ token, user, trigger, session }) {
-      // On initial sign in (OAuth or credentials), load user data from database
-      if (user) {
+      // Loads on initial sign in -- and once more for any token minted before
+      // googleImage/hasGoogle existed.
+      //
+      // Without that second condition the avatar feature was invisible to
+      // every existing user: this block only ran when `user` is set, which is
+      // sign-in only, so a session minted before the deploy never gained the
+      // new fields and the account page saw hasGoogle as undefined. The fix
+      // has to be "when missing" rather than "every request" -- this is a
+      // database read on the JWT path, and running it unconditionally would
+      // put a query on effectively every authenticated request.
+      //
+      // `hasGoogle` is the sentinel rather than `googleImage`, because null is
+      // a legitimate settled value for googleImage (no Google account, or
+      // linked before the column existed) and would re-query forever.
+      const needsBackfill = token.hasGoogle === undefined && token.id != null;
+
+      if (user || needsBackfill) {
         const dbUser = await prisma.user.findUnique({
-          where: { id: user.id },
+          where: { id: (user?.id ?? token.id) as string },
           select: {
             id: true,
             email: true,

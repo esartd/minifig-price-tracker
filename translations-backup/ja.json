@@ -152,7 +152,9 @@
         "useGoogle": "Google の写真を使う",
         "linkGoogleTitle": "Google の写真を使いますか？",
         "linkGoogleBody": "Google アカウントを連携すると、その写真をここで使えます。{email} を使っている Google アカウントでログインしてください。",
-        "linkGoogle": "Google アカウントを連携"
+        "linkGoogle": "Google アカウントを連携",
+        "reconnectGoogleBody": "Google アカウントは連携済みですが、写真が残っていません。一度 Google でログインすると、ここで使えるようになります。",
+        "reconnectGoogle": "Google でログイン"
       },
       "fullName": "名前",
       "emailAddress": "メールアドレス",

@@ -152,7 +152,9 @@
         "useGoogle": "Använd mitt Google-foto",
         "linkGoogleTitle": "Vill du använda ditt Google-foto?",
         "linkGoogleBody": "Koppla ditt Google-konto så kan du använda dess bild här. Logga in med Google-kontot som använder {email}.",
-        "linkGoogle": "Koppla Google-konto"
+        "linkGoogle": "Koppla Google-konto",
+        "reconnectGoogleBody": "Ditt Google-konto är kopplat, men vi har inte kvar bilden. Logga in med Google en gång så blir den tillgänglig här.",
+        "reconnectGoogle": "Logga in med Google"
       },
       "fullName": "Fullständigt namn",
       "emailAddress": "Email Lägg tillress",

@@ -152,7 +152,9 @@
         "useGoogle": "Mijn Google-foto gebruiken",
         "linkGoogleTitle": "Wil je je Google-foto gebruiken?",
         "linkGoogleBody": "Koppel je Google-account, dan kun je die foto hier gebruiken. Log in met het Google-account dat {email} gebruikt.",
-        "linkGoogle": "Google-account koppelen"
+        "linkGoogle": "Google-account koppelen",
+        "reconnectGoogleBody": "Je Google-account is gekoppeld, maar we hebben de foto niet meer. Log één keer in met Google en hij is hier beschikbaar.",
+        "reconnectGoogle": "Inloggen met Google"
       },
       "fullName": "Volledige Naam",
       "emailAddress": "E-mailadres",

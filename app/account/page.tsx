@@ -1101,7 +1101,17 @@ export default function AccountPage() {
                   with a DIFFERENT address does not link, it signs you into (or
                   creates) that other account instead. Recoverable by signing
                   out, but bewildering if unwarned. */}
-              {showAvatarPicker && !session?.user?.hasGoogle && (
+              {/* Two different states share this panel, and the difference
+                  matters. hasGoogle false means no Google account at all --
+                  offer to link one. hasGoogle true with no googleImage means
+                  the account IS linked but the photo URL is gone: these are
+                  the users who picked a LEGO avatar back when `image` was the
+                  only column, which overwrote the URL in the only place it was
+                  stored. Seven of eleven linked accounts were in that state at
+                  launch. Signing in with Google again repopulates it, so say
+                  that rather than hiding the option and leaving them to wonder
+                  where their photo went. */}
+              {showAvatarPicker && !(session?.user?.hasGoogle && session.user.googleImage) && (
                 <div style={{
                   width: '100%',
                   maxWidth: '400px',
@@ -1115,9 +1125,12 @@ export default function AccountPage() {
                     {t('account.profile.avatar.linkGoogleTitle') || 'Want to use your Google photo?'}
                   </p>
                   <p style={{ margin: '0 0 12px', fontSize: 'var(--text-sm)', color: '#737373', lineHeight: 1.5 }}>
-                    {(t('account.profile.avatar.linkGoogleBody') ||
-                      'Link your Google account and you can use its picture here. Sign in with the Google account that uses {email}.')
-                      .replace('{email}', session?.user?.email || '')}
+                    {session?.user?.hasGoogle
+                      ? (t('account.profile.avatar.reconnectGoogleBody') ||
+                          'Your Google account is linked, but we no longer have its photo. Sign in with Google once and it will be available here.')
+                      : (t('account.profile.avatar.linkGoogleBody') ||
+                          'Link your Google account and you can use its picture here. Sign in with the Google account that uses {email}.')
+                          .replace('{email}', session?.user?.email || '')}
                   </p>
                   <button
                     onClick={() => signIn('google', { callbackUrl: '/account?linked=google' })}
@@ -1139,7 +1152,9 @@ export default function AccountPage() {
                       boxSizing: 'border-box'
                     }}
                   >
-                    {t('account.profile.avatar.linkGoogle') || 'Link Google account'}
+                    {session?.user?.hasGoogle
+                      ? (t('account.profile.avatar.reconnectGoogle') || 'Sign in with Google')
+                      : (t('account.profile.avatar.linkGoogle') || 'Link Google account')}
                   </button>
                 </div>
               )}

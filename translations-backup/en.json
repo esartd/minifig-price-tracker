@@ -152,7 +152,9 @@
         "useGoogle": "Use my Google photo",
         "linkGoogleTitle": "Want to use your Google photo?",
         "linkGoogleBody": "Link your Google account and you can use its picture here. Sign in with the Google account that uses {email}.",
-        "linkGoogle": "Link Google account"
+        "linkGoogle": "Link Google account",
+        "reconnectGoogleBody": "Your Google account is linked, but we no longer have its photo. Sign in with Google once and it will be available here.",
+        "reconnectGoogle": "Sign in with Google"
       },
       "fullName": "Full Name",
       "emailAddress": "Email Address",

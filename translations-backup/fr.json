@@ -152,7 +152,9 @@
         "useGoogle": "Utiliser ma photo Google",
         "linkGoogleTitle": "Envie d'utiliser votre photo Google ?",
         "linkGoogleBody": "Associez votre compte Google pour pouvoir utiliser sa photo ici. Connectez-vous avec le compte Google qui utilise {email}.",
-        "linkGoogle": "Associer un compte Google"
+        "linkGoogle": "Associer un compte Google",
+        "reconnectGoogleBody": "Votre compte Google est associé, mais nous n'avons plus sa photo. Connectez-vous une fois avec Google et elle sera disponible ici.",
+        "reconnectGoogle": "Se connecter avec Google"
       },
       "fullName": "Nom complet",
       "emailAddress": "Adresse e-mail",
