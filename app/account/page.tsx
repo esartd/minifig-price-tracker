@@ -1054,8 +1054,18 @@ export default function AccountPage() {
                         // maxWidth pins the width. Measured 78x80 against 78x78
                         // for every sibling.
                         boxSizing: 'border-box',
+                        // Selection is an INSET ring, not a thicker border.
+                        // A 2px border leaves a 58px content box under
+                        // border-box, but the avatar inside is a fixed 60px, so
+                        // the content pushed the height back out and
+                        // aspect-ratio yielded -- the selected button measured
+                        // 78x80 while every sibling was 78x78, making the one
+                        // the eye goes to the only oval. box-shadow draws the
+                        // ring without occupying layout, so the border stays
+                        // 1px for everyone and the box stays square.
                         background: selectedAvatar === session.user.googleImage ? '#eff6ff' : '#ffffff',
-                        border: selectedAvatar === session.user.googleImage ? '2px solid #3b82f6' : '1px solid #e5e5e5',
+                        border: '1px solid ' + (selectedAvatar === session.user.googleImage ? '#3b82f6' : '#e5e5e5'),
+                        boxShadow: selectedAvatar === session.user.googleImage ? 'inset 0 0 0 2px #3b82f6' : 'none',
                         borderRadius: '999px',
                         cursor: 'pointer',
                         transition: 'all 0.2s',
@@ -1094,8 +1104,18 @@ export default function AccountPage() {
                         // maxWidth pins the width. Measured 78x80 against 78x78
                         // for every sibling.
                         boxSizing: 'border-box',
+                        // Selection is an INSET ring, not a thicker border.
+                        // A 2px border leaves a 58px content box under
+                        // border-box, but the avatar inside is a fixed 60px, so
+                        // the content pushed the height back out and
+                        // aspect-ratio yielded -- the selected button measured
+                        // 78x80 while every sibling was 78x78, making the one
+                        // the eye goes to the only oval. box-shadow draws the
+                        // ring without occupying layout, so the border stays
+                        // 1px for everyone and the box stays square.
                         background: selectedAvatar === avatar.id ? '#eff6ff' : '#ffffff',
-                        border: selectedAvatar === avatar.id ? '2px solid #3b82f6' : '1px solid #e5e5e5',
+                        border: '1px solid ' + (selectedAvatar === avatar.id ? '#3b82f6' : '#e5e5e5'),
+                        boxShadow: selectedAvatar === avatar.id ? 'inset 0 0 0 2px #3b82f6' : 'none',
                         borderRadius: '999px',
                         cursor: 'pointer',
                         transition: 'all 0.2s',
