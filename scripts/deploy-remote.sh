@@ -28,13 +28,26 @@ PM2_APP="figtracker"
 
 cd "$APP_DIR"
 
-# `next build` rewrites tsconfig.json's include array to cover whichever
+# Two files are rewritten by the deploy itself and then block the NEXT one.
+#
+# tsconfig.json: `next build` rewrites its include array to cover whichever
 # distDir it was given. Committing .next-build/types keeps it stable, but if
 # a future Next version reorders the list again the working tree goes dirty
-# and this pull fails with "local changes would be overwritten". tsconfig is
-# never edited on the server, so discarding any local change is safe.
+# and this pull fails with "local changes would be overwritten".
+#
+# package-lock.json: `npm install --omit=dev` below prunes dev entries from it.
+# This one was missing here and it is what actually kept firing -- three
+# deploys aborted in one day on "Your local changes to the following files
+# would be overwritten by merge: package-lock.json", each one needing a manual
+# checkout on the server before it would go through. It looked like someone
+# was editing files on the box; it was this script all along.
+#
+# Neither file is ever edited on the server by hand and both are regenerated
+# on the next build, so discarding local changes to them is safe. Scoped to
+# exactly these two paths on purpose: a blanket `git reset --hard` here would
+# silently destroy a genuine hotfix someone had made on the machine.
 echo "==> Pulling latest code"
-git checkout -- tsconfig.json 2>/dev/null || true
+git checkout -- tsconfig.json package-lock.json 2>/dev/null || true
 git pull
 
 # .env.production used to be tracked in git, which is how 35 live credentials
