@@ -148,7 +148,11 @@
       "title": "Profielinformatie",
       "avatar": {
         "change": "Avatar Wijzigen",
-        "cancel": "Annuleren"
+        "cancel": "Annuleren",
+        "useGoogle": "Mijn Google-foto gebruiken",
+        "linkGoogleTitle": "Wil je je Google-foto gebruiken?",
+        "linkGoogleBody": "Koppel je Google-account, dan kun je die foto hier gebruiken. Log in met het Google-account dat {email} gebruikt.",
+        "linkGoogle": "Google-account koppelen"
       },
       "fullName": "Volledige Naam",
       "emailAddress": "E-mailadres",

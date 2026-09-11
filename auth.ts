@@ -136,7 +136,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     // CRITICAL: Verify Google email and enable automatic account linking
     async signIn({ account, profile, user }) {
       if (account?.provider === "google") {
-        const googleProfile = profile as { email_verified?: boolean; email?: string }
+        const googleProfile = profile as { email_verified?: boolean; email?: string; picture?: string }
 
         // MUST verify email - Google guarantees email ownership
         if (!googleProfile.email_verified) {
@@ -157,6 +157,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             const hasGoogleAccount = existingUser.Account.some(
               acc => acc.provider === 'google'
             )
+
+            // Keep the Google photo URL fresh on every sign-in, in a column of
+            // its own so that picking a LEGO avatar cannot destroy it.
+            //
+            // `image` is whichever avatar is actually shown and holds two
+            // different kinds of thing -- a Google URL or a LEGO avatar id. If
+            // the user is currently showing their Google photo, move them onto
+            // the new URL too; Google rotates these when someone changes their
+            // picture, and a stale one renders as a broken image. If they are
+            // showing a LEGO avatar, leave `image` alone -- that is their
+            // choice, and googleImage is only the standby.
+            if (googleProfile.picture) {
+              const showingGooglePhoto =
+                existingUser.image != null &&
+                (existingUser.image === existingUser.googleImage ||
+                  existingUser.image.startsWith('https://lh3.googleusercontent.com/'));
+
+              await prisma.user.update({
+                where: { id: existingUser.id },
+                data: {
+                  googleImage: googleProfile.picture,
+                  ...(showingGooglePhoto ? { image: googleProfile.picture } : {}),
+                },
+              });
+            }
 
             if (!hasGoogleAccount) {
               // Link the Google account to the existing user
@@ -182,7 +207,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               logOAuthEvent('google_signin', { email: googleProfile.email })
             }
           } else {
-            // New user signing up with Google
+            // New user signing up with Google. The row does not exist yet --
+            // the adapter creates it right after this callback returns -- so
+            // googleImage is mirrored in the jwt callback below instead, on the
+            // first pass where a dbUser exists.
             logOAuthEvent('google_signup', { email: googleProfile.email })
           }
         }
@@ -208,6 +236,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             locale: true,
             username: true,
             profilePublic: true,
+            googleImage: true,
+            Account: { select: { provider: true } },
           }
         })
 
@@ -223,6 +253,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           token.locale = dbUser.locale
           token.username = dbUser.username
           token.profilePublic = dbUser.profilePublic
+
+          // A brand-new Google signup has its row created by the adapter AFTER
+          // the signIn callback runs, so that callback had nothing to update.
+          // This is the first pass where the row exists: if the adapter stored
+          // a Google photo as `image` and googleImage is still empty, mirror it
+          // now. Without this the very first Google session has no standby
+          // photo, so the account page would offer no way back after picking a
+          // LEGO avatar.
+          let googleImage = dbUser.googleImage
+          if (!googleImage && dbUser.image?.startsWith('https://lh3.googleusercontent.com/')) {
+            googleImage = dbUser.image
+            await prisma.user.update({
+              where: { id: dbUser.id },
+              data: { googleImage },
+            })
+          }
+
+          token.googleImage = googleImage
+          token.hasGoogle = dbUser.Account.some((a) => a.provider === 'google')
         }
       }
 
@@ -230,6 +279,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (trigger === "update") {
         if (session?.image) {
           token.picture = session.image
+        }
+        if (session?.googleImage !== undefined) {
+          token.googleImage = session.googleImage
         }
         if (session?.preferredCurrency !== undefined) {
           token.preferredCurrency = session.preferredCurrency
@@ -261,6 +313,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.locale = token.locale as string
         session.user.username = token.username as string | null | undefined
         session.user.profilePublic = token.profilePublic as boolean | null | undefined
+        // Both are needed by the account page's avatar picker: whether to offer
+        // the Google option at all, and what to show in it.
+        session.user.googleImage = token.googleImage as string | null | undefined
+        session.user.hasGoogle = token.hasGoogle as boolean | undefined
       }
       return session
     },

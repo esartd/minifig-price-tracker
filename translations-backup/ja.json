@@ -148,7 +148,11 @@
       "title": "プロフィール情報",
       "avatar": {
         "change": "アバターを変更",
-        "cancel": "キャンセル"
+        "cancel": "キャンセル",
+        "useGoogle": "Google の写真を使う",
+        "linkGoogleTitle": "Google の写真を使いますか？",
+        "linkGoogleBody": "Google アカウントを連携すると、その写真をここで使えます。{email} を使っている Google アカウントでログインしてください。",
+        "linkGoogle": "Google アカウントを連携"
       },
       "fullName": "名前",
       "emailAddress": "メールアドレス",

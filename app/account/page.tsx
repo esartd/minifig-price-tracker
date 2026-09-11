@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { useSession, signOut } from 'next-auth/react';
+import { useSession, signOut, signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { getCurrenciesByContinent, SUPPORTED_CURRENCIES } from '@/lib/currency-config';
@@ -118,6 +118,29 @@ export default function AccountPage() {
           justifyContent: 'center'
         }}>
           {getInitials(session?.user?.name)}
+        </div>
+      );
+    }
+
+    // A Google photo URL rather than a LEGO avatar id. This branch did not
+    // exist, so `image` holding a Google URL fell through to the initials
+    // circle -- every Google user saw initials on this page while the header
+    // and the community pages showed their photo correctly.
+    if (avatarId.startsWith('http')) {
+      return (
+        <div style={{
+          width: `${size}px`,
+          height: `${size}px`,
+          borderRadius: '50%',
+          overflow: 'hidden',
+          background: '#ffffff'
+        }}>
+          <img
+            src={avatarId}
+            alt={t('account.profile.avatarAlt') || 'Avatar'}
+            referrerPolicy="no-referrer"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
         </div>
       );
     }
@@ -401,12 +424,15 @@ export default function AccountPage() {
         return;
       }
 
-      // Update local state immediately for visual feedback
-      setSelectedAvatar(avatar);
+      // Use what the server resolved, not what we sent: "google" is a sentinel
+      // that expands server-side to the stored photo URL, and echoing the
+      // sentinel here would show a broken image until the next page load.
+      const resolved = data.avatar ?? avatar;
+      setSelectedAvatar(resolved);
       setShowAvatarPicker(false);
 
       // Update session without signing out (like Google/Apple)
-      await update({ image: avatar });
+      await update({ image: resolved });
       router.refresh(); // Refresh server components to show new avatar in header
 
       showMessage('success', t('account.messages.avatarUpdated'));
@@ -1000,6 +1026,41 @@ export default function AccountPage() {
                   borderRadius: '12px',
                   border: '1px solid #e5e5e5'
                 }}>
+                  {/* "Use my Google photo", offered only when a Google
+                      account is actually linked. It sits first because it is
+                      the one option that is personal to the user; the sixteen
+                      LEGO avatars follow. Sends the sentinel "google" rather
+                      than the URL -- the server resolves it from its own
+                      record, so a request can never set the avatar to an
+                      arbitrary image. */}
+                  {session?.user?.hasGoogle && session.user.googleImage && (
+                    <button
+                      onClick={() => handleAvatarSelect('google')}
+                      disabled={loading}
+                      title={t('account.profile.avatar.useGoogle') || 'Use my Google photo'}
+                      style={{
+                        padding: '8px',
+                        background: selectedAvatar === session.user.googleImage ? '#eff6ff' : '#ffffff',
+                        border: selectedAvatar === session.user.googleImage ? '2px solid #3b82f6' : '1px solid #e5e5e5',
+                        borderRadius: '999px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                        outline: 'none',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (selectedAvatar !== session.user.googleImage) e.currentTarget.style.borderColor = '#3b82f6';
+                      }}
+                      onMouseLeave={(e) => {
+                        if (selectedAvatar !== session.user.googleImage) e.currentTarget.style.borderColor = '#e5e5e5';
+                      }}
+                    >
+                      {renderAvatar(session.user.googleImage, 60)}
+                    </button>
+                  )}
+
                   {avatarOptions.map((avatar) => (
                     <button
                       key={avatar.id}
@@ -1027,6 +1088,59 @@ export default function AccountPage() {
                       {renderAvatar(avatar.id, 60)}
                     </button>
                   ))}
+                </div>
+              )}
+
+              {/* Linking, for password accounts. auth.ts already links a Google
+                  sign-in to an existing user when the verified Google email
+                  matches -- this is just the way to start that from here
+                  instead of having to sign out first.
+
+                  The same-email warning is load-bearing, not boilerplate: the
+                  link is matched ON the email, so authorising a Google account
+                  with a DIFFERENT address does not link, it signs you into (or
+                  creates) that other account instead. Recoverable by signing
+                  out, but bewildering if unwarned. */}
+              {showAvatarPicker && !session?.user?.hasGoogle && (
+                <div style={{
+                  width: '100%',
+                  maxWidth: '400px',
+                  marginTop: '12px',
+                  padding: '14px 16px',
+                  background: '#ffffff',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '12px'
+                }}>
+                  <p style={{ margin: '0 0 4px', fontSize: 'var(--text-sm)', fontWeight: 600, color: '#171717' }}>
+                    {t('account.profile.avatar.linkGoogleTitle') || 'Want to use your Google photo?'}
+                  </p>
+                  <p style={{ margin: '0 0 12px', fontSize: 'var(--text-sm)', color: '#737373', lineHeight: 1.5 }}>
+                    {(t('account.profile.avatar.linkGoogleBody') ||
+                      'Link your Google account and you can use its picture here. Sign in with the Google account that uses {email}.')
+                      .replace('{email}', session?.user?.email || '')}
+                  </p>
+                  <button
+                    onClick={() => signIn('google', { callbackUrl: '/account?linked=google' })}
+                    disabled={loading}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '38px',
+                      padding: '0 18px',
+                      fontSize: 'var(--text-sm)',
+                      fontWeight: 600,
+                      fontFamily: 'inherit',
+                      color: '#3b82f6',
+                      background: '#ffffff',
+                      border: '1px solid #3b82f6',
+                      borderRadius: '999px',
+                      cursor: 'pointer',
+                      boxSizing: 'border-box'
+                    }}
+                  >
+                    {t('account.profile.avatar.linkGoogle') || 'Link Google account'}
+                  </button>
                 </div>
               )}
             </div>

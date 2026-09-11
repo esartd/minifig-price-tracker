@@ -14,6 +14,15 @@ declare module 'next-auth' {
       locale?: string | null;
       username?: string | null;
       profilePublic?: boolean | null;
+      /**
+       * The Google profile picture URL, held separately from `image` so that
+       * picking a LEGO avatar does not destroy it. `image` is whatever the user
+       * is currently showing; this is the standby.
+       */
+      googleImage?: string | null;
+      /** Whether a Google account is linked -- gates the "use my Google photo"
+       *  option in the avatar picker. */
+      hasGoogle?: boolean;
     };
   }
 

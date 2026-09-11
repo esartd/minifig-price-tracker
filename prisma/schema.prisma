@@ -330,6 +330,16 @@ model User {
   password                   String?
   emailVerified              DateTime?
   image                      String?
+  /// The Google profile picture URL, kept separately from `image` so that
+  /// choosing a LEGO avatar does not destroy it.
+  ///
+  /// `image` holds whichever avatar the user is actually showing -- a Google
+  /// URL or a LEGO avatar id like "ninja-purple". Before this column existed,
+  /// a Google user who picked a LEGO avatar overwrote their photo URL in the
+  /// only place it was stored, and had no way back to it short of unlinking
+  /// and re-linking the account. Refreshed on every Google sign-in, so a
+  /// changed Google photo follows through.
+  googleImage                String?                     @db.Text
   preferredCurrency          String?                     @default("USD")
   preferredCountryCode       String?                     @default("US")
   preferredRegion            String?                     @default("north_america")

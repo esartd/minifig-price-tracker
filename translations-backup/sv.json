@@ -148,7 +148,11 @@
       "title": "Profilinformation",
       "avatar": {
         "change": "Byt avatar",
-        "cancel": "Avbryt"
+        "cancel": "Avbryt",
+        "useGoogle": "Använd mitt Google-foto",
+        "linkGoogleTitle": "Vill du använda ditt Google-foto?",
+        "linkGoogleBody": "Koppla ditt Google-konto så kan du använda dess bild här. Logga in med Google-kontot som använder {email}.",
+        "linkGoogle": "Koppla Google-konto"
       },
       "fullName": "Fullständigt namn",
       "emailAddress": "Email Lägg tillress",

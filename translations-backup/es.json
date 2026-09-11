@@ -148,7 +148,11 @@
       "title": "Información del perfil",
       "avatar": {
         "change": "Cambiar avatar",
-        "cancel": "Cancelar"
+        "cancel": "Cancelar",
+        "useGoogle": "Usar mi foto de Google",
+        "linkGoogleTitle": "¿Quieres usar tu foto de Google?",
+        "linkGoogleBody": "Vincula tu cuenta de Google y podrás usar su foto aquí. Inicia sesión con la cuenta de Google que usa {email}.",
+        "linkGoogle": "Vincular cuenta de Google"
       },
       "fullName": "Nombre completo",
       "emailAddress": "Correo electrónico",
