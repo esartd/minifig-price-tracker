@@ -1,5 +1,6 @@
 import { getVisitorCountries, getVisitorStates } from '@/lib/visitor-countries';
-import { WORLD_PATHS, US_STATE_PATHS, WORLD_VIEWBOX } from '@/lib/world-map-paths';
+import { WORLD_PATHS, US_STATE_PATHS, WORLD_NAMES, WORLD_VIEWBOX } from '@/lib/world-map-paths';
+import MapHoverLabel from '@/components/MapHoverLabel';
 import { getTranslations, type Locale } from '@/lib/i18n-subdomain';
 
 /**
@@ -67,6 +68,10 @@ export default async function VisitorWorldMap({ locale }: { locale: Locale }) {
   const t = await getTranslations(locale);
   const countryUsers = new Map(data.countries.map((c) => [c.code, c.users]));
   const stateUsers = new Map((stateData?.states ?? []).map((s) => [s.name, s.users]));
+  // Hover labels, in the reader's language. Falls back to English for a locale
+  // the name data does not cover, and to the country code itself rather than
+  // an empty tooltip.
+  const names = WORLD_NAMES[locale] || WORLD_NAMES.en;
 
   // "Visitors", not "Collectors". This said "Collectors in 98 countries" and
   // that was an overclaim: the number is GA totalUsers -- anyone who loaded a
@@ -116,6 +121,7 @@ export default async function VisitorWorldMap({ locale }: { locale: Locale }) {
           padding: '16px',
         }}
       >
+        <MapHoverLabel>
         <svg
           viewBox={WORLD_VIEWBOX}
           role="img"
@@ -126,6 +132,8 @@ export default async function VisitorWorldMap({ locale }: { locale: Locale }) {
             <path
               key={code}
               d={d}
+              data-name={names[code] || code}
+              aria-label={names[code] || code}
               fill={fillFor(countryUsers.get(code) ?? 0)}
               stroke={BORDER}
               // Hairline separators so two adjacent blue countries still read
@@ -149,6 +157,8 @@ export default async function VisitorWorldMap({ locale }: { locale: Locale }) {
               <path
                 key={name}
                 d={d}
+                data-name={name}
+                aria-label={name}
                 fill={fillFor(users)}
                 stroke={BORDER}
                 strokeWidth={0.4}
@@ -157,6 +167,7 @@ export default async function VisitorWorldMap({ locale }: { locale: Locale }) {
             );
           })}
         </svg>
+        </MapHoverLabel>
 
         {/* A legend is not optional once the map shades. Without it a reader
             cannot tell whether pale blue means "few" or "not sure", and the

@@ -42,8 +42,30 @@ import { geoMiller } from 'd3-geo-projection';
 import { feature } from 'topojson-client';
 import countries from 'i18n-iso-countries';
 
+const LOCALES = ['en', 'de', 'fr', 'es', 'it', 'ja', 'nl', 'pl', 'pt', 'sv'];
+
 const require = createRequire(import.meta.url);
 const topo = require('world-atlas/countries-110m.json');
+for (const l of LOCALES) countries.registerLocale(require(`i18n-iso-countries/langs/${l}.json`));
+
+/**
+ * The name to show when someone hovers a country, per locale.
+ *
+ * i18n-iso-countries has two registers and neither is right on its own. The
+ * default is formal -- Dutch returns "Bondsrepubliek Duitsland" for Germany --
+ * while `alias` is short but sometimes worse: English KR becomes "Korea,
+ * Republic of" where the default is the perfectly good "South Korea".
+ *
+ * So: take the alias when it is shorter, which fixes the formal-name cases,
+ * and ignore it below four characters, which is what stops GB collapsing from
+ * "United Kingdom" to "UK".
+ */
+function displayName(alpha2, locale) {
+  const full = countries.getName(alpha2, locale) || '';
+  const alias = countries.getName(alpha2, locale, { select: 'alias' }) || '';
+  if (alias && alias.length > 3 && alias.length <= full.length) return alias;
+  return full;
+}
 const usTopo = require('us-atlas/states-10m.json');
 
 const WIDTH = 900;
@@ -149,6 +171,16 @@ for (const f of usStates.features) {
   statePaths[f.properties.name] = d.replace(/(\d+\.\d{2})\d+/g, '$1');
 }
 
+const names = {};
+for (const l of LOCALES) {
+  names[l] = {};
+  for (const alpha2 of Object.keys(paths)) {
+    const n = displayName(alpha2, l);
+    // Fall back to English rather than emitting an empty tooltip.
+    names[l][alpha2] = n || displayName(alpha2, 'en') || alpha2;
+  }
+}
+
 const out = `/**
  * GENERATED FILE -- do not edit by hand.
  * Run \`node scripts/generate-world-map.mjs\` to rebuild.
@@ -168,6 +200,17 @@ export const WORLD_PATHS: Record<string, string> = ${JSON.stringify(paths, null,
  * GA4 \`region\` dimension returns ("California", "District of Columbia").
  */
 export const US_STATE_PATHS: Record<string, string> = ${JSON.stringify(statePaths, null, 0)};
+
+/**
+ * Country names for hover labels, keyed by locale then by ISO alpha-2.
+ *
+ * All ten locales ship in this file, but only one is ever read: the map is a
+ * server component, so the chosen locale's names are written straight into the
+ * HTML and the other nine never leave the server. US state names are not here
+ * -- they are the keys of US_STATE_PATHS, and i18n-iso-countries has no
+ * subdivision data, so those stay English.
+ */
+export const WORLD_NAMES: Record<string, Record<string, string>> = ${JSON.stringify(names, null, 0)};
 `;
 
 writeFileSync(new URL('../lib/world-map-paths.ts', import.meta.url), out);
@@ -178,4 +221,5 @@ console.log(`  countries with an alpha-2 code: ${Object.keys(paths).length}`);
 console.log(`  skipped (no numeric code): ${skipped.join(', ') || 'none'}`);
 console.log(`  US states drawn in place of the US country shape: ${Object.keys(statePaths).length}`);
 console.log(`  US country shape present in WORLD_PATHS: ${'US' in paths}`);
+console.log(`  localised names: ${LOCALES.length} locales x ${Object.keys(names.en).length} countries`);
 console.log(`  size: ${(bytes / 1024).toFixed(0)} KB`);
