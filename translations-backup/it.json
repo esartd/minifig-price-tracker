@@ -2655,7 +2655,7 @@
       "price": "$4.99",
       "priceSuffix": "/mese",
       "cancelAnytime": "Annulla quando vuoi",
-      "billedInUsd": "Importo approssimativo. L’addebito avviene in dollari statunitensi ({amount})."
+      "priceApproximate": "Importo approssimativo. Prezzo: {amount} — l'importo esatto è mostrato al pagamento."
     },
     "listingNote": {
       "body": "La stai vendendo? Premium genera l'annuncio direttamente da questa pagina, senza passare dalla collezione.",

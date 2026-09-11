@@ -1450,14 +1450,14 @@ export default function AccountPage() {
                   {t('premium.page.priceSuffix') || '/month'}
                 </span>
               </p>
-              {/* Same note /premium carries, and for the same reason: Stripe
-                  has one USD price and no currency_options, so a converted
-                  figure is an estimate and the card statement will say
-                  dollars. This is the page with the upgrade button on it, so
-                  it is the more important of the two places to say so. */}
+              {/* Same note /premium carries. It deliberately does not name a
+                  billing currency: Adaptive Pricing is on, so Stripe may
+                  present and charge in the customer's own currency, and the
+                  earlier "billed in US dollars" wording would have been wrong
+                  whenever it did. The price is $4.99 however it settles. */}
               {premiumPrice?.isConverted && (
                 <p style={{ fontSize: 'var(--text-xs)', color: '#a3a3a3', marginBottom: '16px' }}>
-                  {(t('premium.page.billedInUsd') || 'Approximate. Billed in US dollars ({amount}).')
+                  {(t('premium.page.priceApproximate') || 'Approximate. Priced at {amount} — the exact amount is shown at checkout.')
                     .replace('{amount}', premiumPrice.billedDisplay)}
                 </p>
               )}

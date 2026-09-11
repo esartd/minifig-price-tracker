@@ -63,13 +63,17 @@ export default function PremiumPageClient({ price }: { price?: PremiumPrice }) {
                 </span>
               </p>
 
-              {/* Stripe bills in dollars. When the figure above has been
-                  converted it is an estimate, and saying so here is cheaper
-                  than the chargeback that follows an unexpected currency on a
-                  card statement. */}
+              {/* The converted figure is an estimate, so say so -- but do not
+                  claim which currency the card is charged in. Adaptive Pricing
+                  is enabled on the Stripe account, which can present and charge
+                  in the customer's own currency; the earlier wording asserted
+                  US dollars and would have been wrong whenever it did. What is
+                  always true is the price: $4.99, whatever currency that
+                  settles as. Stripe pays out in USD either way, at 0% cost to
+                  us -- the conversion fee is the customer's. */}
               {price?.isConverted && (
                 <p style={{ margin: '0 0 8px', fontSize: 'var(--text-xs)', color: '#a3a3a3' }}>
-                  {(t('premium.page.billedInUsd') || 'Approximate. Billed in US dollars ({amount}).').replace(
+                  {(t('premium.page.priceApproximate') || 'Approximate. Priced at {amount} — the exact amount is shown at checkout.').replace(
                     '{amount}',
                     price.billedDisplay
                   )}

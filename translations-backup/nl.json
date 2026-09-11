@@ -2655,7 +2655,7 @@
       "price": "$4.99",
       "priceSuffix": "/maand",
       "cancelAnytime": "Op elk moment op te zeggen",
-      "billedInUsd": "Bij benadering. Wordt afgerekend in Amerikaanse dollars ({amount})."
+      "priceApproximate": "Bij benadering. Prijs: {amount} — het exacte bedrag zie je bij het afrekenen."
     },
     "listingNote": {
       "body": "Ga je hem verkopen? Premium genereert de advertentie rechtstreeks vanaf deze pagina, zonder eerst je collectie bij te werken.",

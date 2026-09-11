@@ -2655,7 +2655,7 @@
       "price": "$4.99",
       "priceSuffix": "/miesiąc",
       "cancelAnytime": "Anuluj w każdej chwili",
-      "billedInUsd": "Kwota orientacyjna. Płatność pobierana w dolarach amerykańskich ({amount})."
+      "priceApproximate": "Kwota orientacyjna. Cena: {amount} — dokładna kwota jest widoczna przy płatności."
     },
     "listingNote": {
       "body": "Sprzedajesz tę figurkę? Premium generuje opis oferty wprost na tej stronie – bez dodawania jej do kolekcji.",

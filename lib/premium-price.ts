@@ -7,15 +7,20 @@ import { getCurrencyByCode } from '@/lib/currency-config';
 /**
  * What Premium costs, shown in the reader's currency.
  *
- * Stripe bills this subscription in USD and has no per-currency prices
- * configured, so the converted figure is genuinely an estimate — the card
- * statement will say dollars. That is why `isConverted` exists: the page has
- * to say so. Showing "4,60 €" and then charging $4.99 is the kind of surprise
- * that produces chargebacks and refund requests, and it is a worse outcome
- * than simply showing the dollar price.
+ * The Stripe Price is a single USD amount with no `currency_options`, so this
+ * conversion is our own estimate and `isConverted` exists so the page can say
+ * so. Showing "4,60 €" as if it were exact is the kind of surprise that
+ * produces refund requests.
  *
- * If Stripe multi-currency prices are added later, this is the seam: read the
- * matching `currency_options` entry and drop the "billed in USD" note.
+ * What the page must NOT do is name the billing currency. Adaptive Pricing is
+ * enabled on the Stripe account, which can present and charge in the
+ * customer's own currency -- so the old "billed in US dollars" wording was
+ * wrong whenever it did. It costs us nothing either way: Stripe's docs put the
+ * conversion fee on the customer (2-4%) and pay us out in USD, so the business
+ * receives $4.99 from every country regardless.
+ *
+ * If explicit per-currency prices are added later, this is the seam: read the
+ * matching `currency_options` entry and drop the estimate note entirely.
  */
 
 export const PREMIUM_USD_PER_MONTH = 4.99;

@@ -2655,7 +2655,7 @@
       "price": "$4.99",
       "priceSuffix": "/Monat",
       "cancelAnytime": "Jederzeit kündbar",
-      "billedInUsd": "Ungefährer Wert. Abrechnung erfolgt in US-Dollar ({amount})."
+      "priceApproximate": "Ungefährer Wert. Preis: {amount} — der genaue Betrag wird beim Bezahlen angezeigt."
     },
     "listingNote": {
       "body": "Willst du sie verkaufen? Premium erstellt das Angebot direkt auf dieser Seite – ganz ohne den Umweg über deine Sammlung.",

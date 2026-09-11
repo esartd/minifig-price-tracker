@@ -2741,7 +2741,7 @@
       "price": "$4.99",
       "priceSuffix": "/month",
       "cancelAnytime": "Cancel anytime",
-      "billedInUsd": "Approximate. Billed in US dollars ({amount})."
+      "priceApproximate": "Approximate. Priced at {amount} — the exact amount is shown at checkout."
     },
     "listingNote": {
       "body": "Selling this one? Premium generates the listing straight from this page, skipping the collection step.",

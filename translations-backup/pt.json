@@ -2655,7 +2655,7 @@
       "price": "$4.99",
       "priceSuffix": "/mês",
       "cancelAnytime": "Cancela quando quiseres",
-      "billedInUsd": "Valor aproximado. A cobrança é feita em dólares americanos ({amount})."
+      "priceApproximate": "Valor aproximado. Preço: {amount} — o valor exato é apresentado no pagamento."
     },
     "listingNote": {
       "body": "Vais vendê-la? Premium gera o anúncio diretamente a partir desta página, sem passar pela tua coleção.",

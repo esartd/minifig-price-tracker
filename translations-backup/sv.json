@@ -2655,7 +2655,7 @@
       "price": "$4.99",
       "priceSuffix": "/månad",
       "cancelAnytime": "Avsluta när du vill",
-      "billedInUsd": "Ungefärligt belopp. Debiteras i amerikanska dollar ({amount})."
+      "priceApproximate": "Ungefärligt belopp. Pris: {amount} — det exakta beloppet visas i kassan."
     },
     "listingNote": {
       "body": "Tänker du sälja den? Premium genererar annonsen direkt från den här sidan, utan omvägen via samlingen.",

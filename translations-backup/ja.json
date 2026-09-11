@@ -2655,7 +2655,7 @@
       "price": "$4.99",
       "priceSuffix": "／月",
       "cancelAnytime": "いつでもキャンセル可能",
-      "billedInUsd": "概算です。請求は米ドル（{amount}）で行われます。"
+      "priceApproximate": "概算です。価格は {amount} で、正確な金額はお支払い画面に表示されます。"
     },
     "listingNote": {
       "body": "このミニフィギュアを売りますか？ Premium なら、コレクションに追加せずにこのページから出品文をそのまま生成できます。",
