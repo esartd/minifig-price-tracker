@@ -2000,7 +2000,9 @@
     },
     "map": {
       "title": "{count} か国のコレクター",
-      "subtitle": "IntoBrick が使われている国ぐに"
+      "subtitle": "IntoBrick が使われている国ぐに",
+      "legend": "訪問者",
+      "none": "なし"
     }
   },
   "directory": {

@@ -2000,7 +2000,9 @@
     },
     "map": {
       "title": "Verzamelaars in {count} landen",
-      "subtitle": "Overal waar IntoBrick wordt gebruikt"
+      "subtitle": "Overal waar IntoBrick wordt gebruikt",
+      "legend": "Bezoekers",
+      "none": "geen"
     }
   },
   "directory": {

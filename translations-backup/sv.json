@@ -2000,7 +2000,9 @@
     },
     "map": {
       "title": "Samlare i {count} länder",
-      "subtitle": "Överallt där IntoBrick används"
+      "subtitle": "Överallt där IntoBrick används",
+      "legend": "Besökare",
+      "none": "inga"
     }
   },
   "directory": {

@@ -2000,7 +2000,9 @@
     },
     "map": {
       "title": "Collezionisti in {count} paesi",
-      "subtitle": "Ovunque venga usato IntoBrick"
+      "subtitle": "Ovunque venga usato IntoBrick",
+      "legend": "Visitatori",
+      "none": "nessuno"
     }
   },
   "directory": {

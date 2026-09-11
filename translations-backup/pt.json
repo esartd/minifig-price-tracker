@@ -2000,7 +2000,9 @@
     },
     "map": {
       "title": "Colecionadores em {count} países",
-      "subtitle": "Em todos os sítios onde o IntoBrick é usado"
+      "subtitle": "Em todos os sítios onde o IntoBrick é usado",
+      "legend": "Visitantes",
+      "none": "nenhum"
     }
   },
   "directory": {

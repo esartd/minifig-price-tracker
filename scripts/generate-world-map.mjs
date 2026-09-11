@@ -44,6 +44,7 @@ import countries from 'i18n-iso-countries';
 
 const require = createRequire(import.meta.url);
 const topo = require('world-atlas/countries-110m.json');
+const usTopo = require('us-atlas/states-10m.json');
 
 const WIDTH = 900;
 // With Antarctica gone the remaining land is close to 2:1. fitSize letterboxes
@@ -52,6 +53,7 @@ const WIDTH = 900;
 const HEIGHT = 450;
 
 const all = feature(topo, topo.objects.countries);
+const usStates = feature(usTopo, usTopo.objects.states);
 
 /**
  * Antarctica is dropped, not just left unfilled.
@@ -67,6 +69,33 @@ const geo = {
   features: all.features.filter((f) => f.properties?.name !== 'Antarctica'),
 };
 
+/**
+ * The United States is drawn as fifty-one state shapes instead of one country
+ * shape, in this same projection, so they land exactly where the country
+ * outline was. The map stays a single world map -- the US just has internal
+ * detail nowhere else has.
+ *
+ * Only the US, and that is a data decision. Coverage of subdivisions, measured
+ * against real GA numbers:
+ *
+ *   United States  50/51  98%      Brazil      8/27  30%
+ *   Mexico         22/32  69%      India       9/36  25%
+ *   Australia       5/8   63%      Argentina   3/24  13%
+ *   Canada          8/13  62%      Russia      3/83   4%
+ *   China          16/34  47%
+ *
+ * Land area and visitor spread point opposite ways, so subdividing the biggest
+ * countries is the wrong move. Russia is the proof: largest shape on the map,
+ * solid today, would become three regions out of eighty-three. Revisit another
+ * country when it passes ~90%.
+ *
+ * Note this projection places Alaska and Hawaii where they actually are, far
+ * from the lower 48. That is correct for a world map -- the alternative,
+ * d3's geoAlbersUsa, composites them into insets at the bottom left, which is
+ * right for a standalone US map and nonsense inside a world one.
+ */
+const US_NUMERIC = '840';
+
 const projection = geoMiller().fitSize([WIDTH, HEIGHT], geo);
 // 2 decimal places: at 900px wide, a hundredth of a pixel is invisible, and
 // full float precision triples the file size for nothing.
@@ -76,6 +105,9 @@ const paths = {};
 const skipped = [];
 
 for (const f of geo.features) {
+  // Skipped because the fifty-one state shapes below cover the same ground.
+  if (String(f.id).padStart(3, '0') === US_NUMERIC) continue;
+
   // world-atlas ids are ISO 3166-1 numeric; GA4 speaks alpha-2.
   const alpha2 = countries.numericToAlpha2(String(f.id).padStart(3, '0'));
   const name = f.properties?.name ?? String(f.id);
@@ -93,6 +125,30 @@ for (const f of geo.features) {
   paths[alpha2] = d.replace(/(\d+\.\d{2})\d+/g, '$1');
 }
 
+/**
+ * The five inhabited territories are excluded. GA reports Puerto Rico, Guam,
+ * the US Virgin Islands, American Samoa and the Northern Marianas as their own
+ * COUNTRIES, not as US regions -- so they are already drawn by the country
+ * layer above, and including them here drew Puerto Rico twice, once from each
+ * layer. The country layer is the correct one because it is the one GA can
+ * actually light up.
+ */
+const US_TERRITORIES = new Set([
+  'Puerto Rico',
+  'Guam',
+  'United States Virgin Islands',
+  'American Samoa',
+  'Commonwealth of the Northern Mariana Islands',
+]);
+
+const statePaths = {};
+for (const f of usStates.features) {
+  if (US_TERRITORIES.has(f.properties.name)) continue;
+  const d = toPath(f);
+  if (!d) continue;
+  statePaths[f.properties.name] = d.replace(/(\d+\.\d{2})\d+/g, '$1');
+}
+
 const out = `/**
  * GENERATED FILE -- do not edit by hand.
  * Run \`node scripts/generate-world-map.mjs\` to rebuild.
@@ -105,6 +161,13 @@ const out = `/**
 export const WORLD_VIEWBOX = '0 0 ${WIDTH} ${HEIGHT}';
 
 export const WORLD_PATHS: Record<string, string> = ${JSON.stringify(paths, null, 0)};
+
+/**
+ * US states, in the SAME projection, replacing the US country shape which is
+ * deliberately absent from WORLD_PATHS above. Keyed by the full state name the
+ * GA4 \`region\` dimension returns ("California", "District of Columbia").
+ */
+export const US_STATE_PATHS: Record<string, string> = ${JSON.stringify(statePaths, null, 0)};
 `;
 
 writeFileSync(new URL('../lib/world-map-paths.ts', import.meta.url), out);
@@ -113,4 +176,6 @@ const bytes = Buffer.byteLength(out);
 console.log(`lib/world-map-paths.ts written`);
 console.log(`  countries with an alpha-2 code: ${Object.keys(paths).length}`);
 console.log(`  skipped (no numeric code): ${skipped.join(', ') || 'none'}`);
+console.log(`  US states drawn in place of the US country shape: ${Object.keys(statePaths).length}`);
+console.log(`  US country shape present in WORLD_PATHS: ${'US' in paths}`);
 console.log(`  size: ${(bytes / 1024).toFixed(0)} KB`);

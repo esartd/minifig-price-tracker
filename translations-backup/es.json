@@ -1945,7 +1945,9 @@
     },
     "map": {
       "title": "Coleccionistas en {count} países",
-      "subtitle": "En todos los lugares donde se usa IntoBrick"
+      "subtitle": "En todos los lugares donde se usa IntoBrick",
+      "legend": "Visitantes",
+      "none": "ninguno"
     }
   },
   "homepage": {

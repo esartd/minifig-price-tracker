@@ -2243,7 +2243,9 @@
     },
     "map": {
       "title": "Collectors in {count} countries",
-      "subtitle": "Everywhere IntoBrick has been used"
+      "subtitle": "Everywhere IntoBrick has been used",
+      "legend": "Visitors",
+      "none": "none"
     }
   },
   "directory": {
