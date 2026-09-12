@@ -1889,7 +1889,14 @@
     "tierGood20": "Good Deals - 20%+ Off",
     "readMore": "Read more",
     "readLess": "Read less",
-    "dismissDisclaimer": "Dismiss"
+    "dismissDisclaimer": "Dismiss",
+    "digest": {
+      "title": "Email me new deals",
+      "subtitle": "One email a day, only when something new drops below market value.",
+      "premiumHint": "A Premium feature. One email a day, only when something new drops below market value.",
+      "learnMore": "See Premium",
+      "signIn": "Sign in"
+    }
   },
   "collectorsDirectory": {
     "meta": {
@@ -3116,7 +3123,8 @@
     "invalidTitle": "That link did not work",
     "invalidBody": "This unsubscribe link is not valid. It may have already been used, or the address may have been changed.",
     "resubscribeHint": "Changed your mind? You can turn announcements back on in your account settings.",
-    "backHome": "Back to IntoBrick"
+    "backHome": "Back to IntoBrick",
+    "doneBodyDeals": "The daily deals digest is switched off. Everything else — announcements, password resets and any price alerts you set up — is untouched."
   },
   "homeGroups": {
     "more": "More ways to use IntoBrick",

@@ -370,6 +370,11 @@ model User {
   // dark pattern that earns spam complaints instead of unsubscribes.
   emailSubscribed                   Boolean                     @default(true)
   unsubscribeToken                  String?                     @unique
+  /// Daily Walmart deals digest. A Premium perk, and opt-IN -- unlike
+  /// emailSubscribed above, nobody is enrolled by default. Separate from the
+  /// newsletter on purpose: leaving the digest must not silently stop
+  /// announcement mail, and vice versa.
+  dealsDigest                       Boolean                     @default(false)
   shareToken                        String?                     @unique
   shareEnabled                      Boolean                     @default(false)
   shareTokenInventory               String?                     @unique
@@ -585,6 +590,15 @@ model WalmartDeal {
   ourPrice        Float?
   /// Percent below our suggested price. Negative means Walmart is dearer.
   pctBelowOurPrice Int?
+  /// The price this row carried before the most recent sync, so the daily
+  /// digest can tell "dropped further" from "unchanged". The sync writes it
+  /// from the OLD value during the upsert -- see the ON DUPLICATE KEY UPDATE
+  /// in lib/walmart-deals-refresh.ts, where assignment order is load-bearing.
+  previousPrice   Float?
+  /// When this set first appeared in the feed. Set once on insert and never
+  /// updated, so the digest can distinguish a genuinely new deal from one that
+  /// has been sitting there for a fortnight.
+  firstSeenAt     DateTime @default(now())
   lastUpdated     DateTime @default(now())
 
   @@index([discountPercent])

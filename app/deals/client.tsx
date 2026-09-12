@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import DealTierSection from '@/components/DealTierSection';
 import PageHeading from '@/components/PageHeading';
+import DealsDigestToggle from '@/components/DealsDigestToggle';
 import { useTranslation } from '@/components/TranslationProvider';
 
 // Remembering the dismissal in localStorage rather than a cookie: nothing on
@@ -436,6 +437,13 @@ export default function LegoSaleClient() {
         </div>
         </div>
       )}
+
+      {/* Sits above the grid rather than buried at the foot: someone who has
+          just scrolled a page of deals is exactly the person who wants them
+          emailed, and asking after they have gone means never asking. */}
+      <div style={{ marginTop: '16px' }}>
+        <DealsDigestToggle />
+      </div>
 
       {/* Deals Content */}
       {/* Same container recipe as every band above: the 16px page gutter goes on

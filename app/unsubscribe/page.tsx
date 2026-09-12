@@ -23,9 +23,19 @@ export const dynamic = 'force-dynamic';
 export default async function UnsubscribePage({
   searchParams,
 }: {
-  searchParams: Promise<{ token?: string }>;
+  searchParams: Promise<{ token?: string; type?: string }>;
 }) {
-  const { token } = await searchParams;
+  const { token, type } = await searchParams;
+  /**
+   * Which mail this link switches off.
+   *
+   * Default stays the announcement newsletter, because every link sent before
+   * the digest existed carries no `type` and must keep meaning what it meant.
+   * `type=deals` turns off only the daily deals digest -- someone leaving the
+   * digest has not asked to stop hearing from us entirely, and treating those
+   * as the same thing loses a subscriber we did not need to lose.
+   */
+  const target: 'newsletter' | 'deals' = type === 'deals' ? 'deals' : 'newsletter';
   const headersList = await headers();
   const locale = getLocaleFromHost(headersList.get('host') || '') as Locale;
   const t = await getTranslations(locale);
@@ -36,14 +46,15 @@ export default async function UnsubscribePage({
   if (token) {
     const user = await prisma.user.findUnique({
       where: { unsubscribeToken: token },
-      select: { id: true, emailSubscribed: true },
+      select: { id: true, emailSubscribed: true, dealsDigest: true },
     });
 
     if (user) {
-      if (user.emailSubscribed) {
+      const stillOn = target === 'deals' ? user.dealsDigest : user.emailSubscribed;
+      if (stillOn) {
         await prisma.user.update({
           where: { id: user.id },
-          data: { emailSubscribed: false },
+          data: target === 'deals' ? { dealsDigest: false } : { emailSubscribed: false },
         });
         state = 'done';
       } else {
@@ -63,8 +74,11 @@ export default async function UnsubscribePage({
         'This unsubscribe link is not valid. It may have already been used, or the address may have been changed.'
       : state === 'already'
         ? copy.alreadyBody || 'You had already unsubscribed. Nothing more to do.'
-        : copy.doneBody ||
-          'You will not receive any more announcement emails from IntoBrick. Emails about your own account — password resets and price alerts you set up — still work as before.';
+        : target === 'deals'
+          ? copy.doneBodyDeals ||
+            'The daily deals digest is switched off. Everything else — announcements, password resets and any price alerts you set up — is untouched.'
+          : copy.doneBody ||
+            'You will not receive any more announcement emails from IntoBrick. Emails about your own account — password resets and price alerts you set up — still work as before.';
 
   return (
     <div

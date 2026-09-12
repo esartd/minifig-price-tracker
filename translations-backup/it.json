@@ -1889,7 +1889,14 @@
     "tierGood20": "Buone offerte – 20%+ di sconto",
     "readMore": "Leggi di più",
     "readLess": "Leggi meno",
-    "dismissDisclaimer": "Chiudi"
+    "dismissDisclaimer": "Chiudi",
+    "digest": {
+      "title": "Inviami le nuove offerte",
+      "subtitle": "Una email al giorno, solo quando qualcosa di nuovo scende sotto il valore di mercato.",
+      "premiumHint": "Funzione Premium. Una email al giorno, solo quando qualcosa di nuovo scende sotto il valore di mercato.",
+      "learnMore": "Scopri Premium",
+      "signIn": "Accedi"
+    }
   },
   "retiringSoon": {
     "pageTitle": "Set LEGO in Dismissione Presto 2026",
@@ -3116,7 +3123,8 @@
     "invalidTitle": "Questo link non ha funzionato",
     "invalidBody": "Questo link di annullamento non è valido. Potrebbe essere già stato usato, oppure l’indirizzo è cambiato.",
     "resubscribeHint": "Cambiato idea? Puoi riattivare gli annunci nelle impostazioni del tuo account.",
-    "backHome": "Torna a IntoBrick"
+    "backHome": "Torna a IntoBrick",
+    "doneBodyDeals": "Il riepilogo giornaliero delle offerte è disattivato. Tutto il resto — annunci, reimpostazioni della password e gli avvisi di prezzo impostati — resta invariato."
   },
   "homeGroups": {
     "more": "Altri modi per usare IntoBrick",
