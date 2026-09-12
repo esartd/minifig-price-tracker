@@ -104,7 +104,7 @@ model MinifigCache {
 }
 
 model MinifigCatalog {
-  minifigure_no String   @id
+  minifigure_no String  @id
   name          String
   category_id   Int
   category_name String
@@ -128,8 +128,8 @@ model MinifigCatalog {
   description_generated_at DateTime?
   description_status       String?   @default("pending")
 
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   @@index([category_name])
   @@index([search_name])
@@ -138,7 +138,7 @@ model MinifigCatalog {
 }
 
 model SetsCatalog {
-  box_no        String   @id
+  box_no        String  @id
   name          String
   category_id   Int
   category_name String
@@ -162,8 +162,8 @@ model SetsCatalog {
   description_generated_at DateTime?
   description_status       String?   @default("pending")
 
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   @@index([category_name])
   @@index([search_name])
@@ -240,14 +240,14 @@ model ScanHistory {
   userId          String
   imageUrl        String?
   isMixed         Boolean   @default(false) // true if AI detected a custom/mixed figure
-  detectedItemNo  String?   // complete-figure case only
-  detectedName    String?   // complete-figure case only
-  confidence      Float?    // complete-figure case only
-  topMatches      Json?     // complete: alternate whole-figure guesses. mixed: {head, torso, legs, hair} part guesses
+  detectedItemNo  String? // complete-figure case only
+  detectedName    String? // complete-figure case only
+  confidence      Float? // complete-figure case only
+  topMatches      Json? // complete: alternate whole-figure guesses. mixed: {head, torso, legs, hair} part guesses
   scannedAt       DateTime  @default(now())
-  wasCorrect      Boolean?  // complete-figure case only; null until feedback given
-  correctedItemNo String?   // complete-figure case only
-  partFeedback    Json?     // mixed-figure case only: {head: {wasCorrect, correctedItemNo}, torso: {...}, legs: {...}, hair: {...}}
+  wasCorrect      Boolean? // complete-figure case only; null until feedback given
+  correctedItemNo String? // complete-figure case only
+  partFeedback    Json? // mixed-figure case only: {head: {wasCorrect, correctedItemNo}, torso: {...}, legs: {...}, hair: {...}}
   feedbackAt      DateTime?
 
   @@index([scannedAt])
@@ -324,12 +324,12 @@ model SetPersonalCollectionItem {
 }
 
 model User {
-  id                         String                      @id @default(cuid())
-  name                       String?
-  email                      String                      @unique
-  password                   String?
-  emailVerified              DateTime?
-  image                      String?
+  id                                String                      @id @default(cuid())
+  name                              String?
+  email                             String                      @unique
+  password                          String?
+  emailVerified                     DateTime?
+  image                             String?
   /// The Google profile picture URL, kept separately from `image` so that
   /// choosing a LEGO avatar does not destroy it.
   ///
@@ -339,68 +339,68 @@ model User {
   /// only place it was stored, and had no way back to it short of unlinking
   /// and re-linking the account. Refreshed on every Google sign-in, so a
   /// changed Google photo follows through.
-  googleImage                String?                     @db.Text
-  preferredCurrency          String?                     @default("USD")
-  preferredCountryCode       String?                     @default("US")
-  preferredRegion            String?                     @default("north_america")
-  currencySymbol             String?                     @default("$")
-  locale                     String?                     @default("en-US")
-  createdAt                  DateTime                    @default(now())
-  updatedAt                  DateTime                    @updatedAt
+  googleImage                       String?                     @db.Text
+  preferredCurrency                 String?                     @default("USD")
+  preferredCountryCode              String?                     @default("US")
+  preferredRegion                   String?                     @default("north_america")
+  currencySymbol                    String?                     @default("$")
+  locale                            String?                     @default("en-US")
+  createdAt                         DateTime                    @default(now())
+  updatedAt                         DateTime                    @updatedAt
   // Unused -- belonged to an abandoned AI-scanner-credits feature. Do NOT
   // reuse this for premium/subscription gating; see subscriptionStatus below.
-  scanCredits                Int                         @default(0)
-  stripeCustomerId           String?                     @unique
-  stripeSubscriptionId       String?                     @unique
-  subscriptionEndsAt         DateTime?
-  subscriptionPlan           String?
+  scanCredits                       Int                         @default(0)
+  stripeCustomerId                  String?                     @unique
+  stripeSubscriptionId              String?                     @unique
+  subscriptionEndsAt                DateTime?
+  subscriptionPlan                  String?
   // Mirrors Stripe Subscription.status verbatim: active | trialing |
   // past_due | unpaid | canceled | incomplete | incomplete_expired | paused
-  subscriptionStatus         String?
+  subscriptionStatus                String?
   // true = user canceled but retains access until subscriptionEndsAt
-  subscriptionCancelAtPeriodEnd Boolean                  @default(false)
-  showOnMinifigLeaderboard   Boolean?                    @default(true)
-  showOnSetLeaderboard       Boolean?                    @default(true)
-  leaderboardDisplayName     String?
+  subscriptionCancelAtPeriodEnd     Boolean                     @default(false)
+  showOnMinifigLeaderboard          Boolean?                    @default(true)
+  showOnSetLeaderboard              Boolean?                    @default(true)
+  leaderboardDisplayName            String?
   // Newsletter / announcement email. Opt-OUT: existing users are subscribed by
   // default because they already receive transactional mail from us, and the
   // first announcement is the rename notice they need. The token is what makes
   // one-click unsubscribe work without a login -- a recipient clicking a link
   // in an email is not signed in, and asking them to sign in to leave is a
   // dark pattern that earns spam complaints instead of unsubscribes.
-  emailSubscribed            Boolean                     @default(true)
-  unsubscribeToken           String?                     @unique
-  shareToken                 String?                     @unique
-  shareEnabled               Boolean                     @default(false)
-  shareTokenInventory        String?                     @unique
-  shareEnabledInventory      Boolean                     @default(false)
-  shareTokenInventoryPrivate String?                     @unique
-  shareEnabledInventoryPrivate Boolean                   @default(false)
-  shareTokenCollection       String?                     @unique
-  shareEnabledCollection     Boolean                     @default(false)
-  shareTokenCollectionPrivate String?                    @unique
-  shareEnabledCollectionPrivate Boolean                  @default(false)
-  shareTokenSetsInventory    String?                     @unique
-  shareEnabledSetsInventory  Boolean                     @default(false)
-  shareTokenSetsInventoryPrivate String?                 @unique
-  shareEnabledSetsInventoryPrivate Boolean               @default(false)
-  shareTokenSetsCollection   String?                     @unique
-  shareEnabledSetsCollection Boolean                     @default(false)
-  shareTokenSetsCollectionPrivate String?                @unique
-  shareEnabledSetsCollectionPrivate Boolean              @default(false)
-  totalPricingViews          Int                         @default(0)
-  username                   String?                     @unique
-  profilePublic              Boolean                     @default(true)
-  Account                    Account[]
-  CollectionItem             CollectionItem[]
-  Listing                    Listing[]
-  PersonalCollectionItem     PersonalCollectionItem[]
-  SetInventoryItem           SetInventoryItem[]
-  SetPersonalCollectionItem  SetPersonalCollectionItem[]
-  Session                    Session[]
-  WishlistItem               WishlistItem[]
-  SetWishlistItem            SetWishlistItem[]
-  PriceAlert                 PriceAlert[]
+  emailSubscribed                   Boolean                     @default(true)
+  unsubscribeToken                  String?                     @unique
+  shareToken                        String?                     @unique
+  shareEnabled                      Boolean                     @default(false)
+  shareTokenInventory               String?                     @unique
+  shareEnabledInventory             Boolean                     @default(false)
+  shareTokenInventoryPrivate        String?                     @unique
+  shareEnabledInventoryPrivate      Boolean                     @default(false)
+  shareTokenCollection              String?                     @unique
+  shareEnabledCollection            Boolean                     @default(false)
+  shareTokenCollectionPrivate       String?                     @unique
+  shareEnabledCollectionPrivate     Boolean                     @default(false)
+  shareTokenSetsInventory           String?                     @unique
+  shareEnabledSetsInventory         Boolean                     @default(false)
+  shareTokenSetsInventoryPrivate    String?                     @unique
+  shareEnabledSetsInventoryPrivate  Boolean                     @default(false)
+  shareTokenSetsCollection          String?                     @unique
+  shareEnabledSetsCollection        Boolean                     @default(false)
+  shareTokenSetsCollectionPrivate   String?                     @unique
+  shareEnabledSetsCollectionPrivate Boolean                     @default(false)
+  totalPricingViews                 Int                         @default(0)
+  username                          String?                     @unique
+  profilePublic                     Boolean                     @default(true)
+  Account                           Account[]
+  CollectionItem                    CollectionItem[]
+  Listing                           Listing[]
+  PersonalCollectionItem            PersonalCollectionItem[]
+  SetInventoryItem                  SetInventoryItem[]
+  SetPersonalCollectionItem         SetPersonalCollectionItem[]
+  Session                           Session[]
+  WishlistItem                      WishlistItem[]
+  SetWishlistItem                   SetWishlistItem[]
+  PriceAlert                        PriceAlert[]
 
   @@index([username])
   @@index([profilePublic])
@@ -500,7 +500,6 @@ model SetWishlistItem {
   @@index([box_no])
 }
 
-
 model Donation {
   id                String   @id @default(cuid())
   paypalTxnId       String   @unique
@@ -539,20 +538,57 @@ model AmazonDeal {
   @@index([boxNo])
 }
 
+/// A LEGO set currently listed at Walmart, with its price and any discount.
+///
+/// Replaces AmazonDeal above in practice: Amazon's PA-API 5.0 was retired on
+/// 15 May 2026, its successor requires 10 qualifying sales per 30 days, and
+/// this site has none -- so AmazonDeal has been frozen at five rows since May
+/// and cannot be refreshed. Walmart is reachable today through the Impact
+/// affiliate catalog, which carries CurrentPrice, OriginalPrice,
+/// DiscountPercentage and a pre-built tracked URL, refreshed daily.
+///
+/// One row per set, not per Walmart listing: Walmart lists the same set from
+/// several sellers, and the sync keeps the cheapest in-stock one.
+model WalmartDeal {
+  id              String   @id @default(cuid())
+  /// BrickLink box number, e.g. "42154-1". Matches SetsCatalog / boxes.json.
+  boxNo           String   @unique
+  /// Walmart's own item id, for de-duplicating across sync runs.
+  walmartItemId   String
+  title           String   @db.Text
+  currentPrice    Float
+  /// Walmart's "was" price. Null when the item is not discounted -- most are
+  /// not, so this is nullable rather than defaulted to currentPrice, which
+  /// would silently render as "0% off".
+  listPrice       Float?
+  discountPercent Int      @default(0)
+  inStock         Boolean  @default(true)
+  currency        String   @default("USD")
+  /// The Impact tracked URL. Already carries the partner id, so it must be
+  /// used verbatim -- rebuilding it by hand loses attribution.
+  productUrl      String   @db.Text
+  imageUrl        String?  @db.Text
+  lastUpdated     DateTime @default(now())
+
+  @@index([discountPercent])
+  @@index([lastUpdated])
+  @@index([inStock, discountPercent])
+}
+
 model Article {
-  id               String   @id @default(cuid())
-  slug             String   @unique
-  status           String   @default("draft") // draft, published, archived
-  featured         Boolean  @default(false)
-  contentBlocks    String   @db.LongText // JSON stringified ArticleBlock[]
-  readTimeMinutes  Int?
-  category         String?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-  publishedAt      DateTime?
+  id              String    @id @default(cuid())
+  slug            String    @unique
+  status          String    @default("draft") // draft, published, archived
+  featured        Boolean   @default(false)
+  contentBlocks   String    @db.LongText // JSON stringified ArticleBlock[]
+  readTimeMinutes Int?
+  category        String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  publishedAt     DateTime?
 
   // Translations stored as JSON array
-  translations     String   @db.Text // JSON stringified translation objects
+  translations String @db.Text // JSON stringified translation objects
 
   @@index([slug])
   @@index([status])
@@ -562,17 +598,17 @@ model Article {
 }
 
 model PriceFetchFailure {
-  id            String   @id @default(cuid())
+  id            String    @id @default(cuid())
   item_no       String
-  item_type     String   @default("MINIFIG") // MINIFIG or SET
-  condition     String   // new or used
+  item_type     String    @default("MINIFIG") // MINIFIG or SET
+  condition     String // new or used
   country_code  String
-  error_message String   @db.Text
-  error_type    String   // NETWORK_ERROR, API_ERROR, NO_DATA, RATE_LIMIT
-  attempt_count Int      @default(1)
-  last_attempt  DateTime @default(now())
-  first_failed  DateTime @default(now())
-  resolved      Boolean  @default(false)
+  error_message String    @db.Text
+  error_type    String // NETWORK_ERROR, API_ERROR, NO_DATA, RATE_LIMIT
+  attempt_count Int       @default(1)
+  last_attempt  DateTime  @default(now())
+  first_failed  DateTime  @default(now())
+  resolved      Boolean   @default(false)
   resolved_at   DateTime?
 
   @@unique([item_no, item_type, condition, country_code])
@@ -584,8 +620,8 @@ model PriceFetchFailure {
 
 model MonetizationEvent {
   id        String   @id @default(cuid())
-  eventType String   // "pricing_view", "donation_cta_shown", "donation_cta_clicked", "donation_completed"
-  userId    String?  // optional - can track anonymous events
+  eventType String // "pricing_view", "donation_cta_shown", "donation_cta_clicked", "donation_completed"
+  userId    String? // optional - can track anonymous events
   metadata  String?  @db.Text // JSON stringified metadata (amount, page, itemNo, etc)
   createdAt DateTime @default(now())
 
@@ -596,19 +632,19 @@ model MonetizationEvent {
 }
 
 model PriceAlert {
-  id            String   @id @default(cuid())
+  id            String    @id @default(cuid())
   userId        String
   item_no       String
-  item_type     String   // "MINIFIG" | "SET"
+  item_type     String // "MINIFIG" | "SET"
   item_name     String
-  condition     String   // "new" | "used"
+  condition     String // "new" | "used"
   target_price  Float
-  currency_code String   @default("USD")
-  active        Boolean  @default(true)
-  created_at    DateTime @default(now())
+  currency_code String    @default("USD")
+  active        Boolean   @default(true)
+  created_at    DateTime  @default(now())
   triggered_at  DateTime?
   last_checked  DateTime?
-  User          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  User          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, item_no, item_type, condition])
   @@index([active, last_checked])

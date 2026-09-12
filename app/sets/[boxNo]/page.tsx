@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getBoxByNumber, loadAllBoxes } from '@/lib/boxes-data';
+import { prisma } from '@/lib/prisma';
 import SetDetailClient from '@/components/set-detail-client';
 import { POPULAR_SETS } from '@/lib/popular-sets';
 import { DOMAINS } from '@/lib/i18n-alternates';
@@ -412,6 +413,33 @@ export default async function SetPage({
     ]
   };
 
+  /**
+   * Walmart's current price, if they list this set. Null for roughly 80% of
+   * the catalogue, and the button is simply not rendered then.
+   *
+   * A plain indexed read on a unique column -- no external call, so it cannot
+   * slow the page the way the old BrickLink contents fetch did. Failure is
+   * swallowed: a missing buy button is a far better outcome than a 500 on a
+   * page that is mostly about the price we calculate ourselves.
+   */
+  let walmartDeal = null;
+  try {
+    const row = await prisma.walmartDeal.findUnique({
+      where: { boxNo: setData.box_no },
+      select: { currentPrice: true, listPrice: true, discountPercent: true, productUrl: true, inStock: true },
+    });
+    if (row?.inStock) {
+      walmartDeal = {
+        currentPrice: row.currentPrice,
+        listPrice: row.listPrice,
+        discountPercent: row.discountPercent,
+        productUrl: row.productUrl,
+      };
+    }
+  } catch (error) {
+    console.error('[Set Detail] Walmart lookup failed:', error);
+  }
+
   return (
     <>
       {/* Product schema, only when there is a price to put in it.
@@ -442,6 +470,7 @@ export default async function SetPage({
       />
       <SetDetailClient
         set={setData}
+        walmartDeal={walmartDeal}
         themeSets={themeSetsData}
         sameYearSets={sameYearData}
         closeRangeSets={closeRangeSetsData}

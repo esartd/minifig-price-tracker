@@ -349,6 +349,14 @@
     "whatnot": {
       "name": "Whatnot",
       "description": "Live-Auktionen & Shows"
+    },
+    "walmart": {
+      "name": "Walmart",
+      "description": "Dauerhaft günstige Preise",
+      "sponsored": "Gesponsert",
+      "shopOn": "Bei Walmart einkaufen",
+      "buyOn": "Bei Walmart kaufen",
+      "percentOff": "{pct}% reduziert"
     }
   },
   "pricing": {
@@ -677,7 +685,7 @@
     "browse": "Durchsuchen",
     "aboutIntoBrick": "Über IntoBrick",
     "aboutDescription": "IntoBrick gibt dir einen empfohlenen Preis für jede LEGO-Minifigur oder jedes Set, damit du schneller listen und mit Zuversicht verkaufen kannst.",
-    "affiliateDisclosure": "Als Amazon-Partner, LEGO-Affiliate, eBay-Partner und Whatnot-Affiliate verdient IntoBrick an qualifizierten Käufen.",
+    "affiliateDisclosure": "Als Amazon-Partner, Walmart-Partner, LEGO-Affiliate, eBay-Partner und Whatnot-Affiliate verdient IntoBrick an qualifizierten Käufen.",
     "bricklinkDisclosure": "Marktdaten stammen aus mehreren Marktplätzen, darunter BrickLink. Der Begriff \"BrickLink\" ist eine Marke der LEGO Group. Diese Anwendung verwendet die BrickLink-API, wird jedoch nicht von LEGO BrickLink, Inc. unterstützt oder zertifiziert.",
     "copyright": "© {year} IntoBrick. Alle Rechte vorbehalten.",
     "sell": "Verkaufen",
@@ -1768,8 +1776,8 @@
     }
   },
   "legoSale": {
-    "pageTitle": "LEGO® Angebote",
-    "subtitle": "Die besten Amazon-Angebote für LEGO-Sets",
+    "pageTitle": "LEGO Angebote",
+    "subtitle": "Die besten Walmart-Angebote für LEGO Sets",
     "tier50": "Hervorragende Angebote - 50%+ Rabatt",
     "tier40": "Tolle Angebote - 40%+ Rabatt",
     "tier30": "Gute Angebote - 30%+ Rabatt",
@@ -1780,7 +1788,7 @@
     "sortDiscount": "Höchster Rabatt",
     "sortPrice": "Niedrigster Preis",
     "sortName": "Name (A-Z)",
-    "buyOnAmazon": "Bei Amazon Kaufen",
+    "buyOnAmazon": "Bei Walmart kaufen",
     "primeEligible": "Gesponsert",
     "noDealsinTier": "Keine Angebote in dieser Kategorie gefunden",
     "lastUpdated": "Preise aktualisiert",
@@ -1790,40 +1798,42 @@
     "price50to100": "$50 - $100",
     "price100to200": "$100 - $200",
     "priceOver200": "$200+",
-    "seoDescription": "Entdecken Sie die besten LEGO®-Angebote bei Amazon mit Rabatten von bis zu 50%. Wir verfolgen Preise über Tausende von Sets und aktualisieren alle 6 Stunden, um Ihnen die größten Ersparnisse zu bringen. Alle Angebote sind für kostenlosen Amazon Prime Versand berechtigt. Ob Sie Star Wars, City, Creator oder ein anderes Thema suchen, finden Sie Ihr nächstes LEGO-Set zum unschlagbaren Preis.",
+    "seoDescription": "LEGO Sets im Angebot bei Walmart, täglich geprüft und nach Rabatt sortiert.",
     "allPrices": "Alle Preise",
     "loadingDeals": "Angebote werden geladen...",
     "meta": {
-      "description": "Finde die besten LEGO-Angebote bei Amazon mit Rabatten von bis zu 50%. Alle 6 Stunden aktualisiert. Durchsuche aktuelle LEGO-Sets von Star Wars, City, Creator und mehr. Kostenloser Versand mit Prime.",
+      "description": "LEGO Sets im Angebot bei Walmart, täglich geprüft und nach Rabatt sortiert. Nach Thema, Preis oder Ersparnis stöbern.",
       "keywords": [
         "LEGO Angebote",
-        "LEGO Deals",
-        "LEGO Amazon",
-        "günstige LEGO-Sets",
-        "LEGO Rabatt",
+        "LEGO Rabatte",
+        "LEGO Walmart",
+        "günstige LEGO Sets",
+        "LEGO Sale",
         "LEGO Ausverkauf",
         "LEGO Star Wars Angebote",
-        "LEGO City Deals",
-        "beste LEGO-Preise",
-        "LEGO Angebote",
+        "LEGO City Angebote",
+        "beste LEGO Preise",
         "LEGO Aktionen"
       ],
       "notFoundTitle": "Seite nicht gefunden",
-      "ogDescription": "Entdecke die besten LEGO-Angebote bei Amazon. Alle 6 Stunden aktualisiert mit Rabatten von 20% bis 50%.",
-      "ogTitle": "LEGO® Angebote - Bis zu 50% Rabatt bei Amazon",
-      "title": "LEGO® Angebote: Bis zu 50% Rabatt bei Amazon",
-      "twitterDescription": "Finde LEGO-Sets mit bis zu 50% Rabatt bei Amazon",
-      "twitterTitle": "LEGO® Angebote - Beste Amazon-Angebote"
+      "ogDescription": "Täglich geprüft. Sets nach Höhe des Rabatts sortiert.",
+      "ogTitle": "LEGO Angebote — Walmart-Rabatte auf LEGO Sets",
+      "title": "LEGO Angebote: Walmart-Rabatte auf LEGO Sets",
+      "twitterDescription": "LEGO Sets im Angebot bei Walmart, nach Rabatt sortiert.",
+      "twitterTitle": "LEGO Angebote — Walmart"
     },
     "priceDisclaimerLabel": "Preishinweis:",
-    "priceDisclaimerText": "Produktpreise und Verfügbarkeit sind zum angegebenen Datum/Zeitpunkt korrekt und können sich ändern. Die angezeigten Preise stammen von Amazon zum Zeitpunkt der letzten Aktualisierung (alle 6 Stunden aktualisiert). Für den Kauf dieses Produkts gelten die Preis- und Verfügbarkeitsinformationen, die zum Zeitpunkt des Kaufs bei Amazon angezeigt werden. Als Amazon-Partner, LEGO-Affiliate, eBay-Partner und Whatnot-Affiliate verdient IntoBrick an qualifizierten Käufen.",
+    "priceDisclaimerText": "Die Preise stammen von Walmart und werden einmal täglich aktualisiert, können sich also jederzeit ändern. Es gilt der Preis, der bei Walmart an der Kasse angezeigt wird.",
     "searchThemesPlaceholder": "Themen suchen...",
-    "seoParagraph": "Entdecke die besten LEGO®-Angebote bei Amazon mit Rabatten von bis zu 50%. Unsere LEGO-Angebotsseite durchsucht automatisch Tausende von LEGO-Sets und hebt die größten Ersparnisse in beliebten Themen wie Star Wars, City, Creator, Technic und mehr hervor. Egal ob du seltene ausgelaufene Sets oder die neuesten Veröffentlichungen suchst, wir verfolgen die Amazon-Preise alle 6 Stunden, damit dir kein gutes Angebot entgeht. Filtere nach Thema, Preisspanne oder Rabattprozentsatz, um genau das zu finden, wonach du suchst. Alle Angebote beinhalten kostenlosen Versand mit Amazon Prime. Beginne noch heute, bei deinen LEGO-Lieblingssets zu sparen!",
-    "subtitleUpdated": "Beste Amazon-Angebote - Alle 6 Stunden aktualisiert",
+    "seoParagraph": "Wir prüfen täglich Tausende LEGO Produkte bei Walmart, gleichen sie mit unserem Katalog ab und zeigen nur die, deren Preis wirklich gefallen ist. Sortiert nach Höhe der Ersparnis, die besten Angebote zuerst. Filtere nach Thema, Preis oder Rabatt.",
+    "subtitleUpdated": "Die besten Walmart-Angebote, täglich aktualisiert",
     "tierExcellent40": "Hervorragende Angebote - 40%+ Rabatt",
     "tierGood20": "Gute Angebote - 20%+ Rabatt",
     "tierGreat30": "Tolle Angebote - 30%+ Rabatt",
-    "tierUnbelievable50": "Unglaubliche Angebote - 50%+ Rabatt"
+    "tierUnbelievable50": "Unglaubliche Angebote - 50%+ Rabatt",
+    "readMore": "Mehr lesen",
+    "readLess": "Weniger lesen",
+    "dismissDisclaimer": "Schließen"
   },
   "retiringSoon": {
     "pageTitle": "LEGO Sets, die bald aus dem Sortiment genommen werden 2026",
@@ -3115,11 +3125,12 @@
     "sets": "Sets",
     "retiring": "Auslaufend",
     "listings": "Anzeigen",
-    "identify": "Erkennen",
-    "export": "Export",
+    "identify": "Minifig-Scan",
+    "export": "Sammelangebot",
     "whatnot": "Whatnot",
     "community": "Community",
-    "tools": "Tools"
+    "tools": "Tools",
+    "deals": "Angebote"
   },
   "listingGeneratorPage": null
 }

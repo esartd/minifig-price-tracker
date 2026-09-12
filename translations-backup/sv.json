@@ -349,6 +349,14 @@
     "whatnot": {
       "name": "Whatnot",
       "description": "Liveauktioner och shower"
+    },
+    "walmart": {
+      "name": "Walmart",
+      "description": "Låga priser varje dag",
+      "sponsored": "Sponsrad",
+      "shopOn": "Handla på Walmart",
+      "buyOn": "Köp på Walmart",
+      "percentOff": "{pct}% rabatt"
     }
   },
   "pricing": {
@@ -703,7 +711,7 @@
     "browse": "Bläddra",
     "aboutIntoBrick": "Om IntoBrick",
     "aboutDescription": "IntoBrick ger dig ett prisförslag för valfri LEGO-minifigur eller valfritt set, så att du kan lägga upp annonser snabbare och sälja med förtroende.",
-    "affiliateDisclosure": "Som Amazon Associate, LEGO Affiliate, eBay Partner och Whatnot Affiliate tjänar IntoBrick på kvalificerade köp.",
+    "affiliateDisclosure": "Som Amazon-, Walmart-, LEGO-, eBay- och Whatnot-partner tjänar IntoBrick på kvalificerande köp.",
     "bricklinkDisclosure": "Marknadsdata hämtas från flera marknadsplatser, däribland BrickLink. Termen \"BrickLink\" är ett varumärke som tillhör LEGO Group. Den här applikationen använder BrickLink API men är inte godkänd eller certifierad av LEGO BrickLink, Inc.",
     "copyright": "© {year} IntoBrick. Alla rättigheter förbehållna.",
     "sell": "Sälja",
@@ -1823,8 +1831,8 @@
     }
   },
   "legoSale": {
-    "pageTitle": "LEGO® Rea",
-    "subtitle": "Bästa Amazon-erbjudanden på LEGO-set",
+    "pageTitle": "LEGO-fynd",
+    "subtitle": "Bästa Walmart-fynden på LEGO-set",
     "tier50": "Utmärkta erbjudanden - 50%+ rabatt",
     "tier40": "Fantastiska erbjudanden - 40%+ rabatt",
     "tier30": "Bra erbjudanden - 30%+ rabatt",
@@ -1835,7 +1843,7 @@
     "sortDiscount": "Högsta rabatten",
     "sortPrice": "Lägsta priset",
     "sortName": "Namn (A-Ö)",
-    "buyOnAmazon": "Köp på Amazon",
+    "buyOnAmazon": "Köp på Walmart",
     "primeEligible": "Sponsrad",
     "noDealsinTier": "Inga erbjudanden hittades i denna kategori",
     "lastUpdated": "Priser uppdaterade",
@@ -1845,40 +1853,42 @@
     "price50to100": "$50 - $100",
     "price100to200": "$100 - $200",
     "priceOver200": "$200+",
-    "seoDescription": "Upptäck de bästa LEGO®-erbjudandena på Amazon med upp till 50 % rabatt. Vi bevakar priser på tusentals set och uppdaterar var sjätte timme för att visa dig de största fynden. Alla erbjudanden är berättigade till fri frakt med Amazon Prime. Oavsett om du letar efter Star Wars, City, Creator eller något annat tema hittar du ditt nästa LEGO-set till ett oslagbart pris.",
+    "seoDescription": "LEGO-set på rea hos Walmart, kontrollerade dagligen och sorterade efter rabatt.",
     "meta": {
       "notFoundTitle": "Sidan hittades inte",
-      "title": "LEGO® Rea: Bästa Amazon-erbjudandena upp till 50% rabatt",
-      "description": "Hitta de bästa LEGO-erbjudandena på Amazon med upp till 50% rabatt. Uppdateras var 6:e timme. Bläddra bland aktuella LEGO-set från Star Wars, City, Creator och fler. Fri frakt med Prime.",
+      "title": "LEGO-fynd: Walmart-rabatter på LEGO-set",
+      "description": "LEGO-set på rea hos Walmart, kontrollerade dagligen och sorterade efter rabatt. Bläddra på tema, pris eller rabatt.",
       "keywords": [
         "LEGO rea",
-        "LEGO-erbjudanden",
-        "LEGO Amazon",
+        "LEGO fynd",
+        "LEGO Walmart",
         "billiga LEGO-set",
         "LEGO rabatt",
-        "LEGO-utförsäljning",
+        "LEGO utförsäljning",
         "LEGO Star Wars rea",
-        "LEGO City-erbjudanden",
-        "bästa LEGO-priserna",
-        "LEGO-erbjudanden",
-        "LEGO-kampanjer"
+        "LEGO City fynd",
+        "bästa LEGO-priser",
+        "LEGO erbjudanden"
       ],
-      "ogTitle": "LEGO® Rea - Upp till 50% rabatt på Amazon",
-      "ogDescription": "Upptäck de bästa LEGO-erbjudandena på Amazon. Uppdateras var 6:e timme med rabatter från 20% till 50%.",
-      "twitterTitle": "LEGO® Rea - Bästa Amazon-erbjudandena",
-      "twitterDescription": "Hitta LEGO-set med upp till 50% rabatt på Amazon"
+      "ogTitle": "LEGO-fynd — Walmart-rabatter",
+      "ogDescription": "Kontrolleras dagligen. Set sorterade efter hur stor rabatten är.",
+      "twitterTitle": "LEGO-fynd — Walmart",
+      "twitterDescription": "LEGO-set på rea hos Walmart, sorterade efter rabatt."
     },
-    "subtitleUpdated": "Bästa Amazon-erbjudandena - Uppdateras var 6:e timme",
-    "seoParagraph": "Upptäck de bästa LEGO®-erbjudandena på Amazon med upp till 50% rabatt. Vår LEGO-reasida skannar automatiskt tusentals LEGO-set och lyfter fram de största besparingarna inom populära teman som Star Wars, City, Creator, Technic och fler. Oavsett om du letar efter sällsynta utfasade set eller de senaste nyheterna följer vi Amazons priser var 6:e timme så att du aldrig missar ett bra erbjudande. Filtrera efter tema, prisintervall eller rabattprocent för att hitta exakt det du letar efter. Alla erbjudanden har fri frakt med Amazon Prime. Börja spara på dina favorit-LEGO-set redan idag!",
+    "subtitleUpdated": "Bästa Walmart-fynden, uppdaterade dagligen",
+    "seoParagraph": "Vi kontrollerar tusentals LEGO-produkter hos Walmart varje dag, matchar dem mot vår katalog och visar bara de som faktiskt sänkts i pris. Sorterade efter hur stor besparingen är. Filtrera på tema, pris eller rabatt.",
     "searchThemesPlaceholder": "Sök teman...",
     "allPrices": "Alla priser",
     "priceDisclaimerLabel": "Prisreservation:",
-    "priceDisclaimerText": "Produktpriser och tillgänglighet är korrekta per angivet datum/tidpunkt och kan ändras. Visade priser kommer från Amazon vid senaste uppdatering (uppdateras var 6:e timme). Den pris- och tillgänglighetsinformation som visas på Amazon vid köptillfället gäller för köpet av denna produkt. Som Amazon Associate, LEGO Affiliate, eBay Partner och Whatnot Affiliate tjänar IntoBrick på kvalificerade köp.",
+    "priceDisclaimerText": "Priserna kommer från Walmart och uppdateras en gång om dagen, så de kan ändras när som helst. Det pris som visas på Walmart i kassan är det som gäller.",
     "loadingDeals": "Laddar erbjudanden...",
     "tierUnbelievable50": "Otroliga erbjudanden - 50%+ rabatt",
     "tierExcellent40": "Utmärkta erbjudanden - 40%+ rabatt",
     "tierGreat30": "Bra erbjudanden - 30%+ rabatt",
-    "tierGood20": "Goda erbjudanden - 20%+ rabatt"
+    "tierGood20": "Goda erbjudanden - 20%+ rabatt",
+    "readMore": "Läs mer",
+    "readLess": "Läs mindre",
+    "dismissDisclaimer": "Stäng"
   },
   "retiringSoon": {
     "pageTitle": "LEGO Set som Försvinner Snart 2026",
@@ -3115,11 +3125,12 @@
     "sets": "Set",
     "retiring": "Utgår snart",
     "listings": "Annonser",
-    "identify": "Identifiera",
-    "export": "Export",
+    "identify": "Skanna minifig",
+    "export": "Massannonsering",
     "whatnot": "Whatnot",
     "community": "Community",
-    "tools": "Verktyg"
+    "tools": "Verktyg",
+    "deals": "Fynd"
   },
   "listingGeneratorPage": null
 }

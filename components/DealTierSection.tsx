@@ -5,15 +5,15 @@ import { useTranslation } from '@/components/TranslationProvider';
 
 interface Deal {
   boxNo: string;
-  asin: string;
+  walmartItemId: string;
   name: string;
   theme: string;
   currentPrice: number;
-  listPrice: number;
+  listPrice: number | null;
   discountPercent: number;
-  isPrime: boolean;
+
   imageUrl: string;
-  amazonUrl: string;
+  buyUrl: string;
 }
 
 interface DealTierSectionProps {

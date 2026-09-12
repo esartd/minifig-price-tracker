@@ -349,6 +349,14 @@
     "whatnot": {
       "name": "Whatnot",
       "description": "Live veilingen & shows"
+    },
+    "walmart": {
+      "name": "Walmart",
+      "description": "Elke dag lage prijzen",
+      "sponsored": "Gesponsord",
+      "shopOn": "Shoppen bij Walmart",
+      "buyOn": "Kopen bij Walmart",
+      "percentOff": "{pct}% korting"
     }
   },
   "pricing": {
@@ -703,7 +711,7 @@
     "browse": "Bladeren",
     "aboutIntoBrick": "Over IntoBrick",
     "aboutDescription": "IntoBrick geeft je één voorgestelde prijs voor elke LEGO minifiguur of set, zodat je sneller kunt listen en met vertrouwen kunt verkopen.",
-    "affiliateDisclosure": "Als Amazon Associate, LEGO Affiliate, eBay Partner en Whatnot Affiliate verdient IntoBrick aan in aanmerking komende aankopen.",
+    "affiliateDisclosure": "Als Amazon-, Walmart-, LEGO-, eBay- en Whatnot-affiliate verdient IntoBrick aan in aanmerking komende aankopen.",
     "bricklinkDisclosure": "Marktgegevens afkomstig van meerdere marktplaatsen, waaronder BrickLink. De term \"BrickLink\" is een handelsmerk van de LEGO Group. Deze applicatie maakt gebruik van de BrickLink API maar wordt niet onderschreven of gecertificeerd door LEGO BrickLink, Inc.",
     "copyright": "© {year} IntoBrick. Alle rechten voorbehouden.",
     "sell": "Verkopen",
@@ -1823,8 +1831,8 @@
     }
   },
   "legoSale": {
-    "pageTitle": "LEGO® Uitverkoop",
-    "subtitle": "Beste Amazon-deals op LEGO Sets",
+    "pageTitle": "LEGO Aanbiedingen",
+    "subtitle": "De beste Walmart-aanbiedingen voor LEGO-sets",
     "tier50": "Uitstekende Deals - 50%+ Korting",
     "tier40": "Geweldige Deals - 40%+ Korting",
     "tier30": "Goede Deals - 30%+ Korting",
@@ -1835,7 +1843,7 @@
     "sortDiscount": "Hoogste Korting",
     "sortPrice": "Laagste Prijs",
     "sortName": "Naam (A-Z)",
-    "buyOnAmazon": "Koop op Amazon",
+    "buyOnAmazon": "Kopen bij Walmart",
     "primeEligible": "Gesponsord",
     "noDealsinTier": "Geen deals gevonden in deze categorie",
     "lastUpdated": "Prijzen bijgewerkt",
@@ -1845,40 +1853,42 @@
     "price50to100": "$50 - $100",
     "price100to200": "$100 - $200",
     "priceOver200": "$200+",
-    "seoDescription": "Ontdek de beste LEGO® deals op Amazon met kortingen tot 50%. We volgen prijzen van duizenden sets en updaten elke 6 uur om je de grootste besparingen te bieden. Alle deals komen in aanmerking voor gratis Amazon Prime-verzending. Of je nu op zoek bent naar Star Wars, City, Creator of een ander thema, vind hier je volgende LEGO set voor een onverslaanbare prijs.",
+    "seoDescription": "LEGO-sets in de aanbieding bij Walmart, dagelijks gecontroleerd en gesorteerd op korting.",
     "meta": {
       "notFoundTitle": "Pagina Niet Gevonden",
-      "title": "LEGO® Uitverkoop: Beste Amazon-deals Tot 50% Korting",
-      "description": "Vind de beste LEGO-deals op Amazon met kortingen tot 50%. Elke 6 uur bijgewerkt. Blader door actuele LEGO-sets van Star Wars, City, Creator en meer. Gratis verzending met Prime.",
+      "title": "LEGO Aanbiedingen: Walmart-kortingen op LEGO-sets",
+      "description": "LEGO-sets in de aanbieding bij Walmart, dagelijks gecontroleerd en gesorteerd op korting. Blader op thema, prijs of korting.",
       "keywords": [
-        "LEGO uitverkoop",
-        "LEGO deals",
-        "LEGO Amazon",
-        "goedkope LEGO sets",
-        "LEGO korting",
-        "LEGO opruiming",
-        "LEGO Star Wars uitverkoop",
-        "LEGO City deals",
-        "beste LEGO prijzen",
         "LEGO aanbiedingen",
-        "LEGO promoties"
+        "LEGO korting",
+        "LEGO Walmart",
+        "goedkope LEGO sets",
+        "LEGO sale",
+        "LEGO uitverkoop",
+        "LEGO Star Wars aanbieding",
+        "LEGO City aanbieding",
+        "beste LEGO prijzen",
+        "LEGO acties"
       ],
-      "ogTitle": "LEGO® Uitverkoop - Tot 50% Korting op Amazon",
-      "ogDescription": "Ontdek de beste LEGO-deals op Amazon. Elke 6 uur bijgewerkt met kortingen van 20% tot 50%.",
-      "twitterTitle": "LEGO® Uitverkoop - Beste Amazon-deals",
-      "twitterDescription": "Vind LEGO-sets met tot 50% korting op Amazon"
+      "ogTitle": "LEGO Aanbiedingen — Walmart-kortingen",
+      "ogDescription": "Dagelijks gecontroleerd. Sets gesorteerd op hoogte van de korting.",
+      "twitterTitle": "LEGO Aanbiedingen — Walmart",
+      "twitterDescription": "LEGO-sets in de aanbieding bij Walmart, gesorteerd op korting."
     },
-    "subtitleUpdated": "Beste Amazon-deals - Elke 6 Uur Bijgewerkt",
-    "seoParagraph": "Ontdek de beste LEGO®-deals op Amazon met kortingen tot 50%. Onze LEGO-uitverkooppagina scant automatisch duizenden LEGO-sets en licht de grootste besparingen uit binnen populaire thema's zoals Star Wars, City, Creator, Technic en meer. Of je nu op zoek bent naar zeldzame gestopte sets of de nieuwste releases, wij volgen de Amazon-prijzen elke 6 uur zodat je nooit een goede deal mist. Filter op thema, prijsklasse of kortingspercentage om precies te vinden wat je zoekt. Alle deals bieden gratis verzending met Amazon Prime. Begin vandaag nog met besparen op je favoriete LEGO-sets!",
+    "subtitleUpdated": "De beste Walmart-aanbiedingen, dagelijks ververst",
+    "seoParagraph": "We controleren dagelijks duizenden LEGO-producten bij Walmart, koppelen ze aan onze catalogus en tonen alleen wat echt in prijs is gedaald. Gesorteerd op hoogte van de korting, de beste bovenaan. Filter op thema, prijs of korting.",
     "searchThemesPlaceholder": "Zoek thema's...",
     "allPrices": "Alle Prijzen",
     "priceDisclaimerLabel": "Prijsdisclaimer:",
-    "priceDisclaimerText": "Productprijzen en beschikbaarheid zijn accuraat op de aangegeven datum/tijd en kunnen wijzigen. Getoonde prijzen zijn afkomstig van Amazon op het moment van de laatste vernieuwing (elke 6 uur bijgewerkt). Alle prijs- en beschikbaarheidsinformatie die op het moment van aankoop op Amazon wordt weergegeven, is van toepassing op de aankoop van dit product. Als Amazon Associate, LEGO Affiliate, eBay Partner en Whatnot Affiliate verdient IntoBrick aan in aanmerking komende aankopen.",
+    "priceDisclaimerText": "De prijzen komen van Walmart en worden één keer per dag ververst, dus ze kunnen op elk moment veranderen. De prijs die bij het afrekenen op Walmart staat, is de prijs die geldt.",
     "loadingDeals": "Deals laden...",
     "tierUnbelievable50": "Ongelooflijke Deals - 50%+ Korting",
     "tierExcellent40": "Uitstekende Deals - 40%+ Korting",
     "tierGreat30": "Geweldige Deals - 30%+ Korting",
-    "tierGood20": "Goede Deals - 20%+ Korting"
+    "tierGood20": "Goede Deals - 20%+ Korting",
+    "readMore": "Meer lezen",
+    "readLess": "Minder lezen",
+    "dismissDisclaimer": "Sluiten"
   },
   "retiringSoon": {
     "pageTitle": "LEGO Sets die Binnenkort Verdwijnen 2026",
@@ -3115,11 +3125,12 @@
     "sets": "Sets",
     "retiring": "Uitlopend",
     "listings": "Advertenties",
-    "identify": "Herkennen",
-    "export": "Export",
+    "identify": "Minifig scannen",
+    "export": "Bulk plaatsen",
     "whatnot": "Whatnot",
     "community": "Community",
-    "tools": "Tools"
+    "tools": "Tools",
+    "deals": "Aanbiedingen"
   },
   "listingGeneratorPage": null
 }

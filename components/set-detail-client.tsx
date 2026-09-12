@@ -59,9 +59,21 @@ interface SetDetailClientProps {
    * 3-second rate-limit wait -- so this component does it after mount.
    */
   contentsPending?: boolean;
+  /**
+   * Walmart's current price for this set, when they list it. Null for the ~80%
+   * they do not -- and the button is then not rendered at all. A cold link to a
+   * search page is exactly what the Amazon button does today, and it has
+   * produced no sales.
+   */
+  walmartDeal?: {
+    currentPrice: number;
+    listPrice: number | null;
+    discountPercent: number;
+    productUrl: string;
+  } | null;
 }
 
-export default function SetDetailClient({ set, themeSets, sameYearSets, closeRangeSets = [], minifigs: initialMinifigs = [], contentsPending = false }: SetDetailClientProps) {
+export default function SetDetailClient({ set, themeSets, sameYearSets, closeRangeSets = [], minifigs: initialMinifigs = [], contentsPending = false, walmartDeal = null }: SetDetailClientProps) {
   const { t, translations } = useTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -1526,6 +1538,89 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
                   </Link>
+
+                  {/* Walmart, only when Walmart actually lists this set --
+                      about 18% of the catalogue. The rest get no Walmart button
+                      rather than a search link, because a button that leads to
+                      a search page is the thing that has not been converting.
+
+                      This is the only buy button that carries a price, which is
+                      the whole point of it: it turns "go and look" into "it is
+                      $47.95, down from $59.99". */}
+                  {walmartDeal && (
+                    <Link
+                      href={walmartDeal.productUrl}
+                      target="_blank"
+                      rel="noopener noreferrer sponsored"
+                      onClick={() => trackAffiliateClick('walmart', set.box_no, 'set-detail-page')}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '12px 16px',
+                        background: '#ffffff',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '8px',
+                        textDecoration: 'none',
+                        transition: 'all 0.2s',
+                        cursor: 'pointer',
+                        gap: '10px',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#fafafa';
+                        e.currentTarget.style.borderColor = '#d4d4d4';
+                        e.currentTarget.style.transform = 'translateY(-1px)';
+                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.06)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = '#ffffff';
+                        e.currentTarget.style.borderColor = '#e5e5e5';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
+                        <ShoppingCartIcon style={{ width: '18px', height: '18px', color: '#0071dc', flexShrink: 0 }} />
+                        <div style={{ minWidth: 0 }}>
+                          <div style={{ fontWeight: '600', color: '#171717', fontSize: 'var(--text-sm)' }}>
+                            {t('buyButtons.walmart.name') || 'Walmart'}
+                          </div>
+                          <div style={{ fontSize: 'var(--text-xs)', color: '#737373' }}>
+                            ${walmartDeal.currentPrice.toFixed(2)}
+                            {walmartDeal.listPrice !== null &&
+                              walmartDeal.listPrice > walmartDeal.currentPrice && (
+                                <span style={{ textDecoration: 'line-through', marginLeft: '6px', color: '#a3a3a3' }}>
+                                  ${walmartDeal.listPrice.toFixed(2)}
+                                </span>
+                              )}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+                        {/* 10% is the floor for a badge. Below that it is
+                            rounding, and a "3% off" pill cheapens the ones that
+                            are real. */}
+                        {walmartDeal.discountPercent >= 10 && (
+                          <span style={{
+                            background: '#dcfce7',
+                            color: '#15803d',
+                            fontSize: 'var(--text-xs)',
+                            fontWeight: 700,
+                            padding: '3px 8px',
+                            borderRadius: '999px',
+                            whiteSpace: 'nowrap',
+                          }}>
+                            {(t('buyButtons.walmart.percentOff') || '{pct}% off')
+                              .replace('{pct}', String(walmartDeal.discountPercent))}
+                          </span>
+                        )}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#0071dc" style={{ width: '18px', height: '18px', flexShrink: 0 }}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                        </svg>
+                      </div>
+                    </Link>
+                  )}
 
                   {/* BrickLink Link - Always show */}
                   <Link

@@ -51,12 +51,36 @@ const PLAIN_NAV: Array<{ href: string; key: string; fallback: string }> = [
   { href: '/collectors',        key: 'navPrimary.community',   fallback: 'Community' },
 ];
 
-/** Real tools, but occasional-use -- they earn a menu, not a headline slot. */
+/**
+ * Tools, listed flat after a divider rather than inside a dropdown.
+ *
+ * They were in a menu on the theory that occasional-use features do not earn a
+ * headline slot. The traffic says otherwise, and for a reason worth writing
+ * down: browse pages (Minifigures, Sets, Retiring Soon) are found through
+ * Google, so their nav entry barely matters -- each drew under 20 views in 90
+ * days despite being top-level. Nobody arrives at /identify from a search
+ * result. For a tool, the nav is the ONLY way in, so burying it in a menu is
+ * the one place it must not be.
+ *
+ * Measured at 1024px before flattening, since checkNavigationFit collapses the
+ * WHOLE header to a hamburger if this row overflows, and Polish and French are
+ * the binding locales (not German): Polish used 639px of 1024, French 598.
+ * Flattening costs roughly 240px. Re-measure both if you add another entry.
+ */
 const TOOLS_NAV: Array<{ href: string; key: string; fallback: string }> = [
-  { href: '/identify',    key: 'navPrimary.identify', fallback: 'Identify' },
-  { href: '/export',      key: 'navPrimary.export',   fallback: 'Export' },
+  { href: '/identify',    key: 'navPrimary.identify', fallback: 'Minifig Scan' },
+  { href: '/export',      key: 'navPrimary.export',   fallback: 'Bulk List' },
   { href: '/marketplace', key: 'navPrimary.whatnot',  fallback: 'Whatnot' },
+  { href: '/deals',       key: 'navPrimary.deals',    fallback: 'Deals' },
 ];
+
+/** Separates the browse tabs from the tools. */
+const NAV_DIVIDER_STYLE: React.CSSProperties = {
+  width: '1px',
+  height: '16px',
+  background: '#e5e5e5',
+  flexShrink: 0,
+};
 
 /**
  * Where the "Your LEGO" menu sits, by sign-in state.
@@ -84,7 +108,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
   const [browseDropdownOpen, setBrowseDropdownOpen] = useState(false);
   const [legoDropdownOpen, setLegoDropdownOpen] = useState(false);
   const [resourcesDropdownOpen, setResourcesDropdownOpen] = useState(false);
-  const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileBrowseOpen, setMobileBrowseOpen] = useState(false);
   const [mobileLegoOpen, setMobileLegoOpen] = useState(false);
@@ -95,7 +118,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
   const browseDropdownRef = useRef<HTMLDivElement>(null);
   const legoDropdownRef = useRef<HTMLDivElement>(null);
   const resourcesDropdownRef = useRef<HTMLDivElement>(null);
-  const toolsDropdownRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLElement>(null);
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLElement>(null);
@@ -167,9 +189,6 @@ export function HeaderClient({ user }: HeaderClientProps) {
       }
       if (resourcesDropdownRef.current && !resourcesDropdownRef.current.contains(event.target as Node)) {
         setResourcesDropdownOpen(false);
-      }
-      if (toolsDropdownRef.current && !toolsDropdownRef.current.contains(event.target as Node)) {
-        setToolsDropdownOpen(false);
       }
       // Mobile menu click-outside handler - only run when menu is open
       if (mobileMenuOpen && mobileMenuRef.current && mobileMenuButtonRef.current) {
@@ -504,7 +523,15 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 <Link
                   href="/auth/signin"
                   style={{
-                    padding: '10px 16px',
+                    // Explicit height, shared with the search field, the
+                    // language pill and the sign-up button. These were sized by
+                    // padding alone and landed a few pixels short of the search
+                    // field, so the whole top row sat slightly out of line.
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    height: '40px',
+                    padding: '0 16px',
+                    boxSizing: 'border-box',
                     fontSize: 'var(--text-xs)',
                     fontWeight: '500',
                     color: '#525252',
@@ -518,7 +545,11 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 <Link
                   href="/auth/signup"
                   style={{
-                    padding: '10px 16px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    height: '40px',
+                    padding: '0 18px',
+                    boxSizing: 'border-box',
                     fontSize: 'var(--text-xs)',
                     fontWeight: '600',
                     color: '#ffffff',
@@ -708,75 +739,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               {PLAIN_NAV.slice(YOUR_LEGO_INDEX.signedOut).map(renderNavLink)}
 
 
-              {/* Tools: real features, but occasional-use, so they get a menu rather
-                  than a headline slot. Whatnot lives here deliberately -- see the note on
-                  TOOLS_NAV and the affiliate section of CLAUDE.md. */}
-              <div style={{ position: 'relative' }} ref={toolsDropdownRef}>
-                <button
-                  onClick={() => setToolsDropdownOpen(!toolsDropdownOpen)}
-                  style={{
-                    fontSize: 'var(--text-xs)',
-                    fontWeight: '500',
-                    color: '#525252',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    height: '36px',
-                    borderTop: '2px solid transparent',
-                    borderBottom: '2px solid transparent',
-                    padding: 0,
-                    lineHeight: '1',
-                    whiteSpace: 'nowrap'
-                  }}
-                >
-                  {t('navPrimary.tools') || 'Tools'}
-                  <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-
-                {toolsDropdownOpen && (
-                  <div style={{
-                    position: 'absolute',
-                    top: '100%',
-                    left: 0,
-                    marginTop: '12px',
-                    background: 'white',
-                    borderRadius: '12px',
-                    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
-                    border: '1px solid #e5e5e5',
-                    minWidth: '200px',
-                    overflow: 'hidden',
-                    zIndex: 1000
-                  }}>
-                    {TOOLS_NAV.map(({ href, key, fallback }, idx) => (
-                      <Link
-                        key={href}
-                        href={href}
-                        onClick={() => setToolsDropdownOpen(false)}
-                        style={{
-                          display: 'block',
-                          padding: '14px 20px',
-                          color: '#171717',
-                          textDecoration: 'none',
-                          fontSize: 'var(--text-sm)',
-                          borderBottom: idx < TOOLS_NAV.length - 1 ? '1px solid #f5f5f5' : 'none',
-                          transition: 'background 0.2s'
-                        }}
-                        onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                        onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
-                      >
-                        {t(key) || fallback}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Resources Dropdown -- About, Articles, Support (Community/Premium stay standalone) */}
+{/* Resources Dropdown -- About, Articles, Support (Community/Premium stay standalone) */}
               <div style={{ position: 'relative' }} ref={resourcesDropdownRef}>
                 <button
                   onClick={() => setResourcesDropdownOpen(!resourcesDropdownOpen)}
@@ -892,6 +855,14 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   </div>
                 )}
               </div>
+
+                            {/* Tools, flat after a divider. They used to be a dropdown;
+                  see the note on TOOLS_NAV for why a menu was the wrong
+                  place for the one kind of page nobody reaches from Google.
+                  Whatnot stays among them -- see the affiliate section of
+                  CLAUDE.md. */}
+              <div style={NAV_DIVIDER_STYLE} aria-hidden="true" />
+              {TOOLS_NAV.map(renderNavLink)}
 
               {/* No Premium link here on purpose.
                   Premium is not sold to logged-out visitors any more -- the
@@ -1679,75 +1650,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
             {PLAIN_NAV.map(renderNavLink)}
 
 
-            {/* Tools: real features, but occasional-use, so they get a menu rather
-                than a headline slot. Whatnot lives here deliberately -- see the note on
-                TOOLS_NAV and the affiliate section of CLAUDE.md. */}
-            <div style={{ position: 'relative' }} ref={toolsDropdownRef}>
-              <button
-                onClick={() => setToolsDropdownOpen(!toolsDropdownOpen)}
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: '500',
-                  color: '#525252',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                  height: '36px',
-                  borderTop: '2px solid transparent',
-                  borderBottom: '2px solid transparent',
-                  padding: 0,
-                  lineHeight: '1',
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                {t('navPrimary.tools') || 'Tools'}
-                <svg style={{ width: '16px', height: '16px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-
-              {toolsDropdownOpen && (
-                <div style={{
-                  position: 'absolute',
-                  top: '100%',
-                  left: 0,
-                  marginTop: '12px',
-                  background: 'white',
-                  borderRadius: '12px',
-                  boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
-                  border: '1px solid #e5e5e5',
-                  minWidth: '200px',
-                  overflow: 'hidden',
-                  zIndex: 1000
-                }}>
-                  {TOOLS_NAV.map(({ href, key, fallback }, idx) => (
-                    <Link
-                      key={href}
-                      href={href}
-                      onClick={() => setToolsDropdownOpen(false)}
-                      style={{
-                        display: 'block',
-                        padding: '14px 20px',
-                        color: '#171717',
-                        textDecoration: 'none',
-                        fontSize: 'var(--text-sm)',
-                        borderBottom: idx < TOOLS_NAV.length - 1 ? '1px solid #f5f5f5' : 'none',
-                        transition: 'background 0.2s'
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                      onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
-                    >
-                      {t(key) || fallback}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Resources Dropdown -- About, Articles, Support (Community/Premium stay standalone) */}
+{/* Resources Dropdown -- About, Articles, Support (Community/Premium stay standalone) */}
             <div style={{ position: 'relative' }} ref={resourcesDropdownRef}>
               <button
                 onClick={() => setResourcesDropdownOpen(!resourcesDropdownOpen)}
@@ -1858,6 +1761,14 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 </div>
               )}
             </div>
+
+                          {/* Tools, flat after a divider. They used to be a dropdown;
+                  see the note on TOOLS_NAV for why a menu was the wrong
+                  place for the one kind of page nobody reaches from Google.
+                  Whatnot stays among them -- see the affiliate section of
+                  CLAUDE.md. */}
+              <div style={NAV_DIVIDER_STYLE} aria-hidden="true" />
+              {TOOLS_NAV.map(renderNavLink)}
 
               {/* No Premium link in the nav at all now, signed in or out.
                   Premium is sold at the point where someone hits the feature
