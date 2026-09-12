@@ -158,7 +158,7 @@ export default function LegoSaleClient() {
       {/* Header */}
       <PageHeading
         style={{ background: '#ffffff', borderBottom: '1px solid #e5e5e5' }}
-        title={t('legoSale.pageTitle') || 'LEGO® Sale'}
+        title={t('legoSale.pageTitle') || 'LEGO Deals'}
         subtitle={t('legoSale.subtitleUpdated') || 'Best Walmart deals, refreshed daily'}
       />
 

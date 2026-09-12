@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useTranslation } from '@/components/TranslationProvider';
 
 interface DealSetCardProps {
@@ -42,8 +41,26 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
   };
 
   return (
-    <div
+    /**
+     * The whole card is the link, because the card has exactly one call to
+     * action and it is "Buy at Walmart". Sending a click on the image or the
+     * title to our own set page instead put a page in front of the only thing
+     * the card offers -- on a deals page, where the reader's intent is to buy
+     * the deal, that is a step backwards.
+     *
+     * This is why the inner Links to /sets/{boxNo} are gone rather than kept
+     * alongside: an <a> inside an <a> is invalid HTML, and browsers recover
+     * from it unpredictably. The set page is still reachable from search and
+     * from every browse page.
+     */
+    <a
+      href={deal.buyUrl}
+      target="_blank"
+      rel="noopener noreferrer sponsored"
       style={{
+        display: 'block',
+        textDecoration: 'none',
+        color: 'inherit',
         background: '#ffffff',
         borderRadius: '12px',
         overflow: 'hidden',
@@ -99,7 +116,7 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
       </div>
 
       {/* Set Image */}
-      <Link href={`/sets/${deal.boxNo}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <div>
         <div
           style={{
             padding: '24px',
@@ -128,14 +145,11 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
             <div style={{ fontSize: '48px', opacity: 0.3 }}>📦</div>
           )}
         </div>
-      </Link>
+      </div>
 
       {/* Set Info */}
       <div style={{ padding: '16px' }}>
-        <Link
-          href={`/sets/${deal.boxNo}`}
-          style={{ textDecoration: 'none', color: 'inherit' }}
-        >
+        <div>
           <p
             style={{
               fontSize: '12px',
@@ -162,7 +176,7 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
           >
             {deal.name}
           </h3>
-        </Link>
+        </div>
 
         {/* Theme Badge */}
         <div
@@ -215,11 +229,12 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
           )}
         </div>
 
-        {/* View Deal Button */}
-        <a
-          href={deal.buyUrl}
-          target="_blank"
-          rel="noopener noreferrer sponsored"
+        {/* Looks like a button, is not a link. The whole card is already the
+            anchor, and an <a> nested inside an <a> is invalid HTML that
+            browsers recover from in their own ways -- some drop the inner one,
+            some split the outer. Rendering it as a span keeps the affordance
+            and leaves exactly one link on the card. */}
+        <span
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -246,8 +261,8 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
           }}
         >
           {buyLabel}
-        </a>
+        </span>
       </div>
-    </div>
+    </a>
   );
 }

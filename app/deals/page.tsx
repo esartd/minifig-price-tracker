@@ -21,14 +21,14 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   return {
-    title: t.legoSale?.meta?.title || 'LEGO® Sale: Best Amazon Deals Up to 50% Off | IntoBrick',
+    title: t.legoSale?.meta?.title || 'LEGO Deals: Walmart Discounts on LEGO Sets | IntoBrick',
     description:
       t.legoSale?.meta?.description ||
-      'Find the best LEGO deals on Amazon with discounts up to 50% off. Updated every 6 hours. Browse current LEGO sets from Star Wars, City, Creator, and more. Free shipping with Prime.',
+      'LEGO sets on sale at Walmart, checked daily and sorted by how big the saving is. Star Wars, City, Creator and more.',
     keywords: t.legoSale?.meta?.keywords || [
       'LEGO sale',
       'LEGO deals',
-      'LEGO Amazon',
+      'LEGO Walmart',
       'cheap LEGO sets',
       'LEGO discount',
       'LEGO clearance',
@@ -39,17 +39,17 @@ export async function generateMetadata(): Promise<Metadata> {
       'LEGO promotions',
     ],
     openGraph: {
-      title: t.legoSale?.meta?.ogTitle || 'LEGO® Sale - Up to 50% Off on Amazon',
+      title: t.legoSale?.meta?.ogTitle || 'LEGO Deals - Walmart Discounts on LEGO Sets',
       description:
         t.legoSale?.meta?.ogDescription ||
-        'Discover the best LEGO deals on Amazon. Updated every 6 hours with discounts from 20% to 50% off.',
+        'LEGO sets on sale at Walmart, refreshed daily and sorted by discount.',
       type: 'website',
       url: `${originFor(locale)}/deals`,
     },
     twitter: {
       card: 'summary_large_image',
-      title: t.legoSale?.meta?.twitterTitle || 'LEGO® Sale - Best Amazon Deals',
-      description: t.legoSale?.meta?.twitterDescription || 'Find LEGO sets with up to 50% off on Amazon',
+      title: t.legoSale?.meta?.twitterTitle || 'LEGO Deals - Walmart Discounts',
+      description: t.legoSale?.meta?.twitterDescription || 'LEGO sets on sale at Walmart, refreshed daily',
     },
   };
 }

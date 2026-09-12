@@ -167,8 +167,14 @@ export function ArticleRenderer({ blocks }: ArticleRendererProps) {
               margin: '32px 0',
             }}
           >
+            {/* Author-supplied, so it may point inside the site or out of it.
+                An absolute http(s) URL leaves IntoBrick and opens in a new tab;
+                a relative path is one of our own pages and navigates in place. */}
             <a
               href={block.url}
+              {...(/^https?:\/\//i.test(block.url || '')
+                ? { target: '_blank', rel: 'noopener noreferrer' }
+                : {})}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
