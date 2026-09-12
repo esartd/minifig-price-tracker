@@ -1442,7 +1442,7 @@ export default function AccountPage() {
           ) : (
             <div>
               <p style={{ fontSize: 'var(--text-sm)', color: '#737373', marginBottom: '4px', lineHeight: '1.5' }}>
-                {t('account.premium.pitch') || 'Instant listings without the collection step, plus an unlimited AI minifigure identifier.'}
+                {t('account.premium.pitch') || 'Walmart deal alerts, instant listings, unlimited AI identifier, and a badge on your profile.'}
               </p>
               <p style={{ fontSize: 'var(--text-lg)', fontWeight: '700', color: '#171717', marginBottom: premiumPrice?.isConverted ? '4px' : '16px' }}>
                 {premiumPrice?.display || t('premium.page.price') || '$4.99'}
