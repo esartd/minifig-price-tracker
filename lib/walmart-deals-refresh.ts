@@ -68,6 +68,8 @@ export interface WalmartSyncResult {
   skippedNoMatch: number;
   /** Matched a set number but priced too far below our figure to be that set. */
   skippedPriceMismatch: number;
+  /** Title said one set, the destination URL said another. */
+  skippedUrlMismatch: number;
   /** Rows dropped because Walmart stopped listing them. */
   removed: number;
 }
@@ -160,6 +162,37 @@ function extractBoxNo(title: string, catalog: Map<string, string>): string | nul
   return null;
 }
 
+/**
+ * True when the destination URL names a DIFFERENT set than the title did.
+ *
+ * Sellers mistype. 40383 is the BrickHeadz Bride and 40384 the Groom, and one
+ * listing read "Lego 40383 BrickHeadz Groom Wedding" while its URL said
+ * .../Lego-40384-BrickHeadz-Groom-Wedding-...  Walmart builds the slug when the
+ * listing is created, so the URL kept the right number and the edited title did
+ * not -- and matching on the title alone hung a Groom off the Bride's page.
+ *
+ * Deliberately conservative, because dropping good rows costs more than the
+ * occasional bad one:
+ *  - a URL with no set number at all proves nothing, so it is allowed;
+ *  - a URL containing the matched number is agreement, so it is allowed;
+ *  - only a 5-digit number that we recognise as some OTHER set counts as a
+ *    contradiction. Four-digit runs are excluded on purpose: a slug like
+ *    "LEGO-Creator-2026-31377" carries a year, and plenty of years collide with
+ *    genuine old set numbers.
+ */
+function urlNamesADifferentSet(
+  matchedBase: string,
+  url: string,
+  catalog: Map<string, string>
+): boolean {
+  // Annotated for the same reason extractBoxNo is: `?? []` alone infers
+  // never[], and .includes/.some then have nothing to compare.
+  const nums: string[] = url.match(/\b\d{5}\b/g) ?? [];
+  if (nums.length === 0) return false;
+  if (nums.includes(matchedBase)) return false;
+  return nums.some((n) => n !== matchedBase && catalog.has(n));
+}
+
 async function fetchPage(
   sid: string,
   token: string,
@@ -241,6 +274,7 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
     withDiscount: 0,
     skippedNoMatch: 0,
     skippedPriceMismatch: 0,
+    skippedUrlMismatch: 0,
     removed: 0,
   };
 
@@ -274,6 +308,12 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
       const boxNo = extractBoxNo(title, catalog);
       if (!boxNo) {
         result.skippedNoMatch++;
+        continue;
+      }
+
+      // The title gave us a set number; check the URL is not naming another.
+      if (urlNamesADifferentSet(boxNo.split('-')[0], productUrl, catalog)) {
+        result.skippedUrlMismatch++;
         continue;
       }
 

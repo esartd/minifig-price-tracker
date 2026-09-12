@@ -240,7 +240,7 @@ export const PriceAlertEmail = ({
 
             <p style={{ fontSize: '14px', color: '#374151', margin: '0 0 8px' }}>
               {priceSource === 'walmart'
-                ? `That price is Walmart's right now.`
+                ? `That is the price Walmart last listed it at — worth confirming on the page before you buy.`
                 : `That is the current market price across marketplaces we track.`}
               {otherPrice && (
                 <>
@@ -265,7 +265,7 @@ export const PriceAlertEmail = ({
                    is a specific listing at a real price, not a search that
                    might turn one up. */
                 <a href={walmartUrl} className="marketplace-link">
-                  🔵 Buy at Walmart →
+                  🔵 Check it at Walmart →
                 </a>
               )}
               <a href={ebayUrl} className="marketplace-link">
