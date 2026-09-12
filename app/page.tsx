@@ -373,9 +373,15 @@ function HomePageContent() {
       <div className="home-bands">
         <HomeFeatureDashboard />
         <HomeMoreFeatures />
-        <TrendingMinifigs />
         <LeaderboardsSection />
+        {/* Trending sits directly under the deals: someone who has just read a
+            row of discounted sets is already in a browsing mood, and "what
+            everyone is looking at" is the natural next thing to show them.
+            No background to set here -- the banding rule below re-alternates
+            on DOM position, so moving a section retones it and its
+            neighbours automatically. */}
         <HomeDealsTeaser />
+        <TrendingMinifigs />
       </div>
 
       {/* The page's ending. Outside .home-bands on purpose: it shares the

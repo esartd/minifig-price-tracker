@@ -2722,7 +2722,7 @@ select.custom-dropdown.condition-used {
    tone, which is what made a designed page read as a stack of widgets.
 
    Keyed off DOM POSITION rather than set per component, and that is the whole
-   point: TrendingMinifigs and RecommendedSets both `return null` when they
+   point: TrendingMinifigs and HomeDealsTeaser both `return null` when they
    have no data, so a tone hard-coded into each component left two identical
    bands touching the moment one dropped out. nth-of-type lets whatever
    survives re-alternate on its own.
