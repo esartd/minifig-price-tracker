@@ -1883,10 +1883,10 @@
     "priceDisclaimerLabel": "Price Disclaimer:",
     "priceDisclaimerText": "Prices come from Walmart and are refreshed once a day, so they can change at any time. The price shown on Walmart at checkout is the one that applies.",
     "loadingDeals": "Loading deals...",
-    "tierUnbelievable50": "Unbelievable Deals - 50%+ Off",
-    "tierExcellent40": "Excellent Deals - 40%+ Off",
-    "tierGreat30": "Great Deals - 30%+ Off",
-    "tierGood20": "Good Deals - 20%+ Off",
+    "tierUnbelievable50": "Unbelievable Deals - 50%+ below market",
+    "tierExcellent40": "Excellent Deals - 40%+ below market",
+    "tierGreat30": "Great Deals - 30%+ below market",
+    "tierGood20": "Good Deals - 20%+ below market",
     "readMore": "Read more",
     "readLess": "Read less",
     "dismissDisclaimer": "Dismiss"
@@ -2630,7 +2630,9 @@
   "deals": {
     "off": "OFF",
     "save": "Save",
-    "noDealsFound": "No deals found in this category"
+    "noDealsFound": "No deals found in this category",
+    "below": "below",
+    "belowOurPrice": "{amount} below market"
   },
   "priceHistory": {
     "loadError": "Failed to load price history",

@@ -150,8 +150,40 @@ const MINIFIG_SERIES = (title: string) =>
  * Longest candidates first, because a 5-digit set number contains 4-digit
  * substrings and the longer match is the right one.
  */
+/**
+ * Listings that are a PIECE of a set rather than the set.
+ *
+ * These were the worst thing on the deals page, and invisible until deals were
+ * ranked against our own price. Every one of the top ten "biggest savings" was
+ * one of these: a Mouth of Sauron minifigure priced against the $463 Battle at
+ * the Black Gate, an Ahsoka Tano minifigure against the $196 Umbaran MHC, and a
+ * lighting kit whose own title says "(BUILDING SET NOT INCLUDED)". A shopper
+ * spots it instantly and concludes the listing is fake -- which is the correct
+ * conclusion and the worst possible result for us.
+ *
+ * The tell is what the listing does NOT say. A boxed set's listing almost
+ * always says "building toy", "building set", "building kit", "playset" or a
+ * piece count; a loose minifigure's does not. Mentioning a minifigure is not
+ * itself disqualifying -- the Millennium Falcon's own title reads "with 4 SMART
+ * Tags and 4 LEGO Minifigures" -- so the word only counts against a listing
+ * that never calls itself a set.
+ *
+ * Measured across in-stock rows: removes 44 of the 272 priced below our own
+ * figure, and touches about 1% of rows priced NEAR our figure, which are almost
+ * certainly genuine sets. Of those, most were loose minifigures anyway. Losing
+ * roughly four real sets to remove forty-four fake bargains is the same trade
+ * MINIFIG_SERIES above already makes.
+ */
+const SET_LANGUAGE = /\bbuilding (toy|set|kit|block)|\b\d{2,5}\s*(pieces|pcs|pc)\b|\bplayset\b/i;
+const PART_PHRASE =
+  /\bfrom sets?\b|\bnot included\b|\blighting kit\b|\b(sticker|instruction manual|replacement part)s?\b|\bsingle mini ?fig/i;
+const MENTIONS_FIG = /\bmini ?fig(ure)?s?\b/i;
+
+const PART_OF_SET = (title: string) =>
+  PART_PHRASE.test(title) || (MENTIONS_FIG.test(title) && !SET_LANGUAGE.test(title));
+
 function extractBoxNo(title: string, catalog: Map<string, string>): string | null {
-  if (USED_TITLE.test(title) || MINIFIG_SERIES(title)) return null;
+  if (USED_TITLE.test(title) || MINIFIG_SERIES(title) || PART_OF_SET(title)) return null;
 
   // Annotated because `?? []` on its own infers never[], and the sort callback
   // then has no .length to compare.
@@ -339,6 +371,8 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
     currency: string;
     productUrl: string;
     imageUrl: string | null;
+    ourPrice: number | null;
+    pctBelowOurPrice: number | null;
   }>();
 
   for (let page = 1; page <= MAX_PAGES; page++) {
@@ -390,6 +424,16 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
 
       const inStock = (item.StockAvailability ?? '').toLowerCase() === 'instock';
 
+      /**
+       * How far below OUR suggested price this sits -- the number /deals ranks
+       * on. Positive means cheaper than we reckon the set is worth; negative
+       * means Walmart is asking more, however large a discount they claim.
+       */
+      const pctBelowOurPrice =
+        ourPrice && ourPrice > 0
+          ? Math.round((1 - currentPrice / ourPrice) * 100)
+          : null;
+
       const existing = best.get(boxNo);
       // In stock beats out of stock; among equals, cheaper wins.
       const better =
@@ -408,6 +452,8 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
           currency: item.Currency ?? 'USD',
           productUrl,
           imageUrl: item.ImageUrl ?? null,
+          ourPrice: ourPrice ?? null,
+          pctBelowOurPrice,
         });
       }
     }
@@ -443,14 +489,14 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
       Prisma.sql`(${randomUUID()}, ${boxNo}, ${d.walmartItemId}, ${d.title},
                   ${d.currentPrice}, ${d.listPrice}, ${d.discountPercent},
                   ${d.inStock}, ${d.currency}, ${d.productUrl}, ${d.imageUrl},
-                  NOW(3))`
+                  ${d.ourPrice}, ${d.pctBelowOurPrice}, NOW(3))`
     );
 
     await prisma.$executeRaw`
       INSERT INTO \`WalmartDeal\`
         (\`id\`, \`boxNo\`, \`walmartItemId\`, \`title\`, \`currentPrice\`, \`listPrice\`,
          \`discountPercent\`, \`inStock\`, \`currency\`, \`productUrl\`, \`imageUrl\`,
-         \`lastUpdated\`)
+         \`ourPrice\`, \`pctBelowOurPrice\`, \`lastUpdated\`)
       VALUES ${Prisma.join(values)}
       ON DUPLICATE KEY UPDATE
         \`walmartItemId\`   = VALUES(\`walmartItemId\`),
@@ -462,6 +508,8 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
         \`currency\`        = VALUES(\`currency\`),
         \`productUrl\`      = VALUES(\`productUrl\`),
         \`imageUrl\`        = VALUES(\`imageUrl\`),
+        \`ourPrice\`        = VALUES(\`ourPrice\`),
+        \`pctBelowOurPrice\` = VALUES(\`pctBelowOurPrice\`),
         \`lastUpdated\`     = VALUES(\`lastUpdated\`)
     `;
 

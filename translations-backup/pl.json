@@ -1883,10 +1883,10 @@
     "priceDisclaimerLabel": "Zastrzeżenie cenowe:",
     "priceDisclaimerText": "Ceny pochodzą z Walmartu i są odświeżane raz dziennie, więc mogą się zmienić w każdej chwili. Obowiązuje cena widoczna w Walmarcie podczas składania zamówienia.",
     "loadingDeals": "Ładowanie okazji...",
-    "tierUnbelievable50": "Niesamowite okazje - rabat 50%+",
-    "tierExcellent40": "Świetne okazje - rabat 40%+",
-    "tierGreat30": "Dobre okazje - rabat 30%+",
-    "tierGood20": "Niezłe okazje - rabat 20%+",
+    "tierUnbelievable50": "Niewiarygodne okazje – 50%+ poniżej rynku",
+    "tierExcellent40": "Świetne okazje – 40%+ poniżej rynku",
+    "tierGreat30": "Dobre okazje – 30%+ poniżej rynku",
+    "tierGood20": "Niezłe okazje – 20%+ poniżej rynku",
     "readMore": "Czytaj więcej",
     "readLess": "Zwiń",
     "dismissDisclaimer": "Zamknij"
@@ -2386,7 +2386,9 @@
   "deals": {
     "off": "TANIEJ",
     "save": "Oszczędź",
-    "noDealsFound": "Nie znaleziono okazji w tej kategorii"
+    "noDealsFound": "Nie znaleziono okazji w tej kategorii",
+    "below": "poniżej",
+    "belowOurPrice": "{amount} poniżej rynku"
   },
   "priceHistory": {
     "loadError": "Nie udało się załadować historii cen",

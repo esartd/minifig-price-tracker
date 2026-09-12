@@ -1883,10 +1883,10 @@
     "priceDisclaimerLabel": "Nota sui prezzi:",
     "priceDisclaimerText": "I prezzi provengono da Walmart e vengono aggiornati una volta al giorno, quindi possono cambiare in qualsiasi momento. Il prezzo valido è quello mostrato su Walmart al momento del pagamento.",
     "loadingDeals": "Caricamento offerte...",
-    "tierUnbelievable50": "Offerte Incredibili - Oltre il 50% di Sconto",
-    "tierExcellent40": "Offerte Eccellenti - Oltre il 40% di Sconto",
-    "tierGreat30": "Ottime Offerte - Oltre il 30% di Sconto",
-    "tierGood20": "Buone Offerte - Oltre il 20% di Sconto",
+    "tierUnbelievable50": "Offerte incredibili – 50%+ sotto mercato",
+    "tierExcellent40": "Ottime offerte – 40%+ sotto mercato",
+    "tierGreat30": "Grandi offerte – 30%+ sotto mercato",
+    "tierGood20": "Buone offerte – 20%+ sotto mercato",
     "readMore": "Leggi di più",
     "readLess": "Leggi meno",
     "dismissDisclaimer": "Chiudi"
@@ -2386,7 +2386,9 @@
   "deals": {
     "off": "SCONTO",
     "save": "Risparmia",
-    "noDealsFound": "Nessuna offerta trovata in questa categoria"
+    "noDealsFound": "Nessuna offerta trovata in questa categoria",
+    "below": "sotto mercato",
+    "belowOurPrice": "{amount} sotto il prezzo di mercato"
   },
   "priceHistory": {
     "loadError": "Impossibile caricare lo storico prezzi",

@@ -1883,10 +1883,10 @@
     "priceDisclaimerLabel": "Prijsdisclaimer:",
     "priceDisclaimerText": "De prijzen komen van Walmart en worden één keer per dag ververst, dus ze kunnen op elk moment veranderen. De prijs die bij het afrekenen op Walmart staat, is de prijs die geldt.",
     "loadingDeals": "Deals laden...",
-    "tierUnbelievable50": "Ongelooflijke Deals - 50%+ Korting",
-    "tierExcellent40": "Uitstekende Deals - 40%+ Korting",
-    "tierGreat30": "Geweldige Deals - 30%+ Korting",
-    "tierGood20": "Goede Deals - 20%+ Korting",
+    "tierUnbelievable50": "Ongelooflijke deals – 50%+ onder de markt",
+    "tierExcellent40": "Uitstekende deals – 40%+ onder de markt",
+    "tierGreat30": "Goede deals – 30%+ onder de markt",
+    "tierGood20": "Leuke deals – 20%+ onder de markt",
     "readMore": "Meer lezen",
     "readLess": "Minder lezen",
     "dismissDisclaimer": "Sluiten"
@@ -2386,7 +2386,9 @@
   "deals": {
     "off": "KORTING",
     "save": "Bespaar",
-    "noDealsFound": "Geen deals gevonden in deze categorie"
+    "noDealsFound": "Geen deals gevonden in deze categorie",
+    "below": "onder markt",
+    "belowOurPrice": "{amount} onder de marktprijs"
   },
   "priceHistory": {
     "loadError": "Laden van prijsgeschiedenis mislukt",

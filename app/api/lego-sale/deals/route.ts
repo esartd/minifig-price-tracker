@@ -44,9 +44,25 @@ export async function GET(request: NextRequest) {
     const sortBy = searchParams.get('sortBy') || 'discount';
     const limit = parseInt(searchParams.get('limit') || '50');
 
-    // Build where clause
+    /**
+     * Tiers are measured against OUR suggested price, not Walmart's claimed
+     * discount.
+     *
+     * Walmart's `discountPercent` comes from OriginalPrice, a number the seller
+     * types in. On a retired set they list at several times its value, mark it
+     * "60% off", and it is still a bad buy -- of 281 rows on the old tiers, 71%
+     * were priced ABOVE our own suggested price and 42% were more than 30%
+     * above. The page was mostly recommending overpriced stock.
+     *
+     * It hid the real bargains too, because those often carry no Walmart
+     * discount at all: 75013-1 at $49.95 against our $196.11 is 75% below what
+     * the set is worth, and Walmart called it 0% off.
+     *
+     * `pctBelowOurPrice` is null where we have no price of our own. Such rows
+     * are excluded rather than assumed good -- an unknown is not a deal.
+     */
     const where: any = {
-      discountPercent: maxTier ? { gte: tier, lt: maxTier } : { gte: tier },
+      pctBelowOurPrice: maxTier ? { gte: tier, lt: maxTier } : { gte: tier },
       currentPrice: {
         gte: minPrice,
         lte: maxPrice,
@@ -59,7 +75,7 @@ export async function GET(request: NextRequest) {
       where,
       take: limit * 3, // Fetch more for theme filtering
       orderBy: {
-        discountPercent: 'desc', // Always sort by discount first
+        pctBelowOurPrice: 'desc', // Biggest real saving first
       },
     });
 
@@ -83,6 +99,9 @@ export async function GET(request: NextRequest) {
           // as "no badge" rather than rendering a 0% saving.
           listPrice: deal.listPrice,
           discountPercent: deal.discountPercent,
+          // What the page actually ranks and badges on.
+          pctBelowOurPrice: deal.pctBelowOurPrice,
+          ourPrice: deal.ourPrice,
 
           imageUrl: setData.image_url,
           // The Impact tracked URL verbatim -- it already carries partner id
@@ -105,7 +124,10 @@ export async function GET(request: NextRequest) {
     }
 
     // Apply sorting
-    if (sortBy === 'price') {
+    if (sortBy === 'discount') {
+      // "Highest discount" now means furthest below our price.
+      filteredDeals.sort((a, b) => (b!.pctBelowOurPrice ?? 0) - (a!.pctBelowOurPrice ?? 0));
+    } else if (sortBy === 'price') {
       filteredDeals.sort((a, b) => a!.currentPrice - b!.currentPrice);
     } else if (sortBy === 'name') {
       filteredDeals.sort((a, b) => a!.name.localeCompare(b!.name));

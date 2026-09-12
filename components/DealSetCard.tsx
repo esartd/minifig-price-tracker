@@ -13,6 +13,9 @@ interface DealSetCardProps {
     currentPrice: number;
     listPrice: number | null;
     discountPercent: number;
+    /** How far below OUR suggested price. What the badge and tiers use. */
+    pctBelowOurPrice?: number | null;
+    ourPrice?: number | null;
   
     imageUrl: string;
     buyUrl: string;
@@ -94,7 +97,10 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
           boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
         }}
       >
-        {deal.discountPercent}% {t('deals.off') || 'OFF'}
+        {/* Below OUR price, not Walmart's claimed discount -- that one is
+            computed from a figure the seller sets and was above our own price
+            on 71% of the rows it used to badge. */}
+        {deal.pctBelowOurPrice ?? deal.discountPercent}% {t('deals.below') || 'below'}
       </div>
 
       {/* Sponsored Badge */}
@@ -210,7 +216,10 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
                 undiscounted items -- most of them -- and the old Amazon version
                 assumed it was always present, so this would have crashed on the
                 first full-price set. */}
-            {deal.listPrice !== null && deal.listPrice > deal.currentPrice && (
+            {/* Struck through is OUR suggested price -- what the set is worth
+                -- rather than Walmart's "was" price, which on retired stock is
+                whatever the seller wanted the markup to look like. */}
+            {deal.ourPrice != null && deal.ourPrice > deal.currentPrice && (
               <span
                 style={{
                   fontSize: '14px',
@@ -218,13 +227,14 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
                   textDecoration: 'line-through',
                 }}
               >
-                ${deal.listPrice.toFixed(2)}
+                ${deal.ourPrice.toFixed(2)}
               </span>
             )}
           </div>
-          {deal.listPrice !== null && deal.listPrice > deal.currentPrice && (
+          {deal.ourPrice != null && deal.ourPrice > deal.currentPrice && (
             <p style={{ fontSize: '12px', color: '#16a34a', fontWeight: '600' }}>
-              {t('deals.save') || 'Save'} ${(deal.listPrice - deal.currentPrice).toFixed(2)}
+              {(t('deals.belowOurPrice') || '{amount} below market')
+                .replace('{amount}', `$${(deal.ourPrice - deal.currentPrice).toFixed(2)}`)}
             </p>
           )}
         </div>
