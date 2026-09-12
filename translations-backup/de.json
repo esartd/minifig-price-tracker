@@ -1834,7 +1834,14 @@
     "tierUnbelievable50": "Unglaubliche Angebote – 50%+ Rabatt",
     "readMore": "Mehr lesen",
     "readLess": "Weniger lesen",
-    "dismissDisclaimer": "Schließen"
+    "dismissDisclaimer": "Schließen",
+    "digest": {
+      "title": "Neue Angebote per E-Mail",
+      "subtitle": "Eine E-Mail pro Tag, nur wenn etwas Neues unter den Marktwert fällt.",
+      "premiumHint": "Eine Premium-Funktion. Eine E-Mail pro Tag, nur wenn etwas Neues unter den Marktwert fällt.",
+      "learnMore": "Premium ansehen",
+      "signIn": "Anmelden"
+    }
   },
   "retiringSoon": {
     "pageTitle": "LEGO Sets, die bald aus dem Sortiment genommen werden 2026",
@@ -3116,7 +3123,8 @@
     "invalidTitle": "Dieser Link hat nicht funktioniert",
     "invalidBody": "Dieser Abmeldelink ist ungültig. Möglicherweise wurde er bereits verwendet oder die Adresse wurde geändert.",
     "resubscribeHint": "Meinung geändert? Du kannst Ankündigungen in deinen Kontoeinstellungen wieder aktivieren.",
-    "backHome": "Zurück zu IntoBrick"
+    "backHome": "Zurück zu IntoBrick",
+    "doneBodyDeals": "Die tägliche Angebots-E-Mail ist deaktiviert. Alles andere – Ankündigungen, Passwort-Resets und eingerichtete Preisalarme – bleibt unberührt."
   },
   "homeGroups": {
     "more": "Weitere Möglichkeiten mit IntoBrick",

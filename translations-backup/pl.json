@@ -1889,7 +1889,14 @@
     "tierGood20": "Niezłe okazje – 20%+ taniej",
     "readMore": "Czytaj więcej",
     "readLess": "Zwiń",
-    "dismissDisclaimer": "Zamknij"
+    "dismissDisclaimer": "Zamknij",
+    "digest": {
+      "title": "Wysyłaj mi nowe okazje",
+      "subtitle": "Jeden e-mail dziennie, tylko gdy coś nowego spadnie poniżej wartości rynkowej.",
+      "premiumHint": "Funkcja Premium. Jeden e-mail dziennie, tylko gdy coś nowego spadnie poniżej wartości rynkowej.",
+      "learnMore": "Zobacz Premium",
+      "signIn": "Zaloguj się"
+    }
   },
   "retiringSoon": {
     "pageTitle": "Zestawy LEGO Wycofywane Wkrótce 2026",
@@ -3116,7 +3123,8 @@
     "invalidTitle": "Ten link nie zadziałał",
     "invalidBody": "Ten link anulujący subskrypcję jest nieprawidłowy. Mógł już zostać użyty albo adres uległ zmianie.",
     "resubscribeHint": "Zmiana zdania? Ogłoszenia możesz ponownie włączyć w ustawieniach konta.",
-    "backHome": "Powrót do IntoBricka"
+    "backHome": "Powrót do IntoBricka",
+    "doneBodyDeals": "Codzienne podsumowanie okazji zostało wyłączone. Reszta — ogłoszenia, resetowanie hasła i ustawione alerty cenowe — działa bez zmian."
   },
   "homeGroups": {
     "more": "Więcej możliwości w IntoBricku",

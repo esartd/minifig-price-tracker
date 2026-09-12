@@ -1889,7 +1889,14 @@
     "tierGood20": "Boas ofertas – 20%+ de desconto",
     "readMore": "Ler mais",
     "readLess": "Ler menos",
-    "dismissDisclaimer": "Fechar"
+    "dismissDisclaimer": "Fechar",
+    "digest": {
+      "title": "Enviem-me novas promoções",
+      "subtitle": "Um e-mail por dia, apenas quando algo novo desce abaixo do valor de mercado.",
+      "premiumHint": "Funcionalidade Premium. Um e-mail por dia, apenas quando algo novo desce abaixo do valor de mercado.",
+      "learnMore": "Ver Premium",
+      "signIn": "Iniciar sessão"
+    }
   },
   "retiringSoon": {
     "pageTitle": "Conjuntos LEGO Saindo Breve 2026",
@@ -3116,7 +3123,8 @@
     "invalidTitle": "Esse link não funcionou",
     "invalidBody": "Este link de cancelamento não é válido. Pode já ter sido usado ou o endereço pode ter mudado.",
     "resubscribeHint": "Mudaste de ideias? Podes voltar a ativar os anúncios nas definições da tua conta.",
-    "backHome": "Voltar à IntoBrick"
+    "backHome": "Voltar à IntoBrick",
+    "doneBodyDeals": "O resumo diário de promoções foi desativado. Todo o resto — anúncios, reposições de palavra-passe e alertas de preço que criou — mantém-se."
   },
   "homeGroups": {
     "more": "Mais formas de usar o IntoBrick",

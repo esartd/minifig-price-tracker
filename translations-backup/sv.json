@@ -1889,7 +1889,14 @@
     "tierGood20": "Fina fynd – 20%+ rabatt",
     "readMore": "Läs mer",
     "readLess": "Läs mindre",
-    "dismissDisclaimer": "Stäng"
+    "dismissDisclaimer": "Stäng",
+    "digest": {
+      "title": "Mejla mig nya fynd",
+      "subtitle": "Ett mejl om dagen, bara när något nytt hamnar under marknadsvärdet.",
+      "premiumHint": "En premiumfunktion. Ett mejl om dagen, bara när något nytt hamnar under marknadsvärdet.",
+      "learnMore": "Se Premium",
+      "signIn": "Logga in"
+    }
   },
   "retiringSoon": {
     "pageTitle": "LEGO Set som Försvinner Snart 2026",
@@ -3116,7 +3123,8 @@
     "invalidTitle": "Länken fungerade inte",
     "invalidBody": "Den här avregistreringslänken är inte giltig. Den kan redan ha använts, eller så har adressen ändrats.",
     "resubscribeHint": "Ändrat dig? Du kan slå på nyheter igen i dina kontoinställningar.",
-    "backHome": "Tillbaka till IntoBrick"
+    "backHome": "Tillbaka till IntoBrick",
+    "doneBodyDeals": "Det dagliga fyndbrevet är avstängt. Allt annat — meddelanden, lösenordsåterställning och prisbevakningar du lagt upp — påverkas inte."
   },
   "homeGroups": {
     "more": "Fler sätt att använda IntoBricks tjänster",

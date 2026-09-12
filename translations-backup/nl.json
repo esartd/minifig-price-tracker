@@ -1889,7 +1889,14 @@
     "tierGood20": "Leuke deals – 20%+ korting",
     "readMore": "Meer lezen",
     "readLess": "Minder lezen",
-    "dismissDisclaimer": "Sluiten"
+    "dismissDisclaimer": "Sluiten",
+    "digest": {
+      "title": "Mail me nieuwe deals",
+      "subtitle": "Eén mail per dag, alleen als er iets nieuws onder de marktwaarde zakt.",
+      "premiumHint": "Een Premium-functie. Eén mail per dag, alleen als er iets nieuws onder de marktwaarde zakt.",
+      "learnMore": "Bekijk Premium",
+      "signIn": "Inloggen"
+    }
   },
   "retiringSoon": {
     "pageTitle": "LEGO Sets die Binnenkort Verdwijnen 2026",
@@ -3116,7 +3123,8 @@
     "invalidTitle": "Die link werkte niet",
     "invalidBody": "Deze uitschrijflink is niet geldig. Mogelijk is hij al gebruikt of is het adres gewijzigd.",
     "resubscribeHint": "Toch weer meedoen? Je kunt aankondigingen weer inschakelen in je accountinstellingen.",
-    "backHome": "Terug naar IntoBrick"
+    "backHome": "Terug naar IntoBrick",
+    "doneBodyDeals": "De dagelijkse dealsmail staat uit. Al het andere — aankondigingen, wachtwoordherstel en ingestelde prijsmeldingen — blijft ongewijzigd."
   },
   "homeGroups": {
     "more": "Meer manieren om IntoBrick te gebruiken",

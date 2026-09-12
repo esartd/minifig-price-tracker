@@ -542,16 +542,20 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
       Prisma.sql`(${randomUUID()}, ${boxNo}, ${d.walmartItemId}, ${d.title},
                   ${d.currentPrice}, ${d.listPrice}, ${d.discountPercent},
                   ${d.inStock}, ${d.currency}, ${d.productUrl}, ${d.imageUrl},
-                  ${d.ourPrice}, ${d.pctBelowOurPrice}, NOW(3))`
+                  ${d.ourPrice}, ${d.pctBelowOurPrice}, NOW(3), NOW(3))`
     );
 
     await prisma.$executeRaw`
       INSERT INTO \`WalmartDeal\`
         (\`id\`, \`boxNo\`, \`walmartItemId\`, \`title\`, \`currentPrice\`, \`listPrice\`,
          \`discountPercent\`, \`inStock\`, \`currency\`, \`productUrl\`, \`imageUrl\`,
-         \`ourPrice\`, \`pctBelowOurPrice\`, \`lastUpdated\`)
+         \`ourPrice\`, \`pctBelowOurPrice\`, \`firstSeenAt\`, \`lastUpdated\`)
       VALUES ${Prisma.join(values)}
       ON DUPLICATE KEY UPDATE
+        -- Before currentPrice, deliberately: MySQL evaluates these left to
+        -- right, so this reads the OLD price. Below the currentPrice line it
+        -- would copy the new one and no drop would ever be detected.
+        \`previousPrice\`   = \`currentPrice\`,
         \`walmartItemId\`   = VALUES(\`walmartItemId\`),
         \`title\`           = VALUES(\`title\`),
         \`currentPrice\`    = VALUES(\`currentPrice\`),

@@ -1834,7 +1834,14 @@
     "tierGood20": "Bonnes offres – 20%+ de réduction",
     "readMore": "Lire la suite",
     "readLess": "Réduire",
-    "dismissDisclaimer": "Fermer"
+    "dismissDisclaimer": "Fermer",
+    "digest": {
+      "title": "M’envoyer les nouvelles offres",
+      "subtitle": "Un e-mail par jour, seulement quand une nouveauté passe sous la valeur du marché.",
+      "premiumHint": "Fonction Premium. Un e-mail par jour, seulement quand une nouveauté passe sous la valeur du marché.",
+      "learnMore": "Voir Premium",
+      "signIn": "Se connecter"
+    }
   },
   "retiringSoon": {
     "pageTitle": "Sets LEGO Bientôt Retirés 2026",
@@ -3116,7 +3123,8 @@
     "invalidTitle": "Ce lien n’a pas fonctionné",
     "invalidBody": "Ce lien de désabonnement n’est pas valide. Il a peut-être déjà été utilisé, ou l’adresse a été modifiée.",
     "resubscribeHint": "Vous avez changé d’avis ? Vous pouvez réactiver les annonces dans les paramètres de votre compte.",
-    "backHome": "Retour à IntoBrick"
+    "backHome": "Retour à IntoBrick",
+    "doneBodyDeals": "Le résumé quotidien des offres est désactivé. Tout le reste — annonces, réinitialisations de mot de passe et alertes de prix — reste inchangé."
   },
   "homeGroups": {
     "more": "D'autres façons d'utiliser IntoBrick",
