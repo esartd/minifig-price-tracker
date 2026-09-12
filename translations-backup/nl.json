@@ -2637,8 +2637,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Drie tools. Eén abonnement.",
-        "subtitle": "Zet alles direct te koop, herken elke minifiguur vanaf een foto en hoor het zodra een set die je wilt in de aanbieding is."
+        "title": "Eén abonnement. Alle voordelen.",
+        "subtitle": "Pak de deals, zet in één stap te koop en herken elke minifiguur vanaf een foto."
       },
       "features": {
         "title": "Wat je krijgt",
@@ -2664,8 +2664,12 @@
           "description": "Maak een foto of sleep er een naartoe — AI vindt het BrickLink ID en de huidige waarde. Geen scanlimiet."
         },
         "dealAlerts": {
-          "title": "Dealmeldingen voor de sets die je wilt",
-          "description": "Stel je prijs in voor een set en we mailen je de dag dat hij daar bij Walmart onder zakt. De deals bekijken is gratis — je betaalt voor het bericht."
+          "title": "Mis nooit een deal op een set die je wilt",
+          "description": "Noem je prijs voor een set en we mailen je de dag dat Walmart eronder duikt. Eén goede vangst betaalt een heel jaar."
+        },
+        "badge": {
+          "title": "Een blauw badge op je profiel",
+          "description": "Verschijnt naast je naam op je profiel, in de verzamelaarsgids en op de ranglijsten."
         }
       },
       "cta": {

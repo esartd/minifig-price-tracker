@@ -2637,8 +2637,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Drei Werkzeuge. Ein Abo.",
-        "subtitle": "Alles sofort inserieren, jede Minifigur per Foto bestimmen und erfahren, sobald ein gewünschtes Set im Angebot ist."
+        "title": "Ein Abo. Alle Vorteile.",
+        "subtitle": "Angebote abpassen, in einem Schritt inserieren und jede Minifigur per Foto bestimmen."
       },
       "features": {
         "title": "Das bekommst du",
@@ -2664,8 +2664,12 @@
           "description": "Foto aufnehmen oder hineinziehen — die KI findet die BrickLink-ID und den aktuellen Wert. Kein Scan-Limit."
         },
         "dealAlerts": {
-          "title": "Angebots-Alarm für deine Wunsch-Sets",
-          "description": "Lege für ein Set deinen Preis fest, und wir mailen dir, sobald es bei Walmart darunter fällt. Die Angebote anzusehen ist kostenlos — bezahlt wird die Benachrichtigung."
+          "title": "Verpasse nie ein Angebot für dein Wunsch-Set",
+          "description": "Nenne für ein Set deinen Preis, und wir mailen dir, sobald Walmart darunter geht. Ein guter Treffer bezahlt ein ganzes Jahr."
+        },
+        "badge": {
+          "title": "Ein blaues Abzeichen auf deinem Profil",
+          "description": "Erscheint neben deinem Namen auf deinem Profil, im Sammlerverzeichnis und in den Bestenlisten."
         }
       },
       "cta": {

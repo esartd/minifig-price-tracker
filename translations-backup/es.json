@@ -2637,8 +2637,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Tres herramientas. Una suscripción.",
-        "subtitle": "Publica cualquier artículo al instante, identifica cualquier minifigura con una foto y entérate en cuanto un set que quieres se pone en oferta."
+        "title": "Una suscripción. Todas las mejoras.",
+        "subtitle": "Cazá las ofertas, publicá en un paso e identificá cualquier minifigura con una foto."
       },
       "features": {
         "title": "Qué obtienes",
@@ -2664,8 +2664,12 @@
           "description": "Toma una foto o arrástrala — la IA encuentra el ID de BrickLink y el valor actual. Sin límite de escaneos."
         },
         "dealAlerts": {
-          "title": "Avisos de ofertas en los sets que quieres",
-          "description": "Fija tu precio para cualquier set y te enviamos un correo el día que baje de esa cifra en Walmart. Ver las ofertas es gratis; lo que pagas es que te avisen."
+          "title": "No te pierdas ninguna oferta de un set que quieres",
+          "description": "Pon tu precio a cualquier set y te escribimos el día que Walmart baje de ahí. Un buen hallazgo paga un año entero."
+        },
+        "badge": {
+          "title": "Una insignia azul en tu perfil",
+          "description": "Aparece junto a tu nombre en tu perfil, el directorio de coleccionistas y las clasificaciones."
         }
       },
       "cta": {
