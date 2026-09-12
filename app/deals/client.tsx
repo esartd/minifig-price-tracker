@@ -387,6 +387,7 @@ export default function LegoSaleClient() {
           snapshot, and that Walmart's own price at checkout is the one that
           counts. */}
       {showDisclaimer && (
+        <div style={{ padding: '0 16px' }}>
         <div style={{
           maxWidth: '1200px',
           margin: '32px auto 0',
@@ -437,10 +438,18 @@ export default function LegoSaleClient() {
             <XMarkIcon style={{ width: '16px', height: '16px' }} />
           </button>
         </div>
+        </div>
       )}
 
       {/* Deals Content */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '48px 16px' }}>
+      {/* Same container recipe as every band above: the 16px page gutter goes on
+          a FULL-WIDTH wrapper, and the 1200px column sits inside it with no
+          padding of its own. Putting the gutter on the 1200px box instead --
+          which is what this did -- keeps the box aligned but pushes its contents
+          16px inward, so the tier headings and cards no longer lined up with the
+          heading and filters above them. */}
+      <div style={{ padding: '48px 16px' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         {loading ? (
           <div style={{ textAlign: 'center', padding: '64px 0', color: '#737373' }}>
             <p style={{ fontSize: 'var(--text-lg)' }}>{t('legoSale.loadingDeals') || 'Loading deals...'}</p>
@@ -477,6 +486,7 @@ export default function LegoSaleClient() {
             />
           </>
         )}
+      </div>
       </div>
     </div>
   );
