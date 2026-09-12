@@ -4,7 +4,7 @@ import { Resend } from 'resend';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { originFor } from '@/lib/site-domain';
-import { ADMIN_EMAIL } from '@/lib/admin-auth';
+import { isAdminEmail } from '@/lib/admin-auth';
 
 /**
  * Sends an announcement to subscribed users.
@@ -82,7 +82,7 @@ function renderBody(text: string): string {
 
 export async function POST(request: Request) {
   const session = await auth();
-  if (!session || session.user?.email !== ADMIN_EMAIL) {
+  if (!session || !isAdminEmail(session.user?.email)) {
     return NextResponse.json({ error: 'Not authorised' }, { status: 403 });
   }
 
@@ -105,7 +105,9 @@ export async function POST(request: Request) {
   // the template renders badly or lands in Promotions.
   const recipients = testOnly
     ? await prisma.user.findMany({
-        where: { email: ADMIN_EMAIL },
+        // The admin who pressed the button, not a fixed address. With two
+        // admins a hard-coded one means the other tests a blast they never see.
+        where: { email: session.user.email! },
         select: { id: true, email: true, unsubscribeToken: true },
       })
     : await prisma.user.findMany({

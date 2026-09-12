@@ -10,7 +10,7 @@ import translationsFr from '@/translations-backup/fr.json';
 import translationsEs from '@/translations-backup/es.json';
 import { formatCompactNumberSmart } from '@/lib/format-number';
 import AffiliateDashboardButtons from '@/components/AffiliateDashboardButtons';
-import { ADMIN_EMAIL } from '@/lib/admin-auth';
+import { ADMIN_EMAILS, isAdminEmail } from '@/lib/admin-auth';
 
 function getTranslations(locale: string) {
   switch (locale) {
@@ -27,7 +27,7 @@ export default async function AdminStatsPage() {
   const session = await auth();
 
   // Check if user is logged in and is admin
-  if (!session || session.user?.email !== ADMIN_EMAIL) {
+  if (!session || !isAdminEmail(session.user?.email)) {
     redirect('/');
   }
 
@@ -42,8 +42,16 @@ export default async function AdminStatsPage() {
   const last7Days = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
   const last30Days = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
 
-  // Admin email to exclude from click stats
-  // Note: AffiliateClick.userId stores email, not user ID
+  /**
+   * Admin accounts, excluded from the click and funnel stats below.
+   *
+   * Compared against `userId`, which despite the name stores an EMAIL on
+   * AffiliateClick and MonetizationEvent -- verified against 218 non-null rows,
+   * every one an address and not a cuid. Do not "fix" it to a user ID: that
+   * comparison never matches and silently counts our own testing in every
+   * figure on this page.
+   */
+  const adminEmailPlaceholders = ADMIN_EMAILS.map(() => '?').join(', ') || "''";
 
   // Get catalog count
   const catalog = await getAllMinifigs();
@@ -65,17 +73,17 @@ export default async function AdminStatsPage() {
     clicksByPlatform,
   ] = await Promise.all([
     prisma.user.count({
-      where: { email: { not: ADMIN_EMAIL } }
+      where: { email: { notIn: ADMIN_EMAILS } }
     }),
     prisma.collectionItem.count({
-      where: { User: { email: { not: ADMIN_EMAIL } } }
+      where: { User: { email: { notIn: ADMIN_EMAILS } } }
     }),
     prisma.personalCollectionItem.count({
-      where: { User: { email: { not: ADMIN_EMAIL } } }
+      where: { User: { email: { notIn: ADMIN_EMAILS } } }
     }),
     prisma.priceCache.count(),
     prisma.user.findMany({
-      where: { email: { not: ADMIN_EMAIL } },
+      where: { email: { notIn: ADMIN_EMAILS } },
       orderBy: { createdAt: 'desc' },
       take: 10,
       select: {
@@ -92,7 +100,7 @@ export default async function AdminStatsPage() {
     }),
     // Fetch all users to sort by TOTAL items (not just one collection type)
     prisma.user.findMany({
-      where: { email: { not: ADMIN_EMAIL } },
+      where: { email: { notIn: ADMIN_EMAILS } },
       select: {
         email: true,
         name: true,
@@ -107,32 +115,32 @@ export default async function AdminStatsPage() {
     // Affiliate click stats (excluding admin clicks)
     prisma.affiliateClick.count({
       where: {
-        userId: { not: ADMIN_EMAIL }
+        userId: { notIn: ADMIN_EMAILS }
       }
     }),
     prisma.affiliateClick.count({
       where: {
         clickedAt: { gte: last24Hours },
-        userId: { not: ADMIN_EMAIL }
+        userId: { notIn: ADMIN_EMAILS }
       }
     }),
     prisma.affiliateClick.count({
       where: {
         clickedAt: { gte: last7Days },
-        userId: { not: ADMIN_EMAIL }
+        userId: { notIn: ADMIN_EMAILS }
       }
     }),
     prisma.affiliateClick.count({
       where: {
         clickedAt: { gte: last30Days },
-        userId: { not: ADMIN_EMAIL }
+        userId: { notIn: ADMIN_EMAILS }
       }
     }),
     // Top clicked products (excluding admin)
     prisma.affiliateClick.groupBy({
       by: ['productId', 'productName', 'platform', 'productType'],
       where: {
-        userId: { not: ADMIN_EMAIL }
+        userId: { notIn: ADMIN_EMAILS }
       },
       _count: { id: true },
       orderBy: { _count: { id: 'desc' } },
@@ -142,7 +150,7 @@ export default async function AdminStatsPage() {
     prisma.affiliateClick.groupBy({
       by: ['platform'],
       where: {
-        userId: { not: ADMIN_EMAIL }
+        userId: { notIn: ADMIN_EMAILS }
       },
       _count: { id: true },
     }),
@@ -182,9 +190,9 @@ export default async function AdminStatsPage() {
       SELECT eventType, COUNT(*) as count
       FROM MonetizationEvent
       WHERE eventType IN ('pricing_viewed', 'inline_link_clicked', 'nav_support_clicked', 'support_page_viewed', 'donated')
-      AND userId != ?
+      AND (userId IS NULL OR userId NOT IN (${adminEmailPlaceholders}))
       GROUP BY eventType
-    `, ADMIN_EMAIL);
+    `, ...ADMIN_EMAILS);
 
     donationFunnelData.forEach((row: { eventType: string; count: bigint }) => {
       if (row.eventType in donationFunnelMetrics) {
@@ -197,9 +205,9 @@ export default async function AdminStatsPage() {
       SELECT eventType, COUNT(*) as count
       FROM MonetizationEvent
       WHERE eventType IN ('pricing_viewed', 'affiliate_clicked')
-      AND userId != ?
+      AND (userId IS NULL OR userId NOT IN (${adminEmailPlaceholders}))
       GROUP BY eventType
-    `, ADMIN_EMAIL);
+    `, ...ADMIN_EMAILS);
 
     affiliateFunnelData.forEach((row: { eventType: string; count: bigint }) => {
       if (row.eventType in affiliateFunnelMetrics) {

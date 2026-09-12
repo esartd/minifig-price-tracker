@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import AnnounceClient from './announce-client';
-import { ADMIN_EMAIL } from '@/lib/admin-auth';
+import { isAdminEmail } from '@/lib/admin-auth';
 
 // Same gate as the other admin pages.
 
@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function AdminAnnouncementsPage() {
   const session = await auth();
-  if (!session || session.user?.email !== ADMIN_EMAIL) {
+  if (!session || !isAdminEmail(session.user?.email)) {
     redirect('/');
   }
 

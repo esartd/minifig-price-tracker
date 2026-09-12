@@ -1,20 +1,20 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma, prismaPublic } from '@/lib/prisma';
-import { ADMIN_EMAIL } from '@/lib/admin-auth';
+import { ADMIN_EMAILS, isAdminEmail } from '@/lib/admin-auth';
 
 
 export async function GET() {
   const session = await auth();
 
-  if (!session || session.user?.email !== ADMIN_EMAIL) {
+  if (!session || !isAdminEmail(session.user?.email)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   try {
     // Top themes by collection items (excluding admin)
     const collectionMinifigs = await prisma.collectionItem.findMany({
-      where: { User: { email: { not: ADMIN_EMAIL } } },
+      where: { User: { email: { notIn: ADMIN_EMAILS } } },
       select: { minifigure_no: true },
       distinct: ['minifigure_no']
     });
@@ -37,7 +37,7 @@ export async function GET() {
 
     // Top themes by wishlist items (excluding admin)
     const wishlistMinifigs = await prisma.wishlistItem.findMany({
-      where: { User: { email: { not: ADMIN_EMAIL } } },
+      where: { User: { email: { notIn: ADMIN_EMAILS } } },
       select: { minifigure_no: true },
       distinct: ['minifigure_no']
     });
