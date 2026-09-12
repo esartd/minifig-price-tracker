@@ -2670,7 +2670,9 @@
     "sourceWalmart": "Walmart price",
     "walmartPremiumHint": "Premium feature",
     "walmartPremiumUpsell": "Walmart deal alerts are a Premium feature.",
-    "learnMore": "Learn more"
+    "learnMore": "Learn more",
+    "currentMarketPrice": "Current market price",
+    "currentWalmartPrice": "Current Walmart price"
   },
   "accountAlerts": {
     "confirmDelete": "Are you sure you want to delete this alert?",

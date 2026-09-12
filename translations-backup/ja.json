@@ -2583,7 +2583,9 @@
     "sourceWalmart": "Walmart価格",
     "walmartPremiumHint": "プレミアム機能",
     "walmartPremiumUpsell": "Walmartの値下がり通知はプレミアム機能です。",
-    "learnMore": "詳しく見る"
+    "learnMore": "詳しく見る",
+    "currentMarketPrice": "現在の市場価格",
+    "currentWalmartPrice": "現在のWalmart価格"
   },
   "accountAlerts": {
     "confirmDelete": "このアラートを削除してもよろしいですか？",

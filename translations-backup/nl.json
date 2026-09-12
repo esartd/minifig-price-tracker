@@ -2583,7 +2583,9 @@
     "sourceWalmart": "Walmart-prijs",
     "walmartPremiumHint": "Premium-functie",
     "walmartPremiumUpsell": "Walmart-dealmeldingen zijn een Premium-functie.",
-    "learnMore": "Meer informatie"
+    "learnMore": "Meer informatie",
+    "currentMarketPrice": "Huidige marktprijs",
+    "currentWalmartPrice": "Huidige Walmart-prijs"
   },
   "accountAlerts": {
     "confirmDelete": "Weet je zeker dat je deze melding wilt verwijderen?",

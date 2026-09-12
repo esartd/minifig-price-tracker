@@ -2583,7 +2583,9 @@
     "sourceWalmart": "Prezzo Walmart",
     "walmartPremiumHint": "Funzione Premium",
     "walmartPremiumUpsell": "Gli avvisi sulle offerte Walmart sono una funzione Premium.",
-    "learnMore": "Scopri di più"
+    "learnMore": "Scopri di più",
+    "currentMarketPrice": "Prezzo di mercato attuale",
+    "currentWalmartPrice": "Prezzo Walmart attuale"
   },
   "accountAlerts": {
     "confirmDelete": "Sei sicuro di voler eliminare questo avviso?",

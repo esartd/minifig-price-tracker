@@ -2583,7 +2583,9 @@
     "sourceWalmart": "Walmart-pris",
     "walmartPremiumHint": "Premiumfunktion",
     "walmartPremiumUpsell": "Walmart-fyndaviseringar är en premiumfunktion.",
-    "learnMore": "Läs mer"
+    "learnMore": "Läs mer",
+    "currentMarketPrice": "Aktuellt marknadspris",
+    "currentWalmartPrice": "Aktuellt Walmart-pris"
   },
   "accountAlerts": {
     "confirmDelete": "Är du säker på att du vill ta bort denna avisering?",

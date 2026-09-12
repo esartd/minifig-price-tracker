@@ -2583,7 +2583,9 @@
     "sourceWalmart": "Cena w Walmarcie",
     "walmartPremiumHint": "Funkcja Premium",
     "walmartPremiumUpsell": "Powiadomienia o okazjach w Walmarcie to funkcja Premium.",
-    "learnMore": "Dowiedz się więcej"
+    "learnMore": "Dowiedz się więcej",
+    "currentMarketPrice": "Aktualna cena rynkowa",
+    "currentWalmartPrice": "Aktualna cena w Walmarcie"
   },
   "accountAlerts": {
     "confirmDelete": "Czy na pewno chcesz usunąć ten alert?",

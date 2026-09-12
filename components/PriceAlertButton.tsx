@@ -278,14 +278,26 @@ export default function PriceAlertButton({
                       letterSpacing: '0.05em',
                       marginBottom: '4px'
                     }}>
-                      {t('priceAlert.currentPrice') || 'Current Price'}
+                      {/* Names the source once a choice exists, because the
+                          two prices differ and a bare "Current Price" next to
+                          a Walmart toggle is ambiguous. */}
+                      {canChooseSource
+                        ? (source === 'walmart'
+                            ? (t('priceAlert.currentWalmartPrice') || 'Current Walmart price')
+                            : (t('priceAlert.currentMarketPrice') || 'Current market price'))
+                        : (t('priceAlert.currentPrice') || 'Current Price')}
                     </div>
                     <div style={{
                       fontSize: '20px',
                       fontWeight: '600',
                       color: '#171717'
                     }}>
-                      {currencySymbol}{currentPrice.toFixed(2)}
+                      {/* referencePrice, not currentPrice: this has to be the
+                          number the target is actually measured against. It
+                          showed the market price while the Walmart alert was
+                          selected, so a target could be rejected for being
+                          above a price that was never on screen. */}
+                      {currencySymbol}{referencePrice.toFixed(2)}
                     </div>
                   </div>
                 </div>
