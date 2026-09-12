@@ -2664,7 +2664,13 @@
     "deleteAlert": "Delete Alert",
     "editTarget": "Edit Target",
     "saving": "Saving...",
-    "save": "Save"
+    "save": "Save",
+    "sourceLabel": "Watch which price?",
+    "sourceMarket": "Market price",
+    "sourceWalmart": "Walmart price",
+    "walmartPremiumHint": "Premium feature",
+    "walmartPremiumUpsell": "Walmart deal alerts are a Premium feature.",
+    "learnMore": "Learn more"
   },
   "accountAlerts": {
     "confirmDelete": "Are you sure you want to delete this alert?",
@@ -2694,7 +2700,9 @@
     "reactivate": "Reactivate",
     "pause": "Pause",
     "activate": "Activate",
-    "deleteAlert": "Delete alert"
+    "deleteAlert": "Delete alert",
+    "sourceMarket": "Market price",
+    "sourceWalmart": "Walmart price"
   },
   "setCard": {
     "noImage": "No image",

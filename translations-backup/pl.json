@@ -2577,7 +2577,13 @@
     "deleteAlert": "Usuń alert",
     "editTarget": "Edytuj cel",
     "saving": "Zapisywanie...",
-    "save": "Zapisz"
+    "save": "Zapisz",
+    "sourceLabel": "Którą cenę śledzić?",
+    "sourceMarket": "Cena rynkowa",
+    "sourceWalmart": "Cena w Walmarcie",
+    "walmartPremiumHint": "Funkcja Premium",
+    "walmartPremiumUpsell": "Powiadomienia o okazjach w Walmarcie to funkcja Premium.",
+    "learnMore": "Dowiedz się więcej"
   },
   "accountAlerts": {
     "confirmDelete": "Czy na pewno chcesz usunąć ten alert?",
@@ -2607,7 +2613,9 @@
     "reactivate": "Reaktywuj",
     "pause": "Wstrzymaj",
     "activate": "Aktywuj",
-    "deleteAlert": "Usuń alert"
+    "deleteAlert": "Usuń alert",
+    "sourceMarket": "Cena rynkowa",
+    "sourceWalmart": "Cena w Walmarcie"
   },
   "setCard": {
     "noImage": "Brak obrazu",

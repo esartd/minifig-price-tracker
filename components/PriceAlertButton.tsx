@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useTranslation } from '@/components/TranslationProvider';
-import { BellIcon } from '@heroicons/react/24/outline';
+import { BellIcon, LockClosedIcon } from '@heroicons/react/24/outline';
 import { BellIcon as BellSolidIcon } from '@heroicons/react/24/solid';
 
 interface PriceAlertButtonProps {
@@ -13,6 +13,14 @@ interface PriceAlertButtonProps {
   condition: 'new' | 'used';
   currentPrice: number;
   currencyCode: string;
+  /**
+   * Walmart's current price for this set, when it has one. Passed down rather
+   * than fetched here: the set page already has it, and a second request for a
+   * number the parent is holding would be waste.
+   */
+  walmartPrice?: number | null;
+  /** Also passed down -- set-detail-client already knows. */
+  isPremium?: boolean;
 }
 
 export default function PriceAlertButton({
@@ -22,6 +30,8 @@ export default function PriceAlertButton({
   condition,
   currentPrice,
   currencyCode,
+  walmartPrice = null,
+  isPremium = false,
 }: PriceAlertButtonProps) {
   const { data: session, status } = useSession();
   const { t } = useTranslation();
@@ -31,6 +41,17 @@ export default function PriceAlertButton({
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [isEditingPrice, setIsEditingPrice] = useState(false);
+  /**
+   * Which price the alert watches. Minifigures have no Walmart data at all
+   * (WalmartDeal is keyed by box number), so the choice only appears for sets
+   * we actually have a Walmart price for.
+   */
+  const [source, setSource] = useState<'market' | 'walmart'>('market');
+  const canChooseSource = itemType === 'SET' && walmartPrice !== null && walmartPrice > 0;
+  // The price the chosen alert is measured against -- and what the "must be
+  // below current" check compares to. Using the market price for a Walmart
+  // alert would reject perfectly good targets.
+  const referencePrice = source === 'walmart' && walmartPrice ? walmartPrice : currentPrice;
 
   const currencySymbol = currencyCode === 'USD' ? '$' : currencyCode === 'EUR' ? '€' : currencyCode === 'GBP' ? '£' : currencyCode;
 
@@ -51,6 +72,7 @@ export default function PriceAlertButton({
             alert.item_no === itemNo &&
             alert.item_type === itemType &&
             alert.condition === condition &&
+            (alert.source || 'market') === source &&
             alert.active
         );
         if (existingAlert) {
@@ -75,10 +97,10 @@ export default function PriceAlertButton({
       return;
     }
 
-    if (price >= currentPrice) {
+    if (price >= referencePrice) {
       setMessage({
         type: 'error',
-        text: t('priceAlert.targetBelowCurrent', { price: `${currencySymbol}${currentPrice}` }) || `Target price must be below current price (${currencySymbol}${currentPrice})`,
+        text: t('priceAlert.targetBelowCurrent', { price: `${currencySymbol}${referencePrice}` }) || `Target price must be below current price (${currencySymbol}${referencePrice})`,
       });
       setIsLoading(false);
       return;
@@ -93,6 +115,7 @@ export default function PriceAlertButton({
           item_type: itemType,
           item_name: itemName,
           condition,
+          source,
           target_price: price,
           currency_code: currencyCode,
         }),
@@ -266,6 +289,63 @@ export default function PriceAlertButton({
                     </div>
                   </div>
                 </div>
+
+                {/* Which price to watch. Shown to free users with the Walmart
+                    option locked rather than hidden -- a perk nobody can see
+                    is a perk nobody buys. The server refuses the request
+                    regardless, so this is presentation, not enforcement. */}
+                {canChooseSource && (
+                  <div style={{ marginBottom: '16px' }}>
+                    <label style={{
+                      display: 'block', fontSize: '13px', fontWeight: '500',
+                      color: '#525252', marginBottom: '8px'
+                    }}>
+                      {t('priceAlert.sourceLabel') || 'Watch which price?'}
+                    </label>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <button
+                        type="button"
+                        onClick={() => setSource('market')}
+                        style={{
+                          flex: 1, padding: '10px 12px', fontSize: '13px', fontWeight: 600,
+                          borderRadius: '999px', cursor: 'pointer', textAlign: 'center',
+                          border: source === 'market' ? '1px solid #3b82f6' : '1px solid #e5e5e5',
+                          background: source === 'market' ? '#eff6ff' : '#ffffff',
+                          color: source === 'market' ? '#1d4ed8' : '#525252',
+                        }}
+                      >
+                        {t('priceAlert.sourceMarket') || 'Market price'}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => { if (isPremium) setSource('walmart'); }}
+                        // Not `disabled`: a disabled button is silent, and this
+                        // one has something to say.
+                        title={isPremium ? undefined : (t('priceAlert.walmartPremiumHint') || 'Premium feature')}
+                        style={{
+                          flex: 1, padding: '10px 12px', fontSize: '13px', fontWeight: 600,
+                          borderRadius: '999px', textAlign: 'center',
+                          cursor: isPremium ? 'pointer' : 'not-allowed',
+                          border: source === 'walmart' ? '1px solid #3b82f6' : '1px solid #e5e5e5',
+                          background: source === 'walmart' ? '#eff6ff' : '#ffffff',
+                          color: !isPremium ? '#a3a3a3' : source === 'walmart' ? '#1d4ed8' : '#525252',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px',
+                        }}
+                      >
+                        {t('priceAlert.sourceWalmart') || 'Walmart price'}
+                        {!isPremium && <LockClosedIcon style={{ width: '13px', height: '13px', flexShrink: 0 }} />}
+                      </button>
+                    </div>
+                    {!isPremium && (
+                      <p style={{ margin: '8px 0 0', fontSize: '12px', color: '#737373' }}>
+                        {t('priceAlert.walmartPremiumUpsell') || 'Walmart deal alerts are a Premium feature.'}{' '}
+                        <a href="/premium" style={{ color: '#3b82f6', fontWeight: 600 }}>
+                          {t('priceAlert.learnMore') || 'Learn more'}
+                        </a>
+                      </p>
+                    )}
+                  </div>
+                )}
 
                 {/* Target Price Input */}
                 <div style={{ marginBottom: '16px' }}>

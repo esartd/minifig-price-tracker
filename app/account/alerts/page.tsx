@@ -12,6 +12,8 @@ interface PriceAlert {
   id: string;
   item_no: string;
   item_type: 'MINIFIG' | 'SET';
+  /** Which price this alert watches. Older rows predate the column. */
+  source?: 'market' | 'walmart';
   item_name: string;
   condition: 'new' | 'used';
   target_price: number;
@@ -186,6 +188,7 @@ export default function AlertsPage() {
           item_type: alert.item_type,
           item_name: alert.item_name,
           condition: alert.condition,
+          source: alert.source || 'market',
           target_price: newPrice,
           currency_code: alert.currency_code,
         }),
@@ -579,6 +582,15 @@ function AlertCard({
               marginBottom: '12px'
             }}>
               {alert.item_no} • {alert.condition === 'new' ? (t('common.new') || 'New') : (t('common.used') || 'Used')} • {alert.item_type === 'MINIFIG' ? (t('accountAlerts.minifigure') || 'Minifigure') : (t('accountAlerts.set') || 'Set')}
+              {/* Which price this one is watching. Without it, two alerts on
+                  the same set are visually identical rows with different
+                  targets, and neither says why. */}
+              {' • '}
+              <span style={{ fontWeight: 600, color: alert.source === 'walmart' ? '#1d4ed8' : '#525252' }}>
+                {alert.source === 'walmart'
+                  ? (t('accountAlerts.sourceWalmart') || 'Walmart price')
+                  : (t('accountAlerts.sourceMarket') || 'Market price')}
+              </span>
             </div>
 
             {/* Target Price */}

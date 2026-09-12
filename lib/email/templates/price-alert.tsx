@@ -14,12 +14,16 @@ interface PriceAlertEmailProps {
   bricklinkUrl: string;
   amazonUrl: string;
   unsubscribeUrl: string;
-  /**
-   * Set when the price that fired this alert came from Walmart rather than
-   * from our own market blend. It is a real listing at a real price, so it
-   * leads the "Where to Buy" list instead of sitting among the searches.
-   */
+  /** Which alert fired: our blended market price, or the Walmart shelf price. */
+  priceSource?: 'market' | 'walmart';
+  /** A real Walmart listing to link, when one is known. */
   walmartUrl?: string;
+  /**
+   * The OTHER alert on the same item, when someone held both and both fired
+   * the same night. They get one email naming both prices instead of two
+   * emails minutes apart about the same box.
+   */
+  otherPrice?: { source: 'market' | 'walmart'; price: number };
 }
 
 export const PriceAlertEmail = ({
@@ -36,7 +40,9 @@ export const PriceAlertEmail = ({
   bricklinkUrl,
   amazonUrl,
   unsubscribeUrl,
+  priceSource = 'market',
   walmartUrl,
+  otherPrice,
 }: PriceAlertEmailProps) => {
   const currencySymbol = currencyCode === 'USD' ? '$' : currencyCode === 'EUR' ? '€' : currencyCode === 'GBP' ? '£' : currencyCode;
   const conditionText = condition === 'new' ? 'New' : 'Used';
@@ -232,6 +238,20 @@ export const PriceAlertEmail = ({
               </div>
             </div>
 
+            <p style={{ fontSize: '14px', color: '#374151', margin: '0 0 8px' }}>
+              {priceSource === 'walmart'
+                ? `That price is Walmart's right now.`
+                : `That is the current market price across marketplaces we track.`}
+              {otherPrice && (
+                <>
+                  {' '}
+                  {otherPrice.source === 'walmart'
+                    ? `Walmart has it at ${currencySymbol}${otherPrice.price.toFixed(2)}.`
+                    : `The market price is ${currencySymbol}${otherPrice.price.toFixed(2)}.`}
+                </>
+              )}
+            </p>
+
             <div className="cta-section">
               <a href={itemUrl} className="cta-button">
                 View on IntoBrick
@@ -241,11 +261,11 @@ export const PriceAlertEmail = ({
             <div className="marketplace-links">
               <h3>Where to Buy</h3>
               {walmartUrl && (
-                /* First, and worded differently from the three below it: this
-                   is a specific listing at the price that triggered the alert,
-                   not a search that might turn one up. */
+                /* First, and worded differently from the searches below: this
+                   is a specific listing at a real price, not a search that
+                   might turn one up. */
                 <a href={walmartUrl} className="marketplace-link">
-                  🔵 Buy at Walmart for {currencySymbol}{currentPrice.toFixed(2)} →
+                  🔵 Buy at Walmart →
                 </a>
               )}
               <a href={ebayUrl} className="marketplace-link">
@@ -260,8 +280,8 @@ export const PriceAlertEmail = ({
             </div>
 
             <p style={{ fontSize: '13px', color: '#6b7280', marginTop: '24px', lineHeight: '1.6' }}>
-              <strong>Note:</strong> This alert has been automatically deactivated.{' '}
-              {walmartUrl
+              <strong>Note:</strong> {otherPrice ? 'These alerts have' : 'This alert has'} been automatically deactivated.{' '}
+              {priceSource === 'walmart'
                 ? 'Walmart prices are refreshed once a day and can change at any time.'
                 : 'Prices are updated every 6 hours based on BrickLink market data.'}{' '}
               Set a new alert if you'd like to continue monitoring.

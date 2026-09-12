@@ -2577,7 +2577,13 @@
     "deleteAlert": "Melding Verwijderen",
     "editTarget": "Streefprijs Bewerken",
     "saving": "Bezig met opslaan...",
-    "save": "Opslaan"
+    "save": "Opslaan",
+    "sourceLabel": "Welke prijs volgen?",
+    "sourceMarket": "Marktprijs",
+    "sourceWalmart": "Walmart-prijs",
+    "walmartPremiumHint": "Premium-functie",
+    "walmartPremiumUpsell": "Walmart-dealmeldingen zijn een Premium-functie.",
+    "learnMore": "Meer informatie"
   },
   "accountAlerts": {
     "confirmDelete": "Weet je zeker dat je deze melding wilt verwijderen?",
@@ -2607,7 +2613,9 @@
     "reactivate": "Heractiveren",
     "pause": "Pauzeren",
     "activate": "Activeren",
-    "deleteAlert": "Melding verwijderen"
+    "deleteAlert": "Melding verwijderen",
+    "sourceMarket": "Marktprijs",
+    "sourceWalmart": "Walmart-prijs"
   },
   "setCard": {
     "noImage": "Geen afbeelding",

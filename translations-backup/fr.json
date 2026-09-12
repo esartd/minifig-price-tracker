@@ -2577,7 +2577,13 @@
     "deleteAlert": "Supprimer l'alerte",
     "editTarget": "Modifier la cible",
     "saving": "Enregistrement en cours...",
-    "save": "Enregistrer"
+    "save": "Enregistrer",
+    "sourceLabel": "Quel prix surveiller ?",
+    "sourceMarket": "Prix du marché",
+    "sourceWalmart": "Prix Walmart",
+    "walmartPremiumHint": "Fonction Premium",
+    "walmartPremiumUpsell": "Les alertes promo Walmart sont une fonction Premium.",
+    "learnMore": "En savoir plus"
   },
   "accountAlerts": {
     "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette alerte ?",
@@ -2607,7 +2613,9 @@
     "reactivate": "Réactiver",
     "pause": "Mettre en pause",
     "activate": "Activer",
-    "deleteAlert": "Supprimer l'alerte"
+    "deleteAlert": "Supprimer l'alerte",
+    "sourceMarket": "Prix du marché",
+    "sourceWalmart": "Prix Walmart"
   },
   "setCard": {
     "noImage": "Aucune image",

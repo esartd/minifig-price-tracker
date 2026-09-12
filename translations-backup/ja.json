@@ -2577,7 +2577,13 @@
     "deleteAlert": "アラートを削除",
     "editTarget": "目標価格を編集",
     "saving": "保存中...",
-    "save": "保存"
+    "save": "保存",
+    "sourceLabel": "どの価格を監視しますか？",
+    "sourceMarket": "市場価格",
+    "sourceWalmart": "Walmart価格",
+    "walmartPremiumHint": "プレミアム機能",
+    "walmartPremiumUpsell": "Walmartの値下がり通知はプレミアム機能です。",
+    "learnMore": "詳しく見る"
   },
   "accountAlerts": {
     "confirmDelete": "このアラートを削除してもよろしいですか？",
@@ -2607,7 +2613,9 @@
     "reactivate": "再度有効にする",
     "pause": "一時停止",
     "activate": "有効にする",
-    "deleteAlert": "アラートを削除"
+    "deleteAlert": "アラートを削除",
+    "sourceMarket": "市場価格",
+    "sourceWalmart": "Walmart価格"
   },
   "setCard": {
     "noImage": "画像なし",

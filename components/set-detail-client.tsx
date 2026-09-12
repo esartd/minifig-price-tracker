@@ -1335,6 +1335,10 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                     condition={condition}
                     currentPrice={pricing.currentLowest}
                     currencyCode={pricing.currencyCode || 'USD'}
+                    // Both already known here; passing them down saves the
+                    // button two requests for values this component holds.
+                    walmartPrice={walmartDeal?.currentPrice ?? null}
+                    isPremium={isPremium}
                   />
                 </div>
               )}

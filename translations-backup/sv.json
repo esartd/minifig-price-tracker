@@ -2577,7 +2577,13 @@
     "deleteAlert": "Ta bort avisering",
     "editTarget": "Redigera mål",
     "saving": "Sparar...",
-    "save": "Spara"
+    "save": "Spara",
+    "sourceLabel": "Vilket pris ska bevakas?",
+    "sourceMarket": "Marknadspris",
+    "sourceWalmart": "Walmart-pris",
+    "walmartPremiumHint": "Premiumfunktion",
+    "walmartPremiumUpsell": "Walmart-fyndaviseringar är en premiumfunktion.",
+    "learnMore": "Läs mer"
   },
   "accountAlerts": {
     "confirmDelete": "Är du säker på att du vill ta bort denna avisering?",
@@ -2607,7 +2613,9 @@
     "reactivate": "Återaktivera",
     "pause": "Pausa",
     "activate": "Aktivera",
-    "deleteAlert": "Ta bort avisering"
+    "deleteAlert": "Ta bort avisering",
+    "sourceMarket": "Marknadspris",
+    "sourceWalmart": "Walmart-pris"
   },
   "setCard": {
     "noImage": "Ingen bild",
