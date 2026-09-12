@@ -1964,7 +1964,8 @@
       "subtitle": "Überall, wo IntoBrick geöffnet wurde",
       "legend": "Besucher",
       "none": "keine"
-    }
+    },
+    "subscriberBadge": "Premium-Abonnent"
   },
   "homepage": {
     "stats": {
@@ -2626,8 +2627,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Zwei Tools. Ein Abo.",
-        "subtitle": "Erstelle sofort Angebote für alles und identifiziere jede Minifigur anhand eines Fotos."
+        "title": "Drei Werkzeuge. Ein Abo.",
+        "subtitle": "Alles sofort inserieren, jede Minifigur per Foto bestimmen und erfahren, sobald ein gewünschtes Set im Angebot ist."
       },
       "features": {
         "title": "Das bekommst du",
@@ -2651,6 +2652,10 @@
         "identify": {
           "title": "Unbegrenzte KI-Minifiguren-Erkennung",
           "description": "Foto aufnehmen oder hineinziehen — die KI findet die BrickLink-ID und den aktuellen Wert. Kein Scan-Limit."
+        },
+        "dealAlerts": {
+          "title": "Angebots-Alarm für deine Wunsch-Sets",
+          "description": "Lege für ein Set deinen Preis fest, und wir mailen dir, sobald es bei Walmart darunter fällt. Die Angebote anzusehen ist kostenlos — bezahlt wird die Benachrichtigung."
         }
       },
       "cta": {

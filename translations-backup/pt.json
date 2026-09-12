@@ -2019,7 +2019,8 @@
       "subtitle": "Em todos os sítios onde o IntoBrick foi aberto",
       "legend": "Visitantes",
       "none": "nenhum"
-    }
+    },
+    "subscriberBadge": "Subscritor Premium"
   },
   "directory": {
     "badge": "Comunidade",
@@ -2626,8 +2627,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Duas ferramentas. Uma subscrição.",
-        "subtitle": "Anuncia qualquer coisa instantaneamente e identifica qualquer minifigura a partir de uma foto."
+        "title": "Três ferramentas. Uma subscrição.",
+        "subtitle": "Anuncie qualquer artigo num instante, identifique qualquer minifigura a partir de uma foto e saiba assim que um conjunto que quer fica em promoção."
       },
       "features": {
         "title": "O que ganhas",
@@ -2651,6 +2652,10 @@
         "identify": {
           "title": "Identificador de minifiguras com IA ilimitado",
           "description": "Tira ou arrasta uma foto — a IA encontra o ID do BrickLink e o valor atual. Sem limite de análises."
+        },
+        "dealAlerts": {
+          "title": "Alertas de promoções nos conjuntos que quer",
+          "description": "Defina o seu preço para qualquer conjunto e enviamos um e-mail no dia em que descer abaixo disso na Walmart. Ver as promoções é grátis — o que paga é o aviso."
         }
       },
       "cta": {

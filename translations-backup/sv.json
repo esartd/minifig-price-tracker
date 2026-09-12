@@ -2019,7 +2019,8 @@
       "subtitle": "Överallt där IntoBrick har öppnats",
       "legend": "Besökare",
       "none": "inga"
-    }
+    },
+    "subscriberBadge": "Premiumprenumerant"
   },
   "directory": {
     "badge": "Gemenskap",
@@ -2626,8 +2627,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Två verktyg. En prenumeration.",
-        "subtitle": "Skapa annonser direkt och identifiera vilken minifigur som helst från ett foto."
+        "title": "Tre verktyg. En prenumeration.",
+        "subtitle": "Lägg ut vad som helst direkt, identifiera vilken minifigur som helst från ett foto och få veta så fort ett set du vill ha blir billigare."
       },
       "features": {
         "title": "Det här får du",
@@ -2651,6 +2652,10 @@
         "identify": {
           "title": "Obegränsad AI-identifiering av minifigurer",
           "description": "Ta eller dra in ett foto — AI:n hittar BrickLink-ID:t och det aktuella värdet. Ingen gräns för antal skanningar."
+        },
+        "dealAlerts": {
+          "title": "Fyndaviseringar för de set du vill ha",
+          "description": "Ange ditt pris för ett set så mejlar vi dig den dag det går under hos Walmart. Att bläddra bland fynden är gratis — det du betalar för är att bli meddelad."
         }
       },
       "cta": {

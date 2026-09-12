@@ -1964,7 +1964,8 @@
       "subtitle": "En todos los lugares donde se ha abierto IntoBrick",
       "legend": "Visitantes",
       "none": "ninguno"
-    }
+    },
+    "subscriberBadge": "Suscriptor Premium"
   },
   "homepage": {
     "stats": {
@@ -2626,8 +2627,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Dos herramientas. Una suscripción.",
-        "subtitle": "Publica cualquier cosa al instante e identifica cualquier minifigura a partir de una foto."
+        "title": "Tres herramientas. Una suscripción.",
+        "subtitle": "Publica cualquier artículo al instante, identifica cualquier minifigura con una foto y entérate en cuanto un set que quieres se pone en oferta."
       },
       "features": {
         "title": "Qué obtienes",
@@ -2651,6 +2652,10 @@
         "identify": {
           "title": "Identificador de minifiguras con IA ilimitado",
           "description": "Toma una foto o arrástrala — la IA encuentra el ID de BrickLink y el valor actual. Sin límite de escaneos."
+        },
+        "dealAlerts": {
+          "title": "Avisos de ofertas en los sets que quieres",
+          "description": "Fija tu precio para cualquier set y te enviamos un correo el día que baje de esa cifra en Walmart. Ver las ofertas es gratis; lo que pagas es que te avisen."
         }
       },
       "cta": {

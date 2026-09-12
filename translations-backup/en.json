@@ -2263,7 +2263,8 @@
       "subtitle": "Everywhere IntoBrick has been opened",
       "legend": "Visitors",
       "none": "none"
-    }
+    },
+    "subscriberBadge": "Premium subscriber"
   },
   "directory": {
     "badge": "Community",
@@ -2713,8 +2714,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Two tools. One subscription.",
-        "subtitle": "List anything instantly, and identify any minifigure from a photo."
+        "title": "Three tools. One subscription.",
+        "subtitle": "List anything instantly, identify any minifigure from a photo, and hear the moment a set you want goes on sale."
       },
       "features": {
         "title": "What you get",
@@ -2738,6 +2739,10 @@
         "identify": {
           "title": "Unlimited AI minifigure identifier",
           "description": "Snap or drag in a photo — AI finds the BrickLink ID and current value. No scan limit."
+        },
+        "dealAlerts": {
+          "title": "Deal alerts on the sets you want",
+          "description": "Set your price on any set and we email you the day it drops below it at Walmart. Browsing the deals is free — being told is the part you are paying for."
         }
       },
       "cta": {

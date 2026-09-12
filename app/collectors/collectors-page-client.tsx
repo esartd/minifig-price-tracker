@@ -19,6 +19,7 @@ import {
   PuzzlePieceIcon,
 } from '@heroicons/react/24/outline';
 import { useTranslation } from '@/components/TranslationProvider';
+import SubscriberBadge from '@/components/SubscriberBadge';
 
 function tx(translations: Record<string, any>, path: string): string | undefined {
   return path.split('.').reduce((obj: any, key) => obj?.[key], translations) as string | undefined;
@@ -28,6 +29,8 @@ interface CollectorCard {
   profileSlug: string;
   username: string | null;
   displayName: string;
+  /** Premium subscriber. Drives the blue check next to the name. */
+  isSubscriber?: boolean;
   image: string | null;
   memberSince: string;
   stats: { totalMinifigs: number; totalSets: number; totalItems: number };
@@ -53,7 +56,7 @@ interface RecentActivityItem {
   name: string;
   imageUrl: string | null;
   addedAt: string;
-  user: { profileSlug: string; displayName: string; image: string | null };
+  user: { profileSlug: string; displayName: string; image: string | null; isSubscriber?: boolean };
 }
 
 interface CommunityStats {
@@ -152,8 +155,13 @@ function SpotlightCard({ user }: { user: CollectorCard }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <Avatar user={user} size={48} />
           <div style={{ minWidth: 0 }}>
-            <p style={{ margin: 0, fontWeight: 700, fontSize: '14px', color: '#171717', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              {user.displayName}
+            {/* The name truncates, the badge does not: it sits outside the
+                ellipsis span so a long display name never clips the check. */}
+            <p style={{ margin: 0, fontWeight: 700, fontSize: '14px', color: '#171717', display: 'flex', alignItems: 'center', gap: '4px', minWidth: 0 }}>
+              <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {user.displayName}
+              </span>
+              {user.isSubscriber && <SubscriberBadge size={15} label={tx(translations, 'collectors.subscriberBadge') || 'Premium subscriber'} />}
             </p>
             <p style={{ margin: '2px 0 0', fontSize: '11px', color: '#a3a3a3' }}>{user.username ? `@${user.username} · ` : ''}{(tx(translations, 'collectors.directory.memberSinceYear') || 'member since {year}').replace('{year}', String(year))}</p>
           </div>
@@ -205,8 +213,11 @@ function RankRow({ user, rank, suffix }: { user: CollectorCard; rank: number; su
         }}>{rank}</span>
         <Avatar user={user} size={32} />
         <div style={{ flex: 1, minWidth: 0 }}>
-          <p style={{ margin: 0, fontWeight: 600, fontSize: '13px', color: '#171717', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            {user.displayName}
+          <p style={{ margin: 0, fontWeight: 600, fontSize: '13px', color: '#171717', display: 'flex', alignItems: 'center', gap: '4px', minWidth: 0 }}>
+            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {user.displayName}
+            </span>
+            {user.isSubscriber && <SubscriberBadge size={14} label={tx(translations, 'collectors.subscriberBadge') || 'Premium subscriber'} />}
           </p>
           <p style={{ margin: 0, fontSize: '11px', color: '#a3a3a3' }}>{(tx(translations, 'collectors.directory.sinceYear') || 'since {year}').replace('{year}', String(year))}</p>
         </div>

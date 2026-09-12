@@ -6,6 +6,11 @@ export const revalidate = 60
 
 const PAGE_SIZE = 20
 
+// Same statuses lib/premium.ts treats as access-granting. Kept as a literal
+// rather than imported so this read-only route does not pull in the premium
+// module's prisma-backed helpers for one Set membership test.
+const SUBSCRIBER_STATUSES = new Set(['active', 'trialing']);
+
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
@@ -36,6 +41,10 @@ export async function GET(req: NextRequest) {
           leaderboardDisplayName: true,
           image: true,
           createdAt: true,
+          // Read so the badge can be derived below. Never returned raw -- see
+          // components/SubscriberBadge.tsx: subscribed-or-not is public once a
+          // badge shows, but "past_due" is the user's billing business.
+          subscriptionStatus: true,
           _count: {
             select: {
               CollectionItem: true,
@@ -57,6 +66,7 @@ export async function GET(req: NextRequest) {
       return {
         profileSlug: u.username || u.id,
         username: u.username,
+        isSubscriber: SUBSCRIBER_STATUSES.has(u.subscriptionStatus || ''),
         displayName: u.leaderboardDisplayName || generateDefaultDisplayName(u.name),
         image: u.image,
         memberSince: u.createdAt.toISOString(),

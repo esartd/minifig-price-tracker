@@ -2019,7 +2019,8 @@
       "subtitle": "Wszędzie tam, gdzie otwierano IntoBricka",
       "legend": "Odwiedzający",
       "none": "brak"
-    }
+    },
+    "subscriberBadge": "Subskrybent Premium"
   },
   "directory": {
     "badge": "Społeczność",
@@ -2626,8 +2627,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Dwa narzędzia. Jedna subskrypcja.",
-        "subtitle": "Wystawiaj ogłoszenia błyskawicznie i rozpoznawaj dowolną minifigurkę ze zdjęcia."
+        "title": "Trzy narzędzia. Jedna subskrypcja.",
+        "subtitle": "Wystawiaj cokolwiek od razu, rozpoznawaj minifigurki ze zdjęcia i dowiedz się, gdy wybrany zestaw potanieje."
       },
       "features": {
         "title": "Co zyskujesz",
@@ -2651,6 +2652,10 @@
         "identify": {
           "title": "Nielimitowane rozpoznawanie minifigurek AI",
           "description": "Zrób zdjęcie lub przeciągnij je — AI znajdzie ID BrickLink i aktualną wartość. Bez limitu skanów."
+        },
+        "dealAlerts": {
+          "title": "Powiadomienia o okazjach na wybrane zestawy",
+          "description": "Ustaw swoją cenę dla zestawu, a wyślemy e-mail w dniu, w którym spadnie poniżej niej w Walmarcie. Przeglądanie okazji jest darmowe — płacisz za powiadomienie."
         }
       },
       "cta": {

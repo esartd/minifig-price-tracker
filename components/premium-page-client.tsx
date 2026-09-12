@@ -1,6 +1,6 @@
 'use client';
 
-import { BoltIcon, CameraIcon } from '@heroicons/react/24/outline';
+import { BoltIcon, CameraIcon, TagIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from '@/components/TranslationProvider';
 import type { PremiumPrice } from '@/lib/premium-price';
 
@@ -37,8 +37,8 @@ export default function PremiumPageClient({ price }: { price?: PremiumPrice }) {
               whiteSpace: 'nowrap'
             }}>{t('premium.page.badge') || 'Premium'}</span>
           </div>
-          <h1>{t('premium.page.hero.title') || 'Two tools. One subscription.'}</h1>
-          <p>{t('premium.page.hero.subtitle') || 'List anything instantly, and identify any minifigure from a photo.'}</p>
+          <h1>{t('premium.page.hero.title') || 'Three tools. One subscription.'}</h1>
+          <p>{t('premium.page.hero.subtitle') || 'List anything instantly, identify any minifigure from a photo, and hear the moment a set you want goes on sale.'}</p>
         </div>
         <div className="hero-decoration hero-decoration-1"></div>
         <div className="hero-decoration hero-decoration-2"></div>
@@ -104,6 +104,22 @@ export default function PremiumPageClient({ price }: { price?: PremiumPrice }) {
                     </p>
                     <p style={{ margin: '2px 0 0', fontSize: 'var(--text-sm)', color: '#737373' }}>
                       {t('premium.page.features.identify.description') || "Snap or drag in a photo — AI finds the BrickLink ID and current value. No scan limit."}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Deal alerts. The deals themselves are free and public on
+                    /deals -- the wording has to sell the ALERT, not the
+                    discount, or it reads as charging for something the site
+                    already gives away. */}
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                  <TagIcon style={{ width: '22px', height: '22px', color: '#171717', flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <p style={{ margin: 0, fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717' }}>
+                      {t('premium.page.features.dealAlerts.title') || 'Deal alerts on the sets you want'}
+                    </p>
+                    <p style={{ margin: '2px 0 0', fontSize: 'var(--text-sm)', color: '#737373' }}>
+                      {t('premium.page.features.dealAlerts.description') || 'Set your price on any set and we email you the day it drops below it at Walmart. Browsing the deals is free — being told is the part you are paying for.'}
                     </p>
                   </div>
                 </div>

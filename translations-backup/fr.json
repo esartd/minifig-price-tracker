@@ -1964,7 +1964,8 @@
       "subtitle": "Partout où IntoBrick a été ouvert",
       "legend": "Visiteurs",
       "none": "aucun"
-    }
+    },
+    "subscriberBadge": "Abonné Premium"
   },
   "homepage": {
     "stats": {
@@ -2626,8 +2627,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Deux outils. Un seul abonnement.",
-        "subtitle": "Publiez n'importe quoi instantanément, et identifiez n'importe quelle minifigurine à partir d'une photo."
+        "title": "Trois outils. Un abonnement.",
+        "subtitle": "Mettez en vente instantanément, identifiez n’importe quelle figurine à partir d’une photo et soyez prévenu dès qu’un set qui vous intéresse est en promotion."
       },
       "features": {
         "title": "Ce que vous obtenez",
@@ -2651,6 +2652,10 @@
         "identify": {
           "title": "Identificateur de minifigurine par IA illimité",
           "description": "Prenez une photo ou glissez-la — l'IA trouve l'ID BrickLink et la valeur actuelle. Aucune limite de scan."
+        },
+        "dealAlerts": {
+          "title": "Alertes promo sur les sets qui vous intéressent",
+          "description": "Fixez votre prix sur un set et nous vous envoyons un e-mail le jour où il passe en dessous chez Walmart. Consulter les promos est gratuit ; c’est l’alerte que vous payez."
         }
       },
       "cta": {

@@ -25,6 +25,9 @@ const SET_FIELDS = {
   date_added: true,
 } as const
 
+// Mirrors lib/premium.ts. See components/SubscriberBadge.tsx.
+const SUBSCRIBER_STATUSES = new Set(['active', 'trialing']);
+
 export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ username: string }> }
@@ -41,6 +44,8 @@ export async function GET(
       username: true,
       name: true,
       leaderboardDisplayName: true,
+      // Derived into a boolean below; never returned raw.
+      subscriptionStatus: true,
       image: true,
       createdAt: true,
       profilePublic: true,
@@ -101,6 +106,7 @@ export async function GET(
           profileSlug: user.username || user.id,
           username: user.username,
           displayName: user.leaderboardDisplayName || generateDefaultDisplayName(user.name),
+          isSubscriber: SUBSCRIBER_STATUSES.has(user.subscriptionStatus || ''),
           image: user.image,
           memberSince: user.createdAt.toISOString(),
           stats: {

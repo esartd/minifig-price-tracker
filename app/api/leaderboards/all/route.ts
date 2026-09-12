@@ -21,6 +21,10 @@ const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 // Revalidate every 24 hours
 export const revalidate = 86400;
 
+// Mirrors lib/premium.ts. See components/SubscriberBadge.tsx for why only a
+// boolean ever leaves this route.
+const SUBSCRIBER_STATUSES = new Set(['active', 'trialing']);
+
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
@@ -60,6 +64,8 @@ export async function GET(request: NextRequest) {
           username: true,
           name: true,
           leaderboardDisplayName: true,
+          // Derived into a boolean below; never returned raw.
+          subscriptionStatus: true,
           CollectionItem: {
             where: dateFilter,
             select: { quantity: true },
@@ -79,6 +85,8 @@ export async function GET(request: NextRequest) {
           username: true,
           name: true,
           leaderboardDisplayName: true,
+          // Derived into a boolean below; never returned raw.
+          subscriptionStatus: true,
           SetInventoryItem: {
             where: dateFilter,
             select: { quantity: true },
@@ -119,6 +127,7 @@ export async function GET(request: NextRequest) {
         return {
           displayName: user.leaderboardDisplayName || generateDefaultDisplayName(user.name),
           profileSlug: user.username || user.id,
+          isSubscriber: SUBSCRIBER_STATUSES.has(user.subscriptionStatus || ''),
           count: inventoryTotal + personalTotal,
         };
       })
@@ -138,6 +147,7 @@ export async function GET(request: NextRequest) {
         return {
           displayName: user.leaderboardDisplayName || generateDefaultDisplayName(user.name),
           profileSlug: user.username || user.id,
+          isSubscriber: SUBSCRIBER_STATUSES.has(user.subscriptionStatus || ''),
           count: inventoryTotal + personalTotal,
         };
       })

@@ -13,6 +13,7 @@ import {
 import PublicCollectionList from '@/components/PublicCollectionList';
 import { useTranslation } from '@/components/TranslationProvider';
 import UnderlineTabs from '@/components/ui/UnderlineTabs';
+import SubscriberBadge from '@/components/SubscriberBadge';
 
 function tx(translations: Record<string, any>, path: string): string | undefined {
   return path.split('.').reduce((obj: any, key) => obj?.[key], translations) as string | undefined;
@@ -51,6 +52,8 @@ interface ProfileData {
     profileSlug: string;
     username: string | null;
     displayName: string;
+    /** Premium subscriber. Drives the blue check beside the name. */
+    isSubscriber?: boolean;
     image: string | null;
     memberSince: string;
     stats: { totalMinifigs: number; totalSets: number; totalItems: number };
@@ -163,8 +166,14 @@ export default function CollectorProfilePage({ params }: { params: Promise<{ use
             {/* Name + meta */}
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-                <h1 style={{ margin: 0, fontSize: 'var(--text-2xl)', fontWeight: 700, color: '#171717' }}>
+                <h1 style={{ margin: 0, fontSize: 'var(--text-2xl)', fontWeight: 700, color: '#171717', display: 'flex', alignItems: 'center', gap: '6px' }}>
                   {profile.displayName}
+                  {profile.isSubscriber && (
+                    <SubscriberBadge
+                      size={22}
+                      label={t('collectors.subscriberBadge') || 'Premium subscriber'}
+                    />
+                  )}
                 </h1>
                 {isOwnProfile && (
                   <Link

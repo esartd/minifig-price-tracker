@@ -2019,7 +2019,8 @@
       "subtitle": "Overal waar IntoBrick is geopend",
       "legend": "Bezoekers",
       "none": "geen"
-    }
+    },
+    "subscriberBadge": "Premium-abonnee"
   },
   "directory": {
     "badge": "Community",
@@ -2626,8 +2627,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Twee tools. Eén abonnement.",
-        "subtitle": "Plaats direct advertenties voor alles en identificeer elke minifiguur aan de hand van een foto."
+        "title": "Drie tools. Eén abonnement.",
+        "subtitle": "Zet alles direct te koop, herken elke minifiguur vanaf een foto en hoor het zodra een set die je wilt in de aanbieding is."
       },
       "features": {
         "title": "Wat je krijgt",
@@ -2651,6 +2652,10 @@
         "identify": {
           "title": "Onbeperkte AI-minifiguurherkenning",
           "description": "Maak een foto of sleep er een naartoe — AI vindt het BrickLink ID en de huidige waarde. Geen scanlimiet."
+        },
+        "dealAlerts": {
+          "title": "Dealmeldingen voor de sets die je wilt",
+          "description": "Stel je prijs in voor een set en we mailen je de dag dat hij daar bij Walmart onder zakt. De deals bekijken is gratis — je betaalt voor het bericht."
         }
       },
       "cta": {
