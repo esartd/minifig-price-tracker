@@ -47,6 +47,16 @@ export default function PriceAlertButton({
    * we actually have a Walmart price for.
    */
   const [source, setSource] = useState<'market' | 'walmart'>('market');
+  /**
+   * The existing alert's row id, needed to delete it.
+   *
+   * DELETE /api/alerts identifies the row by `?id=`. This component used to
+   * send { item_no, item_type, condition } in the body instead, which the
+   * route never reads -- so every delete from this modal came back "Alert ID
+   * is required" and nothing was removed. Now that `source` is part of the
+   * unique key the body form could not have identified a row anyway.
+   */
+  const [alertId, setAlertId] = useState<string | null>(null);
   const canChooseSource = itemType === 'SET' && walmartPrice !== null && walmartPrice > 0;
   // The price the chosen alert is measured against -- and what the "must be
   // below current" check compares to. Using the market price for a Walmart
@@ -77,7 +87,13 @@ export default function PriceAlertButton({
         );
         if (existingAlert) {
           setHasAlert(true);
+          setAlertId(existingAlert.id);
           setTargetPrice(existingAlert.target_price.toString());
+        } else {
+          // Switching the source toggle re-runs this; clear the stale row so a
+          // delete can never target the alert for the other source.
+          setHasAlert(false);
+          setAlertId(null);
         }
       }
     } catch (error) {
@@ -144,18 +160,19 @@ export default function PriceAlertButton({
     setMessage(null);
 
     try {
-      const response = await fetch('/api/alerts', {
+      if (!alertId) {
+        setMessage({ type: 'error', text: t('priceAlert.deleteFailed') || 'Failed to delete alert' });
+        setIsLoading(false);
+        return;
+      }
+
+      const response = await fetch(`/api/alerts?id=${encodeURIComponent(alertId)}`, {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          item_no: itemNo,
-          item_type: itemType,
-          condition,
-        }),
       });
 
       if (response.ok) {
         setHasAlert(false);
+        setAlertId(null);
         setTargetPrice('');
         setMessage({ type: 'success', text: t('priceAlert.deleteSuccess') || '✓ Price alert deleted' });
         setTimeout(() => {
