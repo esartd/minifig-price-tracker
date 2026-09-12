@@ -3153,5 +3153,12 @@
     "tools": "Narzędzia",
     "deals": "Okazje"
   },
-  "listingGeneratorPage": null
+  "listingGeneratorPage": null,
+  "home": {
+    "deals": {
+      "title": "Teraz w promocji",
+      "subtitle": "Zestawy przecenione w Walmarcie, które według naszej wyceny są warte więcej, niż kosztują.",
+      "seeAll": "Zobacz wszystkie okazje"
+    }
+  }
 }

@@ -3153,5 +3153,12 @@
     "tools": "Outils",
     "deals": "Bons plans"
   },
-  "listingGeneratorPage": null
+  "listingGeneratorPage": null,
+  "home": {
+    "deals": {
+      "title": "En promo en ce moment",
+      "subtitle": "Des sets soldés par Walmart que notre propre prix estime au-dessus du prix demandé.",
+      "seeAll": "Voir toutes les offres"
+    }
+  }
 }

@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import HeaderSearch from '@/components/HeaderSearch';
-import RecommendedSets from '@/components/RecommendedSets';
+import HomeDealsTeaser from '@/components/HomeDealsTeaser';
 import LeaderboardsSection from '@/components/LeaderboardsSection';
 import TrendingMinifigs from '@/components/TrendingMinifigs';
 import HomeWhyThisExists from '@/components/HomeWhyThisExists';
@@ -366,7 +366,7 @@ function HomePageContent() {
       <HomeWhyThisExists />
 
       {/* Tonal banding is positional, not per-component -- see .home-bands in
-          globals.css. TrendingMinifigs and RecommendedSets both return null
+          globals.css. TrendingMinifigs and HomeDealsTeaser both return null
           when they have no data, so hard-coding a tone into each component
           left two identical bands touching whenever one dropped out. Keyed off
           DOM position, the survivors just re-alternate. */}
@@ -375,7 +375,7 @@ function HomePageContent() {
         <HomeMoreFeatures />
         <TrendingMinifigs />
         <LeaderboardsSection />
-        <RecommendedSets />
+        <HomeDealsTeaser />
       </div>
 
       {/* The page's ending. Outside .home-bands on purpose: it shares the

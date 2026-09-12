@@ -3153,5 +3153,12 @@
     "tools": "Tools",
     "deals": "Deals"
   },
-  "listingGeneratorPage": null
+  "listingGeneratorPage": null,
+  "home": {
+    "deals": {
+      "title": "On sale right now",
+      "subtitle": "Sets Walmart has discounted, that our own price agrees are worth more than they are asking.",
+      "seeAll": "See all deals"
+    }
+  }
 }

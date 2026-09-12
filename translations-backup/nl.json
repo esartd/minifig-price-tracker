@@ -3153,5 +3153,12 @@
     "tools": "Tools",
     "deals": "Aanbiedingen"
   },
-  "listingGeneratorPage": null
+  "listingGeneratorPage": null,
+  "home": {
+    "deals": {
+      "title": "Nu in de aanbieding",
+      "subtitle": "Sets die Walmart heeft afgeprijsd en die volgens onze eigen prijs meer waard zijn dan de vraagprijs.",
+      "seeAll": "Bekijk alle deals"
+    }
+  }
 }

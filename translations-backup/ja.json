@@ -3153,5 +3153,12 @@
     "tools": "ツール",
     "deals": "セール"
   },
-  "listingGeneratorPage": null
+  "listingGeneratorPage": null,
+  "home": {
+    "deals": {
+      "title": "いまお買い得",
+      "subtitle": "Walmartが値下げしていて、しかも当サイトの価格でも「お買い得」と判断したセットです。",
+      "seeAll": "お得情報をすべて見る"
+    }
+  }
 }

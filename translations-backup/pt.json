@@ -3153,5 +3153,12 @@
     "tools": "Ferramentas",
     "deals": "Promoções"
   },
-  "listingGeneratorPage": null
+  "listingGeneratorPage": null,
+  "home": {
+    "deals": {
+      "title": "Em promoção agora",
+      "subtitle": "Conjuntos com desconto na Walmart que, pelo nosso preço, valem mais do que pedem.",
+      "seeAll": "Ver todas as ofertas"
+    }
+  }
 }

@@ -3153,5 +3153,12 @@
     "tools": "Herramientas",
     "deals": "Ofertas"
   },
-  "listingGeneratorPage": null
+  "listingGeneratorPage": null,
+  "home": {
+    "deals": {
+      "title": "En oferta ahora",
+      "subtitle": "Sets que Walmart ha rebajado y que, según nuestro propio precio, valen más de lo que piden.",
+      "seeAll": "Ver todas las ofertas"
+    }
+  }
 }

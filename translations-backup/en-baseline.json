@@ -2177,7 +2177,10 @@
     "navPrimary.community": "bfd58ee3a270",
     "navPrimary.tools": "4fa8cc860c52",
     "navPrimary.deals": "2c874671bfe1",
-    "listingGeneratorPage": "2be88ca4242c"
+    "listingGeneratorPage": "2be88ca4242c",
+    "home.deals.title": "795e18e59cce",
+    "home.deals.subtitle": "685676ce89a1",
+    "home.deals.seeAll": "b75aab5735ae"
   },
   "acceptedIdentical": [
     "de:about.creator.byline",

@@ -3153,5 +3153,12 @@
     "tools": "Verktyg",
     "deals": "Fynd"
   },
-  "listingGeneratorPage": null
+  "listingGeneratorPage": null,
+  "home": {
+    "deals": {
+      "title": "På rea just nu",
+      "subtitle": "Set som Walmart har sänkt priset på och som enligt vårt eget pris är värda mer än de kostar.",
+      "seeAll": "Se alla fynd"
+    }
+  }
 }
