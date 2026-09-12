@@ -72,6 +72,8 @@ export interface WalmartSyncResult {
   skippedUrlMismatch: number;
   /** A four-digit "set number" that was really a year in the title. */
   skippedYearLike: number;
+  /** Listing never mentions the set -- usually a minifigure named by character. */
+  skippedNameMismatch: number;
   /** Rows dropped because Walmart stopped listing them. */
   removed: number;
 }
@@ -245,10 +247,16 @@ function urlNamesADifferentSet(
  * Measured when added: all 15 stored rows with a year-like number were wrong,
  * every one a year read as a set number.
  */
+// Shared by yearLikeMismatch and titleNeverNamesTheSet: words too common to
+// prove a listing is about the set we matched it to.
 const NAME_STOPWORDS = new Set([
   'lego', 'set', 'sets', 'building', 'build', 'toy', 'toys', 'kit', 'the', 'and',
   'with', 'for', 'new', 'box', 'piece', 'pieces', 'bagged', 'sealed', 'mini',
-  'minifigure', 'minifig', 'pack', 'collectible', 'edition',
+  'minifigure', 'minifigures', 'minifig', 'pack', 'collectible', 'edition', 'from',
+  // Theme names. Everything in a theme shares them, so matching on "star wars"
+  // would wave through every Star Wars minifigure ever listed.
+  'star', 'wars', 'city', 'friends', 'marvel', 'super', 'heroes', 'ninjago',
+  'creator', 'classic', 'duplo', 'technic', 'icons', 'disney',
 ]);
 
 function yearLikeMismatch(base: string, title: string, catalogNames: Map<string, string>): boolean {
@@ -262,6 +270,43 @@ function yearLikeMismatch(base: string, title: string, catalogNames: Map<string,
 
   // No usable words in our own name means no evidence either way -- allow it
   // rather than reject on ignorance.
+  if (words.length === 0) return false;
+
+  const t = title.toLowerCase();
+  return !words.some((w) => t.includes(w));
+}
+
+/**
+ * True when the listing title never mentions the set we matched it to.
+ *
+ * The last and sneakiest class of wrong match: a minifigure listed by character
+ * name, which never uses the word "minifigure" so PART_OF_SET cannot see it.
+ * "LEGO Star Wars Asajj Ventress with 2 Red Lightsabers" carries set number
+ * 7957 and was priced against the $137 Sith Nightspeeder. "LEGO Star Wars C3PO
+ * (75136)" against the Droid Escape Pod. A single Cat Sitting piece against
+ * Emma's Photo Studio.
+ *
+ * A genuine listing for a set nearly always names it -- "Blacksmith Shop 6040",
+ * "Pharaoh s Forbidden Ruins", "Love Bears 287pcs". A minifigure names the
+ * character instead.
+ *
+ * Theme words are in the stop list because everything in a theme shares them:
+ * matching on "star wars" would wave through every Star Wars minifigure ever
+ * listed.
+ *
+ * Measured: drops 7 of 227 below-price rows and 2.4% of rows priced near ours.
+ */
+function titleNeverNamesTheSet(
+  base: string,
+  title: string,
+  catalogNames: Map<string, string>
+): boolean {
+  const words = (catalogNames.get(base) ?? '')
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter((w) => w.length > 3 && !NAME_STOPWORDS.has(w));
+
+  // Nothing distinctive in our own name means no evidence -- allow it.
   if (words.length === 0) return false;
 
   const t = title.toLowerCase();
@@ -356,6 +401,7 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
     skippedPriceMismatch: 0,
     skippedUrlMismatch: 0,
     skippedYearLike: 0,
+    skippedNameMismatch: 0,
     removed: 0,
   };
 
@@ -403,6 +449,13 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
       // ...and that a four-digit match is not just a year in the title.
       if (yearLikeMismatch(boxNo.split('-')[0], title, catalogNames)) {
         result.skippedYearLike++;
+        continue;
+      }
+
+      // ...and that the listing actually names the set, not just a character
+      // who appears in it.
+      if (titleNeverNamesTheSet(boxNo.split('-')[0], title, catalogNames)) {
+        result.skippedNameMismatch++;
         continue;
       }
 

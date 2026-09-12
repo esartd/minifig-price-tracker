@@ -1883,10 +1883,10 @@
     "priceDisclaimerLabel": "Prisreservation:",
     "priceDisclaimerText": "Priserna kommer från Walmart och uppdateras en gång om dagen, så de kan ändras när som helst. Det pris som visas på Walmart i kassan är det som gäller.",
     "loadingDeals": "Laddar erbjudanden...",
-    "tierUnbelievable50": "Otroliga fynd – 50%+ under marknadspris",
-    "tierExcellent40": "Utmärkta fynd – 40%+ under marknadspris",
-    "tierGreat30": "Bra fynd – 30%+ under marknadspris",
-    "tierGood20": "Fina fynd – 20%+ under marknadspris",
+    "tierUnbelievable50": "Otroliga fynd – 50%+ rabatt",
+    "tierExcellent40": "Utmärkta fynd – 40%+ rabatt",
+    "tierGreat30": "Bra fynd – 30%+ rabatt",
+    "tierGood20": "Fina fynd – 20%+ rabatt",
     "readMore": "Läs mer",
     "readLess": "Läs mindre",
     "dismissDisclaimer": "Stäng"
@@ -2387,8 +2387,7 @@
     "off": "RABATT",
     "save": "Spara",
     "noDealsFound": "Inga erbjudanden hittades i denna kategori",
-    "below": "under marknad",
-    "belowOurPrice": "{amount} under marknadspris"
+    "belowOurPrice": "{pct}% under marknadsvärdet"
   },
   "priceHistory": {
     "loadError": "Det gick inte att läsa in prishistoriken",

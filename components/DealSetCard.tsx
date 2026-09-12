@@ -97,10 +97,11 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
           boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
         }}
       >
-        {/* Below OUR price, not Walmart's claimed discount -- that one is
-            computed from a figure the seller sets and was above our own price
-            on 71% of the rows it used to badge. */}
-        {deal.pctBelowOurPrice ?? deal.discountPercent}% {t('deals.below') || 'below'}
+        {/* Walmart's own number, deliberately. A reader who clicks sees the
+            same figure on their page, which a number of ours would not match.
+            It is trustworthy here only because the API already required our
+            price to agree before the card could exist at all. */}
+        {deal.discountPercent}% {t('deals.off') || 'OFF'}
       </div>
 
       {/* Sponsored Badge */}
@@ -216,10 +217,8 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
                 undiscounted items -- most of them -- and the old Amazon version
                 assumed it was always present, so this would have crashed on the
                 first full-price set. */}
-            {/* Struck through is OUR suggested price -- what the set is worth
-                -- rather than Walmart's "was" price, which on retired stock is
-                whatever the seller wanted the markup to look like. */}
-            {deal.ourPrice != null && deal.ourPrice > deal.currentPrice && (
+            {/* Walmart's "was" price, matching what the badge claims. */}
+            {deal.listPrice !== null && deal.listPrice > deal.currentPrice && (
               <span
                 style={{
                   fontSize: '14px',
@@ -227,14 +226,16 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
                   textDecoration: 'line-through',
                 }}
               >
-                ${deal.ourPrice.toFixed(2)}
+                ${deal.listPrice.toFixed(2)}
               </span>
             )}
           </div>
-          {deal.ourPrice != null && deal.ourPrice > deal.currentPrice && (
+          {/* Our own verdict, stated quietly. Every card already passed this
+              test -- it is here as reassurance, not as the sales pitch. */}
+          {deal.pctBelowOurPrice != null && deal.pctBelowOurPrice > 0 && (
             <p style={{ fontSize: '12px', color: '#16a34a', fontWeight: '600' }}>
-              {(t('deals.belowOurPrice') || '{amount} below market')
-                .replace('{amount}', `$${(deal.ourPrice - deal.currentPrice).toFixed(2)}`)}
+              {(t('deals.belowOurPrice') || '{pct}% below market value')
+                .replace('{pct}', String(deal.pctBelowOurPrice))}
             </p>
           )}
         </div>

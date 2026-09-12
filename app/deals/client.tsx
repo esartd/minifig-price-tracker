@@ -453,28 +453,28 @@ export default function LegoSaleClient() {
         ) : (
           <>
             <DealTierSection
-              title={t('legoSale.tierUnbelievable50') || 'Unbelievable Deals - 50%+ below market'}
+              title={t('legoSale.tierUnbelievable50') || 'Unbelievable Deals - 50%+ Off'}
               emoji="💥"
               deals={deals50}
               tierColor="#b91c1c"
               isEmpty={deals50.length === 0}
             />
             <DealTierSection
-              title={t('legoSale.tierExcellent40') || 'Excellent Deals - 40%+ below market'}
+              title={t('legoSale.tierExcellent40') || 'Excellent Deals - 40%+ Off'}
               emoji="🔥"
               deals={deals40}
               tierColor="#dc2626"
               isEmpty={deals40.length === 0}
             />
             <DealTierSection
-              title={t('legoSale.tierGreat30') || 'Great Deals - 30%+ below market'}
+              title={t('legoSale.tierGreat30') || 'Great Deals - 30%+ Off'}
               emoji="💰"
               deals={deals30}
               tierColor="#ea580c"
               isEmpty={deals30.length === 0}
             />
             <DealTierSection
-              title={t('legoSale.tierGood20') || 'Good Deals - 20%+ below market'}
+              title={t('legoSale.tierGood20') || 'Good Deals - 20%+ Off'}
               emoji="✨"
               deals={deals20}
               tierColor="#16a34a"

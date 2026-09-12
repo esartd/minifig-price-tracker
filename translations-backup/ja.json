@@ -1883,10 +1883,10 @@
     "priceDisclaimerLabel": "価格に関する免責事項：",
     "priceDisclaimerText": "価格はWalmartのもので、1日1回更新されるため、いつでも変更される可能性があります。実際に適用されるのは、購入手続き時にWalmartに表示されている価格です。",
     "loadingDeals": "お得情報を読み込み中...",
-    "tierUnbelievable50": "驚きの価格 – 市場価格より50%以上安い",
-    "tierExcellent40": "優れた価格 – 市場価格より40%以上安い",
-    "tierGreat30": "お得な価格 – 市場価格より30%以上安い",
-    "tierGood20": "お手頃価格 – 市場価格より20%以上安い",
+    "tierUnbelievable50": "驚きの価格 – 50%以上オフ",
+    "tierExcellent40": "優れた価格 – 40%以上オフ",
+    "tierGreat30": "お得な価格 – 30%以上オフ",
+    "tierGood20": "お手頃価格 – 20%以上オフ",
     "readMore": "もっと読む",
     "readLess": "閉じる",
     "dismissDisclaimer": "閉じる"
@@ -2387,8 +2387,7 @@
     "off": "OFF",
     "save": "節約額",
     "noDealsFound": "このカテゴリーにはお得情報が見つかりません",
-    "below": "安い",
-    "belowOurPrice": "市場価格より{amount}安い"
+    "belowOurPrice": "市場価値より{pct}%安い"
   },
   "priceHistory": {
     "loadError": "価格履歴の読み込みに失敗しました",

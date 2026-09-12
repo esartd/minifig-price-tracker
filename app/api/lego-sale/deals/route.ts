@@ -45,24 +45,34 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '50');
 
     /**
-     * Tiers are measured against OUR suggested price, not Walmart's claimed
-     * discount.
+     * A deal has to satisfy BOTH parties: Walmart must be flagging a real sale,
+     * and our own price must agree the asking price is below what the set is
+     * worth. Either signal alone produces a bad page.
      *
-     * Walmart's `discountPercent` comes from OriginalPrice, a number the seller
-     * types in. On a retired set they list at several times its value, mark it
-     * "60% off", and it is still a bad buy -- of 281 rows on the old tiers, 71%
-     * were priced ABOVE our own suggested price and 42% were more than 30%
-     * above. The page was mostly recommending overpriced stock.
+     * Walmart alone: their discount is computed from an OriginalPrice the
+     * seller types in. Of 297 rows that qualified, 71% were priced ABOVE our
+     * suggested price -- retired sets marked up and then "60% off".
      *
-     * It hid the real bargains too, because those often carry no Walmart
-     * discount at all: 75013-1 at $49.95 against our $196.11 is 75% below what
-     * the set is worth, and Walmart called it 0% off.
+     * Ours alone: ranking purely on our price floods the top with things that
+     * are not the set. A Mouth of Sauron minifigure against the $463 Battle at
+     * the Black Gate; an Asajj Ventress against the $137 Sith Nightspeeder.
+     * Those score enormous savings precisely because they are not the product.
      *
-     * `pctBelowOurPrice` is null where we have no price of our own. Such rows
-     * are excluded rather than assumed good -- an unknown is not a deal.
+     * The intersection is clean, and for a reason worth writing down: someone
+     * selling a single minifigure does not set up a "was" price. Walmart's own
+     * sale flag is therefore a proxy for a genuine retail listing, and it does
+     * the job four separate title heuristics could not. 297 and 226 overlap at
+     * 77 rows, and a manual read of the top twelve found no wrong matches.
+     *
+     * `listPrice` must be present too -- `discountPercent` alone can be a
+     * leftover, and a sale with no "was" price is not a sale.
      */
     const where: any = {
-      pctBelowOurPrice: maxTier ? { gte: tier, lt: maxTier } : { gte: tier },
+      discountPercent: maxTier ? { gte: tier, lt: maxTier } : { gte: tier },
+      listPrice: { not: null },
+      // Our own check. Null means we have no price to judge by, and an unknown
+      // is not a deal.
+      pctBelowOurPrice: { gt: 0 },
       currentPrice: {
         gte: minPrice,
         lte: maxPrice,
@@ -75,7 +85,7 @@ export async function GET(request: NextRequest) {
       where,
       take: limit * 3, // Fetch more for theme filtering
       orderBy: {
-        pctBelowOurPrice: 'desc', // Biggest real saving first
+        discountPercent: 'desc', // Walmart's own number, now corroborated
       },
     });
 
@@ -124,10 +134,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Apply sorting
-    if (sortBy === 'discount') {
-      // "Highest discount" now means furthest below our price.
-      filteredDeals.sort((a, b) => (b!.pctBelowOurPrice ?? 0) - (a!.pctBelowOurPrice ?? 0));
-    } else if (sortBy === 'price') {
+    if (sortBy === 'price') {
       filteredDeals.sort((a, b) => a!.currentPrice - b!.currentPrice);
     } else if (sortBy === 'name') {
       filteredDeals.sort((a, b) => a!.name.localeCompare(b!.name));

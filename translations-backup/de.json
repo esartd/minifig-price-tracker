@@ -1828,10 +1828,10 @@
     "searchThemesPlaceholder": "Themen suchen...",
     "seoParagraph": "Wir prüfen täglich Tausende LEGO Produkte bei Walmart, gleichen sie mit unserem Katalog ab und zeigen nur die, deren Preis wirklich gefallen ist. Sortiert nach Höhe der Ersparnis, die besten Angebote zuerst. Filtere nach Thema, Preis oder Rabatt.",
     "subtitleUpdated": "Die besten Walmart-Angebote, täglich aktualisiert",
-    "tierExcellent40": "Ausgezeichnete Angebote – 40%+ unter Marktwert",
-    "tierGood20": "Gute Angebote – 20%+ unter Marktwert",
-    "tierGreat30": "Tolle Angebote – 30%+ unter Marktwert",
-    "tierUnbelievable50": "Unglaubliche Angebote – 50%+ unter Marktwert",
+    "tierExcellent40": "Ausgezeichnete Angebote – 40%+ Rabatt",
+    "tierGood20": "Gute Angebote – 20%+ Rabatt",
+    "tierGreat30": "Tolle Angebote – 30%+ Rabatt",
+    "tierUnbelievable50": "Unglaubliche Angebote – 50%+ Rabatt",
     "readMore": "Mehr lesen",
     "readLess": "Weniger lesen",
     "dismissDisclaimer": "Schließen"
@@ -2241,8 +2241,7 @@
     "noDealsFound": "Keine Angebote in dieser Kategorie gefunden",
     "off": "RABATT",
     "save": "Sparen",
-    "below": "unter Marktwert",
-    "belowOurPrice": "{amount} unter Marktwert"
+    "belowOurPrice": "{pct}% unter Marktwert"
   },
   "guestCollectionBadge": {
     "itemCount": "{count} {itemWord}",
