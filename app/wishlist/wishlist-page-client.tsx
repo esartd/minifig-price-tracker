@@ -19,6 +19,13 @@ interface MinifigWishlistItem {
   date_added: string;
 }
 
+interface WalmartDeal {
+  currentPrice: number;
+  listPrice: number | null;
+  discountPercent: number;
+  productUrl: string;
+}
+
 interface SetWishlistItem {
   id: string;
   box_no: string;
@@ -33,6 +40,14 @@ export default function WishlistPage() {
   const router = useRouter();
   const [minifigWishlist, setMinifigWishlist] = useState<MinifigWishlistItem[]>([]);
   const [setWishlist, setSetWishlist] = useState<SetWishlistItem[]>([]);
+  /**
+   * Walmart price per box number, for the sets on this wishlist.
+   *
+   * Sets only. WalmartDeal is keyed by box number and the Impact catalogue
+   * matches boxed sets, not individual minifigures -- so minifig cards keep
+   * their Amazon search link, which is the best that exists for them.
+   */
+  const [walmartDeals, setWalmartDeals] = useState<Record<string, WalmartDeal>>({});
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'minifigs' | 'sets'>('minifigs');
 
@@ -46,6 +61,21 @@ export default function WishlistPage() {
       setLoading(false);
     }
   }, [status, router]);
+
+  const loadWalmartDeals = async (sets: SetWishlistItem[]) => {
+    const boxNos = sets.map((s) => s.box_no).filter(Boolean);
+    if (boxNos.length === 0) return;
+    try {
+      const res = await fetch(
+        `/api/walmart-deals/lookup?boxNos=${encodeURIComponent(boxNos.join(','))}`
+      );
+      const data = await res.json();
+      if (data.deals) setWalmartDeals(data.deals);
+    } catch (error) {
+      // No Walmart buttons is a fine outcome; the rest of the card still works.
+      console.error('Error loading Walmart prices:', error);
+    }
+  };
 
   const loadWishlists = async () => {
     try {
@@ -62,6 +92,10 @@ export default function WishlistPage() {
       }
       if (setData.success) {
         setSetWishlist(setData.data);
+        // One request for every set on the list rather than one per card.
+        // Deliberately not awaited with the two above: a slow or failed price
+        // lookup must not hold up rendering the wishlist itself.
+        loadWalmartDeals(setData.data as SetWishlistItem[]);
       }
     } catch (error) {
       console.error('Error loading wishlists:', error);
@@ -98,7 +132,7 @@ export default function WishlistPage() {
     }
   };
 
-  const handleBuyClick = async (platform: 'amazon' | 'bricklink' | 'ebay', productType: 'minifig' | 'set', productId: string, productName: string, url: string) => {
+  const handleBuyClick = async (platform: 'amazon' | 'bricklink' | 'ebay' | 'walmart', productType: 'minifig' | 'set', productId: string, productName: string, url: string) => {
     try {
       // Track the click
       await fetch('/api/track-click', {
@@ -592,22 +626,54 @@ export default function WishlistPage() {
                     justifyContent: 'center',
                     marginBottom: '12px',
                     background: '#ffffff',
-                    borderRadius: '8px'
+                    borderRadius: '8px',
+                    position: 'relative'
                   }}>
-                    <Image
-                      src={item.image_url || ''}
-                      alt={item.set_name}
-                      width={160}
-                      height={160}
-                      style={{
-                        width: 'auto',
-                        height: 'auto',
-                        maxWidth: '100%',
-                        maxHeight: '160px',
-                        objectFit: 'contain'
-                      }}
-                      unoptimized
-                    />
+                    {/* Discount rides on the image, like the /deals cards. In
+                        the buy button it shared a narrow row with the label and
+                        truncated it to "Walma...". */}
+                    {walmartDeals[item.box_no]?.discountPercent >= 10 && (
+                      <span style={{
+                        position: 'absolute',
+                        top: 0,
+                        // Left, not right: the remove button sits top-right of
+                        // this card and the two overlapped.
+                        left: 0,
+                        fontSize: 'var(--text-xs)',
+                        fontWeight: 700,
+                        color: '#ffffff',
+                        background: '#b91c1c',
+                        borderRadius: '999px',
+                        padding: '2px 8px',
+                      }}>
+                        {walmartDeals[item.box_no].discountPercent}% off
+                      </span>
+                    )}
+                    {/* No <Image> at all when there is no URL. It used to pass
+                        `item.image_url || ''`, and next/image rejects an empty
+                        src -- console errors on every render plus a browser
+                        refetch of the whole page, for a set row whose image is
+                        simply not known yet. */}
+                    {item.image_url ? (
+                      <Image
+                        src={item.image_url}
+                        alt={item.set_name}
+                        width={160}
+                        height={160}
+                        style={{
+                          width: 'auto',
+                          height: 'auto',
+                          maxWidth: '100%',
+                          maxHeight: '160px',
+                          objectFit: 'contain'
+                        }}
+                        unoptimized
+                      />
+                    ) : (
+                      <span style={{ fontSize: 'var(--text-xs)', color: '#a3a3a3' }}>
+                        {item.box_no}
+                      </span>
+                    )}
                   </div>
                   <h3 style={{
                     fontSize: 'var(--text-sm)',
@@ -675,6 +741,59 @@ export default function WishlistPage() {
                     <ShoppingCartIcon style={{ width: '14px', height: '14px', flexShrink: 0 }} />
                     <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{buyOnEbayLabel}</span>
                   </button>
+                  {/* Walmart when we have a real price for this set, Amazon
+                      otherwise. Amazon is a bare search link with no price on
+                      it -- the whole reason this exists is that a button
+                      carrying "$49.95, 64% off" is worth clicking and a button
+                      saying "Amazon" is not. Sets only: WalmartDeal is keyed by
+                      box number, so minifig cards keep their Amazon link. */}
+                  {walmartDeals[item.box_no] ? (
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleBuyClick(
+                          'walmart',
+                          'set',
+                          item.box_no,
+                          item.set_name,
+                          walmartDeals[item.box_no].productUrl
+                        );
+                      }}
+                      style={{
+                        width: '100%',
+                        padding: '10px 12px',
+                        fontSize: 'var(--text-sm)',
+                        fontWeight: '600',
+                        color: '#171717',
+                        background: '#ffffff',
+                        border: '1px solid #d4d4d4',
+                        borderRadius: '999px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '6px'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#f5f5f5';
+                        e.currentTarget.style.borderColor = '#a3a3a3';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = '#ffffff';
+                        e.currentTarget.style.borderColor = '#d4d4d4';
+                      }}
+                    >
+                      {/* No cart icon here, unlike the button above: the card
+                          leaves ~150px of usable width and "Walmart $49.95"
+                          plus an icon truncated to "Walmart $49....". Naming
+                          the retailer beats a second cart glyph. */}
+                      <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        Walmart ${walmartDeals[item.box_no].currentPrice.toFixed(2)}
+                      </span>
+                    </button>
+                  ) : (
                   <button
                     onClick={(e) => {
                       e.preventDefault();
@@ -715,6 +834,7 @@ export default function WishlistPage() {
                     <ShoppingCartIcon style={{ width: '14px', height: '14px', flexShrink: 0 }} />
                     <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{amazonLabel}</span>
                   </button>
+                  )}
                 </div>
 
                 <button

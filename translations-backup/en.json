@@ -398,7 +398,7 @@
     "signInTitle": "Save Your Favorite Minifigures",
     "signInDescription": "Create a free account to save minifigures to your wishlist, track your collection, and get price updates.",
     "createAccount": "Create Free Account",
-    "itemsSaved": "{count} minifigure(s) saved",
+    "itemsSaved": "{count} item(s) saved",
     "emptyTitle": "Your wishlist is empty",
     "emptyDescription": "Browse minifigures and click the heart icon to save them here",
     "browseButton": "Browse Minifigures",

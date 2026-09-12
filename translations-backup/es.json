@@ -394,7 +394,7 @@
     "signInTitle": "Guarda tus minifiguras favoritas",
     "signInDescription": "Crea una cuenta gratuita para guardar minifiguras en tu lista de deseos, seguir tu colección y recibir actualizaciones de precios.",
     "createAccount": "Crear cuenta gratuita",
-    "itemsSaved": "{count} minifigura(s) guardada(s)",
+    "itemsSaved": "{count} artículo(s) guardado(s)",
     "emptyTitle": "Tu lista de deseos está vacía",
     "emptyDescription": "Explora minifiguras y haz clic en el ícono del corazón para guardarlas aquí",
     "browseButton": "Explorar minifiguras",

@@ -394,7 +394,7 @@
     "signInTitle": "保存 Your Favorite ミニフィギュア",
     "signInDescription": "無料アカウントを作成すると、ミニフィグをウィッシュリストに保存し、コレクションを管理して価格の更新を受け取れます。",
     "createAccount": "Create Free アカウント",
-    "itemsSaved": "{count}体のミニフィグを保存中",
+    "itemsSaved": "{count}件を保存しました",
     "emptyTitle": "ウィッシュリストは空です",
     "emptyDescription": "ミニフィグを閲覧し、ハートのアイコンをタップするとここに保存されます",
     "browseButton": "閲覧 ミニフィギュア",

@@ -394,7 +394,7 @@
     "signInTitle": "Zapisz Your Favorite Minifigurki",
     "signInDescription": "Załóż bezpłatne konto, aby zapisywać minifigurki na liście życzeń, śledzić kolekcję i otrzymywać informacje o zmianach cen.",
     "createAccount": "Create Free Konto",
-    "itemsSaved": "Zapisano {count} minifigurek",
+    "itemsSaved": "Zapisano: {count}",
     "emptyTitle": "Your Lista życzeń is empty",
     "emptyDescription": "Przeglądaj minifigurki i kliknij ikonę serca, aby zapisać je tutaj",
     "browseButton": "Przeglądaj Minifigurki",
