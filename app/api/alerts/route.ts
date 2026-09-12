@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
+import { isPremiumUser } from '@/lib/premium';
 
 // GET - Get all alerts for authenticated user
 export async function GET(request: NextRequest) {
@@ -51,6 +52,7 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
     const { item_no, item_type, item_name, condition, target_price, currency_code } = body;
+    const source: string = body.source || 'market';
 
     // Validate required fields
     if (!item_no || !item_type || !item_name || !condition || !target_price) {
@@ -84,14 +86,49 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (source !== 'market' && source !== 'walmart') {
+      return NextResponse.json(
+        { success: false, error: 'Invalid source. Must be market or walmart' },
+        { status: 400 }
+      );
+    }
+
+    /**
+     * Walmart alerts are the Premium perk and only exist for sets.
+     *
+     * Checked server-side and not merely hidden in the UI: the client shows
+     * the option to free users on purpose (locked, linking to /premium), so
+     * the button being absent is never what enforces this.
+     */
+    if (source === 'walmart') {
+      if (item_type !== 'SET') {
+        return NextResponse.json(
+          { success: false, error: 'Walmart alerts are only available for sets' },
+          { status: 400 }
+        );
+      }
+      if (!(await isPremiumUser(session.user.id))) {
+        return NextResponse.json(
+          { success: false, error: 'Walmart alerts require Premium', upgradeRequired: true },
+          { status: 403 }
+        );
+      }
+    }
+
+    // Walmart sells new stock only, so a "used" Walmart alert would be a row
+    // that can never fire. Normalised rather than rejected -- the caller asked
+    // for a Walmart alert and that is what it gets.
+    const effectiveCondition = source === 'walmart' ? 'new' : condition;
+
     // Create or update alert
     const alert = await prisma.priceAlert.upsert({
       where: {
-        userId_item_no_item_type_condition: {
+        userId_item_no_item_type_condition_source: {
           userId: session.user.id,
           item_no,
           item_type,
-          condition,
+          condition: effectiveCondition,
+          source,
         },
       },
       update: {
@@ -105,7 +142,8 @@ export async function POST(request: NextRequest) {
         item_no,
         item_type,
         item_name,
-        condition,
+        condition: effectiveCondition,
+        source,
         target_price,
         currency_code: currency_code || 'USD',
       },

@@ -2577,7 +2577,15 @@
     "deleteAlert": "Ta bort avisering",
     "editTarget": "Redigera mål",
     "saving": "Sparar...",
-    "save": "Spara"
+    "save": "Spara",
+    "sourceLabel": "Vilket pris ska bevakas?",
+    "sourceMarket": "Marknadspris",
+    "sourceWalmart": "Walmart-pris",
+    "walmartPremiumHint": "Premiumfunktion",
+    "walmartPremiumUpsell": "Walmart-fyndaviseringar är en premiumfunktion.",
+    "learnMore": "Läs mer",
+    "currentMarketPrice": "Aktuellt marknadspris",
+    "currentWalmartPrice": "Aktuellt Walmart-pris"
   },
   "accountAlerts": {
     "confirmDelete": "Är du säker på att du vill ta bort denna avisering?",
@@ -2607,7 +2615,9 @@
     "reactivate": "Återaktivera",
     "pause": "Pausa",
     "activate": "Aktivera",
-    "deleteAlert": "Ta bort avisering"
+    "deleteAlert": "Ta bort avisering",
+    "sourceMarket": "Marknadspris",
+    "sourceWalmart": "Walmart-pris"
   },
   "setCard": {
     "noImage": "Ingen bild",
@@ -2627,8 +2637,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Tre verktyg. En prenumeration.",
-        "subtitle": "Lägg ut vad som helst direkt, identifiera vilken minifigur som helst från ett foto och få veta så fort ett set du vill ha blir billigare."
+        "title": "En prenumeration. Alla fördelar.",
+        "subtitle": "Fånga fynden, lägg ut i ett steg och identifiera vilken minifigur som helst från ett foto."
       },
       "features": {
         "title": "Det här får du",
@@ -2654,8 +2664,12 @@
           "description": "Ta eller dra in ett foto — AI:n hittar BrickLink-ID:t och det aktuella värdet. Ingen gräns för antal skanningar."
         },
         "dealAlerts": {
-          "title": "Fyndaviseringar för de set du vill ha",
-          "description": "Ange ditt pris för ett set så mejlar vi dig den dag det går under hos Walmart. Att bläddra bland fynden är gratis — det du betalar för är att bli meddelad."
+          "title": "Missa aldrig ett fynd på ett set du vill ha",
+          "description": "Sätt ditt pris på valfritt set så mejlar vi dig den dag Walmart går under. Ett bra fynd betalar ett helt år."
+        },
+        "badge": {
+          "title": "Ett blått märke på din profil",
+          "description": "Visas bredvid ditt namn på din profil, i samlarkatalogen och på topplistorna."
         }
       },
       "cta": {

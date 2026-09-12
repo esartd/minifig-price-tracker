@@ -2664,7 +2664,15 @@
     "deleteAlert": "Delete Alert",
     "editTarget": "Edit Target",
     "saving": "Saving...",
-    "save": "Save"
+    "save": "Save",
+    "sourceLabel": "Watch which price?",
+    "sourceMarket": "Market price",
+    "sourceWalmart": "Walmart price",
+    "walmartPremiumHint": "Premium feature",
+    "walmartPremiumUpsell": "Walmart deal alerts are a Premium feature.",
+    "learnMore": "Learn more",
+    "currentMarketPrice": "Current market price",
+    "currentWalmartPrice": "Current Walmart price"
   },
   "accountAlerts": {
     "confirmDelete": "Are you sure you want to delete this alert?",
@@ -2694,7 +2702,9 @@
     "reactivate": "Reactivate",
     "pause": "Pause",
     "activate": "Activate",
-    "deleteAlert": "Delete alert"
+    "deleteAlert": "Delete alert",
+    "sourceMarket": "Market price",
+    "sourceWalmart": "Walmart price"
   },
   "setCard": {
     "noImage": "No image",
@@ -2714,8 +2724,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Three tools. One subscription.",
-        "subtitle": "List anything instantly, identify any minifigure from a photo, and hear the moment a set you want goes on sale."
+        "title": "One subscription. Every upgrade.",
+        "subtitle": "Catch the deals, list in one step, and identify any minifigure from a photo."
       },
       "features": {
         "title": "What you get",
@@ -2741,8 +2751,12 @@
           "description": "Snap or drag in a photo — AI finds the BrickLink ID and current value. No scan limit."
         },
         "dealAlerts": {
-          "title": "Deal alerts on the sets you want",
-          "description": "Set your price on any set and we email you the day it drops below it at Walmart. Browsing the deals is free — being told is the part you are paying for."
+          "title": "Never miss a deal on a set you want",
+          "description": "Name your price on any set and we email you the day Walmart drops below it. One good catch pays for a year of this."
+        },
+        "badge": {
+          "title": "A blue badge on your profile",
+          "description": "Shows next to your name on your profile, the collector directory and the leaderboards."
         }
       },
       "cta": {

@@ -2175,7 +2175,9 @@
     "title": "Preisbenachrichtigungen",
     "triggeredAlerts": "Ausgelöste Benachrichtigungen ({count})",
     "triggeredOn": "Ausgelöst am {date}",
-    "updateFailed": "Fehler beim Aktualisieren der Benachrichtigung"
+    "updateFailed": "Fehler beim Aktualisieren der Benachrichtigung",
+    "sourceMarket": "Marktpreis",
+    "sourceWalmart": "Walmart-Preis"
   },
   "authRequiredModal": {
     "alreadyHaveAccount": "Hast du bereits ein Konto?",
@@ -2523,7 +2525,15 @@
     "setting": "Wird eingerichtet...",
     "targetBelowCurrent": "Zielpreis muss unter dem aktuellen Preis liegen ({price})",
     "targetHint": "Lege einen Zielpreis unter dem aktuellen Preis fest",
-    "viewAllAlerts": "Alle Benachrichtigungen anzeigen"
+    "viewAllAlerts": "Alle Benachrichtigungen anzeigen",
+    "sourceLabel": "Welchen Preis beobachten?",
+    "sourceMarket": "Marktpreis",
+    "sourceWalmart": "Walmart-Preis",
+    "walmartPremiumHint": "Premium-Funktion",
+    "walmartPremiumUpsell": "Walmart-Angebotsalarme sind eine Premium-Funktion.",
+    "learnMore": "Mehr erfahren",
+    "currentMarketPrice": "Aktueller Marktpreis",
+    "currentWalmartPrice": "Aktueller Walmart-Preis"
   },
   "priceDisplay": {
     "suggestedPrice": "Empfohlener Preis",
@@ -2627,8 +2637,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Drei Werkzeuge. Ein Abo.",
-        "subtitle": "Alles sofort inserieren, jede Minifigur per Foto bestimmen und erfahren, sobald ein gewünschtes Set im Angebot ist."
+        "title": "Ein Abo. Alle Vorteile.",
+        "subtitle": "Angebote abpassen, in einem Schritt inserieren und jede Minifigur per Foto bestimmen."
       },
       "features": {
         "title": "Das bekommst du",
@@ -2654,8 +2664,12 @@
           "description": "Foto aufnehmen oder hineinziehen — die KI findet die BrickLink-ID und den aktuellen Wert. Kein Scan-Limit."
         },
         "dealAlerts": {
-          "title": "Angebots-Alarm für deine Wunsch-Sets",
-          "description": "Lege für ein Set deinen Preis fest, und wir mailen dir, sobald es bei Walmart darunter fällt. Die Angebote anzusehen ist kostenlos — bezahlt wird die Benachrichtigung."
+          "title": "Verpasse nie ein Angebot für dein Wunsch-Set",
+          "description": "Nenne für ein Set deinen Preis, und wir mailen dir, sobald Walmart darunter geht. Ein guter Treffer bezahlt ein ganzes Jahr."
+        },
+        "badge": {
+          "title": "Ein blaues Abzeichen auf deinem Profil",
+          "description": "Erscheint neben deinem Namen auf deinem Profil, im Sammlerverzeichnis und in den Bestenlisten."
         }
       },
       "cta": {

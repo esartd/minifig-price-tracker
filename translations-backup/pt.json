@@ -2577,7 +2577,15 @@
     "deleteAlert": "Eliminar Alerta",
     "editTarget": "Editar Alvo",
     "saving": "A guardar...",
-    "save": "Guardar"
+    "save": "Guardar",
+    "sourceLabel": "Que preço vigiar?",
+    "sourceMarket": "Preço de mercado",
+    "sourceWalmart": "Preço da Walmart",
+    "walmartPremiumHint": "Funcionalidade Premium",
+    "walmartPremiumUpsell": "Os alertas de promoções da Walmart são uma funcionalidade Premium.",
+    "learnMore": "Saber mais",
+    "currentMarketPrice": "Preço de mercado atual",
+    "currentWalmartPrice": "Preço atual da Walmart"
   },
   "accountAlerts": {
     "confirmDelete": "Tem a certeza de que quer eliminar este alerta?",
@@ -2607,7 +2615,9 @@
     "reactivate": "Reativar",
     "pause": "Pausar",
     "activate": "Ativar",
-    "deleteAlert": "Eliminar alerta"
+    "deleteAlert": "Eliminar alerta",
+    "sourceMarket": "Preço de mercado",
+    "sourceWalmart": "Preço da Walmart"
   },
   "setCard": {
     "noImage": "Sem imagem",
@@ -2627,8 +2637,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Três ferramentas. Uma subscrição.",
-        "subtitle": "Anuncie qualquer artigo num instante, identifique qualquer minifigura a partir de uma foto e saiba assim que um conjunto que quer fica em promoção."
+        "title": "Uma subscrição. Todas as vantagens.",
+        "subtitle": "Apanhe as promoções, anuncie num só passo e identifique qualquer minifigura a partir de uma foto."
       },
       "features": {
         "title": "O que ganhas",
@@ -2654,8 +2664,12 @@
           "description": "Tira ou arrasta uma foto — a IA encontra o ID do BrickLink e o valor atual. Sem limite de análises."
         },
         "dealAlerts": {
-          "title": "Alertas de promoções nos conjuntos que quer",
-          "description": "Defina o seu preço para qualquer conjunto e enviamos um e-mail no dia em que descer abaixo disso na Walmart. Ver as promoções é grátis — o que paga é o aviso."
+          "title": "Nunca perca uma promoção num conjunto que quer",
+          "description": "Diga o seu preço para qualquer conjunto e escrevemos-lhe no dia em que a Walmart descer abaixo. Uma boa apanha paga um ano inteiro."
+        },
+        "badge": {
+          "title": "Um emblema azul no seu perfil",
+          "description": "Aparece ao lado do seu nome no perfil, no diretório de colecionadores e nas classificações."
         }
       },
       "cta": {

@@ -2577,7 +2577,15 @@
     "deleteAlert": "アラートを削除",
     "editTarget": "目標価格を編集",
     "saving": "保存中...",
-    "save": "保存"
+    "save": "保存",
+    "sourceLabel": "どの価格を監視しますか？",
+    "sourceMarket": "市場価格",
+    "sourceWalmart": "Walmart価格",
+    "walmartPremiumHint": "プレミアム機能",
+    "walmartPremiumUpsell": "Walmartの値下がり通知はプレミアム機能です。",
+    "learnMore": "詳しく見る",
+    "currentMarketPrice": "現在の市場価格",
+    "currentWalmartPrice": "現在のWalmart価格"
   },
   "accountAlerts": {
     "confirmDelete": "このアラートを削除してもよろしいですか？",
@@ -2607,7 +2615,9 @@
     "reactivate": "再度有効にする",
     "pause": "一時停止",
     "activate": "有効にする",
-    "deleteAlert": "アラートを削除"
+    "deleteAlert": "アラートを削除",
+    "sourceMarket": "市場価格",
+    "sourceWalmart": "Walmart価格"
   },
   "setCard": {
     "noImage": "画像なし",
@@ -2627,8 +2637,8 @@
     "page": {
       "badge": "プレミアム",
       "hero": {
-        "title": "3つの機能を、1つのサブスクで。",
-        "subtitle": "どんな商品もすぐに出品、写真からミニフィグを判別、ほしいセットが値下がりした瞬間にお知らせします。"
+        "title": "ひとつのサブスクで、すべての機能を。",
+        "subtitle": "お得を逃さず、ワンステップで出品し、写真からミニフィグを判別。"
       },
       "features": {
         "title": "できること",
@@ -2654,8 +2664,12 @@
           "description": "写真を撮るかドラッグするだけで、AIがBrickLink IDと現在の価値を見つけます。スキャン回数の制限はありません。"
         },
         "dealAlerts": {
-          "title": "ほしいセットの値下がり通知",
-          "description": "セットごとに希望価格を設定すると、Walmartでそれを下回った日にメールでお知らせします。お得情報を見るのは無料で、有料なのは「知らせること」です。"
+          "title": "ほしいセットの値下がりを見逃さない",
+          "description": "セットごとに希望価格を決めておけば、Walmartがそれを下回った日にメールが届きます。一度の当たりで一年分の元が取れます。"
+        },
+        "badge": {
+          "title": "プロフィールに青いバッジ",
+          "description": "プロフィール、コレクター一覧、ランキングで名前の横に表示されます。"
         }
       },
       "cta": {

@@ -1,6 +1,7 @@
 'use client';
 
 import { BoltIcon, CameraIcon, TagIcon } from '@heroicons/react/24/outline';
+import { CheckBadgeIcon } from '@heroicons/react/24/solid';
 import { useTranslation } from '@/components/TranslationProvider';
 import type { PremiumPrice } from '@/lib/premium-price';
 
@@ -37,8 +38,8 @@ export default function PremiumPageClient({ price }: { price?: PremiumPrice }) {
               whiteSpace: 'nowrap'
             }}>{t('premium.page.badge') || 'Premium'}</span>
           </div>
-          <h1>{t('premium.page.hero.title') || 'Three tools. One subscription.'}</h1>
-          <p>{t('premium.page.hero.subtitle') || 'List anything instantly, identify any minifigure from a photo, and hear the moment a set you want goes on sale.'}</p>
+          <h1>{t('premium.page.hero.title') || 'One subscription. Every upgrade.'}</h1>
+          <p>{t('premium.page.hero.subtitle') || 'Catch the deals, list in one step, and identify any minifigure from a photo.'}</p>
         </div>
         <div className="hero-decoration hero-decoration-1"></div>
         <div className="hero-decoration hero-decoration-2"></div>
@@ -83,7 +84,30 @@ export default function PremiumPageClient({ price }: { price?: PremiumPrice }) {
                 {t('premium.page.cancelAnytime') || 'Cancel anytime'}
               </p>
 
+              {/* ORDER IS DELIBERATE, strongest reason to pay first.
+                  1. Deal alerts  - the only one that pays for itself. One 64%-off
+                     catch is ~$89 saved, about eighteen months of subscription.
+                     Money beats convenience on a pricing page.
+                  2. Instant listings - the daily workflow for anyone selling.
+                  3. AI identifier - useful, but a narrower job.
+                  4. Badge - status, not utility. It closes; it does not open.
+                  Do not reorder by what was built most recently. */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', textAlign: 'left' }}>
+                {/* The deals are free and public on /deals, so this has to sell
+                    the ALERT, not the discount -- otherwise it reads as charging
+                    for what the site already gives away. */}
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                  <TagIcon style={{ width: '22px', height: '22px', color: '#171717', flexShrink: 0, marginTop: '2px' }} />
+                  <div>
+                    <p style={{ margin: 0, fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717' }}>
+                      {t('premium.page.features.dealAlerts.title') || 'Never miss a deal on a set you want'}
+                    </p>
+                    <p style={{ margin: '2px 0 0', fontSize: 'var(--text-sm)', color: '#737373' }}>
+                      {t('premium.page.features.dealAlerts.description') || 'Name your price on any set and we email you the day Walmart drops below it. One good catch pays for a year of this.'}
+                    </p>
+                  </div>
+                </div>
+
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                   <BoltIcon style={{ width: '22px', height: '22px', color: '#171717', flexShrink: 0, marginTop: '2px' }} />
                   <div>
@@ -108,18 +132,17 @@ export default function PremiumPageClient({ price }: { price?: PremiumPrice }) {
                   </div>
                 </div>
 
-                {/* Deal alerts. The deals themselves are free and public on
-                    /deals -- the wording has to sell the ALERT, not the
-                    discount, or it reads as charging for something the site
-                    already gives away. */}
+                {/* "Subscriber", never "Verified". We do not check anyone's
+                    identity, and collectors trade off the back of these
+                    profiles -- see components/SubscriberBadge.tsx. */}
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                  <TagIcon style={{ width: '22px', height: '22px', color: '#171717', flexShrink: 0, marginTop: '2px' }} />
+                  <CheckBadgeIcon style={{ width: '22px', height: '22px', color: '#3b82f6', flexShrink: 0, marginTop: '2px' }} />
                   <div>
                     <p style={{ margin: 0, fontSize: 'var(--text-base)', fontWeight: '600', color: '#171717' }}>
-                      {t('premium.page.features.dealAlerts.title') || 'Deal alerts on the sets you want'}
+                      {t('premium.page.features.badge.title') || 'A blue badge on your profile'}
                     </p>
                     <p style={{ margin: '2px 0 0', fontSize: 'var(--text-sm)', color: '#737373' }}>
-                      {t('premium.page.features.dealAlerts.description') || 'Set your price on any set and we email you the day it drops below it at Walmart. Browsing the deals is free — being told is the part you are paying for.'}
+                      {t('premium.page.features.badge.description') || 'Shows next to your name on your profile, the collector directory and the leaderboards.'}
                     </p>
                   </div>
                 </div>

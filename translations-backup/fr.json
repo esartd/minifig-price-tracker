@@ -2577,7 +2577,15 @@
     "deleteAlert": "Supprimer l'alerte",
     "editTarget": "Modifier la cible",
     "saving": "Enregistrement en cours...",
-    "save": "Enregistrer"
+    "save": "Enregistrer",
+    "sourceLabel": "Quel prix surveiller ?",
+    "sourceMarket": "Prix du marché",
+    "sourceWalmart": "Prix Walmart",
+    "walmartPremiumHint": "Fonction Premium",
+    "walmartPremiumUpsell": "Les alertes promo Walmart sont une fonction Premium.",
+    "learnMore": "En savoir plus",
+    "currentMarketPrice": "Prix du marché actuel",
+    "currentWalmartPrice": "Prix Walmart actuel"
   },
   "accountAlerts": {
     "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette alerte ?",
@@ -2607,7 +2615,9 @@
     "reactivate": "Réactiver",
     "pause": "Mettre en pause",
     "activate": "Activer",
-    "deleteAlert": "Supprimer l'alerte"
+    "deleteAlert": "Supprimer l'alerte",
+    "sourceMarket": "Prix du marché",
+    "sourceWalmart": "Prix Walmart"
   },
   "setCard": {
     "noImage": "Aucune image",
@@ -2627,8 +2637,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Trois outils. Un abonnement.",
-        "subtitle": "Mettez en vente instantanément, identifiez n’importe quelle figurine à partir d’une photo et soyez prévenu dès qu’un set qui vous intéresse est en promotion."
+        "title": "Un abonnement. Tous les avantages.",
+        "subtitle": "Repérez les promos, mettez en vente en une étape et identifiez n’importe quelle figurine à partir d’une photo."
       },
       "features": {
         "title": "Ce que vous obtenez",
@@ -2654,8 +2664,12 @@
           "description": "Prenez une photo ou glissez-la — l'IA trouve l'ID BrickLink et la valeur actuelle. Aucune limite de scan."
         },
         "dealAlerts": {
-          "title": "Alertes promo sur les sets qui vous intéressent",
-          "description": "Fixez votre prix sur un set et nous vous envoyons un e-mail le jour où il passe en dessous chez Walmart. Consulter les promos est gratuit ; c’est l’alerte que vous payez."
+          "title": "Ne manquez plus une promo sur un set qui vous intéresse",
+          "description": "Fixez votre prix sur un set et nous vous écrivons le jour où Walmart passe en dessous. Une bonne prise paie une année entière."
+        },
+        "badge": {
+          "title": "Un badge bleu sur votre profil",
+          "description": "Apparaît à côté de votre nom sur votre profil, dans l’annuaire des collectionneurs et les classements."
         }
       },
       "cta": {

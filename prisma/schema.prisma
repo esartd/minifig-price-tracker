@@ -638,6 +638,13 @@ model PriceAlert {
   item_type     String // "MINIFIG" | "SET"
   item_name     String
   condition     String // "new" | "used"
+  // Which price this alert watches:
+  //   "market"  - our own blended suggested price (free for everyone)
+  //   "walmart" - the current Walmart shelf price (Premium; sets only, because
+  //               WalmartDeal is keyed by box number and the Impact catalogue
+  //               carries boxed sets, not minifigures)
+  // Defaulted so every pre-existing alert keeps meaning exactly what it meant.
+  source        String    @default("market")
   target_price  Float
   currency_code String    @default("USD")
   active        Boolean   @default(true)
@@ -646,7 +653,9 @@ model PriceAlert {
   last_checked  DateTime?
   User          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, item_no, item_type, condition])
+  // `source` is part of the key so one user can hold BOTH a market and a
+  // Walmart alert on the same set at the same time.
+  @@unique([userId, item_no, item_type, condition, source])
   @@index([active, last_checked])
   @@index([userId])
   @@index([item_no, item_type])

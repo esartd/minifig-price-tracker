@@ -2577,7 +2577,15 @@
     "deleteAlert": "Usuń alert",
     "editTarget": "Edytuj cel",
     "saving": "Zapisywanie...",
-    "save": "Zapisz"
+    "save": "Zapisz",
+    "sourceLabel": "Którą cenę śledzić?",
+    "sourceMarket": "Cena rynkowa",
+    "sourceWalmart": "Cena w Walmarcie",
+    "walmartPremiumHint": "Funkcja Premium",
+    "walmartPremiumUpsell": "Powiadomienia o okazjach w Walmarcie to funkcja Premium.",
+    "learnMore": "Dowiedz się więcej",
+    "currentMarketPrice": "Aktualna cena rynkowa",
+    "currentWalmartPrice": "Aktualna cena w Walmarcie"
   },
   "accountAlerts": {
     "confirmDelete": "Czy na pewno chcesz usunąć ten alert?",
@@ -2607,7 +2615,9 @@
     "reactivate": "Reaktywuj",
     "pause": "Wstrzymaj",
     "activate": "Aktywuj",
-    "deleteAlert": "Usuń alert"
+    "deleteAlert": "Usuń alert",
+    "sourceMarket": "Cena rynkowa",
+    "sourceWalmart": "Cena w Walmarcie"
   },
   "setCard": {
     "noImage": "Brak obrazu",
@@ -2627,8 +2637,8 @@
     "page": {
       "badge": "Premium",
       "hero": {
-        "title": "Trzy narzędzia. Jedna subskrypcja.",
-        "subtitle": "Wystawiaj cokolwiek od razu, rozpoznawaj minifigurki ze zdjęcia i dowiedz się, gdy wybrany zestaw potanieje."
+        "title": "Jedna subskrypcja. Wszystkie ulepszenia.",
+        "subtitle": "Łap okazje, wystawiaj w jednym kroku i rozpoznawaj minifigurki ze zdjęcia."
       },
       "features": {
         "title": "Co zyskujesz",
@@ -2654,8 +2664,12 @@
           "description": "Zrób zdjęcie lub przeciągnij je — AI znajdzie ID BrickLink i aktualną wartość. Bez limitu skanów."
         },
         "dealAlerts": {
-          "title": "Powiadomienia o okazjach na wybrane zestawy",
-          "description": "Ustaw swoją cenę dla zestawu, a wyślemy e-mail w dniu, w którym spadnie poniżej niej w Walmarcie. Przeglądanie okazji jest darmowe — płacisz za powiadomienie."
+          "title": "Nie przegap okazji na wybrany zestaw",
+          "description": "Podaj swoją cenę dla zestawu, a napiszemy w dniu, w którym Walmart zejdzie poniżej. Jedna dobra okazja opłaca cały rok."
+        },
+        "badge": {
+          "title": "Niebieska odznaka na Twoim profilu",
+          "description": "Pojawia się obok Twojej nazwy na profilu, w katalogu kolekcjonerów i w rankingach."
         }
       },
       "cta": {
