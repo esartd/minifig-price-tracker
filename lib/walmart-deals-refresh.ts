@@ -70,6 +70,8 @@ export interface WalmartSyncResult {
   skippedPriceMismatch: number;
   /** Title said one set, the destination URL said another. */
   skippedUrlMismatch: number;
+  /** A four-digit "set number" that was really a year in the title. */
+  skippedYearLike: number;
   /** Rows dropped because Walmart stopped listing them. */
   removed: number;
 }
@@ -193,6 +195,47 @@ function urlNamesADifferentSet(
   return nums.some((n) => n !== matchedBase && catalog.has(n));
 }
 
+/**
+ * True when a four-digit match is really a YEAR in the listing title.
+ *
+ * "Lego Festive Gingerbread House Limited Edition 2025" was matched to set 2025
+ * -- a Duplo "Boat polybag" -- because 2025 is a real old set number. The
+ * title/URL guard cannot see these: the year sits in both strings, so they
+ * agree with each other and are wrong together.
+ *
+ * The test is whether the listing title says anything about the set we think it
+ * is. A genuine listing for old set 2022 ("Amy Elephant") says "Amy" or
+ * "Elephant"; a 2022 Muppets minifigure says neither.
+ *
+ * Applies ONLY to numbers in 1960-2035. Five-digit modern sets never collide
+ * with years, and this must not start second-guessing them on title wording.
+ *
+ * Measured when added: all 15 stored rows with a year-like number were wrong,
+ * every one a year read as a set number.
+ */
+const NAME_STOPWORDS = new Set([
+  'lego', 'set', 'sets', 'building', 'build', 'toy', 'toys', 'kit', 'the', 'and',
+  'with', 'for', 'new', 'box', 'piece', 'pieces', 'bagged', 'sealed', 'mini',
+  'minifigure', 'minifig', 'pack', 'collectible', 'edition',
+]);
+
+function yearLikeMismatch(base: string, title: string, catalogNames: Map<string, string>): boolean {
+  const n = Number(base);
+  if (!Number.isFinite(n) || n < 1960 || n > 2035) return false;
+
+  const name = (catalogNames.get(base) ?? '').toLowerCase();
+  const words = name
+    .split(/[^a-z0-9]+/)
+    .filter((w) => w.length > 3 && !NAME_STOPWORDS.has(w));
+
+  // No usable words in our own name means no evidence either way -- allow it
+  // rather than reject on ignorance.
+  if (words.length === 0) return false;
+
+  const t = title.toLowerCase();
+  return !words.some((w) => t.includes(w));
+}
+
 async function fetchPage(
   sid: string,
   token: string,
@@ -230,10 +273,15 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
   // bare number so the lookup is a map hit rather than a scan of 21,668 rows
   // per product.
   const catalog = new Map<string, string>();
+  // Set names, keyed the same way, for the year check below.
+  const catalogNames = new Map<string, string>();
   for (const box of loadAllBoxes()) {
     const boxNo = String(box.box_no ?? '');
     const base = boxNo.split('-')[0];
-    if (base && !catalog.has(base)) catalog.set(base, boxNo);
+    if (base && !catalog.has(base)) {
+      catalog.set(base, boxNo);
+      catalogNames.set(base, String(box.name ?? ''));
+    }
   }
 
   /**
@@ -275,6 +323,7 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
     skippedNoMatch: 0,
     skippedPriceMismatch: 0,
     skippedUrlMismatch: 0,
+    skippedYearLike: 0,
     removed: 0,
   };
 
@@ -314,6 +363,12 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
       // The title gave us a set number; check the URL is not naming another.
       if (urlNamesADifferentSet(boxNo.split('-')[0], productUrl, catalog)) {
         result.skippedUrlMismatch++;
+        continue;
+      }
+
+      // ...and that a four-digit match is not just a year in the title.
+      if (yearLikeMismatch(boxNo.split('-')[0], title, catalogNames)) {
+        result.skippedYearLike++;
         continue;
       }
 
