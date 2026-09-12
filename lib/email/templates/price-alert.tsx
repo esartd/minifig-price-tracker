@@ -14,6 +14,12 @@ interface PriceAlertEmailProps {
   bricklinkUrl: string;
   amazonUrl: string;
   unsubscribeUrl: string;
+  /**
+   * Set when the price that fired this alert came from Walmart rather than
+   * from our own market blend. It is a real listing at a real price, so it
+   * leads the "Where to Buy" list instead of sitting among the searches.
+   */
+  walmartUrl?: string;
 }
 
 export const PriceAlertEmail = ({
@@ -30,6 +36,7 @@ export const PriceAlertEmail = ({
   bricklinkUrl,
   amazonUrl,
   unsubscribeUrl,
+  walmartUrl,
 }: PriceAlertEmailProps) => {
   const currencySymbol = currencyCode === 'USD' ? '$' : currencyCode === 'EUR' ? '€' : currencyCode === 'GBP' ? '£' : currencyCode;
   const conditionText = condition === 'new' ? 'New' : 'Used';
@@ -233,6 +240,14 @@ export const PriceAlertEmail = ({
 
             <div className="marketplace-links">
               <h3>Where to Buy</h3>
+              {walmartUrl && (
+                /* First, and worded differently from the three below it: this
+                   is a specific listing at the price that triggered the alert,
+                   not a search that might turn one up. */
+                <a href={walmartUrl} className="marketplace-link">
+                  🔵 Buy at Walmart for {currencySymbol}{currentPrice.toFixed(2)} →
+                </a>
+              )}
               <a href={ebayUrl} className="marketplace-link">
                 🔵 Search on eBay →
               </a>
@@ -245,7 +260,11 @@ export const PriceAlertEmail = ({
             </div>
 
             <p style={{ fontSize: '13px', color: '#6b7280', marginTop: '24px', lineHeight: '1.6' }}>
-              <strong>Note:</strong> This alert has been automatically deactivated. Prices are updated every 6 hours based on BrickLink market data. Set a new alert if you'd like to continue monitoring.
+              <strong>Note:</strong> This alert has been automatically deactivated.{' '}
+              {walmartUrl
+                ? 'Walmart prices are refreshed once a day and can change at any time.'
+                : 'Prices are updated every 6 hours based on BrickLink market data.'}{' '}
+              Set a new alert if you'd like to continue monitoring.
             </p>
           </div>
 
