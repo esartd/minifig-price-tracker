@@ -1880,14 +1880,15 @@
     "searchThemesPlaceholder": "Search themes...",
     "allPrices": "All Prices",
     "priceDisclaimerLabel": "Price Disclaimer:",
-    "priceDisclaimerText": "Product prices and availability are accurate as of the date/time indicated and are subject to change. Prices shown are from Walmart at the time of the last refresh (updated daily). Any price and availability information displayed on Walmart at the time of purchase will apply. As a Walmart Affiliate, LEGO Affiliate, eBay Partner, and Whatnot Affiliate, IntoBrick earns from qualifying purchases.",
+    "priceDisclaimerText": "Prices come from Walmart and are refreshed once a day, so they can change at any time. The price shown on Walmart at checkout is the one that applies.",
     "loadingDeals": "Loading deals...",
     "tierUnbelievable50": "Unbelievable Deals - 50%+ Off",
     "tierExcellent40": "Excellent Deals - 40%+ Off",
     "tierGreat30": "Great Deals - 30%+ Off",
     "tierGood20": "Good Deals - 20%+ Off",
     "readMore": "Read more",
-    "readLess": "Read less"
+    "readLess": "Read less",
+    "dismissDisclaimer": "Dismiss"
   },
   "collectorsDirectory": {
     "meta": {

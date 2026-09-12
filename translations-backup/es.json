@@ -1825,14 +1825,15 @@
     "searchThemesPlaceholder": "Buscar temas...",
     "allPrices": "Todos los Precios",
     "priceDisclaimerLabel": "Aviso de precios:",
-    "priceDisclaimerText": "Los precios y la disponibilidad son correctos en la fecha indicada y pueden cambiar. Los precios mostrados proceden de Walmart en la última actualización (diaria). Se aplicará el precio que muestre Walmart en el momento de la compra. Como afiliado de Walmart, LEGO, eBay y Whatnot, IntoBrick gana con las compras que cumplan los requisitos.",
+    "priceDisclaimerText": "Los precios proceden de Walmart y se actualizan una vez al día, por lo que pueden cambiar en cualquier momento. El precio válido es el que aparece en Walmart al finalizar la compra.",
     "loadingDeals": "Cargando ofertas...",
     "tierUnbelievable50": "Ofertas Increíbles - 50%+ de Descuento",
     "tierExcellent40": "Ofertas Excelentes - 40%+ de Descuento",
     "tierGreat30": "Grandes Ofertas - 30%+ de Descuento",
     "tierGood20": "Buenas Ofertas - 20%+ de Descuento",
     "readMore": "Leer más",
-    "readLess": "Leer menos"
+    "readLess": "Leer menos",
+    "dismissDisclaimer": "Cerrar"
   },
   "retiringSoon": {
     "pageTitle": "Sets LEGO que se Retirarán Pronto 2026",

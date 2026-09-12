@@ -1880,14 +1880,15 @@
     "searchThemesPlaceholder": "Cerca temi...",
     "allPrices": "Tutti i Prezzi",
     "priceDisclaimerLabel": "Nota sui prezzi:",
-    "priceDisclaimerText": "Prezzi e disponibilità sono corretti alla data indicata e possono cambiare. I prezzi mostrati provengono da Walmart all'ultimo aggiornamento (giornaliero). Vale il prezzo indicato su Walmart al momento dell'acquisto. Come affiliato Walmart, LEGO, eBay e Whatnot, IntoBrick guadagna dagli acquisti idonei.",
+    "priceDisclaimerText": "I prezzi provengono da Walmart e vengono aggiornati una volta al giorno, quindi possono cambiare in qualsiasi momento. Il prezzo valido è quello mostrato su Walmart al momento del pagamento.",
     "loadingDeals": "Caricamento offerte...",
     "tierUnbelievable50": "Offerte Incredibili - Oltre il 50% di Sconto",
     "tierExcellent40": "Offerte Eccellenti - Oltre il 40% di Sconto",
     "tierGreat30": "Ottime Offerte - Oltre il 30% di Sconto",
     "tierGood20": "Buone Offerte - Oltre il 20% di Sconto",
     "readMore": "Leggi di più",
-    "readLess": "Leggi meno"
+    "readLess": "Leggi meno",
+    "dismissDisclaimer": "Chiudi"
   },
   "retiringSoon": {
     "pageTitle": "Set LEGO in Dismissione Presto 2026",

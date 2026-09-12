@@ -1880,14 +1880,15 @@
     "searchThemesPlaceholder": "テーマを検索...",
     "allPrices": "すべての価格",
     "priceDisclaimerLabel": "価格に関する免責事項：",
-    "priceDisclaimerText": "価格と在庫状況は表示時点のものであり、変更される場合があります。表示価格は最終更新時（毎日更新）の Walmart のものです。購入時に Walmart に表示される価格が適用されます。IntoBrick は Walmart、LEGO、eBay、Whatnot のアフィリエイトとして、対象購入から収益を得ています。",
+    "priceDisclaimerText": "価格はWalmartのもので、1日1回更新されるため、いつでも変更される可能性があります。実際に適用されるのは、購入手続き時にWalmartに表示されている価格です。",
     "loadingDeals": "お得情報を読み込み中...",
     "tierUnbelievable50": "信じられないお得情報 - 50%OFF以上",
     "tierExcellent40": "特大のお得情報 - 40%OFF以上",
     "tierGreat30": "お得な情報 - 30%OFF以上",
     "tierGood20": "セール情報 - 20%OFF以上",
     "readMore": "もっと読む",
-    "readLess": "閉じる"
+    "readLess": "閉じる",
+    "dismissDisclaimer": "閉じる"
   },
   "retiringSoon": {
     "pageTitle": "LEGO セット 廃盤予定 2026年",

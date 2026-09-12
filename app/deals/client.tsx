@@ -1,8 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import DealTierSection from '@/components/DealTierSection';
 import { useTranslation } from '@/components/TranslationProvider';
+
+// Remembering the dismissal in localStorage rather than a cookie: nothing on
+// the server needs to know, and it keeps the choice per-browser without adding
+// a byte to every request.
+const DISCLAIMER_KEY = 'intobrick-deals-disclaimer-dismissed';
 
 interface Deal {
   boxNo: string;
@@ -27,6 +33,12 @@ export default function LegoSaleClient() {
   // Collapsed by default: the SEO paragraph is for crawlers, and at full height
   // it pushed the first deal card off the screen.
   const [seoExpanded, setSeoExpanded] = useState(false);
+  // Starts SHOWN and is hidden by the effect below, never the other way round.
+  // Reading localStorage during render would disagree with the server-rendered
+  // HTML and trip a hydration mismatch -- and defaulting to hidden would mean a
+  // reader who has never dismissed it might never see it at all if the effect
+  // failed to run. Shown-then-hidden fails safe.
+  const [showDisclaimer, setShowDisclaimer] = useState(true);
   const [deals50, setDeals50] = useState<Deal[]>([]);
   const [deals40, setDeals40] = useState<Deal[]>([]);
   const [deals30, setDeals30] = useState<Deal[]>([]);
@@ -39,6 +51,15 @@ export default function LegoSaleClient() {
   const [priceRange, setPriceRange] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('discount');
   const [themeSearch, setThemeSearch] = useState<string>('');
+
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(DISCLAIMER_KEY) === '1') setShowDisclaimer(false);
+    } catch {
+      // Storage can throw outright in private browsing. The disclaimer simply
+      // stays visible, which is the harmless direction to fail.
+    }
+  }, []);
 
   useEffect(() => {
     fetchThemes();
@@ -72,13 +93,13 @@ export default function LegoSaleClient() {
           `/api/lego-sale/deals?tier=50&theme=${selectedTheme}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&limit=50`
         ),
         fetch(
-          `/api/lego-sale/deals?tier=40&theme=${selectedTheme}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&limit=50`
+          `/api/lego-sale/deals?tier=40&maxTier=50&theme=${selectedTheme}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&limit=50`
         ),
         fetch(
-          `/api/lego-sale/deals?tier=30&theme=${selectedTheme}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&limit=50`
+          `/api/lego-sale/deals?tier=30&maxTier=40&theme=${selectedTheme}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&limit=50`
         ),
         fetch(
-          `/api/lego-sale/deals?tier=20&theme=${selectedTheme}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&limit=50`
+          `/api/lego-sale/deals?tier=20&maxTier=30&theme=${selectedTheme}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&limit=50`
         ),
       ]);
 
@@ -90,20 +111,18 @@ export default function LegoSaleClient() {
       ]);
 
       if (data50.success) {
-        // Filter out higher tier deals from lower tiers
-        // Keyed on boxNo, which is unique per set in WalmartDeal.
-        const seen50 = new Set(data50.deals.map((d: Deal) => d.boxNo));
-        const seen40 = new Set(data40.deals.map((d: Deal) => d.boxNo));
-
+        // Each request now asks for its own band (maxTier), so the tiers cannot
+        // overlap and there is nothing to subtract here.
+        //
+        // The old version asked for a FLOOR four times and filtered afterwards,
+        // which silently emptied the bottom band: a request for "20% or more"
+        // returns the highest-discount rows first, so all fifty came back at
+        // 33-64% and the "20-29%" section rendered "No deals found" while 297
+        // sets sat at 20% or better.
         setDeals50(data50.deals);
-        setDeals40(data40.deals.filter((d: Deal) => !seen50.has(d.boxNo) && d.discountPercent < 50));
-        setDeals30(data30.deals.filter((d: Deal) => !seen50.has(d.boxNo) && !seen40.has(d.boxNo) && d.discountPercent < 40));
-        setDeals20(data20.deals.filter(
-          (d: Deal) =>
-            !seen50.has(d.boxNo) &&
-            !seen40.has(d.boxNo) &&
-            d.discountPercent < 30
-        ));
+        setDeals40(data40.deals);
+        setDeals30(data30.deals);
+        setDeals20(data20.deals);
       }
     } catch (error) {
       console.error('Error fetching deals:', error);
@@ -312,7 +331,7 @@ export default function LegoSaleClient() {
                 backgroundPosition: 'right 14px center',
                 backgroundSize: '16px',
                 fontSize: '14px',
-                background: '#ffffff',
+                backgroundColor: '#ffffff',
                 cursor: 'pointer',
               }}
             >
@@ -345,7 +364,7 @@ export default function LegoSaleClient() {
                 backgroundPosition: 'right 14px center',
                 backgroundSize: '16px',
                 fontSize: '14px',
-                background: '#ffffff',
+                backgroundColor: '#ffffff',
                 cursor: 'pointer',
               }}
             >
@@ -357,23 +376,68 @@ export default function LegoSaleClient() {
         </div>
       </div>
 
-      {/* Affiliate disclosure. Required, and it must name the retailer whose
-          prices are actually shown -- Walmart since the Amazon feed died. */}
-      <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '16px',
-        background: '#fffbeb',
-        border: '1px solid #fef3c7',
-        borderRadius: '8px',
-        fontSize: '13px',
-        color: '#92400e',
-        lineHeight: '1.6'
-      }}>
-        <strong>{t('legoSale.priceDisclaimerLabel') || 'Price Disclaimer:'}</strong>{' '}
-        {t('legoSale.priceDisclaimerText') ||
-          'Product prices and availability are accurate as of the date/time indicated and are subject to change. Prices shown are from Walmart at the time of last refresh (updated daily). Any price and availability information displayed on Walmart at the time of purchase will apply to the purchase of this product. As a Walmart Affiliate, LEGO Affiliate, eBay Partner, and Whatnot Affiliate, IntoBrick earns from qualifying purchases.'}
-      </div>
+      {/* Price disclaimer. Dismissible, because it is the same sentence on every
+          visit and a returning reader has already read it -- but it does have to
+          be seen once, so it defaults to shown and only hides after a click.
+
+          The affiliate-earnings sentence used to be tacked on the end and is
+          gone: the global footer already carries that disclosure on every page,
+          so this said it twice on one screen. What stays is the part that is
+          specific to THIS page -- that the prices come from Walmart, are a daily
+          snapshot, and that Walmart's own price at checkout is the one that
+          counts. */}
+      {showDisclaimer && (
+        <div style={{
+          maxWidth: '1200px',
+          margin: '32px auto 0',
+          padding: '14px 16px',
+          background: '#fffbeb',
+          border: '1px solid #fef3c7',
+          borderRadius: '8px',
+          fontSize: '13px',
+          color: '#92400e',
+          lineHeight: '1.6',
+          display: 'flex',
+          alignItems: 'flex-start',
+          gap: '12px',
+        }}>
+          <p style={{ margin: 0, flex: 1 }}>
+            <strong>{t('legoSale.priceDisclaimerLabel') || 'Price Disclaimer:'}</strong>{' '}
+            {t('legoSale.priceDisclaimerText') ||
+              'Prices come from Walmart and are refreshed once a day, so they can change at any time. The price shown on Walmart at checkout is the one that applies.'}
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              setShowDisclaimer(false);
+              try {
+                localStorage.setItem(DISCLAIMER_KEY, '1');
+              } catch {
+                // Private browsing throws on write. Dismissing for this page
+                // view still works; it just comes back next time.
+              }
+            }}
+            aria-label={t('legoSale.dismissDisclaimer') || 'Dismiss'}
+            style={{
+              flexShrink: 0,
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '24px',
+              height: '24px',
+              padding: 0,
+              border: 'none',
+              borderRadius: '6px',
+              background: 'transparent',
+              color: '#92400e',
+              cursor: 'pointer',
+              lineHeight: 0,
+            }}
+          >
+            <XMarkIcon style={{ width: '16px', height: '16px' }} />
+          </button>
+        </div>
+      )}
 
       {/* Deals Content */}
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '48px 16px' }}>

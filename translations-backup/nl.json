@@ -1880,14 +1880,15 @@
     "searchThemesPlaceholder": "Zoek thema's...",
     "allPrices": "Alle Prijzen",
     "priceDisclaimerLabel": "Prijsdisclaimer:",
-    "priceDisclaimerText": "Prijzen en beschikbaarheid zijn correct op het aangegeven moment en kunnen wijzigen. Getoonde prijzen komen van Walmart bij de laatste verversing (dagelijks). De prijs die Walmart toont op het moment van aankoop geldt. Als Walmart-, LEGO-, eBay- en Whatnot-affiliate verdient IntoBrick aan in aanmerking komende aankopen.",
+    "priceDisclaimerText": "De prijzen komen van Walmart en worden één keer per dag ververst, dus ze kunnen op elk moment veranderen. De prijs die bij het afrekenen op Walmart staat, is de prijs die geldt.",
     "loadingDeals": "Deals laden...",
     "tierUnbelievable50": "Ongelooflijke Deals - 50%+ Korting",
     "tierExcellent40": "Uitstekende Deals - 40%+ Korting",
     "tierGreat30": "Geweldige Deals - 30%+ Korting",
     "tierGood20": "Goede Deals - 20%+ Korting",
     "readMore": "Meer lezen",
-    "readLess": "Minder lezen"
+    "readLess": "Minder lezen",
+    "dismissDisclaimer": "Sluiten"
   },
   "retiringSoon": {
     "pageTitle": "LEGO Sets die Binnenkort Verdwijnen 2026",

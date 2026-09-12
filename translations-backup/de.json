@@ -1823,7 +1823,7 @@
       "twitterTitle": "LEGO Angebote — Walmart"
     },
     "priceDisclaimerLabel": "Preishinweis:",
-    "priceDisclaimerText": "Preise und Verfügbarkeit sind zum angegebenen Zeitpunkt korrekt und können sich ändern. Die gezeigten Preise stammen von Walmart zum Zeitpunkt der letzten Aktualisierung (täglich). Maßgeblich ist der bei Walmart zum Kaufzeitpunkt angezeigte Preis. Als Walmart-Partner, LEGO-Partner, eBay-Partner und Whatnot-Partner verdient IntoBrick an qualifizierten Käufen.",
+    "priceDisclaimerText": "Die Preise stammen von Walmart und werden einmal täglich aktualisiert, können sich also jederzeit ändern. Es gilt der Preis, der bei Walmart an der Kasse angezeigt wird.",
     "searchThemesPlaceholder": "Themen suchen...",
     "seoParagraph": "Wir prüfen täglich Tausende LEGO Produkte bei Walmart, gleichen sie mit unserem Katalog ab und zeigen nur die, deren Preis wirklich gefallen ist. Sortiert nach Höhe der Ersparnis, die besten Angebote zuerst. Filtere nach Thema, Preis oder Rabatt.",
     "subtitleUpdated": "Die besten Walmart-Angebote, täglich aktualisiert",
@@ -1832,7 +1832,8 @@
     "tierGreat30": "Tolle Angebote - 30%+ Rabatt",
     "tierUnbelievable50": "Unglaubliche Angebote - 50%+ Rabatt",
     "readMore": "Mehr lesen",
-    "readLess": "Weniger lesen"
+    "readLess": "Weniger lesen",
+    "dismissDisclaimer": "Schließen"
   },
   "retiringSoon": {
     "pageTitle": "LEGO Sets, die bald aus dem Sortiment genommen werden 2026",

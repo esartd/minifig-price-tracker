@@ -1880,14 +1880,15 @@
     "searchThemesPlaceholder": "Pesquisar temas...",
     "allPrices": "Todos os Preços",
     "priceDisclaimerLabel": "Aviso sobre Preços:",
-    "priceDisclaimerText": "Os preços e a disponibilidade são exatos na data indicada e podem mudar. Os preços apresentados são da Walmart na última atualização (diária). Aplica-se o preço apresentado na Walmart no momento da compra. Como afiliada da Walmart, LEGO, eBay e Whatnot, a IntoBrick ganha com compras elegíveis.",
+    "priceDisclaimerText": "Os preços vêm da Walmart e são atualizados uma vez por dia, pelo que podem mudar a qualquer momento. O preço aplicável é o apresentado na Walmart no momento da compra.",
     "loadingDeals": "A carregar ofertas...",
     "tierUnbelievable50": "Ofertas Incríveis - 50%+ de Desconto",
     "tierExcellent40": "Ofertas Excelentes - 40%+ de Desconto",
     "tierGreat30": "Ótimas Ofertas - 30%+ de Desconto",
     "tierGood20": "Boas Ofertas - 20%+ de Desconto",
     "readMore": "Ler mais",
-    "readLess": "Ler menos"
+    "readLess": "Ler menos",
+    "dismissDisclaimer": "Fechar"
   },
   "retiringSoon": {
     "pageTitle": "Conjuntos LEGO Saindo Breve 2026",

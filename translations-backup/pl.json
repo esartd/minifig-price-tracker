@@ -1880,14 +1880,15 @@
     "searchThemesPlaceholder": "Szukaj motywów...",
     "allPrices": "Wszystkie ceny",
     "priceDisclaimerLabel": "Zastrzeżenie cenowe:",
-    "priceDisclaimerText": "Ceny i dostępność są aktualne na wskazany moment i mogą się zmienić. Pokazane ceny pochodzą z Walmartu z ostatniej aktualizacji (codziennej). Obowiązuje cena widoczna w Walmarcie w chwili zakupu. Jako partner Walmartu, LEGO, eBay i Whatnot, IntoBrick zarabia na kwalifikujących się zakupach.",
+    "priceDisclaimerText": "Ceny pochodzą z Walmartu i są odświeżane raz dziennie, więc mogą się zmienić w każdej chwili. Obowiązuje cena widoczna w Walmarcie podczas składania zamówienia.",
     "loadingDeals": "Ładowanie okazji...",
     "tierUnbelievable50": "Niesamowite okazje - rabat 50%+",
     "tierExcellent40": "Świetne okazje - rabat 40%+",
     "tierGreat30": "Dobre okazje - rabat 30%+",
     "tierGood20": "Niezłe okazje - rabat 20%+",
     "readMore": "Czytaj więcej",
-    "readLess": "Zwiń"
+    "readLess": "Zwiń",
+    "dismissDisclaimer": "Zamknij"
   },
   "retiringSoon": {
     "pageTitle": "Zestawy LEGO Wycofywane Wkrótce 2026",

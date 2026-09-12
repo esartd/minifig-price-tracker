@@ -37,7 +37,13 @@ export default function LanguageSwitcher() {
           display: 'flex',
           alignItems: 'center',
           gap: '6px',
-          padding: '8px 12px',
+          // 40px to match the search field and the sign-in/sign-up buttons in
+          // the same row. Padding alone put this at 34px against the search
+          // field's 40, which reads as a misaligned row even though nothing is
+          // obviously wrong with any one control.
+          height: '40px',
+          padding: '0 14px',
+          boxSizing: 'border-box',
           // --text-xs, matching the nav items beside it; this was --text-sm,
           // two pixels larger than everything else in the row.
           fontSize: 'var(--text-xs)',

@@ -1880,14 +1880,15 @@
     "searchThemesPlaceholder": "Sök teman...",
     "allPrices": "Alla priser",
     "priceDisclaimerLabel": "Prisreservation:",
-    "priceDisclaimerText": "Priser och tillgänglighet stämmer vid angiven tidpunkt och kan ändras. Visade priser kommer från Walmart vid senaste uppdateringen (dagligen). Priset som visas på Walmart vid köptillfället gäller. Som Walmart-, LEGO-, eBay- och Whatnot-partner tjänar IntoBrick på kvalificerande köp.",
+    "priceDisclaimerText": "Priserna kommer från Walmart och uppdateras en gång om dagen, så de kan ändras när som helst. Det pris som visas på Walmart i kassan är det som gäller.",
     "loadingDeals": "Laddar erbjudanden...",
     "tierUnbelievable50": "Otroliga erbjudanden - 50%+ rabatt",
     "tierExcellent40": "Utmärkta erbjudanden - 40%+ rabatt",
     "tierGreat30": "Bra erbjudanden - 30%+ rabatt",
     "tierGood20": "Goda erbjudanden - 20%+ rabatt",
     "readMore": "Läs mer",
-    "readLess": "Läs mindre"
+    "readLess": "Läs mindre",
+    "dismissDisclaimer": "Stäng"
   },
   "retiringSoon": {
     "pageTitle": "LEGO Set som Försvinner Snart 2026",

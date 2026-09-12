@@ -523,7 +523,15 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 <Link
                   href="/auth/signin"
                   style={{
-                    padding: '10px 16px',
+                    // Explicit height, shared with the search field, the
+                    // language pill and the sign-up button. These were sized by
+                    // padding alone and landed a few pixels short of the search
+                    // field, so the whole top row sat slightly out of line.
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    height: '40px',
+                    padding: '0 16px',
+                    boxSizing: 'border-box',
                     fontSize: 'var(--text-xs)',
                     fontWeight: '500',
                     color: '#525252',
@@ -537,7 +545,11 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 <Link
                   href="/auth/signup"
                   style={{
-                    padding: '10px 16px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    height: '40px',
+                    padding: '0 18px',
+                    boxSizing: 'border-box',
                     fontSize: 'var(--text-xs)',
                     fontWeight: '600',
                     color: '#ffffff',

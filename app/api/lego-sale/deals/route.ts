@@ -17,6 +17,11 @@ const ENABLED = process.env.ENABLE_LEGO_SALE === 'true';
  *
  * Query parameters:
  * - tier: '20', '30', '40' (minimum discount percent)
+ * - maxTier: optional upper bound, EXCLUSIVE. Without it a request for tier=20
+ *   returns the highest-discount rows, which are all 30%+ -- so the page's
+ *   "20-29%" band came back empty while 297 sets sat at 20% or better. The
+ *   client asks for bands now (50+, 40-49, 30-39, 20-29) instead of asking for
+ *   a floor four times and trying to subtract the overlaps afterwards.
  * - theme: Filter by theme name
  * - minPrice, maxPrice: Price range filter
  * - sortBy: 'discount' (default), 'price', 'name'
@@ -31,6 +36,8 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const tier = parseInt(searchParams.get('tier') || '20');
+    const maxTierRaw = searchParams.get('maxTier');
+    const maxTier = maxTierRaw ? parseInt(maxTierRaw) : null;
     const theme = searchParams.get('theme');
     const minPrice = parseFloat(searchParams.get('minPrice') || '0');
     const maxPrice = parseFloat(searchParams.get('maxPrice') || '999999');
@@ -39,7 +46,7 @@ export async function GET(request: NextRequest) {
 
     // Build where clause
     const where: any = {
-      discountPercent: { gte: tier },
+      discountPercent: maxTier ? { gte: tier, lt: maxTier } : { gte: tier },
       currentPrice: {
         gte: minPrice,
         lte: maxPrice,
