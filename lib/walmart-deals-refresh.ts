@@ -72,6 +72,8 @@ export interface WalmartSyncResult {
   skippedUrlMismatch: number;
   /** A four-digit "set number" that was really a year in the title. */
   skippedYearLike: number;
+  /** Listing never mentions the set -- usually a minifigure named by character. */
+  skippedNameMismatch: number;
   /** Rows dropped because Walmart stopped listing them. */
   removed: number;
 }
@@ -150,8 +152,40 @@ const MINIFIG_SERIES = (title: string) =>
  * Longest candidates first, because a 5-digit set number contains 4-digit
  * substrings and the longer match is the right one.
  */
+/**
+ * Listings that are a PIECE of a set rather than the set.
+ *
+ * These were the worst thing on the deals page, and invisible until deals were
+ * ranked against our own price. Every one of the top ten "biggest savings" was
+ * one of these: a Mouth of Sauron minifigure priced against the $463 Battle at
+ * the Black Gate, an Ahsoka Tano minifigure against the $196 Umbaran MHC, and a
+ * lighting kit whose own title says "(BUILDING SET NOT INCLUDED)". A shopper
+ * spots it instantly and concludes the listing is fake -- which is the correct
+ * conclusion and the worst possible result for us.
+ *
+ * The tell is what the listing does NOT say. A boxed set's listing almost
+ * always says "building toy", "building set", "building kit", "playset" or a
+ * piece count; a loose minifigure's does not. Mentioning a minifigure is not
+ * itself disqualifying -- the Millennium Falcon's own title reads "with 4 SMART
+ * Tags and 4 LEGO Minifigures" -- so the word only counts against a listing
+ * that never calls itself a set.
+ *
+ * Measured across in-stock rows: removes 44 of the 272 priced below our own
+ * figure, and touches about 1% of rows priced NEAR our figure, which are almost
+ * certainly genuine sets. Of those, most were loose minifigures anyway. Losing
+ * roughly four real sets to remove forty-four fake bargains is the same trade
+ * MINIFIG_SERIES above already makes.
+ */
+const SET_LANGUAGE = /\bbuilding (toy|set|kit|block)|\b\d{2,5}\s*(pieces|pcs|pc)\b|\bplayset\b/i;
+const PART_PHRASE =
+  /\bfrom sets?\b|\bnot included\b|\blighting kit\b|\b(sticker|instruction manual|replacement part)s?\b|\bsingle mini ?fig/i;
+const MENTIONS_FIG = /\bmini ?fig(ure)?s?\b/i;
+
+const PART_OF_SET = (title: string) =>
+  PART_PHRASE.test(title) || (MENTIONS_FIG.test(title) && !SET_LANGUAGE.test(title));
+
 function extractBoxNo(title: string, catalog: Map<string, string>): string | null {
-  if (USED_TITLE.test(title) || MINIFIG_SERIES(title)) return null;
+  if (USED_TITLE.test(title) || MINIFIG_SERIES(title) || PART_OF_SET(title)) return null;
 
   // Annotated because `?? []` on its own infers never[], and the sort callback
   // then has no .length to compare.
@@ -213,10 +247,16 @@ function urlNamesADifferentSet(
  * Measured when added: all 15 stored rows with a year-like number were wrong,
  * every one a year read as a set number.
  */
+// Shared by yearLikeMismatch and titleNeverNamesTheSet: words too common to
+// prove a listing is about the set we matched it to.
 const NAME_STOPWORDS = new Set([
   'lego', 'set', 'sets', 'building', 'build', 'toy', 'toys', 'kit', 'the', 'and',
   'with', 'for', 'new', 'box', 'piece', 'pieces', 'bagged', 'sealed', 'mini',
-  'minifigure', 'minifig', 'pack', 'collectible', 'edition',
+  'minifigure', 'minifigures', 'minifig', 'pack', 'collectible', 'edition', 'from',
+  // Theme names. Everything in a theme shares them, so matching on "star wars"
+  // would wave through every Star Wars minifigure ever listed.
+  'star', 'wars', 'city', 'friends', 'marvel', 'super', 'heroes', 'ninjago',
+  'creator', 'classic', 'duplo', 'technic', 'icons', 'disney',
 ]);
 
 function yearLikeMismatch(base: string, title: string, catalogNames: Map<string, string>): boolean {
@@ -230,6 +270,43 @@ function yearLikeMismatch(base: string, title: string, catalogNames: Map<string,
 
   // No usable words in our own name means no evidence either way -- allow it
   // rather than reject on ignorance.
+  if (words.length === 0) return false;
+
+  const t = title.toLowerCase();
+  return !words.some((w) => t.includes(w));
+}
+
+/**
+ * True when the listing title never mentions the set we matched it to.
+ *
+ * The last and sneakiest class of wrong match: a minifigure listed by character
+ * name, which never uses the word "minifigure" so PART_OF_SET cannot see it.
+ * "LEGO Star Wars Asajj Ventress with 2 Red Lightsabers" carries set number
+ * 7957 and was priced against the $137 Sith Nightspeeder. "LEGO Star Wars C3PO
+ * (75136)" against the Droid Escape Pod. A single Cat Sitting piece against
+ * Emma's Photo Studio.
+ *
+ * A genuine listing for a set nearly always names it -- "Blacksmith Shop 6040",
+ * "Pharaoh s Forbidden Ruins", "Love Bears 287pcs". A minifigure names the
+ * character instead.
+ *
+ * Theme words are in the stop list because everything in a theme shares them:
+ * matching on "star wars" would wave through every Star Wars minifigure ever
+ * listed.
+ *
+ * Measured: drops 7 of 227 below-price rows and 2.4% of rows priced near ours.
+ */
+function titleNeverNamesTheSet(
+  base: string,
+  title: string,
+  catalogNames: Map<string, string>
+): boolean {
+  const words = (catalogNames.get(base) ?? '')
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter((w) => w.length > 3 && !NAME_STOPWORDS.has(w));
+
+  // Nothing distinctive in our own name means no evidence -- allow it.
   if (words.length === 0) return false;
 
   const t = title.toLowerCase();
@@ -324,6 +401,7 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
     skippedPriceMismatch: 0,
     skippedUrlMismatch: 0,
     skippedYearLike: 0,
+    skippedNameMismatch: 0,
     removed: 0,
   };
 
@@ -339,6 +417,8 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
     currency: string;
     productUrl: string;
     imageUrl: string | null;
+    ourPrice: number | null;
+    pctBelowOurPrice: number | null;
   }>();
 
   for (let page = 1; page <= MAX_PAGES; page++) {
@@ -372,6 +452,13 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
         continue;
       }
 
+      // ...and that the listing actually names the set, not just a character
+      // who appears in it.
+      if (titleNeverNamesTheSet(boxNo.split('-')[0], title, catalogNames)) {
+        result.skippedNameMismatch++;
+        continue;
+      }
+
       // Reject anything priced so far below our own figure that it cannot be
       // the same product. Only applies where we have a price to compare to.
       const ourPrice = ourPrices.get(boxNo);
@@ -389,6 +476,16 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
           : 0;
 
       const inStock = (item.StockAvailability ?? '').toLowerCase() === 'instock';
+
+      /**
+       * How far below OUR suggested price this sits -- the number /deals ranks
+       * on. Positive means cheaper than we reckon the set is worth; negative
+       * means Walmart is asking more, however large a discount they claim.
+       */
+      const pctBelowOurPrice =
+        ourPrice && ourPrice > 0
+          ? Math.round((1 - currentPrice / ourPrice) * 100)
+          : null;
 
       const existing = best.get(boxNo);
       // In stock beats out of stock; among equals, cheaper wins.
@@ -408,6 +505,8 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
           currency: item.Currency ?? 'USD',
           productUrl,
           imageUrl: item.ImageUrl ?? null,
+          ourPrice: ourPrice ?? null,
+          pctBelowOurPrice,
         });
       }
     }
@@ -443,14 +542,14 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
       Prisma.sql`(${randomUUID()}, ${boxNo}, ${d.walmartItemId}, ${d.title},
                   ${d.currentPrice}, ${d.listPrice}, ${d.discountPercent},
                   ${d.inStock}, ${d.currency}, ${d.productUrl}, ${d.imageUrl},
-                  NOW(3))`
+                  ${d.ourPrice}, ${d.pctBelowOurPrice}, NOW(3))`
     );
 
     await prisma.$executeRaw`
       INSERT INTO \`WalmartDeal\`
         (\`id\`, \`boxNo\`, \`walmartItemId\`, \`title\`, \`currentPrice\`, \`listPrice\`,
          \`discountPercent\`, \`inStock\`, \`currency\`, \`productUrl\`, \`imageUrl\`,
-         \`lastUpdated\`)
+         \`ourPrice\`, \`pctBelowOurPrice\`, \`lastUpdated\`)
       VALUES ${Prisma.join(values)}
       ON DUPLICATE KEY UPDATE
         \`walmartItemId\`   = VALUES(\`walmartItemId\`),
@@ -462,6 +561,8 @@ export async function refreshWalmartDeals(): Promise<WalmartSyncResult> {
         \`currency\`        = VALUES(\`currency\`),
         \`productUrl\`      = VALUES(\`productUrl\`),
         \`imageUrl\`        = VALUES(\`imageUrl\`),
+        \`ourPrice\`        = VALUES(\`ourPrice\`),
+        \`pctBelowOurPrice\` = VALUES(\`pctBelowOurPrice\`),
         \`lastUpdated\`     = VALUES(\`lastUpdated\`)
     `;
 

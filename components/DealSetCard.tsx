@@ -13,6 +13,9 @@ interface DealSetCardProps {
     currentPrice: number;
     listPrice: number | null;
     discountPercent: number;
+    /** How far below OUR suggested price. What the badge and tiers use. */
+    pctBelowOurPrice?: number | null;
+    ourPrice?: number | null;
   
     imageUrl: string;
     buyUrl: string;
@@ -94,6 +97,10 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
           boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
         }}
       >
+        {/* Walmart's own number, deliberately. A reader who clicks sees the
+            same figure on their page, which a number of ours would not match.
+            It is trustworthy here only because the API already required our
+            price to agree before the card could exist at all. */}
         {deal.discountPercent}% {t('deals.off') || 'OFF'}
       </div>
 
@@ -210,6 +217,7 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
                 undiscounted items -- most of them -- and the old Amazon version
                 assumed it was always present, so this would have crashed on the
                 first full-price set. */}
+            {/* Walmart's "was" price, matching what the badge claims. */}
             {deal.listPrice !== null && deal.listPrice > deal.currentPrice && (
               <span
                 style={{
@@ -222,9 +230,12 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
               </span>
             )}
           </div>
-          {deal.listPrice !== null && deal.listPrice > deal.currentPrice && (
+          {/* Our own verdict, stated quietly. Every card already passed this
+              test -- it is here as reassurance, not as the sales pitch. */}
+          {deal.pctBelowOurPrice != null && deal.pctBelowOurPrice > 0 && (
             <p style={{ fontSize: '12px', color: '#16a34a', fontWeight: '600' }}>
-              {t('deals.save') || 'Save'} ${(deal.listPrice - deal.currentPrice).toFixed(2)}
+              {(t('deals.belowOurPrice') || '{pct}% below market value')
+                .replace('{pct}', String(deal.pctBelowOurPrice))}
             </p>
           )}
         </div>

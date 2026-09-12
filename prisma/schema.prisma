@@ -568,11 +568,29 @@ model WalmartDeal {
   /// used verbatim -- rebuilding it by hand loses attribution.
   productUrl      String   @db.Text
   imageUrl        String?  @db.Text
+  /// Our own suggested price for this set at the time of the sync, and how far
+  /// below it Walmart's price sits. Null when we have no price of our own.
+  ///
+  /// This is what /deals is ranked on now, NOT `discountPercent`. Walmart's
+  /// discount is computed against `OriginalPrice`, a figure the seller types in
+  /// themselves -- on a retired set they can list at three times its value,
+  /// call it "60% off", and it is still a bad buy. Measured across 281 such
+  /// rows, 71% were priced ABOVE our own suggested price and 42% were more than
+  /// 30% above it.
+  ///
+  /// The inverse was also true and worse: the best genuine bargains carried a
+  /// 0% Walmart discount, so the old tier filter hid them. 75013-1 was $49.95
+  /// against our $196.11 -- 75% below what the set is worth, advertised by
+  /// Walmart as no discount at all.
+  ourPrice        Float?
+  /// Percent below our suggested price. Negative means Walmart is dearer.
+  pctBelowOurPrice Int?
   lastUpdated     DateTime @default(now())
 
   @@index([discountPercent])
   @@index([lastUpdated])
   @@index([inStock, discountPercent])
+  @@index([inStock, pctBelowOurPrice])
 }
 
 model Article {

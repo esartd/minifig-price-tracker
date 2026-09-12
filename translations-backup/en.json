@@ -2630,7 +2630,8 @@
   "deals": {
     "off": "OFF",
     "save": "Save",
-    "noDealsFound": "No deals found in this category"
+    "noDealsFound": "No deals found in this category",
+    "belowOurPrice": "{pct}% below market value"
   },
   "priceHistory": {
     "loadError": "Failed to load price history",

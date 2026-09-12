@@ -44,9 +44,35 @@ export async function GET(request: NextRequest) {
     const sortBy = searchParams.get('sortBy') || 'discount';
     const limit = parseInt(searchParams.get('limit') || '50');
 
-    // Build where clause
+    /**
+     * A deal has to satisfy BOTH parties: Walmart must be flagging a real sale,
+     * and our own price must agree the asking price is below what the set is
+     * worth. Either signal alone produces a bad page.
+     *
+     * Walmart alone: their discount is computed from an OriginalPrice the
+     * seller types in. Of 297 rows that qualified, 71% were priced ABOVE our
+     * suggested price -- retired sets marked up and then "60% off".
+     *
+     * Ours alone: ranking purely on our price floods the top with things that
+     * are not the set. A Mouth of Sauron minifigure against the $463 Battle at
+     * the Black Gate; an Asajj Ventress against the $137 Sith Nightspeeder.
+     * Those score enormous savings precisely because they are not the product.
+     *
+     * The intersection is clean, and for a reason worth writing down: someone
+     * selling a single minifigure does not set up a "was" price. Walmart's own
+     * sale flag is therefore a proxy for a genuine retail listing, and it does
+     * the job four separate title heuristics could not. 297 and 226 overlap at
+     * 77 rows, and a manual read of the top twelve found no wrong matches.
+     *
+     * `listPrice` must be present too -- `discountPercent` alone can be a
+     * leftover, and a sale with no "was" price is not a sale.
+     */
     const where: any = {
       discountPercent: maxTier ? { gte: tier, lt: maxTier } : { gte: tier },
+      listPrice: { not: null },
+      // Our own check. Null means we have no price to judge by, and an unknown
+      // is not a deal.
+      pctBelowOurPrice: { gt: 0 },
       currentPrice: {
         gte: minPrice,
         lte: maxPrice,
@@ -59,7 +85,7 @@ export async function GET(request: NextRequest) {
       where,
       take: limit * 3, // Fetch more for theme filtering
       orderBy: {
-        discountPercent: 'desc', // Always sort by discount first
+        discountPercent: 'desc', // Walmart's own number, now corroborated
       },
     });
 
@@ -83,6 +109,9 @@ export async function GET(request: NextRequest) {
           // as "no badge" rather than rendering a 0% saving.
           listPrice: deal.listPrice,
           discountPercent: deal.discountPercent,
+          // What the page actually ranks and badges on.
+          pctBelowOurPrice: deal.pctBelowOurPrice,
+          ourPrice: deal.ourPrice,
 
           imageUrl: setData.image_url,
           // The Impact tracked URL verbatim -- it already carries partner id

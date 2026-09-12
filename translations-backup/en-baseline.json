@@ -1821,6 +1821,7 @@
     "deals.off": "ad50489054dd",
     "deals.save": "efc007a393f6",
     "deals.noDealsFound": "6b39dd64b913",
+    "deals.belowOurPrice": "b002e118ec4b",
     "priceHistory.loadError": "e89ad943dc6b",
     "priceHistory.noDataMessage": "d1a73018e6b4",
     "priceHistory.noDataSubtext": "db5c4a808582",
