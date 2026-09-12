@@ -356,7 +356,8 @@
       "sponsored": "Gesponsord",
       "shopOn": "Shoppen bij Walmart",
       "buyOn": "Kopen bij Walmart",
-      "percentOff": "{pct}% korting"
+      "percentOff": "{pct}% korting",
+      "priceCaveat": "Vermelde prijs — controleer bij Walmart"
     }
   },
   "pricing": {

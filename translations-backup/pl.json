@@ -356,7 +356,8 @@
       "sponsored": "Sponsorowane",
       "shopOn": "Kup w Walmarcie",
       "buyOn": "Kup w Walmarcie",
-      "percentOff": "-{pct}%"
+      "percentOff": "-{pct}%",
+      "priceCaveat": "Cena z oferty — sprawdź w Walmarcie"
     }
   },
   "pricing": {

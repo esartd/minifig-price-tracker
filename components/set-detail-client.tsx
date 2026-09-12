@@ -1598,6 +1598,15 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                                 </span>
                               )}
                           </div>
+                          {/* The feed is a daily catalogue and its price does
+                              not always match Walmart's live page -- 75426-1
+                              read $87.31 here against $93.99 there, two hours
+                              after a refresh. Not staleness on our side and not
+                              correctable from the feed, so the number is shown
+                              with the caveat attached rather than dropped. */}
+                          <div style={{ fontSize: 'var(--text-xs)', color: '#a3a3a3' }}>
+                            {t('buyButtons.walmart.priceCaveat') || 'Listed price — confirm at Walmart'}
+                          </div>
                         </div>
                       </div>
 

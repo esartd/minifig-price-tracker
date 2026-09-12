@@ -356,7 +356,8 @@
       "sponsored": "Sponsrad",
       "shopOn": "Handla på Walmart",
       "buyOn": "Köp på Walmart",
-      "percentOff": "{pct}% rabatt"
+      "percentOff": "{pct}% rabatt",
+      "priceCaveat": "Angivet pris — kontrollera hos Walmart"
     }
   },
   "pricing": {

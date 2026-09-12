@@ -356,7 +356,8 @@
       "sponsored": "Patrocinado",
       "shopOn": "Comprar en Walmart",
       "buyOn": "Comprar en Walmart",
-      "percentOff": "{pct}% de descuento"
+      "percentOff": "{pct}% de descuento",
+      "priceCaveat": "Precio publicado: confírmalo en Walmart"
     }
   },
   "pricing": {

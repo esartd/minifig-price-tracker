@@ -356,7 +356,8 @@
       "sponsored": "スポンサー",
       "shopOn": "Walmart で見る",
       "buyOn": "Walmart で購入",
-      "percentOff": "{pct}% オフ"
+      "percentOff": "{pct}% オフ",
+      "priceCaveat": "掲載価格です。Walmartでご確認ください"
     }
   },
   "pricing": {
