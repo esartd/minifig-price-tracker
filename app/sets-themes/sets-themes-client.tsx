@@ -264,7 +264,7 @@ export default function SetsThemesClient({ themes, currentThemes }: SetsThemesCl
         }}
         className="responsive-padding">
           <h1 style={{
-            fontSize: 'clamp(28px, 5vw, 36px)',
+            fontSize: 'var(--text-2xl)',
             fontWeight: '700',
             marginBottom: '8px',
             color: '#171717',

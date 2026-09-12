@@ -31,6 +31,8 @@ const PAGE_SIZE = 48;
  */
 const SEARCH_DEBOUNCE_MS = 250;
 
+import PageHeading from '@/components/PageHeading';
+
 export default function MarketplacePageClient() {
   const { t } = useTranslation();
 
@@ -107,26 +109,18 @@ export default function MarketplacePageClient() {
     card.itemType === 'minifig' ? `/minifigs/${card.itemNo}` : `/sets/${card.itemNo}`;
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '48px 20px 80px' }}>
-      <h1
-        style={{
-          fontSize: 'var(--text-3xl)',
-          fontWeight: 700,
-          color: '#171717',
-          margin: '0 0 12px',
-          letterSpacing: '-0.02em',
-        }}
-      >
-        {t('marketplace.title') || 'Whatnot Marketplace'}
-      </h1>
-      <p style={{ fontSize: 'var(--text-base)', color: '#737373', margin: '0 0 8px', lineHeight: 1.6 }}>
-        {t('marketplace.subtitle') ||
-          'Search 18,000 minifigures and 20,000 sets, then search Whatnot for the one you want.'}
-      </p>
-      <p style={{ fontSize: 'var(--text-sm)', color: '#a3a3a3', margin: '0 0 32px' }}>
+    <>
+    <PageHeading
+      title={t('marketplace.title') || 'Whatnot Marketplace'}
+      subtitle={t('marketplace.subtitle') ||
+        'Search 18,000 minifigures and 20,000 sets, then search Whatnot for the one you want.'}
+    >
+      <p style={{ fontSize: 'var(--text-sm)', color: '#a3a3a3', margin: 0 }}>
         {t('marketplace.disclosure') ||
           'We may earn a commission on purchases made through these links.'}
       </p>
+    </PageHeading>
+    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px 80px' }}>
 
       {/* Controls */}
       {/* Toggle, search and sort share this row, so they share a height and a
@@ -409,5 +403,6 @@ export default function MarketplacePageClient() {
         </>
       )}
     </div>
+    </>
   );
 }

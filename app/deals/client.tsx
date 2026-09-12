@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import DealTierSection from '@/components/DealTierSection';
+import PageHeading from '@/components/PageHeading';
 import { useTranslation } from '@/components/TranslationProvider';
 
 // Remembering the dismissal in localStorage rather than a cookie: nothing on
@@ -155,16 +156,11 @@ export default function LegoSaleClient() {
   return (
     <div style={{ minHeight: '100vh', background: '#fafafa' }}>
       {/* Header */}
-      <div style={{ background: '#ffffff', borderBottom: '1px solid #e5e5e5', padding: '24px 16px' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <h1 style={{ fontSize: 'var(--text-3xl)', fontWeight: '800', color: '#171717', marginBottom: '8px' }}>
-            {t('legoSale.pageTitle') || 'LEGO® Sale'}
-          </h1>
-          <p style={{ fontSize: 'var(--text-base)', color: '#737373' }}>
-            {t('legoSale.subtitleUpdated') || 'Best Walmart deals, refreshed daily'}
-          </p>
-        </div>
-      </div>
+      <PageHeading
+        style={{ background: '#ffffff', borderBottom: '1px solid #e5e5e5' }}
+        title={t('legoSale.pageTitle') || 'LEGO® Sale'}
+        subtitle={t('legoSale.subtitleUpdated') || 'Best Walmart deals, refreshed daily'}
+      />
 
       {/* SEO copy, collapsed to two lines by default.
           It exists for search engines, not for the reader who came here to see

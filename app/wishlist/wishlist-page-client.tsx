@@ -247,7 +247,10 @@ export default function WishlistPage() {
     <div style={{
       maxWidth: '1200px',
       margin: '0 auto',
-      padding: '48px 16px',
+      // 32px above the heading, matching every other page. See
+      // components/PageHeading.tsx -- this page keeps its own markup because
+      // the h1 is paired with an icon, but it uses the same spacing.
+      padding: '32px 16px 48px',
       minHeight: 'calc(100vh - 72px)'
     }}>
       {/* Header */}
@@ -261,7 +264,7 @@ export default function WishlistPage() {
           <HeartIcon style={{ width: '32px', height: '32px', color: '#171717' }} />
           <h1 style={{
             fontSize: 'var(--text-2xl)',
-            fontWeight: '600',
+            fontWeight: '700',
             color: '#171717',
             letterSpacing: '-0.02em'
           }}>
@@ -483,7 +486,10 @@ export default function WishlistPage() {
                       color: '#737373',
                       background: '#ffffff',
                       border: '1px solid #d4d4d4',
-                      borderRadius: '6px',
+                      // Pill, matching the BrickLink button directly above it.
+                      // These two sit stacked in the same card; one rounded
+                      // rectangle under one pill reads as a mistake.
+                      borderRadius: '999px',
                       cursor: 'pointer',
                       transition: 'all 0.2s',
                       display: 'flex',
@@ -684,7 +690,10 @@ export default function WishlistPage() {
                       color: '#737373',
                       background: '#ffffff',
                       border: '1px solid #d4d4d4',
-                      borderRadius: '6px',
+                      // Pill, matching the BrickLink button directly above it.
+                      // These two sit stacked in the same card; one rounded
+                      // rectangle under one pill reads as a mistake.
+                      borderRadius: '999px',
                       cursor: 'pointer',
                       transition: 'all 0.2s',
                       display: 'flex',

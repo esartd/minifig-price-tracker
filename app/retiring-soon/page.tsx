@@ -3,6 +3,7 @@ import { headers } from 'next/headers';
 import { getTranslations } from '@/lib/i18n-subdomain';
 import { loadAllBoxes } from '@/lib/boxes-data';
 import { getRetiringSoonSets } from '@/lib/retiring-soon-algorithm';
+import PageHeading from '@/components/PageHeading';
 import RetiringSoonClient from '@/components/retiring-soon-client';
 import type { Locale } from '@/lib/i18n-subdomain';
 import { DOMAINS } from '@/lib/i18n-alternates';
@@ -160,35 +161,19 @@ export default async function RetiringSoonPage({
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
     />
+    {/* Sits outside the content column so its own gutter is the only one --
+        nested inside, this page's 1rem padding and the band's 16px stacked. */}
+    <PageHeading
+      align="center"
+      maxWidth={1400}
+      title={t.retiringSoon?.hero?.title || 'Don\'t Miss Out on These Sets'}
+      subtitle={t.retiringSoon?.hero?.subtitle || 'Our algorithm predicts which LEGO sets are likely to retire based on age, price trends, and historical data'}
+    />
     <div style={{
       maxWidth: '1400px',
       margin: '0 auto',
-      padding: '2rem 1rem'
+      padding: '0 1rem 2rem'
     }}>
-      {/* Hero section */}
-      <section style={{
-        textAlign: 'center',
-        marginBottom: '3rem',
-        padding: '2rem 0'
-      }}>
-        <h1 style={{
-          fontSize: 'var(--text-4xl)',
-          fontWeight: '700',
-          color: '#171717',
-          marginBottom: '1rem'
-        }}>
-          {t.retiringSoon?.hero?.title || 'Don\'t Miss Out on These Sets'}
-        </h1>
-        <p style={{
-          fontSize: 'var(--text-lg)',
-          color: '#525252',
-          maxWidth: '800px',
-          margin: '0 auto',
-          lineHeight: '1.6'
-        }}>
-          {t.retiringSoon?.hero?.subtitle || 'Our algorithm predicts which LEGO sets are likely to retire based on age, price trends, and historical data'}
-        </p>
-      </section>
 
       {/* Client component for filters + dynamic updates */}
       <RetiringSoonClient
