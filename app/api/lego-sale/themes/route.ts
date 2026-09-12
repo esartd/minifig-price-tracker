@@ -19,9 +19,9 @@ export async function GET(request: NextRequest) {
 
   try {
     // Fetch all active deals
-    const deals = await prisma.amazonDeal.findMany({
+    const deals = await prisma.walmartDeal.findMany({
       where: {
-        isAvailable: true,
+        inStock: true,
         discountPercent: { gte: 20 },
       },
       select: {

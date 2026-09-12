@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import LegoSaleClient from './client';
-import { triggerRefreshIfStale } from '@/lib/amazon-deals-refresh';
 import { getTranslations, getLocaleFromHost } from '@/lib/i18n-subdomain';
 import { originFor } from '@/lib/site-domain';
 
@@ -45,7 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
         t.legoSale?.meta?.ogDescription ||
         'Discover the best LEGO deals on Amazon. Updated every 6 hours with discounts from 20% to 50% off.',
       type: 'website',
-      url: `${originFor(locale)}/lego-sale`,
+      url: `${originFor(locale)}/deals`,
     },
     twitter: {
       card: 'summary_large_image',
@@ -61,23 +60,26 @@ export default async function LegoSalePage() {
     notFound();
   }
 
-  // Trigger opportunistic refresh if data is stale (non-blocking)
-  // This runs in background and doesn't slow down page load
-  triggerRefreshIfStale().catch((error) => {
-    console.error('[LEGO Sale] Background refresh error:', error);
-  });
+  // No opportunistic refresh on page view. The old Amazon version kicked one
+  // off from here; the Walmart catalog only updates once a day, so a page view
+  // can never find anything new. /api/cron/walmart-deals owns the sync.
 
   // Origin for the schema below; generateMetadata's copy is out of scope here.
   const { headers: readHeaders } = await import('next/headers');
   const locale = getLocaleFromHost((await readHeaders()).get('host') || '');
 
-  // Schema.org structured data for SEO
+  // Schema.org structured data for SEO.
+  //
+  // This is what Google reads, so the retailer named here has to be the one
+  // whose prices the page actually shows. It said "LEGO® Sale on Amazon" long
+  // after the Amazon feed died -- invisible on the page itself, which is
+  // exactly why it survived every other pass.
   const offerCatalogSchema = {
     '@context': 'https://schema.org',
     '@type': 'OfferCatalog',
-    name: 'LEGO® Sale on Amazon',
-    description: 'Best LEGO deals with discounts up to 50% off',
-    url: `${originFor(locale)}/lego-sale`,
+    name: 'LEGO sets on sale at Walmart',
+    description: 'LEGO sets discounted at Walmart, checked daily and sorted by how much is off',
+    url: `${originFor(locale)}/deals`,
     itemListElement: [
       {
         '@type': 'Offer',

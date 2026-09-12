@@ -349,6 +349,14 @@
     "whatnot": {
       "name": "Whatnot",
       "description": "Live auctions & shows"
+    },
+    "walmart": {
+      "name": "Walmart",
+      "description": "Everyday low prices",
+      "sponsored": "Sponsored",
+      "shopOn": "Shop at Walmart",
+      "buyOn": "Buy at Walmart",
+      "percentOff": "{pct}% off"
     }
   },
   "pricing": {
@@ -702,7 +710,7 @@
     "browse": "Browse",
     "aboutIntoBrick": "About IntoBrick",
     "aboutDescription": "IntoBrick gives you one suggested price for any LEGO minifigure or set, so you can list faster and sell with confidence.",
-    "affiliateDisclosure": "As an Amazon Associate, LEGO Affiliate, eBay Partner, and Whatnot Affiliate, IntoBrick earns from qualifying purchases.",
+    "affiliateDisclosure": "As an Amazon Associate, Walmart Affiliate, LEGO Affiliate, eBay Partner, and Whatnot Affiliate, IntoBrick earns from qualifying purchases.",
     "bricklinkDisclosure": "Market data sourced from multiple marketplaces including BrickLink. The term \"BrickLink\" is a trademark of the LEGO Group. This application uses the BrickLink API but is not endorsed or certified by LEGO BrickLink, Inc.",
     "copyright": "© {year} IntoBrick. All rights reserved.",
     "sell": "Sell",
@@ -1822,8 +1830,8 @@
     }
   },
   "legoSale": {
-    "pageTitle": "LEGO® Sale",
-    "subtitle": "Best Amazon Deals on LEGO Sets",
+    "pageTitle": "LEGO Deals",
+    "subtitle": "Best Walmart deals on LEGO sets",
     "tier50": "Excellent Deals - 50%+ Off",
     "tier40": "Great Deals - 40%+ Off",
     "tier30": "Good Deals - 30%+ Off",
@@ -1834,7 +1842,7 @@
     "sortDiscount": "Highest Discount",
     "sortPrice": "Lowest Price",
     "sortName": "Name (A-Z)",
-    "buyOnAmazon": "Buy on Amazon",
+    "buyOnAmazon": "Buy at Walmart",
     "primeEligible": "Sponsored",
     "noDealsinTier": "No deals found in this category",
     "lastUpdated": "Prices updated",
@@ -1844,15 +1852,15 @@
     "price50to100": "$50 - $100",
     "price100to200": "$100 - $200",
     "priceOver200": "$200+",
-    "seoDescription": "Discover the best LEGO® deals on Amazon with discounts up to 50% off. We track prices across thousands of sets and update every 6 hours to bring you the biggest savings. All deals are eligible for Amazon Prime free shipping. Whether you're looking for Star Wars, City, Creator, or any other theme, find your next LEGO set at an unbeatable price.",
+    "seoDescription": "LEGO sets on sale at Walmart, checked daily and sorted by how much they are discounted.",
     "meta": {
       "notFoundTitle": "Page Not Found",
-      "title": "LEGO® Sale: Best Amazon Deals Up to 50% Off",
-      "description": "Find the best LEGO deals on Amazon with discounts up to 50% off. Updated every 6 hours. Browse current LEGO sets from Star Wars, City, Creator, and more. Free shipping with Prime.",
+      "title": "LEGO Deals: Walmart Discounts on LEGO Sets",
+      "description": "LEGO sets on sale at Walmart, checked daily and sorted by discount. Browse by theme, price or how much is off.",
       "keywords": [
         "LEGO sale",
         "LEGO deals",
-        "LEGO Amazon",
+        "LEGO Walmart",
         "cheap LEGO sets",
         "LEGO discount",
         "LEGO clearance",
@@ -1862,22 +1870,24 @@
         "LEGO offers",
         "LEGO promotions"
       ],
-      "ogTitle": "LEGO® Sale - Up to 50% Off on Amazon",
-      "ogDescription": "Discover the best LEGO deals on Amazon. Updated every 6 hours with discounts from 20% to 50% off.",
-      "twitterTitle": "LEGO® Sale - Best Amazon Deals",
-      "twitterDescription": "Find LEGO sets with up to 50% off on Amazon"
+      "ogTitle": "LEGO Deals — Walmart discounts on LEGO sets",
+      "ogDescription": "Checked daily. Sets sorted by how much they are discounted.",
+      "twitterTitle": "LEGO Deals — Walmart",
+      "twitterDescription": "LEGO sets on sale at Walmart, sorted by discount."
     },
-    "subtitleUpdated": "Best Amazon Deals - Updated Every 6 Hours",
-    "seoParagraph": "Discover the best LEGO® deals on Amazon with discounts up to 50% off. Our LEGO sale page automatically scans thousands of LEGO sets and highlights the biggest savings across popular themes like Star Wars, City, Creator, Technic, and more. Whether you're hunting for rare retired sets or the latest releases, we track Amazon prices every 6 hours to ensure you never miss a great deal. Filter by theme, price range, or discount percentage to find exactly what you're looking for. All deals feature free shipping with Amazon Prime. Start saving on your favorite LEGO sets today!",
+    "subtitleUpdated": "Best Walmart deals, refreshed daily",
+    "seoParagraph": "We check thousands of LEGO products at Walmart every day, match them to our catalogue and show you only the ones that have actually dropped in price. Sets are grouped by how big the saving is, so the best deals are at the top. Filter by theme, price or discount to find what you are after.",
     "searchThemesPlaceholder": "Search themes...",
     "allPrices": "All Prices",
     "priceDisclaimerLabel": "Price Disclaimer:",
-    "priceDisclaimerText": "Product prices and availability are accurate as of the date/time indicated and are subject to change. Prices shown are from Amazon at the time of last refresh (updated every 6 hours). Any price and availability information displayed on Amazon at the time of purchase will apply to the purchase of this product. As an Amazon Associate, LEGO Affiliate, eBay Partner, and Whatnot Affiliate, IntoBrick earns from qualifying purchases.",
+    "priceDisclaimerText": "Product prices and availability are accurate as of the date/time indicated and are subject to change. Prices shown are from Walmart at the time of the last refresh (updated daily). Any price and availability information displayed on Walmart at the time of purchase will apply. As a Walmart Affiliate, LEGO Affiliate, eBay Partner, and Whatnot Affiliate, IntoBrick earns from qualifying purchases.",
     "loadingDeals": "Loading deals...",
     "tierUnbelievable50": "Unbelievable Deals - 50%+ Off",
     "tierExcellent40": "Excellent Deals - 40%+ Off",
     "tierGreat30": "Great Deals - 30%+ Off",
-    "tierGood20": "Good Deals - 20%+ Off"
+    "tierGood20": "Good Deals - 20%+ Off",
+    "readMore": "Read more",
+    "readLess": "Read less"
   },
   "collectorsDirectory": {
     "meta": {
@@ -3114,11 +3124,12 @@
     "sets": "Sets",
     "retiring": "Retiring Soon",
     "listings": "Listings",
-    "identify": "Identify",
-    "export": "Export",
+    "identify": "Minifig Scan",
+    "export": "Bulk List",
     "whatnot": "Whatnot",
     "community": "Community",
-    "tools": "Tools"
+    "tools": "Tools",
+    "deals": "Deals"
   },
   "listingGeneratorPage": null
 }

@@ -8,15 +8,15 @@ import { useTranslation } from '@/components/TranslationProvider';
 interface DealSetCardProps {
   deal: {
     boxNo: string;
-    asin: string;
+    walmartItemId: string;
     name: string;
     theme: string;
     currentPrice: number;
-    listPrice: number;
+    listPrice: number | null;
     discountPercent: number;
-    isPrime: boolean;
+  
     imageUrl: string;
-    amazonUrl: string;
+    buyUrl: string;
   };
   tierColor: string;
 }
@@ -26,8 +26,10 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
   const [imageError, setImageError] = useState(false);
   const [currentImageUrl, setCurrentImageUrl] = useState(deal.imageUrl);
 
-  const sponsoredLabel = translations?.buyButtons?.amazon?.sponsored || translations?.buyButtons?.ebay?.sponsored || 'Sponsored';
-  const buyOnAmazonLabel = translations?.buyButtons?.amazon?.buyOn || 'Buy on Amazon';
+  // Walmart, not Amazon. The deals data moved over; these two labels were the
+  // last thing still naming the old retailer on the card.
+  const sponsoredLabel = translations?.buyButtons?.walmart?.sponsored || translations?.buyButtons?.ebay?.sponsored || 'Sponsored';
+  const buyLabel = translations?.buyButtons?.walmart?.buyOn || 'Buy at Walmart';
 
   const handleImageError = () => {
     // Try fallback: switch between /ON/ and /SN/ image URLs
@@ -190,24 +192,32 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
             >
               ${deal.currentPrice.toFixed(2)}
             </span>
-            <span
-              style={{
-                fontSize: '14px',
-                color: '#737373',
-                textDecoration: 'line-through',
-              }}
-            >
-              ${deal.listPrice.toFixed(2)}
-            </span>
+            {/* Only when Walmart is actually discounting. listPrice is null on
+                undiscounted items -- most of them -- and the old Amazon version
+                assumed it was always present, so this would have crashed on the
+                first full-price set. */}
+            {deal.listPrice !== null && deal.listPrice > deal.currentPrice && (
+              <span
+                style={{
+                  fontSize: '14px',
+                  color: '#737373',
+                  textDecoration: 'line-through',
+                }}
+              >
+                ${deal.listPrice.toFixed(2)}
+              </span>
+            )}
           </div>
-          <p style={{ fontSize: '12px', color: '#16a34a', fontWeight: '600' }}>
-            {t('deals.save') || 'Save'} ${(deal.listPrice - deal.currentPrice).toFixed(2)}
-          </p>
+          {deal.listPrice !== null && deal.listPrice > deal.currentPrice && (
+            <p style={{ fontSize: '12px', color: '#16a34a', fontWeight: '600' }}>
+              {t('deals.save') || 'Save'} ${(deal.listPrice - deal.currentPrice).toFixed(2)}
+            </p>
+          )}
         </div>
 
         {/* View Deal Button */}
         <a
-          href={deal.amazonUrl}
+          href={deal.buyUrl}
           target="_blank"
           rel="noopener noreferrer sponsored"
           style={{
@@ -235,7 +245,7 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
             e.currentTarget.style.background = '#3b82f6';
           }}
         >
-          {buyOnAmazonLabel}
+          {buyLabel}
         </a>
       </div>
     </div>

@@ -8,7 +8,12 @@ const ENABLED = process.env.ENABLE_LEGO_SALE === 'true';
 /**
  * GET /api/lego-sale/deals
  *
- * Fetch Amazon deals with filtering and sorting
+ * Fetch Walmart deals with filtering and sorting.
+ *
+ * Was Amazon. Amazon retired PA-API 5.0 on 15 May 2026 and its successor needs
+ * 10 qualifying sales per 30 days, so AmazonDeal has been frozen at five rows
+ * since May and cannot be refreshed. Walmart comes through the Impact
+ * affiliate catalog, which this account already has.
  *
  * Query parameters:
  * - tier: '20', '30', '40' (minimum discount percent)
@@ -39,11 +44,11 @@ export async function GET(request: NextRequest) {
         gte: minPrice,
         lte: maxPrice,
       },
-      isAvailable: true,
+      inStock: true,
     };
 
     // Fetch deals from database
-    let deals = await prisma.amazonDeal.findMany({
+    let deals = await prisma.walmartDeal.findMany({
       where,
       take: limit * 3, // Fetch more for theme filtering
       orderBy: {
@@ -62,16 +67,20 @@ export async function GET(request: NextRequest) {
 
         return {
           boxNo: deal.boxNo,
-          asin: deal.asin,
+          walmartItemId: deal.walmartItemId,
           name: setData.name,
           theme: parentTheme,
           fullTheme: setData.category_name,
           currentPrice: deal.currentPrice,
+          // Null when Walmart is not discounting. The client must treat that
+          // as "no badge" rather than rendering a 0% saving.
           listPrice: deal.listPrice,
           discountPercent: deal.discountPercent,
-          isPrime: deal.isPrime,
+
           imageUrl: setData.image_url,
-          amazonUrl: deal.productUrl,
+          // The Impact tracked URL verbatim -- it already carries partner id
+          // 2875567, and rebuilding it by hand loses attribution.
+          buyUrl: deal.productUrl,
           yearReleased: setData.year_released,
           weight: setData.weight,
           lastUpdated: deal.lastUpdated,

@@ -349,6 +349,14 @@
     "whatnot": {
       "name": "Whatnot",
       "description": "ライブオークションとショー"
+    },
+    "walmart": {
+      "name": "Walmart",
+      "description": "毎日おトクな価格",
+      "sponsored": "スポンサー",
+      "shopOn": "Walmart で見る",
+      "buyOn": "Walmart で購入",
+      "percentOff": "{pct}% オフ"
     }
   },
   "pricing": {
@@ -703,7 +711,7 @@
     "browse": "閲覧",
     "aboutIntoBrick": "IntoBrickについて",
     "aboutDescription": "IntoBrickは、どんなLEGOミニフィグやセットにも1つのおすすめ価格を提示します。素早く出品して、自信を持って販売できます。",
-    "affiliateDisclosure": "Amazon Associate、LEGO Affiliate、eBay Partner、Whatnot Affiliate として、IntoBrick は対象購入から収益を得ています。",
+    "affiliateDisclosure": "Amazon Associate、Walmart Affiliate、LEGO Affiliate、eBay Partner、Whatnot Affiliate として、IntoBrick は対象購入から収益を得ています。",
     "bricklinkDisclosure": "市場データはBrickLinkを含む複数のマーケットプレイスから取得しています。「BrickLink」はLEGOグループの商標です。本アプリケーションはBrickLink APIを使用していますが、LEGO BrickLink, Inc.の承認や認定を受けたものではありません。",
     "copyright": "© {year} IntoBrick. 無断転載禁止。",
     "sell": "売る",
@@ -1823,8 +1831,8 @@
     }
   },
   "legoSale": {
-    "pageTitle": "LEGO®セール",
-    "subtitle": "AmazonのLEGOセット お買い得情報",
+    "pageTitle": "LEGO セール",
+    "subtitle": "LEGO セットの Walmart おすすめセール",
     "tier50": "特大セール - 50%OFF以上",
     "tier40": "大セール - 40%OFF以上",
     "tier30": "お買い得 - 30%OFF以上",
@@ -1835,7 +1843,7 @@
     "sortDiscount": "割引率が高い順",
     "sortPrice": "価格が安い順",
     "sortName": "名前順（A-Z）",
-    "buyOnAmazon": "Amazonで購入",
+    "buyOnAmazon": "Walmart で購入",
     "primeEligible": "広告",
     "noDealsinTier": "いいえ deals found in this category",
     "lastUpdated": "価格更新日時",
@@ -1845,40 +1853,41 @@
     "price50to100": "$50 - $100",
     "price100to200": "$100 - $200",
     "priceOver200": "$200+",
-    "seoDescription": "AmazonでのLEGO®セール情報を最大50%OFFまでご紹介します。何千ものセットの価格を追跡し、6時間ごとに更新して最もお得な情報をお届けします。すべてのセール品はAmazonプライムの送料無料の対象です。スター・ウォーズ、シティ、クリエイターなど、どのテーマでもお得な価格のLEGOセットが見つかります。",
+    "seoDescription": "Walmart でセール中の LEGO セット。毎日チェックし、割引率順に並べています。",
     "meta": {
       "notFoundTitle": "ページが見つかりません",
-      "title": "LEGO®セール：Amazonの最大50%OFFお得情報",
-      "description": "Amazonで最大50%OFFのLEGOお得情報をチェック。6時間ごとに更新。スター・ウォーズ、シティ、クリエイターなど現行LEGOセットを閲覧できます。Primeなら送料無料。",
+      "title": "LEGO セール：Walmart の LEGO セット割引",
+      "description": "Walmart でセール中の LEGO セット。毎日チェックし、割引率順に掲載。テーマ・価格・割引率で探せます。",
       "keywords": [
         "LEGO セール",
-        "LEGO お得情報",
-        "LEGO Amazon",
-        "安い LEGOセット",
         "LEGO 割引",
-        "LEGO クリアランス",
-        "LEGO スター・ウォーズ セール",
-        "LEGO シティ お得情報",
-        "LEGO 最安値",
-        "LEGO オファー",
-        "LEGO プロモーション"
+        "LEGO Walmart",
+        "レゴ 安い",
+        "レゴ 値下げ",
+        "レゴ アウトレット",
+        "レゴ スター・ウォーズ セール",
+        "レゴ シティ セール",
+        "レゴ 最安値",
+        "レゴ キャンペーン"
       ],
-      "ogTitle": "LEGO®セール - Amazonで最大50%OFF",
-      "ogDescription": "Amazonの最新LEGOお得情報をご紹介。20%〜50%OFFの割引情報を6時間ごとに更新。",
-      "twitterTitle": "LEGO®セール - Amazonのお得情報",
-      "twitterDescription": "Amazonで最大50%OFFのLEGOセットを見つけよう"
+      "ogTitle": "LEGO セール — Walmart の割引",
+      "ogDescription": "毎日更新。割引率の大きい順に掲載しています。",
+      "twitterTitle": "LEGO セール — Walmart",
+      "twitterDescription": "Walmart でセール中の LEGO セットを割引率順に。"
     },
-    "subtitleUpdated": "Amazonのお得情報 - 6時間ごとに更新",
-    "seoParagraph": "Amazonで最大50%OFFになるLEGO®のお得情報をご紹介します。このLEGOセールページでは何千ものLEGOセットを自動的にスキャンし、スター・ウォーズ、シティ、クリエイター、テクニックなど人気テーマの中から最もお得な情報をピックアップしています。レアな廃盤セットを探している方も、最新リリースをお探しの方も、6時間ごとにAmazon価格を追跡しているので、お得な情報を見逃しません。テーマ、価格帯、割引率で絞り込んで、お探しの商品をぴったり見つけられます。すべてのお得情報はAmazonプライムの送料無料対象です。お気に入りのLEGOセットで今すぐお得に購入しましょう！",
+    "subtitleUpdated": "Walmart のおすすめセール（毎日更新）",
+    "seoParagraph": "Walmart の LEGO 製品を毎日数千点チェックし、当サイトのカタログと照合して、実際に値下げされたものだけを表示しています。割引額の大きい順に並んでいます。テーマ・価格・割引率で絞り込めます。",
     "searchThemesPlaceholder": "テーマを検索...",
     "allPrices": "すべての価格",
     "priceDisclaimerLabel": "価格に関する免責事項：",
-    "priceDisclaimerText": "商品の価格および在庫状況は表示された日時時点のものであり、予告なく変更される場合があります。表示価格は最終更新時点（6時間ごとに更新）のAmazonの価格です。購入時にAmazonで表示される価格および在庫情報が実際の購入に適用されます。IntoBrickはAmazonアソシエイト、LEGOアフィリエイト、eBayパートナー、Whatnotアフィリエイトとして、対象となる購入から収益を得ています。",
+    "priceDisclaimerText": "価格と在庫状況は表示時点のものであり、変更される場合があります。表示価格は最終更新時（毎日更新）の Walmart のものです。購入時に Walmart に表示される価格が適用されます。IntoBrick は Walmart、LEGO、eBay、Whatnot のアフィリエイトとして、対象購入から収益を得ています。",
     "loadingDeals": "お得情報を読み込み中...",
     "tierUnbelievable50": "信じられないお得情報 - 50%OFF以上",
     "tierExcellent40": "特大のお得情報 - 40%OFF以上",
     "tierGreat30": "お得な情報 - 30%OFF以上",
-    "tierGood20": "セール情報 - 20%OFF以上"
+    "tierGood20": "セール情報 - 20%OFF以上",
+    "readMore": "もっと読む",
+    "readLess": "閉じる"
   },
   "retiringSoon": {
     "pageTitle": "LEGO セット 廃盤予定 2026年",
@@ -3115,11 +3124,12 @@
     "sets": "セット",
     "retiring": "終了間近",
     "listings": "出品文",
-    "identify": "AI判定",
-    "export": "エクスポート",
+    "identify": "ミニフィグ判定",
+    "export": "一括出品",
     "whatnot": "Whatnot",
     "community": "コミュニティ",
-    "tools": "ツール"
+    "tools": "ツール",
+    "deals": "セール"
   },
   "listingGeneratorPage": null
 }
