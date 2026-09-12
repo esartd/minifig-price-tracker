@@ -180,7 +180,7 @@ Add eBay button to minifig cards in search results (if applicable).
 After adding environment variables and code:
 
 1. **Restart dev server** to pick up new env vars
-2. **Visit a minifig page** (e.g., `/minifigs/sw0001`)
+2. **Visit a minifig page** (e.g., `/minifigs/sw1522`)
 3. **Click the eBay button**
 4. Verify it:
    - Opens eBay search for "LEGO sw0001 [minifig name]"
@@ -198,7 +198,7 @@ After adding environment variables and code:
    - Redeploy
 
 2. Test on production:
-   - Visit https://figtracker.ericksu.com/minifigs/sw0001
+   - Visit https://figtracker.ericksu.com/minifigs/sw1522
    - Click eBay button
    - Verify affiliate link works
 

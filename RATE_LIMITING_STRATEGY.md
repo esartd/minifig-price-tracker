@@ -23,7 +23,7 @@ IntoBrick uses **tiered rate limiting** where different endpoints have different
 **Paths:**
 - Homepage `/`
 - Theme pages `/themes`, `/themes/star-wars`
-- Minifig pages `/minifigs/sw0001` (ISR cached)
+- Minifig pages `/minifigs/sw1522` (ISR cached)
 - Set pages `/sets/75192-1` (ISR cached)
 - Static pages `/faq`, `/support`, `/privacy`
 
@@ -310,13 +310,13 @@ pm2 logs figtracker | grep "429\|rate"
 ```bash
 # Test regular pages (should allow 300/min)
 for i in {1..310}; do
-  curl -s -o /dev/null -w "%{http_code}\n" https://figtracker.ericksu.com/minifigs/sw0001
+  curl -s -o /dev/null -w "%{http_code}\n" https://figtracker.ericksu.com/minifigs/sw1522
 done
 # First 300 should return 200, last 10 should return 429
 
 # Test pricing API (should allow 20/min)
 for i in {1..25}; do
-  curl -s -o /dev/null -w "%{http_code}\n" https://figtracker.ericksu.com/api/minifigs/sw0001/pricing
+  curl -s -o /dev/null -w "%{http_code}\n" https://figtracker.ericksu.com/api/minifigs/sw1522/pricing
 done
 # First 20 should return 200, last 5 should return 429
 ```

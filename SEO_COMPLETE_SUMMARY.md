@@ -40,7 +40,7 @@ Completed comprehensive SEO overhaul of IntoBrick to improve Google search ranki
 
 **Test URL:**
 ```
-https://search.google.com/test/rich-results?url=https://figtracker.ericksu.com/minifigs/sw0001
+https://search.google.com/test/rich-results?url=https://figtracker.ericksu.com/minifigs/sw1522
 ```
 
 ---
@@ -296,7 +296,7 @@ https://search.google.com/test/rich-results?url=https://figtracker.ericksu.com/f
 
 **Test these URLs monthly:**
 - Homepage: https://figtracker.ericksu.com
-- Popular minifig: https://figtracker.ericksu.com/minifigs/sw0001
+- Popular minifig: https://figtracker.ericksu.com/minifigs/sw1522
 - Popular set: https://figtracker.ericksu.com/sets/75192-1
 - FAQ page: https://figtracker.ericksu.com/faq
 

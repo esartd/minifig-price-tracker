@@ -91,7 +91,7 @@ npm run dev
 
 # 3. Simulate Singapore traffic
 # Use VPN or browser dev tools to spoof country header
-# Or test directly: http://localhost:3000/verify-human?returnTo=/minifigs/sw0001
+# Or test directly: http://localhost:3000/verify-human?returnTo=/minifigs/sw1522
 ```
 
 ### **Step 4: Deploy**
@@ -108,12 +108,12 @@ git push origin main
 
 ### **User Flow:**
 
-1. **Singapore visitor** accesses `/minifigs/sw0001` with no referer
+1. **Singapore visitor** accesses `/minifigs/sw1522` with no referer
 2. **Middleware** detects:
    - Country: `SG` (high-risk)
    - No referer (bot pattern)
    - No `captcha_verified` cookie
-3. **Redirect** to `/verify-human?returnTo=/minifigs/sw0001`
+3. **Redirect** to `/verify-human?returnTo=/minifigs/sw1522`
 4. **CAPTCHA page** loads Turnstile widget (invisible)
 5. **Two outcomes:**
 
@@ -121,7 +121,7 @@ git push origin main
    - Turnstile verifies in background (0-1 seconds)
    - No visible challenge
    - Sets `captcha_verified` cookie
-   - Redirects to `/minifigs/sw0001`
+   - Redirects to `/minifigs/sw1522`
    - User never knows CAPTCHA happened
 
    **B) High Risk User (Suspicious Behavior):**
@@ -160,8 +160,8 @@ https://dash.cloudflare.com/turnstile
 Look for these in your server logs:
 
 ```
-[🛡️  CAPTCHA REQUIRED] Country: SG | IP: xxx | No referer | Path: /minifigs/sw0001
-[✅ CAPTCHA VERIFIED] Country: SG | IP: xxx | Path: /minifigs/sw0001
+[🛡️  CAPTCHA REQUIRED] Country: SG | IP: xxx | No referer | Path: /minifigs/sw1522
+[✅ CAPTCHA VERIFIED] Country: SG | IP: xxx | Path: /minifigs/sw1522
 ```
 
 ### **Google Analytics:**
@@ -211,16 +211,16 @@ maxAge: 60 * 60 * 48,  // 48 hours (more lenient)
 ```javascript
 // In Chrome/Firefox console
 document.cookie = "cf-ipcountry=SG";
-// Then visit: /minifigs/sw0001
+// Then visit: /minifigs/sw1522
 ```
 
 **Method 2: VPN**
 - Connect to Singapore VPN
-- Visit: https://figtracker.ericksu.com/minifigs/sw0001
+- Visit: https://intobrick.com/minifigs/sw1522
 - Should redirect to CAPTCHA
 
 **Method 3: Direct Test**
-- Visit: https://figtracker.ericksu.com/verify-human?returnTo=/minifigs/sw0001
+- Visit: https://intobrick.com/verify-human?returnTo=/minifigs/sw1522
 - Complete CAPTCHA
 - Should redirect to minifig page
 

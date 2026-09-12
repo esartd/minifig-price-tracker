@@ -52,9 +52,9 @@ npm run dev
 ### Step 3: Test It Out
 
 1. **Search for a minifigure** by item number:
-   - Try: `sw0001a` (Darth Vader)
-   - Or: `hp001` (Harry Potter)
-   - Or: `col001` (Collectible Minifigures)
+   - Try: `sw0001a` (Battle Droid - Tan)
+   - Or: `hp001` (Hermione Granger)
+   - Or: `col001` (Tribal Hunter, Collectible Minifigures Series 1)
 
 2. **Set quantity and condition**
 3. **Click "Add to Collection"**

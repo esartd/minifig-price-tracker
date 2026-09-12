@@ -29,7 +29,7 @@
 
 **Test:**
 ```bash
-curl -s -A "Googlebot" "https://figtracker.ericksu.com/minifigs/sw0001" | grep -oP '<script type="application/ld\+json">.*?</script>'
+curl -s -A "Googlebot" "https://figtracker.ericksu.com/minifigs/sw1522" | grep -oP '<script type="application/ld\+json">.*?</script>'
 ```
 
 ---

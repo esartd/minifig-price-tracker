@@ -236,7 +236,11 @@ compare — not before.
 ### Testing After Changes:
 
 1. Build succeeds: `npm run build`
-2. Visit `/minifigs/sw0001` and `/sets/75192-1`
+2. Visit `/minifigs/sw1522` and `/sets/75192-1`
+   (`sw0001` used to be named here and 404s — it is not in the catalogue.
+   If `sw1522` ever goes the same way, pick any minifig from `/themes`
+   (the browse page — note `/minifigures` is NOT a route and 404s);
+   the test only needs a page that renders the buy buttons.)
 3. Click eBay button
 4. Verify URL contains all 6 required parameters
 5. Verify `campid=5339150379` is in URL

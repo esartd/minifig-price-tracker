@@ -47,7 +47,7 @@ pm2 restart figtracker
 
 ### **1. Test the CAPTCHA page directly:**
 ```
-https://figtracker.ericksu.com/verify-human?returnTo=/minifigs/sw0001
+https://figtracker.ericksu.com/verify-human?returnTo=/minifigs/sw1522
 ```
 
 You should see:
@@ -70,7 +70,7 @@ document.cookie = "captcha_verified=; path=/; max-age=0"; // Clear cookie
 
 **Using VPN:**
 - Connect to Singapore VPN
-- Visit: https://figtracker.ericksu.com/minifigs/sw0001
+- Visit: https://figtracker.ericksu.com/minifigs/sw1522
 - Should redirect to /verify-human
 - Complete CAPTCHA
 - Redirects back to minifig
@@ -85,8 +85,8 @@ ssh root@137.184.34.143
 pm2 logs figtracker --lines 50
 
 # Look for these messages:
-# [🛡️  CAPTCHA REQUIRED] Country: SG | IP: xxx | No referer | Path: /minifigs/sw0001
-# [✅ CAPTCHA VERIFIED] Country: SG | IP: xxx | Path: /minifigs/sw0001
+# [🛡️  CAPTCHA REQUIRED] Country: SG | IP: xxx | No referer | Path: /minifigs/sw1522
+# [✅ CAPTCHA VERIFIED] Country: SG | IP: xxx | Path: /minifigs/sw1522
 ```
 
 ## 📊 Monitor Results
