@@ -41,6 +41,14 @@ export default function LegoSaleClient() {
   // reader who has never dismissed it might never see it at all if the effect
   // failed to run. Shown-then-hidden fails safe.
   const [showDisclaimer, setShowDisclaimer] = useState(true);
+  /**
+   * Whether this visitor can actually buy from these listings.
+   *
+   * The page is NOT hidden outside the US -- someone following a link, an old
+   * bookmark or a search result deserves to understand what they are looking at
+   * rather than meeting a blank page. It says so instead, once, at the top.
+   */
+  const [hasWalmart, setHasWalmart] = useState(true);
   const [deals50, setDeals50] = useState<Deal[]>([]);
   const [deals40, setDeals40] = useState<Deal[]>([]);
   const [deals30, setDeals30] = useState<Deal[]>([]);
@@ -53,6 +61,13 @@ export default function LegoSaleClient() {
   const [priceRange, setPriceRange] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('discount');
   const [themeSearch, setThemeSearch] = useState<string>('');
+
+  useEffect(() => {
+    fetch('/api/geo')
+      .then((r) => r.json())
+      .then((d) => setHasWalmart(d?.hasWalmart !== false))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     try {
@@ -435,6 +450,28 @@ export default function LegoSaleClient() {
             <XMarkIcon style={{ width: '16px', height: '16px' }} />
           </button>
         </div>
+        </div>
+      )}
+
+      {/* Said once, at the top, and not dismissible: every price and every link
+          below is US-only, and finding that out at Walmart's checkout is worse
+          than reading it here. */}
+      {!hasWalmart && (
+        <div style={{ padding: '0 16px', marginTop: '16px' }}>
+          <div style={{
+            maxWidth: '1200px',
+            margin: '0 auto',
+            padding: '14px 16px',
+            background: '#eff6ff',
+            border: '1px solid #bfdbfe',
+            borderRadius: '8px',
+            fontSize: 'var(--text-sm)',
+            color: '#1e40af',
+            lineHeight: 1.6,
+          }}>
+            {t('legoSale.usOnlyNotice') ||
+              'These are US Walmart prices and ship within the US. If you are outside the US, the buy buttons on each set page will point you somewhere you can order from.'}
+          </div>
         </div>
       )}
 

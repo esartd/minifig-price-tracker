@@ -105,6 +105,26 @@ export function HeaderClient({ user }: HeaderClientProps) {
   const { t } = useTranslation();
   const pathname = usePathname();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  /**
+   * Deals is a Walmart page, and the Walmart feed is the US affiliate
+   * programme only. Offering it in the nav to someone in Britain sends them to
+   * a list of shops that will not deliver to them.
+   *
+   * Defaults true so the nav renders complete on first paint and does not
+   * visibly drop an item once the answer arrives -- and because a failed geo
+   * lookup should not quietly remove a page from everyone.
+   */
+  const [hasWalmart, setHasWalmart] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/geo')
+      .then((r) => r.json())
+      .then((d) => setHasWalmart(d?.hasWalmart !== false))
+      .catch(() => {});
+  }, []);
+
+  const visibleTools = hasWalmart ? TOOLS_NAV : TOOLS_NAV.filter((t) => t.href !== '/deals');
+
   const [browseDropdownOpen, setBrowseDropdownOpen] = useState(false);
   const [legoDropdownOpen, setLegoDropdownOpen] = useState(false);
   const [resourcesDropdownOpen, setResourcesDropdownOpen] = useState(false);
@@ -862,7 +882,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   Whatnot stays among them -- see the affiliate section of
                   CLAUDE.md. */}
               <div style={NAV_DIVIDER_STYLE} aria-hidden="true" />
-              {TOOLS_NAV.map(renderNavLink)}
+              {visibleTools.map(renderNavLink)}
 
               {/* No Premium link here on purpose.
                   Premium is not sold to logged-out visitors any more -- the
@@ -1025,7 +1045,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               {/* Resources Dropdown for mobile logged-out users -- About, Articles, Support */}
               <div style={{ borderBottom: '1px solid #f5f5f5' }}>
               {/* TOOLS_MOBILE_DONE -- Identify, Export, Whatnot. */}
-              {TOOLS_NAV.map(renderMobileNavLink)}
+              {visibleTools.map(renderMobileNavLink)}
 
                 <button
                   onClick={() => setMobileResourcesOpen(!mobileResourcesOpen)}
@@ -1768,7 +1788,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   Whatnot stays among them -- see the affiliate section of
                   CLAUDE.md. */}
               <div style={NAV_DIVIDER_STYLE} aria-hidden="true" />
-              {TOOLS_NAV.map(renderNavLink)}
+              {visibleTools.map(renderNavLink)}
 
               {/* No Premium link in the nav at all now, signed in or out.
                   Premium is sold at the point where someone hits the feature
@@ -1936,7 +1956,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
           {/* Resources Dropdown for mobile logged-in users -- About, Articles, Support */}
           <div style={{ borderBottom: '1px solid #f5f5f5' }}>
           {/* TOOLS_MOBILE_DONE -- Identify, Export, Whatnot. */}
-          {TOOLS_NAV.map(renderMobileNavLink)}
+          {visibleTools.map(renderMobileNavLink)}
 
             <button
               onClick={() => setMobileResourcesOpen(!mobileResourcesOpen)}

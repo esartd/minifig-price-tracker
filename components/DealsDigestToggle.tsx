@@ -24,7 +24,23 @@ export default function DealsDigestToggle() {
   const [enabled, setEnabled] = useState(false);
   const [isPremium, setIsPremium] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  /**
+   * The digest mails Walmart deals, so it is only offered where Walmart can be
+   * used. Selling a subscriber in Britain a daily email of shops that will not
+   * deliver to them is worse than not offering it.
+   */
+  const [hasWalmart, setHasWalmart] = useState(true);
   const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/geo')
+      .then((r) => r.json())
+      .then((d) => setHasWalmart(d?.hasWalmart !== false))
+      .catch(() => {
+        // Keep the default. A failed geo lookup should not hide a feature the
+        // visitor may well be entitled to.
+      });
+  }, []);
 
   useEffect(() => {
     if (status !== 'authenticated') {
@@ -68,6 +84,9 @@ export default function DealsDigestToggle() {
   };
 
   if (!loaded) return null;
+  // Nothing at all outside the US, rather than a locked toggle: this is not a
+  // paywall they can cross, it is a feature that does not apply to them.
+  if (!hasWalmart) return null;
 
   return (
     <div

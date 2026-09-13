@@ -1897,7 +1897,8 @@
       "premiumHint": "Funkcja Premium. Jeden e-mail dziennie, tylko gdy coś nowego spadnie poniżej wartości rynkowej.",
       "learnMore": "Zobacz Premium",
       "signIn": "Zaloguj się"
-    }
+    },
+    "usOnlyNotice": "To ceny z amerykańskiego Walmartu, z wysyłką na terenie USA. Poza USA przyciski zakupu na stronie każdego zestawu wskażą sklep, w którym możesz zamówić."
   },
   "retiringSoon": {
     "pageTitle": "Zestawy LEGO Wycofywane Wkrótce 2026",

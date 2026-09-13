@@ -1842,7 +1842,8 @@
       "premiumHint": "Fonction Premium. Un e-mail par jour, seulement quand une nouveauté passe sous la valeur du marché.",
       "learnMore": "Voir Premium",
       "signIn": "Se connecter"
-    }
+    },
+    "usOnlyNotice": "Ce sont les prix de Walmart aux États-Unis, livrés aux États-Unis. Hors des États-Unis, les boutons d’achat de chaque set vous orienteront vers une boutique qui vous livre."
   },
   "retiringSoon": {
     "pageTitle": "Sets LEGO Bientôt Retirés 2026",

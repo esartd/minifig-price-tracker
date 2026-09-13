@@ -1897,7 +1897,8 @@
       "premiumHint": "En premiumfunktion. Ett mejl om dagen, bara när något nytt hamnar under marknadsvärdet.",
       "learnMore": "Se Premium",
       "signIn": "Logga in"
-    }
+    },
+    "usOnlyNotice": "Det här är priser från Walmart i USA, med frakt inom USA. Utanför USA leder köpknapparna på varje set dig dit du faktiskt kan beställa."
   },
   "retiringSoon": {
     "pageTitle": "LEGO Set som Försvinner Snart 2026",

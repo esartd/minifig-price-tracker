@@ -1897,7 +1897,8 @@
       "premiumHint": "A Premium feature. One email a day, only when something new drops below market value.",
       "learnMore": "See Premium",
       "signIn": "Sign in"
-    }
+    },
+    "usOnlyNotice": "These are US Walmart prices and ship within the US. If you are outside the US, the buy buttons on each set page will point you somewhere you can order from."
   },
   "collectorsDirectory": {
     "meta": {
