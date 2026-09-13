@@ -512,7 +512,7 @@ export default function WishlistPage() {
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      const amazonUrl = generateAmazonMinifigLink(item.minifigure_no, item.minifigure_name);
+                      const amazonUrl = generateAmazonMinifigLink(item.minifigure_no, item.minifigure_name, visitorCountry);
                       handleBuyClick('amazon', 'minifig', item.minifigure_no, item.minifigure_name, amazonUrl);
                     }}
                     style={{
@@ -801,7 +801,7 @@ export default function WishlistPage() {
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      const amazonUrl = generateAmazonLegoSetLink(item.box_no, item.set_name);
+                      const amazonUrl = generateAmazonLegoSetLink(item.box_no, item.set_name, visitorCountry);
                       handleBuyClick('amazon', 'set', item.box_no, item.set_name, amazonUrl);
                     }}
                     style={{

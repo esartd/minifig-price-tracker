@@ -2669,7 +2669,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
 
                     {/* Amazon Link */}
                     <Link
-                      href={generateAmazonMinifigLink(minifig.no, minifig.name)}
+                      href={generateAmazonMinifigLink(minifig.no, minifig.name, visitorCountry)}
                       target="_blank"
                       rel="noopener noreferrer sponsored"
                       onClick={() => trackAffiliateClick('amazon', minifig.no, 'detail-page')}

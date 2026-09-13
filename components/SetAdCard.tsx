@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { generateAmazonLegoSetLink } from '@/lib/affiliate-links';
+import { useVisitorCountry } from '@/lib/use-visitor-country';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 
 interface SetAdCardProps {
@@ -18,8 +19,10 @@ interface SetAdCardProps {
  * Supports both auto-generated and direct Amazon URLs
  */
 export default function SetAdCard({ setNumber, setName, imageUrl, year, amazonUrl }: SetAdCardProps) {
+  // Country, not locale: an English speaker in Manchester wants amazon.co.uk.
+  const visitorCountry = useVisitorCountry();
   // Generate Amazon affiliate link
-  const amazonLink = amazonUrl || generateAmazonLegoSetLink(setNumber, setName);
+  const amazonLink = amazonUrl || generateAmazonLegoSetLink(setNumber, setName, visitorCountry);
 
   const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();

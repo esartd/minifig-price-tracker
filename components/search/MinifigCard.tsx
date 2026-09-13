@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 import { generateAmazonMinifigLink, generateAmazonLegoSetLink } from '@/lib/affiliate-links';
+import { useVisitorCountry } from '@/lib/use-visitor-country';
 import { trackAffiliateClick } from '@/lib/analytics';
 import { useTranslation } from '@/components/TranslationProvider';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
@@ -26,6 +27,8 @@ export default function MinifigCard({
 }: MinifigCardProps) {
   const router = useRouter();
   const { translations } = useTranslation();
+  // Country, not locale: an English speaker in Manchester wants amazon.co.uk.
+  const visitorCountry = useVisitorCountry();
   const [imageError, setImageError] = useState(false);
   const [amazonPrice, setAmazonPrice] = useState<AmazonPrice | null>(null);
   const [loadingPrice, setLoadingPrice] = useState(false);
@@ -302,8 +305,8 @@ export default function MinifigCard({
             {/* Amazon Buy Button */}
             <Link
               href={isSet
-                ? generateAmazonLegoSetLink(minifig.box_no, minifig.name)
-                : generateAmazonMinifigLink(minifig.minifigure_no || minifig.no, minifig.name)
+                ? generateAmazonLegoSetLink(minifig.box_no, minifig.name, visitorCountry)
+                : generateAmazonMinifigLink(minifig.minifigure_no || minifig.no, minifig.name, visitorCountry)
               }
               target="_blank"
               rel="noopener noreferrer sponsored"
@@ -436,8 +439,8 @@ export default function MinifigCard({
         {/* Amazon Buy Button */}
         <Link
           href={isSet
-            ? generateAmazonLegoSetLink(minifig.box_no, minifig.name)
-            : generateAmazonMinifigLink(minifig.minifigure_no || minifig.no, minifig.name)
+            ? generateAmazonLegoSetLink(minifig.box_no, minifig.name, visitorCountry)
+            : generateAmazonMinifigLink(minifig.minifigure_no || minifig.no, minifig.name, visitorCountry)
           }
           target="_blank"
           rel="noopener noreferrer sponsored"

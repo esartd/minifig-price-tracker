@@ -708,7 +708,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
   const visitorCountry = useVisitorCountry();
   const ebayAffiliateUrl = generateEbaySetLink(set.box_no, set.name, visitorCountry);
   const legoAffiliateUrl = generateLegoSetLink(set.box_no);
-  const amazonAffiliateUrl = generateAmazonLegoSetLink(set.box_no, set.name);
+  const amazonAffiliateUrl = generateAmazonLegoSetLink(set.box_no, set.name, visitorCountry);
   const brickLinkUrl = generateBrickLinkAffiliateLink(set.box_no, 'SET');
 
   return (

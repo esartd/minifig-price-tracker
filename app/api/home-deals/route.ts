@@ -127,7 +127,7 @@ export async function GET() {
           listPrice: null,
           discountPercent: 0,
           pctBelowOurPrice: null,
-          buyUrl: generateAmazonLegoSetLink(r.boxNo, set.name),
+          buyUrl: generateAmazonLegoSetLink(r.boxNo, set.name, country),
           retailer: 'amazon' as const,
         };
       })

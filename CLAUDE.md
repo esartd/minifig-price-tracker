@@ -257,6 +257,39 @@ compare — not before.
 
 ---
 
+## Amazon Associates
+
+**File:** `lib/affiliate-links.ts`
+**US tag:** `ericksu0c-20`
+**Env:** `NEXT_PUBLIC_AMAZON_TAGS`, `NEXT_PUBLIC_AMAZON_AFFILIATE_TAG`
+
+Links are routed to the visitor's own Amazon store by COUNTRY, the same way
+eBay is. `NEXT_PUBLIC_AMAZON_TAGS` maps country to tracking ID:
+
+```
+NEXT_PUBLIC_AMAZON_TAGS="GB:intobrick-21,DE:intobrick0d-21"
+```
+
+Three things that look wrong and are not:
+
+- **A country is only routed to its local store once it has a tag.** Every
+  marketplace needs its own Associates account; a US tag on amazon.co.uk
+  tracks nothing, so a wrong-tag link is worse than no localisation. Unmapped
+  countries fall back to amazon.com + the US tag, which still pays on
+  international orders and leaves Amazon's OneLink free to redirect.
+- **`NEXT_PUBLIC_` is required.** Every Amazon button on the site renders in a
+  client component. Next.js replaces a non-public `process.env.X` with
+  `undefined` in the browser bundle, so the old server-only
+  `AMAZON_AFFILIATE_TAG` never reached the browser at all — it worked purely
+  because the hard-coded fallback in the source happened to be the right tag.
+- **Portugal and Japan are absent from the tag map on purpose.** Portugal has
+  no storefront of its own (amazon.es serves it) and Japan has no account yet.
+  Both fall back rather than getting a guessed host.
+
+OneLink is not an alternative to the per-country signups — it needs the same
+linked accounts. It lives at Manage My Account → Link Stores; the standalone
+OneLink tool was removed from Associates Central.
+
 ## Whatnot Affiliate Links
 
 **Files:** `lib/whatnot-affiliate-links.ts`, `app/marketplace/`, `app/api/marketplace/`

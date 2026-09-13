@@ -9,6 +9,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import ThemeDescription from '@/components/ThemeDescription';
 import { getSetAvailability } from '@/lib/set-availability';
 import { generateAmazonLegoSetLink } from '@/lib/affiliate-links';
+import { useVisitorCountry } from '@/lib/use-visitor-country';
 import { getRepresentativeSet } from '@/lib/theme-set-representatives';
 import themeDescriptions from '@/lib/theme-descriptions.json';
 import { formatCompactNumberSmart } from '@/lib/format-number';
@@ -23,9 +24,11 @@ interface LegoBox {
 }
 
 function SetCard({ set }: { set: LegoBox }) {
+  // Country, not locale: an English speaker in Manchester wants amazon.co.uk.
+  const visitorCountry = useVisitorCountry();
   const { t } = useTranslation();
   const availability = getSetAvailability(set.box_no, set.year_released);
-  const amazonUrl = generateAmazonLegoSetLink(set.box_no, set.name);
+  const amazonUrl = generateAmazonLegoSetLink(set.box_no, set.name, visitorCountry);
   const showAmazonLink = availability.status === 'available' || availability.status === 'retiring_soon';
   const [currentImageUrl, setCurrentImageUrl] = useState(set.image_url);
   const [showFallback, setShowFallback] = useState(false);
