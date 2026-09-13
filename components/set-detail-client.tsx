@@ -20,6 +20,7 @@ import { formatPrice } from '@/lib/format-price';
 import { getSetAvailability } from '@/lib/set-availability';
 import { generateLegoSetLink, generateAmazonLegoSetLink, generateBrickLinkAffiliateLink } from '@/lib/affiliate-links';
 import { generateEbaySetLink } from '@/lib/ebay-affiliate-links';
+import { useVisitorCountry } from '@/lib/use-visitor-country';
 import { buildWhatnotSetUrl } from '@/lib/whatnot-affiliate-links';
 import { trackAffiliateClick } from '@/lib/analytics';
 import SetDescription from '@/components/SetDescription';
@@ -703,7 +704,9 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
 
   // Get availability status (only current year sets marked as available)
   const availability = getSetAvailability(set.box_no, set.year_released);
-  const ebayAffiliateUrl = generateEbaySetLink(set.box_no, set.name);
+  // Country, not locale: an English speaker in Manchester wants ebay.co.uk.
+  const visitorCountry = useVisitorCountry();
+  const ebayAffiliateUrl = generateEbaySetLink(set.box_no, set.name, visitorCountry);
   const legoAffiliateUrl = generateLegoSetLink(set.box_no);
   const amazonAffiliateUrl = generateAmazonLegoSetLink(set.box_no, set.name);
   const brickLinkUrl = generateBrickLinkAffiliateLink(set.box_no, 'SET');

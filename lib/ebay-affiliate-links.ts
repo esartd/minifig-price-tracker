@@ -12,34 +12,62 @@
  */
 
 // eBay site mapping by locale
-const EBAY_SITES = {
-  'en': 'ebay.com',
-  'de': 'ebay.de',
-  'fr': 'ebay.fr',
-  'es': 'ebay.es',
-  'en-GB': 'ebay.co.uk',
-  'it': 'ebay.it',
-} as const;
+/**
+ * eBay marketplace by the visitor's COUNTRY.
+ *
+ * This used to key off locale, which was wrong twice over. A Brit reading
+ * English got ebay.com rather than ebay.co.uk, and a German in Ohio would have
+ * got ebay.de -- language says nothing about where someone can buy. Worse, the
+ * old map's only UK entry was keyed 'en-GB', which is not a locale this site
+ * has, so ebay.co.uk was unreachable: every visitor landed on ebay.com.
+ *
+ * Only these six, because getMarketingRoutingId below has an EPN rotation id
+ * for exactly these six. CLAUDE.md is explicit that those ids are
+ * marketplace-specific and must not be invented -- a wrong one loses the
+ * commission silently, which is worse than sending someone to ebay.com.
+ *
+ * Austria and Switzerland would be better served by ebay.de than ebay.com, and
+ * Belgium by ebay.fr, but neither has a rotation id here. Left alone
+ * deliberately rather than guessed at.
+ */
+const EBAY_SITES_BY_COUNTRY: Record<string, string> = {
+  US: 'ebay.com',
+  GB: 'ebay.co.uk',
+  DE: 'ebay.de',
+  FR: 'ebay.fr',
+  ES: 'ebay.es',
+  IT: 'ebay.it',
+};
 
-type Locale = keyof typeof EBAY_SITES;
+const DEFAULT_EBAY_SITE = 'ebay.com';
+
+/**
+ * The marketplace for a country, defaulting to ebay.com.
+ *
+ * An unknown or unmapped country gets the US site, which is the largest and
+ * ships internationally -- an imperfect destination beats a broken one.
+ */
+export function ebaySiteForCountry(country?: string | null): string {
+  return EBAY_SITES_BY_COUNTRY[(country || '').toUpperCase()] || DEFAULT_EBAY_SITE;
+}
 
 /**
  * Generate eBay affiliate search link for a LEGO minifigure
  *
  * @param minifigNumber - BrickLink minifig number (e.g., "sw0001")
  * @param minifigName - Name for search query
- * @param locale - User locale for regional eBay site
+ * @param country - ISO country code from Cloudflare, for the regional site
  * @returns Affiliate URL that searches eBay for the minifigure
  */
 export function generateEbayMinifigLink(
   minifigNumber: string,
   minifigName: string,
-  locale: string = 'en'
+  country: string = 'US'
 ): string {
   const campaignId = process.env.NEXT_PUBLIC_EBAY_CAMPAIGN_ID || '5339150379';
 
-  // Determine eBay site based on locale
-  const ebaySite = EBAY_SITES[locale as Locale] || EBAY_SITES['en'];
+  // Country, not language -- see EBAY_SITES_BY_COUNTRY above.
+  const ebaySite = ebaySiteForCountry(country);
 
   // Build search query: "LEGO [minifig number] [minifig name]"
   // Example: "LEGO sw0001 Luke Skywalker"
@@ -75,18 +103,18 @@ export function generateEbayMinifigLink(
  *
  * @param setNumber - LEGO set number (e.g., "75192-1")
  * @param setName - Set name for search query
- * @param locale - User locale for regional eBay site
+ * @param country - ISO country code from Cloudflare, for the regional site
  * @returns Affiliate URL that searches eBay for the set
  */
 export function generateEbaySetLink(
   setNumber: string,
   setName: string,
-  locale: string = 'en'
+  country: string = 'US'
 ): string {
   const campaignId = process.env.NEXT_PUBLIC_EBAY_CAMPAIGN_ID || '5339150379';
 
-  // Determine eBay site based on locale
-  const ebaySite = EBAY_SITES[locale as Locale] || EBAY_SITES['en'];
+  // Country, not language -- see EBAY_SITES_BY_COUNTRY above.
+  const ebaySite = ebaySiteForCountry(country);
 
   // Build search query: "LEGO [set number] [set name]"
   // Strip "-1" suffix for cleaner search

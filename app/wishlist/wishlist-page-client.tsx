@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { HeartIcon, TrashIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { generateAmazonMinifigLink, generateBrickLinkMinifigLink, generateAmazonLegoSetLink, generateBrickLinkAffiliateLink } from '@/lib/affiliate-links';
 import { generateEbaySetLink } from '@/lib/ebay-affiliate-links';
+import { useVisitorCountry } from '@/lib/use-visitor-country';
 import { useTranslation } from '@/components/TranslationProvider';
 import SegmentedControl from '@/components/ui/SegmentedControl';
 
@@ -39,6 +40,8 @@ export default function WishlistPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [minifigWishlist, setMinifigWishlist] = useState<MinifigWishlistItem[]>([]);
+  // Country, not locale: which eBay marketplace this visitor can buy from.
+  const visitorCountry = useVisitorCountry();
   const [setWishlist, setSetWishlist] = useState<SetWishlistItem[]>([]);
   /**
    * Walmart price per box number, for the sets on this wishlist.
@@ -710,7 +713,7 @@ export default function WishlistPage() {
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      const ebayUrl = generateEbaySetLink(item.box_no, item.set_name);
+                      const ebayUrl = generateEbaySetLink(item.box_no, item.set_name, visitorCountry);
                       handleBuyClick('ebay', 'set', item.box_no, item.set_name, ebayUrl);
                     }}
                     style={{

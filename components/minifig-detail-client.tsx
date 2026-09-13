@@ -22,6 +22,7 @@ import { getSensitiveImageStyles } from '@/lib/minifig-filters';
 import { formatPrice } from '@/lib/format-price';
 import { generateAmazonMinifigLink, generateBrickLinkMinifigLink } from '@/lib/affiliate-links';
 import { generateEbayMinifigLink } from '@/lib/ebay-affiliate-links';
+import { useVisitorCountry } from '@/lib/use-visitor-country';
 import { buildWhatnotMinifigUrl } from '@/lib/whatnot-affiliate-links';
 import { trackAffiliateClick } from '@/lib/analytics';
 import { HeartIcon as HeartOutline, MinusIcon, PlusIcon, ChevronRightIcon, ShoppingCartIcon, TrashIcon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -82,6 +83,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
   // ISR-cached and shared across visitors, so this has to be fetched client-side per session
   // rather than baked into the server-rendered props.
   const [ownedMinifigQuantities, setOwnedMinifigQuantities] = useState<Record<string, number>>({});
+  // Country, not locale: which eBay marketplace this visitor can buy from.
+  const visitorCountry = useVisitorCountry();
   const [ownedSetQuantities, setOwnedSetQuantities] = useState<Record<string, number>>({});
 
   useEffect(() => {
@@ -2495,7 +2498,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                   }} className="where-to-buy-buttons">
                     {/* eBay Link */}
                     <Link
-                      href={generateEbayMinifigLink(minifig.no, minifig.name)}
+                      href={generateEbayMinifigLink(minifig.no, minifig.name, visitorCountry)}
                       target="_blank"
                       rel="noopener noreferrer sponsored"
                       onClick={() => trackAffiliateClick('ebay', minifig.no, 'detail-page')}
