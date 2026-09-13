@@ -269,7 +269,8 @@
         "upgradeSuccess": "Witaj w Premium!",
         "upgradeCancelled": "Płatność została anulowana."
       },
-      "tryIdentifier": "Rozpoznaj minifigurkę"
+      "tryIdentifier": "Rozpoznaj minifigurkę",
+      "pitchNoDeals": "Błyskawiczne wystawianie, nielimitowane rozpoznawanie AI i odznaka na profilu."
     },
     "email": {
       "title": "Ogłoszenia o produkcie",
@@ -339,7 +340,7 @@
       "description": "Szybka wysyłka i łatwe zwroty",
       "sponsored": "Sponsorowane",
       "shopOn": "Kup na Amazon",
-      "buyOn": "Kup na Amazon",
+      "buyOn": "Kup na Amazonie",
       "prime": "Prime"
     },
     "bricklink": {
@@ -2647,7 +2648,8 @@
       "badge": "Premium",
       "hero": {
         "title": "Jedna subskrypcja. Wszystkie ulepszenia.",
-        "subtitle": "Łap okazje, wystawiaj w jednym kroku i rozpoznawaj minifigurki ze zdjęcia."
+        "subtitle": "Łap okazje, wystawiaj w jednym kroku i rozpoznawaj minifigurki ze zdjęcia.",
+        "subtitleNoDeals": "Wystawiaj w jednym kroku i rozpoznawaj minifigurki ze zdjęcia."
       },
       "features": {
         "title": "Co zyskujesz",
@@ -3166,7 +3168,9 @@
     "deals": {
       "title": "Teraz w promocji",
       "subtitle": "Zestawy przecenione w Walmarcie, które według naszej wyceny są warte więcej, niż kosztują.",
-      "seeAll": "Zobacz wszystkie okazje"
+      "seeAll": "Zobacz wszystkie okazje",
+      "titleAmazon": "Warto wiedzieć teraz",
+      "subtitleAmazon": "Zestawy, które gdzieś są teraz tanie. Pokazujemy, ile są warte — cenę sprawdź w swoim sklepie."
     }
   }
 }

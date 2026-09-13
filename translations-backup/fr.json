@@ -269,7 +269,8 @@
         "upgradeSuccess": "Bienvenue dans Premium !",
         "upgradeCancelled": "Le paiement a été annulé."
       },
-      "tryIdentifier": "Identifier une minifig"
+      "tryIdentifier": "Identifier une minifig",
+      "pitchNoDeals": "Mise en vente instantanée, identification par IA illimitée et un badge sur votre profil."
     },
     "email": {
       "title": "Annonces produit",
@@ -2647,7 +2648,8 @@
       "badge": "Premium",
       "hero": {
         "title": "Un abonnement. Tous les avantages.",
-        "subtitle": "Repérez les promos, mettez en vente en une étape et identifiez n’importe quelle figurine à partir d’une photo."
+        "subtitle": "Repérez les promos, mettez en vente en une étape et identifiez n’importe quelle figurine à partir d’une photo.",
+        "subtitleNoDeals": "Mettez en vente en une étape et identifiez n’importe quelle figurine à partir d’une photo."
       },
       "features": {
         "title": "Ce que vous obtenez",
@@ -3166,7 +3168,9 @@
     "deals": {
       "title": "En promo en ce moment",
       "subtitle": "Des sets soldés par Walmart que notre propre prix estime au-dessus du prix demandé.",
-      "seeAll": "Voir toutes les offres"
+      "seeAll": "Voir toutes les offres",
+      "titleAmazon": "À connaître en ce moment",
+      "subtitleAmazon": "Des sets actuellement bradés quelque part. Nous indiquons leur valeur — vérifiez le prix dans votre boutique."
     }
   }
 }

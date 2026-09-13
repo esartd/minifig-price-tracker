@@ -38,6 +38,8 @@ interface TeaserDeal {
   discountPercent: number;
   pctBelowOurPrice?: number | null;
   ourPrice?: number | null;
+  currency?: string | null;
+  retailer?: 'walmart' | 'amazon' | null;
   imageUrl: string;
   buyUrl: string;
 }
@@ -45,15 +47,17 @@ interface TeaserDeal {
 export default function HomeDealsTeaser() {
   const { t } = useTranslation();
   const [deals, setDeals] = useState<TeaserDeal[]>([]);
+  const [mode, setMode] = useState<'walmart' | 'amazon'>('walmart');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     try {
       const cached = sessionStorage.getItem(CACHE_KEY);
       if (cached) {
-        const { data, timestamp } = JSON.parse(cached);
+        const { data, timestamp, mode: cachedMode } = JSON.parse(cached);
         if (Date.now() - timestamp < CACHE_TTL_MS) {
           setDeals(data);
+          setMode(cachedMode === 'amazon' ? 'amazon' : 'walmart');
           setLoading(false);
           return;
         }
@@ -62,13 +66,29 @@ export default function HomeDealsTeaser() {
       // sessionStorage is unavailable in private mode. Just fetch.
     }
 
-    fetch(`/api/lego-sale/deals?tier=20&limit=${COUNT}`)
+    /**
+     * One request, and the SERVER decides what comes back.
+     *
+     * It reads the visitor's country from Cloudflare and returns Walmart deals
+     * in the US, or the same sets against Amazon everywhere else -- Walmart's
+     * affiliate feed is US-only, while Amazon's OneLink sends each visitor to
+     * their own storefront.
+     *
+     * The country deliberately never reaches the browser as a cookie:
+     * cache-handler.js stores rendered routes in MySQL, so a cached response
+     * carrying one visitor's country would be served to the next.
+     */
+    fetch('/api/home-deals')
       .then((res) => res.json())
       .then((data) => {
-        const rows: TeaserDeal[] = (data?.deals ?? []).slice(0, COUNT);
+        const rows: TeaserDeal[] = (data?.items ?? []).slice(0, COUNT);
         setDeals(rows);
+        setMode(data?.mode === 'amazon' ? 'amazon' : 'walmart');
         try {
-          sessionStorage.setItem(CACHE_KEY, JSON.stringify({ data: rows, timestamp: Date.now() }));
+          sessionStorage.setItem(
+            CACHE_KEY,
+            JSON.stringify({ data: rows, mode: data?.mode, timestamp: Date.now() })
+          );
         } catch {
           // ignore storage errors
         }
@@ -99,7 +119,9 @@ export default function HomeDealsTeaser() {
     >
       <div style={{ maxWidth: Section.maxWidth, margin: '0 auto' }}>
         <h2 style={{ ...sectionHeadingStyle, marginBottom: '12px' }}>
-          {t('home.deals.title') || 'On sale right now'}
+          {mode === 'amazon'
+            ? t('home.deals.titleAmazon') || 'Worth knowing right now'
+            : t('home.deals.title') || 'On sale right now'}
         </h2>
         <p
           style={{
@@ -108,8 +130,11 @@ export default function HomeDealsTeaser() {
             marginBottom: '40px',
           }}
         >
-          {t('home.deals.subtitle') ||
-            'Sets Walmart has discounted, that our own price agrees are worth more than they are asking.'}
+          {mode === 'amazon'
+            ? t('home.deals.subtitleAmazon') ||
+              'Sets going cheap somewhere right now. We show what each is worth — check the price in your own store.'
+            : t('home.deals.subtitle') ||
+              'Sets Walmart has discounted, that our own price agrees are worth more than they are asking.'}
         </p>
 
         <div
@@ -126,6 +151,10 @@ export default function HomeDealsTeaser() {
           ))}
         </div>
 
+        {/* /deals is the Walmart list, so it is only offered where Walmart can
+            actually be used. Sending a British reader there is the same dead
+            end this whole change exists to remove. */}
+        {mode === 'walmart' && (
         <div style={{ marginTop: '32px', textAlign: 'center' }}>
           <Link
             href="/deals"
@@ -147,6 +176,7 @@ export default function HomeDealsTeaser() {
             <span aria-hidden="true">→</span>
           </Link>
         </div>
+        )}
       </div>
     </section>
   );

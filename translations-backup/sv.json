@@ -269,7 +269,8 @@
         "upgradeSuccess": "Välkommen till Premium!",
         "upgradeCancelled": "Kassan avbröts."
       },
-      "tryIdentifier": "Identifiera en minifigur"
+      "tryIdentifier": "Identifiera en minifigur",
+      "pitchNoDeals": "Direktannonsering, obegränsad AI-identifiering och ett märke på din profil."
     },
     "email": {
       "title": "Produktnyheter",
@@ -2647,7 +2648,8 @@
       "badge": "Premium",
       "hero": {
         "title": "En prenumeration. Alla fördelar.",
-        "subtitle": "Fånga fynden, lägg ut i ett steg och identifiera vilken minifigur som helst från ett foto."
+        "subtitle": "Fånga fynden, lägg ut i ett steg och identifiera vilken minifigur som helst från ett foto.",
+        "subtitleNoDeals": "Lägg ut i ett steg och identifiera vilken minifigur som helst från ett foto."
       },
       "features": {
         "title": "Det här får du",
@@ -3166,7 +3168,9 @@
     "deals": {
       "title": "På rea just nu",
       "subtitle": "Set som Walmart har sänkt priset på och som enligt vårt eget pris är värda mer än de kostar.",
-      "seeAll": "Se alla fynd"
+      "seeAll": "Se alla fynd",
+      "titleAmazon": "Värt att veta just nu",
+      "subtitleAmazon": "Set som är billiga någonstans just nu. Vi visar vad de är värda — kolla priset i din egen butik."
     }
   }
 }

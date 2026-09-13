@@ -269,7 +269,8 @@
         "upgradeSuccess": "Willkommen bei Premium!",
         "upgradeCancelled": "Der Bezahlvorgang wurde abgebrochen."
       },
-      "tryIdentifier": "Minifigur identifizieren"
+      "tryIdentifier": "Minifigur identifizieren",
+      "pitchNoDeals": "Sofort-Inserate, unbegrenzte KI-Erkennung und ein Abzeichen auf deinem Profil."
     },
     "email": {
       "title": "Produktankündigungen",
@@ -2647,7 +2648,8 @@
       "badge": "Premium",
       "hero": {
         "title": "Ein Abo. Alle Vorteile.",
-        "subtitle": "Angebote abpassen, in einem Schritt inserieren und jede Minifigur per Foto bestimmen."
+        "subtitle": "Angebote abpassen, in einem Schritt inserieren und jede Minifigur per Foto bestimmen.",
+        "subtitleNoDeals": "In einem Schritt inserieren und jede Minifigur per Foto bestimmen."
       },
       "features": {
         "title": "Das bekommst du",
@@ -3166,7 +3168,9 @@
     "deals": {
       "title": "Jetzt im Angebot",
       "subtitle": "Sets, die Walmart reduziert hat und die nach unserem eigenen Preis mehr wert sind als verlangt.",
-      "seeAll": "Alle Angebote ansehen"
+      "seeAll": "Alle Angebote ansehen",
+      "titleAmazon": "Gerade wissenswert",
+      "subtitleAmazon": "Sets, die derzeit irgendwo günstig sind. Wir zeigen den Wert – den Preis prüfst du in deinem Shop."
     }
   }
 }

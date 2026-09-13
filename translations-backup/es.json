@@ -269,7 +269,8 @@
         "upgradeSuccess": "¡Bienvenido a Premium!",
         "upgradeCancelled": "Se canceló el proceso de pago."
       },
-      "tryIdentifier": "Identificar una minifigura"
+      "tryIdentifier": "Identificar una minifigura",
+      "pitchNoDeals": "Publicaciones instantáneas, identificador con IA ilimitado y una insignia en tu perfil."
     },
     "email": {
       "title": "Anuncios del producto",
@@ -2647,7 +2648,8 @@
       "badge": "Premium",
       "hero": {
         "title": "Una suscripción. Todas las mejoras.",
-        "subtitle": "Cazá las ofertas, publicá en un paso e identificá cualquier minifigura con una foto."
+        "subtitle": "Cazá las ofertas, publicá en un paso e identificá cualquier minifigura con una foto.",
+        "subtitleNoDeals": "Publica en un paso e identifica cualquier minifigura con una foto."
       },
       "features": {
         "title": "Qué obtienes",
@@ -3166,7 +3168,9 @@
     "deals": {
       "title": "En oferta ahora",
       "subtitle": "Sets que Walmart ha rebajado y que, según nuestro propio precio, valen más de lo que piden.",
-      "seeAll": "Ver todas las ofertas"
+      "seeAll": "Ver todas las ofertas",
+      "titleAmazon": "Interesante ahora mismo",
+      "subtitleAmazon": "Sets que ahora están baratos en algún sitio. Mostramos lo que valen; comprueba el precio en tu tienda."
     }
   }
 }

@@ -225,6 +225,7 @@
     "account.premium.messages.upgradeSuccess": "503dfef8c2a3",
     "account.premium.messages.upgradeCancelled": "a26919549604",
     "account.premium.tryIdentifier": "b946535d2121",
+    "account.premium.pitchNoDeals": "c5da49252684",
     "account.email.title": "67a48bdc698d",
     "account.email.on": "720ec23c80b3",
     "account.email.off": "ba39eb642bb9",
@@ -1909,6 +1910,7 @@
     "premium.page.badge": "6c2f2888c561",
     "premium.page.hero.title": "39fca0d151f5",
     "premium.page.hero.subtitle": "cfbb82878137",
+    "premium.page.hero.subtitleNoDeals": "3f99eb26e8bf",
     "premium.page.features.title": "8ac7aa173f26",
     "premium.page.features.subtitle": "22d05f2df9a0",
     "premium.page.features.skipStep.title": "d4c0df8e66e2",
@@ -2186,7 +2188,9 @@
     "listingGeneratorPage": "2be88ca4242c",
     "home.deals.title": "795e18e59cce",
     "home.deals.subtitle": "685676ce89a1",
-    "home.deals.seeAll": "b75aab5735ae"
+    "home.deals.seeAll": "b75aab5735ae",
+    "home.deals.titleAmazon": "10b0d4426d55",
+    "home.deals.subtitleAmazon": "0a1b453631ef"
   },
   "acceptedIdentical": [
     "de:about.creator.byline",

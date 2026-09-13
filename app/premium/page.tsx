@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import PremiumPageClient from '@/components/premium-page-client';
 import { getTranslations, getLocaleFromHost, type Locale } from '@/lib/i18n-subdomain';
 import { headers } from 'next/headers';
+import { visitorHasWalmart } from '@/lib/visitor-country';
 import { DOMAINS } from '@/lib/i18n-alternates';
 import { getPremiumPrice } from '@/lib/premium-price';
 
@@ -71,5 +72,14 @@ export const dynamic = 'force-dynamic';
 export default async function PremiumPage() {
   const locale = await getRequestLocale();
   const price = await getPremiumPrice(locale);
-  return <PremiumPageClient price={price} />;
+  /**
+   * Deal alerts watch the Walmart feed, which is the US affiliate programme and
+   * nothing else. Selling them to someone in Britain is selling a feature they
+   * cannot use -- and it is the item this page leads with, so it would be the
+   * first thing they read.
+   *
+   * Country, not locale: a German speaker in Ohio should still be sold it.
+   */
+  const hasWalmart = await visitorHasWalmart();
+  return <PremiumPageClient price={price} showDealAlerts={hasWalmart} />;
 }

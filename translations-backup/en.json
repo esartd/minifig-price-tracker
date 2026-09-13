@@ -269,7 +269,8 @@
         "upgradeSuccess": "Welcome to Premium!",
         "upgradeCancelled": "Checkout was cancelled."
       },
-      "tryIdentifier": "Identify a Minifig"
+      "tryIdentifier": "Identify a Minifig",
+      "pitchNoDeals": "Instant listings, unlimited AI identifier, and a badge on your profile."
     },
     "email": {
       "title": "Product announcements",
@@ -2734,7 +2735,8 @@
       "badge": "Premium",
       "hero": {
         "title": "One subscription. Every upgrade.",
-        "subtitle": "Catch the deals, list in one step, and identify any minifigure from a photo."
+        "subtitle": "Catch the deals, list in one step, and identify any minifigure from a photo.",
+        "subtitleNoDeals": "List in one step, and identify any minifigure from a photo."
       },
       "features": {
         "title": "What you get",
@@ -3166,7 +3168,9 @@
     "deals": {
       "title": "On sale right now",
       "subtitle": "Sets Walmart has discounted, that our own price agrees are worth more than they are asking.",
-      "seeAll": "See all deals"
+      "seeAll": "See all deals",
+      "titleAmazon": "Worth knowing right now",
+      "subtitleAmazon": "Sets going cheap somewhere right now. We show what each is worth — check the price in your own store."
     }
   }
 }

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useTranslation } from '@/components/TranslationProvider';
+import { getCurrencySymbol } from '@/lib/currency-config';
 
 interface DealSetCardProps {
   deal: {
@@ -16,6 +17,10 @@ interface DealSetCardProps {
     /** How far below OUR suggested price. What the badge and tiers use. */
     pctBelowOurPrice?: number | null;
     ourPrice?: number | null;
+    /** ISO code of the price shown. Absent means USD. */
+    currency?: string | null;
+    /** Where the button sends people. Absent means Walmart. */
+    retailer?: 'walmart' | 'amazon' | null;
   
     imageUrl: string;
     buyUrl: string;
@@ -31,7 +36,20 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
   // Walmart, not Amazon. The deals data moved over; these two labels were the
   // last thing still naming the old retailer on the card.
   const sponsoredLabel = translations?.buyButtons?.walmart?.sponsored || translations?.buyButtons?.ebay?.sponsored || 'Sponsored';
-  const buyLabel = translations?.buyButtons?.walmart?.buyOn || 'Buy at Walmart';
+  /**
+   * The card is used in two places with two retailers: /deals and the US home
+   * page send people to Walmart, while non-US visitors get Amazon, because the
+   * Walmart affiliate feed is US-only. The label has to name the shop the
+   * button actually opens.
+   */
+  const isAmazon = deal.retailer === 'amazon';
+  const buyLabel = isAmazon
+    ? translations?.buyButtons?.amazon?.buyOn || 'Buy on Amazon'
+    : translations?.buyButtons?.walmart?.buyOn || 'Buy at Walmart';
+
+  // Prices are converted server-side for non-US visitors, so the symbol has to
+  // follow. Hard-coding "$" would label pounds as dollars.
+  const symbol = getCurrencySymbol(deal.currency || 'USD');
 
   const handleImageError = () => {
     // Try fallback: switch between /ON/ and /SN/ image URLs
@@ -81,7 +99,10 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
         e.currentTarget.style.boxShadow = 'none';
       }}
     >
-      {/* Discount Badge */}
+      {/* Discount badge, only when there IS one. Amazon cards carry no
+          discount -- PA-API is retired, so there is no "was" price to compare
+          against -- and a red "0% OFF" pill is worse than no pill at all. */}
+      {deal.discountPercent > 0 && (
       <div
         style={{
           position: 'absolute',
@@ -103,6 +124,7 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
             price to agree before the card could exist at all. */}
         {deal.discountPercent}% {t('deals.off') || 'OFF'}
       </div>
+      )}
 
       {/* Sponsored Badge */}
       <div
@@ -211,7 +233,7 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
                 color: '#171717',
               }}
             >
-              ${deal.currentPrice.toFixed(2)}
+              {symbol}{deal.currentPrice.toFixed(2)}
             </span>
             {/* Only when Walmart is actually discounting. listPrice is null on
                 undiscounted items -- most of them -- and the old Amazon version
@@ -226,7 +248,7 @@ export default function DealSetCard({ deal, tierColor }: DealSetCardProps) {
                   textDecoration: 'line-through',
                 }}
               >
-                ${deal.listPrice.toFixed(2)}
+                {symbol}{deal.listPrice.toFixed(2)}
               </span>
             )}
           </div>

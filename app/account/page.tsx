@@ -33,6 +33,25 @@ export default function AccountPage() {
   // Profile states
   const [name, setName] = useState('');
   const [showAvatarPicker, setShowAvatarPicker] = useState(false);
+  /**
+   * Whether to mention Walmart deal alerts in the Premium pitch below.
+   *
+   * The alerts watch the US Walmart feed, so listing them for a visitor in
+   * Britain sells a feature they cannot use. Country, not locale -- a German
+   * speaker in Ohio should still see it. Defaults true so the longer line
+   * renders first and does not flicker shorter once the answer lands.
+   */
+  const [hasWalmart, setHasWalmart] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/geo')
+      .then((r) => r.json())
+      .then((d) => setHasWalmart(d?.hasWalmart !== false))
+      .catch(() => {
+        // Keep the default: a failed geo lookup should not quietly drop a
+        // feature from the pitch.
+      });
+  }, []);
   const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
 
   // Avatar options - initials + AI-generated LEGO minifigures
@@ -1442,7 +1461,11 @@ export default function AccountPage() {
           ) : (
             <div>
               <p style={{ fontSize: 'var(--text-sm)', color: '#737373', marginBottom: '4px', lineHeight: '1.5' }}>
-                {t('account.premium.pitch') || 'Walmart deal alerts, instant listings, unlimited AI identifier, and a badge on your profile.'}
+                {hasWalmart
+                  ? t('account.premium.pitch') ||
+                    'Walmart deal alerts, instant listings, unlimited AI identifier, and a badge on your profile.'
+                  : t('account.premium.pitchNoDeals') ||
+                    'Instant listings, unlimited AI identifier, and a badge on your profile.'}
               </p>
               <p style={{ fontSize: 'var(--text-lg)', fontWeight: '700', color: '#171717', marginBottom: premiumPrice?.isConverted ? '4px' : '16px' }}>
                 {premiumPrice?.display || t('premium.page.price') || '$4.99'}

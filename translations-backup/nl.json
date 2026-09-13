@@ -269,7 +269,8 @@
         "upgradeSuccess": "Welkom bij Premium!",
         "upgradeCancelled": "Afrekenen is geannuleerd."
       },
-      "tryIdentifier": "Identificeer een minifig"
+      "tryIdentifier": "Identificeer een minifig",
+      "pitchNoDeals": "Direct te koop zetten, onbeperkte AI-herkenning en een badge op je profiel."
     },
     "email": {
       "title": "Productaankondigingen",
@@ -339,7 +340,7 @@
       "description": "Snelle verzending & eenvoudig retourneren",
       "sponsored": "Gesponsord",
       "shopOn": "Kopen bij Amazon",
-      "buyOn": "Kopen bij Amazon",
+      "buyOn": "Kopen op Amazon",
       "prime": "Prime"
     },
     "bricklink": {
@@ -2647,7 +2648,8 @@
       "badge": "Premium",
       "hero": {
         "title": "Eén abonnement. Alle voordelen.",
-        "subtitle": "Pak de deals, zet in één stap te koop en herken elke minifiguur vanaf een foto."
+        "subtitle": "Pak de deals, zet in één stap te koop en herken elke minifiguur vanaf een foto.",
+        "subtitleNoDeals": "Zet in één stap te koop en herken elke minifiguur vanaf een foto."
       },
       "features": {
         "title": "Wat je krijgt",
@@ -3166,7 +3168,9 @@
     "deals": {
       "title": "Nu in de aanbieding",
       "subtitle": "Sets die Walmart heeft afgeprijsd en die volgens onze eigen prijs meer waard zijn dan de vraagprijs.",
-      "seeAll": "Bekijk alle deals"
+      "seeAll": "Bekijk alle deals",
+      "titleAmazon": "Nu de moeite waard",
+      "subtitleAmazon": "Sets die nu ergens goedkoop zijn. Wij tonen wat ze waard zijn — check de prijs in je eigen winkel."
     }
   }
 }

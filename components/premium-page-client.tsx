@@ -5,7 +5,15 @@ import { CheckBadgeIcon } from '@heroicons/react/24/solid';
 import { useTranslation } from '@/components/TranslationProvider';
 import type { PremiumPrice } from '@/lib/premium-price';
 
-export default function PremiumPageClient({ price }: { price?: PremiumPrice }) {
+export default function PremiumPageClient({
+  price,
+  // Defaults true so any other caller keeps today's behaviour; /premium passes
+  // the real answer for this visitor.
+  showDealAlerts = true,
+}: {
+  price?: PremiumPrice;
+  showDealAlerts?: boolean;
+}) {
   const { t } = useTranslation();
 
   return (
@@ -39,7 +47,13 @@ export default function PremiumPageClient({ price }: { price?: PremiumPrice }) {
             }}>{t('premium.page.badge') || 'Premium'}</span>
           </div>
           <h1>{t('premium.page.hero.title') || 'One subscription. Every upgrade.'}</h1>
-          <p>{t('premium.page.hero.subtitle') || 'Catch the deals, list in one step, and identify any minifigure from a photo.'}</p>
+          <p>
+            {showDealAlerts
+              ? t('premium.page.hero.subtitle') ||
+                'Catch the deals, list in one step, and identify any minifigure from a photo.'
+              : t('premium.page.hero.subtitleNoDeals') ||
+                'List in one step, and identify any minifigure from a photo.'}
+          </p>
         </div>
         <div className="hero-decoration hero-decoration-1"></div>
         <div className="hero-decoration hero-decoration-2"></div>
@@ -96,6 +110,7 @@ export default function PremiumPageClient({ price }: { price?: PremiumPrice }) {
                 {/* The deals are free and public on /deals, so this has to sell
                     the ALERT, not the discount -- otherwise it reads as charging
                     for what the site already gives away. */}
+                {showDealAlerts && (
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                   <TagIcon style={{ width: '22px', height: '22px', color: '#171717', flexShrink: 0, marginTop: '2px' }} />
                   <div>
@@ -107,6 +122,7 @@ export default function PremiumPageClient({ price }: { price?: PremiumPrice }) {
                     </p>
                   </div>
                 </div>
+                )}
 
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                   <BoltIcon style={{ width: '22px', height: '22px', color: '#171717', flexShrink: 0, marginTop: '2px' }} />
