@@ -282,9 +282,12 @@ Three things that look wrong and are not:
   `undefined` in the browser bundle, so the old server-only
   `AMAZON_AFFILIATE_TAG` never reached the browser at all — it worked purely
   because the hard-coded fallback in the source happened to be the right tag.
-- **Portugal and Japan are absent from the tag map on purpose.** Portugal has
-  no storefront of its own (amazon.es serves it) and Japan has no account yet.
-  Both fall back rather than getting a guessed host.
+- **The `pt` locale is Brazilian Portuguese, so the store is amazon.com.br.**
+  Not Portugal, which has no Amazon of its own. Brazil is also why `BRL` exists
+  in `SUPPORTED_CURRENCIES` — it was missing, so every Brazilian visitor was
+  quoted in US dollars while the exchange-rate table already carried the rate.
+  Portugal itself still falls back to amazon.com; routing it to amazon.es on
+  the Spanish tag would work but has not been done.
 
 OneLink is not an alternative to the per-country signups — it needs the same
 linked accounts. It lives at Manage My Account → Link Stores; the standalone

@@ -14,14 +14,16 @@ const AMAZON_AFFILIATE_TAG =
  * language says nothing about where someone can buy. A German speaker in Ohio
  * wants amazon.com; an English speaker in Manchester wants amazon.co.uk.
  *
- * Portugal has no storefront of its own and is served by amazon.es; Portuguese
- * visitors therefore fall through to the default rather than getting a made-up
- * host. Same for every country not listed.
+ * The pt locale on this site is Brazilian Portuguese, so BR is the storefront
+ * that matters, not Portugal -- Portugal has no Amazon of its own and is served
+ * by amazon.es. Every country not listed falls through to the default rather
+ * than getting a made-up host.
  */
 const AMAZON_HOSTS: Record<string, string> = {
   US: 'www.amazon.com',
   CA: 'www.amazon.ca',
   MX: 'www.amazon.com.mx',
+  BR: 'www.amazon.com.br',
   GB: 'www.amazon.co.uk',
   DE: 'www.amazon.de',
   FR: 'www.amazon.fr',

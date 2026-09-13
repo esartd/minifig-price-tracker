@@ -33,6 +33,24 @@ export const SUPPORTED_CURRENCIES: CurrencyOption[] = [
     flag: '🇨🇦',
     continent: 'North America',
   },
+  // South America
+  /**
+   * Brazil, for the pt locale -- which is Brazilian Portuguese, not European.
+   * Without this entry getCurrencyByCountryCode('BR') returns undefined and
+   * every Brazilian visitor is quoted in US dollars, a number they cannot act
+   * on. BRL was already in the exchange-rate table; only the option was
+   * missing.
+   */
+  {
+    code: 'BRL',
+    symbol: 'R$',
+    name: 'Brazilian Real',
+    countryCode: 'BR',
+    region: 'south_america',
+    locale: 'pt-BR',
+    flag: '\u{1F1E7}\u{1F1F7}',
+    continent: 'South America',
+  },
   {
     code: 'MXN',
     symbol: 'MX$',
