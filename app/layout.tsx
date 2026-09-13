@@ -4,6 +4,7 @@ import Header from '@/components/header'
 import Footer from '@/components/Footer'
 import AuthProvider from '@/components/session-provider'
 import ScrollToTop from '@/components/ScrollToTop'
+import AnalyticsOptOut from '@/components/AnalyticsOptOut'
 import CurrencyBanner from '@/components/CurrencyBanner'
 import GuestCollectionProvider from '@/components/GuestCollectionProvider'
 import GuestCollectionMigrator from '@/components/GuestCollectionMigrator'
@@ -241,6 +242,32 @@ export default async function RootLayout({
               // The apex, or any locale subdomain of it. Nothing else.
               if (h !== root && h.indexOf('.' + root) !== h.length - root.length - 1) return;
 
+              /**
+               * Admin traffic never reaches Analytics.
+               *
+               * Checked here, synchronously, before the tag loads -- this
+               * bootstrap runs long before React or the session exist, so the
+               * decision cannot wait for them. components/AnalyticsOptOut.tsx
+               * sets the flag once, on the first page an admin loads while
+               * signed in, and it persists in that browser afterwards.
+               *
+               * Consequence worth knowing: the very first page view after an
+               * admin signs in on a new browser is still counted. Everything
+               * after it is not.
+               *
+               * ?analytics=off sets it by hand, for a phone or a browser where
+               * nobody signs in; ?analytics=on clears it.
+               */
+              try {
+                var qs = window.location.search;
+                if (qs.indexOf('analytics=off') !== -1) localStorage.setItem('ib_no_analytics', '1');
+                if (qs.indexOf('analytics=on') !== -1) localStorage.removeItem('ib_no_analytics');
+                if (localStorage.getItem('ib_no_analytics') === '1') return;
+              } catch (e) {
+                // Private browsing can throw on localStorage. Fall through and
+                // measure -- failing open is right for analytics.
+              }
+
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               window.gtag = gtag;
@@ -276,6 +303,9 @@ export default async function RootLayout({
         />
         <AuthProvider>
           <TranslationProvider locale={locale} translations={translations}>
+            {/* Sets the flag the Analytics bootstrap above reads. Renders
+                nothing; see the component for why the first hit still counts. */}
+            <AnalyticsOptOut />
             <AccountLinkedToast />
             <CurrencyBanner />
             <GuestCollectionMigrator />
