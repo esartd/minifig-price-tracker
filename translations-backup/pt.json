@@ -189,7 +189,7 @@
     },
     "sharing": {
       "title": "Compartilhar Coleção",
-      "subtitle": "Partilhe a sua coleção com outras pessoas através de um link público (apenas leitura)",
+      "subtitle": "Compartilhe a sua coleção com outras pessoas através de um link público (apenas leitura)",
       "publicSharing": "Compartilhamento Público",
       "enabled": "A sua coleção está visível para qualquer pessoa com o link",
       "disabled": "A sua coleção é privada",
@@ -448,7 +448,7 @@
     "items": [
       {
         "q": "Como é que o IntoBrick calcula os preços sugeridos?",
-        "a": "O IntoBrick olha para três coisas para sugerir um preço justo: (1) quanto as pessoas pagaram efetivamente nos últimos 6 meses, (2) quanto os vendedores estão a pedir neste momento e (3) o preço mais baixo atualmente disponível. Fazemos a média destes três valores para lhe dar um preço realista, que reflete tanto as vendas recentes como as condições atuais do mercado."
+        "a": "O IntoBrick olha para três coisas para sugerir um preço justo: (1) quanto as pessoas pagaram efetivamente nos últimos 6 meses, (2) quanto os vendedores estão pedindo neste momento e (3) o preço mais baixo atualmente disponível. Fazemos a média destes três valores para lhe dar um preço realista, que reflete tanto as vendas recentes como as condições atuais do mercado."
       },
       {
         "q": "O IntoBrick é gratuito?",
@@ -471,8 +471,8 @@
         "a": "O IntoBrick inclui mais de 18.000 minifiguras LEGO do catálogo completo da Bricklink, abrangendo Star Wars, Harry Potter, Marvel, DC, Ninjago e mais de 50 outros temas."
       },
       {
-        "q": "Posso gerir o meu inventário?",
-        "a": "Sim! Crie uma conta gratuita para gerir o inventário das suas minifiguras. Pode manter coleções separadas para os artigos que está a vender e para a sua coleção pessoal. Registe quantidades e estados (Novo/Usado), veja o valor total da carteira e atualize todos os preços com um clique."
+        "q": "Posso gerenciar o meu inventário?",
+        "a": "Sim! Crie uma conta gratuita para gerenciar o inventário das suas minifiguras. Pode manter coleções separadas para os artigos que está vendendo e para a sua coleção pessoal. Registe quantidades e estados (Novo/Usado), veja o valor total da carteira e atualize todos os preços com um clique."
       },
       {
         "q": "Como pesquiso minifiguras ou sets?",
@@ -488,27 +488,27 @@
       },
       {
         "q": "Posso exportar o meu inventário?",
-        "a": "Sim! Vá às definições da Conta e clique em \"Exportar os seus dados\" em Gestão de dados. Isto transfere todo o inventário de minifiguras num ficheiro JSON que pode importar para folhas de cálculo ou outras ferramentas."
+        "a": "Sim! Vá às configurações da Conta e clique em \"Exportar os seus dados\" em Gestão de dados. Isto transfere todo o inventário de minifiguras num arquivo JSON que pode importar para folhas de cálculo ou outras ferramentas."
       },
       {
         "q": "E se encontrar algo que não está na base de dados?",
-        "a": "O IntoBrick sincroniza com o catálogo completo da Bricklink. Se uma minifigura ou um set existirem na Bricklink, deverão estar também na nossa base de dados. Contacte-nos se encontrar um artigo legítimo da Bricklink em falta."
+        "a": "O IntoBrick sincroniza com o catálogo completo da Bricklink. Se uma minifigura ou um set existirem na Bricklink, deverão estar também na nossa base de dados. Entre em contato conosco se encontrar um artigo legítimo da Bricklink em falta."
       },
       {
         "q": "Os dados do meu inventário são privados?",
-        "a": "Sim, o seu inventário é privado por predefinição e apenas visível para si quando tem sessão iniciada. Se quiser, pode gerar um link de partilha público nas definições da Conta para permitir que outros vejam a sua coleção. A partilha é controlada por si e pode ser desativada a qualquer momento. Nunca partilhamos nem vendemos os seus dados a terceiros."
+        "a": "Sim, o seu inventário é privado por padrão e apenas visível para você quando tem sessão iniciada. Se quiser, pode gerar um link de compartilhamento público nas configurações da Conta para permitir que outros vejam a sua coleção. O compartilhamento é controlada por si e pode ser desativada a qualquer momento. Nunca partilhamos nem vendemos os seus dados a terceiros."
       },
       {
         "q": "O que são as tabelas de classificação da comunidade?",
-        "a": "O IntoBrick tem tabelas de classificação trimestrais com os melhores colecionadores de minifiguras e sets, além dos apoiantes. As tabelas são reiniciadas a cada 3 meses (Q1, Q2, Q3, Q4) e contam apenas os artigos adicionados nesse trimestre. Pode aderir ou sair a qualquer momento nas definições da Conta."
+        "a": "O IntoBrick tem tabelas de classificação trimestrais com os melhores colecionadores de minifiguras e sets, além dos apoiantes. As tabelas são reiniciadas a cada 3 meses (Q1, Q2, Q3, Q4) e contam apenas os artigos adicionados nesse trimestre. Pode aderir ou sair a qualquer momento nas configurações da Conta."
       },
       {
         "q": "Como apareço nas tabelas de classificação?",
-        "a": "Vá às definições da Conta e selecione as caixas para aparecer nas tabelas de colecionadores de minifiguras ou de sets. Pode personalizar o nome a apresentar ou deixá-lo em branco para usar o primeiro nome e a inicial do apelido. Apenas os artigos adicionados no trimestre atual contam para a sua posição."
+        "a": "Vá às configurações da Conta e selecione as caixas para aparecer nas tabelas de colecionadores de minifiguras ou de sets. Pode personalizar o nome a apresentar ou deixá-lo em branco para usar o primeiro nome e a inicial do apelido. Apenas os artigos adicionados no trimestre atual contam para a sua posição."
       },
       {
-        "q": "Posso partilhar a minha coleção publicamente?",
-        "a": "Sim! Pode gerar um link de partilha público para as suas coleções nas definições da Conta. Isto permite que outros vejam as suas minifiguras e sets sem terem de iniciar sessão. É você que controla o que é partilhado e pode desativar a partilha quando quiser."
+        "q": "Posso compartilhar a minha coleção publicamente?",
+        "a": "Sim! Pode gerar um link de compartilhamento público para as suas coleções nas configurações da Conta. Isto permite que outros vejam as suas minifiguras e sets sem terem de iniciar sessão. É você que controla o que é compartilhado e pode desativar o compartilhamento quando quiser."
       }
     ],
     "meta": {
@@ -731,7 +731,7 @@
     "lastUpdated": "Última Atualização",
     "affiliatePrograms": {
       "title": "Programas de Afiliados",
-      "paragraph1": "O IntoBrick participa no Programa de Afiliados da LEGO.com, no Programa Amazon Associates, na eBay Partner Network e no Programa de Afiliados da Whatnot. Quando clica em links de produtos em destaque e efetua uma compra, podemos ganhar uma pequena comissão sem custo adicional para si.",
+      "paragraph1": "O IntoBrick participa no Programa de Afiliados da LEGO.com, no Programa Amazon Associates, na eBay Partner Network e no Programa de Afiliados da Whatnot. Quando clica em links de produtos em destaque e efetua uma compra, podemos ganhar uma pequena comissão sem custo adicional para você.",
       "paragraph2": "Estas affiliate partnerships help support IntoBrick's development e maintenance while keeping o tool free para use."
     },
     "trademark": {
@@ -768,7 +768,7 @@
     "shareOnReddit": "Compartilhar no Reddit",
     "copyLink": "Copiar link",
     "linkCopied": "Link copiado!",
-    "shareArticle": "Partilhar Artigo",
+    "shareArticle": "Compartilhar Artigo",
     "pros": "✓ Prós",
     "cons": "✗ Contras",
     "tableOfContents": "Índice",
@@ -1147,7 +1147,7 @@
         "Obter dados de preços de mercado a partir de várias fontes",
         "Melhorar o nosso serviço através de análises de utilização",
         "Enviar notificações essenciais da conta (reposição de palavra-passe, entre outras)",
-        "Construir um catálogo de minifiguras pesquisável com base nas pesquisas dos utilizadores"
+        "Construir um catálogo de minifiguras pesquisável com base nas pesquisas dos usuários"
       ]
     },
     "dataStorage": {
@@ -1164,7 +1164,7 @@
       "title": "Serviços de Terceiros",
       "bricklink": {
         "title": "API do Bricklink",
-        "content": "Utilizamos a API oficial do Bricklink para obter os preços das minifiguras. Quando pesquisa ou adiciona minifiguras, enviamos os respetivos IDs para o Bricklink a fim de obter os preços de mercado atuais. Nenhuma informação pessoal é partilhada com o Bricklink."
+        "content": "Utilizamos a API oficial do Bricklink para obter os preços das minifiguras. Quando pesquisa ou adiciona minifiguras, enviamos os respetivos IDs para o Bricklink a fim de obter os preços de mercado atuais. Nenhuma informação pessoal é compartilhada com o Bricklink."
       },
       "googleAnalytics": {
         "title": "Google Analytics",
@@ -1184,9 +1184,9 @@
       "items": [
         "Aceder aos seus dados pessoais e ao seu inventário",
         "Atualizar ou corrigir a sua informação",
-        "Eliminar a sua conta e todos os dados associados",
+        "Excluir a sua conta e todos os dados associados",
         "Exportar os dados do seu inventário",
-        "Recusar o rastreio analítico (nas definições do navegador)"
+        "Recusar o rastreio analítico (nas configurações do navegador)"
       ],
       "footer": "Para exercer estes direitos, entre em contato conosco através dos dados abaixo ou utilize as configurações de conta no seu painel."
     },
@@ -1432,7 +1432,7 @@
     "pros": "Prós:",
     "prosAbove": [
       "Imediatamente visível — impossível não ver",
-      "Padrão habitual que os utilizadores esperam",
+      "Padrão habitual que os usuários esperam",
       "Mostra que o aviso é importante e vale para todo o site",
       "Não interfere com os cliques na navegação"
     ],
@@ -1614,7 +1614,7 @@
     "Project Hail Mary": "A ciência salva a humanidade com as minifiguras LEGO® Project Hail Mary! Baseado no romance de ficção científica de Andy Weir, o conjunto segue o astronauta Ryland Grace na missão desesperada de salvar a Terra. Este conjunto LEGO Ideas celebra a ficção científica rigorosa, com minifiguras cuidadas e atenção ao rigor científico. Da viagem espacial ao encontro com o desconhecido, Project Hail Mary junta uma história de sobrevivência à resolução concreta de problemas científicos. As minifiguras representam as personagens de uma narrativa envolvente sobre sacrifício, engenho e amizade interestelar. Com a nave e o equipamento científico, podes recriar a última esperança da humanidade. Perfeito para quem gostou do autor de The Martian, para apaixonados por ficção científica bem fundamentada e para quem aprecia histórias em que a inteligência e a persistência vencem obstáculos impossíveis.",
     "Promotional": "Reúne peças exclusivas com as minifiguras LEGO® Promotional! Estas figuras nunca são vendidas à parte: só se obtêm através de promoções, compras ou eventos específicos. De ofertas em loja a assinaturas de revistas, de campanhas por correio a incentivos à compra, as minifiguras promocionais recompensam a fidelidade. Algumas celebram épocas festivas, outras anunciam o lançamento de um tema ou a abertura de uma loja. Pela distribuição limitada e pelas janelas curtas de disponibilidade, tornam-se muito procuradas. De saquetas oferecidas a prendas com a compra, a raridade vai do comum ao quase impossível. Os colecionadores procuram-nas no mercado secundário para completar as coleções. Perfeitas para quem quer todas as variantes e para quem gosta da caça a um lançamento exclusivo.",
     "Quatro": "Supersized construção para tiny hands com LEGO® Quatro figures! Designed para children aged 1-3, Quatro apresentou peças even larger than DUPLO, prioritizing safety para o youngest builders. Estas oversized, chunky figures introduced toddlers para construction play com peças too large para swallow. Quatro emphasized bright colors, simple shapes, e developmental benefits. De animals para basic characters, Quatro figures supported early learning through tactile play. Embora discontinued e absorbed into DUPLO's youngest age ranges, Quatro represented LEGO's commitment para safety e early childhood development. Estas extra-large figures gave toddlers confidence construção independently. Perfeito para nostalgic parents who remember this short-lived line e colecionadores de LEGO's early childhood product history.",
-    "Queer Eye": "Dá para acreditar? As minifiguras LEGO® Queer Eye™ trazem os Fab Five para o mundo dos tijolos! Baseado no programa da Netflix, o conjunto inclui Jonathan Van Ness, Tan France, Antoni Porowski, Bobby Berk e Karamo Brown. Este conjunto LEGO Ideas celebra a positividade, o cuidado consigo próprio e a gentileza que transforma. Cada minifigura capta o estilo e a personalidade dos apresentadores, do cabelo solto do Jonathan ao à-vontade do Tan com moda. Constrói o loft onde acontecem as transformações e recria os momentos que mudaram vidas. Com atenção à representação e à inclusão, estas minifiguras celebram o direito de se ser quem se é. Perfeitas para quem acredita na gentileza, no crescimento pessoal e em valorizar aquilo que torna cada pessoa única.",
+    "Queer Eye": "Dá para acreditar? As minifiguras LEGO® Queer Eye™ trazem os Fab Five para o mundo dos tijolos! Baseado no programa da Netflix, o conjunto inclui Jonathan Van Ness, Tan France, Antoni Porowski, Bobby Berk e Karamo Brown. Este conjunto LEGO Ideas celebra a positividade, o cuidado com você próprio e a gentileza que transforma. Cada minifigura capta o estilo e a personalidade dos apresentadores, do cabelo solto do Jonathan ao à-vontade do Tan com moda. Constrói o loft onde acontecem as transformações e recria os momentos que mudaram vidas. Com atenção à representação e à inclusão, estas minifiguras celebram o direito de se ser quem se é. Perfeitas para quem acredita na gentileza, no crescimento pessoal e em valorizar aquilo que torna cada pessoa única.",
     "Racers": "Feel o speed com LEGO® Racers minifiguras! Este high-octane tema (2001-2010) focused em racing vehicles across multiple competition types. Colecione race car drivers, pit crew members, e mechanics de street racing, Formula racing, e off-road competitions. Racers apresentou sleek vehicles, starting gates, e racing accessories. Some conjuntos included pullback motors ou remote control functionality. Estas minifiguras wore detalhado racing suits com sponsor logos e team colors. De desert rally races para professional circuits, Racers entregou competitive speed. The tema also included Tiny Turbos - miniature pull-back racers. Embora superseded por Speed Champions, Racers remains nostalgic para fãs de early 2000s racing excitement. Perfeito para speed enthusiasts e colecionadores de LEGO's racing heritage.",
     "Rock Raiders": "Mine o underground com LEGO® Rock Raiders™ minifiguras! Este 1999-2000 tema apresentou a stranded mining crew exploring an alien planet's cave systems. Colecione o Rock Raiders team em distinctive yellow e blue mining suits com drilling equipment e vehicles. Mine energy crystals while avoiding rock monsters, cave-ins, e underground hazards. Estas minifiguras foi pioneiro em underground exploration temas com único tools e vehicles. De chromestone para energy crystals, extract resources while battling slimy rock monsters. Rock Raiders combinou resource management gameplay com LEGO building. Perfeito para fãs de underground exploration, mining operations, e surviving hostile alien environments deep beneath o surface.",
     "SPEED CHAMPIONS": "Vive o esporte automóvel ao mais alto nível com LEGO® SPEED CHAMPIONS! Esta linha traz corridas a sério, com carros oficialmente licenciados da Ferrari, Porsche, McLaren, Lamborghini, Ford e mais. Reúne pilotos profissionais, mecânicos e equipes de box com as cores reais e os logótipos dos patrocinadores. SPEED CHAMPIONS reproduz fatos, capacetes e equipamento fiéis às equipes verdadeiras. Da Fórmula 1 às provas de resistência, dos clássicos aos superdesportivos atuais, os conjuntos celebram o melhor da engenharia automóvel. Com figuras de pilotos a condizer com os carros reais, podes recriar corridas históricas e momentos lendários. A linha agrada a adultos apaixonados por automóveis, pela construção elaborada e pelas cores autênticas. Perfeita para adeptos do esporte automóvel e colecionadores de automóveis.",
@@ -1761,7 +1761,7 @@
         "title": "Escolha o Nível A se...",
         "item1": "Quer o valor máximo (39% de retorno)",
         "item2": "Já vai comprar o AT-ST ou o TIE Interceptor de qualquer forma",
-        "item3": "Os pontos x4 são importantes para si em compras futuras"
+        "item3": "Os pontos x4 são importantes para você em compras futuras"
       },
       "tierB": {
         "title": "Escolha o Nível B se...",
@@ -1773,7 +1773,7 @@
         "title": "Escolha o Nível C se...",
         "item1": "Quer especificamente a placa de exposição",
         "item2": "Já vai comprar o N-1 Starfighter de qualquer forma",
-        "item3": "As ofertas grátis importam mais do que os pontos para si"
+        "item3": "As ofertas grátis importam mais do que os pontos para você"
       },
       "tierD": {
         "title": "Escolha o Nível D se...",
@@ -2030,7 +2030,7 @@
       "legend": "Visitantes",
       "none": "nenhum"
     },
-    "subscriberBadge": "Subscritor Premium"
+    "subscriberBadge": "Assinante Premium"
   },
   "directory": {
     "badge": "Comunidade",
@@ -2172,7 +2172,7 @@
       "monitor de coleção de minifiguras",
       "monitor de sets LEGO",
       "monitor de inventário LEGO",
-      "monitorizar preços LEGO",
+      "monitorar preços LEGO",
       "ferramenta de preços LEGO",
       "preço sugerido de minifigura"
     ],
@@ -2273,7 +2273,7 @@
       "displayNameHelper": "3-30 carateres, apenas letras, números, espaços, sublinhados e hífenes",
       "submitLoading": "A reivindicar...",
       "submit": "Reivindicar Doação",
-      "privacyNote": "O seu e-mail e ID de transação são usados apenas para verificação e nunca serão partilhados publicamente."
+      "privacyNote": "O seu e-mail e ID de transação são usados apenas para verificação e nunca serão compartilhados publicamente."
     },
     "errors": {
       "failed": "Não foi possível reivindicar a doação",
@@ -2743,7 +2743,7 @@
   "collectorsDirectory": {
     "meta": {
       "title": "Explorar colecionadores LEGO",
-      "description": "Veja as tabelas de colecionadores LEGO e as coleções públicas partilhadas pela comunidade IntoBrick."
+      "description": "Veja as tabelas de colecionadores LEGO e as coleções públicas compartilhadas pela comunidade IntoBrick."
     }
   },
   "howWeCalculatePrices": {
