@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 import { UserIcon, CubeIcon, StarIcon, CurrencyDollarIcon, UsersIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import LanguageSwitcher from './LanguageSwitcher';
 import HeaderSearch from './HeaderSearch';
+import { isAdminEmail } from '@/lib/admin-auth';
 import { useTranslation } from './TranslationProvider';
 
 /** Narrowest the header search box is allowed to get before the header
@@ -1447,7 +1448,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     {t('navigation.wishlist')}
                   </Link>
 
-                  {user.email === 'erickkosysu@gmail.com' && (
+                  {isAdminEmail(user.email) && (
                     <Link
                       href="/admin/stats"
                       onClick={() => setDropdownOpen(false)}
@@ -2091,7 +2092,7 @@ export function HeaderClient({ user }: HeaderClientProps) {
               </svg>
               {t('navigation.wishlist')}
             </Link>
-            {user?.email === 'erickkosysu@gmail.com' && (
+            {isAdminEmail(user?.email) && (
               <Link href="/admin/stats" onClick={() => setMobileMenuOpen(false)} style={{
                 display: 'flex',
                 alignItems: 'center',

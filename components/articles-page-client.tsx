@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { isAdminEmail } from '@/lib/admin-auth';
 import { useTranslation } from '@/components/TranslationProvider';
 import { useSession } from 'next-auth/react';
 import FilterChips from '@/components/ui/FilterChips';
@@ -23,7 +24,8 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  const isAdmin = session?.user?.email === 'erickkosysu@gmail.com';
+  // Was a hardcoded address, which silently locked out the second admin.
+  const isAdmin = isAdminEmail(session?.user?.email);
 
   // Extract unique categories
   const categories = useMemo(() => {
