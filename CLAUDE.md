@@ -272,11 +272,17 @@ NEXT_PUBLIC_AMAZON_TAGS="GB:intobrick-21,DE:intobrick0d-21"
 
 Three things that look wrong and are not:
 
-- **A country is only routed to its local store once it has a tag.** Every
-  marketplace needs its own Associates account; a US tag on amazon.co.uk
-  tracks nothing, so a wrong-tag link is worse than no localisation. Unmapped
-  countries fall back to amazon.com + the US tag, which still pays on
-  international orders and leaves Amazon's OneLink free to redirect.
+- **A country is only routed to its local store once it has a tag.** A US tag
+  on amazon.co.uk tracks nothing, so a wrong-tag link is worse than no
+  localisation. Unmapped countries fall back to amazon.com + the US tag, which
+  still pays on international orders.
+- **`AMAZON_HOSTS` is Amazon's "Earn Globally" set, plus Brazil.** Those twelve
+  storefronts (CA, GB, DE, FR, IT, ES, NL, PL, SE, AU, SG, JP) pay out to the
+  existing US account once linked at Manage My Account → Link Stores — no new
+  registration per country. Nine of this site's ten locales are covered by it.
+  Do not add countries outside that set without a reason: Mexico and Belgium
+  were listed once and removed, because they serve no locale here and would
+  have implied a route that could never pay.
 - **`NEXT_PUBLIC_` is required.** Every Amazon button on the site renders in a
   client component. Next.js replaces a non-public `process.env.X` with
   `undefined` in the browser bundle, so the old server-only
@@ -289,9 +295,10 @@ Three things that look wrong and are not:
   Portugal itself still falls back to amazon.com; routing it to amazon.es on
   the Spanish tag would work but has not been done.
 
-OneLink is not an alternative to the per-country signups — it needs the same
-linked accounts. It lives at Manage My Account → Link Stores; the standalone
-OneLink tool was removed from Associates Central.
+OneLink / Earn Globally lives at Manage My Account → Link Stores; the
+standalone OneLink tool was removed from Associates Central. Linking a store
+there is what makes its tracking ID earn — Brazil is the only storefront here
+that cannot be linked and needs its own account.
 
 ## Whatnot Affiliate Links
 

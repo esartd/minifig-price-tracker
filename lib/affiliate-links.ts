@@ -14,16 +14,26 @@ const AMAZON_AFFILIATE_TAG =
  * language says nothing about where someone can buy. A German speaker in Ohio
  * wants amazon.com; an English speaker in Manchester wants amazon.co.uk.
  *
- * The pt locale on this site is Brazilian Portuguese, so BR is the storefront
- * that matters, not Portugal -- Portugal has no Amazon of its own and is served
- * by amazon.es. Every country not listed falls through to the default rather
- * than getting a made-up host.
+ * This list is Amazon's "Earn Globally" set and nothing else. Those twelve
+ * storefronts pay out to the existing US account once they are linked at
+ * Manage My Account -> Link Stores, so each is reachable without a new
+ * Associates registration. Countries outside it were removed deliberately:
+ * Mexico and Belgium serve no locale this site runs and would need their own
+ * account, so listing them only implied a route that could never pay.
+ *
+ * Brazil is the one exception, and it earns its place: the `pt` locale here is
+ * Brazilian Portuguese, not European, so BR is a storefront real visitors want.
+ * It is NOT part of Earn Globally and needs a separate account, which is why
+ * it sits here with no tag and falls through until one exists.
+ *
+ * Portugal is absent on purpose -- it has no Amazon of its own (amazon.es
+ * serves it) and is not what the `pt` subdomain means. Every country not
+ * listed falls through to the default rather than getting a made-up host.
  */
 const AMAZON_HOSTS: Record<string, string> = {
   US: 'www.amazon.com',
+  // Earn Globally: linkable to the US account, no separate registration.
   CA: 'www.amazon.ca',
-  MX: 'www.amazon.com.mx',
-  BR: 'www.amazon.com.br',
   GB: 'www.amazon.co.uk',
   DE: 'www.amazon.de',
   FR: 'www.amazon.fr',
@@ -32,9 +42,11 @@ const AMAZON_HOSTS: Record<string, string> = {
   NL: 'www.amazon.nl',
   SE: 'www.amazon.se',
   PL: 'www.amazon.pl',
-  BE: 'www.amazon.com.be',
-  JP: 'www.amazon.co.jp',
   AU: 'www.amazon.com.au',
+  SG: 'www.amazon.sg',
+  JP: 'www.amazon.co.jp',
+  // Its own programme, its own account. Here for the pt (Brazilian) locale.
+  BR: 'www.amazon.com.br',
 };
 
 /**
