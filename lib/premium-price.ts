@@ -34,7 +34,9 @@ const LOCALE_CURRENCY: Record<string, string> = {
   es: 'EUR',
   it: 'EUR',
   nl: 'EUR',
-  pt: 'EUR',
+  // pt is Brazilian Portuguese on this site, not European -- so BRL, not EUR.
+  // Portugal would want EUR, but the pt subdomain is not aimed at Portugal.
+  pt: 'BRL',
   pl: 'PLN',
   sv: 'SEK',
   ja: 'JPY',
