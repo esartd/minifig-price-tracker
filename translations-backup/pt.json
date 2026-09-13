@@ -5,7 +5,7 @@
     "delete": "Excluir",
     "save": "Salvar",
     "cancel": "Cancelar",
-    "loading": "A carregar...",
+    "loading": "Carregando...",
     "error": "Ocorreu um erro",
     "close": "Fechar",
     "edit": "Editar",
@@ -18,9 +18,9 @@
     "yes": "Yes",
     "no": "No",
     "share": "Compartilhar",
-    "adding": "A adicionar...",
-    "loadingChart": "A carregar gráfico...",
-    "searching": "A pesquisar...",
+    "adding": "Adicionando...",
+    "loadingChart": "Carregando gráfico...",
+    "searching": "Pesquisando...",
     "clearFilter": "Limpar filtro",
     "noResultsFor": "Nenhum resultado encontrado para \"{query}\"",
     "minifigCount": "{count, plural, one {# minifigura} other {# minifiguras}}",
@@ -33,8 +33,8 @@
     "showLessDescription": "Mostrar menos",
     "showMoreDescriptionAria": "Mostrar mais da descrição",
     "showLessDescriptionAria": "Mostrar menos da descrição",
-    "showingOfCount": "A mostrar {currentCount} de {totalCount}",
-    "showingOfCountItems": "A mostrar {currentCount} de {totalCount} itens",
+    "showingOfCount": "Mostrando {currentCount} de {totalCount}",
+    "showingOfCountItems": "Mostrando {currentCount} de {totalCount} itens",
     "showMore": "Mostrar Mais",
     "ok": "OK"
   },
@@ -177,7 +177,7 @@
         "confirmPassword": "Confirme a nova palavra-passe"
       },
       "changePassword": "Alterar Palavra-passe",
-      "changing": "A alterar..."
+      "changing": "Alterando..."
     },
     "regional": {
       "title": "Configurações Regionais",
@@ -226,7 +226,7 @@
       "passwordMismatch": "As novas palavras-passe não coincidem",
       "passwordTooShort": "A palavra-passe deve ter pelo menos 8 caracteres",
       "currencyUpdated": "Moeda atualizada para {currencyName} ({currencySymbol})",
-      "updatingPrices": "A atualizar preços de {itemCount} itens na sua coleção.",
+      "updatingPrices": "Atualizando preços de {itemCount} itens na sua coleção.",
       "estimatedTime": "Tempo estimado: {minutes} minuto{plural}",
       "refreshPage": "Atualize a página dentro de alguns minutos para ver os preços atualizados.",
       "pricesWillDisplay": "Os preços serão agora apresentados em {currencyCode}.",
@@ -257,7 +257,7 @@
     },
     "premium": {
       "title": "Premium",
-      "loading": "A carregar...",
+      "loading": "Carregando...",
       "pitch": "Alertas de promoções da Walmart, anúncios instantâneos, identificador de IA ilimitado e um emblema no seu perfil.",
       "upgradeMonthly": "Atualizar — Mensal",
       "upgradeYearly": "Atualizar — Anual",
@@ -378,7 +378,7 @@
     "ebayLoggedOutExplain": "Preços baseados nos dados atuais de mercado do eBay.",
     "ebayLoggedOutCta": "Entre para preços personalizados →",
     "sourceBrickLink": "Preço do BrickLink",
-    "loadingData": "A carregar dados de preços...",
+    "loadingData": "Carregando dados de preços...",
     "supportCta": "Poupou-lhe algum tempo? Apoie os preços gratuitos →",
     "premiumCta": "Salta o passo da coleção — torna-te Premium →",
     "howWeCalculateCta": "Como calculamos isso →"
@@ -423,7 +423,7 @@
       "searchPlaceholder": "Pesquise por nome ou número do set...",
       "browseByTheme": "Explorar por Tema",
       "clearFilter": "Limpar Filtro de Tema",
-      "searching": "A pesquisar...",
+      "searching": "Pesquisando...",
       "noSetsFound": "Nenhum set encontrado",
       "tryAdjusting": "Tente ajustar a sua pesquisa ou explore por tema",
       "foundSets": "{count} sets encontrados",
@@ -910,7 +910,7 @@
         "password": "Pelo menos 6 caracteres"
       },
       "button": "Criar Conta",
-      "buttonLoading": "A criar conta...",
+      "buttonLoading": "Criando conta...",
       "alreadyHaveAccount": "Já tem uma conta?",
       "signInLink": "Iniciar Sessão",
       "errors": {
@@ -932,7 +932,7 @@
         "password": "Introduza a sua palavra-passe"
       },
       "button": "Iniciar Sessão",
-      "buttonLoading": "A iniciar sessão...",
+      "buttonLoading": "Entrando...",
       "dontHaveAccount": "Não tem uma conta?",
       "signUpLink": "Registar",
       "errors": {
@@ -951,7 +951,7 @@
         "email": "your@email.com"
       },
       "button": "Enviar Link de Reposição",
-      "buttonLoading": "A enviar...",
+      "buttonLoading": "Enviando...",
       "backToSignIn": "Voltar ao Início de Sessão",
       "success": {
         "title": "Verifique o Seu E-mail",
@@ -989,7 +989,7 @@
       "title": "Conta Associada!",
       "message": "A sua conta Google está agora associada ao IntoBrick."
     },
-    "redirectingToGoogle": "A redirecionar para o Google...",
+    "redirectingToGoogle": "Redirecionando para o Google...",
     "orDivider": "OU"
   },
   "newsletter": {
@@ -997,7 +997,7 @@
     "subtitle": "Que minifiguras subiram, quais desceram, e o que isso significa para o seu inventário. Um e-mail por mês.",
     "placeholder": "your@email.com",
     "button": "Subscrever Grátis",
-    "buttonLoading": "A subscrever...",
+    "buttonLoading": "Assinando...",
     "success": "Obrigado! Verifique o seu e-mail para confirmar a assinatura.",
     "errors": {
       "generic": "Algo correu mal. Por favor, tente novamente.",
@@ -1018,7 +1018,7 @@
     "totalValue": "Valor Total",
     "totalItems": "Total de Itens",
     "avgValue": "Valor Médio",
-    "updating": "A atualizar",
+    "updating": "Atualizando",
     "items": "Itens",
     "emptyState": "A sua coleção está vazia",
     "noMinifigsYet": "Ainda sem minifiguras",
@@ -1052,12 +1052,12 @@
     },
     "pricing": {
       "pricesOlderThanSixHours": "Atualizando preços",
-      "refreshingNow": "A atualizar agora",
+      "refreshingNow": "Atualizando agora",
       "remaining": "restantes",
-      "updatingPrices": "A atualizar...",
+      "updatingPrices": "Atualizando...",
       "noSellersAvailable": "Sem vendedores disponíveis",
       "pricingDailyLimit": "Preços indisponíveis neste momento — volte a verificar em breve",
-      "loadingPrice": "A carregar preço..."
+      "loadingPrice": "Carregando preço..."
     },
     "inventoryTitle": "O Seu Inventário",
     "inventorySubtitle": "Minifiguras que está vendendo ou planeja vender, com preços em tempo real",
@@ -1215,7 +1215,7 @@
       "used": "Usado"
     },
     "pricing": {
-      "loadingPricing": "A carregar preços...",
+      "loadingPricing": "Carregando preços...",
       "sixMonthAvg": "Média 6 Meses",
       "currentAvg": "Média Atual",
       "lowest": "Mais Baixo",
@@ -1223,7 +1223,7 @@
       "noSellersAvailable": "Sem vendedores disponíveis na sua região"
     },
     "collection": {
-      "checkingCollections": "A verificar coleções...",
+      "checkingCollections": "Verificando coleções...",
       "addThisSet": "Adicione este set à sua coleção",
       "quantity": "Quantidade",
       "inYourInventory": "No Seu Inventário",
@@ -1274,7 +1274,7 @@
       "addInventory": "+ Para vender",
       "addCollection": "+ Para guardar",
       "addToCollection": "+ Adicionar para guardar",
-      "adding": "A adicionar...",
+      "adding": "Adicionando...",
       "addToInventory": "Adicionar para vender"
     },
     "breadcrumbs": {
@@ -1306,7 +1306,7 @@
     }
   },
   "setsThemePage": {
-    "loadingText": "A carregar sets de {theme}...",
+    "loadingText": "Carregando sets de {theme}...",
     "themeLabel": "Tema",
     "setsInTheme": "{count} sets neste tema",
     "subcategoryAll": "Todas as Subcategorias ({count})",
@@ -1474,15 +1474,15 @@
     ]
   },
   "setsDemo": {
-    "loadingText": "A carregar catálogo de sets...",
+    "loadingText": "Carregando catálogo de sets...",
     "title": "Demonstração do Catálogo de Sets LEGO",
-    "subtitle": "A testar a nova implementação de sets - explore {count} sets LEGO",
+    "subtitle": "Testando a nova implementação de sets - explore {count} sets LEGO",
     "totalSets": "Total de Sets",
     "recentSets": "Sets Recentes (2024-2026)",
     "uniqueThemes": "Temas Únicos",
     "searchPlaceholder": "Pesquise sets por nome ou número (ex.: 'Star Wars', '75192-1', 'Hogwarts')...",
     "searchResults": "Resultados da Pesquisa ({count})",
-    "searching": "A pesquisar...",
+    "searching": "Pesquisando...",
     "year": "Ano",
     "weight": "Peso",
     "popularThemesTitle": "Temas Populares",
@@ -1883,7 +1883,7 @@
     "allPrices": "Todos os Preços",
     "priceDisclaimerLabel": "Aviso sobre Preços:",
     "priceDisclaimerText": "Os preços vêm da Walmart e são atualizados uma vez por dia, pelo que podem mudar a qualquer momento. O preço aplicável é o apresentado na Walmart no momento da compra.",
-    "loadingDeals": "A carregar ofertas...",
+    "loadingDeals": "Carregando ofertas...",
     "tierUnbelievable50": "Ofertas incríveis – 50%+ de desconto",
     "tierExcellent40": "Ofertas excelentes – 40%+ de desconto",
     "tierGreat30": "Grandes ofertas – 30%+ de desconto",
@@ -1915,7 +1915,7 @@
       "searchThemes": "Pesquisar temas...",
       "noThemesFound": "Nenhum tema encontrado",
       "loadMore": "Mostrar mais ({remaining} restantes)",
-      "loading": "A carregar..."
+      "loading": "Carregando..."
     },
     "confidence": {
       "high": "Alta confiança",
@@ -2271,7 +2271,7 @@
       "displayNameLabel": "Nome de Exibição *",
       "displayNamePlaceholder": "Mestre LEGO",
       "displayNameHelper": "3-30 carateres, apenas letras, números, espaços, sublinhados e hífenes",
-      "submitLoading": "A reivindicar...",
+      "submitLoading": "Reivindicando...",
       "submit": "Reivindicar Doação",
       "privacyNote": "O seu e-mail e ID de transação são usados apenas para verificação e nunca serão compartilhados publicamente."
     },
@@ -2333,7 +2333,7 @@
     "quantityLabel": "Quantidade a mover",
     "maximumLabel": "Máximo: {max}",
     "cancel": "Cancelar",
-    "moving": "A mover...",
+    "moving": "Movendo...",
     "confirm": "Confirmar"
   },
   "guestCollectionBadge": {
@@ -2414,7 +2414,7 @@
       "body": "Use o ícone de configurações para personalizar as suas preferências de anúncio (plataforma, condição, etc.). O botão Gerar Anúncio vai lembrá-las para a próxima vez!"
     },
     "quickGenerate": {
-      "loading": "A Gerar Anúncio..."
+      "loading": "Gerando Anúncio..."
     },
     "generateListing": "Gerar Anúncio",
     "customizeOptionsTooltip": "Personalizar opções",
@@ -2520,7 +2520,7 @@
       "crossPromoHelp": "Adicionado ao fim da descrição. As ligações são removidas automaticamente — a maioria dos marketplaces não as permite."
     },
     "cancel": "Cancelar",
-    "generating": "A gerar...",
+    "generating": "Gerando...",
     "regenerate": "Regenerar",
     "bagConditionLabel": "Condição do Saco:",
     "bagCondition": {
@@ -2578,16 +2578,16 @@
     "notifyLabel": "Notificar-me quando o preço descer para:",
     "targetHint": "Defina um preço-alvo abaixo do preço atual",
     "cancel": "Cancelar",
-    "setting": "A definir...",
+    "setting": "Definindo...",
     "setAlert": "Definir Alerta",
     "footerNote": "Vai receber um e-mail quando o preço descer até ao seu alvo ou abaixo dele. O alerta será desativado automaticamente após ser acionado.",
     "viewAllAlerts": "Ver todos os alertas",
     "alertActive": "Alerta Ativo",
     "alertTarget": "Alvo do Alerta",
-    "deleting": "A excluir...",
+    "deleting": "Excluindo...",
     "deleteAlert": "Excluir Alerta",
     "editTarget": "Editar Alvo",
-    "saving": "A guardar...",
+    "saving": "Salvando...",
     "save": "Guardar",
     "sourceLabel": "Que preço vigiar?",
     "sourceMarket": "Preço de mercado",
@@ -2718,7 +2718,7 @@
       "choosePhoto": "Escolher Foto",
       "takePhoto": "Tirar Foto"
     },
-    "processing": "A identificar a tua minifigura...",
+    "processing": "Identificando sua minifigura...",
     "errors": {
       "notImage": "Por favor, escolhe um arquivo de imagem.",
       "generic": "Algo correu mal. Por favor, tenta novamente.",
@@ -2889,13 +2889,13 @@
     "selectNone": "Limpar seleção",
     "emptyCollection": "Ainda não há nada nesta coleção.",
     "noMatches": "Nenhum artigo corresponde à sua pesquisa.",
-    "checking": "A verificar a sua seleção…",
+    "checking": "Verificando a sua seleção…",
     "readyCount": "{count} anúncios prontos",
     "selectedCount": "{count} selecionados",
     "skippedTitle": "{count} vão ficar de fora",
     "warningsTitle": "{count} a verificar",
     "download": "Baixar CSV",
-    "building": "A criar o seu CSV…",
+    "building": "Criando o seu CSV…",
     "buildingHelp": "A primeira exportação de um artigo demora um momento enquanto preparamos a foto. As seguintes são imediatas.",
     "success": "O seu CSV está sendo descarregado.",
     "signInPrompt": "Inicie sessão para transformar a sua coleção IntoBrick num CSV do Whatnot.",
@@ -2945,7 +2945,7 @@
     "bulkCompletenessTitle": "{count} sets não têm integridade registada",
     "bulkCompletenessSetAll": "Definir todos como",
     "bulkCompletenessHelp": "Guardado em cada set, por isso só faz isto uma vez. Altere individuais com o lápis na sua página de coleção.",
-    "bulkCompletenessSaving": "A guardar…",
+    "bulkCompletenessSaving": "Salvando…",
     "bulkCompletenessFailed": "Não foi possível guardar. Tente novamente.",
     "crossPromo": "Mencionar os meus outros anúncios",
     "crossPromoHelp": "Adicionado ao fim de cada descrição. As ligações são removidas automaticamente — a maioria dos marketplaces não as permite.",
@@ -3074,7 +3074,7 @@
     "resultCount": "{count} artigos",
     "viewOnWhatnot": "Ver na Whatnot",
     "loadMore": "Carregar mais",
-    "loading": "A carregar...",
+    "loading": "Carregando...",
     "empty": "Nenhum resultado para essa pesquisa.",
     "error": "Não foi possível carregar os anúncios agora. Tente novamente dentro de momentos.",
     "navLabel": "Marketplace Whatnot",
@@ -3155,7 +3155,7 @@
   "navPrimary": {
     "minifigures": "Minifiguras",
     "sets": "Sets",
-    "retiring": "A sair",
+    "retiring": "Saindo de Linha",
     "listings": "Anúncios",
     "identify": "Digitalizar minifig",
     "export": "Listagem em massa",
