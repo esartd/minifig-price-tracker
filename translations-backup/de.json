@@ -185,7 +185,9 @@
       "currency": "Währung",
       "language": "Sprache",
       "note": "Durch Ändern Ihrer Währung werden Preise im Marktplatz Ihrer ausgewählten Region angezeigt. Preise können aufgrund von lokalem Angebot, Nachfrage und Versandkosten von anderen Regionen abweichen.",
-      "noteLabel": "Hinweis:"
+      "noteLabel": "Hinweis:",
+      "currencyChosen": "Sie haben diese Währung gewählt. Sie gilt überall.",
+      "currencyFromLocation": "Automatisch anhand Ihres Standorts gesetzt. Wählen Sie oben eine aus, um sie festzulegen."
     },
     "sharing": {
       "title": "Sammlung teilen",

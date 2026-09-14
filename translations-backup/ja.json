@@ -185,7 +185,9 @@
       "currency": "通貨",
       "language": "言語",
       "note": "通貨を変更すると、選択した地域のマーケットプレイスの価格が表示されます。地域ごとの需給や送料の違いにより、価格が他地域と異なる場合があります。",
-      "noteLabel": "注："
+      "noteLabel": "注：",
+      "currencyChosen": "この通貨はご自身で選択したものです。どこにいても適用されます。",
+      "currencyFromLocation": "現在地から自動で設定されています。上から選ぶと固定できます。"
     },
     "sharing": {
       "title": "共有 Collection",

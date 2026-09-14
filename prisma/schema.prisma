@@ -341,6 +341,10 @@ model User {
   /// changed Google photo follows through.
   googleImage                       String?                     @db.Text
   preferredCurrency                 String?                     @default("USD")
+  // NULL until the user picks a currency in settings. Without this, the
+  // "USD" default is indistinguishable from a deliberate choice of dollars,
+  // so location could never apply to a signed-in reader. See the migration.
+  currencyChosenAt                  DateTime?
   preferredCountryCode              String?                     @default("US")
   preferredRegion                   String?                     @default("north_america")
   currencySymbol                    String?                     @default("$")

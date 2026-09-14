@@ -48,10 +48,17 @@ export type DisplayCurrency = {
 export async function getDisplayCurrency(): Promise<DisplayCurrency> {
   const session = await auth();
 
-  // A stored preference is an explicit choice and outranks where they are —
-  // people travel, and someone who set GBP wants GBP from an airport in Dubai.
+  /**
+   * A CHOSEN currency outranks where they are -- people travel, and someone
+   * who picked GBP wants GBP from an airport in Dubai.
+   *
+   * `currencyChosen` and not merely a non-empty preferredCurrency: that column
+   * defaults to 'USD', so every signed-in reader looked like they had chosen
+   * dollars and location could never apply to them. currencyChosenAt is NULL
+   * until they actually pick one in settings.
+   */
   const preferred = session?.user?.preferredCurrency;
-  if (preferred && getCurrencyByCode(preferred)) {
+  if (session?.user?.currencyChosen && preferred && getCurrencyByCode(preferred)) {
     return { code: preferred, converted: preferred !== 'USD' };
   }
 

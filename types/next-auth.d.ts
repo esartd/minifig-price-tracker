@@ -8,6 +8,9 @@ declare module 'next-auth' {
       name?: string | null;
       image?: string | null;
       preferredCurrency?: string | null;
+    currencyChosen?: boolean;
+      /** True once the user has picked a currency in settings. */
+      currencyChosen?: boolean;
       preferredCountryCode?: string | null;
       preferredRegion?: string | null;
       currencySymbol?: string | null;

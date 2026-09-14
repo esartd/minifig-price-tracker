@@ -185,7 +185,9 @@
       "currency": "Waluta",
       "language": "Język",
       "note": "Zmiana waluty spowoduje wyświetlanie cen z rynku wybranego regionu. Ceny mogą się różnić między regionami ze względu na lokalną dostępność, popyt i koszty wysyłki.",
-      "noteLabel": "Uwaga:"
+      "noteLabel": "Uwaga:",
+      "currencyChosen": "Wybrałeś tę walutę. Obowiązuje wszędzie.",
+      "currencyFromLocation": "Ustawiona automatycznie na podstawie Twojej lokalizacji. Wybierz powyżej, aby ją ustalić."
     },
     "sharing": {
       "title": "Udostępnij Kolekcja",

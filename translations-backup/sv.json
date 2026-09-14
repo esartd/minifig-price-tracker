@@ -185,7 +185,9 @@
       "currency": "Valuta",
       "language": "Språk",
       "note": "Om du byter valuta visas priserna för den marknad du valt. Priserna kan skilja sig mellan regioner på grund av lokal tillgång, efterfrågan och fraktkostnader.",
-      "noteLabel": "Obs:"
+      "noteLabel": "Obs:",
+      "currencyChosen": "Du valde den här valutan. Den gäller var du än är.",
+      "currencyFromLocation": "Ställs in automatiskt efter din plats. Välj en ovan för att låsa den."
     },
     "sharing": {
       "title": "Dela Samling",

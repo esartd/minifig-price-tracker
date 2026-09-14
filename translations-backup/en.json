@@ -185,7 +185,9 @@
       "currency": "Currency",
       "language": "Language",
       "note": "Changing your currency will display prices in your selected region's marketplace. Prices may differ from other regions due to local supply, demand, and shipping costs.",
-      "noteLabel": "Note:"
+      "noteLabel": "Note:",
+      "currencyChosen": "You chose this currency. It applies wherever you are.",
+      "currencyFromLocation": "Set automatically from your location. Pick one above to fix it."
     },
     "sharing": {
       "title": "Share Collection",

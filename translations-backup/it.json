@@ -185,7 +185,9 @@
       "currency": "Valuta",
       "language": "Lingua",
       "note": "Cambiando valuta i prezzi verranno mostrati secondo il mercato della regione selezionata. I prezzi possono variare da una regione all'altra a causa di disponibilità, domanda e costi di spedizione locali.",
-      "noteLabel": "Nota:"
+      "noteLabel": "Nota:",
+      "currencyChosen": "Hai scelto questa valuta. Vale ovunque ti trovi.",
+      "currencyFromLocation": "Impostata automaticamente in base alla tua posizione. Scegline una sopra per fissarla."
     },
     "sharing": {
       "title": "Condividi collezione",

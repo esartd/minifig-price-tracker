@@ -28,6 +28,9 @@ export async function POST(request: NextRequest) {
       where: { id: session.user.id },
       data: {
         preferredCurrency: currency,
+        // Stamps this as a deliberate choice, so it outranks their location
+        // from now on even if they pick USD while sitting in London.
+        currencyChosenAt: new Date(),
         preferredCountryCode: countryCode,
         preferredRegion: region,
         currencySymbol: currencySymbol,

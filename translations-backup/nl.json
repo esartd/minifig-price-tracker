@@ -185,7 +185,9 @@
       "currency": "Valuta",
       "language": "Taal",
       "note": "Als u uw valuta wijzigt, worden prijzen weergegeven in de marktplaats van de geselecteerde regio. Prijzen kunnen afwijken van andere regio's door lokale vraag, aanbod en verzendkosten.",
-      "noteLabel": "Let op:"
+      "noteLabel": "Let op:",
+      "currencyChosen": "U hebt deze valuta gekozen. Die geldt waar u ook bent.",
+      "currencyFromLocation": "Automatisch ingesteld op basis van uw locatie. Kies er hierboven een om die vast te zetten."
     },
     "sharing": {
       "title": "Collectie Delen",

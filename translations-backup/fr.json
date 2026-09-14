@@ -185,7 +185,9 @@
       "currency": "Devise",
       "language": "Langue",
       "note": "Le changement de devise affichera les prix dans le marché de votre région sélectionnée. Les prix peuvent différer d'une région à l'autre en raison de l'offre locale, de la demande et des frais d'expédition.",
-      "noteLabel": "Remarque :"
+      "noteLabel": "Remarque :",
+      "currencyChosen": "Vous avez choisi cette devise. Elle s'applique où que vous soyez.",
+      "currencyFromLocation": "Définie automatiquement selon votre position. Choisissez-en une ci-dessus pour la fixer."
     },
     "sharing": {
       "title": "Partager la collection",
