@@ -283,12 +283,22 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
     if (!session) return;
 
     try {
-      // Check inventory (fetch ALL items to find this minifig)
-      const inventoryResponse = await fetch('/api/inventory?all=true', {
-        credentials: 'include'
-      });
-      const inventoryData = await inventoryResponse.json();
-      console.log('Inventory API response:', inventoryData);
+      /**
+       * Both collections at once, not one after the other.
+       *
+       * These were sequential awaits, so every add, remove or quantity change
+       * cost two round trips stacked end to end on top of the mutation itself
+       * -- about 600ms of spinner for work the server finishes in 5ms. They do
+       * not depend on each other, so the waiting can overlap.
+       */
+      const [inventoryResponse, personalResponse] = await Promise.all([
+        fetch('/api/inventory?all=true', { credentials: 'include' }),
+        fetch('/api/personal-collection?all=true', { credentials: 'include' }),
+      ]);
+      const [inventoryData, personalData] = await Promise.all([
+        inventoryResponse.json(),
+        personalResponse.json(),
+      ]);
 
       if (inventoryData.success && inventoryData.data) {
         // Store all items for this minifig (both conditions)
@@ -303,12 +313,6 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       } else {
         console.log('Inventory fetch failed or returned no data:', inventoryData);
       }
-
-      // Check personal collection (fetch ALL items to find this minifig)
-      const personalResponse = await fetch('/api/personal-collection?all=true', {
-        credentials: 'include'
-      });
-      const personalData = await personalResponse.json();
 
       if (personalData.success && personalData.data) {
         // Store all items for this minifig (both conditions)
@@ -337,50 +341,17 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       return;
     }
 
+    /**
+     * The same two lookups refreshCollections does, so it does them.
+     *
+     * This effect used to carry its own copy of that logic -- the same two
+     * fetches, the same filtering, the same four state setters -- and its copy
+     * was still sequential. Two round trips on every page load for a signed-in
+     * reader, to answer a question one round trip answers.
+     */
     const checkCollections = async () => {
       try {
-        // Check inventory (fetch ALL items to find this minifig)
-        const inventoryResponse = await fetch('/api/inventory?all=true');
-        const inventoryData = await inventoryResponse.json();
-
-        if (inventoryData.success && inventoryData.data) {
-          // Store all items for this minifig (both conditions)
-          const allItems = inventoryData.data.filter((item: any) =>
-            item.minifigure_no === minifig.no
-          );
-          setAllInventoryItems(allItems);
-          console.log('Pre-fetched', allItems.length, 'items from inventory');
-
-          // Find current condition item
-          const found = allItems.find((item: any) => item.condition === condition);
-          setCollectionItem(found || null);
-        } else {
-          console.log('Pre-fetched undefined items from inventory');
-        }
-
-        // Check personal collection (fetch ALL items to find this minifig)
-        const personalResponse = await fetch('/api/personal-collection?all=true', {
-          credentials: 'include'
-        });
-        const personalData = await personalResponse.json();
-        console.log('Personal collection API response:', personalData);
-
-        if (personalData.success && personalData.data) {
-          // Store all items for this minifig (both conditions)
-          const allItems = personalData.data.filter((item: any) =>
-            item.minifigure_no === minifig.no
-          );
-          setAllCollectionItems(allItems);
-          console.log('Pre-fetched', allItems.length, 'items from personal-collection');
-
-          // Find current condition item
-          const found = allItems.find((item: any) => item.condition === condition);
-          setPersonalCollectionItem(found || null);
-        } else {
-          console.log('Pre-fetched undefined items from personal-collection');
-        }
-      } catch (err) {
-        console.error('Error checking collections:', err);
+        await refreshCollections();
       } finally {
         setCheckingCollection(false);
       }

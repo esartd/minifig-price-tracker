@@ -380,8 +380,16 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
   const refreshCollections = useCallback(async () => {
     if (!session) return;
     try {
-      const inventoryResponse = await fetch('/api/set-inventory');
-      const inventoryData = await inventoryResponse.json();
+      // Both at once: they do not depend on each other, and running them in
+      // sequence put two full round trips behind every collection change.
+      const [inventoryResponse, personalResponse] = await Promise.all([
+        fetch('/api/set-inventory'),
+        fetch('/api/set-personal-collection'),
+      ]);
+      const [inventoryData, personalData] = await Promise.all([
+        inventoryResponse.json(),
+        personalResponse.json(),
+      ]);
       if (inventoryData.success && inventoryData.data) {
         const allItems = inventoryData.data.filter((item: any) => item.box_no === set.box_no);
         setAllInventoryItems(allItems);
@@ -389,8 +397,6 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
         setInventoryItem(found || null);
       }
 
-      const personalResponse = await fetch('/api/set-personal-collection');
-      const personalData = await personalResponse.json();
       if (personalData.success && personalData.data) {
         const allItems = personalData.data.filter((item: any) => item.box_no === set.box_no);
         setAllCollectionItems(allItems);
