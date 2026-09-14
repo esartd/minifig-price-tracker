@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useSession, signOut, signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { getCurrenciesByContinent, SUPPORTED_CURRENCIES } from '@/lib/currency-config';
+import { getCurrenciesByContinent, SUPPORTED_CURRENCIES, getCurrencyByCountryCode } from '@/lib/currency-config';
 import { formatPrice } from '@/lib/format-price';
 import { useTranslation } from '@/components/TranslationProvider';
 import ConfirmDeleteDialog from '@/components/ConfirmDeleteDialog';
@@ -91,8 +91,38 @@ export default function AccountPage() {
   // Collection stats
   const [stats, setStats] = useState({ totalItems: 0, totalValue: 0, memberSince: '' });
 
-  // Currency preference
-  const [selectedCurrency, setSelectedCurrency] = useState(session?.user?.preferredCurrency || 'USD');
+  /**
+   * Currency preference.
+   *
+   * Starts on the stored value only when the user actually chose one. Until
+   * then the site is showing them their country's currency, so this control
+   * must show that too -- defaulting the dropdown to USD would tell a reader
+   * in Madrid that they are set to dollars while euros are on screen.
+   */
+  const [selectedCurrency, setSelectedCurrency] = useState(
+    session?.user?.currencyChosen ? session?.user?.preferredCurrency || 'USD' : 'USD'
+  );
+  const [currencyIsChosen, setCurrencyIsChosen] = useState(!!session?.user?.currencyChosen);
+
+  useEffect(() => {
+    if (session?.user?.currencyChosen) {
+      setCurrencyIsChosen(true);
+      setSelectedCurrency(session.user.preferredCurrency || 'USD');
+      return;
+    }
+    let cancelled = false;
+    fetch('/api/geo')
+      .then((r) => r.json())
+      .then((d) => {
+        if (cancelled) return;
+        const local = getCurrencyByCountryCode(String(d?.country || '').toUpperCase());
+        if (local) setSelectedCurrency(local.code);
+      })
+      .catch(() => {
+        // Leave it on USD, which is what the site falls back to as well.
+      });
+    return () => { cancelled = true; };
+  }, [session?.user?.currencyChosen, session?.user?.preferredCurrency]);
 
   // Share collection states
   const [shareEnabled, setShareEnabled] = useState(false);
@@ -622,6 +652,7 @@ export default function AccountPage() {
         showMessage('error', data.error || t('account.messages.genericError'));
       } else {
         setSelectedCurrency(currency.code);
+        setCurrencyIsChosen(true);
         await update({
           preferredCurrency: currency.code,
           preferredCountryCode: currency.countryCode,
@@ -2147,6 +2178,16 @@ export default function AccountPage() {
                 </optgroup>
               ))}
             </select>
+
+            {/* Says where the current value came from. Without this the
+                dropdown looks like a setting they made, when in fact nobody
+                has chosen anything and the site is following their location. */}
+            <p style={{ margin: '8px 0 0', fontSize: 'var(--text-xs)', color: '#737373' }}>
+              {currencyIsChosen
+                ? t('account.regional.currencyChosen') || 'You chose this currency. It applies wherever you are.'
+                : t('account.regional.currencyFromLocation') ||
+                  'Set automatically from your location. Pick one above to fix it.'}
+            </p>
           </div>
 
           <div style={{ marginBottom: '24px' }}>

@@ -185,7 +185,9 @@
       "currency": "Moneda",
       "language": "Idioma",
       "note": "Cambiar tu moneda mostrará los precios en el mercado de tu región seleccionada. Los precios pueden diferir entre regiones debido a la oferta local, demanda y costos de envío.",
-      "noteLabel": "Nota:"
+      "noteLabel": "Nota:",
+      "currencyChosen": "Usted eligió esta moneda. Se aplica esté donde esté.",
+      "currencyFromLocation": "Se establece automáticamente según su ubicación. Elija una arriba para fijarla."
     },
     "sharing": {
       "title": "Compartir colección",

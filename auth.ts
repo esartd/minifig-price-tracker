@@ -245,6 +245,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             name: true,
             image: true,
             preferredCurrency: true,
+            currencyChosenAt: true,
             preferredCountryCode: true,
             preferredRegion: true,
             currencySymbol: true,
@@ -262,6 +263,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           token.name = dbUser.name
           token.picture = dbUser.image
           token.preferredCurrency = dbUser.preferredCurrency
+          // Null until they pick one in settings; see lib/display-currency.ts.
+          token.currencyChosen = !!dbUser.currencyChosenAt
           token.preferredCountryCode = dbUser.preferredCountryCode
           token.preferredRegion = dbUser.preferredRegion
           token.currencySymbol = dbUser.currencySymbol
@@ -300,6 +303,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
         if (session?.preferredCurrency !== undefined) {
           token.preferredCurrency = session.preferredCurrency
+          // Arriving through update() means they just chose it.
+          token.currencyChosen = true
           token.preferredCountryCode = session.preferredCountryCode
           token.preferredRegion = session.preferredRegion
           token.currencySymbol = session.currencySymbol
@@ -322,6 +327,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.email = token.email as string
         session.user.image = token.picture as string
         session.user.preferredCurrency = token.preferredCurrency as string
+        session.user.currencyChosen = !!token.currencyChosen
         session.user.preferredCountryCode = token.preferredCountryCode as string
         session.user.preferredRegion = token.preferredRegion as string
         session.user.currencySymbol = token.currencySymbol as string
