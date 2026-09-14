@@ -314,8 +314,32 @@ export function getCurrencyByCode(code: string): CurrencyOption | undefined {
   return SUPPORTED_CURRENCIES.find((c) => c.code === code);
 }
 
+/**
+ * The euro is one currency and twenty countries, but SUPPORTED_CURRENCIES can
+ * only carry one countryCode per entry, and EUR's is DE.
+ *
+ * So this lookup used to answer "no currency" for France, Italy, Spain, the
+ * Netherlands and every other eurozone member, and every caller then fell back
+ * to USD -- quoting dollars to four of this site's ten locales. Germany worked
+ * purely because it happened to be the country stamped on the EUR row.
+ *
+ * Listed in full rather than derived, because there is no reliable way to ask
+ * "is this country in the eurozone" at runtime and a partial list fails the
+ * same silent way the single entry did.
+ */
+const EUROZONE = new Set([
+  'AT', 'BE', 'HR', 'CY', 'EE', 'FI', 'FR', 'DE', 'GR', 'IE', 'IT', 'LV',
+  'LT', 'LU', 'MT', 'NL', 'PT', 'SK', 'SI', 'ES',
+  // Not members, but they use the euro as their currency.
+  'AD', 'MC', 'SM', 'VA', 'ME', 'XK',
+]);
+
 export function getCurrencyByCountryCode(countryCode: string): CurrencyOption | undefined {
-  return SUPPORTED_CURRENCIES.find((c) => c.countryCode === countryCode);
+  const code = (countryCode || '').toUpperCase();
+  const direct = SUPPORTED_CURRENCIES.find((c) => c.countryCode === code);
+  if (direct) return direct;
+  if (EUROZONE.has(code)) return SUPPORTED_CURRENCIES.find((c) => c.code === 'EUR');
+  return undefined;
 }
 
 export function getCurrencySymbol(code: string): string {
