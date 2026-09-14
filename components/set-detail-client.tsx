@@ -79,6 +79,21 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
+
+  /**
+   * A stable handle on "who is looking", for effect dependencies.
+   *
+   * useSession() hands back a NEW object when the session resolves from
+   * loading to authenticated, and again whenever next-auth refreshes it. Any
+   * effect that lists `session` therefore re-runs and refetches, even though
+   * nothing about the user changed. On a signed-in minifig page that was
+   * visible in the network panel: inventory, personal-collection, wishlist,
+   * subscription and geo each requested twice, 38ms apart.
+   *
+   * The id is a string, so it only changes when the user actually does.
+   */
+  const userId = session?.user?.id;
+
   const { addItem: addToGuestCollection, count: guestCollectionCount, total: guestCollectionTotal } = useGuestCollection();
   // How many of each related minifig/set the logged-in user already owns (to keep + for sale
   // combined) - shown as a small grey "×N" badge on the related-item cards below. This page is
@@ -116,8 +131,16 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
     return () => { cancelled = true; };
   }, [contentsPending, set.box_no]);
 
+  // Watch the contents, not the array identities: these arrive as props and
+  // are rebuilt on every render, which refired this request again and again.
+  const ownedQuantitiesKey = [
+    ...minifigs.map(m => m.minifig_no),
+    ...themeSets.map(s => s.box_no),
+    ...closeRangeSets.map(s => s.box_no),
+  ].join(',');
+
   useEffect(() => {
-    if (!session?.user) return;
+    if (!userId) return;
     const minifigNos = minifigs.map(m => m.minifig_no);
     const boxNos = [...themeSets.map(s => s.box_no), ...closeRangeSets.map(s => s.box_no)];
     if (minifigNos.length === 0 && boxNos.length === 0) return;
@@ -133,7 +156,8 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
         setOwnedSetQuantities(data.sets || {});
       })
       .catch(() => {}); // Non-critical UI enhancement - fail silently
-  }, [session?.user, minifigs, themeSets, closeRangeSets]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId, ownedQuantitiesKey]);
 
   // Premium subscription status, for the listing-generator bypass shown to
   // subscribers who haven't added this set to their collection yet.
@@ -274,7 +298,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       }
     };
     fetchPricing();
-  }, [set.box_no, condition, session]);
+  }, [set.box_no, condition, userId]);
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
@@ -332,7 +356,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
     };
 
     checkWishlist();
-  }, [session, set.box_no]);
+  }, [userId, set.box_no]);
 
   const handleToggleWishlist = async () => {
     if (!session?.user?.id) {
@@ -406,7 +430,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
     } catch (err) {
       console.error('Error checking collections:', err);
     }
-  }, [session, set.box_no, condition]);
+  }, [userId, set.box_no, condition]);
 
   /**
    * Reconcile with the server, without making the reader wait for it.
@@ -446,7 +470,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       }
     };
     checkCollections();
-  }, [set.box_no, condition, session, refreshCollections]);
+  }, [set.box_no, condition, userId, refreshCollections]);
 
   const handleAddToInventory = async (qty: number) => {
     if (!session) {

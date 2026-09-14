@@ -77,6 +77,21 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
+
+  /**
+   * A stable handle on "who is looking", for effect dependencies.
+   *
+   * useSession() hands back a NEW object when the session resolves from
+   * loading to authenticated, and again whenever next-auth refreshes it. Any
+   * effect that lists `session` therefore re-runs and refetches, even though
+   * nothing about the user changed. On a signed-in minifig page that was
+   * visible in the network panel: inventory, personal-collection, wishlist,
+   * subscription and geo each requested twice, 38ms apart.
+   *
+   * The id is a string, so it only changes when the user actually does.
+   */
+  const userId = session?.user?.id;
+
   const { addItem: addToGuestCollection, count: guestCollectionCount, total: guestCollectionTotal } = useGuestCollection();
   // How many of each related minifig/set the logged-in user already owns (to keep + for sale
   // combined) - shown as a small grey "×N" badge on the related-item cards below. This page is
@@ -87,8 +102,23 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
   const visitorCountry = useVisitorCountry();
   const [ownedSetQuantities, setOwnedSetQuantities] = useState<Record<string, number>>({});
 
+  /**
+   * What this asks for, as a string.
+   *
+   * The effect below used to depend on the three arrays themselves. They
+   * arrive as props and are rebuilt by the parent on every render, so their
+   * identity changed constantly and the effect refired with it -- this one
+   * request went out FOUR times on a single signed-in page load. The contents
+   * are what the request is made of, so the contents are what it should watch.
+   */
+  const ownedQuantitiesKey = [
+    ...similarSets.map(s => s.no),
+    ...variants.map(v => v.no),
+    ...appearsInSets.map(s => s.set_no),
+  ].join(',');
+
   useEffect(() => {
-    if (!session?.user) return;
+    if (!userId) return;
     const minifigNos = [...similarSets.map(s => s.no), ...variants.map(v => v.no)];
     const boxNos = appearsInSets.map(s => s.set_no);
     if (minifigNos.length === 0 && boxNos.length === 0) return;
@@ -104,7 +134,8 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
         setOwnedSetQuantities(data.sets || {});
       })
       .catch(() => {}); // Non-critical UI enhancement - fail silently
-  }, [session?.user, similarSets, appearsInSets, variants]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId, ownedQuantitiesKey]);
 
   // Premium subscription status, for the listing-generator bypass shown to
   // subscribers who haven't added this minifig to their collection yet.
@@ -332,7 +363,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
     } catch (err) {
       console.error('Error checking collections:', err);
     }
-  }, [session, minifig.no, condition]);
+  }, [userId, minifig.no, condition]);
 
   /**
    * Reconcile with the server, without making the reader wait for it.
@@ -381,7 +412,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
     };
 
     checkCollections();
-  }, [minifig.no, condition, session]);
+  }, [minifig.no, condition, userId]);
 
   // Check if item is in wishlist
   useEffect(() => {
@@ -402,7 +433,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
     };
 
     checkWishlist();
-  }, [minifig.no, session]);
+  }, [minifig.no, userId]);
 
   const handleToggleWishlist = async () => {
     if (!session) {
