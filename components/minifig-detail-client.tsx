@@ -334,6 +334,29 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
     }
   }, [session, minifig.no, condition]);
 
+  /**
+   * Reconcile with the server, without making the reader wait for it.
+   *
+   * Every mutation here used to `await refreshCollections()` before showing its
+   * success message, so a click cost the write plus a full refetch before
+   * anything moved on screen. Nothing after those awaits reads the refreshed
+   * state -- they only set a message -- so the wait bought nothing.
+   *
+   * Fire-and-forget keeps what the refetch is actually for. It is the thing
+   * that self-heals: it picks up the price the POST deliberately leaves out
+   * (pricing is fetched in the background) and corrects any drift from another
+   * tab. That still happens, about 150ms later, and re-renders when it lands.
+   *
+   * The page-load path still awaits it, because clearing the "checking"
+   * spinner genuinely depends on the answer.
+   */
+  const syncCollections = useCallback(() => {
+    refreshCollections().catch((err) =>
+      console.error('Background collection refresh failed:', err)
+    );
+  }, [refreshCollections]);
+
+
   // Check if item is in inventory and personal collection (for selected condition)
   useEffect(() => {
     if (!session) {
@@ -488,7 +511,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       const data = await response.json();
 
       if (data.success) {
-        await refreshCollections();
+        syncCollections();
         setSuccessMessage(
           quantity === 1
             ? (t('minifigDetail.messages.addedToSellOne') || 'Added 1 item to sell')
@@ -563,7 +586,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       const data = await response.json();
 
       if (data.success) {
-        await refreshCollections();
+        syncCollections();
         const count = data.quantityAdded || quantity;
         const message = data.quantityAdded
           ? (count === 1
@@ -618,12 +641,12 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       const data = await response.json();
       if (!data.success) {
         // Revert on failure
-        await refreshCollections();
+        syncCollections();
         setError(t('minifigDetail.errors.failedToUpdateQuantity') || 'Failed to update quantity');
       }
     } catch (err) {
       // Revert on error
-      await refreshCollections();
+      syncCollections();
       setError(t('minifigDetail.errors.failedToUpdateQuantity') || 'Failed to update quantity');
     }
   };
@@ -657,12 +680,12 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       const data = await response.json();
       if (!data.success) {
         // Revert on failure
-        await refreshCollections();
+        syncCollections();
         setError(t('minifigDetail.errors.failedToUpdateQuantity') || 'Failed to update quantity');
       }
     } catch (err) {
       // Revert on error
-      await refreshCollections();
+      syncCollections();
       setError(t('minifigDetail.errors.failedToUpdateQuantity') || 'Failed to update quantity');
     }
   };
@@ -679,7 +702,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       });
 
       if (response.ok) {
-        await refreshCollections();
+        syncCollections();
       }
     } catch (err) {
       console.error('Error removing:', err);
@@ -740,7 +763,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       if (data.success) {
         // Small delay to ensure database commit
         await new Promise(resolve => setTimeout(resolve, 100));
-        await refreshCollections();
+        syncCollections();
         console.log('Collections refreshed after adding to personal collection');
         const count = data.quantityAdded || addToCollectionQty;
         const message = data.quantityAdded
@@ -822,7 +845,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
       const data = await response.json();
 
       if (data.success) {
-        await refreshCollections();
+        syncCollections();
         const count = data.quantityAdded || addToInventoryQty;
         const message = data.quantityAdded
           ? (count === 1
@@ -1607,7 +1630,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                   body: JSON.stringify({ quantity: 1 })
                                 });
                                 if (response.ok) {
-                                  await refreshCollections();
+                                  syncCollections();
                                   setLastMovedItem({ id: collectionItem.id, direction: 'to-collection' });
                                   setMoveSuccess(true);
                                   setTimeout(() => {
@@ -2095,7 +2118,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                                       body: JSON.stringify({ quantity: 1 })
                                     });
                                     if (response.ok) {
-                                      await refreshCollections();
+                                      syncCollections();
                                       setLastMovedItem({ id: personalCollectionItem.id, direction: 'to-inventory' });
                                       setMoveSuccess(true);
                                       setTimeout(() => {
@@ -3149,7 +3172,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                 body: JSON.stringify({ quantity })
               });
               if (response.ok) {
-                await refreshCollections();
+                syncCollections();
                 setSuccessMessage(
                   quantity === 1
                     ? (t('minifigDetail.messages.movedToSellOne') || 'Moved 1 item to sell')
@@ -3256,7 +3279,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                         method: 'DELETE'
                       });
                       if (response.ok) {
-                        await refreshCollections();
+                        syncCollections();
                         setSuccessMessage(t('minifigDetail.messages.removedFromPersonalCollection') || 'Removed from personal collection');
                       }
                     } catch (err) {
@@ -3329,7 +3352,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       });
 
                       if (response.ok) {
-                        await refreshCollections();
+                        syncCollections();
                       }
                     }
                   }
@@ -3352,7 +3375,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                       });
 
                       if (response.ok) {
-                        await refreshCollections();
+                        syncCollections();
                       }
                     }
                   }

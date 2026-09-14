@@ -408,6 +408,29 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
     }
   }, [session, set.box_no, condition]);
 
+  /**
+   * Reconcile with the server, without making the reader wait for it.
+   *
+   * Every mutation here used to `await refreshCollections()` before showing its
+   * success message, so a click cost the write plus a full refetch before
+   * anything moved on screen. Nothing after those awaits reads the refreshed
+   * state -- they only set a message -- so the wait bought nothing.
+   *
+   * Fire-and-forget keeps what the refetch is actually for. It is the thing
+   * that self-heals: it picks up the price the POST deliberately leaves out
+   * (pricing is fetched in the background) and corrects any drift from another
+   * tab. That still happens, about 150ms later, and re-renders when it lands.
+   *
+   * The page-load path still awaits it, because clearing the "checking"
+   * spinner genuinely depends on the answer.
+   */
+  const syncCollections = useCallback(() => {
+    refreshCollections().catch((err) =>
+      console.error('Background collection refresh failed:', err)
+    );
+  }, [refreshCollections]);
+
+
   useEffect(() => {
     if (!session) {
       setCheckingCollection(false);
@@ -462,7 +485,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       });
       const data = await response.json();
       if (data.success) {
-        await refreshCollections();
+        syncCollections();
         setSuccessMessage(t('setDetail.messages.addedToInventory', { quantity: qty, condition: t(`setDetail.condition.${condition}`) }));
         setSuccessVariant('sell');
         setQuantity(1);
@@ -513,7 +536,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       });
       const data = await response.json();
       if (data.success) {
-        await refreshCollections();
+        syncCollections();
         setSuccessMessage(t('setDetail.messages.addedToCollection', { quantity: qty, condition: t(`setDetail.condition.${condition}`) }));
         setSuccessVariant('keep');
         setQuantity(1);
@@ -564,7 +587,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       });
       const data = await response.json();
       if (data.success) {
-        await refreshCollections();
+        syncCollections();
         setSuccessMessage(t('setDetail.messages.addedToCollection', { quantity: addToCollectionQty }));
         setSuccessVariant('keep');
         setAddToCollectionQty(1);
@@ -615,7 +638,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       });
       const data = await response.json();
       if (data.success) {
-        await refreshCollections();
+        syncCollections();
         setSuccessMessage(t('setDetail.messages.addedToInventory', { quantity: addToInventoryQty }));
         setSuccessVariant('sell');
         setAddToInventoryQty(1);
@@ -644,11 +667,11 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       });
       const data = await response.json();
       if (!data.success) {
-        await refreshCollections();
+        syncCollections();
         setError(t('setDetail.errors.failedToUpdate'));
       }
     } catch (err) {
-      await refreshCollections();
+      syncCollections();
       setError(t('setDetail.errors.failedToUpdate'));
     }
   };
@@ -668,11 +691,11 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       });
       const data = await response.json();
       if (!data.success) {
-        await refreshCollections();
+        syncCollections();
         setError(t('setDetail.errors.failedToUpdate'));
       }
     } catch (err) {
-      await refreshCollections();
+      syncCollections();
       setError(t('setDetail.errors.failedToUpdate'));
     }
   };
@@ -682,7 +705,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
     try {
       const response = await fetch(`/api/set-inventory/${inventoryItem.id}`, { method: 'DELETE' });
       if (response.ok) {
-        await refreshCollections();
+        syncCollections();
         setShowDeleteDialog(false);
         setDeleteTarget(null);
       }
@@ -696,7 +719,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
     try {
       const response = await fetch(`/api/set-personal-collection/${personalCollectionItem.id}`, { method: 'DELETE' });
       if (response.ok) {
-        await refreshCollections();
+        syncCollections();
         setShowDeleteDialog(false);
         setDeleteTarget(null);
       }
@@ -1056,7 +1079,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                                 body: JSON.stringify({ quantity: 1 })
                               });
                               if (response.ok) {
-                                await refreshCollections();
+                                syncCollections();
                                 setLastMovedItem({ id: inventoryItem.id, direction: 'to-collection' });
                                 setMoveSuccess(true);
                                 setTimeout(() => { setMoveSuccess(false); setLastMovedItem(null); }, 10000);
@@ -1226,7 +1249,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                                 body: JSON.stringify({ quantity: 1 })
                               });
                               if (response.ok) {
-                                await refreshCollections();
+                                syncCollections();
                                 setLastMovedItem({ id: personalCollectionItem.id, direction: 'to-inventory' });
                                 setMoveSuccess(true);
                                 setTimeout(() => { setMoveSuccess(false); setLastMovedItem(null); }, 10000);
@@ -1932,7 +1955,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                 method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quantity: quantityToMove })
               });
               if (response.ok) {
-                await refreshCollections();
+                syncCollections();
                 setMoveSuccess(true);
                 setLastMovedItem({ id: inventoryItem.id, direction: 'to-collection' });
                 setShowMoveDialog(false);
@@ -1952,7 +1975,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                 method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quantity: quantityToMove })
               });
               if (response.ok) {
-                await refreshCollections();
+                syncCollections();
                 setMoveSuccess(true);
                 setLastMovedItem({ id: personalCollectionItem.id, direction: 'to-inventory' });
                 setShowMoveToInventoryDialog(false);
