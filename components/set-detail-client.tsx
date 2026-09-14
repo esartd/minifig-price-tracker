@@ -168,7 +168,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
   const [isPremium, setIsPremium] = useState(false);
   const [premiumChecked, setPremiumChecked] = useState(!session?.user);
   useEffect(() => {
-    if (!session?.user) {
+    if (!userId) {
       setPremiumChecked(true);
       return;
     }
@@ -178,7 +178,8 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
       .then(data => setIsPremium(!!data?.data?.isPremium))
       .catch(() => {})
       .finally(() => setPremiumChecked(true));
-  }, [session?.user]);
+    // session.user is a fresh object on every next-auth refresh; the id is not.
+  }, [userId]);
 
   const [error, setError] = useState('');
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
