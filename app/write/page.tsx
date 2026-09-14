@@ -96,7 +96,7 @@ export default function WriteArticlePage() {
     } else if (status === 'authenticated' && !isAdminEmail(session?.user?.email)) {
       router.push('/');
     }
-  }, [status, session, router]);
+  }, [status, session?.user?.email, router]);
 
   // Load article if editing
   useEffect(() => {

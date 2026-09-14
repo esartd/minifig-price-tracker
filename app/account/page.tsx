@@ -16,6 +16,11 @@ import { isAdminEmail } from '@/lib/admin-auth';
 export default function AccountPage() {
   const { t, locale } = useTranslation();
   const { data: session, status, update } = useSession();
+  // A stable handle on who is looking. useSession() returns a new object when
+  // the session resolves and on every refresh, so effects that depend on the
+  // object itself refetch for no reason. The id only changes when the user does.
+  const userId = session?.user?.id;
+
   // Premium price in the reader's own currency, fetched because this page is a
   // client component and the pricing module is server-only. Null until it
   // arrives (and if it never does), in which case the dollar price is shown --
@@ -126,7 +131,7 @@ export default function AccountPage() {
     if (session?.user?.image) {
       setSelectedAvatar(session.user.image);
     }
-  }, [session]);
+  }, [userId]);
 
   useEffect(() => {
     let cancelled = false;
@@ -261,7 +266,7 @@ export default function AccountPage() {
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [session]);
+  }, [userId]);
 
   // Fetch share status
   useEffect(() => {
@@ -282,7 +287,7 @@ export default function AccountPage() {
     if (session?.user) {
       fetchShareStatus();
     }
-  }, [session]);
+  }, [userId]);
 
   // Fetch leaderboard settings
   useEffect(() => {
@@ -313,7 +318,7 @@ export default function AccountPage() {
     if (session?.user) {
       fetchLeaderboardSettings();
     }
-  }, [session]);
+  }, [userId]);
 
   // Fetch premium subscription status
   useEffect(() => {
@@ -334,7 +339,7 @@ export default function AccountPage() {
     } else {
       setLoadingSubscription(false);
     }
-  }, [session]);
+  }, [userId]);
 
   // One-time toast after returning from Stripe Checkout
   useEffect(() => {

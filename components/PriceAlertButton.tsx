@@ -70,7 +70,7 @@ export default function PriceAlertButton({
     if (session?.user && isOpen) {
       checkExistingAlert();
     }
-  }, [session, isOpen]);
+  }, [session?.user?.id, isOpen]);
 
   const checkExistingAlert = async () => {
     try {

@@ -26,7 +26,7 @@ export default function IdentifyPageClient() {
       .then((data) => setIsPremium(!!data?.data?.isPremium))
       .catch(() => {})
       .finally(() => setPremiumChecked(true));
-  }, [session?.user]);
+  }, [session?.user?.id]);
 
   return (
     <article className="min-h-screen" style={{ backgroundColor: '#fafafa' }}>

@@ -51,7 +51,7 @@ export default function GuestCollectionMigrator() {
     }
 
     migrateCollection();
-  }, [session, status, migrating]);
+  }, [session?.user?.id, status, migrating]);
 
   // This component doesn't render anything
   return null;

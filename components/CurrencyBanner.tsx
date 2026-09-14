@@ -36,7 +36,7 @@ export default function CurrencyBanner() {
       setDetectedCountry(currency.name);
       setShow(true);
     }
-  }, [session]);
+  }, [session?.user?.id]);
 
   const handleAccept = async () => {
     const currency = SUPPORTED_CURRENCIES.find(c => c.code === detectedCurrency);
