@@ -381,7 +381,9 @@
     "loadingData": "価格データを読み込み中...",
     "supportCta": "時間の節約になりましたか？無料の価格情報を支援する →",
     "premiumCta": "コレクション登録をスキップ — プレミアムへ →",
-    "howWeCalculateCta": "計算方法を見る →"
+    "howWeCalculateCta": "計算方法を見る →",
+    "shownIn": "表示価格は{currency}",
+    "convertedFromUsd": "BrickLink の全世界 USD 価格を本日のレートで換算したものです"
   },
   "errors": {
     "notFound": "見つかりません",

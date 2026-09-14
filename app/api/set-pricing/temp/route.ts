@@ -1,6 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { pricingOrchestrator, LOGGED_IN_TTL_HOURS, LOGGED_OUT_TTL_HOURS } from '@/lib/pricing-orchestrator';
 import { auth } from '@/auth';
+import { getDisplayCurrency, convertPricingToCurrency, PRICE_FIELDS } from '@/lib/display-currency';
+
+
+/**
+ * Prices are fetched and cached in USD for everyone (see lib/bricklink.ts:
+ * one cache row per item, shared worldwide) and converted here, per request,
+ * for display. Dynamic on purpose: the conversion depends on who is asking,
+ * so this response must never be cached and handed to the next visitor.
+ */
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
@@ -35,7 +45,17 @@ export async function GET(request: NextRequest) {
 
     console.log(`[Set Pricing API] Result for ${boxNo}: suggested=$${pricing?.suggestedPrice ?? 0}`);
 
-    return NextResponse.json({ success: true, pricing });
+    const currency = await getDisplayCurrency();
+    const converted = pricing
+      ? await convertPricingToCurrency(pricing, currency.code, PRICE_FIELDS)
+      : pricing;
+
+    return NextResponse.json({
+      success: true,
+      pricing: converted,
+      currency: currency.code,
+      currencyConverted: currency.converted,
+    });
   } catch (error) {
     console.error('Error fetching set pricing:', error);
     return NextResponse.json(

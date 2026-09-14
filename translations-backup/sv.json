@@ -381,7 +381,9 @@
     "loadingData": "Laddar prisdata...",
     "supportCta": "Sparade vi dig tid? Stöd gratis prissättning →",
     "premiumCta": "Hoppa över samlingssteget — bli Premium →",
-    "howWeCalculateCta": "Så beräknar vi detta →"
+    "howWeCalculateCta": "Så beräknar vi detta →",
+    "shownIn": "Priser i {currency}",
+    "convertedFromUsd": "omräknade från BrickLinks världsomspännande USD-priser till dagens kurs"
   },
   "errors": {
     "notFound": "Ingat found",

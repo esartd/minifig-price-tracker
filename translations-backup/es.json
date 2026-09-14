@@ -381,7 +381,9 @@
     "loadingData": "Cargando datos de precios...",
     "supportCta": "¿Te ahorramos tiempo? Apoya los precios gratuitos →",
     "premiumCta": "Omite el paso de la colección — hazte Premium →",
-    "howWeCalculateCta": "Cómo calculamos esto →"
+    "howWeCalculateCta": "Cómo calculamos esto →",
+    "shownIn": "Precios en {currency}",
+    "convertedFromUsd": "convertidos desde los precios mundiales en USD de BrickLink al cambio de hoy"
   },
   "errors": {
     "notFound": "No encontrado",

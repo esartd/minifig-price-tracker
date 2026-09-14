@@ -23,6 +23,7 @@ import { formatPrice } from '@/lib/format-price';
 import { generateAmazonMinifigLink, generateBrickLinkMinifigLink } from '@/lib/affiliate-links';
 import { generateEbayMinifigLink } from '@/lib/ebay-affiliate-links';
 import { useVisitorCountry } from '@/lib/use-visitor-country';
+import CurrencyNote from '@/components/CurrencyNote';
 import { buildWhatnotMinifigUrl } from '@/lib/whatnot-affiliate-links';
 import { trackAffiliateClick } from '@/lib/analytics';
 import { HeartIcon as HeartOutline, MinusIcon, PlusIcon, ChevronRightIcon, ShoppingCartIcon, TrashIcon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -172,6 +173,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
     currentLowest: number;
     suggestedPrice: number;
     currencyCode?: string;
+    currencyConverted?: boolean;
     loading: boolean;
     unavailable_reason?: 'daily_limit' | 'no_listings';
   }>({
@@ -180,6 +182,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
     currentLowest: 0,
     suggestedPrice: 0,
     currencyCode: 'USD',
+    currencyConverted: false,
     loading: true
   });
   const [collectionItem, setCollectionItem] = useState<any>(null);
@@ -263,6 +266,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
             currentLowest: data.pricing.currentLowest || 0,
             suggestedPrice: data.pricing.suggestedPrice || 0,
             currencyCode: data.pricing.currencyCode || 'USD',
+            currencyConverted: !!data.currencyConverted,
             loading: false,
             unavailable_reason: data.pricing.unavailable_reason,
           });
@@ -1275,6 +1279,13 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                         ? (t('collection.pricing.pricingDailyLimit') || 'Pricing unavailable right now — check back soon')
                         : (t('collection.pricing.noSellersAvailable') || 'No sellers available')}
                     </div>
+                  )}
+
+                  {!pricing.loading && pricing.suggestedPrice > 0 && (
+                    <CurrencyNote
+                      currencyCode={pricing.currencyCode || 'USD'}
+                      converted={pricing.currencyConverted}
+                    />
                   )}
 
                   {/* The one link under the price, and it belongs to the price:

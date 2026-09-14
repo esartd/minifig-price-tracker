@@ -381,7 +381,9 @@
     "loadingData": "Prijsgegevens laden...",
     "supportCta": "Tijd bespaard? Steun gratis prijsinformatie →",
     "premiumCta": "Sla de collectiestap over — ga Premium →",
-    "howWeCalculateCta": "Zo berekenen we dit →"
+    "howWeCalculateCta": "Zo berekenen we dit →",
+    "shownIn": "Prijzen in {currency}",
+    "convertedFromUsd": "omgerekend uit de wereldwijde USD-prijzen van BrickLink tegen de koers van vandaag"
   },
   "errors": {
     "notFound": "Niet gevonden",

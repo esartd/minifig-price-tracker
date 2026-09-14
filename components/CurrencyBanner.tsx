@@ -24,18 +24,40 @@ export default function CurrencyBanner() {
       return;
     }
 
-    // Detect currency from browser locale
-    const locale = navigator.language || 'en-US';
-    const countryCode = locale.split('-')[1] || 'US';
+    /**
+     * Where they ARE, not what language their browser is set to.
+     *
+     * This read navigator.language and took the region off the end of it --
+     * which is a language tag, not a location. Most browsers report "en-US"
+     * wherever they are standing, and plenty report a bare "en" with no region
+     * at all, in which case the old code fell through to 'US'. So a reader in
+     * Manchester or Sao Paulo was told their currency was dollars.
+     *
+     * /api/geo reports the country Cloudflare resolved for the connection,
+     * which is the same signal the eBay, Walmart and Amazon routing already
+     * use. Country, not language -- a German speaker in Ohio pays in dollars.
+     */
+    let cancelled = false;
+    fetch('/api/geo')
+      .then((r) => r.json())
+      .then((d) => {
+        if (cancelled) return;
+        const currency = SUPPORTED_CURRENCIES.find(
+          (c) => c.countryCode === String(d?.country || '').toUpperCase()
+        );
+        // Nothing to offer someone already being shown their own currency.
+        if (currency && currency.code !== 'USD') {
+          setDetectedCurrency(currency.code);
+          setDetectedCountry(currency.name);
+          setShow(true);
+        }
+      })
+      .catch(() => {
+        // A failed lookup shows no banner, which is the honest default: we do
+        // not know where they are, so we should not claim to.
+      });
 
-    // Find matching currency
-    const currency = SUPPORTED_CURRENCIES.find(c => c.countryCode === countryCode);
-
-    if (currency && currency.code !== 'USD') {
-      setDetectedCurrency(currency.code);
-      setDetectedCountry(currency.name);
-      setShow(true);
-    }
+    return () => { cancelled = true; };
   }, [session?.user?.id]);
 
   const handleAccept = async () => {

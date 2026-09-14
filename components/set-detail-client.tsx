@@ -21,6 +21,7 @@ import { getSetAvailability } from '@/lib/set-availability';
 import { generateLegoSetLink, generateAmazonLegoSetLink, generateBrickLinkAffiliateLink } from '@/lib/affiliate-links';
 import { generateEbaySetLink } from '@/lib/ebay-affiliate-links';
 import { useVisitorCountry } from '@/lib/use-visitor-country';
+import CurrencyNote from '@/components/CurrencyNote';
 import { buildWhatnotSetUrl } from '@/lib/whatnot-affiliate-links';
 import { trackAffiliateClick } from '@/lib/analytics';
 import SetDescription from '@/components/SetDescription';
@@ -191,6 +192,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
     currentLowest: number;
     suggestedPrice: number;
     currencyCode?: string;
+    currencyConverted?: boolean;
     loading: boolean;
     unavailable_reason?: 'daily_limit' | 'no_listings';
   }>({
@@ -288,6 +290,7 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
             currentLowest: data.pricing.currentLowest || 0,
             suggestedPrice: data.pricing.suggestedPrice || 0,
             currencyCode: data.pricing.currencyCode || session?.user?.preferredCurrency || 'USD',
+            currencyConverted: !!data.currencyConverted,
             loading: false,
             unavailable_reason: data.pricing.unavailable_reason,
           });
@@ -949,6 +952,15 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                 {pricing.unavailable_reason === 'daily_limit'
                   ? (t('collection.pricing.pricingDailyLimit') || 'Pricing unavailable right now — check back soon')
                   : (t('collection.pricing.noSellersAvailable') || 'No sellers available')}
+              </div>
+            )}
+
+            {pricing && !pricing.loading && pricing.suggestedPrice > 0 && (
+              <div style={{ marginTop: '-12px', marginBottom: '12px' }}>
+                <CurrencyNote
+                  currencyCode={pricing.currencyCode || 'USD'}
+                  converted={pricing.currencyConverted}
+                />
               </div>
             )}
 
