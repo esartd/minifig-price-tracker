@@ -394,6 +394,79 @@ export interface RetiringSoonPage {
  * term anyway -- price and availability adjust a set's position, they rarely
  * decide it.
  */
+type BasePrediction = {
+  boxNo: string;
+  name: string;
+  theme: string;
+  yearReleased: number;
+  imageUrl: string;
+  baseScore: number;
+  ageScore: number;
+  baseConfidence: RetirementPrediction['confidence'];
+  baseReasoning: string;
+  quarter: string;
+  date: Date | null;
+  ageYears: number;
+};
+
+let cachedPredictions: BasePrediction[] | null = null;
+let cachedPredictionsFor: LegoBox[] | null = null;
+let cachedPredictionsDay: string | null = null;
+
+/**
+ * Retirement scores for the whole catalogue, computed at most once a day.
+ *
+ * This is 21,668 sets, and every one of them was being scored again on every
+ * request to /retiring-soon -- about 300ms of pure arithmetic before a single
+ * row was rendered. Proved by filtering: Fabuland (a handful of sets) rendered
+ * in 52ms against 350ms unfiltered, on the same warm process.
+ *
+ * Two things invalidate it, and between them they cover everything the output
+ * depends on:
+ *
+ *  - The identity of the array from loadAllBoxes(). That function caches the
+ *    parsed catalogue and hands back a NEW array whenever it reloads from
+ *    disk, so comparing by reference catches a catalogue update for free,
+ *    without a second TTL that could disagree with the first.
+ *  - The calendar day, because a set's ageYears and whether its estimated
+ *    retirement date has passed both move with the clock.
+ */
+function getBasePredictions(allBoxes: LegoBox[]): BasePrediction[] {
+  const today = new Date().toISOString().slice(0, 10);
+
+  if (cachedPredictions && cachedPredictionsFor === allBoxes && cachedPredictionsDay === today) {
+    return cachedPredictions;
+  }
+
+  const currentYear = new Date().getFullYear();
+
+  cachedPredictions = allBoxes
+    .filter(box => box.year_released && !isNaN(parseInt(box.year_released)))
+    .map(box => {
+      const { score, ageScore, confidence, reasoning } = calculateRetirementScore(box);
+      const { quarter, date } = estimateRetirementQuarter(box.year_released, box.category_name);
+
+      return {
+        boxNo: box.box_no,
+        name: box.name,
+        theme: box.category_name.split(' / ')[0].trim(),
+        yearReleased: parseInt(box.year_released),
+        imageUrl: box.image_url,
+        baseScore: score,
+        ageScore,
+        baseConfidence: confidence,
+        baseReasoning: reasoning,
+        quarter,
+        date,
+        ageYears: currentYear - parseInt(box.year_released),
+      };
+    });
+  cachedPredictionsFor = allBoxes;
+  cachedPredictionsDay = today;
+
+  return cachedPredictions;
+}
+
 export async function getRetiringSoonSets(options: {
   theme?: string;
   timeline?: string;
@@ -411,43 +484,17 @@ export async function getRetiringSoonSets(options: {
     includePriceTrends = true
   } = options;
 
-  // Load all sets from catalog
   const allBoxes = loadAllBoxes();
-
-  // Filter by theme if specified
-  let boxes = theme && theme !== 'all'
-    ? allBoxes.filter(b => {
-        const parentTheme = b.category_name.split(' / ')[0].trim();
-        return parentTheme.toLowerCase() === theme.toLowerCase();
-      })
-    : allBoxes;
-
-  // Filter to valid sets
-  boxes = boxes.filter(box => box.year_released && !isNaN(parseInt(box.year_released)));
-
-  // Calculate base retirement predictions for all sets
   const now = new Date();
 
-  // Calculate base scores (synchronous)
-  const basePredictions = boxes.map(box => {
-    const { score, ageScore, confidence, reasoning } = calculateRetirementScore(box);
-    const { quarter, date } = estimateRetirementQuarter(box.year_released, box.category_name);
+  // Score once per day, not once per request. Filtering by theme happens
+  // afterwards now -- it used to happen first, which is why a small theme
+  // rendered in 52ms and the unfiltered page took 350ms.
+  const allPredictions = getBasePredictions(allBoxes);
 
-    return {
-      boxNo: box.box_no,
-      name: box.name,
-      theme: box.category_name.split(' / ')[0].trim(),
-      yearReleased: parseInt(box.year_released),
-      imageUrl: box.image_url,
-      baseScore: score,
-      ageScore,
-      baseConfidence: confidence,
-      baseReasoning: reasoning,
-      quarter,
-      date,
-      ageYears: new Date().getFullYear() - parseInt(box.year_released)
-    };
-  });
+  const basePredictions = theme && theme !== 'all'
+    ? allPredictions.filter(p => p.theme.toLowerCase() === theme.toLowerCase())
+    : allPredictions;
 
   // Filter by min score and date first to reduce DB queries
   const candidatePredictions = basePredictions.filter(p => {
