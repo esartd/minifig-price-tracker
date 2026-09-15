@@ -301,3 +301,115 @@ export async function getVisitorCountries(): Promise<VisitorCountriesData | null
   const fresh = await inFlight;
   return fresh ?? cache?.data ?? null;
 }
+
+// ---------------------------------------------------------------------------
+// Traffic summary — the top of the admin funnel
+// ---------------------------------------------------------------------------
+
+export type TrafficWindow = {
+  /** Distinct people. The denominator for "what share of visitors sign up". */
+  users: number;
+  sessions: number;
+  pageViews: number;
+};
+
+export type TrafficSummary = {
+  last7Days: TrafficWindow;
+  last30Days: TrafficWindow;
+  fetchedAt: string;
+};
+
+/**
+ * Visitors, sessions and page views for the last 7 and 30 days.
+ *
+ * This is the first stage of the admin funnel (visitors → signups → Premium →
+ * affiliate clicks). Without it the funnel has no denominator and the only
+ * question it can answer is "how many", never "what share".
+ *
+ * ## Why this is not a database counter
+ *
+ * The obvious alternative was to write a `pricing_viewed` row per page view.
+ * That is one INSERT for every visit, including every crawler hit — and on
+ * 15 September 2026 Googlebot working through ~420,000 URLs took this site
+ * down without any help from us. A per-view write would have made that worse
+ * and would have counted bots as people besides. GA already has this number,
+ * already excludes most bots, and costs nothing per page view.
+ *
+ * Same six-hour module-scope cache and in-flight de-duplication as
+ * getVisitorCountries above, for the same reasons: the GA Data API bills
+ * against a per-property token budget, and traffic totals do not move fast
+ * enough to be worth asking more often.
+ */
+const trafficTtlMs = 6 * 60 * 60 * 1000;
+let trafficCache: { data: TrafficSummary; at: number } | null = null;
+let trafficInFlight: Promise<TrafficSummary | null> | null = null;
+
+async function fetchTrafficFromGA(): Promise<TrafficSummary | null> {
+  const client = getClient();
+  if (!client) return null;
+
+  try {
+    const [response] = await client.runReport({
+      property: `properties/${process.env.GA4_PROPERTY_ID}`,
+      // Two ranges in one request rather than two requests: GA returns a
+      // dateRange dimension to tell them apart, and it is one token instead
+      // of two against the same budget.
+      dateRanges: [
+        { startDate: '7daysAgo', endDate: 'today', name: 'last7' },
+        { startDate: '30daysAgo', endDate: 'today', name: 'last30' },
+      ],
+      metrics: [
+        { name: 'totalUsers' },
+        { name: 'sessions' },
+        { name: 'screenPageViews' },
+      ],
+    });
+
+    const blank = (): TrafficWindow => ({ users: 0, sessions: 0, pageViews: 0 });
+    const windows: Record<string, TrafficWindow> = {
+      last7: blank(),
+      last30: blank(),
+    };
+
+    for (const row of response.rows ?? []) {
+      // With multiple dateRanges GA appends the range name as the final
+      // dimension value, even though we requested no dimensions of our own.
+      const range = row.dimensionValues?.[0]?.value ?? 'last7';
+      const target = windows[range];
+      if (!target) continue;
+
+      target.users = Number(row.metricValues?.[0]?.value ?? 0);
+      target.sessions = Number(row.metricValues?.[1]?.value ?? 0);
+      target.pageViews = Number(row.metricValues?.[2]?.value ?? 0);
+    }
+
+    return {
+      last7Days: windows.last7,
+      last30Days: windows.last30,
+      fetchedAt: new Date().toISOString(),
+    };
+  } catch (error) {
+    console.error('[traffic] GA fetch failed:', error);
+    return null;
+  }
+}
+
+export async function getTrafficSummary(): Promise<TrafficSummary | null> {
+  if (trafficCache && Date.now() - trafficCache.at < trafficTtlMs) {
+    return trafficCache.data;
+  }
+  if (trafficInFlight) return trafficInFlight;
+
+  trafficInFlight = fetchTrafficFromGA()
+    .then((data) => {
+      if (data) trafficCache = { data, at: Date.now() };
+      return data;
+    })
+    .finally(() => {
+      trafficInFlight = null;
+    });
+
+  // A failed fetch keeps the previous numbers rather than blanking the funnel.
+  const fresh = await trafficInFlight;
+  return fresh ?? trafficCache?.data ?? null;
+}

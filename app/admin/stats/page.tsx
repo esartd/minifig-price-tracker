@@ -11,6 +11,7 @@ import translationsEs from '@/translations-backup/es.json';
 import { formatCompactNumberSmart } from '@/lib/format-number';
 import AffiliateDashboardButtons from '@/components/AffiliateDashboardButtons';
 import { ADMIN_EMAILS, isAdminEmail } from '@/lib/admin-auth';
+import { getTrafficSummary } from '@/lib/visitor-countries';
 
 function getTranslations(locale: string) {
   switch (locale) {
@@ -237,6 +238,104 @@ export default async function AdminStatsPage() {
   const apiUsageToday = apiCallsToday?.call_count || 0;
   const apiUsagePercent = Math.round((apiUsageToday / 5000) * 100);
 
+  /**
+   * The funnel, and the things that quietly break it.
+   *
+   * Everything here is one Promise.all rather than a run of awaits. The page
+   * already batched its original queries for a reason: this database is the
+   * shared Hostinger instance with a 500-connections-per-hour cap, and it went
+   * down under load on 15 September 2026.
+   *
+   * Traffic comes from GA rather than a database counter. The alternative was
+   * writing a row per page view, which is one INSERT per visit including every
+   * crawler hit -- and a crawler is what took the site down that same day.
+   * getTrafficSummary caches for six hours in module scope, so this costs a GA
+   * call once per process, not once per page load.
+   */
+  const [
+    traffic,
+    signups30d,
+    signups7d,
+    premiumCount,
+    digestOptIns,
+    setInventoryCount,
+    setPersonalCount,
+    wishlistCount,
+    setWishlistCount,
+    priceAlertCount,
+    listingsCount,
+    scansCount,
+    unresolvedFailures,
+    walmartDealCount,
+    walmartNewest,
+    ebayCallsToday,
+  ] = await Promise.all([
+    getTrafficSummary(),
+    prisma.user.count({ where: { email: { notIn: ADMIN_EMAILS }, createdAt: { gte: last30Days } } }),
+    prisma.user.count({ where: { email: { notIn: ADMIN_EMAILS }, createdAt: { gte: last7Days } } }),
+    // Same status list the deals-digest cron uses, so "Premium" means the same
+    // thing in both places.
+    prisma.user.count({ where: { subscriptionStatus: { in: ['active', 'trialing'] } } }),
+    prisma.user.count({ where: { dealsDigest: true } }),
+    // Sets were invisible on this page entirely. They are over half the
+    // collection data.
+    prisma.setInventoryItem.count(),
+    prisma.setPersonalCollectionItem.count(),
+    prisma.wishlistItem.count(),
+    prisma.setWishlistItem.count(),
+    prisma.priceAlert.count(),
+    prisma.listing.count(),
+    prisma.scanHistory.count(),
+    prisma.priceFetchFailure.groupBy({
+      by: ['error_type'],
+      where: { resolved: false },
+      _count: { id: true },
+    }),
+    prisma.walmartDeal.count(),
+    prisma.walmartDeal.findFirst({ orderBy: { lastUpdated: 'desc' }, select: { lastUpdated: true } }),
+    // eBay rows are keyed `ebay-<date>`; BrickLink rows are the bare date.
+    prisma.apiCallTracker.findUnique({ where: { date: `ebay-${today}` } }).catch(() => null),
+  ]);
+
+  const visitors30d = traffic?.last30Days.users ?? 0;
+  const visitors7d = traffic?.last7Days.users ?? 0;
+  // Guarded: a GA outage returns null and must not render NaN%.
+  const signupRate30d = visitors30d > 0 ? (signups30d / visitors30d) * 100 : null;
+  const premiumRate = totalUsers > 0 ? (premiumCount / totalUsers) * 100 : null;
+  const MONTHLY_PRICE_USD = 4.99;
+
+  const setItemsTotal = setInventoryCount + setPersonalCount;
+  const minifigItemsTotal = totalCollectionItems + totalPersonalItems;
+
+  const failuresTotal = unresolvedFailures.reduce((sum, row) => sum + row._count.id, 0);
+  const walmartFeedAgeHours = walmartNewest?.lastUpdated
+    ? Math.round((Date.now() - walmartNewest.lastUpdated.getTime()) / 36e5)
+    : null;
+  const ebayUsageToday = ebayCallsToday?.call_count || 0;
+
+  /**
+   * Which outbound platforms actually pay us.
+   *
+   * BrickLink is the most-clicked destination on the site and has no affiliate
+   * programme at all -- it shut down after the LEGO acquisition, as
+   * lib/affiliate-links.ts says in its own comment. Showing click counts
+   * without this makes the biggest number on the page look like the best news
+   * on the page.
+   */
+  const PLATFORM_EARNS: Record<string, boolean> = {
+    amazon: true,
+    ebay: true,
+    walmart: true,
+    whatnot: true,
+    lego: true,
+    bricklink: false,
+  };
+  const clicksTotal = clicksByPlatform.reduce((sum, p) => sum + p._count.id, 0);
+  const clicksEarningNothing = clicksByPlatform
+    .filter((p) => PLATFORM_EARNS[String(p.platform).toLowerCase()] === false)
+    .reduce((sum, p) => sum + p._count.id, 0);
+  const wastedClickShare = clicksTotal > 0 ? (clicksEarningNothing / clicksTotal) * 100 : 0;
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -305,6 +404,79 @@ export default async function AdminStatsPage() {
           </a>
         </div>
 
+        {/* The funnel, first because it is the question the rest answers:
+            traffic -> signups -> Premium -> clicks that pay. Isolated totals
+            cannot show where the chain leaks, and the leak is the whole point. */}
+        <div style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          border: '1px solid #e5e5e5',
+          padding: 'var(--space-4)',
+          marginBottom: 'var(--space-6)',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', marginBottom: 'var(--space-3)' }}>
+            <h2 style={{ fontSize: 'var(--text-lg)', fontWeight: 700, color: '#171717', margin: 0 }}>
+              Money funnel
+            </h2>
+            <span style={{ fontSize: 'var(--text-xs)', color: '#737373' }}>
+              last 30 days{traffic ? '' : ' — traffic unavailable, check GA4 credentials'}
+            </span>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+            gap: 'var(--space-2)',
+          }}>
+            <FunnelStage
+              label="Visitors"
+              value={visitors30d ? formatCompactNumberSmart(visitors30d) : '—'}
+              note={visitors7d ? `${formatCompactNumberSmart(visitors7d)} in 7d` : 'no GA data'}
+            />
+            <FunnelStage
+              label="Signups"
+              value={signups30d}
+              note={signupRate30d === null ? '—' : `${signupRate30d.toFixed(2)}% of visitors`}
+              // Under half a percent means the site is being read and not
+              // joined. That is a different problem from "not enough traffic",
+              // and it is the one the numbers actually show.
+              tone={signupRate30d !== null && signupRate30d < 0.5 ? 'bad' : 'ok'}
+            />
+            <FunnelStage
+              label="Premium"
+              value={premiumCount}
+              note={premiumRate === null ? '—' : `${premiumRate.toFixed(1)}% of all users`}
+            />
+            <FunnelStage
+              label="Affiliate clicks"
+              value={clicks30d}
+              note={`${clicks7d} in 7d`}
+            />
+            <FunnelStage
+              label="Est. monthly revenue"
+              value={`$${(premiumCount * MONTHLY_PRICE_USD).toFixed(2)}`}
+              note="subscriptions only — affiliate earnings are not reported back to us"
+            />
+          </div>
+
+          {clicksEarningNothing > 0 && (
+            <div style={{
+              marginTop: 'var(--space-3)',
+              padding: '12px 14px',
+              background: '#fef2f2',
+              border: '1px solid #fecaca',
+              borderRadius: '8px',
+              fontSize: 'var(--text-sm)',
+              color: '#7f1d1d',
+              lineHeight: 1.5,
+            }}>
+              <strong>{wastedClickShare.toFixed(0)}% of outbound clicks earn nothing.</strong>{' '}
+              {clicksEarningNothing} of {clicksTotal} go to BrickLink, which has no
+              affiliate programme. It is the most-clicked destination on the site.
+            </div>
+          )}
+        </div>
+
         {/* Stats Grid */}
         <div style={{
           display: 'grid',
@@ -324,8 +496,11 @@ export default async function AdminStatsPage() {
           />
           <StatCard
             label={t.userCollections}
-            value={totalUserItems}
-            subtitle={t.userCollectionsSubtitle.replace('{selling}', totalCollectionItems.toString()).replace('{personal}', totalPersonalItems.toString())}
+            /* Minifigs AND sets. This card counted minifigs only, so 559 set
+               items -- more than half the collection data on the site -- did
+               not appear anywhere on this page. */
+            value={minifigItemsTotal + setItemsTotal}
+            subtitle={`${minifigItemsTotal} minifigs · ${setItemsTotal} sets`}
             icon={
               <svg style={{ width: '24px', height: '24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
@@ -345,7 +520,7 @@ export default async function AdminStatsPage() {
             color="#8b5cf6"
           />
           <StatCard
-            label="Affiliate Clicks (Amazon + eBay)"
+            label="Affiliate Clicks (all platforms)"
             value={totalClicks}
             subtitle={t.totalAdClicksSubtitle.replace('{today}', clicks24h.toString()).replace('{thisWeek}', clicks7d.toString())}
             icon={
@@ -448,6 +623,60 @@ export default async function AdminStatsPage() {
                 background: apiUsagePercent > 80 ? '#ef4444' : apiUsagePercent > 50 ? '#f59e0b' : '#10b981',
                 transition: 'width 0.3s'
               }} />
+            </div>
+          </div>
+
+          {/* Things that break the top of the funnel without announcing it.
+              The BrickLink budget bar above already existed; these did not. */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+            gap: 'var(--space-3)',
+            marginBottom: 'var(--space-3)',
+          }}>
+            <div style={{ padding: 'var(--space-3)', background: '#fafafa', borderRadius: '8px' }}>
+              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '6px' }}>eBay API calls today</div>
+              <div style={{ fontSize: 'var(--text-xl)', fontWeight: 600, color: '#171717' }}>
+                {ebayUsageToday}
+              </div>
+              <div style={{ fontSize: '11px', color: '#737373', marginTop: '4px' }}>
+                tracked separately from BrickLink
+              </div>
+            </div>
+
+            <div style={{ padding: 'var(--space-3)', background: '#fafafa', borderRadius: '8px' }}>
+              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '6px' }}>Unresolved price failures</div>
+              <div style={{
+                fontSize: 'var(--text-xl)',
+                fontWeight: 600,
+                color: failuresTotal > 0 ? '#f59e0b' : '#10b981',
+              }}>
+                {failuresTotal}
+              </div>
+              <div style={{ fontSize: '11px', color: '#737373', marginTop: '4px' }}>
+                {unresolvedFailures.length > 0
+                  ? unresolvedFailures.map((f) => `${f._count.id} ${f.error_type}`).join(', ')
+                  : 'none outstanding'}
+              </div>
+            </div>
+
+            <div style={{ padding: 'var(--space-3)', background: '#fafafa', borderRadius: '8px' }}>
+              <div style={{ fontSize: '12px', color: '#737373', marginBottom: '6px' }}>Walmart deals feed</div>
+              <div style={{
+                fontSize: 'var(--text-xl)',
+                fontWeight: 600,
+                /* The sync runs daily at 09:00 UTC. Past about a day and a half
+                   it has missed a run, and /deals is quietly serving stale
+                   prices with nothing on the page to say so. */
+                color: walmartFeedAgeHours !== null && walmartFeedAgeHours > 36 ? '#ef4444' : '#171717',
+              }}>
+                {formatCompactNumberSmart(walmartDealCount)}
+              </div>
+              <div style={{ fontSize: '11px', color: '#737373', marginTop: '4px' }}>
+                {walmartFeedAgeHours === null
+                  ? 'never synced'
+                  : `refreshed ${walmartFeedAgeHours}h ago`}
+              </div>
             </div>
           </div>
 
@@ -584,12 +813,21 @@ export default async function AdminStatsPage() {
                       {item.platform}
                     </span>
                   </div>
-                  <div style={{
-                    fontSize: 'var(--text-lg)',
-                    fontWeight: '600',
-                    color: '#171717',
-                  }}>
-                    {item._count.id}
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{
+                      fontSize: 'var(--text-lg)',
+                      fontWeight: '600',
+                      color: '#171717',
+                    }}>
+                      {item._count.id}
+                    </div>
+                    {/* A click count is only good news if the destination pays.
+                        BrickLink is the biggest number here and earns nothing. */}
+                    {PLATFORM_EARNS[String(item.platform).toLowerCase()] === false && (
+                      <div style={{ fontSize: '11px', color: '#b91c1c', fontWeight: 600 }}>
+                        earns $0
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
@@ -771,6 +1009,18 @@ export default async function AdminStatsPage() {
           }}>
             Conversion Funnels
           </h2>
+          <p style={{
+            fontSize: 'var(--text-xs)',
+            color: '#737373',
+            marginTop: '-8px',
+            marginBottom: 'var(--space-3)',
+            lineHeight: 1.5,
+          }}>
+            Counting from 15 September 2026. Event tracking was broken before
+            that — three faults stacked in /api/track-event meant every event
+            except one was discarded, so the history here is genuinely absent
+            rather than genuinely zero.
+          </p>
 
           <div style={{
             display: 'grid',
@@ -861,6 +1111,52 @@ export default async function AdminStatsPage() {
                 />
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* What people actually use. A feature at zero is a finding, not a
+            blank -- so the zeros are shown rather than omitted. */}
+        <div className="admin-card" style={{
+          background: '#ffffff',
+          borderRadius: '12px',
+          border: '1px solid #e5e5e5',
+          padding: 'var(--space-3)',
+          marginBottom: 'var(--space-6)',
+        }}>
+          <h2 style={{
+            fontSize: 'var(--text-lg)',
+            fontWeight: '600',
+            color: '#171717',
+            marginBottom: 'var(--space-3)',
+          }}>
+            Feature usage
+          </h2>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+            gap: 'var(--space-3)',
+          }}>
+            {[
+              { label: 'Wishlist items', value: wishlistCount + setWishlistCount, note: `${wishlistCount} minifigs · ${setWishlistCount} sets` },
+              { label: 'Price alerts', value: priceAlertCount, note: 'across both kinds' },
+              { label: 'Deals digest opt-ins', value: digestOptIns, note: 'Premium perk' },
+              { label: 'Listings generated', value: listingsCount, note: 'listing generator' },
+              { label: 'Scans', value: scansCount, note: 'Premium minifig scan' },
+            ].map((f) => (
+              <div key={f.label} style={{ padding: 'var(--space-3)', background: '#fafafa', borderRadius: '8px' }}>
+                <div style={{ fontSize: '12px', color: '#737373', marginBottom: '6px' }}>{f.label}</div>
+                <div style={{
+                  fontSize: 'var(--text-xl)',
+                  fontWeight: 600,
+                  color: f.value === 0 ? '#a3a3a3' : '#171717',
+                }}>
+                  {f.value}
+                </div>
+                <div style={{ fontSize: '11px', color: f.value === 0 ? '#b91c1c' : '#737373', marginTop: '4px' }}>
+                  {f.value === 0 ? 'never used' : f.note}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -1189,6 +1485,63 @@ export default async function AdminStatsPage() {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+/**
+ * One stage of the funnel: a number, and what share of the stage above it is.
+ *
+ * The share is the reason this exists. "2 signups" says nothing on its own;
+ * "2 signups, 0.15% of visitors" says the site is being read and not joined,
+ * which is a different problem with a different fix.
+ */
+function FunnelStage({
+  label,
+  value,
+  note,
+  tone = 'ok',
+}: {
+  label: string;
+  value: number | string;
+  note?: string;
+  tone?: 'ok' | 'bad';
+}) {
+  return (
+    <div style={{
+      padding: 'var(--space-3)',
+      background: '#fafafa',
+      border: '1px solid #e5e5e5',
+      borderRadius: '8px',
+    }}>
+      <div style={{
+        fontSize: 'var(--text-xs)',
+        fontWeight: 600,
+        letterSpacing: '0.03em',
+        textTransform: 'uppercase',
+        color: '#737373',
+        marginBottom: '6px',
+      }}>
+        {label}
+      </div>
+      <div style={{
+        fontSize: 'var(--text-2xl)',
+        fontWeight: 700,
+        color: tone === 'bad' ? '#b91c1c' : '#171717',
+        lineHeight: 1.1,
+      }}>
+        {value}
+      </div>
+      {note && (
+        <div style={{
+          marginTop: '4px',
+          fontSize: 'var(--text-xs)',
+          color: tone === 'bad' ? '#b91c1c' : '#737373',
+          lineHeight: 1.4,
+        }}>
+          {note}
+        </div>
+      )}
     </div>
   );
 }
