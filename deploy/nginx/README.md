@@ -42,6 +42,13 @@ Two things the page cache must never do, and the config that stops it:
   resolves geo server-side — it is all client-side — which is what makes
   caching the HTML safe at all. Check that again before adding geo to a page.
 
+`proxy_ignore_headers Cache-Control Expires` is what makes any of it work:
+Next.js labels every one of these pages `no-store` because it considers them
+dynamic, and without the override nginx stored nothing and every request was a
+MISS. `Set-Cookie` is deliberately absent from that list — nginx refuses to
+cache a response that sets a cookie, and that is the safety net between a
+signed-in session and the shared cache.
+
 `proxy_cache_use_stale` is the quiet hero: if Node is slow, erroring or
 restarting, nginx serves the stale copy rather than an error. Had it been in
 place on 15 September, that outage would have been invisible to visitors.
