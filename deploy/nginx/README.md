@@ -9,6 +9,39 @@ does not have to reconstruct them from memory.
 |---|---|---|
 | `intobrick.conf` | `/etc/nginx/sites-available/intobrick` | the live site, all ten locale subdomains |
 | `figtracker-redirects.conf` | `/etc/nginx/sites-enabled/figtracker` | the old domain, 301s only |
+| `bot-throttle.conf` | `/etc/nginx/conf.d/bot-throttle.conf` | caps crawler traffic against the origin |
+
+## The crawler throttle is load-bearing. Do not remove it casually.
+
+Added 15 September 2026, during an outage, and it is the only thing standing
+between Googlebot and a dead site.
+
+Google is working through the ~420,000 URLs submitted with the intobrick.com
+move. The minifig and set pages declare `revalidate = 21600`, but they also
+call `headers()` to resolve the locale from the host — and that opts a route
+out of static generation entirely, so the declared revalidate never applies.
+The proof is in the database: `IsrCache` held **four** rows (favicon, icon,
+robots.txt, one API route) and not a single page.
+
+So every crawl hit was a full server render. The origin reached 280 concurrent
+connections it could not finish, the accept queue pinned at 455, the Node
+process climbed to 2.1GB and 92% CPU, and the site went down. It re-wedged
+within a minute of every restart until this throttle went in.
+
+Two details that look wrong and are not:
+
+- **The rate-limit key is the bot flag, not the client address.** Cloudflare
+  fronts every request, so `$binary_remote_addr` is an edge IP — keying on it
+  would scatter one crawler across dozens of buckets and limit nothing. One
+  shared bucket for all bots is the point: it caps total crawler throughput
+  against the origin.
+- **Humans map to an empty key.** nginx skips rate limiting entirely for an
+  empty key, so this costs real visitors nothing.
+
+It is a tourniquet, not a cure. The cure is making those pages cacheable —
+either at Cloudflare (cache per hostname, bypass on session cookie) or by
+taking the locale out of `headers()`. Until one of those lands, this file is
+the only protection.
 
 Keep them in step by hand. If you change nginx on the server, re-copy it here:
 
