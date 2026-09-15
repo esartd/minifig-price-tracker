@@ -10,6 +10,41 @@ does not have to reconstruct them from memory.
 | `intobrick.conf` | `/etc/nginx/sites-available/intobrick` | the live site, all ten locale subdomains |
 | `figtracker-redirects.conf` | `/etc/nginx/sites-enabled/figtracker` | the old domain, 301s only |
 | `bot-throttle.conf` | `/etc/nginx/conf.d/bot-throttle.conf` | caps crawler traffic against the origin |
+| `page-cache.conf` | `/etc/nginx/conf.d/page-cache.conf` | the page cache zone, and who skips it |
+
+## Installing the page cache
+
+On the **VPS**, from a checkout of this repo:
+
+```bash
+mkdir -p /var/cache/nginx/intobrick
+cp deploy/nginx/page-cache.conf /etc/nginx/conf.d/page-cache.conf
+cp deploy/nginx/intobrick.conf  /etc/nginx/sites-available/intobrick
+nginx -t && systemctl reload nginx
+```
+
+Check it is working — the second request should say HIT:
+
+```bash
+curl -sI https://intobrick.com/minifigs/sw1522 | grep -i x-cache-status
+curl -sI https://intobrick.com/minifigs/sw1522 | grep -i x-cache-status
+```
+
+Two things the page cache must never do, and the config that stops it:
+
+- **Serve one locale's page to another.** The key is
+  `$scheme://$host$request_uri`; ten locales on ten subdomains share the same
+  paths, so dropping `$host` would serve the German page to English readers.
+- **Cache anything that depends on who is asking.** `location ^~ /api/` is
+  declared above `location /` and turns caching off: `/api/geo` reports the
+  country Cloudflare resolved for that connection and
+  `/api/inventory/temp-pricing` converts prices for that visitor. No *page*
+  resolves geo server-side — it is all client-side — which is what makes
+  caching the HTML safe at all. Check that again before adding geo to a page.
+
+`proxy_cache_use_stale` is the quiet hero: if Node is slow, erroring or
+restarting, nginx serves the stale copy rather than an error. Had it been in
+place on 15 September, that outage would have been invisible to visitors.
 
 ## The crawler throttle is load-bearing. Do not remove it casually.
 
