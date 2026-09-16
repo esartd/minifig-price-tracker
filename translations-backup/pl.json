@@ -3177,5 +3177,25 @@
       "titleAmazon": "Warto wiedzieć teraz",
       "subtitleAmazon": "Zestawy, które gdzieś są teraz tanie. Pokazujemy, ile są warte — cenę sprawdź w swoim sklepie."
     }
+  },
+  "verifyEmail": {
+    "verifiedTitle": "E-mail potwierdzony",
+    "verifiedBody": "Dziękujemy — adres został potwierdzony. Alerty cenowe i codzienny e-mail z okazjami są już dostępne.",
+    "alreadyTitle": "Już potwierdzony",
+    "alreadyBody": "Ten adres był już potwierdzony. Nie trzeba nic więcej robić.",
+    "expiredTitle": "Ten link wygasł",
+    "expiredBody": "Linki potwierdzające działają 24 godziny. Zaloguj się, a wyślemy nowy.",
+    "invalidTitle": "Ten link jest nieprawidłowy",
+    "invalidBody": "Mógł już zostać użyty. Zaloguj się, a wyślemy nowy.",
+    "continue": "Przejdź do IntoBrick",
+    "resend": "Wyślij nowy link",
+    "sending": "Wysyłanie…",
+    "sentShort": "Wysłano",
+    "sent": "Wysłano. Sprawdź skrzynkę odbiorczą.",
+    "sendFailed": "Nie udało się wysłać. Spróbuj za chwilę.",
+    "waitSeconds": "Odczekaj {seconds} s przed kolejną prośbą.",
+    "signInToResend": "Zaloguj się, aby otrzymać nowy link",
+    "bannerTitle": "Potwierdź swój e-mail",
+    "bannerBody": "Alerty cenowe i codzienny e-mail z okazjami wymagają potwierdzonego adresu."
   }
 }

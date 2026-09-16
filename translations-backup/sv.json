@@ -3177,5 +3177,25 @@
       "titleAmazon": "Värt att veta just nu",
       "subtitleAmazon": "Set som är billiga någonstans just nu. Vi visar vad de är värda — kolla priset i din egen butik."
     }
+  },
+  "verifyEmail": {
+    "verifiedTitle": "E-post bekräftad",
+    "verifiedBody": "Tack — din adress är bekräftad. Prisbevakningar och det dagliga fyndmejlet är nu tillgängliga.",
+    "alreadyTitle": "Redan bekräftad",
+    "alreadyBody": "Den här adressen var redan bekräftad. Inget mer att göra.",
+    "expiredTitle": "Länken har gått ut",
+    "expiredBody": "Bekräftelselänkar gäller i 24 timmar. Logga in så skickar vi en ny.",
+    "invalidTitle": "Länken är ogiltig",
+    "invalidBody": "Den kan redan ha använts. Logga in så skickar vi en ny.",
+    "continue": "Fortsätt till IntoBrick",
+    "resend": "Skicka en ny länk",
+    "sending": "Skickar…",
+    "sentShort": "Skickad",
+    "sent": "Skickad. Kolla inkorgen.",
+    "sendFailed": "Kunde inte skicka. Försök igen strax.",
+    "waitSeconds": "Vänta {seconds} s innan du frågar igen.",
+    "signInToResend": "Logga in för att få en ny länk",
+    "bannerTitle": "Bekräfta din e-post",
+    "bannerBody": "Prisbevakningar och det dagliga fyndmejlet kräver en bekräftad adress."
   }
 }

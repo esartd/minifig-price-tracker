@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
-import { sendWelcomeEmail } from '@/lib/email';
+import { sendWelcomeEmail, sendVerificationEmail } from '@/lib/email';
+import { issueVerificationToken } from '@/lib/email-verification';
 
 export async function POST(request: NextRequest) {
   try {
@@ -38,10 +39,23 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    // Send welcome email (non-blocking)
+    /**
+     * Welcome and verification mail, both non-blocking.
+     *
+     * Non-blocking is the existing behaviour and it is the right one: a Resend
+     * outage must not stop people registering. The cost is that a failed
+     * verification mail leaves an account unverified with no signal, which is
+     * what the resend endpoint and the banner exist for.
+     */
     sendWelcomeEmail(email, name || 'there').catch(err => {
       console.error('Failed to send welcome email:', err);
     });
+
+    issueVerificationToken(email)
+      .then((token) => sendVerificationEmail(email, token, name || undefined))
+      .catch(err => {
+        console.error('Failed to send verification email:', err);
+      });
 
     return NextResponse.json(
       {

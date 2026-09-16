@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { isPremiumUser } from '@/lib/premium';
+import { hasVerifiedEmail } from '@/lib/require-verified-email';
 
 // GET - Get all alerts for authenticated user
 export async function GET(request: NextRequest) {
@@ -47,6 +48,24 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { success: false, error: 'Unauthorized' },
         { status: 401 }
+      );
+    }
+
+    /**
+     * A price alert exists to send email. Creating one from an address nobody
+     * has confirmed means mailing into the dark -- bad for deliverability, and
+     * this domain is already disputing a phishing classification.
+     *
+     * Checked server-side because the button that hides this is presentation.
+     */
+    if (!(await hasVerifiedEmail(session.user.id))) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Confirm your email address to create price alerts',
+          verificationRequired: true,
+        },
+        { status: 403 }
       );
     }
 

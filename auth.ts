@@ -153,6 +153,27 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           })
 
           if (existingUser) {
+            /**
+             * Google has already proven this address -- the check above
+             * refuses the sign-in outright unless email_verified is true. So
+             * anyone arriving this way is verified by definition, and should
+             * never be shown the confirm-your-email banner or blocked from
+             * price alerts.
+             *
+             * Written here rather than only at account creation because the
+             * 12 Google users who predate verification have emailVerified
+             * NULL, and this quietly fixes them on next sign-in.
+             */
+            if (!existingUser.emailVerified) {
+              await prisma.user.update({
+                where: { id: existingUser.id },
+                data: { emailVerified: new Date() },
+              }).catch(err => {
+                // Never block a sign-in over this.
+                console.error('Failed to mark Google email verified:', err)
+              })
+            }
+
             // User exists - check if they already have a Google account linked
             const hasGoogleAccount = existingUser.Account.some(
               acc => acc.provider === 'google'
@@ -246,6 +267,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             image: true,
             preferredCurrency: true,
             currencyChosenAt: true,
+            emailVerified: true,
             preferredCountryCode: true,
             preferredRegion: true,
             currencySymbol: true,
@@ -265,6 +287,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           token.preferredCurrency = dbUser.preferredCurrency
           // Null until they pick one in settings; see lib/display-currency.ts.
           token.currencyChosen = !!dbUser.currencyChosenAt
+          token.emailConfirmed = !!dbUser.emailVerified
           token.preferredCountryCode = dbUser.preferredCountryCode
           token.preferredRegion = dbUser.preferredRegion
           token.currencySymbol = dbUser.currencySymbol
@@ -328,6 +351,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.image = token.picture as string
         session.user.preferredCurrency = token.preferredCurrency as string
         session.user.currencyChosen = !!token.currencyChosen
+        session.user.emailConfirmed = !!token.emailConfirmed
         session.user.preferredCountryCode = token.preferredCountryCode as string
         session.user.preferredRegion = token.preferredRegion as string
         session.user.currencySymbol = token.currencySymbol as string

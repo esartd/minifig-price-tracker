@@ -3177,5 +3177,25 @@
       "titleAmazon": "Gerade wissenswert",
       "subtitleAmazon": "Sets, die derzeit irgendwo günstig sind. Wir zeigen den Wert – den Preis prüfst du in deinem Shop."
     }
+  },
+  "verifyEmail": {
+    "verifiedTitle": "E-Mail bestätigt",
+    "verifiedBody": "Danke — Ihre Adresse ist bestätigt. Preisalarme und die tägliche Angebots-E-Mail stehen jetzt zur Verfügung.",
+    "alreadyTitle": "Bereits bestätigt",
+    "alreadyBody": "Diese Adresse wurde bereits bestätigt. Sonst ist nichts zu tun.",
+    "expiredTitle": "Dieser Link ist abgelaufen",
+    "expiredBody": "Bestätigungslinks gelten 24 Stunden. Melden Sie sich an, dann senden wir einen neuen.",
+    "invalidTitle": "Dieser Link ist ungültig",
+    "invalidBody": "Möglicherweise wurde er bereits verwendet. Melden Sie sich an, dann senden wir einen neuen.",
+    "continue": "Weiter zu IntoBrick",
+    "resend": "Neuen Link senden",
+    "sending": "Wird gesendet…",
+    "sentShort": "Gesendet",
+    "sent": "Gesendet. Prüfen Sie Ihren Posteingang.",
+    "sendFailed": "Senden fehlgeschlagen. Bitte gleich noch einmal versuchen.",
+    "waitSeconds": "Bitte warten Sie {seconds} s, bevor Sie erneut anfragen.",
+    "signInToResend": "Anmelden, um einen neuen Link zu erhalten",
+    "bannerTitle": "E-Mail bestätigen",
+    "bannerBody": "Preisalarme und die tägliche Angebots-E-Mail erfordern eine bestätigte Adresse."
   }
 }

@@ -3177,5 +3177,25 @@
       "titleAmazon": "Worth knowing right now",
       "subtitleAmazon": "Sets going cheap somewhere right now. We show what each is worth — check the price in your own store."
     }
+  },
+  "verifyEmail": {
+    "verifiedTitle": "Email confirmed",
+    "verifiedBody": "Thanks — your address is confirmed. Price alerts and the daily deals email are available now.",
+    "alreadyTitle": "Already confirmed",
+    "alreadyBody": "This address was already confirmed. Nothing else to do.",
+    "expiredTitle": "This link has expired",
+    "expiredBody": "Confirmation links last 24 hours. Sign in and we will send you a fresh one.",
+    "invalidTitle": "This link is not valid",
+    "invalidBody": "It may have already been used. Sign in and we will send you a new one.",
+    "continue": "Continue to IntoBrick",
+    "resend": "Send a new link",
+    "sending": "Sending…",
+    "sentShort": "Sent",
+    "sent": "Sent. Check your inbox.",
+    "sendFailed": "Could not send. Try again shortly.",
+    "waitSeconds": "Please wait {seconds}s before asking again.",
+    "signInToResend": "Sign in to get a new link",
+    "bannerTitle": "Confirm your email",
+    "bannerBody": "Price alerts and the daily deals email need a confirmed address."
   }
 }

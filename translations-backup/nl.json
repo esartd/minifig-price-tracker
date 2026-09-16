@@ -3177,5 +3177,25 @@
       "titleAmazon": "Nu de moeite waard",
       "subtitleAmazon": "Sets die nu ergens goedkoop zijn. Wij tonen wat ze waard zijn — check de prijs in je eigen winkel."
     }
+  },
+  "verifyEmail": {
+    "verifiedTitle": "E-mail bevestigd",
+    "verifiedBody": "Bedankt — uw adres is bevestigd. Prijsmeldingen en de dagelijkse dealmail zijn nu beschikbaar.",
+    "alreadyTitle": "Al bevestigd",
+    "alreadyBody": "Dit adres was al bevestigd. Verder hoeft u niets te doen.",
+    "expiredTitle": "Deze link is verlopen",
+    "expiredBody": "Bevestigingslinks zijn 24 uur geldig. Log in en we sturen een nieuwe.",
+    "invalidTitle": "Deze link is niet geldig",
+    "invalidBody": "Mogelijk is hij al gebruikt. Log in en we sturen een nieuwe.",
+    "continue": "Verder naar IntoBrick",
+    "resend": "Nieuwe link sturen",
+    "sending": "Versturen…",
+    "sentShort": "Verstuurd",
+    "sent": "Verstuurd. Kijk in uw inbox.",
+    "sendFailed": "Versturen mislukt. Probeer het zo nog eens.",
+    "waitSeconds": "Wacht {seconds} s voordat u het opnieuw vraagt.",
+    "signInToResend": "Log in voor een nieuwe link",
+    "bannerTitle": "Bevestig uw e-mail",
+    "bannerBody": "Prijsmeldingen en de dagelijkse dealmail vereisen een bevestigd adres."
   }
 }

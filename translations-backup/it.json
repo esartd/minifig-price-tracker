@@ -3177,5 +3177,25 @@
       "titleAmazon": "Da sapere adesso",
       "subtitleAmazon": "Set in offerta da qualche parte in questo momento. Mostriamo quanto valgono: il prezzo controllalo nel tuo negozio."
     }
+  },
+  "verifyEmail": {
+    "verifiedTitle": "E-mail confermata",
+    "verifiedBody": "Grazie: il tuo indirizzo è confermato. Gli avvisi di prezzo e l'e-mail giornaliera delle offerte sono ora disponibili.",
+    "alreadyTitle": "Già confermata",
+    "alreadyBody": "Questo indirizzo era già confermato. Non c'è altro da fare.",
+    "expiredTitle": "Questo link è scaduto",
+    "expiredBody": "I link di conferma durano 24 ore. Accedi e te ne invieremo uno nuovo.",
+    "invalidTitle": "Questo link non è valido",
+    "invalidBody": "Potrebbe essere già stato usato. Accedi e te ne invieremo uno nuovo.",
+    "continue": "Continua su IntoBrick",
+    "resend": "Invia un nuovo link",
+    "sending": "Invio…",
+    "sentShort": "Inviato",
+    "sent": "Inviato. Controlla la posta in arrivo.",
+    "sendFailed": "Invio non riuscito. Riprova tra poco.",
+    "waitSeconds": "Attendi {seconds} s prima di richiederlo.",
+    "signInToResend": "Accedi per ricevere un nuovo link",
+    "bannerTitle": "Conferma la tua e-mail",
+    "bannerBody": "Gli avvisi di prezzo e l'e-mail giornaliera delle offerte richiedono un indirizzo confermato."
   }
 }
