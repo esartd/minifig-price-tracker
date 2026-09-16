@@ -3,7 +3,6 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import Google from "next-auth/providers/google"
 import Facebook from "next-auth/providers/facebook"
 import Discord from "next-auth/providers/discord"
-import Apple from "next-auth/providers/apple"
 import Resend from "next-auth/providers/resend"
 import Credentials from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
@@ -73,19 +72,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         ]
       : []),
 
-    /**
-     * Apple's secret is a signed JWT that expires every six months, not a
-     * static string. Whatever generates APPLE_CLIENT_SECRET has to be re-run
-     * before it lapses or sign-in stops working with no other warning.
-     */
-    ...(process.env.APPLE_CLIENT_ID && process.env.APPLE_CLIENT_SECRET
-      ? [
-          Apple({
-            clientId: process.env.APPLE_CLIENT_ID,
-            clientSecret: process.env.APPLE_CLIENT_SECRET,
-          }),
-        ]
-      : []),
 
     // Credentials Provider (email/password)
     Credentials({

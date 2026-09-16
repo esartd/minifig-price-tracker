@@ -24,7 +24,6 @@ import { signIn, getProviders } from 'next-auth/react';
 const BRAND_COLORS: Record<string, string> = {
   facebook: '#1877F2',
   discord: '#5865F2',
-  apple: '#000000',
 };
 
 /** Rendered elsewhere, or not a button at all. */
