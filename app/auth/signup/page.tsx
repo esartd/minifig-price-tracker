@@ -20,7 +20,6 @@ export default function SignUp() {
   const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -39,7 +38,12 @@ export default function SignUp() {
       const response = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, name }),
+        // Name is not asked for at signup any more. Two fields convert
+        // better than three, and it was the FIRST field despite being
+        // optional in the API -- which reads as required. It is collected
+        // later in settings, at the point it matters (leaderboards, public
+        // profiles), where the person has a reason to give it.
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
@@ -179,16 +183,6 @@ export default function SignUp() {
 
       <form onSubmit={handleSubmit}>
         {error && <MessageAlert type="error" message={error} />}
-
-        <FormInput
-          id="name"
-          label={t('auth.signup.name')}
-          type="text"
-          value={name}
-          onChange={setName}
-          placeholder={t('auth.signup.placeholders.name')}
-          autoComplete="name"
-        />
 
         <FormInput
           id="email"

@@ -1,6 +1,10 @@
 import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import Google from "next-auth/providers/google"
+import Facebook from "next-auth/providers/facebook"
+import Discord from "next-auth/providers/discord"
+import Apple from "next-auth/providers/apple"
+import Resend from "next-auth/providers/resend"
 import Credentials from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
 import { prisma } from "@/lib/prisma"
@@ -13,12 +17,75 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   // This lets users sign in with Google even if they have an existing email/password account
   trustHost: true,
 
+  /**
+   * Every provider is conditional on its own credentials being present.
+   *
+   * A provider listed without keys still renders a button, and that button
+   * takes the person to an error page -- which is worse than not offering it.
+   * Registering the apps is manual work on each platform's developer site, so
+   * these light up one at a time as Erick completes them, with no deploy
+   * needed beyond setting the env vars.
+   *
+   * lib/auth-providers.ts reads the same variables so the sign-in page shows
+   * exactly the buttons that will work. Keep the two in step.
+   */
   providers: [
     // Google OAuth Provider
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
+
+    /**
+     * Passwordless email.
+     *
+     * The strongest answer to the password problem: nothing to choose,
+     * nothing to forget, no reset flow, and the address is proven by the act
+     * of signing in. Uses the Resend account already sending price alerts, so
+     * there is no new service and no new bill.
+     *
+     * Requires the adapter for token storage, which is configured above.
+     */
+    ...(process.env.RESEND_API_KEY
+      ? [
+          Resend({
+            apiKey: process.env.RESEND_API_KEY,
+            from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
+          }),
+        ]
+      : []),
+
+    ...(process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET
+      ? [
+          Facebook({
+            clientId: process.env.FACEBOOK_CLIENT_ID,
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+          }),
+        ]
+      : []),
+
+    ...(process.env.DISCORD_CLIENT_ID && process.env.DISCORD_CLIENT_SECRET
+      ? [
+          Discord({
+            clientId: process.env.DISCORD_CLIENT_ID,
+            clientSecret: process.env.DISCORD_CLIENT_SECRET,
+          }),
+        ]
+      : []),
+
+    /**
+     * Apple's secret is a signed JWT that expires every six months, not a
+     * static string. Whatever generates APPLE_CLIENT_SECRET has to be re-run
+     * before it lapses or sign-in stops working with no other warning.
+     */
+    ...(process.env.APPLE_CLIENT_ID && process.env.APPLE_CLIENT_SECRET
+      ? [
+          Apple({
+            clientId: process.env.APPLE_CLIENT_ID,
+            clientSecret: process.env.APPLE_CLIENT_SECRET,
+          }),
+        ]
+      : []),
 
     // Credentials Provider (email/password)
     Credentials({
