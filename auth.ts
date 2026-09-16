@@ -308,7 +308,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // `hasGoogle` is the sentinel rather than `googleImage`, because null is
       // a legitimate settled value for googleImage (no Google account, or
       // linked before the column existed) and would re-query forever.
-      const needsBackfill = token.hasGoogle === undefined && token.id != null;
+      // Every field added here needs its own sentinel, or it repeats the bug
+      // this comment describes. emailConfirmed and currencyChosen were both
+      // added after tokens were already in circulation: without them listed,
+      // an existing session reads `undefined`, `!!undefined` is false, and the
+      // user is told to confirm an address they confirmed months ago -- or has
+      // their chosen currency silently ignored.
+      const needsBackfill =
+        token.id != null &&
+        (token.hasGoogle === undefined ||
+          token.emailConfirmed === undefined ||
+          token.currencyChosen === undefined);
 
       if (user || needsBackfill) {
         const dbUser = await prisma.user.findUnique({

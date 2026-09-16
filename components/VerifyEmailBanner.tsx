@@ -53,6 +53,22 @@ export default function VerifyEmailBanner() {
     setSending(true);
     try {
       const res = await fetch('/api/auth/resend-verification', { method: 'POST' });
+      const data = await res.json().catch(() => ({}));
+
+      /**
+       * The server refuses to send to an address that is already confirmed,
+       * and answers 200 with alreadyVerified. Treating that as "sent" told
+       * people an email was on its way when nothing had been sent -- which is
+       * exactly how this banner was first reported as broken.
+       *
+       * If the server says the address is confirmed, this banner should not be
+       * on screen at all: dismiss it rather than claim anything.
+       */
+      if (data?.alreadyVerified) {
+        dismiss();
+        return;
+      }
+
       if (res.ok) setSent(true);
     } catch {
       // Silent: the verify page has the fuller version of this flow with
