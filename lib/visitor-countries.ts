@@ -307,10 +307,23 @@ export async function getVisitorCountries(): Promise<VisitorCountriesData | null
 // ---------------------------------------------------------------------------
 
 export type TrafficWindow = {
-  /** Distinct people. The denominator for "what share of visitors sign up". */
+  /** Distinct people, all channels — including whatever is automated. */
   users: number;
   sessions: number;
   pageViews: number;
+  /**
+   * Sessions arriving from a search engine.
+   *
+   * The honest denominator for "what share of visitors sign up". Direct
+   * traffic on this site is overwhelmingly automated — on 15 September 2026 it
+   * was 950 of 1,348 sessions, landing straight on /auth/signin and bouncing
+   * at 98%, which is a scanner and not a person. Dividing signups by the
+   * all-channel total made a normal conversion rate look like a catastrophe.
+   *
+   * Organic is not a perfect filter, but a bot that arrives with a Google
+   * referrer is rare, and it is far closer to the truth than the total.
+   */
+  organicSessions: number;
 };
 
 export type TrafficSummary = {
@@ -358,6 +371,9 @@ async function fetchTrafficFromGA(): Promise<TrafficSummary | null> {
         { startDate: '7daysAgo', endDate: 'today', name: 'last7' },
         { startDate: '30daysAgo', endDate: 'today', name: 'last30' },
       ],
+      // Channel as a dimension so organic can be separated from the rest.
+      // GA returns one row per (dateRange, channel) pair.
+      dimensions: [{ name: 'sessionDefaultChannelGroup' }],
       metrics: [
         { name: 'totalUsers' },
         { name: 'sessions' },
@@ -365,22 +381,33 @@ async function fetchTrafficFromGA(): Promise<TrafficSummary | null> {
       ],
     });
 
-    const blank = (): TrafficWindow => ({ users: 0, sessions: 0, pageViews: 0 });
+    const blank = (): TrafficWindow => ({
+      users: 0,
+      sessions: 0,
+      pageViews: 0,
+      organicSessions: 0,
+    });
     const windows: Record<string, TrafficWindow> = {
       last7: blank(),
       last30: blank(),
     };
 
     for (const row of response.rows ?? []) {
-      // With multiple dateRanges GA appends the range name as the final
-      // dimension value, even though we requested no dimensions of our own.
-      const range = row.dimensionValues?.[0]?.value ?? 'last7';
+      // Requested dimensions come first; GA appends the dateRange name last.
+      const channel = row.dimensionValues?.[0]?.value ?? '';
+      const range = row.dimensionValues?.[1]?.value ?? 'last7';
       const target = windows[range];
       if (!target) continue;
 
-      target.users = Number(row.metricValues?.[0]?.value ?? 0);
-      target.sessions = Number(row.metricValues?.[1]?.value ?? 0);
-      target.pageViews = Number(row.metricValues?.[2]?.value ?? 0);
+      const users = Number(row.metricValues?.[0]?.value ?? 0);
+      const sessions = Number(row.metricValues?.[1]?.value ?? 0);
+      const pageViews = Number(row.metricValues?.[2]?.value ?? 0);
+
+      // Rows are per channel now, so these accumulate rather than assign.
+      target.users += users;
+      target.sessions += sessions;
+      target.pageViews += pageViews;
+      if (channel === 'Organic Search') target.organicSessions += sessions;
     }
 
     return {

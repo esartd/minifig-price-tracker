@@ -299,8 +299,20 @@ export default async function AdminStatsPage() {
 
   const visitors30d = traffic?.last30Days.users ?? 0;
   const visitors7d = traffic?.last7Days.users ?? 0;
+  /**
+   * Organic, not total, as the conversion denominator.
+   *
+   * Direct traffic here is overwhelmingly automated -- 950 of 1,348 sessions
+   * on 15 September, landing straight on /auth/signin and bouncing at 98%.
+   * Dividing signups by the all-channel total reported 0.15% and read like a
+   * broken site; against organic it is nearer 0.5%, which is ordinary for a
+   * site that gives away its whole value without an account.
+   */
+  const organic30d = traffic?.last30Days.organicSessions ?? 0;
+  const organic7d = traffic?.last7Days.organicSessions ?? 0;
+  const nonOrganic30d = Math.max(0, (traffic?.last30Days.sessions ?? 0) - organic30d);
   // Guarded: a GA outage returns null and must not render NaN%.
-  const signupRate30d = visitors30d > 0 ? (signups30d / visitors30d) * 100 : null;
+  const signupRate30d = organic30d > 0 ? (signups30d / organic30d) * 100 : null;
   const premiumRate = totalUsers > 0 ? (premiumCount / totalUsers) * 100 : null;
   const MONTHLY_PRICE_USD = 4.99;
 
@@ -419,7 +431,9 @@ export default async function AdminStatsPage() {
               Money funnel
             </h2>
             <span style={{ fontSize: 'var(--text-xs)', color: '#737373' }}>
-              last 30 days{traffic ? '' : ' — traffic unavailable, check GA4 credentials'}
+              last 30 days · measured against search traffic, not the all-channel
+              total, because direct here is mostly automated
+              {traffic ? '' : ' — traffic unavailable, check GA4 credentials'}
             </span>
           </div>
 
@@ -429,18 +443,23 @@ export default async function AdminStatsPage() {
             gap: 'var(--space-2)',
           }}>
             <FunnelStage
-              label="Visitors"
-              value={visitors30d ? formatCompactNumberSmart(visitors30d) : '—'}
-              note={visitors7d ? `${formatCompactNumberSmart(visitors7d)} in 7d` : 'no GA data'}
+              label="Search visitors"
+              value={organic30d ? formatCompactNumberSmart(organic30d) : '—'}
+              note={
+                traffic
+                  ? `${organic7d} in 7d · ${formatCompactNumberSmart(nonOrganic30d)} direct/other excluded`
+                  : 'no GA data'
+              }
             />
             <FunnelStage
               label="Signups"
               value={signups30d}
-              note={signupRate30d === null ? '—' : `${signupRate30d.toFixed(2)}% of visitors`}
-              // Under half a percent means the site is being read and not
-              // joined. That is a different problem from "not enough traffic",
-              // and it is the one the numbers actually show.
-              tone={signupRate30d !== null && signupRate30d < 0.5 ? 'bad' : 'ok'}
+              note={
+                signupRate30d === null
+                  ? '—'
+                  : `${signupRate30d.toFixed(2)}% of search visitors`
+              }
+              tone={signupRate30d !== null && signupRate30d < 0.3 ? 'bad' : 'ok'}
             />
             <FunnelStage
               label="Premium"
