@@ -994,7 +994,18 @@
       "message": "GoogleアカウントがIntoBrickに連携されました。"
     },
     "redirectingToGoogle": "Googleにリダイレクトしています...",
-    "orDivider": "または"
+    "orDivider": "または",
+    "continueWith": "次で続行:",
+    "magicLink": {
+      "label": "メールアドレスだけでサインイン",
+      "placeholder": "you@example.com",
+      "send": "リンクを送る",
+      "sending": "送信中…",
+      "hint": "パスワードは不要です。サインイン用のリンクをメールでお送りします。",
+      "sentTitle": "受信トレイをご確認ください",
+      "sentBody": "{email} にサインインリンクを送りました。24時間で期限切れになります。",
+      "failed": "リンクを送信できませんでした。しばらくしてからお試しください。"
+    }
   },
   "newsletter": {
     "title": "月次プライスムーバー",
@@ -3177,5 +3188,25 @@
       "titleAmazon": "いま知っておきたいセット",
       "subtitleAmazon": "いまどこかで安くなっているセットです。価値の目安を表示します。価格はお近くのストアでご確認ください。"
     }
+  },
+  "verifyEmail": {
+    "verifiedTitle": "メールを確認しました",
+    "verifiedBody": "ありがとうございます。アドレスが確認されました。価格アラートと毎日のセールメールをご利用いただけます。",
+    "alreadyTitle": "確認済みです",
+    "alreadyBody": "このアドレスはすでに確認済みです。ほかに必要な操作はありません。",
+    "expiredTitle": "このリンクは期限切れです",
+    "expiredBody": "確認リンクの有効期限は24時間です。サインインすると新しいリンクをお送りします。",
+    "invalidTitle": "このリンクは無効です",
+    "invalidBody": "すでに使用済みの可能性があります。サインインすると新しいリンクをお送りします。",
+    "continue": "IntoBrick に進む",
+    "resend": "新しいリンクを送る",
+    "sending": "送信中…",
+    "sentShort": "送信しました",
+    "sent": "送信しました。受信トレイをご確認ください。",
+    "sendFailed": "送信できませんでした。しばらくしてからお試しください。",
+    "waitSeconds": "{seconds} 秒お待ちのうえ、もう一度お試しください。",
+    "signInToResend": "サインインして新しいリンクを受け取る",
+    "bannerTitle": "メールアドレスを確認してください",
+    "bannerBody": "価格アラートと毎日のセールメールには確認済みのアドレスが必要です。"
   }
 }

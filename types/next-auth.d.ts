@@ -9,8 +9,18 @@ declare module 'next-auth' {
       image?: string | null;
       preferredCurrency?: string | null;
     currencyChosen?: boolean;
+    emailConfirmed?: boolean;
       /** True once the user has picked a currency in settings. */
       currencyChosen?: boolean;
+      /**
+       * True once the address is confirmed. Google sign-ins are true on arrival.
+       *
+       * Named `emailConfirmed` and not `emailVerified` because NextAuth's own
+       * AdapterUser already declares `emailVerified: Date`; augmenting the
+       * same name with a boolean intersects to `Date & boolean`, which nothing
+       * can satisfy.
+       */
+      emailConfirmed?: boolean;
       preferredCountryCode?: string | null;
       preferredRegion?: string | null;
       currencySymbol?: string | null;

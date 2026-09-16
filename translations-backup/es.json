@@ -939,7 +939,18 @@
       "message": "Tu cuenta de Google ahora está conectada a IntoBrick."
     },
     "redirectingToGoogle": "Redirigiendo a Google...",
-    "orDivider": "O"
+    "orDivider": "O",
+    "continueWith": "Continuar con",
+    "magicLink": {
+      "label": "Entre solo con su correo",
+      "placeholder": "usted@ejemplo.com",
+      "send": "Envíenme un enlace",
+      "sending": "Enviando…",
+      "hint": "Sin contraseña. Le enviamos un enlace que inicia su sesión.",
+      "sentTitle": "Revise su bandeja de entrada",
+      "sentBody": "Enviamos un enlace de acceso a {email}. Caduca en 24 horas.",
+      "failed": "No se pudo enviar el enlace. Inténtelo de nuevo en un momento."
+    }
   },
   "newsletter": {
     "title": "Movimientos de precio mensuales",
@@ -3177,5 +3188,25 @@
       "titleAmazon": "Interesante ahora mismo",
       "subtitleAmazon": "Sets que ahora están baratos en algún sitio. Mostramos lo que valen; comprueba el precio en tu tienda."
     }
+  },
+  "verifyEmail": {
+    "verifiedTitle": "Correo confirmado",
+    "verifiedBody": "Gracias: su dirección está confirmada. Ya puede usar las alertas de precio y el correo diario de ofertas.",
+    "alreadyTitle": "Ya estaba confirmado",
+    "alreadyBody": "Esta dirección ya estaba confirmada. No hay nada más que hacer.",
+    "expiredTitle": "Este enlace ha caducado",
+    "expiredBody": "Los enlaces de confirmación duran 24 horas. Inicie sesión y le enviaremos uno nuevo.",
+    "invalidTitle": "Este enlace no es válido",
+    "invalidBody": "Puede que ya se haya usado. Inicie sesión y le enviaremos uno nuevo.",
+    "continue": "Continuar a IntoBrick",
+    "resend": "Enviar un enlace nuevo",
+    "sending": "Enviando…",
+    "sentShort": "Enviado",
+    "sent": "Enviado. Revise su bandeja de entrada.",
+    "sendFailed": "No se pudo enviar. Inténtelo de nuevo en un momento.",
+    "waitSeconds": "Espere {seconds} s antes de volver a pedirlo.",
+    "signInToResend": "Inicie sesión para obtener un enlace nuevo",
+    "bannerTitle": "Confirme su correo",
+    "bannerBody": "Las alertas de precio y el correo diario de ofertas necesitan una dirección confirmada."
   }
 }

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { isPremiumUser } from '@/lib/premium';
+import { hasVerifiedEmail } from '@/lib/require-verified-email';
 
 /**
  * The daily deals digest opt-in.
@@ -48,6 +49,20 @@ export async function POST(request: Request) {
 
   const body = await request.json().catch(() => ({}));
   const enabled = body?.enabled === true;
+
+  // Same asymmetry as the subscription check below: turning the digest OFF is
+  // always allowed, whatever the state of the address. Refusing to let someone
+  // stop email because they have not confirmed their email would be absurd.
+  if (enabled && !(await hasVerifiedEmail(session.user.id))) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: 'Confirm your email address to receive the deals digest',
+        verificationRequired: true,
+      },
+      { status: 403 }
+    );
+  }
 
   // Only switching ON requires a subscription. See the note above on why off
   // is always permitted.

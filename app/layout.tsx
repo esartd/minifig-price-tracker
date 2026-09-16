@@ -6,6 +6,7 @@ import AuthProvider from '@/components/session-provider'
 import ScrollToTop from '@/components/ScrollToTop'
 import AnalyticsOptOut from '@/components/AnalyticsOptOut'
 import CurrencyBanner from '@/components/CurrencyBanner'
+import VerifyEmailBanner from '@/components/VerifyEmailBanner'
 import GuestCollectionProvider from '@/components/GuestCollectionProvider'
 import GuestCollectionMigrator from '@/components/GuestCollectionMigrator'
 import Script from 'next/script'
@@ -307,6 +308,7 @@ export default async function RootLayout({
                 nothing; see the component for why the first hit still counts. */}
             <AnalyticsOptOut />
             <AccountLinkedToast />
+            <VerifyEmailBanner />
             <CurrencyBanner />
             <GuestCollectionMigrator />
             <div className="min-h-screen" style={{ backgroundColor: '#fafafa', display: 'flex', flexDirection: 'column' }}>

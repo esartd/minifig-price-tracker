@@ -994,7 +994,18 @@
       "message": "Il tuo account Google è ora collegato a IntoBrick."
     },
     "redirectingToGoogle": "Reindirizzamento a Google in corso...",
-    "orDivider": "OPPURE"
+    "orDivider": "OPPURE",
+    "continueWith": "Continua con",
+    "magicLink": {
+      "label": "Accedi solo con la tua e-mail",
+      "placeholder": "tu@esempio.it",
+      "send": "Inviami un link",
+      "sending": "Invio…",
+      "hint": "Nessuna password. Ti inviamo un link che ti fa accedere.",
+      "sentTitle": "Controlla la posta in arrivo",
+      "sentBody": "Abbiamo inviato un link di accesso a {email}. Scade tra 24 ore.",
+      "failed": "Non è stato possibile inviare il link. Riprova tra poco."
+    }
   },
   "newsletter": {
     "title": "Movimenti di Prezzo Mensili",
@@ -3177,5 +3188,25 @@
       "titleAmazon": "Da sapere adesso",
       "subtitleAmazon": "Set in offerta da qualche parte in questo momento. Mostriamo quanto valgono: il prezzo controllalo nel tuo negozio."
     }
+  },
+  "verifyEmail": {
+    "verifiedTitle": "E-mail confermata",
+    "verifiedBody": "Grazie: il tuo indirizzo è confermato. Gli avvisi di prezzo e l'e-mail giornaliera delle offerte sono ora disponibili.",
+    "alreadyTitle": "Già confermata",
+    "alreadyBody": "Questo indirizzo era già confermato. Non c'è altro da fare.",
+    "expiredTitle": "Questo link è scaduto",
+    "expiredBody": "I link di conferma durano 24 ore. Accedi e te ne invieremo uno nuovo.",
+    "invalidTitle": "Questo link non è valido",
+    "invalidBody": "Potrebbe essere già stato usato. Accedi e te ne invieremo uno nuovo.",
+    "continue": "Continua su IntoBrick",
+    "resend": "Invia un nuovo link",
+    "sending": "Invio…",
+    "sentShort": "Inviato",
+    "sent": "Inviato. Controlla la posta in arrivo.",
+    "sendFailed": "Invio non riuscito. Riprova tra poco.",
+    "waitSeconds": "Attendi {seconds} s prima di richiederlo.",
+    "signInToResend": "Accedi per ricevere un nuovo link",
+    "bannerTitle": "Conferma la tua e-mail",
+    "bannerBody": "Gli avvisi di prezzo e l'e-mail giornaliera delle offerte richiedono un indirizzo confermato."
   }
 }

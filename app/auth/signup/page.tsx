@@ -9,6 +9,8 @@ import FormInput from '@/components/auth/FormInput';
 import PasswordInput from '@/components/auth/PasswordInput';
 import MessageAlert from '@/components/auth/MessageAlert';
 import { GoogleButton } from '@/components/auth/GoogleButton';
+import { ProviderButtons } from '@/components/auth/ProviderButtons';
+import { MagicLinkForm } from '@/components/auth/MagicLinkForm';
 import { DividerOr } from '@/components/auth/DividerOr';
 import { getFriendlyAuthError } from '@/lib/auth/urlError';
 import { useTranslation } from '@/components/TranslationProvider';
@@ -20,7 +22,6 @@ export default function SignUp() {
   const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -39,7 +40,12 @@ export default function SignUp() {
       const response = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, name }),
+        // Name is not asked for at signup any more. Two fields convert
+        // better than three, and it was the FIRST field despite being
+        // optional in the API -- which reads as required. It is collected
+        // later in settings, at the point it matters (leaderboards, public
+        // profiles), where the person has a reason to give it.
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
@@ -175,20 +181,23 @@ export default function SignUp() {
         />
       </div>
 
+      {/* Whatever else is configured. Renders nothing when nothing is. */}
+      <div style={{ marginBottom: '8px' }}>
+        <ProviderButtons callbackUrl={callbackUrl} prefix={t('auth.continueWith') || 'Continue with'} />
+      </div>
+
+      <DividerOr />
+
+      {/* Above the password fields deliberately: no password to choose, none
+          to forget, and the address is proven by the act of signing in. */}
+      <div style={{ marginBottom: '16px' }}>
+        <MagicLinkForm callbackUrl={callbackUrl} />
+      </div>
+
       <DividerOr />
 
       <form onSubmit={handleSubmit}>
         {error && <MessageAlert type="error" message={error} />}
-
-        <FormInput
-          id="name"
-          label={t('auth.signup.name')}
-          type="text"
-          value={name}
-          onChange={setName}
-          placeholder={t('auth.signup.placeholders.name')}
-          autoComplete="name"
-        />
 
         <FormInput
           id="email"

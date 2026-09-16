@@ -939,7 +939,18 @@
       "message": "Votre compte Google est maintenant connecté à IntoBrick."
     },
     "redirectingToGoogle": "Redirection vers Google...",
-    "orDivider": "OU"
+    "orDivider": "OU",
+    "continueWith": "Continuer avec",
+    "magicLink": {
+      "label": "Connectez-vous avec votre e-mail",
+      "placeholder": "vous@exemple.fr",
+      "send": "Envoyez-moi un lien",
+      "sending": "Envoi…",
+      "hint": "Pas de mot de passe. Nous vous envoyons un lien qui vous connecte.",
+      "sentTitle": "Vérifiez votre boîte de réception",
+      "sentBody": "Nous avons envoyé un lien de connexion à {email}. Il expire dans 24 heures.",
+      "failed": "Impossible d'envoyer le lien. Réessayez dans un instant."
+    }
   },
   "newsletter": {
     "title": "Mouvements de prix mensuels",
@@ -3177,5 +3188,25 @@
       "titleAmazon": "À connaître en ce moment",
       "subtitleAmazon": "Des sets actuellement bradés quelque part. Nous indiquons leur valeur — vérifiez le prix dans votre boutique."
     }
+  },
+  "verifyEmail": {
+    "verifiedTitle": "E-mail confirmé",
+    "verifiedBody": "Merci — votre adresse est confirmée. Les alertes de prix et l'e-mail quotidien des offres sont disponibles.",
+    "alreadyTitle": "Déjà confirmé",
+    "alreadyBody": "Cette adresse était déjà confirmée. Rien d'autre à faire.",
+    "expiredTitle": "Ce lien a expiré",
+    "expiredBody": "Les liens de confirmation durent 24 heures. Connectez-vous et nous vous en enverrons un nouveau.",
+    "invalidTitle": "Ce lien n'est pas valide",
+    "invalidBody": "Il a peut-être déjà été utilisé. Connectez-vous et nous vous en enverrons un nouveau.",
+    "continue": "Continuer vers IntoBrick",
+    "resend": "Envoyer un nouveau lien",
+    "sending": "Envoi…",
+    "sentShort": "Envoyé",
+    "sent": "Envoyé. Vérifiez votre boîte de réception.",
+    "sendFailed": "Échec de l'envoi. Réessayez dans un instant.",
+    "waitSeconds": "Veuillez patienter {seconds} s avant de redemander.",
+    "signInToResend": "Connectez-vous pour recevoir un nouveau lien",
+    "bannerTitle": "Confirmez votre e-mail",
+    "bannerBody": "Les alertes de prix et l'e-mail quotidien des offres nécessitent une adresse confirmée."
   }
 }
