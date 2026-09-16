@@ -939,7 +939,18 @@
       "message": "Votre compte Google est maintenant connecté à IntoBrick."
     },
     "redirectingToGoogle": "Redirection vers Google...",
-    "orDivider": "OU"
+    "orDivider": "OU",
+    "continueWith": "Continuer avec",
+    "magicLink": {
+      "label": "Connectez-vous avec votre e-mail",
+      "placeholder": "vous@exemple.fr",
+      "send": "Envoyez-moi un lien",
+      "sending": "Envoi…",
+      "hint": "Pas de mot de passe. Nous vous envoyons un lien qui vous connecte.",
+      "sentTitle": "Vérifiez votre boîte de réception",
+      "sentBody": "Nous avons envoyé un lien de connexion à {email}. Il expire dans 24 heures.",
+      "failed": "Impossible d'envoyer le lien. Réessayez dans un instant."
+    }
   },
   "newsletter": {
     "title": "Mouvements de prix mensuels",

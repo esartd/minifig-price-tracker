@@ -994,7 +994,18 @@
       "message": "GoogleアカウントがIntoBrickに連携されました。"
     },
     "redirectingToGoogle": "Googleにリダイレクトしています...",
-    "orDivider": "または"
+    "orDivider": "または",
+    "continueWith": "次で続行:",
+    "magicLink": {
+      "label": "メールアドレスだけでサインイン",
+      "placeholder": "you@example.com",
+      "send": "リンクを送る",
+      "sending": "送信中…",
+      "hint": "パスワードは不要です。サインイン用のリンクをメールでお送りします。",
+      "sentTitle": "受信トレイをご確認ください",
+      "sentBody": "{email} にサインインリンクを送りました。24時間で期限切れになります。",
+      "failed": "リンクを送信できませんでした。しばらくしてからお試しください。"
+    }
   },
   "newsletter": {
     "title": "月次プライスムーバー",

@@ -994,7 +994,18 @@
       "message": "Ditt Google-konto är nu kopplat till IntoBrick."
     },
     "redirectingToGoogle": "Omdirigerar till Google...",
-    "orDivider": "ELLER"
+    "orDivider": "ELLER",
+    "continueWith": "Fortsätt med",
+    "magicLink": {
+      "label": "Logga in med bara din e-post",
+      "placeholder": "du@exempel.se",
+      "send": "Mejla mig en länk",
+      "sending": "Skickar…",
+      "hint": "Inget lösenord behövs. Vi mejlar en länk som loggar in dig.",
+      "sentTitle": "Kolla inkorgen",
+      "sentBody": "Vi skickade en inloggningslänk till {email}. Den gäller i 24 timmar.",
+      "failed": "Kunde inte skicka länken. Försök igen strax."
+    }
   },
   "newsletter": {
     "title": "Månadens prisrörelser",

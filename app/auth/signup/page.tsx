@@ -9,6 +9,8 @@ import FormInput from '@/components/auth/FormInput';
 import PasswordInput from '@/components/auth/PasswordInput';
 import MessageAlert from '@/components/auth/MessageAlert';
 import { GoogleButton } from '@/components/auth/GoogleButton';
+import { ProviderButtons } from '@/components/auth/ProviderButtons';
+import { MagicLinkForm } from '@/components/auth/MagicLinkForm';
 import { DividerOr } from '@/components/auth/DividerOr';
 import { getFriendlyAuthError } from '@/lib/auth/urlError';
 import { useTranslation } from '@/components/TranslationProvider';
@@ -177,6 +179,19 @@ export default function SignUp() {
           text={t('auth.signup.continueWithGoogle') || 'Sign up with Google'}
           callbackUrl={callbackUrl}
         />
+      </div>
+
+      {/* Whatever else is configured. Renders nothing when nothing is. */}
+      <div style={{ marginBottom: '8px' }}>
+        <ProviderButtons callbackUrl={callbackUrl} prefix={t('auth.continueWith') || 'Continue with'} />
+      </div>
+
+      <DividerOr />
+
+      {/* Above the password fields deliberately: no password to choose, none
+          to forget, and the address is proven by the act of signing in. */}
+      <div style={{ marginBottom: '16px' }}>
+        <MagicLinkForm callbackUrl={callbackUrl} />
       </div>
 
       <DividerOr />

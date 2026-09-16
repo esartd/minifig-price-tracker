@@ -994,7 +994,18 @@
       "message": "Twoje konto Google jest teraz połączone z IntoBrick."
     },
     "redirectingToGoogle": "Przekierowywanie do Google...",
-    "orDivider": "LUB"
+    "orDivider": "LUB",
+    "continueWith": "Kontynuuj z",
+    "magicLink": {
+      "label": "Zaloguj się samym adresem e-mail",
+      "placeholder": "ty@przyklad.pl",
+      "send": "Wyślij mi link",
+      "sending": "Wysyłanie…",
+      "hint": "Bez hasła. Wyślemy e-mailem link, który Cię zaloguje.",
+      "sentTitle": "Sprawdź skrzynkę odbiorczą",
+      "sentBody": "Wysłaliśmy link logowania na {email}. Wygasa po 24 godzinach.",
+      "failed": "Nie udało się wysłać linku. Spróbuj za chwilę."
+    }
   },
   "newsletter": {
     "title": "Comiesięczne zmiany cen",

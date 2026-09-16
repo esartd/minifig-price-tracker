@@ -994,7 +994,18 @@
       "message": "Il tuo account Google è ora collegato a IntoBrick."
     },
     "redirectingToGoogle": "Reindirizzamento a Google in corso...",
-    "orDivider": "OPPURE"
+    "orDivider": "OPPURE",
+    "continueWith": "Continua con",
+    "magicLink": {
+      "label": "Accedi solo con la tua e-mail",
+      "placeholder": "tu@esempio.it",
+      "send": "Inviami un link",
+      "sending": "Invio…",
+      "hint": "Nessuna password. Ti inviamo un link che ti fa accedere.",
+      "sentTitle": "Controlla la posta in arrivo",
+      "sentBody": "Abbiamo inviato un link di accesso a {email}. Scade tra 24 ore.",
+      "failed": "Non è stato possibile inviare il link. Riprova tra poco."
+    }
   },
   "newsletter": {
     "title": "Movimenti di Prezzo Mensili",

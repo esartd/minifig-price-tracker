@@ -994,7 +994,18 @@
       "message": "Je Google-account is nu gekoppeld aan IntoBrick."
     },
     "redirectingToGoogle": "Doorverwijzen naar Google...",
-    "orDivider": "OF"
+    "orDivider": "OF",
+    "continueWith": "Doorgaan met",
+    "magicLink": {
+      "label": "Log in met alleen uw e-mail",
+      "placeholder": "u@voorbeeld.nl",
+      "send": "Stuur me een link",
+      "sending": "Versturen…",
+      "hint": "Geen wachtwoord nodig. We mailen u een link waarmee u inlogt.",
+      "sentTitle": "Kijk in uw inbox",
+      "sentBody": "We hebben een inloglink naar {email} gestuurd. Die verloopt na 24 uur.",
+      "failed": "Kon de link niet versturen. Probeer het zo nog eens."
+    }
   },
   "newsletter": {
     "title": "Maandelijkse Prijsbewegingen",

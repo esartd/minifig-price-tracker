@@ -939,7 +939,18 @@
       "title": "Konto verknüpft!"
     },
     "orDivider": "ODER",
-    "redirectingToGoogle": "Weiterleitung zu Google..."
+    "redirectingToGoogle": "Weiterleitung zu Google...",
+    "continueWith": "Weiter mit",
+    "magicLink": {
+      "label": "Nur mit Ihrer E-Mail anmelden",
+      "placeholder": "sie@beispiel.de",
+      "send": "Link zusenden",
+      "sending": "Wird gesendet…",
+      "hint": "Kein Passwort nötig. Wir senden Ihnen einen Link, der Sie anmeldet.",
+      "sentTitle": "Posteingang prüfen",
+      "sentBody": "Wir haben einen Anmeldelink an {email} gesendet. Er gilt 24 Stunden.",
+      "failed": "Link konnte nicht gesendet werden. Bitte gleich noch einmal versuchen."
+    }
   },
   "newsletter": {
     "title": "Monatliche Preisgewinner",
