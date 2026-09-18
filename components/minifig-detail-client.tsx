@@ -19,6 +19,7 @@ import AuthRequiredModal from '@/components/AuthRequiredModal';
 import SaveCollectionModal from '@/components/SaveCollectionModal';
 import { useGuestCollection } from '@/hooks/useGuestCollection';
 import { getSensitiveImageStyles } from '@/lib/minifig-filters';
+import { proxiedImage } from '@/lib/item-image';
 import { formatPrice } from '@/lib/format-price';
 import { generateAmazonMinifigLink, generateBrickLinkMinifigLink } from '@/lib/affiliate-links';
 import { generateEbayMinifigLink } from '@/lib/ebay-affiliate-links';
@@ -992,7 +993,7 @@ export default function MinifigDetailClient({ minifig, variants, similarSets, ap
                   margin: '0 auto'
                 }}>
                   <Image
-                    src={minifig.image_url}
+                    src={proxiedImage('minifig', minifig.no)}
                     alt={t('minifigDetail.altText.mainImage', {
                       name: minifig.name,
                       no: minifig.no,

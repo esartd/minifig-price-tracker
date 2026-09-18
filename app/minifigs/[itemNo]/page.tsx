@@ -411,11 +411,33 @@ export default async function MinifigPage({
   // Was a 4-locale copy; the shared map covers all ten.
   const domains = DOMAINS;
 
+  // All ten, not four.
+  //
+  // This feeds `inLanguage` on the Product JSON-LD below. With only en/de/fr/es
+  // listed, the other six locales looked up `undefined` -- and JSON.stringify
+  // drops an undefined value silently, so those pages shipped structured data
+  // with no language on it and nothing ever errored. The map in
+  // generateMetadata at the top of this file has always had all ten; this was
+  // just a stale copy of it.
+  //
+  // `pt` is tagged pt-BR here because that is what the locale actually is --
+  // the translations were converted to Brazilian Portuguese, Amazon links route
+  // to amazon.com.br and BRL is in SUPPORTED_CURRENCIES (see CLAUDE.md). The
+  // rest of the codebase still says pt_PT in about twenty og:locale maps, which
+  // tells Google these pages are aimed at Portugal. Not swept here because it
+  // is a site-wide change and worth doing in one deliberate pass; the hreflang
+  // that does the real language targeting uses a bare `pt` and is unaffected.
   const localeMap = {
     en: 'en-US',
     de: 'de-DE',
     fr: 'fr-FR',
     es: 'es-ES',
+    it: 'it-IT',
+    nl: 'nl-NL',
+    pl: 'pl-PL',
+    pt: 'pt-BR',
+    sv: 'sv-SE',
+    ja: 'ja-JP',
   };
 
   const baseUrl = domains[locale as keyof typeof domains];

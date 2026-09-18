@@ -13,6 +13,25 @@ const WHITELISTED_IPS = [
 
 // Verified crawlers — always allowed through, no rate limiting
 // Cloudflare validates these via reverse-DNS, so user-agent matching is safe here
+//
+// Search engines and social preview fetchers only.
+//
+// The AI crawlers used to be listed here -- gptbot, claudebot, anthropic-ai,
+// perplexity, chatgpt-user -- which put this file in direct contradiction with
+// app/robots.ts, where all of them sit in a 22-agent group with
+// `disallow: ['/']`. So robots.txt asked them not to crawl and the middleware
+// handed the same agents an unmetered fast path if they ignored it. Whichever
+// policy is right, running both at once means the stricter one does nothing.
+//
+// robots.ts is the stated policy, so this now matches it. They are not blocked
+// outright: they fall through to the normal tiered rate limit below, which is
+// what catches an agent that disregards robots.txt.
+//
+// One judgement call left open deliberately: `chatgpt-user` is not a training
+// crawler, it is the fetch made when a person asks ChatGPT to open a link, so
+// it represents a real reader and possible referral traffic. It is disallowed
+// in robots.ts along with the training crawlers. Worth revisiting as a policy
+// question rather than quietly re-adding here.
 const ALLOWED_BOTS = [
   'googlebot',
   'bingbot',
@@ -28,11 +47,6 @@ const ALLOWED_BOTS = [
   'linkedinbot',
   'discordbot',
   'slackbot',
-  'chatgpt-user',
-  'gptbot',
-  'anthropic-ai',
-  'claudebot',
-  'perplexity',
   'amzn-searchbot',
   'sleepbot',
   'figtracker-cron',

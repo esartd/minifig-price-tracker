@@ -17,6 +17,7 @@ import AuthRequiredModal from '@/components/AuthRequiredModal';
 import SaveCollectionModal from '@/components/SaveCollectionModal';
 import { useGuestCollection } from '@/hooks/useGuestCollection';
 import { formatPrice } from '@/lib/format-price';
+import { proxiedImage } from '@/lib/item-image';
 import { getSetAvailability } from '@/lib/set-availability';
 import { generateLegoSetLink, generateAmazonLegoSetLink, generateBrickLinkAffiliateLink } from '@/lib/affiliate-links';
 import { generateEbaySetLink } from '@/lib/ebay-affiliate-links';
@@ -231,7 +232,12 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
 
   const [featuredSets, setFeaturedSets] = useState<any[]>([]);
   const [imageError, setImageError] = useState(false);
-  const [imageUrl, setImageUrl] = useState(set.image_url);
+  // Served through our own proxy, not hotlinked from BrickLink -- it converts
+  // to WebP once and caches it, and this image is the page's LCP element (the
+  // 75192-1 PNG is 618 KB). See lib/item-image.ts.
+  // Not state any more: the only thing that ever reassigned it was the
+  // ON -> SN retry, which the proxy now does server-side.
+  const imageUrl = proxiedImage('set', set.box_no);
 
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [wishlistLoading, setWishlistLoading] = useState(false);
@@ -815,14 +821,12 @@ export default function SetDetailClient({ set, themeSets, sameYearSets, closeRan
                   style={{ width: '100%', maxWidth: '900px', height: 'auto', objectFit: 'contain' }}
                   unoptimized
                   priority
-                  onError={(e) => {
-                    if (imageUrl.includes('/ON/')) {
-                      const snUrl = imageUrl.replace('/ON/', '/SN/');
-                      if (e.currentTarget.src !== snUrl) {
-                        setImageUrl(snUrl);
-                        return;
-                      }
-                    }
+                  onError={() => {
+                    // The ON -> SN retry that used to live here is done by the
+                    // proxy, server-side, before it ever returns. Reaching this
+                    // handler now means neither variant exists, so go straight
+                    // to the placeholder instead of retrying a URL shape the
+                    // proxy does not use.
                     setImageError(true);
                   }}
                 />
