@@ -913,7 +913,7 @@
         "name": "Je naam",
         "email": "jouw@email.com",
         "password": "Minimaal 6 tekens",
-        "displayName": "Te zien in ranglijsten en gedeelde collecties"
+        "displayName": "bijv. Erix Figs"
       },
       "button": "Account Aanmaken",
       "buttonLoading": "Account Aanmaken...",
@@ -927,7 +927,8 @@
       "continueWithGoogle": "Aanmelden met Google",
       "signupWithEmail": "Aanmelden met e-mail",
       "freeBadge": "100% Gratis • Geen creditcard vereist",
-      "displayName": "Weergavenaam (optioneel)"
+      "displayName": "Weergavenaam (optioneel)",
+      "displayNameHelp": "Te zien in ranglijsten en gedeelde collecties. Je kunt dit later toevoegen."
     },
     "signin": {
       "title": "Welkom Terug",

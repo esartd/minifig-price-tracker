@@ -218,7 +218,11 @@ export default function SignUp() {
           type="text"
           value={name}
           onChange={setName}
-          placeholder={t('auth.signup.placeholders.displayName') || 'Shown on leaderboards and shared collections'}
+          placeholder={t('auth.signup.placeholders.displayName') || 'e.g. Erix Figs'}
+          // FormInput defaults required to true. Without this the "optional"
+          // field was mandatory -- which it was, live, for a few minutes.
+          required={false}
+          helperText={t('auth.signup.displayNameHelp') || 'Shown on leaderboards and shared collections. You can add it later.'}
           autoComplete="name"
         />
 

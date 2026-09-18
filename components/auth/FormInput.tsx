@@ -8,6 +8,14 @@ interface FormInputProps {
   required?: boolean;
   autoComplete?: string;
   minLength?: number;
+  /**
+   * A short line under the field, for explaining what it is for.
+   *
+   * Exists because the alternative was stuffing the explanation into the
+   * placeholder, where it is silently clipped by the input width -- "Shown on
+   * leaderboards and shared collecti" was live for a few minutes.
+   */
+  helperText?: string;
 }
 
 export default function FormInput({
@@ -20,6 +28,7 @@ export default function FormInput({
   required = true,
   autoComplete,
   minLength,
+  helperText,
 }: FormInputProps) {
   return (
     <div style={{ marginBottom: '24px' }}>
@@ -62,6 +71,18 @@ export default function FormInput({
           e.currentTarget.style.boxShadow = 'none';
         }}
       />
+      {helperText && (
+        <p
+          style={{
+            margin: '6px 0 0',
+            fontSize: 'var(--text-xs)',
+            color: '#737373',
+            lineHeight: 1.5,
+          }}
+        >
+          {helperText}
+        </p>
+      )}
     </div>
   );
 }

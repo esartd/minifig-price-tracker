@@ -913,7 +913,7 @@
         "name": "Il tuo nome",
         "email": "tua@email.com",
         "password": "At least 6 personaggi",
-        "displayName": "Mostrato nelle classifiche e nelle collezioni condivise"
+        "displayName": "es. Erix Figs"
       },
       "button": "Crea Account",
       "buttonLoading": "Creazione Account in corso...",
@@ -927,7 +927,8 @@
       "continueWithGoogle": "Registrati con Google",
       "signupWithEmail": "Registrati con email",
       "freeBadge": "100% Gratis • Nessuna carta di credito richiesta",
-      "displayName": "Nome visualizzato (facoltativo)"
+      "displayName": "Nome visualizzato (facoltativo)",
+      "displayNameHelp": "Mostrato nelle classifiche e nelle collezioni condivise. Puoi aggiungerlo più tardi."
     },
     "signin": {
       "title": "Welcome Indietro",

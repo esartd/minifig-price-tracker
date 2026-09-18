@@ -914,7 +914,7 @@
         "name": "Your name",
         "email": "your@email.com",
         "password": "At least 6 characters",
-        "displayName": "Shown on leaderboards and shared collections"
+        "displayName": "e.g. Erix Figs"
       },
       "button": "Create Account",
       "buttonLoading": "Creating Account...",
@@ -926,7 +926,8 @@
         "generic": "An error occurred. Please try again."
       },
       "freeBadge": "100% Free • No credit card required",
-      "displayName": "Display name (optional)"
+      "displayName": "Display name (optional)",
+      "displayNameHelp": "Shown on leaderboards and shared collections. You can add it later."
     },
     "signin": {
       "title": "Welcome Back",

@@ -913,7 +913,7 @@
         "name": "Twoje imię",
         "email": "twoj@email.com",
         "password": "Co najmniej 6 znaków",
-        "displayName": "Widoczna w rankingach i udostępnionych kolekcjach"
+        "displayName": "np. Erix Figs"
       },
       "button": "Utwórz konto",
       "buttonLoading": "Tworzenie konta...",
@@ -927,7 +927,8 @@
       "continueWithGoogle": "Zarejestruj się przez Google",
       "signupWithEmail": "Zarejestruj się przez e-mail",
       "freeBadge": "100% za darmo • Karta kredytowa niewymagana",
-      "displayName": "Nazwa wyświetlana (opcjonalnie)"
+      "displayName": "Nazwa wyświetlana (opcjonalnie)",
+      "displayNameHelp": "Widoczna w rankingach i udostępnionych kolekcjach. Możesz dodać ją później."
     },
     "signin": {
       "title": "Witamy ponownie",

@@ -913,7 +913,7 @@
         "name": "お名前",
         "email": "your@email.com",
         "password": "6文字以上",
-        "displayName": "ランキングや共有コレクションに表示されます"
+        "displayName": "例：Erix Figs"
       },
       "button": "Create アカウント",
       "buttonLoading": "アカウント作成中...",
@@ -927,7 +927,8 @@
       "continueWithGoogle": "Googleで登録",
       "signupWithEmail": "メールで登録",
       "freeBadge": "完全無料 • クレジットカード不要",
-      "displayName": "表示名（任意）"
+      "displayName": "表示名（任意）",
+      "displayNameHelp": "ランキングや共有コレクションに表示されます。後から追加することもできます。"
     },
     "signin": {
       "title": "Welcome 戻る",
