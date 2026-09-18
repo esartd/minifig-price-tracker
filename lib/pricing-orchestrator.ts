@@ -5,13 +5,18 @@
  * by blending BrickLink data (95%) and eBay listings (5%).
  *
  * Formula:
- *   BL_component  = (bl_sold_avg + bl_stock_avg + bl_lowest) / 3
+ *   BL_component  = mean of whichever of (bl_sold_avg, bl_stock_avg, bl_lowest) are > 0
  *   eBay_component = (ebay_avg + ebay_lowest) / 2
  *   suggested      = BL_component * 0.95 + eBay_component * 0.05
+ *                    capped at bl_sold_avg * MAX_MULTIPLE_OF_SOLD when anything sold
  *   current_avg    = bl_stock_avg * 0.95 + ebay_avg * 0.05
  *   lowest         = bl_lowest * 0.95 + ebay_lowest * 0.05
  *
  * When eBay has < 3 listings, BrickLink carries 100%.
+ *
+ * Two of the three BrickLink components are ASKING prices, so the cap matters:
+ * see MAX_MULTIPLE_OF_SOLD. When nothing sold in six months there is no anchor
+ * at all and the row is stored with confidence 0.5 to say so.
  *
  * Cache TTL:
  *   Logged-in users  → 168 hours / 7 days
@@ -38,14 +43,68 @@ interface BlendInput {
   ebayLowest: number | null;
 }
 
-function blendPrices(input: BlendInput): Pick<PricingData, 'currentAverage' | 'currentLowest' | 'suggestedPrice'> {
+/**
+ * How far above the actual sold average a suggested price may go.
+ *
+ * Two of the three BrickLink components -- stock average and stock lowest --
+ * are ASKING prices, and on a rare item sellers ask whatever they like. For
+ * sh0045 (SDCC 2012 Symbiote Spider-Man) BrickLink reported a sold average of
+ * $934 against both asking figures at $15,000, and the plain mean of the three
+ * produced a suggested price of $10,311. It really trades around $1,731.
+ *
+ * What actually sold is the market price; current listings only inform it. This
+ * caps the blend at twice the sold average, which is generous enough for a
+ * genuinely rising market and still rules out the aspirational outlier.
+ *
+ * 2x was chosen by simulating against all 19,148 stored USD minifig prices:
+ *   1.5x  lowered 990 prices (5.2%) -- sh0045 to $1,401, under its real value
+ *   2x    lowered 340 prices (1.8%) -- sh0045 to $1,868, within 8% of real
+ *   3x    lowered 119 prices (0.6%) -- sh0045 to $2,803, still 60% over
+ *
+ * It does nothing when there are no recorded sales; that case is handled by
+ * `salesBacked` below rather than by inventing an anchor.
+ */
+const MAX_MULTIPLE_OF_SOLD = 2;
+
+/**
+ * A single asking price this far above the sold average is treated as noise and
+ * dropped before blending.
+ *
+ * Set 75217-1 is the clearest case: BrickLink reported a sold average of $271
+ * and a lowest listing of $235 -- two independent readings that agree -- next to
+ * a quantity-weighted listing average of $20,506, which one absurd listing had
+ * dragged up. Averaging all three gave $7,004 for a set that trades around $250.
+ *
+ * Capping alone would have returned $542. Dropping the outlier first returns
+ * $253, because the two honest components are left to speak for themselves.
+ */
+const OUTLIER_MULTIPLE_OF_SOLD = 3;
+
+interface BlendResult extends Pick<PricingData, 'currentAverage' | 'currentLowest' | 'suggestedPrice'> {
+  /** False when BrickLink reported no sales in the last six months. */
+  salesBacked: boolean;
+}
+
+function blendPrices(input: BlendInput): BlendResult {
   const { blSoldAvg, blStockAvg, blLowest, ebayAvg, ebayLowest } = input;
 
   const hasEbay = ebayAvg !== null && ebayLowest !== null && ebayAvg > 0 && ebayLowest > 0;
 
   // Only average the BL values that actually exist (> 0).
   // Dividing by 3 when some values are 0 would drag the price way down for rare items.
-  const blValues = [blSoldAvg, blStockAvg, blLowest].filter(v => v > 0);
+  let blValues = [blSoldAvg, blStockAvg, blLowest].filter(v => v > 0);
+
+  // Drop asking prices that are wildly above what the item actually sold for.
+  // See OUTLIER_MULTIPLE_OF_SOLD. Only possible when there IS a sold figure to
+  // judge against; with no sales, every component is an asking price and there
+  // is nothing to measure an outlier from.
+  if (blSoldAvg > 0) {
+    const kept = blValues.filter(v => v <= blSoldAvg * OUTLIER_MULTIPLE_OF_SOLD);
+    // Never end up with nothing: if both asking figures are outliers, the sold
+    // average alone is the honest answer.
+    blValues = kept.length > 0 ? kept : [blSoldAvg];
+  }
+
   const blComponent = blValues.length > 0
     ? blValues.reduce((sum, v) => sum + v, 0) / blValues.length
     : 0;
@@ -54,7 +113,13 @@ function blendPrices(input: BlendInput): Pick<PricingData, 'currentAverage' | 'c
   const ebayWeight = hasEbay ? 0.05 : 0;
   const blWeight = 1 - ebayWeight;
 
-  const suggested = parseFloat((blComponent * blWeight + ebayComponent * ebayWeight).toFixed(2));
+  const rawSuggested = blComponent * blWeight + ebayComponent * ebayWeight;
+
+  // Anchor to what actually sold. See MAX_MULTIPLE_OF_SOLD above.
+  const salesBacked = blSoldAvg > 0;
+  const suggested = parseFloat(
+    (salesBacked ? Math.min(rawSuggested, blSoldAvg * MAX_MULTIPLE_OF_SOLD) : rawSuggested).toFixed(2)
+  );
 
   // For currentAverage: use blStockAvg if it exists, otherwise fall back to blComponent
   const blAvgForDisplay = blStockAvg > 0 ? blStockAvg : blComponent;
@@ -64,7 +129,7 @@ function blendPrices(input: BlendInput): Pick<PricingData, 'currentAverage' | 'c
   const blLowestForDisplay = blLowest > 0 ? blLowest : blComponent;
   const currentLowest = parseFloat((blLowestForDisplay * blWeight + (hasEbay ? ebayLowest! * ebayWeight : 0)).toFixed(2));
 
-  return { suggestedPrice: suggested, currentAverage, currentLowest };
+  return { suggestedPrice: suggested, currentAverage, currentLowest, salesBacked };
 }
 
 class PricingOrchestrator {
@@ -339,7 +404,17 @@ class PricingOrchestrator {
       ebayLowest: ebay?.lowest ?? null,
     });
 
-    const confidence = ebay ? 1.0 : 0.9;
+    // Confidence used to say only whether eBay data was present, so effectively
+    // every row was 0.9 or 1.0 and the field carried no information.
+    //
+    // The thing worth knowing is whether anything actually SOLD. 3,023 of the
+    // 19,745 stored USD minifig prices (15.3%) had no BrickLink sales in six
+    // months, which means their price is derived purely from what sellers are
+    // asking -- exactly what our own pricing guide warns readers not to trust.
+    // Those are now marked, so the UI can say "based on current listings; no
+    // recent sales" instead of presenting a guess with the same authority as a
+    // price backed by fifty transactions.
+    const confidence = !blended.salesBacked ? 0.5 : (ebay ? 1.0 : 0.9);
     const now = new Date();
     const expiresAt = new Date(now.getTime() + cacheTtlHours * 60 * 60 * 1000);
 
