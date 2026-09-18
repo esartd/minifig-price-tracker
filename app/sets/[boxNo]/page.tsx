@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getBoxByNumber, loadAllBoxes } from '@/lib/boxes-data';
 import { prisma } from '@/lib/prisma';
+import { getSetDescription } from '@/lib/catalog-description';
 import SetDetailClient from '@/components/set-detail-client';
 import { POPULAR_SETS } from '@/lib/popular-sets';
 import { DOMAINS } from '@/lib/i18n-alternates';
@@ -65,28 +66,11 @@ export async function generateMetadata({
   // descriptions were moved to the database in the first place). So every set
   // page in every language fell through to the fallback template below and had
   // done since the field was added. Matches what the minifig page does.
-  const { prisma } = await import('@/lib/prisma');
-  const setDescription = await prisma.setsCatalog.findUnique({
-    where: { box_no: boxNo },
-    select: {
-      description_en: true,
-      description_de: true,
-      description_fr: true,
-      description_es: true,
-      description_it: true,
-      description_ja: true,
-      description_nl: true,
-      description_pl: true,
-      description_pt: true,
-      description_sv: true,
-    },
-  }).catch(() => null);
+  const setDescription = await getSetDescription(boxNo, locale);
 
-  const descriptionKey = `description_${locale}` as keyof NonNullable<typeof setDescription>;
   const descriptionFallbackTemplate = t.setDetail?.meta?.descriptionFallback ||
                       '{category} - {name}. Track current BrickLink prices and manage your LEGO set inventory. Released {year}.';
-  const description = setDescription?.[descriptionKey] ||
-                      setDescription?.description_en ||
+  const description = setDescription ||
                       descriptionFallbackTemplate
                         .replace('{category}', set.category_name)
                         .replace('{name}', set.name)
@@ -172,9 +156,16 @@ export default async function SetPage({
   // advertised English breadcrumb URLs to Google.
   const origin = DOMAINS[locale];
 
-  // Get localized description
-  const descriptionKey = `description_${locale}` as 'description_en' | 'description_de' | 'description_fr' | 'description_es';
-  const localizedDescription = (set as any)[descriptionKey] || (set as any).description_en || '';
+  // Descriptions come from SetsCatalog in the database, not from boxes.json.
+  //
+  // This read used to be `(set as any)[descriptionKey]`, where `set` is the
+  // boxes.json record -- a file with no description fields at all. So it was
+  // always '' and the prose block in set-detail-client never rendered: every
+  // one of ~21,800 set pages shipped a rich meta description and a body with no
+  // text in it. `generateMetadata` above was fixed for exactly this reason; the
+  // page component was missed. The `as any` casts are what hid it -- they
+  // silenced the very type error that would have caught it.
+  const localizedDescription = await getSetDescription(boxNo, locale);
 
   // Transform to expected format
   const setData = {

@@ -73,6 +73,44 @@ const BLOCKED_USER_AGENTS = [
  * else in the path are left alone (see the note inside). themeSlug() is
  * idempotent, so a redirect can only fire once and cannot loop.
  */
+/**
+ * Theme slugs that app/themes/themes-client.tsx used to emit, mapped to the
+ * canonical spelling.
+ *
+ * That component built its own slug by deleting every character outside
+ * [a-z0-9-], which diverges from normalizeThemeSlug (lowercase + hyphenate
+ * only) for exactly these thirteen themes. The index linked to the stripped
+ * form while lib/sitemap-data.ts submitted the canonical one, and because the
+ * route title-cases whatever segment it receives, BOTH returned 200 with the
+ * same items and a self-referencing canonical -- two indexable URLs per theme,
+ * one titled "Browse Pokmon LEGO Minifigures".
+ *
+ * The client uses the shared helper now, so nothing new points at the stripped
+ * form. These exist for what Google has already indexed.
+ *
+ * Kept here rather than in next.config.js: four of the destinations contain
+ * parentheses, and Next parses those in a redirect `destination` as a
+ * path-to-regexp capture group, which fails the build outright.
+ *
+ * Values are the *decoded* names. themeSlug() percent-encodes them below, so
+ * this table stays readable and there is one encoder rather than two.
+ */
+const STRIPPED_THEME_SLUGS: Record<string, string> = {
+  'other': '(Other)',
+  'botanicals-botanical-collection': 'Botanicals (Botanical Collection)',
+  'despicable-me--minions': 'Despicable Me & Minions',
+  'educational--dacta': 'Educational & Dacta',
+  'gabbys-dollhouse': "Gabby's Dollhouse",
+  'holiday--event': 'Holiday & Event',
+  'icons-creator-expert--advanced-models': 'Icons (Creator Expert & Advanced Models)',
+  'lego-ideas-cuusoo': 'LEGO Ideas (CUUSOO)',
+  'pharaohs-quest': "Pharaoh's Quest",
+  'pokmon': 'Pokémon',
+  'the-hobbit--the-lord-of-the-rings': 'The Hobbit & The Lord of the Rings',
+  'time-cruisers--time-twisters': 'Time Cruisers & Time Twisters',
+  'unikitty': 'Unikitty!',
+}
+
 function canonicalThemePath(pathname: string): string | null {
   const parts = pathname.split('/')
   // ['', 'themes', '<theme>'] or ['', 'themes', '<theme>', '<sub>']
@@ -99,7 +137,14 @@ function canonicalThemePath(pathname: string): string | null {
 
   let canonical: string
   try {
-    canonical = themeSlug(decodeURIComponent(segment))
+    const decoded = decodeURIComponent(segment)
+    // A stripped slug cannot be recovered by re-slugging -- themeSlug('pokmon')
+    // is 'pokmon', so the equality check below would call it canonical and
+    // leave the duplicate in place. The table is the only way back to the real
+    // name. Checked on the decoded value so both 'pokmon' and an encoded
+    // variant resolve.
+    const restored = STRIPPED_THEME_SLUGS[decoded.toLowerCase()]
+    canonical = themeSlug(restored ?? decoded)
   } catch {
     // Malformed percent-encoding. Leave it and let the route 404 rather than
     // redirecting somewhere invented.

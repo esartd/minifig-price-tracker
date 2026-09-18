@@ -17,9 +17,9 @@ export default function MinifigDescription({
 
   if (!description) return null;
 
-  // Split into sentences for 2-line preview
+  // Only used to decide whether the "Show more" button is worth rendering --
+  // never to decide what goes in the DOM. See the note on the text node below.
   const sentences = description.split('. ').filter(s => s.length > 0);
-  const preview = sentences.slice(0, 2).join('. ') + (sentences.length > 2 ? '...' : '.');
 
   return (
     <div style={{
@@ -36,7 +36,18 @@ export default function MinifigDescription({
         WebkitBoxOrient: 'vertical',
         marginBottom: expanded || sentences.length <= 2 ? '0' : '8px',
       }}>
-        {expanded ? description : preview}
+        {/*
+          Always the full description, never a truncated preview.
+
+          The collapsed state is produced entirely by WebkitLineClamp above, so
+          the complete text stays in the server-rendered HTML and only the
+          visible height changes. Swapping in a 2-sentence `preview` string here
+          -- which is what this did -- meant crawlers only ever received the
+          first two sentences of every minifig description, since they do not
+          click "Show more". SetDescription has always done it this way; this
+          matches it.
+        */}
+        {description}
       </div>
 
       {sentences.length > 2 && (

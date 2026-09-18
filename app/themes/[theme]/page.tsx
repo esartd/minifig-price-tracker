@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import ThemePageClient from '@/components/theme-page-client';
 import { getTranslations, getLocaleFromHost, type Locale } from '@/lib/i18n-subdomain';
+import { getThemeCounts } from '@/lib/theme-subcategories';
 import { DOMAINS } from '@/lib/i18n-alternates';
 import { themeSlug, normalizeThemeSlug } from '@/lib/theme-slug';
 
@@ -90,24 +91,22 @@ export async function generateMetadata({
       .join(' ');
   }
 
-  // Fetch subcategories to get count
-  const baseUrl = domains[locale as keyof typeof domains];
+  // Counts read in-process.
+  //
+  // This used to fetch /api/subcategories over the public origin with
+  // `cache: 'no-store'`, so every theme page render left the server, went out
+  // through Cloudflare and came back in -- to obtain a number that comes from
+  // getAllMinifigs(), an in-process read of the static catalogue. Same grouping
+  // logic, shared with that route so the two cannot drift apart.
   let totalMinifigs = 0;
   let seriesCount = 0;
 
   try {
-    const response = await fetch(`${baseUrl}/api/subcategories?theme=${encodeURIComponent(displayTheme)}`, {
-      cache: 'no-store'
-    });
-    const data = await response.json();
-
-    if (data.success) {
-      const subs = data.data;
-      totalMinifigs = subs.reduce((sum: number, sub: any) => sum + sub.count, 0);
-      seriesCount = subs.filter((sub: any) => sub.subTheme !== 'Uncategorized' && sub.subTheme !== '(Other)').length;
-    }
+    ({ totalMinifigs, seriesCount } = await getThemeCounts(displayTheme));
   } catch (error) {
-    console.error('Failed to fetch metadata for theme:', error);
+    // Counts are decoration: the title and description both have a no-count
+    // variant below. A failure here must not take the page down.
+    console.error('Failed to compute theme counts for metadata:', error);
   }
 
   const nameLegoMinifigures = t.themeMeta?.nameLegoMinifigures || '{name} LEGO Minifigures';

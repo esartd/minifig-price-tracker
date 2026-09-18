@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import LegoSaleClient from './client';
 import { getTranslations, getLocaleFromHost } from '@/lib/i18n-subdomain';
 import { originFor } from '@/lib/site-domain';
+import { buildAlternates } from '@/lib/i18n-alternates';
 
 // Feature flag check
 const ENABLED = process.env.ENABLE_LEGO_SALE === 'true';
@@ -25,6 +26,11 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       t.legoSale?.meta?.description ||
       'LEGO sets on sale at Walmart, checked daily and sorted by how big the saving is. Star Wars, City, Creator and more.',
+    // Without this the page inherits the root layout's alternates, whose
+    // canonical is the domain root -- so /deals told Google its canonical URL
+    // was the homepage, on all ten locales. That is the exact failure the
+    // helper's own header comment warns about.
+    alternates: buildAlternates(locale, '/deals'),
     keywords: t.legoSale?.meta?.keywords || [
       'LEGO sale',
       'LEGO deals',

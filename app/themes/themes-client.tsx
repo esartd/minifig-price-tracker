@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslation } from '@/components/TranslationProvider';
+import { themeSlug } from '@/lib/theme-slug';
 
 interface Theme {
   parent: string;
@@ -30,12 +31,22 @@ function ThemeCard({ theme }: { theme: Theme }) {
     setShowFallback(true);
   };
 
-  // Create URL-safe slug
-  const themeSlug = theme.parent.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  // Must be the shared helper, not a local slug.
+  //
+  // This used to strip every non-[a-z0-9-] character, which diverges from
+  // normalizeThemeSlug (lowercase + hyphenate only) for the ten themes that
+  // carry punctuation or an accent. The index linked to /themes/pokmon while
+  // the sitemap submitted /themes/pok%C3%A9mon -- and because the route
+  // title-cases whatever segment it is given, BOTH returned 200 with the same
+  // minifigs and self-referencing canonicals. So each of those themes existed
+  // at two indexable URLs, one of them titled "Browse Pokmon LEGO Minifigures".
+  // Gabby's Dollhouse, Unikitty!, Pharaoh's Quest and the "&" themes were all
+  // duplicated the same way.
+  const slug = themeSlug(theme.parent);
 
   return (
     <Link
-      href={`/themes/${themeSlug}`}
+      href={`/themes/${slug}`}
       style={{ textDecoration: 'none' }}
     >
       <div style={{

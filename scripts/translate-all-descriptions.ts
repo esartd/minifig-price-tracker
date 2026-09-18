@@ -5,19 +5,31 @@ const prisma = new PrismaClient({
 });
 
 // Translation templates
-function translateToGerman(englishText: string, name: string, year: string, category: string): string {
+function translateToGerman(englishText: string, name: string, year: string | null, category: string): string {
   // Extract key information from English text
   const isMinifig = englishText.includes('minifigure');
 
-  return `Diese LEGO ${name} Minifigur aus dem ${category} Thema wurde ${year} veröffentlicht. Diese sammelbare LEGO Minifigur verfügt über detaillierte Bedruckung, authentisches Zubehör und charakterspezifische Designelemente, die sie für Sammler und Baumeister wertvoll machen. Die Figur repräsentiert LEGOs Engagement für hochwertiges Charakterdesign innerhalb des ${category} Universums. Perfekt für Sammler, die thematische Displays erstellen, Charaktersets vervollständigen oder Szenen aus ihren Lieblings-${category}-Sets nachstellen möchten, bringt diese Minifigur Persönlichkeit und Erzählmöglichkeiten in jede LEGO-Sammlung.`;
+  const opening = year
+    ? `Diese LEGO ${name} Minifigur aus dem ${category} Thema wurde ${year} veröffentlicht.`
+    : `Diese LEGO ${name} Minifigur gehört zum ${category} Thema.`;
+
+  return `${opening} Diese sammelbare LEGO Minifigur verfügt über detaillierte Bedruckung, authentisches Zubehör und charakterspezifische Designelemente, die sie für Sammler und Baumeister wertvoll machen. Die Figur repräsentiert LEGOs Engagement für hochwertiges Charakterdesign innerhalb des ${category} Universums. Perfekt für Sammler, die thematische Displays erstellen, Charaktersets vervollständigen oder Szenen aus ihren Lieblings-${category}-Sets nachstellen möchten, bringt diese Minifigur Persönlichkeit und Erzählmöglichkeiten in jede LEGO-Sammlung.`;
 }
 
-function translateToFrench(englishText: string, name: string, year: string, category: string): string {
-  return `Cette figurine LEGO ${name} du thème ${category} a été publiée en ${year}. Cette figurine LEGO de collection présente une impression détaillée, des accessoires authentiques et des éléments de design spécifiques au personnage qui la rendent précieuse pour les collectionneurs et les constructeurs. La figurine représente l'engagement de LEGO envers un design de personnage de qualité au sein de l'univers ${category}. Parfaite pour les collectionneurs qui construisent des présentoirs thématiques, complètent des ensembles de personnages ou recréent des scènes de leurs ensembles ${category} préférés, cette figurine apporte personnalité et possibilités narratives à toute collection LEGO.`;
+function translateToFrench(englishText: string, name: string, year: string | null, category: string): string {
+  const opening = year
+    ? `Cette figurine LEGO ${name} du thème ${category} a été publiée en ${year}.`
+    : `Cette figurine LEGO ${name} appartient au thème ${category}.`;
+
+  return `${opening} Cette figurine LEGO de collection présente une impression détaillée, des accessoires authentiques et des éléments de design spécifiques au personnage qui la rendent précieuse pour les collectionneurs et les constructeurs. La figurine représente l'engagement de LEGO envers un design de personnage de qualité au sein de l'univers ${category}. Parfaite pour les collectionneurs qui construisent des présentoirs thématiques, complètent des ensembles de personnages ou recréent des scènes de leurs ensembles ${category} préférés, cette figurine apporte personnalité et possibilités narratives à toute collection LEGO.`;
 }
 
-function translateToSpanish(englishText: string, name: string, year: string, category: string): string {
-  return `Esta minifigura LEGO ${name} del tema ${category} fue lanzada en ${year}. Esta minifigura LEGO coleccionable presenta impresión detallada, accesorios auténticos y elementos de diseño específicos del personaje que la hacen valiosa para coleccionistas y constructores. La figura representa el compromiso de LEGO con el diseño de personajes de calidad dentro del universo ${category}. Perfecta para coleccionistas que construyen exhibiciones temáticas, completan conjuntos de personajes o recrean escenas de sus sets ${category} favoritos, esta minifigura aporta personalidad y posibilidades narrativas a cualquier colección LEGO.`;
+function translateToSpanish(englishText: string, name: string, year: string | null, category: string): string {
+  const opening = year
+    ? `Esta minifigura LEGO ${name} del tema ${category} fue lanzada en ${year}.`
+    : `Esta minifigura LEGO ${name} pertenece al tema ${category}.`;
+
+  return `${opening} Esta minifigura LEGO coleccionable presenta impresión detallada, accesorios auténticos y elementos de diseño específicos del personaje que la hacen valiosa para coleccionistas y constructores. La figura representa el compromiso de LEGO con el diseño de personajes de calidad dentro del universo ${category}. Perfecta para coleccionistas que construyen exhibiciones temáticas, completan conjuntos de personajes o recrean escenas de sus sets ${category} favoritos, esta minifigura aporta personalidad y posibilidades narrativas a cualquier colección LEGO.`;
 }
 
 async function translateAll() {
@@ -51,7 +63,15 @@ async function translateAll() {
     const batch = minifigs.slice(i, i + batchSize);
 
     const updates = batch.map(m => {
-      const year = m.year_released?.toString() || 'unknown';
+      // BrickLink writes "?" for an unknown year, and "?" is truthy -- so the
+      // old `|| 'unknown'` guard passed it straight through and these templates
+      // rendered "fue lanzada en ?." / "a été publiée en ?." into the stored
+      // text. 258 Spanish and 258 French minifig descriptions still carry that
+      // artifact. Anything that is not a four-digit year is now treated as
+      // unknown, and the templates drop the year clause rather than printing a
+      // placeholder.
+      const rawYear = m.year_released?.toString().trim() ?? '';
+      const year = /^\d{4}$/.test(rawYear) ? rawYear : null;
       const category = m.category_name || 'LEGO';
       const name = m.name || '';
       const englishText = m.description_en || '';

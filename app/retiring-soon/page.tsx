@@ -6,12 +6,10 @@ import { getRetiringSoonSets } from '@/lib/retiring-soon-algorithm';
 import PageHeading from '@/components/PageHeading';
 import RetiringSoonClient from '@/components/retiring-soon-client';
 import type { Locale } from '@/lib/i18n-subdomain';
-import { DOMAINS } from '@/lib/i18n-alternates';
+import { buildAlternates, DOMAINS } from '@/lib/i18n-alternates';
 
-// Domain configuration for all languages
-const locales = ['en', 'de', 'fr', 'es', 'it', 'nl', 'pl', 'pt', 'sv', 'ja'] as const;
 // Hostnames come from lib/site-domain.ts via lib/i18n-alternates.ts.
-  const domains = DOMAINS;
+const domains = DOMAINS;
 
 export async function generateMetadata({ searchParams }: { searchParams?: Promise<{ theme?: string }> }): Promise<Metadata> {
   const headersList = await headers();
@@ -36,12 +34,11 @@ export async function generateMetadata({ searchParams }: { searchParams?: Promis
   return {
     title,
     description: t.retiringSoon?.metaDescription || 'Track LEGO sets retiring in 2026',
-    alternates: {
-      canonical: `${domains[locale]}/retiring-soon`,
-      languages: Object.fromEntries(
-        locales.map(l => [l, `${domains[l]}/retiring-soon`])
-      )
-    },
+    // buildAlternates rather than a local map: this one was missing x-default,
+    // which is the entry that tells Google which locale to serve a searcher
+    // whose language matches none of the ten. The shared helper cannot forget
+    // it. See lib/i18n-alternates.ts.
+    alternates: buildAlternates(locale, '/retiring-soon'),
     openGraph: {
       title,
       description: t.retiringSoon?.metaDescription || 'Track LEGO sets retiring in 2026',
