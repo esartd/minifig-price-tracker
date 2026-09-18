@@ -320,12 +320,16 @@ export default async function SetPage({
   const setPricing = await pricingOrchestrator.getCachedPriceOnly(boxNo, 'SET');
 
   // No price, no offer node. An empty AggregateOffer is worse than none.
-  const setOffer = setPricing && setPricing.currentLowest > 0
+  //
+  // lowPrice is our suggested price, not the lowest live listing -- same change
+  // and same reasoning as app/minifigs/[itemNo]/page.tsx. Set 75217-1 is why it
+  // matters here too: one listing at $20,506 against a sold average of $271.
+  const setOffer = setPricing && setPricing.suggestedPrice > 0
     ? {
         '@type': 'AggregateOffer' as const,
         priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
-        lowPrice: setPricing.currentLowest.toFixed(2),
+        lowPrice: setPricing.suggestedPrice.toFixed(2),
         // No highPrice and no offerCount on purpose.
         //
         // These previously read pricingData.currentHighest and

@@ -452,14 +452,24 @@ export default async function MinifigPage({
   const { pricingOrchestrator } = await import('@/lib/pricing-orchestrator');
   const pricingData = await pricingOrchestrator.getCachedPriceOnly(itemNo, 'MINIFIG');
 
-  // highPrice must be >= lowPrice or the range is nonsense. currentHighest is
-  // occasionally missing, so it is clamped rather than trusted.
-  const offer = pricingData && pricingData.currentLowest > 0
+  // lowPrice is our suggested price, not the lowest live listing.
+  //
+  // It used to be currentLowest -- the cheapest current asking price on
+  // BrickLink. That is defensible for a marketplace quoting its own inventory,
+  // but this site does not sell anything; it aggregates and links out. And a
+  // lone absurd listing goes straight into the rich result: sh0045 advertised
+  // lowPrice $15,000 for a figure whose sold average is $934.
+  //
+  // The suggested price is the number this site stands behind, the one on the
+  // page, and since the blend now drops outlying asking prices and anchors to
+  // what actually sold (see lib/pricing-orchestrator.ts) it is also the one
+  // least likely to embarrass us in a search result.
+  const offer = pricingData && pricingData.suggestedPrice > 0
     ? {
         '@type': 'AggregateOffer' as const,
         priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
-        lowPrice: pricingData.currentLowest.toFixed(2),
+        lowPrice: pricingData.suggestedPrice.toFixed(2),
         // No highPrice and no offerCount on purpose.
         //
         // These previously read pricingData.currentHighest and
