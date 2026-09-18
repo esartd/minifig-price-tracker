@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import { UserIcon, CubeIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from './TranslationProvider';
 import SegmentedControl from '@/components/ui/SegmentedControl';
@@ -10,6 +11,8 @@ import { Colors, ControlHeight, Radius, Section, sectionHeadingStyle } from '@/l
 interface Collector {
   displayName: string;
   profileSlug?: string;
+  /** The row fell back to "Anonymous Collector" -- see the leaderboards API. */
+  isAnonymous?: boolean;
   count: number;
   rank: number;
 }
@@ -22,6 +25,7 @@ interface Donor {
 
 export default function LeaderboardsSection() {
   const { t } = useTranslation();
+
   const [activeTab, setActiveTab] = useState<'quarterly' | 'alltime'>('quarterly');
   const [minifigCollectors, setMinifigCollectors] = useState<Collector[]>([]);
   const [setCollectors, setSetCollectors] = useState<Collector[]>([]);
@@ -353,6 +357,23 @@ function LeaderboardCard({
   const [isHovered, setIsHovered] = useState(false);
   const profileSlug = type === 'collector' ? (item as Collector).profileSlug : undefined;
 
+  /**
+   * Whether this row is the person looking at it.
+   *
+   * Decided here rather than in the API: that response is cached for 24 hours
+   * in a module-level Map and shared by every visitor, so anything
+   * viewer-specific baked into it would be served to everyone else too. The
+   * API only says whether a row is anonymous, which is true regardless of who
+   * is looking.
+   *
+   * profileSlug is `username || id`, so both are compared.
+   */
+  const { data: session } = useSession();
+  const isMe =
+    !!profileSlug &&
+    !!session?.user &&
+    (profileSlug === session.user.username || profileSlug === session.user.id);
+
   // Get trophy emoji for top 3
   const getTrophyEmoji = (rank: number) => {
     switch (rank) {
@@ -420,6 +441,32 @@ function LeaderboardCard({
           }}
         >
           {item.displayName}
+          {/*
+            Only on the viewer's OWN anonymous row.
+            
+            A user who signed up without a name shows as "Anonymous Collector"
+            here and on any collection they share, and nothing ever tells them
+            why or where to change it -- /account has had the field all along.
+            Showing the prompt to everyone would be noise; showing it on someone
+            else's row would be wrong.
+          */}
+          {type === 'collector' && (item as Collector).isAnonymous && isMe && (
+            <>
+              {' '}
+              <Link
+                href="/account#leaderboard"
+                style={{
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: 500,
+                  color: '#3b82f6',
+                  textDecoration: 'underline',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {t('leaderboards.addYourName') || '(You — add your name)'}
+              </Link>
+            </>
+          )}
         </div>
         <div
           style={{

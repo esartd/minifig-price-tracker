@@ -694,7 +694,8 @@
     "noSupporterYet": "Ainda não há apoiador",
     "donationSubtitle": "Obrigado aos nossos generosos apoiantes este trimestre ({season})",
     "items": "itens",
-    "exploreCommunity": "Explorar Comunidade →"
+    "exploreCommunity": "Explorar Comunidade →",
+    "addYourName": "(Você — adicione seu nome)"
   },
   "footer": {
     "faq": "FAQ",

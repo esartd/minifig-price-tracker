@@ -128,6 +128,15 @@ export async function GET(request: NextRequest) {
           displayName: user.leaderboardDisplayName || generateDefaultDisplayName(user.name),
           profileSlug: user.username || user.id,
           isSubscriber: SUBSCRIBER_STATUSES.has(user.subscriptionStatus || ''),
+          // True when this row fell back to "Anonymous Collector" because the
+          // user has neither a leaderboard display name nor a real name.
+          //
+          // A property of the row, not of whoever is looking -- which matters,
+          // because this response is cached for 24 hours in a module-level Map
+          // and shared by every visitor. Anything viewer-specific baked in here
+          // would be served to everyone else too. The client pairs this with
+          // its own session to decide whether to show the prompt.
+          isAnonymous: !user.leaderboardDisplayName && !user.name?.trim(),
           count: inventoryTotal + personalTotal,
         };
       })
@@ -148,6 +157,15 @@ export async function GET(request: NextRequest) {
           displayName: user.leaderboardDisplayName || generateDefaultDisplayName(user.name),
           profileSlug: user.username || user.id,
           isSubscriber: SUBSCRIBER_STATUSES.has(user.subscriptionStatus || ''),
+          // True when this row fell back to "Anonymous Collector" because the
+          // user has neither a leaderboard display name nor a real name.
+          //
+          // A property of the row, not of whoever is looking -- which matters,
+          // because this response is cached for 24 hours in a module-level Map
+          // and shared by every visitor. Anything viewer-specific baked in here
+          // would be served to everyone else too. The client pairs this with
+          // its own session to decide whether to show the prompt.
+          isAnonymous: !user.leaderboardDisplayName && !user.name?.trim(),
           count: inventoryTotal + personalTotal,
         };
       })

@@ -1559,6 +1559,9 @@ export default function AccountPage() {
             marginBottom: '8px',
             letterSpacing: '-0.01em'
           }}>
+            {/* Anchor target: the leaderboard links here when it spots that a
+                collector's row has no name. See components/LeaderboardsSection. */}
+            <span id="leaderboard" style={{ scrollMarginTop: '96px' }} />
             {t('collectors.visibility.title') || 'Public Profile'}
           </h2>
           <p style={{

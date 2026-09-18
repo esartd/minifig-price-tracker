@@ -694,7 +694,8 @@
     "noSupporterYet": "まだサポーターがいません",
     "donationSubtitle": "今四半期（{season}）にご支援いただいた皆さまに感謝します",
     "items": "アイテム",
-    "exploreCommunity": "コミュニティを見る →"
+    "exploreCommunity": "コミュニティを見る →",
+    "addYourName": "（あなたです — 名前を追加）"
   },
   "footer": {
     "faq": "FAQ",

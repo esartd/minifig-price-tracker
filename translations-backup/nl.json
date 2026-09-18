@@ -694,7 +694,8 @@
     "noSupporterYet": "Nog geen supporter",
     "donationSubtitle": "Dank aan onze gulle supporters dit kwartaal ({season})",
     "items": "items",
-    "exploreCommunity": "Ontdek de community →"
+    "exploreCommunity": "Ontdek de community →",
+    "addYourName": "(Jij — voeg je naam toe)"
   },
   "footer": {
     "faq": "Veelgestelde Vragen",

@@ -668,7 +668,8 @@
     "noSupporterYet": "Pas encore de supporter",
     "donationSubtitle": "Merci à nos généreux supporters ce trimestre ({season})",
     "items": "articles",
-    "exploreCommunity": "Explorer la communauté →"
+    "exploreCommunity": "Explorer la communauté →",
+    "addYourName": "(Vous — ajoutez votre nom)"
   },
   "footer": {
     "faq": "FAQ",

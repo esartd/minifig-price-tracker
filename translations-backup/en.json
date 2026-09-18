@@ -694,7 +694,8 @@
     "noSupporterYet": "No supporter yet",
     "donationSubtitle": "Thank you to our generous supporters this quarter ({season})",
     "items": "items",
-    "exploreCommunity": "Explore Community →"
+    "exploreCommunity": "Explore Community →",
+    "addYourName": "(You — add your name)"
   },
   "footer": {
     "faq": "FAQ",
