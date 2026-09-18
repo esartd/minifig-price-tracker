@@ -912,7 +912,8 @@
       "placeholders": {
         "name": "Your name",
         "email": "your@email.com",
-        "password": "At least 6 characters"
+        "password": "At least 6 characters",
+        "displayName": "Shown on leaderboards and shared collections"
       },
       "button": "Create Account",
       "buttonLoading": "Creating Account...",
@@ -923,7 +924,8 @@
         "accountCreatedSignInFailed": "Account created but sign in failed. Please try signing in.",
         "generic": "An error occurred. Please try again."
       },
-      "freeBadge": "100% Free • No credit card required"
+      "freeBadge": "100% Free • No credit card required",
+      "displayName": "Display name (optional)"
     },
     "signin": {
       "title": "Welcome Back",

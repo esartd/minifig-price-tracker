@@ -911,7 +911,8 @@
       "placeholders": {
         "name": "Je naam",
         "email": "jouw@email.com",
-        "password": "Minimaal 6 tekens"
+        "password": "Minimaal 6 tekens",
+        "displayName": "Te zien in ranglijsten en gedeelde collecties"
       },
       "button": "Account Aanmaken",
       "buttonLoading": "Account Aanmaken...",
@@ -924,7 +925,8 @@
       },
       "continueWithGoogle": "Aanmelden met Google",
       "signupWithEmail": "Aanmelden met e-mail",
-      "freeBadge": "100% Gratis • Geen creditcard vereist"
+      "freeBadge": "100% Gratis • Geen creditcard vereist",
+      "displayName": "Weergavenaam (optioneel)"
     },
     "signin": {
       "title": "Welkom Terug",

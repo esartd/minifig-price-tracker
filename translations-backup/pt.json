@@ -911,7 +911,8 @@
       "placeholders": {
         "name": "O seu nome",
         "email": "your@email.com",
-        "password": "Pelo menos 6 caracteres"
+        "password": "Pelo menos 6 caracteres",
+        "displayName": "Aparece nos rankings e nas coleções compartilhadas"
       },
       "button": "Criar Conta",
       "buttonLoading": "Criando conta...",
@@ -924,7 +925,8 @@
       },
       "continueWithGoogle": "Cadastrar com Google",
       "signupWithEmail": "Cadastrar com e-mail",
-      "freeBadge": "100% Gratuito • Sem necessidade de cartão de crédito"
+      "freeBadge": "100% Gratuito • Sem necessidade de cartão de crédito",
+      "displayName": "Nome de exibição (opcional)"
     },
     "signin": {
       "title": "Bem-vindo de Volta",

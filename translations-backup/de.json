@@ -856,7 +856,8 @@
       "placeholders": {
         "name": "Ihr Name",
         "email": "ihre@email.com",
-        "password": "Mindestens 6 Zeichen"
+        "password": "Mindestens 6 Zeichen",
+        "displayName": "Erscheint in Bestenlisten und geteilten Sammlungen"
       },
       "button": "Konto erstellen",
       "buttonLoading": "Konto wird erstellt...",
@@ -869,7 +870,8 @@
       },
       "continueWithGoogle": "Mit Google anmelden",
       "signupWithEmail": "Mit E-Mail anmelden",
-      "freeBadge": "100% Kostenlos • Keine Kreditkarte erforderlich"
+      "freeBadge": "100% Kostenlos • Keine Kreditkarte erforderlich",
+      "displayName": "Anzeigename (optional)"
     },
     "signin": {
       "title": "Willkommen zurück",

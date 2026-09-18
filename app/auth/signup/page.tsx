@@ -20,6 +20,19 @@ export default function SignUp() {
   const { t } = useTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
+  // Optional, and deliberately so.
+  //
+  // The name field was removed from this form to shorten it, which did shorten
+  // it -- and left every credentials signup with name = null. The site then
+  // shows those people as "Anonymous Collector" on leaderboards and on any
+  // collection they share, which is the opposite of what a leaderboard is for.
+  // 55 earlier users have names; the first person to sign up after the change
+  // did not.
+  //
+  // Optional keeps the short-form intent: it can be skipped, and the label says
+  // what it is for so there is a reason to fill it in rather than an unexplained
+  // extra box. It can also be set later at /account.
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -45,7 +58,7 @@ export default function SignUp() {
         // optional in the API -- which reads as required. It is collected
         // later in settings, at the point it matters (leaderboards, public
         // profiles), where the person has a reason to give it.
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, name: name.trim() || undefined }),
       });
 
       const data = await response.json();
@@ -198,6 +211,16 @@ export default function SignUp() {
 
       <form onSubmit={handleSubmit}>
         {error && <MessageAlert type="error" message={error} />}
+
+        <FormInput
+          id="name"
+          label={t('auth.signup.displayName') || 'Display name (optional)'}
+          type="text"
+          value={name}
+          onChange={setName}
+          placeholder={t('auth.signup.placeholders.displayName') || 'Shown on leaderboards and shared collections'}
+          autoComplete="name"
+        />
 
         <FormInput
           id="email"

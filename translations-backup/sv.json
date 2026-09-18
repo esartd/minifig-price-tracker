@@ -911,7 +911,8 @@
       "placeholders": {
         "name": "Ditt namn",
         "email": "din@epost.com",
-        "password": "Minst 6 tecken"
+        "password": "Minst 6 tecken",
+        "displayName": "Visas i topplistor och delade samlingar"
       },
       "button": "Create Konto",
       "buttonLoading": "Creating Konto...",
@@ -924,7 +925,8 @@
       },
       "continueWithGoogle": "Registrera dig med Google",
       "signupWithEmail": "Registrera dig med e-post",
-      "freeBadge": "100% gratis • Inget kreditkort krävs"
+      "freeBadge": "100% gratis • Inget kreditkort krävs",
+      "displayName": "Visningsnamn (valfritt)"
     },
     "signin": {
       "title": "Welcome Tillbaka",

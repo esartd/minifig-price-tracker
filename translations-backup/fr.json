@@ -856,7 +856,8 @@
       "placeholders": {
         "name": "Votre nom",
         "email": "votre@email.com",
-        "password": "Au moins 6 caractères"
+        "password": "Au moins 6 caractères",
+        "displayName": "Affiché dans les classements et les collections partagées"
       },
       "button": "Créer un compte",
       "buttonLoading": "Création du compte...",
@@ -869,7 +870,8 @@
       },
       "continueWithGoogle": "S'inscrire avec Google",
       "signupWithEmail": "S'inscrire avec e-mail",
-      "freeBadge": "100% gratuit • Aucune carte de crédit requise"
+      "freeBadge": "100% gratuit • Aucune carte de crédit requise",
+      "displayName": "Nom affiché (facultatif)"
     },
     "signin": {
       "title": "Bon retour",

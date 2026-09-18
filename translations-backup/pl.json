@@ -911,7 +911,8 @@
       "placeholders": {
         "name": "Twoje imię",
         "email": "twoj@email.com",
-        "password": "Co najmniej 6 znaków"
+        "password": "Co najmniej 6 znaków",
+        "displayName": "Widoczna w rankingach i udostępnionych kolekcjach"
       },
       "button": "Utwórz konto",
       "buttonLoading": "Tworzenie konta...",
@@ -924,7 +925,8 @@
       },
       "continueWithGoogle": "Zarejestruj się przez Google",
       "signupWithEmail": "Zarejestruj się przez e-mail",
-      "freeBadge": "100% za darmo • Karta kredytowa niewymagana"
+      "freeBadge": "100% za darmo • Karta kredytowa niewymagana",
+      "displayName": "Nazwa wyświetlana (opcjonalnie)"
     },
     "signin": {
       "title": "Witamy ponownie",
