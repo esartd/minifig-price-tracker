@@ -17,12 +17,10 @@ export default function ThemeDescription({ themeName, description }: ThemeDescri
 
   if (!translatedDescription) return null;
 
-  // Show first ~180 characters when collapsed
+  // Only decides whether a "Read more" button is worth showing -- never what
+  // goes into the DOM. See the note on the paragraph below.
   const previewLength = 180;
   const shouldTruncate = translatedDescription.length > previewLength;
-  const displayText = isExpanded || !shouldTruncate
-    ? translatedDescription
-    : translatedDescription.substring(0, previewLength) + '...';
 
   return (
     <div style={{
@@ -30,14 +28,29 @@ export default function ThemeDescription({ themeName, description }: ThemeDescri
       paddingTop: '16px',
       borderTop: '1px solid #e5e5e5'
     }}>
+      {/*
+        Always the whole description, clamped visually rather than cut.
+
+        This used to render `substring(0, 180) + '...'` when collapsed, so of a
+        blurb averaging 675 characters only the first 180 ever reached the
+        HTML -- about a quarter of the only real prose on a theme page, across
+        179 themes and ten locales. Crawlers do not press "Read more".
+
+        WebkitLineClamp gives the same collapsed appearance with the full text
+        present, which is what SetDescription has always done.
+      */}
       <p style={{
         fontSize: '15px',
         lineHeight: '1.7',
         color: '#525252',
         margin: 0,
-        maxWidth: '65ch'
+        maxWidth: '65ch',
+        overflow: 'hidden',
+        display: isExpanded || !shouldTruncate ? 'block' : '-webkit-box',
+        WebkitLineClamp: isExpanded || !shouldTruncate ? 'unset' : 3,
+        WebkitBoxOrient: 'vertical',
       }}>
-        {displayText}
+        {translatedDescription}
       </p>
 
       {shouldTruncate && (

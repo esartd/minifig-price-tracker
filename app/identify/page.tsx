@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
     it: 'it_IT',
     nl: 'nl_NL',
     pl: 'pl_PL',
-    pt: 'pt_PT',
+    pt: 'pt_BR',
     sv: 'sv_SE',
     ja: 'ja_JP',
   };
@@ -42,7 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       url: `${domains[locale as keyof typeof domains]}/identify`,
       locale: localeMap[locale as keyof typeof localeMap],
-      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'nl_NL', 'pl_PL', 'pt_PT', 'sv_SE', 'ja_JP'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
+      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'nl_NL', 'pl_PL', 'pt_BR', 'sv_SE', 'ja_JP'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
     },
     alternates: {
       canonical: `${domains[locale as keyof typeof domains]}/identify`,

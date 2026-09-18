@@ -52,7 +52,7 @@ export async function generateMetadata({
     it: 'it_IT',
     nl: 'nl_NL',
     pl: 'pl_PL',
-    pt: 'pt_PT',
+    pt: 'pt_BR',
     sv: 'sv_SE',
     ja: 'ja_JP',
   };
@@ -127,7 +127,7 @@ export async function generateMetadata({
       description: ogDescriptionTemplate.replace('{itemNo}', minifig.minifigure_no),
       url: `${domains[locale as keyof typeof domains]}/minifigs/${itemNo}`,
       locale: localeMap[locale as keyof typeof localeMap],
-      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'nl_NL', 'pl_PL', 'pt_PT', 'sv_SE', 'ja_JP'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
+      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'nl_NL', 'pl_PL', 'pt_BR', 'sv_SE', 'ja_JP'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
       images: [`https://img.bricklink.com/ItemImage/MN/0/${minifig.minifigure_no}.png`],
     },
     twitter: {
@@ -423,7 +423,7 @@ export default async function MinifigPage({
   // `pt` is tagged pt-BR here because that is what the locale actually is --
   // the translations were converted to Brazilian Portuguese, Amazon links route
   // to amazon.com.br and BRL is in SUPPORTED_CURRENCIES (see CLAUDE.md). The
-  // rest of the codebase still says pt_PT in about twenty og:locale maps, which
+  // rest of the codebase still says pt_BR in about twenty og:locale maps, which
   // tells Google these pages are aimed at Portugal. Not swept here because it
   // is a site-wide change and worth doing in one deliberate pass; the hreflang
   // that does the real language targeting uses a bare `pt` and is unaffected.

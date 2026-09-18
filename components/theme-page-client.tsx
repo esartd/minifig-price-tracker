@@ -36,10 +36,47 @@ interface LegoSet {
   amazonUrl?: string;
 }
 
-export default function ThemePageClient({ params }: { params: Promise<{ theme: string }> }) {
-  const { t } = useTranslation();
+export default function ThemePageClient({
+  params,
+  initialTheme = '',
+  initialTotalMinifigs = 0,
+  initialSeriesCount = 0,
+}: {
+  params: Promise<{ theme: string }>;
+  /**
+   * The theme name resolved on the server, so the heading and description are
+   * in the HTML on first paint instead of appearing only after the effect
+   * below runs. Defaults to '' to preserve the old behaviour for any caller
+   * that does not pass it.
+   */
+  initialTheme?: string;
+  /** Server-computed counts, so the first paint shows real numbers. */
+  initialTotalMinifigs?: number;
+  initialSeriesCount?: number;
+}) {
+  const { t, translations } = useTranslation();
   const router = useRouter();
-  const [theme, setTheme] = useState<string>('');
+  const [theme, setTheme] = useState<string>(initialTheme);
+
+  /**
+   * The locale's own theme blurb, not the English one.
+   *
+   * lib/theme-descriptions.json is English only, and this component rendered it
+   * verbatim on all ten locale subdomains -- 675 characters of English prose
+   * sitting under a German title on de.intobrick.com. All 179 blurbs have in
+   * fact been translated into all nine other locales and live in
+   * translations-backup/<locale>.json under themeDescriptions; nothing was
+   * reading them.
+   *
+   * Indexed directly off `translations` rather than through t(), because theme
+   * names are the keys and they contain dots, apostrophes and parentheses
+   * ("LEGO Ideas (CUUSOO)", "Gabby's Dollhouse") -- t() splits its key on "."
+   * so those would not resolve. Falls back to the English file if a locale is
+   * ever missing an entry.
+   */
+  const themeDescription: string | undefined =
+    (translations?.themeDescriptions as Record<string, string> | undefined)?.[theme] ??
+    (themeDescriptions as Record<string, string>)[theme];
   const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
   const [uncategorizedMinifigs, setUncategorizedMinifigs] = useState<Minifig[]>([]);
   const [featuredSets, setFeaturedSets] = useState<LegoSet[]>([]);
@@ -157,7 +194,13 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
     }
   };
 
-  if (loading) {
+  // Only when the server gave us nothing to show.
+  //
+  // This used to fire on every render, including the server one, so the entire
+  // page was a spinner in the HTML -- no heading, no description, no links, on
+  // all ~1,790 theme pages. With initialTheme present the shell renders
+  // immediately and only the grid waits.
+  if (loading && !theme) {
     return (
       <div style={{
         minHeight: 'calc(100vh - 72px)',
@@ -177,8 +220,13 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
     );
   }
 
-  const totalMinifigs = subcategories.reduce((sum, sub) => sum + sub.count, 0) + uncategorizedMinifigs.length;
-  const seriesCount = subcategories.filter(sub => sub.subTheme !== '(Other)').length;
+  // Server-provided counts stand in until the client fetch lands, so the
+  // rendered HTML never says "0 minifigs" to a crawler.
+  const loadedTotal = subcategories.reduce((sum, sub) => sum + sub.count, 0) + uncategorizedMinifigs.length;
+  const totalMinifigs = subcategories.length > 0 ? loadedTotal : initialTotalMinifigs;
+  const seriesCount = subcategories.length > 0
+    ? subcategories.filter(sub => sub.subTheme !== '(Other)').length
+    : initialSeriesCount;
 
   // Sort: A-Z, then "(Other)" at the very bottom
   const sortedSubcategories = [...subcategories].sort((a, b) => {
@@ -268,10 +316,10 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
             </p>
 
             {/* SEO Description integrated into hero card */}
-            {(themeDescriptions as Record<string, string>)[theme] && (
+            {themeDescription && (
               <ThemeDescription
                 themeName={theme}
-                description={(themeDescriptions as Record<string, string>)[theme]}
+                description={themeDescription}
               />
             )}
           </div>
@@ -293,8 +341,18 @@ export default function ThemePageClient({ params }: { params: Promise<{ theme: s
             lineHeight: '1.6'
           }}>
             {t('themes.minifigsCount', { count: totalMinifigs.toLocaleString() })}
-            {sortedSubcategories.length > 0 && ` ${t('themes.acrossSeries', { count: seriesCount })}`}
+            {seriesCount > 0 && ` ${t('themes.acrossSeries', { count: seriesCount })}`}
           </p>
+
+          {/* Also here: the hero branch above needs themeHeroImage, which only
+              arrives with the client fetch, so on the server render this is the
+              branch that runs -- and it was the one without a description. */}
+          {themeDescription && (
+            <ThemeDescription
+              themeName={theme}
+              description={themeDescription}
+            />
+          )}
         </div>
       )}
 

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import ThemePageClient from '@/components/theme-page-client';
 import { getTranslations, getLocaleFromHost, type Locale } from '@/lib/i18n-subdomain';
-import { getThemeCounts } from '@/lib/theme-subcategories';
+import { getThemeCounts, resolveThemeName } from '@/lib/theme-subcategories';
 import { DOMAINS } from '@/lib/i18n-alternates';
 import { themeSlug, normalizeThemeSlug } from '@/lib/theme-slug';
 
@@ -47,7 +47,7 @@ export async function generateMetadata({
     it: 'it_IT',
     nl: 'nl_NL',
     pl: 'pl_PL',
-    pt: 'pt_PT',
+    pt: 'pt_BR',
     sv: 'sv_SE',
     ja: 'ja_JP',
   };
@@ -69,27 +69,7 @@ export async function generateMetadata({
   // No brand suffix here -- the root layout's title template appends
   // "| IntoBrick", and baking it in as well is how these pages rendered it
   // twice.
-  let displayTheme = '';
-  try {
-    const { getAllCategories } = await import('@/lib/catalog-static');
-    const categories = await getAllCategories();
-    const wanted = normalizeThemeSlug(decodedTheme);
-    for (const category of categories) {
-      const parent = category.name.split(' / ')[0].trim();
-      if (normalizeThemeSlug(parent) === wanted) {
-        displayTheme = parent;
-        break;
-      }
-    }
-  } catch (error) {
-    console.error('Failed to resolve theme display name:', error);
-  }
-  if (!displayTheme) {
-    displayTheme = decodedTheme
-      .split('-')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-  }
+  const displayTheme = await resolveThemeName(decodedTheme);
 
   // Counts read in-process.
   //
@@ -141,7 +121,7 @@ export async function generateMetadata({
       description,
       url: `${domains[locale as keyof typeof domains]}/themes/${canonicalSlug}`,
       locale: localeMap[locale as keyof typeof localeMap],
-      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'nl_NL', 'pl_PL', 'pt_PT', 'sv_SE', 'ja_JP'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
+      alternateLocale: ['en_US', 'de_DE', 'fr_FR', 'es_ES', 'it_IT', 'nl_NL', 'pl_PL', 'pt_BR', 'sv_SE', 'ja_JP'].filter(l => l !== localeMap[locale as keyof typeof localeMap]),
       images: [
         {
           url: '/og-image.png',
@@ -182,5 +162,36 @@ export default async function ThemePage({
 }) {
   const { theme } = await params;
 
-  return <ThemePageClient params={Promise.resolve({ theme })} />;
+  // Resolved here, on the server, and handed to the client as an initial value.
+  //
+  // ThemePageClient used to start with theme='' and only learn its own name
+  // inside a useEffect, so the server-rendered HTML for every one of these
+  // ~1,790 pages (179 themes x 10 locales) contained nothing but the header and
+  // footer -- 1,022 characters on de.intobrick.com, with no heading, no
+  // description and no links to any minifig. Crawlers do not run the effect.
+  //
+  // The grid still loads client-side; only the parts worth indexing move to the
+  // server.
+  const initialTheme = await resolveThemeName(theme);
+
+  // Counts too, so the server HTML says "1,610 minifigs" rather than "0
+  // minifigs" until the client fetch lands. Same in-process catalogue read
+  // generateMetadata above already does.
+  let initialTotalMinifigs = 0;
+  let initialSeriesCount = 0;
+  try {
+    ({ totalMinifigs: initialTotalMinifigs, seriesCount: initialSeriesCount } =
+      await getThemeCounts(initialTheme));
+  } catch (error) {
+    console.error('Failed to compute initial theme counts:', error);
+  }
+
+  return (
+    <ThemePageClient
+      params={Promise.resolve({ theme })}
+      initialTheme={initialTheme}
+      initialTotalMinifigs={initialTotalMinifigs}
+      initialSeriesCount={initialSeriesCount}
+    />
+  );
 }

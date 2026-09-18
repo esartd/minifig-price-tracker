@@ -177,9 +177,21 @@ function SetCard({ set }: { set: LegoBox }) {
 }
 
 export default function ThemePage() {
-  const { t } = useTranslation();
+  const { t, translations } = useTranslation();
   const params = useParams();
   const theme = decodeURIComponent(params.theme as string);
+
+  /**
+   * The locale's own blurb. lib/theme-descriptions.json is English only and was
+   * being rendered on all ten locale subdomains; the translated versions have
+   * existed all along in translations-backup/<locale>.json under
+   * themeDescriptions. Indexed directly because theme names contain dots and
+   * apostrophes, which t() would try to split on. Same change as
+   * components/theme-page-client.tsx.
+   */
+  const themeDescription: string | undefined =
+    (translations?.themeDescriptions as Record<string, string> | undefined)?.[theme] ??
+    (themeDescriptions as Record<string, string>)[theme];
 
   const [sets, setSets] = useState<LegoBox[]>([]);
   const [loading, setLoading] = useState(true);
@@ -375,10 +387,10 @@ export default function ThemePage() {
                 </p>
 
                 {/* Theme Description */}
-                {(themeDescriptions as Record<string, string>)[theme] && (
+                {themeDescription && (
                   <ThemeDescription
                     themeName={theme}
-                    description={(themeDescriptions as Record<string, string>)[theme]}
+                    description={themeDescription}
                   />
                 )}
               </div>

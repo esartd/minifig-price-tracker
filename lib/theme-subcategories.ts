@@ -90,3 +90,40 @@ export async function getThemeCounts(
     ).length,
   };
 }
+
+/**
+ * Resolve a URL slug back to the catalogue's own spelling of the theme.
+ *
+ * "star-wars" -> "Star Wars", "lego-ideas-(cuusoo)" -> "LEGO Ideas (CUUSOO)".
+ *
+ * Title-casing the slug is right often enough to look correct and wrong
+ * wherever the real name is not simple title case -- "dc-comics-super-heroes"
+ * renders as "Dc Comics Super Heroes" -- so the catalogue is consulted first
+ * and the title-case pass is only the fallback for a slug that matches nothing.
+ *
+ * Lives here so the server page and its generateMetadata share one
+ * implementation; they had two, and a second copy of theme-slug logic is
+ * exactly how every punctuated theme ended up with two indexable URLs.
+ */
+export async function resolveThemeName(slug: string): Promise<string> {
+  const { getAllCategories } = await import('@/lib/catalog-static');
+  const { normalizeThemeSlug } = await import('@/lib/theme-slug');
+
+  const decoded = decodeURIComponent(slug);
+
+  try {
+    const categories = await getAllCategories();
+    const wanted = normalizeThemeSlug(decoded);
+    for (const category of categories) {
+      const parent = category.name.split(' / ')[0].trim();
+      if (normalizeThemeSlug(parent) === wanted) return parent;
+    }
+  } catch (error) {
+    console.error('Failed to resolve theme display name:', error);
+  }
+
+  return decoded
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}

@@ -15,7 +15,7 @@ const localeMap = {
   it: 'it_IT',
   nl: 'nl_NL',
   pl: 'pl_PL',
-  pt: 'pt_PT',
+  pt: 'pt_BR',
   sv: 'sv_SE',
   ja: 'ja_JP',
 };
