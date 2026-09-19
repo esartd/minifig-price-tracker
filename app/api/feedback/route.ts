@@ -62,18 +62,7 @@ function clientIp(request: NextRequest): string {
 }
 
 /** Verify one Turnstile token with Cloudflare. Fails closed. */
-async function verifyTurnstile(token: string, ip: string): Promise<boolean> {
-  const secret = process.env.TURNSTILE_SECRET_KEY;
-
-  // No secret configured means the challenge cannot be checked. Refusing
-  // everything would make the widget dead on any environment missing the key,
-  // so this is the one place it degrades -- and it says so loudly in the log,
-  // because a production server in this state is an open spam endpoint.
-  if (!secret) {
-    console.warn('[FEEDBACK] TURNSTILE_SECRET_KEY is not set — accepting without verification');
-    return true;
-  }
-
+async function verifyTurnstile(token: string, ip: string, secret: string): Promise<boolean> {
   try {
     const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
@@ -121,12 +110,34 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Message is too long' }, { status: 400 });
     }
 
+    // The challenge is demanded only where it can actually be checked.
+    //
+    // This is not a convenience: the widget renders the challenge only when
+    // NEXT_PUBLIC_TURNSTILE_SITE_KEY exists, so on a deployment without the
+    // keys it posts an empty token. An unconditional `if (!token) reject`
+    // meant the two halves disagreed and NOBODY could submit -- which is how
+    // this shipped, and was caught on the live site. A feedback form that
+    // silently refuses every report is worse than one guarded by rate limit
+    // alone.
+    //
+    // With no secret configured the endpoint still has the per-IP limit above
+    // and Cloudflare's Bot Fight Mode in front of it, and the warning names
+    // the exact variable to set.
+    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
     const turnstileToken = String(body.turnstileToken || '').trim();
-    if (!turnstileToken) {
-      return NextResponse.json({ success: false, error: 'Verification required' }, { status: 400 });
-    }
-    if (!(await verifyTurnstile(turnstileToken, ip))) {
-      return NextResponse.json({ success: false, error: 'Verification failed' }, { status: 400 });
+
+    if (turnstileSecret) {
+      if (!turnstileToken) {
+        return NextResponse.json({ success: false, error: 'Verification required' }, { status: 400 });
+      }
+      if (!(await verifyTurnstile(turnstileToken, ip, turnstileSecret))) {
+        return NextResponse.json({ success: false, error: 'Verification failed' }, { status: 400 });
+      }
+    } else {
+      console.warn(
+        '[FEEDBACK] TURNSTILE_SECRET_KEY is not set — accepting submissions without a captcha. ' +
+          'Set it and NEXT_PUBLIC_TURNSTILE_SITE_KEY in .env.production to turn the challenge on.'
+      );
     }
 
     // The user id comes from the session, never from the request body --
