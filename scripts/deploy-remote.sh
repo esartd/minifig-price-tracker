@@ -98,8 +98,38 @@ fi
 echo "==> Installing dependencies"
 npm install --production
 
+# Hostinger caps the database at 500 connections per hour, and a busy day of
+# bot traffic can exhaust it on its own -- catalogue pages query the database,
+# so a crawler running at a hundred-odd requests a minute burns the allowance
+# without anyone deploying anything. When that happens `migrate deploy` cannot
+# connect and, under `set -e`, takes the whole deploy down with it.
+#
+# That is backwards: a code-only change should not be blocked by a database
+# step it does not need -- and the deploy blocked this way was the one
+# carrying the crawler throttle. The bots were preventing the fix for the bots.
+#
+# So: try, retry once in case it was momentary, and if it still fails with the
+# connection-limit error SPECIFICALLY, carry on and say so loudly. Every other
+# migration failure stays fatal. Code that expects a schema which never
+# applied is exactly the 30-minute outage CLAUDE.md records from 5 May.
 echo "==> Applying database migrations"
-npx prisma migrate deploy
+MIGRATE_LOG=$(mktemp)
+if ! npx prisma migrate deploy >"$MIGRATE_LOG" 2>&1; then
+  sleep 5
+  if ! npx prisma migrate deploy >"$MIGRATE_LOG" 2>&1; then
+    if grep -q "max_connections_per_hour" "$MIGRATE_LOG"; then
+      echo "!!  Database connection cap reached -- migrations SKIPPED this deploy."
+      echo "!!  Safe only if nothing is pending. If you just added a migration,"
+      echo "!!  re-run this deploy once the cap resets (it is hourly)."
+    else
+      cat "$MIGRATE_LOG"
+      rm -f "$MIGRATE_LOG"
+      exit 1
+    fi
+  fi
+fi
+cat "$MIGRATE_LOG"
+rm -f "$MIGRATE_LOG"
 
 # postinstall only regenerates the separate schema-hostinger client.
 echo "==> Regenerating Prisma client"
