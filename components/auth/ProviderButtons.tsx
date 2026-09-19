@@ -104,7 +104,10 @@ export function ProviderButtons({
             color: '#171717',
             background: '#ffffff',
             border: '1px solid #e5e5e5',
-            borderRadius: '8px',
+            // Pill, matching GoogleButton and the Create Account submit. These
+            // sit stacked with Google directly above, so an 8px radius here
+            // read as a different kind of control rather than a sibling.
+            borderRadius: '999px',
             cursor: pending ? 'default' : 'pointer',
             opacity: pending && pending !== p.id ? 0.5 : 1,
             display: 'flex',
