@@ -253,7 +253,7 @@ export function middleware(request: NextRequest) {
   // Rate limiting — last-resort backstop only
   // Cloudflare Bot Fight Mode handles the real bot traffic before it reaches here
   if (!WHITELISTED_IPS.includes(ip)) {
-    const { tier, config } = getTierForPath(pathname)
+    const { tier, config } = getTierForPath(pathname, request.method)
     if (tier !== 'STATIC') {
       const { allowed, resetIn } = tieredRateLimit(ip, tier, config)
       if (!allowed) {

@@ -136,9 +136,19 @@ export const RATE_LIMIT_TIERS = {
     burstWindowMs: 10 * 1000,
   },
 
-  // Database write operations (expensive)
+  // Database write operations (expensive).
+  //
+  // Was 10/minute, but the matcher below never fired, so these endpoints have
+  // actually been running at API_NORMAL's 60/minute this whole time with
+  // nothing breaking. Dropping straight to 10 on the day the matcher starts
+  // working would be a silent 6x tightening -- and adding items to a
+  // collection is one request per item, clicked by hand, so a seller entering
+  // stock quickly would start seeing 429s on a limit nobody had tested.
+  //
+  // 40 is a real restriction against a script and still roughly double what a
+  // fast human produces.
   API_WRITE: {
-    maxRequests: 10,
+    maxRequests: 40,
     windowMs: 60 * 1000,
   },
 
@@ -158,7 +168,38 @@ export const RATE_LIMIT_TIERS = {
 } as const;
 
 // Helper to determine tier from pathname
-export function getTierForPath(pathname: string): { tier: string; config: RateLimitConfig } {
+/** Methods that change stored data. */
+const WRITE_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
+
+/**
+ * Endpoints that write a user's own data.
+ *
+ * Deliberately NOT here:
+ *   /api/auth/*    has its own AUTH tier with burst protection
+ *   /api/admin/*   admin-gated already
+ *   /api/stripe/*  includes the payment webhook -- rate limiting Stripe's
+ *                  callbacks would drop subscription events
+ *   /api/cron/*    has API_CRON
+ *   /api/track-*   analytics beacons, legitimately frequent
+ */
+const WRITE_PATH_PREFIXES = [
+  '/api/inventory',
+  '/api/personal-collection',
+  '/api/set-inventory',
+  '/api/set-personal-collection',
+  '/api/wishlist',
+  '/api/set-wishlist',
+  '/api/alerts',
+];
+
+/**
+ * `method` is optional so existing callers keep compiling, but without it the
+ * write tier can never apply -- pass `request.method`.
+ */
+export function getTierForPath(
+  pathname: string,
+  method?: string
+): { tier: string; config: RateLimitConfig } {
   // Static assets - no rate limiting needed
   if (
     pathname.startsWith('/_next/static') ||
@@ -187,11 +228,17 @@ export function getTierForPath(pathname: string): { tier: string; config: RateLi
     return { tier: 'API_PRICING', config: RATE_LIMIT_TIERS.API_PRICING };
   }
 
-  // Database write operations
+  // Database write operations.
+  //
+  // This used to read `pathname.includes('POST')` -- searching a URL string
+  // for an HTTP method, which no URL contains. The condition was therefore
+  // false for every request ever made and API_WRITE never once applied. It
+  // also named /api/collection, which has no write route at all, while
+  // missing /api/personal-collection and every /api/set-* endpoint.
   if (
-    pathname.startsWith('/api/collection') && ['POST', 'PUT', 'DELETE'].some(m => pathname.includes(m)) ||
-    pathname.startsWith('/api/inventory') && ['POST', 'PUT', 'DELETE'].some(m => pathname.includes(m)) ||
-    pathname.startsWith('/api/wishlist') && ['POST', 'PUT', 'DELETE'].some(m => pathname.includes(m))
+    method &&
+    WRITE_METHODS.has(method.toUpperCase()) &&
+    WRITE_PATH_PREFIXES.some((prefix) => pathname.startsWith(prefix))
   ) {
     return { tier: 'API_WRITE', config: RATE_LIMIT_TIERS.API_WRITE };
   }
