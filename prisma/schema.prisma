@@ -410,6 +410,7 @@ model User {
   WishlistItem                      WishlistItem[]
   SetWishlistItem                   SetWishlistItem[]
   PriceAlert                        PriceAlert[]
+  Feedback                          Feedback[]
 
   @@index([username])
   @@index([profilePublic])
@@ -695,4 +696,47 @@ model PriceAlert {
   @@index([active, last_checked])
   @@index([userId])
   @@index([item_no, item_type])
+}
+
+/// Bug reports, feature requests and anything else a visitor wants to tell us.
+///
+/// Written by the floating widget on every page. Nobody is emailed when a row
+/// lands -- the unread count on /admin/stats is the only nudge -- so `readAt`
+/// is what makes that badge work and must be set when the item is looked at.
+///
+/// `userId` holds a real cuid. AffiliateClick and MonetizationEvent store an
+/// EMAIL in their identically-named column; that is a known wart documented in
+/// app/admin/stats/page.tsx and is not a pattern to copy. The relation here
+/// nulls rather than cascades on account deletion: a bug report outlives the
+/// account that filed it, and losing the queue because someone closed their
+/// account would be the worse failure.
+model Feedback {
+  id        String  @id @default(cuid())
+  type      String // "bug" | "feature" | "other"
+  message   String  @db.Text
+  /// Only collected when the reporter is signed out, and only if they offer it.
+  email     String?
+  userId    String?
+  /// The page they were on. For a bug report this is the field that makes it
+  /// actionable -- "prices are wrong" is unanswerable without it.
+  pageUrl   String?
+  userAgent String? @db.Text
+  locale    String?
+  /// "new" | "in_progress" | "done" | "declined"
+  status    String  @default("new")
+  /// Groups near-duplicate reports. Derived from the message text on write --
+  /// see lib/feedback-cluster.ts. Null when the message had no usable tokens.
+  clusterId String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  readAt    DateTime?
+
+  User User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([clusterId])
+  @@index([readAt])
+  @@index([userId])
 }

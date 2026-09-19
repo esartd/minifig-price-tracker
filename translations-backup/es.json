@@ -3213,5 +3213,37 @@
     "signInToResend": "Inicie sesión para obtener un enlace nuevo",
     "bannerTitle": "Confirme su correo",
     "bannerBody": "Las alertas de precio y el correo diario de ofertas necesitan una dirección confirmada."
+  },
+  "feedback": {
+    "open": "Enviar comentarios",
+    "close": "Cerrar",
+    "title": "Enviar comentarios",
+    "subtitle": "¿Has encontrado un fallo o quieres pedir algo? Cuéntanoslo: llega directamente a quien desarrolla el sitio.",
+    "typeLabel": "¿De qué se trata?",
+    "types": {
+      "bug": "Algo no funciona",
+      "feature": "Tengo una idea",
+      "other": "Otra cosa"
+    },
+    "messageLabel": "Cuéntanos más",
+    "placeholders": {
+      "bug": "¿Qué estabas haciendo y qué ocurrió en su lugar?",
+      "other": "¿Qué te gustaría ver?"
+    },
+    "emailLabel": "Tu correo (opcional)",
+    "emailHelper": "Solo para escribirte si nos faltan detalles.",
+    "submit": "Enviar",
+    "sending": "Enviando…",
+    "success": {
+      "title": "Gracias",
+      "body": "Hemos recibido tus comentarios. Leemos todos los mensajes.",
+      "done": "Listo"
+    },
+    "errors": {
+      "empty": "Cuéntanos qué ha pasado.",
+      "verify": "Completa la verificación, por favor.",
+      "tooMany": "Demasiados envíos. Inténtalo más tarde.",
+      "generic": "Algo ha salido mal. Inténtalo de nuevo."
+    }
   }
 }

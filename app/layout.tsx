@@ -4,6 +4,7 @@ import Header from '@/components/header'
 import Footer from '@/components/Footer'
 import AuthProvider from '@/components/session-provider'
 import ScrollToTop from '@/components/ScrollToTop'
+import FeedbackWidget from '@/components/FeedbackWidget'
 import AnalyticsOptOut from '@/components/AnalyticsOptOut'
 import CurrencyBanner from '@/components/CurrencyBanner'
 import VerifyEmailBanner from '@/components/VerifyEmailBanner'
@@ -318,6 +319,9 @@ export default async function RootLayout({
               </main>
               <Footer />
               <ScrollToTop />
+              {/* Bottom-LEFT. Bottom-right already holds ScrollToTop and
+                  GuestCollectionBadge, which overlap each other as it is. */}
+              <FeedbackWidget />
               <GuestCollectionProvider />
             </div>
           </TranslationProvider>

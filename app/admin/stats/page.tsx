@@ -72,6 +72,7 @@ export default async function AdminStatsPage() {
     clicks30d,
     topClickedProducts,
     clicksByPlatform,
+    unreadFeedback,
   ] = await Promise.all([
     prisma.user.count({
       where: { email: { notIn: ADMIN_EMAILS } }
@@ -155,6 +156,9 @@ export default async function AdminStatsPage() {
       },
       _count: { id: true },
     }),
+    // Nothing emails when a feedback row lands -- this badge is the only
+    // nudge, which is why it ships with the widget rather than after it.
+    prisma.feedback.count({ where: { readAt: null } }),
   ]);
 
   // Sort by total items (PersonalCollectionItem + CollectionItem)
@@ -392,6 +396,32 @@ export default async function AdminStatsPage() {
               authenticated hello@intobrick.com. This goes to the compose page
               instead, which sends one message per person with its own
               unsubscribe link. */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+          {/* The only thing that tells anyone a feedback report exists.
+              Nothing is emailed when one lands, so if this goes unread the
+              queue goes unread -- which is why the badge shipped with the
+              widget rather than being left for later. */}
+          <a
+            href="/admin/feedback"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '12px 20px',
+              background: unreadFeedback > 0 ? '#dc2626' : '#ffffff',
+              color: unreadFeedback > 0 ? '#ffffff' : '#404040',
+              fontSize: 'var(--text-sm)',
+              fontWeight: '600',
+              borderRadius: '999px',
+              textDecoration: 'none',
+              border: unreadFeedback > 0 ? 'none' : '1px solid #e5e5e5',
+            }}
+          >
+            <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            {unreadFeedback > 0 ? `Feedback (${unreadFeedback} unread)` : 'Feedback'}
+          </a>
           <a
             href="/admin/announcements"
             style={{
@@ -414,6 +444,7 @@ export default async function AdminStatsPage() {
             </svg>
             {t.emailAllUsers.replace('{count}', totalUsers.toString())}
           </a>
+          </div>
         </div>
 
         {/* The funnel, first because it is the question the rest answers:

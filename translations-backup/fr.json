@@ -3213,5 +3213,37 @@
     "signInToResend": "Connectez-vous pour recevoir un nouveau lien",
     "bannerTitle": "Confirmez votre e-mail",
     "bannerBody": "Les alertes de prix et l'e-mail quotidien des offres nécessitent une adresse confirmée."
+  },
+  "feedback": {
+    "open": "Envoyer un retour",
+    "close": "Fermer",
+    "title": "Envoyer un retour",
+    "subtitle": "Un bug ou une idée ? Dites-le-nous — le message arrive directement à la personne qui développe le site.",
+    "typeLabel": "De quoi s’agit-il ?",
+    "types": {
+      "bug": "Quelque chose ne marche pas",
+      "feature": "J’ai une idée",
+      "other": "Autre chose"
+    },
+    "messageLabel": "Dites-nous en plus",
+    "placeholders": {
+      "bug": "Que faisiez-vous, et que s’est-il passé à la place ?",
+      "other": "Qu’aimeriez-vous voir ?"
+    },
+    "emailLabel": "Votre e-mail (facultatif)",
+    "emailHelper": "Uniquement pour revenir vers vous si un détail manque.",
+    "submit": "Envoyer",
+    "sending": "Envoi…",
+    "success": {
+      "title": "Merci",
+      "body": "Votre retour a bien été enregistré. Chaque message est lu.",
+      "done": "Terminé"
+    },
+    "errors": {
+      "empty": "Merci de décrire ce qui s’est passé.",
+      "verify": "Merci de compléter la vérification.",
+      "tooMany": "Trop d’envois. Réessayez plus tard.",
+      "generic": "Une erreur est survenue. Merci de réessayer."
+    }
   }
 }

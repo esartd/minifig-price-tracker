@@ -3213,5 +3213,37 @@
     "signInToResend": "Entre para receber um novo link",
     "bannerTitle": "Confirme seu e-mail",
     "bannerBody": "Os alertas de preço e o e-mail diário de ofertas precisam de um endereço confirmado."
+  },
+  "feedback": {
+    "open": "Enviar comentários",
+    "close": "Fechar",
+    "title": "Enviar comentários",
+    "subtitle": "Encontrou um erro ou quer sugerir algo? Conte para a gente — vai direto para quem desenvolve o site.",
+    "typeLabel": "Sobre o que é?",
+    "types": {
+      "bug": "Algo não está funcionando",
+      "feature": "Tenho uma ideia",
+      "other": "Outro assunto"
+    },
+    "messageLabel": "Conte mais",
+    "placeholders": {
+      "bug": "O que você estava fazendo e o que aconteceu no lugar?",
+      "other": "O que você gostaria de ver?"
+    },
+    "emailLabel": "Seu e-mail (opcional)",
+    "emailHelper": "Só para retornarmos caso faltem detalhes.",
+    "submit": "Enviar",
+    "sending": "Enviando…",
+    "success": {
+      "title": "Obrigado",
+      "body": "Seus comentários foram registrados. Lemos todas as mensagens.",
+      "done": "Pronto"
+    },
+    "errors": {
+      "empty": "Conte o que aconteceu.",
+      "verify": "Conclua a verificação de segurança.",
+      "tooMany": "Envios demais. Tente novamente mais tarde.",
+      "generic": "Algo deu errado. Tente novamente."
+    }
   }
 }

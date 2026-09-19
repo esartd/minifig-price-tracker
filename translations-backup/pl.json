@@ -3213,5 +3213,37 @@
     "signInToResend": "Zaloguj się, aby otrzymać nowy link",
     "bannerTitle": "Potwierdź swój e-mail",
     "bannerBody": "Alerty cenowe i codzienny e-mail z okazjami wymagają potwierdzonego adresu."
+  },
+  "feedback": {
+    "open": "Wyślij opinię",
+    "close": "Zamknij",
+    "title": "Wyślij opinię",
+    "subtitle": "Znalazłeś błąd albo chcesz coś zaproponować? Napisz — trafi prosto do osoby, która tworzy tę stronę.",
+    "typeLabel": "Czego dotyczy zgłoszenie?",
+    "types": {
+      "bug": "Coś nie działa",
+      "feature": "Mam pomysł",
+      "other": "Coś innego"
+    },
+    "messageLabel": "Opisz to dokładniej",
+    "placeholders": {
+      "bug": "Co robiłeś i co się stało zamiast tego?",
+      "other": "Co chciałbyś zobaczyć?"
+    },
+    "emailLabel": "Twój e-mail (opcjonalnie)",
+    "emailHelper": "Tylko po to, żeby dopytać, jeśli zabraknie nam szczegółów.",
+    "submit": "Wyślij",
+    "sending": "Wysyłanie…",
+    "success": {
+      "title": "Dziękujemy",
+      "body": "Twoja opinia została zapisana. Czytamy każdą wiadomość.",
+      "done": "Gotowe"
+    },
+    "errors": {
+      "empty": "Napisz, co się stało.",
+      "verify": "Ukończ weryfikację bezpieczeństwa.",
+      "tooMany": "Zbyt wiele zgłoszeń. Spróbuj później.",
+      "generic": "Coś poszło nie tak. Spróbuj ponownie."
+    }
   }
 }

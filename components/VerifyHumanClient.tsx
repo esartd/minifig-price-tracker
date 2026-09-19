@@ -264,12 +264,19 @@ export default function VerifyHumanClient() {
   );
 }
 
-// Extend window type for Turnstile
+// Extend window type for Turnstile.
+//
+// Shared with components/FeedbackWidget.tsx, which is why `render` is typed as
+// returning the widget id and `remove` is here: the feedback panel mounts and
+// unmounts its widget repeatedly, and resetting "the" widget without an id
+// would reach for whichever one Cloudflare rendered last. This page renders
+// exactly one and ignores both.
 declare global {
   interface Window {
     turnstile: {
-      render: (container: string, options: any) => void;
+      render: (container: string | HTMLElement, options: any) => string;
       reset: (widgetId?: string) => void;
+      remove: (widgetId: string) => void;
     };
   }
 }
