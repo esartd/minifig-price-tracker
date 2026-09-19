@@ -290,7 +290,7 @@ function HomePageContent() {
                 color: '#171717',
                 marginBottom: '4px'
               }}>
-                18,000+
+                19,000+
               </div>
               <div style={{
                 fontSize: 'var(--text-xs)',
@@ -306,7 +306,7 @@ function HomePageContent() {
                 color: '#171717',
                 marginBottom: '4px'
               }}>
-                20,000+
+                21,000+
               </div>
               <div style={{
                 fontSize: 'var(--text-xs)',

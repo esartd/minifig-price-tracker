@@ -456,7 +456,7 @@
       },
       {
         "q": "Czy IntoBrick jest bezpłatny?",
-        "a": "Tak! IntoBrick jest całkowicie bezpłatny. Przeszukuj ponad 18 000 minifigurek, przeglądaj ponad 20 000 zestawów LEGO, sprawdzaj ceny w czasie rzeczywistym w ponad 15 walutach i prowadź swój inwentarz bez żadnych opłat."
+        "a": "Tak. Wyszukiwanie i wycena są bezpłatne — ponad 19 000 minifigurek, ponad 21 000 zestawów LEGO, ceny w czasie rzeczywistym w ponad 15 walutach i śledzenie kolekcji, bez karty. Premium (4,99 $/miesiąc) dodaje narzędzia dla sprzedawców: masowe wystawianie i powiadomienia o okazjach."
       },
       {
         "q": "Skąd pochodzą dane o cenach?",
@@ -468,11 +468,11 @@
       },
       {
         "q": "Czy mogę przeglądać i śledzić zestawy LEGO?",
-        "a": "Tak! IntoBrick zawiera ponad 20 000 zestawów LEGO z pełnego katalogu Bricklink. Przeglądaj zestawy według motywu, sprawdzaj dołączone minifigurki i korzystaj z bezpośrednich linków zakupowych do LEGO.com, Amazona i BrickLinka — zarówno dla zestawów nowych, jak i wycofanych."
+        "a": "Tak! IntoBrick zawiera ponad 21 000 zestawów LEGO z pełnego katalogu Bricklink. Przeglądaj zestawy według motywu, sprawdzaj dołączone minifigurki i korzystaj z bezpośrednich linków zakupowych do LEGO.com, Amazona i BrickLinka — zarówno dla zestawów nowych, jak i wycofanych."
       },
       {
         "q": "Ile minifigurek LEGO jest w bazie danych?",
-        "a": "IntoBrick zawiera ponad 18 000 minifigurek LEGO z pełnego katalogu Bricklink, obejmujących Star Wars, Harry'ego Pottera, Marvela, DC, Ninjago i ponad 50 innych motywów."
+        "a": "IntoBrick zawiera ponad 19 000 minifigurek LEGO z pełnego katalogu Bricklink, obejmujących Star Wars, Harry'ego Pottera, Marvela, DC, Ninjago i ponad 50 innych motywów."
       },
       {
         "q": "Czy mogę prowadzić swój inwentarz?",
@@ -520,7 +520,7 @@
       "description": "Najczęstsze pytania o IntoBrick — narzędzie do śledzenia cen minifigurek i zestawów LEGO. Dowiedz się, jak wyceniać przedmioty, prowadzić inwentarz w ponad 20 walutach i skutecznie korzystać z danych BrickLink.",
       "keywords": "LEGO Wycena FAQ, Bricklink Pomoc, minifigurka Wycena Przewodnik, IntoBrick Pomoc, how to Cena LEGO, LEGO zestaw tracker",
       "ogTitle": "Najczęściej zadawane pytania | IntoBrick",
-      "ogDescription": "Uzyskaj odpowiedzi na pytania o wycenę minifigurek i zestawów LEGO w IntoBricku. Ponad 20 walut, ponad 18 000 minifigurek, ponad 20 000 zestawów."
+      "ogDescription": "Uzyskaj odpowiedzi na pytania o wycenę minifigurek i zestawów LEGO w IntoBricku. Ponad 20 walut, ponad 19 000 minifigurek, ponad 21 000 zestawów."
     }
   },
   "homepage": {
@@ -579,7 +579,7 @@
       },
       "search": {
         "title": "Znajdź dowolną figurkę w kilka sekund",
-        "description": "Szukaj wśród {catalogCountText} minifigurek i ponad 20 000 zestawów według identyfikatora BrickLink lub nazwy. Przeglądaj według motywu, gdy masz ochotę odkrywać."
+        "description": "Szukaj wśród {catalogCountText} minifigurek i ponad 21 000 zestawów według identyfikatora BrickLink lub nazwy. Przeglądaj według motywu, gdy masz ochotę odkrywać."
       },
       "privacy": {
         "title": "Ceny, które odzwierciedlają rynek",
@@ -656,7 +656,7 @@
   "supportPage": {
     "title": "Wesprzyj IntoBrick",
     "subtitle": "Pomóż nam utrzymać bezpłatny tracker cen LEGO dla społeczności",
-    "intro": "IntoBrick bezpłatnie śledzi ceny ponad 18 000 minifigurek i ponad 20 000 zestawów LEGO, korzystając z inteligentnych cen rynkowych z wielu źródeł. Koszty pokrywamy z prowizji afiliacyjnych, gdy kupujesz przez nasze linki. Oto jak możesz pomóc:",
+    "intro": "IntoBrick bezpłatnie śledzi ceny ponad 19 000 minifigurek i ponad 21 000 zestawów LEGO, korzystając z inteligentnych cen rynkowych z wielu źródeł. Koszty pokrywamy z prowizji afiliacyjnych, gdy kupujesz przez nasze linki. Oto jak możesz pomóc:",
     "shopLinksTitle": "Kupuj przez nasze linki",
     "shopLinksDescription": "Gdy zdecydujesz się kupić zestawy lub minifigurki LEGO, użyj przycisków „Kup na eBay” lub „Kup na Amazon” na stronach produktów (oznaczonych jako „Sponsorowane”).",
     "shopLinksNote": "Płacisz tyle samo — my otrzymujemy niewielką prowizję, dzięki której serwis działa.",
@@ -899,7 +899,7 @@
   "auth": {
     "signup": {
       "title": "Śledź to, co sprzedajesz",
-      "subtitle": "Jedno konto. Nieograniczona liczba przedmiotów. Zawsze za darmo.",
+      "subtitle": "Jedno konto. Nieograniczona liczba przedmiotów. Wyceny pozostają bezpłatne.",
       "features": {
         "trackUnlimited": "Track unlimited Przedmioty",
         "realtimePrices": "Real-Czas suggested prices",
@@ -926,7 +926,7 @@
       },
       "continueWithGoogle": "Zarejestruj się przez Google",
       "signupWithEmail": "Zarejestruj się przez e-mail",
-      "freeBadge": "100% za darmo • Karta kredytowa niewymagana",
+      "freeBadge": "Bezpłatnie • Bez karty kredytowej",
       "displayName": "Nazwa wyświetlana (opcjonalnie)",
       "displayNameHelp": "Widoczna w rankingach i udostępnionych kolekcjach. Możesz dodać ją później."
     },
@@ -1380,7 +1380,7 @@
   "guideArticles": {
     "most-valuable-lego-minifigures-2026": {
       "title": "Top 50 Most Valuable LEGO Minifigurki in 2026",
-      "description": "Przeanalizowaliśmy 18 732 minifigurki LEGO, aby znaleźć najcenniejsze okazy kolekcjonerskie. Sprawdź, które minifigurki osiągają najwyższe ceny na Bricklinku.",
+      "description": "Przeanalizowaliśmy 19 000 minifigurki LEGO, aby znaleźć najcenniejsze okazy kolekcjonerskie. Sprawdź, które minifigurki osiągają najwyższe ceny na Bricklinku.",
       "author": "Zespół IntoBrick",
       "readTime": "12 min czytania",
       "content": "After analyzing pricing data from 18,732 LEGO minifigures across the entire Bricklink catalog, we've identified the most valuable collectibles on the market today. Whether you're a serious collector, investor, or just curious about LEGO values, this comprehensive guide reveals which minifigs command premium prices and why.\n\n## What Makes a Minifigure Valuable?\n\nBefore diving into the rankings, it's important to understand the key factors that drive minifigure values:\n\n### 1. **Rarity**\nLimited production runs, exclusive sets, or promotional releases create scarcity. Convention exclusives and employee gifts are particularly sought after.\n\n### 2. **Age**\nClassic minifigs from the 1970s-1990s are increasingly rare as they wear out or get lost. Vintage pieces in good condition command premiums.\n\n### 3. **Popularity**\nCharacters from beloved franchises (Star Wars, Harry Potter, Marvel) consistently hold value. Main characters and villains typically appreciate faster than side characters.\n\n### 4. **Condition**\nNew/mint condition minifigs with all original accessories are worth significantly more than used versions. Even minor wear can reduce value by 30-50%.\n\n### 5. **Completeness**\nA minifig with all printed parts, accessories, and original packaging (if applicable) is worth more than loose or incomplete figures.\n\n## Star Wars Dominates the Top 10\n\n[**Star Wars minifigures**](/themes/star-wars) consistently command the highest prices, with several factors contributing to their value:\n\n- Licensed franchise with massive global fanbase\n- Many were only available in expensive sets ($100-$500 retail)\n- Some were released only once or twice across 25+ years of LEGO Star Wars\n- Characters from the original trilogy (1977-1983) are especially valuable\n\n### Most Valuable Star Wars Minifigures:\n\n**Cloud City Boba Fett (2003)** - Often cited as the holy grail, this exclusive version with printing variations can fetch $3,000-$5,000 in mint condition.\n\n**Chrome Darth Vader** - Limited promotional release, metallic chrome finish. Rare variants command $1,500-$2,500.\n\n**14k Gold C-3PO** - Only 10,000 produced for a 2007 promotion. Despite higher production numbers, gold plating and Star Wars popularity keep values at $1,000-$2,000.\n\n**Mr. Gold** - While not Star Wars, this ultra-rare 2013 promotional figure (only 5,000 made) regularly sells for $3,000-$5,000.\n\n## Classic Space & Castle Rarities\n\nBeyond licensed themes, vintage LEGO themes have collectors paying premium prices:\n\n[**Classic Space minifigs**](/themes/space) (1978-1987) with complete helmets and air tanks in pristine condition are increasingly valuable as original owners age out of collecting.\n\n[**Castle knights**](/themes/castle) with printed torsos and unique helmets from the 1980s-1990s are harder to find, especially in sets that didn't sell as well.\n\n## How to Price Your Own Collection\n\nIf you own any of these valuable minifigures, here's how to determine accurate pricing:\n\n### Step 1: Verify Authenticity\nCheck for:\n- Official LEGO markings on studs\n- Print quality (LEGO uses pad printing, not stickers)\n- Plastic quality and fit\n\n### Step 2: Assess Condition\nBe honest about:\n- Print wear or fading\n- Plastic discoloration (yellowing)\n- Cracks or teeth marks\n- Missing accessories\n\n### Step 3: Check Current Market Prices\nUse [IntoBrick's search tool](/search) to:\n- See real-time Bricklink marketplace data\n- Compare quantity-weighted averages vs lowest prices\n- Track price trends over time\n- Factor in condition differences\n\n### Step 4: Consider Timing\nPrices fluctuate based on:\n- Movie releases (Star Wars, Marvel, DC)\n- Set retirements (prices often spike 6-12 months after)\n- Seasonal demand (December = higher prices)\n\n## Investment Potential: Which Minifigs Appreciate?\n\nBased on 5+ years of pricing data, minifigs that tend to appreciate include:\n\n### High Appreciation Potential:\n- **Main characters from popular franchises** - First releases especially\n- **Limited promotions** - Convention exclusives, employee gifts\n- **Retired themes** - Once LEGO stops making a theme, scarcity increases\n- **Unique printing/variants** - Misprint, prototype, or first-run variations\n\n### Stable but Slower Growth:\n- **Side characters** - Still valuable but appreciate more slowly\n- **Common sets** - Widely available during production run\n- **Recent releases** - Need 3-5 years to see significant appreciation\n\n### Poor Investment Bets:\n- **Mass-produced polybags** - Too many in circulation\n- **Generic minifigs** - No unique printing or character value\n- **Damaged/incomplete** - Very hard to sell at reasonable prices\n\n## Notable Minifigures by Theme\n\n### Harry Potter\nThe revival of [Harry Potter](/themes/harry-potter) sets in 2018 created renewed interest, but original 2001-2005 releases with unique printing remain most valuable:\n- Dumbledore (gray beard variants)\n- Professor Snape (early versions)\n- Voldemort (red eyes variant)\n\nPrices: $50-$300 depending on variant and condition\n\n### Marvel Super Heroes\nMCU popularity drives [Marvel](/themes/super-heroes) values:\n- Loki (Avengers era, printed legs)\n- Deadpool (first release)\n- Spider-Man variants (symbiote, Iron Spider)\n\nPrices: $40-$200 for sought-after variants\n\n### DC Comics Super Heroes\nBatman variants are plentiful, but rare [DC Comics Super Heroes](/themes/super-heroes) versions command premiums:\n- Comic-Con exclusive Batman figures\n- Early Joker variants\n- Original Superman from 2012\n\n### Pirates & Castle\nVintage 1980s-1990s themes are hot:\n- [Pirates](/sets-themes/Pirates) with unique torso prints\n- [Castle](/sets-themes/Castle) knights with rare helmets\n- Forestmen with complete accessories\n\nPrices: $30-$150 for complete vintage minifigs\n\n## Where to Buy and Sell Valuable Minifigures\n\n### Best Marketplaces:\n\n**Bricklink** - The gold standard for LEGO trading. Largest selection, competitive prices, but requires research.\n\n**eBay** - Higher prices but wider buyer base. Watch for overpriced \"rare\" listings that aren't actually rare.\n\n**Facebook Groups** - LEGO selling groups often have motivated buyers willing to pay fair prices quickly.\n\n**Local Conventions** - BrickCon, BrickFair, etc. Great for networking and selling high-end pieces.\n\n### Selling Tips:\n1. **Photograph well** - Multiple angles, clear lighting, show all sides\n2. **Disclose condition honestly** - Better a lower price than a return/dispute\n3. **Include all accessories** - Weapons, capes, helmets add significant value\n4. **Time your listing** - Sell before holidays or movie releases\n5. **Use IntoBrick** - Get accurate suggested pricing before listing\n\n## Protecting Your Investment\n\nIf you own valuable minifigures:\n\n### Storage Best Practices:\n- Keep away from direct sunlight (prevents yellowing)\n- Store in sealed containers or display cases\n- Avoid humid environments (can cause discoloration)\n- Don't stack heavy items on top\n\n### Insurance:\nCollections worth $5,000+ should be documented and insured:\n- Photograph everything\n- Track purchase prices and dates\n- Keep sales receipts\n- Consider collectibles insurance rider\n\n### Authentication:\nFor ultra-rare pieces ($500+):\n- Buy from reputable sellers with feedback\n- Request additional photos if buying online\n- Learn to spot common fakes (especially Chrome C-3PO, Mr. Gold)\n- Join LEGO communities to verify authenticity\n\n## Future Outlook: 2026-2030\n\nBased on current trends, we predict:\n\n### Rising Values:\n- **Retired Star Wars sets** - Mandalorian, Bad Batch, Clone Wars characters\n- **Original Marvel CMU minifigs** - As movies become \"classic\" (Iron Man, Thor first releases)\n- **LEGO Ideas exclusives** - Limited runs create scarcity\n- **Environmental awareness** - Vintage pieces become increasingly rare\n\n### Declining Values:\n- **Mass reissues** - If LEGO reprints popular minifigs (like they did with Han Solo)\n- **Franchise fatigue** - If Marvel/Star Wars oversaturation continues\n- **Economic factors** - Recession could temporarily suppress luxury collectible prices\n\n## Start Tracking Your Collection Today\n\nWhether you own one of these valuable minifigs or are building a collection, accurate pricing is essential. IntoBrick provides:\n\n- Real-time Bricklink marketplace data\n- Price history tracking\n- Condition-specific pricing (New vs Used)\n- Inventory management tools\n- 18,732+ minifigures in database\n\n**Ready to discover what your collection is worth?**\n\n[Search Your Minifigures →](/search)\n\n---\n\n*Pricing data updated April 2026 based on Bricklink US marketplace averages. Values fluctuate - always verify current prices before buying or selling.*"
@@ -1830,8 +1830,8 @@
       "button": "Kupuj na LEGO.com",
       "disclaimer": "Otrzymujemy prowizję od kwalifikujących się zakupów. Prices accurate as of May 2, 2026.",
       "features": {
-        "minifigsTracked": "✓ Ponad 18 000 śledzonych minifigurek",
-        "setsTracked": "✓ Ponad 20 000 śledzonych zestawów",
+        "minifigsTracked": "✓ Ponad 19 000 śledzonych minifigurek",
+        "setsTracked": "✓ Ponad 21 000 śledzonych zestawów",
         "smartPricing": "✓ Inteligentna wycena rynkowa",
         "currencySupport": "✓ Obsługa ponad 15 walut"
       }
@@ -2178,7 +2178,7 @@
   },
   "metadata": {
     "title": "IntoBrick - Jedna cena dla każdej minifigurki lub zestawu LEGO",
-    "description": "Wyceń dowolną minifigurkę lub zestaw LEGO w kilka sekund. Jedna sugerowana cena na podstawie danych z BrickLink i eBay. Śledź swój inwentarz za darmo. Ponad 18 000 minifigurek, ponad 20 000 zestawów.",
+    "description": "Wyceń dowolną minifigurkę lub zestaw LEGO w kilka sekund. Jedna sugerowana cena na podstawie danych z BrickLink i eBay. Śledź swój inwentarz za darmo. Ponad 19 000 minifigurek, ponad 21 000 zestawów.",
     "twitterDescription": "Wyceń dowolną minifigurkę lub zestaw LEGO w kilka sekund. Jedna sugerowana cena na podstawie danych z BrickLink i eBay. Śledź swój inwentarz za darmo.",
     "keywords": [
       "ceny minifigurek LEGO",
@@ -2202,7 +2202,7 @@
       "Podwójny inwentarz: lista sprzedaży i kolekcja osobista",
       "Kalkulator sugerowanej ceny",
       "Śledzenie kolekcji",
-      "Ponad 18 000 minifigurek LEGO, ponad 20 000 zestawów"
+      "Ponad 19 000 minifigurek LEGO, ponad 21 000 zestawów"
     ],
     "organizationDescription": "IntoBrick podaje jedną sugerowaną cenę dla dowolnej minifigurki lub zestawu LEGO, dzięki czemu wystawiasz ogłoszenia szybciej i sprzedajesz z pewnością siebie.",
     "siteAlternateName": "Tracker cen minifigurek LEGO",
@@ -2826,7 +2826,7 @@
       },
       "step2": {
         "title": "Otwórz wybraną minifigurkę lub zestaw",
-        "body": "Szukaj po nazwie albo ID BrickLink, a potem otwórz stronę produktu. Do wyboru jest ponad 18 000 minifigurek i 20 000 zestawów."
+        "body": "Szukaj po nazwie albo ID BrickLink, a potem otwórz stronę produktu. Do wyboru jest ponad 19 000 minifigurek i 21 000 zestawów."
       },
       "step3": {
         "title": "Naciśnij „Alert cenowy\" na tej stronie",
@@ -3082,7 +3082,7 @@
   },
   "marketplace": {
     "title": "Marketplace Whatnot",
-    "subtitle": "Przeszukaj 18 000 minifigurek i 20 000 zestawów, a potem znajdź wybraną na Whatnot.",
+    "subtitle": "Przeszukaj 19 000 minifigurek i 21 000 zestawów, a potem znajdź wybraną na Whatnot.",
     "disclosure": "Możemy otrzymać prowizję od zakupów dokonanych przez te linki.",
     "minifigs": "Minifigurki",
     "sets": "Zestawy",
@@ -3099,7 +3099,7 @@
     "navLabel": "Marketplace Whatnot",
     "meta": {
       "title": "Marketplace LEGO na Whatnot",
-      "description": "Przeglądaj 18 000 minifigurek LEGO i 20 000 zestawów, a potem znajdź wybraną na Whatnot.",
+      "description": "Przeglądaj 19 000 minifigurek LEGO i 21 000 zestawów, a potem znajdź wybraną na Whatnot.",
       "keywords": [
         "LEGO Whatnot",
         "kup minifigurki LEGO",

@@ -74,7 +74,7 @@ export default async function PriceAlertsPage() {
         <section style={{ marginBottom: '40px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           {[
             { title: p.steps?.step1?.title || 'Sign in first', body: p.steps?.step1?.body || 'Alerts are tied to your email address, so the button only appears once you are signed in. It is free and takes a moment.' },
-            { title: p.steps?.step2?.title || 'Open the minifigure or set you want', body: p.steps?.step2?.body || 'Search by name or BrickLink ID, then open the item page. There are 18,000+ minifigures and 20,000+ sets to choose from.' },
+            { title: p.steps?.step2?.title || 'Open the minifigure or set you want', body: p.steps?.step2?.body || 'Search by name or BrickLink ID, then open the item page. There are 19,000+ minifigures and 21,000+ sets to choose from.' },
             { title: p.steps?.step3?.title || 'Press "Price Alert" on that page', body: p.steps?.step3?.body || 'You will find it among the buttons beside the price. It opens a small box asking what you want to pay.' },
             { title: p.steps?.step4?.title || 'Enter a price below the current one', body: p.steps?.step4?.body || 'The target has to be lower than what the item costs today — an alert for a price it has already reached would fire instantly, so we ask for a real target.' },
             { title: p.steps?.step5?.title || 'We email you when it drops', body: p.steps?.step5?.body || 'Prices refresh in the background, so you hear from us as soon as the item reaches your number. You can change or delete any alert later from your account.' },

@@ -46,7 +46,7 @@ export async function generateMetadata(): Promise<Metadata> {
       default: t.metadata?.title || 'IntoBrick - One Price for Any LEGO Minifigure or Set',
       template: '%s | IntoBrick'
     },
-    description: t.metadata?.description || 'Price any LEGO minifigure or set in seconds. One suggested price from BrickLink and eBay data. Track your inventory free. 18,000+ minifigs, 20,000+ sets.',
+    description: t.metadata?.description || 'Price any LEGO minifigure or set in seconds. One suggested price from BrickLink and eBay data. Track your inventory free. 19,000+ minifigs, 21,000+ sets.',
     keywords: t.metadata?.keywords || ['LEGO minifigure prices', 'LEGO set prices', 'BrickLink price tracker', 'LEGO collection manager', 'minifig value tracker', 'LEGO seller tool', 'LEGO price guide', 'minifigure collection tracker', 'LEGO set tracker', 'LEGO inventory tracker', 'track LEGO prices', 'LEGO pricing tool', 'minifig suggested price'],
     authors: [{ name: 'IntoBrick', url: originFor(locale) }],
     creator: 'IntoBrick',
@@ -72,7 +72,7 @@ export async function generateMetadata(): Promise<Metadata> {
       url: domains[locale as keyof typeof domains],
       siteName: 'IntoBrick',
       title: t.metadata?.title || 'IntoBrick - One Price for Any LEGO Minifigure or Set',
-      description: t.metadata?.description || 'Price any LEGO minifigure or set in seconds. One suggested price from BrickLink and eBay data. Track your inventory free. 18,000+ minifigs, 20,000+ sets.',
+      description: t.metadata?.description || 'Price any LEGO minifigure or set in seconds. One suggested price from BrickLink and eBay data. Track your inventory free. 19,000+ minifigs, 21,000+ sets.',
       images: [
         {
           url: `/api/og?locale=${locale}`,
@@ -161,7 +161,7 @@ export default async function RootLayout({
       'Dual inventory: sell list and personal collection',
       'Suggested pricing calculator',
       'Collection tracking',
-      '18,000+ LEGO minifigures, 20,000+ sets'
+      '19,000+ LEGO minifigures, 21,000+ sets'
     ],
   };
 
