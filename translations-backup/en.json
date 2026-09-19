@@ -695,7 +695,8 @@
     "donationSubtitle": "Thank you to our generous supporters this quarter ({season})",
     "items": "items",
     "exploreCommunity": "Explore Community →",
-    "addYourName": "(You — add your name)"
+    "addYourName": "Add your name",
+    "you": "You"
   },
   "footer": {
     "faq": "FAQ",

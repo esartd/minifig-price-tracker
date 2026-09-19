@@ -695,7 +695,8 @@
     "donationSubtitle": "Grazie ai nostri generosi sostenitori di questo trimestre ({season})",
     "items": "articoli",
     "exploreCommunity": "Esplora la Community →",
-    "addYourName": "(Tu — aggiungi il tuo nome)"
+    "addYourName": "Aggiungi il tuo nome",
+    "you": "Tu"
   },
   "footer": {
     "faq": "FAQ",

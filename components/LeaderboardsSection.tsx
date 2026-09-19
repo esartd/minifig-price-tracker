@@ -440,7 +440,24 @@ function LeaderboardCard({
             marginBottom: '4px',
           }}
         >
+          {/* The name stays the same colour as every other row. Tinting it
+              blue read as a link, and it is not one -- only "Add your name"
+              below is. The YOU marker does the identifying instead. */}
           {item.displayName}
+          {type === 'collector' && (item as Collector).isAnonymous && isMe && (
+            <span
+              style={{
+                marginLeft: '6px',
+                fontSize: '11px',
+                fontWeight: 600,
+                color: '#737373',
+                textTransform: 'uppercase',
+                letterSpacing: '0.04em',
+              }}
+            >
+              {t('leaderboards.you') || 'You'}
+            </span>
+          )}
           {/*
             Only on the viewer's OWN anonymous row.
             
@@ -450,23 +467,7 @@ function LeaderboardCard({
             Showing the prompt to everyone would be noise; showing it on someone
             else's row would be wrong.
           */}
-          {type === 'collector' && (item as Collector).isAnonymous && isMe && (
-            <>
-              {' '}
-              <Link
-                href="/account#leaderboard"
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: 500,
-                  color: '#3b82f6',
-                  textDecoration: 'underline',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {t('leaderboards.addYourName') || '(You — add your name)'}
-              </Link>
-            </>
-          )}
+
         </div>
         <div
           style={{
@@ -479,7 +480,32 @@ function LeaderboardCard({
             ? `${(item as Collector).count} ${getItemTypeLabel()}`
             : `$${(item as Donor).totalAmount.toFixed(2)}`
           }
+
         </div>
+        {type === 'collector' && (item as Collector).isAnonymous && isMe && (
+          <div style={{ marginTop: '4px' }}>
+            <Link
+              href="/account#leaderboard"
+              style={{
+                // Its own line under the count, not trailing it.
+                //
+                // Inline, it sat level with "170 minifigs" and the two blue
+                // runs competed; the count is the number people scan for.
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '3px',
+                fontSize: 'var(--text-xs)',
+                fontWeight: 600,
+                color: '#2563eb',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {t('leaderboards.addYourName') || 'Add your name'}
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

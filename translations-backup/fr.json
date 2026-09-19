@@ -669,7 +669,8 @@
     "donationSubtitle": "Merci à nos généreux supporters ce trimestre ({season})",
     "items": "articles",
     "exploreCommunity": "Explorer la communauté →",
-    "addYourName": "(Vous — ajoutez votre nom)"
+    "addYourName": "Ajoutez votre nom",
+    "you": "Vous"
   },
   "footer": {
     "faq": "FAQ",

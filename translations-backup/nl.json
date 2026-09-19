@@ -695,7 +695,8 @@
     "donationSubtitle": "Dank aan onze gulle supporters dit kwartaal ({season})",
     "items": "items",
     "exploreCommunity": "Ontdek de community →",
-    "addYourName": "(Jij — voeg je naam toe)"
+    "addYourName": "Voeg je naam toe",
+    "you": "Jij"
   },
   "footer": {
     "faq": "Veelgestelde Vragen",
