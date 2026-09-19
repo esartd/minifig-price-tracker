@@ -38,6 +38,19 @@ import {
  * almost nobody opens is a bad trade. The token is single-use: the API route
  * verifies it per submission rather than trusting the 24h `captcha_verified`
  * cookie, so the widget asks for a fresh one after every send.
+ *
+ * **On a dev server the challenge will say "Unable to connect to website".**
+ * That is not a bug in this component -- the production site key does not list
+ * `localhost` among its allowed hostnames, and Turnstile refuses to render
+ * rather than explaining why. Either add `localhost` to the widget's hostnames
+ * in the Cloudflare dashboard, or put Cloudflare's documented always-pass test
+ * pair in a `.env.development.local` (which overrides `.env.local`):
+ *
+ *   NEXT_PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA
+ *   TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+ *
+ * Delete that file before deploying. It makes the check pass unconditionally,
+ * which on a public endpoint is the same as having no check at all.
  */
 
 type FeedbackType = 'bug' | 'feature' | 'other';
