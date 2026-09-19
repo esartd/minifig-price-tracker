@@ -3213,5 +3213,37 @@
     "signInToResend": "Logga in för att få en ny länk",
     "bannerTitle": "Bekräfta din e-post",
     "bannerBody": "Prisbevakningar och det dagliga fyndmejlet kräver en bekräftad adress."
+  },
+  "feedback": {
+    "open": "Skicka feedback",
+    "close": "Stäng",
+    "title": "Skicka feedback",
+    "subtitle": "Hittat ett fel eller önskar du något? Skriv till oss — det går direkt till personen som bygger det här.",
+    "typeLabel": "Vad gäller det?",
+    "types": {
+      "bug": "Något fungerar inte",
+      "feature": "Jag har en idé",
+      "other": "Något annat"
+    },
+    "messageLabel": "Berätta mer",
+    "placeholders": {
+      "bug": "Vad gjorde du, och vad hände i stället?",
+      "other": "Vad skulle du vilja se?"
+    },
+    "emailLabel": "Din e-postadress (frivilligt)",
+    "emailHelper": "Bara så att vi kan höra av oss om något saknas.",
+    "submit": "Skicka",
+    "sending": "Skickar…",
+    "success": {
+      "title": "Tack",
+      "body": "Din feedback är registrerad. Varje meddelande läses.",
+      "done": "Klart"
+    },
+    "errors": {
+      "empty": "Berätta vad som hände.",
+      "verify": "Slutför säkerhetskontrollen.",
+      "tooMany": "För många inskick. Försök igen senare.",
+      "generic": "Något gick fel. Försök igen."
+    }
   }
 }

@@ -3213,5 +3213,37 @@
     "signInToResend": "Log in voor een nieuwe link",
     "bannerTitle": "Bevestig uw e-mail",
     "bannerBody": "Prijsmeldingen en de dagelijkse dealmail vereisen een bevestigd adres."
+  },
+  "feedback": {
+    "open": "Feedback sturen",
+    "close": "Sluiten",
+    "title": "Feedback sturen",
+    "subtitle": "Een fout gevonden of een wens? Laat het weten — het komt rechtstreeks bij degene die dit bouwt.",
+    "typeLabel": "Waar gaat het over?",
+    "types": {
+      "bug": "Er werkt iets niet",
+      "feature": "Ik heb een idee",
+      "other": "Iets anders"
+    },
+    "messageLabel": "Vertel meer",
+    "placeholders": {
+      "bug": "Wat was je aan het doen, en wat gebeurde er in plaats daarvan?",
+      "other": "Wat zou je graag willen zien?"
+    },
+    "emailLabel": "Je e-mailadres (optioneel)",
+    "emailHelper": "Alleen om contact op te nemen als we meer details nodig hebben.",
+    "submit": "Versturen",
+    "sending": "Versturen…",
+    "success": {
+      "title": "Bedankt",
+      "body": "Je feedback is genoteerd. Elk bericht wordt gelezen.",
+      "done": "Klaar"
+    },
+    "errors": {
+      "empty": "Vertel ons wat er gebeurd is.",
+      "verify": "Rond de beveiligingscontrole af.",
+      "tooMany": "Te veel inzendingen. Probeer het later opnieuw.",
+      "generic": "Er ging iets mis. Probeer het opnieuw."
+    }
   }
 }

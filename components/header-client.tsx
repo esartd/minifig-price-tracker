@@ -873,6 +873,37 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     >
                       {t('navigation.support') || 'Support'}
                     </Link>
+                    {/* Opens the floating panel that is already mounted in
+                        the root layout, rather than navigating anywhere.
+                        There is no feedback PAGE and should not be -- the
+                        point of the widget is reporting a problem without
+                        leaving the page the problem is on. The event is how
+                        two components with no shared parent talk; the
+                        listener is in components/FeedbackWidget.tsx. */}
+                    <button
+                      onClick={() => {
+                        setResourcesDropdownOpen(false);
+                        window.dispatchEvent(new CustomEvent('intobrick:open-feedback'));
+                      }}
+                      style={{
+                        display: 'block',
+                        width: '100%',
+                        textAlign: 'left',
+                        padding: '12px 20px',
+                        color: '#171717',
+                        background: 'white',
+                        border: 'none',
+                        borderTop: '1px solid #f5f5f5',
+                        fontSize: 'var(--text-sm)',
+                        fontFamily: 'inherit',
+                        cursor: 'pointer',
+                        transition: 'background 0.2s'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
+                    >
+                      {t('feedback.open') || 'Send feedback'}
+                    </button>
                   </div>
                 )}
               </div>
@@ -1135,6 +1166,37 @@ export function HeaderClient({ user }: HeaderClientProps) {
                     >
                       {t('navigation.support') || 'Support'}
                     </Link>
+                    {/* Opens the floating panel that is already mounted in
+                        the root layout, rather than navigating anywhere.
+                        There is no feedback PAGE and should not be -- the
+                        point of the widget is reporting a problem without
+                        leaving the page the problem is on. The event is how
+                        two components with no shared parent talk; the
+                        listener is in components/FeedbackWidget.tsx. */}
+                    <button
+                      onClick={() => {
+                        setResourcesDropdownOpen(false);
+                        window.dispatchEvent(new CustomEvent('intobrick:open-feedback'));
+                      }}
+                      style={{
+                        display: 'block',
+                        width: '100%',
+                        textAlign: 'left',
+                        padding: '12px 20px',
+                        color: '#171717',
+                        background: 'white',
+                        border: 'none',
+                        borderTop: '1px solid #f5f5f5',
+                        fontSize: 'var(--text-sm)',
+                        fontFamily: 'inherit',
+                        cursor: 'pointer',
+                        transition: 'background 0.2s'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
+                    >
+                      {t('feedback.open') || 'Send feedback'}
+                    </button>
                   </div>
                 )}
               </div>
@@ -1779,6 +1841,34 @@ export function HeaderClient({ user }: HeaderClientProps) {
                   >
                     {t('navigation.support') || 'Support'}
                   </Link>
+                  {/* See the matching button in the signed-out dropdown: this
+                      opens the floating panel mounted in the root layout
+                      rather than navigating to a feedback page, because there
+                      is no feedback page and should not be. */}
+                  <button
+                    onClick={() => {
+                      setResourcesDropdownOpen(false);
+                      window.dispatchEvent(new CustomEvent('intobrick:open-feedback'));
+                    }}
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      textAlign: 'left',
+                      padding: '12px 20px',
+                      color: '#171717',
+                      background: 'white',
+                      border: 'none',
+                      borderTop: '1px solid #f5f5f5',
+                      fontSize: 'var(--text-sm)',
+                      fontFamily: 'inherit',
+                      cursor: 'pointer',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
+                  >
+                    {t('feedback.open') || 'Send feedback'}
+                  </button>
                 </div>
               )}
             </div>
@@ -2046,6 +2136,30 @@ export function HeaderClient({ user }: HeaderClientProps) {
                 >
                   {t('navigation.support') || 'Support'}
                 </Link>
+                {/* Mobile, signed in. Same custom event as the three other
+                    entries; the listener lives in FeedbackWidget. */}
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    window.dispatchEvent(new CustomEvent('intobrick:open-feedback'));
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    width: '100%',
+                    padding: '8px 0',
+                    color: '#525252',
+                    background: 'none',
+                    border: 'none',
+                    textAlign: 'left',
+                    fontSize: 'var(--text-base)',
+                    fontFamily: 'inherit',
+                    cursor: 'pointer',
+                    minHeight: '44px'
+                  }}
+                >
+                  {t('feedback.open') || 'Send feedback'}
+                </button>
               </div>
             )}
           </div>

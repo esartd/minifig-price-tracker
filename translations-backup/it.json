@@ -3213,5 +3213,37 @@
     "signInToResend": "Accedi per ricevere un nuovo link",
     "bannerTitle": "Conferma la tua e-mail",
     "bannerBody": "Gli avvisi di prezzo e l'e-mail giornaliera delle offerte richiedono un indirizzo confermato."
+  },
+  "feedback": {
+    "open": "Invia un feedback",
+    "close": "Chiudi",
+    "title": "Invia un feedback",
+    "subtitle": "Hai trovato un problema o vuoi proporre qualcosa? Scrivicelo: arriva direttamente a chi sviluppa il sito.",
+    "typeLabel": "Di cosa si tratta?",
+    "types": {
+      "bug": "Qualcosa non funziona",
+      "feature": "Ho un’idea",
+      "other": "Altro"
+    },
+    "messageLabel": "Raccontaci di più",
+    "placeholders": {
+      "bug": "Cosa stavi facendo e cosa è successo invece?",
+      "other": "Cosa ti piacerebbe vedere?"
+    },
+    "emailLabel": "La tua email (facoltativa)",
+    "emailHelper": "Serve solo per ricontattarti se mancano dettagli.",
+    "submit": "Invia",
+    "sending": "Invio in corso…",
+    "success": {
+      "title": "Grazie",
+      "body": "Il tuo feedback è stato registrato. Leggiamo ogni messaggio.",
+      "done": "Fatto"
+    },
+    "errors": {
+      "empty": "Raccontaci cosa è successo.",
+      "verify": "Completa la verifica di sicurezza.",
+      "tooMany": "Troppi invii. Riprova più tardi.",
+      "generic": "Qualcosa è andato storto. Riprova."
+    }
   }
 }

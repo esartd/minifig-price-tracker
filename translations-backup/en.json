@@ -3213,5 +3213,37 @@
     "signInToResend": "Sign in to get a new link",
     "bannerTitle": "Confirm your email",
     "bannerBody": "Price alerts and the daily deals email need a confirmed address."
+  },
+  "feedback": {
+    "open": "Send feedback",
+    "close": "Close",
+    "title": "Send feedback",
+    "subtitle": "Found a bug or want something added? Tell us — it goes straight to the person who builds this.",
+    "typeLabel": "What is this about?",
+    "types": {
+      "bug": "Something is broken",
+      "feature": "I have an idea",
+      "other": "Something else"
+    },
+    "messageLabel": "Tell us more",
+    "placeholders": {
+      "bug": "What were you doing, and what happened instead?",
+      "other": "What would you like to see?"
+    },
+    "emailLabel": "Your email (optional)",
+    "emailHelper": "Only so we can follow up if we need more detail.",
+    "submit": "Send feedback",
+    "sending": "Sending…",
+    "success": {
+      "title": "Thank you",
+      "body": "Your feedback has been recorded. Every message is read.",
+      "done": "Done"
+    },
+    "errors": {
+      "empty": "Please tell us what happened.",
+      "verify": "Please complete the verification check.",
+      "tooMany": "Too many submissions. Please try again later.",
+      "generic": "Something went wrong. Please try again."
+    }
   }
 }

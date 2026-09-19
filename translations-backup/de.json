@@ -3213,5 +3213,37 @@
     "signInToResend": "Anmelden, um einen neuen Link zu erhalten",
     "bannerTitle": "E-Mail bestätigen",
     "bannerBody": "Preisalarme und die tägliche Angebots-E-Mail erfordern eine bestätigte Adresse."
+  },
+  "feedback": {
+    "open": "Feedback senden",
+    "close": "Schließen",
+    "title": "Feedback senden",
+    "subtitle": "Einen Fehler gefunden oder einen Wunsch? Schreib es uns — es geht direkt an die Person, die das hier baut.",
+    "typeLabel": "Worum geht es?",
+    "types": {
+      "bug": "Etwas funktioniert nicht",
+      "feature": "Ich habe eine Idee",
+      "other": "Etwas anderes"
+    },
+    "messageLabel": "Erzähl uns mehr",
+    "placeholders": {
+      "bug": "Was hast du gemacht, und was ist stattdessen passiert?",
+      "other": "Was würdest du dir wünschen?"
+    },
+    "emailLabel": "Deine E-Mail-Adresse (optional)",
+    "emailHelper": "Nur damit wir nachfragen können, falls uns Details fehlen.",
+    "submit": "Feedback senden",
+    "sending": "Wird gesendet…",
+    "success": {
+      "title": "Danke",
+      "body": "Dein Feedback ist angekommen. Jede Nachricht wird gelesen.",
+      "done": "Fertig"
+    },
+    "errors": {
+      "empty": "Bitte beschreibe, was passiert ist.",
+      "verify": "Bitte schließe die Sicherheitsprüfung ab.",
+      "tooMany": "Zu viele Einsendungen. Bitte versuche es später erneut.",
+      "generic": "Etwas ist schiefgelaufen. Bitte versuche es erneut."
+    }
   }
 }
