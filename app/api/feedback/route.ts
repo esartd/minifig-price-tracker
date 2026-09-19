@@ -28,6 +28,13 @@ const MAX_USER_AGENT = 500;
 const VALID_TYPES = new Set(['bug', 'feature', 'other']);
 
 /**
+ * How fast a submission has to arrive before we stop believing a person wrote
+ * it. Reading three options, typing a sentence and pressing send takes longer
+ * than this; a script posting a payload takes none of it.
+ */
+const MIN_FILL_MS = 3000;
+
+/**
  * Deliberately tighter than the API_WRITE tier this would otherwise inherit.
  *
  * `getTierForPath` would classify /api/feedback as API_NORMAL (60/min), which
@@ -100,6 +107,29 @@ export async function POST(request: NextRequest) {
     const type = String(body.type || '').trim();
     if (!VALID_TYPES.has(type)) {
       return NextResponse.json({ success: false, error: 'Invalid type' }, { status: 400 });
+    }
+
+    // Honeypot. The field is in the form but hidden from people, so anything
+    // in it came from something filling every input it could find.
+    //
+    // Answer 200 rather than an error, deliberately: a bot that is told it
+    // failed learns to try again differently, while one that is told it
+    // succeeded goes away. Nothing is written either way. For a site this
+    // size the research is consistent that a honeypot plus a per-IP limit is
+    // the right first line, and a captcha is what you add IF a form comes
+    // under real attack -- not before.
+    if (String(body.website || '').trim() !== '') {
+      console.log('[FEEDBACK] honeypot triggered, discarding');
+      return NextResponse.json({ success: true });
+    }
+
+    // Submitted implausibly fast. The client sends how long its panel was
+    // open; a forged value is trivial, which is exactly why this is one layer
+    // of several rather than the gate.
+    const elapsedMs = Number(body.elapsedMs);
+    if (Number.isFinite(elapsedMs) && elapsedMs >= 0 && elapsedMs < MIN_FILL_MS) {
+      console.log(`[FEEDBACK] submitted in ${elapsedMs}ms, discarding`);
+      return NextResponse.json({ success: true });
     }
 
     const message = String(body.message || '').trim();

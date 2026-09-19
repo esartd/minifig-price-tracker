@@ -71,6 +71,11 @@ export default function FeedbackWidget() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
   const [token, setToken] = useState('');
+  const [honeypot, setHoneypot] = useState('');
+
+  // When the panel opened, so the server can see how long the form took to
+  // fill in. See the honeypot note in app/api/feedback/route.ts.
+  const openedAtRef = useRef<number>(0);
 
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -141,9 +146,14 @@ export default function FeedbackWidget() {
   // the whole tree to carry one boolean would be the wrong shape.
   useEffect(() => {
     const onOpen = () => setOpen(true);
+
     window.addEventListener('intobrick:open-feedback', onOpen);
     return () => window.removeEventListener('intobrick:open-feedback', onOpen);
   }, []);
+
+  useEffect(() => {
+    if (open) openedAtRef.current = Date.now();
+  }, [open]);
 
   // ------------------------------------------------- Escape, focus, scrolling
 
@@ -202,6 +212,7 @@ export default function FeedbackWidget() {
       setError('');
       setMessage('');
       setToken('');
+      setHoneypot('');
       setType('bug');
     }, 200);
   };
@@ -233,6 +244,9 @@ export default function FeedbackWidget() {
           pageUrl: typeof window !== 'undefined' ? window.location.href : pathname,
           locale,
           turnstileToken: token,
+          // Both are spam signals, not user input -- see the API route.
+          website: honeypot,
+          elapsedMs: openedAtRef.current ? Date.now() - openedAtRef.current : undefined,
         }),
       });
       const data = await res.json().catch(() => ({}));
@@ -498,6 +512,32 @@ export default function FeedbackWidget() {
                     </p>
                   </div>
                 )}
+
+                {/* Honeypot. Positioned off-screen rather than display:none,
+                    which the cruder bots specifically look for. Hidden from
+                    assistive tech and skipped by tab, so nobody using a
+                    keyboard or screen reader can land in it by accident. */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: 'absolute',
+                    left: '-9999px',
+                    width: '1px',
+                    height: '1px',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <label htmlFor="feedback-website">Website</label>
+                  <input
+                    id="feedback-website"
+                    name="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                  />
+                </div>
 
                 <div ref={turnstileHostRef} style={{ marginBottom: error ? '12px' : '16px' }} />
 

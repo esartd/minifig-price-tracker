@@ -208,20 +208,41 @@ export function middleware(request: NextRequest) {
     return new NextResponse('Forbidden', { status: 403 })
   }
 
-  // Always allow verified crawlers (SEO, social previews, AI indexers)
-  const isLegitimateBot = ALLOWED_BOTS.some(p => userAgent.includes(p))
-  if (isLegitimateBot) {
-    const response = NextResponse.next()
-    response.headers.set('x-locale', getLocaleFromHost(hostname))
-    return response
-  }
+  // A user agent is a CLAIM, not proof. Anyone can send
+  // "Mozilla/5.0 (compatible; Googlebot/2.1)".
+  //
+  // This used to be an early `return`, which handed anything matching a name
+  // in ALLOWED_BOTS two things at once: a pass on the scraping-tool check
+  // below, AND complete exemption from rate limiting. One line in a header
+  // bought unlimited requests.
+  //
+  // Verifying a crawler properly means forward-confirmed reverse DNS -- PTR
+  // the IP to a hostname, then resolve that hostname back and check it
+  // matches. A PTR record alone is forgeable; only the round trip is not.
+  // That cannot happen here: middleware runs on the Edge runtime, which has
+  // no DNS, and a lookup per request would be far too slow regardless.
+  //
+  // So the claim is still honoured for the one thing it is needed for --
+  // legitimate crawler names can contain substrings that trip the tool
+  // blocklist -- but it no longer skips the rate limit. The PAGES tier is 300
+  // requests a minute per IP, which real Googlebot never approaches from a
+  // single address (it crawls from many), while a spoofer is capped instead
+  // of unlimited.
+  //
+  // The proper fix, if this needs to be tighter: a Cloudflare Transform Rule
+  // that sets a request header from `cf.client.bot`, which IS verified, and
+  // trust that header here instead of the string. That requires the origin to
+  // be unreachable except through Cloudflare, or the header is forgeable too.
+  const claimsToBeCrawler = ALLOWED_BOTS.some(p => userAgent.includes(p))
 
-  // Block known scraping tools by user agent string
-  // These are reliable signals — no real browser identifies itself this way
-  const isSuspiciousBot = BLOCKED_USER_AGENTS.some(p => userAgent.includes(p))
-  if (isSuspiciousBot) {
-    console.log(`[🚫 BOT UA] IP: ${request.headers.get('cf-connecting-ip') || 'unknown'} | UA: ${userAgent.substring(0, 100)} | Path: ${pathname}`)
-    return new NextResponse('Forbidden', { status: 403 })
+  if (!claimsToBeCrawler) {
+    // Block known scraping tools by user agent string
+    // These are reliable signals — no real browser identifies itself this way
+    const isSuspiciousBot = BLOCKED_USER_AGENTS.some(p => userAgent.includes(p))
+    if (isSuspiciousBot) {
+      console.log(`[🚫 BOT UA] IP: ${request.headers.get('cf-connecting-ip') || 'unknown'} | UA: ${userAgent.substring(0, 100)} | Path: ${pathname}`)
+      return new NextResponse('Forbidden', { status: 403 })
+    }
   }
 
   const ip = request.headers.get('cf-connecting-ip') ||
