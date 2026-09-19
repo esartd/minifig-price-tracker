@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { themeSlug } from '@/lib/theme-slug'
 import { getLocaleFromHost } from '@/lib/i18n-subdomain'
-import { tieredRateLimit, getTierForPath } from '@/lib/tiered-rate-limit'
+import { tieredRateLimit, getTierForPath, RATE_LIMIT_TIERS } from '@/lib/tiered-rate-limit'
 
 // Whitelisted IPs — bypass all rate limiting (owner + localhost)
 const WHITELISTED_IPS = [
@@ -11,8 +11,12 @@ const WHITELISTED_IPS = [
   '::1',
 ];
 
-// Verified crawlers — always allowed through, no rate limiting
-// Cloudflare validates these via reverse-DNS, so user-agent matching is safe here
+// Crawler names that skip the scraping-tool blocklist below.
+//
+// NOT "always allowed through, no rate limiting" -- that is what this said,
+// and what it did, until a forged header was shown to buy unlimited requests.
+// A user agent is a claim; Cloudflare verifies crawlers by IP, we cannot.
+// Everything here is still rate limited, and Applebot has a tier of its own.
 //
 // Search engines and social preview fetchers only.
 //
@@ -253,7 +257,30 @@ export function middleware(request: NextRequest) {
   // Rate limiting — last-resort backstop only
   // Cloudflare Bot Fight Mode handles the real bot traffic before it reaches here
   if (!WHITELISTED_IPS.includes(ip)) {
-    const { tier, config } = getTierForPath(pathname, request.method)
+    // Applebot gets its own, much smaller budget.
+    //
+    // It is not misbehaving -- it is Apple's search crawler, feeding Siri and
+    // Spotlight, and it is welcome. It is simply enormous: 2,610 requests in
+    // thirty minutes, about 125,000 a day, more than half of all traffic to a
+    // site with roughly thirty human visitors.
+    //
+    // robots.txt cannot help. Apple documents that Applebot "does not follow
+    // crawl-delay" -- but also that its "crawl rate adjusts automatically when
+    // a site slows down or returns errors". So a 429 with Retry-After is the
+    // one signal it listens to, and it throttles itself. That is why this
+    // answers 429 rather than 403: 403 would be a refusal, 429 is "come back
+    // in a moment", and Apple acts on the difference.
+    //
+    // Deliberately Applebot only. Googlebot is the single channel that sends
+    // real visitors (~13 a day) and crawls at a fraction of this rate; there
+    // is no reason to put a smaller budget in front of it.
+    const isApplebot =
+      userAgent.includes('applebot') && !userAgent.includes('applebot-extended')
+
+    const { tier, config } = isApplebot
+      ? { tier: 'CRAWLER', config: RATE_LIMIT_TIERS.CRAWLER }
+      : getTierForPath(pathname, request.method)
+
     if (tier !== 'STATIC') {
       const { allowed, resetIn } = tieredRateLimit(ip, tier, config)
       if (!allowed) {

@@ -106,6 +106,24 @@ export const RATE_LIMIT_TIERS = {
     windowMs: 60 * 1000, // 1 minute
   },
 
+  // Well-behaved crawlers that index the catalogue.
+  //
+  // This exists because of Applebot specifically. Apple documents that it
+  // "does not follow crawl-delay", so robots.txt cannot slow it down -- but
+  // also that its "crawl rate adjusts automatically when a site slows down or
+  // returns errors". A 429 carrying Retry-After is therefore the only signal
+  // that reaches it, and it backs off on its own rather than needing to be
+  // blocked. Blocking is the wrong tool: Applebot feeds Siri and Spotlight,
+  // and Applebot-Extended -- the AI-training token -- never crawls at all.
+  //
+  // 40/minute against roughly 87/minute observed: enough to make it slow down,
+  // nowhere near enough to look like an outage. The site must keep answering,
+  // or Apple reads it as broken rather than busy.
+  CRAWLER: {
+    maxRequests: 40,
+    windowMs: 60 * 1000,
+  },
+
   // Search (moderate cost, users type quickly)
   SEARCH: {
     maxRequests: 100,
